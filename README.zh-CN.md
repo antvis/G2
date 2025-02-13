@@ -11,12 +11,12 @@
 <p align="center">
   <a href="https://g2.antv.antgroup.com/manual/introduction/what-is-g2">介绍</a> •
   <a href="https://g2.antv.antgroup.com/examples">案例</a> •
-  <a href="https://g2.antv.antgroup.com/manual/introduction/getting-started">教程</a> •
+  <a href="https://g2.antv.antgroup.com/manual/quick-start">教程</a> •
   <a href="https://g2.antv.antgroup.com/api/overview">API</a> •
   <a href="https://editor.antv.antgroup.com/">Editor</a>
 </p>
 
-[![Build Status](https://github.com/antvis/g2/workflows/build/badge.svg?branch=v5)](https://github.com/antvis//actions)
+[![Build Status](https://github.com/antvis/G2/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/G2/actions/workflows/build.yml)
 [![Coverage Status](https://img.shields.io/coveralls/github/antvis/g2/v5.svg)](https://coveralls.io/github/antvis/g2?branch=v5)
 [![npm Version](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 [![npm Download](https://img.shields.io/npm/dm/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)

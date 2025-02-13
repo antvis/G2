@@ -23,7 +23,7 @@ order: 10
 $ npm install @antv/g-pattern  --save;
 ```
 
-然后就可以使用其中的内置纹理了。在该[示例](/zh/examples/theme/pattern#lines-pattern)中：
+然后就可以使用其中的内置纹理了。在该[示例](/zh/examples/style/pattern#lines-pattern)中：
 
 - 我们使用了 [lines](https://g.antv.antgroup.com/api/css/pattern#lines)，设置了背景颜色、透明度、直线颜色以及间距等属性
 - 通过 [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition) 指定了平铺方式为水平和垂直方向
@@ -59,7 +59,7 @@ chart
 
 当上述内置纹理不满足需求时，可以使用 [G API](https://g.antv.antgroup.com/guide/chapter1) 自定义，就像描述场景一样。
 
-在该[示例](/zh/examples/theme/pattern/#custom-pattern-with-g-api)中，我们首先从上下文中获取 [document](https://g.antv.antgroup.com/api/builtin-objects/document) 对象，通过 [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement) 创建了一个 [Rect](https://g.antv.antgroup.com/api/basic/rect) 和 [Path](https://g.antv.antgroup.com/api/basic/path)，把它们作为纹理来源：
+在该[示例](/zh/examples/style/pattern/#custom-pattern-with-g-api)中，我们首先从上下文中获取 [document](https://g.antv.antgroup.com/api/builtin-objects/document) 对象，通过 [document.createElement](https://g.antv.antgroup.com/api/builtin-objects/document#createelement) 创建了一个 [Rect](https://g.antv.antgroup.com/api/basic/rect) 和 [Path](https://g.antv.antgroup.com/api/basic/path)，把它们作为纹理来源：
 
 ```js
 mark.style('fill', ({ value }) => {
@@ -111,7 +111,7 @@ mark.style('fill', ({ value }) => {
 
 <img src="https://gw.alipayobjects.com/mdn/rms_6ae20b/afts/img/A*cRmFTItZOtYAAAAAAAAAAAAAARQnAQ" alt="other pattern source" width="400">
 
-在该[示例](/zh/examples/theme/pattern/#custom-pattern-with-canvas)中，我们使用了 `HTMLCanvasElement` 配合 [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) 自定义：
+在该[示例](/zh/examples/style/pattern/#custom-pattern-with-canvas)中，我们使用了 `HTMLCanvasElement` 配合 [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) 自定义：
 
 ```js
 // 程序化生成

@@ -1,6 +1,6 @@
 ---
 title: '常见问题 FAQ'
-order: 4
+order: 7
 ---
 
 ## 手动设置 Padding 后标题无法渲染

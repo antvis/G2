@@ -51,63 +51,63 @@ chart.render();
 
 ### `chart.interval`
 
-添加 interval 图形，具体见 [mark](/spec/mark/interval)。
+添加 interval 图形，具体见 [mark](/manual/core/mark/interval)。
 
 ### `chart.rect`
 
-添加 rect 图形，具体见 [mark](/spec/mark/rect)。
+添加 rect 图形，具体见 [mark](/manual/core/mark/rect)。
 
 ### `chart.point`
 
-添加 point 图形，具体见 [mark](/spec/mark/point)。
+添加 point 图形，具体见 [mark](/manual/core/mark/point)。
 
 ### `chart.area`
 
-添加 area 图形，具体见 [mark](/spec/mark/area)。
+添加 area 图形，具体见 [mark](/manual/core/mark/area)。
 
 ### `chart.line`
 
-添加 line 图形，具体见 [mark](/spec/mark/line)。
+添加 line 图形，具体见 [mark](/manual/core/mark/line)。
 
 ### `chart.vector`
 
-添加 vector 图形，具体见 [mark](/spec/mark/vector)。
+添加 vector 图形，具体见 [mark](/manual/core/mark/vector)。
 
 ### `chart.link`
 
-添加 link 图形，具体见 [mark](/spec/mark/link)。
+添加 link 图形，具体见 [mark](/manual/core/mark/link)。
 
 ### `chart.polygon`
 
-添加 polygon 图形，具体见 [mark](/spec/mark/polygon)。
+添加 polygon 图形，具体见 [mark](/manual/core/mark/polygon)。
 
 ### `chart.image`
 
-添加 image 图形，具体见 [mark](/spec/mark/image)。
+添加 image 图形，具体见 [mark](/manual/core/mark/image)。
 
 ### `chart.text`
 
-添加 text 图形，具体见 [mark](/spec/mark/text)。
+添加 text 图形，具体见 [mark](/manual/core/mark/text)。
 
 ### `chart.lineX`
 
-添加 lineX 图形，具体见 [mark](/spec/mark/line-x)。
+添加 lineX 图形，具体见 [mark](/manual/core/mark/line-x)。
 
 ### `chart.lineY`
 
-添加 lineY 图形，具体见 [mark](/spec/mark/line-y)。
+添加 lineY 图形，具体见 [mark](/manual/core/mark/line-y)。
 
 ### `chart.range`
 
-添加 range 图形，具体见 [mark](/spec/mark/range)。
+添加 range 图形，具体见 [mark](/manual/core/mark/range)。
 
 ### `chart.rangeX`
 
-添加 rangeX 图形，具体见 [mark](/spec/mark/range-x)。
+添加 rangeX 图形，具体见 [mark](/manual/core/mark/range-x)。
 
 ### `chart.rangeY`
 
-添加 rangeY 图形，具体见 [mark](/spec/mark/range-y)。
+添加 rangeY 图形，具体见 [mark](/manual/core/mark/range-y)。
 
 ### `chart.connector`
 
@@ -117,47 +117,47 @@ chart.render();
 
 ### `chart.sankey`
 
-添加 sankey 图形，具体见 [graph](/spec/graph/sankey)。
+添加 sankey 图形，具体见 [graph](/manual/extra-topics/graph/sankey)。
 
 ### `chart.treemap`
 
-添加 treemap 图形，具体见 [graph](/spec/graph/treemap)。
+添加 treemap 图形，具体见 [graph](/manual/extra-topics/graph/treemap)。
 
 ### `chart.boxplot`
 
-添加 boxplot 图形，具体见 [mark](/spec/mark/boxplot)。
+添加 boxplot 图形，具体见 [mark](/manual/core/mark/boxplot)。
 
 ### `chart.density`
 
-添加 density 图形，具体见 [mark](/spec/mark/density)。
+添加 density 图形，具体见 [mark](/manual/core/mark/density)。
 
 ### `chart.heatmap`
 
-添加 heatmap 图形，具体见 [mark](/spec/mark/heatmap)。
+添加 heatmap 图形，具体见 [mark](/manual/core/mark/heatmap)。
 
 ### `chart.shape`
 
-添加自定义图形，具体见 [mark](/spec/mark/shape)。
+添加自定义图形，具体见 [mark](/manual/core/mark/shape)。
 
 ### `chart.pack`
 
-添加 pack 图形，具体见 [graph](/spec/graph/pack)。
+添加 pack 图形，具体见 [graph](/manual/extra-topics/graph/pack)。
 
 ### `chart.forceGraph`
 
-添加 forceGraph 图形，具体见 [graph](/spec/graph/force-graph)。
+添加 forceGraph 图形，具体见 [graph](/manual/extra-topics/graph/force-graph)。
 
 ### `chart.tree`
 
-添加 tree 图形，具体见 [graph](/spec/graph/tree)。
+添加 tree 图形，具体见 [graph](/manual/extra-topics/graph/tree)。
 
 ### `chart.wordCloud`
 
-添加 wordCloud 图形，具体见 [mark](/spec/mark/wordcloud)。
+添加 wordCloud 图形，具体见 [mark](/manual/core/mark/wordcloud)。
 
 ### `chart.gauge`
 
-添加 gauge 图形，具体见 [mark](/spec/mark/gauge)。
+添加 gauge 图形，具体见 [mark](/manual/core/mark/gauge)。
 
 ### `chart.view`
 
@@ -165,47 +165,51 @@ chart.render();
 
 ### `chart.spaceLayer`
 
-添加 spaceLayer 图形，具体见 [composition](/spec/composition/space-layer)。
+添加 spaceLayer 图形，具体见 [composition](/manual/core/composition/space-layer)。
 
 ### `chart.spaceFlex`
 
-添加 spaceFlex 图形，具体见 [composition](/spec/composition/space-flex)。
+添加 spaceFlex 图形，具体见 [composition](/manual/core/composition/space-flex)。
 
 ### `chart.facetRect`
 
-添加 facetRect 图形，具体见 [composition](/spec/composition/facet-rect)。
+添加 facetRect 图形，具体见 [composition](/manual/core/composition/facet-rect)。
 
 ### `chart.facetCircle`
 
-添加 facetCircle 图形，具体见 [composition](/spec/composition/facet-circle)。
+添加 facetCircle 图形，具体见 [composition](/manual/core/composition/facet-circle)。
 
 ### `chart.repeatMatrix`
 
-添加 repeatMatrix 图形，具体见 [composition](/spec/composition/repeat-matrix)。
+添加 repeatMatrix 图形，具体见 [composition](/manual/core/composition/repeat-matrix)。
 
 ### `chart.geoView`
 
-添加 geoView 图形，具体见 [geo](/spec/geo/geo-view)。
+添加 geoView 图形，具体见 [geo](/manual/extra-topics/geo/geo-view)。
 
 ### `chart.geoPath`
 
-添加 geoPath 图形，具体见 [geo](/spec/geo/geo-path)。
+添加 geoPath 图形，具体见 [geo](/manual/extra-topics/geo/geo-path)。
 
 ### `chart.timingKeyframe`
 
-添加 timingKeyframe 图形，具体见 [composition](/spec/composition/timing-keyframe)。
+添加 timingKeyframe 图形，具体见 [composition](/manual/core/composition/timing-keyframe)。
 
 ### `chart.point3D`
 
-添加 point3D 图形，具体见 [3d](/spec/threed/point-threed)。
+添加 point3D 图形，具体见 [3d](/manual/extra-topics/three-dimensional/point-threed)。
 
 ### `chart.interval3D`
 
-添加 interval3D 图形，具体见 [3d](/spec/threed/interval-threed)。
+添加 interval3D 图形，具体见 [3d](/manual/extra-topics/three-dimensional/interval-threed)。
 
 ### `chart.line3D`
 
-添加 line3D 图形，具体见 [3d](/spec/threed/line-threed)。
+添加 line3D 图形，具体见 [3d](/manual/extra-topics/three-dimensional/line-threed)。
+
+### `chart.surface3D`
+
+添加 surface3D 图形，具体见 [3d](/manual/extra-topics/three-dimensional/surface-threed)。
 
 ## 设置属性
 
@@ -227,7 +231,7 @@ chart.render();
 
 ### `chart.data`
 
-设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/spec/data/overview)。
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/manual/core/data/overview)。
 
 ### `chart.encode`
 
@@ -235,45 +239,51 @@ chart.render();
 
 ### `chart.scale`
 
-<!-- 概况中的 scale 介绍更清晰 -->
+设置图形每个通道的比例尺，具体见 [scale](/manual/core/scale/overview)。
 
-设置图形每个通道的比例尺，具体见 [scale](/spec/overview#scale)。
+### `chart.title`
+
+设置图形的标题，具体见 [title](/manual/component/title)。
 
 ### `chart.legend`
 
-设置图形的图例，具体见 [legend](/spec/component/legend)。
+设置图形的图例，具体见 [legend](/manual/component/legend)。
 
 ### `chart.tooltip`
 
-设置图形的提示，具体见 [tooltip](/spec/component/tooltip)。
+设置图形的提示，具体见 [tooltip](/manual/component/tooltip)。
 
 ### `chart.axis`
 
-设置图形的坐标轴，具体见 [axis](/spec/component/axis)。
+设置图形的坐标轴，具体见 [axis](/manual/component/axis)。
 
 ### `chart.slider`
 
-设置图形的缩略轴，具体见 [slider](/spec/component/slider)。
+设置图形的缩略轴，具体见 [slider](/manual/component/slider)。
+
+### `chart.scrollbar`
+
+设置图形的滚动条，具体见 [slider](/manual/component/scrollbar)。
 
 ### `chart.label`
 
-设置图形的标签，具体见 [label](/spec/label/overview)。
+设置图形的标签，具体见 [label](/manual/component/label)。
 
 ### `chart.style`
 
 <!-- common 未放开，但可以跳转 -->
 
-设置图形的样式，具体见 [style](/spec/common/style)。
+设置图形的样式，具体见 [style](/manual/core/style)。
 
 ### `chart.theme`
 
-设置图形的主题，具体见 [theme](/spec/overview#theme)。
+设置图形的主题，具体见 [theme](/manual/core/theme/overview)。
 
 ### `chart.labelTransform`
 
 <!-- 缺失 -->
 
-设置图形的 labelTransform，具体见 [label](/spec/label/overview)里的transform配置。
+设置图形的 labelTransform，具体见 [label](/manual/component/label)里的transform配置。
 
 ## 渲染图表
 

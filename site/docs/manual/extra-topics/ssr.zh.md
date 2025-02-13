@@ -59,7 +59,7 @@ const gCanvas = new Canvas({
 });
 ```
 
-接着正常创建 G2 Chart，传入之前创建的画布和容器，详见参考文档[开始使用](/manual/introduction/getting-started)：
+接着正常创建 G2 Chart，传入之前创建的画布和容器，详见参考文档[快速上手](/manual/quick-start)：
 
 ```js
 const { Chart } = require('@antv/g2');

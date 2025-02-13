@@ -59,7 +59,7 @@ const chart = new Chart({
 });
 ```
 
-我们使用 [point3D](/spec/threed/point-threed) Mark 并选择 cube 作为 shape 进行绘制。
+我们使用 [point3D](/manual/extra-topics/three-dimensional/point-threed) Mark 并选择 cube 作为 shape 进行绘制。
 随后设置 z 通道、比例尺和坐标轴。
 
 ```ts

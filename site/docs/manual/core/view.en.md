@@ -1,9 +1,9 @@
 ---
 title: View
-order: 4.1
+order: 3
 ---
 
-The **view** in G2 is used to draw multiple marks. A view has a coordinate system and is the smallest unit of application interaction.
+In G2, a **View** is used to draw multiple marks. A view possesses a coordinate system and serves as the smallest unit for applying interactions.
 
 ```js
 ({
@@ -12,14 +12,14 @@ The **view** in G2 is used to draw multiple marks. A view has a coordinate syste
 });
 ```
 
-The top-level Chart is a view by default:
+The top-level Chart is, by default, a view:
 
 ```js
 // Add an Interval to this view
 chart.interval();
 ```
 
-When the top-level Chart adds a compound node, you can declare the view through `chart.view`:
+When composite nodes are added to the top-level Chart, views can be declared using `chart.view`:
 
 ```js
 const spaceFlex = chart.spaceFlex();
@@ -32,21 +32,20 @@ view.point();
 
 ## Core Concepts
 
-- [**data**](/manual/core/data) - Visual data
+- [**data**](/manual/core/data/overview) - Data for visualization
 - [**encode**](/manual/core/encode) - Encoding information
-- [**scale**](/manual/core/encode) - Mapping rules
-- [**transform**](/manual/core/transform) - Channel value transformation
-- [**layout**](/manual/core/layout) - Configuration of layout algorithm
-- [**coordinate**](/manual/core/coordinate) - Coordinate system transformation
+- [**scale**](/manual/core/scale/overview) - Mapping rules
+- [**transform**](/manual/core/transform/overview) - Transform channel values
+- [**coordinate**](/manual/core/coordinate/overview) - Coordinate transformation
 - [**style**](/manual/core/style) - Visual style
-- [**labelTransform**](/manual/core/label) - Data label transformation
-- [**title**](/manual/core/title) - Chart title
-- [**axis**](/manual/core/axis) - Coordinate axis
-- [**legend**](/manual/core/legend) - Legend
-- [**scrollbar**](/manual/core/scrollbar) - Scrollbar
-- [**slider**](/manual/core/slider) - Drag bar
-- [**interaction**](/manual/core/interaction) - Interaction
-- [**theme**](/manual/core/theme) - Theme
+- [**labelTransform**](/manual/component/label) - Data label transformation
+- [**title**](/manual/component/title) - Chart title
+- [**axis**](/manual/component/axis) - Axes
+- [**legend**](/manual/component/legend) - Legend
+- [**scrollbar**](/manual/component/scrollbar) - Scrollbar
+- [**slider**](/manual/component/slider) - Drag axis
+- [**interaction**](/manual/core/interaction/overview) - Interaction
+- [**theme**](/manual/core/theme/overview) - Theme
 
 ```js
 ({
@@ -67,4 +66,4 @@ view.point();
   interaction: {},
   theme: {},
 });
-```
+```  

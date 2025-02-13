@@ -39,7 +39,8 @@ export default defineConfig({
     petercat: {
       show: true,
       token: '26c62f06-1155-4b2c-8f4b-aa443d4af2c6',
-    },
+    }, // 开启petercat辅助答疑机器人
+    feedback: true, // 开启文档用户反馈
     versions: {
       // 历史版本以及切换下拉菜单
       [version]: 'https://g2.antv.antgroup.com',
@@ -54,20 +55,12 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'docs/manual/introduction/what-is-g2',
+        slug: 'docs/manual/quick-start',
         title: {
           zh: '文档',
           en: 'Docs',
         },
         order: 3,
-      },
-      {
-        slug: 'docs/spec/overview',
-        title: {
-          zh: '选项',
-          en: 'Spec',
-        },
-        order: 2,
       },
       {
         slug: 'docs/api/overview',
@@ -118,7 +111,7 @@ export default defineConfig({
           zh: '简介',
           en: 'Introduction',
         },
-        order: 1,
+        order: 2,
       },
       {
         slug: 'manual/core',
@@ -126,7 +119,95 @@ export default defineConfig({
           zh: '核心概念',
           en: 'Core Concepts',
         },
+        order: 3,
+      },
+      {
+        slug: 'manual/core/chart',
+        title: {
+          zh: '图表（Chart）',
+          en: 'Chart',
+        },
+        order: 1,
+      },
+      {
+        slug: 'manual/core/mark',
+        title: {
+          zh: '标记（Mark）',
+          en: 'Mark',
+        },
         order: 2,
+      },
+      {
+        slug: 'manual/core/data',
+        title: {
+          zh: '数据（Data）',
+          en: 'Data',
+        },
+        order: 4,
+      },
+      {
+        slug: 'manual/core/scale',
+        title: {
+          zh: '比例尺（Scale）',
+          en: 'Scale',
+        },
+        order: 6,
+      },
+      {
+        slug: 'manual/core/transform',
+        title: {
+          zh: '转换（Transform）',
+          en: 'Transform',
+        },
+        order: 7,
+      },
+      {
+        slug: 'manual/core/coordinate',
+        title: {
+          zh: '坐标系（Coordinate）',
+          en: 'Coordinate',
+        },
+        order: 8,
+      },
+      {
+        slug: 'manual/core/animate',
+        title: {
+          zh: '动画（Animate）',
+          en: 'Animate',
+        },
+        order: 10,
+      },
+      {
+        slug: 'manual/core/interaction',
+        title: {
+          zh: '交互（Interaction）',
+          en: 'Interaction',
+        },
+        order: 13,
+      },
+      {
+        slug: 'manual/core/composition',
+        title: {
+          zh: '复合（Composition）',
+          en: 'Composition',
+        },
+        order: 14,
+      },
+      {
+        slug: 'manual/core/theme',
+        title: {
+          zh: '主题（Theme）',
+          en: 'Theme',
+        },
+        order: 15,
+      },
+      {
+        slug: 'manual/component',
+        title: {
+          zh: '图表组件',
+          en: 'Chart Component',
+        },
+        order: 4,
       },
       {
         slug: 'manual/extra-topics',
@@ -134,129 +215,47 @@ export default defineConfig({
           zh: '进阶主题',
           en: 'Extra Topics',
         },
-        order: 3,
-      },
-      // docs
-      {
-        slug: 'spec/data',
-        title: {
-          zh: '数据 - Data',
-          en: 'Data',
-        },
-        order: 3,
+        order: 5,
       },
       {
-        slug: 'spec/mark',
+        slug: 'manual/extra-topics/graph',
         title: {
-          zh: '图形 - Mark',
-          en: 'Mark',
-        },
-        order: 4,
-      },
-      {
-        slug: 'spec/transform',
-        title: {
-          zh: '变换 - Transform',
-          en: 'Transform',
+          zh: '关系图（Graph）',
+          en: 'Graph',
         },
         order: 5,
       },
       {
-        slug: 'spec/scale',
+        slug: 'manual/extra-topics/geo',
         title: {
-          zh: '比例尺 - Scale',
-          en: 'Scale',
-        },
-        order: 6,
-      },
-      {
-        slug: 'spec/coordinate',
-        title: {
-          zh: '坐标系 - Coordinate',
-          en: 'Coordinate',
-        },
-        order: 7,
-      },
-      {
-        slug: 'spec/composition',
-        title: {
-          zh: '复合 - Composition',
-          en: 'Composition',
-        },
-        order: 8,
-      },
-      {
-        slug: 'spec/component',
-        title: {
-          zh: '组件 - Component',
-          en: 'Component',
-        },
-        order: 9,
-      },
-      {
-        slug: 'spec/label',
-        title: {
-          zh: '数据标签 - Label',
-          en: 'Label',
-        },
-        order: 10,
-      },
-
-      {
-        slug: 'spec/animation',
-        title: {
-          zh: '动画 - Animation',
-          en: 'Animation',
-        },
-        order: 11,
-      },
-      {
-        slug: 'spec/interaction',
-        title: {
-          zh: '交互 - Interaction',
-          en: 'Interaction',
-        },
-        order: 12,
-      },
-      {
-        slug: 'spec/graph',
-        title: {
-          zh: '关系图 - Graph',
-          en: 'Graph',
-        },
-        order: 13,
-      },
-      {
-        slug: 'spec/geo',
-        title: {
-          zh: '地图 - Geo',
+          zh: '地图（Geo）',
           en: 'Geo',
         },
-        order: 14,
+        order: 5,
       },
       {
-        slug: 'spec/threed',
+        slug: 'manual/extra-topics/three-dimensional',
         title: {
-          zh: '3D 图表 - 3D Charts',
+          zh: '3D 图表（3D Chart）',
           en: '3D',
         },
-        order: 15,
+        order: 5,
       },
       {
-        slug: 'spec/theme',
+        slug: 'manual/extra-topics/plugin',
         title: {
-          zh: '主题 - Theme',
-          en: 'Theme',
-        },
-        order: 16,
-      },
-      {
-        slug: 'spec/plugin',
-        title: {
-          zh: '插件扩展 - Plugin',
+          zh: '插件扩展（Plugin）',
           en: 'Plugin',
         },
-        order: 17,
+        order: 5,
+      },
+      {
+        slug: 'manual/whats-new',
+        title: {
+          zh: '版本特性',
+          en: 'Whats New',
+        },
+        order: 5,
       },
     ],
     examples: [
@@ -457,7 +456,7 @@ export default defineConfig({
             zh: '开始使用',
             en: 'Getting Started',
           },
-          link: `/manual/introduction/getting-started`,
+          link: `/manual/quick-start`,
         },
         {
           text: {

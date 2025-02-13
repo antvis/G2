@@ -1,6 +1,6 @@
 ---
 title: 样式（Style）
-order: 6.6
+order: 9
 ---
 
 Style in G2 is mainly used to control the visual style of mark and view. Supported styles refer to @antv/g supported styles.
