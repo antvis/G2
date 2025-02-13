@@ -26,7 +26,7 @@ jobs:
 
       - name: Update coverall
         if: ${{ success() }}
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
