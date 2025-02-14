@@ -21,7 +21,25 @@ export type ArcOptions = {
   thickness?: number;
 };
 
+export interface Edge {
+  source: string;
+  target: string;
+  sourceWeight: number;
+  targetWeight: number;
+  x: number | number[];
+  value: any;
+  [key: string]: any;
+}
+
+export interface Node {
+  key: string;
+  id: string;
+  x: number | number[];
+  y: number | number[];
+  [key: string]: any;
+}
+
 export type ArcData = {
-  nodes: any[];
-  edges: any[];
+  nodes: Node[];
+  edges: Edge[];
 };
