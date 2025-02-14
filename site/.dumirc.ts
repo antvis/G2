@@ -25,6 +25,7 @@ export default defineConfig({
     isAntVSite: false, // 是否是 AntV 的大官网
     footerTheme: 'light', // 白色 底部主题
     siteUrl: 'https://antv.antgroup.com/', // 官网首页地址
+    sitePackagePath: '/site', // 官网子包所在路径
     githubUrl: repository.url, // GitHub 地址
     showSearch: true, // 是否显示搜索框
     showGithubCorner: true, // 是否显示头部的 GitHub icon
@@ -425,9 +426,19 @@ export default defineConfig({
           </body>
         </html>`,
     },
+    /** 公告 */
     announcement: {
-      zh: '',
-      en: '',
+      title: {
+        zh: '参与 AntV 文档体验问卷，助力打造更友好的开发者文档，有机会赢取 AntV 限定周边！👉',
+        en: 'Join in the AntV Documentation Experience Survey to help us create more developer-friendly documentation, and stand a chance to win exclusive AntV merchandise! 👉',
+      },
+      link: {
+        url: 'https://www.wjx.cn/vm/Pf0XYWM.aspx#',
+        text: {
+          zh: '立即填写',
+          en: 'Fill in now',
+        },
+      },
     },
     /** 首页技术栈介绍 */
     detail: {
