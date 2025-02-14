@@ -1,4 +1,4 @@
-import { group } from '@antv/vendor/d3-array';
+import { InternMap, group } from '@antv/vendor/d3-array';
 import { subObject } from '../utils/helper';
 import {
   mergeState,
@@ -66,7 +66,9 @@ export function LegendHighlight() {
       const highlightItem = (event, item) => {
         // Update UI.
         const value = datumOf(item);
-        const elementSet = new Set(elementGroup.get(value));
+        const elementSet = new Set(
+          (elementGroup as InternMap<unknown, any[]>).get(value),
+        );
         for (const e of elements) {
           if (elementSet.has(e)) setState(e, 'active');
           else setState(e, 'inactive');

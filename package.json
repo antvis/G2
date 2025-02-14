@@ -76,7 +76,7 @@
     "@antv/g-plugin-dragndrop": "^2.0.22",
     "@antv/scale": "^0.4.16",
     "@antv/util": "^3.3.10",
-    "@antv/vendor": "1.0.6",
+    "@antv/vendor": "^1.0.8",
     "flru": "^1.0.2",
     "fmin": "0.0.2",
     "pdfast": "^0.2.0"
