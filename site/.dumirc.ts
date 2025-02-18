@@ -25,7 +25,7 @@ export default defineConfig({
     isAntVSite: false, // 是否是 AntV 的大官网
     footerTheme: 'light', // 白色 底部主题
     siteUrl: 'https://antv.antgroup.com/', // 官网首页地址
-    sitePackagePath: '/site', // 官网子包所在路径
+    sitePackagePath: 'site', // 官网子包所在路径
     githubUrl: repository.url, // GitHub 地址
     showSearch: true, // 是否显示搜索框
     showGithubCorner: true, // 是否显示头部的 GitHub icon
@@ -38,9 +38,10 @@ export default defineConfig({
     showSpecTab: true, // 是否展示 Spec 页面
     es5: false, // 案例代码是否编译到 es5
     petercat: {
-      show: true,
+      show: true, // 开启petercat辅助答疑机器人
       token: '26c62f06-1155-4b2c-8f4b-aa443d4af2c6',
-    }, // 开启petercat辅助答疑机器人
+    },
+    links: true, // 是否显示links研发小蜜
     feedback: true, // 开启文档用户反馈
     versions: {
       // 历史版本以及切换下拉菜单
