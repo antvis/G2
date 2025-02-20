@@ -170,6 +170,13 @@ function inferLegendShape(
   return { width, height };
 }
 
+function filterEmptyIds(legendStyle) {
+  return {
+    ...legendStyle,
+    data: legendStyle?.data.filter((item) => item.id !== ''),
+  };
+}
+
 /**
  * Guide Component for ordinal color scale.
  */
@@ -211,8 +218,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
     const { legendCategory: legendTheme = {} } = theme;
 
+    // Filter out the data items with empty string IDs in the wordCloud's data before generating the legend.
     const categoryStyle = adaptor(
-      Object.assign({}, legendTheme, legendStyle, style),
+      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
     );
 
     const layoutWrapper = new LegendCategoryLayout({
