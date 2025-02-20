@@ -27,7 +27,6 @@ jobs:
       - name: Update coverall
         if: ${{ success() }}
         uses: coverallsapp/github-action@master
-        continue-on-error: true  # 暂时改动
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
