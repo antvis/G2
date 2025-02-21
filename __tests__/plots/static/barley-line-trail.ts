@@ -9,8 +9,8 @@ export async function barleyLineTrail(): Promise<G2Spec> {
   const keyDelta = rollup(
     data,
     ([a, b]) => {
-      if (b.year < a.year) [a, b] = [b, a];
-      return b.yield - a.yield;
+      if ((b as any).year < (a as any).year) [a, b] = [b, a];
+      return (b as any).yield - (a as any).yield;
     },
     key,
   );

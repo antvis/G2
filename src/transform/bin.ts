@@ -39,7 +39,7 @@ export const Bin: TC<BinOptions> = (options = {}) => {
   const channelIndexKey = {};
 
   // Group indexes and update channelIndexKey.
-  const groupBy = (I, mark) => {
+  const groupBy = (I, mark): number[][] => {
     const { encode } = mark;
     const binValues = binChannels.map((channel) => {
       const [V] = columnOf(encode, channel);
@@ -80,7 +80,7 @@ export const Bin: TC<BinOptions> = (options = {}) => {
 
     // Group by indexes by channel keys.
     const key = (i: number) => groupKeys.map((key) => key(i)).join('-');
-    return Array.from(group(DI, key).values());
+    return Array.from(group(DI, key).values()) as number[][];
   };
 
   return GroupN({

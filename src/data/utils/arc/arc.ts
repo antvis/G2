@@ -1,6 +1,6 @@
 import { group, sum } from '@antv/vendor/d3-array';
 import { error } from '../../../utils/helper';
-import { ArcData, ArcOptions } from './types';
+import { ArcData, ArcOptions, ArcEdge, ArcNode } from './types';
 import * as SortMethods from './sort';
 
 const DEFAULT_OPTIONS = {
@@ -53,7 +53,7 @@ export function Arc(options?: ArcOptions) {
   /**
    * Calculate id, value, frequency for node, and source,target for edge.
    */
-  function preprocess(nodes, edges) {
+  function preprocess(nodes: ArcNode[], edges: ArcEdge[]) {
     edges.forEach((edge) => {
       edge.source = source(edge);
       edge.target = target(edge);
@@ -83,7 +83,7 @@ export function Arc(options?: ArcOptions) {
     return { nodes, edges };
   }
 
-  function sortNodes(nodes, edges) {
+  function sortNodes(nodes: ArcNode[], edges: ArcEdge[]) {
     const method = typeof sortBy === 'function' ? sortBy : SortMethods[sortBy];
 
     if (method) {
@@ -91,7 +91,7 @@ export function Arc(options?: ArcOptions) {
     }
   }
 
-  function layoutNodes(nodes, edges) {
+  function layoutNodes(nodes: ArcNode[], edges: ArcEdge[]) {
     const size = nodes.length;
     if (!size) {
       throw error("Invalid nodes: it's empty!");
@@ -145,7 +145,7 @@ export function Arc(options?: ArcOptions) {
   /**
    * Get edge layout information from nodes, and save into edge object.
    */
-  function layoutEdges(nodes, edges) {
+  function layoutEdges(nodes: ArcNode[], edges: ArcEdge[]) {
     const nodesMap = new Map(nodes.map((d) => [d.id, d]));
 
     if (!weight) {

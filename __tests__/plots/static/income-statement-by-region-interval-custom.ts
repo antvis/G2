@@ -16,7 +16,7 @@ export function incomeStatementByRegionIntervalCustom() {
   const groupData = (data) => {
     const groups = group(data, (d: any) => d.x);
     return Array.from(groups.entries()).reduce((r, [k, v]) => {
-      const y = v[v.length - 1].end;
+      const y = (v[v.length - 1] as any).end;
       return r.concat({
         x: k,
         y,

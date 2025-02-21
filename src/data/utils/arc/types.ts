@@ -20,8 +20,34 @@ export type ArcOptions = {
   /** Thickness of node, default: 0.05 */
   thickness?: number;
 };
+export interface ArcEdge {
+  source: string;
+  target: string;
+  sourceWeight: number;
+  targetWeight: number;
+  x: number[] | number;
+  y: number[] | number;
+  value: number;
+  weight?: number;
+  width?: number;
+  height?: number;
+  frequency?: number;
+  [key: string]: any;
+}
+
+export interface ArcNode {
+  id: string;
+  x: number[] | number;
+  y: number[] | number;
+  value: number;
+  frequency: number;
+  weight?: number;
+  width?: number;
+  height?: number;
+  [key: string]: any;
+}
 
 export type ArcData = {
-  nodes: any[];
-  edges: any[];
+  nodes: ArcNode[];
+  edges: ArcEdge[];
 };

@@ -1,5 +1,12 @@
 import { Coordinate } from '@antv/coord';
-import { ascending, group, max, min, sum } from '@antv/vendor/d3-array';
+import {
+  NestedInternMap,
+  ascending,
+  group,
+  max,
+  min,
+  sum,
+} from '@antv/vendor/d3-array';
 import { deepMix } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst, defined } from '../utils/helper';
@@ -389,10 +396,16 @@ export function placeComponents(
   layout: Layout,
 ): void {
   // Group components by plane & position.
-  const positionComponents = group<G2GuideComponentOptions, string>(
+
+  const positionComponents: NestedInternMap<
+    G2GuideComponentOptions,
+    G2GuideComponentOptions[],
+    [string]
+  > = group<G2GuideComponentOptions, [string]>(
     components,
     (d) => `${d.plane || 'xy'}-${d.position}`,
   );
+
   const {
     paddingLeft,
     paddingRight,
