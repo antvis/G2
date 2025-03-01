@@ -44,13 +44,25 @@ export type SortOptions = {
 };
 
 function sortQuantitative(I, mark, options): [number[], G2Mark] {
-  const { reverse, channel } = options;
-  const { encode } = mark;
-  const [V] = columnOf(encode, channel);
+  const { reverse, slice, channel, by } = options;
+  const { encode, scale = {} } = mark;
+  const domain = scale[channel].domain;
+  const [V] = columnOf(encode, by ?? channel);
+  const [T] = columnOf(encode, channel);
+  const normalizeReducer = createReducer(channel, options, encode);
+  const SI = filterIndex(I, V, domain);
+  const sortedDomain = groupSort(SI, normalizeReducer, (i: number) => T[i]);
   const sortedI = sort(I, (i: number) => V[i]);
-  if (reverse) sortedI.reverse();
-  // const s = typeof slice === 'number' ? [0, slice] : slice;
-  return [sortedI, mark];
+  if (reverse) {
+    sortedI.reverse();
+    sortedDomain.reverse();
+  }
+  const s = typeof slice === 'number' ? [0, slice] : slice;
+  const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
+  return [
+    sortedI,
+    deepMix(mark, { scale: { [channel]: { domain: slicedDomain } } }),
+  ];
 }
 
 // If domain is specified, only sort data in the domain.
