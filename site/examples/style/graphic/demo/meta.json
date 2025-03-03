@@ -1,0 +1,64 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "mark.ts",
+      "title": {
+        "zh": "配置图形样式",
+        "en": "Configure Mark Styles  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_GwNQrho0KsAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "配置线的样式",
+        "en": "Configure Line Styles  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fGWwRrW7YVAAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "text.ts",
+      "title": {
+        "zh": "配置文字的样式",
+        "en": "Configure Text Styles  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1-LmT6hPPvkAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "area.ts",
+      "title": {
+        "zh": "配置线性渐变-面积图",
+        "en": "Configure Linear-gradient Area  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ETulQ6cCQo4AAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "gauge.ts",
+      "title": {
+        "zh": "配置线性渐变-仪表盘",
+        "en": "Configure Linear-gradient Gauge  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DvbdR6P2XNkAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "radial-gradient.ts",
+      "title": {
+        "zh": "配置环形渐变",
+        "en": "Configure Radial-gradient  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rM0yTpUiYo0AAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "pattern.ts",
+      "title": {
+        "zh": "配置纹理",
+        "en": "Configure pattern  "
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9QtbQaPhu5AAAAAAAAAAAAAAemJ7AQ/original"
+    }
+  ]
+}
