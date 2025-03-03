@@ -164,7 +164,7 @@ chart.axis('x', { labelFormatter: '%0' }).axis('y', { tickCount: 5 });
 | tickFilter        | 刻度线过滤                                                                                                          | `(datum, index, data)=>boolean`                                          | -          |
 | tickFormatter     | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                                | `DisplayObject` &#124; `(datum, index, data, Vector)=> DisplayObject`    | -          |
 | tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向            | `'positive'` &#124; `'negative'`                                         | 'positive' |
-| tickLength        | 轴线长度                                                                                                            | `number`&#124;`(datum, index, data)=>number`                             | 15         |
+| tickLength        | 刻度线长度                                                                                                          | `number`&#124;`(datum, index, data)=>number`                             | 15         |
 | tickLineWidth     | 刻度线宽度                                                                                                          | `number` &#124; `(datum, index, data, Vector)=>number`                   | -          |
 | tickLineDash      | 刻度线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` &#124; `(datum, index, data, Vector)=>[number,number]` | -          |
 | tickStroke        | 刻度线颜色                                                                                                          | `string` &#124; `(datum, index, data, Vector)=>string`                   | -          |
