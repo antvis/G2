@@ -136,13 +136,13 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 
   const data = {
     nodes: [
-      { id: 'a', key: '首页', des: '这是一段描述' },
-      { id: 'b', key: '页面1', des: '这是一段描述' },
-      { id: 'b_1', key: '页面1', des: '这是一段描述' },
-      { id: 'c', key: '页面2', des: '这是一段描述' },
-      { id: 'c_1', key: '页面2', des: '这是一段描述' },
-      { id: 'd', key: '页面3', des: '这是一段描述' },
-      { id: 'd_1', key: '页面3', des: '这是一段描述' },
+      { id: 'a', key: '首页', des: '节点自定义属性' },
+      { id: 'b', key: '页面1', des: '节点自定义属性' },
+      { id: 'b_1', key: '页面1', des: '节点自定义属性' },
+      { id: 'c', key: '页面2', des: '节点自定义属性' },
+      { id: 'c_1', key: '页面2', des: '节点自定义属性' },
+      { id: 'd', key: '页面3', des: '节点自定义属性' },
+      { id: 'd_1', key: '页面3', des: '节点自定义属性' },
     ],
     links: [
       { source: 'a', target: 'b', value: 100 },
@@ -198,8 +198,8 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
     style: {
       labelSpacing: 3,
       labelFontWeight: 'bold',
-      linkFillOpacity: 0.2,
-      linkFill: '#3F96FF',
+      // linkFillOpacity: 0.2,
+      // linkFill: '#3F96FF',
     },
     interaction: {
       tooltip: {
@@ -369,53 +369,102 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 复合图形标记需要通过不同的前缀来区分图形的配置。
 
 - `<label>`: 配置数据标签的前缀。
-  - `labelText` : 配置默认的数据标签的值。回调的方式为：`(d: any) => string`，如果未指定 `labelText`，默认为 `(d) => d.key`。
-  - `labelSpacing`: 配置数据标签的间距。默认为 `5`。
-  - `label${style}`: 配置数据标签的绘图属性，例如 `labelFill`，更多配置参考 [配置文字样式](/manual/core/style#配置文字样式)
+
+| 属性名             | 类型                 | 介绍                                                                                                                                      |
+| ------------------ | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| labelText          | _(d: any) => string_ | 桑基图配置默认的数据标签的值，默认为 `(d) => d.key`                                                                                       |
+| labelSpacing       | _number_             | 桑基图配置数据标签的间距，默认为 `5`                                                                                                      |
+| labelFontSize      | _number_             | 桑基图数据标签文字大小                                                                                                                    |
+| labelFontFamily    | _string_             | 桑基图数据标签文字字体                                                                                                                    |
+| labelFontWeight    | _number_             | 桑基图数据标签字体粗细                                                                                                                    |
+| labelLineHeight    | _number_             | 桑基图数据标签文字的行高                                                                                                                  |
+| labelTextAlign     | _string_             | 设置桑基图数据标签文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`                  |
+| labelTextBaseline  | _string_             | 设置桑基图数据标签在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom` |
+| labelFill          | _string_             | 桑基图数据标签文字的填充色                                                                                                                |
+| labelFillOpacity   | _number_             | 桑基图数据标签文字的填充透明度                                                                                                            |
+| labelStroke        | _string_             | 桑基图数据标签文字的描边                                                                                                                  |
+| labelLineWidth     | _number_             | 桑基图数据标签文字描边的宽度                                                                                                              |
+| labelLineDash      | _[number,number]_    | 桑基图数据标签描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。                |
+| labelStrokeOpacity | _number_             | 桑基图数据标签描边透明度                                                                                                                  |
+| labelOpacity       | _number_             | 桑基图数据标签文字的整体透明度                                                                                                            |
+| labelShadowColor   | _string_             | 桑基图数据标签文字阴影颜色                                                                                                                |
+| labelShadowBlur    | _number_             | 桑基图数据标签文字阴影的高斯模糊系数                                                                                                      |
+| labelShadowOffsetX | _number_             | 设置桑基图数据标签阴影距文字的水平距离                                                                                                    |
+| labelShadowOffsetY | _number_             | 设置桑基图数据标签阴影距文字的垂直距离                                                                                                    |
+| labelCursor        | _string_             | 桑基图数据标签鼠标样式。同 css 的鼠标样式,默认 'default'。                                                                                |
+
 - `<node>`: 配置节点的前缀。
-  - `node${style}`: 配置节点的绘图属性，例如 `nodeFill`，更多配置参考 [配置图形样式](/manual/core/style#配置图形样式)
+
+| 属性名            | 类型              | 介绍                                                                                                                   |
+| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| nodeFill          | _string_          | 桑基图节点填充色                                                                                                       |
+| nodeFillOpacity   | _number_          | 桑基图节点填充透明度                                                                                                   |
+| nodeStroke        | _string_          | 桑基图节点的描边                                                                                                       |
+| nodeStrokeOpacity | _number_          | 桑基图节点描边透明度                                                                                                   |
+| nodeLineWidth     | _number_          | 桑基图节点描边的宽度                                                                                                   |
+| nodeLineDash      | _[number,number]_ | 桑基图节点描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
+| nodeOpacity       | _number_          | 桑基图节点的整体透明度                                                                                                 |
+| nodeShadowColor   | _string_          | 桑基图节点阴影颜色                                                                                                     |
+| nodeShadowBlur    | _number_          | 桑基图节点阴影的高斯模糊系数                                                                                           |
+| nodeShadowOffsetX | _number_          | 设置阴影距桑基图节点的水平距离                                                                                         |
+| nodeShadowOffsetY | _number_          | 设置阴影距桑基图节点的垂直距离                                                                                         |
+| nodeCursor        | _string_          | 桑基图节点鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                |
+
 - `<link>`: 配置连接线的前缀。
 
-  - `link${style}`: 配置连接线的绘图属性，例如 `linkFill`，更多配置参考 [配置图形样式](/manual/core/style#配置图形样式)
+| 属性名            | 类型              | 介绍                                                                                                                     |
+| ----------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| linkFill          | _string_          | 桑基图连接线填充色                                                                                                       |
+| linkFillOpacity   | _number_          | 桑基图连接线填充透明度                                                                                                   |
+| linkStroke        | _string_          | 桑基图连接线的描边                                                                                                       |
+| linkStrokeOpacity | _number_          | 桑基图连接线描边透明度                                                                                                   |
+| linkLineWidth     | _number_          | 桑基图连接线描边的宽度                                                                                                   |
+| linkLineDash      | _[number,number]_ | 桑基图连接线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
+| linkOpacity       | _number_          | 桑基图连接线的整体透明度                                                                                                 |
+| linkShadowColor   | _string_          | 桑基图连接线阴影颜色                                                                                                     |
+| linkShadowBlur    | _number_          | 桑基图连接线阴影的高斯模糊系数                                                                                           |
+| linkShadowOffsetX | _number_          | 设置阴影距桑基图连接线的水平距离                                                                                         |
+| linkShadowOffsetY | _number_          | 设置阴影距桑基图连接线的垂直距离                                                                                         |
+| linkCursor        | _string_          | 桑基图连接线鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                |
 
-  ### nodeLabels
+### nodeLabels
 
-  <description>**optional** _Label[]_ </description>
+<description>**optional** _Label[]_ </description>
 
-  内置数据标签的配置如下。
+内置数据标签的配置如下。
 
-  ```js
-  ({
-    labels: [
-      {
-        text,
-        dx: (d) => (d.x[0] < 0.5 ? spacing : -spacing),
-        ...labelStyle, // 用户传入的数据标签自定义样式
-      },
-      ...nodeLabels, // 用户传入的自定义数据标签
-    ],
-  });
-  ```
+```js
+({
+  labels: [
+    {
+      text,
+      dx: (d) => (d.x[0] < 0.5 ? spacing : -spacing),
+      ...labelStyle, // 用户传入的数据标签自定义样式
+    },
+    ...nodeLabels, // 用户传入的自定义数据标签
+  ],
+});
+```
 
-  除了节点内置的数据标签以外，你还可以自定义节点数据标签的配置。
+除了节点内置的数据标签以外，你还可以自定义节点数据标签的配置。
 
-  ```js
-  ({
-    nodeLabels: [
-      {
-        text: (d) => d.key,
-        fontSize: 10, // 注意！！！这里的绘图属性不再需要加label前缀
-        fill: 'red',
-      },
-    ],
-  });
-  ```
+```js
+({
+  nodeLabels: [
+    {
+      text: (d) => d.key,
+      fontSize: 10, // 注意！！！这里的绘图属性不再需要加label前缀
+      fill: 'red',
+    },
+  ],
+});
+```
 
-  ### linkLabels
+### linkLabels
 
-  <description>**optional** _Label[]_ </description>
+<description>**optional** _Label[]_ </description>
 
-  连接线没有内置的数据标签，你可以自定义连接线数据标签的配置。
+连接线没有内置的数据标签，你可以自定义连接线数据标签的配置。
 
 ```js
 ({

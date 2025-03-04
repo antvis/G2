@@ -177,9 +177,9 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 | fill          | _string_          | 图形的填充色                                                                                                 |
 | fillOpacity   | _number_          | 图形的填充透明度                                                                                             |
 | stroke        | _string_          | 图形的描边                                                                                                   |
+| strokeOpacity | _number_          | 描边透明度                                                                                                   |
 | lineWidth     | _number_          | 图形描边的宽度                                                                                               |
 | lineDash      | _[number,number]_ | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| strokeOpacity | _number_          | 描边透明度                                                                                                   |
 | opacity       | _number_          | 图形的整体透明度                                                                                             |
 | shadowColor   | _string_          | 图形阴影颜色                                                                                                 |
 | shadowBlur    | _number_          | 图形阴影的高斯模糊系数                                                                                       |
