@@ -50,36 +50,32 @@ function filterIndex(I, values, specifiedDomain): number[] {
   return I.filter((i) => domain.has(values[i]));
 }
 
-function unifiedSort(I, mark, options): [number[], G2Mark] {
-  const { reverse, slice, channel, by, ordinal = true, reducer } = options;
-  const { encode, scale = {} } = mark;
-  const domain = scale[channel].domain;
-  const [V] = columnOf(encode, by ?? channel);
-  const [T] = columnOf(encode, channel);
-  const normalizeReducer = createReducer(channel, { by, reducer }, encode);
-  const SI = filterIndex(I, T, domain);
-  const sortedDomain = groupSort(SI, normalizeReducer, (i: number) => T[i]);
-
-  // when ordinal is true, do not change the index of the data.
-  const sortedI = !ordinal ? sort(I, (i: number) => V[i]) : I;
-  if (reverse) {
-    !ordinal && sortedI.reverse();
-    sortedDomain.reverse();
-  }
-  const s = typeof slice === 'number' ? [0, slice] : slice;
-  const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
-  return [
-    sortedI,
-    deepMix(mark, { scale: { [channel]: { domain: slicedDomain } } }),
-  ];
-}
-
 /**
  * Sort marks groups by groups.
  */
 export const Sort: TC<SortOptions> = (options = {}) => {
   return (I, mark) => {
-    return unifiedSort(I, mark, options);
+    const { reverse, slice, channel, by, ordinal = true, reducer } = options;
+    const { encode, scale = {} } = mark;
+    const domain = scale[channel].domain;
+    const [V] = columnOf(encode, by ?? channel);
+    const [T] = columnOf(encode, channel);
+    const normalizeReducer = createReducer(channel, { by, reducer }, encode);
+    const SI = filterIndex(I, T, domain);
+    const sortedDomain = groupSort(SI, normalizeReducer, (i: number) => T[i]);
+
+    // when ordinal is true, do not change the index of the data.
+    const sortedI = !ordinal ? sort(I, (i: number) => V[i]) : I;
+    if (reverse) {
+      !ordinal && sortedI.reverse();
+      sortedDomain.reverse();
+    }
+    const s = typeof slice === 'number' ? [0, slice] : slice;
+    const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
+    return [
+      sortedI,
+      deepMix(mark, { scale: { [channel]: { domain: slicedDomain } } }),
+    ];
   };
 };
 
