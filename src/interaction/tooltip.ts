@@ -8,6 +8,7 @@ import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
 import { BBox } from '../runtime';
+import { CALLBACK_ITEM_SYMBOL } from '../runtime/transform';
 import {
   selectG2Elements,
   createXKey,
@@ -279,7 +280,12 @@ function groupItems(
       return definedItems.map(
         ({ color = itemColorOf(element) || theme.color, name, ...item }) => {
           const groupName = groupNameOf(scale, datum);
-          const name1 = useGroupName ? groupName || name : name || groupName;
+          // callback's priority is higher than groupName.
+          const name1 =
+            useGroupName && !(CALLBACK_ITEM_SYMBOL in item)
+              ? groupName || name
+              : name || groupName;
+
           return {
             ...item,
             color,
