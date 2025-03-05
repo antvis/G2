@@ -407,6 +407,7 @@ export default defineConfig({
       },
     ],
     playground: {
+      extraLib: '',
       devDependencies: {
         typescript: 'latest',
       },
