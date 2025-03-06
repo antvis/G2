@@ -43,16 +43,6 @@ export type SortOptions = {
     | ((I: number[], V: Primitive[]) => Primitive);
 };
 
-function sortQuantitative(I, mark, options): [number[], G2Mark] {
-  const { reverse, channel } = options;
-  const { encode } = mark;
-  const [V] = columnOf(encode, channel);
-  const sortedI = sort(I, (i: number) => V[i]);
-  if (reverse) sortedI.reverse();
-  // const s = typeof slice === 'number' ? [0, slice] : slice;
-  return [sortedI, mark];
-}
-
 // If domain is specified, only sort data in the domain.
 function filterIndex(I, values, specifiedDomain): number[] {
   if (!Array.isArray(specifiedDomain)) return I;
@@ -60,44 +50,32 @@ function filterIndex(I, values, specifiedDomain): number[] {
   return I.filter((i) => domain.has(values[i]));
 }
 
-function sortOrdinal(I, mark, options): [number[], G2Mark] {
-  const { reverse, slice, channel, ...rest } = options;
-  const { encode, scale = {} } = mark;
-  const domain = scale[channel]?.domain;
-  const [T] = columnOf(encode, channel);
-  const normalizeReducer = createReducer(channel, rest, encode);
-  const SI = filterIndex(I, T, domain);
-  const sortedDomain = groupSort(SI, normalizeReducer, (i: number) => T[i]);
-  if (reverse) sortedDomain.reverse();
-  const s = typeof slice === 'number' ? [0, slice] : slice;
-  const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
-  return [
-    I,
-    deepMix(mark, {
-      scale: {
-        [channel]: {
-          domain: slicedDomain,
-        },
-      },
-    }),
-  ];
-}
-
 /**
  * Sort marks groups by groups.
  */
 export const Sort: TC<SortOptions> = (options = {}) => {
-  const { reverse = false, slice, channel, ordinal = true, ...rest } = options;
   return (I, mark) => {
-    if (!ordinal) {
-      return sortQuantitative(I, mark, {
-        reverse,
-        slice,
-        channel,
-        ...rest,
-      });
+    const { reverse, slice, channel, by, ordinal = true, reducer } = options;
+    const { encode, scale = {} } = mark;
+    const domain = scale[channel].domain;
+    const [V] = columnOf(encode, by ?? channel);
+    const [T] = columnOf(encode, channel);
+    const normalizeReducer = createReducer(channel, { by, reducer }, encode);
+    const SI = filterIndex(I, T, domain);
+    const sortedDomain = groupSort(SI, normalizeReducer, (i: number) => T[i]);
+
+    // when ordinal is true, do not change the index of the data.
+    const sortedI = !ordinal ? sort(I, (i: number) => V[i]) : I;
+    if (reverse) {
+      !ordinal && sortedI.reverse();
+      sortedDomain.reverse();
     }
-    return sortOrdinal(I, mark, { reverse, slice, channel, ...rest });
+    const s = typeof slice === 'number' ? [0, slice] : slice;
+    const slicedDomain = slice ? sortedDomain.slice(...s) : sortedDomain;
+    return [
+      sortedI,
+      deepMix(mark, { scale: { [channel]: { domain: slicedDomain } } }),
+    ];
   };
 };
 
