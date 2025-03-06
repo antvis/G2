@@ -3,7 +3,7 @@ title: area
 order: 2
 ---
 
-## 简介
+## 概述
 
 `area` 图形标记大部分场景用来绘制我们常见的面积图，是一种随有序变量的变化，反映数值变化的图形，原理与 `line` 相似。而面积图的特点在于，折线与自变量坐标轴之间的区域，会由颜色或者纹理填充。
 
@@ -28,14 +28,18 @@ order: 2
       { year: '1998', value: 32040 },
       { year: '1999', value: 33233 },
     ],
+    // 配置视觉通道
     encode: {
       x: 'year', // 配置x通道
       y: 'value', // 配置y通道
       shape: 'area', // 配置shape通道，默认为'area'的时候可以不写。可选'area', 'smooth', 'hvh', 'vh', 'hv'
     },
+    // 配置样式
     style: {
       fillOpacity: 0.3, // 配置area标记的填充透明度为 0.3
     },
+    // 配置坐标系
+    coordinate: {},
   });
 
   chart.render();
@@ -46,29 +50,30 @@ order: 2
 
 更多的案例，可以查看[图表示例 - 面积图](/examples#general-area)页面。
 
-## data
+## 配置项
 
-| x                  | y    | 解释                   |
-| ------------------ | ---- | ---------------------- |
-| 时间或有序名词字段 | 数值 | 一般的面积图           |
-| 时间或有序名词字段 | 数组 | 层叠面积图和区间面积图 |
+| 属性       | 描述                                                                                               | 类型                      | 默认值                 | 必选 |
+| ---------- | -------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | ---- |
+| encode     | 配置 `area` 标记的视觉通道，包括`x`、`y`、`color`、`shape`等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)         | -                      | ✓    |
+| coordinate | 配置 `area` 标记的坐标系，坐标系会执行一系列点转换，从而改变标记的空间展示形式                     | [coordinate](#coordinate) | `{type: 'cartesian' }` |      |
+| style      | 配置 `area` 标记的图形样式                                                                         | [style](#style)           | -                      |      |
 
-## encode
+### encode
 
 配置 `area` 标记的视觉通道。
 
-| 属性  | 描述                                                                                         | 类型 | 默认值 | 必选 |
-| ----- | -------------------------------------------------------------------------------------------- | ---- | ------ | ---- |
-| x     | 绑定 `area` 标记的 `x` 属性通道                                                              | -    | -      | ✓    |
-| y     | 绑定 `area` 标记的 `y` 属性通道                                                              | -    | -      | ✓    |
-| color | 绑定 `area` 标记的 `color` 属性通道，一般用来配置堆叠面积图                                  | -    | -      |      |
-| shape | 绑定 `area` 标记的 `shape` 属性通道，支持的属性：`area` \| `smooth` \| `vh` \| `hv` \| `hvh` | -    | `area` |      |
+| 属性  | 描述                                                                                                                                        | 类型 | 默认值 | 必选 |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ------ | ---- |
+| x     | 绑定 `area` 标记的 `x` 属性通道，一般是 `data` 中的时间或有序名词字段                                                                       | -    | -      | ✓    |
+| y     | 绑定 `area` 标记的 `y` 属性通道，一般是 `data` 中的数值或数组字段                                                                           | -    | -      | ✓    |
+| color | 绑定 `area` 标记的 `color` 属性通道，如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个不同颜色的区域，一般用来配置堆叠面积图 | -    | -      |      |
+| shape | 绑定 `area` 标记的 `shape` 属性通道，改变图形标记的绘制形状，支持的属性：`area` \| `smooth` \| `vh` \| `hv` \| `hvh`                        | -    | `area` |      |
 
-### color
+#### color
 
-`area` 标记中单个区域仅能使用一种颜色（或者渐变色），但如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个区域：
+`color` 视觉通道影响 `area` 图形标记包围区域的填充颜色。`area` 标记中单个区域仅能使用一种颜色（或者渐变色），但如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个区域：
 
-```js | ob
+```js | ob { pin: false }
 (() => {
   const chart = new G2.Chart();
 
@@ -111,9 +116,9 @@ order: 2
 })();
 ```
 
-对数据进行堆叠，则形成层叠区域图：
+配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成层叠区域图，避免因为重叠导致的信息模糊：
 
-```js | ob
+```js | ob { pin: false }
 (() => {
   const chart = new G2.Chart();
 
@@ -157,7 +162,7 @@ order: 2
 })();
 ```
 
-### shape
+#### shape
 
 `area` 标记的支持的形状如下：
 
@@ -169,22 +174,21 @@ order: 2
 | hv     | 绘制阶梯面积图，先横线后竖线连接 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A2RnTI55cVoAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | hvh    | 绘制阶梯面积图，竖横竖，中点连接 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0QEpT47_yGQAAAAAAAAAAAAAemJ7AQ/original"></img> |
 
-## coordinate
+### coordinate
 
 `area` 图形标记在直角坐标系和极坐标系下的展示有所差别，在极坐标下线区域图需要进行闭合。常用来绘制雷达图等。
 
-| 坐标系     | 图表     |
-| ---------- | -------- |
-| 直角坐标系 | 面积图等 |
-| 极坐标系   | 雷达图等 |
+| 坐标系     | type          | 图表     |
+| ---------- | ------------- | -------- |
+| 直角坐标系 | `'cartesian'` | 面积图等 |
+| 极坐标系   | `'polar'`     | 雷达图等 |
 
-```js | ob
+```js | ob { pin: false }
 (() => {
   const chart = new G2.Chart();
 
   chart.options({
     type: 'area',
-    autoFit: true,
     data: [
       { item: 'Design', type: 'a', score: 70 },
       { item: 'Design', type: 'b', score: 30 },
@@ -208,11 +212,10 @@ order: 2
       { item: 'UX', type: 'b', score: 60 },
     ],
     encode: { x: 'item', y: 'score', color: 'type' },
-    scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } },
-    coordinate: { type: 'polar' },
+    coordinate: { type: 'polar' }, // 配置坐标系为极坐标系，用于绘制雷达图
     style: { fillOpacity: 0.5 },
-    axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
-    interaction: { tooltip: { crosshairsLineDash: [4, 4] } },
+    axis: { x: { grid: true }, y: { zIndex: 1, title: false } }, // 配置图表组件 - 坐标轴
+    scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } }, // 配置比例尺，使图表显示效果更好
   });
 
   chart.render();
@@ -221,7 +224,7 @@ order: 2
 })();
 ```
 
-## style
+### style
 
 配置 `area` 标记的样式。
 
@@ -254,7 +257,11 @@ order: 2
 | shadowOffsetY        | 设置阴影距`area` 图形的垂直距离                                                                                              | _number_              | -                                                          |      |
 | cursor               | `area` 图形的鼠标样式。同 css 的鼠标样式。                                                                                   | _string_              | `default`                                                  |      |
 
-## 常见问题
+尝试一下：
+
+<Playground path="style/general/area/demo/missing-data-area.ts" rid="area-style"></playground>
+
+## 示例
 
 - 使用 connect 功能时，怎么决定什么样的数据为空值？
 
