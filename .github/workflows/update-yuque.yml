@@ -1,0 +1,35 @@
+name: Update Documentation on Yuque
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - v5
+    paths:
+      - '**/*.md'
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Run Yuque update script
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const script = require('./.github/workflows/scripts/updateYuque.js');
+            await script({
+              core,
+              inputs: {
+                token: '${{ secrets.YUQUE_TOKEN }}', // 语雀 Token
+                book_slug: 'luaak6', // 外网语雀知识库
+                site_slug: 'site', // 文档所在位置
+              }
+            });
