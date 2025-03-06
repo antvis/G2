@@ -26,6 +26,7 @@ export function elementSelect(
     groupKey = (d) => d, // group elements by specified key
     link = false, // draw link or not
     single = false, // single select or not
+    multipleSelectHotkey, // hotkey for multi-select mode
     coordinate,
     background = false,
     scale,
@@ -68,6 +69,8 @@ export function elementSelect(
   });
 
   const { setState, removeState, hasState } = useState(elementStyle, valueof);
+  let isMultiSelectMode = !single; // "single" determines whether to multi-select by default
+  let activeHotkey = null; // Track the currently active hotkey
 
   const clear = (nativeEvent = true) => {
     for (const e of elements) {
@@ -151,16 +154,39 @@ export function elementSelect(
     // Click non-element shape, reset.
     // Such as the rest of content area(background).
     if (!elementSet.has(element)) return clear();
-    if (single) return singleSelect(event, element, nativeEvent);
+    if (!isMultiSelectMode) return singleSelect(event, element, nativeEvent);
     return multipleSelect(event, element, nativeEvent);
   };
 
+  // Handle keyboard events for multi-select mode
+  const hotkeys = Array.isArray(multipleSelectHotkey)
+    ? multipleSelectHotkey
+    : [multipleSelectHotkey];
+  const handleKeyDown = (event) => {
+    if (hotkeys.includes(event.code) && !activeHotkey) {
+      activeHotkey = event.code;
+      isMultiSelectMode = true;
+    }
+  };
+  const handleKeyUp = (event) => {
+    if (event.code === activeHotkey) {
+      activeHotkey = null;
+      isMultiSelectMode = false;
+    }
+  };
+
   root.addEventListener('click', click);
+  if (multipleSelectHotkey) {
+    // If a hotkey is set, the initial state should be single mode
+    isMultiSelectMode = false;
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+  }
 
   const onSelect = (e) => {
     const { nativeEvent, data } = e;
     if (nativeEvent) return;
-    const selectedData = single ? data.data.slice(0, 1) : data.data;
+    const selectedData = !isMultiSelectMode ? data.data.slice(0, 1) : data.data;
     for (const d of selectedData) {
       const element = selectElementByData(elements, d, datum);
       click({ target: element, nativeEvent: false });
@@ -177,6 +203,10 @@ export function elementSelect(
   return () => {
     for (const e of elements) removeLink(e);
     root.removeEventListener('click', click);
+    if (multipleSelectHotkey) {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    }
     emitter.off('element:select', onSelect);
     emitter.off('element:unselect', onUnSelect);
   };

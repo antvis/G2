@@ -35,6 +35,12 @@ export function dispatchFirstElementEvent(canvas, event, params?) {
   element.dispatchEvent(new CustomEvent(event, params));
 }
 
+// dispatch event at specific index element
+export function dispatchIndexElementEvent(canvas, index, event, params?) {
+  const element = canvas.document.getElementsByClassName('element')[index];
+  element.dispatchEvent(new CustomEvent(event, params));
+}
+
 export function dispatchFirstElementPointerMoveEvent(canvas) {
   const [element] = canvas.document.getElementsByClassName('element');
   const bounds = element.getRenderBounds() ?? element.getBounds();
