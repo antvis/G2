@@ -7,7 +7,9 @@ order: 2
 
 `area` 图形标记大部分场景用来绘制我们常见的面积图，是一种随有序变量的变化，反映数值变化的图形，原理与 `line` 相似。而面积图的特点在于，折线与自变量坐标轴之间的区域，会由颜色或者纹理填充。
 
-另外，在数据结构上，`area` 和 `line` 不同的地方在于，`area` 可以设置长度为 `2` 的数组作为 `y` 通道的数据，数组的第一个和第二个元素分别代表面积图的上边界和下边界，如果没有设置，默认下边界为 `0` 。
+另外，在数据结构上，`area` 和 `line` 不同的地方在于，`area` 可以设置长度为 `2` 的数组作为 `y` 通道的数据，数组的第一个和第二个元素分别代表面积图的上边界和下边界，通过这种方式来绘制区间面积图，如果没有设置，默认下边界为 `0` 。
+
+面积图也可用于多个系列数据的比较，表达数据的总量和趋势。相较于折线图，面积图不仅可以清晰地反映出数据的趋势变化，也能够强调不同类别的数据间的差距对比。
 
 ```js | ob
 (() => {
@@ -166,6 +168,58 @@ order: 2
 | vh     | 绘制阶梯面积图，先竖线后横线连接 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B893SYRqUUwAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | hv     | 绘制阶梯面积图，先横线后竖线连接 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A2RnTI55cVoAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | hvh    | 绘制阶梯面积图，竖横竖，中点连接 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0QEpT47_yGQAAAAAAAAAAAAAemJ7AQ/original"></img> |
+
+## coordinate
+
+`area` 图形标记在直角坐标系和极坐标系下的展示有所差别，在极坐标下线区域图需要进行闭合。常用来绘制雷达图等。
+
+| 坐标系     | 图表     |
+| ---------- | -------- |
+| 直角坐标系 | 面积图等 |
+| 极坐标系   | 雷达图等 |
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'area',
+    autoFit: true,
+    data: [
+      { item: 'Design', type: 'a', score: 70 },
+      { item: 'Design', type: 'b', score: 30 },
+      { item: 'Development', type: 'a', score: 60 },
+      { item: 'Development', type: 'b', score: 70 },
+      { item: 'Marketing', type: 'a', score: 50 },
+      { item: 'Marketing', type: 'b', score: 60 },
+      { item: 'Users', type: 'a', score: 40 },
+      { item: 'Users', type: 'b', score: 50 },
+      { item: 'Test', type: 'a', score: 60 },
+      { item: 'Test', type: 'b', score: 70 },
+      { item: 'Language', type: 'a', score: 70 },
+      { item: 'Language', type: 'b', score: 50 },
+      { item: 'Technology', type: 'a', score: 50 },
+      { item: 'Technology', type: 'b', score: 40 },
+      { item: 'Support', type: 'a', score: 30 },
+      { item: 'Support', type: 'b', score: 40 },
+      { item: 'Sales', type: 'a', score: 60 },
+      { item: 'Sales', type: 'b', score: 40 },
+      { item: 'UX', type: 'a', score: 50 },
+      { item: 'UX', type: 'b', score: 60 },
+    ],
+    encode: { x: 'item', y: 'score', color: 'type' },
+    scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } },
+    coordinate: { type: 'polar' },
+    style: { fillOpacity: 0.5 },
+    axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
+    interaction: { tooltip: { crosshairsLineDash: [4, 4] } },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
 
 ## style
 
