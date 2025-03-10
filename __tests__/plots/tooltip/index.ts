@@ -80,3 +80,4 @@ export { mockDualBarShareTooltip } from './mock-dual-bar-share-tooltip';
 export { alphabetLineEnterable } from './alphabet-line-enterable';
 export { mockGroupInterval } from './mock-group-interval';
 export { temperatureLineMarker } from './temperatures-line-marker';
+export { itemsCallback } from './items-callback';
