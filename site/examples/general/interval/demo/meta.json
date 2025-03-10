@@ -61,6 +61,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W2SKQJ4i8xQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "interval-style.ts",
+      "title": {
+        "zh": "interval样式配置",
+        "en": "Interval Style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HiAnR50lmhIAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
       "filename": "column-log.ts",
       "title": {
         "zh": "对数柱形图",

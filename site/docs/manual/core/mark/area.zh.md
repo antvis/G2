@@ -5,7 +5,7 @@ order: 2
 
 ## 概述
 
-`area` 图形标记大部分场景用来绘制我们常见的面积图，是一种随有序变量的变化，反映数值变化的图形，原理与 `line` 相似。而面积图的特点在于，折线与自变量坐标轴之间的区域，会由颜色或者纹理填充。
+面积图（ `area` ）图形标记大部分场景用来绘制我们常见的面积图，是一种随有序变量的变化，反映数值变化的图形，原理与 `line` 相似。而面积图的特点在于，折线与自变量坐标轴之间的区域，会由颜色或者纹理填充。
 
 另外，在数据结构上，`area` 和 `line` 不同的地方在于，`area` 可以设置长度为 `2` 的数组作为 `y` 通道的数据，数组的第一个和第二个元素分别代表面积图的上边界和下边界，通过这种方式来绘制区间面积图，如果没有设置，默认下边界为 `0` 。
 
@@ -62,12 +62,24 @@ order: 2
 
 配置 `area` 标记的视觉通道。
 
-| 属性  | 描述                                                                                                                                        | 类型                          | 默认值 | 必选 |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------ | ---- |
-| x     | 绑定 `area` 标记的 `x` 属性通道，一般是 `data` 中的时间或有序名词字段                                                                       | [encode](/manual/core/encode) | -      | ✓    |
-| y     | 绑定 `area` 标记的 `y` 属性通道，一般是 `data` 中的数值或数组字段                                                                           | [encode](/manual/core/encode) | -      | ✓    |
-| color | 绑定 `area` 标记的 `color` 属性通道，如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个不同颜色的区域，一般用来配置堆叠面积图 | [encode](/manual/core/encode) | -      |      |
-| shape | 绑定 `area` 标记的 `shape` 属性通道，改变图形标记的绘制形状，支持的属性：`area` \| `smooth` \| `vh` \| `hv` \| `hvh`                        | _string_                      | `area` |      |
+| 属性  | 描述                                                                                                                                        | 类型                                        | 默认值 | 必选 |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------ | ---- |
+| x     | 绑定 `area` 标记的 `x` 属性通道，一般是 `data` 中的时间或有序名词字段                                                                       | [encode](/manual/core/encode)               | -      | ✓    |
+| y     | 绑定 `area` 标记的 `y` 属性通道，一般是 `data` 中的数值或数组字段                                                                           | [encode](/manual/core/encode)               | -      | ✓    |
+| color | 绑定 `area` 标记的 `color` 属性通道，如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个不同颜色的区域，一般用来配置堆叠面积图 | [encode](/manual/core/encode)               | -      |      |
+| shape | 绑定 `area` 标记的 `shape` 属性通道，改变图形标记的绘制形状                                                                                 | `area` \| `smooth` \| `vh` \| `hv` \| `hvh` | `area` |      |
+
+#### x & y
+
+`area` 标记的位置视觉通道需要 `x`, `y` 两个字段的值，支持的数据格式有以下两种：
+
+- `x`, `y` 都是数值（分类、连续），由于面积图表示的数据的趋势，所以尽量避免 `x` 轴对应的字段是无序的分类类型。
+- `x` 是数值（分类、连续），`y` 是数组，表示一个区间值
+
+| x 通道绑定的值 | y 通道绑定的值 | 解释                   |
+| -------------- | -------------- | ---------------------- |
+| 数值           | 数值           | 一般的面积图           |
+| 数值           | 数组           | 堆叠面积图和区间面积图 |
 
 #### color
 
@@ -116,7 +128,7 @@ order: 2
 })();
 ```
 
-配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成层叠区域图，避免因为重叠导致的信息模糊：
+配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成堆叠面积图，避免因为重叠导致的信息模糊：
 
 ```js | ob { pin: false }
 (() => {
@@ -176,12 +188,14 @@ order: 2
 
 ### coordinate
 
-`area` 图形标记在直角坐标系和极坐标系下的展示有所差别，在极坐标下线区域图需要进行闭合。常用来绘制雷达图等。
+`area` 图形标记在不同坐标系下的展示有所差别。根据坐标系或坐标系转换的不同，可以绘制面积、雷达图等多种图表。
 
-| 坐标系     | type          | 图表     |
-| ---------- | ------------- | -------- |
-| 直角坐标系 | `'cartesian'` | 面积图等 |
-| 极坐标系   | `'polar'`     | 雷达图等 |
+| 坐标系或坐标系转换 | 坐标系配置              | 图表     |
+| ------------------ | ----------------------- | -------- |
+| 直角坐标系         | `{ type: 'cartesian' }` | 面积图等 |
+| 极坐标系           | `{ type: 'polar' }`     | 雷达图等 |
+
+在**极坐标系**下面积图需要进行闭合。常用来绘制雷达图等。
 
 ```js | ob { pin: false }
 (() => {
@@ -228,38 +242,38 @@ order: 2
 
 配置 `area` 标记的样式。
 
-| 属性                 | 描述                                                                                                                         | 类型                  | 默认值                                                     | 必选 |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------- | ---------------------------------------------------------- | ---- |
-| connect              | 是否用 `connector` 图形连接空值                                                                                              | _boolean_             | `false`                                                    |      |
-| defined              | 决定数据是否为空值                                                                                                           | _(d: any) => boolean_ | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |      |
-| connectFill          | `connector` 图形填充色                                                                                                       | _string_              | -                                                          |      |
-| connectFillOpacity   | `connector` 图形填充透明度                                                                                                   | _number_              | -                                                          |      |
-| connectStroke        | `connector` 图形的描边                                                                                                       | _string_              | -                                                          |      |
-| connectStrokeOpacity | `connector` 图形描边透明度                                                                                                   | _number_              | -                                                          |      |
-| connectLineWidth     | `connector` 图形描边的宽度                                                                                                   | _number_              | -                                                          |      |
-| connectLineDash      | `connector` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _[number,number]_     | -                                                          |      |
-| connectOpacity       | `connector` 图形的整体透明度                                                                                                 | _number_              | -                                                          |      |
-| connectShadowColor   | `connector` 图形阴影颜色                                                                                                     | _string_              | -                                                          |      |
-| connectShadowBlur    | `connector` 图形阴影的高斯模糊系数                                                                                           | _number_              | -                                                          |      |
-| connectShadowOffsetX | 设置阴影距`connector` 图形的水平距离                                                                                         | _number_              | -                                                          |      |
-| connectShadowOffsetY | 设置阴影距`connector` 图形的垂直距离                                                                                         | _number_              | -                                                          |      |
-| connectCursor        | `connector` 图形鼠标样式。同 css 的鼠标样式。                                                                                | _string_              | `default`                                                  |      |
-| fill                 | `area` 图形填充色                                                                                                            | _string_              | -                                                          |      |
-| fillOpacity          | `area` 图形填充透明度                                                                                                        | _number_              | `0.85`                                                     |      |
-| stroke               | `area` 图形的描边                                                                                                            | _string_              | -                                                          |      |
-| strokeOpacity        | `area` 图形的描边透明度                                                                                                      | _number_              | -                                                          |      |
-| lineWidth            | `area` 图形描边的宽度                                                                                                        | _number_              | `0`                                                        |      |
-| lineDash             | `area` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。     | _[number,number]_     | -                                                          |      |
-| opacity              | `area` 图形的整体透明度                                                                                                      | _number_              | -                                                          |      |
-| shadowColor          | `area` 图形阴影颜色                                                                                                          | _string_              | -                                                          |      |
-| shadowBlur           | `area` 图形阴影的高斯模糊系数                                                                                                | _number_              | -                                                          |      |
-| shadowOffsetX        | 设置阴影距`area` 图形的水平距离                                                                                              | _number_              | -                                                          |      |
-| shadowOffsetY        | 设置阴影距`area` 图形的垂直距离                                                                                              | _number_              | -                                                          |      |
-| cursor               | `area` 图形的鼠标样式。同 css 的鼠标样式。                                                                                   | _string_              | `default`                                                  |      |
+| 属性                 | 描述                                                                                                                         | 类型                                                             | 默认值                                                     | 必选 |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- | ---- |
+| connect              | 是否用 `connector` 图形连接空值                                                                                              | boolean                                                          | `false`                                                    |      |
+| defined              | 决定数据是否为空值                                                                                                           | (d) => boolean                                                   | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |      |
+| connectFill          | `connector` 图形填充色                                                                                                       | string \| (d, index, data, column) => string                     | -                                                          |      |
+| connectFillOpacity   | `connector` 图形填充透明度                                                                                                   | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectStroke        | `connector` 图形的描边                                                                                                       | string \| (d, index, data, column) => string                     | -                                                          |      |
+| connectStrokeOpacity | `connector` 图形描边透明度                                                                                                   | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectLineWidth     | `connector` 图形描边的宽度                                                                                                   | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectLineDash      | `connector` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (d, index, data, column) => [number , number] | -                                                          |      |
+| connectOpacity       | `connector` 图形的整体透明度                                                                                                 | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectShadowColor   | `connector` 图形阴影颜色                                                                                                     | string \| (d, index, data, column) => string                     | -                                                          |      |
+| connectShadowBlur    | `connector` 图形阴影的高斯模糊系数                                                                                           | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectShadowOffsetX | 设置阴影距`connector` 图形的水平距离                                                                                         | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectShadowOffsetY | 设置阴影距`connector` 图形的垂直距离                                                                                         | number \| (d, index, data, column) => number                     | -                                                          |      |
+| connectCursor        | `connector` 图形鼠标样式。同 css 的鼠标样式。                                                                                | string \| (d, index, data, column) => string                     | `default`                                                  |      |
+| fill                 | `area` 图形填充色                                                                                                            | string \| (d, index, data, column) => string                     | -                                                          |      |
+| fillOpacity          | `area` 图形填充透明度                                                                                                        | number \| (d, index, data, column) => number                     | `0.85`                                                     |      |
+| stroke               | `area` 图形的描边                                                                                                            | string \| (d, index, data, column) => string                     | -                                                          |      |
+| strokeOpacity        | `area` 图形的描边透明度                                                                                                      | number \| (d, index, data, column) => number                     | -                                                          |      |
+| lineWidth            | `area` 图形描边的宽度                                                                                                        | number \| (d, index, data, column) => number                     | `0`                                                        |      |
+| lineDash             | `area` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。     | [number,number] \| (d, index, data, column) => [number , number] | -                                                          |      |
+| opacity              | `area` 图形的整体透明度                                                                                                      | number \| (d, index, data, column) => number                     | -                                                          |      |
+| shadowColor          | `area` 图形阴影颜色                                                                                                          | string \| (d, index, data, column) => string                     | -                                                          |      |
+| shadowBlur           | `area` 图形阴影的高斯模糊系数                                                                                                | number \| (d, index, data, column) => number                     | -                                                          |      |
+| shadowOffsetX        | 设置阴影距`area` 图形的水平距离                                                                                              | number \| (d, index, data, column) => number                     | -                                                          |      |
+| shadowOffsetY        | 设置阴影距`area` 图形的垂直距离                                                                                              | number \| (d, index, data, column) => number                     | -                                                          |      |
+| cursor               | `area` 图形的鼠标样式。同 css 的鼠标样式。                                                                                   | string \| (d, index, data, column) => string                     | `default`                                                  |      |
 
 尝试一下：
 
-<Playground path="style/general/area/demo/missing-data-area.ts" rid="area-style"></playground>
+<Playground path="general/area/demo/missing-data-area.ts" rid="area-style"></playground>
 
 ## 示例
 
