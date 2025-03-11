@@ -17,26 +17,20 @@ order: 2
 
   chart.options({
     type: 'area',
-    data: [
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 16500 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ],
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+    },
     // 配置视觉通道
     encode: {
-      x: 'year', // 配置x通道
-      y: 'value', // 配置y通道
+      x: (d) => new Date(d.date), // 配置x通道
+      y: 'close', // 配置y通道
       shape: 'area', // 配置shape通道，默认为'area'的时候可以不写。可选'area', 'smooth', 'hvh', 'vh', 'hv'
     },
     // 配置样式
     style: {
-      fillOpacity: 0.3, // 配置area标记的填充透明度为 0.3
+      fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff', // 配置面积图填充颜色为渐变色
+      fillOpacity: 0.9, // 配置area标记的填充透明度为 0.9
     },
     // 配置坐标系
     coordinate: {},
