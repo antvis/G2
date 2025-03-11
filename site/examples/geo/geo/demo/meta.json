@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vcI7RqX24U0AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "States-usa-ploygon.ts",
+      "title": {
+        "zh": "美国州区块地图",
+        "en": "USA States"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yYzMTJP-hkgAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
       "filename": "flights-airports.ts",
       "title": {
         "zh": "航班机场图",
