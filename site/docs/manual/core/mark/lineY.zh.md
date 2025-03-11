@@ -88,15 +88,15 @@ order: 13
 
 ### style
 
-| 属性           | 描述                                                                                                          | 类型                                              | 默认值                         |
-| -------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------ |
-| stroke         | 图形的描边                                                                                                    | _string_ \| _Function\<string\>_                    | -                              |
-| strokeOpacity    | 描边透明度                                                                                                    | _number_ \| _Function\<number\>_                    | -                              |
-| lineWidth      | 图形描边的宽度                                                                                                | _number_ \| _Function\<number\>_                    | -                              |
-| lineDash       | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | _[number,number]_ \| _Function\<[number, number]\>_ | -                              |
-| opacity        | 图形的整体透明度                                                                                              | _number_ \| _Function\<number\>_                    | -                              |
-| shadowColor    | 图形阴影颜色                                                                                                  | _string_ \| _Function\<string\>_                    | -                              |
-| shadowBlur     | 图形阴影的高斯模糊系数                                                                                        | _number_ \| _Function\<number\>_                    | -                              |
-| shadowOffsetX  | 设置阴影距图形的水平距离                                                                                      | _number_ \| _Function\<number\>_                    | -                              |
-| shadowOffsetY  | 设置阴影距图形的垂直距离                                                                                      | _number_ \| _Function\<number\>_                    | -                              |
-| cursor         | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | _string_ \| _Function\<string\>_                    | `default`                      |
+| 属性           | 描述                                                                                                          | 类型                                              | 默认值                         | 必选  |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------ |-------|
+| stroke         | 图形的描边                                                                                                    | _string_ \| _Function\<string\>_                    | -                              |       |
+| strokeOpacity  | 描边透明度                                                                                                    | _number_ \| _Function\<number\>_                    | -                              |       |
+| lineWidth      | 图形描边的宽度                                                                                                | _number_ \| _Function\<number\>_                    | -                              |       |
+| lineDash       | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | _[number,number]_ \| _Function\<[number, number]\>_ | -                              |       |
+| opacity        | 图形的整体透明度                                                                                              | _number_ \| _Function\<number\>_                    | -                              |       |
+| shadowColor    | 图形阴影颜色                                                                                                  | _string_ \| _Function\<string\>_                    | -                              |       |
+| shadowBlur     | 图形阴影的高斯模糊系数                                                                                        | _number_ \| _Function\<number\>_                    | -                              |       |
+| shadowOffsetX  | 设置阴影距图形的水平距离                                                                                      | _number_ \| _Function\<number\>_                    | -                              |       |
+| shadowOffsetY  | 设置阴影距图形的垂直距离                                                                                      | _number_ \| _Function\<number\>_                    | -                              |       |
+| cursor         | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | _string_ \| _Function\<string\>_                    | `default`                      |       |

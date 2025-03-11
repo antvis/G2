@@ -58,29 +58,12 @@ order: 10
 
 | 属性  | 描述                                                                                                                                        | 类型                          | 默认值 | 必选 |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------ | ---- |
-| x     | 绑定 `image` 标记的 `x` 属性通道，一般是 `data` 中的时间或有序名词字段                                                                       | [encode](/manual/core/encode) | -      | ✓    |
-| y     | 绑定 `image` 标记的 `y` 属性通道，一般是 `data` 中的数值或数组字段                                                                          | [encode](/manual/core/encode) | -      | ✓   |
-| size | 绑定 `image` 标记的 `size` 大小通道，用于控制图片展示的大小，一般图片中所存储的信息越多，越需要放大 | [encode](/manual/core/encode) | -      |      |
-| src | 绑定 `image` 标记的 `src` 图片通道 ，会更具对应的数据显示图片            |            | - |   ✓   |
+| x     | 绑定 `image` 标记的 `x` 属性通道，一般是 `data` 中的数值或字符，用于确定图片的 `x` 位置                                                   | [encode](/manual/core/encode) | -      | ✓    |
+| y     | 绑定 `image` 标记的 `y` 属性通道，一般是 `data` 中的数值或字符，用于确定图片的 `y` 位置                                              | [encode](/manual/core/encode) | -      | ✓   |
+| size  | 绑定 `image` 标记的 `size` 大小通道，用于控制图片展示的大小，一般图片中所存储的信息越多，越需要放大 | [encode](/manual/core/encode) | -      |      |
+| src   | 绑定 `image` 标记的 `src` 图片通道 ，会更具对应的数据显示图片            |            | - |   ✓   |
 
-### style
-
-| 属性            | 描述                                           | 类型                 | 默认值      |
-|----------------|------------------------------------------------|---------------------|------------|
-| opacity       | 图形的整体透明度                                   | _number_ \| _Function\<number\>_              |   -   |
-| shadowColor   | 图形阴影颜色                                      | _string_ \| _Function\<string\>_              |   -   |
-| shadowBlur    | 图形阴影的高斯模糊系数                              | _number_ \| _Function\<number\>_              |   -   |
-| shadowOffsetX | 设置阴影距图形的水平距离                            | _number_ \| _Function\<number\>_              |   -   |
-| shadowOffsetY | 设置阴影距图形的垂直距离                            | _number_ \| _Function\<number\>_              |   -   |
-| cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。        | _string_ \| _Function\<string\>_               |   `default`  |
-
-尝试一下：
-
-<Playground path="style/general/image/demo/contributor.ts" rid="image-style"></playground>
-
-## 示例
-
-- 图片的 src 通道支持哪些数据类型？
+#### src
 
 最终的绘制都是调用 G 去渲染，所以支持的数据类型和 G 的原子 Image 图形保持一致，支持：
 
@@ -88,3 +71,18 @@ order: 10
 2. `file`：本地图片地址
 3. `base64`：图表base64格式字符串
 4. `blob`：图片请求返回的Blob对象
+
+### style
+
+| 属性            | 描述                                           | 类型                 | 默认值      | 必选  |
+|----------------|------------------------------------------------|---------------------|------------|-------|
+| opacity        | 图形的整体透明度                                   | _number_ \| _Function\<number\>_              |   -        |       |
+| shadowColor    | 图形阴影颜色                                      | _string_ \| _Function\<string\>_              |   -        |       |
+| shadowBlur     | 图形阴影的高斯模糊系数                              | _number_ \| _Function\<number\>_              |   -        |       |
+| shadowOffsetX  | 设置阴影距图形的水平距离                            | _number_ \| _Function\<number\>_              |   -        |       |
+| shadowOffsetY  | 设置阴影距图形的垂直距离                            | _number_ \| _Function\<number\>_              |   -        |       |
+| cursor         | 鼠标样式。同 css 的鼠标样式，默认 'default'。        | _string_ \| _Function\<string\>_              |   `default`|       |
+
+尝试一下：
+
+<Playground path="style/general/image/demo/contributor.ts" rid="image-style"></playground>

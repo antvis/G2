@@ -43,19 +43,19 @@ order: 16
 
 配置 `liquid` 标记的样式。
 
-| 属性            | 描述     | 类型     | 默认值 |
-| --------------- | -------- | -------- | ------ |
-| shape   | 形状 | _number_ | `circle`      |
-| stroke   | 边框颜色 | _string_ | -      |
-| fill   | 水波颜色 | _string_ | -      |
-| outlineBorder   | 边框宽度 | _number_ | `2`      |
-| outlineDistance | 内间距   | _number_ | `0`     |
-| waveLength      | 波长     | _number_ | `192`    |
-| waveCount       | 波数     | _number_ | `3`      |
-| backgroundFill  | 背景颜色 | _string_ | -      |
-| contentText     | 文本内容 | _string_ | -      |
-| contentFill        | 文本颜色 | _string_ | -      |
-| contentFontSize    | 文本大小 | _string_ | -      |
+| 属性            | 描述     | 类型     | 默认值 | 必选  |
+| --------------- | -------- | -------- | ------ |-------|
+| shape           | 形状     | _number_ | `circle`      |       |
+| stroke          | 边框颜色 | _string_ | -      |       |
+| fill            | 水波颜色 | _string_ | -      |       |
+| outlineBorder   | 边框宽度 | _number_ | `2`      |       |
+| outlineDistance | 内间距   | _number_ | `0`     |       |
+| waveLength      | 波长     | _number_ | `192`    |       |
+| waveCount       | 波数     | _number_ | `3`      |       |
+| backgroundFill  | 背景颜色 | _string_ | -      |       |
+| contentText     | 文本内容 | _string_ | -      |       |
+| contentFill     | 文本颜色 | _string_ | -      |       |
+| contentFontSize | 文本大小 | _string_ | -      |       |
 
 ```js | ob
 (() => {
