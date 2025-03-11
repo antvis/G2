@@ -76,6 +76,8 @@ order: 10
 
 | 属性            | 描述                                           | 类型                 | 默认值      | 必选  |
 |----------------|------------------------------------------------|---------------------|------------|-------|
+| width          | 图形的宽度, 如果没有配置 图片按照 自宽高 和 `size` 大小 默认显示          | _number_ \| _Function\<number\>_              |   -        |       |
+| height         | 图形的高度, 如果没有配置 图片按照 自宽高 和 `size` 大小 默认显示          | _number_ \| _Function\<number\>_              |   -        |       |
 | opacity        | 图形的整体透明度                                   | _number_ \| _Function\<number\>_              |   -        |       |
 | shadowColor    | 图形阴影颜色                                      | _string_ \| _Function\<string\>_              |   -        |       |
 | shadowBlur     | 图形阴影的高斯模糊系数                              | _number_ \| _Function\<number\>_              |   -        |       |
