@@ -1,6 +1,6 @@
 import type { DisplayObject } from '@antv/g';
 import { Category } from '@antv/component';
-import { last } from '@antv/util';
+import { isString, last } from '@antv/util';
 import { format } from '@antv/vendor/d3-format';
 import { Identity } from '@antv/scale';
 import type {
@@ -213,6 +213,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       ...(cols !== undefined && { gridCol: cols }),
       ...(gridRow !== undefined && { gridRow }),
       titleText: titleContent(title),
+      title: isString(title),
       ...inferCategoryStyle(options, context),
     };
 

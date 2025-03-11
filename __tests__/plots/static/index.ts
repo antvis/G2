@@ -355,3 +355,4 @@ export { alphabetIntervalColumnWidthRatio } from './alphabet-interval-column-wid
 export { stackPointCoincide } from './stack-point-coincide';
 export { helixBasic } from './helix-basic';
 export { helixGene } from './helix-gene';
+export { mockLegendCategoryTitle } from './mock-legend-category-title';
