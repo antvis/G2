@@ -10,7 +10,7 @@ order: 19
 
 它是数据可视化、图形学和地理信息系统中不可或缺的工具。
 
-```js | ob
+<!-- ```js | ob
 (() => {
   const chart = new G2.Chart();
 
@@ -87,7 +87,7 @@ order: 19
 
   return chart.getContainer();
 })();
-```
+``` -->
 
 更多的案例，可以查看[图表示例 - 地图](/examples#geo-geo)页面。
 
