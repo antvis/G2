@@ -37,6 +37,9 @@ export type {
   Channel,
 } from './runtime';
 export { select, Selection } from './utils/selection';
+export { dataOf, seriesOf } from './utils/helper';
+export { selectG2Elements, selectPlotArea } from './interaction/utils';
+
 export * from './transform';
 export { LinearAxis } from './component/axis';
 export type { AxisOptions } from './component/axis';
