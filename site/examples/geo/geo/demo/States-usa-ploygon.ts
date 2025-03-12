@@ -1,26 +1,37 @@
 import { Chart } from '@antv/g2';
+// import rewind from '@mapbox/geojson-rewind';
 
 const layout = (data) => {
-  return data.features.map(({ id, geometry }) => {
-    const arr = geometry?.coordinates?.[0] || [];
-    const value = {
+  data.features = data.features.filter((item) => {
+    const geometry = item.geometry;
+    return (
+      item != null &&
+      geometry &&
+      geometry.type &&
+      geometry.coordinates &&
+      geometry.coordinates.length > 0
+    );
+  });
+
+  // rewind(data, true);
+
+  return data.features.map((feature) => {
+    const { id, geometry, properties } = feature;
+    const ploygonData = {
+      id,
       x: [],
       y: [],
-      value: Math.random() * 100,
-      id,
+      ...properties,
     };
-    if (arr?.length) {
-      arr.forEach((v) => {
-        v.forEach((i, index) => {
-          if (index % 2) {
-            value.y.push(i);
-          } else {
-            value.x.push(i);
-          }
-        });
+
+    geometry?.coordinates.forEach((item) => {
+      item.forEach((v, i) => {
+        ploygonData.y.push(v[1]);
+        ploygonData.x.push(v[0]);
       });
-    }
-    return value;
+    });
+
+    return ploygonData;
   });
 };
 
@@ -37,7 +48,7 @@ chart
   .data({
     type: 'fetch',
     value:
-      'https://raw.githubusercontent.com/python-visualization/folium/main/examples/data/us-states.json',
+      'https://gw.alipayobjects.com/os/basement_prod/d36ad90e-3902-4742-b8a2-d93f7e5dafa2.json',
     transform: [
       {
         type: 'custom',
@@ -47,7 +58,7 @@ chart
   })
   .encode('x', 'x')
   .encode('y', 'y')
-  .encode('color', (d) => d?.value)
+  .encode('color', (d) => d?.density)
   .scale('x', { domain: [-130, -60] })
   .scale('y', { domain: [10, 50] })
   .axis(false)
