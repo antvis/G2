@@ -3,65 +3,69 @@ title: 数据标签（Label）
 order: 7.6
 ---
 
-G2 中**数据标签（Label）** 是给图表添加标注的手段之一。可以给标记添加多个标签：
+## 概述
+
+G2 中**数据标签（Label）** 是给图表添加标注的手段之一，对当前的一组数据进行的内容标注。包括数据点、拉线、文本数值等元素，根据不同的图表类型选择使用。通过简洁的文字说明，减少误解，使图表更易解读，并且强调关键数据或趋势，引导关注重要信息。
+
+### 元素
+
+包括拉线、文本数值元素，根据不同的图表类型选择使用。
+
+<img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*r7UMTKWF6QIAAAAAAAAAAAAAemJ7AQ/original' />
+
+其中，饼图、环形图、玫瑰图等可以用连接线元素连接 label 文本元素和 mark 图形
+
+<img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EdDfQKwBJp0AAAAAAAAAAAAAemJ7AQ/original' width='40%' />
+
+### 使用/配置方式
+
+#### mark 标记添加
+
+- API 方式
 
 ```js
-({
+// 第一种方式 label 分别配置 传入对象
+chart
+  .interval()
+  .label({ text: 'genre' }) // 指定绑定的字段
+  .label({
+    text: 'sold', // 指定绑定的字段
+    fill: '#fff', // 指定样式
+  });
+
+// 第二种方式 label 传入数组配置
+chart.interval().label([
+  { text: 'genre',}, // 指定绑定的字段
+  {
+    text: 'sold', // 指定绑定的字段
+    fill: '#fff', // 指定样式
+  },
+]);
+```
+
+- spec 配置
+
+```js
+// 第一种方式 label 分别配置 传入对象
+chart.options({
   type: 'interval',
   labels: [
-    {
-      text: 'genre', // 指定绑定的字段
-      dy: -15, // 指定样式
-    },
+    { text: 'genre',}, // 指定绑定的字段
     {
       text: 'sold', // 指定绑定的字段
       fill: '#fff', // 指定样式
-      dy: 5,
     },
   ],
 });
 ```
 
-```js
-// API 方式
-// 第一种方式
-chart
-  .interval()
-  .label({
-    text: 'genre', // 指定绑定的字段
-    dy: -15, // 指定样式
-  })
-  .label({
-    text: 'sold', // 指定绑定的字段
-    fill: '#fff', // 指定样式
-    dy: 5,
-  });
+#### 在 View 层级
 
-// 第二种方式
-chart.interval().label([
-  {
-    text: 'genre', // 指定绑定的字段
-    dy: -15, // 指定样式
-  },
-  {
-    text: 'sold', // 指定绑定的字段
-    fill: '#fff', // 指定样式
-    dy: 5,
-  },
-]);
-```
+可配置 `labelTransform` 声明标签转化
 
-在 View 层级可以通过 `labelTransform` 声明标签转化：
+- API 方式
 
 ```js
-({
-  type: 'view',
-  labelTransform: [{ type: 'overlapHide' }, { type: 'contrastReverse' }],
-});
-```
-
-```js
-// API 方式
 // 第一种方式
 chart
   .labelTransform({ type: 'overlapHide' })
@@ -71,57 +75,38 @@ chart
 chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 ```
 
-## 标记标签
-
-每一个标记都可以有多个标签，一个标签的配置大概如下：
+- spec 配置
 
 ```js
 ({
-  type: 'interval',
-  labels: [
-    {
-      text: 'name', // 绑定的字段或者一个常量字符串
-      dy: -2, // @antv/g 支持的样式
-      fill: 'red', // @antv/g 支持的样式
-      selector: 'last', // 选择器
-      transform: [], // 标签转换
-    },
-  ],
+  type: 'view',
+  labelTransform: [{ type: 'overlapHide' }, { type: 'contrastReverse' }],
 });
 ```
 
-下面是一个简单的例子：
+## 标记标签
+
+每一个标记都可以有多个标签，下面是一个简单的例子：
 
 ```js | ob
 (() => {
   const chart = new G2.Chart();
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    // 声明第一个 label
-    .label({
-      text: 'genre', // 指定绑定的字段
-      style: {
-        dy: -15, // 指定样式
-      },
-    })
-    // 声明第二个 label
-    .label({
-      text: 'sold', // 指定绑定的字段
-      style: {
-        fill: '#fff', // 指定样式
-        dy: 5,
-      },
-    });
+  chart.options({
+    type: "interval",
+    data: [
+      { genre: "Sports", sold: 275 },
+      { genre: "Strategy", sold: 115 },
+      { genre: "Action", sold: 120 },
+      { genre: "Shooter", sold: 350 },
+      { genre: "Other", sold: 150 },
+    ],
+    encode: { x: "genre", y: "sold" },
+    labels: [
+      { text: "genre", style: { dy: -15 } },
+      { text: "sold", style: { fill: "#fff", dy: 5 } },
+    ],
+  });
 
   chart.render();
 
@@ -129,7 +114,19 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 })();
 ```
 
-## 选择器
+## 配置项
+
+| 属性      | 描述                                                                                               | 类型                      | 默认值                 | 必选 |
+| --------- | -------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | ---- |
+| text      | `label` 数据通道，类似 mark 标记的 `x` 通道，对应到文本元素上，可以用回调自定义 `string` 文本或 `HTMElement` 复杂 html | [text](#text)             | -                      | ✓    |
+| selector  | 标签选择器，可以保留或隐藏标签。                                                                     | [selector](#selector)     | `{type: 'cartesian' }` |      |
+| transform | 标签转换，用来优化标签的展示，解决标签重叠、颜色不明显的问题                                          | [transform](#transform)   | -                      |      |
+| position  | 标签相对图形位置，并非标签方向。                                                                   | [position](#position)     | -                      |      |
+| style     | 标签样式配置                                                                                       | [style](#style)           | -                      |      |
+
+### 文本 - text
+
+### 选择器 - selector
 
 对于一个图形对应多个数据项的标记来说，我们可以通过 `selector` 去选择需要保留的标记。目前支持的值如下：
 
@@ -165,7 +162,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 })();
 ```
 
-## 标签转换（Label Transform）
+### 标签转换 - transform
 
 当标签的展示不符合预期的时候，比如重叠、颜色不明显，我们可以使用**标签转换（Label Transform）** 来优化标签的展示。
 
@@ -279,7 +276,6 @@ chart
 | threshold    | 标签和背景图形的颜色对比度阈值，超过阈值才会推荐颜色提升对比度        | `Type`            |  `4.5`               |
 | palette      | 对比度提升算法中，备选的颜色色板                                 | `Type`            | `['#000', '#fff']`   |
 
-
 ### overflowHide
 
 `overflowHide` 对于标签在图形上放置不下的时候，隐藏标签。
@@ -332,7 +328,6 @@ chart
 | padding       | 期望调整之后，标签和标签之间的间距                                | `number`         | `1`                  |
 | maxError      | 最大误差，指实际间距和期望间距 `padding` 之间的误差                | `number`         | `0.1`                |
 
-
 ### overlapHide
 
 `overflowHide` 对于标签在图形上放置不下的时候，隐藏标签。
@@ -377,45 +372,6 @@ chart
       },
     ],
   });
-```
-
-## 开始使用
-
-<img alt="label" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original" width="400" alt="revenue-flow-waterfall" />
-
-```ts
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  width: 720,
-  height: 720,
-});
-
-chart.coordinate({ type: 'polar', outerRadius: 0.85 });
-
-chart
-  .interval()
-  .transform({ type: 'groupX', y: 'sum' })
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
-  })
-  .encode('x', 'year')
-  .encode('color', 'year')
-  .encode('y', 'people')
-  .scale('y', { type: 'sqrt' })
-  .scale('x', { padding: 0 })
-  .axis('y', false)
-  .axis('x', false)
-  .label({
-    text: 'people',
-    position: 'outside',
-    transform: [{ type: 'overlapDodgeY' }],
-  });
-
-chart.render();
 ```
 
 ## 选项（options）
@@ -539,4 +495,3 @@ selector 选择器可以对系列数据进行过滤索引。
 ### 怎么使用 HTML 自定义数据标签？
 
 使用 label 配置手册中的 `render` 即可，具体使用可以参考 [DEMO](/examples/component/label/#htmlLabel)。
-
