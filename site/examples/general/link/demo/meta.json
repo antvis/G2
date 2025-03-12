@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "link-shape.ts",
+      "title": {
+        "zh": "link 内置形状",
+        "en": "Link shape"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QRAQRLPWWSkAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
       "filename": "link-annotation.ts",
       "title": {
         "zh": "Link 辅助线",

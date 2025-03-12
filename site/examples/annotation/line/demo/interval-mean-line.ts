@@ -23,7 +23,7 @@ chart
 
 chart
   .lineY()
-  .transform({ type: 'groupX', y: 'mean' })
+  .transform({ type: 'groupX', y: 'mean' }) // groupX 为分组并对指定的通道进行聚合，可以理解为把数据通过 y 通道的数据聚合， 然后取平均值(mean) 变更为一条数据。
   .encode('y', 'precipitation')
   .style('stroke', '#F4664A')
   .style('strokeOpacity', 1)

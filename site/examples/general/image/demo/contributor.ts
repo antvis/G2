@@ -72,6 +72,7 @@ function getLovePoints() {
 const chart = new Chart({
   container: 'container',
   autoFit: true,
+  padding: 40,
 });
 
 chart.data(getLovePoints());
@@ -82,6 +83,12 @@ chart
   .encode('y', 'y')
   .encode('src', (_, idx) => Avatars[idx % Avatars.length])
   .encode('size', 48)
+  .style({
+    opacity: 0.7,
+    shadowColor: '#fad7e0',
+    shadowBlur: 40,
+    shadowOffsetY: 20,
+  })
   .axis(false)
   .tooltip(false);
 

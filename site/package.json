@@ -40,6 +40,7 @@
     "lodash": "^4.17.21",
     "react-color": "^2.19.3",
     "topojson": "^3.0.2",
+    "@mapbox/geojson-rewind": "^0.5.2",
     "webfontloader": "1.6.28"
   },
   "devDependencies": {
