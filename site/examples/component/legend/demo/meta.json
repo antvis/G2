@@ -43,6 +43,30 @@
         "en": "Legend Position"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*E0n9Qpri2hYAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "title.ts",
+      "title": {
+        "zh": "图例标题",
+        "en": "Legend Title"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VlifQbrB6EEAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "item-style.ts",
+      "title": {
+        "zh": "图例项样式",
+        "en": "Legend Item Style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Bcp7Q73qwUcAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
+      "filename": "nav-style.ts",
+      "title": {
+        "zh": "分页器样式",
+        "en": "Legend Nav Style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6i-kR6WVcfcAAAAAAAAAAAAAemJ7AQ/original"
     }
   ]
 }

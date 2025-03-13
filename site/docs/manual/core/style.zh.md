@@ -172,20 +172,20 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 ### 配置图形样式
 
-| 属性名        | 类型              | 介绍                                                                                                         |
-| ------------- | ----------------- | ------------------------------------------------------------------------------------------------------------ |
-| fill          | _string_          | 图形的填充色                                                                                                 |
-| fillOpacity   | _number_          | 图形的填充透明度                                                                                             |
-| stroke        | _string_          | 图形的描边                                                                                                   |
-| strokeOpacity | _number_          | 描边透明度                                                                                                   |
-| lineWidth     | _number_          | 图形描边的宽度                                                                                               |
-| lineDash      | _[number,number]_ | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| opacity       | _number_          | 图形的整体透明度                                                                                             |
-| shadowColor   | _string_          | 图形阴影颜色                                                                                                 |
-| shadowBlur    | _number_          | 图形阴影的高斯模糊系数                                                                                       |
-| shadowOffsetX | _number_          | 设置阴影距图形的水平距离                                                                                     |
-| shadowOffsetY | _number_          | 设置阴影距图形的垂直距离                                                                                     |
-| cursor        | _string_          | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                |
+| 属性          | 描述                                                                                                         | 类型            | 默认值    | 必选 |
+| ------------- | ------------------------------------------------------------------------------------------------------------ | --------------- | --------- | ---- |
+| fill          | 图形的填充色                                                                                                 | string          |           |      |
+| fillOpacity   | 图形的填充透明度                                                                                             | number          |           |      |
+| stroke        | 图形的描边                                                                                                   | string          |           |      |
+| strokeOpacity | 描边透明度                                                                                                   | number          |           |      |
+| lineWidth     | 图形描边的宽度                                                                                               | number          |           |      |
+| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] |           |      |
+| opacity       | 图形的整体透明度                                                                                             | number          |           |      |
+| shadowColor   | 图形阴影颜色                                                                                                 | string          |           |      |
+| shadowBlur    | 图形阴影的高斯模糊系数                                                                                       | number          |           |      |
+| shadowOffsetX | 设置阴影距图形的水平距离                                                                                     | number          |           |      |
+| shadowOffsetY | 设置阴影距图形的垂直距离                                                                                     | number          |           |      |
+| cursor        | 鼠标样式。同 css 的鼠标样式                                                                                  | string          | `default` |      |
 
 接下来，试试使用全量图形样式配置基础柱状图的 `interval` 的图形样式，在下面的代码编辑器里修改属性试试效果：
 
@@ -193,18 +193,18 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 ### 配置线的样式
 
-| 属性名        | 类型              | 介绍                                                                                                   |
-| ------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
-| stroke        | _string_          | 线的颜色                                                                                               |
-| strokeOpacity | _number_          | 线的透明度                                                                                             |
-| lineWidth     | _number_          | 线宽                                                                                                   |
-| lineDash      | _[number,number]_ | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| opacity       | _number_          | 整体透明度                                                                                             |
-| shadowColor   | _string_          | 阴影颜色                                                                                               |
-| shadowBlur    | _number_          | 高斯模糊系数                                                                                           |
-| shadowOffsetX | _number_          | 设置阴影距图形的水平距离                                                                               |
-| shadowOffsetY | _number_          | 设置阴影距图形的垂直距离                                                                               |
-| cursor        | _string_          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                           |
+| 属性名        | 介绍                                                                                                   | 类型            | 默认值    | 必选 |
+| ------------- | ------------------------------------------------------------------------------------------------------ | --------------- | --------- | ---- |
+| stroke        | 线的颜色                                                                                               | string          |           |      |
+| strokeOpacity | 线的透明度                                                                                             | number          |           |      |
+| lineWidth     | 线宽                                                                                                   | number          |           |      |
+| lineDash      | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] |           |      |
+| opacity       | 整体透明度                                                                                             | number          |           |      |
+| shadowColor   | 阴影颜色                                                                                               | string          |           |      |
+| shadowBlur    | 高斯模糊系数                                                                                           | number          |           |      |
+| shadowOffsetX | 设置阴影距图形的水平距离                                                                               | number          |           |      |
+| shadowOffsetY | 设置阴影距图形的垂直距离                                                                               | number          |           |      |
+| cursor        | 鼠标样式。同 css 的鼠标样式                                                                            | string          | `default` |      |
 
 接下来，试试使用全量线的样式配置基础折线图的 `line` 的样式，在下面的代码编辑器里修改属性试试效果：
 
@@ -250,26 +250,26 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 ### 配置文字样式
 
-| 属性名        | 类型              | 介绍                                                                                                                        |
-| ------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| fontSize      | _number_          | 文字大小                                                                                                                    |
-| fontFamily    | _string_          | 文字字体                                                                                                                    |
-| fontWeight    | _number_          | 字体粗细                                                                                                                    |
-| lineHeight    | _number_          | 文字的行高                                                                                                                  |
-| textAlign     | _string_          | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`                  |
-| textBaseline  | _string_          | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom` |
-| fill          | _string_          | 文字的填充色                                                                                                                |
-| fillOpacity   | _number_          | 文字的填充透明度                                                                                                            |
-| stroke        | _string_          | 文字的描边                                                                                                                  |
-| lineWidth     | _number_          | 文字描边的宽度                                                                                                              |
-| lineDash      | _[number,number]_ | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。                |
-| strokeOpacity | _number_          | 描边透明度                                                                                                                  |
-| opacity       | _number_          | 文字的整体透明度                                                                                                            |
-| shadowColor   | _string_          | 文字阴影颜色                                                                                                                |
-| shadowBlur    | _number_          | 文字阴影的高斯模糊系数                                                                                                      |
-| shadowOffsetX | _number_          | 设置阴影距文字的水平距离                                                                                                    |
-| shadowOffsetY | _number_          | 设置阴影距文字的垂直距离                                                                                                    |
-| cursor        | _string_          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                                                |
+| 属性名        | 介绍                                                                                                         | 类型                                                       | 默认值    | 必选 |
+| ------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | --------- | ---- |
+| fontSize      | 文字大小                                                                                                     | number                                                     |           |      |
+| fontFamily    | 文字字体                                                                                                     | string                                                     |           |      |
+| fontWeight    | 字体粗细                                                                                                     | number                                                     |           |      |
+| lineHeight    | 文字的行高                                                                                                   | number                                                     |           |      |
+| textAlign     | 设置文本内容的当前对齐方式                                                                                   | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |      |
+| textBaseline  | 设置在绘制文本时使用的当前文本基线                                                                           | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |      |
+| fill          | 文字的填充色                                                                                                 | string                                                     |           |      |
+| fillOpacity   | 文字的填充透明度                                                                                             | number                                                     |           |      |
+| stroke        | 文字的描边                                                                                                   | string                                                     |           |      |
+| lineWidth     | 文字描边的宽度                                                                                               | number                                                     |           |      |
+| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number]                                            |           |      |
+| strokeOpacity | 描边透明度                                                                                                   | number                                                     |           |      |
+| opacity       | 文字的整体透明度                                                                                             | number                                                     |           |      |
+| shadowColor   | 文字阴影颜色                                                                                                 | string                                                     |           |      |
+| shadowBlur    | 文字阴影的高斯模糊系数                                                                                       | number                                                     |           |      |
+| shadowOffsetX | 设置阴影距文字的水平距离                                                                                     | number                                                     |           |      |
+| shadowOffsetY | 设置阴影距文字的垂直距离                                                                                     | number                                                     |           |      |
+| cursor        | 鼠标样式。同 css 的鼠标样式                                                                                  | string                                                     | `default` |      |
 
 接下来，试试使用全量文字的样式配置水波图的中心文字的样式，在下面的代码编辑器里修改属性试试效果：
 
