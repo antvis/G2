@@ -5,11 +5,11 @@ order: 7.6
 
 ## 概述
 
-G2 中**数据标签（Label）** 是给图表添加标注的手段之一，对当前的一组数据进行的内容标注。包括数据点、拉线、文本数值等元素，根据不同的图表类型选择使用。通过简洁的文字说明，减少误解，使图表更易解读，并且强调关键数据或趋势，引导关注重要信息。
+G2 中**数据标签（Label）** 是给图表添加标注的手段之一，对当前的一组数据进行的内容标注。包括数据点、连接线、文本数值等元素，根据不同的图表类型选择使用。通过简洁的文字说明，减少误解，使图表更易解读，并且强调关键数据或趋势，引导关注重要信息。
 
 ### 元素
 
-包括拉线、文本数值元素，根据不同的图表类型选择使用。
+包括连接线、文本数值元素，根据不同的图表类型选择使用。
 
 <img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*r7UMTKWF6QIAAAAAAAAAAAAAemJ7AQ/original' />
 
@@ -21,32 +21,7 @@ G2 中**数据标签（Label）** 是给图表添加标注的手段之一，对�
 
 #### mark 标记添加
 
-- API 方式
-
 ```js
-// 第一种方式 label 分别配置 传入对象
-chart
-  .interval()
-  .label({ text: 'genre' }) // 指定绑定的字段
-  .label({
-    text: 'sold', // 指定绑定的字段
-    fill: '#fff', // 指定样式
-  });
-
-// 第二种方式 label 传入数组配置
-chart.interval().label([
-  { text: 'genre',}, // 指定绑定的字段
-  {
-    text: 'sold', // 指定绑定的字段
-    fill: '#fff', // 指定样式
-  },
-]);
-```
-
-- spec 配置
-
-```js
-// 第一种方式 label 分别配置 传入对象
 chart.options({
   type: 'interval',
   labels: [
@@ -124,14 +99,14 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 | offset    | `label` 标签偏移，也可通过 style.offset 配置 |            | -                      |     |
 | text      | `label` 数据通道，类似 mark 标记的 `x` 通道，对应到文本元素上，可以用回调自定义 `string` 文本. |            | -                      |     |
 | innerHTML | 和 `text` 配置类似，同时配置 `text` 会失效，可以用回调自定义 `string` 文本或 `HTMElement` 复杂 html |           | -                      |     |
+| formatter | 标签文本格式化                                     | _string_ \| _Function\<string\>_            | -         |   |
 | render    | 和 `innerHTML` 配置类型一致      |           | -                      |     |
 | selector  | 标签选择器，可以保留或隐藏标签。                                                                     | [selector](#selector)     | `{type: 'cartesian' }` |      |
 | transform | 标签转换，用来优化标签的展示，解决标签重叠、颜色不明显的问题                                          | [transform](#transform)   | -                      |      |
 | position  | 标签相对图形位置，并非标签方向。                                                                   | [position](#position)     | -                      |      |
 | style     | 标签样式配置                                                                                       | [style](#style)           | -                      |      |
-| background| 是否展示背景颜色                                                                                       | _boolean_         | -                      |      |
-| formatter | 标签文本格式化                                     | _string_ \| _Function\<string\>_            | -         |   |
-| connector | 是否展示连接线 在 饼图和环形图等非笛卡尔坐标系下使用                                     |  _boolean_             | -         |   |
+| background| 是否展示背景颜色                                                                                       | _boolean_         |    详见[background](#background)                 |      |
+| connector | 是否展示连接线 在 饼图和环形图等非笛卡尔坐标系下使用                                     |  _boolean_             |  详见[connector](#connector)               |   |
 
 ### text & innerHTML
 
@@ -328,6 +303,12 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   return chart.getContainer();
 })();
 ```
+
+| 属性      | 描述                                                                 | 类型   | 默认值              | 必选 |
+| --------- | -------------------------------------------------------------------- | ------ | ------------------- | ---- |
+| maxIterations | 位置调整的最大迭代次数。        | _number_ | `10`               |      |
+| padding   | 期望调整之后，标签和标签之间的间距                                      |  _number_ | `1`  |      |
+| maxError   | 最大误差，指实际间距和期望间距 padding 之间的误差                                       |  _number_ | `0.1`  |      |
 
 #### contrastReverse
 
@@ -646,53 +627,7 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 ### style
 
-Label 继承 G Text 所有属性样式配置;。
-
-- 文本样式配置
-
- 文本样式同时，内部做了处理，除了可以在 style 中配置，也可以直接在配置项配置这些样式
-
-| 属性          | 描述                                                                                                                          | 类型                                                                               | 默认值    | 必选 |
-| ------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------- | ---- |
-| fontSize      | 文字大小                                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
-| fontFamily    | 文字字体                                                                                                                      | _string_ \| _Function<string>_                                                     | -         |      |
-| fontWeight    | 字体粗细                                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
-| lineHeight    | 文字的行高                                                                                                                    | _number_ \| _Function<number>_                                                     | -         |      |
-| textAlign     | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`                    | _string_ \| _Function<string>_                                                     | -         |      |
-| textBaseline  | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom`   | _string_ \| _Function<string>_                                                     | -         |      |
-| fill          | 图形的填充色                                                                                                                  | _string_ \| _Function<string>_                                                     | -         |      |
-| fillOpacity   | 图形的填充透明度                                                                                                              | _number_ \| _Function<number>_                                                     | -         |      |
-| stroke        | 图形的描边                                                                                                                    | _string_ \| _Function<string>_                                                     | -         |      |
-| strokeOpacity | 描边透明度                                                                                                                    | _number_ \| _Function<number>_                                                     | -         |      |
-| lineWidth     | 图形描边的宽度                                                                                                                | _number_ \| _Function<number>_                                                     | -         |      |
-| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。                 | _\[number,number\]_ \| _Function<[number, number]>_                                  | -         |      |
-| opacity       | 图形的整体透明度                                                                                                              | _number_ \| _Function<number>_                                                     | -         |      |
-| shadowColor   | 图形阴影颜色                                                                                                                  | _string_ \| _Function<string>_                                                     | -         |      |
-| shadowBlur    | 图形阴影的高斯模糊系数                                                                                                        | _number_ \| _Function<number>_                                                     | -         |      |
-| shadowOffsetX | 设置阴影距图形的水平距离                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
-| shadowOffsetY | 设置阴影距图形的垂直距离                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
-| cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                                 | _string_ \| _Function<string>_                                                     | `default` |      |
-
-- 连接线样式配置
-
-标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线描边色。
-
-| 参数                | 说明                                             | 类型     | 默认值 | 必选 |
-| ------------------- | ------------------------------------------------ | -------- | ------ | ---- |
-| connectorStroke     | 连接线描边色                                     | `string` | -      |      |
-| connectorLineWidth  | 连接线描边线宽                                   | `number` | -      |      |
-| `connector${style}` | 更多连接线样式配置，参考 `PathStyleProps` 属性值 | -        | -      |      |
-
-- 背景样式配置
-
-标签**文本背景框样式**配置，格式为: `background${style}`, 如: `backgroundFill` 代表背景框填充色。
-
-| 参数                 | 说明                                             | 类型       | 默认值 | 必选 |
-| -------------------- | ------------------------------------------------ | ---------- | ------ | ---- |
-| backgroundFill       | 背景框填充色                                     | `string`   | -      |      |
-| backgroundRadius     | 背景框圆角半径                                   | `number`   | -      |      |
-| backgroundPadding    | 背景框内间距                                     | `number[]` | -      |      |
-| `background${style}` | 更多背景框样式配置，参考 `RectStyleProps` 属性值 | -          | -      |      |
+style 样式内部做了处理，可以直接在配置项配置这些样式
 
 ```js | ob
 (() => {
@@ -718,17 +653,19 @@ Label 继承 G Text 所有属性样式配置;。
         text: "value",
         fill: "#0700fa", // 文本样式
         background: true, // 背景展示
-        style: { backgroundFill: "#fff", backgroundRadius: 4 }, // 背景样式
+        backgroundFill: "#fff",
+        backgroundRadius: 4,
       },
       {
         text: "id",
         position: "spider",
-        connectorDistance: 0, // 文本和连接线的间距
         fontWeight: "bold",
         fontSize: 14,
         textBaseline: "bottom",
+        connectorDistance: 0, // 文本和连接线的间距
         textAlign: (d) => (["c", "sass"].includes(d.id) ? "end" : "start"),
-        style: { connectorStroke: "#0649f2", connectorLineWidth: 2 }, // 连接线样式
+        connectorStroke: "#0649f2", 
+        connectorLineWidth: 2,
       },
     ],
   });
@@ -738,3 +675,49 @@ Label 继承 G Text 所有属性样式配置;。
   return chart.getContainer();
 })();
 ```
+
+#### 文本样式配置
+
+标签**文本样式**配置，继承自 `G` 引擎的 `Text`, 其上的样式都通用。
+
+| 属性          | 描述                                                                                                                          | 类型                                                                               | 默认值    | 必选 |
+| ------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------- | ---- |
+| fontSize      | 文字大小                                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
+| fontFamily    | 文字字体                                                                                                                      | _string_ \| _Function<string>_                                                     | -         |      |
+| fontWeight    | 字体粗细                                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
+| lineHeight    | 文字的行高                                                                                                                    | _number_ \| _Function<number>_                                                     | -         |      |
+| textAlign     | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`                    | _string_ \| _Function<string>_                                                     | -         |      |
+| textBaseline  | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom`   | _string_ \| _Function<string>_                                                     | -         |      |
+| fill          | 图形的填充色                                                                                                                  | _string_ \| _Function<string>_                                                     | -         |      |
+| fillOpacity   | 图形的填充透明度                                                                                                              | _number_ \| _Function<number>_                                                     | -         |      |
+| stroke        | 图形的描边                                                                                                                    | _string_ \| _Function<string>_                                                     | -         |      |
+| strokeOpacity | 描边透明度                                                                                                                    | _number_ \| _Function<number>_                                                     | -         |      |
+| lineWidth     | 图形描边的宽度                                                                                                                | _number_ \| _Function<number>_                                                     | -         |      |
+| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。                 | _\[number,number\]_ \| _Function<[number, number]>_                                  | -         |      |
+| opacity       | 图形的整体透明度                                                                                                              | _number_ \| _Function<number>_                                                     | -         |      |
+| shadowColor   | 图形阴影颜色                                                                                                                  | _string_ \| _Function<string>_                                                     | -         |      |
+| shadowBlur    | 图形阴影的高斯模糊系数                                                                                                        | _number_ \| _Function<number>_                                                     | -         |      |
+| shadowOffsetX | 设置阴影距图形的水平距离                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
+| shadowOffsetY | 设置阴影距图形的垂直距离                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
+| cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                                 | _string_ \| _Function<string>_                                                     | `default` |      |
+
+#### connector
+
+标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线描边色。
+
+| 参数                | 说明                                             | 类型     | 默认值 | 必选 |
+| ------------------- | ------------------------------------------------ | -------- | ------ | ---- |
+| connectorStroke     | 连接线描边色                                     | `string` | -      |      |
+| connectorLineWidth  | 连接线描边线宽                                   | `number` | -      |      |
+| `connector${style}` | 更多连接线样式配置，参考 `PathStyleProps` 属性值 | -        | -      |      |
+
+#### background
+
+标签**文本背景框样式**配置，格式为: `background${style}`, 如: `backgroundFill` 代表背景框填充色。
+
+| 参数                 | 说明                                             | 类型       | 默认值 | 必选 |
+| -------------------- | ------------------------------------------------ | ---------- | ------ | ---- |
+| backgroundFill       | 背景框填充色                                     | `string`   | -      |      |
+| backgroundRadius     | 背景框圆角半径                                   | `number`   | -      |      |
+| backgroundPadding    | 背景框内间距                                     | `number[]` | -      |      |
+| `background${style}` | 更多背景框样式配置，参考 `RectStyleProps` 属性值 | -          | -      |      |

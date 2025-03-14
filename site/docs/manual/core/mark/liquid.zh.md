@@ -106,4 +106,4 @@ order: 16
 
 尝试自己画一下：
 
-<Playground path="style/general/liquid/demo/liquid-custom-shape.ts" rid="liquid-shape"></playground>
+<Playground path="style/general/Liquid/demo/liquid-custom-shape.ts" rid="liquid-shape"></playground>
