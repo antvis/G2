@@ -1,5 +1,88 @@
 import { DisplayObject } from '@antv/g';
 import { lowerFirst, upperFirst, isPlainObject } from '@antv/util';
+import { Band, Base, Constant } from '@antv/scale';
+import { G2Element } from './selection';
+
+/**
+ * @description Get element's ancestor view node.
+ * @param elemenet G2 element.
+ * @returns Element's ancestor view node.
+ */
+export function getViewFromElement(element: G2Element) {
+  let current = element as G2Element;
+  while (current) {
+    if (current.attributes?.class === 'view') return current;
+    current = current.parentNode as G2Element;
+  }
+  return null;
+}
+
+/**
+ * @description Get element's original data.
+ * @param elemenet G2 element.
+ * @returns The original data of the element.
+ */
+export function dataOf(element: G2Element) {
+  const view = getViewFromElement(element);
+  const datum = element.__data__;
+  const { markKey, index, seriesIndex } = datum;
+  const { markState } = view.__data__;
+  const selectedMark: any = Array.from(markState.keys()).find(
+    (mark) => (mark as any).key === markKey,
+  );
+  if (!selectedMark) return;
+  if (seriesIndex) {
+    return seriesIndex.map((i) => selectedMark.data[i]);
+  }
+  return selectedMark.data[index];
+}
+
+/**
+ * @description Get element's series name.
+ * @param elemenet G2 element.
+ * @returns The series name of the element.
+ */
+export function seriesOf(elemenet: G2Element): string {
+  const viewData = getViewFromElement(elemenet).__data__;
+  const { scale } = viewData;
+  return groupNameOf(scale, elemenet.__data__);
+}
+
+/**
+ * Get group name with view's scale and element's datum.
+ */
+export function groupNameOf(scale: Record<string, Base<any>>, datum) {
+  const { color: scaleColor, series: scaleSeries, facet = false } = scale;
+  const { color, series } = datum;
+  const invertAble = (scale) => {
+    return (
+      scale &&
+      scale.invert &&
+      !(scale instanceof Band) &&
+      !(scale instanceof Constant)
+    );
+  };
+  // For non constant color channel.
+  if (invertAble(scaleSeries)) {
+    const cloned = scaleSeries.clone();
+    return cloned.invert(series);
+  }
+  if (
+    series &&
+    scaleSeries instanceof Band &&
+    scaleSeries.invert(series) !== color &&
+    !facet
+  ) {
+    return scaleSeries.invert(series);
+  }
+  if (invertAble(scaleColor)) {
+    const name = scaleColor.invert(color);
+    // For threshold scale.
+    if (Array.isArray(name)) return null;
+    return name;
+  }
+  return null;
+}
 
 export function identity<T>(x: T): T {
   return x;

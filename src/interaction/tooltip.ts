@@ -2,8 +2,7 @@ import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
-import { Constant, Band } from '@antv/scale';
-import { defined, subObject } from '../utils/helper';
+import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
@@ -20,7 +19,6 @@ import {
   bboxOf,
   maybeRoot,
 } from './utils';
-import { dataOf } from './event';
 
 function getContainer(
   group: IElement,
@@ -207,39 +205,6 @@ function singleItem(element) {
     ...(title && { title }),
     items: newItems,
   };
-}
-
-function groupNameOf(scale, datum) {
-  const { color: scaleColor, series: scaleSeries, facet = false } = scale;
-  const { color, series } = datum;
-  const invertAble = (scale) => {
-    return (
-      scale &&
-      scale.invert &&
-      !(scale instanceof Band) &&
-      !(scale instanceof Constant)
-    );
-  };
-  // For non constant color channel.
-  if (invertAble(scaleSeries)) {
-    const cloned = scaleSeries.clone();
-    return cloned.invert(series);
-  }
-  if (
-    series &&
-    scaleSeries instanceof Band &&
-    scaleSeries.invert(series) !== color &&
-    !facet
-  ) {
-    return scaleSeries.invert(series);
-  }
-  if (invertAble(scaleColor)) {
-    const name = scaleColor.invert(color);
-    // For threshold scale.
-    if (Array.isArray(name)) return null;
-    return name;
-  }
-  return null;
 }
 
 function itemColorOf(element) {
@@ -1103,7 +1068,7 @@ export function tooltip(
         nativeEvent: true,
         data: {
           ...data,
-          data: dataOf(element, view),
+          data: dataOf(element),
         },
       });
     },
