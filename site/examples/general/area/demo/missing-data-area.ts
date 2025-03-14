@@ -20,8 +20,8 @@ chart.options({
     connectFill: 'grey',
     connectFillOpacity: 0.15,
     // 配置area样式
-    fill: 'skyblue',
-    opacity: 0.5,
+    fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+    opacity: 0.9,
     stroke: 'yellow',
   },
 });
