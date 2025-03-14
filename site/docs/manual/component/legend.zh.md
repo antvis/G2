@@ -86,17 +86,49 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 <Badge type="success">分类图例</Badge>
 <Badge type="warning">连续图例</Badge>
 
+| 属性                                                  | 描述                                             | 类型                                                               | 默认值                                | 必选 |
+| ----------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------- | ---- |
+| orientation                                           | 图例朝向，对于分类图例来说即滚动方向             | `horizontal` \| `vertical`                                         | `horizontal`                          |      |
+| position                                              | 图例的位置                                       | `top` \| `right` \| `left` \| `bottom`                             | `top`                                 |      |
+| layout                                                | 调整图例的 flex 布局方式                         | [layout](#layout)                                                  | 详见[layout](#layout)                 |
+| size                                                  | 图例的大小                                       | number                                                             | -                                     |
+| width                                                 | 图例的宽度                                       | number                                                             | -                                     |
+| crossPadding                                          | 图例到图表区域的距离                             | number                                                             | `12`                                  |
+| order                                                 | 图例在布局的时候的排序                           | number                                                             | `1`                                   |
+| title                                                 | 配置图例的标题                                   | [title](#title)                                                    | 详见[title](#title)                   |
+| cols <Badge type="success">分类图例</Badge>           | 指定每行显示的图例项数量，为空时表示列数不受限制 | number                                                             | -                                     |
+| colPadding <Badge type="success">分类图例</Badge>     | 指定图例项之间的横向间隔                         | number                                                             | `12`                                  |
+| rowPadding <Badge type="success">分类图例</Badge>     | 指定图例项之间的纵向间隔                         | number                                                             | `8`                                   |
+| maxRows <Badge type="success">分类图例</Badge>        | 指定图例最大行数                                 | number                                                             | `3`                                   |
+| maxCols <Badge type="success">分类图例</Badge>        | 指定图例最大列数                                 | number                                                             | `3`                                   |
+| itemMarker <Badge type="success">分类图例</Badge>     | 配置图例项的图标                                 | [itemMarker](#itemmarker)                                          | 详见[itemMarker](#itemmarker)         |
+| itemLabel <Badge type="success">分类图例</Badge>      | 配置图例项的标签文字                             | [itemLabel](#itemlabel)                                            | 详见[itemLabel](#itemlabel)           |
+| itemValue <Badge type="success">分类图例</Badge>      | 配置图例项的值                                   | [itemValue](#itemvalue)                                            | 详见[itemValue](#itemvalue)           |
+| itemBackground <Badge type="success">分类图例</Badge> | 配置图例项的背景                                 | [itemBackground](#itembackground)                                  | 详见[itemBackground](#itembackground) |
+| itemWidth <Badge type="success">分类图例</Badge>      | 配置图例项的宽度                                 | number                                                             | -                                     |
+| itemSpan <Badge type="success">分类图例</Badge>       | 配置图例项图标、标签和值的空间划分               | number \| number[]                                                 | `[1, 1, 1]`                           |
+| itemSpacing <Badge type="success">分类图例</Badge>    | 配置图例项图标、标签和值之间的间距               | number \| number[]                                                 | `[8, 8]`                              |
+| nav <Badge type="success">分类图例</Badge>            | 配置图例的分页器                                 | [nav](#nav)                                                        | 详见[nav](#nav)                       |
+| color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
+| block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | `false`                               |
+| type <Badge type="warning">连续图例</Badge>           | 配置连续图例的类型                               | `size` \|`color`                                                   | `color`                               |
+| ribbon <Badge type="warning">连续图例</Badge>         | 配置连续图例的色带                               | [ribbon](#ribbon)                                                  | 详见[ribbon](#ribbon)                 |
+| handle <Badge type="warning">连续图例</Badge>         | 配置连续图例的滑动手柄                           | [handle](#handle)                                                  | 详见[handle](#handle)                 |
+| label <Badge type="warning">连续图例</Badge>          | 配置连续图例的标签/刻度值                        | [label](#label)                                                    | 详见[label](#label)                   |
+| indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
+
+
 ### orientation
 
 <description>**optional** _horizontal | vertical_ </description>
 
-图例朝向，对于分类图例来说即滚动方向。
+图例朝向，对于分类图例来说即滚动方向。默认为 `horizontal`。
 
 ### position
 
 <description> **optional** _"top" | "right" | "left" | "bottom"_ </description>
 
-图例的位置。
+图例的位置。默认为 `top`。
 
 ```js | ob { pin: false }
 (() => {
