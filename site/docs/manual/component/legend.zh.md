@@ -117,7 +117,6 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | label <Badge type="warning">连续图例</Badge>          | 配置连续图例的标签/刻度值                        | [label](#label)                                                    | 详见[label](#label)                   |
 | indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
 
-
 ### orientation
 
 <description>**optional** _horizontal | vertical_ </description>
@@ -1169,6 +1168,30 @@ _LegendIndicatorCfg_ 配置如下：
       indicatorBackgroundCursor: 'pointer',
     },
   },
+});
+```
+
+## 事件
+
+图例组件对外暴露了一些特殊的事件，用于获取组件的交互信息。
+
+| 事件类型                                           | 描述                       | 类型                                             |
+| -------------------------------------------------- | -------------------------- | ------------------------------------------------ |
+| click <Badge type="success">分类图例</Badge>       | 点击图例项时触发           | `(item:Selection)=>void`                         |
+| mouseenter <Badge type="success">分类图例</Badge>  | 鼠标移入图例项时触发       | `(item: Selection)=>void`                        |
+| mouseleave <Badge type="success">分类图例</Badge>  | 鼠标移出图例项时触发       | `(item:Selection)=>void`                         |
+| valuechange <Badge type="warning">连续图例</Badge> | 滑动窗口选取范围改变时触发 | `(range: [number, number])=>void`                |
+| indicate <Badge type="warning">连续图例</Badge>    | 指示器值改变时触发         | `(value: number, range: [number, number])=>void` |
+
+组件在图表渲染后才会出现，所以要在 `afterrender` 后挂载组件的事件，以下是一个例子：
+
+```js
+chart.on('afterrender', () => {
+  const { canvas } = chart.getContext();
+  const { document } = canvas;
+  document
+    .querySelector('.component')
+    .addEventListener('valuechange', (range) => {});
 });
 ```
 
