@@ -779,6 +779,10 @@ export const Symbols = new Map<string, SymbolFactor>([
       navOrientation: 'vertical',
       navDefaultPage: 1,
       navLoop: true,
+      navPageWidth: 10,
+      navPageHeight: 10,
+      navControllerPadding: 10,
+      navControllerSpacing: 10,
 
       //配置navPageNum的绘图属性
       navPageNumFontSize: 16,
