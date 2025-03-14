@@ -3,33 +3,57 @@ title: line
 order: 12
 ---
 
-根据一系列的点，绘制折线，通常用来绘制折线图，最常用的 mark 之一。
+## 概述
+
+折线图（ `line` ）图形标记根据一系列的点，绘制折线，显示数据在一个具有顺序性的维度上的变化。通常用来绘制折线图，是最常用的 `Mark` 之一。
+
+折线图用于分析事物随时间或有序类别而变化的趋势。如果有多组数据，则用于分析多组数据随时间变化或有序类别的相互作用和影响。折线的方向表示正/负变化。折线的斜率表示变化的程度。
 
 ## 开始使用
 
-<img alt="line" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*jTdCR7wVFZAAAAAAAAAAAAAADmJ7AQ" width="600" />
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-```ts
-import { Chart } from '@antv/g2';
+  chart.options({
+    type: 'line',
+    autoFit: true,
+    data: {
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+    },
+    encode: { x: 'date', y: 'close' },
+  });
 
-const chart = new Chart({
-  container: 'container',
-});
+  chart.render();
 
-chart
-  .line()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close');
-
-chart.render();
+  return chart.getContainer();
+})();
 ```
 
-更多的案例，可以查看[图表示例](/examples)页面。
+更多的案例，可以查看[图表示例 - 折线图](/examples#general-line)页面。
+
+## 配置项
+
+| 属性       | 描述                                                                                                         | 类型                      | 默认值                 | 必选 |
+| ---------- | ------------------------------------------------------------------------------------------------------------ | ------------------------- | ---------------------- | ---- |
+| encode     | 配置 `line` 标记的视觉通道，包括`x`、`y`、`color`、`shape`、 `size` 等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)         | -                      | ✓    |
+| coordinate | 配置 `line` 标记的坐标系，坐标系会执行一系列点转换，从而改变标记的空间展示形式                               | [coordinate](#coordinate) | `{type: 'cartesian' }` |      |
+| style      | 配置 `line` 标记的图形样式                                                                                   | [style](#style)           | -                      |      |
+
+### encode
+
+配置 `line` 标记的视觉通道。
+
+| 属性   | 描述                                                                                                                                        | 类型                                        | 默认值 | 必选 |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------ | ---- |
+| x      | 绑定 `line` 标记的 `x` 属性通道，一般是 `data` 中的时间或有序名词字段                                                                       | [encode](/manual/core/encode)               | -      | ✓    |
+| y      | 绑定 `line` 标记的 `y` 属性通道，一般是 `data` 中的数值字段                                                                                 | [encode](/manual/core/encode)               | -      | ✓    |
+| color  | 绑定 `line` 标记的 `color` 属性通道，如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多条不同颜色的折线，一般用来配置多折线图等 | [encode](/manual/core/encode)               | -      |      |
+| series | 绑定 `line` 标记的 `series` 属性通道，根据 series 通道实现分组效果                                                                          | [encode](/manual/core/encode)               | -      |
+| shape  | 绑定 `line` 标记的 `shape` 属性通道，改变图形标记的绘制形状                                                                                 | `rect` \| `hollow` \| `funnel` \| `pyramid` | `rect` |      |
+|        |
 
 ## 选项
 
