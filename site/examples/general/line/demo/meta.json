@@ -155,6 +155,14 @@
         "en": "Slope Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RF2PTL6KNIQAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "line-style.ts",
+      "title": {
+        "zh": "折线标记样式",
+        "en": "Line Mark Style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YngNTKH3-0sAAAAAAAAAAAAAemJ7AQ/original"
     }
   ]
 }

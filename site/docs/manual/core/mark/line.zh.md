@@ -17,6 +17,7 @@ order: 12
 
   chart.options({
     type: 'line',
+    width: 900,
     autoFit: true,
     data: {
       type: 'fetch',
@@ -129,7 +130,11 @@ order: 12
       y: { nice: true },
       color: { palette: 'turbo' },
     },
-    style: { gradient: 'y', lineWidth: 2, lineJoin: 'bevel' },
+    style: {
+      gradient: 'y', // 渐变的方向
+      lineWidth: 2,
+      lineJoin: 'bevel', // 连接处样式
+    },
   });
 
   chart.render();
@@ -301,6 +306,140 @@ order: 12
 })();
 ```
 
+### coordinate
+
+`interval` 图形标记在不同坐标系下的展示有所差别。根据坐标系或坐标系转换的不同，可以绘制柱状图、条形图、玫瑰图、饼图等多种图表。
+
+| 坐标系或坐标系转换 | 坐标系配置              | 图表         |
+| ------------------ | ----------------------- | ------------ |
+| 直角坐标系         | `{ type: 'cartesian' }` | 折线图等     |
+| 极坐标系           | `{ type: 'polar' }`     | 雷达图等     |
+| `parallel` 坐标系  | `{ type: 'parallel' }`  | 平行坐标系等 |
+
+在**极坐标系**下折线图的表现形式为雷达图，在极坐标下线区域图需要进行闭合。常用来绘制雷达图等。
+
+```js | ob { pin: false }
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'line',
+    data: [
+      { item: 'Design', type: 'a', score: 70 },
+      { item: 'Design', type: 'b', score: 30 },
+      { item: 'Development', type: 'a', score: 60 },
+      { item: 'Development', type: 'b', score: 70 },
+      { item: 'Marketing', type: 'a', score: 50 },
+      { item: 'Marketing', type: 'b', score: 60 },
+      { item: 'Users', type: 'a', score: 40 },
+      { item: 'Users', type: 'b', score: 50 },
+      { item: 'Test', type: 'a', score: 60 },
+      { item: 'Test', type: 'b', score: 70 },
+      { item: 'Language', type: 'a', score: 70 },
+      { item: 'Language', type: 'b', score: 50 },
+      { item: 'Technology', type: 'a', score: 50 },
+      { item: 'Technology', type: 'b', score: 40 },
+      { item: 'Support', type: 'a', score: 30 },
+      { item: 'Support', type: 'b', score: 40 },
+      { item: 'Sales', type: 'a', score: 60 },
+      { item: 'Sales', type: 'b', score: 40 },
+      { item: 'UX', type: 'a', score: 50 },
+      { item: 'UX', type: 'b', score: 60 },
+    ],
+    encode: { x: 'item', y: 'score', color: 'type' },
+    // 调整比例尺，使得极坐标下的展示更友好
+    scale: {
+      x: { padding: 0.5, align: 0 },
+      y: { tickCount: 5, domainMin: 0, domainMax: 80 },
+    },
+    coordinate: { type: 'polar' }, // 设置极坐标系转换
+    style: { lineWidth: 2 },
+    axis: {
+      x: { grid: true, gridLineWidth: 1, tick: false, gridLineDash: [0, 0] },
+      y: {
+        zIndex: 1,
+        title: false,
+        gridLineWidth: 1, // 网格线宽度
+        gridLineDash: [0, 0], // 网格线虚线样式
+        gridAreaFill: (dataum, index, data) => {
+          return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';
+        }, // 网格线区域填充
+      },
+    },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+在**parallel 坐标系**下折线图常用来绘制平行坐标系。平行坐标系，是一种含有多个垂直平行坐标轴的统计图表。每个垂直坐标轴表示一个字段，每个字段又用刻度来标明范围。这样，一个多维的数据可以很容易的在每一条轴上找到“落点”，从而连接起来，形成一条折线。随着数据增多，折线堆叠，分析者则有可能从中发现特性和规律，比如发现数据之间的聚类关系。
+
+```js | ob { pin: false }
+(() => {
+  const chart = new G2.Chart();
+  const positionList = [
+    'position',
+    'position1',
+    'position2',
+    'position3',
+    'position4',
+    'position5',
+    'position6',
+    'position7',
+  ];
+  const axis = {
+    zIndex: 1,
+    titlePosition: 'right',
+    line: true,
+    labelStroke: '#fff',
+    labelLineWidth: 5,
+    labelFontSize: 10,
+    labelStrokeLineJoin: 'round',
+    titleStroke: '#fff',
+    titleFontSize: 10,
+    titleLineWidth: 5,
+    titleStrokeLineJoin: 'round',
+    titleTransform: 'translate(-50%, 0) rotate(-90)',
+    lineStroke: 'black',
+    tickStroke: 'black',
+    lineLineWidth: 1,
+  };
+
+  chart.options({
+    type: 'line',
+    paddingLeft: 20,
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+    },
+    encode: {
+      position: [
+        'economy (mpg)',
+        'cylinders',
+        'displacement (cc)',
+        'power (hp)',
+        'weight (lb)',
+        '0-60 mph (s)',
+        'year',
+      ],
+      color: 'weight (lb)',
+    },
+    axis: Object.fromEntries(positionList.map((item) => [item, axis])),
+    scale: { color: { palette: 'brBG', offset: (t) => 1 - t } },
+    coordinate: { type: 'parallel' }, // 配置平行坐标系转转换
+    style: { lineWidth: 1.5, strokeOpacity: 0.4 },
+    legend: { color: { length: 400, layout: { justifyContent: 'center' } } },
+    interaction: { tooltip: { series: false } },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
 ### style
 
 配置 `line` 标记的样式。
@@ -335,4 +474,36 @@ order: 12
 | shadowOffsetY        | 设置阴影距`line` 图形的垂直距离                                                                                              | _number_                      | -                                                          |      |
 | cursor               | `line` 图形的鼠标样式。同 css 的鼠标样式。                                                                                   | _string_                      | `default`                                                  |      |
 
+尝试一下：
+
+<Playground path="style/general/line/demo/line-style.ts" rid="mark-line-style"></playground>
+
 ## 示例
+
+- 怎么绘制一个零值折线图？
+
+配置 `y` 通道的比例尺 `scale`，自定义y轴的值域。
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'line',
+    data: [
+      { date: '06-10', count: 0, type: '测试' },
+      { date: '06-11', count: 0, type: '测试' },
+      { date: '06-12', count: 0, type: '测试' },
+      { date: '06-13', count: 0, type: '测试' },
+      { date: '06-14', count: 0, type: '测试' },
+      { date: '06-15', count: 0, type: '测试' },
+      { date: '06-16', count: 0, type: '测试' },
+    ],
+    encode: { x: 'date', y: 'count' },
+    scale: { y: { domain: [0, 1] } },
+  });
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
