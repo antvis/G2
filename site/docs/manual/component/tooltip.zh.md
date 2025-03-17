@@ -103,41 +103,41 @@ chart.options({
 
 **interaction.tooltip**
 
-| 属性                   | 描述                                                                                     | 类型                                           | 默认值       | 适用于               |
-| ---------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------- | ------------ | -------------------- |
-| body                   | 是否展示 tooltip                                                                         | `boolean`                                      | `true`       |                      |
-| bounding               | 控制`Tooltip`提示框的显示边界，超出会自动调整位置                                        | `BBox`                                         | 图表区域大小 |                      |
-| css                    | 设置 tooltip 样式                                                                        | [css](#设置样式)                               |              |                      |
-| crosshairs             | 配置是否显示 crosshairs，详见[crosshairs 配置](#crosshairs)                              | `boolean`                                      |              |                      |
-| crosshairsLineDash     | 配置`crosshairs`虚线的间隔                                                               | [crosshairs 配置](#crosshairs)                 |              |                      |
-| crosshairsStroke       | 配置`crosshairs`显示的颜色                                                               | `string`                                       |              |                      |
-| crosshairsStrokeWidth  | 配置`crosshairs`十字辅助线的线条宽度                                                     | `number`                                       |              |                      |
-| crosshairsXStroke      | 配置`crosshairs`X 轴显示的颜色                                                           | `string`                                       |              |                      |
-| crosshairsXLineDash    | 配置`crosshairs`X 轴虚线的间隔                                                           | [crosshairs 配置](#crosshairs)                 |              |                      |
-| crosshairsXStroke      | 配置`crosshairs`X 轴显示的颜色                                                           | `string`                                       |              |                      |
-| crosshairsXStrokeWidth | 配置`crosshairs`X 轴十字辅助线的线条宽度                                                 | `number`                                       |              |                      |
-| crosshairsYStroke      | 配置`crosshairs`Y 轴显示的颜色                                                           | `string`                                       |              |                      |
-| crosshairsYLineDash    | 配置`crosshairs`Y 轴虚线的间隔                                                           | [crosshairs 配置](#crosshairs)                 |              |                      |
-| crosshairsYStroke      | 配置`crosshairs`Y 轴显示的颜色                                                           | `string`                                       |              |                      |
-| crosshairsYStrokeWidth | 配置`crosshairs`Y 轴十字辅助线的线条宽度                                                 | `number`                                       |              |                      |
-| disableNative          | 禁用 pointerover 和 pointerout 事件                                                      | `boolean`                                      | `false`      |                      |
-| enterable              | tooltip 是否允许鼠标滑入                                                                 | `boolean`                                      | `false`      |                      |
-| filter                 | item 筛选器                                                                              | `(d: TooltipItemValue) => any`                 | -            |                      |
-| groupName              | 是否使用 groupName                                                                       | `boolean`                                      | `true`       |                      |
-| leading                | 是否在时间间隔开始的时候更新提示信息                                                     | `boolean`                                      | `true`       |                      |
-| marker                 | 是否展示 marker                                                                          | `boolean`                                      | `true`       |                      |
-| `marker${StyleAttrs}`  | marker 的样式                                                                            | `number \| string`                             | -            |                      |
-| markerType             | markerType 是提示框（Tooltip）配置项中的一个属性，用于控制提示框中标记点（Marker）的样式 | `'hollow' \| undefined`                        | `undefined`  |                      |
-| mount                  | 指定提示框的挂载节点                                                                     | `string` \| `HTMLElement`                      | 图表容器     |                      |
-| position               | 设置 tooltip 的固定展示位置，相对于数据点                                                | `TooltipPosition` |              |                      |
-| offset                 | 在位置方向上的偏移量                                                                     | `[number, number]` `                           | [10, 10]     |                      |
-| render                 | 自定义渲染`tooltip`内容[render] (#自定义渲染内容)                                        | `(event, options) => HTMLElement \| string`    |              |                      |
-| series                 | 是否是系列元素的 tooltip                                                                 | `boolean`                                      |              | 多条折线、多组柱状图 |
-| shared                 | 相同 x 的元素是否共享 tooltip                                                            | `boolean`                                      | `false`      |                      |
-| sort                   | item 排序器                                                                              | `(d: TooltipItemValue) => any`                 | -            |                      |
-| trailing               | 是否在时间间隔结束的时候更新提示信息                                                     | `boolean`                                      | `false`      |                      |
-| trailing               | 是否在时间间隔结束的时候更新提示信息                                                     | `boolean`                                      | `false`      |                      |
-| wait                   | 提示信息更新的时间间隔，单位为毫秒                                                       | `number`                                       | `50`         |                      |
+| 属性                   | 描述                                                                                     | 类型                                        | 默认值       | 适用于               |
+| ---------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------- | ------------ | -------------------- |
+| body                   | 是否展示 tooltip                                                                         | `boolean`                                   | `true`       |                      |
+| bounding               | 控制`Tooltip`提示框的显示边界，超出会自动调整位置                                        | `BBox`                                      | 图表区域大小 |                      |
+| css                    | 设置 tooltip 样式                                                                        | [css](#设置样式)                            |              |                      |
+| crosshairs             | 配置是否显示 crosshairs，详见[crosshairs 配置](#crosshairs)                              | `boolean`                                   |              |                      |
+| crosshairsLineDash     | 配置`crosshairs`虚线的间隔                                                               | [crosshairs 配置](#crosshairs)              |              |                      |
+| crosshairsStroke       | 配置`crosshairs`显示的颜色                                                               | `string`                                    |              |                      |
+| crosshairsStrokeWidth  | 配置`crosshairs`十字辅助线的线条宽度                                                     | `number`                                    |              |                      |
+| crosshairsXStroke      | 配置`crosshairs`X 轴显示的颜色                                                           | `string`                                    |              |                      |
+| crosshairsXLineDash    | 配置`crosshairs`X 轴虚线的间隔                                                           | [crosshairs 配置](#crosshairs)              |              |                      |
+| crosshairsXStroke      | 配置`crosshairs`X 轴显示的颜色                                                           | `string`                                    |              |                      |
+| crosshairsXStrokeWidth | 配置`crosshairs`X 轴十字辅助线的线条宽度                                                 | `number`                                    |              |                      |
+| crosshairsYStroke      | 配置`crosshairs`Y 轴显示的颜色                                                           | `string`                                    |              |                      |
+| crosshairsYLineDash    | 配置`crosshairs`Y 轴虚线的间隔                                                           | [crosshairs 配置](#crosshairs)              |              |                      |
+| crosshairsYStroke      | 配置`crosshairs`Y 轴显示的颜色                                                           | `string`                                    |              |                      |
+| crosshairsYStrokeWidth | 配置`crosshairs`Y 轴十字辅助线的线条宽度                                                 | `number`                                    |              |                      |
+| disableNative          | 禁用 pointerover 和 pointerout 事件                                                      | `boolean`                                   | `false`      |                      |
+| enterable              | tooltip 是否允许鼠标滑入                                                                 | `boolean`                                   | `false`      |                      |
+| filter                 | item 筛选器                                                                              | `(d: TooltipItemValue) => any`              | -            |                      |
+| groupName              | 是否使用 groupName                                                                       | `boolean`                                   | `true`       |                      |
+| leading                | 是否在时间间隔开始的时候更新提示信息                                                     | `boolean`                                   | `true`       |                      |
+| marker                 | 是否展示 marker                                                                          | `boolean`                                   | `true`       |                      |
+| `marker${StyleAttrs}`  | marker 的样式                                                                            | `number \| string`                          | -            |                      |
+| markerType             | markerType 是提示框（Tooltip）配置项中的一个属性，用于控制提示框中标记点（Marker）的样式 | `'hollow' \| undefined`                     | `undefined`  |                      |
+| mount                  | 指定提示框的挂载节点                                                                     | `string` \| `HTMLElement`                   | 图表容器     |                      |
+| position               | 设置 tooltip 的固定展示位置，相对于数据点                                                | `TooltipPosition`                           |              |                      |
+| offset                 | 在位置方向上的偏移量                                                                     | `[number, number]` `                        | [10, 10]     |                      |
+| render                 | 自定义渲染`tooltip`内容[render] (#自定义渲染内容)                                        | `(event, options) => HTMLElement \| string` |              |                      |
+| series                 | 是否是系列元素的 tooltip                                                                 | `boolean`                                   |              | 多条折线、多组柱状图 |
+| shared                 | 相同 x 的元素是否共享 tooltip                                                            | `boolean`                                   | `false`      |                      |
+| sort                   | item 排序器                                                                              | `(d: TooltipItemValue) => any`              | -            |                      |
+| trailing               | 是否在时间间隔结束的时候更新提示信息                                                     | `boolean`                                   | `false`      |                      |
+| trailing               | 是否在时间间隔结束的时候更新提示信息                                                     | `boolean`                                   | `false`      |                      |
+| wait                   | 提示信息更新的时间间隔，单位为毫秒                                                       | `number`                                    | `50`         |                      |
 
 ```js
 type TooltipPosition =
@@ -150,7 +150,7 @@ type TooltipPosition =
   | 'bottom-left'
   | 'bottom-right';
 
-type BBox = { x: number; y: number; width: number; height: number };
+type BBox = { x: number, y: number, width: number, height: number };
 ```
 
 ### crosshairs
@@ -260,12 +260,12 @@ chart.options({
 ```js
 chart.options({
   tooltip: {
-    title: (d, index, data, column) => ({
+    title: (datum, index, data, column) => ({
       value: `<span style="color: #00ff00; font-style: italic;">${d.letter}</span>`,
       custom: ...
     }),
     items: [
-      (d, index, data, column) => ({
+      (datum, index, data, column) => ({
         color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
         name: index === 0 ? d.genre : `${d.genre} ${data[i].genre}`, // 指定 item 的名字
         value: column.y.value[i], // 使用 y 通道的值、
@@ -345,7 +345,7 @@ chart.options({
 ({
   tooltip: {
     nodeItems: [
-      (d, index, data, column) => {
+      (datum, index, data, column) => {
         return {
           color: 'red', // 指定 item 的颜色
           name: '节点', // 指定 item 的名字
@@ -355,7 +355,7 @@ chart.options({
       },
     ],
     linkItems: [
-      (d, index, data, column) => {
+      (datum, index, data, column) => {
         return {
           color: 'red', // 指定 item 的颜色
           name: '连接线', // 指定 item 的名字
@@ -498,7 +498,7 @@ render 函数提供了强大的个性化配置能力，通过对`tooltip.render`
 chart.options({
   tooltip: {
     items: [
-      (d, index, data, column) => ({
+      (datum, index, data, column) => ({
         color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
         name: index === 0 ? d.genre : `${d.genre} ${data[i].genre}`, // 指定 item 的名字
         value: column.y.value[i], // 使用 y 通道的值、
@@ -523,94 +523,83 @@ chart.options({
 });
 ```
 
-**桑基图怎么使用 data 中的补充属性实现自定义 tooltip 的展示？**
+**桑基图这种复合图形怎么使用 data 中的补充属性实现自定义 tooltip 的展示？**
 
 和一般`Mark`自定义`tooltip`交互的方法类似，先在图形的`tooltip.render`里返回自定义属性，然后在`interaction.render`里使用。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-
-  const data = {
-    nodes: [
-      { id: 'a', key: '首页', des: '节点自定义属性' },
-      { id: 'b', key: '页面1', des: '节点自定义属性' },
-      { id: 'b_1', key: '页面1', des: '节点自定义属性' },
-      { id: 'c', key: '页面2', des: '节点自定义属性' },
-      { id: 'c_1', key: '页面2', des: '节点自定义属性' },
-      { id: 'd', key: '页面3', des: '节点自定义属性' },
-      { id: 'd_1', key: '页面3', des: '节点自定义属性' },
-    ],
-    links: [
-      { source: 'a', target: 'b', value: 100 },
-      { source: 'b', target: 'c', value: 80 },
-      { source: 'b', target: 'd', value: 20 },
-      { source: 'c', target: 'b_1', value: 80 },
-      { source: 'b_1', target: 'c_1', value: 40 },
-      { source: 'b_1', target: 'd_1', value: 40 },
-    ],
-  };
-
-  chart.options({
-    type: 'sankey',
-    width: 900,
-    height: 600,
-    data: {
-      value: data,
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => ({
-            nodes: data.nodes,
-            links: data.links,
-          }),
-        },
+```js
+({
+  type: 'sankey',
+  data: {
+    value: {
+      nodes: [
+        { id: 'a', key: '首页', des: '节点自定义属性' },
+        { id: 'b', key: '页面1', des: '节点自定义属性' },
+        { id: 'b_1', key: '页面1', des: '节点自定义属性' },
+        { id: 'c', key: '页面2', des: '节点自定义属性' },
+        { id: 'c_1', key: '页面2', des: '节点自定义属性' },
+        { id: 'd', key: '页面3', des: '节点自定义属性' },
+        { id: 'd_1', key: '页面3', des: '节点自定义属性' },
+      ],
+      links: [
+        { source: 'a', target: 'b', value: 100 },
+        { source: 'b', target: 'c', value: 80 },
+        { source: 'b', target: 'd', value: 20 },
+        { source: 'c', target: 'b_1', value: 80 },
+        { source: 'b_1', target: 'c_1', value: 40 },
+        { source: 'b_1', target: 'd_1', value: 40 },
       ],
     },
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => ({
+          nodes: data.nodes,
+          links: data.links,
+        }),
+      },
+    ],
+  },
+  tooltip: {
+    nodeItems: [
+      (datum, index, data, column) => {
+        return {
+          content: d.des,
+        };
+        z;
+      },
+    ],
+    linkItems: [
+      (datum, index, data, column) => {
+        return {
+          color: 'red', // 指定 item 的颜色
+          name: '连接线', // 指定 item 的名字
+          value: `${d.source.key}-${d.target.key}`, // 使用 y 通道的值
+          content: '连接线自定义属性',
+        };
+      },
+    ],
+  },
+  layout: {
+    nodeId: (d) => d.id,
+    nodeAlign: 'center',
+    nodePadding: 0.03,
+    iterations: 25,
+  },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    linkFillOpacity: 0.2,
+    linkFill: '#3F96FF',
+  },
+  interaction: {
     tooltip: {
-      nodeItems: [
-        (d, index, data, column) => {
-          return {
-            content: d.des,
-          };
-        },
-      ],
-      linkItems: [
-        (d, index, data, column) => {
-          return {
-            color: 'red', // 指定 item 的颜色
-            name: '连接线', // 指定 item 的名字
-            value: `${d.source.key}-${d.target.key}`, // 使用 y 通道的值
-            content: '连接线自定义属性',
-          };
-        },
-      ],
-    },
-    layout: {
-      nodeId: (d) => d.id,
-      nodeAlign: 'center',
-      nodePadding: 0.03,
-      iterations: 25,
-    },
-    style: {
-      labelSpacing: 3,
-      labelFontWeight: 'bold',
-      // linkFillOpacity: 0.2,
-      // linkFill: '#3F96FF',
-    },
-    interaction: {
-      tooltip: {
-        render: (e, { items, title }) => {
-          return `<div>${items[0].content}</div>`;
-        },
+      render: (e, { items, title }) => {
+        return `<div>${items[0].content}</div>`;
       },
     },
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
+  },
+});
 ```
 
 ### 配置 tooltip 显示隐藏事件
@@ -629,7 +618,7 @@ chart.on('tooltip:hide', () => {
 
 尝试一下
 
-<Playground path="style/component/tooltip/demo/tooltip-custom.ts" rid="tooltip-custom"></playground>
+<Playground path="style/annotation/line/demo/histogram-mean-line.ts" rid="tooltip-custom"></playground>
 
 ## 案例
 
