@@ -1,3 +1,22 @@
+## [5.2.12](https://github.com/antvis/g2/compare/5.2.11...5.2.12) (2025-03-17)
+
+
+### Bug Fixes
+
+* **chart:** resolve issue [#6544](https://github.com/antvis/g2/issues/6544) with line chart sorting ([#6621](https://github.com/antvis/g2/issues/6621)) ([7000e20](https://github.com/antvis/g2/commit/7000e2082c690bab9c02d24add7b870e849cf299))
+* eliminate empty entries in word-cloud legend items ([#6614](https://github.com/antvis/g2/issues/6614)) ([7909a21](https://github.com/antvis/g2/commit/7909a21530443ce4be3a5e5ef6cb3438bd5e749c))
+* items callback's priority ([#6630](https://github.com/antvis/g2/issues/6630)) ([73daf22](https://github.com/antvis/g2/commit/73daf22d7789dabfe266aa3ef2d2e8ab260d3dd1))
+* overriding style.d causes custom rendering errors ([#6603](https://github.com/antvis/g2/issues/6603)) ([cbff5f0](https://github.com/antvis/g2/commit/cbff5f04dcecb41c6507349e48816a87ea683340))
+
+
+### Features
+
+* add action to update documentations to yuque ([#6627](https://github.com/antvis/g2/issues/6627)) ([086b39e](https://github.com/antvis/g2/commit/086b39e3a675e73433ccfae3f494f660874ec8e2))
+* add support for multi-select hotkeys ([#6628](https://github.com/antvis/g2/issues/6628)) ([f0c21a1](https://github.com/antvis/g2/commit/f0c21a161a34613efb1f0d27322320d5dc0a9d30))
+* **docs:** update docs, image、linX、lineY、link、liquid、polygon ([#6635](https://github.com/antvis/g2/issues/6635)) ([a9c9ce9](https://github.com/antvis/g2/commit/a9c9ce949a6eaae82b8725d3361a7b69b0527d08))
+
+
+
 ## [5.2.11](https://github.com/antvis/g2/compare/5.2.10...5.2.11) (2025-02-11)
 
 
