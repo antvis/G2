@@ -627,56 +627,26 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 ### style
 
-style 样式内部做了处理，可以直接在配置项配置这些样式
+`style` 标签样式配置，内部做了处理，可以直接在配置项配置样式。具体样式配置，可参考 [文本样式配置](#文本样式配置)、[connector 连接线样式](#connector)、[background 背景样式](#background) 。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-
-  chart.options({
-    type: "interval",
-    width: 500,
-    height: 400,
-    data: [
-      { id: "c", value: 526 },
-      { id: "sass", value: 220 },
-      { id: "php", value: 325 },
-      { id: "elixir", value: 561 },
-      { id: "rust", value: 54 },
-    ],
-    encode: { y: "value", color: "id" },
-    transform: [{ type: "stackY" }],
-    coordinate: { type: "theta", innerRadius: 0.25, outerRadius: 0.8 },
-    legend: false,
-    labels: [
-      {
-        text: "value",
-        fill: "#0700fa", // 文本样式
-        background: true, // 背景展示
-        backgroundFill: "#fff",
-        backgroundRadius: 4,
-      },
-      {
-        text: "id",
-        position: "spider",
-        fontWeight: "bold",
-        fontSize: 14,
-        textBaseline: "bottom",
-        connectorDistance: 0, // 文本和连接线的间距
-        textAlign: (d) => (["c", "sass"].includes(d.id) ? "end" : "start"),
-        connectorStroke: "#0649f2", 
-        connectorLineWidth: 2,
-      },
-    ],
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
+```js
+({
+  labels: [{
+    style: {
+      fontSize: 20,
+      fontWeight: 600,
+      lineHeight: 30,
+      textAlign: 'center',
+      connectorStroke: '#000',
+      connectorLineWidth: 2,
+      backgroundFill: '#f5f5f5',
+      backgroundRadius: 4,
+    },
+  }],
+});
 ```
 
-#### 文本样式配置
+### 文本样式配置
 
 标签**文本样式**配置，继承自 `G` 引擎的 `Text`, 其上的样式都通用。
 
@@ -701,23 +671,132 @@ style 样式内部做了处理，可以直接在配置项配置这些样式
 | shadowOffsetY | 设置阴影距图形的垂直距离                                                                                                      | _number_ \| _Function<number>_                                                     | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                                 | _string_ \| _Function<string>_                                                     | `default` |      |
 
-#### connector
+```js
+({
+  labels: [{
+      fill: '#000',
+      fontSize: 20,
+      lineHeight: 30,
+      fontWeight: 600,
+      textAlign: 'center',
+      textBaseline: 'middle',
+      fontFamily: 'sans-serif',
+      opacity: 0.9,
+      cursor: 'pointer',
+      lineDash: [3,4],
+      lineWidth: 2,
+      stroke: '#fff',
+      strokeOpacity: 0.4,
+      shadowOffsetX: 10,
+      shadowOffsetY: 10,
+      shadowColor: '#000',
+      shadowBlur: 2,
+  }],
+});
+```
 
-标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线描边色。
+### connector
+
+标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线描边色。 需要 position `spider`、`surround` 才会有 connector 元素。
 
 | 参数                | 说明                                             | 类型     | 默认值 | 必选 |
 | ------------------- | ------------------------------------------------ | -------- | ------ | ---- |
-| connectorStroke     | 连接线描边色                                     | `string` | -      |      |
-| connectorLineWidth  | 连接线描边线宽                                   | `number` | -      |      |
-| `connector${style}` | 更多连接线样式配置，参考 `PathStyleProps` 属性值 | -        | -      |      |
+| connectorStroke     | 连接线描边色                                     | _string_ | -      |      |
+| connectorLineWidth  | 连接线描边线宽                                   | _number_ | -      |      |
+| connectorLineDash  | 连接线描边的虚线配置                                  | _\[number,number\]_ | -      |      |
+| connectorOpacity  | 连接线描边透明度                                  | _number_ | -      |      |
+| connectorDistance  | 连接线和文本的间距                               | _number_ | -      |      |
 
-#### background
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: "interval",
+    width: 500,
+    height: 400,
+    data: [
+      { id: "c", value: 526 },
+      { id: "sass", value: 220 },
+      { id: "php", value: 325 },
+      { id: "elixir", value: 561 },
+    ],
+    encode: { y: "value", color: "id" },
+    transform: [{ type: "stackY" }],
+    coordinate: { type: "theta", innerRadius: 0.25, outerRadius: 0.8 },
+    legend: false,
+    labels: [
+      {
+        text: "id",
+        position: "spider",
+        fontWeight: "bold",
+        fontSize: 14,
+        textBaseline: "bottom",
+        textAlign: (d) => (["c", "sass"].includes(d.id) ? "end" : "start"),
+        connectorDistance: 5, // 文本和连接线的间距
+        connectorStroke: "#0649f2", 
+        connectorLineWidth: 1,
+        connectorLineDash: [3,4],
+        connectorOpacity: 0.8,
+      },
+    ],
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+### background
 
 标签**文本背景框样式**配置，格式为: `background${style}`, 如: `backgroundFill` 代表背景框填充色。
 
 | 参数                 | 说明                                             | 类型       | 默认值 | 必选 |
 | -------------------- | ------------------------------------------------ | ---------- | ------ | ---- |
-| backgroundFill       | 背景框填充色                                     | `string`   | -      |      |
-| backgroundRadius     | 背景框圆角半径                                   | `number`   | -      |      |
-| backgroundPadding    | 背景框内间距                                     | `number[]` | -      |      |
-| `background${style}` | 更多背景框样式配置，参考 `RectStyleProps` 属性值 | -          | -      |      |
+| backgroundFill       | 背景框填充色                                     | _string_   | -      |      |
+| backgroundRadius     | 背景框圆角半径                                   | _number_   | -      |      |
+| backgroundPadding    | 背景框内间距                                     | _number[]_ | -      |      |
+| backgroundStroke | 背景描边颜色 | _string_           | -      |      |
+| backgroundLineDash | 背景描边虚线配置  | _\[number,number\]_           | -      |      |
+| backgroundLineWidth | 背景描边宽度 | _number_           | -      |      |
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: "interval",
+    width: 500,
+    height: 400,
+    data: [
+      { id: "c", value: 526 },
+      { id: "sass", value: 220 },
+      { id: "php", value: 325 },
+      { id: "elixir", value: 561 },
+    ],
+    encode: { y: "value", color: "id" },
+    transform: [{ type: "stackY" }],
+    coordinate: { type: "theta", innerRadius: 0.25, outerRadius: 0.8 },
+    legend: false,
+    labels: [
+      {
+        text: "value",
+        fill: "#0700fa", // 文本样式
+        background: true, // 背景展示
+        backgroundFill: "#fff",
+        backgroundRadius: 4,
+        backgroundPadding: [10,10,10,10],
+        backgroundOpacity: 0.4,
+        backgroundStroke: '#000',
+        backgroundLineDash: [3,4],
+        backgroundLineWidth: 1,
+      },
+    ],
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
