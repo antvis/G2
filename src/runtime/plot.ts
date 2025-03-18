@@ -1078,7 +1078,7 @@ async function plotView(
                 maybeFacetElement(element, parent, origin);
                 const node = shapeFunction(data, index);
                 const animation = updateFunction(data, [element], [node]);
-                if (animation !== null) return animation;
+                if (animation?.length) return animation;
                 if (
                   element.nodeName === node.nodeName &&
                   node.nodeName !== 'g'
@@ -1631,8 +1631,13 @@ function createAnimationFunction(
     const animateFunction = useAnimation(options, context);
     const value = { delay, duration, easing };
     const A = animateFunction(from, to, deepMix(defaultEffectTiming, value));
-    if (!Array.isArray(A)) return [A];
-    return A;
+    let an: GAnimation[] = [];
+    if (!Array.isArray(A)) {
+      an = [A];
+    } else {
+      an = A;
+    }
+    return an.filter(Boolean);
   };
 }
 
