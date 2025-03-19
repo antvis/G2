@@ -1,7 +1,7 @@
 name: '📖 Docs Feedback'
 description: 'Help us make our docs better! Share your thoughts and suggestions / 帮助我们改进文档！分享您的想法和建议'
 labels: ['waiting for maintainer']
-title: '[docs]: '
+title: '[Docs]: '
 body:
   - type: markdown
     attributes:
