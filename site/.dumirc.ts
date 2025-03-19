@@ -429,19 +429,7 @@ export default defineConfig({
         </html>`,
     },
     /** 公告 */
-    announcement: {
-      title: {
-        zh: '参与 AntV 文档体验问卷，助力打造更友好的开发者文档，有机会赢取 AntV 限定周边！👉',
-        en: 'Join in the AntV Documentation Experience Survey to help us create more developer-friendly documentation, and stand a chance to win exclusive AntV merchandise! 👉',
-      },
-      link: {
-        url: 'https://www.wjx.cn/vm/Pf0XYWM.aspx#',
-        text: {
-          zh: '立即填写',
-          en: 'Fill in now',
-        },
-      },
-    },
+    announcement: {},
     /** 首页技术栈介绍 */
     detail: {
       engine: {
