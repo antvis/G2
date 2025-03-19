@@ -1,112 +1,47 @@
-name: '✏️ OSCP Season of Docs'
-description: '通过开源社区的力量，共同打造更友好、更易上手的 AntV 文档 | Contribute to AntV G2 documentation with the power of open source community'
-labels: ['OSCP']
-title: '[OSCP][G2]: '
-body:
-  - type: markdown
-    attributes:
-      value: |
-        ### 任务介绍
+# name: 'AntV OSCP 计划 / AntV OSCP Plan'
+# description: AntV 开源共建计划(仅供管理员使用) / AntV Open Source Contribution Plan(For administrators only)
+# body:
+#   - type: checkboxes
+#     id: AntV_OSCP_program
+#     attributes:
+#       label: AntV Open Source Contribution Plan（可选/Optional）
+#       description: |
+#         AntV 开源共建计划期望可以基于 AntV 的开源 Roadmap 开放具体开发任务到社区，以社区共建任务的形式推动“AntV” 的开源发展，也期望有更多社区伙伴各各种形式参与到 AntV 的开源共建中，共同参与数据可视化开源生态的持续建设。
+#         AntV Open Source Contribution Plan expects to open specific development tasks to the community based on AntV's open source roadmap, promote the open source development of "AntV" in the form of community co-construction tasks, and also hope that more community partners will participate in AntV's open source co-construction in various forms, and jointly participate in the continuous construction of the data visualization open source ecosystem.
 
-        > 此 ISSUE 为 [AntV 开源共建计划（AntV Open Source Contribution Plan，简称 AntV OSCP）Phase3 - 文档季](https://github.com/antvis/G2/issues/6882)的任务 ISSUE，欢迎社区开发者参与共建~
-        >  - 更多任务，可查看 [GitHub Project - 2025 AntV OSCP Season of Docs](https://github.com/orgs/antvis/projects/31)。
+#         若有感兴趣想要认领的任务，可直接回复认领，如果你是首次认领可先完成初级入门任务。
+#         If you are interested in claiming a task, you can directly reply to claim it. If you are claiming for the first time, you can complete the primary entry task first.
 
-        > This ISSUE is one of the tasks of the [AntV Open Source Contribution Plan (referred to as AntV OSCP) Pharse3 - Season of Docs](https://github.com/antvis/G2/issues/6882) . Welcome to join us in building it together!
-        > - For more tasks, you can check the [GitHub Project - 2025 AntV OSCP Season of Docs](https://github.com/orgs/antvis/projects/31).
-
-        ## 改造文档「xxx」
-
-        ### 任务介绍
-
-        - 任务名称：改造 [xxx](https://g2.antv.antgroup.com/manual/xxx) 文档
-        - 技术方向：g2 / docs
-        - 任务难度：新手友好 🌟 / 进阶 🌟🌟 / 专家 🌟🌟🌟
-        - 可获得积分：20分 / 30分 / 50分
-
-        ### 详细要求
-
-        - 文档规范：
-          - 参考示例：
-            - [核心概念 - 标记（Mark） - interval](https://g2.antv.antgroup.com/manual/core/mark/interval)
-            - [图表组件 - 图例（Legend）](https://g2.antv.antgroup.com/manual/plugin/build-in/toolbar)
-          - 文档结构：「标记」部分的文档至少应该包括 **概述**、**配置项**，**示例** 几个部分。
-          - 内容规范：
-            - 属性表格需要包含【属性】【描述】【类型】【默认值】【必选】列，所有的配置项包括绘图属性需要罗列完整。
-            - 复杂类型单独解释说明
-            - 必要时可配上示意图
-
-        ### 能力要求
-
-        ```
-        - 对 G2 有一定了解，能阅读 G2 源码，编写示例。
-        ```
-
-        ### 执行路径
-
-        #### 1. 认领任务
-
-        选择感兴趣的且没有 Assignee 的任务，按格式回复，该任务 assign 给你后即为成功认领~
-        - 认领回复格式：【@GitHub ID + Give it to me】
-        - eg：【@interstellarmt Give it to me】
-
-        #### 2. 做任务
-
-        1. clone  g2 代码
-
-        ```bash
-        git clone https://github.com/antvis/G2.git
-        ```
-
-        2. 拉取所有线上分支
-
-        ```bash
-        git fetch
-        ```
-
-        3. 切换到 v5 分支
-
-        ```bash
-        git checkout v5
-        ```
-
-        4. 安装依赖
-
-        ```bash
-        pnpm install
-        ```
-
-        5. 进入 site 包
-
-        ```bash
-        cd site
-        ```
-        6. 安装 site 依赖
-
-        ```bash
-        pnpm install
-        ```
-
-        6. 本地启动 site 站点
-
-        ```bash
-        pnpm run start
-        ```
-
-        7. 优化文档并预览效果
-
-        对应文件位于 `site/docs/manual/xxx.zh.md`
-
-        #### 3. 提交 PR
-
-        > 请保证文档语意通顺、格式正确、代码示例完整且能够正确编译，否则该 PR 将不会被 review 和 merge，此 issue 将被重新释放。
-
-        1. 提交 Pull Request，等待 Code Review
-
-        - PR 标题参考 `docs: 任务名称` ，如 `docs: 改造「核心概念 - 标记（Mark）-wordCloud」文档` ，并关联 `OSCP` 标签，以便快速进入 PR review 阶段。
-        - PR 与对应任务 ISSUE 进行关联，方式：在 PR 正文中，通过 `- Fixed: #任务 ISSUE 号` 即可实现关联，eg：
-
-        ![Image](https://github.com/user-attachments/assets/a05cc8f5-d42b-47fd-b3e2-be796a8b8017)
-
-        2. 根据（多次） Code Review 建议修改
-
-        3 等待合并入 v5 分支后，积分生效
+#       options:
+#         - label: 我同意将这个 Issue 参与 OSCP 计划 / I agree to participate in the OSCP plan
+#     validations:
+#       required: false
+#   - type: dropdown
+#     id: issue_oscp_difficulty
+#     attributes:
+#       label: Issue 类型 / Issue Type
+#       options:
+#         - 初级任务 / Primary Task
+#         - 中级任务 / Intermediate Task
+#         - 高级任务 / Advanced Task
+#         - 专家任务 / Expert Task
+#     validations:
+#       required: false
+#   - type: textarea
+#     id: oscp_task_description
+#     attributes:
+#       label: 任务介绍 / Task Description
+#       description: |
+#         简单描述任务背景信息，为了解决哪些问题
+#         Briefly describe the background information of the task and what problems to solve
+#     validations:
+#       required: false
+#   - type: textarea
+#     id: oscp_task_info_ref
+#     attributes:
+#       label: 参考说明 / Reference Description
+#       description: |
+#         提供一些可参考的 demo，相关教程辅助用户解决问题
+#         Provide some demos and related tutorials for users to solve problems
+#     validations:
+#       required: false
