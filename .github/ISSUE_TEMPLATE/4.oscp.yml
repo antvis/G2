@@ -31,6 +31,7 @@ body:
             - [核心概念 - 标记（Mark） - interval](https://g2.antv.antgroup.com/manual/core/mark/interval)
             - [图表组件 - 图例（Legend）](https://g2.antv.antgroup.com/manual/plugin/build-in/toolbar)
           - 文档结构：「标记」部分的文档至少应该包括 **概述**、**配置项**，**示例** 几个部分。
+          - 代码规范：示例代码统一使用 `spec` 语法。即 `chart.options({})`，可以在图表示例页面完成切换。
           - 内容规范：
             - 属性表格需要包含【属性】【描述】【类型】【默认值】【必选】列，所有的配置项包括绘图属性需要罗列完整。
             - 复杂类型单独解释说明
@@ -87,13 +88,13 @@ body:
         pnpm install
         ```
 
-        6. 本地启动 site 站点
+        7. 本地启动 site 站点
 
         ```bash
         pnpm run start
         ```
 
-        7. 优化文档并预览效果
+        8. 优化文档并预览效果
 
         对应文件位于 `site/docs/manual/xxx.zh.md`
 
