@@ -6,6 +6,7 @@ const chart = new Chart({
 });
 
 chart.title({
+  align: 'right',
   title: 'Sold by genre, sorted by sold',
   titleFontSize: 15,
   subtitle: 'It shows the sales volume of genre, sored by sold.',
