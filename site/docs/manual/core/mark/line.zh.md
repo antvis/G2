@@ -446,33 +446,33 @@ order: 12
 
 | 属性                 | 描述                                                                                                                         | 类型                          | 默认值                                                     | 必选 |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ---------------------------------------------------------- | ---- |
-| gradient             | 配置渐变色折线图时，渐变的方向，为 `true` 的时候默认为`y`                                                                    | `x` \| `y` \|`true`           | `false`                                                    |      |
+| gradient             | 配置渐变色折线图时，渐变的方向，为 true 的时候默认为`y`                                                                      | `x` \| `y` \|true             | false                                                      |      |
 | gradientColor        | 每个节点的颜色对应渐变色的部分                                                                                               | `between` \| `start` \|`end`  | `between`                                                  |      |
 | lineJoin             | 连接处样式,见[lineJoin](https://g.antv.antgroup.com/api/basic/display-object#%E6%8F%8F%E8%BE%B9)                             | `miter` \| `round` \| `bevel` | -                                                          |      |
-| connect              | 是否用 `connector` 图形连接空值                                                                                              | _boolean_                     | `false`                                                    |      |
-| defined              | 决定数据是否为空值                                                                                                           | _(d: any) => boolean_         | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |      |
-| connectFill          | `connector` 图形填充色                                                                                                       | _string_                      | -                                                          |      |
-| connectFillOpacity   | `connector` 图形填充透明度                                                                                                   | _number_                      | -                                                          |      |
-| connectStroke        | `connector` 图形的描边                                                                                                       | _string_                      | -                                                          |      |
-| connectStrokeOpacity | `connector` 图形描边透明度                                                                                                   | _number_                      | -                                                          |      |
-| connectLineWidth     | `connector` 图形描边的宽度                                                                                                   | _number_                      | -                                                          |      |
-| connectLineDash      | `connector` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _[number,number]_             | -                                                          |      |
-| connectOpacity       | `connector` 图形的整体透明度                                                                                                 | _number_                      | -                                                          |      |
-| connectShadowColor   | `connector` 图形阴影颜色                                                                                                     | _string_                      | -                                                          |      |
-| connectShadowBlur    | `connector` 图形阴影的高斯模糊系数                                                                                           | _number_                      | -                                                          |      |
-| connectShadowOffsetX | 设置阴影距`connector` 图形的水平距离                                                                                         | _number_                      | -                                                          |      |
-| connectShadowOffsetY | 设置阴影距`connector` 图形的垂直距离                                                                                         | _number_                      | -                                                          |      |
-| connectCursor        | `connector` 图形鼠标样式。同 css 的鼠标样式。                                                                                | _string_                      | `default`                                                  |      |
-| stroke               | `line` 图形的描边                                                                                                            | _string_                      | -                                                          |      |
-| strokeOpacity        | `line` 图形的描边透明度                                                                                                      | _number_                      | `1`                                                        |      |
-| lineWidth            | `line` 图形描边的宽度                                                                                                        | _number_                      | `1`                                                        |      |
-| lineDash             | `line` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。     | _[number,number]_             | -                                                          |      |
-| opacity              | `line` 图形的整体透明度                                                                                                      | _number_                      | -                                                          |      |
-| shadowColor          | `line` 图形阴影颜色                                                                                                          | _string_                      | -                                                          |      |
-| shadowBlur           | `line` 图形阴影的高斯模糊系数                                                                                                | _number_                      | -                                                          |      |
-| shadowOffsetX        | 设置阴影距`line` 图形的水平距离                                                                                              | _number_                      | -                                                          |      |
-| shadowOffsetY        | 设置阴影距`line` 图形的垂直距离                                                                                              | _number_                      | -                                                          |      |
-| cursor               | `line` 图形的鼠标样式。同 css 的鼠标样式。                                                                                   | _string_                      | `default`                                                  |      |
+| connect              | 是否用 `connector` 图形连接空值                                                                                              | boolean                       | false                                                      |      |
+| defined              | 决定数据是否为空值                                                                                                           | (d: any) => boolean           | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |      |
+| connectFill          | `connector` 图形填充色                                                                                                       | string                        | -                                                          |      |
+| connectFillOpacity   | `connector` 图形填充透明度                                                                                                   | number                        | -                                                          |      |
+| connectStroke        | `connector` 图形的描边                                                                                                       | string                        | -                                                          |      |
+| connectStrokeOpacity | `connector` 图形描边透明度                                                                                                   | number                        | -                                                          |      |
+| connectLineWidth     | `connector` 图形描边的宽度                                                                                                   | number                        | -                                                          |      |
+| connectLineDash      | `connector` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number]               | -                                                          |      |
+| connectOpacity       | `connector` 图形的整体透明度                                                                                                 | number                        | -                                                          |      |
+| connectShadowColor   | `connector` 图形阴影颜色                                                                                                     | string                        | -                                                          |      |
+| connectShadowBlur    | `connector` 图形阴影的高斯模糊系数                                                                                           | number                        | -                                                          |      |
+| connectShadowOffsetX | 设置阴影距`connector` 图形的水平距离                                                                                         | number                        | -                                                          |      |
+| connectShadowOffsetY | 设置阴影距`connector` 图形的垂直距离                                                                                         | number                        | -                                                          |      |
+| connectCursor        | `connector` 图形鼠标样式。同 css 的鼠标样式。                                                                                | string                        | `default`                                                  |      |
+| stroke               | `line` 图形的描边                                                                                                            | string                        | -                                                          |      |
+| strokeOpacity        | `line` 图形的描边透明度                                                                                                      | number                        | `1`                                                        |      |
+| lineWidth            | `line` 图形描边的宽度                                                                                                        | number                        | `1`                                                        |      |
+| lineDash             | `line` 图形描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。     | [number,number]               | -                                                          |      |
+| opacity              | `line` 图形的整体透明度                                                                                                      | number                        | -                                                          |      |
+| shadowColor          | `line` 图形阴影颜色                                                                                                          | string                        | -                                                          |      |
+| shadowBlur           | `line` 图形阴影的高斯模糊系数                                                                                                | number                        | -                                                          |      |
+| shadowOffsetX        | 设置阴影距`line` 图形的水平距离                                                                                              | number                        | -                                                          |      |
+| shadowOffsetY        | 设置阴影距`line` 图形的垂直距离                                                                                              | number                        | -                                                          |      |
+| cursor               | `line` 图形的鼠标样式。同 css 的鼠标样式。                                                                                   | string                        | `default`                                                  |      |
 
 尝试一下：
 
@@ -482,7 +482,7 @@ order: 12
 
 - 怎么绘制一个零值折线图？
 
-配置 `y` 通道的比例尺 `scale`，自定义y轴的值域。
+配置 `y` 通道的比例尺 `scale`，自定义 y 轴的值域。
 
 ```js | ob
 (() => {
