@@ -160,6 +160,7 @@
               r="4"
               stroke="rgba(255,255,255,1)"
               stroke-width="2"
+              pointer-events="none"
             />
           </g>
           <g>
@@ -172,6 +173,7 @@
               r="4"
               stroke="rgba(255,255,255,1)"
               stroke-width="2"
+              pointer-events="none"
             />
           </g>
           <g>
@@ -184,6 +186,7 @@
               r="4"
               stroke="rgba(255,255,255,1)"
               stroke-width="2"
+              pointer-events="none"
             />
           </g>
           <g>
@@ -196,6 +199,7 @@
               r="4"
               stroke="rgba(255,255,255,1)"
               stroke-width="2"
+              pointer-events="none"
             />
           </g>
           <g>
@@ -208,6 +212,7 @@
               r="4"
               stroke="rgba(255,255,255,1)"
               stroke-width="2"
+              pointer-events="none"
             />
           </g>
         </g>

@@ -479,6 +479,8 @@ function updateMarker(root, { data, style, theme }) {
           r: 4,
           stroke,
           lineWidth: 2,
+          // Prevents blocking clicks on elements behind.
+          pointerEvents: 'none',
           ...style,
         },
       });
