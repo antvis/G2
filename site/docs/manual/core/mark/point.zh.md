@@ -9,8 +9,6 @@ order: 18
 
 ## 开始使用
 
-<img alt="point" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*T8Y-T5BlUTgAAAAAAAAAAAAADmJ7AQ" width="600" />
-
 ```js | ob
 (() => {
   const chart = new G2.Chart();
