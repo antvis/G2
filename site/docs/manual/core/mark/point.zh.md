@@ -3,35 +3,39 @@ title: point
 order: 18
 ---
 
-主要用于绘制散点图，利用点的粒度来分析数据的分布情况。
+`point` 图形标记主要用于绘制 **散点图**，又名点图、散布图。散点图是将所有的数据以点的形式展现在平面直角坐标系上的统计图表。它至少需要两个不同变量，一个沿 x 轴绘制，另一个沿 y 轴绘制。每个点在 X、Y 轴上都有一个确定的位置。众多的散点叠加后，有助于展示数据集的“整体景观”，从而帮助我们分析两个变量之间的相关性，或找出趋势和规律。此外，我们还可以添加附加的变量，来给散点分组、着色、确定透明度等等。
+
+当我们对散点图的 `size` 通道进行编码，就能绘制出 **气泡图**。在气泡图中，一般情况下，每一个气泡都代表着一组三个维度的数据（x，y，size）。其中两个决定了气泡在笛卡尔坐标系中的位置（即 x，y 轴上的值），另外一个则通过气泡的大小来表示。
 
 ## 开始使用
 
 <img alt="point" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*T8Y-T5BlUTgAAAAAAAAAAAAADmJ7AQ" width="600" />
 
-```ts
-import { Chart } from '@antv/g2';
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-const chart = new Chart({
-  container: 'container',
-});
+  chart.options({
+    type: 'point',
+    data: {
+      type: 'fetch',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+    },
+    encode: {
+      x: 'GDP',
+      y: 'LifeExpectancy',
+      size: 'Population',
+      color: 'continent',
+      shape: 'point',
+    },
+    scale: { size: { type: 'log', range: [4, 20] } },
+    style: { fillOpacity: 0.3, lineWidth: 1 },
+  });
 
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-  })
-  .encode('x', 'GDP')
-  .encode('y', 'LifeExpectancy')
-  .encode('size', 'Population')
-  .encode('color', 'continent')
-  .encode('shape', 'point')
-  .scale('size', { type: 'log', range: [4, 20] })
-  .style('fillOpacity', 0.3)
-  .style('lineWidth', 1);
+  chart.render();
 
-chart.render();
+  return chart.getContainer();
+})();
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
