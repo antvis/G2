@@ -49,7 +49,7 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 ### 构成元素
 
-<img alt="legend-overview" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kkApSYv_vi8AAAAAAAAAAAAAemJ7AQ/original"/>
+<img alt="legend-overview" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vEWuTqp_4WoAAAAAAAAAAAAAemJ7AQ/original"/>
 
 ### 使用方式
 
@@ -81,12 +81,12 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 | 属性                       | 描述                   | 类型                   | 默认值 | 必选  |
 | -------------------------- | ---------------------- | ---------------------- | ------ |-------|
-| ratio                      | 滚动条的比例，为单页显示数据在总数据量上单比例             | _number_               | `0.5`    |       |
-| value                      | 滚动条的起始位置, x轴默认值为 `0`, y轴默认为 `1`     | _[0, 1]_               |       |       |
-| slidable                   | 是否可以拖动           | _boolean_              | `true`   |       |
-| scrollable                 | 是否支持滚轮滚动       | _boolean_              | `true`   |       |
-| position                 | 滚动条相对图表方位       | _string_              | `bottom`   |       |
-| isRound            | 滚动条样式是否为圆角   | _boolean_              | `true`  |       |
+| ratio                      | 滚动条的比例，为单页显示数据在总数据量上单比例             | number               | `0.5`    |       |
+| value                      | 滚动条的起始位置, x轴默认值为 `0`, y轴默认为 `1`     | [0, 1]               |       |       |
+| slidable                   | 是否可以拖动           | boolean              | true   |       |
+| scrollable                 | 是否支持滚轮滚动       | boolean              | true   |       |
+| position                 | 滚动条相对图表方位       | string              | `bottom`   |       |
+| isRound            | 滚动条样式是否为圆角   | boolean              | true  |       |
 | style                 | 滚动条样式配置，样式都可以直接在配置项中配置       | [style](#style)              |    |       |
 
 ```js | ob
@@ -148,11 +148,11 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 | 属性                       | 描述                   | 类型                   | 默认值 | 必选  |
 | -------------------------- | ---------------------- | ---------------------- | ------ |-------|
-| thumbFill          | 滚动条滑块填充色       | _string_               | `#000`      |       |
-| thumbFillOpacity   | 滚动条滑块填充色透明度 | _number_               | `0.15`      |       |
-| thumbStroke        | 滚动条滑块描边色       | _string_               | –      |       |
-| thumbLineWidth        | 滚动条滑块描边宽度       | _number_               | –      |       |
-| thumbStrokeOpacity | 滚动条滑块描边色透明度 | _number_               | –      |       |
+| thumbFill          | 滚动条滑块填充色       | string               | `#000`      |       |
+| thumbFillOpacity   | 滚动条滑块填充色透明度 | number               | `0.15`      |       |
+| thumbStroke        | 滚动条滑块描边色       | string               | –      |       |
+| thumbLineWidth        | 滚动条滑块描边宽度       | number               | –      |       |
+| thumbStrokeOpacity | 滚动条滑块描边色透明度 | number               | –      |       |
 
 ```js
 ({
@@ -173,13 +173,13 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 | 属性                       | 描述                   | 类型                   | 默认值 | 必选  |
 | -------------------------- | ---------------------- | ---------------------- | ------ |-------|
-| trackSize          | 滚动条的轨道宽度       | _number_               | `10`     |       |
-| trackLength          | 滚动条的轨道长度       | _number_               |      |       |
-| trackFill          | 滚动条轨道填充色       | _string_               | -      |       |
-| trackFillOpacity   | 滚动条轨道填充色透明度 | _number_               | `0`      |       |
-| trackLineWidth        | 滚动条轨道描边宽度       | _number_               | –      |       |
-| trackStroke        | 滚动条轨道描边色       | _string_               | –      |       |
-| trackStrokeOpacity | 滚动条轨道描边色透明度 | _number_               | –      |       |
+| trackSize          | 滚动条的轨道宽度       | number               | `10`     |       |
+| trackLength          | 滚动条的轨道长度       | number               |      |       |
+| trackFill          | 滚动条轨道填充色       | string               | -      |       |
+| trackFillOpacity   | 滚动条轨道填充色透明度 | number               | `0`      |       |
+| trackLineWidth        | 滚动条轨道描边宽度       | number               | –      |       |
+| trackStroke        | 滚动条轨道描边色       | string               | –      |       |
+| trackStrokeOpacity | 滚动条轨道描边色透明度 | number               | –      |       |
 
 ```js
 ({
@@ -202,7 +202,7 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 | 属性        | 描述                             | 类型          |
 | ----------- | -------------------------------- | ------------- |
-| valuechange | 发生滚动变化时触发，通过事件监听 | `function(e)` |
+| valuechange | 发生滚动变化时触发，通过事件监听 | `({detail: { oldValue: any; value: any }}) => void` |
 
 ```js | ob
 (() => {
@@ -227,7 +227,8 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
     const { canvas } = chart.getContext();
     const { document } = canvas;
     document.querySelector('.g2-scrollbar').addEventListener('valuechange', (evt) => {
-      console.info(evt.detail);
+      console.log(evt.detail.oldValue); // 滑动更新前对应数据
+      console.log(evt.detail.value); // 更新后对应数据
     });
   });
 
