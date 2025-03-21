@@ -112,6 +112,7 @@
               r="10"
               stroke="rgba(170,170,170,1)"
               stroke-width="5"
+              pointer-events="none"
             />
           </g>
         </g>
