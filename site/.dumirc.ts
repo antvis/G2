@@ -429,7 +429,19 @@ export default defineConfig({
         </html>`,
     },
     /** 公告 */
-    announcement: {},
+    announcement: {
+      title: {
+        zh: 'AntV OSCP 文档季火热进行中！成为 Issue Hunter，赢限定周边 & 超市卡等好礼 🎁',
+        en: 'AntV OSCP Doc Season: Hunt Issues to Win Exclusive Merch & Gift Cards! 🎁',
+      },
+      link: {
+        url: 'https://github.com/orgs/antvis/projects/31',
+        text: {
+          zh: '点击了解活动',
+          en: 'Learn More',
+        },
+      },
+    },
     /** 首页技术栈介绍 */
     detail: {
       engine: {
