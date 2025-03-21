@@ -190,7 +190,7 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
       trackFillOpacity: 1,
       trackFill: 'red',
       trackLineWidth: 2,
-      trackStroke: 'red'
+      trackStroke: 'red',
       trackStrokeOpacity: 0.4,
     },
     y: {},
