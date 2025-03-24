@@ -3,6 +3,7 @@ import { ShapeComponent as SC } from '../../runtime';
 import { isFisheye } from '../../utils/coordinate';
 import { Symbols } from '../../utils/marker';
 import { select } from '../../utils/selection';
+import { camelCase } from '../../utils/string';
 import { applyStyle, getOrigin, toOpacityKey } from '../utils';
 
 export type ColorOptions = {
@@ -36,7 +37,7 @@ export function getRadius(
 export const Color: SC<ColorOptions> = (options, context) => {
   // Render border only when colorAttribute is stroke.
   const { colorAttribute, symbol, mode = 'auto', ...style } = options;
-  const path = Symbols.get(symbol) || Symbols.get('point');
+  const path = Symbols.get(camelCase(symbol)) || Symbols.get('point');
   const { coordinate, document } = context;
   return (points, value, defaults) => {
     const { lineWidth, color: defaultColor } = defaults;
