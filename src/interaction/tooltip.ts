@@ -632,6 +632,7 @@ export function seriesTooltip(
   );
 
   const { x: scaleX } = scale;
+  const stepWidth = scaleX?.getStep?.() ?? 0;
 
   // Apply offset for band scale x.
   const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
@@ -662,10 +663,23 @@ export function seriesTooltip(
   const elementsByFocus = isBar
     ? (focus, elements) => {
         const search = bisector(xof).center;
-        const i = search(elements, abstractX(focus));
+        const pointX = abstractX(focus);
+        const i = search(elements, pointX);
         const find = elements[i];
         const groups = group(elements, xof);
-        const selected = groups.get(xof(find));
+        let selected = groups.get(xof(find));
+
+        selected = selected.filter((selectedItem) => {
+          const selectedItemLeftBoundary = xof(selectedItem) - stepWidth / 2;
+          const selectedItemRightBoundary = xof(selectedItem) + stepWidth / 2;
+
+          // the series element need to consider the stepWidth before firstElement and after lastElement
+          return (
+            (pointX >= selectedItemLeftBoundary || i === 0) &&
+            (pointX <= selectedItemRightBoundary || i === elements.length - 1)
+          );
+        });
+
         return selected;
       }
     : (focus, elements) => {
@@ -974,6 +988,7 @@ export function tooltip(
   const scaleX = scale.x;
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+  const stepWidth = scaleX?.getStep?.() ?? 0;
   const xof = scaleSeries
     ? (d) => {
         const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
@@ -1004,6 +1019,11 @@ export function tooltip(
         const search = bisector(xof).center;
         const i = search(elements, abstractX);
         const target = elements[i];
+
+        const targetLeftBoundary = xof(target) - stepWidth / 2;
+        const targetRightBoundary = xof(target) + stepWidth / 2;
+        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary)
+          return;
 
         if (!shared) {
           // For grouped bar chart without shared options.
