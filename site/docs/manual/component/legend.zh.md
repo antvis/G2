@@ -110,7 +110,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | itemSpacing <Badge type="success">分类图例</Badge>    | 配置图例项图标、标签和值之间的间距               | number \| number[]                                                 | `[8, 8]`                              |
 | nav <Badge type="success">分类图例</Badge>            | 配置图例的分页器                                 | [nav](#nav)                                                        | 详见[nav](#nav)                       |
 | color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
-| block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | `false`                               |
+| block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | false                               |
 | type <Badge type="warning">连续图例</Badge>           | 配置连续图例的类型                               | `size` \|`color`                                                   | `color`                               |
 | ribbon <Badge type="warning">连续图例</Badge>         | 配置连续图例的色带                               | [ribbon](#ribbon)                                                  | 详见[ribbon](#ribbon)                 |
 | handle <Badge type="warning">连续图例</Badge>         | 配置连续图例的滑动手柄                           | [handle](#handle)                                                  | 详见[handle](#handle)                 |
@@ -268,28 +268,28 @@ Legend 组件在布局的时候的排序。默认为 `1`。G2 内部的组件都
 
 | 属性               | 描述                                                                                                                 | 类型                                                                                                       | 默认值                                | 必选 |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------- | ---- |
-| title              | 关闭标题或设置标题内容                                                                                               | false \| string                                                                                            | 连续图例为 `true`，分类图例为 `false` |      |
+| title              | 关闭标题或设置标题内容                                                                                               | false \| string                                                                                            | 连续图例为 true，分类图例为 false |      |
 | titleSpacing       | 标题到内容区域的间距                                                                                                 | number \| number[]                                                                                         | `4`                                   |      |
 | titleInset         | 标题文本内边距                                                                                                       | number \| number[]                                                                                         | `0`                                   |      |
 | titlePosition      | 标题所处位置。可采用简写形式，如`i` 表示`inner`，如`lt` 表示`left-top`                                               | `top` \| `bottom` \|`left` \|`right` \|`left-top` \|`left-bottom` \|`right-top` \|`right-bottom` \|`inner` | -                                     |      |
-| titleFontSize      | 标题文字大小                                                                                                         | number \| (datum, index, data) => number                                                                       | `12`                                  |      |
-| titleFontFamily    | 标题文字字体                                                                                                         | string \| (datum, index, data) => string                                                                       | -                                     |      |
-| titleFontWeight    | 标题字体粗细                                                                                                         | number \| (datum, index, data) => number                                                                       | `normal`                              |      |
-| titleLineHeight    | 标题文字的行高                                                                                                       | number \| (datum, index, data) => number                                                                       | -                                     |      |
+| titleFontSize      | 标题文字大小                                                                                                         | number \| (datum, index, data) => number                                                                   | `12`                                  |      |
+| titleFontFamily    | 标题文字字体                                                                                                         | string \| (datum, index, data) => string                                                                   | -                                     |      |
+| titleFontWeight    | 标题字体粗细                                                                                                         | number \| (datum, index, data) => number                                                                   | `normal`                              |      |
+| titleLineHeight    | 标题文字的行高                                                                                                       | number \| (datum, index, data) => number                                                                   | -                                     |      |
 | titleTextAlign     | 设置标题文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`                                                          | `start`                               |      |
 | titleTextBaseline  | 设置在绘制标题文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`                                                 | `bottom`                              |      |
-| titleFill          | 标题字体颜色                                                                                                         | string \| (datum, index, data) => string                                                                       | `#1D2129`                             |      |
-| titleFillOpacity   | 标题字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                                                                       | `0.65`                                |      |
-| titleStroke        | 标题字体描边颜色                                                                                                     | string \| (datum, index, data) => string                                                                       | -                                     |      |
-| titleStrokeOpacity | 标题字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                                                                       | -                                     |      |
-| titleLineWidth     | 标题字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                                                                       | -                                     |      |
-| titleLineDash      | 标题字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]                                                   | -                                     |      |
-| titleOpacity       | 标题文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                                                                       | -                                     |      |
-| titleShadowColor   | 标题文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                                                                       | -                                     |      |
-| titleShadowBlur    | 标题文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                                                                       | -                                     |      |
-| titleShadowOffsetX | 设置阴影距标题文字的水平距离                                                                                         | number \| (datum, index, data) => number                                                                       | -                                     |      |
-| titleShadowOffsetY | 设置阴影距标题文字的垂直距离                                                                                         | number \| (datum, index, data) => number                                                                       | -                                     |      |
-| titleCursor        | 标题鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                                                                       | `default`                             |      |
+| titleFill          | 标题字体颜色                                                                                                         | string \| (datum, index, data) => string                                                                   | `#1D2129`                             |      |
+| titleFillOpacity   | 标题字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                                                                   | `0.65`                                |      |
+| titleStroke        | 标题字体描边颜色                                                                                                     | string \| (datum, index, data) => string                                                                   | -                                     |      |
+| titleStrokeOpacity | 标题字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                                                                   | -                                     |      |
+| titleLineWidth     | 标题字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                                                                   | -                                     |      |
+| titleLineDash      | 标题字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]                                               | -                                     |      |
+| titleOpacity       | 标题文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                                                                   | -                                     |      |
+| titleShadowColor   | 标题文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                                                                   | -                                     |      |
+| titleShadowBlur    | 标题文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                                                                   | -                                     |      |
+| titleShadowOffsetX | 设置阴影距标题文字的水平距离                                                                                         | number \| (datum, index, data) => number                                                                   | -                                     |      |
+| titleShadowOffsetY | 设置阴影距标题文字的垂直距离                                                                                         | number \| (datum, index, data) => number                                                                   | -                                     |      |
+| titleCursor        | 标题鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                                                                   | `default`                             |      |
 
 在 Legend 组件中配置标题的时候，不是以对象的形式来配置，而是以 `title`前缀加属性的方式来配置。
 
@@ -374,8 +374,8 @@ Legend 组件在布局的时候的排序。默认为 `1`。G2 内部的组件都
 
 适用于 <Badge type="success">分类图例</Badge> 。配置图例项的图标。_LegendItemMarkerCfg_ 配置如下：
 
-| 属性                    | 描述                                                                                                                   | 类型                                                     | 默认值    | 必选 |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | --------- | ---- |
+| 属性                    | 描述                                                                                                                   | 类型                                                         | 默认值    | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------- | ---- |
 | itemMarker              | 图例项图标                                                                                                             | _Symbols_ \|(datum, index, data)=>_Symbols_                  | `circle`  |      |
 | itemMarkerSize          | 图例项图标大小                                                                                                         | number \| (datum, index, data) => number                     | `8`       |      |
 | itemMarkerFill          | 图例项图标填充色                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
@@ -541,21 +541,21 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 适用于 <Badge type="success">分类图例</Badge> 。配置图例项的标签。_LegendItemLabelCfg_ 配置如下：
 
-| 属性                   | 描述                                                                                                                       | 类型                                                       | 默认值    | 必选 |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | --------- | ---- |
+| 属性                   | 描述                                                                                                                       | 类型                                                           | 默认值    | 必选 |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------- | ---- |
 | itemLabelText          | 图例项标签内容                                                                                                             | string \| (datum, index, data) => string                       | -         |      |
 | itemLabelFontSize      | 图例项标签文字大小                                                                                                         | number \| (datum, index, data) => number                       | `12`      |      |
 | itemLabelFontFamily    | 图例项标签文字字体                                                                                                         | string \| (datum, index, data) => string                       | -         |      |
 | itemLabelFontWeight    | 图例项标签字体粗细                                                                                                         | number \| (datum, index, data) => number                       | `normal`  |      |
 | itemLabelLineHeight    | 图例项标签文字的行高                                                                                                       | number \| (datum, index, data) => number                       | -         |      |
-| itemLabelTextAlign     | 设置图例项标签文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |      |
-| itemLabelTextBaseline  | 设置在绘制图例项标签文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |      |
+| itemLabelTextAlign     | 设置图例项标签文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`              | `start`   |      |
+| itemLabelTextBaseline  | 设置在绘制图例项标签文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`     | `bottom`  |      |
 | itemLabelFill          | 图例项标签字体颜色                                                                                                         | string \| (datum, index, data) => string                       | `#1D2129` |      |
 | itemLabelFillOpacity   | 图例项标签字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                       | `0.9`     |      |
 | itemLabelStroke        | 图例项标签字体描边颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
 | itemLabelStrokeOpacity | 图例项标签字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                       | -         |      |
 | itemLabelLineWidth     | 图例项标签字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| itemLabelLineDash      | 图例项标签字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (da tu m, index, data) => [number , number]   | -         |      |
+| itemLabelLineDash      | 图例项标签字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (da tu m, index, data) => [number , number] | -         |      |
 | itemLabelOpacity       | 图例项标签文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                       | -         |      |
 | itemLabelShadowColor   | 图例项标签文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
 | itemLabelShadowBlur    | 图例项标签文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -         |      |
@@ -599,27 +599,27 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 适用于 <Badge type="success">分类图例</Badge> 。配置图例项的值。_LegendItemValueCfg_ 配置如下：
 
-| 属性                   | 描述                                                                                                                     | 类型                                                       | 默认值    | 必选 |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | --------- | ---- |
-| itemValueText          | 图例项值内容                                                                                                             | string \| (datum, index, data) => string                       | -         |      |
-| itemValueFontSize      | 图例项值文字大小                                                                                                         | number \| (datum, index, data) => number                       | `12`      |      |
-| itemValueFontFamily    | 图例项值文字字体                                                                                                         | string \| (datum, index, data) => string                       | -         |      |
-| itemValueFontWeight    | 图例项值字体粗细                                                                                                         | number \| (datum, index, data) => number                       | `normal`  |      |
-| itemValueLineHeight    | 图例项值文字的行高                                                                                                       | number \| (datum, index, data) => number                       | -         |      |
-| itemValueTextAlign     | 设置图例项值文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |      |
-| itemValueTextBaseline  | 设置在绘制图例项值文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |      |
-| itemValueFill          | 图例项值字体颜色                                                                                                         | string \| (datum, index, data) => string                       | `#1D2129` |      |
-| itemValueFillOpacity   | 图例项值字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                       | `0.65`    |      |
-| itemValueStroke        | 图例项值字体描边颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
-| itemValueStrokeOpacity | 图例项值字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                       | -         |      |
-| itemValueLineWidth     | 图例项值字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| itemValueLineDash      | 图例项值字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]   | -         |      |
-| itemValueOpacity       | 图例项值文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                       | -         |      |
-| itemValueShadowColor   | 图例项值文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
-| itemValueShadowBlur    | 图例项值文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -         |      |
-| itemValueShadowOffsetX | 设置阴影距图例项值文字的水平距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| itemValueShadowOffsetY | 设置阴影距图例项值文字的垂直距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| itemValueCursor        | 图例项值鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                       | `default` |      |
+| 属性                   | 描述                                                                                                                     | 类型                                                         | 默认值    | 必选 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | --------- | ---- |
+| itemValueText          | 图例项值内容                                                                                                             | string \| (datum, index, data) => string                     | -         |      |
+| itemValueFontSize      | 图例项值文字大小                                                                                                         | number \| (datum, index, data) => number                     | `12`      |      |
+| itemValueFontFamily    | 图例项值文字字体                                                                                                         | string \| (datum, index, data) => string                     | -         |      |
+| itemValueFontWeight    | 图例项值字体粗细                                                                                                         | number \| (datum, index, data) => number                     | `normal`  |      |
+| itemValueLineHeight    | 图例项值文字的行高                                                                                                       | number \| (datum, index, data) => number                     | -         |      |
+| itemValueTextAlign     | 设置图例项值文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`            | `start`   |      |
+| itemValueTextBaseline  | 设置在绘制图例项值文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`  |      |
+| itemValueFill          | 图例项值字体颜色                                                                                                         | string \| (datum, index, data) => string                     | `#1D2129` |      |
+| itemValueFillOpacity   | 图例项值字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                     | `0.65`    |      |
+| itemValueStroke        | 图例项值字体描边颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |
+| itemValueStrokeOpacity | 图例项值字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                     | -         |      |
+| itemValueLineWidth     | 图例项值字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| itemValueLineDash      | 图例项值字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -         |      |
+| itemValueOpacity       | 图例项值文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -         |      |
+| itemValueShadowColor   | 图例项值文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |
+| itemValueShadowBlur    | 图例项值文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -         |      |
+| itemValueShadowOffsetX | 设置阴影距图例项值文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| itemValueShadowOffsetY | 设置阴影距图例项值文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| itemValueCursor        | 图例项值鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                     | `default` |      |
 
 在 Legend 组件中配置图例项值的时候，不是以对象的形式来配置，而是以 `itemValue`前缀加属性的方式来配置。
 
@@ -657,8 +657,9 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 适用于 <Badge type="success">分类图例</Badge> 。配置图例项的背景。_LegendItemBackgroundCfg_ 配置如下：
 
-| 属性                        | 描述                                                                                                                   | 类型                                                     | 默认值        | 必选 |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------- | ---- |
+| 属性                        | 描述                                                                                                                   | 类型                                                         | 默认值        | 必选 |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
+| itemBackgroundRadius        | 图例项背景圆角                                                                                                         | number \| (datum, index, data) => number                     | `0`           |      |
 | itemBackgroundFill          | 图例项背景填充色                                                                                                       | string \| (datum, index, data) => string                     | `transparent` |      |
 | itemBackgroundFillOpacity   | 图例项背景填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
 | itemBackgroundStroke        | 图例项背景的描边                                                                                                       | string \| (datum, index, data) => string                     | -             |      |
@@ -678,6 +679,7 @@ export const Symbols = new Map<string, SymbolFactor>([
 ({
   legend: {
     color: {
+      itemBackgroundRadius: 50,
       itemBackgroundFill: '#000',
       itemBackgroundFillOpacity: 0.9,
       itemBackgroundStroke: '#DAF5EC',
@@ -731,41 +733,42 @@ export const Symbols = new Map<string, SymbolFactor>([
 | navDuration             | 单次翻页动效时长                                                                                                           | number                                                                     | `200`        |      |
 | navOrientation          | 翻页滚动方向<br>- 横向`horizontal`<br>- 纵向`vertical`                                                                     | `horizontal` \|`vertical`                                                  | `horizontal` |      |
 | navDefaultPage          | 默认展示页数                                                                                                               | number                                                                     | `0`          |      |
-| navLoop                 | 是否启用循环翻页                                                                                                           | boolean                                                                    | `false`      |      |
+| navLoop                 | 是否启用循环翻页                                                                                                           | boolean                                                                    | false      |      |
 | navPageWidth            | 分页器页宽                                                                                                                 | number                                                                     | -            |      |
 | navPageHeight           | 分页器页高                                                                                                                 | number                                                                     | -            |      |
 | navControllerPadding    | 分页器按钮与分页器数字的间隔                                                                                               | number \| number[]                                                         | `5`          |      |
 | navControllerSpacing    | 分页器按钮与页的间隔，可以用来配置分页器与图例的间隔                                                                       | number \| number[]                                                         | `5`          |      |
-| navPageNumFontSize      | 分页器数字文字大小                                                                                                         | number \| (datum, index, data) => number                                       | `12`         |      |
-| navPageNumFontFamily    | 分页器数字文字字体                                                                                                         | string \| (datum, index, data) => string                                       | -            |      |
-| navPageNumFontWeight    | 分页器数字字体粗细                                                                                                         | number \| (datum, index, data) => number                                       | `normal`     |      |
-| navPageNumLineHeight    | 分页器数字文字的行高                                                                                                       | number \| (datum, index, data) => number                                       | -            |      |
+| navPageNumFontSize      | 分页器数字文字大小                                                                                                         | number \| (datum, index, data) => number                                   | `12`         |      |
+| navPageNumFontFamily    | 分页器数字文字字体                                                                                                         | string \| (datum, index, data) => string                                   | -            |      |
+| navPageNumFontWeight    | 分页器数字字体粗细                                                                                                         | number \| (datum, index, data) => number                                   | `normal`     |      |
+| navPageNumLineHeight    | 分页器数字文字的行高                                                                                                       | number \| (datum, index, data) => number                                   | -            |      |
 | navPageNumTextAlign     | 设置分页器数字文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`                          | `start`      |      |
 | navPageNumTextBaseline  | 设置在绘制分页器数字文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`                 | `bottom`     |      |
-| navPageNumFill          | 分页器数字字体颜色                                                                                                         | string \| (datum, index, data) => string                                       | `#1D2129`    |      |
-| navPageNumFillOpacity   | 分页器数字字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                                       | `0.45`       |      |
-| navPageNumStroke        | 分页器数字字体描边颜色                                                                                                     | string \| (datum, index, data) => string                                       | -            |      |
-| navPageNumStrokeOpacity | 分页器数字字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                                       | -            |      |
-| navPageNumLineWidth     | 分页器数字字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                                       | -            |      |
-| navPageNumLineDash      | 分页器数字字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]                   | -            |      |
-| navPageNumOpacity       | 分页器数字文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                                       | -            |      |
-| navPageNumShadowColor   | 分页器数字文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                                       | -            |      |
-| navPageNumShadowBlur    | 分页器数字文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                                       | -            |      |
-| navPageNumShadowOffsetX | 设置阴影距分页器数字文字的水平距离                                                                                         | number \| (datum, index, data) => number                                       | -            |      |
-| navPageNumShadowOffsetY | 设置阴影距分页器数字文字的垂直距离                                                                                         | number \| (datum, index, data) => number                                       | -            |      |
-| navPageNumCursor        | 分页器数字鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                                       | `default`    |      |
-| navButtonFill           | 分页器按钮填充色                                                                                                           | string \| (datum, index, data) => string                                       | `#1D2129`    |      |
-| navButtonFillOpacity    | 分页器按钮填充透明度                                                                                                       | number \| (datum, index, data) => number                                       | `0.65`       |      |
-| navButtonStroke         | 分页器按钮的描边                                                                                                           | string \| (datum, index, data) => string                                       | -            |      |
-| navButtonStrokeOpacity  | 分页器按钮描边透明度                                                                                                       | number \| (datum, index, data) => number                                       | -            |      |
-| navButtonLineWidth      | 分页器按钮描边的宽度                                                                                                       | number \| (datum, index, data) => number                                       | -            |      |
-| navButtonLineDash       | 分页器按钮描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。     | [number,number] \| (datum, index, data) => [number , number]                   | -            |      |
-| navButtonOpacity        | 分页器按钮的整体透明度                                                                                                     | number \| (datum, index, data) => number                                       | -            |      |
-| navButtonShadowColor    | 分页器按钮阴影颜色                                                                                                         | string \| (datum, index, data) => string                                       | -            |      |
-| navButtonShadowBlur     | 分页器按钮阴影的高斯模糊系数                                                                                               | number \| (datum, index, data) => number                                       | -            |      |
-| navButtonShadowOffsetX  | 设置阴影距分页器按钮的水平距离                                                                                             | number \| (datum, index, data) => number                                       | -            |      |
-| navButtonShadowOffsetY  | 设置阴影距分页器按钮的垂直距离                                                                                             | number \| (datum, index, data) => number                                       | -            |      |
-| navButtonCursor         | 分页器按钮鼠标样式。同 css 的鼠标样式。                                                                                    | string \| (datum, index, data) => string                                       | `default`    |      |
+| navPageNumFill          | 分页器数字字体颜色                                                                                                         | string \| (datum, index, data) => string                                   | `#1D2129`    |      |
+| navPageNumFillOpacity   | 分页器数字字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                                   | `0.45`       |      |
+| navPageNumStroke        | 分页器数字字体描边颜色                                                                                                     | string \| (datum, index, data) => string                                   | -            |      |
+| navPageNumStrokeOpacity | 分页器数字字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                                   | -            |      |
+| navPageNumLineWidth     | 分页器数字字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                                   | -            |      |
+| navPageNumLineDash      | 分页器数字字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]               | -            |      |
+| navPageNumOpacity       | 分页器数字文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                                   | -            |      |
+| navPageNumShadowColor   | 分页器数字文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                                   | -            |      |
+| navPageNumShadowBlur    | 分页器数字文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                                   | -            |      |
+| navPageNumShadowOffsetX | 设置阴影距分页器数字文字的水平距离                                                                                         | number \| (datum, index, data) => number                                   | -            |      |
+| navPageNumShadowOffsetY | 设置阴影距分页器数字文字的垂直距离                                                                                         | number \| (datum, index, data) => number                                   | -            |      |
+| navPageNumCursor        | 分页器数字鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                                   | `default`    |      |
+| navButtonSize           | 分页器按钮尺寸                                                                                                             | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonFill           | 分页器按钮填充色                                                                                                           | string \| (datum, index, data) => string                                   | `#1D2129`    |      |
+| navButtonFillOpacity    | 分页器按钮填充透明度                                                                                                       | number \| (datum, index, data) => number                                   | `0.65`       |      |
+| navButtonStroke         | 分页器按钮的描边                                                                                                           | string \| (datum, index, data) => string                                   | -            |      |
+| navButtonStrokeOpacity  | 分页器按钮描边透明度                                                                                                       | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonLineWidth      | 分页器按钮描边的宽度                                                                                                       | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonLineDash       | 分页器按钮描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。     | [number,number] \| (datum, index, data) => [number , number]               | -            |      |
+| navButtonOpacity        | 分页器按钮的整体透明度                                                                                                     | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonShadowColor    | 分页器按钮阴影颜色                                                                                                         | string \| (datum, index, data) => string                                   | -            |      |
+| navButtonShadowBlur     | 分页器按钮阴影的高斯模糊系数                                                                                               | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonShadowOffsetX  | 设置阴影距分页器按钮的水平距离                                                                                             | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonShadowOffsetY  | 设置阴影距分页器按钮的垂直距离                                                                                             | number \| (datum, index, data) => number                                   | -            |      |
+| navButtonCursor         | 分页器按钮鼠标样式。同 css 的鼠标样式。                                                                                    | string \| (datum, index, data) => string                                   | `default`    |      |
 | navFormatter            | 页码文本格式化                                                                                                             | (current: number, total: number) => string                                 | -            |      |
 
 在 Legend 组件中配置分页器属性的时候，不是以对象的形式来配置，而是以 `nav`前缀加属性的方式来配置。
@@ -836,7 +839,7 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 <description> _boolean_ **optional** </description>
 
-适用于 <Badge type="warning">连续图例</Badge> 。连续图例是否按区间显示。默认为 `false`。
+适用于 <Badge type="warning">连续图例</Badge> 。连续图例是否按区间显示。默认为 false。
 
 ### type
 
@@ -868,8 +871,8 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 适用于 <Badge type="warning">连续图例</Badge> 。配置连续图例的色带。_LegendRibbonCfg_ 配置如下：
 
-| 属性                | 描述                                                                                                             | 类型                                                     | 默认值    | 必选 |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | --------- | ---- |
+| 属性                | 描述                                                                                                             | 类型                                                         | 默认值    | 必选 |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------- | ---- |
 | ribbonSize          | 色带大小                                                                                                         | number \| (datum, index, data) => number                     | `12`      |      |
 | ribbonFill          | 色带填充色                                                                                                       | string \| (datum, index, data) => string                     | `#aaa`    |      |
 | ribbonFillOpacity   | 色带填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
@@ -918,44 +921,44 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 适用于 <Badge type="warning">连续图例</Badge> 。配置连续图例的滑动手柄。 _LegendHandleCfg_ 配置如下：
 
-| 属性                      | 描述                                                                                                                     | 类型                                                       | 默认值       | 必选 |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | ------------ | ---- |
-| handle                    | 是否显示滑动手柄                                                                                                         | boolean                                                    | `true`       |      |
-| handleLabel               | 是否显示滑动手柄标签                                                                                                     | boolean                                                    | `false`      |      |
-| handleFormatter           | 手柄标签文本格式化                                                                                                       | (datum)=>string                                            | -            |      |
-| slidable                  | 窗口是否可以滑动                                                                                                         | boolean                                                    | `true`       |      |
-| range                     | 滑动窗口默认选择范围                                                                                                     | [number, number]                                           | `[min, max]` |      |
-| step                      | 单次滑动步长                                                                                                             | number                                                     | `1`          |      |
-| handleLabelFontSize       | 手柄标签文字大小                                                                                                         | number \| (datum, index, data) => number                       | `12`         |      |
-| handleLabelFontFamily     | 手柄标签文字字体                                                                                                         | string \| (datum, index, data) => string                       | -            |      |
-| handleLabelFontWeight     | 手柄标签字体粗细                                                                                                         | number \| (datum, index, data) => number                       | `normal`     |      |
-| handleLabelLineHeight     | 手柄标签文字的行高                                                                                                       | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelTextAlign      | 设置手柄标签文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`          | `start`      |      |
-| handleLabelTextBaseline   | 设置在绘制手柄标签文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`     |      |
-| handleLabelFill           | 手柄标签字体颜色                                                                                                         | string \| (datum, index, data) => string                       | `#1D2129`    |      |
-| handleLabelFillOpacity    | 手柄标签字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                       | `0.45`       |      |
-| handleLabelStroke         | 手柄标签字体描边颜色                                                                                                     | string \| (datum, index, data) => string                       | -            |      |
-| handleLabelStrokeOpacity  | 手柄标签字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelLineWidth      | 手柄标签字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelLineDash       | 手柄标签字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]   | -            |      |
-| handleLabelOpacity        | 手柄标签文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelShadowColor    | 手柄标签文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                       | -            |      |
-| handleLabelShadowBlur     | 手柄标签文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelShadowOffsetX  | 设置阴影距手柄标签文字的水平距离                                                                                         | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelShadowOffsetY  | 设置阴影距手柄标签文字的垂直距离                                                                                         | number \| (datum, index, data) => number                       | -            |      |
-| handleLabelCursor         | 手柄标签鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                       | `default`    |      |
-| handleMarkerFill          | 手柄图标填充色                                                                                                           | string \| (datum, index, data) => string                       | `#1D2129`    |      |
-| handleMarkerFillOpacity   | 手柄图标填充透明度                                                                                                       | number \| (datum, index, data) => number                       | `0.65`       |      |
-| handleMarkerStroke        | 手柄图标的描边                                                                                                           | string \| (datum, index, data) => string                       | -            |      |
-| handleMarkerStrokeOpacity | 手柄图标描边透明度                                                                                                       | number \| (datum, index, data) => number                       | -            |      |
-| handleMarkerLineWidth     | 手柄图标描边的宽度                                                                                                       | number \| (datum, index, data) => number                       | -            |      |
-| handleMarkerLineDash      | 手柄图标描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。     | [number,number] \| (datum, index, data) => [number , number]   | -            |      |
-| handleMarkerOpacity       | 手柄图标的整体透明度                                                                                                     | number \| (datum, index, data) => number                       | -            |      |
-| handleMarkerShadowColor   | 手柄图标阴影颜色                                                                                                         | string \| (datum, index, data) => string                       | -            |      |
-| handleMarkerShadowBlur    | 手柄图标阴影的高斯模糊系数                                                                                               | number \| (datum, index, data) => number                       | -            |      |
-| handleMarkerShadowOffsetX | 设置阴影距手柄图标的水平距离                                                                                             | number \| (datum, index, data) => number                       | -            |      |
-| handleMarkerShadowOffsetY | 设置阴影距手柄图标的垂直距离                                                                                             | number \| (datum, index, data) => number                       | -            |      |
-| handleMarkerCursor        | 手柄图标鼠标样式。同 css 的鼠标样式。                                                                                    | string \| (datum, index, data) => string                       | `default`    |      |
+| 属性                     | 描述                                                                                                                     | 类型                                                         | 默认值       | 必选 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ------------ | ---- |
+| handle                   | 是否显示滑动手柄                                                                                                         | boolean                                                      | true       |      |
+| handleLabel              | 是否显示滑动手柄标签                                                                                                     | boolean                                                      | false      |      |
+| slidable                 | 窗口是否可以滑动                                                                                                         | boolean                                                      | true       |      |
+| range                    | 滑动窗口默认选择范围                                                                                                     | [number, number]                                             | `[min, max]` |      |
+| step                     | 单次滑动步长                                                                                                             | number                                                       | `1`          |      |
+| handleLabelFontSize      | 手柄标签文字大小                                                                                                         | number \| (datum, index, data) => number                     | `12`         |      |
+| handleLabelFontFamily    | 手柄标签文字字体                                                                                                         | string \| (datum, index, data) => string                     | -            |      |
+| handleLabelFontWeight    | 手柄标签字体粗细                                                                                                         | number \| (datum, index, data) => number                     | `normal`     |      |
+| handleLabelLineHeight    | 手柄标签文字的行高                                                                                                       | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelTextAlign     | 设置手柄标签文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`            | `start`      |      |
+| handleLabelTextBaseline  | 设置在绘制手柄标签文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`     |      |
+| handleLabelFill          | 手柄标签字体颜色                                                                                                         | string \| (datum, index, data) => string                     | `#1D2129`    |      |
+| handleLabelFillOpacity   | 手柄标签字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                     | `0.45`       |      |
+| handleLabelStroke        | 手柄标签字体描边颜色                                                                                                     | string \| (datum, index, data) => string                     | -            |      |
+| handleLabelStrokeOpacity | 手柄标签字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelLineWidth     | 手柄标签字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelLineDash      | 手柄标签字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -            |      |
+| handleLabelOpacity       | 手柄标签文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelShadowColor   | 手柄标签文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -            |      |
+| handleLabelShadowBlur    | 手柄标签文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelShadowOffsetX | 设置阴影距手柄标签文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelShadowOffsetY | 设置阴影距手柄标签文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -            |      |
+| handleLabelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                     | `default`    |      |
+| handleIconSize           | 手柄图标尺寸色                                                                                                           | number \| (datum, index, data) => number                     | -            |      |
+| handleIconFill           | 手柄图标填充色                                                                                                           | string \| (datum, index, data) => string                     | `#1D2129`    |      |
+| handleIconFillOpacity    | 手柄图标填充透明度                                                                                                       | number \| (datum, index, data) => number                     | `0.65`       |      |
+| handleIconStroke         | 手柄图标的描边                                                                                                           | string \| (datum, index, data) => string                     | -            |      |
+| handleIconStrokeOpacity  | 手柄图标描边透明度                                                                                                       | number \| (datum, index, data) => number                     | -            |      |
+| handleIconLineWidth      | 手柄图标描边的宽度                                                                                                       | number \| (datum, index, data) => number                     | -            |      |
+| handleIconLineDash       | 手柄图标描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。     | [number,number] \| (datum, index, data) => [number , number] | -            |      |
+| handleIconOpacity        | 手柄图标的整体透明度                                                                                                     | number \| (datum, index, data) => number                     | -            |      |
+| handleIconShadowColor    | 手柄图标阴影颜色                                                                                                         | string \| (datum, index, data) => string                     | -            |      |
+| handleIconShadowBlur     | 手柄图标阴影的高斯模糊系数                                                                                               | number \| (datum, index, data) => number                     | -            |      |
+| handleIconShadowOffsetX  | 设置阴影距手柄图标的水平距离                                                                                             | number \| (datum, index, data) => number                     | -            |      |
+| handleIconShadowOffsetY  | 设置阴影距手柄图标的垂直距离                                                                                             | number \| (datum, index, data) => number                     | -            |      |
+| handleIconCursor         | 手柄图标鼠标样式。同 css 的鼠标样式。                                                                                    | string \| (datum, index, data) => string                     | `default`    |      |
 
 在 Legend 组件中配置连续图例滑动手柄属性的时候，不是以对象的形式来配置，而是以 `handle`前缀加属性的方式来配置。
 
@@ -965,7 +968,6 @@ export const Symbols = new Map<string, SymbolFactor>([
     color: {
       handle: true,
       handleLabel: true,
-      handleFormatter: (d) => `${d}`,
       slidable: true,
       range: [0, 1],
       step: 1,
@@ -989,19 +991,20 @@ export const Symbols = new Map<string, SymbolFactor>([
       handleLabelShadowOffsetY: 10,
       handleLabelCursor: 'pointer',
 
-      // 配置handleMarker的绘图属性
-      handleMarkerFill: '#000',
-      handleMarkerFillOpacity: 0.9,
-      handleMarkerStroke: '#DAF5EC',
-      handleMarkerStrokeOpacity: 0.9,
-      handleMarkerLineWidth: 2,
-      handleMarkerLineDash: [4, 8],
-      handleMarkerOpacity: 1,
-      handleMarkerShadowColor: '#d3d3d3',
-      handleMarkerShadowBlur: 10,
-      handleMarkerShadowOffsetX: 10,
-      handleMarkerShadowOffsetY: 10,
-      handleMarkerCursor: 'pointer',
+      handleIconSize: 50,
+      // 配置handleIcon的绘图属性
+      handleIconFill: '#000',
+      handleIconFillOpacity: 0.9,
+      handleIconStroke: '#DAF5EC',
+      handleIconStrokeOpacity: 0.9,
+      handleIconLineWidth: 2,
+      handleIconLineDash: [4, 8],
+      handleIconOpacity: 1,
+      handleIconShadowColor: '#d3d3d3',
+      handleIconShadowBlur: 10,
+      handleIconShadowOffsetX: 10,
+      handleIconShadowOffsetY: 10,
+      handleIconCursor: 'pointer',
     },
   },
 });
@@ -1013,32 +1016,32 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 适用于 <Badge type="warning">连续图例</Badge> 。配置连续图例的标签/刻度值。 _LegendLabelCfg_ 配置如下：
 
-| 属性                    | 描述                                                                                                                           | 类型                                                       | 默认值     | 必选 |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | ---------- | ---- |
-| label                   | 是否显示连续图例的刻度值                                                                                                       | boolean                                                    | `true`     |      |
-| labelFormatter          | 连续图例的刻度值格式化                                                                                                         | (datum, index, data)=>string                                   | -          |      |
-| labelFilter             | 连续图例的刻度值过滤                                                                                                           | (datum, index, data)=>boolean                                  | -          |      |
-| labelDirection          | 连续图例的刻度值位于色带的位置，参考 `axis direction`                                                                          | `positive` \| `negative`                                   | `positive` |      |
-| labelSpacing            | 连续图例的刻度值到色带的间距                                                                                                   | number                                                     | `3`        |      |
-| labelAlign              | 连续图例的刻度值对齐位置<br/> - `'value'` 对齐到刻度<br/>- `'range'` 对齐到范围                                                | `value` \| `range`                                         | `value`    |      |
-| labelLabelFontSize      | 连续图例刻度值文字大小                                                                                                         | number \| (datum, index, data) => number                       | `12`       |      |
-| labelLabelFontFamily    | 连续图例刻度值文字字体                                                                                                         | string \| (datum, index, data) => string                       | -          |      |
-| labelLabelFontWeight    | 连续图例刻度值字体粗细                                                                                                         | number \| (datum, index, data) => number                       | `normal`   |      |
-| labelLabelLineHeight    | 连续图例刻度值文字的行高                                                                                                       | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelTextAlign     | 设置连续图例刻度值文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`          | `start`    |      |
-| labelLabelTextBaseline  | 设置在绘制连续图例刻度值文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`   |      |
-| labelLabelFill          | 连续图例刻度值字体颜色                                                                                                         | string \| (datum, index, data) => string                       | `#1D2129`  |      |
-| labelLabelFillOpacity   | 连续图例刻度值字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                       | `0.45`     |      |
-| labelLabelStroke        | 连续图例刻度值字体描边颜色                                                                                                     | string \| (datum, index, data) => string                       | -          |      |
-| labelLabelStrokeOpacity | 连续图例刻度值字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelLineWidth     | 连续图例刻度值字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelLineDash      | 连续图例刻度值字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]   | -          |      |
-| labelLabelOpacity       | 连续图例刻度值文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelShadowColor   | 连续图例刻度值文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                       | -          |      |
-| labelLabelShadowBlur    | 连续图例刻度值文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelShadowOffsetX | 设置阴影距连续图例刻度值文字的水平距离                                                                                         | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelShadowOffsetY | 设置阴影距连续图例刻度值文字的垂直距离                                                                                         | number \| (datum, index, data) => number                       | -          |      |
-| labelLabelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式                                                                                            | string \| (datum, index, data) => string                       | `default`  |      |
+| 属性                    | 描述                                                                                                                           | 类型                                                         | 默认值     | 必选 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ---------- | ---- |
+| label                   | 是否显示连续图例的刻度值                                                                                                       | boolean                                                      | true     |      |
+| labelFormatter          | 连续图例的刻度值格式化                                                                                                         | (datum, index, data)=>string                                 | -          |      |
+| labelFilter             | 连续图例的刻度值过滤                                                                                                           | (datum, index, data)=>boolean                                | -          |      |
+| labelDirection          | 连续图例的刻度值位于色带的位置，参考 `axis direction`                                                                          | `positive` \| `negative`                                     | `positive` |      |
+| labelSpacing            | 连续图例的刻度值到色带的间距                                                                                                   | number                                                       | `3`        |      |
+| labelAlign              | 连续图例的刻度值对齐位置<br/> - `'value'` 对齐到刻度<br/>- `'range'` 对齐到范围                                                | `value` \| `range`                                           | `value`    |      |
+| labelFontSize      | 连续图例刻度值文字大小                                                                                                         | number \| (datum, index, data) => number                     | `12`       |      |
+| labelFontFamily    | 连续图例刻度值文字字体                                                                                                         | string \| (datum, index, data) => string                     | -          |      |
+| labelFontWeight    | 连续图例刻度值字体粗细                                                                                                         | number \| (datum, index, data) => number                     | `normal`   |      |
+| labelLineHeight    | 连续图例刻度值文字的行高                                                                                                       | number \| (datum, index, data) => number                     | -          |      |
+| labelTextAlign     | 设置连续图例刻度值文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`            | `start`    |      |
+| labelTextBaseline  | 设置在绘制连续图例刻度值文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`   |      |
+| labelFill          | 连续图例刻度值字体颜色                                                                                                         | string \| (datum, index, data) => string                     | `#1D2129`  |      |
+| labelFillOpacity   | 连续图例刻度值字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                     | `0.45`     |      |
+| labelStroke        | 连续图例刻度值字体描边颜色                                                                                                     | string \| (datum, index, data) => string                     | -          |      |
+| labelStrokeOpacity | 连续图例刻度值字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                     | -          |      |
+| labelLineWidth     | 连续图例刻度值字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -          |      |
+| labelLineDash      | 连续图例刻度值字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -          |      |
+| labelOpacity       | 连续图例刻度值文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -          |      |
+| labelShadowColor   | 连续图例刻度值文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -          |      |
+| labelShadowBlur    | 连续图例刻度值文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -          |      |
+| labelShadowOffsetX | 设置阴影距连续图例刻度值文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -          |      |
+| labelShadowOffsetY | 设置阴影距连续图例刻度值文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -          |      |
+| labelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式                                                                                            | string \| (datum, index, data) => string                     | `default`  |      |
 
 <b>刻度值对齐方式</b>
 
@@ -1063,24 +1066,24 @@ export const Symbols = new Map<string, SymbolFactor>([
       labelSpacing: 5,
       labelAlign: 'range',
       // 配置连续图例的刻度值label的绘图属性
-      labelLabelFontSize: 16,
-      labelLabelFontFamily: 'sans-serif',
-      labelLabelFontWeight: 500,
-      labelLabelLineHeight: 20,
-      labelLabelTextAlign: 'center',
-      labelLabelTextBaseline: 'middle',
-      labelLabelFill: '#000',
-      labelLabelFillOpacity: 0.9,
-      labelLabelStroke: '#DAF5EC',
-      labelLabelStrokeOpacity: 0.9,
-      labelLabelLineWidth: 2,
-      labelLabelLineDash: [4, 8],
-      labelLabelOpacity: 1,
-      labelLabelShadowColor: '#d3d3d3',
-      labelLabelShadowBlur: 10,
-      labelLabelShadowOffsetX: 10,
-      labelLabelShadowOffsetY: 10,
-      labelLabelCursor: 'pointer',
+      labelFontSize: 16,
+      labelFontFamily: 'sans-serif',
+      labelFontWeight: 500,
+      labelLineHeight: 20,
+      labelTextAlign: 'center',
+      labelTextBaseline: 'middle',
+      labelFill: '#000',
+      labelFillOpacity: 0.9,
+      labelStroke: '#DAF5EC',
+      labelStrokeOpacity: 0.9,
+      labelLineWidth: 2,
+      labelLineDash: [4, 8],
+      labelOpacity: 1,
+      labelShadowColor: '#d3d3d3',
+      labelShadowBlur: 10,
+      labelShadowOffsetX: 10,
+      labelShadowOffsetY: 10,
+      labelCursor: 'pointer',
     },
   },
 });
@@ -1096,41 +1099,40 @@ export const Symbols = new Map<string, SymbolFactor>([
 
 _LegendIndicatorCfg_ 配置如下：
 
-| 属性                             | 描述                                                                                                                     | 类型                                                       | 默认值    | 必选 |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | --------- | ---- |
-| indicator                        | 是否显示连续图例的刻值指示器                                                                                             | boolean                                                    | `false`   |      |
-| indicatorFormatter               | 值指示器格式化                                                                                                           | (datum, index, data)=>string                                   | -         |      |
-| indicatorLabelFontSize           | 值指示器文字大小                                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelFontFamily         | 值指示器文字字体                                                                                                         | string \| (datum, index, data) => string                       | -         |      |
-| indicatorLabelFontWeight         | 值指示器字体粗细                                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelLineHeight         | 值指示器文字的行高                                                                                                       | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelTextAlign          | 设置值指示器文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |      |
-| indicatorLabelTextBaseline       | 设置在绘制值指示器文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |      |
-| indicatorLabelFill               | 值指示器字体颜色                                                                                                         | string \| (datum, index, data) => string                       | -         |      |
-| indicatorLabelFillOpacity        | 值指示器字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelStroke             | 值指示器字体描边颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
-| indicatorLabelStrokeOpacity      | 值指示器字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelLineWidth          | 值指示器字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelLineDash           | 值指示器字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]   | -         |      |
-| indicatorLabelOpacity            | 值指示器文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelShadowColor        | 值指示器文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
-| indicatorLabelShadowBlur         | 值指示器文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelShadowOffsetX      | 设置阴影距值指示器文字的水平距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelShadowOffsetY      | 设置阴影距值指示器文字的垂直距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| indicatorLabelCursor             | 值指示器鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                       | `default` |      |
-| indicatorBackgroundFill          | 值指示器背景填充色                                                                                                       | string \| (datum, index, data) => string                       | -         |      |
-| indicatorBackgroundFillOpacity   | 值指示器背景填充透明度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundStroke        | 值指示器背景的描边                                                                                                       | string \| (datum, index, data) => string                       | -         |      |
-| indicatorBackgroundStrokeOpacity | 值指示器背景描边透明度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundLineWidth     | 值指示器背景描边的宽度                                                                                                   | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundLineDash      | 值指示器背景描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]   | -         |      |
-| indicatorBackgroundOpacity       | 值指示器背景的整体透明度                                                                                                 | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundShadowColor   | 值指示器背景阴影颜色                                                                                                     | string \| (datum, index, data) => string                       | -         |      |
-| indicatorBackgroundShadowBlur    | 值指示器背景阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundShadowOffsetX | 设置阴影距值指示器背景的水平距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundShadowOffsetY | 设置阴影距值指示器背景的垂直距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| indicatorBackgroundCursor        | 值指示器背景鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                       | `default` |      |
-| navFormatter                     | 页码文本格式化                                                                                                           | (current: number, total: number) => string                 | -         |      |
+| 属性                             | 描述                                                                                                                     | 类型                                                         | 默认值    | 必选 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | --------- | ---- |
+| indicator                        | 是否显示连续图例的刻值指示器                                                                                             | boolean                                                      | false   |      |
+| indicatorFormatter               | 值指示器格式化                                                                                                           | (datum, index, data)=>string                                 | -         |      |
+| indicatorLabelFontSize           | 值指示器文字大小                                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelFontFamily         | 值指示器文字字体                                                                                                         | string \| (datum, index, data) => string                     | -         |      |
+| indicatorLabelFontWeight         | 值指示器字体粗细                                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelLineHeight         | 值指示器文字的行高                                                                                                       | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelTextAlign          | 设置值指示器文本内容的当前对齐方式                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`            | `start`   |      |
+| indicatorLabelTextBaseline       | 设置在绘制值指示器文本时使用的当前文本基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`  |      |
+| indicatorLabelFill               | 值指示器字体颜色                                                                                                         | string \| (datum, index, data) => string                     | -         |      |
+| indicatorLabelFillOpacity        | 值指示器字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelStroke             | 值指示器字体描边颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |
+| indicatorLabelStrokeOpacity      | 值指示器字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelLineWidth          | 值指示器字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelLineDash           | 值指示器字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -         |      |
+| indicatorLabelOpacity            | 值指示器文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelShadowColor        | 值指示器文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |
+| indicatorLabelShadowBlur         | 值指示器文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelShadowOffsetX      | 设置阴影距值指示器文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelShadowOffsetY      | 设置阴影距值指示器文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| indicatorLabelCursor             | 值指示器鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                     | `default` |      |
+| indicatorBackgroundFill          | 值指示器背景填充色                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
+| indicatorBackgroundFillOpacity   | 值指示器背景填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundStroke        | 值指示器背景的描边                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
+| indicatorBackgroundStrokeOpacity | 值指示器背景描边透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundLineWidth     | 值指示器背景描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundLineDash      | 值指示器背景描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -         |      |
+| indicatorBackgroundOpacity       | 值指示器背景的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundShadowColor   | 值指示器背景阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |
+| indicatorBackgroundShadowBlur    | 值指示器背景阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundShadowOffsetX | 设置阴影距值指示器背景的水平距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundShadowOffsetY | 设置阴影距值指示器背景的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
+| indicatorBackgroundCursor        | 值指示器背景鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default` |      |
 
 在 Legend 组件中配置值指示器属性的时候，不是以对象的形式来配置，而是以 `indicator`前缀加属性的方式来配置。
 
