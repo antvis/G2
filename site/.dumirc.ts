@@ -334,6 +334,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'layout',
+        title: {
+          zh: '布局',
+          en: 'Layout',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'intelligent',
         title: {
           zh: '智能可视化',
