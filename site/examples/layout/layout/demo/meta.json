@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "chart-layout.ts",
+      "title": {
+        "zh": "图表布局",
+        "en": "chart layout"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uPTsT5643UQAAAAAAAAAAAAAemJ7AQ/original"
+    }
+  ]
+}

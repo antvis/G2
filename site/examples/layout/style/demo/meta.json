@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "chart-view-style.ts",
+      "title": {
+        "zh": "图表视图样式",
+        "en": "chart View Style"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XEmcS7mJL8gAAAAAAAAAAAAAemJ7AQ/original"
+    }
+  ]
+}
