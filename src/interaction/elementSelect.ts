@@ -1,7 +1,8 @@
 import { DisplayObject } from '@antv/g';
-import { group } from '@antv/vendor/d3-array';
+import { bisector, group } from '@antv/vendor/d3-array';
 import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
+import { isPolar } from '../utils/coordinate';
 import {
   createValueof,
   createDatumof,
@@ -13,6 +14,9 @@ import {
   offsetTransform,
   mergeState,
   selectElementByData,
+  maybeRoot,
+  mousePosition,
+  createXKey,
 } from './utils';
 
 /**
@@ -24,6 +28,7 @@ export function elementSelect(
     elements: elementsof, // given the root of chart returns elements to be manipulated
     datum, // given each element returns the datum of it
     groupKey = (d) => d, // group elements by specified key
+    groupKeyByX,
     link = false, // draw link or not
     single = false, // single select or not
     multipleSelectHotkey, // hotkey for multi-select mode
@@ -32,12 +37,57 @@ export function elementSelect(
     scale,
     emitter,
     state = {},
+    region = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
   const elementSet = new Set(elements);
   const keyGroup = group(elements, groupKey);
+  const keyGroupByX = group(elements, groupKeyByX);
+
   const valueof = createValueof(elements, datum);
+
+  const inInterval = (d) => d.markType === 'interval';
+  const isBar = elements.every(inInterval) && !isPolar(coordinate);
+  const scaleX = scale.x;
+  const scaleSeries = scale.series;
+  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+  const xof = scaleSeries
+    ? (d) => {
+        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+        return (
+          d.__data__.x +
+          d.__data__.series * bandWidth +
+          bandWidth / (seriesCount * 2)
+        );
+      }
+    : (d) => d.__data__.x + bandWidth / 2;
+
+  // Sort for bisector search.
+  if (isBar)
+    elements.sort((a, b) => {
+      return xof(a) - xof(b);
+    });
+  const findElementByTarget = (event) => {
+    const { target } = event;
+    return maybeRoot(target, (node) => {
+      if (!node.classList) return false;
+      return node.classList.includes('element');
+    });
+  };
+
+  const findElement = isBar
+    ? (event) => {
+        const mouse = mousePosition(root, event);
+        if (!mouse) return;
+        const [abstractX] = coordinate.invert(mouse);
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX);
+        const target = elements[i];
+        return target;
+      }
+    : findElementByTarget;
+
   const [appendLink, removeLink] = renderLink({
     link,
     elements,
@@ -151,11 +201,41 @@ export function elementSelect(
 
   const click = (event) => {
     const { target: element, nativeEvent = true } = event;
-    // Click non-element shape, reset.
-    // Such as the rest of content area(background).
-    if (!elementSet.has(element)) return clear();
-    if (!isMultiSelectMode) return singleSelect(event, element, nativeEvent);
-    return multipleSelect(event, element, nativeEvent);
+
+    const select = !isMultiSelectMode ? singleSelect : multipleSelect;
+    let el = element;
+
+    if (!region) {
+      // Click non-element shape, reset.
+      // Such as the rest of content area(background).
+      if (!elementSet.has(element)) return clear();
+      return select(event, el, nativeEvent);
+    } else {
+      if (!elementSet.has(el)) {
+        el = findElement(event);
+
+        if (!elementSet.has(el)) return clear();
+
+        if (!isMultiSelectMode) {
+          return select(event, el, nativeEvent);
+        } else {
+          const k = groupKeyByX(el);
+
+          const group = keyGroupByX.get(k);
+
+          if (group.length) {
+            for (let i = 0; i < group.length; i++) {
+              const element = group[i];
+              if (!elementSet.has(element)) clear();
+              else select(event, element, nativeEvent);
+            }
+            return;
+          }
+        }
+      } else {
+        select(event, el, nativeEvent);
+      }
+    }
   };
 
   // Handle keyboard events for multi-select mode
@@ -226,6 +306,7 @@ export function ElementSelect({
       elements: selectG2Elements,
       datum: createDatumof(view),
       groupKey: createGroup ? createGroup(view) : undefined,
+      groupKeyByX: createXKey(view),
       coordinate,
       scale,
       state: mergeState(options, [

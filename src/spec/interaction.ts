@@ -108,6 +108,7 @@ export type ElementSelectInteraction = {
   background?: boolean;
   offset?: number;
   multipleSelectHotkey?: string;
+  region?: boolean;
 } & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementSelectByColorInteraction = {
