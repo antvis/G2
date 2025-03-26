@@ -15,6 +15,7 @@ import {
   updateRoot,
   createEmptyPromise,
   REMOVE_FLAG,
+  parseExprOptions,
 } from './utils';
 import { CompositionNode } from './composition';
 import { Node } from './node';
@@ -76,11 +77,20 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._bindAutoFit();
     this._rendering = true;
 
+    const options = this._computedOptions();
+    parseExprOptions(options);
+
+    if ((options as any).children && Array.isArray((options as any).children)) {
+      for (const child of (options as any).children) {
+        parseExprOptions(child);
+      }
+    }
+
     // @fixme The cancel render is not marked, which will cause additional rendered event.
     // @ref src/runtime/render.ts
     const finished = new Promise<Runtime<Spec>>((resolve, reject) =>
       render(
-        this._computedOptions(),
+        options,
         this._context,
         this._createResolve(resolve),
         this._createReject(reject),
