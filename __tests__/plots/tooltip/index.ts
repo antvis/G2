@@ -82,3 +82,4 @@ export { mockGroupInterval } from './mock-group-interval';
 export { temperatureLineMarker } from './temperatures-line-marker';
 export { itemsCallback } from './items-callback';
 export { issue6699 } from './issue-6699';
+export { issue6699Improve } from './issue-6699-improve';

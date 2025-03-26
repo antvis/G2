@@ -1,5 +1,12 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
+import {
+  sort,
+  group,
+  mean,
+  bisector,
+  minIndex,
+  bisect,
+} from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
@@ -660,24 +667,33 @@ export function seriesTooltip(
     return I[i];
   };
 
+  // get x domain by point
+  const getXDomainByPoint = (point) => {
+    const [pointX] = coordinate.invert(point);
+    const rangeIndexMap = scaleX.rangeIndexMap;
+    const xDomains = Array.from(rangeIndexMap.keys()).map(
+      (d: number) => d - (stepWidth - scaleX.getBandWidth()) / 2,
+    );
+    const index = bisect(xDomains as number[], pointX);
+    return scaleX.sortedDomain[index - 1];
+  };
+
   const elementsByFocus = isBar
     ? (focus, elements) => {
         const search = bisector(xof).center;
         const pointX = abstractX(focus);
-        const i = search(elements, pointX);
-        const find = elements[i];
-        const groups = group(elements, xof);
-        let selected = groups.get(xof(find));
+        const parentOf = (d) => d.parentNode;
+        const elementGroups = group(elements, parentOf);
+        const selected = [];
 
-        selected = selected.filter((selectedItem) => {
-          const selectedItemLeftBoundary = xof(selectedItem) - stepWidth / 2;
-          const selectedItemRightBoundary = xof(selectedItem) + stepWidth / 2;
+        const xDomain = getXDomainByPoint(focus);
+        elementGroups.forEach((elements) => {
+          const i = search(elements, pointX);
+          const find = elements[i];
 
-          // the series element need to consider the stepWidth before firstElement and after lastElement
-          return (
-            (pointX >= selectedItemLeftBoundary || i === 0) &&
-            (pointX <= selectedItemRightBoundary || i === elements.length - 1)
-          );
+          if (xDomain === (find as any).__data__.title) {
+            selected.push(find);
+          }
         });
 
         return selected;
