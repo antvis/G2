@@ -41,7 +41,7 @@ order: 1
 
 查看 [Scrollbar](/manual/component/scrollbar) 教程获取更多信息。
 
-### 滑动条 slider
+### 缩略轴 slider
 
 缩略轴（slider）是一种辅助看数据的组件，它将大量数据浓缩到一个轴上，既可以缩小宏观看数据全貌，又可以放大微观看数据的片段，同时还可以拖拽观察数据在一定区间内的演变。
 
