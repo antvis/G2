@@ -668,13 +668,13 @@ export function seriesTooltip(
   };
 
   // get x domain by point
-  const getXDomainByPoint = (point) => {
+  const getDomainXByPoint = (point) => {
     const [pointX] = coordinate.invert(point);
     const rangeIndexMap = scaleX.rangeIndexMap;
-    const xDomains = Array.from(rangeIndexMap.keys()).map(
+    const domainXs = Array.from(rangeIndexMap.keys()).map(
       (d: number) => d - (stepWidth - scaleX.getBandWidth()) / 2,
     );
-    const index = bisect(xDomains as number[], pointX);
+    const index = bisect(domainXs as number[], pointX);
     return scaleX.sortedDomain[index - 1];
   };
 
@@ -686,12 +686,12 @@ export function seriesTooltip(
         const elementGroups = group(elements, parentOf);
         const selected = [];
 
-        const xDomain = getXDomainByPoint(focus);
+        const domainX = getDomainXByPoint(focus);
         elementGroups.forEach((elements) => {
           const i = search(elements, pointX);
           const find = elements[i];
 
-          if (xDomain === (find as any).__data__.title) {
+          if (domainX === (find as any).__data__.title) {
             selected.push(find);
           }
         });
