@@ -234,7 +234,11 @@ function groupItems(
   ).filter(defined);
   const newItems = data
     .flatMap((datum, i) => {
-      const element = elements[i];
+      const element = elements.find(
+        (element) =>
+          element.__data__.seriesKey?.includes(datum.key) ||
+          element.__data__.key === datum.key,
+      );
       const { items = [], title } = datum;
       const definedItems = items.filter(defined);
 
