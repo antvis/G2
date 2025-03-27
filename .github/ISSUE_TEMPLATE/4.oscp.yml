@@ -96,7 +96,9 @@ body:
 
         8. 优化文档并预览效果
 
-        对应文件位于 `site/docs/manual/xxx.zh.md`
+        - 对应文件位于 `site/docs/manual/xxx.zh.md`
+        - 功能实现位于 `src/xxx/xxx.ts`
+
 
         #### 3. 提交 PR
 
