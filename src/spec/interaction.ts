@@ -120,6 +120,7 @@ export type ElementSelectByColorInteraction = {
 
 export type ElementSelectByXInteraction = {
   type?: 'elementSelectByX';
+  region?: boolean;
   single?: boolean;
   background?: boolean;
   offset?: number;

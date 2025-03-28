@@ -1,8 +1,7 @@
 import { DisplayObject } from '@antv/g';
-import { bisector, group } from '@antv/vendor/d3-array';
+import { group } from '@antv/vendor/d3-array';
 import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
-import { isPolar } from '../utils/coordinate';
 import {
   createValueof,
   createDatumof,
@@ -14,9 +13,9 @@ import {
   offsetTransform,
   mergeState,
   selectElementByData,
-  maybeRoot,
-  mousePosition,
   createXKey,
+  createFindElementByEvent,
+  VALID_FIND_BY_X_MARKS,
 } from './utils';
 
 /**
@@ -28,7 +27,7 @@ export function elementSelect(
     elements: elementsof, // given the root of chart returns elements to be manipulated
     datum, // given each element returns the datum of it
     groupKey = (d) => d, // group elements by specified key
-    groupKeyByX,
+    regionGroupKey = (d) => d, // how to group elements when click region
     link = false, // draw link or not
     single = false, // single select or not
     multipleSelectHotkey, // hotkey for multi-select mode
@@ -42,51 +41,16 @@ export function elementSelect(
 ) {
   const elements = elementsof(root);
   const elementSet = new Set(elements);
+  const findElement = createFindElementByEvent({
+    elementsof,
+    root,
+    coordinate,
+    scale,
+  });
   const keyGroup = group(elements, groupKey);
-  const keyGroupByX = group(elements, groupKeyByX);
+  const regionGroup = group(elements, regionGroupKey);
 
   const valueof = createValueof(elements, datum);
-
-  const inInterval = (d) => d.markType === 'interval';
-  const isBar = elements.every(inInterval) && !isPolar(coordinate);
-  const scaleX = scale.x;
-  const scaleSeries = scale.series;
-  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
-  const xof = scaleSeries
-    ? (d) => {
-        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
-        return (
-          d.__data__.x +
-          d.__data__.series * bandWidth +
-          bandWidth / (seriesCount * 2)
-        );
-      }
-    : (d) => d.__data__.x + bandWidth / 2;
-
-  // Sort for bisector search.
-  if (isBar)
-    elements.sort((a, b) => {
-      return xof(a) - xof(b);
-    });
-  const findElementByTarget = (event) => {
-    const { target } = event;
-    return maybeRoot(target, (node) => {
-      if (!node.classList) return false;
-      return node.classList.includes('element');
-    });
-  };
-
-  const findElement = isBar
-    ? (event) => {
-        const mouse = mousePosition(root, event);
-        if (!mouse) return;
-        const [abstractX] = coordinate.invert(mouse);
-        const search = bisector(xof).center;
-        const i = search(elements, abstractX);
-        const target = elements[i];
-        return target;
-      }
-    : findElementByTarget;
 
   const [appendLink, removeLink] = renderLink({
     link,
@@ -108,7 +72,7 @@ export function elementSelect(
   const elementStyle = deepMix(state, {
     selected: {
       ...(state.selected?.offset && {
-        //Apply translate to mock slice out.
+        // Apply translate to mock slice out.
         transform: (...params) => {
           const value = state.selected.offset(...params);
           const [, i] = params;
@@ -132,14 +96,22 @@ export function elementSelect(
     return;
   };
 
-  const singleSelect = (event, element, nativeEvent = true) => {
+  const singleSelect = ({
+    event,
+    element,
+    nativeEvent = true,
+    filter = (el) => true,
+    groupBy = groupKey,
+    groupMap = keyGroup,
+  }) => {
+    const filteredElements = elements.filter(filter);
     // Clear states if clicked selected element.
     if (hasState(element, 'selected')) clear();
     else {
-      const k = groupKey(element);
-      const group = keyGroup.get(k);
+      const k = groupBy(element);
+      const group = groupMap.get(k);
       const groupSet = new Set(group);
-      for (const e of elements) {
+      for (const e of filteredElements) {
         if (groupSet.has(e)) setState(e, 'selected');
         else {
           setState(e, 'unselected');
@@ -161,13 +133,22 @@ export function elementSelect(
     }
   };
 
-  const multipleSelect = (event, element, nativeEvent = true) => {
-    const k = groupKey(element);
-    const group = keyGroup.get(k);
+  const multipleSelect = ({
+    event,
+    element,
+    nativeEvent = true,
+    filter = (el) => true,
+    groupBy = groupKey,
+    groupMap = keyGroup,
+  }) => {
+    const k = groupBy(element);
+    const group = groupMap.get(k);
     const groupSet = new Set(group);
+    const filteredElements = elements.filter(filter);
+
     if (!hasState(element, 'selected')) {
       const hasSelectedGroup = group.some((e) => hasState(e, 'selected'));
-      for (const e of elements) {
+      for (const e of filteredElements) {
         if (groupSet.has(e)) setState(e, 'selected');
         else if (!hasState(e, 'selected')) setState(e, 'unselected');
       }
@@ -204,37 +185,28 @@ export function elementSelect(
 
     const select = !isMultiSelectMode ? singleSelect : multipleSelect;
     let el = element;
+    const isClickElement = elementSet.has(element);
 
-    if (!region) {
+    if (!region || isClickElement) {
       // Click non-element shape, reset.
       // Such as the rest of content area(background).
-      if (!elementSet.has(element)) return clear();
-      return select(event, el, nativeEvent);
+      if (!isClickElement) return clear();
+      return select({ event, element: el, nativeEvent, groupBy: groupKey });
     } else {
-      if (!elementSet.has(el)) {
-        el = findElement(event);
+      // Click background region area, select elements in the region.
+      // Get element at cursor.x position.
+      el = findElement(event);
 
-        if (!elementSet.has(el)) return clear();
+      if (!elementSet.has(el)) return clear();
 
-        if (!isMultiSelectMode) {
-          return select(event, el, nativeEvent);
-        } else {
-          const k = groupKeyByX(el);
-
-          const group = keyGroupByX.get(k);
-
-          if (group.length) {
-            for (let i = 0; i < group.length; i++) {
-              const element = group[i];
-              if (!elementSet.has(element)) clear();
-              else select(event, element, nativeEvent);
-            }
-            return;
-          }
-        }
-      } else {
-        select(event, el, nativeEvent);
-      }
+      return select({
+        event,
+        element: el,
+        nativeEvent,
+        filter: (el) => VALID_FIND_BY_X_MARKS.includes(el.markType),
+        groupBy: regionGroupKey,
+        groupMap: regionGroup,
+      });
     }
   };
 
@@ -294,6 +266,7 @@ export function elementSelect(
 
 export function ElementSelect({
   createGroup,
+  createRegionGroup,
   background = false,
   link = false,
   ...rest
@@ -306,7 +279,9 @@ export function ElementSelect({
       elements: selectG2Elements,
       datum: createDatumof(view),
       groupKey: createGroup ? createGroup(view) : undefined,
-      groupKeyByX: createXKey(view),
+      regionGroupKey: createRegionGroup
+        ? createRegionGroup(view)
+        : createXKey(view),
       coordinate,
       scale,
       state: mergeState(options, [

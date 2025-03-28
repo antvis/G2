@@ -42,6 +42,7 @@ chart.render();
 | offset                    | 主方向的偏移量 | `number`     | 0      |
 | `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |
 | single                    | 是否单选       | `boolean`    | false  |
+| region                    | 点击空白区域是否触发       | `boolean`    | false  |
 | multipleSelectHotkey      | 多选热键的code，按住热键后变为多选，设置此属性后`single`无效    | `string` \| `string[]` | -      |
 
 ## 案例

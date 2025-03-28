@@ -1,6 +1,6 @@
 import { DisplayObject, Path, AABB } from '@antv/g';
 import { path as d3Path } from '@antv/vendor/d3-path';
-import { sort } from '@antv/vendor/d3-array';
+import { sort, bisector } from '@antv/vendor/d3-array';
 import { Vector2 } from '@antv/coord';
 import { filter } from '@antv/util';
 import type { PathArray } from '@antv/util';
@@ -531,4 +531,63 @@ export function maybeRoot(node, rootOf) {
   let root = node.parent;
   while (root && !rootOf(root)) root = root.parent;
   return root;
+}
+
+export const VALID_FIND_BY_X_MARKS = ['interval', 'point', 'density'];
+/**
+ * @description Create function that can find element by event.
+ * @returns Element find function.
+ */
+export function createFindElementByEvent({
+  elementsof,
+  root,
+  coordinate,
+  scale,
+  validFindByXMarks = VALID_FIND_BY_X_MARKS,
+}) {
+  let elements = elementsof(root);
+  const getValidFindByXMarks = (d) => validFindByXMarks.includes(d.markType);
+  const hasValidFindByXMarks = elements.find(getValidFindByXMarks);
+
+  // Try to find element by x position.
+  if (hasValidFindByXMarks) {
+    elements = elements.filter(getValidFindByXMarks);
+
+    const scaleX = scale.x;
+    const scaleSeries = scale.series;
+    const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+    const xof = scaleSeries
+      ? (d) => {
+          const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+          return (
+            d.__data__.x +
+            d.__data__.series * bandWidth +
+            bandWidth / (seriesCount * 2)
+          );
+        }
+      : (d) => d.__data__.x + bandWidth / 2;
+
+    // Sort for bisector search.
+    elements.sort((a, b) => xof(a) - xof(b));
+
+    return (event) => {
+      const mouse = mousePosition(root, event);
+      if (!mouse) return;
+      const [abstractX] = coordinate.invert(mouse);
+      const search = bisector(xof).center;
+      const i = search(elements, abstractX);
+      const target = elements[i];
+
+      return target;
+    };
+  }
+
+  // If there is no valid element find by x, just return the target element.
+  return (event) => {
+    const { target } = event;
+    return maybeRoot(target, (node) => {
+      if (!node.classList) return false;
+      return node.classList.includes('element');
+    });
+  };
 }
