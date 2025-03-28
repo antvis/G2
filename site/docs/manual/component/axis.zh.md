@@ -389,3 +389,7 @@ EffectTiming 支持配置的属性如下：
 | easing   | 动画的缓动函数                 | `Easing` | -      |
 | endDelay | 延迟执行时间 (ms)              | `number` | -      |
 | fill     | 动画处于非运行状态时的展示效果 | `Fill`   | -      |
+
+## 示例
+
+更多的案例，可以查看 [图表示例 - 坐标轴](/examples/component/axis/#axis-x) 页面。
