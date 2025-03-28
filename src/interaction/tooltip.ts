@@ -664,7 +664,7 @@ export function seriesTooltip(
 
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
-    if (!closest && !isOnlyOneElement && (finalX < minX || finalX > maxX))
+    if (!closest && (finalX < minX || finalX > maxX) && !isOnlyOneElement)
       return null;
 
     const search = bisector((i) => X[+i]).center;
@@ -673,7 +673,7 @@ export function seriesTooltip(
       // if is only one element, find the closest x to focusX
       const sortedDomain: number[] = scaleX.adjustedRange;
       if (
-        // consider oneElementLine, if only one element of one XDomain, must return one element,
+        // consider oneElementLine, if only one element of one XDomain, must return one element, related test case: tooltip/one-element-line
         // else if multi elements, determine whether it is between the minimum scope and the maximum scope
         !closest &&
         (finalX < sortedDomain[0] ||
