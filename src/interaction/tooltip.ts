@@ -654,6 +654,9 @@ export function seriesTooltip(
   };
 
   const indexByFocus = (event, focus, I, X) => {
+    const isOutRange = (x, min, max) => x < min || x > max;
+    const shouldSkip = (closest, isRangeViolation, isInvalid) =>
+      !closest && isRangeViolation && isInvalid;
     // _x is from emit event, to find the right element.
     const { _x } = event;
     const finalX = _x !== undefined ? scaleX.map(_x) : abstractX(focus);
@@ -664,7 +667,7 @@ export function seriesTooltip(
 
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
-    if (!closest && (finalX < minX || finalX > maxX) && !isOnlyOneElement)
+    if (shouldSkip(closest, isOutRange(finalX, minX, maxX), !isOnlyOneElement))
       return null;
 
     const search = bisector((i) => X[+i]).center;
@@ -675,19 +678,19 @@ export function seriesTooltip(
       if (
         // consider oneElementLine, if only one element of one XDomain, must return one element, related test case: tooltip/one-element-line
         // else if multi elements, determine whether it is between the minimum scope and the maximum scope
-        !closest &&
-        (finalX < sortedDomain[0] ||
-          finalX > sortedDomain[sortedDomain.length - 1]) &&
-        !(sortedDomain.length === 1)
-      ) {
+        shouldSkip(
+          closest,
+          isOutRange(
+            finalX,
+            sortedDomain[0],
+            sortedDomain[sortedDomain.length - 1],
+          ),
+          !(sortedDomain.length === 1),
+        )
+      )
         return null;
-      }
 
-      const closestDomainX =
-        sortedDomain[minIndex(sortedDomain, (x) => Math.abs(x - finalX))];
-
-      // minX === maxX && minX === closestDomainX, return the only one element
-      return closestDomainX === minX ? I[i] : null;
+      return I[i];
     }
     return I[i];
   };
