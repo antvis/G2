@@ -664,10 +664,31 @@ export function seriesTooltip(
 
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
-    if (!closest && (finalX < minX || finalX > maxX) && !isOnlyOneElement)
+    if (!closest && !isOnlyOneElement && (finalX < minX || finalX > maxX))
       return null;
+
     const search = bisector((i) => X[+i]).center;
     const i = search(I, finalX);
+    if (isOnlyOneElement) {
+      // if is only one element, find the closest x to focusX
+      const sortedDomain: number[] = scaleX.adjustedRange;
+      if (
+        // consider oneElementLine, if only one element of one XDomain, must return one element,
+        // else if multi elements, determine whether it is between the minimum scope and the maximum scope
+        !closest &&
+        (finalX < sortedDomain[0] ||
+          finalX > sortedDomain[sortedDomain.length - 1]) &&
+        !(sortedDomain.length === 1)
+      ) {
+        return null;
+      }
+
+      const closestDomainX =
+        sortedDomain[minIndex(sortedDomain, (x) => Math.abs(x - finalX))];
+
+      // minX === maxX && minX === closestDomainX, return the only one element
+      return closestDomainX === minX ? I[i] : null;
+    }
     return I[i];
   };
 
