@@ -52,12 +52,12 @@ chart.options({
 
 ## 配置项
 
-| 属性      | 描述                                               | 类型              | 默认值 |
-| --------- | ------------------------------------------------- | ----------------- | ------ |
-| value     | fetch 请求的网络地址                                | `string`          | `[]`   |
-| format    | 远程文件的数据格式类型，决定用什么方式解析               | `'json' \| 'csv'` | `json` |
-| delimiter | 如果是 csv 文件，解析的时候分割符                     | `string`          | `,`    |
-| autoType  | 如果是 csv 文件，解析的时候是否自动判断列数据类型        | `boolean`         | `true` |
-| transform | 对加载后的数据进行变换操作                            | `DataTransform`   | `[]`   |
+| 属性      | 描述                                              | 类型                                                      | 默认值                         |
+| --------- | ------------------------------------------------- | --------------------------------------------------------- | ------------------------------ |
+| value     | fetch 请求的网络地址                              | string                                                    | []                             |
+| format    | 远程文件的数据格式类型，决定用什么方式解析        | `'json' \| 'csv'`                                         | 默认取 value 末尾 `.` 后的后缀 |
+| delimiter | 如果是 csv 文件，解析的时候分割符                 | string                                                    | `,`                            |
+| autoType  | 如果是 csv 文件，解析的时候是否自动判断列数据类型 | boolean                                                   | true                           |
+| transform | 对加载后的数据进行变换操作                        | [DataTransform](/manual/core/data/overview#datatransform) | []                             |
 
 在 `fetch` 实现上，如果 format 为 `json`，则使用 JavaScript 的 `fetch` API 然后将返回值转成 JSON Object；如果 format 为 `csv`，则调用 `d3-dsv` 去解析接口返回值。
