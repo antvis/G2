@@ -1,5 +1,4 @@
 import { isNumber } from '@antv/util';
-import { compile } from '@antv/expr';
 import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
 import { deepAssign } from '../utils/helper';
@@ -303,84 +302,4 @@ export function createEmptyPromise<T>(): [
     reject = rej;
   });
   return [cloned, resolve, reject];
-}
-
-function parseExpr(expr: string) {
-  const evaluator = compile(expr);
-
-  return (...args) => {
-    return evaluator({
-      datum: args[0],
-      i: args[1],
-      data: args[2],
-      options: args[3],
-      global: { ...args },
-    });
-  };
-}
-
-function parseExprValue<T = any>(value: T, hash = new WeakMap<any, any>()): T {
-  if (
-    typeof value === 'string' &&
-    value.startsWith('{') &&
-    value.endsWith('}')
-  ) {
-    return parseExpr(value.slice(1, -1)) as unknown as T;
-  }
-
-  if (value === null || typeof value !== 'object') {
-    return value;
-  }
-
-  if (hash.has(value)) {
-    return hash.get(value);
-  }
-
-  const parsedOptions: any = Array.isArray(value) ? [] : {};
-
-  hash.set(value, parsedOptions);
-
-  if (Array.isArray(value)) {
-    for (let i = 0; i < value.length; i++) {
-      parsedOptions[i] = parseExprValue(value[i], hash);
-    }
-  } else if (value && typeof value === 'object') {
-    for (const key in value) {
-      if (
-        // Use `Object.hasOwn` if available. Keep compatibility with old versions.
-        Object.hasOwn
-          ? Object.hasOwn(value, key)
-          : Object.prototype.hasOwnProperty.call(value, key)
-      ) {
-        parsedOptions[key] = parseExprValue((value as any)[key], hash);
-      }
-    }
-  }
-
-  return parsedOptions as unknown as T;
-}
-
-export function parseExprOptions(options: any) {
-  const whiteList = [
-    'attr',
-    'encode',
-    'transform',
-    'scale',
-    'interaction',
-    'labels',
-    'animate',
-    'coordinate',
-    'axis',
-    'legend',
-    'slider',
-    'scrollbar',
-    'state',
-    'tooltip',
-  ];
-
-  for (const key of whiteList) {
-    if (options[key] === undefined) continue;
-
-    options[key] = parseExprValue(options[key]);
-  }
 }
