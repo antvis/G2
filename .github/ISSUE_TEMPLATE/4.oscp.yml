@@ -34,6 +34,7 @@ body:
           - 代码规范：示例代码统一使用 `spec` 语法。即 `chart.options({})`，可以在图表示例页面完成切换。
           - 内容规范：
             - 属性表格需要包含【属性】【描述】【类型】【默认值】【必选】列，所有的配置项包括绘图属性需要罗列完整。
+            - 默认值除了功能实现部分，还可能配置在主题里 `src/theme/create.ts`
             - 复杂类型单独解释说明
             - 必要时可配上示意图
 
@@ -96,7 +97,12 @@ body:
 
         8. 优化文档并预览效果
 
-        对应文件位于 `site/docs/manual/xxx.zh.md`
+        - 对应文件位于 `site/docs/manual/xxx.zh.md`
+        - 功能实现位于 `src/xxx/xxx.ts`
+        - 图表示例位于：`site/examples/xxx/xxx/demo`
+        - 图表示例预览： https://g2.antv.antgroup.com/examples#xxx
+        // - 图表示例暂无 欢迎补充👏
+
 
         #### 3. 提交 PR
 
