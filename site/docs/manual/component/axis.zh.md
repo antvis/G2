@@ -13,6 +13,10 @@ G2 中 **Axis（坐标轴）** 就像是图表的 "尺子"，用于建立数据�
 
 ![简单的坐标轴使用示例](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*H3NJR5pcMVsAAAAAAAAAAAAAemJ7AQ/original)
 
+### 构成元素
+
+![构成元素](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DnhUSZbue48AAAAAAAAAAAAAemJ7AQ/original)
+
 ## 配置方式
 
 坐标轴可以在 Mark 层级配置。在 G2 中每个标记（Mark）都有自己的坐标轴。如果标记对应比例尺是同步的，那么坐标轴也会合并。
