@@ -1,4 +1,5 @@
 import { isNumber } from '@antv/util';
+import { compile } from '@antv/expr';
 import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
 import { deepAssign } from '../utils/helper';
@@ -302,4 +303,164 @@ export function createEmptyPromise<T>(): [
     reject = rej;
   });
   return [cloned, resolve, reject];
+}
+
+// Whitelist of properties that can contain expressions
+export const exprWhiteList = [
+  'attr',
+  'encode',
+  'transform',
+  'scale',
+  'interaction',
+  'labels',
+  'animate',
+  'coordinate',
+  'axis',
+  'legend',
+  'slider',
+  'scrollbar',
+  'state',
+  'tooltip',
+];
+
+/**
+ * Compiles an expression string into a function
+ * @param expr Expression string to compile
+ * @param exprCache Cache for compiled expressions
+ * @returns Compiled function or original string if empty
+ */
+function compileExpression(
+  expr: string,
+  exprCache = new Map<string, () => any>(),
+): (() => any) | string {
+  if (!expr) return expr;
+
+  // Check cache first using the string as the key
+  if (exprCache.has(expr)) {
+    return exprCache.get(expr);
+  }
+
+  const evaluator = compile(expr);
+
+  const compiledFn = (...args) => {
+    const paramNames = Array.from({ length: args.length }, (_, i) =>
+      String.fromCharCode(97 + i),
+    );
+
+    const namedParams = Object.fromEntries(
+      args.map((value, index) => [paramNames[index], value]),
+    );
+
+    // global is used to overview what can i get in props
+    return evaluator({
+      ...namedParams,
+      global: { ...namedParams },
+    });
+  };
+
+  // Store in cache
+  exprCache.set(expr, compiledFn);
+
+  return compiledFn;
+}
+
+/**
+ * Processes a value to convert expression strings to functions
+ * @param value Value to process
+ * @param exprCache Cache for compiled expressions
+ * @param visited Map to track visited objects (prevents circular reference issues)
+ * @returns Processed value
+ */
+export function parseValueExpr(
+  value: any,
+  exprCache = new Map<string, () => any>(),
+  visited = new WeakMap<Record<string, any>, any>(),
+): any {
+  // Handle expression strings
+  if (
+    typeof value === 'string' &&
+    value.trim() &&
+    value.startsWith('{') &&
+    value.endsWith('}')
+  ) {
+    return compileExpression(value.slice(1, -1), exprCache);
+  }
+
+  // Handle special object types
+  if (value instanceof Date || value instanceof RegExp) {
+    return value;
+  }
+
+  // Handle primitive values
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+
+  // Handle circular references
+  if (visited.has(value)) {
+    return visited.get(value);
+  }
+
+  // Create new container for processed values
+  const processed = Array.isArray(value) ? [] : {};
+  visited.set(value, processed);
+
+  // Process arrays
+  if (Array.isArray(value)) {
+    for (let i = 0; i < value.length; i++) {
+      processed[i] = parseValueExpr(value[i], exprCache, visited);
+    }
+  }
+  // Process objects
+  else {
+    for (const key in value) {
+      if (
+        Object.hasOwn
+          ? Object.hasOwn(value, key)
+          : Object.prototype.hasOwnProperty.call(value, key)
+      ) {
+        processed[key] = parseValueExpr(value[key], exprCache, visited);
+      }
+    }
+  }
+
+  return processed;
+}
+
+/**
+ * Processes options object to convert expressions to functions
+ * @param options Options object to process
+ * @param exprCache Optional cache for compiled expressions
+ * @param visited Set to track visited objects (prevents circular reference issues)
+ */
+export function parseOptionsExpr(
+  options: any,
+  exprCache = new Map<string, () => any>(),
+  visited = new WeakSet<Record<string, any>>(),
+): void {
+  if (!options || typeof options !== 'object') {
+    return;
+  }
+
+  // Check for circular references
+  if (visited.has(options)) {
+    return;
+  }
+
+  // Mark this object as visited
+  visited.add(options);
+
+  // Process whitelisted properties
+  for (const key of exprWhiteList) {
+    if (options[key] !== undefined) {
+      options[key] = parseValueExpr(options[key], exprCache);
+    }
+  }
+
+  // Process children recursively
+  if (options.children && Array.isArray(options.children)) {
+    for (const child of options.children) {
+      parseOptionsExpr(child, exprCache, visited);
+    }
+  }
 }

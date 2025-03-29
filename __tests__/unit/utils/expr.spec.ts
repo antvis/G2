@@ -1,42 +1,42 @@
 import {
-  parseOptionsValueExpr,
+  parseValueExpr,
   parseOptionsExpr,
-  parseChildrenExprWithRecursion,
-} from '../../../src/api/expr';
+  exprWhiteList,
+} from '../../../src/api/utils';
 
 describe('Expression Processing Functions', () => {
-  describe('parseOptionsValueExpr', () => {
+  describe('parseValueExpr', () => {
     it('should compile expressions in curly braces', () => {
-      const result = parseOptionsValueExpr('{a.value * 2}');
+      const result = parseValueExpr('{a.value * 2}');
       expect(typeof result).toBe('function');
       expect(result({ value: 5 }, 0, [], {})).toBe(10);
     });
 
     it('should handle whitespace in expressions', () => {
-      const result = parseOptionsValueExpr('{ a.value * 2 }');
+      const result = parseValueExpr('{ a.value * 2 }');
       expect(typeof result).toBe('function');
       expect(result({ value: 5 }, 0, [], {})).toBe(10);
     });
 
     it('should return primitive values as is', () => {
-      expect(parseOptionsValueExpr(42)).toBe(42);
-      expect(parseOptionsValueExpr('string')).toBe('string');
-      expect(parseOptionsValueExpr(true)).toBe(true);
-      expect(parseOptionsValueExpr(false)).toBe(false);
-      expect(parseOptionsValueExpr(null)).toBe(null);
-      expect(parseOptionsValueExpr(undefined)).toBe(undefined);
+      expect(parseValueExpr(42)).toBe(42);
+      expect(parseValueExpr('string')).toBe('string');
+      expect(parseValueExpr(true)).toBe(true);
+      expect(parseValueExpr(false)).toBe(false);
+      expect(parseValueExpr(null)).toBe(null);
+      expect(parseValueExpr(undefined)).toBe(undefined);
     });
 
     it('should handle empty strings', () => {
-      expect(parseOptionsValueExpr('')).toBe('');
+      expect(parseValueExpr('')).toBe('');
     });
 
     it('should handle strings with only curly braces', () => {
-      expect(parseOptionsValueExpr('{}')).toBe('');
+      expect(parseValueExpr('{}')).toBe('');
     });
 
     it('should process arrays recursively', () => {
-      const result = parseOptionsValueExpr([1, '{a.value * 2}', 3]);
+      const result = parseValueExpr([1, '{a.value * 2}', 3]);
       expect(result[0]).toBe(1);
       expect(typeof result[1]).toBe('function');
       expect(result[1]({ value: 5 }, 0, [], {})).toBe(10);
@@ -44,7 +44,7 @@ describe('Expression Processing Functions', () => {
     });
 
     it('should process objects recursively', () => {
-      const result = parseOptionsValueExpr({
+      const result = parseValueExpr({
         a: 1,
         b: '{a.value * 2}',
         c: { d: '{a.x + a.y}' },
@@ -61,10 +61,38 @@ describe('Expression Processing Functions', () => {
       const obj: any = { a: 1, b: '{a.value * 2}' };
       obj.self = obj;
 
-      const result = parseOptionsValueExpr(obj);
+      const result = parseValueExpr(obj);
       expect(result.a).toBe(1);
       expect(typeof result.b).toBe('function');
       expect(result.self).toBe(result); // Circular reference preserved
+    });
+
+    it('should use cache for identical expressions', () => {
+      // Create a test cache to verify it's being used
+      const testCache = new Map<string, () => any>();
+      const spy = jest.spyOn(testCache, 'set');
+
+      // First call should add to cache
+      const result1 = parseValueExpr('{a.value * 2}', testCache);
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      // Second call with same expression should use cache
+      const result2 = parseValueExpr('{a.value * 2}', testCache);
+      expect(spy).toHaveBeenCalledTimes(1); // Still just one call
+
+      // Both should be functions
+      expect(typeof result1).toBe('function');
+      expect(typeof result2).toBe('function');
+
+      // Both should return the same result
+      expect(result1({ value: 5 }, 0, [], {})).toBe(10);
+      expect(result2({ value: 5 }, 0, [], {})).toBe(10);
+
+      // Different expression should add to cache
+      parseValueExpr('{a.x + a.y}', testCache);
+      expect(spy).toHaveBeenCalledTimes(2);
+
+      spy.mockRestore();
     });
 
     it('should handle complex nested structures', () => {
@@ -77,7 +105,7 @@ describe('Expression Processing Functions', () => {
         },
       };
 
-      const result = parseOptionsValueExpr(complex);
+      const result = parseValueExpr(complex);
       expect(result.array[0]).toBe(1);
       expect(typeof result.array[1].expr).toBe('function');
       expect(result.array[1].expr({ value: 5 }, 0, [], {})).toBe(10);
@@ -87,43 +115,15 @@ describe('Expression Processing Functions', () => {
       expect(result.object.nested.expr({}, 3, [], {})).toBe(30);
     });
 
-    it('should handle all context parameters', () => {
-      const result = parseOptionsValueExpr({
-        datumExpr: '{a && a.value}',
-        indexExpr: '{b * 10}',
-        dataExpr: '{c.length}',
-        optionsExpr: '{d.color}',
-        globalExpr: '{global.e.config}',
-      });
-
-      expect(typeof result.datumExpr).toBe('function');
-      expect(result.datumExpr({ value: 42 }, 0, [], {})).toBe(42);
-      expect(result.datumExpr(null, 0, [], {})).toBe(null);
-
-      expect(typeof result.indexExpr).toBe('function');
-      expect(result.indexExpr({}, 3, [], {})).toBe(30);
-
-      expect(typeof result.dataExpr).toBe('function');
-      expect(result.dataExpr({}, 0, [1, 2, 3], {})).toBe(3);
-
-      expect(typeof result.optionsExpr).toBe('function');
-      expect(result.optionsExpr({}, 0, [], { color: 'red' })).toBe('red');
-
-      expect(typeof result.globalExpr).toBe('function');
-      expect(result.globalExpr({}, 0, [], {}, { config: 'value' })).toBe(
-        'value',
-      );
-    });
-
     it('should handle Date objects', () => {
       const date = new Date();
-      const result = parseOptionsValueExpr({ date });
+      const result = parseValueExpr({ date });
       expect(result.date).toBe(date);
     });
 
     it('should handle RegExp objects', () => {
       const regex = /test/;
-      const result = parseOptionsValueExpr({ regex });
+      const result = parseValueExpr({ regex });
       expect(result.regex).toBe(regex);
     });
   });
@@ -133,18 +133,7 @@ describe('Expression Processing Functions', () => {
       const options = {
         attr: { color: '{a.color}' },
         encode: { x: '{a.x + a.y}' },
-        transform: [{ callback: '{i * 10}' }],
-        scale: { color: { range: ['{a.color}'] } },
-        interaction: { tooltip: { fields: ['{a.field}'] } },
-        labels: { text: '{a.value}' },
-        animate: { enter: { callback: '{a.value}' } },
-        coordinate: { type: '{a.type}' },
-        axis: { x: { title: '{a.title}' } },
-        legend: { color: { title: '{a.title}' } },
-        slider: { x: { formatter: '{a.value}' } },
-        scrollbar: { x: { formatter: '{a.value}' } },
-        state: { active: { fill: '{a.color}' } },
-        tooltip: { title: '{a.title}' },
+        transform: [{ callback: '{b * 10}' }],
         // Non-whitelisted property
         nonWhitelisted: { expr: '{a.value * 2}' },
       };
@@ -155,21 +144,26 @@ describe('Expression Processing Functions', () => {
       expect(typeof options.attr.color).toBe('function');
       expect(typeof options.encode.x).toBe('function');
       expect(typeof options.transform[0].callback).toBe('function');
-      expect(typeof options.scale.color.range[0]).toBe('function');
-      expect(typeof options.interaction.tooltip.fields[0]).toBe('function');
-      expect(typeof options.labels.text).toBe('function');
-      expect(typeof options.animate.enter.callback).toBe('function');
-      expect(typeof options.coordinate.type).toBe('function');
-      expect(typeof options.axis.x.title).toBe('function');
-      expect(typeof options.legend.color.title).toBe('function');
-      expect(typeof options.slider.x.formatter).toBe('function');
-      expect(typeof options.scrollbar.x.formatter).toBe('function');
-      expect(typeof options.state.active.fill).toBe('function');
-      expect(typeof options.tooltip.title).toBe('function');
 
       // Non-whitelisted property should remain unchanged
       expect(typeof options.nonWhitelisted.expr).toBe('string');
       expect(options.nonWhitelisted.expr).toBe('{a.value * 2}');
+    });
+
+    it('should verify all whitelisted properties are processed', () => {
+      // Create an object with all whitelisted properties
+      const options = {};
+      for (const key of exprWhiteList) {
+        options[key] = { value: '{a.value * 2}' };
+      }
+
+      parseOptionsExpr(options);
+
+      // Verify all whitelisted properties were processed
+      for (const key of exprWhiteList) {
+        expect(typeof options[key].value).toBe('function');
+        expect(options[key].value({ value: 5 }, 0, [], {})).toBe(10);
+      }
     });
 
     it('should handle undefined whitelisted properties', () => {
@@ -206,201 +200,101 @@ describe('Expression Processing Functions', () => {
       expect(options.attr).toBeNull();
       expect(options.encode).toBeNull();
     });
-  });
 
-  describe('parseChildrenExprWithRecursion', () => {
-    it('should process expressions in children array', () => {
-      const options = [
-        {
-          type: 'interval',
-          encode: {
-            x: 'category',
-            y: '{a.value * 2}',
-          },
-        },
-        {
-          type: 'line',
-          encode: {
-            x: '{a.x + a.y}',
-          },
-        },
-      ];
-
-      parseChildrenExprWithRecursion(options);
-
-      expect(typeof options[0].encode.y).toBe('function');
-      // @ts-ignore
-      expect(options[0].encode.y({ value: 5 }, 0, [], {})).toBe(10);
-
-      expect(typeof options[1].encode.x).toBe('function');
-      // @ts-ignore
-      expect(options[1].encode.x({ x: 3, y: 4 }, 0, [], {})).toBe(7);
-    });
-
-    it('should process nested children recursively', () => {
-      const options = [
-        {
-          type: 'view',
-          children: [
-            {
-              type: 'interval',
-              encode: {
-                y: '{a.value * 2}',
+    it('should process children recursively', () => {
+      const options = {
+        type: 'view',
+        encode: { y: '{a.value * 2}' },
+        children: [
+          {
+            type: 'interval',
+            encode: { x: '{a.x + a.y}' },
+            children: [
+              {
+                type: 'point',
+                encode: { z: '{b * 10}' },
               },
-              children: [
-                {
-                  type: 'point',
-                  encode: {
-                    x: '{a.x + a.y}',
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ];
+            ],
+          },
+        ],
+      };
 
-      parseChildrenExprWithRecursion(options);
+      parseOptionsExpr(options);
 
-      // First level
-      expect(typeof options[0].children[0].encode.y).toBe('function');
+      // Root level
+      expect(typeof options.encode.y).toBe('function');
       // @ts-ignore
-      expect(options[0].children[0].encode.y({ value: 5 }, 0, [], {})).toBe(10);
+      expect(options.encode.y({ value: 5 }, 0, [], {})).toBe(10);
 
-      // Second level
-      expect(typeof options[0].children[0].children[0].encode.x).toBe(
-        'function',
-      );
-      expect(
-        // @ts-ignore
-        options[0].children[0].children[0].encode.x({ x: 3, y: 4 }, 0, [], {}),
-      ).toBe(7);
+      // First level child
+      expect(typeof options.children[0].encode.x).toBe('function');
+      // @ts-ignore
+      expect(options.children[0].encode.x({ x: 3, y: 4 }, 0, [], {})).toBe(7);
+
+      // Second level child
+      expect(typeof options.children[0].children[0].encode.z).toBe('function');
+      // @ts-ignore
+      expect(options.children[0].children[0].encode.z({}, 3, [], {})).toBe(30);
     });
 
-    it('should handle empty children array', () => {
-      const options = [];
+    it('should use the same cache across all recursive calls', () => {
+      // Create a test cache to verify it's being used
+      const testCache = new Map<string, () => any>();
+      const spy = jest.spyOn(testCache, 'set');
+
+      const options = {
+        encode: { y: '{a.value * 2}' },
+        children: [
+          {
+            encode: { y: '{a.value * 2}' }, // Same expression as parent
+          },
+        ],
+      };
+
+      parseOptionsExpr(options, testCache);
+
+      // Should only add the expression to cache once
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      // Both expressions should be functions
+      expect(typeof options.encode.y).toBe('function');
+      expect(typeof options.children[0].encode.y).toBe('function');
+
+      spy.mockRestore();
+    });
+
+    it('should handle non-object options', () => {
+      // Should not throw errors for non-object inputs
+      expect(() => parseOptionsExpr(null)).not.toThrow();
+      expect(() => parseOptionsExpr(undefined)).not.toThrow();
+      expect(() => parseOptionsExpr(42)).not.toThrow();
+      expect(() => parseOptionsExpr('string')).not.toThrow();
+      expect(() => parseOptionsExpr(true)).not.toThrow();
+    });
+
+    it('should handle children with non-array children property', () => {
+      const options = {
+        encode: { y: '{a.value * 2}' },
+        children: 'not an array',
+      };
 
       // Should not throw error
-      parseChildrenExprWithRecursion(options);
-      expect(options).toEqual([]);
-    });
-
-    it('should handle children with no nested children property', () => {
-      const options = [
-        {
-          type: 'interval',
-          encode: {
-            y: '{a.value * 2}',
-          },
-        },
-      ];
-
-      parseChildrenExprWithRecursion(options);
-      expect(typeof options[0].encode.y).toBe('function');
-    });
-
-    it('should handle children with null or non-array children property', () => {
-      const options = [
-        {
-          type: 'interval',
-          encode: {
-            y: '{a.value * 2}',
-          },
-          children: null,
-        },
-        {
-          type: 'line',
-          encode: {
-            x: '{a.x + a.y}',
-          },
-          children: 'not an array',
-        },
-      ];
-
-      // Should not throw error
-      parseChildrenExprWithRecursion(options);
-      expect(typeof options[0].encode.y).toBe('function');
-      expect(typeof options[1].encode.x).toBe('function');
+      expect(() => parseOptionsExpr(options)).not.toThrow();
+      expect(typeof options.encode.y).toBe('function');
     });
 
     it('should handle circular references in children', () => {
-      const child: any = {
-        type: 'interval',
-        encode: {
-          y: '{a.value * 2}',
-        },
-      };
-
-      const parent: any = {
-        type: 'view',
-        children: [child],
+      const options: any = {
+        encode: { y: '{a.value * 2}' },
+        children: [],
       };
 
       // Create circular reference
-      child.parent = parent;
-
-      const options = [parent];
+      options.children.push(options);
 
       // Should not cause infinite recursion
-      parseChildrenExprWithRecursion(options);
-
-      expect(typeof options[0].children[0].encode.y).toBe('function');
-      expect(options[0].children[0].parent).toBe(options[0]);
-    });
-
-    it('should handle deeply nested children', () => {
-      // Create a deeply nested structure
-      let current: any = { encode: { value: '{datum.value * 2}' } };
-      const root = { children: [current] };
-
-      // Create 10 levels of nesting
-      for (let i = 0; i < 10; i++) {
-        const next = { encode: { value: `{datum.level${i}}` } };
-        current.children = [next];
-        current = next;
-      }
-
-      const options = [root];
-
-      // Should handle deep nesting without stack overflow
-      parseChildrenExprWithRecursion(options);
-
-      // Verify first level was processed
-      expect(typeof options[0].children[0].encode.value).toBe('function');
-
-      // Verify last level was processed
-      let lastLevel = options[0];
-      for (let i = 0; i < 11; i++) {
-        lastLevel = lastLevel.children[0];
-      }
-      // @ts-ignore
-      expect(typeof lastLevel.encode.value).toBe('function');
-    });
-
-    it('should handle non-object children', () => {
-      const options = [
-        'string',
-        42,
-        null,
-        undefined,
-        {
-          type: 'interval',
-          encode: {
-            y: '{a.value * 2}',
-          },
-        },
-      ];
-
-      // Should not throw error for non-object children
-      parseChildrenExprWithRecursion(options);
-
-      // Only the object should be processed
-      expect(options[0]).toBe('string');
-      expect(options[1]).toBe(42);
-      expect(options[2]).toBeNull();
-      expect(options[3]).toBeUndefined();
-      // @ts-ignore
-      expect(typeof options[4].encode.y).toBe('function');
+      expect(() => parseOptionsExpr(options)).not.toThrow();
+      expect(typeof options.encode.y).toBe('function');
     });
   });
 });

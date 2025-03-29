@@ -21,7 +21,6 @@ import { Node } from './node';
 import { defineProps, nodeProps } from './define';
 import { MarkNode } from './mark';
 import { library } from './library';
-import { parseChildrenExprWithRecursion } from './expr';
 
 export const G2_CHART_KEY = 'G2_CHART_KEY';
 
@@ -77,16 +76,11 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._bindAutoFit();
     this._rendering = true;
 
-    const options = this._computedOptions();
-
-    // recursively process expressions for root options
-    parseChildrenExprWithRecursion([options]);
-
     // @fixme The cancel render is not marked, which will cause additional rendered event.
     // @ref src/runtime/render.ts
     const finished = new Promise<Runtime<Spec>>((resolve, reject) =>
       render(
-        options,
+        this._computedOptions(),
         this._context,
         this._createResolve(resolve),
         this._createReject(reject),
