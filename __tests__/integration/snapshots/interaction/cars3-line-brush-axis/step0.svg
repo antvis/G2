@@ -92,7 +92,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -101,7 +103,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       10
@@ -120,7 +121,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -129,7 +132,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       20
@@ -148,7 +150,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -157,7 +161,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       30
@@ -176,7 +179,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -185,7 +190,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       40
@@ -206,7 +210,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
@@ -268,7 +274,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -277,7 +285,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       3
@@ -296,7 +303,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -305,7 +314,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       4
@@ -324,7 +332,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -333,7 +343,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       5
@@ -352,7 +361,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -361,7 +372,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       6
@@ -380,7 +390,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -389,7 +401,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       7
@@ -408,7 +419,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -417,7 +430,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       8
@@ -438,7 +450,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
@@ -622,7 +636,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -631,7 +647,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       100
@@ -650,7 +665,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -659,7 +676,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       200
@@ -678,7 +694,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -687,7 +705,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       300
@@ -706,7 +723,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -715,7 +734,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       400
@@ -736,7 +754,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
@@ -798,7 +818,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -807,7 +829,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       50
@@ -826,7 +847,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -835,7 +858,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       100
@@ -854,7 +876,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -863,7 +887,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       150
@@ -882,7 +905,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -891,7 +916,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       200
@@ -912,7 +936,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
@@ -974,7 +1000,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -983,7 +1011,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       2000
@@ -1002,7 +1029,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1011,7 +1040,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       2500
@@ -1030,7 +1058,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1039,7 +1069,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       3000
@@ -1058,7 +1087,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1067,7 +1098,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       3500
@@ -1086,7 +1116,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1095,7 +1127,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       4000
@@ -1114,7 +1145,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1123,7 +1156,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       4500
@@ -1142,7 +1174,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1151,7 +1185,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       5000
@@ -1172,7 +1205,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
@@ -1234,7 +1269,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1243,7 +1280,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       10
@@ -1262,7 +1298,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1271,7 +1309,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       15
@@ -1290,7 +1327,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1299,7 +1338,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       20
@@ -1320,7 +1358,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
@@ -1382,7 +1422,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1391,7 +1433,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       70
@@ -1410,7 +1451,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1419,7 +1462,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       72
@@ -1438,7 +1480,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1447,7 +1491,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       74
@@ -1466,7 +1509,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1475,7 +1520,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       76
@@ -1494,7 +1538,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1503,7 +1549,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       78
@@ -1522,7 +1567,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1531,7 +1578,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       80
@@ -1550,7 +1596,9 @@
                       fill="rgba(29,33,41,1)"
                       dominant-baseline="central"
                       paint-order="stroke"
+                      style="transform:translate(0px, 0px);"
                       dx="0.5"
+                      dy="11.5px"
                       font-family="sans-serif"
                       font-size="12"
                       font-style="normal"
@@ -1559,7 +1607,6 @@
                       stroke-width="1"
                       text-anchor="middle"
                       class="axis-label-item"
-                      dy="11.5px"
                       opacity="0.45"
                     >
                       82
@@ -1580,7 +1627,9 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 0px);"
                   dx="0.5"
+                  dy="0px"
                   font-family="sans-serif"
                   font-size="12"
                   font-style="normal"
