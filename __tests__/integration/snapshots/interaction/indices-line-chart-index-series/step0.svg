@@ -147,11 +147,12 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 54.578549817288746px);"
                   dx="0.5"
+                  dy="0px"
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 54.578549817288746px);"
                 >
                   AAPL
                 </text>
@@ -183,11 +184,12 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 92.39795728018802px);"
                   dx="0.5"
+                  dy="0px"
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 92.39795728018802px);"
                 >
                   AMZN
                 </text>
@@ -219,11 +221,12 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 59.335286939478436px);"
                   dx="0.5"
+                  dy="0px"
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 59.335286939478436px);"
                 >
                   GOOG
                 </text>
@@ -255,11 +258,12 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, -45.14681031158693px);"
                   dx="0.5"
+                  dy="0px"
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, -45.14681031158693px);"
                 >
                   IBM
                 </text>
@@ -291,11 +295,12 @@
                   fill="rgba(29,33,41,1)"
                   dominant-baseline="central"
                   paint-order="stroke"
+                  style="transform:translate(0px, 57.953232500762255px);"
                   dx="0.5"
+                  dy="0px"
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
-                  style="transform:translate(0px, 57.953232500762255px);"
                 >
                   MSFT
                 </text>
@@ -330,6 +335,7 @@
                 stroke="rgba(255,255,255,1)"
                 stroke-width="5"
                 dx="2.5"
+                dy="0px"
               >
                 Wed, 09 Mar 2016 00:00:00 GMT
               </text>
