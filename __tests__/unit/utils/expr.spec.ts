@@ -133,7 +133,6 @@ describe('Expression Processing Functions', () => {
       const options = {
         attr: { color: '{a.color}' },
         encode: { x: '{a.x + a.y}' },
-        transform: [{ callback: '{b * 10}' }],
         // Non-whitelisted property
         nonWhitelisted: { expr: '{a.value * 2}' },
       };
@@ -143,7 +142,6 @@ describe('Expression Processing Functions', () => {
       // Check whitelisted properties are processed
       expect(typeof options.attr.color).toBe('function');
       expect(typeof options.encode.x).toBe('function');
-      expect(typeof options.transform[0].callback).toBe('function');
 
       // Non-whitelisted property should remain unchanged
       expect(typeof options.nonWhitelisted.expr).toBe('string');

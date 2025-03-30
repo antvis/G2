@@ -306,22 +306,7 @@ export function createEmptyPromise<T>(): [
 }
 
 // Whitelist of properties that can contain expressions
-export const exprWhiteList = [
-  'attr',
-  'encode',
-  'transform',
-  'scale',
-  'interaction',
-  'labels',
-  'animate',
-  'coordinate',
-  'axis',
-  'legend',
-  'slider',
-  'scrollbar',
-  'state',
-  'tooltip',
-];
+export const exprWhiteList = ['style', 'encode', 'attr', 'labels'];
 
 /**
  * Compiles an expression string into a function

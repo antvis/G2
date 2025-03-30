@@ -14,15 +14,7 @@ export function expr() {
     return 1 - (datum.value / total) * 5;
   };
 
-  const getTooltip = (datum, i, data, global) => {
-    return {
-      name: '*' + datum.name + ' population: ',
-      value: datum.value,
-    };
-  };
-
   register('getRadius', getRadius);
-  register('getTooltip', getTooltip);
 
   return {
     type: 'interval',
@@ -34,11 +26,10 @@ export function expr() {
     transform: [{ type: 'stackY' }],
     coordinate: { type: 'theta' },
     scale: {
-      color: { palette: 'spectral', offset: '{a * 0.8 + 0.1}' },
+      color: { palette: 'spectral' },
     },
     encode: { y: 'value', color: 'name' },
     style: { stroke: 'white' },
-    tooltip: '{@getTooltip(a, b, c, global)}',
     labels: [
       {
         text: '{"*" + a.name}',
