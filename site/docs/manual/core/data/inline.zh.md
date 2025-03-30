@@ -65,10 +65,10 @@ chart.data([
 
 ## 配置项
 
-| 属性      | 描述                         | 类型            | 默认值 |
-| --------- | ---------------------------- | --------------- | ------ |
-| value     | 具体的 object 数组数据         | `object[]`      | `[]`   |
-| transform | 针对数据 inline 数据进行变换    | `DataTransform` | `[]`   |
+| 属性      | 描述                         | 类型                                                      | 默认值 |
+| --------- | ---------------------------- | --------------------------------------------------------- | ------ |
+| value     | 具体的 object 数组数据       | object[]                                                  | []     |
+| transform | 针对数据 inline 数据进行变换 | [DataTransform](/manual/core/data/overview#datatransform) | []     |
 
 这个数据源比较简单，相当于传入的数据，直接作为数据源进行 transform 处理加工，然后走渲染逻辑。
 
@@ -76,14 +76,19 @@ chart.data([
 
 ```js
 const graphData = {
-  nodes: [/** */],
-  edges: [/** */],
+  nodes: [
+    /** */
+  ],
+  edges: [
+    /** */
+  ],
 };
 
-chart.data(graphData);  // ❌ 不建议这么写，G2 在处理的时候可能识别出错
+chart.data(graphData); // ❌ 不建议这么写，G2 在处理的时候可能识别出错
 
-chart.data({            // ✅ 建议完整写法，语义更明确，不会因为歧义带来识别错误
+chart.data({
+  // ✅ 建议完整写法，语义更明确，不会因为歧义带来识别错误
   type: 'inline',
-  value: graphData
-})
+  value: graphData,
+});
 ```

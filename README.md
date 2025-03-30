@@ -1,7 +1,7 @@
 <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
 
 <h1 align="center">
-<b>G2</b>
+<b>G2: The Concise and Progressive Visualization Grammar</b>
 </h1>
 
 <div align="center">

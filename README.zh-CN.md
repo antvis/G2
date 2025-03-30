@@ -1,7 +1,7 @@
 <img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.md) | 简体中文
 
 <h1 align="center">
-<b>G2</b>
+<b>G2：一套简明和渐进式的可视化语法</b>
 </h1>
 
 <div align="center">

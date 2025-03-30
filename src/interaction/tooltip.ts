@@ -1,5 +1,12 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
-import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
+import {
+  sort,
+  group,
+  mean,
+  bisector,
+  minIndex,
+  bisect,
+} from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
@@ -632,6 +639,7 @@ export function seriesTooltip(
   );
 
   const { x: scaleX } = scale;
+  const stepWidth = scaleX?.getStep?.() ?? 0;
 
   // Apply offset for band scale x.
   const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
@@ -659,13 +667,35 @@ export function seriesTooltip(
     return I[i];
   };
 
+  // get x domain by point
+  const getDomainXByPoint = (point) => {
+    const [pointX] = coordinate.invert(point);
+    const rangeIndexMap = scaleX.rangeIndexMap;
+    const domainXs = Array.from(rangeIndexMap.keys()).map(
+      (d: number) => d - (stepWidth - scaleX.getBandWidth()) / 2,
+    );
+    const index = bisect(domainXs as number[], pointX);
+    return scaleX.sortedDomain[index - 1];
+  };
+
   const elementsByFocus = isBar
     ? (focus, elements) => {
         const search = bisector(xof).center;
-        const i = search(elements, abstractX(focus));
-        const find = elements[i];
-        const groups = group(elements, xof);
-        const selected = groups.get(xof(find));
+        const pointX = abstractX(focus);
+        const parentOf = (d) => d.parentNode;
+        const elementGroups = group(elements, parentOf);
+        const selected = [];
+
+        const domainX = getDomainXByPoint(focus);
+        elementGroups.forEach((elements) => {
+          const i = search(elements, pointX);
+          const find = elements[i];
+
+          if (domainX === (find as any).__data__.title) {
+            selected.push(find);
+          }
+        });
+
         return selected;
       }
     : (focus, elements) => {
@@ -974,6 +1004,7 @@ export function tooltip(
   const scaleX = scale.x;
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+  const stepWidth = scaleX?.getStep?.() ?? 0;
   const xof = scaleSeries
     ? (d) => {
         const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
@@ -1004,6 +1035,11 @@ export function tooltip(
         const search = bisector(xof).center;
         const i = search(elements, abstractX);
         const target = elements[i];
+
+        const targetLeftBoundary = xof(target) - stepWidth / 2;
+        const targetRightBoundary = xof(target) + stepWidth / 2;
+        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary)
+          return;
 
         if (!shared) {
           // For grouped bar chart without shared options.

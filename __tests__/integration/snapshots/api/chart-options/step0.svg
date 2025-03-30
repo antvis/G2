@@ -68,6 +68,7 @@
                 y="0"
                 dominant-baseline="central"
                 paint-order="stroke"
+                style="transform:translate(0px, 0px);"
                 dx="0.5"
                 dy="15.5px"
                 text-anchor="left"
