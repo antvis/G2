@@ -1,5 +1,5 @@
 import { CustomEvent as GCustomEvent } from '@antv/g';
-import { chartElementRegionSelect as render } from '../plots/api/chart-emit-element-region-select';
+import { chartMultipleMarkSelectRegion as render } from '../plots/api/chart-multiple-mark-select-region';
 import { PLOT_CLASS_NAME } from '../../src';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';

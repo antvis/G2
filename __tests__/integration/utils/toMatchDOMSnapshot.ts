@@ -4,6 +4,8 @@ import { Canvas } from '@antv/g';
 import xmlserializer from 'xmlserializer';
 import { format } from 'prettier';
 
+const MAX_DIFFERENCES_TO_SHOW = 3;
+
 export type ToMatchDOMSnapshotOptions = {
   selector?: string;
   fileFormat?: string;
@@ -16,6 +18,56 @@ function formatSVG(svg: string, keepSVGElementId: boolean) {
         .replace(/id="[^"]*"/g, '')
         .replace(/clip-path="[^"]*"/g, '')
         .replace(/<use href="[^"]*"/g, '<use');
+}
+
+/**
+ * Compare two SVG strings and find differences.
+ */
+interface SVGDifference {
+  line: number;
+  actual: string;
+  expected: string;
+}
+
+interface SVGDifferenceResult {
+  equal: boolean;
+  differences: SVGDifference[];
+}
+
+function findSVGDifferences(
+  actual: string,
+  expected: string,
+  keepSVGElementId = false,
+): SVGDifferenceResult {
+  const formattedActual = formatSVG(actual, keepSVGElementId);
+  const formattedExpected = formatSVG(expected, keepSVGElementId);
+
+  if (formattedActual === formattedExpected) {
+    return { equal: true, differences: [] };
+  }
+
+  // Line-by-line comparison to find differences.
+  const actualLines = formattedActual.split('\n');
+  const expectedLines = formattedExpected.split('\n');
+  const differences: SVGDifference[] = [];
+
+  const maxLines = Math.max(actualLines.length, expectedLines.length);
+  for (let i = 0; i < maxLines; i++) {
+    if (actualLines[i] !== expectedLines[i]) {
+      differences.push({
+        line: i + 1,
+        actual: actualLines[i] || '(missing)',
+        expected: expectedLines[i] || '(missing)',
+      });
+    }
+
+    // Limit to MAX_DIFFERENCES_TO_SHOW differences.
+    if (differences.length >= MAX_DIFFERENCES_TO_SHOW) {
+      break;
+    }
+  }
+
+  return { equal: false, differences };
 }
 
 /**
@@ -74,6 +126,7 @@ export async function toMatchDOMSnapshot(
         encoding: 'utf8',
         flag: 'r',
       });
+
       if (isSVGEqual(actual, expected, keepSVGElementId)) {
         if (fs.existsSync(actualPath)) fs.unlinkSync(actualPath);
         return {
@@ -82,10 +135,28 @@ export async function toMatchDOMSnapshot(
         };
       }
 
+      // Find differences for detailed message.
+      const result = findSVGDifferences(actual, expected, keepSVGElementId);
+      const totalDifferences = result.differences.length;
+      let diffMessage = `mismatch ${namePath}`;
+
+      if (totalDifferences > 0) {
+        if (totalDifferences >= MAX_DIFFERENCES_TO_SHOW) {
+          diffMessage += `\nThere are too many differencies, only show ${MAX_DIFFERENCES_TO_SHOW} of them.`;
+        }
+
+        // Add difference details to message.
+        result.differences.forEach((diff, index) => {
+          diffMessage += `\nDifference ${index + 1} at line ${diff.line}:\n`;
+          diffMessage += `  Expected: ${diff.expected}\n`;
+          diffMessage += `  ❌Actual: ${diff.actual}`;
+        });
+      }
+
       // Perverse actual file.
       if (actual) fs.writeFileSync(actualPath, actual);
       return {
-        message: () => `mismatch ${namePath}`,
+        message: () => diffMessage,
         pass: false,
       };
     }

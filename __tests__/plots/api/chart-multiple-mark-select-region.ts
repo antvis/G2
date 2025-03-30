@@ -1,6 +1,6 @@
 import { Chart } from '../../../src';
 
-export function chartElementRegionSelect(context) {
+export function chartMultipleMarkSelectRegion(context) {
   const { container, canvas } = context;
 
   const wrapperDiv = document.createElement('div');
