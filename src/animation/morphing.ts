@@ -206,9 +206,8 @@ function oneToOne(
     const animation = pathShape.animate(keyframes, timeEffect);
     animation.onfinish = () => {
       // Should keep the original path definition.
-      const d = toPath;
       copyAttributes(pathShape, to);
-      pathShape.style.d = d;
+      pathShape.style.d = toPath;
       pathShape.style.transform = 'none';
     };
 
