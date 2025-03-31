@@ -7,7 +7,7 @@ import './utils/useSnapshotMatchers';
 describe('issue6710', () => {
   const canvas = createNodeGCanvas(800, 500);
 
-  it('issue6693.render() should correctly', async () => {
+  it('issue6710.render() should correctly', async () => {
     const { chart, finished } = await render({
       canvas,
       container: document.createElement('div'),
