@@ -70,11 +70,11 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     throw e;
   },
 ): HTMLElement {
-  parseOptionsExpr(options);
+  const afterParsedOptions = parseOptionsExpr(options);
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, depth = 0 } = options;
+  const { width = 640, height = 480, depth = 0 } = afterParsedOptions;
   // Preprocessing here, such as syntactic sugar.
-  const preprocessedOption = preprocessOption(options);
+  const preprocessedOption = preprocessOption(afterParsedOptions);
   const keyed = inferKeys(preprocessedOption);
   const {
     canvas = Canvas(width, height),
