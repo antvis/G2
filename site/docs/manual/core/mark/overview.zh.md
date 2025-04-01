@@ -127,7 +127,7 @@ order: 1
 
 - **图形生成**
 
-  - [**transform**](/manual/core/transform/overview) 数据转换管道。支持数据堆叠(stack)、分组(dodge)、扰动(jitter)、对称(symmetric)等调整方法，解决图形重叠问题
+  - [**transform**](/manual/core/transform/overview) 数据转换。支持数据堆叠(stack)、分组(dodge)、扰动(jitter)、对称(symmetric)等调整方法，解决图形重叠问题
   - [**coordinate**](/manual/core/coordinate/overview) 坐标系变换。支持笛卡尔坐标、极坐标、螺旋坐标等，同一几何标记在不同坐标系下呈现不同形态
 
 - **视觉表现**
@@ -259,28 +259,88 @@ G2 中的标记具有许多特性，包括模板化、可叠加、可复合等�
 
 ### 可叠加
 
-G2 的标记是可以叠加的，换句话说：可以在一个视图里面添加多个标记。下面的例子中给图表添加了 line 和 point 两个标记：
+G2 的标记是可以叠加的，换句话说：可以在一个视图里面添加多个标记，丰富图表展示效果。
+
+下面的例子中给图表添加了 line 和 point 两个标记：
 
 ```js | ob
 (() => {
-  const data = [
-    { year: '1991', value: 3 },
-    { year: '1992', value: 4 },
-    { year: '1993', value: 3.5 },
-    { year: '1994', value: 5 },
-    { year: '1995', value: 4.9 },
-    { year: '1996', value: 6 },
-    { year: '1997', value: 7 },
-    { year: '1998', value: 9 },
-    { year: '1999', value: 13 },
-  ];
-
   const chart = new G2.Chart();
 
-  chart.line().data(data).encode('x', 'year').encode('y', 'value');
+  chart.options({
+    type: 'view',
+    data: [
+      { year: '1991', value: 3 },
+      { year: '1992', value: 4 },
+      { year: '1993', value: 3.5 },
+      { year: '1994', value: 5 },
+      { year: '1995', value: 4.9 },
+      { year: '1996', value: 6 },
+      { year: '1997', value: 7 },
+      { year: '1998', value: 9 },
+      { year: '1999', value: 13 },
+    ],
+    children: [
+      {
+        type: 'line',
+        encode: { x: 'year', y: 'value' },
+      },
+      {
+        type: 'point',
+        encode: { x: 'year', y: 'value' },
+        tooltip: false, // 如果不希望展示某个标记的tooltip，可以单独关闭
+      },
+    ],
+  });
+  chart.render();
 
-  chart.point().data(data).encode('x', 'year').encode('y', 'value');
+  return chart.getContainer();
+})();
+```
 
+当然，我们也可以结合更多的标记绘制一个具有复杂图形意义的区间曲线面积图。
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'view',
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
+      transform: [
+        {
+          type: 'map',
+          callback: ([x, low, high, v2, v3]) => ({
+            x,
+            low,
+            high,
+            v2,
+            v3,
+          }),
+        },
+      ],
+    },
+    scale: { x: { type: 'linear', tickCount: 10 } },
+    axis: { y: { title: false } },
+    children: [
+      {
+        type: 'area',
+        encode: { x: 'x', y: ['low', 'high'], shape: 'smooth' },
+        style: { fillOpacity: 0.65, fill: '#64b5f6', lineWidth: 1 },
+      },
+      {
+        type: 'point',
+        encode: { x: 'x', y: 'v2', size: 2, shape: 'point' },
+        tooltip: { items: ['v2'] },
+      },
+      {
+        type: 'line',
+        encode: { x: 'x', y: 'v3', color: '#FF6B3B', shape: 'smooth' },
+      },
+    ],
+  });
   chart.render();
 
   return chart.getContainer();
@@ -341,26 +401,93 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
   });
 
   // Sankey 标记
-  chart
-    .sankey()
-    .data({
+  chart.options({
+    type: 'sankey',
+    layout: { nodeAlign: 'center', nodePadding: 0.03 },
+    data: {
       type: 'fetch',
       value: 'https://assets.antv.antgroup.com/g2/energy.json',
       transform: [
         {
           type: 'custom',
-          callback: (data) => ({ links: data }),
+          callback: (data) => ({
+            links: data,
+          }),
         },
       ],
-    })
-    .layout({
-      nodeAlign: 'center',
-      nodePadding: 0.03,
-    })
-    .style('labelSpacing', 3)
-    .style('labelFontWeight', 'bold')
-    .style('nodeStrokeWidth', 1.2)
-    .style('linkFillOpacity', 0.4);
+    },
+    style: {
+      labelSpacing: 3,
+      labelFontWeight: 'bold',
+      nodeStrokeWidth: 1.2,
+      linkFillOpacity: 0.4,
+    },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+### 支持多种转换
+
+G2 的标记支持多种 [转换（Transform）](/manual/core/transform/overview) ，通过对标记的几何形状、样式或空间布局进行灵活调整，实现丰富的视觉表现效果。这些转换不仅可以用于基础图形的变换，如分组、堆叠、分箱等，还能与数据驱动的动态调整结合，以适应复杂的可视化场景需求。通过简单的配置，用户可以在图表中实现数据与视觉元素之间的直观映射，提升图表的表现力和可读性。
+
+以下是一个经过 [binX](/manual/core/transform/bin-x) 和 [stackY](/manual/core/transform/stack-y) 转换后的颜色分类直方图。
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'rect',
+    autoFit: true,
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+    },
+    encode: { x: 'weight', color: 'sex' },
+    transform: [
+      { type: 'binX', y: 'count' },
+      { type: 'stackY', orderBy: 'series' },
+    ],
+    style: { inset: 0.5 },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+通过配置多种转换，我们可以得到特定表现形式的复杂图表，以下是一个经过 [normalizeY](/manual/core/transform/normalize-y) 和 [stackY](/manual/core/transform/stack-y) 等多个转换后得到的聚合归一化堆叠条形图。
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'interval',
+    autoFit: true,
+    data: {
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+      transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
+    },
+    encode: { x: 'age', y: 'people', color: 'sex' },
+    transform: [
+      { type: 'groupX', y: 'sum' },
+      { type: 'stackY' },
+      { type: 'normalizeY' },
+    ],
+    scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+    coordinate: { transform: [{ type: 'transpose' }] },
+    axis: { y: { labelFormatter: '.0%' } },
+    labels: [{ text: 'people', position: 'inside', fill: 'white' }],
+    tooltip: { items: [{ channel: 'y', valueFormatter: '.0%' }] },
+  });
 
   chart.render();
 
@@ -370,40 +497,143 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
 
 ### 可作为标注
 
-**标注（Annotation）** 主要用来标注可视化图表中需要注意的地方。在 G2 中，标注也是一种标记，或者说某些标记也也可以用来做标注，比如 Text，Image 等标记。
+**标注（Annotation）** 是用于在可视化图表中对需要重点关注区域或信息进行说明与强调的图形元素。在 G2 5.0 中，并未单独提供专门的标注组件，而是通过灵活配置标记来实现标注功能。换言之，标注实际上是一种标记表达形式，部分标记（如 Text、Image 等）可被用于标注的场景。这种设计方式统一了标记与标注的使用逻辑，赋予用户更高的自由度与灵活性，从而能够轻松满足多种标注需求。
 
-## 转换
+#### 转换
 
-既然标注也是一种标记，那么它也可以执行转换。比如下面的 Select 转换。
+既然标注也是一种标记，那么它也可以执行转换。比如下面的 [Select](/manual/core/transform/select) 转换。
 
-Select 标记转换提供了从一组图形中选择图形的能力。比如在下面的例子中，标注出了每个大陆 Continent 中，GDP 最大的国家。
+Select 标记转换提供了从一组图形中根据指定通道和 selector 选择数据的能力。比如在下面的例子中，标注出了每个大陆 Continent 中，GDP 最大的国家。
 
 ```js | ob
 (() => {
   const chart = new G2.Chart();
 
-  chart.data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/1ecf85d2-8279-46a1-898d-d2e1814617f9.json',
+  chart.options({
+    type: 'view',
+    data: {
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/1ecf85d2-8279-46a1-898d-d2e1814617f9.json',
+    },
+    children: [
+      {
+        type: 'point',
+        encode: { x: 'GDP', y: 'LifeExpectancy', color: 'Continent' },
+      },
+      {
+        type: 'text',
+        encode: {
+          text: 'Country',
+          x: 'GDP',
+          y: 'LifeExpectancy',
+          series: 'Continent',
+        },
+        // 将图形按照 series 分组，也就是 Continent
+        // 通过 x 通道选择，选择其中最大的，也就是 GDP 最大的
+        transform: [{ type: 'select', channel: 'x', selector: 'max' }],
+        style: { textAlign: 'end' },
+      },
+    ],
   });
 
-  chart
-    .point()
-    .encode('x', 'GDP')
-    .encode('y', 'LifeExpectancy')
-    .encode('color', 'Continent');
+  chart.render();
 
-  chart
-    .text()
-    // 将图形按照 series 分组，也就是 Continent
-    // 通过 x 通道选择，选择其中最大的，也就是 GDP 最大的
-    .transform({ type: 'select', channel: 'x', selector: 'max' })
-    .encode('text', 'Country')
-    .encode('x', 'GDP')
-    .encode('y', 'LifeExpectancy')
-    .encode('series', 'Continent')
-    .style('textAlign', 'end');
+  return chart.getContainer();
+})();
+```
+
+对于不需要分组的简单的文本标记，使用 [数据标签（Label）](/manual/component/label) 就可以，否则可以考虑上面的方式。
+
+#### 定位
+
+在图形语法中，标注的核心在于准确定位至适当的位置，以便有效传达关键信息。在 G2 中，标注的定位支持以下三种方式：
+
+- **数据驱动的定位** ：基于数据值，将标注绑定到具体的图表数据点或数据范围之上。此方式能够动态适应数据变动，例如在数据更新或动画交互时，标注位置会随之调整。
+
+- **绝对定位** ：通过固定的像素坐标将标注放置在画布上的特定位置，与数据无直接关联。此方式适用于添加标题、说明或其他与数据逻辑无关的标注内容。
+
+- **相对定位** ：以坐标系或图形区域为参考，通过百分比或相对位置参数定义标注的位置。此方式适合在对图表整体进行强调或标注区域时提供灵活的布局。
+
+##### 数据驱动
+
+在 G2 中可以通过 `data` 去指定数据驱动的定位，比如下面的例子中希望标注每天糖和脂肪的安全摄入量，就可以如下实现。
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'view',
+    autoFit: true,
+    children: [
+      {
+        type: 'point',
+        data: [
+          { x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' },
+          { x: 86.5, y: 102.9, z: 14.7, name: 'DE', country: 'Germany' },
+          { x: 80.8, y: 91.5, z: 15.8, name: 'FI', country: 'Finland' },
+          { x: 80.4, y: 102.5, z: 12, name: 'NL', country: 'Netherlands' },
+          { x: 80.3, y: 86.1, z: 11.8, name: 'SE', country: 'Sweden' },
+          { x: 78.4, y: 70.1, z: 16.6, name: 'ES', country: 'Spain' },
+          { x: 74.2, y: 68.5, z: 14.5, name: 'FR', country: 'France' },
+          { x: 73.5, y: 83.1, z: 10, name: 'NO', country: 'Norway' },
+          { x: 71, y: 93.2, z: 24.7, name: 'UK', country: 'United Kingdom' },
+          { x: 69.2, y: 57.6, z: 10.4, name: 'IT', country: 'Italy' },
+          { x: 68.6, y: 20, z: 16, name: 'RU', country: 'Russia' },
+          { x: 65.5, y: 126.4, z: 35.3, name: 'US', country: 'United States' },
+          { x: 65.4, y: 50.8, z: 28.5, name: 'HU', country: 'Hungary' },
+          { x: 63.4, y: 51.8, z: 15.4, name: 'PT', country: 'Portugal' },
+          { x: 64, y: 82.9, z: 31.3, name: 'NZ', country: 'New Zealand' },
+        ],
+        encode: { x: 'x', y: 'y', size: 'z', shape: 'point' },
+        scale: {
+          x: { nice: true },
+          y: { nice: true, domainMax: 165, zero: true },
+          size: { range: [10, 40] },
+        },
+        style: { stroke: '#1890ff', fillOpacity: 0.3, fill: '#1890ff' },
+        legend: false,
+        labels: [
+          { text: 'name', position: 'inside', fill: '#1890ff', stroke: '#fff' },
+        ],
+      },
+      {
+        type: 'lineY',
+        data: [50],
+        style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
+        labels: [
+          {
+            text: 'Safe sugar intake 50g/day',
+            position: 'right',
+            textBaseline: 'bottom',
+            fill: '#000',
+            fillOpacity: 0.45,
+            background: true,
+            backgroundFill: '#000',
+            backgroundOpacity: 0.15,
+          },
+        ],
+      },
+      {
+        type: 'lineX',
+        data: [65],
+        style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
+        labels: [
+          {
+            text: 'Safe fat intake 65g/day',
+            position: 'top-left',
+            textBaseline: 'bottom',
+            fill: '#000',
+            fillOpacity: 0.45,
+            background: true,
+            backgroundFill: '#000',
+            backgroundOpacity: 0.15,
+          },
+        ],
+      },
+    ],
+  });
 
   chart.render();
 
@@ -411,134 +641,44 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
 })();
 ```
 
-对于不要分组的简单的文本标记，使用数据标签就可以，否则可以考虑上面的方式。
+除了数据驱动的定位，G2 也提供了非数据驱动的定位方式。通过 `style` 去指定 x 和 y 属性，x 和 y 拥有下面两种类型。分别对应标注的 **绝对定位** 和 **相对定位** 。
 
-## 定位
+##### 绝对定位
 
-对于标注来说一个问题就是定位到合适的位置，目前有三种定位方法：
-
-- 数据驱动的定位
-- 绝对定位
-- 相对定位
-
-### 数据驱动
-
-在 G2 中可以通过 `mark.data` 去指定数据驱动的定位，比如下面的例子中希望标注每天糖和脂肪的安全摄入量，就可以如下实现。
+- **x 和 y 为数字**：像素为单位的坐标。
 
 ```js | ob
 (() => {
   const chart = new G2.Chart();
 
-  chart
-    .point()
-    .data([
-      { x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' },
-      { x: 86.5, y: 102.9, z: 14.7, name: 'DE', country: 'Germany' },
-      { x: 80.8, y: 91.5, z: 15.8, name: 'FI', country: 'Finland' },
-      { x: 80.4, y: 102.5, z: 12, name: 'NL', country: 'Netherlands' },
-      { x: 80.3, y: 86.1, z: 11.8, name: 'SE', country: 'Sweden' },
-      { x: 78.4, y: 70.1, z: 16.6, name: 'ES', country: 'Spain' },
-      { x: 74.2, y: 68.5, z: 14.5, name: 'FR', country: 'France' },
-      { x: 73.5, y: 83.1, z: 10, name: 'NO', country: 'Norway' },
-      { x: 71, y: 93.2, z: 24.7, name: 'UK', country: 'United Kingdom' },
-      { x: 69.2, y: 57.6, z: 10.4, name: 'IT', country: 'Italy' },
-      { x: 68.6, y: 20, z: 16, name: 'RU', country: 'Russia' },
-      { x: 65.5, y: 126.4, z: 35.3, name: 'US', country: 'United States' },
-      { x: 65.4, y: 50.8, z: 28.5, name: 'HU', country: 'Hungary' },
-      { x: 63.4, y: 51.8, z: 15.4, name: 'PT', country: 'Portugal' },
-      { x: 64, y: 82.9, z: 31.3, name: 'NZ', country: 'New Zealand' },
-    ])
-    .encode('x', 'x')
-    .encode('y', 'y')
-    .encode('size', 'z')
-    .encode('shape', 'point')
-    .scale('x', { nice: true })
-    .scale('y', { nice: true, domainMax: 165, zero: true })
-    .scale('size', { range: [10, 40] })
-    .style('stroke', '#1890ff')
-    .style('fillOpacity', 0.3)
-    .style('fill', '#1890ff')
-    .label({
-      text: 'name',
-      position: 'inside',
-      fill: '#1890ff',
-      stroke: '#fff',
-    })
-    .legend(false);
-
-  chart
-    .lineY()
-    .data([50])
-    .style('stroke', '#000')
-    .style('strokeOpacity', 0.45)
-    .style('lineDash', [3, 3])
-    .label({
-      text: 'Safe sugar intake 50g/day',
-      position: 'right',
-      textBaseline: 'bottom',
-      fill: '#000',
-      fillOpacity: 0.45,
-      background: true,
-      backgroundFill: '#000',
-      backgroundOpacity: 0.15,
-    });
-
-  chart
-    .lineX()
-    .data([65])
-    .style('stroke', '#000')
-    .style('strokeOpacity', 0.45)
-    .style('lineDash', [3, 3])
-    .label({
-      text: 'Safe fat intake 65g/day',
-      position: 'top-left',
-      textBaseline: 'bottom',
-      fill: '#000',
-      fillOpacity: 0.45,
-      background: true,
-      backgroundFill: '#000',
-      backgroundOpacity: 0.15,
-    });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-### 绝对定位
-
-除了数据驱动的定位，G2 也提供了非数据驱动的定位方式。通过 `mark.style` 去指定 x 和 y 属性，x 和 y 拥有下面两种类型。
-
-- **百分比**：内容区域的百分比。
-- **数字**：像素为单位的坐标。
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-
-  chart
-    .interval()
-    .coordinate({ type: 'theta', innerRadius: 0.5 })
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre');
-
-  // 绝对定位
-  chart.text().style({
-    x: 290, // 像素坐标
-    y: 200, // 像素坐标
-    text: 'hello',
-    textAlign: 'center',
-    fontSize: 60,
-    textBaseline: 'middle',
+  chart.options({
+    type: 'view',
+    children: [
+      {
+        type: 'interval',
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 350 },
+          { genre: 'Other', sold: 150 },
+        ],
+        encode: { y: 'sold', color: 'genre' },
+        transform: [{ type: 'stackY' }],
+        coordinate: { type: 'theta', innerRadius: 0.5 },
+      },
+      {
+        type: 'text',
+        style: {
+          x: 290, // 配置具体像素坐标
+          y: 200,
+          text: 'hello',
+          textAlign: 'center',
+          fontSize: 60,
+          textBaseline: 'middle',
+        },
+      },
+    ],
   });
   chart.render();
 
@@ -546,34 +686,42 @@ Select 标记转换提供了从一组图形中选择图形的能力。比如在�
 })();
 ```
 
-### 相对定位
+##### 相对定位
+
+- **x 和 y 为百分比**：内容区域的百分比。
 
 ```js | ob
 (() => {
   const chart = new G2.Chart();
 
-  chart
-    .interval()
-    .coordinate({ type: 'theta', innerRadius: 0.5 })
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre');
-
-  // 相对定位
-  chart.text().style({
-    x: '50%', // 百分比
-    y: '50%', // 百分比
-    text: 'hello',
-    textAlign: 'center',
-    fontSize: 60,
-    textBaseline: 'middle',
+  chart.options({
+    type: 'view',
+    children: [
+      {
+        type: 'interval',
+        data: [
+          { genre: 'Sports', sold: 275 },
+          { genre: 'Strategy', sold: 115 },
+          { genre: 'Action', sold: 120 },
+          { genre: 'Shooter', sold: 350 },
+          { genre: 'Other', sold: 150 },
+        ],
+        encode: { y: 'sold', color: 'genre' },
+        transform: [{ type: 'stackY' }],
+        coordinate: { type: 'theta', innerRadius: 0.5 },
+      },
+      {
+        type: 'text',
+        style: {
+          x: '50%', // 配置百分比坐标
+          y: '50%',
+          text: 'hello',
+          textAlign: 'center',
+          fontSize: 60,
+          textBaseline: 'middle',
+        },
+      },
+    ],
   });
   chart.render();
 
@@ -625,14 +773,6 @@ register('shape.interval.triangle', ShapeTriangle);
 });
 ```
 
-```js
-// API
-chart.interval().encode('shape', 'triangle');
-
-// 或者
-chart.interval().style('shape', 'triangle');
-```
-
 下面是一个完整的例子，展示了如何自定义形状。
 
 ```js | ob
@@ -661,19 +801,22 @@ chart.interval().style('shape', 'triangle');
   // 初始化图表
   const chart = new G2.Chart();
 
-  chart
-    .interval()
-    .data([
+  chart.options({
+    type: 'interval',
+    data: [
       { genre: 'Sports', sold: 275 },
       { genre: 'Strategy', sold: 115 },
       { genre: 'Action', sold: 120 },
       { genre: 'Shooter', sold: 350 },
       { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .encode('shape', 'triangle'); // 使用这个形状
+    ],
+    encode: {
+      x: 'genre',
+      y: 'sold',
+      color: 'genre',
+      shape: 'triangle', // 使用这个形状
+    },
+  });
 
   chart.render();
 
