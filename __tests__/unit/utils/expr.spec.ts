@@ -1,4 +1,4 @@
-import { parseOptionsExpr, EXPR_WHITE_LIST } from '../../../src/api/utils';
+import { parseOptionsExpr, EXPR_WHITE_LIST } from '../../../src/utils/expr';
 
 describe('Expression Processing Functions', () => {
   describe('parseOptionsExpr', () => {

@@ -6,7 +6,7 @@ import EventEmitter from '@antv/event-emitter';
 import { select } from '../utils/selection';
 import { ChartEvent } from '../utils/event';
 import { error } from '../utils/helper';
-import { parseOptionsExpr } from '../api/utils';
+import { parseOptionsExpr } from '../utils/expr';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
 import { VIEW_CLASS_NAME } from './constant';
