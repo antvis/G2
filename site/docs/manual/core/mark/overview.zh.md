@@ -3,7 +3,11 @@ title: 概览
 order: 1
 ---
 
-在 G2 中**没有图表的概念**，而是把 **标记（Mark）** 作为基本的视觉组成单元，任何一个图表都可以由一个或多个标记组合而成。和传统的绘制系统不同，标记提供了绘制抽象数据的能力，你能够通过组合不同的标记来获取全新的图表！例如，我们在一个图表中添加散点图的 Point 标记以及连接图的 Link 标记，便可以得到一个带有标注的点线连接图。
+在 G2 中**没有图表的概念**，而是把 **标记（Mark）** 作为基本的视觉组成单元，任何一个图表都可以由一个或多个标记组合而成。
+
+标记是 G2 绘图框架中最基础的图形单元，也是构成复杂图表的核心组成部分之一。它具有多样化的特性和强大的表现力，能够作为构建图表的“原子”组件被灵活运用。通过合理地组合、排列和定制标记，用户不仅可以满足常规图表绘制需求，还能创建高度个性化、复杂性较高的可视化作品。这种自由度使得标记在实现数据可视化的过程中具备广泛的应用空间，包括但不限于散点图、柱状图、饼图等基础图形，以及更加结构化或创新性的混合式图表。这种特性使得 G2 在绘图的灵活性和定制能力上展现出极大的优势。
+
+正如上面所说，我们在一个图表中添加散点图的 Point 标记以及连接图的 Link 标记，便可以得到一个带有标注的点线连接图。
 
 ```js | ob { pin: false}
 (() => {
@@ -11,44 +15,47 @@ order: 1
     height: 180,
   });
 
-  chart.data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-    transform: [
+  chart.options({
+    type: 'view',
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+      transform: [
+        {
+          type: 'map',
+          callback: (d) => ({
+            ...d,
+            body_mass_g: +d.body_mass_g,
+          }),
+        },
+      ],
+    },
+    children: [
+      // point 标记
       {
-        type: 'map',
-        callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
+        type: 'point',
+        encode: { x: 'body_mass_g', y: 'species' },
+        style: { stroke: '#000' },
+        tooltip: { items: [{ channel: 'x' }] },
+      },
+      // link 标记
+      {
+        type: 'link',
+        encode: { x: 'body_mass_g', y: 'species' },
+        transform: [{ type: 'groupY', x: 'min', x1: 'max' }],
+        style: { stroke: '#000' },
+        tooltip: false,
+      },
+      // point 标记绘制中位线
+      {
+        type: 'point',
+        encode: { y: 'species', x: 'body_mass_g', shape: 'line', size: 12 },
+        transform: [{ type: 'groupY', x: 'median' }],
+        style: { stroke: 'red' },
+        tooltip: { items: [{ channel: 'x' }] },
       },
     ],
   });
-
-  // Point 标记
-  chart
-    .point()
-    .encode('x', 'body_mass_g')
-    .encode('y', 'species')
-    .style('stroke', '#000')
-    .tooltip({ channel: 'x' });
-
-  // Link 标记
-  chart
-    .link()
-    .encode('x', 'body_mass_g')
-    .encode('y', 'species')
-    .transform({ type: 'groupY', x: 'min', x1: 'max' })
-    .style('stroke', '#000')
-    .tooltip(false);
-
-  // Point 标记 绘制中位线
-  chart
-    .point()
-    .encode('y', 'species')
-    .encode('x', 'body_mass_g')
-    .encode('shape', 'line')
-    .encode('size', 12)
-    .transform({ type: 'groupY', x: 'median' })
-    .style('stroke', 'red')
-    .tooltip({ channel: 'x' });
 
   chart.render();
 
@@ -56,7 +63,7 @@ order: 1
 })();
 ```
 
-根据几何标记可以代表的数据维度来划分，几何标记分为：
+根据标记可以代表的数据维度来划分，可以分为：
 
 - 零维，点是常见的零维几何标记，点仅有位置信息
 - 一维，常见的一维几何标记有线
@@ -65,12 +72,18 @@ order: 1
 
 ![](https://zos.alipayobjects.com/basement/skylark/0ad6383d14791764763234581d755f/attach/4080/900/image.png#align=left&display=inline&height=140&originHeight=140&originWidth=549&status=done&style=none&width=549)
 
-几何标记的自由度与数据能够映射到图形的视觉通道 size（大小）相关，这个角度上来讲：
+标记的自由度与数据能够映射到图形的视觉通道 **size（大小）** 相关，这个角度上来讲：
 
 - 点可以映射两个数据字段字段到点的大小上（当然现实中我们仅仅映射一个）。
 - 线可以映射一个数据字段字段到线的宽度。
 - 柱状图的矩形可以映射一个数据字段到宽度上。
 - 封闭的多边形无法使用数据映射到大小。
+
+标记的表现形式与数据能够映射到图形的视觉通道 **color（颜色）** 相关，这个角度上来讲：
+
+- 表现形式为封闭的有填充色的图形。例如 point 标记的 `point` 形状、interval 标记的 `rect` 形状等，颜色通道一般表现在标记的填充颜色 `fill` 上。
+- 表现形式为线和空心的图形。例如 line 标记的所有形状、interval 标记的 `hollow` 形状等，颜色通道一般表现在标记的线的颜色 `stroke` 上。
+- 表现形式为文字。例如 text 标记、wordCloud 标记等，颜色通道一般表现在标记的文字颜色 `fill` 上。
 
 目前 G2 支持的内置标记如下：
 
@@ -90,17 +103,17 @@ order: 1
 | lineX     | 垂直辅助线，常用于标注特定值                     | [lineX](/manual/core/mark/lineX)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VJVAT7Rkx9MAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | lineY     | 水平辅助线，常用于标注阈值                       | [lineY](/manual/core/mark/lineY)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BG5UTbE7gycAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | link      | 带方向箭头标记，展示节点间关系                   | [link](/manual/core/mark/link)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| liquid    | 水波图，展示百分比进度                           | [liquid](/manual/core/mark/liquid)       | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| point     | 散点图，通过大小/颜色编码多维度数据              | [point](/manual/core/mark/point)         | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| polygon   | 多边形标记，常配合布局算法使用                   | [polygon](/manual/core/mark/polygon)     | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| range     | 矩形区域标记，用于高亮特定区间                   | [range](/manual/core/mark/range)         | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| rangeX    | 垂直方向区域标记                                 | [rangeX](/manual/core/mark/rangeX)       | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| rangeY    | 水平方向区域标记                                 | [rangeY](/manual/core/mark/rangeY)       | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| rect      | 基础矩形标记，用于直方图/矩阵树图                | [rect](/manual/core/mark/rect)           | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| shape     | 完全自定义图形标记                               | [shape](/manual/core/mark/shape)         | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| text      | 数据标签标记，支持富文本格式                     | [text](/manual/core/mark/text)           | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| vector    | 向量场标记，展示方向/强度双维度数据              | [vector](/manual/core/mark/vector)       | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| wordCloud | 词云图，通过文字大小编码词频                     | [wordCloud](/manual/core/mark/wordcloud) | <img src=" " />                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| liquid    | 水波图，展示百分比进度                           | [liquid](/manual/core/mark/liquid)       | <img src="https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*cHArRaizyBsAAAAAAAAAAAAADo2bAQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| point     | 散点图，通过大小/颜色编码多维度数据              | [point](/manual/core/mark/point)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| polygon   | 多边形标记，常配合布局算法使用                   | [polygon](/manual/core/mark/polygon)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| range     | 矩形区域标记，用于高亮特定区间                   | [range](/manual/core/mark/range)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w1BBRYvJf_UAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rangeX    | 垂直方向区域标记                                 | [rangeX](/manual/core/mark/rangeX)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rangeY    | 水平方向区域标记                                 | [rangeY](/manual/core/mark/rangeY)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rect      | 基础矩形标记，用于直方图/矩阵树图                | [rect](/manual/core/mark/rect)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oyXhQKobcMMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| shape     | 完全自定义图形标记                               | [shape](/manual/core/mark/shape)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LA11Rqfk2Y4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| text      | 数据标签标记，支持富文本格式                     | [text](/manual/core/mark/text)           | <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ" />                                                                                                                                                                                                                                                                                                                                                               |
+| vector    | 向量场标记，展示方向/强度双维度数据              | [vector](/manual/core/mark/vector)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1LQ2Sbpwl6YAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| wordCloud | 词云图，通过文字大小编码词频                     | [wordCloud](/manual/core/mark/wordcloud) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0xE1T7W2Oq4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 
 ## 使用方式
 
@@ -152,7 +165,6 @@ order: 1
   encode: {},
   scale: {},
   transform: [],
-  layout: {},
   coordinate: {},
   style: {},
   viewStyle: {},
@@ -195,24 +207,25 @@ order: 1
 
 ## 特性
 
-### 模版
+G2 中的标记具有许多特性，包括模板化、可叠加、可复合等。合理地运用这些特性，可以快速定义和使用多种图形样式，将多个标记组合展现更丰富的图形效果。这些灵活且高度定制的特性，使标记能够满足从基础图表到复杂可视化的多层次需求。
 
-标记是一个模版，会生成一系列**数据驱动**的图形，其中每个图形对应一个或者多个**数据项（Data Item）**。比如下面的散点图里只有一个 Point 标记，而这个标记生成了多个圆。
+### 图形模版
+
+每个内置标记都是一个图形模版，会生成一系列**数据驱动**的图形，其中每个图形对应一个或者多个**数据项（Data Item）**。比如下面的散点图里只有一个 Point 标记，而这个标记生成了多个圆，每个圆对应一个数据项。
 
 ```js | ob
 (() => {
   const chart = new G2.Chart();
 
-  chart
-    .point()
-    .data({
+  chart.options({
+    type: 'point',
+    data: {
       type: 'fetch',
       value:
         'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    })
-    .encode('x', 'height')
-    .encode('y', 'weight')
-    .encode('color', 'gender');
+    },
+    encode: { x: 'height', y: 'weight', color: 'gender' },
+  });
 
   chart.render();
 
@@ -220,23 +233,23 @@ order: 1
 })();
 ```
 
-而在下面的折线图中，一个条线对应多个数据项。
+而在下面的折线图中，一条线对应多个数据项。
 
 ```js | ob
 (() => {
   const chart = new G2.Chart();
 
-  chart
-    .line()
-    .data({
+  chart.options({
+    type: 'line',
+    width: 900,
+    autoFit: true,
+    data: {
       type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
-    })
-    .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
-    .encode('x', (d) => new Date(d.Date))
-    .encode('y', 'Close')
-    .encode('color', 'Symbol')
-    .axis('y', { title: '↑ Change in price (%)' });
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+    },
+    encode: { x: 'date', y: 'close' },
+  });
 
   chart.render();
 

@@ -28,12 +28,14 @@ const chart = new Chart({
   paddingRight: 4,
 });
 
-chart.data({
-  type: 'fetch',
-  value:
-    'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
-  transform: [{ type: 'custom', callback: layout }],
-});
+chart
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
+    transform: [{ type: 'custom', callback: layout }],
+  })
+  .legend(false);
 
 chart
   .polygon()
@@ -48,14 +50,7 @@ chart
   .scale('x', { domain: [0, 1] })
   .scale('y', { domain: [0, 1], range: [0, 1] })
   .scale('size', { type: 'identity' })
-  .axis(false)
-  .legend('color', {
-    field: '学派',
-    size: 72,
-    autoWrap: true,
-    maxRows: 2,
-    cols: 6,
-  });
+  .axis(false);
 
 chart
   .text()
