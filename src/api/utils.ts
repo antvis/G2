@@ -1,4 +1,4 @@
-import { isNumber } from '@antv/util';
+import { isNumber, mapValues } from '@antv/util';
 import { compile } from '@antv/expr';
 import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
@@ -341,6 +341,7 @@ const compileExpression = lru(
     };
   },
   (expr) => expr,
+  128,
 );
 
 /**
@@ -355,28 +356,24 @@ export function parseOptionsExpr(options: any, isSpecRoot = true): any {
   }
 
   if (typeof options === 'object' && options) {
-    const newOptions = {};
-    for (const key in options) {
+    return mapValues(options, (value, key) => {
       // if options is root and the key is in the white list, parse the expression.
       if (isSpecRoot && EXPR_WHITE_LIST.includes(key)) {
-        newOptions[key] = parseOptionsExpr(options[key], key === 'children');
-      } else if (!isSpecRoot) {
-        newOptions[key] = parseOptionsExpr(options[key], false);
-      } else {
-        newOptions[key] = options[key];
+        return parseOptionsExpr(value, key === 'children');
       }
-    }
-
-    return newOptions;
+      if (!isSpecRoot) {
+        return parseOptionsExpr(value, false);
+      }
+      return value;
+    });
   }
 
   // if options is a string and is a valid expression.
-  if (
-    typeof options === 'string' &&
-    ((options = options.trim()),
-    options.startsWith('{') && options.endsWith('}'))
-  ) {
-    return compileExpression(options.slice(1, -1));
+  if (typeof options === 'string') {
+    const trimmed = options.trim();
+    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+      return compileExpression(trimmed.slice(1, -1));
+    }
   }
 
   return options;
