@@ -56,7 +56,7 @@ const spec = {
 - `style`
 - `encode`
 - `attr`
-- `label`
+- `labels`
 - `children`
 
 如果您需要在其他 API 中使用表达式，欢迎提交 issue 反馈。

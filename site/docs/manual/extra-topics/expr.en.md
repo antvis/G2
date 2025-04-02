@@ -56,7 +56,7 @@ Currently, G2 only supports expr expression syntax for callback functions in the
 - `style`
 - `encode`
 - `attr`
-- `label`
+- `labels`
 - `children`
 
 If you need to use expressions in other APIs, please submit an issue to let us know.
