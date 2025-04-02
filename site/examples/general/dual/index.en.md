@@ -1,4 +1,4 @@
 ---
-title: Gauge
-order: 16
+title: Dual
+order: 6
 ---
