@@ -413,6 +413,14 @@ export default defineConfig({
         },
         icon: 'other',
       },
+      {
+        slug: 'expr',
+        title: {
+          zh: 'Spec 函数表达式 (beta)',
+          en: 'Spec Function Expression (beta)',
+        },
+        icon: 'other',
+      },
     ],
     playground: {
       extraLib: '',
