@@ -6,11 +6,11 @@ import EventEmitter from '@antv/event-emitter';
 import { select } from '../utils/selection';
 import { ChartEvent } from '../utils/event';
 import { error } from '../utils/helper';
+import { parseOptionsExpr } from '../utils/expr';
 import { G2Context, G2ViewTree } from './types/options';
 import { plot } from './plot';
 import { VIEW_CLASS_NAME } from './constant';
 import { preprocessOption } from './option-preprocess';
-
 /**
  * Infer key for each node of view tree.
  * Each key should be unique in the entire view tree.
@@ -70,10 +70,11 @@ export function render<T extends G2ViewTree = G2ViewTree>(
     throw e;
   },
 ): HTMLElement {
+  const afterParsedOptions = parseOptionsExpr(options);
   // Initialize the context if it is not provided.
-  const { width = 640, height = 480, depth = 0 } = options;
+  const { width = 640, height = 480, depth = 0 } = afterParsedOptions;
   // Preprocessing here, such as syntactic sugar.
-  const preprocessedOption = preprocessOption(options);
+  const preprocessedOption = preprocessOption(afterParsedOptions);
   const keyed = inferKeys(preprocessedOption);
   const {
     canvas = Canvas(width, height),
