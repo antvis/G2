@@ -643,14 +643,16 @@ export function seriesTooltip(
   );
 
   const { x: scaleX } = scale;
-  const stepWidth = scaleX?.getStep?.() ?? 0;
 
   // Apply offset for band scale x.
-  const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
+  const getOffsetX = (focus) => {
+    const domainX = getDomainXByPoint(focus, scaleX, coordinate);
+    return scaleX.getBandWidth ? scaleX.getBandWidth(domainX) / 2 : 0;
+  };
 
   const abstractX = (focus) => {
     const [normalizedX] = coordinate.invert(focus);
-    return normalizedX - offsetX;
+    return normalizedX - getOffsetX(focus);
   };
 
   const indexByFocus = (event, focus, I, X) => {
@@ -695,17 +697,6 @@ export function seriesTooltip(
     return I[i];
   };
 
-  // get x domain by point
-  const getDomainXByPoint = (point) => {
-    const [pointX] = coordinate.invert(point);
-    const rangeIndexMap = scaleX.rangeIndexMap;
-    const domainXs = Array.from(rangeIndexMap.keys()).map(
-      (d: number) => d - (stepWidth - scaleX.getBandWidth()) / 2,
-    );
-    const index = bisect(domainXs as number[], pointX);
-    return scaleX.sortedDomain[index - 1];
-  };
-
   const elementsByFocus = isBar
     ? (focus, elements) => {
         const search = bisector(xof).center;
@@ -714,7 +705,7 @@ export function seriesTooltip(
         const elementGroups = group(elements, parentOf);
         const selected = [];
 
-        const domainX = getDomainXByPoint(focus);
+        const domainX = getDomainXByPoint(focus, scaleX, coordinate);
         elementGroups.forEach((elements) => {
           const i = search(elements, pointX);
           const find = elements[i];
@@ -779,7 +770,7 @@ export function seriesTooltip(
           selectedSeriesElements.push(element);
           const d = seriesData(element, index);
           const { x, y } = d;
-          const p = coordinate.map([(x || 0) + offsetX, y || 0]);
+          const p = coordinate.map([(x || 0) + getOffsetX(focus), y || 0]);
           selectedSeriesData.push([{ ...d, element }, p] as const);
         }
       }
@@ -1031,18 +1022,17 @@ export function tooltip(
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
   const scaleX = scale.x;
   const scaleSeries = scale.series;
-  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
-  const stepWidth = scaleX?.getStep?.() ?? 0;
   const xof = scaleSeries
     ? (d) => {
         const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+        const bandWidth = scaleX.getBandWidth?.(d.__data__.title);
         return (
           d.__data__.x +
           d.__data__.series * bandWidth +
           bandWidth / (seriesCount * 2)
         );
       }
-    : (d) => d.__data__.x + bandWidth / 2;
+    : (d) => d.__data__.x + scaleX.getBandWidth?.(d.__data__.title) / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
@@ -1060,10 +1050,29 @@ export function tooltip(
         const mouse = mousePosition(root, event);
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
-        const search = bisector(xof).center;
-        const i = search(elements, abstractX);
-        const target = elements[i];
 
+        let target;
+        const domainX = getDomainXByPoint(mouse, scaleX, coordinate);
+        const targets = elements.filter((d) => d.__data__.title === domainX);
+
+        // the domainX have multiple targets, we need to find the closest one. case: mockGroupInterval.
+        if (targets.length > 1) {
+          const search = bisector(xof).center;
+          const i = search(targets, abstractX);
+          target = targets[i];
+        }
+        // if the domainX have only one target, we can return it directly.
+        else if (targets.length === 1) {
+          target = targets[0];
+        }
+        // when can not get the target from the domainX, we need to find the closest one as the default target.
+        else {
+          const search = bisector(xof).center;
+          const i = search(elements, abstractX);
+          target = elements[i];
+        }
+
+        const stepWidth = scaleX.getStep?.(target.__data__.title);
         const targetLeftBoundary = xof(target) - stepWidth / 2;
         const targetRightBoundary = xof(target) + stepWidth / 2;
         if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary)
@@ -1302,6 +1311,23 @@ export function Tooltip(options) {
     });
   };
 }
+
+// get x domain by point
+const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
+  const [pointX] = coordinate.invert(point);
+  const rangeIndexMap = scaleX.rangeIndexMap;
+
+  if (!rangeIndexMap || !rangeIndexMap.size) {
+    return null;
+  }
+
+  const domainX = Array.from(rangeIndexMap.keys()).map(
+    // this is only want to to get the gap between the bands, not to worry the different bandWidth
+    (d: number) => d - (scaleX.getStep() - scaleX.getBandWidth()) / 2,
+  );
+  const index = bisect(domainX as number[], pointX);
+  return scaleX.sortedDomain[index - 1];
+};
 
 Tooltip.props = {
   reapplyWhenUpdate: true,
