@@ -102,7 +102,6 @@ encode: {
   x: 'category',
   y: 'value',
   color: (datum) => (datum.value > 500 ? 'category1' : 'category2'),
-  shape: (datum) => (datum.type === 'special' ? 'star' : 'circle'),
   opacity: (datum, index) => 1 - index * 0.1,
 }
 
@@ -111,7 +110,6 @@ encode: {
   x: 'category',
   y: 'value',
   color: '{a.value > 500 ? "category1" : "category2"}',
-  shape: '{a.type === "special" ? "star" : "circle"}',
   opacity: '{1 - b * 0.1}',
 }
 ```
@@ -125,7 +123,6 @@ labels: [
     text: (datum) => `${datum.name}: ${datum.value}`,
     position: (datum) => (datum.value > 1000 ? 'top' : 'bottom'),
     style: {
-      fill: (datum) => (datum.value > 800 ? 'white' : 'black'),
       fontSize: (datum) => 10 + datum.value / 200,
     },
     transform: [{ type: 'contrastReverse' }],
@@ -138,7 +135,6 @@ labels: [
     text: '{a.name + ": " + a.value}',
     position: '{a.value > 1000 ? "top" : "bottom"}',
     style: {
-      fill: '{a.value > 800 ? "white" : "black"}',
       fontSize: '{10 + a.value / 200}',
     },
     transform: [{ type: 'contrastReverse' }],
