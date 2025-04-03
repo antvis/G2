@@ -90,7 +90,7 @@ function updateBarChart(chart) {
 
 ### 选项式 API
 
-如果使用 [Vue2](https://github.com/vuejs/vue) 和 [Vue3](https://github.com/vuejs/core) 的选项式 API，那么可以如下定义 `G2Demo` 这个组件，完整的代码参考[这里](https://codesandbox.io/s/use-g2-5-with-vue-options-api-qzdrr6?file=/src/components/G2Demo.vue)。
+如果使用 [Vue2](https://github.com/vuejs/vue) 和 [Vue3](https://github.com/vuejs/core) 的选项式 API，那么可以如下定义 `G2Demo` 这个组件，完整的代码参考[这里](https://stackblitz.com/edit/vitejs-vite-m9ycn2z5?file=src%2Fcomponents%2FG2Demo.vue)。
 
 ```html
 <!-- components/G2Demo.vue -->
@@ -130,7 +130,7 @@ function updateBarChart(chart) {
 
 ### 组合式 API
 
-如果使用的 Vue3 的组合式 API，那么实现如下，完整代码参考[这里](https://codesandbox.io/s/use-g2-5-with-vue-composition-api-hdwpc6?file=/src/components/G2Demo.vue)。
+如果使用的 Vue3 的组合式 API，那么实现如下，完整代码参考[这里](https://stackblitz.com/edit/vitejs-vite-xnjhfj6f?file=src%2Fcomponents%2FG2Demo.vue)。
 
 ```html
 <script setup>
@@ -182,7 +182,7 @@ export default function App() {
 }
 ```
 
-接下来就定义这个 `G2Demo` 这个组件，完整代码参考[这里](https://codesandbox.io/s/use-g2-5-with-react-u05qle?file=/src/components/G2Demo.js)。
+接下来就定义这个 `G2Demo` 这个组件，完整代码参考[这里](https://stackblitz.com/edit/vitejs-vite-qbgzwdht?file=src%2Fcomponents%2FG2Demo.jsx)。
 
 ```js
 import { Chart } from '@antv/g2';
