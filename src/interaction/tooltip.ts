@@ -699,7 +699,6 @@ export function seriesTooltip(
 
   const elementsByFocus = isBar
     ? (focus, elements) => {
-        const search = bisector(xof).center;
         const pointX = abstractX(focus);
         const parentOf = (d) => d.parentNode;
         const elementGroups = group(elements, parentOf);
@@ -707,12 +706,8 @@ export function seriesTooltip(
 
         const domainX = getDomainXByPoint(focus, scaleX, coordinate);
         elementGroups.forEach((elements) => {
-          const i = search(elements, pointX);
-          const find = elements[i];
-
-          if (domainX === (find as any).__data__.title) {
-            selected.push(find);
-          }
+          const target = getBarElementByDomainX(domainX, elements, xof, pointX);
+          target && selected.push(target);
         });
 
         return selected;
@@ -1051,26 +1046,14 @@ export function tooltip(
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
 
-        let target;
         const domainX = getDomainXByPoint(mouse, scaleX, coordinate);
-        const targets = elements.filter((d) => d.__data__.title === domainX);
-
-        // the domainX have multiple targets, we need to find the closest one. case: mockGroupInterval.
-        if (targets.length > 1) {
-          const search = bisector(xof).center;
-          const i = search(targets, abstractX);
-          target = targets[i];
-        }
-        // if the domainX have only one target, we can return it directly.
-        else if (targets.length === 1) {
-          target = targets[0];
-        }
-        // when can not get the target from the domainX, we need to find the closest one as the default target.
-        else {
-          const search = bisector(xof).center;
-          const i = search(elements, abstractX);
-          target = elements[i];
-        }
+        const target = getBarElementByDomainX(
+          domainX,
+          elements,
+          xof,
+          abstractX,
+        );
+        if (!target) return;
 
         const stepWidth = scaleX.getStep?.(target.__data__.title);
         const targetLeftBoundary = xof(target) - stepWidth / 2;
@@ -1314,8 +1297,15 @@ export function Tooltip(options) {
 
 // get x domain by point
 const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
-  const [pointX] = coordinate.invert(point);
-  const rangeIndexMap = scaleX.rangeIndexMap;
+  const [rawPointX] = coordinate.invert(point);
+  // need to consider the series scale. (case: stateAgesIntervalScrollbar)
+  const ratio = scaleX.options.ratio ?? 1;
+  const pointX = rawPointX * ratio;
+
+  const rangeIndexMap = scaleX.rangeIndexMap?.size
+    ? scaleX.rangeIndexMap
+    : new Map(scaleX.adjustedRange?.map((d, i) => [d, i]));
+  const sortedDomain = scaleX.sortedDomain ?? scaleX.options.domain;
 
   if (!rangeIndexMap || !rangeIndexMap.size) {
     return null;
@@ -1326,7 +1316,24 @@ const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
     (d: number) => d - (scaleX.getStep() - scaleX.getBandWidth()) / 2,
   );
   const index = bisect(domainX as number[], pointX);
-  return scaleX.sortedDomain[index - 1];
+  return sortedDomain[index - 1];
+};
+
+const getBarElementByDomainX = (domainX, elements, xof, pointX) => {
+  const targets = elements.filter((d) => (d as any).__data__?.title == domainX);
+
+  // the domainX have multiple targets, we need to find the closest one. (case: mockGroupInterval)
+  if (targets.length > 1) {
+    const search = bisector(xof).center;
+    const i = search(targets, pointX);
+    return targets[i];
+  }
+  // if the domainX have only one target, we can return it directly.
+  else if (targets.length === 1) {
+    return targets[0];
+  }
+
+  return null;
 };
 
 Tooltip.props = {
