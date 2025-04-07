@@ -100,6 +100,7 @@ export type ElementHighlightInteraction = {
   link?: boolean;
   background?: boolean;
   offset?: number;
+  region?: boolean;
 } & Record<`${'link' | 'background'}${any}`, any>;
 
 export type ElementSelectInteraction = {

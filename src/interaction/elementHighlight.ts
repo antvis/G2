@@ -4,7 +4,10 @@ import { group } from '@antv/vendor/d3-array';
 import { subObject } from '../utils/helper';
 import {
   createDatumof,
+  createFindElementByEvent,
   createValueof,
+  createXKey,
+  getElementSelectState,
   mergeState,
   offsetTransform,
   renderBackground,
@@ -13,6 +16,7 @@ import {
   selectG2Elements,
   selectPlotArea,
   useState,
+  VALID_FIND_BY_X_MARKS,
 } from './utils';
 
 /**
@@ -23,7 +27,8 @@ export function elementHighlight(
   {
     elements: elementsof, // given the root of chart returns elements to be manipulated
     datum, // given each element returns the datum of it
-    groupKey = (d) => d, // group elements by specified key
+    groupKey: _groupKey = (d) => d, // group elements by specified key
+    regionGroupKey = (d) => d, // how to group elements when hover region
     link = false, // draw link or not
     background = false, // draw background or not
     delay = 60, // delay to unhighlighted element
@@ -31,11 +36,20 @@ export function elementHighlight(
     coordinate,
     emitter,
     state = {},
+    region = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
   const elementSet = new Set(elements);
-  const keyGroup = group(elements, groupKey);
+  const groupKey = regionGroupKey || _groupKey;
+  const keyGroup = group(elements, regionGroupKey) || group(elements, groupKey);
+  const findElement = createFindElementByEvent({
+    elementsof,
+    root,
+    coordinate,
+    scale,
+  });
+
   const valueof = createValueof(elements, datum);
   const [appendLink, removeLink] = renderLink({
     elements,
@@ -64,23 +78,41 @@ export function elementHighlight(
         },
       }),
     },
+    selected: {
+      ...(state.selected?.offset && {
+        // Apply translate to mock slice out.
+        transform: (...params) => {
+          const value = state.selected.offset(...params);
+          const [, i] = params;
+          return offsetTransform(elements[i], value, coordinate);
+        },
+      }),
+    },
   });
 
   const { setState, removeState, hasState } = useState(elementStyle, valueof);
 
   let out; // Timer for delaying unhighlighted.
   const pointerover = (event) => {
-    const { target: element, nativeEvent = true } = event;
+    const { nativeEvent = true } = event;
+    let element = event.target;
+    const filteredElements = elements.filter((el) =>
+      VALID_FIND_BY_X_MARKS.includes(el.markType),
+    );
+    if (region) {
+      element = findElement(event);
+    }
     if (!elementSet.has(element)) return;
     if (out) clearTimeout(out);
     const k = groupKey(element);
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
-    for (const e of elements) {
+    for (const e of filteredElements) {
       if (groupSet.has(e)) {
-        if (!hasState(e, 'active')) setState(e, 'active');
+        if (!hasState(e, 'active'))
+          setState(e, 'active', ...getElementSelectState(e, hasState));
       } else {
-        setState(e, 'inactive');
+        setState(e, 'inactive', ...getElementSelectState(e, hasState));
         removeLink(e);
       }
       if (e !== element) removeBackground(e);
@@ -119,7 +151,15 @@ export function elementHighlight(
   };
 
   const pointerout = (event) => {
-    const { target: element } = event;
+    let element = event.target;
+    if (region) {
+      element = findElement(event);
+    }
+    if (!element) {
+      if (delay > 0) delayUnhighlighted();
+      else unhighlighted();
+      return;
+    }
     if (background && !isBackground(element)) return;
     if (!background && !elementSet.has(element)) return;
     if (delay > 0) delayUnhighlighted();
@@ -131,6 +171,7 @@ export function elementHighlight(
   };
 
   root.addEventListener('pointerover', pointerover);
+  root.addEventListener('pointermove', pointerover);
   root.addEventListener('pointerout', pointerout);
   root.addEventListener('pointerleave', pointerleave);
 
@@ -154,6 +195,7 @@ export function elementHighlight(
 
   return () => {
     root.removeEventListener('pointerover', pointerover);
+    root.removeEventListener('pointermove', pointerover);
     root.removeEventListener('pointerout', pointerout);
     root.removeEventListener('pointerleave', pointerleave);
     emitter.off('element:highlight', onHighlight);
@@ -168,6 +210,7 @@ export function elementHighlight(
 export function ElementHighlight({
   delay,
   createGroup,
+  createRegionGroup,
   background = false,
   link = false,
   ...rest
@@ -175,16 +218,26 @@ export function ElementHighlight({
   return (context, _, emitter) => {
     const { container, view, options } = context;
     const { scale, coordinate } = view;
+    const interaction = options.interaction;
+    const elementSelect = interaction?.elementSelect;
     const plotArea = selectPlotArea(container);
     return elementHighlight(plotArea, {
       elements: selectG2Elements,
       datum: createDatumof(view),
       groupKey: createGroup ? createGroup(view) : undefined,
+      regionGroupKey: createRegionGroup
+        ? createRegionGroup(view)
+        : createXKey(view),
       coordinate,
       scale,
       state: mergeState(options, [
         ['active', background ? {} : { lineWidth: '1', stroke: '#000' }],
         'inactive',
+        [
+          'selected',
+          elementSelect?.background ? {} : { lineWidth: '1', stroke: '#000' },
+        ],
+        'unselected',
       ]),
       background,
       link,

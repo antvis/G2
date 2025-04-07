@@ -591,3 +591,9 @@ export function createFindElementByEvent({
     });
   };
 }
+
+export const getElementSelectState = (element, hasState) => {
+  if (hasState(element, 'selected')) return ['selected'];
+  if (hasState(element, 'unselected')) return ['unselected'];
+  return [];
+};

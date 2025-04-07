@@ -55,3 +55,4 @@ export { chartChangeSizeLabelRotate } from './chart-change-size-label-rotate';
 export { chartWordCloudCanvas } from './chart-word-cloud-canvas';
 export { chartElementMultipleSelect } from './chart-emit-element-multiple-select';
 export { chartMultipleMarkSelectRegion } from './chart-multiple-mark-select-region';
+export { chartElementHighlightRegion } from './chart-element-highlight-region';
