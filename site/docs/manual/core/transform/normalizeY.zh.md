@@ -1,6 +1,6 @@
+---
 title: normalizeY
 order: 2
-
 ---
 
 ## 概述
