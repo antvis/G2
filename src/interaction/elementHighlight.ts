@@ -39,7 +39,9 @@ export function elementHighlight(
     region = false,
   }: Record<string, any>,
 ) {
-  const elements = elementsof(root);
+  const elements = elementsof(root)?.filter((el) =>
+    VALID_FIND_BY_X_MARKS.includes(el.markType),
+  );
   const elementSet = new Set(elements);
   const groupKey = regionGroupKey || _groupKey;
   const keyGroup = group(elements, regionGroupKey) || group(elements, groupKey);
@@ -96,9 +98,6 @@ export function elementHighlight(
   const pointerover = (event) => {
     const { nativeEvent = true } = event;
     let element = event.target;
-    const filteredElements = elements.filter((el) =>
-      VALID_FIND_BY_X_MARKS.includes(el.markType),
-    );
     if (region) {
       element = findElement(event);
     }
@@ -107,7 +106,7 @@ export function elementHighlight(
     const k = groupKey(element);
     const group = keyGroup.get(k);
     const groupSet = new Set(group);
-    for (const e of filteredElements) {
+    for (const e of elements) {
       if (groupSet.has(e)) {
         if (!hasState(e, 'active'))
           setState(e, 'active', ...getElementSelectState(e, hasState));
