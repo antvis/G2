@@ -134,7 +134,6 @@ export type SymmetryYTransform = {
 export type DiffYTransform = {
   type?: 'diffY';
   groupBy?: string | string[];
-  series?: boolean;
 };
 
 export type Selector =
