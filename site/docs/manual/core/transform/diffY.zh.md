@@ -12,9 +12,11 @@ order: 2
 
 常用于面积图、柱形图等这类具有 y1 的 mark，因为视觉上，最终效果是只显示两个柱子、面积图形交叠的地方，所以命名为 `diffY`。
 
-## 开始使用
+## 使用场景
 
-`diffY` 基本专用于下面的图形，用于突出看到对比情况下的最值情况。例如下面的的案例是看 `New York` 和 `San Francisco` 两个城市的天气情况的趋势，通过 `diffY` 就可以凸显出在同一个时间 x 下，到底那个城市的温度更高。
+`diffY` 基本专用于面积图，用于突出看到对比情况下的最值情况，在其他 mark 下使用相对比较少。
+
+例如下面的的案例是看 `New York` 和 `San Francisco` 两个城市的天气情况的趋势，通过 `diffY` 就可以凸显出在同一个时间 x 下，到底那个城市的温度更高。
 
 ```js | ob
 (() => {
@@ -65,7 +67,48 @@ order: 2
 
 ## 配置项
 
-| 属性               | 描述                                           | 类型                     | 默认值                 |
-|-------------------|------------------------------------------------|-------------------------|-----------------------|
-| groupBy           | 按照哪个通道分组数据                              | `string` \| `string[]`  | `x`                   |  
-| series            | 是否存在分组                                     | `boolean`               | `true`                   |
+| 属性               | 描述                                           | 类型                                | 默认值                 |
+|-------------------|------------------------------------------------|------------------------------------|-----------------------|
+| groupBy           | 按照哪个通道分组数据                              | `ChannelTypes` \| `ChannelTypes[]`  | `x`                   |  
+
+
+### groupBy
+
+在 `diffY` 执行的时候，需要将数据进行分组，在每个分组中执行 `diffY` 的计算逻辑，比如对于面积图，需要把同一个 x 值下的 y 数据变成一个组，然后在组内做最大最小值的处理逻辑，所以 `groupBy` 设置为 `x` 通道。
+
+理论上，`groupBy` 可以设置为所有的通道值，具体可以参考 [encode](/manual/core/encode) 文档。所有的枚举值如下：
+
+```ts
+export type ChannelTypes =
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'x1'
+  | 'y1'
+  | 'series'
+  | 'color'
+  | 'opacity'
+  | 'shape'
+  | 'size'
+  | 'key'
+  | 'groupKey'
+  | 'position'
+  | 'series'
+  | 'enterType'
+  | 'enterEasing'
+  | 'enterDuration'
+  | 'enterDelay'
+  | 'updateType'
+  | 'updateEasing'
+  | 'updateDuration'
+  | 'updateDelay'
+  | 'exitType'
+  | 'exitEasing'
+  | 'exitDuration'
+  | 'exitDelay'
+  | `position${number}`;
+```
+
+## 示例
+
+见上述`使用场景`文档。

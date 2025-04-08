@@ -37,6 +37,7 @@ export function maybeColumnOf(
   encode,
   ...K: (string | Primitive[])[]
 ): [Primitive[], string] {
+  console.log('maybeColumnOf', encode, K);
   for (const key of K) {
     if (typeof key === 'string') {
       const [KV, fv] = columnOf(encode, key);
