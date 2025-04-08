@@ -1,0 +1,15 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "expr.ts",
+      "title": {
+        "zh": "Spec 函数表达式",
+        "en": "Spec Function Expression"
+      }
+    }
+  ]
+}
