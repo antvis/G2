@@ -1134,7 +1134,7 @@ export function tooltip(
         nativeEvent: true,
         data: {
           ...data,
-          data: dataOf(element),
+          data: dataOf(element, view),
         },
       });
     },
