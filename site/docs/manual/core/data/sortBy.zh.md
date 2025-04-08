@@ -28,17 +28,9 @@ chart.data({
 });
 ```
 
-你可以为`fields`字段提供一个布尔值`Boolean`来改变排序方式，默认值为`true`。
+当存在排序字段时，你可以为每一个字段提供一个布尔值 boolean 来改变排序方式，默认值为 true。
 
 ```ts
-const data = [
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-];
-
 chart.data({
   type: 'inline',
   value: data,
@@ -50,6 +42,22 @@ chart.data({
   ],
 })
 ```
+
+当存在多个排序字段时，若前一个字段相同，则继续比较下一个字段。
+
+```ts
+const options = {
+  fields: [['name', true], ['age', false]],
+};
+
+const data = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 23 },
+  { name: 'Alice', age: 22 },
+];
+```
+
+此结果按照 name 升序排列，而当 name 相同时，按照 age 降序排列
 
 ## 选项
 
