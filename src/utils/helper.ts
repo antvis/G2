@@ -20,13 +20,14 @@ export function getViewFromElement(element: G2Element) {
 /**
  * @description Get element's original data.
  * @param elemenet G2 element.
+ * @param elemenet View data, if not provided, will get from element's ancestor view.
  * @returns The original data of the element.
  */
-export function dataOf(element: G2Element) {
-  const view = getViewFromElement(element);
+export function dataOf(element: G2Element, viewData?: any) {
+  const view = viewData ?? getViewFromElement(element).__data__;
   const datum = element.__data__;
   const { markKey, index, seriesIndex } = datum;
-  const { markState } = view.__data__;
+  const { markState } = view;
   const selectedMark: any = Array.from(markState.keys()).find(
     (mark) => (mark as any).key === markKey,
   );
