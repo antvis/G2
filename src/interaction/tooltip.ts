@@ -1299,28 +1299,28 @@ export function Tooltip(options) {
 const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
   const [rawPointX] = coordinate.invert(point);
   // need to consider the series scale. (case: stateAgesIntervalScrollbar)
-  const ratio = scaleX.options.ratio ?? 1;
+  const ratio = scaleX.getOptions().ratio ?? 1;
   const pointX = rawPointX * ratio;
 
   const rangeIndexMap = scaleX.rangeIndexMap?.size
     ? scaleX.rangeIndexMap
     : new Map(scaleX.adjustedRange?.map((d, i) => [d, i]));
-  const sortedDomain = scaleX.sortedDomain ?? scaleX.options.domain;
 
   if (!rangeIndexMap || !rangeIndexMap.size) {
     return null;
   }
 
-  const domainX = Array.from(rangeIndexMap.keys()).map(
+  const domainXs: number[] = Array.from(rangeIndexMap.keys());
+  const domainX = domainXs.map(
     // this is only want to to get the gap between the bands, not to worry the different bandWidth
     (d: number) => d - (scaleX.getStep() - scaleX.getBandWidth()) / 2,
   );
   const index = bisect(domainX as number[], pointX);
-  return sortedDomain[index - 1];
+  return domainXs[index - 1] / ratio;
 };
 
 const getBarElementByDomainX = (domainX, elements, xof, pointX) => {
-  const targets = elements.filter((d) => (d as any).__data__?.title == domainX);
+  const targets = elements.filter((d) => (d as any).__data__?.x == domainX);
 
   // the domainX have multiple targets, we need to find the closest one. (case: mockGroupInterval)
   if (targets.length > 1) {
