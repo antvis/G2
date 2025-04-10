@@ -1301,6 +1301,7 @@ const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
   // need to consider the series scale. (case: stateAgesIntervalScrollbar)
   const ratio = scaleX.getOptions().ratio ?? 1;
   const pointX = rawPointX * ratio;
+  const sortedDomain = scaleX.sortedDomain ?? scaleX.options.domain;
 
   const rangeIndexMap = scaleX.rangeIndexMap?.size
     ? scaleX.rangeIndexMap
@@ -1316,11 +1317,13 @@ const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
     (d: number) => d - (scaleX.getStep() - scaleX.getBandWidth()) / 2,
   );
   const index = bisect(domainX as number[], pointX);
-  return domainXs[index - 1] / ratio;
+  return sortedDomain[index - 1];
 };
 
 const getBarElementByDomainX = (domainX, elements, xof, pointX) => {
-  const targets = elements.filter((d) => (d as any).__data__?.x == domainX);
+  const targets = elements.filter(
+    (d) => (d as any).__data__?.domainX === domainX,
+  );
 
   // the domainX have multiple targets, we need to find the closest one. (case: mockGroupInterval)
   if (targets.length > 1) {
