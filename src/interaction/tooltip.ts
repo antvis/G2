@@ -1064,10 +1064,18 @@ export function tooltip(
         const i = search(elements, abstractX);
         const target = elements[i];
 
-        const targetLeftBoundary = xof(target) - stepWidth / 2;
-        const targetRightBoundary = xof(target) + stepWidth / 2;
-        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary)
+        // Handle the case where stepWidth is negative.
+        const isStepWidthPositive = stepWidth > 0;
+        const targetLeftBoundary = isStepWidthPositive
+          ? xof(target) - stepWidth / 2
+          : xof(target) + stepWidth / 2;
+        const targetRightBoundary = isStepWidthPositive
+          ? xof(target) + stepWidth / 2
+          : xof(target) - stepWidth / 2;
+
+        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary) {
           return;
+        }
 
         if (!shared) {
           // For grouped bar chart without shared options.
