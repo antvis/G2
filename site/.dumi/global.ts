@@ -1,7 +1,7 @@
 require('./style.css');
 require('./prism-one-light.css');
 
-if (window) {
+if (typeof window !== 'undefined' && window) {
   (window as any).g2 = extendG2(require('../../src'));
   (window as any).G2 = (window as any).g2;
   (window as any).g2Extension3d = require('@antv/g2-extension-3d');
@@ -37,16 +37,16 @@ if (window) {
   (window as any).rewind = require('@mapbox/geojson-rewind');
   (window as any).table = table;
   (window as any).dirichlet = require('dirichlet');
-}
 
-if (
-  location.host === 'g2.antv.vision' ||
-  location.host === 'antv-g2.gitee.io'
-) {
-  (window as any).location.href = location.href.replace(
-    location.origin,
-    'https://g2.antv.antgroup.com',
-  );
+  if (
+    location.host === 'g2.antv.vision' ||
+    location.host === 'antv-g2.gitee.io'
+  ) {
+    (window as any).location.href = location.href.replace(
+      location.origin,
+      'https://g2.antv.antgroup.com',
+    );
+  }
 }
 
 // TODO 支持 csv 格式的数据

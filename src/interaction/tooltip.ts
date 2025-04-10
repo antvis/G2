@@ -1055,12 +1055,6 @@ export function tooltip(
         );
         if (!target) return;
 
-        const stepWidth = scaleX.getStep?.(target.__data__.title);
-        const targetLeftBoundary = xof(target) - stepWidth / 2;
-        const targetRightBoundary = xof(target) + stepWidth / 2;
-        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary)
-          return;
-
         if (!shared) {
           // For grouped bar chart without shared options.
           const isGrouped = elements.find(
@@ -1126,7 +1120,7 @@ export function tooltip(
         nativeEvent: true,
         data: {
           ...data,
-          data: dataOf(element),
+          data: dataOf(element, view),
         },
       });
     },

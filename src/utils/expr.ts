@@ -3,13 +3,7 @@ import { mapValues } from '@antv/util';
 import { lru } from './lru';
 
 // Whitelist of properties that can contain expressions.
-export const EXPR_WHITE_LIST = [
-  'style',
-  'encode',
-  'attr',
-  'labels',
-  'children',
-];
+export const EXPR_WHITE_LIST = ['style', 'encode', 'labels', 'children'];
 
 /**
  * Compiles an expression string into a function.

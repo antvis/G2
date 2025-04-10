@@ -84,4 +84,5 @@ export { itemsCallback } from './items-callback';
 export { issue6699 } from './issue-6699';
 export { issue6699Improve } from './issue-6699-improve';
 export { issue6710 } from './issue-6710';
+export { reverseScaleRange } from './reverse-scale-range';
 export { issue6720 } from './issue-6720';

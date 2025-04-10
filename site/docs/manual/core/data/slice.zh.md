@@ -3,7 +3,7 @@ title: slice
 order: 2
 ---
 
-对数据进行分片，获得子集。类似于 [Array.prototypo.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)。
+对数据进行分片，获得子集。类似于 [Array.prototype.slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)。
 
 ## 开始使用
 

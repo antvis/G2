@@ -50,7 +50,7 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
       nativeEvent: true,
     };
     if (elementType === 'element') {
-      e1['data'] = { data: dataOf(root) };
+      e1['data'] = { data: dataOf(root, view) };
       emitter.emit(`element:${eventType}`, e1);
       emitter.emit(`${markType}:${eventType}`, e1);
     } else if (elementType === 'label') {

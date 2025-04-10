@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { TransformComponent as TC } from '../runtime';
 import { DiffYTransform } from '../spec';
-import { column, columnOf, maybeColumnOf } from './utils/helper';
+import { column, columnOf } from './utils/helper';
 import { createGroups } from './utils/order';
 
 export type DiffYOptions = Omit<DiffYTransform, 'type'>;
@@ -11,15 +11,11 @@ export type DiffYOptions = Omit<DiffYTransform, 'type'>;
  * Keep y unchanged, set y1 = max(otherY), if y1 > y, remove the data.
  */
 export const DiffY: TC<DiffYOptions> = (options = {}) => {
-  const { groupBy = 'x', series = true } = options;
+  const { groupBy = 'x' } = options;
   return (I, mark) => {
     const { encode } = mark;
     const [Y] = columnOf(encode, 'y');
     const [_, fy1] = columnOf(encode, 'y1');
-
-    const [S] = series
-      ? maybeColumnOf(encode, 'series', 'color')
-      : columnOf(encode, 'color');
 
     // Create groups and apply specified order for each group.
     const groups = createGroups(groupBy, I, mark);
