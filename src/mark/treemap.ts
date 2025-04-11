@@ -56,6 +56,7 @@ const DEFAULT_LABEL_OPTIONS = {
   wordWrap: true,
   maxLines: 1,
   wordWrapWidth: (d) => d.x1 - d.x0,
+  pointerEvents: 'none',
 };
 
 const DEFAULT_TOOLTIP_OPTIONS = {
