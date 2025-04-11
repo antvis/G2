@@ -407,6 +407,7 @@
                   font-size="14"
                   font-weight="normal"
                   text-anchor="left"
+                  pointer-events="none"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
                 >
@@ -447,6 +448,7 @@
                   font-size="14"
                   font-weight="normal"
                   text-anchor="left"
+                  pointer-events="none"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
                 >
@@ -487,6 +489,7 @@
                   font-size="14"
                   font-weight="normal"
                   text-anchor="left"
+                  pointer-events="none"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
                 >
