@@ -409,6 +409,7 @@
                   text-anchor="left"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
+                  pointer-events="none"
                 >
                   文具
                 </text>
@@ -449,6 +450,7 @@
                   text-anchor="left"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
+                  pointer-events="none"
                 >
                   零食
                 </text>
@@ -489,6 +491,7 @@
                   text-anchor="left"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
+                  pointer-events="none"
                 >
                   其他
                 </text>

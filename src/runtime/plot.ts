@@ -1,6 +1,6 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
-import { deepMix, upperFirst, isArray } from '@antv/util';
+import { deepMix, upperFirst, isArray, get } from '@antv/util';
 import { group, groups } from '@antv/vendor/d3-array';
 import { format } from '@antv/vendor/d3-format';
 import { mapObject } from '../utils/array';
@@ -1343,7 +1343,7 @@ function createLabelShapeFunction(
     'shape',
     library,
   );
-  const { data: abstractData, encode } = mark;
+  const { data: abstractData, encode, type } = mark;
   const { data: visualData, defaultLabelShape } = state;
   const point2d = visualData.map((d) => d.points);
   const channel = mapObject(encode, (d) => d.value);
@@ -1371,8 +1371,15 @@ function createLabelShapeFunction(
       ...abstractOptions
     } = options;
 
+    // The labels in the treemap are blocking click interactions.
+    const rectLabelOptions =
+      get(element, ['markType']) === 'rect' ? { pointerEvents: 'none' } : {};
     const visualOptions = mapObject(
-      { ...abstractOptions, ...abstractStyle } as Record<string, any>,
+      {
+        ...abstractOptions,
+        ...abstractStyle,
+        ...rectLabelOptions,
+      } as Record<string, any>,
       (d) =>
         valueOf(d, datum, index, abstractData, {
           channel,
