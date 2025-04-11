@@ -261,6 +261,8 @@ Here is a complete example demonstrating the powerful capabilities of expression
 
   chart.options(spec);
 
+  chart.render();
+
   return chart.getContainer();
 })();
 ```

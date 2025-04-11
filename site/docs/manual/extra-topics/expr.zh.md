@@ -261,6 +261,8 @@ labels: [
 
   chart.options(spec);
 
+  chart.render();
+
   return chart.getContainer();
 })();
 ```
