@@ -407,9 +407,9 @@
                   font-size="14"
                   font-weight="normal"
                   text-anchor="left"
+                  pointer-events="none"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
-                  pointer-events="none"
                 >
                   文具
                 </text>
@@ -448,9 +448,9 @@
                   font-size="14"
                   font-weight="normal"
                   text-anchor="left"
+                  pointer-events="none"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
-                  pointer-events="none"
                 >
                   零食
                 </text>
@@ -489,9 +489,9 @@
                   font-size="14"
                   font-weight="normal"
                   text-anchor="left"
+                  pointer-events="none"
                   stroke="rgba(255,255,255,1)"
                   stroke-width="1.5"
-                  pointer-events="none"
                 >
                   其他
                 </text>
