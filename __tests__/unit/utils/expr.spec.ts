@@ -4,7 +4,6 @@ describe('Expression Processing Functions', () => {
   describe('parseOptionsExpr', () => {
     it('should process whitelisted properties', () => {
       const options = {
-        attr: { color: '{a.color}' },
         encode: { x: '{a.x + a.y}' },
         // Non-whitelisted property.
         nonWhitelisted: { expr: '{a.value * 2}' },
@@ -13,7 +12,6 @@ describe('Expression Processing Functions', () => {
       const newOptions = parseOptionsExpr(options);
 
       // Check whitelisted properties are processed.
-      expect(typeof newOptions.attr.color).toBe('function');
       expect(typeof newOptions.encode.x).toBe('function');
 
       // Non-whitelisted property should remain unchanged.

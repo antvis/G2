@@ -2,6 +2,9 @@ import { defineConfig } from 'dumi';
 import { repository, version } from '../package.json';
 
 export default defineConfig({
+  ...(process.env.NODE_ENV === 'production'
+    ? { ssr: { builder: 'webpack' }, mako: false }
+    : { ssr: false, mako: {} }),
   locales: [
     { id: 'zh', name: '中文' },
     { id: 'en', name: 'English' },
@@ -19,7 +22,17 @@ export default defineConfig({
     { name: 'description', content: '简洁的渐进式可视化语法。' },
   ],
   themeConfig: {
-    title: 'G2',
+    title: 'G2', // 网站 header 标题
+    metas: {
+      title: {
+        zh: 'G2 一套简明和渐进式的可视化语法',
+        en: 'G2 The Concise and Progressive Visualization Grammar',
+      },
+      description: {
+        zh: 'G2 是一套简洁的渐进式可视化语法，用于构建仪表盘、数据探索以及数据讲故事。结合工业和学术实践，实现图形语法、动画语法和交互语法。',
+        en: 'G2 is a concise and progressive visualization grammar designed for building dashboards, data exploration, and storytelling with data. It integrates both industry and academic practices to implement graphical grammar, animation grammar, and interaction grammar.',
+      },
+    },
     description: 'The Grammar of Visualization in JavaScript',
     defaultLanguage: 'zh', // 默认语言
     isAntVSite: false, // 是否是 AntV 的大官网
@@ -413,6 +426,14 @@ export default defineConfig({
         },
         icon: 'other',
       },
+      {
+        slug: 'expr',
+        title: {
+          zh: 'Spec 函数表达式 (beta)',
+          en: 'Spec Function Expression (beta)',
+        },
+        icon: 'other',
+      },
     ],
     playground: {
       extraLib: '',
@@ -578,6 +599,12 @@ export default defineConfig({
         img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ',
       },
     ],
+    /** 死链检查配置  */
+    deadLinkChecker: {
+      checkExternalLinks: false, // 是否检查外部链接
+    },
+    /** 站点地图配置 */
+    sitemap: {},
   },
   mfsu: false,
   analytics: {

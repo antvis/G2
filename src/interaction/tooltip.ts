@@ -674,7 +674,9 @@ export function seriesTooltip(
     const i = search(I, finalX);
     if (isOnlyOneElement) {
       // if is only one element, find the closest x to focusX
-      const sortedDomain: number[] = scaleX.adjustedRange;
+      // the scale also can be linear in complex chart
+      const sortedDomain: number[] =
+        scaleX.adjustedRange || scaleX.getOptions().range;
       if (
         // consider oneElementLine, if only one element of one XDomain, must return one element, related test case: tooltip/one-element-line
         // else if multi elements, determine whether it is between the minimum scope and the maximum scope
@@ -1064,10 +1066,18 @@ export function tooltip(
         const i = search(elements, abstractX);
         const target = elements[i];
 
-        const targetLeftBoundary = xof(target) - stepWidth / 2;
-        const targetRightBoundary = xof(target) + stepWidth / 2;
-        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary)
+        // Handle the case where stepWidth is negative.
+        const isStepWidthPositive = stepWidth > 0;
+        const targetLeftBoundary = isStepWidthPositive
+          ? xof(target) - stepWidth / 2
+          : xof(target) + stepWidth / 2;
+        const targetRightBoundary = isStepWidthPositive
+          ? xof(target) + stepWidth / 2
+          : xof(target) - stepWidth / 2;
+
+        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary) {
           return;
+        }
 
         if (!shared) {
           // For grouped bar chart without shared options.
@@ -1134,7 +1144,7 @@ export function tooltip(
         nativeEvent: true,
         data: {
           ...data,
-          data: dataOf(element),
+          data: dataOf(element, view),
         },
       });
     },

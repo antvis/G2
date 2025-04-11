@@ -34,6 +34,9 @@ __tests__/integration/snapshots/**/*-diff.*
 site/.dumi/tmp
 site/.dumi/tmp-production
 
+# Website server cache
+site/server
+
 # Editor
 .vscode
 .history

@@ -1,3 +1,33 @@
+# [5.3.0](https://github.com/antvis/g2/compare/v5.2.12...v5.3.0) (2025-04-10)
+
+
+### Bug Fixes
+
+* 修改scale后line颜色不刷新 ([#6655](https://github.com/antvis/g2/issues/6655)) ([e3938f0](https://github.com/antvis/g2/commit/e3938f07bac1cb2451bf949de97ceee5494ee638))
+* autofit render errror after legend filter ([#6723](https://github.com/antvis/g2/issues/6723)) ([9b7349a](https://github.com/antvis/g2/commit/9b7349a6f202fe7372a3a2c2bbf5cecec409087a))
+* display abnormally when seriesTooltip ([#6708](https://github.com/antvis/g2/issues/6708)) ([f271890](https://github.com/antvis/g2/commit/f2718909d8e45abf2c5cbe29f792f82fbc43120a))
+* element event error ([#6750](https://github.com/antvis/g2/issues/6750)) ([780870f](https://github.com/antvis/g2/commit/780870fec10ea12bf3a00c766fcc904583a11934))
+* handle the case where stepWidth is negative ([#6758](https://github.com/antvis/g2/issues/6758)) ([7737f97](https://github.com/antvis/g2/commit/7737f97e1b887a1c3cdb673a6f044906e737abd6))
+* tooltip marker blocked elements select ([#6695](https://github.com/antvis/g2/issues/6695)) ([e754054](https://github.com/antvis/g2/commit/e754054c3e299e4bf8710bb49ca33a2527eaad5c))
+* **tooltip:** handle single element case in series tooltip ([#6717](https://github.com/antvis/g2/issues/6717)) ([17c5c41](https://github.com/antvis/g2/commit/17c5c410b80b2583c9dfe4ee9a06a4587bb71f5a))
+* triangleDown render error ([#6697](https://github.com/antvis/g2/issues/6697)) ([5dd94a6](https://github.com/antvis/g2/commit/5dd94a6b11850dbb94eb40d5af4c4753f1338af8))
+* unit test errors ([#6722](https://github.com/antvis/g2/issues/6722)) ([0b944a5](https://github.com/antvis/g2/commit/0b944a55944887db95aa11e0c55426550e6cca6b))
+
+
+### Features
+
+* add oscp issue template ([#6662](https://github.com/antvis/g2/issues/6662)) ([fa3bec1](https://github.com/antvis/g2/commit/fa3bec12f2bd6e9e7a62281040599cb2292d37e2))
+* element select support custom region group ([#6724](https://github.com/antvis/g2/issues/6724)) ([84316ec](https://github.com/antvis/g2/commit/84316ecfcb6db7962e2199fe99585c4db3a443ee))
+* **scrollbar:** scrollbar docs update ([#6688](https://github.com/antvis/g2/issues/6688)) ([4796258](https://github.com/antvis/g2/commit/479625869cd5ec310aa190333ed5949b70757de3))
+* support expression string for function config ([#6709](https://github.com/antvis/g2/issues/6709)) ([e97f996](https://github.com/antvis/g2/commit/e97f99626d83997f86922bffc98d4fcbdf000dc7))
+* update announcement for doc season ([#6696](https://github.com/antvis/g2/issues/6696)) ([a4ef7cf](https://github.com/antvis/g2/commit/a4ef7cf482087698f93f3b837dac46c4d7872ceb))
+* update oscp issue template ([#6664](https://github.com/antvis/g2/issues/6664)) ([251c0a1](https://github.com/antvis/g2/commit/251c0a1f7712dd7f17780f836152f516c2eaf6b8))
+* update oscp issue template ([#6691](https://github.com/antvis/g2/issues/6691)) ([0c8586f](https://github.com/antvis/g2/commit/0c8586fb55f182e1ae91b41febdfdf63c3645038))
+* update oscp template ([#6713](https://github.com/antvis/g2/issues/6713)) ([44149ee](https://github.com/antvis/g2/commit/44149eeac03b4ef8a4789f51573a71f3a30ec52d))
+* update oscp template ([#6715](https://github.com/antvis/g2/issues/6715)) ([1d79b49](https://github.com/antvis/g2/commit/1d79b4969c6d2597d5d56ee473783e3bc3fa29c3))
+
+
+
 ## [5.2.12](https://github.com/antvis/g2/compare/5.2.11...5.2.12) (2025-03-17)
 
 
