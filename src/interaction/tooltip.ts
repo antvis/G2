@@ -674,9 +674,7 @@ export function seriesTooltip(
     const i = search(I, finalX);
     if (isOnlyOneElement) {
       // if is only one element, find the closest x to focusX
-      // the scale also can be linear in complex chart
-      const sortedDomain: number[] =
-        scaleX.adjustedRange || scaleX.getOptions().range;
+      const sortedDomain: number[] = scaleX.adjustedRange;
       if (
         // consider oneElementLine, if only one element of one XDomain, must return one element, related test case: tooltip/one-element-line
         // else if multi elements, determine whether it is between the minimum scope and the maximum scope
