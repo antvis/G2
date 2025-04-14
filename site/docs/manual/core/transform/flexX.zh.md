@@ -151,31 +151,28 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
 (() => {
   const chart = new G2.Chart();
   chart.options({
+    type: 'interval',
     width: 800,
     height: 400,
     paddingLeft: 60,
-  });
-
-  chart
-    .interval()
-    .data([
+    data: [
       { month: '1月', volume: 5000, priceChange: 0.08 },
       { month: '2月', volume: 8000, priceChange: -0.05 },
       { month: '3月', volume: 12000, priceChange: 0.12 },
       { month: '4月', volume: 6000, priceChange: -0.03 },
       { month: '5月', volume: 9000, priceChange: 0.15 },
       { month: '6月', volume: 15000, priceChange: -0.08 },
-    ])
-    .transform({ type: 'flexX', field: 'volume' })
-    .encode('x', 'month')
-    .encode('y', 'priceChange')
-    .encode('color', (d) => (d.priceChange > 0 ? 'red' : 'green'))
-    .scale('y', { nice: true })
-    .axis('y', {
-      title: '价格变化率',
-      labelFormatter: '.0%',
-    })
-    .style('radius', 4);
+    ],
+    encode: {
+      x: 'month',
+      y: 'priceChange',
+      color: (d) => (d.priceChange > 0 ? 'red' : 'green'),
+    },
+    transform: [{ type: 'flexX', field: 'volume' }],
+    scale: { y: { nice: true } },
+    style: { radius: 4 },
+    axis: { y: { title: '价格变化率', labelFormatter: '.0%' } },
+  });
 
   chart.render();
   return chart.getContainer();
