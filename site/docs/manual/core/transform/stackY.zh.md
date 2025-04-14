@@ -20,46 +20,81 @@ stackY 通常用于以下图表类型：
 - 堆叠面积图、
 - 等等其他需要数据堆叠的可视化形式。
 
-## 示例
 
-首先，是简单的堆叠柱状图：
+## 配置项
+
+| 属性    | 描述                      | 类型                 | 默认值 |
+| ------- | ------------------------- | -------------------- | ------ |
+| groupBy | 指定分组通道              | `string \| string[]` | `x`    |
+| orderBy | 指定排序的数据            | `TransformOrder`     | null   |
+| y       | y 通道选择的数据通道来源  | `'y'\|'y1'`          | `y`    |
+| y1      | y1 通道选择的数据通道来源 | `'y'\|'y1'`          | `y1`   |
+| reverse | 是否逆序                  | `boolean`            | false  |
+| series  | 是否有分组字段            | `boolean`            | true   |
+
+
+### groupBy
+
+在 `stackY` 执行的时候，需要将数据进行分组，在每个分组中执行 `stackY` 的计算逻辑，比如对于面积图，需要把同一个 x 值下的
+y 数据变成一个组，然后在组内做最大最小值的处理逻辑，所以 `stackY` 设置为 `x` 通道。
+
+理论上，`stackY` 可以设置为所有的通道值，具体可以参考 [encode](/manual/core/encode) 文档。所有的枚举值如下：
 
 ```ts
-import { Chart } from "@antv/g2";
-
-const chart = new Chart({ container: "container" });
-
-chart.options({
-  type: "interval",
-  autoFit: true,
-  data: [
-    { category: "A", value: 10, type: "X" },
-    { category: "A", value: 20, type: "Y" },
-    { category: "B", value: 15, type: "X" },
-    { category: "B", value: 25, type: "Y" },
-  ],
-  encode: { x: "category", y: "value", color: "type" },
-  transform: [{ type: "stackY" }],
-});
-
-chart.render();
+export type ChannelTypes =
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'x1'
+  | 'y1'
+  | 'series'
+  | 'color'
+  | 'opacity'
+  | 'shape'
+  | 'size'
+  | 'key'
+  | 'groupKey'
+  | 'position'
+  | 'series'
+  | 'enterType'
+  | 'enterEasing'
+  | 'enterDuration'
+  | 'enterDelay'
+  | 'updateType'
+  | 'updateEasing'
+  | 'updateDuration'
+  | 'updateDelay'
+  | 'exitType'
+  | 'exitEasing'
+  | 'exitDuration'
+  | 'exitDelay'
+  | `position${number}`;
 ```
 
-实现的效果如下：
+### orderBy
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jtCuQ447qbUAAAAAAAAAAAAAemJ7AQ/original" width="600" />
+`orderBy` 用于指定堆叠的顺序，可以是一个字符串数组，或者是一个函数。函数的参数为数据对象，返回值为一个数值，用于排序。
 
-图表中，X 和 Y 的值在同一分类下堆叠在一起，形成了一个整体的高度。
+```ts
+type Primitive = number | string | boolean | Date;
 
-- A 分类的 X 和 Y 堆叠（总高度 = 10 + 20 = 30）。
-- B 分类的 X 和 Y 堆叠（总高度 = 15 + 25 = 40）。
+type TransformOrder =
+  | 'value'
+  | 'sum'
+  | 'series'
+  | 'maxIndex'
+  | string[]
+  | null
+  | ((data: Record<string, Primitive>) => Primitive);
+```
 
+## 示例
 
-### 复杂的堆叠柱状图
+### 堆叠柱状图
 
 然后，我们再来个相对比较复杂的数据展现情况。比如说，数据来自于 CSV 文件，并且我们需要对数据进行排序和分组：
 
-```ts
+```js
 import { Chart } from "@antv/g2";
 
 const chart = new Chart({ container: "container" });
@@ -179,69 +214,34 @@ chart.render();
 
 详细的示例可以参考我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#cascade-area)，以及线上还有其他的堆叠图示例供参考。
 
-## 选项
-
-| 属性    | 描述                      | 类型                 | 默认值 |
-| ------- | ------------------------- | -------------------- | ------ |
-| groupBy | 指定分组通道              | `string \| string[]` | `x`    |
-| orderBy | 指定排序的数据            | `TransformOrder`     | null   |
-| y       | y 通道选择的数据通道来源  | `'y'\|'y1'`          | `y`    |
-| y1      | y1 通道选择的数据通道来源 | `'y'\|'y1'`          | `y1`   |
-| reverse | 是否逆序                  | `boolean`            | false  |
-| series  | 是否有分组字段            | `boolean`            | true   |
-
-
-### groupBy
-
-在 `stackY` 执行的时候，需要将数据进行分组，在每个分组中执行 `stackY` 的计算逻辑，比如对于面积图，需要把同一个 x 值下的
-y 数据变成一个组，然后在组内做最大最小值的处理逻辑，所以 `stackY` 设置为 `x` 通道。
-
-理论上，`stackY` 可以设置为所有的通道值，具体可以参考 [encode](/manual/core/encode) 文档。所有的枚举值如下：
+最后，是简单的堆叠柱状图，作为调用本函数的最直观展现：
 
 ```ts
-export type ChannelTypes =
-  | 'x'
-  | 'y'
-  | 'z'
-  | 'x1'
-  | 'y1'
-  | 'series'
-  | 'color'
-  | 'opacity'
-  | 'shape'
-  | 'size'
-  | 'key'
-  | 'groupKey'
-  | 'position'
-  | 'series'
-  | 'enterType'
-  | 'enterEasing'
-  | 'enterDuration'
-  | 'enterDelay'
-  | 'updateType'
-  | 'updateEasing'
-  | 'updateDuration'
-  | 'updateDelay'
-  | 'exitType'
-  | 'exitEasing'
-  | 'exitDuration'
-  | 'exitDelay'
-  | `position${number}`;
+import { Chart } from "@antv/g2";
+
+const chart = new Chart({ container: "container" });
+
+chart.options({
+  type: "interval",
+  autoFit: true,
+  data: [
+    { category: "A", value: 10, type: "X" },
+    { category: "A", value: 20, type: "Y" },
+    { category: "B", value: 15, type: "X" },
+    { category: "B", value: 25, type: "Y" },
+  ],
+  encode: { x: "category", y: "value", color: "type" },
+  transform: [{ type: "stackY" }],
+});
+
+chart.render();
 ```
 
-### orderBy
+实现的效果如下：
 
-`orderBy` 用于指定堆叠的顺序，可以是一个字符串数组，或者是一个函数。函数的参数为数据对象，返回值为一个数值，用于排序。
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jtCuQ447qbUAAAAAAAAAAAAAemJ7AQ/original" width="600" />
 
-```ts
-type Primitive = number | string | boolean | Date;
+图表中，X 和 Y 的值在同一分类下堆叠在一起，形成了一个整体的高度。
 
-type TransformOrder =
-  | 'value'
-  | 'sum'
-  | 'series'
-  | 'maxIndex'
-  | string[]
-  | null
-  | ((data: Record<string, Primitive>) => Primitive);
-```
+- A 分类的 X 和 Y 堆叠（总高度 = 10 + 20 = 30）。
+- B 分类的 X 和 Y 堆叠（总高度 = 15 + 25 = 40）。
