@@ -25,7 +25,7 @@
     "@antv/g2-extension-ava": "^0.2.0",
     "@antv/g2-extension-plot": "^0.2.1",
     "@antv/s2": "^1.56.2",
-    "antd": "^4.24.16",
+    "antd": "^5.24.5",
     "d3-array": "^3.2.4",
     "d3-geo-projection": "^4.0.0",
     "d3-hexjson": "^1.1.1",
