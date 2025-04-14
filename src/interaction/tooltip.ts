@@ -643,14 +643,16 @@ export function seriesTooltip(
   );
 
   const { x: scaleX } = scale;
-  const stepWidth = scaleX?.getStep?.() ?? 0;
 
   // Apply offset for band scale x.
-  const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
+  const getOffsetX = (focus) => {
+    const domainX = getDomainXByPoint(focus, scaleX, coordinate);
+    return scaleX.getBandWidth ? scaleX.getBandWidth(domainX) / 2 : 0;
+  };
 
   const abstractX = (focus) => {
     const [normalizedX] = coordinate.invert(focus);
-    return normalizedX - offsetX;
+    return normalizedX - getOffsetX(focus);
   };
 
   const indexByFocus = (event, focus, I, X) => {
@@ -697,33 +699,17 @@ export function seriesTooltip(
     return I[i];
   };
 
-  // get x domain by point
-  const getDomainXByPoint = (point) => {
-    const [pointX] = coordinate.invert(point);
-    const rangeIndexMap = scaleX.rangeIndexMap;
-    const domainXs = Array.from(rangeIndexMap.keys()).map(
-      (d: number) => d - (stepWidth - scaleX.getBandWidth()) / 2,
-    );
-    const index = bisect(domainXs as number[], pointX);
-    return scaleX.sortedDomain[index - 1];
-  };
-
   const elementsByFocus = isBar
     ? (focus, elements) => {
-        const search = bisector(xof).center;
         const pointX = abstractX(focus);
         const parentOf = (d) => d.parentNode;
         const elementGroups = group(elements, parentOf);
         const selected = [];
 
-        const domainX = getDomainXByPoint(focus);
+        const domainX = getDomainXByPoint(focus, scaleX, coordinate);
         elementGroups.forEach((elements) => {
-          const i = search(elements, pointX);
-          const find = elements[i];
-
-          if (domainX === (find as any).__data__.title) {
-            selected.push(find);
-          }
+          const target = getBarElementByDomainX(domainX, elements, xof, pointX);
+          target && selected.push(target);
         });
 
         return selected;
@@ -781,7 +767,7 @@ export function seriesTooltip(
           selectedSeriesElements.push(element);
           const d = seriesData(element, index);
           const { x, y } = d;
-          const p = coordinate.map([(x || 0) + offsetX, y || 0]);
+          const p = coordinate.map([(x || 0) + getOffsetX(focus), y || 0]);
           selectedSeriesData.push([{ ...d, element }, p] as const);
         }
       }
@@ -1033,18 +1019,17 @@ export function tooltip(
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
   const scaleX = scale.x;
   const scaleSeries = scale.series;
-  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
-  const stepWidth = scaleX?.getStep?.() ?? 0;
   const xof = scaleSeries
     ? (d) => {
         const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+        const bandWidth = scaleX.getBandWidth?.(d.__data__.title);
         return (
           d.__data__.x +
           d.__data__.series * bandWidth +
           bandWidth / (seriesCount * 2)
         );
       }
-    : (d) => d.__data__.x + bandWidth / 2;
+    : (d) => d.__data__.x + scaleX.getBandWidth?.(d.__data__.title) / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
@@ -1062,22 +1047,15 @@ export function tooltip(
         const mouse = mousePosition(root, event);
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
-        const search = bisector(xof).center;
-        const i = search(elements, abstractX);
-        const target = elements[i];
 
-        // Handle the case where stepWidth is negative.
-        const isStepWidthPositive = stepWidth > 0;
-        const targetLeftBoundary = isStepWidthPositive
-          ? xof(target) - stepWidth / 2
-          : xof(target) + stepWidth / 2;
-        const targetRightBoundary = isStepWidthPositive
-          ? xof(target) + stepWidth / 2
-          : xof(target) - stepWidth / 2;
-
-        if (abstractX < targetLeftBoundary || abstractX > targetRightBoundary) {
-          return;
-        }
+        const domainX = getDomainXByPoint(mouse, scaleX, coordinate);
+        const target = getBarElementByDomainX(
+          domainX,
+          elements,
+          xof,
+          abstractX,
+        );
+        if (!target) return;
 
         if (!shared) {
           // For grouped bar chart without shared options.
@@ -1312,6 +1290,50 @@ export function Tooltip(options) {
     });
   };
 }
+
+// get x domain by point
+const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
+  const [rawPointX] = coordinate.invert(point);
+  // need to consider the series scale. (case: stateAgesIntervalScrollbar)
+  const ratio = scaleX.getOptions().ratio ?? 1;
+  const pointX = rawPointX * ratio;
+  const sortedDomain = scaleX.sortedDomain ?? scaleX.options.domain;
+
+  const rangeIndexMap = scaleX.rangeIndexMap?.size
+    ? scaleX.rangeIndexMap
+    : new Map(scaleX.adjustedRange?.map((d, i) => [d, i]));
+
+  if (!rangeIndexMap || !rangeIndexMap.size) {
+    return null;
+  }
+
+  const domainXs: number[] = Array.from(rangeIndexMap.keys());
+  const domainX = domainXs.map(
+    // this is only want to to get the gap between the bands, not to worry the different bandWidth
+    (d: number) => d - (scaleX.getStep() - scaleX.getBandWidth()) / 2,
+  );
+  const index = bisect(domainX as number[], pointX);
+  return sortedDomain[index - 1];
+};
+
+const getBarElementByDomainX = (domainX, elements, xof, pointX) => {
+  const targets = elements.filter(
+    (d) => (d as any).__data__?.domainX === domainX,
+  );
+
+  // the domainX have multiple targets, we need to find the closest one. (case: mockGroupInterval)
+  if (targets.length > 1) {
+    const search = bisector(xof).center;
+    const i = search(targets, pointX);
+    return targets[i];
+  }
+  // if the domainX have only one target, we can return it directly.
+  else if (targets.length === 1) {
+    return targets[0];
+  }
+
+  return null;
+};
 
 Tooltip.props = {
   reapplyWhenUpdate: true,
