@@ -1,12 +1,5 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
-import {
-  sort,
-  group,
-  mean,
-  bisector,
-  minIndex,
-  bisect,
-} from '@antv/vendor/d3-array';
+import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
@@ -241,11 +234,7 @@ function groupItems(
   ).filter(defined);
   const newItems = data
     .flatMap((datum, i) => {
-      const element = elements.find(
-        (element) =>
-          element.__data__.seriesKey?.includes(datum.key) ||
-          element.__data__.key === datum.key,
-      );
+      const element = elements[i];
       const { items = [], title } = datum;
       const definedItems = items.filter(defined);
 
@@ -645,20 +634,14 @@ export function seriesTooltip(
   const { x: scaleX } = scale;
 
   // Apply offset for band scale x.
-  const getOffsetX = (focus) => {
-    const domainX = getDomainXByPoint(focus, scaleX, coordinate);
-    return scaleX.getBandWidth ? scaleX.getBandWidth(domainX) / 2 : 0;
-  };
+  const offsetX = scaleX?.getBandWidth ? scaleX.getBandWidth() / 2 : 0;
 
   const abstractX = (focus) => {
     const [normalizedX] = coordinate.invert(focus);
-    return normalizedX - getOffsetX(focus);
+    return normalizedX - offsetX;
   };
 
   const indexByFocus = (event, focus, I, X) => {
-    const isOutRange = (x, min, max) => x < min || x > max;
-    const shouldSkip = (closest, isRangeViolation, isInvalid) =>
-      !closest && isRangeViolation && isInvalid;
     // _x is from emit event, to find the right element.
     const { _x } = event;
     const finalX = _x !== undefined ? scaleX.map(_x) : abstractX(focus);
@@ -669,49 +652,20 @@ export function seriesTooltip(
 
     // If closest is true, always find at least one element.
     // Otherwise, skip element out of plot area.
-    if (shouldSkip(closest, isOutRange(finalX, minX, maxX), !isOnlyOneElement))
+    if (!closest && (finalX < minX || finalX > maxX) && !isOnlyOneElement)
       return null;
-
     const search = bisector((i) => X[+i]).center;
     const i = search(I, finalX);
-    if (isOnlyOneElement) {
-      // if is only one element, find the closest x to focusX
-      // the scale also can be linear in complex chart
-      const sortedDomain: number[] =
-        scaleX.adjustedRange || scaleX.getOptions().range;
-      if (
-        // consider oneElementLine, if only one element of one XDomain, must return one element, related test case: tooltip/one-element-line
-        // else if multi elements, determine whether it is between the minimum scope and the maximum scope
-        shouldSkip(
-          closest,
-          isOutRange(
-            finalX,
-            sortedDomain[0],
-            sortedDomain[sortedDomain.length - 1],
-          ),
-          !(sortedDomain.length === 1),
-        )
-      )
-        return null;
-
-      return I[i];
-    }
     return I[i];
   };
 
   const elementsByFocus = isBar
     ? (focus, elements) => {
-        const pointX = abstractX(focus);
-        const parentOf = (d) => d.parentNode;
-        const elementGroups = group(elements, parentOf);
-        const selected = [];
-
-        const domainX = getDomainXByPoint(focus, scaleX, coordinate);
-        elementGroups.forEach((elements) => {
-          const target = getBarElementByDomainX(domainX, elements, xof, pointX);
-          target && selected.push(target);
-        });
-
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX(focus));
+        const find = elements[i];
+        const groups = group(elements, xof);
+        const selected = groups.get(xof(find));
         return selected;
       }
     : (focus, elements) => {
@@ -767,7 +721,7 @@ export function seriesTooltip(
           selectedSeriesElements.push(element);
           const d = seriesData(element, index);
           const { x, y } = d;
-          const p = coordinate.map([(x || 0) + getOffsetX(focus), y || 0]);
+          const p = coordinate.map([(x || 0) + offsetX, y || 0]);
           selectedSeriesData.push([{ ...d, element }, p] as const);
         }
       }
@@ -1019,17 +973,17 @@ export function tooltip(
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
   const scaleX = scale.x;
   const scaleSeries = scale.series;
+  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
   const xof = scaleSeries
     ? (d) => {
         const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
-        const bandWidth = scaleX.getBandWidth?.(d.__data__.title);
         return (
           d.__data__.x +
           d.__data__.series * bandWidth +
           bandWidth / (seriesCount * 2)
         );
       }
-    : (d) => d.__data__.x + scaleX.getBandWidth?.(d.__data__.title) / 2;
+    : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
@@ -1047,15 +1001,9 @@ export function tooltip(
         const mouse = mousePosition(root, event);
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
-
-        const domainX = getDomainXByPoint(mouse, scaleX, coordinate);
-        const target = getBarElementByDomainX(
-          domainX,
-          elements,
-          xof,
-          abstractX,
-        );
-        if (!target) return;
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX);
+        const target = elements[i];
 
         if (!shared) {
           // For grouped bar chart without shared options.
@@ -1290,50 +1238,6 @@ export function Tooltip(options) {
     });
   };
 }
-
-// get x domain by point
-const getDomainXByPoint = (point: number[], scaleX, coordinate) => {
-  const [rawPointX] = coordinate.invert(point);
-  // need to consider the series scale. (case: stateAgesIntervalScrollbar)
-  const ratio = scaleX.getOptions().ratio ?? 1;
-  const pointX = rawPointX * ratio;
-  const sortedDomain = scaleX.sortedDomain ?? scaleX.options.domain;
-
-  const rangeIndexMap = scaleX.rangeIndexMap?.size
-    ? scaleX.rangeIndexMap
-    : new Map(scaleX.adjustedRange?.map((d, i) => [d, i]));
-
-  if (!rangeIndexMap || !rangeIndexMap.size) {
-    return null;
-  }
-
-  const domainXs: number[] = Array.from(rangeIndexMap.keys());
-  const domainX = domainXs.map(
-    // this is only want to to get the gap between the bands, not to worry the different bandWidth
-    (d: number) => d - (scaleX.getStep() - scaleX.getBandWidth()) / 2,
-  );
-  const index = bisect(domainX as number[], pointX);
-  return sortedDomain[index - 1];
-};
-
-const getBarElementByDomainX = (domainX, elements, xof, pointX) => {
-  const targets = elements.filter(
-    (d) => (d as any).__data__?.domainX === domainX,
-  );
-
-  // the domainX have multiple targets, we need to find the closest one. (case: mockGroupInterval)
-  if (targets.length > 1) {
-    const search = bisector(xof).center;
-    const i = search(targets, pointX);
-    return targets[i];
-  }
-  // if the domainX have only one target, we can return it directly.
-  else if (targets.length === 1) {
-    return targets[0];
-  }
-
-  return null;
-};
 
 Tooltip.props = {
   reapplyWhenUpdate: true,

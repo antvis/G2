@@ -67,9 +67,6 @@ export function applyScale(
     for (const value of values) {
       const { name, value: V } = value;
       scaledValue[name] = V.map((d) => scaleInstance.map(d));
-      if (name === 'x') {
-        scaledValue['domainX'] = V;
-      }
     }
   }
   return scaledValue;
