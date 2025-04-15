@@ -7,7 +7,5 @@ export { issue6564 } from './issue-6564';
 export { issue6544 } from './issue-6544';
 export { issue6654 } from './issue-6654';
 export { issue6693 } from './issue-6693';
-export { issue6699 } from './issue-6699';
 export { issue6714 } from './issue-6714';
-export { issue6710 } from './issue-6710';
 export { issue6747 } from './issue-6747';

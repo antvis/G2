@@ -391,7 +391,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 /* Border around popup */
 .prism-previewer.prism-previewer:before,
 .prism-previewer-gradient.prism-previewer-gradient div {
-  border-color: hsl(0, 0, 95%) !important;
+  border-color: rgb(242, 242, 242) !important;
 }
 
 /* Angle and time should remain as circles and are hence not included */
@@ -403,25 +403,25 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 
 /* Triangles pointing to the code */
 .prism-previewer.prism-previewer:after {
-  border-top-color: hsl(0, 0, 95%) !important;
+  border-top-color: rgb(242, 242, 242) !important;
 }
 
 .prism-previewer-flipped.prism-previewer-flipped.after {
-  border-bottom-color: hsl(0, 0, 95%) !important;
+  border-bottom-color: rgb(242, 242, 242) !important;
 }
 
 /* Background colour within the popup */
 .prism-previewer-angle.prism-previewer-angle:before,
 .prism-previewer-time.prism-previewer-time:before,
 .prism-previewer-easing.prism-previewer-easing {
-  background: hsl(0, 0%, 100%) !important;
+  background: rgb(255, 255, 255) !important;
 }
 
 /* For angle, this is the positive area (eg. 90deg will display one quadrant in this colour) */
 /* For time, this is the alternate colour */
 .prism-previewer-angle.prism-previewer-angle circle,
 .prism-previewer-time.prism-previewer-time circle {
-  stroke: hsl(230, 8%, 24%) !important;
+  stroke: rgb(56, 58, 66) !important;
   stroke-opacity: 1 !important;
 }
 
@@ -429,7 +429,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 .prism-previewer-easing.prism-previewer-easing circle,
 .prism-previewer-easing.prism-previewer-easing path,
 .prism-previewer-easing.prism-previewer-easing line {
-  stroke: hsl(230, 8%, 24%) !important;
+  stroke: rgb(56, 58, 66) !important;
 }
 
 /* Fill colour of the handle */
