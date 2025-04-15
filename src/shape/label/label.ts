@@ -80,6 +80,7 @@ export const Label: SC<LabelOptions> = (options, context) => {
       .call(applyStyle, defaultStyle)
       .style('text', `${text}`)
       .style('className', `${className} g2-label`)
+      .style('visibility', `visible`)
       .style(
         'innerHTML',
         render ? render(text, value.datum, value.index) : undefined,
