@@ -39,12 +39,19 @@ fetch(
       const month = date.getMonth();
       obj.month = MONTHS[month];
       obj.day = date.getDay();
-      obj.week = getMonthWeek(date).toString();
+      obj.week = getMonthWeek(date);
     });
+
+    console.log(data);
 
     const chart = new Chart({
       container: 'container',
       autoFit: true,
+      height: 500,
+      paddingTop: 150,
+      paddingRight: 30,
+      paddingBottom: 150,
+      paddingLeft: 70,
     });
 
     chart.scale('涨跌幅', {
@@ -65,14 +72,39 @@ fetch(
     const facetRect = chart
       .facetRect()
       .data(data)
+      .scale('x', {
+        type: 'band',
+        compare: (a: string, b: string) =>
+          MONTHS.indexOf(a) - MONTHS.indexOf(b),
+      })
       .encode('x', 'month')
       .style('gap', 20);
 
     facetRect
       .cell()
+      .scale('x', {
+        type: 'band',
+        compare: (a: number, b: number) => a - b,
+      })
+      .scale('y', {
+        type: 'band',
+        compare: (a: number, b: number) => a - b,
+      })
       .encode('x', 'day')
+      .axis('x', {
+        title: false,
+        label: false,
+        tick: false,
+        grid: false,
+      })
       .encode('y', 'week')
-      .transform({ type: 'sortY', reverse: true })
+      .axis('y', {
+        title: false,
+        label: false,
+        tick: false,
+        grid: false,
+      })
+      .transform({ type: 'sortY', by: 'x' })
       .encode('color', '涨跌幅');
 
     chart.interaction('elementHighlight', true);
