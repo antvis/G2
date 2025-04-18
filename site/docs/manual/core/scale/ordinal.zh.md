@@ -29,7 +29,7 @@ chart
 | domain      | 设置数据的定义域范围                                            | `any[]` | `[]` |
 | range       | 设置数据映射的值域范围                                           | `any[]` | `[]` |
 | unknown     | 对于 `undefined`， `NaN`，`null` 空值，返回的数据                | `any` | `undefined` |
-| compare     | 比较两个值，用于排序的比较器                                      | `(a: number | string, b: number | string) => number`      | `undefined` |
+| compare     | 比较两个值，用于排序的比较器                                      | `(a: number \| string, b: number \| string) => number`      | `undefined` |
 
 ## FAQ
 
