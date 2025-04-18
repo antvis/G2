@@ -1,81 +1,79 @@
 import { Chart } from '@antv/g2';
 
-fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/github-commit.json')
+// 定义月份名称
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+fetch(
+  'https://gw.alipayobjects.com/os/antvdemo/assets/data/stock-calendar.json',
+)
   .then((res) => res.json())
   .then((data) => {
+    // 获取当前月的第几周,从 0 开始
+    function getMonthWeek(date) {
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const monthFirst = new Date(year, month, 0);
+      const intervalDays = Math.round(
+        (date.getTime() - monthFirst.getTime()) / 86400000,
+      );
+      const index = Math.floor((intervalDays + monthFirst.getDay()) / 7);
+      return index;
+    }
+    // 加工数据
+    // 添加所属月、周几、每个月的第几周
+    data.forEach(function (obj) {
+      const date = new Date(obj['日期']);
+      const month = date.getMonth();
+      obj.month = MONTHS[month];
+      obj.day = date.getDay();
+      obj.week = getMonthWeek(date).toString();
+    });
+
     const chart = new Chart({
       container: 'container',
       autoFit: true,
-      height: 500,
-      paddingTop: 150,
-      paddingRight: 30,
-      paddingBottom: 150,
-      paddingLeft: 70,
     });
 
-    chart
-      .scale('x', { type: 'band' })
-      .scale('y', { type: 'band' })
-      .scale('color', {
-        domain: [0, 10, 20],
-        range: ['#BAE7FF', '#1890FF', '#0050B3'],
-      });
-
-    // Configure axes
-    chart.axis('x', {
-      title: false,
-      tick: false,
-      line: false,
-      label: true,
-      labelFontSize: 12,
-      labelFill: '#666',
-      labelFormatter: (val: string) => {
-        if (val === '2') return 'MAY';
-        if (val === '6') return 'JUN';
-        if (val === '10') return 'JUL';
-        if (val === '15') return 'AUG';
-        if (val === '19') return 'SEP';
-        if (val === '24') return 'OCT';
-        return '';
-      },
+    chart.scale('涨跌幅', {
+      domain: [-10, -5, -2, -1, 0, 1, 2, 5, 10],
+      range: [
+        '#F51D27',
+        '#FA541C',
+        '#FFBE15',
+        '#FFF2D1',
+        '#FFFFFF',
+        '#E3F6FF',
+        '#85C6FF',
+        '#0086FA',
+        '#0A61D7',
+      ],
     });
 
-    chart.axis('y', {
-      title: false,
-      label: true,
-      tick: false,
-      grid: false,
-      labelFormatter: (val: string) => {
-        const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-        return days[parseInt(val)];
-      },
-    });
-
-    chart.legend(false);
-
-    chart.interaction('tooltip', {
-      title: 'date',
-      showMarkers: false,
-    });
-
-    chart
-      .cell()
+    const facetRect = chart
+      .facetRect()
       .data(data)
-      .encode('x', 'week')
-      .encode('y', 'day')
-      .encode('color', 'commits')
-      .style('inset', 0.5)
-      .style('stroke', (d: any) => {
-        if (d.lastWeek && d.lastDay) return '#404040';
-        if (d.lastWeek) return '#404040';
-        return '#fff';
-      })
-      .style('lineWidth', (d: any) => {
-        if (d.lastWeek || d.lastDay) return 2;
-        return 1;
-      })
-      .state('active', { stroke: '#000', lineWidth: 2 })
-      .state('inactive', { opacity: 0.6 });
+      .encode('x', 'month')
+      .style('gap', 20);
+
+    facetRect
+      .cell()
+      .encode('x', 'day')
+      .encode('y', 'week')
+      .transform({ type: 'sortY', reverse: true })
+      .encode('color', '涨跌幅');
 
     chart.interaction('elementHighlight', true);
 
