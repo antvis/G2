@@ -2367,7 +2367,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2402,7 +2402,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2437,7 +2437,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2472,7 +2472,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2507,7 +2507,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2542,7 +2542,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2577,7 +2577,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2612,7 +2612,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2647,7 +2647,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2682,7 +2682,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2717,7 +2717,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2752,7 +2752,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2787,7 +2787,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2822,7 +2822,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2857,7 +2857,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2892,7 +2892,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2927,7 +2927,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2962,7 +2962,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -2997,7 +2997,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3032,7 +3032,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3067,7 +3067,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3102,7 +3102,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3137,7 +3137,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3172,7 +3172,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3207,7 +3207,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">
@@ -3242,7 +3242,7 @@
                 <foreignObject
                   id="html"
                   class="alphabet-labels g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: center; visibility: visible;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="left:-50%;top:-16px;position:relative;font-size:12px;">

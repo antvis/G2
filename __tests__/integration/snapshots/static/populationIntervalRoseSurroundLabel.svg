@@ -264,6 +264,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1850
                 </text>
@@ -309,6 +310,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1860
                 </text>
@@ -354,6 +356,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1870
                 </text>
@@ -399,6 +402,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1880
                 </text>
@@ -444,6 +448,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1900
                 </text>
@@ -489,6 +494,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1910
                 </text>
@@ -534,6 +540,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1920
                 </text>
@@ -579,6 +586,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1930
                 </text>
@@ -624,6 +632,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   1940
                 </text>
@@ -669,6 +678,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   1950
                 </text>
@@ -714,6 +724,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   1960
                 </text>
@@ -759,6 +770,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   1970
                 </text>
@@ -804,6 +816,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   1980
                 </text>
@@ -849,6 +862,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   1990
                 </text>
@@ -894,6 +908,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   2000
                 </text>

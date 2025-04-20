@@ -574,6 +574,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   275
                 </text>
@@ -612,6 +613,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   115
                 </text>
@@ -650,6 +652,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   120
                 </text>
@@ -688,6 +691,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   350
                 </text>
@@ -726,6 +730,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   150
                 </text>

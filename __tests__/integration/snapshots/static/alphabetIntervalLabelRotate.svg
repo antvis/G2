@@ -990,6 +990,7 @@
                   font-size="30"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   A
                 </text>
@@ -1028,6 +1029,7 @@
                   font-size="30"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   B
                 </text>
@@ -1066,6 +1068,7 @@
                   font-size="30"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   C
                 </text>
@@ -1104,6 +1107,7 @@
                   font-size="30"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   D
                 </text>
@@ -1142,6 +1146,7 @@
                   font-size="30"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   E
                 </text>

@@ -1365,6 +1365,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   2
                 </text>
@@ -1402,6 +1403,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   2.2
                 </text>
@@ -1439,6 +1441,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   3.3
                 </text>
@@ -1476,6 +1479,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   4.5
                 </text>
@@ -1513,6 +1517,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   6.3
                 </text>
@@ -1550,6 +1555,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   10.2
                 </text>
@@ -1587,6 +1593,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   20.3
                 </text>
@@ -1624,6 +1631,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   23.4
                 </text>
@@ -1661,6 +1669,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   23
                 </text>
@@ -1698,6 +1707,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   16.5
                 </text>
@@ -1735,6 +1745,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   12
                 </text>
@@ -1772,6 +1783,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   6.2
                 </text>
@@ -1809,6 +1821,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   2.6
                 </text>
@@ -1846,6 +1859,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   5.9
                 </text>
@@ -1883,6 +1897,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   9
                 </text>
@@ -1920,6 +1935,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   26.4
                 </text>
@@ -1957,6 +1973,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   28.7
                 </text>
@@ -1994,6 +2011,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   70.7
                 </text>
@@ -2031,6 +2049,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   175.6
                 </text>
@@ -2068,6 +2087,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   182.2
                 </text>
@@ -2105,6 +2125,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   48.7
                 </text>
@@ -2142,6 +2163,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   18.8
                 </text>
@@ -2179,6 +2201,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   6
                 </text>
@@ -2216,6 +2239,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   2.3
                 </text>

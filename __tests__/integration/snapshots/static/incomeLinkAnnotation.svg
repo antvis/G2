@@ -1369,6 +1369,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   100%
                 </text>
@@ -1407,6 +1408,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   60%
                 </text>
@@ -1445,6 +1447,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   70%
                 </text>
@@ -1483,6 +1486,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   80%
                 </text>
@@ -1521,6 +1525,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   90%
                 </text>

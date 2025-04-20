@@ -297,6 +297,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   &lt;5
                 </text>
@@ -342,6 +343,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   5-9
                 </text>
@@ -387,6 +389,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   10-14
                 </text>
@@ -432,6 +435,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   15-19
                 </text>
@@ -477,6 +481,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   20-24
                 </text>
@@ -522,6 +527,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   25-29
                 </text>
@@ -567,6 +573,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   30-34
                 </text>
@@ -612,6 +619,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   35-39
                 </text>
@@ -657,6 +665,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   40-44
                 </text>
@@ -702,6 +711,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   45-49
                 </text>
@@ -747,6 +757,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   50-54
                 </text>
@@ -792,6 +803,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   55-59
                 </text>
@@ -837,6 +849,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   60-64
                 </text>
@@ -882,6 +895,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   65-69
                 </text>
@@ -927,6 +941,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   70-74
                 </text>
@@ -972,6 +987,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   75-79
                 </text>
@@ -1017,6 +1033,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   80-84
                 </text>
@@ -1062,6 +1079,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   ≥85
                 </text>

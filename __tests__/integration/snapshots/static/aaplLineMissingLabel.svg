@@ -901,6 +901,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   2
                 </text>
@@ -945,6 +946,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   3
                 </text>
@@ -990,6 +992,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   1
                 </text>
@@ -1034,6 +1037,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   3
                 </text>
@@ -1078,6 +1082,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   1
                 </text>
@@ -1122,6 +1127,7 @@
                   fill-opacity="0.65"
                   font-size="12"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   2
                 </text>

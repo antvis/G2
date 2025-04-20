@@ -69047,6 +69047,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   1963
                 </text>
@@ -69085,6 +69086,7 @@
                   font-size="10"
                   font-weight="bold"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   Measles vaccine introduced
                 </text>

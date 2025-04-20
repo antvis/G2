@@ -337,6 +337,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   北京
                 </text>
@@ -382,6 +383,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   天津
                 </text>
@@ -427,6 +429,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   上海
                 </text>
@@ -472,6 +475,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   河北
                 </text>
@@ -517,6 +521,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   内蒙古
                 </text>
@@ -562,6 +567,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   辽宁
                 </text>
@@ -607,6 +613,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   黑龙江
                 </text>
@@ -652,6 +659,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   吉林
                 </text>

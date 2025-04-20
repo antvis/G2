@@ -1621,6 +1621,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   AAPL
                 </text>
@@ -1658,6 +1659,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   AMZN
                 </text>
@@ -1695,6 +1697,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   GOOG
                 </text>
@@ -1732,6 +1735,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   IBM
                 </text>
@@ -1769,6 +1773,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   MSFT
                 </text>

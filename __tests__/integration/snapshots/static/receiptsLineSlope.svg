@@ -800,6 +800,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Sweden 46.9
@@ -838,6 +839,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Netherlands 44
@@ -876,6 +878,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Norway 43.5
@@ -914,6 +917,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Britain 40.7
@@ -952,6 +956,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   France 39
@@ -990,6 +995,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Germany 37.5
@@ -1028,6 +1034,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Belgium 35.2
@@ -1066,6 +1073,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Canada 35.2
@@ -1104,6 +1112,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Finland 34.9
@@ -1142,6 +1151,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Italy 30.4
@@ -1180,6 +1190,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   United States 30.3
@@ -1218,6 +1229,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Greece 26.8
@@ -1256,6 +1268,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Switzerland 26.5
@@ -1294,6 +1307,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Spain 22.5
@@ -1332,6 +1346,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                   text-anchor="end"
                 >
                   Japan 20.7
@@ -1370,6 +1385,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   57.4 Sweden
                 </text>
@@ -1407,6 +1423,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   55.8 Netherlands
                 </text>
@@ -1444,6 +1461,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   52.2 Norway
                 </text>
@@ -1481,6 +1499,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   39 Britain
                 </text>
@@ -1518,6 +1537,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   43.4 France
                 </text>
@@ -1555,6 +1575,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   42.9 Germany
                 </text>
@@ -1592,6 +1613,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   43.2 Belgium
                 </text>
@@ -1629,6 +1651,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   35.8 Canada
                 </text>
@@ -1666,6 +1689,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   38.2 Finland
                 </text>
@@ -1703,6 +1727,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   35.7 Italy
                 </text>
@@ -1740,6 +1765,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   32.5 United States
                 </text>
@@ -1777,6 +1803,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   30.6 Greece
                 </text>
@@ -1814,6 +1841,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   33.2 Switzerland
                 </text>
@@ -1851,6 +1879,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   27.1 Spain
                 </text>
@@ -1888,6 +1917,7 @@
                   fill-opacity="0.65"
                   font-size="10"
                   font-weight="normal"
+                  visibility="visible"
                 >
                   26.6 Japan
                 </text>

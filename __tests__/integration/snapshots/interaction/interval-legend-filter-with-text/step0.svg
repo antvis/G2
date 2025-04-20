@@ -608,6 +608,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   事例一: 40%
                 </text>
@@ -653,6 +654,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   事例三: 17%
                 </text>
@@ -698,6 +700,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   事例四: 13%
                 </text>
@@ -743,6 +746,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   事例五: 9%
                 </text>

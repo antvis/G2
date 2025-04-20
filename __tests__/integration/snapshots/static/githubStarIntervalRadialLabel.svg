@@ -515,6 +515,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   814
                 </text>
@@ -553,6 +554,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   968
                 </text>
@@ -591,6 +593,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   1151
                 </text>
@@ -629,6 +632,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   2320
                 </text>
@@ -667,6 +671,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   2888
                 </text>
@@ -705,6 +710,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   3985
                 </text>
@@ -743,6 +749,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   7346
                 </text>
@@ -781,6 +788,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   9314
                 </text>
@@ -819,6 +827,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   11425
                 </text>

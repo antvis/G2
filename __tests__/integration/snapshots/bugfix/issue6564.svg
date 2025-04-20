@@ -648,6 +648,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   {" "}
                   27%
@@ -694,6 +695,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   {" "}
                   25%
@@ -740,6 +742,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   {" "}
                   18%
@@ -786,6 +789,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   {" "}
                   15%
@@ -832,6 +836,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   {" "}
                   10%
@@ -878,6 +883,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   {" "}
                   5%
