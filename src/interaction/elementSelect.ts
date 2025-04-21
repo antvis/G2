@@ -82,7 +82,10 @@ export function elementSelect(
     },
   });
 
-  const { setState, removeState, hasState } = useState(elementStyle, valueof);
+  const { updateState, removeState, hasState } = useState(
+    elementStyle,
+    valueof,
+  );
   let isMultiSelectMode = !single; // "single" determines whether to multi-select by default
   let activeHotkey = null; // Track the currently active hotkey
 
@@ -112,9 +115,9 @@ export function elementSelect(
       const group = groupMap.get(k);
       const groupSet = new Set(group);
       for (const e of filteredElements) {
-        if (groupSet.has(e)) setState(e, 'selected');
+        if (groupSet.has(e)) updateState(e, 'selected');
         else {
-          setState(e, 'unselected');
+          updateState(e, 'unselected');
           removeLink(e);
         }
         if (e !== element) removeBackground(e);
@@ -149,8 +152,8 @@ export function elementSelect(
     if (!hasState(element, 'selected')) {
       const hasSelectedGroup = group.some((e) => hasState(e, 'selected'));
       for (const e of filteredElements) {
-        if (groupSet.has(e)) setState(e, 'selected');
-        else if (!hasState(e, 'selected')) setState(e, 'unselected');
+        if (groupSet.has(e)) updateState(e, 'selected');
+        else if (!hasState(e, 'selected')) updateState(e, 'unselected');
       }
       // Append link for each group only once.
       if (!hasSelectedGroup && link) appendLink(group);
@@ -165,7 +168,7 @@ export function elementSelect(
       // If there are still some selected elements after resetting this group,
       // only remove the link.
       for (const e of group) {
-        setState(e, 'unselected');
+        updateState(e, 'unselected');
         removeLink(e);
         removeBackground(e);
       }

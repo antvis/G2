@@ -39,12 +39,13 @@ export function elementHighlight(
     region = false,
   }: Record<string, any>,
 ) {
-  const elements = elementsof(root)?.filter((el) =>
-    VALID_FIND_BY_X_MARKS.includes(el.markType),
-  );
+  const allElements = elementsof(root);
+  const elements = region
+    ? allElements?.filter((el) => VALID_FIND_BY_X_MARKS.includes(el.markType))
+    : allElements;
   const elementSet = new Set(elements);
-  const groupKey = regionGroupKey || _groupKey;
-  const keyGroup = group(elements, regionGroupKey) || group(elements, groupKey);
+  const groupKey = region ? regionGroupKey : _groupKey;
+  const keyGroup = group(elements, groupKey);
   const findElement = createFindElementByEvent({
     elementsof,
     root,
@@ -80,19 +81,12 @@ export function elementHighlight(
         },
       }),
     },
-    selected: {
-      ...(state.selected?.offset && {
-        // Apply translate to mock slice out.
-        transform: (...params) => {
-          const value = state.selected.offset(...params);
-          const [, i] = params;
-          return offsetTransform(elements[i], value, coordinate);
-        },
-      }),
-    },
   });
 
-  const { setState, removeState, hasState } = useState(elementStyle, valueof);
+  const { updateState, removeState, hasState } = useState(
+    elementStyle,
+    valueof,
+  );
 
   let out; // Timer for delaying unhighlighted.
   const pointerover = (event) => {
@@ -108,10 +102,9 @@ export function elementHighlight(
     const groupSet = new Set(group);
     for (const e of elements) {
       if (groupSet.has(e)) {
-        if (!hasState(e, 'active'))
-          setState(e, 'active', ...getElementSelectState(e, hasState));
+        if (!hasState(e, 'active')) updateState(e, 'active');
       } else {
-        setState(e, 'inactive', ...getElementSelectState(e, hasState));
+        updateState(e, 'inactive');
         removeLink(e);
       }
       if (e !== element) removeBackground(e);
@@ -217,9 +210,8 @@ export function ElementHighlight({
   return (context, _, emitter) => {
     const { container, view, options } = context;
     const { scale, coordinate } = view;
-    const interaction = options.interaction;
-    const elementSelect = interaction?.elementSelect;
     const plotArea = selectPlotArea(container);
+
     return elementHighlight(plotArea, {
       elements: selectG2Elements,
       datum: createDatumof(view),
@@ -232,11 +224,6 @@ export function ElementHighlight({
       state: mergeState(options, [
         ['active', background ? {} : { lineWidth: '1', stroke: '#000' }],
         'inactive',
-        [
-          'selected',
-          elementSelect?.background ? {} : { lineWidth: '1', stroke: '#000' },
-        ],
-        'unselected',
       ]),
       background,
       link,

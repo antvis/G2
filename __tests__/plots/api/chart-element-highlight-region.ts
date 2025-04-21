@@ -1,5 +1,15 @@
 import { Chart } from '../../../src';
 
+const state = {
+  selected: {
+    fill: 'red',
+  },
+  active: {
+    stroke: '#000000',
+    lineWidth: 2,
+  },
+};
+
 export function chartElementHighlightRegion(context) {
   const { container, canvas } = context;
 
@@ -16,50 +26,32 @@ export function chartElementHighlightRegion(context) {
     autoFit: true,
     interaction: {
       elementSelect: {
+        state,
         region: true,
         multipleSelectHotkey: 'ShiftLeft',
-        background: true,
       },
       elementHighlight: {
+        state,
         background: true,
         region: true,
       },
     },
     data: [
-      { time: '10:10', call: 4, waiting: 2, people: 2 },
-      { time: '10:15', call: 2, waiting: 6, people: 3 },
-      { time: '10:20', call: 13, waiting: 2, people: 5 },
-      { time: '10:25', call: 9, waiting: 9, people: 1 },
-      { time: '10:30', call: 5, waiting: 2, people: 3 },
-      { time: '10:35', call: 8, waiting: 2, people: 1 },
-      { time: '10:40', call: 13, waiting: 1, people: 2 },
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
     ],
     children: [
       {
+        encode: { x: '月份', y: '月均降雨量', series: 'name' },
         type: 'interval',
-        encode: { x: 'time', y: 'waiting', series: () => '0' },
         axis: { y: { title: 'Waiting', titleFill: '#5B8FF9' } },
         state: {
           selected: {
             fill: 'red',
           },
         },
-      },
-      {
-        type: 'interval',
-        encode: { x: 'time', y: 'people', series: () => '1' },
-        scale: { y: { independent: true } },
-        state: {
-          selected: {
-            fill: 'red',
-          },
-        },
-      },
-      {
-        type: 'line',
-        encode: { x: 'time', y: 'people', shape: 'smooth' },
-        scale: { y: { independent: true } },
-        style: { stroke: '#fdae6b', lineWidth: 2 },
       },
     ],
   });
