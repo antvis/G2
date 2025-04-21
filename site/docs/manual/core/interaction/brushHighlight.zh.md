@@ -21,7 +21,8 @@ order: 4
 
 ```js
 ({
-  inactive: { opacity: 0.5 },
+  // 定义 inactive 状态下的元素透明度为0.5，注意，所有元素初始状态为 inactive
+  state: { inactive: { opacity: 0.5 } },
 });
 ```
 
@@ -57,7 +58,7 @@ chart.render();
 ```js
 ({
   type: 'interval',
-  interaction: { brushHighlight: true },
+  interaction: { brushHighlight: true }, // 采用默认配置
 });
 ```
 
@@ -99,10 +100,10 @@ chart.render();
 | 属性            | 描述                   | 类型                          | 默认值                                                                                          | 必选 |
 | --------------- | ---------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------- | ---- |
 | reverse         | brush 是否反转         | boolean                       | false                                                                                           |      |
-| series          | 是否是系列元素         | boolean                       | false                                                                                           |      |
-| facet           | 是否跨分面             | boolean                       | false                                                                                           |      |
+| series          | brush 作用的是否是系列元素，控制高亮选择元素的模式         | boolean                       | false                                                                                           |      |
+| facet           | brush 是否跨分面，控制交互方式             | boolean                       | false                                                                                           |      |
 | selectedHandles | 可以 resize 的手柄方向 | string[]                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |      |
-| brushRegion     | 框选区域               | (x, y, x1, y1, extent) => any | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |      |
+| brushRegion     | 自定义框选区域，一般不用配置，G2 内部用来配置 brushXHighlight 和 brushYHighlight               | (x, y, x1, y1, extent) => any | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |      |
 | mask            | 框选区域的蒙版样式     | [mask](#mask)                 | 详见 [mask](#mask)                                                                              |      |
 | maskHandle      | 框选区域的手柄样式     | [maskHandle](#maskhandle)     | 详见 [maskHandle](#maskhandle)                                                                  |      |
 

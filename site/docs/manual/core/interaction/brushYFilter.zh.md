@@ -1,6 +1,6 @@
 ---
 title: brushYFilter
-order: 7
+order: 8
 ---
 
 y 方向筛选高亮元素。

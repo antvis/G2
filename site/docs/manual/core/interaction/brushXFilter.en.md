@@ -1,6 +1,6 @@
 ---
 title: brushXFilter
-order: 5
+order: 7
 ---
 
 <embed src="@/docs/manual/core/interaction/brushXFilter.zh.md"></embed>

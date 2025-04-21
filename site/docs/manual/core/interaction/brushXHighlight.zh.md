@@ -1,6 +1,6 @@
 ---
 title: brushXHighlight
-order: 6
+order: 5
 ---
 
 ## 概述

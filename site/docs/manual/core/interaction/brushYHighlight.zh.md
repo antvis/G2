@@ -1,6 +1,6 @@
 ---
 title: brushYHighlight
-order: 8
+order: 6
 ---
 
 ## 概述

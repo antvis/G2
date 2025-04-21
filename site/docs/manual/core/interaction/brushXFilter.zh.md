@@ -1,6 +1,6 @@
 ---
 title: brushXFilter
-order: 5
+order: 7
 ---
 
 x 方向框选筛选元素。
