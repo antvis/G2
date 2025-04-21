@@ -96,14 +96,15 @@ chart.render();
 
 ## 配置项
 
-| 属性            | 描述                   | 类型                      | 默认值                                                                                          | 必选 |
-| --------------- | ---------------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | ---- |
-| reverse         | brush 是否反转         | boolean                   | false                                                                                           |      |
-| series          | 是否是系列元素         | boolean                   | false                                                                                           |      |
-| facet           | 是否跨分面             | boolean                   | false                                                                                           |      |
-| selectedHandles | 可以 resize 的手柄方向 | string[]                  | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |      |
-| mask            | 框选区域的蒙版样式     | [mask](#mask)             | 详见 [mask](#mask)                                                                              |      |
-| maskHandle      | 框选区域的手柄样式     | [maskHandle](#maskhandle) | 详见 [maskHandle](#maskhandle)                                                                  |      |
+| 属性            | 描述                   | 类型                          | 默认值                                                                                          | 必选 |
+| --------------- | ---------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------- | ---- |
+| reverse         | brush 是否反转         | boolean                       | false                                                                                           |      |
+| series          | 是否是系列元素         | boolean                       | false                                                                                           |      |
+| facet           | 是否跨分面             | boolean                       | false                                                                                           |      |
+| selectedHandles | 可以 resize 的手柄方向 | string[]                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |      |
+| brushRegion     | 框选区域               | (x, y, x1, y1, extent) => any | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |      |
+| mask            | 框选区域的蒙版样式     | [mask](#mask)                 | 详见 [mask](#mask)                                                                              |      |
+| maskHandle      | 框选区域的手柄样式     | [maskHandle](#maskhandle)     | 详见 [maskHandle](#maskhandle)                                                                  |      |
 
 ### series
 
