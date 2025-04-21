@@ -894,6 +894,7 @@ export function seriesTooltip(
 
   const addEventListeners = () => {
     if (!disableNative) {
+      root.addEventListener('pointerdown', update);
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
       // Only emit pointerleave event when the pointer is not in the root area.
@@ -901,14 +902,17 @@ export function seriesTooltip(
         if (mousePosition(root, e)) return;
         hide(e);
       });
+      root.addEventListener('pointerup', hide);
     }
   };
 
   const removeEventListeners = () => {
     if (!disableNative) {
+      root.removeEventListener('pointerdown', update);
       root.removeEventListener('pointerenter', update);
       root.removeEventListener('pointermove', update);
       root.removeEventListener('pointerleave', hide);
+      root.removeEventListener('pointerup', hide);
     }
   };
 
@@ -1084,17 +1088,21 @@ export function tooltip(
 
   const addEventListeners = () => {
     if (!disableNative) {
+      root.addEventListener('pointerdown', pointermove);
       root.addEventListener('pointermove', pointermove);
       // Only emit pointerleave event when the pointer is not in the root area.
       // !!!DO NOT USE pointerout event, it will emit when the pointer is in the child area.
       root.addEventListener('pointerleave', pointerleave);
+      root.addEventListener('pointerup', pointerleave);
     }
   };
 
   const removeEventListeners = () => {
     if (!disableNative) {
+      root.removeEventListener('pointerdown', pointermove);
       root.removeEventListener('pointermove', pointermove);
       root.removeEventListener('pointerleave', pointerleave);
+      root.removeEventListener('pointerup', pointerleave);
     }
   };
 
