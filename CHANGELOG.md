@@ -1,3 +1,7 @@
+## [5.3.2](https://github.com/antvis/g2/compare/5.3.1...5.3.2) (2025-04-21)
+
+
+
 ## [5.3.1](https://github.com/antvis/g2/compare/5.3.0...5.3.1) (2025-04-21)
 
 
