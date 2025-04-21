@@ -1,3 +1,26 @@
+## [5.3.1](https://github.com/antvis/g2/compare/5.3.0...5.3.1) (2025-04-21)
+
+
+### Bug Fixes
+
+* **docs:** fix a render error of char '|' ([#6785](https://github.com/antvis/g2/issues/6785)) ([04dade0](https://github.com/antvis/g2/commit/04dade096fe22cf338bdb859bdcf0c8edc285daa))
+* **label:** the labels in the treemap are blocking click interactions ([#6765](https://github.com/antvis/g2/issues/6765)) ([f99d0af](https://github.com/antvis/g2/commit/f99d0af45e889a5f155c5e6ffb8902f5d088108f))
+* tooltip pickup error when width is not equal ([#6738](https://github.com/antvis/g2/issues/6738)) ([1e73769](https://github.com/antvis/g2/commit/1e737697aa68baf4af6cb2b60f16bc2ba7d747e3))
+* tooltip with one element ([#6763](https://github.com/antvis/g2/issues/6763)) ([0318b9d](https://github.com/antvis/g2/commit/0318b9de57741b34d4a3528d601319d439152eac))
+
+
+### Features
+
+* site seo optimization ([#6759](https://github.com/antvis/g2/issues/6759)) ([8605e56](https://github.com/antvis/g2/commit/8605e56bed768bdf5904a86ec2d1933cd22e20ff))
+* tooltip support pointerdown, pointerup event ([#6789](https://github.com/antvis/g2/issues/6789)) ([9edb6a1](https://github.com/antvis/g2/commit/9edb6a1794cecb5c8b560394c4f61ca55b7921a7))
+
+
+### Reverts
+
+* tooltip logic to 5.2.12 ([#6776](https://github.com/antvis/g2/issues/6776)) ([e51c1ad](https://github.com/antvis/G2/commit/e51c1ad036f32704019056121e15cc4ec7376d94))
+
+
+
 # [5.3.0](https://github.com/antvis/g2/compare/v5.2.12...v5.3.0) (2025-04-10)
 
 
