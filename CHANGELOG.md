@@ -15,6 +15,11 @@
 * tooltip support pointerdown, pointerup event ([#6789](https://github.com/antvis/g2/issues/6789)) ([9edb6a1](https://github.com/antvis/g2/commit/9edb6a1794cecb5c8b560394c4f61ca55b7921a7))
 
 
+### Reverts
+
+* tooltip logic to 5.2.12 ([#6776](https://github.com/antvis/g2/issues/6776)) ([e51c1ad](https://github.com/antvis/G2/commit/e51c1ad036f32704019056121e15cc4ec7376d94))
+
+
 
 # [5.3.0](https://github.com/antvis/g2/compare/v5.2.12...v5.3.0) (2025-04-10)
 
