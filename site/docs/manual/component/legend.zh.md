@@ -240,7 +240,7 @@ Legend 组件支持调整其在画布中的位置，通过 `layout` 属性来设
 
 <description> _number_ **optional** </description>
 
-Legend 组件的尺寸。影响组件在交叉轴上的大小，例如水平位置的图例，影响整体高度。
+Legend 组件的尺寸。影响组件在交叉轴上的大小，例如水平位置的图例，影响整体高度。手动配置会导致 G2 内部计算逻辑失效，需要自己配置 margin、padding、inset 等大小，详见[图表布局](/manual/core/chart/chart-component#图表布局)。除非需要定制化的场景，否则不建议配置。
 
 ### width
 
@@ -367,6 +367,23 @@ Legend 组件在布局的时候的排序。默认为 `1`。G2 内部的组件都
 <description> _number_ **optional** </description>
 
 适用于 <Badge type="success">分类图例</Badge> 。指定图例最大列数。默认为 `3`。
+
+💡 **maxRows 和 maxCols 是怎么作用于图例布局的？**
+
+maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码中通过 `getRows = (rows) => Math.min(rows, maxRows)`和 `getCols = (cols) => Math.min(cols, maxCols)`实现行列数限制。
+
+| **参数**    | **垂直布局**                     | **水平布局**                         |
+| ----------- | -------------------------------- | ------------------------------------ |
+| **maxCols** | 限制列数，控制图例宽度           | 无直接影响（列数由 `cols` 参数指定） |
+| **maxRows** | 无直接影响（行数由高度自动计算） | 限制行数，控制图例高度               |
+
+**潜在问题**
+
+- **垂直布局**：若 `maxCols` 过小，可能导致单列行数超过 `maxHeight`，引发溢出。
+
+- **水平布局**：若 `maxRows` 过小，部分项可能被截断。
+
+此时需要适当调整图表的 `margin` 和 `padding`，保证图例有足够的空间展示。
 
 ### itemMarker
 

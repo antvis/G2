@@ -147,6 +147,14 @@
         "en": "Range Spline Area Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ln0-RKKu520AAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "rank-trend-area.ts",
+      "title": {
+        "zh": "排名趋势面积图",
+        "en": "Rank Trend Area Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*d-KvQquoIlAAAAAAAAAAAAAAemJ7AQ/original"
     }
   ]
 }
