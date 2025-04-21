@@ -125,30 +125,27 @@ chart.render();
 
 下面，我们来个相对比较复杂的情况，归一化堆叠面积图（Normalized Stacked Area Chart）是一种数据可视化图表类型，是堆叠面积图（Stacked Area Chart）的一种变体。
 
-它用于展示多个类别的数据随时间或其他连续变量变化的趋势，同时强调各类别在总和中的相对比例，而不是绝对值。比如我们需要归一化堆叠面积图，也就是实现如下的效果：
+它用于展示多个类别的数据随时间或其他连续变量变化的趋势，同时强调各类别在总和中的相对比例，而不是绝对值。比如我们需要归一化堆叠面积图，也就是实现如下的效果。 可以参考对应的示例代码，详细的可以查阅我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#percentage-area)：
 
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K3vvSKxtzYgAAAAAAAAAAAAAemJ7AQ/original" width="600"/>
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-可以参考对应的示例代码，详细的可以查阅我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#percentage-area)：
+  chart.options({
+    type: "area",
+    autoFit: true,
+    data: {
+      type: "fetch",
+      value: "https://assets.antv.antgroup.com/g2/unemployment-by-industry.json",
+    },
+    encode: { x: (d) => new Date(d.date), y: "unemployed", color: "industry" },
+    transform: [{ type: "stackY" }, { type: "normalizeY" }],
+    tooltip: { items: [{ channel: "y0", valueFormatter: ".3f" }] },
+  });
 
-```ts
-import { Chart } from "@antv/g2";
-
-const chart = new Chart({ container: "container" });
-
-chart.options({
-  type: "area",
-  autoFit: true,
-  data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/unemployment-by-industry.json",
-  },
-  encode: { x: (d) => new Date(d.date), y: "unemployed", color: "industry" },
-  transform: [{ type: "stackY" }, { type: "normalizeY" }],
-  tooltip: { items: [{ channel: "y0", valueFormatter: ".3f" }] },
-});
-
-chart.render();
+  chart.render();
+  return chart.getContainer();
+})();
 ```
 
 ### 出现顺序堆叠面积图
@@ -212,34 +209,29 @@ chart.options({
 chart.render();
 ```
 
-详细的示例可以参考我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#cascade-area)，以及线上还有其他的堆叠图示例供参考。
+详细的示例可以参考我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#cascade-area)，以及线上还有其他的堆叠图示例供参考。 最后，是简单的堆叠柱状图，作为调用本函数的最直观展现：
 
-最后，是简单的堆叠柱状图，作为调用本函数的最直观展现：
+``` js | ob
+(() => { 
+  const chart = new G2.Chart();
 
-```ts
-import { Chart } from "@antv/g2";
+  chart.options({
+    type: "interval",
+    autoFit: true,
+    data: [
+      { category: "A", value: 10, type: "X" },
+      { category: "A", value: 20, type: "Y" },
+      { category: "B", value: 15, type: "X" },
+      { category: "B", value: 25, type: "Y" },
+    ],
+    encode: { x: "category", y: "value", color: "type" },
+    transform: [{ type: "stackY" }],
+  });
 
-const chart = new Chart({ container: "container" });
-
-chart.options({
-  type: "interval",
-  autoFit: true,
-  data: [
-    { category: "A", value: 10, type: "X" },
-    { category: "A", value: 20, type: "Y" },
-    { category: "B", value: 15, type: "X" },
-    { category: "B", value: 25, type: "Y" },
-  ],
-  encode: { x: "category", y: "value", color: "type" },
-  transform: [{ type: "stackY" }],
-});
-
-chart.render();
+  chart.render();
+  return chart.getContainer();
+})();
 ```
-
-实现的效果如下：
-
-<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jtCuQ447qbUAAAAAAAAAAAAAemJ7AQ/original" width="600" />
 
 图表中，X 和 Y 的值在同一分类下堆叠在一起，形成了一个整体的高度。
 
