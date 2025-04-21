@@ -1,6 +1,6 @@
 ---
 title: brushFilter
-order: 3
+order: 6.1
 ---
 
 框选筛选元素。
