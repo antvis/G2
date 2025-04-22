@@ -37,6 +37,65 @@ order: 2
 | channels  | 针对哪些通道做数据分组聚合                | `string` \| `string[]` | `['x', 'y']` |
 | [channel] | 输出到具体 mark 的 channel 数据的聚合方式 | `Reducer`              |              |
 
+
+### Channel
+
+Channel 表示数据如何映射到图形的视觉属性（如位置、颜色、大小等）。在 AntV 中，channel 是构建可视化图表的基础，通过将数据字段绑定到特定的视觉通道，生成对应的图形表示。理论上，`channel` 可以设置为所有的通道值，具体可以参考 [encode](/manual/core/encode) 文档。
+
+所有的枚举值如下：
+
+```ts
+type Channel =
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'x1'
+  | 'y1'
+  | 'series'
+  | 'color'
+  | 'opacity'
+  | 'shape'
+  | 'size'
+  | 'key'
+  | 'groupKey'
+  | 'position'
+  | 'series'
+  | 'enterType'
+  | 'enterEasing'
+  | 'enterDuration'
+  | 'enterDelay'
+  | 'updateType'
+  | 'updateEasing'
+  | 'updateDuration'
+  | 'updateDelay'
+  | 'exitType'
+  | 'exitEasing'
+  | 'exitDuration'
+  | 'exitDelay'
+  | `position${number}`;
+```
+
+#### 常见类型
+
+根据以上的枚举，我们列举下的 channel 类型供参考，常用的包括：
+
+位置通道（Position Channels）：
+
+- x：x 轴位置，通常映射横坐标数据。
+- y：y 轴位置，通常映射纵坐标数据。
+
+几何属性通道（Geometric Channels）：
+
+- size：图形的大小（如点的大小、线的粗细）。
+- shape：图形的形状（如点的形状：圆形、方形）。
+
+颜色通道（Color Channels）：
+
+- color：图形的颜色，用于区分类别或表示数值范围。
+
+我们提供了对应的  [groupX](/manual/core/transform/group-x)、[groupY](/manual/core/transform/group-y) 以及 [groupColor](/manual/core/transform/group-color)  等预置函数供调用。
+
+
 ### Redeucer
 
 `group` 函数的 `channel` 属性可以是一个字符串或一个函数。字符串表示要聚合的字段名，函数则用于自定义聚合逻辑。函数接收两个参数：
