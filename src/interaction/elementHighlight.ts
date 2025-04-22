@@ -27,7 +27,7 @@ export function elementHighlight(
   {
     elements: elementsof, // given the root of chart returns elements to be manipulated
     datum, // given each element returns the datum of it
-    groupKey: _groupKey = (d) => d, // group elements by specified key
+    groupKey: eleGroupKey = (d) => d, // group elements by specified key
     regionGroupKey = (d) => d, // how to group elements when hover region
     link = false, // draw link or not
     background = false, // draw background or not
@@ -37,14 +37,13 @@ export function elementHighlight(
     emitter,
     state = {},
     region = false,
+    regionEleFilter = (el) => VALID_FIND_BY_X_MARKS.includes(el.markType), // some elements can not be highlighted by region, like shapes in pie.
   }: Record<string, any>,
 ) {
-  const allElements = elementsof(root);
-  const elements = region
-    ? allElements?.filter((el) => VALID_FIND_BY_X_MARKS.includes(el.markType))
-    : allElements;
+  const allElements = elementsof(root) ?? [];
+  const elements = region ? allElements.filter(regionEleFilter) : allElements;
   const elementSet = new Set(elements);
-  const groupKey = region ? regionGroupKey : _groupKey;
+  const groupKey = region ? regionGroupKey : eleGroupKey;
   const keyGroup = group(elements, groupKey);
   const findElement = createFindElementByEvent({
     elementsof,

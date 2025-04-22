@@ -37,6 +37,7 @@ export function elementSelect(
     emitter,
     state = {},
     region = false,
+    regionEleFilter = (el) => VALID_FIND_BY_X_MARKS.includes(el.markType),
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -206,7 +207,7 @@ export function elementSelect(
         event,
         element: el,
         nativeEvent,
-        filter: (el) => VALID_FIND_BY_X_MARKS.includes(el.markType),
+        filter: regionEleFilter,
         groupBy: regionGroupKey,
         groupMap: regionGroup,
       });
