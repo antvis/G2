@@ -8,7 +8,7 @@ order: 2
 `group` 函数是数据处理的一个重要工具，用于对数据进行分组操作，对离散的 x 和 连续的 y 通道进行分组，并且对通道根据指定的 Reducer 进行聚合。
 它可以将数据集按照指定的字段或条件进行分组，以便后续的图表渲染或数据分析能够基于分组后的结果进行处理。
 
-同时，`group` 函数支持自定义分组逻辑，允许用户根据业务需求对数据进行灵活的分组操作，通常与 `data` 或 `transform` 方法结合使用。
+同时，`group` 函数支持自定义分组逻辑，允许用户根据业务需求对数据进行灵活的分组操作，通常与 `data` 或 `transform` 方法结合使用。以及 `group` 是个系列函数，其中包含了预置的类似函数还有 [groupX](/manual/core/transform/group-x)、[groupY](/manual/core/transform/group-y)、[groupColor](/manual/core/transform/group-color) 等等，主要是为了方便用户使用。它们的功能和用法基本一致，只是针对不同的 channel 做了分装，可以分别参考其中用法。
 
 ## 使用场景
 
