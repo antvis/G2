@@ -7,7 +7,6 @@ import {
   createFindElementByEvent,
   createValueof,
   createXKey,
-  getElementSelectState,
   mergeState,
   offsetTransform,
   renderBackground,

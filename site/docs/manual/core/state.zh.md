@@ -91,3 +91,49 @@ chart.interval().state({
   return chart.getContainer();
 })();
 ```
+
+## 状态优先级
+
+g2 支持多个状态同时生效，当状态配置产生冲突时，会按照优先级选择生效的配置
+
+考虑如下配置
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+  const state = {
+    selected: { fill: 'red' },
+    active: { fill: 'green', stroke: 'black', lineWidth: 1 },
+  };
+
+  chart
+    .interval()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+    })
+    .encode('x', 'letter')
+    .encode('y', 'frequency')
+    .interaction('elementHighlight', { state }) // 设置高亮交互;
+    .interaction('elementSelect', { state }); // 设置选择交互;
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+hover 时，active 状态生效，会有边框（stroke）和绿色背景色（fill）。
+
+点击时，active 与 selected 状态同时生效，但两者都配置了 fill 产生冲突，此时 selected 状态的优先级更高，最终生效的是红色 red。
+
+具体的状态优先级为
+
+```
+selected: 3
+unselected: 3
+active: 2
+inactive: 2
+default: 1
+```

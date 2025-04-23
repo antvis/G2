@@ -40,6 +40,7 @@ chart.render();
 | ------------------------- | -------------- | ------------ | ------ |
 | background                | 是否高亮背景   | `boolean`    | false  |
 | offset                    | 主方向的偏移量 | `number`     | 0      |
+| region                    | 空白区域是否触发       | `boolean`    | false  |
 | `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |
 
 ## 案例

@@ -47,11 +47,6 @@ export function chartElementHighlightRegion(context) {
         encode: { x: '月份', y: '月均降雨量', series: 'name' },
         type: 'interval',
         axis: { y: { title: 'Waiting', titleFill: '#5B8FF9' } },
-        state: {
-          selected: {
-            fill: 'red',
-          },
-        },
       },
     ],
   });
