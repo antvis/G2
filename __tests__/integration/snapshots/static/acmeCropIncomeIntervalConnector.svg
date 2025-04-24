@@ -1226,6 +1226,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   −3.09055M
                 </text>
@@ -1264,6 +1265,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   5.085M
                 </text>
@@ -1302,6 +1304,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   −1.25045M
                 </text>
@@ -1340,6 +1343,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   −2.35005M
                 </text>
@@ -1378,6 +1382,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   750k
                 </text>
@@ -1416,6 +1421,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   −230.05k
                 </text>
@@ -1454,6 +1460,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   −500k
                 </text>
@@ -1492,6 +1499,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   490k
                 </text>
@@ -1530,6 +1538,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   1.99445M
                 </text>

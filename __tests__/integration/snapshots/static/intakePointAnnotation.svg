@@ -1235,6 +1235,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   BE
@@ -1274,6 +1275,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   DE
@@ -1313,6 +1315,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   FI
@@ -1352,6 +1355,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   NL
@@ -1391,6 +1395,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   SE
@@ -1430,6 +1435,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   ES
@@ -1469,6 +1475,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   FR
@@ -1508,6 +1515,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   NO
@@ -1547,6 +1555,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   UK
@@ -1586,6 +1595,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   IT
@@ -1625,6 +1635,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   RU
@@ -1664,6 +1675,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   US
@@ -1703,6 +1715,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   HU
@@ -1742,6 +1755,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   PT
@@ -1781,6 +1795,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                   stroke="rgba(255,255,255,1)"
                 >
                   NZ
@@ -1820,6 +1835,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Safe sugar intake 50g/day
                 </text>
@@ -1858,6 +1874,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Safe fat intake 65g/day
                 </text>

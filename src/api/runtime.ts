@@ -76,8 +76,11 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._bindAutoFit();
     this._rendering = true;
 
-    // @fixme The cancel render is not marked, which will cause additional rendered event.
-    // @ref src/runtime/render.ts
+    /**
+     * @fixme Trailing render cause additional AFTER_RENDER.
+     * But in fact, should the last trailing render invoke AFTER_RENDER.
+     * @ref src/runtime/render.ts
+     */
     const finished = new Promise<Runtime<Spec>>((resolve, reject) =>
       render(
         this._computedOptions(),
@@ -91,6 +94,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       .then(resolve)
       .catch(reject)
       .then(() => this._renderTrailing());
+
     return finished1;
   }
 

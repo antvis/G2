@@ -1009,6 +1009,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   报刊 (0.17)
                 </text>
@@ -1054,6 +1055,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   博客 (0.37)
                 </text>
@@ -1099,6 +1101,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   视频 (0.39)
                 </text>
@@ -1144,6 +1147,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   新闻 (0.81)
                 </text>
@@ -1189,6 +1193,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   客户端 (1.05)
                 </text>
@@ -1234,6 +1239,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   微信 (1.12)
                 </text>
@@ -1279,6 +1285,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   网站 (1.44)
                 </text>
@@ -1324,6 +1331,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   论坛 (4.77)
                 </text>
@@ -1369,6 +1377,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   其他 (6.67)
                 </text>
@@ -1414,6 +1423,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   微博 (93.33)
                 </text>

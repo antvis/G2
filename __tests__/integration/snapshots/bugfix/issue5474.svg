@@ -1473,6 +1473,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   Sports
                 </text>
@@ -1511,6 +1512,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   Strategy
                 </text>
@@ -1549,6 +1551,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   Action
                 </text>
@@ -1587,6 +1590,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   Shooter
                 </text>
@@ -1625,6 +1629,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   Other
                 </text>

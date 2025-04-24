@@ -1329,6 +1329,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Agricultural 'waste'
                 </text>
@@ -1367,6 +1368,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Bio-conversion
                 </text>
@@ -1405,6 +1407,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Biofuel imports
                 </text>
@@ -1443,6 +1446,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Biomass imports
                 </text>
@@ -1481,6 +1485,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Coal imports
                 </text>
@@ -1519,6 +1524,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Coal reserves
                 </text>
@@ -1557,6 +1563,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Coal
                 </text>
@@ -1595,6 +1602,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   District heating
                 </text>
@@ -1633,6 +1641,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Electricity grid
                 </text>
@@ -1671,6 +1680,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Gas imports
                 </text>
@@ -1709,6 +1719,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Gas reserves
                 </text>
@@ -1747,6 +1758,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Gas
                 </text>
@@ -1785,6 +1797,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Geothermal
                 </text>
@@ -1823,6 +1836,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   H2 conversion
                 </text>
@@ -1861,6 +1875,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   H2
                 </text>
@@ -1899,6 +1914,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Hydro
                 </text>
@@ -1937,6 +1953,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Liquid
                 </text>
@@ -1975,6 +1992,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Marine algae
                 </text>
@@ -2013,6 +2031,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Ngas
                 </text>
@@ -2051,6 +2070,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Nuclear
                 </text>
@@ -2089,6 +2109,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Oil imports
                 </text>
@@ -2127,6 +2148,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Oil reserves
                 </text>
@@ -2165,6 +2187,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Oil
                 </text>
@@ -2203,6 +2226,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Other waste
                 </text>
@@ -2241,6 +2265,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Pumped heat
                 </text>
@@ -2279,6 +2304,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Solar PV
                 </text>
@@ -2317,6 +2343,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Solar Thermal
                 </text>
@@ -2355,6 +2382,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Solar
                 </text>
@@ -2393,6 +2421,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Solid
                 </text>
@@ -2431,6 +2460,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Thermal generation
                 </text>
@@ -2469,6 +2499,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Tidal
                 </text>
@@ -2507,6 +2538,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   UK land based bioenergy
                 </text>
@@ -2545,6 +2577,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Wave
                 </text>
@@ -2583,6 +2616,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Wind
                 </text>
@@ -2621,6 +2655,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Losses
                 </text>
@@ -2659,6 +2694,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Industry
                 </text>
@@ -2697,6 +2733,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Heating and cooling - commercial
                 </text>
@@ -2735,6 +2772,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Heating and cooling - homes
                 </text>
@@ -2773,6 +2811,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Over generation / exports
                 </text>
@@ -2811,6 +2850,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Road transport
                 </text>
@@ -2849,6 +2889,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Agriculture
                 </text>
@@ -2887,6 +2928,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Rail transport
                 </text>
@@ -2925,6 +2967,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Lighting &amp; appliances - commercial
                 </text>
@@ -2963,6 +3006,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Lighting &amp; appliances - homes
                 </text>
@@ -3001,6 +3045,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   International shipping
                 </text>
@@ -3039,6 +3084,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   Domestic aviation
                 </text>
@@ -3077,6 +3123,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   International aviation
                 </text>
@@ -3115,6 +3162,7 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   National navigation
                 </text>

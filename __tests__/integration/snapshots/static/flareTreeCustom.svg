@@ -5133,6 +5133,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   flare
                 </text>
@@ -5172,6 +5173,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   flex
                 </text>
@@ -5211,6 +5213,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   display
                 </text>
@@ -5250,6 +5253,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   physics
                 </text>
@@ -5289,6 +5293,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   data
                 </text>
@@ -5328,6 +5333,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   scale
                 </text>
@@ -5367,6 +5373,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   analytics
                 </text>
@@ -5406,6 +5413,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   query
                 </text>
@@ -5445,6 +5453,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   animate
                 </text>
@@ -5484,6 +5493,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   util
                 </text>
@@ -5523,6 +5533,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   vis
                 </text>
@@ -5562,6 +5573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   FlareVis
                 </text>
@@ -5601,6 +5613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   LineSprite
                 </text>
@@ -5640,6 +5653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   RectSprite
                 </text>
@@ -5679,6 +5693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DirtySprite
                 </text>
@@ -5718,6 +5733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TextSprite
                 </text>
@@ -5757,6 +5773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IForce
                 </text>
@@ -5796,6 +5813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DragForce
                 </text>
@@ -5835,6 +5853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   GravityForce
                 </text>
@@ -5874,6 +5893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SpringForce
                 </text>
@@ -5913,6 +5933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Spring
                 </text>
@@ -5952,6 +5973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Particle
                 </text>
@@ -5991,6 +6013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Simulation
                 </text>
@@ -6030,6 +6053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   NBodyForce
                 </text>
@@ -6069,6 +6093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataSet
                 </text>
@@ -6108,6 +6133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataTable
                 </text>
@@ -6147,6 +6173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataField
                 </text>
@@ -6186,6 +6213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataSchema
                 </text>
@@ -6225,6 +6253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataUtil
                 </text>
@@ -6264,6 +6293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataSource
                 </text>
@@ -6303,6 +6333,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   converters
                 </text>
@@ -6342,6 +6373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   LinearScale
                 </text>
@@ -6381,6 +6413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   RootScale
                 </text>
@@ -6420,6 +6453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ScaleType
                 </text>
@@ -6459,6 +6493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IScaleMap
                 </text>
@@ -6498,6 +6533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   QuantileScale
                 </text>
@@ -6537,6 +6573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   LogScale
                 </text>
@@ -6576,6 +6613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   OrdinalScale
                 </text>
@@ -6615,6 +6653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Scale
                 </text>
@@ -6654,6 +6693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   QuantitativeScale
                 </text>
@@ -6693,6 +6733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TimeScale
                 </text>
@@ -6732,6 +6773,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   optimization
                 </text>
@@ -6771,6 +6813,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   cluster
                 </text>
@@ -6810,6 +6853,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   graph
                 </text>
@@ -6849,6 +6893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Count
                 </text>
@@ -6888,6 +6933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Sum
                 </text>
@@ -6927,6 +6973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Maximum
                 </text>
@@ -6966,6 +7013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Minimum
                 </text>
@@ -7005,6 +7053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Average
                 </text>
@@ -7044,6 +7093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Distinct
                 </text>
@@ -7083,6 +7133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Or
                 </text>
@@ -7122,6 +7173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   And
                 </text>
@@ -7161,6 +7213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Xor
                 </text>
@@ -7200,6 +7253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Variable
                 </text>
@@ -7239,6 +7293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Literal
                 </text>
@@ -7278,6 +7333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Not
                 </text>
@@ -7317,6 +7373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Range
                 </text>
@@ -7356,6 +7413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AggregateExpression
                 </text>
@@ -7395,6 +7453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Variance
                 </text>
@@ -7434,6 +7493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IsA
                 </text>
@@ -7473,6 +7533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   If
                 </text>
@@ -7512,6 +7573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   BinaryExpression
                 </text>
@@ -7551,6 +7613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Fn
                 </text>
@@ -7590,6 +7653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ExpressionIterator
                 </text>
@@ -7629,6 +7693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   CompositeExpression
                 </text>
@@ -7668,6 +7733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Match
                 </text>
@@ -7707,6 +7773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Arithmetic
                 </text>
@@ -7746,6 +7813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   StringUtil
                 </text>
@@ -7785,6 +7853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DateUtil
                 </text>
@@ -7824,6 +7893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Comparison
                 </text>
@@ -7863,6 +7933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Expression
                 </text>
@@ -7902,6 +7973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Query
                 </text>
@@ -7941,6 +8013,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   methods
                 </text>
@@ -7980,6 +8053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Pause
                 </text>
@@ -8019,6 +8093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ISchedulable
                 </text>
@@ -8058,6 +8133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TransitionEvent
                 </text>
@@ -8097,6 +8173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Parallel
                 </text>
@@ -8136,6 +8213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Sequence
                 </text>
@@ -8175,6 +8253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Scheduler
                 </text>
@@ -8214,6 +8293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   FunctionSequence
                 </text>
@@ -8253,6 +8333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Tween
                 </text>
@@ -8292,6 +8373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Transition
                 </text>
@@ -8331,6 +8413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Easing
                 </text>
@@ -8370,6 +8453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Transitioner
                 </text>
@@ -8409,6 +8493,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   interpolate
                 </text>
@@ -8448,6 +8533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IEvaluable
                 </text>
@@ -8487,6 +8573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IPredicate
                 </text>
@@ -8526,6 +8613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IValueProxy
                 </text>
@@ -8565,6 +8653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Orientation
                 </text>
@@ -8604,6 +8693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Filter
                 </text>
@@ -8643,6 +8733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Property
                 </text>
@@ -8682,6 +8773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Stats
                 </text>
@@ -8721,6 +8813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Sort
                 </text>
@@ -8760,6 +8853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Dates
                 </text>
@@ -8799,6 +8893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Arrays
                 </text>
@@ -8838,6 +8933,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   math
                 </text>
@@ -8877,6 +8973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Colors
                 </text>
@@ -8916,6 +9013,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   heap
                 </text>
@@ -8955,6 +9053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Geometry
                 </text>
@@ -8994,6 +9093,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   palette
                 </text>
@@ -9033,6 +9133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Displays
                 </text>
@@ -9072,6 +9173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Maths
                 </text>
@@ -9111,6 +9213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Shapes
                 </text>
@@ -9150,6 +9253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Strings
                 </text>
@@ -9189,6 +9293,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   events
                 </text>
@@ -9228,6 +9333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Visualization
                 </text>
@@ -9267,6 +9373,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   axis
                 </text>
@@ -9306,6 +9413,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   legend
                 </text>
@@ -9345,6 +9453,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   controls
                 </text>
@@ -9384,6 +9493,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   data
                 </text>
@@ -9423,6 +9533,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   operator
                 </text>
@@ -9462,6 +9573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Converters
                 </text>
@@ -9501,6 +9613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IDataConverter
                 </text>
@@ -9540,6 +9653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   JSONConverter
                 </text>
@@ -9579,6 +9693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DelimitedTextConverter
                 </text>
@@ -9618,6 +9733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   GraphMLConverter
                 </text>
@@ -9657,6 +9773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AspectRatioBanker
                 </text>
@@ -9696,6 +9813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   MergeEdge
                 </text>
@@ -9735,6 +9853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   CommunityStructure
                 </text>
@@ -9774,6 +9893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AgglomerativeCluster
                 </text>
@@ -9813,6 +9933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   HierarchicalCluster
                 </text>
@@ -9852,6 +9973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SpanningTree
                 </text>
@@ -9891,6 +10013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   BetweennessCentrality
                 </text>
@@ -9930,6 +10053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   LinkDistance
                 </text>
@@ -9969,6 +10093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ShortestPaths
                 </text>
@@ -10008,6 +10133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   MaxFlowMinCut
                 </text>
@@ -10047,6 +10173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   _
                 </text>
@@ -10086,6 +10213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   count
                 </text>
@@ -10125,6 +10253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   sum
                 </text>
@@ -10164,6 +10293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   max
                 </text>
@@ -10203,6 +10333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   min
                 </text>
@@ -10242,6 +10373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   average
                 </text>
@@ -10281,6 +10413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   distinct
                 </text>
@@ -10320,6 +10453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   select
                 </text>
@@ -10359,6 +10493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   where
                 </text>
@@ -10398,6 +10533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   orderby
                 </text>
@@ -10437,6 +10573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   update
                 </text>
@@ -10476,6 +10613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   or
                 </text>
@@ -10515,6 +10653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   and
                 </text>
@@ -10554,6 +10693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   variance
                 </text>
@@ -10593,6 +10733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   xor
                 </text>
@@ -10632,6 +10773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   stddev
                 </text>
@@ -10671,6 +10813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   not
                 </text>
@@ -10710,6 +10853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   fn
                 </text>
@@ -10749,6 +10893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   isa
                 </text>
@@ -10788,6 +10933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   mod
                 </text>
@@ -10827,6 +10973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   add
                 </text>
@@ -10866,6 +11013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   eq
                 </text>
@@ -10905,6 +11053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   div
                 </text>
@@ -10944,6 +11093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   lt
                 </text>
@@ -10983,6 +11133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   neq
                 </text>
@@ -11022,6 +11173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   sub
                 </text>
@@ -11061,6 +11213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   gt
                 </text>
@@ -11100,6 +11253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   mul
                 </text>
@@ -11139,6 +11293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   lte
                 </text>
@@ -11178,6 +11333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   gte
                 </text>
@@ -11217,6 +11373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   iff
                 </text>
@@ -11256,6 +11413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   range
                 </text>
@@ -11295,6 +11453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DateInterpolator
                 </text>
@@ -11334,6 +11493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   NumberInterpolator
                 </text>
@@ -11373,6 +11533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ObjectInterpolator
                 </text>
@@ -11412,6 +11573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   PointInterpolator
                 </text>
@@ -11451,6 +11613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ArrayInterpolator
                 </text>
@@ -11490,6 +11653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   RectangleInterpolator
                 </text>
@@ -11529,6 +11693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ColorInterpolator
                 </text>
@@ -11568,6 +11733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   MatrixInterpolator
                 </text>
@@ -11607,6 +11773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Interpolator
                 </text>
@@ -11646,6 +11813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IMatrix
                 </text>
@@ -11685,6 +11853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DenseMatrix
                 </text>
@@ -11724,6 +11893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SparseMatrix
                 </text>
@@ -11763,6 +11933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   HeapNode
                 </text>
@@ -11802,6 +11973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   FibonacciHeap
                 </text>
@@ -11841,6 +12013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Palette
                 </text>
@@ -11880,6 +12053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ShapePalette
                 </text>
@@ -11919,6 +12093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SizePalette
                 </text>
@@ -11958,6 +12133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ColorPalette
                 </text>
@@ -11997,6 +12173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   VisualizationEvent
                 </text>
@@ -12036,6 +12213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TooltipEvent
                 </text>
@@ -12075,6 +12253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SelectionEvent
                 </text>
@@ -12114,6 +12293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataEvent
                 </text>
@@ -12153,6 +12333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AxisLabel
                 </text>
@@ -12192,6 +12373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AxisGridLine
                 </text>
@@ -12231,6 +12413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Axes
                 </text>
@@ -12270,6 +12453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   CartesianAxes
                 </text>
@@ -12309,6 +12493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Axis
                 </text>
@@ -12348,6 +12533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   LegendItem
                 </text>
@@ -12387,6 +12573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   LegendRange
                 </text>
@@ -12426,6 +12613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Legend
                 </text>
@@ -12465,6 +12653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IControl
                 </text>
@@ -12504,6 +12693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Control
                 </text>
@@ -12543,6 +12733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AnchorControl
                 </text>
@@ -12582,6 +12773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DragControl
                 </text>
@@ -12621,6 +12813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ExpandControl
                 </text>
@@ -12660,6 +12853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ClickControl
                 </text>
@@ -12699,6 +12893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ControlList
                 </text>
@@ -12738,6 +12933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   HoverControl
                 </text>
@@ -12777,6 +12973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   PanZoomControl
                 </text>
@@ -12816,6 +13013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SelectionControl
                 </text>
@@ -12855,6 +13053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TooltipControl
                 </text>
@@ -12894,6 +13093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   EdgeSprite
                 </text>
@@ -12933,6 +13133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Tree
                 </text>
@@ -12972,6 +13173,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   render
                 </text>
@@ -13011,6 +13213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TreeBuilder
                 </text>
@@ -13050,6 +13253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataSprite
                 </text>
@@ -13089,6 +13293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ScaleBinding
                 </text>
@@ -13128,6 +13333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   NodeSprite
                 </text>
@@ -13167,6 +13373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DataList
                 </text>
@@ -13206,6 +13413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Data
                 </text>
@@ -13245,6 +13453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IOperator
                 </text>
@@ -13284,6 +13493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SortOperator
                 </text>
@@ -13323,6 +13533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Operator
                 </text>
@@ -13362,6 +13573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   OperatorSwitch
                 </text>
@@ -13401,6 +13613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   OperatorSequence
                 </text>
@@ -13440,6 +13653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   OperatorList
                 </text>
@@ -13479,6 +13693,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   filter
                 </text>
@@ -13518,6 +13733,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   distortion
                 </text>
@@ -13557,6 +13773,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   encoder
                 </text>
@@ -13596,6 +13813,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   label
                 </text>
@@ -13635,6 +13853,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 >
                   layout
                 </text>
@@ -13674,6 +13893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IRenderer
                 </text>
@@ -13713,6 +13933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ArrowType
                 </text>
@@ -13752,6 +13973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ShapeRenderer
                 </text>
@@ -13791,6 +14013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   EdgeRenderer
                 </text>
@@ -13830,6 +14053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   GraphDistanceFilter
                 </text>
@@ -13869,6 +14093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   VisibilityFilter
                 </text>
@@ -13908,6 +14133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   FisheyeTreeFilter
                 </text>
@@ -13947,6 +14173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   FisheyeDistortion
                 </text>
@@ -13986,6 +14213,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   BifocalDistortion
                 </text>
@@ -14025,6 +14253,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Distortion
                 </text>
@@ -14064,6 +14293,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ShapeEncoder
                 </text>
@@ -14103,6 +14333,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   SizeEncoder
                 </text>
@@ -14142,6 +14373,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ColorEncoder
                 </text>
@@ -14181,6 +14413,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Encoder
                 </text>
@@ -14220,6 +14453,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   PropertyEncoder
                 </text>
@@ -14259,6 +14493,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   StackedAreaLabeler
                 </text>
@@ -14298,6 +14533,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   RadialLabeler
                 </text>
@@ -14337,6 +14573,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Labeler
                 </text>
@@ -14376,6 +14613,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   RandomLayout
                 </text>
@@ -14415,6 +14653,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   PieLayout
                 </text>
@@ -14454,6 +14693,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IndentedTreeLayout
                 </text>
@@ -14493,6 +14733,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   BundledEdgeRouter
                 </text>
@@ -14532,6 +14773,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   DendrogramLayout
                 </text>
@@ -14571,6 +14813,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   IcicleTreeLayout
                 </text>
@@ -14610,6 +14853,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   AxisLayout
                 </text>
@@ -14649,6 +14893,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Layout
                 </text>
@@ -14688,6 +14933,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   ForceDirectedLayout
                 </text>
@@ -14727,6 +14973,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   StackedAreaLayout
                 </text>
@@ -14766,6 +15013,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   TreeMapLayout
                 </text>
@@ -14805,6 +15053,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   CircleLayout
                 </text>
@@ -14844,6 +15093,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   CirclePackingLayout
                 </text>
@@ -14883,6 +15133,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   RadialTreeLayout
                 </text>
@@ -14922,6 +15173,7 @@
                   font-size="7"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   NodeLinkTreeLayout
                 </text>

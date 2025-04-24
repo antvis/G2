@@ -853,6 +853,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   MALE
                 </text>
@@ -891,6 +892,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   FEMALE
                 </text>
@@ -929,6 +931,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   null
                 </text>

@@ -148,6 +148,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   A 12000
                 </text>
@@ -186,6 +187,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   B 9800
                 </text>
@@ -224,6 +226,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   C 6789
                 </text>
@@ -262,6 +265,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   D 4569
                 </text>
@@ -298,6 +302,7 @@
                   opacity="0.65"
                   font-weight="normal"
                   text-anchor="end"
+                  visibility="visible"
                 />
               </g>
               <g>
@@ -325,7 +330,7 @@
                 <foreignObject
                   id="html"
                   class=" g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: end; position: top-right;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: end; visibility: visible; position: top-right;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="height:1px;width:30px;background:#aaa;margin:0 5px;" />
@@ -357,7 +362,7 @@
                 <foreignObject
                   id="html"
                   class=" g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: end; position: top-right;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: end; visibility: visible; position: top-right;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="height:1px;width:30px;background:#aaa;margin:0 5px;" />
@@ -389,7 +394,7 @@
                 <foreignObject
                   id="html"
                   class=" g2-label"
-                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: end; position: top-right;"
+                  style="z-index: 0; transform: rotate(0); opacity: 0.65; color: rgb(29, 33, 41); font-weight: normal; text-align: end; visibility: visible; position: top-right;"
                 >
                   <div xmlns="http://www.w3.org/1999/xhtml">
                     <div style="height:1px;width:30px;background:#aaa;margin:0 5px;" />
@@ -428,6 +433,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 />
               </g>
               <g>
@@ -464,6 +470,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Percentage
                 </text>
@@ -502,6 +509,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Percentage
                 </text>
@@ -540,6 +548,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Percentage
                 </text>
@@ -576,6 +585,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 />
               </g>
               <g>
@@ -612,6 +622,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   18.33 %
                 </text>
@@ -650,6 +661,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   30.72 %
                 </text>
@@ -688,6 +700,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   32.70 %
                 </text>
@@ -726,6 +739,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   Percentage
                 </text>
@@ -764,6 +778,7 @@
                   font-size="12"
                   font-weight="normal"
                   text-anchor="left"
+                  visibility="visible"
                 >
                   61.92 %
                 </text>

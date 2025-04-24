@@ -755,6 +755,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   A: 12
                 </text>
@@ -793,6 +794,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   B: 12
                 </text>
@@ -831,6 +833,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   C: 12
                 </text>
@@ -869,6 +872,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   A&amp;B: 2
                 </text>
@@ -907,6 +911,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   A&amp;C: 2
                 </text>
@@ -945,6 +950,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   B&amp;C: 2
                 </text>
@@ -983,6 +989,7 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
+                  visibility="visible"
                 >
                   A&amp;B&amp;C: 1
                 </text>
