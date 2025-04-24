@@ -1413,7 +1413,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   自然学派
                 </text>
@@ -1452,7 +1451,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   理性主义
                 </text>
@@ -1491,7 +1489,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   雅典的哲学
                 </text>
@@ -1530,7 +1527,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   希腊哲学
                 </text>
@@ -1569,7 +1565,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   基督教
                 </text>
@@ -1608,7 +1603,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   中世纪
                 </text>
@@ -1647,7 +1641,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   文艺复兴
                 </text>
@@ -1686,7 +1679,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   巴洛克时期
                 </text>
@@ -1725,7 +1717,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   经验主义
                 </text>
@@ -1764,7 +1755,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   浪漫主义
                 </text>
@@ -1803,7 +1793,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   个人主义
                 </text>
@@ -1842,7 +1831,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   共产主义
                 </text>
@@ -1881,7 +1869,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   自然主义
                 </text>
@@ -1920,7 +1907,6 @@
                   fill-opacity="0.85"
                   font-weight="normal"
                   text-anchor="middle"
-                  pointer-events="none"
                 >
                   存在主义
                 </text>
