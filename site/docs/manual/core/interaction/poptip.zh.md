@@ -35,7 +35,10 @@ chart.options({
     poptip: {
       // poptip 配置项
       offsetX: 10,
-      offsetY: 10
+      offsetY: 10,
+      // tip 样式配置
+      tipBackgroundColor: 'rgba(0, 0, 0, 0.75)',
+      tipColor: '#fff'
     }
   }
 });
@@ -49,27 +52,20 @@ poptip 交互支持以下配置项：
 |-----|-----|-----|-----|-----|
 | offsetX | 提示框相对于触发点的 X 方向偏移量 | `number` | `8` |  |
 | offsetY | 提示框相对于触发点的 Y 方向偏移量 | `number` | `8` |  |
-| tipStyle | 提示框的样式配置 | `TipStyle` | `-` |  |
 
-### TipStyle 类型
+### 样式配置项
 
-`tipStyle` 是一个复杂类型，用于配置提示框的样式：
+poptip 的样式配置项需要以 `tip` 为前缀：
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 |-----|-----|-----|-----|-----|
-| fill | 提示框背景色 | `string` | `'#1b1e23'` |  |
-| stroke | 提示框边框颜色 | `string` | `'transparent'` |  |
-| lineWidth | 提示框边框宽度 | `number` | `0` |  |
-| opacity | 提示框透明度 | `number` | `0.8` |  |
-| radius | 提示框圆角半径 | `number` | `4` |  |
-| padding | 提示框内边距 | `number \| number[]` | `[8, 8]` | |
-| fontSize | 文本字体大小 | `number` | `12` | |
-| fontFamily | 文本字体 | `string` | `'sans-serif'` | |
-| fontWeight | 文本字重 | `string \| number` | `'normal'` | |
-| fontStyle | 文本样式 | `string` | `'normal'` | |
-| textAlign | 文本对齐方式 | `'left' \| 'center' \| 'right'` | `'left'` | |
-| textBaseline | 文本基线 | `'top' \| 'middle' \| 'bottom'` | `'top'` | |
-| color | 文本颜色 | `string` | `'#ffffff'` | |
+| tipBackgroundColor | 提示框背景色 | `string` | `'rgba(0,0,0,0.75)'` | |
+| tipColor | 文本颜色 | `string` | `'#fff'` | |
+| tipWidth | 提示框宽度 | `string` | `'max-content'` | |
+| tipPadding | 提示框内边距 | `string` | `'1px 4px'` | |
+| tipFontSize | 文本字体大小 | `string` | `'12px'` | |
+| tipBorderRadius | 提示框圆角半径 | `string` | `'2.5px'` | |
+| tipBoxShadow | 提示框阴影 | `string` | `'0 3px 6px -4px rgba(0,0,0,0.12), 0 6px 16px 0 rgba(0,0,0,0.08), 0 9px 28px 8px rgba(0,0,0,0.05)'` | |
 
 ## 事件
 
@@ -175,14 +171,13 @@ chart.on('poptip:hide', (event) => {
         grid: true
       }
     },
-    // 修改图例配置，确保不折叠
     legend: {
       color: {
-        position: 'top',  // 改为顶部位置
-        flipPage: false,  // 禁止分页
-        maxItemWidth: 80, // 设置最大宽度
-        itemMarginBottom: 8, // 增加间距
-        layout: 'horizontal' // 水平布局
+        position: 'top',  
+        flipPage: false,  
+        maxItemWidth: 80, 
+        itemMarginBottom: 8, 
+        layout: 'horizontal' 
       }
     },
     animate: {
@@ -196,21 +191,17 @@ chart.on('poptip:hide', (event) => {
   
   chart.render();
   
-  // 添加自定义 poptip
   chart.interaction('poptip', {
     offsetX: 15,
     offsetY: 15,
-    tipStyle: {
-      fill: 'rgba(0, 0, 0, 0.85)',
-      radius: 6,
-      padding: [10, 12],
-      fontSize: 12,
-      color: '#fff',
-      boxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.48)'
-    }
+  tipBackgroundColor: 'rgba(0, 0, 0, 0.85)',
+  tipBorderRadius: '6px',
+  tipPadding: '10px 12px',
+  tipFontSize: '12px',
+  tipColor: '#fff',
+  tipBoxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.48)'
   });
   
-  // 添加交互事件
   chart.on('element:mouseenter', (event) => {
     const { element } = event;
     element.style.fillOpacity = 1;
@@ -251,12 +242,10 @@ chart.on('poptip:hide', (event) => {
   ];
   
   chart.options({
-    // 使用饼图类型，通过极坐标系转换为玫瑰图
     type: 'interval',
     data,
     coordinate: {
       type: 'polar',
-      // 极坐标系配置
       innerRadius: 0.2,
       endAngle: Math.PI * 2
     },
@@ -294,10 +283,8 @@ chart.on('poptip:hide', (event) => {
   
   chart.render();
   
-  // 添加 poptip 交互
   chart.interaction('poptip', true);
   
-  // 添加交互效果
   chart.on('element:mouseenter', (event) => {
     const { element } = event;
     element.style.fillOpacity = 1;
