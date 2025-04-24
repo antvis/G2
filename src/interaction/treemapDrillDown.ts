@@ -1,4 +1,4 @@
-import { Text, Group } from '@antv/g';
+import { Text, Group, Shape } from '@antv/g';
 import { get, deepMix, pick, keys, find, size, last } from '@antv/util';
 import type { DisplayObject } from '@antv/g';
 import { subObject } from '../utils/helper';
@@ -219,13 +219,18 @@ export function TreemapDrillDown(drillDownOptions: DrillDownOptions = {}) {
       // The second argument is to allow the legendFilter event to be re-added; the update method itself causes legend to lose the interaction event.
       await update(undefined, ['legendFilter']);
     };
-
+    //
+    const keyofLabel = (d) => d.attributes.key.split('-')[0];
+    const keyofRect = (d) => get(d, ['__data__', 'key']);
     // Elements and BreadCrumb click.
     const createDrillClick = (e) => {
       const item = e.target;
-      if (get(item, ['markType']) !== 'rect') return;
-
-      const key = get(item, ['__data__', 'key']);
+      const { markType, nodeName, attributes } = item || {};
+      if (markType !== 'rect' && nodeName !== Shape.TEXT) return;
+      const key =
+        nodeName === Shape.TEXT && get(attributes, 'isTreemapLabel') === true
+          ? keyofLabel(item)
+          : keyofRect(item);
       const node = find(originData, (d) => d.id === key);
 
       // Node height = 0 no children
