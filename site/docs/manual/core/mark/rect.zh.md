@@ -184,7 +184,7 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
 })()
 ```
 
-更多的`transform`配置，可以查看 [transform](/manual/core/transform) 介绍页面。
+更多的`transform`配置，可以查看 [transform](/manual/core/transform/overview) 介绍页面。
 
 ### style
 

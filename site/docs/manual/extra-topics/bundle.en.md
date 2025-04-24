@@ -150,7 +150,7 @@ const Chart = extend(Runtime, corelib());
 
 ### G2.stdlib()
 
-Returns the standard library, which contains all capabilities of G2 except 3D, that is, all visualization components of [G2.corelib](#g2corelib)，[G2.plotlib](#g2plotlib)，[G2.geolib](#g2geolib), and [G2.graphlib](#g2graphlib). [G2.Chart](/manual/core/chart) is using this library. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/std.ts)·[Case](https://g2.antv.antgroup.com/examples))
+Returns the standard library, which contains all capabilities of G2 except 3D, that is, all visualization components of [G2.corelib](#g2corelib)，[G2.plotlib](#g2plotlib)，[G2.geolib](#g2geolib), and [G2.graphlib](#g2graphlib). [G2.Chart](/manual/core/chart/how-to-use) is using this library. ([Source code](https://github.com/antvis/G2/blob/v5/src/lib/std.ts)·[Case](https://g2.antv.antgroup.com/examples))
 
 ```js
 import { Runtime, extend, stdlib } from '@antv/g2';

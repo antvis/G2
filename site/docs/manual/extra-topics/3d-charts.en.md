@@ -59,7 +59,7 @@ const chart = new Chart({
 });
 ```
 
-We use [point3D](/specs/thread/point-thread) mark and select cube as the shape to draw.
+We use [point3D](/manual/extra-topics/three-dimensional/point-threed) mark and select cube as the shape to draw.
 Then set the z channel, scale and axes.
 
 ```ts
@@ -313,7 +313,7 @@ You may notice that in the example above we intentionally turned off the legend:
 chart.legend(false);
 ```
 
-This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](</manual/extra-topics/customization#Custom legend legend>), we can customize the legend using HTML:
+This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/manual/component/legend#自定义图例legend), we can customize the legend using HTML:
 
 ```js | ob { pin: false }
 (() => {

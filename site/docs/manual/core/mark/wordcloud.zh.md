@@ -70,10 +70,10 @@ order: 27
 
 | 属性 | 描述                                  | 类型                                        | 默认值              | 必选 |
 | ---- | ------------------------------------- | ------------------------------------------- | ------------------- | ---- |
-| x    | 定义数据字段到 X 轴视觉位置的映射规则 | Record<string, [scale](/manual/core/scale)> | `{ range: [0, 1] }` |      |
-| y    | 定义数据字段到 X 轴视觉位置的映射规则 | Record<string, [scale](/manual/core/scale)> | `{ range: [0, 1] }` |      |
+| x    | 定义数据字段到 X 轴视觉位置的映射规则 | Record<string, [scale](/manual/core/scale/overview)> | `{ range: [0, 1] }` |      |
+| y    | 定义数据字段到 X 轴视觉位置的映射规则 | Record<string, [scale](/manual/core/scale/overview)> | `{ range: [0, 1] }` |      |
 
-更多的`scale`配置，可以查查看 [scale](/manual/core/scale) 介绍页面。
+更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
 
 ### padding
 

@@ -313,7 +313,7 @@ canvas.appendChild(light);
 chart.legend(false);
 ```
 
-这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/extra-topics/customization#自定义图例legend)，我们可以使用 HTML 自定义图例：
+这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/component/legend#自定义图例legend)，我们可以使用 HTML 自定义图例：
 
 ```js | ob { pin: false }
 (() => {

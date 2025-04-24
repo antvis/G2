@@ -133,7 +133,7 @@ order: 7
 })();
 ```
 
-更多的`coordinate`配置，可以查查看 [coordinate](/manual/core/coordinate) 介绍页面。
+更多的`coordinate`配置，可以查查看 [coordinate](/manual/core/coordinate/overview) 介绍页面。
 
 ### encode
 
@@ -155,11 +155,11 @@ order: 7
 
 | 属性   | 描述                                                                   | 类型                        | 默认值               | 必选 |
 | ------ | ---------------------------------------------------------------------- | --------------------------- | -------------------- | ---- |
-| x      | 定义数据字段到 X 轴视觉位置的映射规则                                  | [scale](/manual/core/scale) | `{type: 'band'}`     |      |
-| series | 控制分类字段（series 编码）到视觉属性（如颜色、线型、符号）的映射规则  | [scale](/manual/core/scale) | `{type: 'band'}`     |      |
-| size   | 将数据字段映射到视觉元素（如密度曲线宽度、点面积或区域高度）的尺寸属性 | [scale](/manual/core/scale) | `{type: 'identity'}` |      |
+| x      | 定义数据字段到 X 轴视觉位置的映射规则                                  | [scale](/manual/core/scale/overview) | `{type: 'band'}`     |      |
+| series | 控制分类字段（series 编码）到视觉属性（如颜色、线型、符号）的映射规则  | [scale](/manual/core/scale/overview) | `{type: 'band'}`     |      |
+| size   | 将数据字段映射到视觉元素（如密度曲线宽度、点面积或区域高度）的尺寸属性 | [scale](/manual/core/scale/overview) | `{type: 'identity'}` |      |
 
-更多的`scale`配置，可以查查看 [scale](/manual/core/scale) 介绍页面。
+更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
 
 ### style
 

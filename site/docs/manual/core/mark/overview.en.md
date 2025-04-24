@@ -47,21 +47,20 @@ chart.point();
 
 Marks are the leaf nodes in the view tree and are the "first-class citizens" in G2: the most important concept in G2, a mark is composed of the following core concepts:
 
-- [**data**](/manual/core/data/overview/overview) - visual data
+- [**data**](/manual/core/data/overview) - visual data
 - [**encode**](/manual/core/encode) - encoding information
 - [**scale**](/manual/core/scale/overview) - mapping rules
 - [**transform**](/manual/core/transform/overview) - transformation channel values
-- [**layout**](/manual/core/layout) - configuration of layout algorithms
 - [**coordinate**](/manual/core/coordinate/overview) - transformation of coordinate systems
 - [**style**](/manual/core/style) - visual styles
 - [**viewStyle**](/manual/core/style) - visual styles of the view
-- [**animate**](/manual/core/animate) - animation properties
+- [**animate**](/manual/core/animate/overview) - animation properties
 - [**state**](/manual/core/state) - style of state
 - [**label**](/manual/component/label) - data labels
 - [**title**](/manual/component/title) - chart title
 - [**axis**](/manual/component/axis) - coordinate axes
 - [**legend**](/manual/component/legend) - legend
-- [**tooltip**](/manual/core/tooltip) - prompt information
+- [**tooltip**](/manual/component/tooltip) - prompt information
 - [**scrollbar**](/manual/component/scrollbar) - scrollbar
 - [**slider**](/manual/component/slider) - drag axis
 - [**interaction**](/manual/core/interaction/overview) - interaction

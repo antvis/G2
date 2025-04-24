@@ -473,7 +473,7 @@ In addition to providing rich built-in interactions, G2 also provides the abilit
 
 ## Two API styles
 
- G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](<concise syntax>), if you use the optional API, the scatter plot in can be declared as follows:
+ G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](#concise-syntax), if you use the optional API, the scatter plot in can be declared as follows:
 
 ```js | ob
 (() => {

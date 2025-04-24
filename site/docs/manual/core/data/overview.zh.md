@@ -184,21 +184,21 @@ G2 中的**数据（Data）** 主要用于指定需要可视化的数据和数�
 
 目前 G2 内置的数据转换有以下几种：
 
-| type   | 描述                                                                 | 属性                               |
-| ------ | -------------------------------------------------------------------- | ---------------------------------- |
-| custom | 自定义数据处理逻辑，允许用户定义自己的操作方式                       | [custom](/manual/core/data/custom) |
-| ema    | 计算指数移动平均值，用于数据平滑处理                                 | [ema](/manual/core/data/ema)       |
-| filter | 筛选数据，根据条件过滤掉不符合要求的数据                             | [filter](/manual/core/data/filter) |
-| fold   | 将多个字段展开成按照指定的 `key` `value` 组织形式，便于处理和分析    | [fold](/manual/core/data/fold)     |
-| join   | 合并两个数据表，根据某些条件关联相应的数据行                         | [join](/manual/core/data/join)     |
-| kde    | 估算数据分布的密度，通常用于概率密度分析                             | [kde](/manual/core/data/kde)       |
-| log    | 将当前数据变换流中的片面数据打印到控制台，用于开发者调试数据处理过程 | [log](/manual/core/data/log)       |
-| map    | 对数据进行映射操作，将某种值转换为另一种值                           | [map](/manual/core/data/map)       |
-| pick   | 从数据中选择指定的字段，用于提取特定信息                             | [pick](/manual/core/data/pick)     |
-| rename | 重命名数据字段，便于后续处理和阅读                                   | [rename](/manual/core/data/rename) |
-| slice  | 截取数据的部分范围，相当于数据的分页或裁剪                           | [slice](/manual/core/data/slice)   |
-| sort   | 对数据进行排序处理，支持自定义排序规则                               | [sort](/manual/core/data/sort)     |
-| sortBy | 按照指定的字段进行排序                                               | [sortBy](/manual/core/data/sortBy) |
+| type   | 描述                                                                 | 属性                                |
+| ------ | -------------------------------------------------------------------- | ----------------------------------- |
+| custom | 自定义数据处理逻辑，允许用户定义自己的操作方式                       | [custom](/manual/core/data/custom)  |
+| ema    | 计算指数移动平均值，用于数据平滑处理                                 | [ema](/manual/core/data/ema)        |
+| filter | 筛选数据，根据条件过滤掉不符合要求的数据                             | [filter](/manual/core/data/filter)  |
+| fold   | 将多个字段展开成按照指定的 `key` `value` 组织形式，便于处理和分析    | [fold](/manual/core/data/fold)      |
+| join   | 合并两个数据表，根据某些条件关联相应的数据行                         | [join](/manual/core/data/join)      |
+| kde    | 估算数据分布的密度，通常用于概率密度分析                             | [kde](/manual/core/data/kde)        |
+| log    | 将当前数据变换流中的片面数据打印到控制台，用于开发者调试数据处理过程 | [log](/manual/core/data/log)        |
+| map    | 对数据进行映射操作，将某种值转换为另一种值                           | [map](/manual/core/data/map)        |
+| pick   | 从数据中选择指定的字段，用于提取特定信息                             | [pick](/manual/core/data/pick)      |
+| rename | 重命名数据字段，便于后续处理和阅读                                   | [rename](/manual/core/data/rename)  |
+| slice  | 截取数据的部分范围，相当于数据的分页或裁剪                           | [slice](/manual/core/data/slice)    |
+| sort   | 对数据进行排序处理，支持自定义排序规则                               | [sort](/manual/core/data/sort)      |
+| sortBy | 按照指定的字段进行排序                                               | [sortBy](/manual/core/data/sort-by) |
 
 ## 数据更新
 

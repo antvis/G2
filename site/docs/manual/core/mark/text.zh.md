@@ -81,11 +81,11 @@ order: 25
 
 | 属性     | 描述                       | 类型                         | 默认值             |
 | -------- | -------------------------- | ---------------------------- | ------------------ |
-| text     | 定义文本映射规则           | [scale](/manual/core/scale)> | `{type: identity}` |
-| fontSize | 定义文本字体大小的映射规则 | [scale](/manual/core/scale)> | `{type: identity}` |
-| rotate   | 定义文本旋转的映射规则     | [scale](/manual/core/scale)> | `{type: identity}` |
+| text     | 定义文本映射规则           | [scale](/manual/core/scale/overview)> | `{type: identity}` |
+| fontSize | 定义文本字体大小的映射规则 | [scale](/manual/core/scale/overview)> | `{type: identity}` |
+| rotate   | 定义文本旋转的映射规则     | [scale](/manual/core/scale/overview)> | `{type: identity}` |
 
-更多的`scale`配置，可以查查看 [scale](/manual/core/scale) 介绍页面。
+更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
 
 ### style
 
