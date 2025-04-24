@@ -1,4 +1,4 @@
 ---
-title: 平滑图
+title: Ema
 order: 23
 ---

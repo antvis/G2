@@ -21,7 +21,7 @@ order: 4
 
 ```js
 ({
-  // 定义 inactive 状态下的元素透明度为0.5，注意，所有元素初始状态为 inactive
+  // 定义 inactive 状态下的元素透明度为0.5
   state: { inactive: { opacity: 0.5 } },
 });
 ```
