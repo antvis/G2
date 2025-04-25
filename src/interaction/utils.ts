@@ -146,16 +146,16 @@ export function useState(
   valueof = (d, element) => d,
   setAttribute = (element, key, v) => element.setAttribute(key, v),
   /**
-   *  if is not reset, the style will be merged, the default is true.
-   *  now only elementSelect & elementHightLight is not reset, only they will merge styles.
+   *  if useIsolatedStyles is false, the style will be merged with global styles.
+   *  now only elementSelect & elementHightLight use non-isolated styles (false), only they will merge styles.
    *  related test: multipleInteractionsCoexist.
    */
-  isReset = true,
+  useIsolatedStyles = true,
 ) {
   const STATES = '__states__';
   const ORIGINAL = '__ordinal__';
 
-  if (!isReset)
+  if (!useIsolatedStyles)
     Object.entries(style).forEach(([key, value]) => {
       STATE_STYLES[key] = value;
     });
@@ -185,7 +185,8 @@ export function useState(
 
     // Iterate through all states to find the highest priority state for each style attribute.
     for (const state of sortedStates) {
-      const stateStyles = (isReset ? style : STATE_STYLES)[state] || {};
+      const stateStyles =
+        (useIsolatedStyles ? style : STATE_STYLES)[state] || {};
       for (const [key, value] of Object.entries(stateStyles)) {
         if (!styleAttributeMap.has(key)) {
           styleAttributeMap.set(key, value);
