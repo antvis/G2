@@ -4199,7 +4199,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Visualization
                 </text>
@@ -4238,7 +4237,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Strings
                 </text>
@@ -4277,7 +4275,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Shapes
                 </text>
@@ -4316,7 +4313,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Maths
                 </text>
@@ -4355,7 +4351,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Displays
                 </text>
@@ -4394,7 +4389,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Geometry
                 </text>
@@ -4433,7 +4427,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Colors
                 </text>
@@ -4472,7 +4465,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Arrays
                 </text>
@@ -4511,7 +4503,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Dates
                 </text>
@@ -4550,7 +4541,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Sort
                 </text>
@@ -4589,7 +4579,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Stats
                 </text>
@@ -4628,7 +4617,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Property
                 </text>
@@ -4667,7 +4655,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Filter
                 </text>
@@ -4706,7 +4693,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Orien
                 </text>
@@ -4745,7 +4731,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -4784,7 +4769,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -4823,7 +4807,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -4862,7 +4845,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Transitioner
                 </text>
@@ -4901,7 +4883,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Easing
                 </text>
@@ -4940,7 +4921,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Transition
                 </text>
@@ -4979,7 +4959,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Tween
                 </text>
@@ -5018,7 +4997,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Function
                 </text>
@@ -5057,7 +5035,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Scheduler
                 </text>
@@ -5096,7 +5073,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Sequence
                 </text>
@@ -5135,7 +5111,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Parallel
                 </text>
@@ -5174,7 +5149,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Transi
                 </text>
@@ -5213,7 +5187,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -5252,7 +5225,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Pause
                 </text>
@@ -5291,7 +5263,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Query
                 </text>
@@ -5330,7 +5301,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Expression
                 </text>
@@ -5369,7 +5339,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Comparison
                 </text>
@@ -5408,7 +5377,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Date
                 </text>
@@ -5447,7 +5415,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   String
                 </text>
@@ -5486,7 +5453,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Arithmetic
                 </text>
@@ -5525,7 +5491,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Match
                 </text>
@@ -5564,7 +5529,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Composite
                 </text>
@@ -5603,7 +5567,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Expression
                 </text>
@@ -5642,7 +5605,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Fn
                 </text>
@@ -5681,7 +5643,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Binary
                 </text>
@@ -5720,7 +5681,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   If
                 </text>
@@ -5759,7 +5719,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   IsA
                 </text>
@@ -5798,7 +5757,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Varianc
                 </text>
@@ -5837,7 +5795,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Aggreg
                 </text>
@@ -5876,7 +5833,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Range
                 </text>
@@ -5915,7 +5871,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Not
                 </text>
@@ -5954,7 +5909,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Literal
                 </text>
@@ -5993,7 +5947,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Variabl
                 </text>
@@ -6032,7 +5985,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Xor
                 </text>
@@ -6071,7 +6023,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   And
                 </text>
@@ -6110,7 +6061,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Or
                 </text>
@@ -6149,7 +6099,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Distinct
                 </text>
@@ -6188,7 +6137,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Averag
                 </text>
@@ -6227,7 +6175,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Maximu
                 </text>
@@ -6266,7 +6213,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Minim
                 </text>
@@ -6305,7 +6251,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Sum
                 </text>
@@ -6344,7 +6289,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Count
                 </text>
@@ -6383,7 +6327,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Time
                 </text>
@@ -6422,7 +6365,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Quantitative
                 </text>
@@ -6461,7 +6403,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Scale
                 </text>
@@ -6500,7 +6441,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Ordinal
                 </text>
@@ -6539,7 +6479,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Log
                 </text>
@@ -6578,7 +6517,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Quanti
                 </text>
@@ -6617,7 +6555,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -6656,7 +6593,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Scale
                 </text>
@@ -6695,7 +6631,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Root
                 </text>
@@ -6734,7 +6669,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Line
                 </text>
@@ -6773,7 +6707,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -6812,7 +6745,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -6851,7 +6783,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -6890,7 +6821,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -6929,7 +6859,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -6968,7 +6897,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -7007,7 +6935,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   N
                 </text>
@@ -7046,7 +6973,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Simulation
                 </text>
@@ -7085,7 +7011,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Particle
                 </text>
@@ -7124,7 +7049,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Spring
                 </text>
@@ -7163,7 +7087,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Sprin
                 </text>
@@ -7202,7 +7125,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Gravity
                 </text>
@@ -7241,7 +7163,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Drag
                 </text>
@@ -7280,7 +7201,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -7319,7 +7239,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Text
                 </text>
@@ -7358,7 +7277,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Dirty
                 </text>
@@ -7397,7 +7315,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Rect
                 </text>
@@ -7436,7 +7353,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Line
                 </text>
@@ -7475,7 +7391,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Flare
                 </text>
@@ -7514,7 +7429,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Operator
                 </text>
@@ -7553,7 +7467,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Operator
                 </text>
@@ -7592,7 +7505,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Operator
                 </text>
@@ -7631,7 +7543,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Operator
                 </text>
@@ -7670,7 +7581,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Sort
                 </text>
@@ -7709,7 +7619,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -7748,7 +7657,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -7787,7 +7695,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -7826,7 +7733,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Node
                 </text>
@@ -7865,7 +7771,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Scale
                 </text>
@@ -7904,7 +7809,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -7943,7 +7847,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Tree
                 </text>
@@ -7982,7 +7885,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Tree
                 </text>
@@ -8021,7 +7923,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Edge
                 </text>
@@ -8060,7 +7961,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Tooltip
                 </text>
@@ -8099,7 +7999,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Selection
                 </text>
@@ -8138,7 +8037,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Pan
                 </text>
@@ -8177,7 +8075,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Hover
                 </text>
@@ -8216,7 +8113,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Control
                 </text>
@@ -8255,7 +8151,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Click
                 </text>
@@ -8294,7 +8189,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Expand
                 </text>
@@ -8333,7 +8227,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Drag
                 </text>
@@ -8372,7 +8265,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Ancho
                 </text>
@@ -8411,7 +8303,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Contr
                 </text>
@@ -8450,7 +8341,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -8489,7 +8379,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Legend
                 </text>
@@ -8528,7 +8417,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Legend
                 </text>
@@ -8567,7 +8455,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Legend
                 </text>
@@ -8606,7 +8493,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Axis
                 </text>
@@ -8645,7 +8531,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Cartesian
                 </text>
@@ -8684,7 +8569,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Axes
                 </text>
@@ -8723,7 +8607,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Axis
                 </text>
@@ -8762,7 +8645,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Axis
                 </text>
@@ -8801,7 +8683,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Data
                 </text>
@@ -8840,7 +8721,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Selection
                 </text>
@@ -8879,7 +8759,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Tooltip
                 </text>
@@ -8918,7 +8797,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Visu
                 </text>
@@ -8957,7 +8835,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Color
                 </text>
@@ -8996,7 +8873,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Size
                 </text>
@@ -9035,7 +8911,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Shape
                 </text>
@@ -9074,7 +8949,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Palette
                 </text>
@@ -9113,7 +8987,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Fibonacci
                 </text>
@@ -9152,7 +9025,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Heap
                 </text>
@@ -9191,7 +9063,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Sparse
                 </text>
@@ -9230,7 +9101,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Dense
                 </text>
@@ -9269,7 +9139,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -9308,7 +9177,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Interpolator
                 </text>
@@ -9347,7 +9215,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Matr
                 </text>
@@ -9386,7 +9253,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Color
                 </text>
@@ -9425,7 +9291,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Rectangle
                 </text>
@@ -9464,7 +9329,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Array
                 </text>
@@ -9503,7 +9367,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Point
                 </text>
@@ -9542,7 +9405,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Objec
                 </text>
@@ -9581,7 +9443,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Numb
                 </text>
@@ -9620,7 +9481,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Date
                 </text>
@@ -9659,7 +9519,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   range
                 </text>
@@ -9698,7 +9557,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   iff
                 </text>
@@ -9737,7 +9595,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   gt
                 </text>
@@ -9776,7 +9633,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   lte
                 </text>
@@ -9815,7 +9671,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   gt
                 </text>
@@ -9854,7 +9709,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   mul
                 </text>
@@ -9893,7 +9747,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   sub
                 </text>
@@ -9932,7 +9785,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   neq
                 </text>
@@ -9971,7 +9823,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   lt
                 </text>
@@ -10010,7 +9861,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   div
                 </text>
@@ -10049,7 +9899,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   eq
                 </text>
@@ -10088,7 +9937,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   add
                 </text>
@@ -10127,7 +9975,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   mod
                 </text>
@@ -10166,7 +10013,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   isa
                 </text>
@@ -10205,7 +10051,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   fn
                 </text>
@@ -10244,7 +10089,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   not
                 </text>
@@ -10283,7 +10127,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   stdd
                 </text>
@@ -10322,7 +10165,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   xor
                 </text>
@@ -10361,7 +10203,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   varia
                 </text>
@@ -10400,7 +10241,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   an
                 </text>
@@ -10439,7 +10279,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   or
                 </text>
@@ -10478,7 +10317,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   or
                 </text>
@@ -10517,7 +10355,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   up
                 </text>
@@ -10556,7 +10393,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   wh
                 </text>
@@ -10595,7 +10431,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   se
                 </text>
@@ -10634,7 +10469,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   dis
                 </text>
@@ -10673,7 +10507,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   av
                 </text>
@@ -10712,7 +10545,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   ma
                 </text>
@@ -10751,7 +10583,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   min
                 </text>
@@ -10790,7 +10621,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   sum
                 </text>
@@ -10829,7 +10659,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   cou
                 </text>
@@ -10868,7 +10697,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   _
                 </text>
@@ -10907,7 +10735,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Max
                 </text>
@@ -10946,7 +10773,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Shortest
                 </text>
@@ -10985,7 +10811,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Link
                 </text>
@@ -11024,7 +10849,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Betweenness
                 </text>
@@ -11063,7 +10887,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Spanning
                 </text>
@@ -11102,7 +10925,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Hierarchical
                 </text>
@@ -11141,7 +10963,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Agglomerative
                 </text>
@@ -11180,7 +11001,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Community
                 </text>
@@ -11219,7 +11039,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Me
                 </text>
@@ -11258,7 +11077,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Aspect
                 </text>
@@ -11297,7 +11115,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   GraphML
                 </text>
@@ -11336,7 +11153,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Delimited
                 </text>
@@ -11375,7 +11191,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   JSON
                 </text>
@@ -11414,7 +11229,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
@@ -11453,7 +11267,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Con
                 </text>
@@ -11487,7 +11300,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Node
                 </text>
@@ -11526,7 +11338,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Radial
                 </text>
@@ -11565,7 +11376,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Circle
                 </text>
@@ -11604,7 +11414,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Circle
                 </text>
@@ -11643,7 +11452,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Tree
                 </text>
@@ -11682,7 +11490,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Stacked
                 </text>
@@ -11721,7 +11528,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Force
                 </text>
@@ -11760,7 +11566,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Layout
                 </text>
@@ -11799,7 +11604,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Axis
                 </text>
@@ -11838,7 +11642,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Icicle
                 </text>
@@ -11877,7 +11680,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Dendrogram
                 </text>
@@ -11916,7 +11718,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Bundled
                 </text>
@@ -11955,7 +11756,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Indented
                 </text>
@@ -11994,7 +11794,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Pie
                 </text>
@@ -12033,7 +11832,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Ra
                 </text>
@@ -12072,7 +11870,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Labeler
                 </text>
@@ -12111,7 +11908,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Radial
                 </text>
@@ -12150,7 +11946,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Stacked
                 </text>
@@ -12189,7 +11984,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Property
                 </text>
@@ -12228,7 +12022,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Encoder
                 </text>
@@ -12267,7 +12060,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Color
                 </text>
@@ -12306,7 +12098,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Size
                 </text>
@@ -12345,7 +12136,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Shape
                 </text>
@@ -12384,7 +12174,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Distortion
                 </text>
@@ -12423,7 +12212,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Bifocal
                 </text>
@@ -12462,7 +12250,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Fisheye
                 </text>
@@ -12501,7 +12288,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Fisheye
                 </text>
@@ -12540,7 +12326,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Visibility
                 </text>
@@ -12579,7 +12364,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Graph
                 </text>
@@ -12618,7 +12402,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Edge
                 </text>
@@ -12657,7 +12440,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Shape
                 </text>
@@ -12696,7 +12478,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   Arrow
                 </text>
@@ -12735,7 +12516,6 @@
                   font-size="10"
                   font-weight="normal"
                   text-anchor="left"
-                  pointer-events="none"
                 >
                   I
                 </text>
