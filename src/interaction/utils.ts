@@ -147,7 +147,8 @@ export function useState(
   setAttribute = (element, key, v) => element.setAttribute(key, v),
   /**
    *  if is not reset, the style will be merged, the default is true.
-   *  now only elementSelect & elementHightLight is not reset, only they will merged styles.
+   *  now only elementSelect & elementHightLight is not reset, only they will merge styles.
+   *  related test: multipleInteractionsCoexist.
    */
   isReset = true,
 ) {
