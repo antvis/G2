@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "ema-basic.ts",
+      "title": {
+        "zh": "基础平滑图",
+        "en": "Ema Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-W7SQJ3KGLMAAAAAAAAAAAAAemJ7AQ/original"
+    }
+  ]
+}

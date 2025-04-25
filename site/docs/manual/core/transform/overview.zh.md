@@ -313,7 +313,7 @@ order: 1
 | [dodgeX](/manual/core/transform/dodge-x)   | 在 x 通道方向上，对元素进行分组和错位排列，以避免重叠，便于区分数据点。       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JUTiSIaaUgEAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [jitter](/manual/core/transform/jitter)    | 在 x 和 y 通道方向随机生成轻微的摆动，用于处理图形中数据点的重叠问题。        | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DziRQb4LMbAAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [jitterX](/manual/core/transform/jitter-x) | 在 x 通道方向随机生成轻微的摆动，用于减少数据点的重叠。                       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*34m0QZPUjxMAAAAAAAAAAAAADmJ7AQ/original"></img> |
-| [jitterY](/manual/core/transform/jitter-y) | 在 y 通道方向随机生成轻微的摆动，用于减少数据点的重叠。                       | 和 jitterX只是方向上的差别                                                                                       |
+| [jitterY](/manual/core/transform/jitter-y) | 在 y 通道方向随机生成轻微的摆动，用于减少数据点的重叠。                       | 和 jitterX 只是方向上的差别                                                                                      |
 | [pack](/manual/core/transform/pack)        | 将数据点进行紧密排列，以优化空间利用率，适用于密集型分布布局。                | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TZmeQqK7CZwAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [sample](/manual/core/transform/sample)    | 对数据进行采样，基于一定算法从原始数据集中选择子集，常用于大数据下处理。      | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*68ViRIex2JEAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [stackY](/manual/core/transform/stack-y)   | 在 y 通道方向对数据进行堆叠处理，通常用于展示数值累积的效果或分布情况。       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RqV4T4LZxaAAAAAAAAAAAAAADmJ7AQ/original"></img> |
@@ -459,7 +459,6 @@ bin 主要是用来聚合数值类型的数据，group 主要针对离散数据�
 | ------------------------------------------------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
 | [bin](/manual/core/transform/bin)                | 将数据分组到固定的区间（或桶）中，通常用于直方图的构造。                 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oyXhQKobcMMAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [binX](/manual/core/transform/bin-x)             | 在 x 通道方向对数据进行分组，生成一系列区间（或桶）。                    | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WJFaSp1JLHQAAAAAAAAAAAAADmJ7AQ/original"></img> |
-| [binY](/manual/core/transform/bin-y)             | 在 y 通道方向对数据进行分组，生成一系列区间（或桶）。                    | 和 binX 只是方向上的差别                                                                                         |
 | [flexX](/manual/core/transform/flex-x)           | 在 x 通道上灵活排列数据，用于处理自适应布局或特殊排列要求。              | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i_DyRJlDdVsAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [group](/manual/core/transform/group)            | 对数据进行分组，基于某些条件或属性将数据划分为多个子集。                 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QXuAQ7COJwcAAAAAAAAAAAAADmJ7AQ/original"></img> |
 | [groupColor](/manual/core/transform/group-color) | 基于数据属性对数据的颜色进行分组，常用于分类数据的可视化。               | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dWoBQ7aVlcQAAAAAAAAAAAAADmJ7AQ/original"></img> |
@@ -571,7 +570,7 @@ groupX 是常用的一种标记转换，基于 **x 通道** 对数据进行分�
 
 ### select
 
-在可视化中，当需要突出显示某些特殊位置（如起点、终点或最大值）时，select 标记转换是一种非常灵活且高效的选择。通过 select 转换，可以基于条件筛选数据并实现对特定位置的标记。以下示例展示了如何使用 selectY 对 **折线图**的数据进行筛选，从而标注图中 **峰值位置**的具体实现：  
+在可视化中，当需要突出显示某些特殊位置（如起点、终点或最大值）时，select 标记转换是一种非常灵活且高效的选择。通过 select 转换，可以基于条件筛选数据并实现对特定位置的标记。以下示例展示了如何使用 selectY 对 **折线图**的数据进行筛选，从而标注图中 **峰值位置**的具体实现：
 
 ```js | ob
 (() => {

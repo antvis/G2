@@ -135,9 +135,9 @@ order: 5
 
 | 属性      | 描述                 | 类型                                        | 默认值 |
 | --------- | -------------------- | ------------------------------------------- | ------ |
-| [channel] | 映射到视觉属性的通道 | Record<string, [scale](/manual/core/scale)> | -      |
+| [channel] | 映射到视觉属性的通道 | Record<string, [scale](/manual/core/scale/overview)> | -      |
 
-更多的`scale`配置，可以查查看 [scale](/manual/core/scale) 介绍页面。
+更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
 
 ### style
 
@@ -194,7 +194,7 @@ type Reducer =
   | ((I: number[], V: Primitive[]) => Primitive);
 ```
 
-更多的`transform`配置，可以查看 [transform](/manual/core/transform) 介绍页面。
+更多的`transform`配置，可以查看 [transform](/manual/core/transform/overview) 介绍页面。
 
 尝试一下：
 

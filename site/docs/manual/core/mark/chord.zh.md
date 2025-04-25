@@ -179,12 +179,12 @@ scale 属性用于定义数据字段如何映射到图形的视觉属性（如�
 
 | 属性  | 描述                                                         | 类型                                        | 默认值                 |
 | ----- | ------------------------------------------------------------ | ------------------------------------------- | ---------------------- |
-| x     | 定义节点在圆周上的排列位置，可以映射到分类或数值字段         | Record<string, [scale](/manual/core/scale)> | `{ type: 'identity' }` |
-| y     | 控制节点或弦的投影位置，通常在弦图中不常显式设置             | Record<string, [scale](/manual/core/scale)> | `{ type: 'identity' }` |
-| color | 定义节点或连接弦的颜色映射规则，用于区分不同的类别或关系强度 | Record<string, [scale](/manual/core/scale)> | -                      |
-| size  | 映射连接弦的粗细或节点的大小，以表示权重或强度               | Record<string, [scale](/manual/core/scale)> | -                      |
+| x     | 定义节点在圆周上的排列位置，可以映射到分类或数值字段         | Record<string, [scale](/manual/core/scale/overview)> | `{ type: 'identity' }` |
+| y     | 控制节点或弦的投影位置，通常在弦图中不常显式设置             | Record<string, [scale](/manual/core/scale/overview)> | `{ type: 'identity' }` |
+| color | 定义节点或连接弦的颜色映射规则，用于区分不同的类别或关系强度 | Record<string, [scale](/manual/core/scale/overview)> | -                      |
+| size  | 映射连接弦的粗细或节点的大小，以表示权重或强度               | Record<string, [scale](/manual/core/scale/overview)> | -                      |
 
-更多的`scale`配置，可以查查看 [scale](/manual/core/scale) 介绍页面。
+更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
 
 ### style
 

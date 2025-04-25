@@ -67,7 +67,7 @@ order: 8
 | percent    | 设置仪表盘指针指向的百分比(配置`percent`时，`target`、`total`值会失效，`thresholds`请设置在合理区间，否则会造成渲染错误 ) | `number`   | -      |      |
 | thresholds | 设置仪表盘刻度阈值区间                                                                                                    | `number[]` | -      |      |
 
-更多的`data`配置，可以查查看 [data](/manual/core/data) 介绍页面。
+更多的`data`配置，可以查查看 [data](/manual/core/data/overview) 介绍页面。
 
 ### scale
 
@@ -75,8 +75,8 @@ order: 8
 
 | 属性  | 描述                                  | 类型                        | 默认值                               | 必选 |
 | ----- | ------------------------------------- | --------------------------- | ------------------------------------ | ---- |
-| y     | 定义数据字段到 Y 轴视觉位置的映射规则 | [scale](/manual/core/scale) | `{domain: [0, percent ? 1 : total]}` |      |
-| color | 定义仪表盘刻度颜色的映射规则          | [scale](/manual/core/scale) | `{range: ['#30BF78', '#D0D0D0']}`    |      |
+| y     | 定义数据字段到 Y 轴视觉位置的映射规则 | [scale](/manual/core/scale/overview) | `{domain: [0, percent ? 1 : total]}` |      |
+| color | 定义仪表盘刻度颜色的映射规则          | [scale](/manual/core/scale/overview) | `{range: ['#30BF78', '#D0D0D0']}`    |      |
 
 #### color
 
@@ -135,7 +135,7 @@ order: 8
 })();
 ```
 
-更多的`scale`配置，可以查查看 [scale](/manual/core/scale) 介绍页面。
+更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
 
 ### style
 
