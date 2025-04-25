@@ -100,7 +100,8 @@ export type ElementHighlightInteraction = {
   link?: boolean;
   background?: boolean;
   offset?: number;
-} & Record<`${'link' | 'background'}${any}`, any>;
+  region?: boolean;
+} & Record<`${'link' | 'background' | 'state'}${any}`, any>;
 
 export type ElementSelectInteraction = {
   type?: 'elementSelect';
@@ -109,7 +110,7 @@ export type ElementSelectInteraction = {
   offset?: number;
   multipleSelectHotkey?: string;
   region?: boolean;
-} & Record<`${'link' | 'background'}${any}`, any>;
+} & Record<`${'link' | 'background' | 'state'}${any}`, any>;
 
 export type ElementSelectByColorInteraction = {
   type?: 'elementSelectByColor';
