@@ -86,6 +86,8 @@ export function elementSelect(
   const { updateState, removeState, hasState } = useState(
     elementStyle,
     valueof,
+    undefined,
+    false,
   );
   let isMultiSelectMode = !single; // "single" determines whether to multi-select by default
   let activeHotkey = null; // Track the currently active hotkey

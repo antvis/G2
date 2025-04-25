@@ -84,6 +84,8 @@ export function elementHighlight(
   const { updateState, removeState, hasState } = useState(
     elementStyle,
     valueof,
+    undefined,
+    false,
   );
 
   let out; // Timer for delaying unhighlighted.

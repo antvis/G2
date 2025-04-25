@@ -139,13 +139,25 @@ const STATE_GROUPS = {
   highlight: ['active', 'inactive'],
 };
 
+const STATE_STYLES: Record<string, Record<string, any>> = {};
+
 export function useState(
   style: Record<string, any>,
   valueof = (d, element) => d,
   setAttribute = (element, key, v) => element.setAttribute(key, v),
+  /**
+   *  if is not reset, the style will be merged, the default is true.
+   *  now only elementSelect & elementHightLight is not reset, only they will merged styles.
+   */
+  isReset = true,
 ) {
   const STATES = '__states__';
   const ORIGINAL = '__ordinal__';
+
+  if (!isReset)
+    Object.entries(style).forEach(([key, value]) => {
+      STATE_STYLES[key] = value;
+    });
 
   // Get state priority.
   const getStatePriority = (stateName) =>
@@ -172,7 +184,7 @@ export function useState(
 
     // Iterate through all states to find the highest priority state for each style attribute.
     for (const state of sortedStates) {
-      const stateStyles = style[state] || {};
+      const stateStyles = (isReset ? style : STATE_STYLES)[state] || {};
       for (const [key, value] of Object.entries(stateStyles)) {
         if (!styleAttributeMap.has(key)) {
           styleAttributeMap.set(key, value);
