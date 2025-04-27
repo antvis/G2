@@ -139,26 +139,33 @@ const STATE_GROUPS = {
   highlight: ['active', 'inactive'],
 };
 
-const STATE_STYLES: Record<string, Record<string, any>> = {};
+export function createUseState(
+  style: Record<string, any>,
+  elements: Element[],
+) {
+  elements.forEach((element) => {
+    // @ts-ignore
+    const currentStyle = element.__interactionStyle__;
+
+    if (currentStyle) {
+      // @ts-ignore
+      element.__interactionStyle__ = { ...currentStyle, ...style };
+    } else {
+      // @ts-ignore
+      element.__interactionStyle__ = style;
+    }
+  });
+
+  return useState;
+}
 
 export function useState(
   style: Record<string, any>,
   valueof = (d, element) => d,
   setAttribute = (element, key, v) => element.setAttribute(key, v),
-  /**
-   *  if useIsolatedStyles is false, the style will be merged with global styles.
-   *  now only elementSelect & elementHightLight use non-isolated styles (false), only they will merge styles.
-   *  related test: multipleInteractionsCoexist.
-   */
-  useIsolatedStyles = true,
 ) {
   const STATES = '__states__';
   const ORIGINAL = '__ordinal__';
-
-  if (!useIsolatedStyles)
-    Object.entries(style).forEach(([key, value]) => {
-      STATE_STYLES[key] = value;
-    });
 
   // Get state priority.
   const getStatePriority = (stateName) =>
@@ -185,8 +192,7 @@ export function useState(
 
     // Iterate through all states to find the highest priority state for each style attribute.
     for (const state of sortedStates) {
-      const stateStyles =
-        (useIsolatedStyles ? style : STATE_STYLES)[state] || {};
+      const stateStyles = (element.__interactionStyle__ ?? style)[state] || {};
       for (const [key, value] of Object.entries(stateStyles)) {
         if (!styleAttributeMap.has(key)) {
           styleAttributeMap.set(key, value);

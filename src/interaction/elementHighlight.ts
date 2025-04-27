@@ -5,6 +5,7 @@ import { subObject } from '../utils/helper';
 import {
   createDatumof,
   createFindElementByEvent,
+  createUseState,
   createValueof,
   createXKey,
   mergeState,
@@ -14,7 +15,6 @@ import {
   selectElementByData,
   selectG2Elements,
   selectPlotArea,
-  useState,
   VALID_FIND_BY_X_MARKS,
 } from './utils';
 
@@ -81,11 +81,11 @@ export function elementHighlight(
     },
   });
 
+  const useState = createUseState(elementStyle, elements);
+
   const { updateState, removeState, hasState } = useState(
     elementStyle,
     valueof,
-    undefined,
-    false,
   );
 
   let out; // Timer for delaying unhighlighted.
