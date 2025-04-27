@@ -27,6 +27,14 @@
         "en": "Round Shape Gauge Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_tUeQ64QNVEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "gauge-custom-shape.ts",
+      "title": {
+        "zh": "仪表盘自定义指针形状",
+        "en": "Custom Shape Gauge Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lC7RQ73JwaQAAAAAAAAAAAAAemJ7AQ/original"
     }
   ]
 }
