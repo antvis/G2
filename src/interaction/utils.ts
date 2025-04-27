@@ -143,6 +143,7 @@ export function createUseState(
   style: Record<string, any>,
   elements: Element[],
 ) {
+  // Apply interaction style to all elements.
   elements.forEach((element) => {
     // @ts-ignore
     const currentStyle = element.__interactionStyle__;
@@ -156,11 +157,14 @@ export function createUseState(
     }
   });
 
-  return useState;
+  return (
+    valueof = (d, element) => d,
+    setAttribute = (element, key, v) => element.setAttribute(key, v),
+  ) => useState(undefined, valueof, setAttribute);
 }
 
 export function useState(
-  style: Record<string, any>,
+  style: Record<string, any> | undefined,
   valueof = (d, element) => d,
   setAttribute = (element, key, v) => element.setAttribute(key, v),
 ) {
@@ -192,7 +196,9 @@ export function useState(
 
     // Iterate through all states to find the highest priority state for each style attribute.
     for (const state of sortedStates) {
-      const stateStyles = (element.__interactionStyle__ ?? style)[state] || {};
+      // If style exists, use it directly, else use interaction style on element.
+      const stateStyles =
+        (style ?? element.__interactionStyle__)?.[state] || {};
       for (const [key, value] of Object.entries(stateStyles)) {
         if (!styleAttributeMap.has(key)) {
           styleAttributeMap.set(key, value);

@@ -85,10 +85,7 @@ export function elementSelect(
 
   const useState = createUseState(elementStyle, elements);
 
-  const { updateState, removeState, hasState } = useState(
-    elementStyle,
-    valueof,
-  );
+  const { updateState, removeState, hasState } = useState(valueof);
   let isMultiSelectMode = !single; // "single" determines whether to multi-select by default
   let activeHotkey = null; // Track the currently active hotkey
 

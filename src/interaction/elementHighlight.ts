@@ -83,10 +83,7 @@ export function elementHighlight(
 
   const useState = createUseState(elementStyle, elements);
 
-  const { updateState, removeState, hasState } = useState(
-    elementStyle,
-    valueof,
-  );
+  const { updateState, removeState, hasState } = useState(valueof);
 
   let out; // Timer for delaying unhighlighted.
   const pointerover = (event) => {
