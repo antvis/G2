@@ -1,0 +1,136 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="640"
+  height="480"
+  style="background: transparent;"
+  color-interpolation-filters="sRGB"
+>
+  <defs />
+  <g id="g-svg-camera">
+    <g id="g-root" fill="none">
+      <g id="g-svg-1" fill="none" class="view">
+        <g>
+          <path
+            id="g-svg-2"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 0,0 l 640,0 l 0,480 l-640 0 z"
+            x="0"
+            y="0"
+            width="640"
+            height="480"
+          />
+        </g>
+        <g>
+          <path
+            id="g-svg-3"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
+            width="608"
+            height="448"
+          />
+        </g>
+        <g>
+          <path
+            id="g-svg-4"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
+            width="608"
+            height="448"
+          />
+        </g>
+        <g>
+          <path
+            id="g-svg-5"
+            fill="rgba(0,0,0,0)"
+            class="area"
+            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
+            x="16"
+            y="16"
+            width="608"
+            height="448"
+          />
+        </g>
+        <g transform="matrix(1,0,0,1,16,16)">
+          <path
+            id="g-svg-6"
+            fill="rgba(0,0,0,0)"
+            class="plot"
+            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
+            width="608"
+            height="448"
+          />
+          <g id="g-svg-7" fill="none" class="main-layer">
+            <g>
+              <path
+                id="g-svg-9"
+                fill="rgba(23,131,255,1)"
+                d="M 41.36054421768712,154.00000000000006 l 111.6734693877551,0 l 0,293.99999999999994 l-111.6734693877551 0 z"
+                x="41.36054421768712"
+                y="154.00000000000006"
+                width="111.6734693877551"
+                height="293.99999999999994"
+                fill-opacity="0.95"
+                stroke-width="1"
+                stroke="rgba(0,0,0,1)"
+                class="element"
+              />
+            </g>
+            <g>
+              <path
+                id="g-svg-10"
+                fill="rgba(23,131,255,1)"
+                d="M 330.8843537414966,0 l 111.67346938775512,0 l 0,448 l-111.67346938775512 0 z"
+                x="330.8843537414966"
+                y="0"
+                width="111.67346938775512"
+                height="448"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(23,131,255,1)"
+                class="element"
+              />
+            </g>
+            <g>
+              <path
+                id="g-svg-11"
+                fill="rgba(23,131,255,1)"
+                d="M 165.44217687074834,255.1111111111111 l 111.67346938775509,0 l 0,192.8888888888889 l-111.67346938775509 0 z"
+                x="165.44217687074834"
+                y="255.1111111111111"
+                width="111.67346938775509"
+                height="192.8888888888889"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(23,131,255,1)"
+                class="element"
+              />
+            </g>
+            <g>
+              <path
+                id="g-svg-12"
+                fill="rgba(23,131,255,1)"
+                d="M 454.96598639455783,87.11111111111114 l 111.67346938775506,0 l 0,360.88888888888886 l-111.67346938775506 0 z"
+                x="454.96598639455783"
+                y="87.11111111111114"
+                width="111.67346938775506"
+                height="360.88888888888886"
+                fill-opacity="0.95"
+                stroke-width="0"
+                stroke="rgba(23,131,255,1)"
+                class="element"
+              />
+            </g>
+          </g>
+          <g id="g-svg-8" fill="none" class="label-layer" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

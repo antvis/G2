@@ -6,7 +6,6 @@ import {
   createValueof,
   createDatumof,
   selectG2Elements,
-  useState,
   renderLink,
   renderBackground,
   selectPlotArea,
@@ -16,6 +15,7 @@ import {
   createXKey,
   createFindElementByEvent,
   VALID_FIND_BY_X_MARKS,
+  createUseState,
 } from './utils';
 
 /**
@@ -83,10 +83,9 @@ export function elementSelect(
     },
   });
 
-  const { updateState, removeState, hasState } = useState(
-    elementStyle,
-    valueof,
-  );
+  const useState = createUseState(elementStyle, elements);
+
+  const { updateState, removeState, hasState } = useState(valueof);
   let isMultiSelectMode = !single; // "single" determines whether to multi-select by default
   let activeHotkey = null; // Track the currently active hotkey
 
