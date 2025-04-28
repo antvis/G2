@@ -19,6 +19,14 @@
         "en": "Select"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gwt_SpgIGsMAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename":"slider.ts",
+      "title": {
+        "zh": "滑动",
+        "en": "Slider"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nNa7R6quqkwAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }
