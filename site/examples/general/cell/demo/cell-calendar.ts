@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 
-// 定义月份名称
+// 定义月份名称及分类
 const MONTHS = [
   'January',
   'February',
@@ -16,42 +16,52 @@ const MONTHS = [
   'December',
 ];
 
+// 预计算月份位置 (1-12月分4行3列排列)
+const MONTH_POSITIONS = Array.from({ length: 12 }, (_, month) => {
+  const monthNum = month + 1;
+  const row = Math.ceil(monthNum / 3);
+  const col = ((monthNum - 1) % 3) + 1;
+  return {
+    row: String(row),
+    col: String(col),
+  };
+});
+
 fetch(
   'https://gw.alipayobjects.com/os/antvdemo/assets/data/stock-calendar.json',
 )
   .then((res) => res.json())
   .then((data) => {
-    // 获取当前月的第几周,从 0 开始
-    function getMonthWeek(date) {
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      const monthFirst = new Date(year, month, 0);
-      const intervalDays = Math.round(
-        (date.getTime() - monthFirst.getTime()) / 86400000,
-      );
-      const index = Math.floor((intervalDays + monthFirst.getDay()) / 7);
-      return index;
-    }
-    // 加工数据
-    // 添加所属月、周几、每个月的第几周
-    data.forEach(function (obj) {
+    // 优化数据处理: 减少Date对象创建和计算
+    const processedData = data.map((obj) => {
       const date = new Date(obj['日期']);
       const month = date.getMonth();
-      obj.month = MONTHS[month];
-      obj.day = date.getDay();
-      obj.week = getMonthWeek(date);
-    });
+      const dayOfMonth = date.getDate();
 
-    console.log(data);
+      // 计算当前月的第一天是星期几（只计算一次）
+      const firstDayWeek = new Date(date.getFullYear(), month, 1).getDay();
+      const monthPosition = MONTH_POSITIONS[month];
+
+      return {
+        ...obj,
+        date,
+        month: MONTHS[month],
+        monthXCategory: monthPosition.col,
+        monthYCategory: monthPosition.row,
+        position: `${month + 1}月`,
+        day: date.getDay(),
+        week: Math.floor((dayOfMonth + firstDayWeek - 1) / 7),
+      };
+    });
 
     const chart = new Chart({
       container: 'container',
       autoFit: true,
-      height: 500,
-      paddingTop: 150,
-      paddingRight: 30,
-      paddingBottom: 150,
-      paddingLeft: 70,
+      height: 800,
+      paddingTop: 100,
+      paddingRight: 40,
+      paddingBottom: 100,
+      paddingLeft: 80,
     });
 
     chart.scale('涨跌幅', {
@@ -71,14 +81,13 @@ fetch(
 
     const facetRect = chart
       .facetRect()
-      .data(data)
-      .scale('x', {
-        type: 'band',
-        compare: (a: string, b: string) =>
-          MONTHS.indexOf(a) - MONTHS.indexOf(b),
-      })
-      .encode('x', 'month')
-      .style('gap', 20);
+      .data(processedData)
+      .scale('x', { type: 'band', compare: (a, b) => Number(a) - Number(b) })
+      .scale('y', { type: 'band', compare: (a, b) => Number(a) - Number(b) })
+      .encode('x', 'monthXCategory')
+      .encode('y', 'monthYCategory')
+      .axis('x', { title: false, label: false, tick: false })
+      .axis('y', { title: false, label: false, tick: false });
 
     facetRect
       .cell()
@@ -105,6 +114,7 @@ fetch(
         grid: false,
       })
       .transform({ type: 'sortY', by: 'x' })
+      .attr('frame', false)
       .encode('color', '涨跌幅');
 
     chart.interaction('elementHighlight', true);
