@@ -1,42 +1,18 @@
 {
   "name": "@antv/g2",
+  "type": "module",
   "version": "5.3.2",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
-  "main": "lib/index.js",
-  "module": "esm/index.js",
-  "types": "lib/index.d.ts",
-  "unpkg": "dist/g2.min.js",
-  "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./esm/index.js",
-      "require": "./lib/index.js"
-    },
-    "./lib/*": {
-      "types": "./lib/*.d.ts",
-      "require": "./lib/*.js"
-    },
-    "./esm/*": {
-      "types": "./lib/*.d.ts",
-      "import": "./esm/*.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "sideEffects": [
-    "./esm/exports.js"
-  ],
-  "files": [
-    "src",
-    "lib",
-    "esm",
-    "dist"
-  ],
+  "main": "./dist/index.cjs",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/umd/index.js",
+  "files": ["dist"],
   "scripts": {
     "start": "cd site && npm run start",
     "dev": "cross-env TZ=Asia/Shanghai vite",
     "dev:link": "cross-env LINK=1 vite",
-    "clean": "rimraf lib esm dist",
     "lint-staged": "lint-staged",
     "size": "limit-size",
     "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
@@ -45,27 +21,17 @@
     "test:unit": "cross-env TZ=Asia/Shanghai jest __tests__/unit/",
     "test:integration": "cross-env TZ=Asia/Shanghai jest __tests__/integration/",
     "preview": "vite preview",
-    "build:umd": "rimraf ./dist && node node_modules/rollup/dist/bin/rollup -c && npm run size",
-    "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
-    "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
-    "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
+    "build:std": "rslib build",
+    "build:lite": "rslib build -c rslib.lite.ts",
+    "profile": "cross-env RSDOCTOR=true npm run build",
     "ci": "run-s lint test build",
     "prepare": "husky install",
     "upload": "node scripts/upload/snapshot.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "translate": "translate -d"
   },
-  "keywords": [
-    "antv",
-    "g2",
-    "visualization",
-    "chart",
-    "grammar",
-    "graphics",
-    "interaction",
-    "animation"
-  ],
+  "keywords": ["antv", "g2", "visualization", "chart", "grammar", "graphics", "interaction", "animation"],
   "dependencies": {
     "@antv/component": "^2.1.2",
     "@antv/coord": "^0.4.7",
@@ -96,11 +62,8 @@
     "@antv/translator": "^1.0.1",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^17.8.1",
-    "@optimize-lodash/rollup-plugin": "^4.0.4",
-    "@rollup/plugin-commonjs": "^21.1.0",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rsdoctor/rspack-plugin": "^1.0.2",
+    "@rslib/core": "^0.6.8",
     "@types/diff": "^5.2.3",
     "@types/jest": "^26.0.24",
     "@types/pixelmatch": "^5.2.6",
@@ -120,36 +83,28 @@
     "pixelmatch": "5.3.0",
     "prettier": "^2.8.8",
     "rimraf": "^3.0.2",
-    "rollup": "^2.79.2",
-    "rollup-plugin-polyfill-node": "^0.8.0",
-    "rollup-plugin-typescript2": "^0.35.0",
-    "rollup-plugin-visualizer": "^5.12.0",
     "topojson": "^3.0.2",
     "ts-jest": "^26.5.6",
     "typescript": "^4.9.5",
-    "vite": "^3.2.11",
+    "vite": "^6.3.4",
     "xmlserializer": "^0.6.1"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write", "git add"]
   },
   "limit-size": [
     {
-      "path": "dist/g2.min.js",
+      "path": "dist/umd/index.js",
       "limit": "300 Kb",
       "gzip": true
     },
     {
-      "path": "dist/g2.min.js",
+      "path": "dist/umd/index.js",
       "limit": "1000 Kb",
       "gzip": false
     },
     {
-      "path": "dist/g2.lite.min.js",
+      "path": "dist/lite/index.js",
       "limit": "270 Kb",
       "gzip": true
     }

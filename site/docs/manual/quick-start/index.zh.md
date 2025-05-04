@@ -10,7 +10,7 @@ order: 1
 
 ## 包管理器
 
-如果使用了 Webpack，Rollup 等基于 Node 的打包工具，可以通过 NPM 或者 Yarn 等包管理器去安装 G2 。
+如果使用了 Webpack，Rollup 等基于 Node 的打包工具，可以通过 NPM 或者 Yarn 等包管理器去安装 G2。
 
 ```bash
 # 通过 NPM 安装
@@ -22,7 +22,7 @@ npm install @antv/g2
 yarn add @antv/g2
 ```
 
-安装成功之后给 G2 提供一个容器:
+安装成功之后给 G2 提供一个容器：
 
 ```html
 <div id="container"></div>
@@ -63,7 +63,7 @@ chart.render();
 G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用。这个时候的 `Chart` 对象可以通过命名空间 `G2` 去访问。
 
 ```html
-<script src="https://unpkg.com/@antv/g2/dist/g2.min.js"></script>
+<script src="https://unpkg.com/@antv/g2/dist/umd/index.js"></script>
 <script>
   // 准备数据
   const data = [

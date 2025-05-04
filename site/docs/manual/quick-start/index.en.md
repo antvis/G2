@@ -63,7 +63,7 @@ chart.render();
  G2 also provides a UMD version, which can be loaded directly through CDN and used directly. At this time `Chart` object can be accessed through namespaces `G2`.
 
 ```html
-<script src="https://unpkg.com/@antv/g2/dist/g2.min.js"></script>
+<script src="https://unpkg.com/@antv/g2/dist/umd/index.js"></script>
 <script>
   // Prepare data
   const data = [

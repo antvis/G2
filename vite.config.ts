@@ -1,11 +1,12 @@
-import { defineConfig } from 'vite';
-import type { UserConfig } from 'vite';
-import { deepMix } from '@antv/util';
+// eslint-disable-next-line
+import util from '@antv/util';
+import { type UserConfig, defineConfig } from 'vite'; // https://github.com/antvis/util/issues/126
 const { LINK, MODULE } = process.env;
+const deepMix = util.deepMix;
 
 if (LINK === '1' && !MODULE) {
   throw new Error(
-    `Please specify MODULE, for example: $ MODULE=@antv/component npm run dev:link.`,
+    'Please specify MODULE, for example: $ MODULE=@antv/component npm run dev:link.',
   );
 }
 

@@ -65,7 +65,7 @@ G 渲染器的使用都是使用：
 然后引入剔除了 `@antv/g` 和 `@antv/g-svg` 的 G2 UMD 版本，我们称之为 lite 版：
 
 ```html
-<script src="https://unpkg.com/@antv/g2@5.0.5/dist/g2-lite.min.js"></script>
+<script src="https://unpkg.com/@antv/g2/dist/lite/index.js"></script>
 ```
 
 在命名空间 `window.G.SVG` 下找到 `Renderer` 并实例化：
@@ -87,6 +87,6 @@ const chart = new Chart({
 ```html
 <script src="https://unpkg.com/@antv/g"></script>
 <script src="https://unpkg.com/@antv/g-svg"></script>
-<script src="https://unpkg.com/@antv/g2@5.0.5/dist/g2-lite.min.js"></script>
+<script src="https://unpkg.com/@antv/g2/dist/lite/index.js"></script>
 <script src="https://unpkg.com/@antv/g6-lite"></script>
 ```

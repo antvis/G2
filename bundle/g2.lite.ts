@@ -1,7 +1,7 @@
+import { Runtime, extend } from '../src/api';
+import type { API, CompositionAPI } from '../src/api/extend';
 import { corelib } from '../src/lib';
-import { extend, Runtime } from '../src/api';
-import { API, CompositionAPI } from '../src/api/extend';
-import { G2Spec } from '../src/spec';
+import type { G2Spec } from '../src/spec';
 
 export * from '../src/exports';
 
