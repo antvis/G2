@@ -23,8 +23,14 @@
     },
     "./package.json": "./package.json"
   },
-  "sideEffects": ["./esm/exports.js"],
-  "files": ["lib", "esm", "dist"],
+  "sideEffects": [
+    "./esm/exports.js"
+  ],
+  "files": [
+    "lib",
+    "esm",
+    "dist"
+  ],
   "scripts": {
     "start": "cd site && npm run start",
     "dev": "cross-env TZ=Asia/Shanghai vite",
@@ -49,7 +55,16 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "translate": "translate -d"
   },
-  "keywords": ["antv", "g2", "visualization", "chart", "grammar", "graphics", "interaction", "animation"],
+  "keywords": [
+    "antv",
+    "g2",
+    "visualization",
+    "chart",
+    "grammar",
+    "graphics",
+    "interaction",
+    "animation"
+  ],
   "dependencies": {
     "@antv/component": "^2.1.2",
     "@antv/coord": "^0.4.7",
@@ -115,7 +130,11 @@
     "xmlserializer": "^0.6.1"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --fix", "prettier --write", "git add"]
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "limit-size": [
     {
