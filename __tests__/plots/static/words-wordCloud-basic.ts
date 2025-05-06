@@ -39,6 +39,14 @@ export function wordsWordCloudBasic(): G2Spec {
     },
     axis: false,
     legend: false,
+    tooltip: {
+      items: [
+        (datum) => ({
+          name: datum.text,
+          value: datum.value,
+        }),
+      ],
+    },
   };
 }
 
