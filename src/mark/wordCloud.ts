@@ -1,4 +1,5 @@
 import { deepMix } from '@antv/util';
+import { itemsOf } from 'interaction/legendFilter';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { WordCloudMark } from '../spec';
 
@@ -30,6 +31,14 @@ const GET_DEFAULT_OPTIONS = () => ({
   },
   style: {
     fontFamily: (d) => d.fontFamily,
+  },
+  tooltip: {
+    items: [
+      (datum) => ({
+        name: datum.text,
+        value: datum.value,
+      }),
+    ],
   },
 });
 
