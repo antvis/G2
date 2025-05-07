@@ -27,6 +27,7 @@
     "./esm/exports.js"
   ],
   "files": [
+    "src",
     "lib",
     "esm",
     "dist"
