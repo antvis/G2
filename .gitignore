@@ -48,3 +48,5 @@ site/server
 # Package
 package-lock.json
 pnpm-lock.yaml
+
+bun.lock
