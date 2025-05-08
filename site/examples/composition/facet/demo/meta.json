@@ -59,6 +59,14 @@
         "en": "Custom Frame Style"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aofoR4mGPVUAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "rect-ring.ts",
+      "title": {
+        "zh": "系统监控",
+        "en": "System Monitor"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dhgfT7FfXcUAAAAAAAAAAAAAemJ7AQ/original"
     }
   ]
 }
