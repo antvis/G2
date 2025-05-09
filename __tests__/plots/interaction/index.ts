@@ -86,3 +86,4 @@ export { commitIntervalFixedCornerFilterNoElement } from './commit-interval-fixe
 export { changeSizePolarCrosshairsXYNoElements } from './change-size-polar-crosshairsXY-no-elements';
 export { intervalLegendFilterWithText } from './interval-legend-filter-with-text';
 export { multipleInteractionsCoexist } from './multiple-interactions-coexist';
+export { penguinsPointBrushFilterNoMove } from './penguins-point-brush-filter-no-move';

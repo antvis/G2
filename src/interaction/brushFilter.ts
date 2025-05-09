@@ -53,6 +53,7 @@ export function brushFilter(
 
   // Filter when brush created.
   function brushcreated(x, y, x1, y1, event) {
+    if (x === x1 && y === y1) return;
     event.nativeEvent = true;
     filter(selection(x, y, x1, y1), event);
     brush.remove();
