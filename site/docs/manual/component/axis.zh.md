@@ -177,29 +177,29 @@ chart.options({
 
 ### title
 
-| 属性               | 描述                                                           | 类型                                                         | 默认值        | 必须 |
-| ------------------ | -------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
-| title              | 关闭标题或设置标题内容                                         | `false`&#124;`string` &#124; `number` &#124; `DisplayObject` | -             |      |
-| titleSpacing       | 标题到坐标轴的距离                                             | `number` &#124; `(datum, index, data) => number`             | 10            |      |
-| titlePosition      | 标题相对坐标轴的位置，支持首字母简写形式，如`'top'`简写为`'t'` | `'top'`&#124;`'bottom'`&#124;`'left'`&#124;`'right'`         | `'lb'`        |      |
-| titleFontSize      | 标题文字大小                                                   | `number` &#124; `(datum, index, data) => number`             | -             |      |
-| titleFontWeight    | 标题的字体粗细                                                 | `string` &#124; `(datum, index, data) => string`             | -             |      |
-| titleFontFamily    | 标题文字字体                                                   | `number` &#124; `(datum, index, data) => number`             | -             |      |
-| titleStroke        | 标题字体颜色                                                   | `string` &#124; `(datum, index, data) => string`             | -             |      |
-| titleStrokeOpacity | 标题透明度                                                     | `number` &#124; `(datum, index, data) => number`             | -             |      |
-| titleTextBaseline  | 标题垂直基线                                                   | `string` &#124; `(datum, index, data) => string`             | `middle`      |      |
-| titleFillOpacity   | 标题填充透明度                                                 | `number` &#124; `(datum, index, data) => number`             | 1             |      |
-| titleStroke        | 标题描边颜色                                                   | `string` &#124; `(datum, index, data) => string`             | `transparent` |      |
-| titleStrokeOpacity | 标题描边透明度                                                 | `number` &#124; `(datum, index, data) => number`             | 1             |      |
-| titleLineHeight    | 标题行高                                                       | `number` &#124; `(datum, index, data) => number`             | 1             |      |
-| titleLineWidth     | 标题描边宽度                                                   | `number` &#124; `(datum, index, data) => number`             | 0             |      |
-| titleLineDash      | 标题虚线样式                                                   | `number[]` &#124; `(datum, index, data) => number[]`         | []            |      |
-| titleOpacity       | 标题整体透明度                                                 | `number` &#124; `(datum, index, data) => number`             | 1             |      |
-| titleShadowColor   | 标题阴影颜色                                                   | `string` &#124; `(datum, index, data) => string`             | `transparent` |      |
-| titleShadowBlur    | 标题阴影模糊度                                                 | `number` &#124; `(datum, index, data) => number`             | 0             |      |
-| titleShadowOffsetX | 标题阴影 X 偏移                                                | `number` &#124; `(datum, index, data) => number`             | 0             |      |
-| titleShadowOffsetY | 标题阴影 Y 偏移                                                | `number` &#124; `(datum, index, data) => number`             | 0             |      |
-| titleCursor        | 标题鼠标样式                                                   | `string` &#124; `(datum, index, data) => string`             | `default`     |      |
+| 属性               | 描述                                                           | 类型                                                                                                               | 默认值        | 必须 |
+| ------------------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------- | ---- |
+| title              | 关闭标题或设置标题内容                                         | `false`&#124;`string` &#124; `number` &#124; [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) | -             |      |
+| titleSpacing       | 标题到坐标轴的距离                                             | `number` &#124; `(datum, index, data) => number`                                                                   | 10            |      |
+| titlePosition      | 标题相对坐标轴的位置，支持首字母简写形式，如`'top'`简写为`'t'` | `'top'`&#124;`'bottom'`&#124;`'left'`&#124;`'right'`                                                               | `'lb'`        |      |
+| titleFontSize      | 标题文字大小                                                   | `number` &#124; `(datum, index, data) => number`                                                                   | -             |      |
+| titleFontWeight    | 标题的字体粗细                                                 | `string` &#124; `(datum, index, data) => string`                                                                   | -             |      |
+| titleFontFamily    | 标题文字字体                                                   | `number` &#124; `(datum, index, data) => number`                                                                   | -             |      |
+| titleStroke        | 标题字体颜色                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | -             |      |
+| titleStrokeOpacity | 标题透明度                                                     | `number` &#124; `(datum, index, data) => number`                                                                   | -             |      |
+| titleTextBaseline  | 标题垂直基线                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | `middle`      |      |
+| titleFillOpacity   | 标题填充透明度                                                 | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |      |
+| titleStroke        | 标题描边颜色                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | `transparent` |      |
+| titleStrokeOpacity | 标题描边透明度                                                 | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |      |
+| titleLineHeight    | 标题行高                                                       | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |      |
+| titleLineWidth     | 标题描边宽度                                                   | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
+| titleLineDash      | 标题虚线样式                                                   | `number[]` &#124; `(datum, index, data) => number[]`                                                               | []            |      |
+| titleOpacity       | 标题整体透明度                                                 | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |      |
+| titleShadowColor   | 标题阴影颜色                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | `transparent` |      |
+| titleShadowBlur    | 标题阴影模糊度                                                 | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
+| titleShadowOffsetX | 标题阴影 X 偏移                                                | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
+| titleShadowOffsetY | 标题阴影 Y 偏移                                                | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
+| titleCursor        | 标题鼠标样式                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | `default`     |      |
 
 > 配置方式
 
@@ -225,19 +225,19 @@ chart.options({
 
 ### line
 
-| 属性              | 描述                                                                                                              | 类型                                             | 默认值 | 必须 |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------ | ---- |
-| line              | 是否显示轴线                                                                                                      | `boolean`                                        | false  |      |
-| arrow             | 是否显示箭头                                                                                                      | `boolean`                                        | true   |      |
-| lineExtension     | 轴线两侧的延长线                                                                                                  | `[number, number]`                               | -      |      |
-| lineArrow         | 定义轴线箭头形状，默认为箭头形状                                                                                  | `DisplayObject`                                  | -      |      |
-| lineArrowOffset   | 箭头偏移长度                                                                                                      | `number`                                         | 15     |      |
-| lineArrowSize     | 箭头尺寸                                                                                                          | `number`                                         | -      |      |
-| lineLineWidth     | 轴线宽度                                                                                                          | `number` &#124; `(datum, index, data) => number` | -      |      |
-| lineLineDash      | 轴线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`                                | -      |      |
-| lineOpacity       | 轴线整体透明度                                                                                                    | `number`                                         | 1      |      |
-| lineStroke        | 轴线描边色                                                                                                        | `string`                                         | -      |      |
-| lineStrokeOpacity | 轴线描边色透明度                                                                                                  | `number`                                         | -      |      |
+| 属性              | 描述                                                                                                              | 类型                                                                  | 默认值 | 必须 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------ | ---- |
+| line              | 是否显示轴线                                                                                                      | `boolean`                                                             | false  |      |
+| arrow             | 是否显示箭头                                                                                                      | `boolean`                                                             | true   |      |
+| lineExtension     | 轴线两侧的延长线                                                                                                  | `[number, number]`                                                    | -      |      |
+| lineArrow         | 定义轴线箭头形状，默认为箭头形状                                                                                  | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) | -      |      |
+| lineArrowOffset   | 箭头偏移长度                                                                                                      | `number`                                                              | 15     |      |
+| lineArrowSize     | 箭头尺寸                                                                                                          | `number`                                                              | -      |      |
+| lineLineWidth     | 轴线宽度                                                                                                          | `number` &#124; `(datum, index, data) => number`                      | -      |      |
+| lineLineDash      | 轴线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]`                                                     | -      |      |
+| lineOpacity       | 轴线整体透明度                                                                                                    | `number`                                                              | 1      |      |
+| lineStroke        | 轴线描边色                                                                                                        | `string`                                                              | -      |      |
+| lineStrokeOpacity | 轴线描边色透明度                                                                                                  | `number`                                                              | -      |      |
 
 > 配置方式
 
@@ -264,17 +264,17 @@ chart.options({
 
 ### tick
 
-| 属性              | 描述                                                                                                                | 类型                                                                     | 默认值     | 必须 |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ---------- | ---- |
-| tick              | 是否显示刻度                                                                                                        | `boolean`                                                                | true       |      |
-| tickFilter        | 刻度线过滤                                                                                                          | `(datum, index, data)=>boolean`                                          | -          |      |
-| tickFormatter     | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                                | `DisplayObject` &#124; `(datum, index, data, Vector)=> DisplayObject`    | -          |      |
-| tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向            | `'positive'` &#124; `'negative'`                                         | `positive` |
-| tickLength        | 刻度线长度                                                                                                          | `number`&#124;`(datum, index, data)=>number`                             | 15         |      |
-| tickLineWidth     | 刻度线宽度                                                                                                          | `number` &#124; `(datum, index, data, Vector)=>number`                   | -          |      |
-| tickLineDash      | 刻度线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` &#124; `(datum, index, data, Vector)=>[number,number]` | -          |      |
-| tickStroke        | 刻度线颜色                                                                                                          | `string` &#124; `(datum, index, data, Vector)=>string`                   | -          |      |
-| tickStrokeOpacity | 刻度线透明度                                                                                                        | `number` &#124; `(datum, index, data, Vector)=>number`                   | -          |      |
+| 属性              | 描述                                                                                                                | 类型                                                                                                                        | 默认值     | 必须 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------- | ---- |
+| tick              | 是否显示刻度                                                                                                        | `boolean`                                                                                                                   | true       |      |
+| tickFilter        | 刻度线过滤                                                                                                          | `(datum, index, data)=>boolean`                                                                                             | -          |      |
+| tickFormatter     | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                                | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) &#124; `(datum, index, data, Vector)=> DisplayObject` | -          |      |
+| tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向            | `'positive'` &#124; `'negative'`                                                                                            | `positive` |
+| tickLength        | 刻度线长度                                                                                                          | `number`&#124;`(datum, index, data)=>number`                                                                                | 15         |      |
+| tickLineWidth     | 刻度线宽度                                                                                                          | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -          |      |
+| tickLineDash      | 刻度线描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` &#124; `(datum, index, data, Vector)=>[number,number]`                                                    | -          |      |
+| tickStroke        | 刻度线颜色                                                                                                          | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | -          |      |
+| tickStrokeOpacity | 刻度线透明度                                                                                                        | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -          |      |
 
 ```ts
 ({
@@ -290,29 +290,29 @@ chart.options({
 
 ### label
 
-| 属性               | 描述                                                                                                                | 类型                                                                  | 默认值     | 必须 |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ---------- | ---- |
-| label              | 是否显示刻度值                                                                                                      | `boolean`                                                             | -          |      |
-| labelFontSize      | 刻度值文字大小                                                                                                      | `number` &#124; `(datum, index, data)=>number`                        | -          |      |
-| labelOpacity       | 刻度值透明度                                                                                                        | `number` &#124; `(datum, index, data)=>number`                        | -          |      |
-| labelFontWeight    | 刻度值字体粗细                                                                                                      | `number` &#124;`(datum, index, data)=>number`                         | -          |      |
-| labelFontFamily    | 刻度值文字字体                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |      |
-| labelAlign         | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴   | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`           | `parallel` |      |
-| labelFilter        | 刻度值过滤                                                                                                          | `(datum, index, data)=> boolean`                                      | -          |      |
-| labelFormatter     | 刻度值线格式化                                                                                                      | `DisplayObject` &#124; `(datum, index, data, Vector)=> DisplayObject` | -          |      |
-| transform          | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `Transform[]`                                                         | -          |      |
-| labelAutoHide      | 自动隐藏重叠的刻度值，设置 size 值的时候生效                                                                        | `boolean` &#124; `HideOverlapCfg`                                     | -          |      |
-| labelAutoRotate    | 自动旋转刻度，设置 size 值的时候生效值                                                                              | `boolean` &#124; `RotateOverlapCfg`                                   | -          |      |
-| labelAutoEllipsis  | 自动缩略刻度值，设置 size 值的时候生效                                                                              | `boolean` &#124; `EllipsisOverlapCfg`                                 | -          |      |
-| labelAutoWrap      | 自动换行刻度值，设置 size 值的时候是生效                                                                            | `boolean` &#124; `WrapOverlapCfg`                                     | -          |      |
-| labelDirection     | 刻度值位于轴线的位置，参考`tickDirection`                                                                           | `'positive'` &#124; `'negative'`                                      | `positive` |      |
-| labelSpacing       | 刻度值到其对应刻度的间距                                                                                            | `number`                                                              | 0          |      |
-| labelLineWidth     | 刻度值宽度                                                                                                          | `number` &#124;`(datum, index, data)=>number`                         | -          |      |
-| labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` &#124; `(datum, index, data)=>[number, number]`     | -          |      |
-| labelFill          | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                        | -          |      |
-| labelFillOpacity   | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                        | -          |      |
-| labelStroke        | 刻度值文本描边颜色                                                                                                  | `string` &#124; `(datum, index, data)=>string`                        | -          |      |
-| labelStrokeOpacity | 刻度值文本描边透明度                                                                                                | `number` &#124; `(datum, index, data)=>number`                        | -          |      |
+| 属性               | 描述                                                                                                                | 类型                                                              | 默认值     | 必须 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ---------- | ---- |
+| label              | 是否显示刻度值                                                                                                      | `boolean`                                                         | -          |      |
+| labelFontSize      | 刻度值文字大小                                                                                                      | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelOpacity       | 刻度值透明度                                                                                                        | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelFontWeight    | 刻度值字体粗细                                                                                                      | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
+| labelFontFamily    | 刻度值文字字体                                                                                                      | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelAlign         | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴   | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`       | `parallel` |      |
+| labelFilter        | 刻度值过滤                                                                                                          | `(datum, index, data)=> boolean`                                  | -          |      |
+| labelFormatter     | 刻度值格式化，可以传入一个函数或者是 [d3-format](https://d3js.org/d3-format) 支持的字符串                           | `string` \| `(datum, index, array) => string`                     | -          |      |
+| transform          | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `Transform[]`                                                     | -          |      |
+| labelAutoHide      | 自动隐藏重叠的刻度值，设置 size 值的时候生效                                                                        | `boolean` &#124; `HideOverlapCfg`                                 | -          |      |
+| labelAutoRotate    | 自动旋转刻度，设置 size 值的时候生效值                                                                              | `boolean` &#124; `RotateOverlapCfg`                               | -          |      |
+| labelAutoEllipsis  | 自动缩略刻度值，设置 size 值的时候生效                                                                              | `boolean` &#124; `EllipsisOverlapCfg`                             | -          |      |
+| labelAutoWrap      | 自动换行刻度值，设置 size 值的时候是生效                                                                            | `boolean` &#124; `WrapOverlapCfg`                                 | -          |      |
+| labelDirection     | 刻度值位于轴线的位置，参考`tickDirection`                                                                           | `'positive'` &#124; `'negative'`                                  | `positive` |      |
+| labelSpacing       | 刻度值到其对应刻度的间距                                                                                            | `number`                                                          | 0          |      |
+| labelLineWidth     | 刻度值宽度                                                                                                          | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
+| labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` &#124; `(datum, index, data)=>[number, number]` | -          |      |
+| labelFill          | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelFillOpacity   | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelStroke        | 刻度值文本描边颜色                                                                                                  | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelStrokeOpacity | 刻度值文本描边透明度                                                                                                | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
 
 `labelFormatter` 视觉通道用于调整标签的格式。
 
