@@ -12,7 +12,8 @@ export type ToMatchDOMSnapshotOptions = {
   keepSVGElementId?: boolean;
 };
 
-const formatSVG = (svg: SVGElement) => {
+const formatSVG = (svg: SVGElement): string => {
+  if (!svg) return 'null';
   return optimize(serializeToString(svg as any), {
     js2svg: {
       pretty: true,
@@ -133,9 +134,6 @@ export async function toMatchDOMSnapshot(
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
     actual = formatSVG(dom as SVGElement);
-
-    // Remove ';' after format by babel.
-    if (actual !== 'null') actual = actual.slice(0, -2);
 
     if (!fs.existsSync(expectedPath)) {
       if (process.env.CI === 'true') {

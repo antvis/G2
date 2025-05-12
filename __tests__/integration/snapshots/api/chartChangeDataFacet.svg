@@ -1,585 +1,167 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="640"
-  height="480"
-  style="background: transparent;"
-  color-interpolation-filters="sRGB"
->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" color-interpolation-filters="sRGB" style="background: transparent;">
   <defs>
-    <filter
-      data-type="outer"
-      id="g-filter-dropshadow-25"
-      filterUnits="userSpaceOnUse"
-    >
-      <feDropShadow
-        dx="-0.5"
-        dy="-0.5"
-        stdDeviation="2.5"
-        flood-color="rgba(90,132,226,1)"
-      />
+    <filter id="a" data-type="outer" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="-.5" dy="-.5" flood-color="rgba(90,132,226,1)" stdDeviation="2.5"/>
     </filter>
-    <filter
-      data-type="outer"
-      id="g-filter-dropshadow-40"
-      filterUnits="userSpaceOnUse"
-    >
-      <feDropShadow
-        dx="-0.5"
-        dy="-0.5"
-        stdDeviation="2.5"
-        flood-color="rgba(250,57,57,1)"
-      />
+    <filter id="b" data-type="outer" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="-.5" dy="-.5" flood-color="rgba(250,57,57,1)" stdDeviation="2.5"/>
     </filter>
-    <filter
-      data-type="outer"
-      id="g-filter-dropshadow-55"
-      filterUnits="userSpaceOnUse"
-    >
-      <feDropShadow
-        dx="-0.5"
-        dy="-0.5"
-        stdDeviation="2.5"
-        flood-color="rgba(253,192,45,1)"
-      />
-    </filter>
-    <filter
-      data-type="outer"
-      id="g-filter-dropshadow-64"
-      filterUnits="userSpaceOnUse"
-    >
-      <feDropShadow
-        dx="-0.5"
-        dy="-0.5"
-        stdDeviation="2.5"
-        flood-color="rgba(90,132,226,1)"
-      />
-    </filter>
-    <filter
-      data-type="outer"
-      id="g-filter-dropshadow-70"
-      filterUnits="userSpaceOnUse"
-    >
-      <feDropShadow
-        dx="-0.5"
-        dy="-0.5"
-        stdDeviation="2.5"
-        flood-color="rgba(250,57,57,1)"
-      />
-    </filter>
-    <filter
-      data-type="outer"
-      id="g-filter-dropshadow-76"
-      filterUnits="userSpaceOnUse"
-    >
-      <feDropShadow
-        dx="-0.5"
-        dy="-0.5"
-        stdDeviation="2.5"
-        flood-color="rgba(253,192,45,1)"
-      />
+    <filter id="c" data-type="outer" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="-.5" dy="-.5" flood-color="rgba(253,192,45,1)" stdDeviation="2.5"/>
     </filter>
   </defs>
-  <g id="g-svg-camera">
-    <g id="g-root" fill="none">
-      <g id="g-svg-1" fill="none" class="view">
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
         <g>
-          <path
-            id="g-svg-5"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 640,0 l 0,480 l-640 0 z"
-            x="0"
-            y="0"
-            width="640"
-            height="480"
-          />
+          <path width="640" height="480" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 640 0 0 480-640 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-6"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="448"
-          />
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-7"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="448"
-          />
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-8"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="448"
-          />
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
-          <path
-            id="g-svg-9"
-            fill="rgba(0,0,0,0)"
-            class="plot"
-            d="M 0,0 l 608,0 l 0,448 l-608 0 z"
-            width="608"
-            height="448"
-          />
-          <g id="g-svg-10" fill="none" class="main-layer">
+        <g transform="matrix(1 0 0 1 16 16)">
+          <path width="608" height="448" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 448-608 0z" class="plot"/>
+          <g fill="none" class="main-layer">
             <g>
-              <path
-                id="g-svg-60"
-                fill="rgba(0,0,0,0)"
-                d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
-                x="0"
-                y="0"
-                width="188.6896551724138"
-                height="448"
-                stroke-width="0"
-                stroke="rgba(23,131,255,1)"
-                class="element"
-              />
+              <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" stroke="rgba(23,131,255,1)" stroke-width="0" d="m0 0 188.6897 0 0 448-188.6897 0z" class="element"/>
             </g>
             <g>
-              <path
-                id="g-svg-61"
-                fill="rgba(0,0,0,0)"
-                d="M 209.6551724137931,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
-                x="209.6551724137931"
-                y="0"
-                width="188.68965517241375"
-                height="448"
-                stroke-width="0"
-                stroke="rgba(0,201,201,1)"
-                class="element"
-              />
+              <path width="188.6897" height="448" x="209.6552" y="0" fill="rgba(0,0,0,0)" stroke="rgba(0,201,201,1)" stroke-width="0" d="m209.6552 0 188.6896 0 0 448-188.6896 0z" class="element"/>
             </g>
             <g>
-              <path
-                id="g-svg-62"
-                fill="rgba(0,0,0,0)"
-                d="M 419.3103448275862,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
-                x="419.3103448275862"
-                y="0"
-                width="188.68965517241378"
-                height="448"
-                stroke-width="0"
-                stroke="rgba(240,136,77,1)"
-                class="element"
-              />
+              <path width="188.6897" height="448" x="419.3103" y="0" fill="rgba(0,0,0,0)" stroke="rgba(240,136,77,1)" stroke-width="0" d="m419.3103 0 188.6897 0 0 448-188.6897 0z" class="element"/>
             </g>
           </g>
-          <g id="g-svg-11" fill="none" class="label-layer" />
+          <g fill="none" class="label-layer"/>
         </g>
       </g>
-      <g
-        id="g-svg-2"
-        fill="none"
-        transform="matrix(1,0,0,1,16,16)"
-        class="view"
-      >
+      <g fill="none" class="view" transform="matrix(1 0 0 1 16 16)">
         <g>
-          <path
-            id="g-svg-15"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
-            x="0"
-            y="0"
-            width="188.6896551724138"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-16"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
-            x="0"
-            y="0"
-            width="188.6896551724138"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-17"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
-            x="0"
-            y="0"
-            width="188.6896551724138"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-18"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
-            x="0"
-            y="0"
-            width="188.6896551724138"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-19"
-            fill="rgba(0,0,0,0)"
-            class="plot"
-            d="M 0,0 l 188.6896551724138,0 l 0,448 l-188.6896551724138 0 z"
-            width="188.6896551724138"
-            height="448"
-          />
-          <g id="g-svg-20" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,94.344826,224)">
-              <path
-                id="g-svg-24"
-                fill="rgba(232,232,232,1)"
-                d="M 0,-81.084 A 81.084 81.084 0 1 1 0 81.084 A 81.084 81.084 0 1 1 0 -81.084 M 0,-74.584 A 74.584 74.584 0 1 0 0 74.584 A 74.584 74.584 0 1 0 0 -74.584 Z"
-                fill-opacity="0.95"
-                stroke-width="0"
-                stroke="rgba(23,131,255,1)"
-                class="element"
-              />
+          <path width="188.6897" height="448" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 94.3448 224)">
+              <path fill="rgba(232,232,232,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M0-81.084a81.084 81.084 0 1 1 0 162.168 81.084 81.084 0 1 1 0-162.168m0 6.5a74.584 74.584 0 1 0 0 149.168 74.584 74.584 0 1 0 0-149.168Z" class="element"/>
             </g>
           </g>
-          <g id="g-svg-21" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,94.344826,224)">
-              <path
-                id="g-svg-64"
-                fill="rgba(90,132,226,1)"
-                d="M 0,-77.674 A 5 5 0 0 1 5.321 -82.663 A 82.834 82.834 0 0 1 52.893 63.748 A 5 5 0 0 1 45.655 62.839 L 45.655,62.839 A 5 5 0 0 1 46.508 56.052 A 72.834 72.834 0 0 0 4.679 -72.684 A 5 5 0 0 1 0 -77.674 Z"
-                fill-opacity="0.95"
-                stroke-width="0"
-                stroke="rgba(90,132,226,1)"
-                filter="url(#g-filter-dropshadow-64)"
-                class="element"
-              />
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 94.3448 224)">
+              <path fill="rgba(90,132,226,1)" fill-opacity=".95" stroke="rgba(90,132,226,1)" stroke-width="0" d="M0-77.674a5 5 0 0 1 5.321-4.989 82.834 82.834 0 0 1 47.572 146.411 5 5 0 0 1-7.238-.909l0 0a5 5 0 0 1 .853-6.787 72.834 72.834 0 0 0-41.829-128.736 5 5 0 0 1-4.679-4.99Z" class="element" filter="url(#a)"/>
             </g>
           </g>
-          <g id="g-svg-22" fill="none" class="main-layer">
-            <g
-              id="g-svg-65"
-              fill="none"
-              transform="matrix(1,0,0,1,94.344826,224)"
-              class="element"
-            >
+          <g fill="none" class="main-layer">
+            <g fill="none" class="element" transform="matrix(1 0 0 1 94.3448 224)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -39.4,-16 l 78.8,0 l 0,32 l-78.8 0 z"
-                  x="-39.4"
-                  y="-16"
-                  width="78.8"
-                  height="32"
-                />
+                <path width="78.8" height="32" x="-39.4" y="-16" fill="none" d="m-39.4-16 78.8 0 0 32-78.8 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(29,33,41,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0"
-                  dy="0px"
-                  font-size="15"
-                  stroke-width="0"
-                  text-anchor="middle"
-                >
-                  CPU 40%
-                </text>
+                <text fill="rgba(29,33,41,1)" stroke-width="0" dominant-baseline="central" dx="0" dy="0" font-size="15" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">CPU 40%</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
           </g>
-          <g id="g-svg-23" fill="none" class="label-layer" />
+          <g fill="none" class="label-layer"/>
         </g>
       </g>
-      <g
-        id="g-svg-3"
-        fill="none"
-        transform="matrix(1,0,0,1,225.655167,16)"
-        class="view"
-      >
+      <g fill="none" class="view" transform="matrix(1 0 0 1 225.6552 16)">
         <g>
-          <path
-            id="g-svg-30"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241375"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-31"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241375"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-32"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241375"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-33"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241375"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-34"
-            fill="rgba(0,0,0,0)"
-            class="plot"
-            d="M 0,0 l 188.68965517241375,0 l 0,448 l-188.68965517241375 0 z"
-            width="188.68965517241375"
-            height="448"
-          />
-          <g id="g-svg-35" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,94.344826,224)">
-              <path
-                id="g-svg-39"
-                fill="rgba(232,232,232,1)"
-                d="M 0,-81.084 A 81.084 81.084 0 1 1 0 81.084 A 81.084 81.084 0 1 1 0 -81.084 M 0,-74.584 A 74.584 74.584 0 1 0 0 74.584 A 74.584 74.584 0 1 0 0 -74.584 Z"
-                fill-opacity="0.95"
-                stroke-width="0"
-                stroke="rgba(23,131,255,1)"
-                class="element"
-              />
+          <path width="188.6897" height="448" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 94.3448 224)">
+              <path fill="rgba(232,232,232,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M0-81.084a81.084 81.084 0 1 1 0 162.168 81.084 81.084 0 1 1 0-162.168m0 6.5a74.584 74.584 0 1 0 0 149.168 74.584 74.584 0 1 0 0-149.168Z" class="element"/>
             </g>
           </g>
-          <g id="g-svg-36" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,94.344826,224)">
-              <path
-                id="g-svg-70"
-                fill="rgba(250,57,57,1)"
-                d="M 0,-77.674 A 5 5 0 0 1 5.321 -82.663 A 82.834 82.834 0 1 1 -44.283 70.004 A 5 5 0 0 1 -45.655 62.839 L -45.655,62.839 A 5 5 0 0 1 -38.937 61.553 A 72.834 72.834 0 1 0 4.679 -72.684 A 5 5 0 0 1 0 -77.674 Z"
-                fill-opacity="0.95"
-                stroke-width="0"
-                stroke="rgba(250,57,57,1)"
-                filter="url(#g-filter-dropshadow-70)"
-                class="element"
-              />
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 94.3448 224)">
+              <path fill="rgba(250,57,57,1)" fill-opacity=".95" stroke="rgba(250,57,57,1)" stroke-width="0" d="M0-77.674a5 5 0 0 1 5.321-4.989 82.834 82.834 0 1 1-49.604 152.667 5 5 0 0 1-1.372-7.165l0 0a5 5 0 0 1 6.718-1.286 72.834 72.834 0 1 0 43.616-134.237 5 5 0 0 1-4.679-4.99Z" class="element" filter="url(#b)"/>
             </g>
           </g>
-          <g id="g-svg-37" fill="none" class="main-layer">
-            <g
-              id="g-svg-71"
-              fill="none"
-              transform="matrix(1,0,0,1,94.344826,224)"
-              class="element"
-            >
+          <g fill="none" class="main-layer">
+            <g fill="none" class="element" transform="matrix(1 0 0 1 94.3448 224)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -38.35000762939453,-16 l 76.7,0 l 0,32 l-76.7 0 z"
-                  x="-38.35000762939453"
-                  y="-16"
-                  width="76.7"
-                  height="32"
-                />
+                <path width="76.7" height="32" x="-38.35" y="-16" fill="none" d="m-38.35-16 76.7 0 0 32-76.7 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(29,33,41,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0"
-                  dy="0px"
-                  font-size="15"
-                  stroke-width="0"
-                  text-anchor="middle"
-                >
-                  内存 60%
-                </text>
+                <text fill="rgba(29,33,41,1)" stroke-width="0" dominant-baseline="central" dx="0" dy="0" font-size="15" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">内存 60%</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
           </g>
-          <g id="g-svg-38" fill="none" class="label-layer" />
+          <g fill="none" class="label-layer"/>
         </g>
       </g>
-      <g
-        id="g-svg-4"
-        fill="none"
-        transform="matrix(1,0,0,1,435.310333,16)"
-        class="view"
-      >
+      <g fill="none" class="view" transform="matrix(1 0 0 1 435.3103 16)">
         <g>
-          <path
-            id="g-svg-45"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241378"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-46"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241378"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-47"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241378"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-48"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
-            x="0"
-            y="0"
-            width="188.68965517241378"
-            height="448"
-          />
+          <path width="188.6897" height="448" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-49"
-            fill="rgba(0,0,0,0)"
-            class="plot"
-            d="M 0,0 l 188.68965517241378,0 l 0,448 l-188.68965517241378 0 z"
-            width="188.68965517241378"
-            height="448"
-          />
-          <g id="g-svg-50" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,94.344826,224)">
-              <path
-                id="g-svg-54"
-                fill="rgba(232,232,232,1)"
-                d="M 0,-81.084 A 81.084 81.084 0 1 1 0 81.084 A 81.084 81.084 0 1 1 0 -81.084 M 0,-74.584 A 74.584 74.584 0 1 0 0 74.584 A 74.584 74.584 0 1 0 0 -74.584 Z"
-                fill-opacity="0.95"
-                stroke-width="0"
-                stroke="rgba(23,131,255,1)"
-                class="element"
-              />
+          <path width="188.6897" height="448" fill="rgba(0,0,0,0)" d="m0 0 188.6897 0 0 448-188.6897 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 94.3448 224)">
+              <path fill="rgba(232,232,232,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M0-81.084a81.084 81.084 0 1 1 0 162.168 81.084 81.084 0 1 1 0-162.168m0 6.5a74.584 74.584 0 1 0 0 149.168 74.584 74.584 0 1 0 0-149.168Z" class="element"/>
             </g>
           </g>
-          <g id="g-svg-51" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,94.344826,224)">
-              <path
-                id="g-svg-76"
-                fill="rgba(253,192,45,1)"
-                d="M 0,-77.674 A 5 5 0 0 1 5.321 -82.663 A 82.834 82.834 0 0 1 76.973 -30.605 A 5 5 0 0 1 73.872 -24.002 L 73.872,-24.002 A 5 5 0 0 1 67.681 -26.91 A 72.834 72.834 0 0 0 4.679 -72.684 A 5 5 0 0 1 0 -77.674 Z"
-                fill-opacity="0.95"
-                stroke-width="0"
-                stroke="rgba(253,192,45,1)"
-                filter="url(#g-filter-dropshadow-76)"
-                class="element"
-              />
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 94.3448 224)">
+              <path fill="rgba(253,192,45,1)" fill-opacity=".95" stroke="rgba(253,192,45,1)" stroke-width="0" d="M0-77.674a5 5 0 0 1 5.321-4.989 82.834 82.834 0 0 1 71.652 52.058 5 5 0 0 1-3.101 6.603l0 0a5 5 0 0 1-6.191-2.908 72.834 72.834 0 0 0-63.002-45.774 5 5 0 0 1-4.679-4.99Z" class="element" filter="url(#c)"/>
             </g>
           </g>
-          <g id="g-svg-52" fill="none" class="main-layer">
-            <g
-              id="g-svg-77"
-              fill="none"
-              transform="matrix(1,0,0,1,94.344826,224)"
-              class="element"
-            >
+          <g fill="none" class="main-layer">
+            <g fill="none" class="element" transform="matrix(1 0 0 1 94.3448 224)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -38.12499237060547,-16 l 76.25,0 l 0,32 l-76.25 0 z"
-                  x="-38.12499237060547"
-                  y="-16"
-                  width="76.25"
-                  height="32"
-                />
+                <path width="76.25" height="32" x="-38.125" y="-16" fill="none" d="m-38.125-16 76.25 0 0 32-76.25 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(29,33,41,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0"
-                  dy="0px"
-                  font-size="15"
-                  stroke-width="0"
-                  text-anchor="middle"
-                >
-                  硬盘 20%
-                </text>
+                <text fill="rgba(29,33,41,1)" stroke-width="0" dominant-baseline="central" dx="0" dy="0" font-size="15" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">硬盘 20%</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
           </g>
-          <g id="g-svg-53" fill="none" class="label-layer" />
+          <g fill="none" class="label-layer"/>
         </g>
       </g>
     </g>
