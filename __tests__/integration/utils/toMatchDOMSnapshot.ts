@@ -1,8 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { Canvas } from '@antv/g';
-import xmlserializer from 'xmlserializer';
-import { format } from 'prettier';
+import { serializeToString } from 'xmlserializer';
+import { optimize } from 'svgo';
 
 const MAX_DIFFERENCES_TO_SHOW = 3;
 
@@ -11,14 +11,63 @@ export type ToMatchDOMSnapshotOptions = {
   fileFormat?: string;
   keepSVGElementId?: boolean;
 };
-function formatSVG(svg: string, keepSVGElementId: boolean) {
-  return keepSVGElementId
-    ? svg
-    : svg
-        .replace(/id="[^"]*"/g, '')
-        .replace(/clip-path="[^"]*"/g, '')
-        .replace(/<use href="[^"]*"/g, '<use');
-}
+
+const formatSVG = (svg: SVGElement): string => {
+  if (!svg) return 'null';
+  return optimize(serializeToString(svg as any), {
+    js2svg: {
+      pretty: true,
+      indent: 2,
+    },
+    plugins: [
+      'cleanupIds',
+      'cleanupAttrs',
+      'sortAttrs',
+      'sortDefsChildren',
+      'removeUselessDefs',
+      {
+        name: 'convertPathData',
+        params: {
+          floatPrecision: 4,
+          forceAbsolutePath: true,
+
+          applyTransforms: false,
+          applyTransformsStroked: false,
+          straightCurves: false,
+          convertToQ: false,
+          lineShorthands: false,
+          convertToZ: false,
+          curveSmoothShorthands: false,
+          smartArcRounding: false,
+          removeUseless: false,
+          collapseRepeated: false,
+          utilizeAbsolute: false,
+          negativeExtraSpace: false,
+        },
+      },
+      {
+        name: 'convertTransform',
+        params: {
+          floatPrecision: 4,
+
+          convertToShorts: false,
+          matrixToTransform: false,
+          shortTranslate: false,
+          shortScale: false,
+          shortRotate: false,
+          removeUseless: false,
+          collapseIntoOne: false,
+        },
+      },
+      {
+        name: 'cleanupNumericValues',
+        params: {
+          floatPrecision: 4,
+        },
+      },
+    ],
+  }).data;
+};
 
 /**
  * Compare two SVG strings and find differences.
@@ -37,18 +86,14 @@ interface SVGDifferenceResult {
 function findSVGDifferences(
   actual: string,
   expected: string,
-  keepSVGElementId = false,
 ): SVGDifferenceResult {
-  const formattedActual = formatSVG(actual, keepSVGElementId);
-  const formattedExpected = formatSVG(expected, keepSVGElementId);
-
-  if (formattedActual === formattedExpected) {
+  if (actual === expected) {
     return { equal: true, differences: [] };
   }
 
   // Line-by-line comparison to find differences.
-  const actualLines = formattedActual.split('\n');
-  const expectedLines = formattedExpected.split('\n');
+  const actualLines = actual.split('\n');
+  const expectedLines = expected.split('\n');
   const differences: SVGDifference[] = [];
 
   const maxLines = Math.max(actualLines.length, expectedLines.length);
@@ -70,20 +115,6 @@ function findSVGDifferences(
   return { equal: false, differences };
 }
 
-/**
- * Compare two SVG strings, should isgnore some attributes.
- */
-function isSVGEqual(
-  actual: string,
-  expected: string,
-  keepSVGElementId = false,
-) {
-  return keepSVGElementId
-    ? actual === expected
-    : formatSVG(actual, keepSVGElementId) ===
-        formatSVG(expected, keepSVGElementId);
-}
-
 // @see https://jestjs.io/docs/26.x/expect#expectextendmatchers
 export async function toMatchDOMSnapshot(
   gCanvas: Canvas,
@@ -102,14 +133,7 @@ export async function toMatchDOMSnapshot(
   try {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    actual = dom
-      ? format(xmlserializer.serializeToString(dom), {
-          parser: 'babel',
-        })
-      : 'null';
-
-    // Remove ';' after format by babel.
-    if (actual !== 'null') actual = actual.slice(0, -2);
+    actual = formatSVG(dom as SVGElement);
 
     if (!fs.existsSync(expectedPath)) {
       if (process.env.CI === 'true') {
@@ -127,7 +151,7 @@ export async function toMatchDOMSnapshot(
         flag: 'r',
       });
 
-      if (isSVGEqual(actual, expected, keepSVGElementId)) {
+      if (actual === expected) {
         if (fs.existsSync(actualPath)) fs.unlinkSync(actualPath);
         return {
           message: () => `match ${namePath}`,
@@ -136,7 +160,7 @@ export async function toMatchDOMSnapshot(
       }
 
       // Find differences for detailed message.
-      const result = findSVGDifferences(actual, expected, keepSVGElementId);
+      const result = findSVGDifferences(actual, expected);
       const totalDifferences = result.differences.length;
       let diffMessage = `mismatch ${namePath}`;
 

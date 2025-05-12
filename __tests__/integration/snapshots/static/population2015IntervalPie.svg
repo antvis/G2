@@ -1,1626 +1,472 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="640"
-  height="640"
-  style="background: transparent;"
-  color-interpolation-filters="sRGB"
->
-  <defs />
-  <g id="g-svg-camera">
-    <g id="g-root" fill="none">
-      <g id="g-svg-1" fill="none" class="view">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" color-interpolation-filters="sRGB" style="background: transparent;">
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
         <g>
-          <path
-            id="g-svg-2"
-            fill="rgba(78,121,167,1)"
-            class="area"
-            d="M 0,0 l 640,0 l 0,640 l-640 0 z"
-            x="0"
-            y="0"
-            width="640"
-            height="640"
-          />
+          <path width="640" height="640" x="0" y="0" fill="rgba(78,121,167,1)" d="m0 0 640 0 0 640-640 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-3"
-            fill="rgba(242,142,44,1)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,608 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="608"
-          />
+          <path width="608" height="608" x="16" y="16" fill="rgba(242,142,44,1)" d="m16 16 608 0 0 608-608 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-4"
-            fill="rgba(225,87,89,1)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,608 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="608"
-          />
+          <path width="608" height="608" x="16" y="16" fill="rgba(225,87,89,1)" d="m16 16 608 0 0 608-608 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-5"
-            fill="rgba(118,183,178,1)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,608 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="608"
-          />
+          <path width="608" height="608" x="16" y="16" fill="rgba(118,183,178,1)" d="m16 16 608 0 0 608-608 0z" class="area"/>
         </g>
-        <g transform="matrix(1,0,0,1,16,16)">
-          <path
-            id="g-svg-6"
-            fill="rgba(0,0,0,0)"
-            class="plot"
-            d="M 0,0 l 608,0 l 0,608 l-608 0 z"
-            width="608"
-            height="608"
-          />
-          <g id="g-svg-7" fill="none" class="main-layer">
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-9"
-                fill="rgba(209,60,75,1)"
-                d="M 0,-304 A 304 304 0 0 1 117.059 -280.559 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+        <g transform="matrix(1 0 0 1 16 16)">
+          <path width="608" height="608" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 608-608 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(209,60,75,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M0-304a304 304 0 0 1 117.059 23.441l-117.059 280.559Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-10"
-                fill="rgba(226,83,74,1)"
-                d="M 117.059,-280.559 A 304 304 0 0 1 218.555 -211.305 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(226,83,74,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M117.059-280.559a304 304 0 0 1 101.496 69.254l-218.555 211.305Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-11"
-                fill="rgba(238,106,73,1)"
-                d="M 218.555,-211.305 A 304 304 0 0 1 284.725 -106.526 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(238,106,73,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M218.555-211.305a304 304 0 0 1 66.17 104.779l-284.725 106.526Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-12"
-                fill="rgba(246,131,79,1)"
-                d="M 284.725,-106.526 A 304 304 0 0 1 303.34 20.018 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(246,131,79,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M284.725-106.526a304 304 0 0 1 18.615 126.544l-303.34-20.018Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-13"
-                fill="rgba(250,158,91,1)"
-                d="M 303.34,20.018 A 304 304 0 0 1 264.626 149.629 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(250,158,91,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M303.34 20.018a304 304 0 0 1-38.714 129.611l-264.626-149.629Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-14"
-                fill="rgba(253,184,107,1)"
-                d="M 264.626,149.629 A 304 304 0 0 1 177.98 246.453 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(253,184,107,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M264.626 149.629a304 304 0 0 1-86.646 96.824l-177.98-246.453Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-15"
-                fill="rgba(254,206,126,1)"
-                d="M 177.98,246.453 A 304 304 0 0 1 61.864 297.639 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(254,206,126,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M177.98 246.453a304 304 0 0 1-116.116 51.186l-61.864-297.639Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-16"
-                fill="rgba(254,225,146,1)"
-                d="M 61.864,297.639 A 304 304 0 0 1 -57.183 298.573 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(254,225,146,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M61.864 297.639a304 304 0 0 1-119.047.934l57.183-298.573Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-17"
-                fill="rgba(254,240,165,1)"
-                d="M -57.183,298.573 A 304 304 0 0 1 -172.167 250.549 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(254,240,165,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-57.183 298.573a304 304 0 0 1-114.984-48.024l172.167-250.549Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-18"
-                fill="rgba(251,248,176,1)"
-                d="M -172.167,250.549 A 304 304 0 0 1 -260.035 157.473 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(251,248,176,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-172.167 250.549a304 304 0 0 1-87.868-93.076l260.035-157.473Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-19"
-                fill="rgba(243,249,172,1)"
-                d="M -260.035,157.473 A 304 304 0 0 1 -302.56 29.55 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(243,249,172,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-260.035 157.473a304 304 0 0 1-42.525-127.923l302.56-29.55Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-20"
-                fill="rgba(229,244,162,1)"
-                d="M -302.56,29.55 A 304 304 0 0 1 -288.61 -95.5 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(229,244,162,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-302.56 29.55a304 304 0 0 1 13.95-125.05l288.61 95.5Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-21"
-                fill="rgba(209,236,158,1)"
-                d="M -288.61,-95.5 A 304 304 0 0 1 -235.399 -192.363 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(209,236,158,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-288.61-95.5a304 304 0 0 1 53.211-96.863l235.399 192.363Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-22"
-                fill="rgba(183,226,161,1)"
-                d="M -235.399,-192.363 A 304 304 0 0 1 -170.869 -251.436 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(183,226,161,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-235.399-192.363a304 304 0 0 1 64.53-59.073l170.869 251.436Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-23"
-                fill="rgba(155,215,163,1)"
-                d="M -170.869,-251.436 A 304 304 0 0 1 -114.651 -281.551 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(155,215,163,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-170.869-251.436a304 304 0 0 1 56.218-30.115l114.651 281.551Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-24"
-                fill="rgba(126,201,166,1)"
-                d="M -114.651,-281.551 A 304 304 0 0 1 -70.268 -295.767 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(126,201,166,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-114.651-281.551a304 304 0 0 1 44.383-14.216l70.268 295.767Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-25"
-                fill="rgba(98,184,170,1)"
-                d="M -70.268,-295.767 A 304 304 0 0 1 -35.756 -301.89 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(98,184,170,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-70.268-295.767a304 304 0 0 1 34.512-6.123l35.756 301.89Z" class="element"/>
             </g>
-            <g transform="matrix(1,0,0,1,304,304)">
-              <path
-                id="g-svg-26"
-                fill="rgba(76,161,177,1)"
-                d="M -35.756,-301.89 A 304 304 0 0 1 0 -304 L 0,0 Z"
-                fill-opacity="0.95"
-                stroke-width="1"
-                stroke="rgba(255,255,255,1)"
-                class="element"
-              />
+            <g transform="matrix(1 0 0 1 304 304)">
+              <path fill="rgba(76,161,177,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="M-35.756-301.89a304 304 0 0 1 35.756-2.11l0 304Z" class="element"/>
             </g>
           </g>
-          <g id="g-svg-8" fill="none" class="label-layer">
-            <g
-              id="g-svg-63"
-              fill="none"
-              transform="matrix(1,0,0,1,351.753296,65.534355)"
-              class="label"
-            >
+          <g fill="none" class="label-layer">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 351.7533 65.5344)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -8.15,-9.5 l 17.3,0 l 0,19 l-17.3 0 z"
-                  x="-8.15"
-                  y="-9.5"
-                  width="17.3"
-                  height="19"
-                />
+                <path width="17.3" height="19" x="-8.15" y="-9.5" fill="none" d="m-8.15-9.5 17.3 0 0 19-17.3 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  &lt;5
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">&lt;5</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-67"
-              fill="none"
-              transform="matrix(1,0,0,1,441.074097,103.109657)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 441.0741 103.1097)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -8.8,-9.5 l 18.6,0 l 0,19 l-18.6 0 z"
-                  x="-8.8"
-                  y="-9.5"
-                  width="18.6"
-                  height="19"
-                />
+                <path width="18.6" height="19" x="-8.8" y="-9.5" fill="none" d="m-8.8-9.5 18.6 0 0 19-18.6 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  5-9
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">5-9</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-71"
-              fill="none"
-              transform="matrix(1,0,0,1,509.628448,174.141708)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 509.6284 174.1417)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -13.699969482421874,-9.5 l 28.4,0 l 0,19 l-28.4 0 z"
-                  x="-13.699969482421874"
-                  y="-9.5"
-                  width="28.4"
-                  height="19"
-                />
+                <path width="28.4" height="19" x="-13.7" y="-9.5" fill="none" d="m-13.7-9.5 28.4 0 0 19-28.4 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  10-14
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">10-14</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-75"
-              fill="none"
-              transform="matrix(1,0,0,1,544.610474,268.604523)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 544.6105 268.6045)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -13.6,-9.5 l 28.2,0 l 0,19 l-28.2 0 z"
-                  x="-13.6"
-                  y="-9.5"
-                  width="28.2"
-                  height="19"
-                />
+                <path width="28.2" height="19" x="-13.6" y="-9.5" fill="none" d="m-13.6-9.5 28.2 0 0 19-28.2 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  15-19
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">15-19</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-79"
-              fill="none"
-              transform="matrix(1,0,0,1,537.027100,373.603241)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 537.0271 373.6032)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.100000000000001,-9.5 l 31.200000000000003,0 l 0,19 l-31.200000000000003 0 z"
-                  x="-15.100000000000001"
-                  y="-9.5"
-                  width="31.200000000000003"
-                  height="19"
-                />
+                <path width="31.2" height="19" x="-15.1" y="-9.5" fill="none" d="m-15.1-9.5 31.2 0 0 19-31.2 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  20-24
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">20-24</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-83"
-              fill="none"
-              transform="matrix(1,0,0,1,485.229462,466.179291)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 485.2295 466.1793)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15,-9.5 l 31,0 l 0,19 l-31 0 z"
-                  x="-15"
-                  y="-9.5"
-                  width="31"
-                  height="19"
-                />
+                <path width="31" height="19" x="-15" y="-9.5" fill="none" d="m-15-9.5 31 0 0 19-31 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  25-29
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">25-29</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-87"
-              fill="none"
-              transform="matrix(1,0,0,1,402.098145,526.537598)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 402.0981 526.5376)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.3,-9.5 l 31.6,0 l 0,19 l-31.6 0 z"
-                  x="-15.3"
-                  y="-9.5"
-                  width="31.6"
-                  height="19"
-                />
+                <path width="31.6" height="19" x="-15.3" y="-9.5" fill="none" d="m-15.3-9.5 31.6 0 0 19-31.6 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  30-34
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">30-34</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-91"
-              fill="none"
-              transform="matrix(1,0,0,1,305.909241,547.192505)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 305.9092 547.1925)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.2,-9.5 l 31.4,0 l 0,19 l-31.4 0 z"
-                  x="-15.2"
-                  y="-9.5"
-                  width="31.4"
-                  height="19"
-                />
+                <path width="31.4" height="19" x="-15.2" y="-9.5" fill="none" d="m-15.2-9.5 31.4 0 0 19-31.4 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  35-39
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">35-39</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-95"
-              fill="none"
-              transform="matrix(1,0,0,1,210.270355,528.412537)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 210.2704 528.4125)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.5,-9.5 l 32,0 l 0,19 l-32 0 z"
-                  x="-15.5"
-                  y="-9.5"
-                  width="32"
-                  height="19"
-                />
+                <path width="32" height="19" x="-15.5" y="-9.5" fill="none" d="m-15.5-9.5 32 0 0 19-32 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  40-44
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">40-44</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-99"
-              fill="none"
-              transform="matrix(1,0,0,1,127.155724,470.950134)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 127.1557 470.9501)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.40000762939453,-9.5 l 31.799999999999997,0 l 0,19 l-31.799999999999997 0 z"
-                  x="-15.40000762939453"
-                  y="-9.5"
-                  width="31.799999999999997"
-                  height="19"
-                />
+                <path width="31.8" height="19" x="-15.4" y="-9.5" fill="none" d="m-15.4-9.5 31.8 0 0 19-31.8 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  45-49
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">45-49</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-103"
-              fill="none"
-              transform="matrix(1,0,0,1,73.217606,380.718475)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 73.2176 380.7185)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.2,-9.5 l 31.4,0 l 0,19 l-31.4 0 z"
-                  x="-15.2"
-                  y="-9.5"
-                  width="31.4"
-                  height="19"
-                />
+                <path width="31.4" height="19" x="-15.2" y="-9.5" fill="none" d="m-15.2-9.5 31.4 0 0 19-31.4 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  50-54
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">50-54</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-107"
-              fill="none"
-              transform="matrix(1,0,0,1,62.299374,277.036194)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 62.2994 277.0362)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.100003814697265,-9.5 l 31.2,0 l 0,19 l-31.2 0 z"
-                  x="-15.100003814697265"
-                  y="-9.5"
-                  width="31.2"
-                  height="19"
-                />
+                <path width="31.2" height="19" x="-15.1" y="-9.5" fill="none" d="m-15.1-9.5 31.2 0 0 19-31.2 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  55-59
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">55-59</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-111"
-              fill="none"
-              transform="matrix(1,0,0,1,90.845558,186.904205)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 90.8456 186.9042)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.399999999999999,-9.5 l 31.799999999999997,0 l 0,19 l-31.799999999999997 0 z"
-                  x="-15.399999999999999"
-                  y="-9.5"
-                  width="31.799999999999997"
-                  height="19"
-                />
+                <path width="31.8" height="19" x="-15.4" y="-9.5" fill="none" d="m-15.4-9.5 31.8 0 0 19-31.8 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  60-64
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">60-64</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-115"
-              fill="none"
-              transform="matrix(1,0,0,1,139.784058,124.613930)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 139.784 124.614)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.3,-9.499992370605469 l 31.6,0 l 0,19 l-31.6 0 z"
-                  x="-15.3"
-                  y="-9.499992370605469"
-                  width="31.6"
-                  height="19"
-                />
+                <path width="31.6" height="19" x="-15.3" y="-9.5" fill="none" d="m-15.3-9.5 31.6 0 0 19-31.6 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  65-69
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">65-69</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-119"
-              fill="none"
-              transform="matrix(1,0,0,1,189.158661,89.622513)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 189.1587 89.6225)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -14.7,-9.5 l 30.4,0 l 0,19 l-30.4 0 z"
-                  x="-14.7"
-                  y="-9.5"
-                  width="30.4"
-                  height="19"
-                />
+                <path width="30.4" height="19" x="-14.7" y="-9.5" fill="none" d="m-14.7-9.5 30.4 0 0 19-30.4 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  70-74
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">70-74</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-123"
-              fill="none"
-              transform="matrix(1,0,0,1,229.814255,72.391029)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 229.8143 72.391)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -14.6,-9.5 l 30.2,0 l 0,19 l-30.2 0 z"
-                  x="-14.6"
-                  y="-9.5"
-                  width="30.2"
-                  height="19"
-                />
+                <path width="30.2" height="19" x="-14.6" y="-9.5" fill="none" d="m-14.6-9.5 30.2 0 0 19-30.2 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  75-79
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">75-79</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-127"
-              fill="none"
-              transform="matrix(1,0,0,1,261.519745,64.538795)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 261.5197 64.5388)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -15.399999999999999,-9.5 l 31.799999999999997,0 l 0,19 l-31.799999999999997 0 z"
-                  x="-15.399999999999999"
-                  y="-9.5"
-                  width="31.799999999999997"
-                  height="19"
-                />
+                <path width="31.8" height="19" x="-15.4" y="-9.5" fill="none" d="m-15.4-9.5 31.8 0 0 19-31.8 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  80-84
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">80-84</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-131"
-              fill="none"
-              transform="matrix(1,0,0,1,289.672760,61.222385)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 289.6728 61.2224)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -11.4,-9.499996185302734 l 23.8,0 l 0,19 l-23.8 0 z"
-                  x="-11.4"
-                  y="-9.499996185302734"
-                  width="23.8"
-                  height="19"
-                />
+                <path width="23.8" height="19" x="-11.4" y="-9.5" fill="none" d="m-11.4-9.5 23.8 0 0 19-23.8 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="10"
-                  fill-opacity="0.85"
-                  font-weight="bold"
-                  text-anchor="middle"
-                >
-                  ≥85
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">≥85</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-135"
-              fill="none"
-              transform="matrix(1,0,0,1,351.753296,65.534355)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 351.7533 65.5344)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -20.925,2.5 l 42.85,0 l 0,19 l-42.85 0 z"
-                  x="-20.925"
-                  y="2.5"
-                  width="42.85"
-                  height="19"
-                />
+                <path width="42.85" height="19" x="-20.925" y="2.5" fill="none" d="m-20.925 2.5 42.85 0 0 19-42.85 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  19912018
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">19912018</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-139"
-              fill="none"
-              transform="matrix(1,0,0,1,441.074097,103.109657)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 441.0741 103.1097)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.185,2.5 l 45.37,0 l 0,19 l-45.37 0 z"
-                  x="-22.185"
-                  y="2.5"
-                  width="45.37"
-                  height="19"
-                />
+                <path width="45.37" height="19" x="-22.185" y="2.5" fill="none" d="m-22.185 2.5 45.37 0 0 19-45.37 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  20501982
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">20501982</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-143"
-              fill="none"
-              transform="matrix(1,0,0,1,509.628448,174.141708)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 509.6284 174.1417)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.589969482421875,2.5 l 46.18,0 l 0,19 l-46.18 0 z"
-                  x="-22.589969482421875"
-                  y="2.5"
-                  width="46.18"
-                  height="19"
-                />
+                <path width="46.18" height="19" x="-22.59" y="2.5" fill="none" d="m-22.59 2.5 46.18 0 0 19-46.18 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  20679786
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">20679786</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-147"
-              fill="none"
-              transform="matrix(1,0,0,1,544.610474,268.604523)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 544.6105 268.6045)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -21.69,2.5 l 44.38,0 l 0,19 l-44.38 0 z"
-                  x="-21.69"
-                  y="2.5"
-                  width="44.38"
-                  height="19"
-                />
+                <path width="44.38" height="19" x="-21.69" y="2.5" fill="none" d="m-21.69 2.5 44.38 0 0 19-44.38 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  21354481
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">21354481</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-151"
-              fill="none"
-              transform="matrix(1,0,0,1,537.027100,373.603241)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 537.0271 373.6032)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.814999999999998,2.5 l 46.629999999999995,0 l 0,19 l-46.629999999999995 0 z"
-                  x="-22.814999999999998"
-                  y="2.5"
-                  width="46.629999999999995"
-                  height="19"
-                />
+                <path width="46.63" height="19" x="-22.815" y="2.5" fill="none" d="m-22.815 2.5 46.63 0 0 19-46.63 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  22604232
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">22604232</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-155"
-              fill="none"
-              transform="matrix(1,0,0,1,485.229462,466.179291)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 485.2295 466.1793)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -21.645,2.5 l 44.29,0 l 0,19 l-44.29 0 z"
-                  x="-21.645"
-                  y="2.5"
-                  width="44.29"
-                  height="19"
-                />
+                <path width="44.29" height="19" x="-21.645" y="2.5" fill="none" d="m-21.645 2.5 44.29 0 0 19-44.29 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  21698010
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">21698010</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-159"
-              fill="none"
-              transform="matrix(1,0,0,1,402.098145,526.537598)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 402.0981 526.5376)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -21.645,2.5 l 44.29,0 l 0,19 l-44.29 0 z"
-                  x="-21.645"
-                  y="2.5"
-                  width="44.29"
-                  height="19"
-                />
+                <path width="44.29" height="19" x="-21.645" y="2.5" fill="none" d="m-21.645 2.5 44.29 0 0 19-44.29 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  21183639
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">21183639</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-163"
-              fill="none"
-              transform="matrix(1,0,0,1,305.909241,547.192505)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 305.9092 547.1925)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.005,2.5 l 45.01,0 l 0,19 l-45.01 0 z"
-                  x="-22.005"
-                  y="2.5"
-                  width="45.01"
-                  height="19"
-                />
+                <path width="45.01" height="19" x="-22.005" y="2.5" fill="none" d="m-22.005 2.5 45.01 0 0 19-45.01 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  19855782
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">19855782</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-167"
-              fill="none"
-              transform="matrix(1,0,0,1,210.270355,528.412537)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 210.2704 528.4125)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.005,2.5 l 45.01,0 l 0,19 l-45.01 0 z"
-                  x="-22.005"
-                  y="2.5"
-                  width="45.01"
-                  height="19"
-                />
+                <path width="45.01" height="19" x="-22.005" y="2.5" fill="none" d="m-22.005 2.5 45.01 0 0 19-45.01 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  20796128
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">20796128</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-171"
-              fill="none"
-              transform="matrix(1,0,0,1,127.155724,470.950134)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 127.1557 470.9501)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.050007629394532,2.5 l 45.1,0 l 0,19 l-45.1 0 z"
-                  x="-22.050007629394532"
-                  y="2.5"
-                  width="45.1"
-                  height="19"
-                />
+                <path width="45.1" height="19" x="-22.05" y="2.5" fill="none" d="m-22.05 2.5 45.1 0 0 19-45.1 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  21370368
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">21370368</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-175"
-              fill="none"
-              transform="matrix(1,0,0,1,73.217606,380.718475)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 73.2176 380.7185)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.814999999999998,2.5 l 46.629999999999995,0 l 0,19 l-46.629999999999995 0 z"
-                  x="-22.814999999999998"
-                  y="2.5"
-                  width="46.629999999999995"
-                  height="19"
-                />
+                <path width="46.63" height="19" x="-22.815" y="2.5" fill="none" d="m-22.815 2.5 46.63 0 0 19-46.63 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  22525490
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">22525490</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-179"
-              fill="none"
-              transform="matrix(1,0,0,1,62.299374,277.036194)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 62.2994 277.0362)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -21.375003814697266,2.5 l 43.75,0 l 0,19 l-43.75 0 z"
-                  x="-21.375003814697266"
-                  y="2.5"
-                  width="43.75"
-                  height="19"
-                />
+                <path width="43.75" height="19" x="-21.375" y="2.5" fill="none" d="m-21.375 2.5 43.75 0 0 19-43.75 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  21001947
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">21001947</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-183"
-              fill="none"
-              transform="matrix(1,0,0,1,90.845558,186.904205)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 90.8456 186.9042)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -21.060000000000002,2.5 l 43.120000000000005,0 l 0,19 l-43.120000000000005 0 z"
-                  x="-21.060000000000002"
-                  y="2.5"
-                  width="43.120000000000005"
-                  height="19"
-                />
+                <path width="43.12" height="19" x="-21.06" y="2.5" fill="none" d="m-21.06 2.5 43.12 0 0 19-43.12 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  18415681
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">18415681</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-187"
-              fill="none"
-              transform="matrix(1,0,0,1,139.784058,124.613930)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 139.784 124.614)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -22.41,2.5000076293945312 l 45.82,0 l 0,19 l-45.82 0 z"
-                  x="-22.41"
-                  y="2.5000076293945312"
-                  width="45.82"
-                  height="19"
-                />
+                <path width="45.82" height="19" x="-22.41" y="2.5" fill="none" d="m-22.41 2.5 45.82 0 0 19-45.82 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  14547446
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">14547446</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-191"
-              fill="none"
-              transform="matrix(1,0,0,1,189.158661,89.622513)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 189.1587 89.6225)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M -20.97,2.5 l 42.94,0 l 0,19 l-42.94 0 z"
-                  x="-20.97"
-                  y="2.5"
-                  width="42.94"
-                  height="19"
-                />
+                <path width="42.94" height="19" x="-20.97" y="2.5" fill="none" d="m-20.97 2.5 42.94 0 0 19-42.94 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                >
-                  10587721
-                </text>
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" dx=".5" dy="0" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle">10587721</text>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,2.5 L 0,0" />
+                <path fill="none" d="m0 2.5 0-2.5"/>
               </g>
             </g>
-            <g
-              id="g-svg-195"
-              fill="none"
-              transform="matrix(1,0,0,1,229.814255,72.391029)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 229.8143 72.391)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M 0,0 l 0,0 l 0,0 l0 0 z"
-                  x="0"
-                  y="0"
-                  width="0"
-                  height="0"
-                />
+                <path width="0" height="0" x="0" y="0" fill="none" d="m0 0 0 0 0 0 0 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                />
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle"/>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-199"
-              fill="none"
-              transform="matrix(1,0,0,1,261.519745,64.538795)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 261.5197 64.5388)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M 0,0 l 0,0 l 0,0 l0 0 z"
-                  x="0"
-                  y="0"
-                  width="0"
-                  height="0"
-                />
+                <path width="0" height="0" x="0" y="0" fill="none" d="m0 0 0 0 0 0 0 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                />
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle"/>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g
-              id="g-svg-203"
-              fill="none"
-              transform="matrix(1,0,0,1,289.672760,61.222385)"
-              class="label"
-            >
+            <g fill="none" class="label" transform="matrix(1 0 0 1 289.6728 61.2224)">
               <g>
-                <path
-                  id="background"
-                  fill="none"
-                  d="M 0,0 l 0,0 l 0,0 l0 0 z"
-                  x="0"
-                  y="0"
-                  width="0"
-                  height="0"
-                />
+                <path width="0" height="0" x="0" y="0" fill="none" d="m0 0 0 0 0 0 0 0z"/>
               </g>
               <g>
-                <text
-                  id="text"
-                  fill="rgba(255,255,255,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 12px);"
-                  font-size="9"
-                  fill-opacity="0.85"
-                  font-weight="normal"
-                  text-anchor="middle"
-                />
+                <text fill="rgba(255,255,255,1)" fill-opacity=".85" dominant-baseline="central" font-size="9" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 12px);" text-anchor="middle"/>
               </g>
               <g>
-                <path id="connector" fill="none" d="M 0,0 L 0,0" />
+                <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
           </g>

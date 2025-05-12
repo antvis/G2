@@ -124,6 +124,7 @@
     "rollup-plugin-polyfill-node": "^0.8.0",
     "rollup-plugin-typescript2": "^0.35.0",
     "rollup-plugin-visualizer": "^5.12.0",
+    "svgo": "^3.3.2",
     "topojson": "^3.0.2",
     "ts-jest": "^26.5.6",
     "tslib": "^2.8.1",

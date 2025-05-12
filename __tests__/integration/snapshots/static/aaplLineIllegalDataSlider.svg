@@ -1,2030 +1,682 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="640"
-  height="480"
-  style="background: transparent;"
-  color-interpolation-filters="sRGB"
->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" color-interpolation-filters="sRGB" style="background: transparent;">
   <defs>
-    <linearGradient
-      gradientUnits="userSpaceOnUse"
-      id="g-pattern-0"
-      x1="262.68"
-      y1="0"
-      x2="262.68"
-      y2="300"
-    >
-      <stop offset="0" stop-color="#fff" />
-      <stop offset="0" stop-color="rgba(23,199,111,1)" />
-      <stop offset="1" stop-color="rgba(23,131,255,1)" />
-      <stop offset="1" stop-color="rgba(23,131,255,1)" />
-      <stop offset="1" stop-color="rgba(23,131,255,1)" />
-      <stop offset="1" stop-color="rgba(23,131,255,1)" />
-      <stop offset="1" stop-color="rgba(23,131,255,1)" />
+    <linearGradient id="d" x1="262.68" x2="262.68" y1="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0" stop-color="rgba(23,199,111,1)"/>
+      <stop offset="1" stop-color="rgba(23,131,255,1)"/>
+      <stop offset="1" stop-color="rgba(23,131,255,1)"/>
+      <stop offset="1" stop-color="rgba(23,131,255,1)"/>
+      <stop offset="1" stop-color="rgba(23,131,255,1)"/>
+      <stop offset="1" stop-color="rgba(23,131,255,1)"/>
     </linearGradient>
-    <linearGradient
-      gradientUnits="userSpaceOnUse"
-      id="g-pattern-1"
-      x1="0"
-      y1="6"
-      x2="160.36"
-      y2="6"
-    >
-      <stop offset="0" stop-color="rgba(23,131,255,1)" />
-      <stop offset="0.005025125628140703" stop-color="rgba(23,131,254,1)" />
-      <stop offset="0.010050251256281405" stop-color="rgba(23,132,254,1)" />
-      <stop offset="0.01507537688442211" stop-color="rgba(23,132,253,1)" />
-      <stop offset="0.02010050251256281" stop-color="rgba(23,132,252,1)" />
-      <stop offset="0.02512562814070352" stop-color="rgba(23,133,251,1)" />
-      <stop offset="0.03015075376884422" stop-color="rgba(23,133,251,1)" />
-      <stop offset="0.035175879396984924" stop-color="rgba(23,133,250,1)" />
-      <stop offset="0.04020100502512562" stop-color="rgba(23,134,249,1)" />
-      <stop offset="0.04522613065326633" stop-color="rgba(23,134,248,1)" />
-      <stop offset="0.05025125628140704" stop-color="rgba(23,134,248,1)" />
-      <stop offset="0.05527638190954774" stop-color="rgba(23,135,247,1)" />
-      <stop offset="0.06030150753768844" stop-color="rgba(23,135,246,1)" />
-      <stop offset="0.06532663316582915" stop-color="rgba(23,135,246,1)" />
-      <stop offset="0.07035175879396985" stop-color="rgba(23,136,245,1)" />
-      <stop offset="0.07537688442211055" stop-color="rgba(23,136,244,1)" />
-      <stop offset="0.08040201005025124" stop-color="rgba(23,136,243,1)" />
-      <stop offset="0.08542713567839195" stop-color="rgba(23,137,243,1)" />
-      <stop offset="0.09045226130653267" stop-color="rgba(23,137,242,1)" />
-      <stop offset="0.09547738693467336" stop-color="rgba(23,137,241,1)" />
-      <stop offset="0.10050251256281408" stop-color="rgba(23,138,241,1)" />
-      <stop offset="0.10552763819095476" stop-color="rgba(23,138,240,1)" />
-      <stop offset="0.11055276381909548" stop-color="rgba(23,139,239,1)" />
-      <stop offset="0.11557788944723618" stop-color="rgba(23,139,238,1)" />
-      <stop offset="0.12060301507537688" stop-color="rgba(23,139,238,1)" />
-      <stop offset="0.12562814070351758" stop-color="rgba(23,140,237,1)" />
-      <stop offset="0.1306532663316583" stop-color="rgba(23,140,236,1)" />
-      <stop offset="0.135678391959799" stop-color="rgba(23,140,235,1)" />
-      <stop offset="0.1407035175879397" stop-color="rgba(23,141,235,1)" />
-      <stop offset="0.1457286432160804" stop-color="rgba(23,141,234,1)" />
-      <stop offset="0.1507537688442211" stop-color="rgba(23,141,233,1)" />
-      <stop offset="0.15577889447236182" stop-color="rgba(23,142,233,1)" />
-      <stop offset="0.1608040201005025" stop-color="rgba(23,142,232,1)" />
-      <stop offset="0.1658291457286432" stop-color="rgba(23,142,231,1)" />
-      <stop offset="0.1708542713567839" stop-color="rgba(23,143,230,1)" />
-      <stop offset="0.17587939698492464" stop-color="rgba(23,143,230,1)" />
-      <stop offset="0.18090452261306533" stop-color="rgba(23,143,229,1)" />
-      <stop offset="0.18592964824120603" stop-color="rgba(23,144,228,1)" />
-      <stop offset="0.19095477386934673" stop-color="rgba(23,144,228,1)" />
-      <stop offset="0.19597989949748743" stop-color="rgba(23,144,227,1)" />
-      <stop offset="0.20100502512562815" stop-color="rgba(23,145,226,1)" />
-      <stop offset="0.20603015075376885" stop-color="rgba(23,145,225,1)" />
-      <stop offset="0.21105527638190952" stop-color="rgba(23,145,225,1)" />
-      <stop offset="0.21608040201005024" stop-color="rgba(23,146,224,1)" />
-      <stop offset="0.22110552763819097" stop-color="rgba(23,146,223,1)" />
-      <stop offset="0.22613065326633167" stop-color="rgba(23,146,222,1)" />
-      <stop offset="0.23115577889447236" stop-color="rgba(23,147,222,1)" />
-      <stop offset="0.23618090452261306" stop-color="rgba(23,147,221,1)" />
-      <stop offset="0.24120603015075376" stop-color="rgba(23,147,220,1)" />
-      <stop offset="0.24623115577889446" stop-color="rgba(23,148,220,1)" />
-      <stop offset="0.25125628140703515" stop-color="rgba(23,148,219,1)" />
-      <stop offset="0.2562814070351759" stop-color="rgba(23,148,218,1)" />
-      <stop offset="0.2613065326633166" stop-color="rgba(23,149,217,1)" />
-      <stop offset="0.2663316582914573" stop-color="rgba(23,149,217,1)" />
-      <stop offset="0.271356783919598" stop-color="rgba(23,149,216,1)" />
-      <stop offset="0.27638190954773867" stop-color="rgba(23,150,215,1)" />
-      <stop offset="0.2814070351758794" stop-color="rgba(23,150,214,1)" />
-      <stop offset="0.2864321608040201" stop-color="rgba(23,150,214,1)" />
-      <stop offset="0.2914572864321608" stop-color="rgba(23,151,213,1)" />
-      <stop offset="0.2964824120603015" stop-color="rgba(23,151,212,1)" />
-      <stop offset="0.3015075376884422" stop-color="rgba(23,152,212,1)" />
-      <stop offset="0.3065326633165829" stop-color="rgba(23,152,211,1)" />
-      <stop offset="0.31155778894472363" stop-color="rgba(23,152,210,1)" />
-      <stop offset="0.3165829145728643" stop-color="rgba(23,153,209,1)" />
-      <stop offset="0.321608040201005" stop-color="rgba(23,153,209,1)" />
-      <stop offset="0.32663316582914576" stop-color="rgba(23,153,208,1)" />
-      <stop offset="0.3316582914572864" stop-color="rgba(23,154,207,1)" />
-      <stop offset="0.33668341708542715" stop-color="rgba(23,154,207,1)" />
-      <stop offset="0.3417085427135678" stop-color="rgba(23,154,206,1)" />
-      <stop offset="0.34673366834170855" stop-color="rgba(23,155,205,1)" />
-      <stop offset="0.35175879396984927" stop-color="rgba(23,155,204,1)" />
-      <stop offset="0.35678391959798994" stop-color="rgba(23,155,204,1)" />
-      <stop offset="0.36180904522613067" stop-color="rgba(23,156,203,1)" />
-      <stop offset="0.3668341708542713" stop-color="rgba(23,156,202,1)" />
-      <stop offset="0.37185929648241206" stop-color="rgba(23,156,201,1)" />
-      <stop offset="0.37688442211055284" stop-color="rgba(23,157,201,1)" />
-      <stop offset="0.38190954773869346" stop-color="rgba(23,157,200,1)" />
-      <stop offset="0.3869346733668342" stop-color="rgba(23,157,199,1)" />
-      <stop offset="0.39195979899497485" stop-color="rgba(23,158,199,1)" />
-      <stop offset="0.3969849246231156" stop-color="rgba(23,158,198,1)" />
-      <stop offset="0.4020100502512563" stop-color="rgba(23,158,197,1)" />
-      <stop offset="0.407035175879397" stop-color="rgba(23,159,196,1)" />
-      <stop offset="0.4120603015075377" stop-color="rgba(23,159,196,1)" />
-      <stop offset="0.41708542713567837" stop-color="rgba(23,159,195,1)" />
-      <stop offset="0.42211055276381904" stop-color="rgba(23,160,194,1)" />
-      <stop offset="0.4271356783919598" stop-color="rgba(23,160,193,1)" />
-      <stop offset="0.4321608040201005" stop-color="rgba(23,160,193,1)" />
-      <stop offset="0.4371859296482412" stop-color="rgba(23,161,192,1)" />
-      <stop offset="0.44221105527638194" stop-color="rgba(23,161,191,1)" />
-      <stop offset="0.4472361809045226" stop-color="rgba(23,161,191,1)" />
-      <stop offset="0.45226130653266333" stop-color="rgba(23,162,190,1)" />
-      <stop offset="0.457286432160804" stop-color="rgba(23,162,189,1)" />
-      <stop offset="0.4623115577889447" stop-color="rgba(23,162,188,1)" />
-      <stop offset="0.46733668341708545" stop-color="rgba(23,163,188,1)" />
-      <stop offset="0.4723618090452261" stop-color="rgba(23,163,187,1)" />
-      <stop offset="0.4773869346733669" stop-color="rgba(23,163,186,1)" />
-      <stop offset="0.4824120603015075" stop-color="rgba(23,164,186,1)" />
-      <stop offset="0.48743718592964824" stop-color="rgba(23,164,185,1)" />
-      <stop offset="0.4924623115577889" stop-color="rgba(23,164,184,1)" />
-      <stop offset="0.49748743718592964" stop-color="rgba(23,165,183,1)" />
-      <stop offset="0.5025125628140703" stop-color="rgba(23,165,183,1)" />
-      <stop offset="0.507537688442211" stop-color="rgba(23,166,182,1)" />
-      <stop offset="0.5125628140703518" stop-color="rgba(23,166,181,1)" />
-      <stop offset="0.5175879396984925" stop-color="rgba(23,166,180,1)" />
-      <stop offset="0.5226130653266332" stop-color="rgba(23,167,180,1)" />
-      <stop offset="0.5276381909547738" stop-color="rgba(23,167,179,1)" />
-      <stop offset="0.5326633165829145" stop-color="rgba(23,167,178,1)" />
-      <stop offset="0.5376884422110553" stop-color="rgba(23,168,178,1)" />
-      <stop offset="0.542713567839196" stop-color="rgba(23,168,177,1)" />
-      <stop offset="0.5477386934673367" stop-color="rgba(23,168,176,1)" />
-      <stop offset="0.5527638190954773" stop-color="rgba(23,169,175,1)" />
-      <stop offset="0.5577889447236181" stop-color="rgba(23,169,175,1)" />
-      <stop offset="0.5628140703517588" stop-color="rgba(23,169,174,1)" />
-      <stop offset="0.5678391959798995" stop-color="rgba(23,170,173,1)" />
-      <stop offset="0.5728643216080402" stop-color="rgba(23,170,173,1)" />
-      <stop offset="0.5778894472361809" stop-color="rgba(23,170,172,1)" />
-      <stop offset="0.5829145728643216" stop-color="rgba(23,171,171,1)" />
-      <stop offset="0.5879396984924623" stop-color="rgba(23,171,170,1)" />
-      <stop offset="0.592964824120603" stop-color="rgba(23,171,170,1)" />
-      <stop offset="0.5979899497487438" stop-color="rgba(23,172,169,1)" />
-      <stop offset="0.6030150753768844" stop-color="rgba(23,172,168,1)" />
-      <stop offset="0.6080402010050251" stop-color="rgba(23,172,167,1)" />
-      <stop offset="0.6130653266331658" stop-color="rgba(23,173,167,1)" />
-      <stop offset="0.6180904522613065" stop-color="rgba(23,173,166,1)" />
-      <stop offset="0.6231155778894473" stop-color="rgba(23,173,165,1)" />
-      <stop offset="0.628140703517588" stop-color="rgba(23,174,165,1)" />
-      <stop offset="0.6331658291457286" stop-color="rgba(23,174,164,1)" />
-      <stop offset="0.6381909547738693" stop-color="rgba(23,174,163,1)" />
-      <stop offset="0.64321608040201" stop-color="rgba(23,175,162,1)" />
-      <stop offset="0.6482412060301508" stop-color="rgba(23,175,162,1)" />
-      <stop offset="0.6532663316582915" stop-color="rgba(23,175,161,1)" />
-      <stop offset="0.6582914572864321" stop-color="rgba(23,176,160,1)" />
-      <stop offset="0.6633165829145728" stop-color="rgba(23,176,159,1)" />
-      <stop offset="0.6683417085427137" stop-color="rgba(23,176,159,1)" />
-      <stop offset="0.6733668341708543" stop-color="rgba(23,177,158,1)" />
-      <stop offset="0.678391959798995" stop-color="rgba(23,177,157,1)" />
-      <stop offset="0.6834170854271356" stop-color="rgba(23,177,157,1)" />
-      <stop offset="0.6884422110552764" stop-color="rgba(23,178,156,1)" />
-      <stop offset="0.6934673366834171" stop-color="rgba(23,178,155,1)" />
-      <stop offset="0.6984924623115577" stop-color="rgba(23,178,154,1)" />
-      <stop offset="0.7035175879396985" stop-color="rgba(23,179,154,1)" />
-      <stop offset="0.7085427135678392" stop-color="rgba(23,179,153,1)" />
-      <stop offset="0.7135678391959799" stop-color="rgba(23,180,152,1)" />
-      <stop offset="0.7185929648241206" stop-color="rgba(23,180,152,1)" />
-      <stop offset="0.7236180904522613" stop-color="rgba(23,180,151,1)" />
-      <stop offset="0.728643216080402" stop-color="rgba(23,181,150,1)" />
-      <stop offset="0.7336683417085426" stop-color="rgba(23,181,149,1)" />
-      <stop offset="0.7386934673366834" stop-color="rgba(23,181,149,1)" />
-      <stop offset="0.7437185929648241" stop-color="rgba(23,182,148,1)" />
-      <stop offset="0.7487437185929648" stop-color="rgba(23,182,147,1)" />
-      <stop offset="0.7537688442211057" stop-color="rgba(23,182,146,1)" />
-      <stop offset="0.7587939698492463" stop-color="rgba(23,183,146,1)" />
-      <stop offset="0.7638190954773869" stop-color="rgba(23,183,145,1)" />
-      <stop offset="0.7688442211055276" stop-color="rgba(23,183,144,1)" />
-      <stop offset="0.7738693467336684" stop-color="rgba(23,184,144,1)" />
-      <stop offset="0.7788944723618091" stop-color="rgba(23,184,143,1)" />
-      <stop offset="0.7839195979899497" stop-color="rgba(23,184,142,1)" />
-      <stop offset="0.7889447236180903" stop-color="rgba(23,185,141,1)" />
-      <stop offset="0.7939698492462312" stop-color="rgba(23,185,141,1)" />
-      <stop offset="0.7989949748743719" stop-color="rgba(23,185,140,1)" />
-      <stop offset="0.8040201005025126" stop-color="rgba(23,186,139,1)" />
-      <stop offset="0.8090452261306532" stop-color="rgba(23,186,138,1)" />
-      <stop offset="0.814070351758794" stop-color="rgba(23,186,138,1)" />
-      <stop offset="0.8190954773869347" stop-color="rgba(23,187,137,1)" />
-      <stop offset="0.8241206030150754" stop-color="rgba(23,187,136,1)" />
-      <stop offset="0.8291457286432161" stop-color="rgba(23,187,136,1)" />
-      <stop offset="0.8341708542713567" stop-color="rgba(23,188,135,1)" />
-      <stop offset="0.8391959798994975" stop-color="rgba(23,188,134,1)" />
-      <stop offset="0.8442211055276381" stop-color="rgba(23,188,133,1)" />
-      <stop offset="0.8492462311557789" stop-color="rgba(23,189,133,1)" />
-      <stop offset="0.8542713567839196" stop-color="rgba(23,189,132,1)" />
-      <stop offset="0.8592964824120602" stop-color="rgba(23,189,131,1)" />
-      <stop offset="0.864321608040201" stop-color="rgba(23,190,131,1)" />
-      <stop offset="0.8693467336683418" stop-color="rgba(23,190,130,1)" />
-      <stop offset="0.8743718592964824" stop-color="rgba(23,190,129,1)" />
-      <stop offset="0.8793969849246231" stop-color="rgba(23,191,128,1)" />
-      <stop offset="0.8844221105527639" stop-color="rgba(23,191,128,1)" />
-      <stop offset="0.8894472361809045" stop-color="rgba(23,191,127,1)" />
-      <stop offset="0.8944723618090452" stop-color="rgba(23,192,126,1)" />
-      <stop offset="0.899497487437186" stop-color="rgba(23,192,125,1)" />
-      <stop offset="0.9045226130653267" stop-color="rgba(23,193,125,1)" />
-      <stop offset="0.9095477386934674" stop-color="rgba(23,193,124,1)" />
-      <stop offset="0.914572864321608" stop-color="rgba(23,193,123,1)" />
-      <stop offset="0.9195979899497487" stop-color="rgba(23,194,123,1)" />
-      <stop offset="0.9246231155778895" stop-color="rgba(23,194,122,1)" />
-      <stop offset="0.9296482412060301" stop-color="rgba(23,194,121,1)" />
-      <stop offset="0.9346733668341709" stop-color="rgba(23,195,120,1)" />
-      <stop offset="0.9396984924623115" stop-color="rgba(23,195,120,1)" />
-      <stop offset="0.9447236180904522" stop-color="rgba(23,195,119,1)" />
-      <stop offset="0.949748743718593" stop-color="rgba(23,196,118,1)" />
-      <stop offset="0.9547738693467338" stop-color="rgba(23,196,118,1)" />
-      <stop offset="0.9597989949748744" stop-color="rgba(23,196,117,1)" />
-      <stop offset="0.964824120603015" stop-color="rgba(23,197,116,1)" />
-      <stop offset="0.9698492462311558" stop-color="rgba(23,197,115,1)" />
-      <stop offset="0.9748743718592965" stop-color="rgba(23,197,115,1)" />
-      <stop offset="0.9798994974874372" stop-color="rgba(23,198,114,1)" />
-      <stop offset="0.9849246231155778" stop-color="rgba(23,198,113,1)" />
-      <stop offset="0.9899497487437184" stop-color="rgba(23,198,112,1)" />
-      <stop offset="0.9949748743718593" stop-color="rgba(23,199,112,1)" />
-      <stop offset="1" stop-color="rgba(23,199,111,1)" />
+    <linearGradient id="c" x1="0" x2="160.36" y1="6" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="rgba(23,131,255,1)"/>
+      <stop offset=".005" stop-color="rgba(23,131,254,1)"/>
+      <stop offset=".0101" stop-color="rgba(23,132,254,1)"/>
+      <stop offset=".0151" stop-color="rgba(23,132,253,1)"/>
+      <stop offset=".0201" stop-color="rgba(23,132,252,1)"/>
+      <stop offset=".0251" stop-color="rgba(23,133,251,1)"/>
+      <stop offset=".0302" stop-color="rgba(23,133,251,1)"/>
+      <stop offset=".0352" stop-color="rgba(23,133,250,1)"/>
+      <stop offset=".0402" stop-color="rgba(23,134,249,1)"/>
+      <stop offset=".0452" stop-color="rgba(23,134,248,1)"/>
+      <stop offset=".0503" stop-color="rgba(23,134,248,1)"/>
+      <stop offset=".0553" stop-color="rgba(23,135,247,1)"/>
+      <stop offset=".0603" stop-color="rgba(23,135,246,1)"/>
+      <stop offset=".0653" stop-color="rgba(23,135,246,1)"/>
+      <stop offset=".0704" stop-color="rgba(23,136,245,1)"/>
+      <stop offset=".0754" stop-color="rgba(23,136,244,1)"/>
+      <stop offset=".0804" stop-color="rgba(23,136,243,1)"/>
+      <stop offset=".0854" stop-color="rgba(23,137,243,1)"/>
+      <stop offset=".0905" stop-color="rgba(23,137,242,1)"/>
+      <stop offset=".0955" stop-color="rgba(23,137,241,1)"/>
+      <stop offset=".1005" stop-color="rgba(23,138,241,1)"/>
+      <stop offset=".1055" stop-color="rgba(23,138,240,1)"/>
+      <stop offset=".1106" stop-color="rgba(23,139,239,1)"/>
+      <stop offset=".1156" stop-color="rgba(23,139,238,1)"/>
+      <stop offset=".1206" stop-color="rgba(23,139,238,1)"/>
+      <stop offset=".1256" stop-color="rgba(23,140,237,1)"/>
+      <stop offset=".1307" stop-color="rgba(23,140,236,1)"/>
+      <stop offset=".1357" stop-color="rgba(23,140,235,1)"/>
+      <stop offset=".1407" stop-color="rgba(23,141,235,1)"/>
+      <stop offset=".1457" stop-color="rgba(23,141,234,1)"/>
+      <stop offset=".1508" stop-color="rgba(23,141,233,1)"/>
+      <stop offset=".1558" stop-color="rgba(23,142,233,1)"/>
+      <stop offset=".1608" stop-color="rgba(23,142,232,1)"/>
+      <stop offset=".1658" stop-color="rgba(23,142,231,1)"/>
+      <stop offset=".1709" stop-color="rgba(23,143,230,1)"/>
+      <stop offset=".1759" stop-color="rgba(23,143,230,1)"/>
+      <stop offset=".1809" stop-color="rgba(23,143,229,1)"/>
+      <stop offset=".1859" stop-color="rgba(23,144,228,1)"/>
+      <stop offset=".191" stop-color="rgba(23,144,228,1)"/>
+      <stop offset=".196" stop-color="rgba(23,144,227,1)"/>
+      <stop offset=".201" stop-color="rgba(23,145,226,1)"/>
+      <stop offset=".206" stop-color="rgba(23,145,225,1)"/>
+      <stop offset=".2111" stop-color="rgba(23,145,225,1)"/>
+      <stop offset=".2161" stop-color="rgba(23,146,224,1)"/>
+      <stop offset=".2211" stop-color="rgba(23,146,223,1)"/>
+      <stop offset=".2261" stop-color="rgba(23,146,222,1)"/>
+      <stop offset=".2312" stop-color="rgba(23,147,222,1)"/>
+      <stop offset=".2362" stop-color="rgba(23,147,221,1)"/>
+      <stop offset=".2412" stop-color="rgba(23,147,220,1)"/>
+      <stop offset=".2462" stop-color="rgba(23,148,220,1)"/>
+      <stop offset=".2513" stop-color="rgba(23,148,219,1)"/>
+      <stop offset=".2563" stop-color="rgba(23,148,218,1)"/>
+      <stop offset=".2613" stop-color="rgba(23,149,217,1)"/>
+      <stop offset=".2663" stop-color="rgba(23,149,217,1)"/>
+      <stop offset=".2714" stop-color="rgba(23,149,216,1)"/>
+      <stop offset=".2764" stop-color="rgba(23,150,215,1)"/>
+      <stop offset=".2814" stop-color="rgba(23,150,214,1)"/>
+      <stop offset=".2864" stop-color="rgba(23,150,214,1)"/>
+      <stop offset=".2915" stop-color="rgba(23,151,213,1)"/>
+      <stop offset=".2965" stop-color="rgba(23,151,212,1)"/>
+      <stop offset=".3015" stop-color="rgba(23,152,212,1)"/>
+      <stop offset=".3065" stop-color="rgba(23,152,211,1)"/>
+      <stop offset=".3116" stop-color="rgba(23,152,210,1)"/>
+      <stop offset=".3166" stop-color="rgba(23,153,209,1)"/>
+      <stop offset=".3216" stop-color="rgba(23,153,209,1)"/>
+      <stop offset=".3266" stop-color="rgba(23,153,208,1)"/>
+      <stop offset=".3317" stop-color="rgba(23,154,207,1)"/>
+      <stop offset=".3367" stop-color="rgba(23,154,207,1)"/>
+      <stop offset=".3417" stop-color="rgba(23,154,206,1)"/>
+      <stop offset=".3467" stop-color="rgba(23,155,205,1)"/>
+      <stop offset=".3518" stop-color="rgba(23,155,204,1)"/>
+      <stop offset=".3568" stop-color="rgba(23,155,204,1)"/>
+      <stop offset=".3618" stop-color="rgba(23,156,203,1)"/>
+      <stop offset=".3668" stop-color="rgba(23,156,202,1)"/>
+      <stop offset=".3719" stop-color="rgba(23,156,201,1)"/>
+      <stop offset=".3769" stop-color="rgba(23,157,201,1)"/>
+      <stop offset=".3819" stop-color="rgba(23,157,200,1)"/>
+      <stop offset=".3869" stop-color="rgba(23,157,199,1)"/>
+      <stop offset=".392" stop-color="rgba(23,158,199,1)"/>
+      <stop offset=".397" stop-color="rgba(23,158,198,1)"/>
+      <stop offset=".402" stop-color="rgba(23,158,197,1)"/>
+      <stop offset=".407" stop-color="rgba(23,159,196,1)"/>
+      <stop offset=".4121" stop-color="rgba(23,159,196,1)"/>
+      <stop offset=".4171" stop-color="rgba(23,159,195,1)"/>
+      <stop offset=".4221" stop-color="rgba(23,160,194,1)"/>
+      <stop offset=".4271" stop-color="rgba(23,160,193,1)"/>
+      <stop offset=".4322" stop-color="rgba(23,160,193,1)"/>
+      <stop offset=".4372" stop-color="rgba(23,161,192,1)"/>
+      <stop offset=".4422" stop-color="rgba(23,161,191,1)"/>
+      <stop offset=".4472" stop-color="rgba(23,161,191,1)"/>
+      <stop offset=".4523" stop-color="rgba(23,162,190,1)"/>
+      <stop offset=".4573" stop-color="rgba(23,162,189,1)"/>
+      <stop offset=".4623" stop-color="rgba(23,162,188,1)"/>
+      <stop offset=".4673" stop-color="rgba(23,163,188,1)"/>
+      <stop offset=".4724" stop-color="rgba(23,163,187,1)"/>
+      <stop offset=".4774" stop-color="rgba(23,163,186,1)"/>
+      <stop offset=".4824" stop-color="rgba(23,164,186,1)"/>
+      <stop offset=".4874" stop-color="rgba(23,164,185,1)"/>
+      <stop offset=".4925" stop-color="rgba(23,164,184,1)"/>
+      <stop offset=".4975" stop-color="rgba(23,165,183,1)"/>
+      <stop offset=".5025" stop-color="rgba(23,165,183,1)"/>
+      <stop offset=".5075" stop-color="rgba(23,166,182,1)"/>
+      <stop offset=".5126" stop-color="rgba(23,166,181,1)"/>
+      <stop offset=".5176" stop-color="rgba(23,166,180,1)"/>
+      <stop offset=".5226" stop-color="rgba(23,167,180,1)"/>
+      <stop offset=".5276" stop-color="rgba(23,167,179,1)"/>
+      <stop offset=".5327" stop-color="rgba(23,167,178,1)"/>
+      <stop offset=".5377" stop-color="rgba(23,168,178,1)"/>
+      <stop offset=".5427" stop-color="rgba(23,168,177,1)"/>
+      <stop offset=".5477" stop-color="rgba(23,168,176,1)"/>
+      <stop offset=".5528" stop-color="rgba(23,169,175,1)"/>
+      <stop offset=".5578" stop-color="rgba(23,169,175,1)"/>
+      <stop offset=".5628" stop-color="rgba(23,169,174,1)"/>
+      <stop offset=".5678" stop-color="rgba(23,170,173,1)"/>
+      <stop offset=".5729" stop-color="rgba(23,170,173,1)"/>
+      <stop offset=".5779" stop-color="rgba(23,170,172,1)"/>
+      <stop offset=".5829" stop-color="rgba(23,171,171,1)"/>
+      <stop offset=".5879" stop-color="rgba(23,171,170,1)"/>
+      <stop offset=".593" stop-color="rgba(23,171,170,1)"/>
+      <stop offset=".598" stop-color="rgba(23,172,169,1)"/>
+      <stop offset=".603" stop-color="rgba(23,172,168,1)"/>
+      <stop offset=".608" stop-color="rgba(23,172,167,1)"/>
+      <stop offset=".6131" stop-color="rgba(23,173,167,1)"/>
+      <stop offset=".6181" stop-color="rgba(23,173,166,1)"/>
+      <stop offset=".6231" stop-color="rgba(23,173,165,1)"/>
+      <stop offset=".6281" stop-color="rgba(23,174,165,1)"/>
+      <stop offset=".6332" stop-color="rgba(23,174,164,1)"/>
+      <stop offset=".6382" stop-color="rgba(23,174,163,1)"/>
+      <stop offset=".6432" stop-color="rgba(23,175,162,1)"/>
+      <stop offset=".6482" stop-color="rgba(23,175,162,1)"/>
+      <stop offset=".6533" stop-color="rgba(23,175,161,1)"/>
+      <stop offset=".6583" stop-color="rgba(23,176,160,1)"/>
+      <stop offset=".6633" stop-color="rgba(23,176,159,1)"/>
+      <stop offset=".6683" stop-color="rgba(23,176,159,1)"/>
+      <stop offset=".6734" stop-color="rgba(23,177,158,1)"/>
+      <stop offset=".6784" stop-color="rgba(23,177,157,1)"/>
+      <stop offset=".6834" stop-color="rgba(23,177,157,1)"/>
+      <stop offset=".6884" stop-color="rgba(23,178,156,1)"/>
+      <stop offset=".6935" stop-color="rgba(23,178,155,1)"/>
+      <stop offset=".6985" stop-color="rgba(23,178,154,1)"/>
+      <stop offset=".7035" stop-color="rgba(23,179,154,1)"/>
+      <stop offset=".7085" stop-color="rgba(23,179,153,1)"/>
+      <stop offset=".7136" stop-color="rgba(23,180,152,1)"/>
+      <stop offset=".7186" stop-color="rgba(23,180,152,1)"/>
+      <stop offset=".7236" stop-color="rgba(23,180,151,1)"/>
+      <stop offset=".7286" stop-color="rgba(23,181,150,1)"/>
+      <stop offset=".7337" stop-color="rgba(23,181,149,1)"/>
+      <stop offset=".7387" stop-color="rgba(23,181,149,1)"/>
+      <stop offset=".7437" stop-color="rgba(23,182,148,1)"/>
+      <stop offset=".7487" stop-color="rgba(23,182,147,1)"/>
+      <stop offset=".7538" stop-color="rgba(23,182,146,1)"/>
+      <stop offset=".7588" stop-color="rgba(23,183,146,1)"/>
+      <stop offset=".7638" stop-color="rgba(23,183,145,1)"/>
+      <stop offset=".7688" stop-color="rgba(23,183,144,1)"/>
+      <stop offset=".7739" stop-color="rgba(23,184,144,1)"/>
+      <stop offset=".7789" stop-color="rgba(23,184,143,1)"/>
+      <stop offset=".7839" stop-color="rgba(23,184,142,1)"/>
+      <stop offset=".7889" stop-color="rgba(23,185,141,1)"/>
+      <stop offset=".794" stop-color="rgba(23,185,141,1)"/>
+      <stop offset=".799" stop-color="rgba(23,185,140,1)"/>
+      <stop offset=".804" stop-color="rgba(23,186,139,1)"/>
+      <stop offset=".809" stop-color="rgba(23,186,138,1)"/>
+      <stop offset=".8141" stop-color="rgba(23,186,138,1)"/>
+      <stop offset=".8191" stop-color="rgba(23,187,137,1)"/>
+      <stop offset=".8241" stop-color="rgba(23,187,136,1)"/>
+      <stop offset=".8291" stop-color="rgba(23,187,136,1)"/>
+      <stop offset=".8342" stop-color="rgba(23,188,135,1)"/>
+      <stop offset=".8392" stop-color="rgba(23,188,134,1)"/>
+      <stop offset=".8442" stop-color="rgba(23,188,133,1)"/>
+      <stop offset=".8492" stop-color="rgba(23,189,133,1)"/>
+      <stop offset=".8543" stop-color="rgba(23,189,132,1)"/>
+      <stop offset=".8593" stop-color="rgba(23,189,131,1)"/>
+      <stop offset=".8643" stop-color="rgba(23,190,131,1)"/>
+      <stop offset=".8693" stop-color="rgba(23,190,130,1)"/>
+      <stop offset=".8744" stop-color="rgba(23,190,129,1)"/>
+      <stop offset=".8794" stop-color="rgba(23,191,128,1)"/>
+      <stop offset=".8844" stop-color="rgba(23,191,128,1)"/>
+      <stop offset=".8894" stop-color="rgba(23,191,127,1)"/>
+      <stop offset=".8945" stop-color="rgba(23,192,126,1)"/>
+      <stop offset=".8995" stop-color="rgba(23,192,125,1)"/>
+      <stop offset=".9045" stop-color="rgba(23,193,125,1)"/>
+      <stop offset=".9095" stop-color="rgba(23,193,124,1)"/>
+      <stop offset=".9146" stop-color="rgba(23,193,123,1)"/>
+      <stop offset=".9196" stop-color="rgba(23,194,123,1)"/>
+      <stop offset=".9246" stop-color="rgba(23,194,122,1)"/>
+      <stop offset=".9296" stop-color="rgba(23,194,121,1)"/>
+      <stop offset=".9347" stop-color="rgba(23,195,120,1)"/>
+      <stop offset=".9397" stop-color="rgba(23,195,120,1)"/>
+      <stop offset=".9447" stop-color="rgba(23,195,119,1)"/>
+      <stop offset=".9497" stop-color="rgba(23,196,118,1)"/>
+      <stop offset=".9548" stop-color="rgba(23,196,118,1)"/>
+      <stop offset=".9598" stop-color="rgba(23,196,117,1)"/>
+      <stop offset=".9648" stop-color="rgba(23,197,116,1)"/>
+      <stop offset=".9698" stop-color="rgba(23,197,115,1)"/>
+      <stop offset=".9749" stop-color="rgba(23,197,115,1)"/>
+      <stop offset=".9799" stop-color="rgba(23,198,114,1)"/>
+      <stop offset=".9849" stop-color="rgba(23,198,113,1)"/>
+      <stop offset=".9899" stop-color="rgba(23,198,112,1)"/>
+      <stop offset=".995" stop-color="rgba(23,199,112,1)"/>
+      <stop offset="1" stop-color="rgba(23,199,111,1)"/>
     </linearGradient>
-    <clipPath transform="matrix(1,0,0,1,-35.820000,-43)" id="clip-path-154-153">
-      <use href="#g-svg-154" transform="matrix(1,0,0,1,35.820000,43)" />
+    <clipPath id="b" transform="matrix(1 0 0 1 -35.82 -43)">
+      <use href="#a" transform="matrix(1 0 0 1 35.82 43)"/>
     </clipPath>
   </defs>
-  <g id="g-svg-camera">
-    <g id="g-root" fill="none">
-      <g id="g-svg-24" fill="none" class="view">
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
         <g>
-          <path
-            id="g-svg-25"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 0,0 l 640,0 l 0,480 l-640 0 z"
-            x="0"
-            y="0"
-            width="640"
-            height="480"
-          />
+          <path width="640" height="480" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 640 0 0 480-640 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-26"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 16,16 l 608,0 l 0,448 l-608 0 z"
-            x="16"
-            y="16"
-            width="608"
-            height="448"
-          />
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-27"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 98.64000029436546,97 l 525.3599997056346,0 l 0,300 l-525.3599997056346 0 z"
-            x="98.64000029436546"
-            y="97"
-            width="525.3599997056346"
-            height="300"
-          />
+          <path width="525.36" height="300" x="98.64" y="97" fill="rgba(0,0,0,0)" d="m98.64 97 525.36 0 0 300-525.36 0z" class="area"/>
         </g>
         <g>
-          <path
-            id="g-svg-28"
-            fill="rgba(0,0,0,0)"
-            class="area"
-            d="M 98.64000029436546,97 l 525.3599997056346,0 l 0,300 l-525.3599997056346 0 z"
-            x="98.64000029436546"
-            y="97"
-            width="525.3599997056346"
-            height="300"
-          />
+          <path width="525.36" height="300" x="98.64" y="97" fill="rgba(0,0,0,0)" d="m98.64 97 525.36 0 0 300-525.36 0z" class="area"/>
         </g>
-        <g id="g-svg-29" fill="none" class="component">
-          <g id="g-svg-33" fill="none" class="slider">
+        <g fill="none" class="component">
+          <g fill="none" class="slider">
             <g>
-              <path
-                id="g-svg-34"
-                fill="rgba(65,97,128,1)"
-                class="slider-track"
-                d="M 98.64000029436546,440 l 525.3599997056346,0 l 0,16 l-525.3599997056346 0 z"
-                x="98.64000029436546"
-                y="440"
-                width="525.3599997056346"
-                height="16"
-                opacity="0.05"
-              />
+              <path width="525.36" height="16" x="98.64" y="440" fill="rgba(65,97,128,1)" d="m98.64 440 525.36 0 0 16-525.36 0z" class="slider-track" opacity=".05"/>
             </g>
-            <g id="g-svg-35" fill="none" class="slider-sparkline-group">
-              <g id="g-svg-36" fill="none" class="slider-sparkline">
+            <g fill="none" class="slider-sparkline-group">
+              <g fill="none" class="slider-sparkline">
                 <g>
-                  <path id="g-svg-37" fill="none" class="container" />
+                  <path fill="none" class="container"/>
                 </g>
-                <g
-                  id="g-svg-38"
-                  fill="none"
-                  class="spark sparkline"
-                  transform="matrix(1,0,0,1,98.639999,440)"
-                >
-                  <g id="g-svg-39" fill="none">
+                <g fill="none" class="spark sparkline" transform="matrix(1 0 0 1 98.64 440)">
+                  <g fill="none">
                     <g>
-                      <path
-                        id="g-svg-43"
-                        fill="none"
-                        class="line"
-                        stroke="rgba(131,218,173,1)"
-                        d=""
-                        stroke-width="1"
-                      />
+                      <path fill="none" stroke="rgba(131,218,173,1)" stroke-width="1" d="" class="line"/>
                     </g>
                     <g>
-                      <path
-                        id="g-svg-44"
-                        fill="rgba(131,218,173,1)"
-                        class="area"
-                        d=""
-                        opacity="0"
-                      />
+                      <path fill="rgba(131,218,173,1)" d="" class="area" opacity="0"/>
                     </g>
                   </g>
-                  <g id="g-svg-40" fill="none" />
+                  <g fill="none"/>
                 </g>
               </g>
             </g>
             <g>
-              <path
-                id="g-svg-45"
-                fill="rgba(0,0,0,0)"
-                class="slider-brush-area"
-                d="M 98.64000029436546,440 l 525.3599997056346,0 l 0,16 l-525.3599997056346 0 z"
-                x="98.64000029436546"
-                y="440"
-                width="525.3599997056346"
-                height="16"
-              />
+              <path width="525.36" height="16" x="98.64" y="440" fill="rgba(0,0,0,0)" d="m98.64 440 525.36 0 0 16-525.36 0z" class="slider-brush-area"/>
             </g>
-            <g id="g-svg-46" fill="none" class="slider-foreground">
-              <g transform="matrix(1,0,0,1,98.639999,440)">
-                <path
-                  id="g-svg-47"
-                  fill="rgba(23,131,255,1)"
-                  class="slider-selection"
-                  visibility="hidden"
-                  fill-opacity="0.15"
-                  height="16"
-                />
+            <g fill="none" class="slider-foreground">
+              <g transform="matrix(1 0 0 1 98.64 440)">
+                <path height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" class="slider-selection" visibility="hidden"/>
               </g>
-              <g transform="matrix(1,0,0,1,98.639999,440)">
-                <path
-                  id="g-svg-48"
-                  fill="rgba(23,131,255,1)"
-                  class="slider-selection"
-                  visibility="visible"
-                  fill-opacity="0.15"
-                  d="M 0,0 l 525.3599997056346,0 l 0,16 l-525.3599997056346 0 z"
-                  height="16"
-                  width="525.3599997056346"
-                />
+              <g transform="matrix(1 0 0 1 98.64 440)">
+                <path width="525.36" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 525.36 0 0 16-525.36 0z" class="slider-selection" visibility="visible"/>
               </g>
-              <g transform="matrix(1,0,0,1,98.639999,440)">
-                <path
-                  id="g-svg-49"
-                  fill="rgba(23,131,255,1)"
-                  class="slider-selection"
-                  visibility="hidden"
-                  fill-opacity="0.15"
-                  height="16"
-                  x="525.3599997056346"
-                />
+              <g transform="matrix(1 0 0 1 98.64 440)">
+                <path height="16" x="525.36" fill="rgba(23,131,255,1)" fill-opacity=".15" class="slider-selection" visibility="hidden"/>
               </g>
-              <g
-                id="g-svg-52"
-                fill="none"
-                transform="matrix(1,0,0,1,98.639999,448)"
-                class="slider-handle start-handle"
-              >
-                <g id="g-svg-53" fill="none" class="handle-icon-group">
-                  <g id="g-svg-54" fill="none" class="handle-icon">
+              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 98.64 448)">
+                <g fill="none" class="handle-icon-group">
+                  <g fill="none" class="handle-icon">
                     <g>
-                      <path
-                        id="g-svg-55"
-                        fill="rgba(247,247,247,1)"
-                        class="handle-icon-rect"
-                        stroke-width="1"
-                        stroke="rgba(29,33,41,1)"
-                        stroke-opacity="0.25"
-                        d="M -3,-12 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
-                        width="10"
-                        height="24"
-                        x="-5"
-                        y="-12"
-                      />
+                      <path width="10" height="24" x="-5" y="-12" fill="rgba(247,247,247,1)" stroke="rgba(29,33,41,1)" stroke-opacity=".25" stroke-width="1" d="m-3-12 6 0a2 2 0 0 1 2 2l0 20a2 2 0 0 1-2 2l-6 0a2 2 0 0 1-2-2l0-20a2 2 0 0 1 2-2z" class="handle-icon-rect"/>
                       <g>
-                        <line
-                          id="g-svg-56"
-                          fill="rgba(247,247,247,1)"
-                          x1="-1.666666666666667"
-                          y1="-6"
-                          x2="-1.666666666666667"
-                          y2="6"
-                          class="handle-icon-line-1"
-                          stroke-width="1"
-                          stroke="rgba(29,33,41,1)"
-                          stroke-opacity="0.25"
-                        />
+                        <line x1="-1.6667" x2="-1.6667" y1="-6" y2="6" fill="rgba(247,247,247,1)" stroke="rgba(29,33,41,1)" stroke-opacity=".25" stroke-width="1" class="handle-icon-line-1"/>
                       </g>
                       <g>
-                        <line
-                          id="g-svg-57"
-                          fill="rgba(247,247,247,1)"
-                          x1="1.666666666666666"
-                          y1="-6"
-                          x2="1.666666666666666"
-                          y2="6"
-                          class="handle-icon-line-2"
-                          stroke-width="1"
-                          stroke="rgba(29,33,41,1)"
-                          stroke-opacity="0.25"
-                        />
+                        <line x1="1.6667" x2="1.6667" y1="-6" y2="6" fill="rgba(247,247,247,1)" stroke="rgba(29,33,41,1)" stroke-opacity=".25" stroke-width="1" class="handle-icon-line-2"/>
                       </g>
                     </g>
                   </g>
                 </g>
-                <g id="g-svg-58" fill="none" class="handle-label-group">
+                <g fill="none" class="handle-label-group">
                   <g>
-                    <text
-                      id="g-svg-59"
-                      fill="rgba(29,33,41,1)"
-                      class="handle-label"
-                      fill-opacity="0.45"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      x="44.78"
-                      dx="0.5"
-                      dy="0px"
-                      font-size="12"
-                      text-anchor="middle"
-                      font-weight="normal"
-                      y="0"
-                    >
-                      (东北, 长春)
-                    </text>
+                    <text x="44.78" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">(东北, 长春)</text>
                   </g>
                 </g>
               </g>
-              <g
-                id="g-svg-62"
-                fill="none"
-                transform="matrix(1,0,0,1,624,448)"
-                class="slider-handle end-handle"
-              >
-                <g id="g-svg-63" fill="none" class="handle-icon-group">
-                  <g id="g-svg-64" fill="none" class="handle-icon">
+              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 624 448)">
+                <g fill="none" class="handle-icon-group">
+                  <g fill="none" class="handle-icon">
                     <g>
-                      <path
-                        id="g-svg-65"
-                        fill="rgba(247,247,247,1)"
-                        class="handle-icon-rect"
-                        stroke-width="1"
-                        stroke="rgba(29,33,41,1)"
-                        stroke-opacity="0.25"
-                        d="M -3,-12 l 6,0 a 2,2,0,0,1,2,2 l 0,20 a 2,2,0,0,1,-2,2 l -6,0 a 2,2,0,0,1,-2,-2 l 0,-20 a 2,2,0,0,1,2,-2 z"
-                        width="10"
-                        height="24"
-                        x="-5"
-                        y="-12"
-                      />
+                      <path width="10" height="24" x="-5" y="-12" fill="rgba(247,247,247,1)" stroke="rgba(29,33,41,1)" stroke-opacity=".25" stroke-width="1" d="m-3-12 6 0a2 2 0 0 1 2 2l0 20a2 2 0 0 1-2 2l-6 0a2 2 0 0 1-2-2l0-20a2 2 0 0 1 2-2z" class="handle-icon-rect"/>
                       <g>
-                        <line
-                          id="g-svg-66"
-                          fill="rgba(247,247,247,1)"
-                          x1="-1.666666666666667"
-                          y1="-6"
-                          x2="-1.666666666666667"
-                          y2="6"
-                          class="handle-icon-line-1"
-                          stroke-width="1"
-                          stroke="rgba(29,33,41,1)"
-                          stroke-opacity="0.25"
-                        />
+                        <line x1="-1.6667" x2="-1.6667" y1="-6" y2="6" fill="rgba(247,247,247,1)" stroke="rgba(29,33,41,1)" stroke-opacity=".25" stroke-width="1" class="handle-icon-line-1"/>
                       </g>
                       <g>
-                        <line
-                          id="g-svg-67"
-                          fill="rgba(247,247,247,1)"
-                          x1="1.666666666666666"
-                          y1="-6"
-                          x2="1.666666666666666"
-                          y2="6"
-                          class="handle-icon-line-2"
-                          stroke-width="1"
-                          stroke="rgba(29,33,41,1)"
-                          stroke-opacity="0.25"
-                        />
+                        <line x1="1.6667" x2="1.6667" y1="-6" y2="6" fill="rgba(247,247,247,1)" stroke="rgba(29,33,41,1)" stroke-opacity=".25" stroke-width="1" class="handle-icon-line-2"/>
                       </g>
                     </g>
                   </g>
                 </g>
-                <g id="g-svg-68" fill="none" class="handle-label-group">
+                <g fill="none" class="handle-label-group">
                   <g>
-                    <text
-                      id="g-svg-69"
-                      fill="rgba(29,33,41,1)"
-                      class="handle-label"
-                      fill-opacity="0.45"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      x="-44.78"
-                      dx="0.5"
-                      dy="0px"
-                      font-size="12"
-                      text-anchor="middle"
-                      font-weight="normal"
-                      y="0"
-                    >
-                      (华东, 江西)
-                    </text>
+                    <text x="-44.78" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">(华东, 江西)</text>
                   </g>
                 </g>
               </g>
             </g>
           </g>
         </g>
-        <g id="g-svg-30" fill="none" class="component">
-          <g id="g-svg-70" fill="none" transform="matrix(1,0,0,1,16,16)">
-            <g id="g-svg-71" fill="none" class="legend-continuous">
-              <g id="g-svg-72" fill="none" class="legend-title">
+        <g fill="none" class="component">
+          <g fill="none" transform="matrix(1 0 0 1 16 16)">
+            <g fill="none" class="legend-continuous">
+              <g fill="none" class="legend-title">
                 <g>
-                  <text
-                    id="g-svg-73"
-                    fill="rgba(44,53,66,1)"
-                    class="title-text"
-                    dominant-baseline="central"
-                    paint-order="stroke"
-                    style="transform:translate(0px, 0px);"
-                    dx="0.5"
-                    dy="11.5px"
-                    font-weight="normal"
-                    font-size="12"
-                    font-family="sans-serif"
-                    fill-opacity="0.9"
-                    x="0"
-                    y="0"
-                    text-anchor="left"
-                  >
-                    value
-                  </text>
+                  <text x="0" y="0" fill="rgba(44,53,66,1)" fill-opacity=".9" class="title-text" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">value</text>
                 </g>
               </g>
-              <g
-                id="g-svg-74"
-                fill="none"
-                transform="matrix(1,0,0,1,0,27)"
-                class="legend-content-group"
-              >
-                <g id="g-svg-125" fill="none" class="legend-ribbon-group">
-                  <g
-                    id="g-svg-149"
-                    fill="none"
-                    transform="matrix(1,0,0,1,19.820000,0)"
-                    class="legend-ribbon"
-                  >
-                    <g
-                      id="g-svg-150"
-                      fill="none"
-                      class="ribbon-background-group"
-                    >
+              <g fill="none" class="legend-content-group" transform="matrix(1 0 0 1 0 27)">
+                <g fill="none" class="legend-ribbon-group">
+                  <g fill="none" class="legend-ribbon" transform="matrix(1 0 0 1 19.82 0)">
+                    <g fill="none" class="ribbon-background-group">
                       <g>
-                        <path
-                          id="g-svg-151"
-                          fill="rgba(229,229,229,1)"
-                          class="ribbon-background"
-                          d="M 0,12 L 0,0 L 160.36,0 L 160.36,12 Z"
-                        />
+                        <path fill="rgba(229,229,229,1)" d="m0 12 0-12 160.36 0 0 12Z" class="ribbon-background"/>
                       </g>
                     </g>
-                    <g id="g-svg-152" fill="none" class="ribbon-ribbon-group">
-                      <g clip-path="url(#clip-path-154-153)">
-                        <path
-                          id="g-svg-153"
-                          fill="url(#g-pattern-1)"
-                          class="ribbon-ribbon"
-                          d="M 0,12 L 0,0 L 160.36,0 L 160.36,12 Z"
-                        />
+                    <g fill="none" class="ribbon-ribbon-group">
+                      <g clip-path="url(#b)">
+                        <path fill="url(#c)" d="m0 12 0-12 160.36 0 0 12Z" class="ribbon-ribbon"/>
                         <g>
-                          <path
-                            id="g-svg-154"
-                            fill="none"
-                            d="M 0,0 L 0,12 L 160.36,12 L 160.36,0 Z"
-                            class="ribbon-clip-path"
-                          />
+                          <path id="a" fill="none" d="m0 0 0 12 160.36 0 0-12Z" class="ribbon-clip-path"/>
                         </g>
                       </g>
                     </g>
                   </g>
                 </g>
-                <g id="g-svg-75" fill="none" class="legend-label-group">
-                  <g id="g-svg-76" fill="none" class="legend-label">
-                    <g id="g-svg-77" fill="none" class="axis-grid-group" />
-                    <g id="g-svg-78" fill="none" class="axis-main-group">
-                      <g id="g-svg-79" fill="none" class="axis-line-group" />
-                      <g id="g-svg-80" fill="none" class="axis-tick-group">
-                        <g
-                          id="g-svg-81"
-                          fill="none"
-                          transform="matrix(1,0,0,1,19.820000,12)"
-                          class="axis-tick"
-                        >
+                <g fill="none" class="legend-label-group">
+                  <g fill="none" class="legend-label">
+                    <g fill="none" class="axis-grid-group"/>
+                    <g fill="none" class="axis-main-group">
+                      <g fill="none" class="axis-line-group"/>
+                      <g fill="none" class="axis-tick-group">
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 19.82 12)">
                           <g>
-                            <line
-                              id="g-svg-159"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-82"
-                          fill="none"
-                          transform="matrix(1,0,0,1,46.546665,12)"
-                          class="axis-tick"
-                        >
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 46.5467 12)">
                           <g>
-                            <line
-                              id="g-svg-160"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-83"
-                          fill="none"
-                          transform="matrix(1,0,0,1,73.273331,12)"
-                          class="axis-tick"
-                        >
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 73.2733 12)">
                           <g>
-                            <line
-                              id="g-svg-161"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-84"
-                          fill="none"
-                          transform="matrix(1,0,0,1,100,12)"
-                          class="axis-tick"
-                        >
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 100 12)">
                           <g>
-                            <line
-                              id="g-svg-162"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-85"
-                          fill="none"
-                          transform="matrix(1,0,0,1,126.726669,12)"
-                          class="axis-tick"
-                        >
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 126.7267 12)">
                           <g>
-                            <line
-                              id="g-svg-163"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-86"
-                          fill="none"
-                          transform="matrix(1,0,0,1,153.453339,12)"
-                          class="axis-tick"
-                        >
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 153.4533 12)">
                           <g>
-                            <line
-                              id="g-svg-164"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-87"
-                          fill="none"
-                          transform="matrix(1,0,0,1,180.179993,12)"
-                          class="axis-tick"
-                        >
+                        <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 180.18 12)">
                           <g>
-                            <line
-                              id="g-svg-165"
-                              fill="none"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="-12"
-                              class="axis-tick-item"
-                              stroke-width="1"
-                              stroke="rgba(29,33,41,1)"
-                              stroke-opacity="0.45"
-                            />
+                            <line x1="0" x2="0" y1="0" y2="-12" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width="1" class="axis-tick-item"/>
                           </g>
                         </g>
                       </g>
-                      <g id="g-svg-95" fill="none" class="axis-label-group">
-                        <g
-                          id="g-svg-96"
-                          fill="none"
-                          transform="matrix(1,0,0,1,19.820000,17)"
-                          class="axis-label"
-                        >
+                      <g fill="none" class="axis-label-group">
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 19.82 17)">
                           <g>
-                            <text
-                              id="g-svg-166"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="visible"
-                            >
-                              10000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">10000</text>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-97"
-                          fill="none"
-                          transform="matrix(1,0,0,1,46.546665,17)"
-                          class="axis-label"
-                        >
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 46.5467 17)">
                           <g>
-                            <text
-                              id="g-svg-167"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="hidden"
-                            >
-                              15000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="hidden">15000</text>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-98"
-                          fill="none"
-                          transform="matrix(1,0,0,1,73.273331,17)"
-                          class="axis-label"
-                        >
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 73.2733 17)">
                           <g>
-                            <text
-                              id="g-svg-168"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="visible"
-                            >
-                              20000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">20000</text>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-99"
-                          fill="none"
-                          transform="matrix(1,0,0,1,100,17)"
-                          class="axis-label"
-                        >
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 100 17)">
                           <g>
-                            <text
-                              id="g-svg-169"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="hidden"
-                            >
-                              25000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="hidden">25000</text>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-100"
-                          fill="none"
-                          transform="matrix(1,0,0,1,126.726669,17)"
-                          class="axis-label"
-                        >
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 126.7267 17)">
                           <g>
-                            <text
-                              id="g-svg-170"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="visible"
-                            >
-                              30000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">30000</text>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-101"
-                          fill="none"
-                          transform="matrix(1,0,0,1,153.453339,17)"
-                          class="axis-label"
-                        >
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 153.4533 17)">
                           <g>
-                            <text
-                              id="g-svg-171"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="hidden"
-                            >
-                              35000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="hidden">35000</text>
                           </g>
                         </g>
-                        <g
-                          id="g-svg-102"
-                          fill="none"
-                          transform="matrix(1,0,0,1,180.179993,17)"
-                          class="axis-label"
-                        >
+                        <g fill="none" class="axis-label" transform="matrix(1 0 0 1 180.18 17)">
                           <g>
-                            <text
-                              id="g-svg-172"
-                              fill="rgba(29,33,41,1)"
-                              dominant-baseline="central"
-                              paint-order="stroke"
-                              style="transform:translate(0px, 0px);"
-                              dx="0.5"
-                              dy="11.5px"
-                              font-family="sans-serif"
-                              font-size="12"
-                              font-style="normal"
-                              font-variant="normal"
-                              font-weight="normal"
-                              stroke-width="1"
-                              text-anchor="middle"
-                              class="axis-label-item"
-                              fill-opacity="0.45"
-                              visibility="visible"
-                            >
-                              40000
-                            </text>
+                            <text fill="rgba(29,33,41,1)" fill-opacity=".45" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">40000</text>
                           </g>
                         </g>
                       </g>
                     </g>
-                    <g id="g-svg-110" fill="none" class="axis-title-group" />
+                    <g fill="none" class="axis-title-group"/>
                   </g>
                 </g>
-                <g id="g-svg-126" fill="none" class="legend-handles-group">
-                  <g
-                    id="g-svg-127"
-                    fill="none"
-                    transform="matrix(1,0,0,1,19.820000,6)"
-                    class="legend-handle legend-start-handle"
-                  >
-                    <g id="g-svg-128" fill="none" class="handle-icon-group">
-                      <g id="g-svg-173" fill="none" class="handle-icon">
+                <g fill="none" class="legend-handles-group">
+                  <g fill="none" class="legend-handle legend-start-handle" transform="matrix(1 0 0 1 19.82 6)">
+                    <g fill="none" class="handle-icon-group">
+                      <g fill="none" class="handle-icon">
                         <g>
-                          <path
-                            id="g-svg-174"
-                            fill="rgba(255,255,255,1)"
-                            class="handle-icon-rect"
-                            stroke-width="1"
-                            stroke="rgba(191,191,191,1)"
-                            d="M -1.333333333333333,-7.999999999999999 l 2.666666666666666,0 a 2,2,0,0,1,2,2 l 0,11.999999999999998 a 2,2,0,0,1,-2,2 l -2.666666666666666,0 a 2,2,0,0,1,-2,-2 l 0,-11.999999999999998 a 2,2,0,0,1,2,-2 z"
-                            width="6.666666666666666"
-                            height="15.999999999999998"
-                            x="-3.333333333333333"
-                            y="-7.999999999999999"
-                          />
+                          <path width="6.6667" height="16" x="-3.3333" y="-8" fill="rgba(255,255,255,1)" stroke="rgba(191,191,191,1)" stroke-width="1" d="m-1.3333-8 2.6666 0a2 2 0 0 1 2 2l0 12a2 2 0 0 1-2 2l-2.6666 0a2 2 0 0 1-2-2l0-12a2 2 0 0 1 2-2z" class="handle-icon-rect"/>
                           <g>
-                            <line
-                              id="g-svg-175"
-                              fill="rgba(255,255,255,1)"
-                              x1="-1.1111111111111112"
-                              y1="-3.9999999999999996"
-                              x2="-1.1111111111111112"
-                              y2="3.999999999999999"
-                              class="handle-icon-line-1"
-                              stroke-width="1"
-                              stroke="rgba(191,191,191,1)"
-                            />
+                            <line x1="-1.1111" x2="-1.1111" y1="-4" y2="4" fill="rgba(255,255,255,1)" stroke="rgba(191,191,191,1)" stroke-width="1" class="handle-icon-line-1"/>
                           </g>
                           <g>
-                            <line
-                              id="g-svg-176"
-                              fill="rgba(255,255,255,1)"
-                              x1="1.1111111111111107"
-                              y1="-3.9999999999999996"
-                              x2="1.1111111111111107"
-                              y2="3.999999999999999"
-                              class="handle-icon-line-2"
-                              stroke-width="1"
-                              stroke="rgba(191,191,191,1)"
-                            />
+                            <line x1="1.1111" x2="1.1111" y1="-4" y2="4" fill="rgba(255,255,255,1)" stroke="rgba(191,191,191,1)" stroke-width="1" class="handle-icon-line-2"/>
                           </g>
                         </g>
                       </g>
                     </g>
-                    <g id="g-svg-133" fill="none" class="handle-label-group" />
+                    <g fill="none" class="handle-label-group"/>
                   </g>
-                  <g
-                    id="g-svg-134"
-                    fill="none"
-                    transform="matrix(1,0,0,1,180.179993,6)"
-                    class="legend-handle legend-end-handle"
-                  >
-                    <g id="g-svg-135" fill="none" class="handle-icon-group">
-                      <g id="g-svg-177" fill="none" class="handle-icon">
+                  <g fill="none" class="legend-handle legend-end-handle" transform="matrix(1 0 0 1 180.18 6)">
+                    <g fill="none" class="handle-icon-group">
+                      <g fill="none" class="handle-icon">
                         <g>
-                          <path
-                            id="g-svg-178"
-                            fill="rgba(255,255,255,1)"
-                            class="handle-icon-rect"
-                            stroke-width="1"
-                            stroke="rgba(191,191,191,1)"
-                            d="M -1.333333333333333,-7.999999999999999 l 2.666666666666666,0 a 2,2,0,0,1,2,2 l 0,11.999999999999998 a 2,2,0,0,1,-2,2 l -2.666666666666666,0 a 2,2,0,0,1,-2,-2 l 0,-11.999999999999998 a 2,2,0,0,1,2,-2 z"
-                            width="6.666666666666666"
-                            height="15.999999999999998"
-                            x="-3.333333333333333"
-                            y="-7.999999999999999"
-                          />
+                          <path width="6.6667" height="16" x="-3.3333" y="-8" fill="rgba(255,255,255,1)" stroke="rgba(191,191,191,1)" stroke-width="1" d="m-1.3333-8 2.6666 0a2 2 0 0 1 2 2l0 12a2 2 0 0 1-2 2l-2.6666 0a2 2 0 0 1-2-2l0-12a2 2 0 0 1 2-2z" class="handle-icon-rect"/>
                           <g>
-                            <line
-                              id="g-svg-179"
-                              fill="rgba(255,255,255,1)"
-                              x1="-1.1111111111111112"
-                              y1="-3.9999999999999996"
-                              x2="-1.1111111111111112"
-                              y2="3.999999999999999"
-                              class="handle-icon-line-1"
-                              stroke-width="1"
-                              stroke="rgba(191,191,191,1)"
-                            />
+                            <line x1="-1.1111" x2="-1.1111" y1="-4" y2="4" fill="rgba(255,255,255,1)" stroke="rgba(191,191,191,1)" stroke-width="1" class="handle-icon-line-1"/>
                           </g>
                           <g>
-                            <line
-                              id="g-svg-180"
-                              fill="rgba(255,255,255,1)"
-                              x1="1.1111111111111107"
-                              y1="-3.9999999999999996"
-                              x2="1.1111111111111107"
-                              y2="3.999999999999999"
-                              class="handle-icon-line-2"
-                              stroke-width="1"
-                              stroke="rgba(191,191,191,1)"
-                            />
+                            <line x1="1.1111" x2="1.1111" y1="-4" y2="4" fill="rgba(255,255,255,1)" stroke="rgba(191,191,191,1)" stroke-width="1" class="handle-icon-line-2"/>
                           </g>
                         </g>
                       </g>
                     </g>
-                    <g id="g-svg-140" fill="none" class="handle-label-group" />
+                    <g fill="none" class="handle-label-group"/>
                   </g>
                 </g>
-                <g id="g-svg-155" fill="none" class="legend-indicator">
-                  <g id="g-svg-156" fill="none">
+                <g fill="none" class="legend-indicator">
+                  <g fill="none">
                     <g>
-                      <path
-                        id="g-svg-158"
-                        fill="rgba(38,38,38,1)"
-                        class="indicator-background"
-                        stroke-linecap="round"
-                        stroke-width="1"
-                        stroke="rgba(51,51,51,1)"
-                        d="M -4,-2 L 4,-2 A 0 0 0 0 1 4 -2 L 4,2 A 0 0 0 0 1 4 2 L -4,2 A 0 0 0 0 1 -4 2 L -4,2 L -4,5 L -10.928203230275509,0 L -4,-5 L -4,-2 A 0 0 0 0 1 -4 -2 Z"
-                        visibility="hidden"
-                      />
+                      <path fill="rgba(38,38,38,1)" stroke="rgba(51,51,51,1)" stroke-linecap="round" stroke-width="1" d="m-4-2 8 0a0 0 0 0 1 0 0l0 4a0 0 0 0 1 0 0l-8 0a0 0 0 0 1 0 0l0 0 0 3-6.9282-5 6.9282-5 0 3a0 0 0 0 1 0 0Z" class="indicator-background" visibility="hidden"/>
                     </g>
-                    <g
-                      id="g-svg-157"
-                      fill="none"
-                      class="indicator-label-group"
-                    />
+                    <g fill="none" class="indicator-label-group"/>
                   </g>
                 </g>
               </g>
             </g>
           </g>
         </g>
-        <g id="g-svg-31" fill="none" class="component">
-          <g id="g-svg-181" fill="none" class="axis">
-            <g id="g-svg-182" fill="none" class="axis-grid-group" />
-            <g id="g-svg-183" fill="none" class="axis-main-group">
-              <g id="g-svg-184" fill="none" class="axis-line-group">
+        <g fill="none" class="component">
+          <g fill="none" class="axis">
+            <g fill="none" class="axis-grid-group"/>
+            <g fill="none" class="axis-main-group">
+              <g fill="none" class="axis-line-group">
                 <g>
-                  <line
-                    id="g-svg-185"
-                    fill="none"
-                    x1="98.64000029436546"
-                    y1="397"
-                    x2="624"
-                    y2="397"
-                    class="axis-line axis-line"
-                    stroke-width="0.5"
-                    stroke="rgba(29,33,41,1)"
-                    stroke-opacity="0.45"
-                    opacity="0"
-                  />
+                  <line x1="98.64" x2="624" y1="397" y2="397" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width=".5" class="axis-line axis-line" opacity="0"/>
                 </g>
               </g>
-              <g id="g-svg-186" fill="none" class="axis-tick-group">
-                <g
-                  id="g-svg-187"
-                  fill="none"
-                  transform="matrix(1,0,0,1,136.165710,397)"
-                  class="axis-tick"
-                >
+              <g fill="none" class="axis-tick-group">
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 136.1657 397)">
                   <g>
-                    <line
-                      id="g-svg-194"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-188"
-                  fill="none"
-                  transform="matrix(1,0,0,1,211.217148,397)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 211.2171 397)">
                   <g>
-                    <line
-                      id="g-svg-195"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-189"
-                  fill="none"
-                  transform="matrix(1,0,0,1,286.268585,397)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 286.2686 397)">
                   <g>
-                    <line
-                      id="g-svg-196"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-190"
-                  fill="none"
-                  transform="matrix(1,0,0,1,361.320007,397)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 361.32 397)">
                   <g>
-                    <line
-                      id="g-svg-197"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-191"
-                  fill="none"
-                  transform="matrix(1,0,0,1,436.371429,397)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 436.3714 397)">
                   <g>
-                    <line
-                      id="g-svg-198"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-192"
-                  fill="none"
-                  transform="matrix(1,0,0,1,511.422852,397)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 511.4229 397)">
                   <g>
-                    <line
-                      id="g-svg-199"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-193"
-                  fill="none"
-                  transform="matrix(1,0,0,1,586.474304,397)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 586.4743 397)">
                   <g>
-                    <line
-                      id="g-svg-200"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="4"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="0" y1="0" y2="4" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
               </g>
-              <g id="g-svg-201" fill="none" class="axis-label-group">
-                <g
-                  id="g-svg-202"
-                  fill="none"
-                  transform="matrix(1,0,0,1,136.165710,405)"
-                  class="axis-label"
-                >
+              <g fill="none" class="axis-label-group">
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 136.1657 405)">
                   <g>
-                    <text
-                      id="g-svg-209"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (东北, 长春)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(东北, 长春)</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-203"
-                  fill="none"
-                  transform="matrix(1,0,0,1,211.217148,405)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 211.2171 405)">
                   <g>
-                    <text
-                      id="g-svg-210"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (东北, 辽宁)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(东北, 辽宁)</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-204"
-                  fill="none"
-                  transform="matrix(1,0,0,1,286.268585,405)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 286.2686 405)">
                   <g>
-                    <text
-                      id="g-svg-211"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (, 辽宁)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(, 辽宁)</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-205"
-                  fill="none"
-                  transform="matrix(1,0,0,1,361.320007,405)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 361.32 405)">
                   <g>
-                    <text
-                      id="g-svg-212"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (华东, 上海)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(华东, 上海)</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-206"
-                  fill="none"
-                  transform="matrix(1,0,0,1,436.371429,405)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 436.3714 405)">
                   <g>
-                    <text
-                      id="g-svg-213"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (华东, 山东)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(华东, 山东)</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-207"
-                  fill="none"
-                  transform="matrix(1,0,0,1,511.422852,405)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 511.4229 405)">
                   <g>
-                    <text
-                      id="g-svg-214"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (华东, 江苏)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(华东, 江苏)</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-208"
-                  fill="none"
-                  transform="matrix(1,0,0,1,586.474304,405)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 586.4743 405)">
                   <g>
-                    <text
-                      id="g-svg-215"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="11.5px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="middle"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      (华东, 江西)
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">(华东, 江西)</text>
                   </g>
                 </g>
               </g>
             </g>
-            <g id="g-svg-216" fill="none" class="axis-title-group" />
+            <g fill="none" class="axis-title-group"/>
           </g>
         </g>
-        <g id="g-svg-32" fill="none" class="component">
-          <g id="g-svg-217" fill="none" class="axis">
-            <g id="g-svg-218" fill="none" class="axis-grid-group">
-              <g id="g-svg-219" fill="none" class="axis-grid">
-                <g id="g-svg-220" fill="none" class="grid-line-group">
+        <g fill="none" class="component">
+          <g fill="none" class="axis">
+            <g fill="none" class="axis-grid-group">
+              <g fill="none" class="axis-grid">
+                <g fill="none" class="grid-line-group">
                   <g>
-                    <path
-                      id="g-svg-222"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,397 L 624,397"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 397 525.36 0" class="grid-line"/>
                   </g>
                   <g>
-                    <path
-                      id="g-svg-223"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,347 L 624,347"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 347 525.36 0" class="grid-line"/>
                   </g>
                   <g>
-                    <path
-                      id="g-svg-224"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,297 L 624,297"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 297 525.36 0" class="grid-line"/>
                   </g>
                   <g>
-                    <path
-                      id="g-svg-225"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,247 L 624,247"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 247 525.36 0" class="grid-line"/>
                   </g>
                   <g>
-                    <path
-                      id="g-svg-226"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,197 L 624,197"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 197 525.36 0" class="grid-line"/>
                   </g>
                   <g>
-                    <path
-                      id="g-svg-227"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,147 L 624,147"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 147 525.36 0" class="grid-line"/>
                   </g>
                   <g>
-                    <path
-                      id="g-svg-228"
-                      fill="none"
-                      class="grid-line"
-                      stroke="rgba(29,33,41,1)"
-                      stroke-width="0.5"
-                      stroke-dasharray="3,4"
-                      d="M 98.64000029436546,97 L 624,97"
-                      stroke-opacity="0.1"
-                    />
+                    <path fill="none" stroke="rgba(29,33,41,1)" stroke-dasharray="3,4" stroke-opacity=".1" stroke-width=".5" d="m98.64 97 525.36 0" class="grid-line"/>
                   </g>
                 </g>
-                <g id="g-svg-221" fill="none" class="grid-region-group" />
+                <g fill="none" class="grid-region-group"/>
               </g>
             </g>
-            <g id="g-svg-229" fill="none" class="axis-main-group">
-              <g id="g-svg-230" fill="none" class="axis-line-group">
+            <g fill="none" class="axis-main-group">
+              <g fill="none" class="axis-line-group">
                 <g>
-                  <line
-                    id="g-svg-231"
-                    fill="none"
-                    x1="98.64000029436546"
-                    y1="397"
-                    x2="98.64000029436546"
-                    y2="97"
-                    class="axis-line axis-line"
-                    stroke-width="0.5"
-                    stroke="rgba(29,33,41,1)"
-                    stroke-opacity="0.45"
-                    opacity="0"
-                  />
+                  <line x1="98.64" x2="98.64" y1="397" y2="97" fill="none" stroke="rgba(29,33,41,1)" stroke-opacity=".45" stroke-width=".5" class="axis-line axis-line" opacity="0"/>
                 </g>
               </g>
-              <g id="g-svg-232" fill="none" class="axis-tick-group">
-                <g
-                  id="g-svg-233"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,397)"
-                  class="axis-tick"
-                >
+              <g fill="none" class="axis-tick-group">
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 397)">
                   <g>
-                    <line
-                      id="g-svg-240"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-234"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,347)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 347)">
                   <g>
-                    <line
-                      id="g-svg-241"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-235"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,297)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 297)">
                   <g>
-                    <line
-                      id="g-svg-242"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-236"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,247)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 247)">
                   <g>
-                    <line
-                      id="g-svg-243"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-237"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,197)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 197)">
                   <g>
-                    <line
-                      id="g-svg-244"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-238"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,147)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 147)">
                   <g>
-                    <line
-                      id="g-svg-245"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
-                <g
-                  id="g-svg-239"
-                  fill="none"
-                  transform="matrix(1,0,0,1,98.639999,97)"
-                  class="axis-tick"
-                >
+                <g fill="none" class="axis-tick" transform="matrix(1 0 0 1 98.64 97)">
                   <g>
-                    <line
-                      id="g-svg-246"
-                      fill="none"
-                      x1="0"
-                      y1="0"
-                      x2="-4"
-                      y2="0"
-                      class="axis-tick-item"
-                      stroke-width="1"
-                      stroke="rgba(29,33,41,1)"
-                      opacity="0.45"
-                    />
+                    <line x1="0" x2="-4" y1="0" y2="0" fill="none" stroke="rgba(29,33,41,1)" stroke-width="1" class="axis-tick-item" opacity=".45"/>
                   </g>
                 </g>
               </g>
-              <g id="g-svg-247" fill="none" class="axis-label-group">
-                <g
-                  id="g-svg-248"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,397)"
-                  class="axis-label"
-                >
+              <g fill="none" class="axis-label-group">
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 397)">
                   <g>
-                    <text
-                      id="g-svg-255"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      10000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">10000</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-249"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,347)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 347)">
                   <g>
-                    <text
-                      id="g-svg-256"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      15000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">15000</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-250"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,297)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 297)">
                   <g>
-                    <text
-                      id="g-svg-257"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      20000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">20000</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-251"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,247)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 247)">
                   <g>
-                    <text
-                      id="g-svg-258"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      25000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">25000</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-252"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,197)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 197)">
                   <g>
-                    <text
-                      id="g-svg-259"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      30000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">30000</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-253"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,147)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 147)">
                   <g>
-                    <text
-                      id="g-svg-260"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      35000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">35000</text>
                   </g>
                 </g>
-                <g
-                  id="g-svg-254"
-                  fill="none"
-                  transform="matrix(1,0,0,1,90.639999,97)"
-                  class="axis-label"
-                >
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 90.64 97)">
                   <g>
-                    <text
-                      id="g-svg-261"
-                      fill="rgba(29,33,41,1)"
-                      dominant-baseline="central"
-                      paint-order="stroke"
-                      style="transform:translate(0px, 0px);"
-                      dx="0.5"
-                      dy="0px"
-                      font-family="sans-serif"
-                      font-size="12"
-                      font-style="normal"
-                      font-variant="normal"
-                      font-weight="normal"
-                      stroke-width="1"
-                      text-anchor="end"
-                      class="axis-label-item"
-                      opacity="0.45"
-                      visibility="visible"
-                    >
-                      40000
-                    </text>
+                    <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".45" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end" visibility="visible">40000</text>
                   </g>
                 </g>
               </g>
             </g>
-            <g
-              id="g-svg-262"
-              fill="none"
-              transform="matrix(1,0,0,1,28.500000,247)"
-              class="axis-title-group"
-            >
-              <g transform="matrix(0,-1,1,0,-7.500000,0.500000)">
-                <text
-                  id="g-svg-263"
-                  fill="rgba(29,33,41,1)"
-                  dominant-baseline="central"
-                  paint-order="stroke"
-                  style="transform:translate(0px, 0px);"
-                  dx="0.5"
-                  dy="0px"
-                  font-family="sans-serif"
-                  font-size="12"
-                  font-style="normal"
-                  font-variant="normal"
-                  font-weight="normal"
-                  stroke-width="1"
-                  text-anchor="middle"
-                  class="axis-title"
-                  opacity="0.9"
-                >
-                  value
-                </text>
+            <g fill="none" class="axis-title-group" transform="matrix(1 0 0 1 28.5 247)">
+              <g transform="matrix(0 -1 1 0 -7.5 .5)">
+                <text fill="rgba(29,33,41,1)" stroke-width="1" class="axis-title" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" opacity=".9" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">value</text>
               </g>
             </g>
           </g>
         </g>
-        <g transform="matrix(1,0,0,1,98.639999,97)">
-          <path
-            id="g-svg-264"
-            fill="rgba(0,0,0,0)"
-            class="plot"
-            d="M 0,0 l 525.3599997056346,0 l 0,300 l-525.3599997056346 0 z"
-            width="525.3599997056346"
-            height="300"
-          />
-          <g id="g-svg-265" fill="none" class="main-layer">
+        <g transform="matrix(1 0 0 1 98.64 97)">
+          <path width="525.36" height="300" fill="rgba(0,0,0,0)" d="m0 0 525.36 0 0 300-525.36 0z" class="plot"/>
+          <g fill="none" class="main-layer">
             <g>
-              <path
-                id="g-svg-267"
-                fill="none"
-                d="M 37.526,300 L 112.577,300 M 262.68,300 L 337.731,0 L 412.783,300 L 487.834,300"
-                stroke-linecap="round"
-                stroke="url(#g-pattern-0)"
-                stroke-width="2"
-                class="element"
-              />
+              <path fill="none" stroke="url(#d)" stroke-linecap="round" stroke-width="2" d="m37.526 300 75.051 0m150.103 0 75.051-300 75.052 300 75.051 0" class="element"/>
             </g>
           </g>
-          <g id="g-svg-266" fill="none" class="label-layer" />
+          <g fill="none" class="label-layer"/>
         </g>
       </g>
     </g>
