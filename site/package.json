@@ -46,7 +46,7 @@
     "webfontloader": "1.6.28"
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "gh-pages": "^6.3.0"
   },
   "repository": {
     "type": "git",
