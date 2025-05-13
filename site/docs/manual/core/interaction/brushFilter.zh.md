@@ -5,7 +5,7 @@ order: 6.1
 
 ## 概述
 
-`brushFilter` 交互主要用于实现图表元素的动态范围筛选功能。通过鼠标刷选操作，用户可以在图表上划定特定区域（基于 x/y 轴坐标系），系统将智能识别并重新渲染该区域内符合筛选条件的图表元素，同时支持对非选中元素的视觉淡化处理
+`brushFilter` 交互主要用于实现图表元素的动态范围筛选功能。通过鼠标刷选操作，用户可以在图表上划定特定区域（基于 x/y 轴坐标系），G2 会重新渲染该区域内符合筛选条件的图表元素。
 
 <img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*indVQalzZEQAAAAAAAAAAAAADmJ7AQ/original" width="640">
 
