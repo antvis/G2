@@ -84,7 +84,10 @@ interaction: { legendHighlight:true }, // 采用默认配置
 
 ## 配置项
 
-当前版本的 LegendHighlgiht 插件无可配置参数.
+当前版本的 LegendHighlgiht 插件无可配置参数。
+
+需要设置state的inactive状态，可以参照[元素状态state](https://g6.antv.antgroup.com/manual/element/state)
+
 ### legend组件配置
 
 具体文档看[图例legend](http://https://g2.antv.antgroup.com/manual/component/legend)
@@ -124,61 +127,7 @@ chart.emit('legend:unhighlight', {});
 ```
 
 ## 示例
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-
-  chart.options({
-  type: 'view',
-  autoFit: true,
-  height: 300,
-  interaction:{
-    legendHighlight : true,
-  },
-  state: { inactive: { opacity:0.5 } },
-  children:{
-  tyoe: 'interval',
-  data:  [
-    { name: 'London', month: 'Jan.',value: 18.9 },
-    { name: 'London', month: 'Feb.',value: 28.8 },
-    { name: 'London', month: 'Mar.',value: 39.3 },
-    { name: 'London', month: 'Apr.',value: 81.4 },
-    { name: 'London', month: 'May', value: 47 },
-    { name: 'London', month: 'Jun.',value: 20.3 },
-    { name: 'London', month: 'Jul.',value: 24 },
-    { name: 'London', month: 'Aug.',value: 35.6 },
-    { name: 'Berlin', month: 'Jan.',value: 12.4 },
-    { name: 'Berlin', month: 'Feb.',value: 23.2 },
-    { name: 'Berlin', month: 'Mar.',value: 34.5 },
-    { name: 'Berlin', month: 'Apr.',value: 99.7 },
-    { name: 'Berlin', month: 'May', value: 52.6 },
-    { name: 'Berlin', month: 'Jun.',value: 35.5 },
-    { name: 'Berlin', month: 'Jul.',value: 37.4 },
-    { name: 'Berlin', month: 'Aug.',value: 42.4 },
-  ],
-  encode: {
-    x: "month", 
-    y: "value", 
-    color:"name"
-  },
-  transform: [
-    {
-      type: 'dodgeX',
-      groupBy: 'x',
-      orderBy: 'value',
-      padding: 0.1,
-    },
-  ],
-  }
-  
-});
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
+下面的示例展示了一个```legendFilter```的基本交互功能。
 
 ```js | ob
 (() => {

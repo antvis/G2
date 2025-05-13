@@ -89,7 +89,7 @@ LegendFilter 插件内部根据图例类型自动判断是否为类目图例或�
 
 ### legend组件配置
 
-具体文档看[图例legend](https://g2.antv.a.com/smanual/component/legend)
+具体文档看[图例legend](https://g2.antv.antgroup.com/manual/component/legend)
 
 ## 事件
 
@@ -129,7 +129,7 @@ chart.emit('legend:reset', {});
 
 下面展示了一个离散型数据的legendfilter交互功能。
 
-```js
+```js | ob
 (() => {
   const chart = new G2.Chart();
 
