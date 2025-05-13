@@ -84,7 +84,7 @@ interaction: { legendHighlight:true }, // 采用默认配置
 
 ## 配置项
 
-当前版本的 LegendHighlgiht 插件无可配置参数。
+当前版本的 LegendHighlgiht 交互无可配置参数。
 
 需要设置state的inactive状态，可以参照[元素状态state](https://g6.antv.antgroup.com/manual/element/state)
 
@@ -127,7 +127,7 @@ chart.emit('legend:unhighlight', {});
 ```
 
 ## 示例
-下面的示例展示了一个```legendFilter```的基本交互功能。
+下面的示例展示了一个```legendHighlight```的基本交互功能。
 
 ```js | ob
 (() => {
