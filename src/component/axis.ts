@@ -572,7 +572,6 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     const internalAxisStyle = {
       ...defaultStyle,
       ...style,
-      ...userDefinitions,
     };
 
     const gridLength = inferGridLength(
@@ -629,6 +628,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       ...overrideStyle,
       ...threeDOverrideStyle,
       ...important,
+      ...userDefinitions,
     };
 
     // For hide overlap, do not set crossSize.
