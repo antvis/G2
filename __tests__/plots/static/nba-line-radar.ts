@@ -51,6 +51,7 @@ export function nbaLineRadar(): G2Spec {
         {
           zIndex: 1,
           titleFontSize: 10,
+          titleSpacing: 8,
           label: true,
           labelFill: '#000',
           labelOpacity: 0.45,

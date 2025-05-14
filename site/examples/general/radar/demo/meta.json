@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "multi-radar.ts",
+      "title": {
+        "zh": "多个维度的雷达图",
+        "en": "Multi-dimensional Radar"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*M3nGRIBdVXoAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+    },
+    {
       "filename": "grid-radial.ts",
       "title": {
         "zh": "雷达图(带网格)",
