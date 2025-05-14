@@ -1,4 +1,3 @@
-import { line } from '@antv/vendor/d3-shape';
 import { G2Spec } from '../../../src';
 
 export function nbaLineRadar(): G2Spec {
