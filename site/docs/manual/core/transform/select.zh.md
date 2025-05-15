@@ -24,8 +24,45 @@ order: 2
 | 属性     | 描述                                           | 类型                   | 默认值   |
 | -------- | ---------------------------------------------- | ---------------------- | -------- |
 | groupBy  | 针对指定的通道进行分组                         | `string` \| `string[]` | `series` |
-| channel  | 针对每个分组，使用指定的通道进行指定的数据抽取 | `string`               |          |
-| selector | 针对每个分组，指定对应的数据抽取操作           | `Selector`             | `first`  |
+| channel  | 针对每个分组，使用指定的通道进行指定的数据抽取 | [Channel](#channel)               |          |
+| selector | 针对每个分组，指定对应的数据抽取操作           | [Selector](#selector)             | `first`  |
+
+### channel
+
+理论上，`channel` 可以设置为所有的通道值，具体可以参考 [encode](/manual/core/encode) 文档。所有的枚举值如下：
+
+```ts
+type Channel =
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'x1'
+  | 'y1'
+  | 'series'
+  | 'color'
+  | 'opacity'
+  | 'shape'
+  | 'size'
+  | 'key'
+  | 'groupKey'
+  | 'position'
+  | 'series'
+  | 'enterType'
+  | 'enterEasing'
+  | 'enterDuration'
+  | 'enterDelay'
+  | 'updateType'
+  | 'updateEasing'
+  | 'updateDuration'
+  | 'updateDelay'
+  | 'exitType'
+  | 'exitEasing'
+  | 'exitDuration'
+  | 'exitDelay'
+  | `position${number}`;
+```
+
+### selector
 
 ```ts
 type Selector =
