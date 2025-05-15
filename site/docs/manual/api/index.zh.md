@@ -9,38 +9,6 @@ h3 {
 }
 </style>
 
-## 概述
-
-G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
-
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
-
-  // 声明可视化
-  chart
-    .interval() // 创建一个 Interval 标记
-    .data([
-      // 绑定数据
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre') // 编码 x 通道
-    .encode('y', 'sold'); // 编码 y 通道
-
-  // 渲染可视化
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-Functional API 是基于 Spec API 实现的：简单来讲，每一个 Chart 实例都有一个 options，Functional API 是通过一系列方法去生成这个 options，而 Spec API 是直接设置这个 options。不论是哪种形式的 API，G2 最后都是直接渲染当前的 options，所以两者声明可视化的能力是完全等价。
-
 ## 创建可视化
 
 ### new Chart()
@@ -257,7 +225,39 @@ const chart = new Chart({
 
 关于插件使用的更多内容见 [plugin-rough](/manual/extra-topics/plugin/rough)。
 
-## 创建复合容器
+## 配置图表
+
+G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
+
+```js | ob
+(() => {
+  // 初始化图表实例
+  const chart = new G2.Chart();
+
+  // 声明可视化
+  chart
+    .interval() // 创建一个 Interval 标记
+    .data([
+      // 绑定数据
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ])
+    .encode('x', 'genre') // 编码 x 通道
+    .encode('y', 'sold'); // 编码 y 通道
+
+  // 渲染可视化
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+Functional API 是基于 Spec API 实现的：简单来讲，每一个 Chart 实例都有一个 options，Functional API 是通过一系列方法去生成这个 options，而 Spec API 是直接设置这个 options。不论是哪种形式的 API，G2 最后都是直接渲染当前的 options，所以两者声明可视化的能力是完全等价。
+
+**创建复合容器**
 
 G2 的 Spec 总体来讲是一个有层级结构的**视图树（View Tree）**，由不同的节点构成。节点通过 `node.type` 指定类型，不同的类型有不同的作用，同时通过 `node.children` 来进行嵌套。
 
@@ -324,7 +324,7 @@ spaceFlex.interval();
 
 添加 [timingKeyframe](/manual/core/composition/timing-keyframe) 复合容器。
 
-## 创建图形
+**创建图形**
 
 接下来介绍 G2 中创建图形的 API。G2 的图形可以在不同的容器节点上添加，包括 `chart`、`view`、`geoView`、`spaceLayer`、`facetRect`、`spaceFlex`、`facetCircle`、`repeatMatrix`、`timingKeyframe`。
 
