@@ -293,7 +293,6 @@ export function create({
       girdClosed: true,
       gridStrokeOpacity: 0.3,
       gridType: 'surround',
-      label: false,
       tick: false,
       titlePosition: 'start',
     },

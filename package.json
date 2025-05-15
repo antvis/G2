@@ -78,7 +78,6 @@
     "@antv/util": "^3.3.10",
     "@antv/vendor": "^1.0.8",
     "flru": "^1.0.2",
-    "fmin": "0.0.2",
     "pdfast": "^0.2.0"
   },
   "devDependencies": {
