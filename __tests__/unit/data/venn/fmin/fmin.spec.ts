@@ -105,7 +105,7 @@ describe('fmin', () => {
     nearlyEqual(solution.fx, 0, SMALL, 'nelderMead');
   });
 
-  test('conjugateGradientSolve', (test) => {
+  test('conjugateGradientSolve', () => {
     // matyas function
     let A = [
       [0.52, -0.48],
