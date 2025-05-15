@@ -57,6 +57,56 @@ return chart.getContainer();
 
 图表是否自适应容器宽高，默认为 `false`，用户需要手动设置 width 和 height。当 `autoFit: true` 时，会自动取图表容器的宽高，如果用户设置了 height，那么会以用户设置的 height 为准。
 
+### ChartCfg.clip
+
+<description> _boolean_ **optional** _default:_ `false`</description>
+
+是否隐藏超出绘制区域的图形。
+
+`clip = false` 时，不会对超出绘制区域的图形进行截断
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart
+    .data([
+      { year: '1991', value: 3 },
+      { year: '1992', value: 4 },
+      { year: '1993', value: 3.5 },
+      { year: '1994', value: 5 },
+      { year: '1995', value: 4.9 },
+      { year: '1996', value: 6 },
+      { year: '1997', value: 7 },
+      { year: '1998', value: 9 },
+      { year: '1999', value: 13 },
+    ])
+    .attr('clip', true)
+    .encode('x', 'year')
+    .encode('y', 'value')
+    .scale('x', {
+      range: [0, 1],
+    })
+    .scale('y', {
+      domainMin: 6,
+      nice: true,
+    });
+
+  chart.line().label({
+    text: 'value',
+    style: {
+      dx: -10,
+      dy: -12,
+    },
+  });
+
+  chart.point().style('fill', 'white').tooltip(false);
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
 ### ChartCfg.width
 
 <description> _number_ **optional** _default:_ `640` </description>
@@ -324,7 +374,7 @@ spaceFlex.interval();
 
 添加 [timingKeyframe](/manual/core/composition/timing-keyframe) 复合容器。
 
-**创建图形**
+**添加图形**
 
 接下来介绍 G2 中创建图形的 API。G2 的图形可以在不同的容器节点上添加，包括 `chart`、`view`、`geoView`、`spaceLayer`、`facetRect`、`spaceFlex`、`facetCircle`、`repeatMatrix`、`timingKeyframe`。
 
@@ -455,3 +505,78 @@ spaceFlex.interval();
 ### surface3D()
 
 添加 [surface3D](/manual/extra-topics/three-dimensional/surface-threed) 图形。
+
+**设置属性**
+
+### attr()
+
+获取或设置图表的配置项。
+
+```js
+// 获取配置项
+const point = chart.point();
+console.log(point.attr());
+
+// 设置配置项
+point.attr('padding', 0);
+```
+
+### data()
+
+设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/manual/core/data/overview)。
+
+### encode()
+
+设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
+
+### scale()
+
+设置图形每个通道的比例尺，具体见 [scale](/manual/core/scale/overview)。
+
+### legend()
+
+设置图形的图例，具体见 [legend](/manual/component/legend)。
+
+### tooltip()
+
+设置图形的提示，具体见 [tooltip](/manual/component/tooltip)。
+
+### axis()
+
+设置图形的坐标轴，具体见 [axis](/manual/component/axis)。
+
+### slider()
+
+设置图形的缩略轴，具体见 [slider](/manual/component/slider)。
+
+### label()
+
+设置图形的标签，具体见 [label](/manual/component/label)。
+
+### style()
+
+设置图形的样式，具体见 [style](/manual/core/style)。
+
+### theme()
+
+设置图形的主题，具体见 [theme](/manual/core/theme/overview)。
+
+### `mark.animate`
+
+设置图形的动画，具体见 [animation](/manual/core/animate/overview)。
+
+### `mark.slider`
+
+设置图形的缩略轴，具体见 [slider](/manual/component/slider)。
+
+### `mark.scrollbar`
+
+设置图形的滚动条，具体见 [scrollbar](/manual/component/scrollbar)。
+
+### `mark.state`
+
+设置图形的状态样式，具体见 [state](/manual/core/state)。
+
+### `mark.tooltip`
+
+设置图形的提示，具体见 [tooltip](/manual/component/tooltip)。
