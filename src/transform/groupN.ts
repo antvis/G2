@@ -19,7 +19,7 @@ export type GroupNOptions = Omit<
       options?: Record<string, any>,
     ) => number[][];
   },
-  'type'
+  'type' | 'channels'
 >;
 
 type ReducerFunction = (I: number[], V: Primitive[]) => Primitive;
