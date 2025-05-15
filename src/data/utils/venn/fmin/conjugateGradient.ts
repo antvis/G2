@@ -67,7 +67,7 @@ export function conjugateGradient(f, initial, params) {
 
 /// Solves a system of lienar equations Ax =b for x
 /// using the conjugate gradient method.
-export function conjugateGradientSolve(A, b, x, history) {
+export function conjugateGradientSolve(A, b, x, history?: any) {
   const r = x.slice();
   const Ap = x.slice();
   let rsold;

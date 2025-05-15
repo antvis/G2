@@ -1,7 +1,7 @@
 import { dot, norm2, weightedSum } from './blas1';
 
 /** minimizes a function using the downhill simplex method */
-export function nelderMead(f, x0, parameters) {
+export function nelderMead(f, x0, parameters?: any) {
   parameters = parameters || {};
 
   const maxIterations = parameters.maxIterations || x0.length * 200;
