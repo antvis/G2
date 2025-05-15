@@ -5,7 +5,6 @@ import { GroupN } from './groupN';
 
 export type GroupOptions = Omit<
   GroupTransform & {
-    channels?: string | string[];
     groupBy?: (
       I: number[],
       mark: G2Mark,
