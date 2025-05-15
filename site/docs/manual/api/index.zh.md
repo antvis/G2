@@ -63,7 +63,7 @@ return chart.getContainer();
 
 是否隐藏超出绘制区域的图形。
 
-`clip = false` 时，不会对超出绘制区域的图形进行截断
+`clip = false` 时，不会对超出绘制区域的图形进行截断。
 
 ```js | ob
 (() => {
@@ -81,7 +81,52 @@ return chart.getContainer();
       { year: '1998', value: 9 },
       { year: '1999', value: 13 },
     ])
-    .attr('clip', true)
+    .encode('x', 'year')
+    .encode('y', 'value')
+    .scale('x', {
+      range: [0, 1],
+    })
+    .scale('y', {
+      domainMin: 6,
+      nice: true,
+    });
+
+  chart.line().label({
+    text: 'value',
+    style: {
+      dx: -10,
+      dy: -12,
+    },
+  });
+
+  chart.point().style('fill', 'white').tooltip(false);
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+如果不希望绘制超出绘制区域的图形，需要配置`clip = true`，此时 类似于 `point` 标记的图形可能被截断，可以通过调整 `inset` 大小来解决。
+
+```js | ob
+(() => {
+  const chart = new G2.Chart({
+    clip: true,
+    inset: 20,
+  });
+
+  chart
+    .data([
+      { year: '1991', value: 3 },
+      { year: '1992', value: 4 },
+      { year: '1993', value: 3.5 },
+      { year: '1994', value: 5 },
+      { year: '1995', value: 4.9 },
+      { year: '1996', value: 6 },
+      { year: '1997', value: 7 },
+      { year: '1998', value: 9 },
+      { year: '1999', value: 13 },
+    ])
     .encode('x', 'year')
     .encode('y', 'value')
     .scale('x', {
@@ -307,6 +352,47 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 
 Functional API 是基于 Spec API 实现的：简单来讲，每一个 Chart 实例都有一个 options，Functional API 是通过一系列方法去生成这个 options，而 Spec API 是直接设置这个 options。不论是哪种形式的 API，G2 最后都是直接渲染当前的 options，所以两者声明可视化的能力是完全等价。
 
+**设置属性**
+
+### chart.options()
+
+获取或者设置图表的整体配置 Spec。
+
+```js
+// 获取配置项
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  })
+  .encode('x', 'height')
+  .encode('y', 'weight')
+  .encode('color', 'gender');
+console.log(chart.options());
+
+// 设置配置项
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  },
+  encode: { x: 'height', y: 'weight', color: 'gender' },
+});
+```
+
+### chart.width()
+
+获取或者设置图表的宽度。
+
+### chart.height()
+
+获取或者设置图表的高度。
+
 **创建复合容器**
 
 G2 的 Spec 总体来讲是一个有层级结构的**视图树（View Tree）**，由不同的节点构成。节点通过 `node.type` 指定类型，不同的类型有不同的作用，同时通过 `node.children` 来进行嵌套。
@@ -342,7 +428,7 @@ view.point();
 spaceFlex.interval();
 ```
 
-### view()
+### chart.view()
 
 添加 [view](/manual/core/view) 视图。
 
@@ -525,58 +611,576 @@ point.attr('padding', 0);
 
 设置图形的数据，支持多种数据来源和数据变换，具体见 [data](/manual/core/data/overview)。
 
+```js
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+});
+
+chart.interval().data([
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+]);
+```
+
 ### encode()
 
-设置图形每个通道的字段名称，具体见 [encode](/manual/core/encode)。
+设置图形每个通道的编码，具体见 [encode](/manual/core/encode)。
+
+```js
+chart
+  .interval()
+  .encode('x', 'civilization')
+  .encode('y', ['start', 'end'])
+  .encode('color', 'region');
+
+chart.facetCircle().encode('position', 'month');
+
+chart.encode('x', 'year').encode('y', 'value');
+```
 
 ### scale()
 
 设置图形每个通道的比例尺，具体见 [scale](/manual/core/scale/overview)。
 
+```js
+chart.scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] });
+
+chart.line().scale('y', {
+  domain: [0, 1],
+});
+```
+
 ### legend()
 
 设置图形的图例，具体见 [legend](/manual/component/legend)。
+
+```js
+// 关闭 color 通道图例
+chart.legend('color', false);
+
+chart
+  .interval()
+  .legend('color', { labelFormatter: (d) => (d === 1 ? 'Male' : 'Female') });
+```
 
 ### tooltip()
 
 设置图形的提示，具体见 [tooltip](/manual/component/tooltip)。
 
+```js
+chart.interval().tooltip({ channel: 'y', valueFormatter: '.0%' });
+
+// 关闭 link 标记的 tooltip
+chart.link().tooltip(false);
+```
+
 ### axis()
 
 设置图形的坐标轴，具体见 [axis](/manual/component/axis)。
+
+```js
+chart
+  .interval()
+  .axis('y', { labelFormatter: '~s' })
+  .axis('x', { labelTransform: 'rotate(90)' });
+
+chart.axis('y', { title: false });
+```
 
 ### slider()
 
 设置图形的缩略轴，具体见 [slider](/manual/component/slider)。
 
+```js
+chart
+  .point()
+  .slider('x', { labelFormatter: (d) => d.toFixed(1) })
+  .slider('y', { labelFormatter: (d) => d.toFixed(1) });
+
+chart.slider('y', true).slider('x', true);
+```
+
 ### label()
 
 设置图形的标签，具体见 [label](/manual/component/label)。
+
+```js
+chart
+  .interval()
+  .label({
+    text: (d, i) => (i !== 0 ? '转换率' : ''),
+    position: 'top-right',
+    textAlign: 'left',
+    textBaseline: 'middle',
+    fill: '#aaa',
+    dx: 60,
+  })
+  .label({
+    text: (d, i, data) =>
+      i !== 0 ? r(data[i - 1]['value'], data[i]['value']) : '',
+    position: 'top-right',
+    textAlign: 'left',
+    textBaseline: 'middle',
+    dx: 60,
+    dy: 15,
+  });
+
+chart.interval().label({
+  text: 'id',
+  position: 'spider',
+  connectorDistance: 0,
+  fontWeight: 'bold',
+  textBaseline: 'bottom',
+  textAlign: (d) => (['c', 'sass'].includes(d.id) ? 'end' : 'start'),
+  dy: -4,
+});
+```
+
+### labelTransform()
+
+设置图形的标签转换，具体见 [label](/manual/component/label)。
+
+```js
+chart
+  .labelTransform({ type: 'overlapHide' })
+  .labelTransform({ type: 'contrastReverse' });
+
+chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
+```
 
 ### style()
 
 设置图形的样式，具体见 [style](/manual/core/style)。
 
+```js
+chart.rect().style('inset', 0.5);
+
+chart.liquid().data(0.3).style({
+  outlineBorder: 4,
+  outlineDistance: 8,
+  waveLength: 128,
+});
+```
+
 ### theme()
 
 设置图形的主题，具体见 [theme](/manual/core/theme/overview)。
 
-### `mark.animate`
+```js
+chart.theme({ type: 'academy' });
+
+chart.theme({
+  type: 'classicDark',
+  view: {
+    viewFill: '#141414',
+  },
+}); // Apply dark theme.
+```
+
+### interaction()
+
+设置图形的交互，具体见 [theme](/manual/core/interaction/overview)。
+
+```js
+// 禁用 legendFilter 交互
+chart.interaction('legendFilter', false);
+
+chart.line().interaction('tooltip', {
+  render: (event, { items }) => {
+    const target = event.target;
+    const format = (item) => `${item.name}: ${item.value}`;
+    if (target.className === 'g2-tooltip-marker') {
+      const color = target.style.fill;
+      const item = items.find((i) => i.color === color);
+      return format(item);
+    }
+    return items.map(format).join('<br>');
+  },
+});
+```
+
+### animate()
 
 设置图形的动画，具体见 [animation](/manual/core/animate/overview)。
 
-### `mark.slider`
+```js
+chart
+  .interval()
+  .animate('enter', { type: 'fadeIn', duration: 1000 })
+  .animate('exit', { type: 'fadeOut', duration: 2000 });
 
-设置图形的缩略轴，具体见 [slider](/manual/component/slider)。
+// 禁用动画
+chart.animate(false);
+```
 
-### `mark.scrollbar`
+### scrollbar()
 
 设置图形的滚动条，具体见 [scrollbar](/manual/component/scrollbar)。
 
-### `mark.state`
+```js
+chart.line().scrollbar('x', {}).scrollbar('y', { value: 0.2 });
+```
+
+### title()
+
+设置图形的标题，具体见 [title](/manual/component/title)。
+
+```js
+chart.title({
+  align: 'right',
+  title: 'Sold by genre, sorted by sold',
+  titleFontSize: 15,
+  subtitle: 'It shows the sales volume of genre, sored by sold.',
+  subtitleFill: 'red',
+  subtitleFontSize: 12,
+  subtitleShadowColor: 'yellow',
+  subtitleShadowBlur: 5,
+  subtitleFontStyle: 'italic',
+});
+
+chart.title('Pareto Chart of Customer Complaints');
+```
+
+### state()
 
 设置图形的状态样式，具体见 [state](/manual/core/state)。
 
-### `mark.tooltip`
+```js
+chart
+  .interval()
+  .state('selected', { fill: '#1783FF', stroke: 'black', strokeWidth: 1 })
+  .state('unselected', { fill: '#ccc' });
 
-设置图形的提示，具体见 [tooltip](/manual/component/tooltip)。
+chart.sunburst().state({
+  active: { zIndex: 2, stroke: 'red' },
+  inactive: { zIndex: 1, stroke: '#fff' },
+});
+```
+
+### transform()
+
+设置图形的转换，具体见 [transform](/manual/core/transform/overview)。
+
+```js
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/world-history.json',
+  })
+  .transform({ type: 'sortX', by: 'y' })
+  .transform({ type: 'sortColor', by: 'y', reducer: 'min' });
+
+chart.area().transform([{ type: 'stackY' }, { type: 'normalizeY' }]);
+```
+
+## 渲染图表
+
+### chart.render()
+
+调用图表的渲染方法。
+
+```sign
+render(): void;
+```
+
+### chart.destroy()
+
+销毁图表容器和 Canvas 画布，同时解绑事件。
+
+```sign
+destroy(): void;
+```
+
+### chart.clear()
+
+清空图表上所有的绘制内容，但是不销毁图表，chart 仍可使用。
+
+```sign
+clear(): void;
+```
+
+### chart.show()
+
+显示当前节点渲染的图形。
+
+```sign
+show(): void;
+```
+
+### chart.hide()
+
+隐藏当前节点渲染的图形。
+
+```sign
+hide(): void;
+```
+
+### chart.changeData()
+
+更改图形的数据来源并重新渲染整个图表。
+
+```sign
+changeData(data: any): void;
+```
+
+### chart.changeSize()
+
+改变图表的宽高，并重新渲染。
+
+```sign
+changeSize(width: number, height: number): void;
+```
+
+### chart.forceFit()
+
+自动根据外部 DOM 容器大小调整画布并重新渲染。
+
+```sign
+forceFit(): void;
+```
+
+### mark.changeData()
+
+更改图形的数据来源并重新渲染整个图表。
+
+```sign
+changeData(data: any): void;
+```
+
+## 获取实例
+
+### chart.getContainer()
+
+获取图表的 HTML 容器。
+
+```sign
+getContainer(): HTMLElement;
+```
+
+### chart.getContext()
+
+返回 chart 的 context 信息。
+
+```sign
+getContext(): G2Context;
+```
+
+### chart.getView()
+
+返回 chart 渲染时的 view 实例。
+
+```sign
+getView(): G2ViewDescriptor;
+```
+
+### chart.getCoordinate()
+
+返回 chart 渲染时的 coordinate 实例。
+
+```sign
+getCoordinate(): Coordinate;
+```
+
+### chart.getTheme()
+
+返回 chart 渲染时的 theme 实例。
+
+```sign
+getTheme(): G2Theme;
+```
+
+### chart.getGroup()
+
+返回 chart 渲染时的 canvas group 实例。
+
+```sign
+getGroup(): DisplayObject;
+```
+
+### chart.getScale()
+
+返回 chart 渲染时所有的 scale 实例。
+
+```sign
+getScale(): Record<string, Scale>;
+```
+
+### chart.getScaleByChannel()
+
+通过通道名称查找返回 chart 渲染时对应的 scale 实例。
+
+```sign
+getScaleByChannel(channel: string): Scale;
+```
+
+### chart.on()
+
+监听 chart 上的事件。
+
+```sign
+on(event: string, callback: (...args: any[]) => any, once?: boolean): this;
+```
+
+**生命周期事件**
+
+| 事件               | 描述                             |
+| ------------------ | -------------------------------- |
+| `beforerender`     | 图表渲染前执行该事件             |
+| `afterrender`      | 图表渲染后执行该事件             |
+| `beforepaint`      | 图表布局计算后，绘制前执行该事件 |
+| `afterpaint`       | 图表绘制后执行该事件             |
+| `beforechangedata` | 图表更新数据前执行该事件         |
+| `afterchangedata`  | 图表更新数据后执行该事件         |
+| `beforechangesize` | 图表更新尺寸前执行该事件         |
+| `afterchangesize`  | 图表更新尺寸后执行该事件         |
+| `beforedestroy`    | 图表销毁前执行该事件             |
+| `afterdestroy`     | 图表销毁后执行该事件             |
+
+通过 `chart.on()` 来申明生命周期事件。例如：
+
+```js
+chart.on('afterrender', (e) => {
+  console.log('Chart has been rendered!');
+});
+```
+
+### chart.once()
+
+监听 chart 上的事件，仅触发一次。
+
+```sign
+once(event: string, callback: (...args: any[]) => any): this;
+```
+
+### chart.emit()
+
+触发 chart 上的事件。
+
+```sign
+emit(event: string, ...args: any[]): this;
+```
+
+### chart.off()
+
+卸载 chart 上的监听事件。
+
+```sign
+off(event?: string, callback?: (...args: any[]) => any): void;
+```
+
+### chart.getNodesByType()
+
+通过 type 查找所有的 node 子节点。
+
+```sign
+getNodesByType(type: string): Node[];
+```
+
+### chart.getNodeByKey()
+
+通过 key 找到当前 node 的子节点。
+
+```sign
+getNodeByKey(key: string): Node;
+```
+
+### chart.append()
+
+创建一个新的 Node 并添加在 chart 的子节点上。
+
+```sign
+append(Ctor: new (value: Record<string, any>) => Node<ChildValue, Value>): Node<ChildValue, Value>;
+```
+
+### view.getView()
+
+返回 view 渲染时的 view 实例。
+
+```sign
+getView(): G2ViewDescriptor;
+```
+
+### view.getCoordinate()
+
+返回 view 渲染时的 coordinate 实例。
+
+```sign
+getCoordinate(): Coordinate;
+```
+
+### view.getTheme()
+
+返回 view 渲染时的 theme 实例。
+
+```sign
+getTheme(): G2Theme;
+```
+
+### view.getGroup()
+
+返回 view 渲染时的 canvas group 实例。
+
+```sign
+getGroup(): DisplayObject;
+```
+
+### view.getScale()
+
+返回 view 渲染时所有的 scale 实例。
+
+```sign
+getScale(): Record<string, Scale>;
+```
+
+### view.getScaleByChannel()
+
+通过通道名称查找返回 view 渲染时对应的 scale 实例。
+
+```sign
+getScaleByChannel(channel: string): Scale;
+```
+
+### view.getNodesByType()
+
+通过 type 查找所有的 node 子节点。
+
+```sign
+getNodesByType(type: string): Node[];
+```
+
+### view.getNodeByKey()
+
+通过 key 找到当前 node 的子节点。
+
+```sign
+getNodeByKey(key: string): Node;
+```
+
+### mark.getGroup()
+
+返回 mark 渲染时的 canvas group 实例。
+
+```sign
+getGroup(): DisplayObject;
+```
+
+### mark.getScale()
+
+返回 mark 渲染时所有的 scale 实例。
+
+```sign
+getScale(): Record<string, Scale>;
+```
+
+### mark.getScaleByChannel()
+
+通过通道名称查找返回 mark 渲染时对应的 scale 实例。
+
+```sign
+getScaleByChannel(channel: string): Scale;
+```
