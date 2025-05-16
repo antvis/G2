@@ -6,7 +6,7 @@ import {
   scale,
   zeros,
   zerosM,
-} from 'fmin';
+} from './fmin';
 import {
   circleCircleIntersection,
   circleOverlap,

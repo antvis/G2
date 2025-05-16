@@ -28,7 +28,7 @@
     "vega-embed": "^6.21.0",
     "vega-lite": "^5.5.0",
     "vega": "^5.22.1",
-    "vite": "^3.1.7"
+    "vite": "^4.5.14"
   },
   "dependencies": {}
 }
