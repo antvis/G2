@@ -9,10 +9,11 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
 
 基于数学公式 `y = log(base) + b` 。
 
-|                  比例尺类型              |      图表     |
-| :---: | :--------: |
-| ``线性比例尺（linear scale）`` | <img  src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zBZMSJnqBXkAAAAAAAAAAAAAemJ7AQ/original" /> |
-| ``对数比例尺（log scale）``  | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iCVLTYouo14AAAAAAAAAAAAAemJ7AQ/original" /> |
+- **线性比例尺（linear scale）**
+<img height='300' src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zBZMSJnqBXkAAAAAAAAAAAAAemJ7AQ/original" />
+
+- **对数比例尺（log scale）**
+<img height='300' src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iCVLTYouo14AAAAAAAAAAAAAemJ7AQ/original" />
 
 ## 使用方式
 
@@ -98,10 +99,63 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
   scale: {
     y: {
       type: 'log', // 注意 当数据返回跨度正负数的时候,请勿使用 log。
-      domainMin: 10, // 请勿设置为 0
+      domainMin: 10,
       domainMax: 1000,
       base: 100, // 设置 base 底数为 100,
     }
   }
 }
+```
+
+如果需要最小值 `domainMin:0` 的情况， 可参考 [图表示例 - 对数柱形图](/examples#column-log)页面。
+
+## 示例
+
+### 格式化转化为 `linear`
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: "view",
+    autoFit: true,
+    height: 300,
+    data: [
+      { year: "1991", value: 1 },
+      { year: "1992", value: 10 },
+      { year: "1993", value: 1000 },
+      { year: "1994", value: 0.1 },
+      { year: "1995", value: 100 },
+    ],
+    encode: { x: "year", y: "value" },
+    scale: { x: { range: [0, 1] }, y: { type: "log", tickCount: 4 } },
+    axis: {
+      y: {
+        labelFormatter: (v) => {
+          return Math.log10(v) + 1;
+        },
+      },
+    },
+    children: [
+      {
+        type: "line",
+        labels: [
+          {
+            text: "value",
+            formatter: (v) => {
+              return Math.log10(v) + 1;
+            },
+            style: { dx: -10, dy: -12 },
+          },
+        ],
+      },
+      { type: "point", style: { fill: "white" }, tooltip: false },
+    ],
+  });
+
+  chart.render(); // 渲染图标
+
+  return chart.getContainer();
+})();
 ```
