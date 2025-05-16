@@ -17,6 +17,7 @@ import { isPolar, isTranspose } from '../utils/coordinate';
 import { getStyle } from '../utils/style';
 import { reorder } from '../shape/utils';
 import { angle, angleBetween, sub } from '../utils/vector';
+import { traverseElements } from '../utils/traverse-elements';
 
 /**
  * Given root of chart returns elements to be manipulated
@@ -139,6 +140,14 @@ const STATE_GROUPS = {
   highlight: ['active', 'inactive'],
 };
 
+const setElementAttribute = (element: DisplayObject, k: string, v: string) => {
+  traverseElements(element, (el) => {
+    if ('setAttribute' in el && typeof el.setAttribute === 'function') {
+      (el as DisplayObject).setAttribute(k, v);
+    }
+  });
+};
+
 export function createUseState(
   style: Record<string, any>,
   elements: Element[],
@@ -157,16 +166,14 @@ export function createUseState(
     }
   });
 
-  return (
-    valueof = (d, element) => d,
-    setAttribute = (element, key, v) => element.setAttribute(key, v),
-  ) => useState(undefined, valueof, setAttribute);
+  return (valueof = (d, element) => d, setAttribute = setElementAttribute) =>
+    useState(undefined, valueof, setAttribute);
 }
 
 export function useState(
   style: Record<string, any> | undefined,
   valueof = (d, element) => d,
-  setAttribute = (element, key, v) => element.setAttribute(key, v),
+  setAttribute = setElementAttribute,
 ) {
   const STATES = '__states__';
   const ORIGINAL = '__ordinal__';

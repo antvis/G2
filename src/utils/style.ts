@@ -1,4 +1,5 @@
 import type { DisplayObject, BaseStyleProps } from '@antv/g';
+import { traverseElements } from './traverse-elements';
 
 const defaultStyle: BaseStyleProps = {
   visibility: 'visible',
@@ -8,7 +9,14 @@ const defaultStyle: BaseStyleProps = {
 };
 
 export function getStyle(element: DisplayObject, key: string) {
-  return element.style[key] ?? defaultStyle[key];
+  const result: Partial<Record<string, any>> = {};
+  traverseElements(element, (el) => {
+    if (el.tagName !== 'g' && el.style?.[key] !== undefined) {
+      result[key] = el.style[key];
+    }
+  });
+
+  return result[key] ?? defaultStyle[key];
 }
 
 export function setStyle(
