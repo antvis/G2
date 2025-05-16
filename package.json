@@ -45,6 +45,7 @@
     "test:unit": "cross-env TZ=Asia/Shanghai jest __tests__/unit/",
     "test:integration": "cross-env TZ=Asia/Shanghai jest __tests__/integration/",
     "preview": "vite preview",
+    "playground": "vite --mode playground",
     "build:umd": "rimraf ./dist && node node_modules/rollup/dist/bin/rollup -c && npm run size",
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",

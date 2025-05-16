@@ -106,10 +106,16 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       ),
     );
     const [finished1, resolve, reject] = createEmptyPromise<Runtime<Spec>>();
-    finished
-      .then(resolve)
-      .catch(reject)
-      .then(() => this._renderTrailing());
+    finished.then(resolve).catch(reject);
+    // .finally(() => {
+    //   this._renderTrailing();
+    // });
+
+    console.log('timer');
+    setTimeout(() => {
+      console.log('setTimeout');
+      this._renderTrailing();
+    }, 5000);
     return finished1;
   }
 
