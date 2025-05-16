@@ -210,7 +210,7 @@ const chart = new Chart({
 
 ```js
 const chart = new G2.Chart({
-  container: 'c1',
+  container: 'container',
   width: 1000,
   height: 500,
   inset: 20,
@@ -352,6 +352,8 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 
 Functional API 是基于 Spec API 实现的：简单来讲，每一个 Chart 实例都有一个 options，Functional API 是通过一系列方法去生成这个 options，而 Spec API 是直接设置这个 options。不论是哪种形式的 API，G2 最后都是直接渲染当前的 options，所以两者声明可视化的能力是完全等价。
 
+---
+
 **设置属性**
 
 ### chart.options()
@@ -392,6 +394,8 @@ chart.options({
 ### chart.height()
 
 获取或者设置图表的高度。
+
+---
 
 **创建复合容器**
 
@@ -459,6 +463,8 @@ spaceFlex.interval();
 ### chart.timingKeyframe()
 
 添加 [timingKeyframe](/manual/core/composition/timing-keyframe) 复合容器。
+
+---
 
 **添加图形**
 
@@ -591,6 +597,8 @@ spaceFlex.interval();
 ### surface3D()
 
 添加 [surface3D](/manual/extra-topics/three-dimensional/surface-threed) 图形。
+
+---
 
 **设置属性**
 
