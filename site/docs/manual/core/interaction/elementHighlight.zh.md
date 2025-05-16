@@ -31,24 +31,20 @@ order: 10
 ```ts
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({
-  container: 'container',
-});
+const chart = new Chart({ container: 'container' });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' })
-  .state('active', { fill: 'orange' })
-  .state('inactive', { opacity: 0.5 });
-
-chart.interaction('elementHighlight', true);
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  state: { active: { fill: 'orange' }, inactive: { opacity: 0.5 } },
+  axis: { y: { labelFormatter: '.0%' } },
+  interaction: { elementHighlight: true },
+});
 
 chart.render();
 ```
@@ -101,19 +97,64 @@ chart.render();
 
 ## 配置项
 
-元素高亮配置
+元素高亮交互配置有两处：
+
+1. 交互配置
+2. 元素高亮的样式
+
+### 交互配置
 
 | 属性       | 描述             | 类型      | 默认值 |
 | ---------- | ---------------- | --------- | ------ |
 | background | 是否高亮背景     | `boolean` | false  |
-| region     | 空白区域是否触发 | `boolean` | false  |
+| region     | 鼠标移动到元素空白区域时是否触发高亮(效果见下图) | `boolean` | false  |
 
-元素高亮样式，详见示例[自定义高亮](#自定义高亮)
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n9wMQZoN2ssAAAAAAAAAAAAAemJ7AQ/original" style="width: 100%">
 
-| 属性                      | 描述           | 类型         | 默认值 |
-| ------------------------- | -------------- | ------------ | ------ |
-| offset                    | 主方向的偏移量 | `number`     | 0      |
-| `background${StyleAttrs}` | 背景的样式     | `StyleAttrs` | -      |
+### 元素高亮样式
+
+元素高亮样式，效果见示例[自定义高亮](#自定义高亮)
+
+| 属性                    | 描述                                                                                                                   | 类型                                                         | 默认值        | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
+| offset                  | 主方向上的便偏移量                                                                                                     | number                                                       | `0`           |      |
+| backgroundRadius        | 背景圆角                                                                                                         | number \| (datum, index, data) => number                     | `0`           |      |
+| backgroundFill          | 背景填充色                                                                                                       | string \| (datum, index, data) => string                     | `transparent` |      |
+| backgroundFillOpacity   | 背景填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
+| backgroundStroke        | 背景的描边                                                                                                       | string \| (datum, index, data) => string                     | -             |      |
+| backgroundStrokeOpacity | 背景描边透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
+| backgroundLineWidth     | 背景描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
+| backgroundLineDash      | 背景描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -             |      |
+| backgroundOpacity       | 背景的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -             |      |
+| backgroundShadowColor   | 背景阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -             |      |
+| backgroundShadowBlur    | 背景阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -             |      |
+| backgroundShadowOffsetX | 设置阴影距背景的水平距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
+| backgroundShadowOffsetY | 设置阴影距背景的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
+| backgroundCursor        | 背景鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default`     |      |
+
+在 active 元素中配置背景的时候，不是以对象的形式来配置，而是以 `background`前缀加属性的方式来配置。
+
+```js
+({
+  state: {
+    active: {
+      backgroundRadius: 50,
+      backgroundFill: '#000',
+      backgroundFillOpacity: 0.9,
+      backgroundStroke: '#DAF5EC',
+      backgroundStrokeOpacity: 0.9,
+      backgroundLineWidth: 2,
+      backgroundLineDash: [4, 8],
+      backgroundOpacity: 1,
+      backgroundShadowColor: '#d3d3d3',
+      backgroundShadowBlur: 10,
+      backgroundShadowOffsetX: 10,
+      backgroundShadowOffsetY: 10,
+      backgroundCursor: 'pointer',
+    },
+  },
+});
+```
 
 ## 事件
 
@@ -196,11 +237,20 @@ chart.emit('element:unhighlight', {});
     axis: { y: { labelFormatter: '.0%' } },
     state: {
       active: {
-        backgroundFill: (d) => (d.frequency > 0.1 ? 'red' : '#000'),
-        backgroundFillOpacity: 0.6,
-        backgroundRadius: 10,
         offset: 10,
-        fill: 'green',
+        backgroundRadius: 50,
+        backgroundFill: (d) => (d.frequency > 0.1 ? 'red' : '#000'),
+        backgroundFillOpacity: 0.9,
+        backgroundStroke: '#DAF5EC',
+        backgroundStrokeOpacity: 0.9,
+        backgroundLineWidth: 2,
+        backgroundLineDash: [4, 8],
+        backgroundOpacity: 1,
+        backgroundShadowColor: '#d3d3d3',
+        backgroundShadowBlur: 10,
+        backgroundShadowOffsetX: 10,
+        backgroundShadowOffsetY: 10,
+        backgroundCursor: 'pointer',
       },
     },
     interaction: {

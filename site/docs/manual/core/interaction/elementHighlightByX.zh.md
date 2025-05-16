@@ -31,31 +31,28 @@ order: 12
 <img alt="example" src="https://gw.alipayobjects.com/zos/raptor/1670298045860/element-highlight-by-x.gif" width="640">
 
 ```ts
-import { Chart } from '@antv/g2';
+import { Chart } from "@antv/g2";
 
-const chart = new Chart({
-  container: 'container',
+const chart = new Chart({ container: "container" });
+
+chart.options({
+  type: "interval",
   paddingLeft: 50,
-});
-
-chart
-  .interval()
-  .data({
-    type: 'fetch',
+  data: {
+    type: "fetch",
     value:
-      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-    format: 'csv',
-  })
-  .transform({ type: 'sortX', by: 'y', reverse: true, slice: 6 })
-  .transform({ type: 'dodgeX' })
-  .encode('x', 'state')
-  .encode('y', 'population')
-  .encode('color', 'age')
-  .axis('y', { labelFormatter: '~s' })
-  .state('active', { fill: 'red' })
-  .state('inactive', { opacity: 0.5 });
-
-chart.interaction('elementHighlightByX', true);
+      "https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv",
+    format: "csv",
+  },
+  encode: { x: "state", y: "population", color: "age" },
+  transform: [
+    { type: "sortX", by: "y", reverse: true, slice: 6 },
+    { type: "dodgeX" },
+  ],
+  state: { active: { fill: "red" }, inactive: { opacity: 0.5 } },
+  axis: { y: { labelFormatter: "~s" } },
+  interaction: { elementHighlightByX: true },
+});
 
 chart.render();
 ```
@@ -108,15 +105,21 @@ chart.render();
 
 ## 配置项
 
-元素高亮配置
-
+交互配置
 | 属性       | 描述             | 类型      | 默认值 |
 | ---------- | ---------------- | --------- | ------ |
 | background | 是否高亮背景     | `boolean` | false  |
-| region     | 空白区域是否触发 | `boolean` | false  |
-| link       | 是否展示连接线	 | `boolean` | false  |
+| region     | 鼠标移动到元素空白区域时是否触发高亮(效果见下图) | `boolean` | false  |
 
-元素高亮样式，详见示例[自定义高亮](https://g2.antv.antgroup.com/manual/core/interaction/element-highlight#自定义高亮)
+元素高亮样式配置
+
+| 属性       | 描述             | 类型      | 默认值 |
+| ---------- | ---------------- | --------- | ------ |
+| offset     | 主方向上的便偏移量 | `number` | 0  |
+| background | 是否高亮背景     | [backgroundStyle](https://g2.antv.antgroup.com/manual/core/interaction/element-highlight#元素高亮样式) | 详见[backgroundStyle](https://g2.antv.antgroup.com/manual/core/interaction/element-highlight#元素高亮样式)  |
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n9wMQZoN2ssAAAAAAAAAAAAAemJ7AQ/original" width="800">
+
 
 
 ## 事件
