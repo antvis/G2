@@ -251,6 +251,7 @@ export type GroupColorTransform = {
 
 export type GroupTransform = {
   type?: 'group';
+  channels?: string | string[];
 } & { [key in ChannelTypes]?: Reducer };
 
 export type BinXTransform = {
