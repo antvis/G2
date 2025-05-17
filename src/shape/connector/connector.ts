@@ -37,6 +37,8 @@ function getPoints(
   points: Vector2[],
   offset1: number,
   offset2: number,
+  offsetX1: number,
+  offsetX2: number,
   length1 = 0,
 ): Vector2[] {
   const [[x0, y0], [x1, y1]] = points;
@@ -45,22 +47,26 @@ function getPoints(
     const X0 = x0 + offset1;
     const X1 = x1 + offset2;
     const X = X0 + length1;
+    const Y0 = y0 + offsetX1;
+    const Y1 = y1 + offsetX2;
     return [
-      [X0, y0],
-      [X, y0],
-      [X, y1],
-      [X1, y1],
+      [X0, Y0],
+      [X, Y0],
+      [X, Y1],
+      [X1, Y1],
     ];
   }
 
   const Y0 = y0 - offset1;
   const Y1 = y1 - offset2;
   const Y = Y0 - length1;
+  const X0 = x0 - offsetX1;
+  const X1 = x1 - offsetX2;
   return [
-    [x0, Y0],
-    [x0, Y],
-    [x1, Y],
-    [x1, Y1],
+    [X0, Y0],
+    [X0, Y],
+    [X1, Y],
+    [X1, Y1],
   ];
 }
 
@@ -69,6 +75,9 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
     offset = 0,
     offset1 = offset,
     offset2 = offset,
+    offsetX = 0,
+    offsetX1 = offsetX,
+    offsetX2 = offsetX,
     connectLength1: length1,
     endMarker = true,
     ...style
@@ -83,6 +92,8 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
       points,
       offset1,
       offset2,
+      offsetX1,
+      offsetX2,
       length1 ?? connectLength1,
     );
     const makerStyle = subObject({ ...style, ...defaults }, 'endMarker');
