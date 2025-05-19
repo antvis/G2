@@ -5,8 +5,6 @@ import { Chart, register } from '../../../src';
  */
 function myColumn({ fill, stroke }, context) {
   return (points, ...rest) => {
-    console.log('points', points);
-
     const x3 = points[1][0] - points[0][0];
     const x4 = x3 / 2 + points[0][0];
     const { document } = context;

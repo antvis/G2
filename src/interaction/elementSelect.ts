@@ -188,10 +188,7 @@ export function elementSelect(
     if (elementSet.has(element)) return true;
 
     for (const group of elementSet) {
-      let found = false;
-      traverseElements(group, (el) => {
-        if (el === element) found = true;
-      });
+      const found = traverseElements(group, (el) => el === element);
       if (found) return true;
     }
 

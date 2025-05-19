@@ -9,14 +9,16 @@ const defaultStyle: BaseStyleProps = {
 };
 
 export function getStyle(element: DisplayObject, key: string) {
-  const result: Partial<Record<string, any>> = {};
+  let value: any;
   traverseElements(element, (el) => {
     if (el.tagName !== 'g' && el.style?.[key] !== undefined) {
-      result[key] = el.style[key];
+      value = el.style[key];
+      return true;
     }
+    return false;
   });
 
-  return result[key] ?? defaultStyle[key];
+  return value ?? defaultStyle[key];
 }
 
 export function setStyle(

@@ -2,13 +2,15 @@ import { DisplayObject } from '@antv/g';
 
 export function traverseElements(
   element: DisplayObject,
-  visitor: (el: DisplayObject) => void,
-) {
-  visitor(element);
+  visitor: (el: DisplayObject) => boolean | void,
+): boolean {
+  if (visitor(element)) return true;
   if (element.tagName === 'g') {
-    const { childNodes = [] } = element as DisplayObject;
+    const { childNodes = [] } = element;
     for (const child of childNodes) {
-      traverseElements(child as DisplayObject, visitor);
+      if (traverseElements(child as DisplayObject, visitor)) return true;
     }
   }
+
+  return false;
 }
