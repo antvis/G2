@@ -7,7 +7,7 @@ import './utils/useCustomFetch';
 describe('issue6863', () => {
   const canvas = createNodeGCanvas(800, 500);
 
-  it.only('issue6863.render() should render expected line chart with log scale', async () => {
+  it('issue6863.render() should render expected line chart with log scale', async () => {
     const { chart } = render({
       canvas,
       container: document.createElement('div'),
