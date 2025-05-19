@@ -20,6 +20,7 @@ module.exports = {
     '<rootDir>/__tests__/integration/api-chart-emit-legend-filter.spec.ts',
     '<rootDir>/__tests__/integration/api-chart-emit-slider-filter.spec.ts',
     '<rootDir>/__tests__/integration/api-chart-on-brush-filter.spec.ts',
+    '<rootDir>/__tests__/integration/api-chart-on-component-click.spec.ts',
     '<rootDir>/__tests__/integration/api-chart-auto-fit.spec.ts',
     '<rootDir>/__tests__/integration/chart-on-brush-filter.spec.ts',
     '<rootDir>/__tests__/integration/spec-interaction.spec.ts',

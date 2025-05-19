@@ -10,6 +10,7 @@ export default defineConfig({
     exclude: [
       '__tests__/integration/api-chart-emit-legend-filter.spec.ts',
       '__tests__/integration/api-chart-emit-slider-filter.spec.ts',
+      '__tests__/integration/api-chart-on-component-click.spec.ts',
       '__tests__/integration/api-chart-on-brush-filter.spec.ts',
       '__tests__/integration/api-chart-auto-fit.spec.ts',
       '__tests__/integration/chart-on-brush-filter.spec.ts',
