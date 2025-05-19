@@ -54,7 +54,7 @@ export function acmeCropIncomeIntervalConnector() {
         ],
         style: {
           stroke: '#697474',
-          offset: 16,
+          offsetY: 16,
         },
       },
       {
