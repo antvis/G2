@@ -1,9 +1,10 @@
+import { vi } from 'vitest';
+import type { Vector2 } from '../../../src/runtime';
 import { Connector } from '../../../src/shape/connector/connector';
 import * as coordinateUtils from '../../../src/utils/coordinate';
-import { Vector2 } from '../../../src/runtime';
 
-jest.mock('../../../src/utils/coordinate', () => ({
-  isTranspose: jest.fn().mockReturnValue(false),
+vi.mock('../../../src/utils/coordinate', () => ({
+  isTranspose: vi.fn().mockReturnValue(false),
 }));
 
 const mockDocument = {};
@@ -11,7 +12,7 @@ const mockDocument = {};
 describe('Connector offsetX', () => {
   let mockContext;
   let points: Vector2[];
-  const mockIsTranspose = coordinateUtils.isTranspose as jest.Mock;
+  const mockIsTranspose = coordinateUtils.isTranspose;
 
   beforeEach(() => {
     mockContext = { coordinate: {}, document: mockDocument };
@@ -24,7 +25,7 @@ describe('Connector offsetX', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('In a regular coordinate system', () => {

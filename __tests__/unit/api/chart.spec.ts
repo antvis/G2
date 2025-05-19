@@ -1,6 +1,7 @@
-import { Canvas, HTML } from '@antv/g';
+import { Canvas } from '@antv/g';
 import { Renderer as SVGRenderer } from '@antv/g-svg';
-import { Chart, stdlib, ChartEvent } from '../../../src';
+import { vi } from 'vitest';
+import { Chart, ChartEvent, stdlib } from '../../../src';
 import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 const TEST_OPTIONS = {
@@ -386,7 +387,7 @@ describe('Chart', () => {
     expect(context.canvas).toBeInstanceOf(Canvas);
   });
 
-  it('chart.render() should return promise.', (done) => {
+  it('chart.render() should return promise.', async () => {
     const chart = new Chart({
       canvas: createNodeGCanvas(640, 480),
     });
@@ -404,9 +405,8 @@ describe('Chart', () => {
       .encode('y', 'sold')
       .encode('color', 'genre');
 
-    chart.render().then((c) => {
+    await chart.render().then((c) => {
       expect(c).toBe(chart);
-      done();
     });
   });
 
@@ -439,7 +439,7 @@ describe('Chart', () => {
     expect(chart.getContainer().querySelector('svg')).not.toBeNull();
   });
 
-  it('chart.on(event, callback) should register chart event.', (done) => {
+  it('chart.on(event, callback) should register chart event.', async () => {
     const chart = new Chart({
       canvas: createNodeGCanvas(640, 480),
     });
@@ -469,10 +469,9 @@ describe('Chart', () => {
         expect(beforerender).toBe(true);
         expect(beforepaint).toBe(true);
         expect(afterpaint).toBe(true);
-        done();
       });
 
-    chart.render();
+    await chart.render();
   });
 
   it('chart.once(event, callback) should call callback once.', () => {
@@ -507,7 +506,7 @@ describe('Chart', () => {
     expect(count).toBe(0);
   });
 
-  it('chart.render() should be called after window resize.', (done) => {
+  it('chart.render() should be called after window resize.', async () => {
     const canvas = createNodeGCanvas(640, 480);
     const div = canvas.getConfig().container as HTMLDivElement;
     const chart = new Chart({
@@ -531,14 +530,14 @@ describe('Chart', () => {
       .encode('color', 'genre');
 
     // Track chart render;
-    const fn = jest.fn();
+    const fn = vi.fn();
     const render = chart.render.bind(chart);
     chart.render = () => {
       fn();
       return render();
     };
 
-    chart.render().then(() => {
+    await chart.render().then(() => {
       // Mock resize window.
       div.style.width = '100px';
       div.style.height = '100px';
@@ -548,7 +547,6 @@ describe('Chart', () => {
     // Listen.
     chart.on('afterchangesize', () => {
       expect(fn).toHaveBeenCalledTimes(2);
-      done();
     });
   });
 
@@ -826,7 +824,7 @@ describe('Chart', () => {
       .encode('color', 'genre');
 
     // Track chart render;
-    const fn = jest.fn();
+    const fn = vi.fn();
     const render = chart.render.bind(chart);
     chart.render = () => {
       fn();
