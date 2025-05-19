@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "auto-tooltip.ts",
+      "title": {
+        "zh": "自动提示",
+        "en": "Auto Tooltip"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2lIIQqbP7e8AAAAAAAAAAAAAemJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "reset-brush-filter.ts",
+      "title": {
+        "zh": "重置刷选",
+        "en": "Reset Brush Filter"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RQbHQJAV0VMAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "legend-click.ts",
+      "title": {
+        "zh": "图例点击",
+        "en": "Legend Click"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwSoR7y4FyUAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+    }
+  ]
+}
