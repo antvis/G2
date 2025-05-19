@@ -9,7 +9,7 @@ import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { debounce, get } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
 import { group } from '@antv/vendor/d3-array';
-import { G2Element } from 'utils/selection';
+import { G2Element } from '../utils/selection';
 import {
   G2Context,
   render,
@@ -220,8 +220,8 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     return finished;
   }
 
-  getDataByPoint(
-    point: { offsetX: number; offsetY: number },
+  getDataByXY(
+    point: { x: number; y: number },
     options: {
       shared?: boolean;
       series?: boolean;
@@ -239,6 +239,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     } = options;
     const { canvas, views } = this._context;
     const { document } = canvas;
+    const { x, y } = point;
     // Temporarily do not handle the multi - view situation.
     const { coordinate, scale, markState, data: dataMap, key } = views[0];
     const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
@@ -273,7 +274,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       ) {
         const { selectedData } = findSeriesElement({
           root,
-          event: point,
+          event: { offsetX: x, offsetY: y },
           elements,
           coordinate,
           scale,
@@ -286,7 +287,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       // For single chart.
       const element = findSingleElement({
         root,
-        event: point,
+        event: { offsetX: x, offsetY: y },
         elements,
         coordinate,
         scale,
@@ -297,8 +298,8 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       return groupElements ? getElementsData(groupElements) : [];
     } catch (e) {
       const topMostElement = canvas.document.elementFromPointSync(
-        point.offsetX,
-        point.offsetY,
+        x,
+        y,
       ) as G2Element;
       return topMostElement ? getElementData(topMostElement) : [];
     }
