@@ -48,13 +48,13 @@ describe('Connector offsetX', () => {
       expect(coordinateUtils.isTranspose).toHaveBeenCalled();
     });
 
-    it('offsetX1 and offsetX2 should take precedence over offsetX', () => {
+    it('sourceOffsetX and targetOffsetX should take precedence over offsetX', () => {
       const connector1 = Connector({ offsetX: 15 }, mockContext);
       const connector2 = Connector(
         {
           offsetX: 15,
-          offsetX1: 10,
-          offsetX2: 20,
+          sourceOffsetX: 10,
+          targetOffsetX: 20,
         },
         mockContext,
       );
@@ -65,12 +65,12 @@ describe('Connector offsetX', () => {
       expect(path2.style.d).not.toBe(path1.style.d);
     });
 
-    it('offset and offsetX should be combinable', () => {
-      const connector1 = Connector({ offset: 10 }, mockContext);
+    it('offsetY and offsetX should be combinable', () => {
+      const connector1 = Connector({ offsetY: 10 }, mockContext);
 
       const connector2 = Connector(
         {
-          offset: 10,
+          offsetY: 10,
           offsetX: 15,
         },
         mockContext,
@@ -78,12 +78,12 @@ describe('Connector offsetX', () => {
 
       const connector3 = Connector(
         {
-          offset: 10,
-          offset1: 15,
-          offset2: 20,
+          offsetY: 10,
+          sourceOffsetY: 15,
+          targetOffsetY: 20,
           offsetX: 15,
-          offsetX1: 10,
-          offsetX2: 25,
+          sourceOffsetX: 10,
+          targetOffsetX: 25,
         },
         mockContext,
       );
@@ -123,10 +123,10 @@ describe('Connector offsetX', () => {
       expect(coordinateUtils.isTranspose).toHaveBeenCalled();
     });
 
-    it('offsetX1 and offsetX2 should independently set start and end offsets', () => {
+    it('sourceOffsetX and targetOffsetX should independently set start and end offsets', () => {
       const connector1 = Connector({ offsetX: 20 }, mockContext);
       const connector2 = Connector(
-        { offsetX1: 20, offsetX2: -20 },
+        { sourceOffsetX: 20, targetOffsetX: -20 },
         mockContext,
       );
 
@@ -161,13 +161,13 @@ describe('Connector offsetX', () => {
       expect(path1.style.d).toBe(path2.style.d);
     });
 
-    it('offsetX1 and offsetX2 should use offsetX value when not specified', () => {
+    it('sourceOffsetX and targetOffsetX should use offsetX value when not specified', () => {
       const connector1 = Connector({ offsetX: 15 }, mockContext);
       const connector2 = Connector(
         {
           offsetX: 15,
-          offsetX1: 15,
-          offsetX2: 15,
+          sourceOffsetX: 15,
+          targetOffsetX: 15,
         },
         mockContext,
       );

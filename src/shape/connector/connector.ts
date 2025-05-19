@@ -35,20 +35,20 @@ function inferConnectorPath(points: Vector2[]) {
 function getPoints(
   coordinate: Coordinate,
   points: Vector2[],
-  offset1: number,
-  offset2: number,
-  offsetX1: number,
-  offsetX2: number,
+  sourceOffsetY: number,
+  targetOffsetY: number,
+  sourceOffsetX: number,
+  targetOffsetX: number,
   length1 = 0,
 ): Vector2[] {
   const [[x0, y0], [x1, y1]] = points;
 
   if (isTranspose(coordinate)) {
-    const X0 = x0 + offset1;
-    const X1 = x1 + offset2;
+    const X0 = x0 + sourceOffsetY;
+    const X1 = x1 + targetOffsetY;
     const X = X0 + length1;
-    const Y0 = y0 + offsetX1;
-    const Y1 = y1 + offsetX2;
+    const Y0 = y0 + sourceOffsetX;
+    const Y1 = y1 + targetOffsetX;
     return [
       [X0, Y0],
       [X, Y0],
@@ -57,11 +57,11 @@ function getPoints(
     ];
   }
 
-  const Y0 = y0 - offset1;
-  const Y1 = y1 - offset2;
+  const Y0 = y0 - sourceOffsetY;
+  const Y1 = y1 - targetOffsetY;
   const Y = Y0 - length1;
-  const X0 = x0 - offsetX1;
-  const X1 = x1 - offsetX2;
+  const X0 = x0 - sourceOffsetX;
+  const X1 = x1 - targetOffsetX;
   return [
     [X0, Y0],
     [X0, Y],
@@ -72,12 +72,12 @@ function getPoints(
 
 export const Connector: SC<ConnectorOptions> = (options, context) => {
   const {
-    offset = 0,
-    offset1 = offset,
-    offset2 = offset,
     offsetX = 0,
-    offsetX1 = offsetX,
-    offsetX2 = offsetX,
+    sourceOffsetX = offsetX,
+    targetOffsetX = offsetX,
+    offsetY = 0,
+    sourceOffsetY = offsetY,
+    targetOffsetY = offsetY,
     connectLength1: length1,
     endMarker = true,
     ...style
@@ -90,10 +90,10 @@ export const Connector: SC<ConnectorOptions> = (options, context) => {
     const P = getPoints(
       coordinate,
       points,
-      offset1,
-      offset2,
-      offsetX1,
-      offsetX2,
+      sourceOffsetY,
+      targetOffsetY,
+      sourceOffsetX,
+      targetOffsetX,
       length1 ?? connectLength1,
     );
     const makerStyle = subObject({ ...style, ...defaults }, 'endMarker');
