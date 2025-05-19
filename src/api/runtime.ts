@@ -1,12 +1,31 @@
-import { IRenderer, RendererPlugin, Canvas as GCanvas } from '@antv/g';
+import {
+  DisplayObject,
+  IRenderer,
+  RendererPlugin,
+  Canvas as GCanvas,
+} from '@antv/g';
 import { Renderer as CanvasRenderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
-import { debounce } from '@antv/util';
+import { debounce, get } from '@antv/util';
 import EventEmitter from '@antv/event-emitter';
-import { G2Context, render, destroy } from '../runtime';
+import { group } from '@antv/vendor/d3-array';
+import { G2Element } from 'utils/selection';
+import {
+  G2Context,
+  render,
+  destroy,
+  ELEMENT_CLASS_NAME,
+  VIEW_CLASS_NAME,
+} from '../runtime';
 import { G2Spec, ViewComposition } from '../spec';
 import { ChartEvent } from '../utils/event';
 import type { G2Library } from '../runtime/types/options';
+import {
+  findSingleElement,
+  maybeValue,
+  findSeriesElement,
+} from '../interaction/tooltip';
+import { selectPlotArea } from '../interaction/utils';
 import {
   normalizeContainer,
   removeContainer,
@@ -199,6 +218,90 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       this.emit(ChartEvent.AFTER_CHANGE_SIZE);
     });
     return finished;
+  }
+
+  getDataByPoint(
+    point: { offsetX: number; offsetY: number },
+    options: {
+      shared?: boolean;
+      series?: boolean;
+      facet?: boolean;
+      startX?: number;
+      startY?: number;
+    } = {},
+  ): any[] {
+    const {
+      shared = false,
+      series,
+      facet = false,
+      startX = 0,
+      startY = 0,
+    } = options;
+    const { canvas, views } = this._context;
+    const { document } = canvas;
+    // Temporarily do not handle the multi - view situation.
+    const { coordinate, scale, markState, data: dataMap, key } = views[0];
+    const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
+    const groupKey = shared ? (element) => element.__data__.x : (d) => d;
+    const keyGroup = group(elements, groupKey);
+    const container = document.getElementsByClassName(
+      VIEW_CLASS_NAME,
+    )[0] as DisplayObject;
+    const root = selectPlotArea(container);
+    const hasSeriesInteraction = (markState: Map<string, any>) => {
+      return Array.from(markState.values()).some(
+        (d) =>
+          d.interaction?.['seriesTooltip'] ||
+          d.channels?.some(
+            (c) => c.name === 'series' && c.values !== undefined,
+          ),
+      );
+    };
+    const isSeries = maybeValue(
+      series,
+      hasSeriesInteraction(markState as Map<string, any>),
+    );
+    const getElementData = (el: G2Element) => get(el, '__data__.data', null);
+    const getElementsData = (els: G2Element[]) => els.map(getElementData);
+
+    try {
+      // For non-facet and series chart.
+      if (
+        isSeries &&
+        hasSeriesInteraction(markState as Map<string, any>) &&
+        !facet
+      ) {
+        const { selectedData } = findSeriesElement({
+          root,
+          event: point,
+          elements,
+          coordinate,
+          scale,
+          startX,
+          startY,
+        });
+        const viewData = dataMap.get(`${key}-0`);
+        return selectedData.map(({ index }) => viewData[index]);
+      }
+      // For single chart.
+      const element = findSingleElement({
+        root,
+        event: point,
+        elements,
+        coordinate,
+        scale,
+        shared,
+      });
+      const k = groupKey(element);
+      const groupElements = keyGroup.get(k) as G2Element[];
+      return groupElements ? getElementsData(groupElements) : [];
+    } catch (e) {
+      const topMostElement = canvas.document.elementFromPointSync(
+        point.offsetX,
+        point.offsetY,
+      ) as G2Element;
+      return topMostElement ? getElementData(topMostElement) : [];
+    }
   }
 
   private _create() {
