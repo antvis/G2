@@ -99,7 +99,7 @@ export function alphabetIntervalFunnelConnectorLabel(): G2Spec {
           stroke: '#aaa',
           markerEnd: false,
           connectLength1: -12,
-          offset2: -20,
+          targetOffsetY: -20,
         },
       },
     ],
