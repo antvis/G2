@@ -37,7 +37,7 @@ export function issue6863(context) {
     .style({
       stroke: 'orange',
       lineWidth: 2,
-      sourceOffsetX: 30,
+      sourceOffsetX: 15,
       targetOffsetX: -20,
     });
   chart.render();

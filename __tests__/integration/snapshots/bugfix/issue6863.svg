@@ -362,7 +362,7 @@
           </g>
           <g fill="none" class="main-layer">
             <g>
-              <path fill="rgba(0,0,0,0)" stroke="rgba(255,165,0,1)" stroke-opacity=".45" stroke-width="2" d="m19.489 0 0-12 229.961 0 0 127.667" class="element"/>
+              <path fill="rgba(0,0,0,0)" stroke="rgba(255,165,0,1)" stroke-opacity=".45" stroke-width="2" d="m34.489 0 0-12 214.961 0 0 127.667" class="element"/>
               <g fill="none" class="marker" transform="matrix(0 -1 1 0 249.45 115.667)">
                 <g>
                   <path fill="rgba(65,97,128,1)" fill-opacity=".95" d="m0 0 6-3 0 6Z" class="marker path-marker"/>
