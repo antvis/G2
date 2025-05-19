@@ -156,3 +156,7 @@ chart.interval().style('draggable', true).style('droppable', true);
 | `ChartEvent.`DRAG\_LEAVE | When the element is dragged away from the target element          | `Event`             |
 | `ChartEvent.`DRAG\_OVER  | When the element is dragged and hovered within the target element | `Event`             |
 | `ChartEvent.`DROP        | When the element is placed inside the target element              | `Event`             |
+
+## Typical cases
+
+For details, see Interaction - Events [Examples](/en/examples#interaction-event)

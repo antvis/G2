@@ -157,3 +157,7 @@ chart.interval().style('draggable', true).style('droppable', true);
 | `ChartEvent.`DRAG_LEAVE | 元素被拖拽离开目标元素时     | `Event`  |
 | `ChartEvent.`DRAG_OVER  | 元素被拖拽悬停在目标元素内时 | `Event`  |
 | `ChartEvent.`DROP       | 元素被放置到目标元素内时     | `Event`  |
+
+## 典型案例
+
+详见交互-事件[示例](/examples#interaction-event)
