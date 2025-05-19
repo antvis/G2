@@ -1,11 +1,12 @@
-import { G2Spec, ELEMENT_CLASS_NAME, register } from '../../../src';
-import { step } from './utils';
+import { Chart, register } from '../../../src';
 
 /**
  * Draw 2.5d column shape.
  */
 function myColumn({ fill, stroke }, context) {
   return (points, ...rest) => {
+    console.log('points', points);
+
     const x3 = points[1][0] - points[0][0];
     const x4 = x3 / 2 + points[0][0];
     const { document } = context;
@@ -62,8 +63,14 @@ function myColumn({ fill, stroke }, context) {
 // @ts-ignore
 register('shape.interval.column25d', myColumn);
 
-export function stateAgesIntervalSelectByXCustomShape(): G2Spec {
-  return {
+export function issueChart2897(context) {
+  const { container, canvas } = context;
+  const chart = new Chart({
+    container: container,
+    canvas,
+  });
+
+  chart.options({
     type: 'interval',
     labels: [
       {
@@ -102,12 +109,12 @@ export function stateAgesIntervalSelectByXCustomShape(): G2Spec {
     interaction: {
       elementSelectByX: true,
     },
+  });
+
+  const finished = chart.render();
+
+  return {
+    chart,
+    finished,
   };
 }
-
-stateAgesIntervalSelectByXCustomShape.steps = ({ canvas }) => {
-  const { document } = canvas;
-  const elements = document.getElementsByClassName(ELEMENT_CLASS_NAME);
-  const [e1] = elements;
-  return [step(e1, 'click')];
-};
