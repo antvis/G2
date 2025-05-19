@@ -222,7 +222,7 @@ export default defineConfig({
           zh: '图表组件',
           en: 'Chart Component',
         },
-        order: 4,
+        order: 4.1,
       },
       {
         slug: 'manual/extra-topics',
