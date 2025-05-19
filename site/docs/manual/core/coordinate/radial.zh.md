@@ -16,7 +16,7 @@ order: 3
 
 这类图表通常使用 `interval` 标记来展示数据，能够有效地展示数据的分布和比较情况。
 
-## 坐标系原理
+### 坐标系原理
 
 径向坐标系是通过对极坐标系进行以下变换得到的：
 
@@ -25,7 +25,7 @@ order: 3
 
 这种变换使得数据在视觉上呈现出不同于传统条形图的放射状效果，特别适合展示周期性数据或需要强调中心辐射效果的场景。
 
-## 开始使用
+### 开始使用
 
 ```js | ob
 (() => {
@@ -80,6 +80,21 @@ order: 3
   return chart.getContainer();
 })();
 ```
+
+## 使用场景
+
+径向坐标系适合以下场景：
+
+1. **需要强调中心辐射效果**：当数据具有从中心向外辐射的概念时，如资源分配、影响力等
+2. **展示周期性数据**：当数据具有循环特性，但不适合使用传统极坐标系时
+3. **需要节省空间**：相比于传统条形图，径向条形图在保持数据可读性的同时可以更紧凑地展示
+4. **美观需求**：当需要创建视觉上更具吸引力的可视化时
+
+### 注意事项
+
+1. **数据量**：径向坐标系适合展示中等数量的类别（约 5-15 个），过多或过少的类别可能不适合
+2. **标签放置**：在径向坐标系中，标签的放置需要特别注意，可以使用 `label` 配置中的 `autoRotate` 和 `rotateToAlignArc` 属性
+3. **半径设置**：适当设置 `innerRadius` 可以提高可读性，特别是当数据值差异较小时
 
 ## 配置项
 
@@ -206,23 +221,6 @@ order: 3
 })();
 ```
 
-## 最佳实践
-
-### 何时使用径向坐标系
-
-径向坐标系适合以下场景：
-
-1. **需要强调中心辐射效果**：当数据具有从中心向外辐射的概念时，如资源分配、影响力等
-2. **展示周期性数据**：当数据具有循环特性，但不适合使用传统极坐标系时
-3. **需要节省空间**：相比于传统条形图，径向条形图在保持数据可读性的同时可以更紧凑地展示
-4. **美观需求**：当需要创建视觉上更具吸引力的可视化时
-
-### 注意事项
-
-1. **数据量**：径向坐标系适合展示中等数量的类别（约 5-15 个），过多或过少的类别可能不适合
-2. **标签放置**：在径向坐标系中，标签的放置需要特别注意，可以使用 `label` 配置中的 `autoRotate` 和 `rotateToAlignArc` 属性
-3. **半径设置**：适当设置 `innerRadius` 可以提高可读性，特别是当数据值差异较小时
-
 ## 完整示例
 
 以下是一个带有标签和动画效果的径向条形图完整示例：
@@ -231,11 +229,14 @@ order: 3
 (() => {
   const chart = new G2.Chart();
 
-  chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
-
-  chart
-    .interval()
-    .data([
+  chart.options({
+    type: 'interval',
+    coordinate: {
+      type: 'radial',
+      innerRadius: 0.1,
+      endAngle: Math.PI,
+    },
+    data: [
       { category: '类别 A', value: 21 },
       { category: '类别 B', value: 40 },
       { category: '类别 C', value: 49 },
@@ -244,30 +245,46 @@ order: 3
       { category: '类别 F', value: 84 },
       { category: '类别 G', value: 100 },
       { category: '类别 H', value: 120 },
-    ])
-    .encode('x', 'category')
-    .encode('y', 'value')
-    .encode('color', 'value')
-    .style('stroke', 'white')
-    .scale('color', {
-      range: '#BAE7FF-#1890FF-#0050B3',
-    })
-    .axis('y', { tickFilter: (d, i) => i !== 0 })
-    .legend({
+    ],
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'value',
+    },
+    style: {
+      stroke: 'white',
+    },
+    scale: {
+      color: {
+        range: '#BAE7FF-#1890FF-#0050B3',
+      },
+    },
+    axis: {
+      y: {
+        tickFilter: (d, i) => i !== 0
+      },
+    },
+    legend: {
       color: {
         length: 400,
         position: 'bottom',
         layout: { justifyContent: 'center' },
       },
-    })
-    .label({
+    },
+    label: {
       text: 'value',
       position: 'outside',
       autoRotate: true,
       rotateToAlignArc: true,
       dx: 4,
-    })
-    .animate('enter', { type: 'waveIn', duration: 800 });
+    },
+    animate: {
+      enter: {
+        type: 'waveIn',
+        duration: 800
+      },
+    },
+  });
 
   chart.render();
 
