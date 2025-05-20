@@ -2355,7 +2355,33 @@ chart.render().then(() => {
 
 ### attr()
 
-获取或设置图表的配置项。
+获取或设置图表的配置项。以下是支持配置的属性：
+
+| 属性          | 描述                                             | 类型    |
+| ------------- | ------------------------------------------------ | ------- |
+| class         | CSS 类名                                         | string  |
+| x             | 横坐标位置，一般用于在复合视图中调整某个图的位置 | number  |
+| y             | 纵坐标位置，一般用于在复合视图中调整某个图的位置 | number  |
+| width         | 元素宽度                                         | number  |
+| height        | 元素高度                                         | number  |
+| paddingLeft   | 左内边距                                         | Padding |
+| paddingRight  | 右内边距                                         | Padding |
+| paddingBottom | 下内边距                                         | Padding |
+| paddingTop    | 上内边距                                         | Padding |
+| padding       | 复合内边距                                       | Padding |
+| inset         | 整体呼吸区域宽度                                 | number  |
+| insetLeft     | 左侧呼吸区域宽度                                 | number  |
+| insetBottom   | 底部呼吸区域宽度                                 | number  |
+| insetTop      | 顶部呼吸区域宽度                                 | number  |
+| insetRight    | 右侧呼吸区域宽度                                 | number  |
+| margin        | 复合外边距                                       | number  |
+| marginLeft    | 左外边距                                         | number  |
+| marginBottom  | 底外边距                                         | number  |
+| marginTop     | 顶外边距                                         | number  |
+| marginRight   | 右外边距                                         | number  |
+| frame         | 是否显示边框                                     | boolean |
+| zIndex        | 层叠顺序                                         | number  |
+| clip          | 是否裁剪溢出内容                                 | boolean |
 
 ```js
 // 获取配置项
@@ -2523,6 +2549,23 @@ chart.liquid().data(0.3).style({
   outlineDistance: 8,
   waveLength: 128,
 });
+```
+
+### viewStyle()
+
+设置视图模型的样式，具体见 [图表布局](/manual/core/chart/chart-component#图表布局)。
+
+```js
+facetRect
+  .point()
+  .attr('inset', 10)
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .style('stroke', '#000')
+  .attr('frame', false) // Hide the default frame.
+  .viewStyle('plotStroke', 'red') // Customize the plot area to mock a frame.
+  .viewStyle('plotLineWidth', 2)
+  .viewStyle('plotOpacity', 0.5);
 ```
 
 ### theme()
