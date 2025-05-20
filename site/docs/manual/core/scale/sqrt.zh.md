@@ -19,6 +19,9 @@ sqrt 比例尺属于**连续比例尺**的一种，适用于:
 
 sqrt 比例尺能够使数据在视觉上更加均匀分布，特别是对于具有较大数值范围的数据集。
 
+- 使用sqrt 比例尺效果
+
+
 ```js | ob 
 (() => {
   const chart = new G2.Chart();
@@ -47,6 +50,38 @@ chart.render();
   return chart.getContainer();
 })();
 ```
+
+- 未使用sqrt 比例尺效果
+
+
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
+
+chart.options({
+  type: "view",
+  autoFit: true,
+  data: [
+    { year: "1991", value: 1 },
+    { year: "1992", value: 4 },
+    { year: "1993", value: 9 },
+    { year: "1994", value: 16 },
+    { year: "1995", value: 25 },
+  ],
+  encode: { x: "year", y: "value" },
+  children: [
+    { type: "line", labels: [{ text: "value", style: { dx: -10, dy: -12 } }] },
+    { type: "point", style: { fill: "white" }, tooltip: false },
+  ],
+});
+
+chart.render();
+
+
+  return chart.getContainer();
+})();
+```
+
 
 ## 配置项
 
