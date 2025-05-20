@@ -23,11 +23,18 @@ chart
   });
 ```
 
-### 何时使用 linear 比例尺？
+不仅可以在数据类型为连续数值数据时使用，也可以在需要保持数据比例关系中使用。
 
-数据类型为连续数值，比如：价格、温度；
-
-需要保持数据比例关系，比如：颜色渐变、图形大小。
+```ts
+chart
+  .interval()
+  .data([{ time: '2023-01', sales: '100' }, { time: '2023-01', sales: '300' }])
+  .encode('x', 'time')
+  .encode('y', 'sales')
+  .scale('y', {
+    type: 'linear', // 当 sales 数值为字符串，会被错误地推断为分类数据，需要显示设置比例尺类型
+  });
+```
 
 ## 配置层级
 
@@ -86,60 +93,24 @@ chart
 ```js | ob
 (() => {
   const chart = new G2.Chart();
-  chart.options({
-    type: 'line',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
-    },
-    encode: {
-      x: (d) => new Date(d.Date),
-      y: 'Close',
-      color: 'Symbol',
-      key: 'Symbol',
-      title: (d) => d.Date.toLocaleString(),
-    },
-    axis: {
-      y: {
-        title: '↑ Change in price (%)',
-        labelAutoRotate: false,
-      },
-    },
-    scale: {
-      y: {
-        type: 'log',
-      },
-    },
-    label: {
-      text: 'Symbol',
-      selector: 'last',
-      style: {
-        fontSize: 10,
-      },
-    },
-    interaction: {
-      tooltip: {
-        crosshairs: false, // 关闭辅助线
-      },
-      chartIndex: {
-        ruleStroke: 'pink',
-        ruleLineWidth: 8,
-        ruleLineDash: [4, 8],
-        ruleShadowColor: 'green',
-        ruleShadowBlur: 5,
-        ruleShadowOffsetX: 5,
-        ruleShadowOffsetY: 5,
-        ruleOpacity: 0.9,
-        labelDy: 30,
-        labelFontSize: 20,
-        labelTextAlign: 'center',
-        labelFill: 'red',
-        labelStroke: 'yellow',
-        labelLineWidth: 2,
-        labelFormatter: (d) => `${d.toLocaleDateString()}`,
-      },
-    },
+
+  const data = [
+    { time: '2023-01', sales: 100 },
+    { time: '2023-02', sales: 200 },
+    { time: '2023-03', sales: 150 },
+    { time: '2023-04', sales: 300 },
+    { time: '2023-05', sales: 400 },
+  ];
+
+  chart
+  .interval()
+  .data(data)
+  .encode('x', 'time')
+  .encode('y', 'sales')
+  .scale('y', {
+    type: 'linear', // 使用线性比例尺
+    nice: true,
+    domain: [0, 300], // 自定义设置比例尺的范围，需要显式设置
   });
 
   chart.render();
