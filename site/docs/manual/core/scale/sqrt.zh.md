@@ -3,8 +3,6 @@ title: sqrt
 order: 2
 ---
 
-# Sqrt 比例尺
-
 ## 概述
 
 sqrt 是一种连续型非线性比例尺，它本质上是指数固定为 `0.5` 的 [pow](/manual/core/scale/pow) 比例尺。sqrt 比例尺的映射函数为 `y = x ^ 0.5 + b`，其中 `x` 是输入数据，`b` 是偏移量。
@@ -21,13 +19,33 @@ sqrt 比例尺属于**连续比例尺**的一种，适用于:
 
 sqrt 比例尺能够使数据在视觉上更加均匀分布，特别是对于具有较大数值范围的数据集。
 
-```
-// 输入数据
-[1, 4, 9, 16, 25]
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
-// 经过 sqrt 比例尺映射后（定义域 [1, 25]，值域 [0, 1]）
-// 输出近似值为
-[0, 0.25, 0.5, 0.75, 1]
+chart.options({
+  type: "view",
+  autoFit: true,
+  data: [
+    { year: "1991", value: 1 },
+    { year: "1992", value: 4 },
+    { year: "1993", value: 9 },
+    { year: "1994", value: 16 },
+    { year: "1995", value: 25 },
+  ],
+  encode: { x: "year", y: "value" },
+  scale: { y: { type: "sqrt" } },
+  children: [
+    { type: "line", labels: [{ text: "value", style: { dx: -10, dy: -12 } }] },
+    { type: "point", style: { fill: "white" }, tooltip: false },
+  ],
+});
+
+chart.render();
+
+
+  return chart.getContainer();
+})();
 ```
 
 ## 配置项
