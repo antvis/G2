@@ -37,7 +37,6 @@ export function issue6020(context) {
     .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
   chart.render().then(() => {
-    console.log(i);
     i = 0;
   });
 

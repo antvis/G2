@@ -1,6 +1,6 @@
 import { Vector } from '@antv/coord';
 import { group } from '@antv/vendor/d3-array';
-import { isParallel } from '../utils/coordinate';
+import { isParallel, isPolar } from '../utils/coordinate';
 import { Mark, MarkComponent as MC, SingleMark, Vector2 } from '../runtime';
 import { LineMark } from '../spec';
 import {
@@ -68,6 +68,8 @@ const parallel: Mark = (index, scale, value, coordinate) => {
   if (PV.length === 0) {
     throw new Error('Missing encode for position channel.');
   }
+  // Close the loop for radar(= parallel + polar) coordinate.
+  if (isPolar(coordinate)) PV.push(PV[0]);
 
   // One data corresponds to one line.
   const P = Array.from(index, (i) => {

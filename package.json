@@ -78,7 +78,6 @@
     "@antv/util": "^3.3.10",
     "@antv/vendor": "^1.0.8",
     "flru": "^1.0.2",
-    "fmin": "0.0.2",
     "pdfast": "^0.2.0"
   },
   "devDependencies": {
@@ -129,7 +128,7 @@
     "ts-jest": "^26.5.6",
     "tslib": "^2.8.1",
     "typescript": "^4.9.5",
-    "vite": "^3.2.11",
+    "vite": "^4.5.14",
     "xmlserializer": "^0.6.1"
   },
   "lint-staged": {
