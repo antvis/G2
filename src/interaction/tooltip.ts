@@ -522,6 +522,20 @@ function hasSeries(markState): boolean {
   );
 }
 
+/**
+ * Finds a single element based on the mouse event in a non-series context (e.g., single item tooltip).
+ * @param root - The root display object of the chart.
+ * @param event - The mouse event object (e.g., pointermove, pointerdown).
+ * @param elements - Array of chart elements to search within.
+ * @param coordinate - The coordinate system of the chart (e.g., Cartesian, polar).
+ * @param scale - The scale configurations (e.g., x, series scales).
+ * @param shared - Whether the tooltip is shared among multiple elements (e.g., grouped bars).
+ * @returns The matched display object or `undefined` if no element is found.
+ * @description
+ * - Handles bar charts by sorting elements and using bisector search for efficient lookup.
+ * - For non-bar charts, directly finds the target element from the event's target.
+ * - Adjusts for bar spacing in grouped charts when `shared` is false.
+ */
 export function findSingleElement({
   root,
   event,
@@ -579,6 +593,26 @@ export function findSingleElement({
   return element(event);
 }
 
+/**
+ * Finds series-related elements and data based on the mouse event for series tooltips.
+ * @param root - The root display object of the chart.
+ * @param event - The mouse event object (e.g., pointermove, pointerdown).
+ * @param elements - Array of chart elements to search within.
+ * @param coordinate - The coordinate system of the chart (e.g., Cartesian, polar).
+ * @param scale - The scale configurations (e.g., x, series scales).
+ * @param startX - The starting X position of the plot area.
+ * @param startY - The starting Y position of the plot area.
+ * @returns An object containing:
+ * - `selectedElements`: Matched display objects (series and item elements).
+ * - `selectedData`: Corresponding data records of the selected elements.
+ * - `filteredSeriesData`: Filtered series data closest to the mouse focus.
+ * - `abstractX`: A function to convert mouse coordinates to abstract X values.
+ * @description
+ * - Splits elements into series and item elements for targeted searching.
+ * - Handles bar charts and band scales using bisector search and coordinate inversion.
+ * - Sorts elements to ensure correct visual ordering (top-to-bottom or right-to-left in transposed mode).
+ * - Filters and groups data to provide accurate tooltip information for series.
+ */
 export function findSeriesElement({
   root,
   event,
