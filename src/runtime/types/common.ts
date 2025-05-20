@@ -47,6 +47,7 @@ export type G2ViewDescriptor = {
   labelTransform: LabelTransform;
   // @todo More accurate type.
   style: Record<string, any>;
+  data?: Map<string, any>;
 };
 
 export type G2ViewInstance = {
