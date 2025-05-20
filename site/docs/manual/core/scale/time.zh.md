@@ -21,8 +21,8 @@ Time 比例尺属于连续比例尺的一种，主要用于处理时间序列数
 | domainMin | 设置数据的定义域最小值 | `Date` | 输入数据的最小值 |  |
 | domainMax | 设置数据的定义域最大值 | `Date` | 输入数据的最大值 |  |
 | range | 设置数据映射的值域范围 | `number[]` \| `string[]` | `[0, 1]` |  |
-| rangeMin | 设置数据映射的值域最小值 | `Date` | `0` |  |
-| rangeMax | 设置数据映射的值域最大值 | `Date` | `1` |  |
+| rangeMin | 设置数据映射的值域最小值 | `number`\| `string` | `0` |  |
+| rangeMax | 设置数据映射的值域最大值 | `number`\| `string` | `1` |  |
 | unknown | 对于 `undefined`，`NaN`，`null` 空值，返回的数据 | `any` | `undefined` |  |
 | tickCount | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` |  |
 | tickInterval | 设置推荐的 tick 之间的间隔，tickInterval 优先级高于 tickCount | `number` | `undefined` |  |
