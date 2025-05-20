@@ -52,20 +52,20 @@ chart.render();
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 | -------------| ----------------------------------------------------------- | -----| -------| ----- |
-| domain      | 设置数据的定义域范围                                            | `number[]` | 输入数据的最大最小值范围 | 否 |
-| domainMin      | 设置数据的定义域最小值                                     | `number` | 输入数据的最小值 | 否 |
-| domainMax      | 设置数据的定义域最大值                                           | `number` | 输入数据的最大值 | 否 |
-| range       | 设置数据映射的值域范围                                           | `number[]` \| `string[]` | `[0, 1]` | 否 |
-| rangeMin       | 设置数据映射的值域最小值                                        | `number \| string` | `0` | 否 |
-| rangeMax       | 设置数据映射的值域最大值                                      | `number \| string` | `1` | 否 |
-| unknown     | 对于 `undefined`， `NaN`，`null` 空值，返回的数据                | `any` | `undefined` | 否 |
-| tickCount   | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` | 否 |
-| tickMethod  | 设置生成 tick 的方法，常用于自定义 tick                           | `(min: number, max: number, count: number) => number[]`      | `d3-ticks` | 否 |
-| round       | 输出值去四舍五入                                                | `boolean` | `false` | 否 |
-| clamp       | 将映射值限定在 range 的范围内                                     | `boolean` | `false` | 否 |
-| nice        | 扩展 domain 范围，让输出的 tick 展示得更加友好                     | `boolean` | `false` | 否 |
-| interpolate | 自定义插值函数                                                  | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` | 否 |
-| exponent      | 设定指数，对于 sqrt 比例尺，该值固定为 `0.5`                  | `number` | `0.5` | 否 |
+| domain      | 设置数据的定义域范围                                            | `number[]` | 输入数据的最大最小值范围 |  |
+| domainMin      | 设置数据的定义域最小值                                     | `number` | 输入数据的最小值 |  |
+| domainMax      | 设置数据的定义域最大值                                           | `number` | 输入数据的最大值 |  |
+| range       | 设置数据映射的值域范围                                           | `number[]` \| `string[]` | `[0, 1]` |  |
+| rangeMin       | 设置数据映射的值域最小值                                        | `number \| string` | `0` |  |
+| rangeMax       | 设置数据映射的值域最大值                                      | `number \| string` | `1` |  |
+| unknown     | 对于 `undefined`， `NaN`，`null` 空值，返回的数据                | `any` | `undefined` |  |
+| tickCount   | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` |  |
+| tickMethod  | 设置生成 tick 的方法，常用于自定义 tick                           | `(min: number, max: number, count: number) => number[]`      | `d3-ticks` |  |
+| round       | 输出值去四舍五入                                                | `boolean` | `false` |  |
+| clamp       | 将映射值限定在 range 的范围内                                     | `boolean` | `false` |  |
+| nice        | 扩展 domain 范围，让输出的 tick 展示得更加友好                     | `boolean` | `false` |  |
+| interpolate | 自定义插值函数                                                  | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |  |
+| exponent      | 设定指数，对于 sqrt 比例尺，该值固定为 `0.5`                  | `number` | `0.5` |  |
 
 ## 示例
 
