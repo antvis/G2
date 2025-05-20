@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useFullSidebarData, useLocale, useNavigate } from 'dumi';
 import { Tag, Divider, Flex, Row, Card, Col } from 'antd';
 import { styled } from 'styled-components';
-import { GRAPH_USAGES, mockSnapshot, mockCategory } from './constants';
+import { GRAPH_USAGES, LANGUAGE_MAP } from './constants';
 
 const StyledWrapper = styled.div`
   .filter-panel {
@@ -33,7 +33,10 @@ export default () => {
   const data = useFullSidebarData();
   const navigate = useNavigate();
 
-  const list = data?.['/api']?.[0]?.children;
+  const list =
+    lang === LANGUAGE_MAP.ZH
+      ? data?.['/charts']?.[0]?.children
+      : data?.[`/${lang}/charts`]?.[0]?.children;
   const metaList = Array.isArray(list) ? list : [];
 
   const [selectedUsages, setSelectedUsages] = React.useState<string[]>(['all']);
@@ -55,7 +58,8 @@ export default () => {
 
     setSelectedUsages(nextSelectedUsages);
   };
-
+  const usageSet = new Set(selectedUsages);
+  const hasAllFlag = usageSet.has('all');
   return (
     <StyledWrapper>
       <div className="filter-panel">
@@ -68,7 +72,7 @@ export default () => {
               checked={selectedUsages.includes(id)}
               onChange={(checked) => handleChange(id, checked)}
             >
-              {lang === 'zh' ? nameZh : nameEn}
+              {lang === LANGUAGE_MAP.ZH ? nameZh : nameEn}
             </Tag.CheckableTag>
           ))}
         </Flex>
@@ -76,17 +80,22 @@ export default () => {
 
       <Row gutter={[24, 24]}>
         {metaList
-
+          .filter((meta) => {
+            const categories = meta?.frontmatter?.category || [];
+            const validCategory =
+              Array.isArray(categories) && categories.length > 0;
+            const hasMatch =
+              validCategory && categories.some((c) => usageSet.has(c));
+            return validCategory && (hasAllFlag || hasMatch);
+          })
           .map((meta = {}, index) => {
+            const frontmatter = meta.frontmatter || {};
             const link = meta.link || '';
-            const title = meta.title || meta.frontmatter?.title;
-            const desc = meta.frontmatter?.description;
-            const snapshot = meta.frontmatter?.snapshot || mockSnapshot[index];
-
-            const tags = (mockCategory[index] || []).map((tagId) =>
+            const title = meta.title || frontmatter?.title;
+            const screenshot = frontmatter?.screenshot;
+            const tags = (frontmatter?.category || []).map((tagId) =>
               GRAPH_USAGES.find((g) => g.id === tagId),
             );
-
             return (
               <Col span={6} key={index}>
                 <Card
@@ -97,25 +106,18 @@ export default () => {
                   style={{ borderRadius: 8 }}
                 >
                   <Flex justify="center" align="center">
-                    <img alt={title} src={snapshot} height={158} />
+                    <img alt={title} src={screenshot} height={158} />
                   </Flex>
 
                   <Flex wrap gap={2} className="usage-items">
                     {tags.map((usage, index) => (
                       <div className="usage-item" key={index}>
-                        {lang === 'zh' ? usage.nameZh : usage.nameEn}
+                        {lang === LANGUAGE_MAP.ZH ? usage.nameZh : usage.nameEn}
                       </div>
                     ))}
                   </Flex>
                 </Card>
               </Col>
-            );
-          })
-          .filter((_, index) => {
-            const tags = mockCategory[index] || [];
-            return (
-              tags.some((tag) => selectedUsages.includes(tag)) ||
-              selectedUsages.includes('all')
             );
           })}
       </Row>
