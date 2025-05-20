@@ -40,10 +40,10 @@ order: 1
         ],
       }),
     },
-    // layout: {
-    //   tile: 'treemapBinary',
-    //   paddingInner: 1,
-    // },
+    layout: {
+      tile: 'treemapBinary',
+      paddingInner: 1,
+    },
     encode: { value: 'value' },
     style: {
       labelFill: '#000',
@@ -66,13 +66,13 @@ order: 1
 
 ## 配置项
 
-| 属性             | 描述                                                                                                  | 类型              | 默认值 | 必选 |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | ----------------- | ------ | ---- |
-| layout           | 布局配置                                                                                              | `TreemapLayout`   | -      |      |
-| encode           | 配置 `treemap` 标记的视觉通道，包括`x`、`y`、`color`、`value`等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode) | -      |      |
-| style            | 配置图形样式和标签样式                                                                                | -                 | -      |      |
-| labels           | 自定义数据标签的配置                                                                                  | label[]           | []     |      |
-| treemapDrillDown | 下钻数据的配置                                                                                        | `Object`          | -      |      |
+| 属性        | 描述                                                                                                  | 类型              | 默认值 | 必选 |
+| ----------- | ----------------------------------------------------------------------------------------------------- | ----------------- | ------ | ---- |
+| layout      | 布局配置                                                                                              | `TreemapLayout`   | -      |      |
+| encode      | 配置 `treemap` 标记的视觉通道，包括`x`、`y`、`color`、`value`等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode) | -      |      |
+| style       | 配置图形样式和标签样式                                                                                | -                 | -      |      |
+| labels      | 自定义数据标签的配置                                                                                  | label[]           | []     |      |
+| interaction | 配置 treemap 的交互                                                                                   | `Object`          | -      |      |
 
 ### layout
 
@@ -82,6 +82,7 @@ order: 1
 | padding | 外间距，另外还有 `paddingInner \| paddingOuter \| paddingTop \| paddingBottom \| paddingRight \| paddingLeft` | `number`                                                                                                               | 0                             |      |
 | sort    | 排序规则                                                                                                      | `(a: any, b: any): number`                                                                                             | `(a, b) => b.value - a.value` |      |
 | layer   | 渲染层级                                                                                                      | `number \| (d) => number`                                                                                              | 0                             |      |
+| path    | 渲染层级                                                                                                      | `(d) => d.name`                                                                                                        | 0                             |      |
 
 ### encode
 
@@ -121,14 +122,48 @@ order: 1
 
 更多样式可以查看[文档 - 核心概念 - 样式](/manual/core/style)页面。
 
-### treemapDrillDown
+### interaction
+
+treemap 常用的交互是 `treemapDrillDown` 和 `poptip`
+
+treemapDrillDown 用于实现矩形树图的下钻交互，通过点击矩形树图的某个节点，可以将该节点及其子节点展示在画布上。配置如下：
 
 | 属性               | 描述                     | 类型     | 默认值                | 必选 |
 | ------------------ | ------------------------ | -------- | --------------------- | ---- |
-| breadCrumbFill     | 面包屑的填充色           | `Object` | `rgba(0, 0, 0, 0.85)` |      |
+| breadCrumbFill     | 面包屑的填充色           | `string` | `rgba(0, 0, 0, 0.85)` |      |
 | breadCrumbFontSize | 面包屑字体大小           | `number` | 12                    |      |
 | breadCrumbY        | 面包屑在 Y 轴的位置      | `number` | 12                    |      |
 | activeFill         | 当前激活的面包屑的填充色 | `number` | `rgba(0, 0, 0, 0.5)`  |      |
+
+```js
+chart.options({
+  // 其他图表配置...
+  interaction: {
+    treemapDrillDown: {
+      breadCrumbY: 12,
+      activeFill: '#873bf4',
+    },
+  },
+});
+```
+
+[poptip](/manual/core/interaction/poptip)用于交互时显示简洁的提示信息
+
+```js
+chart.options({
+  // 其他图表配置...
+  interaction: {
+    poptip: {
+      // poptip 配置项
+      offsetX: 10,
+      offsetY: 10,
+      // tip 样式配置
+      tipBackgroundColor: 'rgba(0, 0, 0, 0.75)',
+      tipColor: '#fff',
+    },
+  },
+});
+```
 
 ## 示例
 
@@ -164,4 +199,8 @@ order: 1
 
   return chart.getContainer();
 })();
+```
+
+```
+
 ```
