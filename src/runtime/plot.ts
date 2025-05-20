@@ -1318,7 +1318,7 @@ function normalizeLabelSelector(
  * transitions together.
  */
 function getLocalBounds(element: DisplayObject) {
-  const cloneElement = element.cloneNode();
+  const cloneElement = element.cloneNode(true);
   const animations = element.getAnimations();
   cloneElement.style.visibility = 'hidden';
   animations.forEach((animation) => {

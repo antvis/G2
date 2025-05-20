@@ -2,6 +2,7 @@ import { DisplayObject } from '@antv/g';
 import { group } from '@antv/vendor/d3-array';
 import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
+import { traverseElements } from '../utils/traverse-elements';
 import {
   createValueof,
   createDatumof,
@@ -41,7 +42,7 @@ export function elementSelect(
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
-  const elementSet = new Set(elements);
+  const elementSet: Set<DisplayObject> = new Set(elements);
   const findElement = createFindElementByEvent({
     elementsof,
     root,
@@ -183,18 +184,46 @@ export function elementSelect(
     });
   };
 
+  const isClickElementOrGroup = (element: DisplayObject): boolean => {
+    if (elementSet.has(element)) return true;
+
+    for (const group of elementSet) {
+      const found = traverseElements(group, (el) => el === element);
+      if (found) return true;
+    }
+
+    return false;
+  };
+
+  const getRealElement = (element: DisplayObject): DisplayObject => {
+    if (elementSet.has(element)) return element;
+    for (const group of elementSet) {
+      let match: DisplayObject | null = null;
+      traverseElements(group, (el) => {
+        if (el === element) match = group;
+      });
+      if (match) return match;
+    }
+    return element;
+  };
+
   const click = (event) => {
     const { target: element, nativeEvent = true } = event;
 
     const select = !isMultiSelectMode ? singleSelect : multipleSelect;
     let el = element;
-    const isClickElement = elementSet.has(element);
+    const isClickElement = isClickElementOrGroup(element);
 
     if (!region || isClickElement) {
       // Click non-element shape, reset.
       // Such as the rest of content area(background).
       if (!isClickElement) return clear();
-      return select({ event, element: el, nativeEvent, groupBy: groupKey });
+      return select({
+        event,
+        element: getRealElement(el),
+        nativeEvent,
+        groupBy: groupKey,
+      });
     } else {
       // Click background region area, select elements in the region.
       // Get element at cursor.x position.
