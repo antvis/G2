@@ -28,6 +28,17 @@ order: 2
 (() => {
   const chart = new G2.Chart();
 
+  // 定义维度数组
+  const dimensions = [
+    'Cylinders',
+    'Displacement',
+    'Weight_in_lbs',
+    'Horsepower',
+    'Acceleration',
+    'Miles_per_Gallon',
+    'Year',
+  ];
+
   chart.options({
     type: 'line',
     width: 720,
@@ -46,15 +57,7 @@ order: 2
       ],
     },
     encode: {
-      position: [
-        'Cylinders',
-        'Displacement',
-        'Weight_in_lbs',
-        'Horsepower',
-        'Acceleration',
-        'Miles_per_Gallon',
-        'Year',
-      ],
+      position: dimensions,
       color: 'Origin',
       size: 1.01,
     },
@@ -216,6 +219,15 @@ order: 2
 (() => {
   const chart = new G2.Chart();
 
+  // 定义维度数组
+  const dimensions = [
+    'economy (mpg)',
+    'cylinders',
+    'displacement (cc)',
+    'power (hp)',
+    'weight (lb)',
+  ];
+
   chart.options({
     type: 'line',
     coordinate: { type: 'parallel' },
@@ -224,13 +236,7 @@ order: 2
       value: 'https://assets.antv.antgroup.com/g2/cars3.json',
     },
     encode: {
-      position: [
-        'economy (mpg)',
-        'cylinders',
-        'displacement (cc)',
-        'power (hp)',
-        'weight (lb)',
-      ],
+      position: dimensions,
       color: 'cylinders',
     },
     style: {
@@ -273,6 +279,17 @@ order: 2
 (() => {
   const chart = new G2.Chart();
 
+  // 定义维度数组
+  const dimensions = [
+    'Cylinders',
+    'Displacement',
+    'Weight_in_lbs',
+    'Horsepower',
+    'Acceleration',
+    'Miles_per_Gallon',
+    'Year',
+  ];
+
   chart.options({
     type: 'line',
     width: 800,
@@ -292,15 +309,7 @@ order: 2
       ],
     },
     encode: {
-      position: [
-        'Cylinders',
-        'Displacement',
-        'Weight_in_lbs',
-        'Horsepower',
-        'Acceleration',
-        'Miles_per_Gallon',
-        'Year',
-      ],
+      position: dimensions,
       color: 'Origin',
       size: 1.01,
     },
@@ -308,13 +317,10 @@ order: 2
       strokeOpacity: 0.3,
     },
     scale: {
-      position: { nice: true },
-      position1: { nice: true },
-      position2: { nice: true },
-      position3: { nice: true },
-      position4: { nice: true },
-      position5: { nice: true },
-      position6: { nice: true },
+      // 为所有position设置相同的配置
+      ...Object.fromEntries(
+        dimensions.map((_, i) => [`position${i > 0 ? i : ''}`, { nice: true }])
+      ),
       // 为年份设置时间格式
       Year: {
         type: 'time',
@@ -323,133 +329,43 @@ order: 2
       },
     },
     axis: {
-      position: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null, // 移除网格线
-        tickCount: 5, // 减少刻度数量
-        labelSpacing: 8, // 增加标签与轴的距离
-      },
-      position1: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null,
-        tickCount: 5,
-        labelSpacing: 8,
-      },
-      position2: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null,
-        tickCount: 5,
-        labelSpacing: 8,
-      },
-      position3: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null,
-        tickCount: 5,
-        labelSpacing: 8,
-      },
-      position4: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null,
-        tickCount: 5,
-        labelSpacing: 8,
-      },
-      position5: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null,
-        tickCount: 5,
-        labelSpacing: 8,
-      },
-      position6: {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null,
-        tickCount: 5,
-        labelSpacing: 8,
-        labelFormatter: (text) => text.slice(0, 4), // 只显示年份
-      },
+      // 定义基础轴配置
+      ...(() => {
+        // 创建基础配置对象
+        const baseAxisConfig = {
+          zIndex: 1,
+          line: true,
+          labelStroke: '#fff',
+          labelLineWidth: 5,
+          labelFontSize: 12,
+          labelStrokeLineJoin: 'round',
+          titleStroke: '#fff',
+          titleFontSize: 14,
+          titleLineWidth: 5,
+          titleStrokeLineJoin: 'round',
+          lineStroke: 'black',
+          tickStroke: 'black',
+          lineLineWidth: 1,
+          grid: null, // 移除网格线
+          tickCount: 5, // 减少刻度数量
+          labelSpacing: 8, // 增加标签与轴的距离
+        };
+
+        // 为每个维度创建配置
+        return Object.fromEntries(
+          dimensions.map((dim, i) => {
+            const key = `position${i > 0 ? i : ''}`;
+            // 为最后一个维度（Year）添加特殊配置
+            if (i === dimensions.length - 1) {
+              return [key, {
+                ...baseAxisConfig,
+                labelFormatter: (text) => text.slice(0, 4), // 只显示年份
+              }];
+            }
+            return [key, baseAxisConfig];
+          })
+        );
+      })(),
     },
     legend: {
       color: {
