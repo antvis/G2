@@ -65,6 +65,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
   // Identifies whether bindAutoFit.
   private _hasBindAutoFit = false;
   private _rendering = false;
+  private _trailingClear = false;
   private _trailing = false;
   private _trailingResolve = null;
   private _trailingReject = null;
@@ -105,17 +106,26 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
         this._createReject(reject),
       ),
     );
-    const [finished1, resolve, reject] = createEmptyPromise<Runtime<Spec>>();
-    finished.then(resolve).catch(reject);
-    // .finally(() => {
-    //   this._renderTrailing();
-    // });
 
-    console.log('timer');
-    setTimeout(() => {
-      console.log('setTimeout');
-      this._renderTrailing();
-    }, 5000);
+    const [finished1, resolve, reject] = createEmptyPromise<Runtime<Spec>>();
+    finished
+      .then(resolve)
+      .catch(reject)
+      .then(() => {
+        // Resolve trailing clear.
+        if (this._trailingClear) {
+          this._trailingClear = false;
+          const options = this.options();
+
+          this.clear();
+
+          // If clear is called during trailing, recover options for next trailing render.
+          if (this._trailing) this.options(options);
+        }
+
+        this._renderTrailing();
+      });
+
     return finished1;
   }
 
@@ -178,6 +188,13 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
   }
 
   clear() {
+    // Clear after render, otherwise render with destroyed context will return infinite promise, which will block trialing render.
+    if (this._rendering) {
+      this._trailingClear = true;
+      // only reset options, not destroy canvas.
+      this._reset();
+      return;
+    }
     const options = this.options();
     this.emit(ChartEvent.BEFORE_CLEAR);
     this._reset();

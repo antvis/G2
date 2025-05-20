@@ -1,41 +1,38 @@
-// 从源码中引入G2
-import { Chart } from '../src/index';
+import { Chart } from '../src';
 
-const chart = new Chart({ container: 'container' });
+const data = [
+  { letter: 'A', frequency: 0.08167 },
+  { letter: 'B', frequency: 0.01492 },
+  { letter: 'C', frequency: 0.02782 },
+  { letter: 'D', frequency: 0.04253 },
+  { letter: 'E', frequency: 0.12702 },
+  { letter: 'F', frequency: 0.02288 },
+  { letter: 'G', frequency: 0.02015 },
+  { letter: 'H', frequency: 0.06094 },
+  { letter: 'I', frequency: 0.06966 },
+  { letter: 'J', frequency: 0.00153 },
+  { letter: 'K', frequency: 0.00772 },
+  { letter: 'L', frequency: 0.04025 },
+  { letter: 'M', frequency: 0.02406 },
+  { letter: 'N', frequency: 0.06749 },
+  { letter: 'O', frequency: 0.07507 },
+  { letter: 'P', frequency: 0.01929 },
+  { letter: 'Q', frequency: 0.00095 },
+  { letter: 'R', frequency: 0.05987 },
+  { letter: 'S', frequency: 0.06327 },
+  { letter: 'T', frequency: 0.09056 },
+  { letter: 'U', frequency: 0.02758 },
+  { letter: 'V', frequency: 0.00978 },
+  { letter: 'W', frequency: 0.0236 },
+  { letter: 'X', frequency: 0.0015 },
+  { letter: 'Y', frequency: 0.01974 },
+  { letter: 'Z', frequency: 0.00074 },
+];
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
-const option = {
-  type: 'view',
-  children: [
-    {
-      type: 'interval',
-      data: [
-        {
-          '5af4d578-b243-4cfd-96f8-ad7a21069e82': '2025-05-13',
-          '1299bee1-f723-470c-91d3-1358c19e9e8c': 10400628.99,
-        },
-      ],
-      encode: {
-        x: '5af4d578-b243-4cfd-96f8-ad7a21069e82',
-        y: '1299bee1-f723-470c-91d3-1358c19e9e8c',
-      },
-      labels: [
-        {
-          text: '1299bee1-f723-470c-91d3-1358c19e9e8c',
-          position: 'inside',
-          fill: '#000',
-        },
-      ],
-    },
-  ],
-};
+chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
 
-chart.options(option);
 chart.render();
-
-setTimeout(() => {
-  // 很奇怪，只触发了一次render
-  // 因为上一次 render 被 clear 一直没被 resolve，所以下一次被饿死了 
-  chart.clear();
-  chart.options(option);
-  chart.render();
-}, 100);
