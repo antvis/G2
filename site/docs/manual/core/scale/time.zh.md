@@ -3,8 +3,6 @@ title: time
 order: 2
 ---
 
-# Time 比例尺
-
 Time 比例尺是一种特殊的连续比例尺，专门用于处理时间序列数据。它将时间数据（Date 对象）映射到连续的数值范围。Time 比例尺的映射函数为 `y = x.getTime() + b`，其中 `x` 是时间值，`b` 是偏移量。
 
 ## 概述
@@ -14,41 +12,27 @@ Time 比例尺属于连续比例尺的一种，主要用于处理时间序列数
 - 自动处理时间数据的格式化和解析
 - 提供灵活的时间刻度生成机制
 
-### 映射效果示例
-
-```ts
-// 输入数据
-const dates = [
-  new Date('2024-01-01'),
-  new Date('2024-02-01'),
-  new Date('2024-03-01'),
-  new Date('2024-04-01')
-];
-
-// 使用 time 比例尺映射到 [0, 1] 范围
-// 结果将类似于：[0, 0.33, 0.66, 1]
-```
 
 ## 配置项
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 | -------------| ----------------------------------------------------------- | -----| ------- | ---- |
-| domain | 设置数据的定义域范围 | `Date[]` | 输入数据的最大最小值范围 | 否 |
-| domainMin | 设置数据的定义域最小值 | `Date` | 输入数据的最小值 | 否 |
-| domainMax | 设置数据的定义域最大值 | `Date` | 输入数据的最大值 | 否 |
-| range | 设置数据映射的值域范围 | `Date[]` \| `string[]` | `[0, 1]` | 否 |
-| rangeMin | 设置数据映射的值域最小值 | `Date` | `0` | 否 |
-| rangeMax | 设置数据映射的值域最大值 | `Date` | `1` | 否 |
-| unknown | 对于 `undefined`，`NaN`，`null` 空值，返回的数据 | `any` | `undefined` | 否 |
-| tickCount | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` | 否 |
-| tickInterval | 设置推荐的 tick 之间的间隔，tickInterval 优先级高于 tickCount | `number` | `undefined` | 否 |
-| tickMethod | 设置生成 tick 的方法，常用于自定义 tick | `(min: number, max: number, count: number) => number[]` | `d3Time` | 否 |
-| round | 输出值去四舍五入 | `boolean` | `false` | 否 |
-| clamp | 将映射值限定在 range 的范围内 | `boolean` | `false` | 否 |
-| nice | 扩展 domain 范围，让输出的 tick 展示得更加友好 | `boolean` | `false` | 否 |
-| mask | 设置时间显示的格式，底层使用 [fetcha](https://github.com/taylorhakes/fecha) | `string` | `undefined` | 否 |
-| utc | 是否使用 UTC 时间 | `boolean` | `false` | 否 |
-| interpolate | 自定义差值函数 | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` | 否 |
+| domain | 设置数据的定义域范围 | `Date[]` | 输入数据的最大最小值范围 |  |
+| domainMin | 设置数据的定义域最小值 | `Date` | 输入数据的最小值 |  |
+| domainMax | 设置数据的定义域最大值 | `Date` | 输入数据的最大值 |  |
+| range | 设置数据映射的值域范围 | `number[]` \| `string[]` | `[0, 1]` |  |
+| rangeMin | 设置数据映射的值域最小值 | `Date` | `0` |  |
+| rangeMax | 设置数据映射的值域最大值 | `Date` | `1` |  |
+| unknown | 对于 `undefined`，`NaN`，`null` 空值，返回的数据 | `any` | `undefined` |  |
+| tickCount | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` |  |
+| tickInterval | 设置推荐的 tick 之间的间隔，tickInterval 优先级高于 tickCount | `number` | `undefined` |  |
+| tickMethod | 设置生成 tick 的方法，常用于自定义 tick | `(min: number, max: number, count: number) => number[]` | `d3Time` |  |
+| round | 输出值去四舍五入 | `boolean` | `false` |  |
+| clamp | 将映射值限定在 range 的范围内 | `boolean` | `false` |  |
+| nice | 扩展 domain 范围，让输出的 tick 展示得更加友好 | `boolean` | `false` |  |
+| mask | 设置时间显示的格式，底层使用 [fetcha](https://github.com/taylorhakes/fecha) | `string` | `undefined` |  |
+| utc | 是否使用 UTC 时间 | `boolean` | `false` |  |
+| interpolate | 自定义差值函数 | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |  |
 
 ### 复杂类型说明
 
