@@ -27,6 +27,14 @@
         "en": "Legend Click"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwSoR7y4FyUAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "get-data-by-xy.ts",
+      "title": {
+        "zh": "通过点获取数据",
+        "en": "Get Data By XY"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UddvSJxHTBsAAAAAAAAAAAAAemJ7AQ/fmt.avif"
     }
   ]
 }

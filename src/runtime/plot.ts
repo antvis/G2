@@ -789,6 +789,7 @@ function initializeState(
   // the same style with JS standard and lodash APIs.
   // @todo More proper way to index scale for different marks.
   const children = [];
+  const dataMap = new Map();
   for (const [mark, state] of markState.entries()) {
     const {
       // scale,
@@ -799,7 +800,9 @@ function initializeState(
       dataDomain,
       modifier,
       key: markKey,
+      data,
     } = mark;
+    dataMap.set(markKey, data);
     const { index, channels, tooltip } = state;
     const scale = Object.fromEntries(
       channels.map(({ name, scale }) => [name, scale]),
@@ -828,6 +831,7 @@ function initializeState(
         index: d,
         markKey,
         viewKey: key,
+        data: data[d],
         ...(tooltip && {
           title: titleOf(d),
           items: itemsOf(d),
@@ -867,6 +871,7 @@ function initializeState(
     scale: scaleInstance,
     style: framedStyle,
     components,
+    data: dataMap,
     labelTransform: compose(labelTransform.map(useLabelTransform)),
   };
 
@@ -1318,7 +1323,7 @@ function normalizeLabelSelector(
  * transitions together.
  */
 function getLocalBounds(element: DisplayObject) {
-  const cloneElement = element.cloneNode();
+  const cloneElement = element.cloneNode(true);
   const animations = element.getAnimations();
   cloneElement.style.visibility = 'hidden';
   animations.forEach((animation) => {

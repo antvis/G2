@@ -2,6 +2,7 @@ import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
+import { G2Element } from 'utils/selection';
 import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub, dist } from '../utils/vector';
@@ -504,7 +505,7 @@ function interactionKeyof(markState, key) {
   );
 }
 
-function maybeValue(specified, defaults) {
+export function maybeValue(specified, defaults) {
   return specified === undefined ? defaults : specified;
 }
 
@@ -522,56 +523,111 @@ function hasSeries(markState): boolean {
 }
 
 /**
- * Show tooltip for series item.
+ * Finds a single element based on the mouse event in a non-series context (e.g., single item tooltip).
+ * @param root - The root display object of the chart.
+ * @param event - The mouse event object (e.g., pointermove, pointerdown).
+ * @param elements - Array of chart elements to search within.
+ * @param coordinate - The coordinate system of the chart (e.g., Cartesian, polar).
+ * @param scale - The scale configurations (e.g., x, series scales).
+ * @param shared - Whether the tooltip is shared among multiple elements (e.g., grouped bars).
+ * @returns The matched display object or `undefined` if no element is found.
+ * @description
+ * - Handles bar charts by sorting elements and using bisector search for efficient lookup.
+ * - For non-bar charts, directly finds the target element from the event's target.
+ * - Adjusts for bar spacing in grouped charts when `shared` is false.
  */
-export function seriesTooltip(
-  root: DisplayObject,
-  {
-    elements: elementsof,
-    sort: sortFunction,
-    filter: filterFunction,
-    scale,
-    coordinate,
-    crosshairs,
-    crosshairsX,
-    crosshairsY,
-    render,
-    groupName,
-    emitter,
-    wait = 50,
-    leading = true,
-    trailing = false,
-    startX = 0,
-    startY = 0,
-    body = true,
-    single = true,
-    position,
-    enterable,
-    mount,
-    bounding,
-    theme,
-    offset,
-    disableNative = false,
-    marker = true,
-    preserve = false,
-    style: _style = {},
-    css = {},
-    ...rest
-  }: Record<string, any>,
-) {
-  const elements = elementsof(root);
-  const transposed = isTranspose(coordinate);
-  const polar = isPolar(coordinate);
-  const style = deepMix(_style, rest);
+export function findSingleElement({
+  root,
+  event,
+  elements,
+  coordinate,
+  scale,
+  shared,
+}): DisplayObject | undefined {
+  const inInterval = (d) => d.markType === 'interval';
+  const isBar = elements.every(inInterval) && !isPolar(coordinate);
+  const scaleX = scale.x;
+  const scaleSeries = scale.series;
+  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
+  const xof = scaleSeries
+    ? (d) => {
+        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+        return (
+          d.__data__.x +
+          d.__data__.series * bandWidth +
+          bandWidth / (seriesCount * 2)
+        );
+      }
+    : (d) => d.__data__.x + bandWidth / 2;
 
-  const {
-    innerWidth: plotWidth,
-    innerHeight: plotHeight,
-    width: mainWidth,
-    height: mainHeight,
-    insetLeft,
-    insetTop,
-  } = coordinate.getOptions();
+  // Sort for bisector search.
+  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+  const findElementByTarget = (event) => {
+    const { target } = event;
+    return maybeRoot(target, (node) => {
+      if (!node.classList) return false;
+      return node.classList.includes('element');
+    });
+  };
+
+  const element = isBar
+    ? (event) => {
+        const mouse = mousePosition(root, event);
+        if (!mouse) return;
+        const [abstractX] = coordinate.invert(mouse);
+        const search = bisector(xof).center;
+        const i = search(elements, abstractX);
+        const target = elements[i];
+
+        if (!shared) {
+          // For grouped bar chart without shared options.
+          const isGrouped = elements.find(
+            (d) => d !== target && xof(d) === xof(target),
+          );
+          if (isGrouped) return findElementByTarget(event);
+        }
+        return target;
+      }
+    : findElementByTarget;
+
+  return element(event);
+}
+
+/**
+ * Finds series-related elements and data based on the mouse event for series tooltips.
+ * @param root - The root display object of the chart.
+ * @param event - The mouse event object (e.g., pointermove, pointerdown).
+ * @param elements - Array of chart elements to search within.
+ * @param coordinate - The coordinate system of the chart (e.g., Cartesian, polar).
+ * @param scale - The scale configurations (e.g., x, series scales).
+ * @param startX - The starting X position of the plot area.
+ * @param startY - The starting Y position of the plot area.
+ * @returns An object containing:
+ * - `selectedElements`: Matched display objects (series and item elements).
+ * - `selectedData`: Corresponding data records of the selected elements.
+ * - `filteredSeriesData`: Filtered series data closest to the mouse focus.
+ * - `abstractX`: A function to convert mouse coordinates to abstract X values.
+ * @description
+ * - Splits elements into series and item elements for targeted searching.
+ * - Handles bar charts and band scales using bisector search and coordinate inversion.
+ * - Sorts elements to ensure correct visual ordering (top-to-bottom or right-to-left in transposed mode).
+ * - Filters and groups data to provide accurate tooltip information for series.
+ */
+export function findSeriesElement({
+  root,
+  event,
+  elements,
+  coordinate,
+  scale,
+  startX,
+  startY,
+}): {
+  selectedElements: DisplayObject[];
+  selectedData: Record<string, any>[];
+  filteredSeriesData: any[];
+  abstractX: (number) => number;
+} {
+  const transposed = isTranspose(coordinate);
 
   // Split elements into series elements and item elements.
   const seriesElements = [];
@@ -698,7 +754,97 @@ export function seriesTooltip(
         }),
     );
   };
+  const mouse = mousePosition(root, event);
+  if (!mouse) return;
+  const focus = [mouse[0] - startX, mouse[1] - startY];
+  if (!focus) return;
+  // Get selected item element.
+  const selectedItems = elementsByFocus(focus, itemElements);
 
+  // Get selected data item from both series element and item element.
+  const selectedSeriesElements = [];
+  const selectedSeriesData = [];
+  for (const element of seriesElements) {
+    const [sortedIndex, X] = elementSortedX.get(element);
+    const index = indexByFocus(event, focus, sortedIndex, X);
+    if (index !== null) {
+      selectedSeriesElements.push(element);
+      const d = seriesData(element, index);
+      const { x, y } = d;
+      const p = coordinate.map([(x || 0) + offsetX, y || 0]);
+      selectedSeriesData.push([{ ...d, element }, p] as const);
+    }
+  }
+
+  // Filter selectedSeriesData with different x,
+  // make sure there is only one x closest to focusX.
+  const SX = Array.from(new Set(selectedSeriesData.map((d) => d[0].x)));
+  const closestX = SX[minIndex(SX, (x) => Math.abs(x - abstractX(focus)))];
+  const filteredSeriesData = selectedSeriesData.filter(
+    (d) => d[0].x === closestX,
+  );
+
+  const selectedData = [
+    ...filteredSeriesData.map((d) => d[0]),
+    ...selectedItems.map((d) => d.__data__),
+  ];
+
+  // Get the displayed tooltip data.
+  const selectedElements = [...selectedSeriesElements, ...selectedItems];
+
+  return { selectedElements, selectedData, filteredSeriesData, abstractX };
+}
+
+/**
+ * Show tooltip for series item.
+ */
+export function seriesTooltip(
+  root: DisplayObject,
+  {
+    elements: elementsof,
+    sort: sortFunction,
+    filter: filterFunction,
+    scale,
+    coordinate,
+    crosshairs,
+    crosshairsX,
+    crosshairsY,
+    render,
+    groupName,
+    emitter,
+    wait = 50,
+    leading = true,
+    trailing = false,
+    startX = 0,
+    startY = 0,
+    body = true,
+    single = true,
+    position,
+    enterable,
+    mount,
+    bounding,
+    theme,
+    offset,
+    disableNative = false,
+    marker = true,
+    preserve = false,
+    style: _style = {},
+    css = {},
+    ...rest
+  }: Record<string, any>,
+) {
+  const elements = elementsof(root);
+  const style = deepMix(_style, rest);
+  const polar = isPolar(coordinate);
+  const transposed = isTranspose(coordinate);
+  const {
+    innerWidth: plotWidth,
+    innerHeight: plotHeight,
+    width: mainWidth,
+    height: mainHeight,
+    insetLeft,
+    insetTop,
+  } = coordinate.getOptions();
   const update = throttle(
     (event) => {
       const mouse = mousePosition(root, event);
@@ -706,41 +852,16 @@ export function seriesTooltip(
       const bbox = bboxOf(root);
       const x = bbox.min[0];
       const y = bbox.min[1];
-      const focus = [mouse[0] - startX, mouse[1] - startY];
-      if (!focus) return;
-      // Get selected item element.
-      const selectedItems = elementsByFocus(focus, itemElements);
-
-      // Get selected data item from both series element and item element.
-      const selectedSeriesElements = [];
-      const selectedSeriesData = [];
-      for (const element of seriesElements) {
-        const [sortedIndex, X] = elementSortedX.get(element);
-        const index = indexByFocus(event, focus, sortedIndex, X);
-        if (index !== null) {
-          selectedSeriesElements.push(element);
-          const d = seriesData(element, index);
-          const { x, y } = d;
-          const p = coordinate.map([(x || 0) + offsetX, y || 0]);
-          selectedSeriesData.push([{ ...d, element }, p] as const);
-        }
-      }
-
-      // Filter selectedSeriesData with different x,
-      // make sure there is only one x closest to focusX.
-      const SX = Array.from(new Set(selectedSeriesData.map((d) => d[0].x)));
-      const closestX = SX[minIndex(SX, (x) => Math.abs(x - abstractX(focus)))];
-      const filteredSeriesData = selectedSeriesData.filter(
-        (d) => d[0].x === closestX,
-      );
-
-      const selectedData = [
-        ...filteredSeriesData.map((d) => d[0]),
-        ...selectedItems.map((d) => d.__data__),
-      ];
-
-      // Get the displayed tooltip data.
-      const selectedElements = [...selectedSeriesElements, ...selectedItems];
+      const { selectedElements, selectedData, filteredSeriesData, abstractX } =
+        findSeriesElement({
+          root,
+          event,
+          elements,
+          coordinate,
+          scale,
+          startX,
+          startY,
+        });
       const tooltipData = groupItems(
         selectedElements,
         scale,
@@ -973,56 +1094,16 @@ export function tooltip(
 ) {
   const elements = elementsof(root);
   const keyGroup = group(elements, groupKey);
-  const inInterval = (d) => d.markType === 'interval';
-  const isBar = elements.every(inInterval) && !isPolar(coordinate);
-  const scaleX = scale.x;
-  const scaleSeries = scale.series;
-  const bandWidth = scaleX?.getBandWidth?.() ?? 0;
-  const xof = scaleSeries
-    ? (d) => {
-        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
-        return (
-          d.__data__.x +
-          d.__data__.series * bandWidth +
-          bandWidth / (seriesCount * 2)
-        );
-      }
-    : (d) => d.__data__.x + bandWidth / 2;
-
-  // Sort for bisector search.
-  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
-
-  const findElementByTarget = (event) => {
-    const { target } = event;
-    return maybeRoot(target, (node) => {
-      if (!node.classList) return false;
-      return node.classList.includes('element');
-    });
-  };
-
-  const findElement = isBar
-    ? (event) => {
-        const mouse = mousePosition(root, event);
-        if (!mouse) return;
-        const [abstractX] = coordinate.invert(mouse);
-        const search = bisector(xof).center;
-        const i = search(elements, abstractX);
-        const target = elements[i];
-
-        if (!shared) {
-          // For grouped bar chart without shared options.
-          const isGrouped = elements.find(
-            (d) => d !== target && xof(d) === xof(target),
-          );
-          if (isGrouped) return findElementByTarget(event);
-        }
-        return target;
-      }
-    : findElementByTarget;
-
   const pointermove = throttle(
     (event) => {
-      const element = findElement(event);
+      const element = findSingleElement({
+        root,
+        event,
+        elements,
+        coordinate,
+        scale,
+        shared,
+      });
       if (!element) {
         hideTooltip({ root, single, emitter, event });
         return;
