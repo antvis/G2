@@ -102,6 +102,15 @@ chart.render();
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
 
+## 贡献
+
+感谢所有为这个项目做出贡献的人，感谢所有支持者！🙏
+
+<a href="https://openomy.app/github/antvis/G2" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=antvis/G2&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
+
 ## 📄 许可证
 
 MIT@[AntV](https://github.com/antvis).

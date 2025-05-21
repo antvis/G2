@@ -92,6 +92,17 @@ If all goes well, you can get the following lovely bar chart!
 - [ant-design-charts](https://github.com/ant-design/ant-design-charts) - The React chart library, based on [G2](https://github.com/antvis/G2), [G6](https://github.com/antvis/G6), [X6](https://github.com/antvis/X6), [L7Plot](https://github.com/antvis/L7Plot).
 - [More...](https://github.com/antvis/G2/discussions/5772)
 
+
+## Contributors
+
+This project exists thanks to all the people who contribute.
+
+And thank you to all our backers! 🙏
+
+<a href="https://openomy.app/github/antvis/G2" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=antvis/G2&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
 ## 📮 Contributing
 
 - [Issues](https://github.com/antvis/g2/issues) - report bugs or request features
@@ -99,6 +110,7 @@ If all goes well, you can get the following lovely bar chart!
 - [Discussions](https://github.com/antvis/G2/discussions) - discuss on GitHub or in DingTalk group(30233731, 35686967, 44788198)
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
+
 
 ## 📄 License
 
