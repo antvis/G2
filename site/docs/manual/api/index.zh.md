@@ -837,9 +837,9 @@ fetch(
 
 **添加图形**
 
-接下来介绍 G2 中创建图形的 API。G2 的图形可以在不同的容器节点上添加，包括 `chart`、`view`、`geoView`、`spaceLayer`、`facetRect`、`spaceFlex`、`facetCircle`、`repeatMatrix`、`timingKeyframe`。
+接下来介绍 G2 中创建图形的 API。G2 的图形可以在不同的容器节点上添加，包括 `chart`、`view`、`geoView`、`spaceLayer`、`facetRect`、`spaceFlex`、`facetCircle`、`repeatMatrix`、`timingKeyframe`,它们均继承自 `view`，所以统一以 `view.${mark}()`来表示。
 
-### interval()
+### view.interval()
 
 添加 [interval](/manual/core/mark/interval) 图形。`interval` 通常用来绘制柱形图、条形图、饼图等，通过坐标系、比例尺、数据 Transform 等的变化，可以产生多种多样的可视化表现样式，是图形语法中，最常用的 Mark。
 
@@ -877,7 +877,7 @@ chart
 chart.render();
 ```
 
-### rect()
+### view.rect()
 
 添加 [rect](/manual/core/mark/rect) 图形。`rect` 是用于绘制矩形标记的核心图表元素，它通过定义矩形的起点、终点、宽度、高度以及其他图形属性（如颜色、样式），实现不同的可视化需求。
 
@@ -905,7 +905,7 @@ chart
 chart.render();
 ```
 
-### point()
+### view.point()
 
 添加 [point](/manual/core/mark/point) 图形。`point` 图形标记主要用于绘制 散点图，又名点图、散布图。散点图是将所有的数据以点的形式展现在平面直角坐标系上的统计图表。
 
@@ -936,7 +936,7 @@ chart
 chart.render();
 ```
 
-### area()
+### view.area()
 
 添加 [area](/manual/core/mark/area) 图形。`area` 图形标记大部分场景用来绘制我们常见的面积图，是一种随有序变量的变化，反映数值变化的图形。
 
@@ -968,7 +968,7 @@ chart.area().encode('x', 'date').encode('y', 'close');
 chart.render();
 ```
 
-### line()
+### view.line()
 
 添加 [line](/manual/core/mark/line) 图形。`line` 图形标记根据一系列的点，绘制折线，显示数据在一个具有顺序性的维度上的变化。通常用来绘制折线图，是最常用的 Mark 之一。
 
@@ -994,7 +994,7 @@ chart
 chart.render();
 ```
 
-### vector()
+### view.vector()
 
 添加 [vector](/manual/core/mark/vector) 图形。`Vector` 图形是将数据映射成为箭头的样式去可视化展示，通过控制箭头的位置、大小、颜色、角度等信息，去可视化一些向量场数据。
 
@@ -1027,7 +1027,7 @@ chart
 chart.render();
 ```
 
-### link()
+### view.link()
 
 添加 [link](/manual/core/mark/link) 图形。`link` 图形标记 虽然类似折线图 通过指定 x，y 通道为长度为 2 的字段数组。获取两两对应的 (x,y) 的定位点，并连接对应的定位点，绘制带方向的线段(添加箭头)。
 
@@ -1057,7 +1057,7 @@ chart
 chart.render();
 ```
 
-### polygon()
+### view.polygon()
 
 添加 [polygon](/manual/core/mark/polygon) 图形。`polygon` 图形标记（多边形），利用一组 (x, y) 数据点，来连接形成一个闭合的图形，一般都是结合社区上的可视化布局算法计算之后的数据进行可视化展示。
 
@@ -1117,7 +1117,7 @@ chart
 chart.render();
 ```
 
-### image()
+### view.image()
 
 添加 [image](/manual/core/mark/image) 图形。`image` 图片标记通常不会单独出现，主要在其他的标记基础上进行添加使用，可以增强数据的可视化效果，帮助更直观地传达信息。
 
@@ -1192,7 +1192,7 @@ chart
 chart.render();
 ```
 
-### text()
+### view.text()
 
 添加 [text](/manual/core/mark/text) 图形。`text` 是一种用于在图表中绘制文本标记的图形元素。它允许用户直接在图表上添加文字注释、标签或其他说明性内容，从而增强数据可视化的效果和可读性。
 
@@ -1229,7 +1229,7 @@ chart
 chart.render();
 ```
 
-### lineX()
+### view.lineX()
 
 添加 [lineX](/manual/core/mark/line-x) 图形。`lineX` 图形标记用于绘制垂直于 x 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
 
@@ -1271,7 +1271,7 @@ chart.render();
 
 ```
 
-### lineY()
+### view.lineY()
 
 添加 [lineY](/manual/core/mark/line-y) 图形。`lineY` 图形标记用于绘制垂直于 y 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
 
@@ -1307,7 +1307,7 @@ chart
 chart.render();
 ```
 
-### range()
+### view.range()
 
 添加 [range](/manual/core/mark/range) 图形。`range` 是用来定义一个矩形区域的工具。这个矩形的位置和大小可以通过两组数字来确定：一组用于水平方向（x1, x2），另一组用于垂直方向（y1, y2）。它常用于绘制辅助背景区域或标记某个区域。
 
@@ -1366,7 +1366,7 @@ chart
 chart.render();
 ```
 
-### rangeX()
+### view.rangeX()
 
 添加 [rangeX](/manual/core/mark/range-x) 图形。`rangeX` 使用一组 x(x1, x2) 来定位一个绘制于 x 轴的矩形区域，常用于对特定区域进行高亮显示。
 
@@ -1425,7 +1425,7 @@ chart
 chart.rangeX().data([new Date('2010'), new Date('2011')]);
 ```
 
-### rangeY()
+### view.rangeY()
 
 添加 [rangeY](/manual/core/mark/range-y) 图形。`rangeY` 使用一组 y(y1, y2) 来定位一个绘制于 y 轴的矩形区域，常用于对特定区域进行高亮显示。
 
@@ -1475,7 +1475,7 @@ chart.rangeY().data([
 ]);
 ```
 
-### connector()
+### view.connector()
 
 添加 connector 图形。`connector` 用于在两个元素之间绘制辅助连接线。
 
@@ -1580,7 +1580,7 @@ function connectorData(data) {
 }
 ```
 
-### sankey()
+### view.sankey()
 
 添加 [sankey](/manual/extra-topics/graph/sankey) 图形。桑基图 (Sankey Diagram)，是一种特定类型的流图，用于描述一组值到另一组值的流向。
 
@@ -1620,7 +1620,7 @@ chart
 chart.render();
 ```
 
-### treemap()
+### view.treemap()
 
 添加 [treemap](/manual/extra-topics/graph/treemap) 图形。矩阵树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。
 
@@ -1663,7 +1663,7 @@ chart
 chart.render();
 ```
 
-### box()
+### view.box()
 
 添加 [box](/manual/core/mark/box) 图形。`box` 图形是用来绘制箱线图（boxplot）又叫盒须图、盒式图，通常用来展示一组数据分布情况的统计图，一般包括几种数据：最小值、下四分位数、中位数、上四分位数、最大值，另外可以结合 point mark 绘制异常点数据。
 
@@ -1701,7 +1701,7 @@ chart
 chart.render();
 ```
 
-### boxplot()
+### view.boxplot()
 
 添加 [boxplot](/manual/core/mark/boxplot) 图形。`boxplot` 和 `box` 非常相似，都是用来绘制箱线图，不同点在于：`boxplot` 是高阶 mark，自带数据分组和数据统计聚合，`box` 是原子 mark，需要开发者手动指定 5 个点的数据。所以 `boxplot` 更适合用于前端数据的探索和分析过程，而 `box` 更适用于后端对超大数据进行计算和统计之后，可视化展示。
 
@@ -1728,7 +1728,7 @@ chart
 chart.render();
 ```
 
-### density()
+### view.density()
 
 添加 [density](/manual/core/mark/density) 图形。`density` 是一种用于可视化连续变量分布概率密度的图表类型，通过核密度估计（Kernel Density Estimation, KDE） 将离散数据点转化为平滑的连续概率密度曲线，直观反映数据的集中趋势、分布形态及异常值。
 
@@ -1766,7 +1766,7 @@ chart
 chart.render();
 ```
 
-### heatmap()
+### view.heatmap()
 
 添加 [heatmap](/manual/core/mark/heatmap) 图形。`heatmap` 又叫热力图，是一种通过颜色强度映射二维数据密度或数值大小的可视化图表，擅长揭示数据分布规律、聚类特征及异常点。
 
@@ -1810,7 +1810,7 @@ chart
 chart.render();
 ```
 
-### shape()
+### view.shape()
 
 添加 [自定义](/manual/core/mark/shape) 图形。`shape` 图形标记是 G2 中一种特殊的 Mark 类型，通常用来在图表上绘制静态的自定义图形，具有较高的灵活性和自由度，可以用于添加自定义注解、水印、徽章等场景，是实现图表个性化的重要工具。
 
@@ -1847,7 +1847,7 @@ chart.shape().style({
 chart.render();
 ```
 
-### pack()
+### view.pack()
 
 添加 [pack](/manual/extra-topics/graph/pack) 图形。打包图 (Circle Packing) 是树形结构图的变体，使用圆形（而非矩形）一层又一层地代表整个层次结构。常用于描述数据间的包含关系。
 
@@ -1888,7 +1888,7 @@ chart
 chart.render();
 ```
 
-### forceGraph()
+### view.forceGraph()
 
 添加 [forceGraph](/manual/extra-topics/graph/force-graph) 图形。力导布局图是一种用来呈现复杂关系网络的图表。在力导布局图中，系统中的每个节点都可以看成是一个放电粒子，粒子间存在某种斥力。同时，这些粒子间被它们之间的“边”所牵连，从而产生引力。
 
@@ -1914,7 +1914,7 @@ chart
 chart.render();
 ```
 
-### tree()
+### view.tree()
 
 添加 [tree](/manual/extra-topics/graph/tree) 图形。树图 (Tree) 能将事物或现象分解成树枝状，又称树型图或系统图。在树形结构中，树根结点没有前驱结点，其余每个结点有且只有一个前驱结点。叶子结点没有后续结点，其余每个结点的后续节点数可以是一个也可以是多个。
 
@@ -1953,7 +1953,7 @@ chart
 chart.render();
 ```
 
-### wordCloud()
+### view.wordCloud()
 
 添加 [wordCloud](/manual/core/mark/wordcloud) 图形。`wordCloud` 是一种专门用于生成词云图的标记。词云图是一种直观展示文本数据中关键词频次的可视化形式，通过不同大小、颜色和位置的文字来反映词语的重要性或权重。
 
@@ -1983,7 +1983,7 @@ chart
 chart.render();
 ```
 
-### gauge()
+### view.gauge()
 
 添加 [gauge](/manual/core/mark/gauge) 图形。`gauge` 用于创建仪表盘，它是一种常见的可视化图表，用于展示数据的进度、比例或比较情况。
 
@@ -2012,7 +2012,7 @@ chart
 chart.render();
 ```
 
-### geoPath()
+### view.geoPath()
 
 添加 [geoPath](/manual/extra-topics/geo/geo-path) 图形。`geoPath` 可以用来结合 geojson 绘制地图。
 
@@ -2062,7 +2062,7 @@ Promise.all([
 });
 ```
 
-### point3D()
+### view.point3D()
 
 添加 [point3D](/manual/extra-topics/three-dimensional/point-threed) 图形。`point3D` 主要用于绘制 3D 散点图，利用点的粒度来分析数据的分布情况。
 
@@ -2127,7 +2127,7 @@ chart.render().then(() => {
 });
 ```
 
-### line3D()
+### view.line3D()
 
 添加 [line3D](/manual/extra-topics/three-dimensional/line-threed) 图形。`line3D` 主要用于绘制 3D 折线图。
 
@@ -2196,7 +2196,7 @@ chart.render().then(() => {
 });
 ```
 
-### interval3D()
+### view.interval3D()
 
 添加 [interval3D](/manual/extra-topics/three-dimensional/interval-threed) 图形。`interval3D` 主要用于绘制 3D 条形图。
 
@@ -2276,7 +2276,7 @@ chart.render().then(() => {
 });
 ```
 
-### surface3D()
+### view.surface3D()
 
 添加 [surface3D](/manual/extra-topics/three-dimensional/surface-threed) 图形。`surface3D` 主要用于绘制 3D 曲面图。
 
@@ -2772,6 +2772,23 @@ getContainer(): HTMLElement;
 getContext(): G2Context;
 ```
 
+可以通过 `getContext()` 获取图表的 `document`，添加定制化的交互。
+
+```js
+chart.on('afterrender', () => {
+  const { canvas } = chart.getContext();
+  const { document } = canvas;
+  // https://github.com/antvis/G2/blob/v5/src/interaction/legendFilter.ts
+  const items = document.getElementsByClassName('items-item');
+  const datum = items.map((item) => item.__data__);
+  items.forEach((item, index) => {
+    item.addEventListener('click', (ev) => {
+      console.log(datum[index]);
+    });
+  });
+});
+```
+
 ### chart.getView()
 
 返回 chart 渲染时的 view 实例。
@@ -2819,6 +2836,130 @@ getScale(): Record<string, Scale>;
 ```sign
 getScaleByChannel(channel: string): Scale;
 ```
+
+### view.getView()
+
+返回 view 渲染时的 view 实例。
+
+```sign
+getView(): G2ViewDescriptor;
+```
+
+### view.getCoordinate()
+
+返回 view 渲染时的 coordinate 实例。
+
+```sign
+getCoordinate(): Coordinate;
+```
+
+### view.getTheme()
+
+返回 view 渲染时的 theme 实例。
+
+```sign
+getTheme(): G2Theme;
+```
+
+### view.getGroup()
+
+返回 view 渲染时的 canvas group 实例。
+
+```sign
+getGroup(): DisplayObject;
+```
+
+### view.getScale()
+
+返回 view 渲染时所有的 scale 实例。
+
+```sign
+getScale(): Record<string, Scale>;
+```
+
+### view.getScaleByChannel()
+
+通过通道名称查找返回 view 渲染时对应的 scale 实例。
+
+```sign
+getScaleByChannel(channel: string): Scale;
+```
+
+### mark.getGroup()
+
+返回 mark 渲染时的 canvas group 实例。
+
+```sign
+getGroup(): DisplayObject;
+```
+
+### mark.getScale()
+
+返回 mark 渲染时所有的 scale 实例。
+
+```sign
+getScale(): Record<string, Scale>;
+```
+
+### mark.getScaleByChannel()
+
+通过通道名称查找返回 mark 渲染时对应的 scale 实例。
+
+```sign
+getScaleByChannel(channel: string): Scale;
+```
+
+## 节点操作
+
+所有继承自 Node 类型的节点都可以应用节点操作的相关方法，例如 `getNodeByKey()` 方法的返回值。
+
+### node.getNodesByType()
+
+通过 type 查找所有的 node 子节点。
+
+```sign
+getNodesByType(type: string): Node[];
+```
+
+以下是找到第一个 `rect` 图形的示例：
+
+```js
+chart.getNodesByType('rect')[0].changeData(data);
+```
+
+### node.getNodeByKey()
+
+通过 key 找到当前 node 的子节点。
+
+```sign
+getNodeByKey(key: string): Node;
+```
+
+### node.append()
+
+创建一个新的 Node 并添加在 chart 的子节点上。
+
+```sign
+append(Ctor: new (value: Record<string, any>) => Node<ChildValue, Value>): Node<ChildValue, Value>;
+```
+
+### node.remove()
+
+从父节点上移除当前节点。
+
+```sign
+remove(): Node;
+```
+
+### node.call()
+
+将指定的回调函数应用于节点值。
+
+```sign
+call(callback: (node: this, ...params: any[]) => any, ...params: any[]): this;
+```
+
+## 监听和触发事件
 
 ### chart.on()
 
@@ -2875,114 +3016,271 @@ emit(event: string, ...args: any[]): this;
 off(event?: string, callback?: (...args: any[]) => any): void;
 ```
 
-### chart.getNodesByType()
+关于 G2 中 事件的详细介绍见 [事件](/manual/core/event)。
 
-通过 type 查找所有的 node 子节点。
+## 自定义拓展
+
+### extend()
+
+引入拓展的图表库。
 
 ```sign
-getNodesByType(type: string): Node[];
+extend(Runtime: new (options: RuntimeOptions) => Runtime<Spec>, library: Library): Chart;
 ```
 
-### chart.getNodeByKey()
+当前为了 G2 整体包大小，部分拓展类图表没有放在主包里，在 G2 中可以通过 `extend` 引入拓展图表库和 3d 图表库，实现更多的图表功能。
 
-通过 key 找到当前 node 的子节点。
+```js
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
 
-```sign
-getNodeByKey(key: string): Node;
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .sunburst()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  })
+  .encode('value', 'sum')
+  .encode('color', 'label');
+
+chart.render();
 ```
 
-### chart.append()
+```js
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
-创建一个新的 Node 并添加在 chart 的子节点上。
+// Create a WebGL renderer.
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ThreeDPlugin());
+renderer.registerPlugin(new ControlPlugin());
 
-```sign
-append(Ctor: new (value: Record<string, any>) => Node<ChildValue, Value>): Node<ChildValue, Value>;
+// Customize our own Chart with threedlib.
+const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  depth: 400, // Define the depth of chart.
+});
+
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Origin')
+  .encode('size', 'Cylinders')
+  .encode('shape', 'sphere')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 640 / 480);
+  camera.setType(CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = new DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
+  });
+  canvas.appendChild(light);
+});
 ```
 
-### view.getView()
+### register()
 
-返回 view 渲染时的 view 实例。
+引入拓展的图表库。
 
 ```sign
-getView(): G2ViewDescriptor;
+register(key: `${G2ComponentNamespaces | 'symbol'}.${any}`, component: G2Component | SymbolFactor): void;
 ```
 
-### view.getCoordinate()
+G2 有很强的扩展性：几乎所有的可视化组件都可以通过自定义的，前提是先通过 `register` 对可视化组件进行注册。
 
-返回 view 渲染时的 coordinate 实例。
+下面的例子展示了如何自定义一个图例项图标：
 
-```sign
-getCoordinate(): Coordinate;
+```ts
+import { Chart, register, type SymbolFactor } from '@antv/g2';
+
+const customSquare = Object.assign<SymbolFactor, Partial<SymbolFactor>>(
+  (x, y, r) => {
+    const radius = r / 2;
+
+    return [
+      ['M', x + radius, y - r],
+      ['L', x - radius, y - r],
+      ['A', radius, radius, 0, 0, 0, x - r, y - radius],
+      ['L', x - r, y + radius],
+      ['A', radius, radius, 0, 0, 0, x - radius, y + r],
+      ['L', x + radius, y + r],
+      ['A', radius, radius, 0, 0, 0, x + r, y + radius],
+      ['L', x + r, y - radius],
+      ['A', radius, radius, 0, 0, 0, x + radius, y - r],
+      ['Z'],
+    ];
+  },
+  {
+    // 空心请设置为 ['stroke', 'lineWidth']
+    style: ['fill'],
+  },
+);
+
+register('symbol.customSquare', customSquare);
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+
+const colorField = 'genre';
+
+chart
+  .interval()
+  .data(data)
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', colorField)
+  .legend({
+    color: {
+      itemMarker: 'customSquare',
+    },
+  });
+
+chart.render();
 ```
 
-### view.getTheme()
+也可以自定义独特的条形图形状：
 
-返回 view 渲染时的 theme 实例。
+```ts
+import { Chart, register } from '@antv/g2';
 
-```sign
-getTheme(): G2Theme;
-```
+register('shape.interval.column25d', myColumn);
 
-### view.getGroup()
+const data = [
+  { year: '1951 年', sales: 38 },
+  { year: '1952 年', sales: 52 },
+  { year: '1956 年', sales: 61 },
+  { year: '1957 年', sales: 145 },
+  { year: '1958 年', sales: 48 },
+  { year: '1959 年', sales: 38 },
+  { year: '1960 年', sales: 38 },
+  { year: '1962 年', sales: 38 },
+  { year: '1963 年', sales: 65 },
+  { year: '1964 年', sales: 122 },
+  { year: '1967 年', sales: 132 },
+  { year: '1968 年', sales: 144 },
+];
 
-返回 view 渲染时的 canvas group 实例。
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
-```sign
-getGroup(): DisplayObject;
-```
+chart.data(data);
 
-### view.getScale()
+chart
+  .interval()
+  .encode('x', 'year')
+  .encode('y', 'sales')
+  .style('shape', 'column25d')
+  .scale('x', { padding: 0.3 });
 
-返回 view 渲染时所有的 scale 实例。
+chart.legend('year', {
+  width: 10,
+});
 
-```sign
-getScale(): Record<string, Scale>;
-```
+chart.render();
 
-### view.getScaleByChannel()
+/**
+ * Draw 2.5d column shape.
+ */
+function myColumn({ fill, stroke }, context) {
+  return (points) => {
+    const x3 = points[1][0] - points[0][0];
+    const x4 = x3 / 2 + points[0][0];
+    const { document } = context;
+    const g = document.createElement('g', {});
 
-通过通道名称查找返回 view 渲染时对应的 scale 实例。
+    const r = document.createElement('polygon', {
+      style: {
+        points: [
+          [points[0][0], points[0][1]],
+          [x4, points[1][1] + 8],
+          [x4, points[3][1] + 8],
+          [points[3][0], points[3][1]],
+        ],
+        fill: 'rgba(114, 177, 207, 0.5)',
+        stroke: 'rgba(0,0,0,0.1)',
+        strokeOpacity: 0.1,
+        inset: 30,
+      },
+    });
 
-```sign
-getScaleByChannel(channel: string): Scale;
-```
+    const p = document.createElement('polygon', {
+      style: {
+        points: [
+          [x4, points[1][1] + 8],
+          [points[1][0], points[1][1]],
+          [points[2][0], points[2][1]],
+          [x4, points[2][1] + 8],
+        ],
+        fill: 'rgba(126, 212, 236, 0.5)',
+        stroke: 'rgba(0,0,0,0.3)',
+        strokeOpacity: 0.1,
+      },
+    });
 
-### view.getNodesByType()
+    const t = document.createElement('polygon', {
+      style: {
+        points: [
+          [points[0][0], points[0][1]],
+          [x4, points[1][1] - 8],
+          [points[1][0], points[1][1]],
+          [x4, points[1][1] + 8],
+        ],
+        fill: 'rgba(173, 240, 255, 0.65)',
+      },
+    });
 
-通过 type 查找所有的 node 子节点。
+    g.appendChild(r);
+    g.appendChild(p);
+    g.appendChild(t);
 
-```sign
-getNodesByType(type: string): Node[];
-```
-
-### view.getNodeByKey()
-
-通过 key 找到当前 node 的子节点。
-
-```sign
-getNodeByKey(key: string): Node;
-```
-
-### mark.getGroup()
-
-返回 mark 渲染时的 canvas group 实例。
-
-```sign
-getGroup(): DisplayObject;
-```
-
-### mark.getScale()
-
-返回 mark 渲染时所有的 scale 实例。
-
-```sign
-getScale(): Record<string, Scale>;
-```
-
-### mark.getScaleByChannel()
-
-通过通道名称查找返回 mark 渲染时对应的 scale 实例。
-
-```sign
-getScaleByChannel(channel: string): Scale;
+    return g;
+  };
+}
 ```
