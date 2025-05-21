@@ -6,8 +6,17 @@ order: 2
 
 ## 概述
 
-`threshold`（阈值）比例尺属于**分类比例尺**（分段型），用于将连续的数值型定义域（domain）按照指定的阈值分割成若干区间，并将每个区间映射到离散的值域（range）中的一个值。常用于将连续数据分组、分档、分级显示。   
+`threshold`（阈值）比例尺属于**离散化比例尺**，用于将连续的数值型定义域按照指定的阈值分割成若干区间，并将每个区间映射到离散的值域中的一个值。常用于将连续数据分组、分档、分级显示。   
 
+与 [quantize](/manual/core/scale/quantize) 比例尺类似，threshold 也是将连续数据映射为离散值，但不同的是：
+
+- threshold 比例尺需要手动指定分割点（阈值）
+- quantize 比例尺会根据数据域和值域的数量自动计算等宽的区间
+
+与 [quantile](/manual/core/scale/quantile) 比例尺的区别在于：
+
+- quantile 比例尺基于数据分布的分位数进行分段，确保每个区间包含相同数量的数据点
+- threshold 比例尺基于手动指定分割点分段，不考虑数据分布
 
 ### 映射效果
 - 使用`threshold`
@@ -31,7 +40,11 @@ chart.options({
     { year: "1999", value: 13 },
   ],
   encode: { x: "year", y: "value" },
-  scale: { x: { range: [0, 1] }, value: { type: "threshold" } },
+  scale: {  y: { 
+    type: "threshold",
+    range:[1,0.5,0]
+
+   } },
   children: [
     { type: "line", labels: [{ text: "value", style: { dx: -10, dy: -12 } }] },
     { type: "point", style: { fill: "white" }, tooltip: false },
@@ -100,42 +113,38 @@ chart.render();
   const chart = new G2.Chart();
 
 chart.options({
-  type: "interval",
+  type: "view",
   autoFit: true,
-  height: 180,
-  paddingTop: 0,
-  paddingLeft: 60,
-  paddingBottom: 0,
-  data: {
-    type: "fetch",
-    value:
-      "https://gw.alipayobjects.com/os/antvdemo/assets/data/candle-sticks.json",
-  },
-  encode: {
-    x: "time",
-    y: "volumn",
-    color: (d) => {
-      const trend = Math.sign(d.start - d.end);
-      return trend > 0 ? "下跌" : trend === 0 ? "不变" : "上涨";
-    },
-  },
-  scale: {
-    x: { compare: (a, b) => new Date(a).getTime() - new Date(b).getTime() },
-    color: {
-      type: "threshold",
-      domain: ["下跌", "不变", "上涨"],
-      range: ["#4daf4a", "#999999", "#e41a1c"],
-    },
-  },
-  axis: { x: false, y: { title: false } },
+  data: [
+    { year: "1991", value: 3 },
+    { year: "1992", value: 4 },
+    { year: "1993", value: 3.5 },
+    { year: "1994", value: 5 },
+    { year: "1995", value: 4.9 },
+    { year: "1996", value: 6 },
+    { year: "1997", value: 7 },
+    { year: "1998", value: 9 },
+    { year: "1999", value: 13 },
+  ],
+  encode: { x: "year", y: "value" },
+  scale: {  y: { 
+    type: "threshold",
+    range:[1,0.5,0]
+
+   } },
+  children: [
+    { type: "line", labels: [{ text: "value", style: { dx: -10, dy: -12 } }] },
+    { type: "point", style: { fill: "white" }, tooltip: false },
+  ],
 });
 
+chart.render();
 
   return chart.getContainer();
 })();
 ```
 
-### 热力图
+### 阀值折线图
 
 ```js | ob 
 (() => {
