@@ -78,6 +78,14 @@ export default defineConfig({
         order: 3,
       },
       {
+        slug: 'docs/charts/overview',
+        title: {
+          zh: '图表介绍',
+          en: 'Chart Introduction',
+        },
+        order: 2,
+      },
+      {
         slug: 'docs/api/overview',
         title: {
           zh: 'API',

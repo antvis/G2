@@ -43,7 +43,8 @@
     "react-color": "^2.19.3",
     "topojson": "^3.0.2",
     "@mapbox/geojson-rewind": "^0.5.2",
-    "webfontloader": "1.6.28"
+    "webfontloader": "1.6.28",
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"
