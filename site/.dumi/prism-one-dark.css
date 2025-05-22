@@ -445,3 +445,12 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 .prism-previewer-easing.prism-previewer-easing circle {
   fill: transparent !important;
 }
+
+table {
+  width: auto !important;  /* 取消全行占满 */
+  min-width: 40%;          /* 设置最小宽度 */
+}
+
+table td:first-child {
+  width: auto !important;  /* 取消全行占满 */
+}
