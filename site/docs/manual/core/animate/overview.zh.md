@@ -42,24 +42,31 @@ chart.render();
 })();
 ```
 
-## 动画属性
+当然也可以把`type`设置为`null`、`undefined` 或 `false` 来关闭动画:
 
-G2 的动画系统支持三个主要的阶段：
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
-- **enter** - 新增图形的入场动画
-- **update** - 已有图形的更新动画
-- **exit** - 移除图形的退出动画
+chart.options({
+  type: "line",
+  autoFit: true,
+  data: {
+    type: "fetch",
+    value:
+      "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+  },
+  encode: { x: "date", y: "close" },
+  animate: { enter: { type: "false", } },
+});
+chart.render();
 
-每个阶段可以设置以下属性：
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| type | 动画类型 | `string` | `fadeIn`(enter)/`morphing`(update)/`fadeOut`(exit) |  |
-| duration | 动画持续时间（毫秒） | `number` | `300` |  |
-| delay | 动画延迟执行时间（毫秒） | `number` | `0` |  |
-| easing | 动画缓动函数 | `string` | `ease` |  |
-| fill | 动画非运行状态的展示效果 | `string` | `both` |  |
+  return chart.getContainer();
+})();
+```
 
+## 基本使用
 
 ```js | ob 
 (() => {
@@ -76,7 +83,9 @@ chart.options({
     { genre: "Other", sold: 150 },
   ],
   encode: { x: "genre", y: "sold", color: "genre" },
-  animate: { enter: { type: "scaleInY", duration: 1000 } },
+  animate: {
+    enter: { type: "fadeIn", duration: 1000 },
+  },
 });
 
 chart.render();
@@ -85,6 +94,135 @@ chart.render();
   return chart.getContainer();
 })();
 ```
+
+## 动画属性
+标记是通过`mark.animate`指定动画属性的，一共有三个部分的动画可以指定：
+
+**enter**- 新增的图形
+
+**update**- 更新的图形
+
+**exit**- 删除的图形
+
+
+## 配置选项
+
+### 动画配置完整选项
+
+| 属性 | 描述 | 类型 | 默认值 | 必选 |
+| --- | --- | --- | --- | --- |
+| enter | 入场动画配置 | `EnterAnimateOptions` | - |  |
+| update | 更新动画配置 | `UpdateAnimateOptions` | - |  |
+| exit | 退出动画配置 | `ExitAnimateOptions` | - |  |
+| enterType | 入场动画类型 | `string` | `fadeIn` |  |
+| enterDuration | 入场动画持续时间（毫秒） | `number` | `300` |  |
+| enterDelay | 入场动画延迟时间（毫秒） | `number` | `0` |  |
+| enterEasing | 入场动画缓动函数 | `string` | `ease` |  |
+| enterFill | 入场动画非运行状态的展示效果 | `Fill` | `both` |  |
+| updateType | 更新动画类型 | `string` | `morphing` |  |
+| updateDuration | 更新动画持续时间（毫秒） | `number` | `300` |  |
+| updateDelay | 更新动画延迟时间（毫秒） | `number` | `0` |  |
+| updateEasing | 更新动画缓动函数 | `string` | `ease` |  |
+| updateFill | 更新动画非运行状态的展示效果 | `Fill` | `both` |  |
+| exitType | 退出动画类型 | `string` | `fadeOut` |  |
+| exitDuration | 退出动画持续时间（毫秒） | `number` | `300` |  |
+| exitDelay | 退出动画延迟时间（毫秒） | `number` | `0` |  |
+| exitEasing | 退出动画缓动函数 | `string` | `ease` |  |
+| exitFill | 退出动画非运行状态的展示效果 | `Fill` | `both` |  |
+
+复杂类型说明：
+- `EnterAnimateOptions`：入场动画配置对象，包含 type、duration、delay、easing、fill 属性
+- `UpdateAnimateOptions`：更新动画配置对象，包含 type、duration、delay、easing、fill 属性
+- `ExitAnimateOptions`：退出动画配置对象，包含 type、duration、delay、easing、fill 属性
+- `Fill`：动画填充模式，可选值为 `'auto'`、`'none'`、`'forwards'`、`'backwards'`、`'both'`
+
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
+
+chart.options({
+  type: "interval",
+  autoFit: true,
+  data: {
+    type: "fetch",
+    value: "https://assets.antv.antgroup.com/g2/deaths.json",
+  },
+  encode: { x: "Month", y: "Death", color: "Type" },
+  transform: [
+    { type: "stackY" },
+    { type: "stackEnter", groupBy: ["color", "x"], duration: 2000 },
+  ],
+  scale: { y: { type: "sqrt" } },
+  coordinate: { type: "polar" },
+  animate: { enter: { type: "waveIn" } },
+  axis: { y: false },
+});
+
+chart.render();
+
+
+
+  return chart.getContainer();
+})();
+```
+
+### 动画类型 Type
+
+动画类型 `Type` 决定了动画的视觉效果。G2 提供了多种内置动画类型，也可设置为 `null`、`undefined` 或 `false` 来关闭动画。常见的动画类型包括：
+
+
+| 动画类型 | 作用 |
+|---------|------|
+| fadeIn | 淡入效果，图形从透明到可见 |
+| growInX | 沿X轴方向生长效果 |
+| growInY | 沿Y轴方向生长效果 |
+| scaleInX | 沿X轴缩放进入效果 |
+| scaleInY | 沿Y轴缩放进入效果 |
+| zoomIn | 整体缩放进入效果 |
+| pathIn | 沿路径进入效果 |
+| waveIn | 波浪形进入效果 |
+| morphing | 形变效果，平滑过渡图形变化 |
+| fadeOut | 淡出效果，图形从可见到透明 |
+| scaleOutX | 沿X轴缩放退出效果 |
+| scaleOutY | 沿Y轴缩放退出效果 |
+| zoomOut | 整体缩放退出效果 |
+
+
+
+### 缓动函数 Easing
+
+缓动函数控制动画过程中视觉属性变化的插值方式。G2 支持以下内置缓动函数（来自 [easings.net](https://easings.net/)）：
+
+| constant   | accelerate         | decelerate     | accelerate-decelerate | decelerate-accelerate |
+| ---------- | ------------------ | -------------- | --------------------- | --------------------- |
+| linear     | ease-in / in       | ease-out / out | ease-in-out / in-out  | ease-out-in / out-in  |
+| ease       | in-sine            | out-sine       | in-out-sine           | out-in-sine           |
+| steps      | in-quad            | out-quad       | in-out-quad           | out-in-quad           |
+| step-start | in-cubic           | out-cubic      | in-out-cubic          | out-in-cubic          |
+| step-end   | in-quart           | out-quart      | in-out-quart          | out-in-quart          |
+|            | in-quint           | out-quint      | in-out-quint          | out-in-quint          |
+|            | in-expo            | out-expo       | in-out-expo           | out-in-expo           |
+|            | in-circ            | out-circ       | in-out-circ           | out-in-circ           |
+|            | in-back            | out-back       | in-out-back           | out-in-back           |
+|            | in-bounce          | out-bounce     | in-out-bounce         | out-in-bounce         |
+|            | in-elastic         | out-elastic    | in-out-elastic        | out-in-elastic        |
+|            | spring / spring-in | spring-out     | spring-in-out         | spring-out-in         |
+
+
+
+### 动画填充 Fill
+
+动画填充属性规定了图形在动画非运行状态（如开始前、结束后）时的展示效果：
+
+- `auto`/`none` - 默认值，动画在第一帧开始前和最后一帧结束后不影响图形展示效果
+- `forwards` - 动画完成后停住，不恢复到初始状态
+- `backwards` - 动画开始前应用第一帧效果
+- `both` - 同时应用 `forwards` 和 `backwards` 的效果
+
+
+
+
+
 
 ## 动画编码
 
@@ -197,11 +335,11 @@ chart.options({
         { gender: "female", height: 157, weight: 63 },
         { gender: "female", height: 155.8, weight: 53.6 },
         { gender: "female", height: 170, weight: 59 },
-        { gender: "female", height: 159.1, weight: 47.6 },
-        { gender: "female", height: 166, weight: 69.8 },
-        { gender: "female", height: 176.2, weight: 66.8 },
-        { gender: "female", height: 160.2, weight: 75.2 },
-        { gender: "female", height: 172.5, weight: 55.2 },
+        { gender: "man", height: 159.1, weight: 47.6 },
+        { gender: "man", height: 166, weight: 69.8 },
+        { gender: "man", height: 176.2, weight: 66.8 },
+        { gender: "man", height: 160.2, weight: 75.2 },
+        { gender: "man", height: 172.5, weight: 55.2 },
       ],
       encode: { x: "gender", y: "weight", color: "gender", key: "gender" },
       transform: [{ type: "groupX", y: "mean" }],
@@ -215,11 +353,11 @@ chart.options({
         { gender: "female", height: 157, weight: 63 },
         { gender: "female", height: 155.8, weight: 53.6 },
         { gender: "female", height: 170, weight: 59 },
-        { gender: "female", height: 159.1, weight: 47.6 },
-        { gender: "female", height: 166, weight: 69.8 },
-        { gender: "female", height: 176.2, weight: 66.8 },
-        { gender: "female", height: 160.2, weight: 75.2 },
-        { gender: "female", height: 172.5, weight: 55.2 },
+        { gender: "man", height: 159.1, weight: 47.6 },
+        { gender: "man", height: 166, weight: 69.8 },
+        { gender: "man", height: 176.2, weight: 66.8 },
+        { gender: "man", height: 160.2, weight: 75.2 },
+        { gender: "man", height: 172.5, weight: 55.2 },
       ],
       encode: {
         x: "height",
@@ -241,107 +379,15 @@ chart.render();
 ```  
 ## Lottie动画
 
+`Lottie`能极大丰富动画的描述能力。
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+<img alt="lottie" src="https://gw.alipayobjects.com/zos/raptor/1668509306888/Nov-15-2022%25252018-48-05.gif" alt="lottie animation">
 
-chart.options({
-  type: "interval",
-  autoFit: true,
-  data: [
-    { genre: "Sports", sold: 275 },
-    { genre: "Strategy", sold: 115 },
-    { genre: "Action", sold: 120 },
-    { genre: "Shooter", sold: 350 },
-    { genre: "Other", sold: 150 },
-  ],
-  encode: { x: "genre", y: "sold", color: "genre" },
-  animate: {
-    enter: { type: "fadeIn", duration: 1000 },
-    exit: { type: "fadeOut", duration: 2000 },
-  },
-});
+具体实现可以参考：[lottie](https://g2.antv.antgroup.com/manual/extra-topics/plugin/lottie)。
 
 
-chart.render();
-
-
-  return chart.getContainer();
-})();
-```
 ## 时序动画
 
 时序动画（timingSequence）还在开发中，敬请期待。
 
-## 配置选项
-
-### 动画配置完整选项
-
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| enter | 入场动画配置 | `EnterAnimateOptions` | - |  |
-| update | 更新动画配置 | `UpdateAnimateOptions` | - |  |
-| exit | 退出动画配置 | `ExitAnimateOptions` | - |  |
-| enterType | 入场动画类型 | `string` | `fadeIn` |  |
-| enterDuration | 入场动画持续时间（毫秒） | `number` | `300` |  |
-| enterDelay | 入场动画延迟时间（毫秒） | `number` | `0` |  |
-| enterEasing | 入场动画缓动函数 | `string` | `ease` |  |
-| enterFill | 入场动画非运行状态的展示效果 | `Fill` | `both` |  |
-| updateType | 更新动画类型 | `string` | `morphing` |  |
-| updateDuration | 更新动画持续时间（毫秒） | `number` | `300` |  |
-| updateDelay | 更新动画延迟时间（毫秒） | `number` | `0` |  |
-| updateEasing | 更新动画缓动函数 | `string` | `ease` |  |
-| updateFill | 更新动画非运行状态的展示效果 | `Fill` | `both` |  |
-| exitType | 退出动画类型 | `string` | `fadeOut` |  |
-| exitDuration | 退出动画持续时间（毫秒） | `number` | `300` |  |
-| exitDelay | 退出动画延迟时间（毫秒） | `number` | `0` |  |
-| exitEasing | 退出动画缓动函数 | `string` | `ease` |  |
-| exitFill | 退出动画非运行状态的展示效果 | `Fill` | `both` |  |
-
-> 复杂类型说明：
-> - `EnterAnimateOptions`：入场动画配置对象，包含 type、duration、delay、easing、fill 属性
-> - `UpdateAnimateOptions`：更新动画配置对象，包含 type、duration、delay、easing、fill 属性
-> - `ExitAnimateOptions`：退出动画配置对象，包含 type、duration、delay、easing、fill 属性
-> - `Fill`：动画填充模式，可选值为 `'auto'`、`'none'`、`'forwards'`、`'backwards'`、`'both'`
-
-### 动画类型 Type
-
-动画类型 `Type` 决定了动画的视觉效果。G2 提供了多种内置动画类型，也可设置为 `null`、`undefined` 或 `false` 来关闭动画。常见的动画类型包括：
-
-- **进场动画**：`fadeIn`、`scaleInX`、`scaleInY`、`zoomIn`、`waveIn` 等
-- **更新动画**：`morphing`（形变）、`fadeIn` 等
-- **退场动画**：`fadeOut`、`scaleOutX`、`scaleOutY`、`zoomOut` 等
-
-完整的动画列表详见 [Animation API](/api/overview#animation)。
-
-### 缓动函数 Easing
-
-缓动函数控制动画过程中视觉属性变化的插值方式。G2 支持以下内置缓动函数（来自 [easings.net](https://easings.net/)）：
-
-| constant   | accelerate         | decelerate     | accelerate-decelerate | decelerate-accelerate |
-| ---------- | ------------------ | -------------- | --------------------- | --------------------- |
-| linear     | ease-in / in       | ease-out / out | ease-in-out / in-out  | ease-out-in / out-in  |
-| ease       | in-sine            | out-sine       | in-out-sine           | out-in-sine           |
-| steps      | in-quad            | out-quad       | in-out-quad           | out-in-quad           |
-| step-start | in-cubic           | out-cubic      | in-out-cubic          | out-in-cubic          |
-| step-end   | in-quart           | out-quart      | in-out-quart          | out-in-quart          |
-|            | in-quint           | out-quint      | in-out-quint          | out-in-quint          |
-|            | in-expo            | out-expo       | in-out-expo           | out-in-expo           |
-|            | in-circ            | out-circ       | in-out-circ           | out-in-circ           |
-|            | in-back            | out-back       | in-out-back           | out-in-back           |
-|            | in-bounce          | out-bounce     | in-out-bounce         | out-in-bounce         |
-|            | in-elastic         | out-elastic    | in-out-elastic        | out-in-elastic        |
-|            | spring / spring-in | spring-out     | spring-in-out         | spring-out-in         |
-
-
-
-### 动画填充 Fill
-
-动画填充属性规定了图形在动画非运行状态（如开始前、结束后）时的展示效果：
-
-- `auto`/`none` - 默认值，动画在第一帧开始前和最后一帧结束后不影响图形展示效果
-- `forwards` - 动画完成后停住，不恢复到初始状态
-- `backwards` - 动画开始前应用第一帧效果
-- `both` - 同时应用 `forwards` 和 `backwards` 的效果
 
