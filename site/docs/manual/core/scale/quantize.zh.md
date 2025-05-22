@@ -42,24 +42,30 @@ quantize 比例尺适用于以下场景：
 ### 开始使用
 
 ```ts
-chart
-  .cell()
-  .data(salaryData)
-  .encode('color', 'salary')
-  .scale('color', {
-    type: 'quantize',
-    range: ['#eee', 'pink', 'red'] // 将数据分为三组，每组对应一种颜色
-  });
+chart.options({
+  type: 'cell',
+  data: salaryData,
+  encode: {
+    color: 'salary'
+  },
+  scale: {
+    color: {
+      type: 'quantize',
+      range: ['#eee', 'pink', 'red'] // 将数据分为三组，每组对应一种颜色
+    }
+  }
+});
 ```
 
 ## 配置项
 
 quantize 比例尺主要负责将连续的数据域映射到离散的值域。以下是 quantize 比例尺的配置选项：
 
-| 参数 | 说明 | 类型 | 默认值 | 必选 |
+| 属性 | 描述 | 类型 | 默认值 | 必选 |
 | ---- | ---- | ---- | ------ | ---- |
-| domain | 设置数据的定义域范围 | `number[]` | `[]` | |
-| range | 设置数据映射的值域范围 | `any[]` | `[]` | |
+| type | 比例尺类型，需为 'quantize' | `string` | 无 | ✓ |
+| domain | 设置数据的定义域范围 | `number[]` | `[0, 1]` | |
+| range | 设置数据映射的值域范围 | `any[]` | `[0.5]` | |
 | unknown | 对于 `undefined`， `NaN`，`null` 空值，返回的数据 | `any` | `undefined` | |
 | tickCount | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` | |
 | tickMethod | 设置生成 tick 的方法，常用于自定义 tick | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` | |
