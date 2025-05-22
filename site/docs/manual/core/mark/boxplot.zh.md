@@ -51,35 +51,35 @@ order: 4
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 | --- | --- | --- | --- | --- |
-| boxFill | 箱体的填充色 | `string` \| `(d, i, data) => string` | - |  |
-| boxFillOpacity | 箱体的填充透明度 | `number` \| `(d, i, data) => number` | `0.95` |  |
-| boxStroke | 箱体的描边颜色 | `string` \| `(d, i, data) => string` | `#000` |  |
-| boxLineWidth | 箱体描边的宽度 | `number` \| `(d, i, data) => number` | `1` |  |
-| boxLineDash | 箱体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` \| `(d, i, data) => [number, number]` | - |  |
-| boxLineOpacity | 箱体描边的透明度 | `number` \| `(d, i, data) => number` | - |  |
-| boxOpacity | 箱体的整体透明度 | `number` \| `(d, i, data) => number` | - |  |
-| boxShadowColor | 箱体阴影颜色 | `string` \| `(d, i, data) => string` | - |  |
-| boxShadowBlur | 箱体阴影的高斯模糊系数 | `number` \| `(d, i, data) => number` | - |  |
-| boxShadowOffsetX | 设置阴影距箱体的水平距离 | `number` \| `(d, i, data) => number` | - |  |
-| boxShadowOffsetY | 设置阴影距箱体的垂直距离 | `number` \| `(d, i, data) => number` | - |  |
-| boxCursor | 鼠标样式。同 CSS 的鼠标样式 | `string` \| `(d, i, data) => string` | `'default'` |  |
+| boxFill | 箱体的填充色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| boxFillOpacity | 箱体的填充透明度 | `number` \| `(datum, index, data, column) => number` | `0.95` |  |
+| boxStroke | 箱体的描边颜色 | `string` \| `(datum, index, data, column) => string` | `#000` |  |
+| boxLineWidth | 箱体描边的宽度 | `number` \| `(datum, index, data, column) => number` | `1` |  |
+| boxLineDash | 箱体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` \| `(datum, index, data, column) => [number, number]` | - |  |
+| boxLineOpacity | 箱体描边的透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| boxOpacity | 箱体的整体透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| boxShadowColor | 箱体阴影颜色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| boxShadowBlur | 箱体阴影的高斯模糊系数 | `number` \| `(datum, index, data, column) => number` | - |  |
+| boxShadowOffsetX | 设置阴影距箱体的水平距离 | `number` \| `(datum, index, data, column) => number` | - |  |
+| boxShadowOffsetY | 设置阴影距箱体的垂直距离 | `number` \| `(datum, index, data, column) => number` | - |  |
+| boxCursor | 鼠标样式。同 CSS 的鼠标样式 | `string` \| `(datum, index, data, column) => string` | `'default'` |  |
 
 #### 异常点样式
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 | --- | --- | --- | --- | --- |
-| pointFill | 异常点的填充色 | `string` \| `(d, i, data) => string` | - |  |
-| pointFillOpacity | 异常点的填充透明度 | `number` \| `(d, i, data) => number` | - |  |
-| pointStroke | 异常点的描边颜色 | `string` \| `(d, i, data) => string` | - |  |
-| pointLineWidth | 异常点描边的宽度 | `number` \| `(d, i, data) => number` | - |  |
-| pointLineDash | 异常点描边的虚线配置 | `[number,number]` \| `(d, i, data) => [number, number]` | - |  |
-| pointStrokeOpacity | 异常点描边的透明度 | `number` \| `(d, i, data) => number` | - |  |
-| pointOpacity | 异常点的整体透明度 | `number` \| `(d, i, data) => number` | - |  |
-| pointShadowColor | 异常点阴影颜色 | `string` \| `(d, i, data) => string` | - |  |
-| pointShadowBlur | 异常点阴影的高斯模糊系数 | `number` \| `(d, i, data) => number` | - |  |
-| pointShadowOffsetX | 设置阴影距异常点的水平距离 | `number` \| `(d, i, data) => number` | - |  |
-| pointShadowOffsetY | 设置阴影距异常点的垂直距离 | `number` \| `(d, i, data) => number` | - |  |
-| pointCursor | 鼠标样式。同 CSS 的鼠标样式 | `string` \| `(d, i, data) => string` | `'default'` |  |
+| pointFill | 异常点的填充色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| pointFillOpacity | 异常点的填充透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointStroke | 异常点的描边颜色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| pointLineWidth | 异常点描边的宽度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointLineDash | 异常点描边的虚线配置 | `[number,number]` \| `(datum, index, data, column) => [number, number]` | - |  |
+| pointStrokeOpacity | 异常点描边的透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointOpacity | 异常点的整体透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointShadowColor | 异常点阴影颜色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| pointShadowBlur | 异常点阴影的高斯模糊系数 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointShadowOffsetX | 设置阴影距异常点的水平距离 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointShadowOffsetY | 设置阴影距异常点的垂直距离 | `number` \| `(datum, index, data, column) => number` | - |  |
+| pointCursor | 鼠标样式。同 CSS 的鼠标样式 | `string` \| `(datum, index, data, column) => string` | `'default'` |  |
 
 ## 示例
 
