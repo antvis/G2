@@ -33,7 +33,6 @@ const playgroundOptions: UserConfig = {
     port: 8081,
     open: '/',
   },
-  build: { outDir: '../dist-playground' },
 };
 
 /**

@@ -110,7 +110,6 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     const [finished1, resolve, reject] = createEmptyPromise<Runtime<Spec>>();
     finished
       .then(resolve)
-      .catch(reject)
       .then(() => {
         // Resolve trailing clear.
         if (this._trailingClear) {
@@ -122,7 +121,9 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
           // If clear is called during trailing, recover options for next trailing render.
           if (this._trailing) this.options(options);
         }
-
+      })
+      .catch(reject)
+      .then(() => {
         this._renderTrailing();
       });
 
@@ -191,7 +192,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     // Clear after render, otherwise render with destroyed context will return infinite promise, which will block trialing render.
     if (this._rendering) {
       this._trailingClear = true;
-      // only reset options, not destroy canvas.
+      // Only reset options, not destroy canvas.
       this._reset();
       return;
     }

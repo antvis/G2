@@ -1,5 +1,25 @@
 import { Chart } from '../src';
+// 有必要的话，请在需要注意的地方加上注释
 
+const chart = new Chart({ container: 'container' });
+
+// ========== spec 风格模板 ==========
+// chart.options({
+//   type: 'interval',
+//   autoFit: true,
+//   data: [
+//     { letter: 'A', frequency: 0.08167 },
+//     { letter: 'B', frequency: 0.01492 },
+//     { letter: 'C', frequency: 0.02782 },
+//     { letter: 'D', frequency: 0.04253 },
+//     { letter: 'E', frequency: 0.12702 },
+//     { letter: 'F', frequency: 0.02288 },
+//     { letter: 'G', frequency: 0.02015 },
+//   ],
+//   encode: { x: 'letter', y: 'frequency' },
+// });
+
+// // ========== api 风格模板 ==========
 const data = [
   { letter: 'A', frequency: 0.08167 },
   { letter: 'B', frequency: 0.01492 },
@@ -8,31 +28,18 @@ const data = [
   { letter: 'E', frequency: 0.12702 },
   { letter: 'F', frequency: 0.02288 },
   { letter: 'G', frequency: 0.02015 },
-  { letter: 'H', frequency: 0.06094 },
-  { letter: 'I', frequency: 0.06966 },
-  { letter: 'J', frequency: 0.00153 },
-  { letter: 'K', frequency: 0.00772 },
-  { letter: 'L', frequency: 0.04025 },
-  { letter: 'M', frequency: 0.02406 },
-  { letter: 'N', frequency: 0.06749 },
-  { letter: 'O', frequency: 0.07507 },
-  { letter: 'P', frequency: 0.01929 },
-  { letter: 'Q', frequency: 0.00095 },
-  { letter: 'R', frequency: 0.05987 },
-  { letter: 'S', frequency: 0.06327 },
-  { letter: 'T', frequency: 0.09056 },
-  { letter: 'U', frequency: 0.02758 },
-  { letter: 'V', frequency: 0.00978 },
-  { letter: 'W', frequency: 0.0236 },
-  { letter: 'X', frequency: 0.0015 },
-  { letter: 'Y', frequency: 0.01974 },
-  { letter: 'Z', frequency: 0.00074 },
 ];
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-});
-
-chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
+chart
+  .interval()
+  .data(data)
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .scale('y', {
+    nice: 1,
+    tickMethod: (a, b, c, d) => {
+      console.log({ a, b, c, d });
+      return [0, 0.04, 0.08, 0.12, 0.14, 0.16];
+    },
+  });
 
 chart.render();
