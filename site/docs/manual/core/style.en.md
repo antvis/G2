@@ -1,5 +1,5 @@
 ---
-title: 样式（Style）
+title: Style
 order: 9
 ---
 
