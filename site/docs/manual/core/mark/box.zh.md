@@ -84,18 +84,18 @@ p12         p11           p13
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 | --- | --- | --- | --- | --- |
-| fill | 图形的填充色 | `string` \| `(d, i, data) => string` | - |  |
-| fillOpacity | 图形的填充透明度 | `number` \| `(d, i, data) => number` | `0.95` |  |
-| stroke | 图形的描边颜色 | `string` \| `(d, i, data) => string` | `#000` |  |
-| strokeOpacity | 描边透明度 | `number` \| `(d, i, data) => number` | - |  |
-| lineWidth | 图形描边的宽度 | `number` \| `(d, i, data) => number` | `1` |  |
-| lineDash | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` \| `(d, i, data) => [number, number]` | - |  |
-| opacity | 图形的整体透明度 | `number` \| `(d, i, data) => number` | - |  |
-| shadowColor | 图形阴影颜色 | `string` \| `(d, i, data) => string` | - |  |
-| shadowBlur | 图形阴影的高斯模糊系数 | `number` \| `(d, i, data) => number` | - |  |
-| shadowOffsetX | 设置阴影距图形的水平距离 | `number` \| `(d, i, data) => number` | - |  |
-| shadowOffsetY | 设置阴影距图形的垂直距离 | `number` \| `(d, i, data) => number` | - |  |
-| cursor | 鼠标样式。同 CSS 的鼠标样式 | `string` \| `(d, i, data) => string` | `'default'` |  |
+| fill | 图形的填充色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| fillOpacity | 图形的填充透明度 | `number` \| `(datum, index, data, column) => number` | `0.95` |  |
+| stroke | 图形的描边颜色 | `string` \| `(datum, index, data, column) => string` | `#000` |  |
+| strokeOpacity | 描边透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| lineWidth | 图形描边的宽度 | `number` \| `(datum, index, data, column) => number` | `1` |  |
+| lineDash | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` \| `(datum, index, data, column) => [number, number]` | - |  |
+| opacity | 图形的整体透明度 | `number` \| `(datum, index, data, column) => number` | - |  |
+| shadowColor | 图形阴影颜色 | `string` \| `(datum, index, data, column) => string` | - |  |
+| shadowBlur | 图形阴影的高斯模糊系数 | `number` \| `(datum, index, data, column) => number` | - |  |
+| shadowOffsetX | 设置阴影距图形的水平距离 | `number` \| `(datum, index, data, column) => number` | - |  |
+| shadowOffsetY | 设置阴影距图形的垂直距离 | `number` \| `(datum, index, data, column) => number` | - |  |
+| cursor | 鼠标样式。同 CSS 的鼠标样式 | `string` \| `(datum, index, data, column) => string` | `'default'` |  |
 
 ## 示例
 
