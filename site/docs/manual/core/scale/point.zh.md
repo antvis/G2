@@ -59,7 +59,6 @@ chart.render();
 | range        | 值域范围，映射的连续区间                     | `number[]` \| `string[]`                          | `[0, 1]`       |      |
 | unknown      | 输入为 `undefined`、`NaN`、`null` 时返回的值 | `any`                                             | `undefined`    |      |
 | round        | 输出值是否四舍五入                           | `boolean`                                         | `false`        |      |
-| padding      | 设置内外边距（均匀分布两端空白比例）          | `number`                                          | `0`            |      |
 | align        | 对齐方式，在 [0, 1] 范围内                   | `number`                                          | `0.5`          |      |
 | compare      | 对定义域进行排序                             | `(a: string \| number, b: string \| number) => number` | `undefined` |      |
 
@@ -67,6 +66,13 @@ chart.render();
 > - `domain`：为类别数组，可以是字符串、数字或日期类型。
 > - `range`：为映射的连续区间，通常为 `[0, 1]` 或像素区间。
 > - `compare`：自定义排序函数，决定 domain 的顺序。
+>
+> 注意：point 比例尺是 bandWidth 恒为 0 的 band 比例尺，内部固定了以下属性且不可修改：
+> ```js
+> padding: 0,
+> paddingInner: 1, 
+> paddingOuter: 0
+> ```
 
 
 ```plan
@@ -81,45 +87,6 @@ chart.render();
 
 ## 示例
 
-### 基本用法
-
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
-
-chart.options({
-  type: "interval",
-  autoFit: true,
-  data: [
-    { name: "London", 月份: "Jan.", 月均降雨量: 18.9 },
-    { name: "London", 月份: "Feb.", 月均降雨量: 28.8 },
-    { name: "London", 月份: "Mar.", 月均降雨量: 39.3 },
-    { name: "London", 月份: "Apr.", 月均降雨量: 81.4 },
-    { name: "London", 月份: "May", 月均降雨量: 47 },
-    { name: "London", 月份: "Jun.", 月均降雨量: 20.3 },
-    { name: "London", 月份: "Jul.", 月均降雨量: 24 },
-    { name: "London", 月份: "Aug.", 月均降雨量: 35.6 },
-    { name: "Berlin", 月份: "Jan.", 月均降雨量: 12.4 },
-    { name: "Berlin", 月份: "Feb.", 月均降雨量: 23.2 },
-    { name: "Berlin", 月份: "Mar.", 月均降雨量: 34.5 },
-    { name: "Berlin", 月份: "Apr.", 月均降雨量: 99.7 },
-    { name: "Berlin", 月份: "May", 月均降雨量: 52.6 },
-    { name: "Berlin", 月份: "Jun.", 月均降雨量: 35.5 },
-    { name: "Berlin", 月份: "Jul.", 月均降雨量: 37.4 },
-    { name: "Berlin", 月份: "Aug.", 月均降雨量: 42.4 },
-  ],
-  encode: { x: "月份", y: "月均降雨量", color: "name" },
-  transform: [{ type: "stackY" }],
-  scale: { y: { type: "point" } },
-  interaction: { elementHighlight: { background: true } },
-});
-
-chart.render();
-
-
-  return chart.getContainer();
-})();
-```
 
 ### 散点图
 
