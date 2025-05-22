@@ -98,6 +98,7 @@ chart.render();
 
 | 属性    | 描述                                      | 类型        | 默认值      | 必选 |
 | ------- | ----------------------------------------- | ----------- | ----------- | ---- |
+| type    | 比例尺类型, 需为'threshold'                  | `string`    | `'threshold'`| ✓    |
 | domain  | 定义域阈值数组        | `number[]`  | `[0.5]`     |      |
 | range   | 值域数组+1                       | `any[]`     | `[0, 1]`    |      |
 | unknown | 输入为 `undefined`、`NaN`、`null` 时返回的值 | `any`       | `undefined` |      |
