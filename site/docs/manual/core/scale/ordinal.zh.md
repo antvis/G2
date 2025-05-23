@@ -133,7 +133,7 @@ chart.scale('color', {
   // 创建一个容器元素
   const container = document.createElement('div');
   container.style.width = '100%';
-  container.style.height = '300px';
+  container.style.height = '500px';
 
   const chart = new G2.Chart({
     container,
@@ -180,7 +180,7 @@ chart.scale('color', {
   // 创建容器
   const container = document.createElement('div');
   container.style.width = '100%';
-  container.style.height = '300px';
+  container.style.height = '500px';
 
   // 创建图表实例
   const chart = new G2.Chart({
@@ -243,7 +243,7 @@ scale: {
   // 创建一个容器元素
   const container = document.createElement('div');
   container.style.width = '100%';
-  container.style.height = '300px';
+  container.style.height = '500px';
 
   const spec = {
     type: 'interval',
