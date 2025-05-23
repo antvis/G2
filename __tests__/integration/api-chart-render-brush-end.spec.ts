@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { chartRenderBrushEnd as render } from '../plots/api/chart-render-brush-end';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { sleep } from './utils/sleep';
@@ -12,8 +13,8 @@ describe('chart.render', () => {
     });
     chart.off();
 
-    const end = jest.fn();
-    const start = jest.fn();
+    const end = vi.fn();
+    const start = vi.fn();
     chart.on('brush:highlight', () => {
       start();
     });

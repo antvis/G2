@@ -1,6 +1,6 @@
-import { dsvFormat, autoType as d3AutoType } from '@antv/vendor/d3-dsv';
-import { FetchConnector } from '../spec';
-import { DataComponent as DC } from '../runtime';
+import { autoType as d3AutoType, dsvFormat } from '@antv/vendor/d3-dsv';
+import type { DataComponent as DC } from '../runtime';
+import type { FetchConnector } from '../spec';
 import { identity } from '../utils/helper';
 
 export type FetchOptions = Omit<FetchConnector, 'type'>;
@@ -19,7 +19,8 @@ export const Fetch: DC<FetchOptions> = (options) => {
       // @see: https://github.com/d3/d3-dsv#dsv_parse
       const str = await response.text();
       return dsvFormat(delimiter).parse(str, autoType ? d3AutoType : identity);
-    } else if (format === 'json') {
+    }
+    if (format === 'json') {
       return await response.json();
     }
     throw new Error(`Unknown format: ${format}.`);

@@ -1477,6 +1477,7 @@ function selectFacetElements(
   elementClassName: string,
 ): DisplayObject[] {
   const group = selection.node().parentElement;
+  if (!group || typeof group.findAll !== 'function') return [];
   return group
     .findAll(
       (node) =>

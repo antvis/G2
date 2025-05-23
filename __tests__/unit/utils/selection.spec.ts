@@ -1,19 +1,24 @@
 import {
-  DisplayObject,
-  Group,
-  Rect,
   Circle,
-  Path,
-  Text,
+  CustomEvent,
+  type DisplayObject,
   Ellipse,
+  Group,
+  HTML,
   Image,
   Line,
+  Path,
   Polygon,
   Polyline,
-  HTML,
-  CustomEvent,
+  Rect,
+  Text,
 } from '@antv/g';
-import { G2Element, select, Selection } from '../../../src/utils/selection';
+import { vi } from 'vitest';
+import {
+  type G2Element,
+  Selection,
+  select,
+} from '../../../src/utils/selection';
 import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 describe('select', () => {
@@ -338,7 +343,7 @@ describe('select', () => {
     const data = [1, 2, 3];
     const s1 = selection.selectAll('rect');
     expect(
-      s1.each(function (d, i, element) {
+      s1.each((d, i, element) => {
         expect(d).toBe(data[i]);
         expect(element).toBe(R[i]);
       }),
@@ -442,7 +447,7 @@ describe('select', () => {
 
     const selection = select(canvas.document.documentElement);
 
-    const fn = jest.fn();
+    const fn = vi.fn();
     const event = new CustomEvent('build');
     const circle = selection
       .append('circle')

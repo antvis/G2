@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { Chart, VIEW_CLASS_NAME } from '../../../src';
 import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
@@ -44,7 +45,7 @@ describe('Clear Interaction', () => {
     const chart = createChart();
     await chart.render();
 
-    const fn = jest.fn();
+    const fn = vi.fn();
     mockInteraction(chart, 'tooltip', fn);
 
     // Update size to call destroy.
@@ -56,7 +57,7 @@ describe('Clear Interaction', () => {
     const chart = createChart();
     await chart.render();
 
-    const fn = jest.fn();
+    const fn = vi.fn();
     mockInteraction(chart, 'tooltip', fn);
     chart.clear();
     expect(fn).toBeCalledTimes(1);
@@ -67,7 +68,7 @@ describe('Clear Interaction', () => {
     await chart.render();
 
     // Mock destroy of interaction.
-    const fn = jest.fn();
+    const fn = vi.fn();
     mockInteraction(chart, 'event', fn);
 
     // Rerender
