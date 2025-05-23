@@ -18,8 +18,9 @@ order: 12
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
 |------|------|------|--------|------|
-| domain | 定义域，表示输入数据的原始范围 | [number, number] | [0, 1] | ✓ |
-| range | 值域，表示映射后的视觉范围 | [number, number] | [0, 1] | ✓ |
+| type | 比例尺类型，需为'pow' | string | 无 | ✓ | |
+| domain | 定义域，表示输入数据的原始范围 | [number, number] | [0, 1] | |
+| range | 值域，表示映射后的视觉范围 | [number, number] | [0, 1] | |
 | exponent | 指数值，决定指数变换的强度 | number | 2 | |
 | nice | 是否需要对定义域的范围进行优化 | boolean | false | |
 | clamp | 是否将超出定义域的值限制在范围内 | boolean | false | |
@@ -38,122 +39,129 @@ order: 12
 
 ## 示例
 
-### 线性比例尺
-当 `exponent=1` 时与 `linear` 线性比例尺效果一致
-```ts
-import { Chart } from '@antv/g2';
+### 线性比例尺 (exponent=1)
+当 `exponent=1` 时，`pow` 比例尺等同于线性比例尺。此时数据映射是线性的，适合展示均匀分布的数据。
 
-const chart = new Chart({ container: 'container' });
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-chart.options({
-  scale: {
-    y: {
+  const data = [
+    { month: '1月', sales: 0.1 },
+    { month: '2月', sales: 0.2 },
+    { month: '3月', sales: 0.3 },
+    { month: '4月', sales: 0.4 },
+    { month: '5月', sales: 0.5 }
+  ];
+
+  chart
+    .interval()
+    .data(data)
+    .encode('x', 'month')
+    .encode('y', 'sales')
+    .scale('y', {
       type: 'pow',
-      domain: [0, 10],
-      range: [0, 100],
-      nice: true,
+      domain: [0, 0.5], // 输入范围
+      range: [1, 0],    // 输出范围，[0, 1]表示y轴方向从上到下，[1, 0]表示y轴方向从下到上
       exponent: 1
-    }
-  }
-});
+    });
 
-chart.render();
+  chart.render();
+  return chart.getContainer();
+})();
 ```
 
-### 平方根比例尺
-当数据范围很大时，可以使用 `exponent < 1` 的 `pow` 比例尺压缩数据差异。
-```ts
-import { Chart } from '@antv/g2';
+### 平方根比例尺 (exponent=0.5)
+当数据范围很大时，可以使用 `exponent < 1` 的 `pow` 比例尺压缩数据差异。平方根比例尺适合展示数据范围大但希望更均匀分布的情况。
 
-const chart = new Chart({ container: 'container' });
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-chart.options({
-  scale: {
-    y: {
+  const data = [
+    { city: '北京', population: 2171 },
+    { city: '上海', population: 2418 },
+    { city: '广州', population: 1490 },
+    { city: '深圳', population: 1303 },
+    { city: '杭州', population: 1000 },
+    { city: '成都', population: 800 },
+    { city: '天津', population: 600 },
+  ];
+
+  chart
+    .interval()
+    .data(data)
+    .encode('x', 'city')
+    .encode('y', 'population')
+    .scale('x')
+    .scale('y', {
       type: 'pow',
-      domain: [0, 10],
-      range: [0, 100],
-      nice: true,
-      exponent: 0.5
-    }
-  }
-});
+      exponent: 0.5,
+      nice: true
+    })
 
-chart.render();
+  chart.render();
+  return chart.getContainer();
+})();
 ```
 
-### 指数比例尺
-当需要强调小值间的差异时，可以使用 `exponent > 1` 的 `pow` 比例尺
-```ts
-import { Chart } from '@antv/g2';
+### 指数比例尺 (exponent=2)
+当需要强调小值间的差异时，可以使用 `exponent > 1` 的 `pow` 比例尺。指数比例尺会放大小值间的差异，适合展示细微但重要的变化。
 
-const chart = new Chart({ container: 'container' });
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-chart.options({
-  scale: {
-    y: {
+  const data = [
+    { day: '周一', rate: 0.01 },
+    { day: '周二', rate: 0.02 },
+    { day: '周三', rate: 0.05 },
+    { day: '周四', rate: 0.1 },
+    { day: '周五', rate: 0.2 }
+  ];
+
+  chart
+    .interval()
+    .data(data)
+    .encode('x', 'day')
+    .encode('y', 'rate')
+    .scale('y', {
       type: 'pow',
-      domain: [0, 10],
-      range: [0, 100],
-      nice: true,
-      exponent: 3
-    }
-  }
-});
+      domain: [0, 0.2], // 输入范围
+      range: [1, 0], // 输出范围，[0, 1]表示y轴方向从上到下，[1, 0]表示y轴方向从下到上
+      exponent: 2
+    });
 
-chart.render();
+  chart.render();
+  return chart.getContainer();
+})();
 ```
 
-### 自定义插值器示例
-interpolate用于自定义值域间的插值方式，默认实现同时支持数字和颜色的线性插值。
+### 自定义插值函数
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-#### 数字插值示例（二次缓动）：
-```ts
-import { Chart } from '@antv/g2';
+  const data = [
+    { time: '2025-01', value: 0.1 },
+    { time: '2025-02', value: 0.4 },
+    { time: '2025-03', value: 0.9 }
+  ];
 
-const chart = new Chart({ container: 'container' });
-
-chart.options({
-  scale: {
-    y: {
+  chart
+    .line()
+    .data(data)
+    .encode('x', 'time')
+    .encode('y', 'value')
+    .scale('y', {
       type: 'pow',
-      domain: [0, 10],
-      range: [0, 100],
-      exponent: 2,
+      domain: [0, 1],
+      range: [0, 1],
+      exponent: 1,
       interpolate: (a, b) => t => a + (b - a) * t * t // 二次缓动插值
-    }
-  }
-});
+    });
 
-chart.render();
-```
-
-#### 颜色插值示例：
-```ts
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({ container: 'container' });
-
-chart.options({
-  scale: {
-    color: {
-      type: 'pow',
-      domain: [0, 10],
-      range: ['#ff0000', '#0000ff'], // 从红色到蓝色
-      exponent: 1.5,
-      interpolate: (a, b) => t => {
-        // 实现颜色插值逻辑
-        return `rgb(${
-          Math.floor((1-t)*parseInt(a.slice(1,3),16) + t*parseInt(b.slice(1,3),16))
-        }, ${
-          Math.floor((1-t)*parseInt(a.slice(3,5),16) + t*parseInt(b.slice(3,5),16))
-        }, ${
-          Math.floor((1-t)*parseInt(a.slice(5,7),16) + t*parseInt(b.slice(5,7),16))
-        })`;
-      }
-    }
-  }
-});
-
-chart.render();
+  chart.render();
+  return chart.getContainer();
+})();
 ```
