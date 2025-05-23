@@ -125,7 +125,7 @@ chart.render();
 | 属性       | 描述               | 类型                                | 默认值                                  |
 | ---------- | ------------------ | ----------------------------------- | --------------------------------------- |
 | offset     | 主方向上的便偏移量 | number                              | `0`                                     |
-| background | 是否高亮背景       | [backgroundStyle](#backgroundstyle) | 详见[#backgroundstyle](#backgroundstyle) |
+| background | 是否高亮背景       | [backgroundStyle](#backgroundstyle) | 详见[backgroundstyle](#backgroundstyle) |
 | link       | 是否展示连接线     | [linkStyle](#linkstyle)             | 详见[linkStyle](#linkstyle)                                   |
 
 ### backgroundStyle
