@@ -96,11 +96,19 @@ chart.render();
 
 ## 📮 参与贡献
 
+感谢所有为这个项目做出贡献的人，感谢所有支持者！🙏
+
+<a href="https://openomy.app/github/antvis/G2" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=antvis/G2&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
+
 - [问题](https://github.com/antvis/g2/issues)： 报告 bug 或者提出需求
 - [贡献指南](https://github.com/antvis/g2/blob/v5/CONTRIBUTING.zh-CN.md)：参与建设 G2
 - [讨论](https://github.com/antvis/G2/discussions)：在 GitHub 上或者钉钉群里面讨论（30233731, 35686967, 44788198）
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
+
 
 ## 📄 许可证
 
