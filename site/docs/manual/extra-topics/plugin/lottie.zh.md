@@ -1,6 +1,6 @@
 ---
 title: lottie
-order: 2
+order: 3
 ---
 
 [Lottie](https://airbnb.design/lottie/) 能极大丰富动画的描述能力。在可视化叙事中也有不错的使用场景。

@@ -1,3 +1,30 @@
+## [5.3.3](https://github.com/antvis/g2/compare/5.3.2...5.3.3) (2025-05-20)
+
+
+### Bug Fixes
+
+* add channels property to GroupTransform type and update GroupNOptions type [#6871](https://github.com/antvis/g2/issues/6871) ([#6873](https://github.com/antvis/g2/issues/6873)) ([a42cc28](https://github.com/antvis/g2/commit/a42cc289907ef2ee948b6634deec0904e0ff891a))
+* **brushFilter:** prevent filtering when brush has no area ([#6823](https://github.com/antvis/g2/issues/6823)) ([1c4fbb5](https://github.com/antvis/g2/commit/1c4fbb5652c1a0d96a62f25a901bc81453846b74))
+* bugs for radar coord and plot ([#6864](https://github.com/antvis/g2/issues/6864)) ([c8e6a1f](https://github.com/antvis/g2/commit/c8e6a1fff69876f23bf500d7bf664f51dd00e1b4))
+* **build:** resolve tslib not found error in UMD build ([#6831](https://github.com/antvis/g2/issues/6831)) ([cacec75](https://github.com/antvis/g2/commit/cacec754bc49ea4ba4a9a5c60b6e3ad61e1a56cc))
+* integrate fmin internally ([#6867](https://github.com/antvis/g2/issues/6867)) ([ae32af4](https://github.com/antvis/g2/commit/ae32af4e80ae9a8e40f3a6d118a9dc5253815eff))
+* **interaction:** the poptip is not working ([#6809](https://github.com/antvis/g2/issues/6809)) ([9915e7b](https://github.com/antvis/g2/commit/9915e7b8b9dee4c618a2cec1befde0bfc9ba9dc4))
+* severity alert ([#6877](https://github.com/antvis/g2/issues/6877)) ([fe90555](https://github.com/antvis/g2/commit/fe905558b0b3bf333cca2369e4b5f8c8759e4d92))
+* sourcemap issue [#6807](https://github.com/antvis/g2/issues/6807) ([#6827](https://github.com/antvis/g2/issues/6827)) ([d02d480](https://github.com/antvis/g2/commit/d02d4803fbf5f887259f4f906a50c7980f6db7c2))
+* the position of the custom shape text and element:select is incorrect ([#6878](https://github.com/antvis/g2/issues/6878)) ([716764b](https://github.com/antvis/g2/commit/716764b0e41e8667af67f8df6f7a18f84f8b1563))
+* wordcloud default tooltip config ([#6830](https://github.com/antvis/g2/issues/6830)) ([d056a7b](https://github.com/antvis/g2/commit/d056a7bcec6b389bc2999a135a7915a7b041c7b6))
+
+
+### Features
+* **feat:** add a method to obtain data by point location ([#6885](https://github.com/antvis/g2/issues/6885)) ([123c2eb](https://github.com/antvis/g2/commit/2c8cb194623d2b0d533104754ffb8f776123c2eb))
+* **docs:** sunburst add docs ([#6866](https://github.com/antvis/g2/issues/6866)) ([27089ef](https://github.com/antvis/g2/commit/27089efc83c8fdb0ff1e1f5a44579eb2f6ea6396))
+* **docs:** 完善 ema 文档” ([#6805](https://github.com/antvis/g2/issues/6805)) ([f0c71a1](https://github.com/antvis/g2/commit/f0c71a19dca77295fce84805825a7031b30a76c9))
+* **interaction:** add support for merging styles in interaction ([#6815](https://github.com/antvis/g2/issues/6815)) ([35a7d21](https://github.com/antvis/g2/commit/35a7d2187e3821a329db16f531c1441e9c682ca6))
+* support region highlight ([#6804](https://github.com/antvis/g2/issues/6804)) ([2e31740](https://github.com/antvis/g2/commit/2e3174033098e2d90cd4f6f5f94912e72ee2d982))
+* 添加连接器的 offsetX 参数 ([#6882](https://github.com/antvis/g2/issues/6882)) ([85454e2](https://github.com/antvis/g2/commit/85454e2a9049b56010ae45967e5c48dbea9c5287))
+
+
+
 ## [5.3.2](https://github.com/antvis/g2/compare/5.3.1...5.3.2) (2025-04-21)
 
 

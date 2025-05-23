@@ -1,5 +1,5 @@
 ---
-title: 状态（State）
+title: State
 order: 11
 ---
 
