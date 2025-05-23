@@ -42,7 +42,7 @@ chart.render();
 })();
 ```
 
-当然也可以把`type`设置为`null`、`undefined` 或 `false` 来关闭动画:
+可把`type`设置为`null`、`undefined` 或 `false` 来关闭动画:
 
 ```js | ob 
 (() => {
@@ -58,6 +58,28 @@ chart.options({
   },
   encode: { x: "date", y: "close" },
   animate: { enter: { type: "false", } },
+});
+chart.render();
+
+
+  return chart.getContainer();
+})();
+```
+可通过`animate: false`来关闭所有动画:
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
+
+chart.options({
+  type: "line",
+  autoFit: true,
+  data: {
+    type: "fetch",
+    value:
+      "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+  },
+  encode: { x: "date", y: "close" },
+  animate: false,
 });
 chart.render();
 
