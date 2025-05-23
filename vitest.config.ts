@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     include: ['__tests__/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     coverage: {
+      reporter: ['lcov'],
       provider: 'istanbul',
       include: ['src/**/*.ts'],
     },
