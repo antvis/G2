@@ -60,13 +60,9 @@ The chart below compares the sales of different game genres.
 | Shooter  | 3,500  |
 | Other    | 1,500  |
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-});
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
 chart.options({
   type: 'interval',
@@ -89,7 +85,12 @@ chart.options({
 });
 
 chart.render();
+
+
+  return chart.getContainer();
+})();
 ```
+
 
 **Explanation**:
 
@@ -111,47 +112,43 @@ When comparing population sizes across provinces, too many categories can cause 
 | Hebei    | 71,854,210 |
 | ...      | ...        |
 
-```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-});
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
 chart.options({
   type: 'interval',
   autoFit: true,
   data: [
-    { province: 'Beijing', population: 19612368 },
-    { province: 'Tianjin', population: 12938693 },
-    { province: 'Hebei', population: 71854210 },
-    { province: 'Shanxi', population: 27500000 },
-    { province: 'Inner Mongolia', population: 24706291 },
-    { province: 'Liaoning', population: 43746323 },
-    { province: 'Jilin', population: 27452815 },
-    { province: 'Heilongjiang', population: 38313991 },
-    { province: 'Shanghai', population: 23019196 },
-    { province: 'Jiangsu', population: 78660941 },
-    { province: 'Zhejiang', population: 54426891 },
-    { province: 'Anhui', population: 59500468 },
-    { province: 'Fujian', population: 36894217 },
-    { province: 'Jiangxi', population: 44567797 },
-    { province: 'Shandong', population: 95792719 },
-    { province: 'Henan', population: 94029939 },
-    { province: 'Hubei', population: 57237727 },
-    { province: 'Hunan', population: 65700762 },
-    { province: 'Guangdong', population: 104320459 },
-    { province: 'Guangxi', population: 46023761 },
-    { province: 'Hainan', population: 8671485 },
-    { province: 'Chongqing', population: 28846170 },
-    { province: 'Sichuan', population: 80417528 },
-    { province: 'Guizhou', population: 34748556 },
-    { province: 'Yunnan', population: 45966766 },
-    { province: 'Tibet', population: 3002165 },
-    { province: 'Shaanxi', population: 37327379 },
-    { province: 'Gansu', population: 25575263 },
-    { province: 'Qinghai', population: 5626723 },
+    { province: '北京市', population: 19612368 },
+    { province: '天津市', population: 12938693 },
+    { province: '河北省', population: 71854210 },
+    { province: '山西省', population: 27500000 },
+    { province: '内蒙古自治区', population: 24706291 },
+    { province: '辽宁省', population: 43746323 },
+    { province: '吉林省', population: 27452815 },
+    { province: '黑龙江省', population: 38313991 },
+    { province: '上海市', population: 23019196 },
+    { province: '江苏省', population: 78660941 },
+    { province: '浙江省', population: 54426891 },
+    { province: '安徽省', population: 59500468 },
+    { province: '福建省', population: 36894217 },
+    { province: '江西省', population: 44567797 },
+    { province: '山东省', population: 95792719 },
+    { province: '河南省', population: 94029939 },
+    { province: '湖北省', population: 57237727 },
+    { province: '湖南省', population: 65700762 },
+    { province: '广东省', population: 104320459 },
+    { province: '广西壮族自治区', population: 46023761 },
+    { province: '海南省', population: 8671485 },
+    { province: '重庆市', population: 28846170 },
+    { province: '四川省', population: 80417528 },
+    { province: '贵州省', population: 34748556 },
+    { province: '云南省', population: 45966766 },
+    { province: '西藏自治区', population: 3002165 },
+    { province: '陕西省', population: 37327379 },
+    { province: '甘肃省', population: 25575263 },
+    { province: '青海省', population: 5626723 },
   ],
   encode: { x: 'province', y: 'population' },
   axis: {
@@ -162,7 +159,7 @@ chart.options({
       title: null,
       labelFontSize: 12,
 
-      size: 100, // Size must be set
+      size: 100, // 必须设置 size
       labelAutoEllipsis: {
         suffix: '..',
         minLength: 8,
@@ -174,12 +171,12 @@ chart.options({
         recoverWhenFailed: true,
       },
       labelAutoRotate: {
-        optionalAngles: [0, 45, 90], // Attempt to rotate by 0 degrees, 45 degrees, or 90 degrees
-        recoverWhenFailed: true, // If rotation fails, revert to the default angle
+        optionalAngles: [0, 45, 90], // 尝试旋转 0 度、45 度、90 度
+        recoverWhenFailed: true, // 如果旋转后无法解决问题，恢复到默认角度
       },
       labelAutoHide: {
-        keepHeader: true, // Retain the first tick label
-        keepTail: true, // Retain the last tick label
+        keepHeader: true, // 保留第一个刻度值
+        keepTail: true, // 保留最后一个刻度值
       },
     },
   },
@@ -192,52 +189,53 @@ chart.options({
   ],
 });
 
+
 chart.render();
+
+
+  return chart.getContainer();
+})();
 ```
 
 Switching to a horizontal bar chart makes labels easier to read, as shown below:
 
-```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-});
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
 chart.options({
   type: 'interval',
   autoFit: true,
   data: [
-    { province: 'Beijing', population: 19612368 },
-    { province: 'Tianjin', population: 12938693 },
-    { province: 'Hebei', population: 71854210 },
-    { province: 'Shanxi', population: 27500000 },
-    { province: 'Inner Mongolia', population: 24706291 },
-    { province: 'Liaoning', population: 43746323 },
-    { province: 'Jilin', population: 27452815 },
-    { province: 'Heilongjiang', population: 38313991 },
-    { province: 'Shanghai', population: 23019196 },
-    { province: 'Jiangsu', population: 78660941 },
-    { province: 'Zhejiang', population: 54426891 },
-    { province: 'Anhui', population: 59500468 },
-    { province: 'Fujian', population: 36894217 },
-    { province: 'Jiangxi', population: 44567797 },
-    { province: 'Shandong', population: 95792719 },
-    { province: 'Henan', population: 94029939 },
-    { province: 'Hubei', population: 57237727 },
-    { province: 'Hunan', population: 65700762 },
-    { province: 'Guangdong', population: 104320459 },
-    { province: 'Guangxi', population: 46023761 },
-    { province: 'Hainan', population: 8671485 },
-    { province: 'Chongqing', population: 28846170 },
-    { province: 'Sichuan', population: 80417528 },
-    { province: 'Guizhou', population: 34748556 },
-    { province: 'Yunnan', population: 45966766 },
-    { province: 'Tibet', population: 3002165 },
-    { province: 'Shaanxi', population: 37327379 },
-    { province: 'Gansu', population: 25575263 },
-    { province: 'Qinghai', population: 5626723 },
+    { province: '北京市', population: 19612368 },
+    { province: '天津市', population: 12938693 },
+    { province: '河北省', population: 71854210 },
+    { province: '山西省', population: 27500000 },
+    { province: '内蒙古自治区', population: 24706291 },
+    { province: '辽宁省', population: 43746323 },
+    { province: '吉林省', population: 27452815 },
+    { province: '黑龙江省', population: 38313991 },
+    { province: '上海市', population: 23019196 },
+    { province: '江苏省', population: 78660941 },
+    { province: '浙江省', population: 54426891 },
+    { province: '安徽省', population: 59500468 },
+    { province: '福建省', population: 36894217 },
+    { province: '江西省', population: 44567797 },
+    { province: '山东省', population: 95792719 },
+    { province: '河南省', population: 94029939 },
+    { province: '湖北省', population: 57237727 },
+    { province: '湖南省', population: 65700762 },
+    { province: '广东省', population: 104320459 },
+    { province: '广西壮族自治区', population: 46023761 },
+    { province: '海南省', population: 8671485 },
+    { province: '重庆市', population: 28846170 },
+    { province: '四川省', population: 80417528 },
+    { province: '贵州省', population: 34748556 },
+    { province: '云南省', population: 45966766 },
+    { province: '西藏自治区', population: 3002165 },
+    { province: '陕西省', population: 37327379 },
+    { province: '甘肃省', population: 25575263 },
+    { province: '青海省', population: 5626723 },
   ],
   encode: { x: 'province', y: 'population' },
   coordinate: { transform: [{ type: 'transpose' }] },
@@ -257,21 +255,19 @@ chart.options({
     },
   ],
 });
+  chart.render()
 
-chart.render();
+  return chart.getContainer();
+})();
 ```
 
 Example 2: **Not Suitable for Trends**
 
 Bar charts use bar length to compare categorical data but are not effective for showing continuous trends.
 
-```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-});
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
 chart.options({
   type: 'interval',
@@ -327,17 +323,17 @@ chart.options({
 });
 
 chart.render();
+
+
+  return chart.getContainer();
+})();
 ```
 
 For instance, a bar chart is less ideal for showing daily stock prices for September 2015 compared to a [line chart](/en/charts/line) or [area chart](/en/charts/area).
 
-```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-});
+```js | ob 
+(() => {
+  const chart = new G2.Chart();
 
 chart.options({
   type: 'view',
@@ -381,7 +377,7 @@ chart.options({
     },
     x: {
       title: null,
-      tickFilter: (_, i) => i % 2 !== 0, // Filter the tick marks on the x-axis to display only every other tick.
+      tickFilter: (_, i) => i % 2 !== 0, // 过滤 x 轴刻度线，只显示每隔 1 个刻度线
     },
   },
   children: [
@@ -401,6 +397,8 @@ chart.options({
 });
 
 chart.render();
+  return chart.getContainer();
+})();
 ```
 
 ## Comparing Bar Charts to Other Charts
