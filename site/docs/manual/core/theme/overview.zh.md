@@ -181,7 +181,12 @@ chart.options({
   const chart = new G2.Chart();
 
   chart.options({
-    theme: { type: 'dark' },
+    theme: { 
+      type: 'dark',
+      view: {
+        viewFill: '#1f1f1f'  // 设置暗色背景
+      }
+    },
     type: 'interval',
     data: [
       { genre: '运动', sold: 275 },
