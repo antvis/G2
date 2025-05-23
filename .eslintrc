@@ -32,7 +32,6 @@
     "@typescript-eslint/no-this-alias": "off"
   },
   "env": {
-    "node": true,
-    "jest": true
+    "node": true
   }
 }
