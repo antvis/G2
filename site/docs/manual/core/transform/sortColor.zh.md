@@ -3,30 +3,46 @@ title: sortColor
 order: 2
 ---
 
-对离散的 color 比例尺的定义域根据指定通道排序。
+## 概述
 
-## 开始使用
+`sortColor` 是 G2 提供的一个常用数据变换（transform），用于对离散型 color（颜色）通道的定义域进行排序。通过指定排序依据，可以让图表的颜色分组按照某个度量值（如 y、x 等）进行升序或降序排列，从而更直观地展示分组数据的大小关系或分布趋势。  
+`sortColor` 支持灵活的排序通道、聚合方式、分片等配置，常用于突出重点、优化可读性、对比分析等场景，尤其适用于分组柱状图、分组条形图、堆叠图等。
 
-案例可以参考 [sortX](/manual/core/transform/sort-x)，下面是伪代码示意。
+---
 
-```ts
-chart
-  .interval()
-  // ...
-  .transform({
-    type: 'sortColor',
-    /* options */
-  });
-```
+## 使用场景
 
-## 选项
+- **分组柱状图/条形图排序**：将颜色分组（如不同类别、系列）按数值从高到低（或低到高）排列，便于对比各组数据。
+- **Top N/Bottom N 分组筛选**：结合 `slice` 配置，仅展示前 N 或后 N 个颜色分组，聚焦重点。
+- **分面/多系列排序**：在分面或多系列场景下，按组内某个指标排序，突出分组间的差异。
+- **与其他变换联用**：常与 `sortX`、`dodgeX` 等 transform 组合使用，实现更复杂的数据布局和视觉效果。
 
-| 属性               | 描述                                           | 类型                               | 默认值                 |
-|-------------------|------------------------------------------------|-----------------------------------|-----------------------|
-| reverse           | 是否逆序                                        | `boolean`                        | `false`               |  
-| by                | 指定排序的通道                                   | `string`                          | `y`                   |
-| slice             | 选择一个分片范围                                  | `number \| [number, number]`      | `y`                   |
-| reducer           | 分组聚合，用于比较大小                             | `Reducer`                         | `max`                 |
+---
+
+## 配置项
+
+| 属性    | 描述                                                   | 类型                         | 默认值  |
+| ------- | ------------------------------------------------------ | ---------------------------- | ------- |
+| by      | 指定排序的通道（如 'y'、'x' 等）                       | `string`                     | `'y'`   |
+| reverse | 是否逆序                                               | `boolean`                    | `false` |
+| slice   | 选择一个分片范围（如前 N 项、区间）                    | `number \| [number, number]` |         |
+| reducer | 分组聚合方式，用于多值比较                             | `Reducer`                    | `'max'` |
+
+### by
+
+指定排序依据的通道，常用如 `'y'`（按 y 值排序）、`'x'`（按 x 值排序）等。
+
+### reverse
+
+是否逆序排列，`true` 为降序，`false` 为升序。
+
+### slice
+
+用于截取排序后的部分数据。可以是一个数字（前 N 项），或区间 `[start, end]`。
+
+### reducer
+
+当排序依据为数组或分组时，指定聚合方式。支持 `'max'`、`'min'`、`'sum'`、`'mean'`、`'median'`、`'first'`、`'last'`，也可自定义函数。
 
 ```ts
 type Primitive = number | string | boolean | Date;
@@ -40,4 +56,92 @@ type Reducer =
   | 'mean'
   | 'median'
   | ((I: number[], V: Primitive[]) => Primitive);
+```
+
+---
+
+## 示例
+
+### 1. 分组柱状图按 y 值降序排序颜色分组
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'interval',
+    data: [
+      { 类别: 'A', 年份: '2022', 数值: 30 },
+      { 类别: 'A', 年份: '2023', 数值: 50 },
+      { 类别: 'B', 年份: '2022', 数值: 20 },
+      { 类别: 'B', 年份: '2023', 数值: 40 },
+      { 类别: 'C', 年份: '2022', 数值: 35 },
+      { 类别: 'C', 年份: '2023', 数值: 25 },
+    ],
+    encode: { x: '类别', y: '数值', color: '年份' },
+    transform: [
+      { type: 'sortColor', by: 'y', reverse: true },
+      { type: 'dodgeX' },
+    ],
+  });
+
+  chart.render();
+  return chart.getContainer();
+})();
+```
+
+### 2. 只显示 Top 2 个颜色分组
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'interval',
+    data: [
+      { 类别: 'A', 年份: '2022', 数值: 30 },
+      { 类别: 'A', 年份: '2023', 数值: 50 },
+      { 类别: 'B', 年份: '2022', 数值: 20 },
+      { 类别: 'B', 年份: '2023', 数值: 40 },
+      { 类别: 'C', 年份: '2022', 数值: 35 },
+      { 类别: 'C', 年份: '2023', 数值: 25 },
+    ],
+    encode: { x: '类别', y: '数值', color: '年份' },
+    transform: [
+      { type: 'sortColor', by: 'y', reverse: true, slice: 2 },
+      { type: 'dodgeX' },
+    ],
+  });
+
+  chart.render();
+  return chart.getContainer();
+})();
+```
+
+### 3. 复杂排序与 reducer 配置
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'interval',
+    data: [
+      { 类别: 'A', 年份: '2022', 数值: 30 },
+      { 类别: 'A', 年份: '2023', 数值: 50 },
+      { 类别: 'B', 年份: '2022', 数值: 20 },
+      { 类别: 'B', 年份: '2023', 数值: 40 },
+      { 类别: 'C', 年份: '2022', 数值: 35 },
+      { 类别: 'C', 年份: '2023', 数值: 25 },
+    ],
+    encode: { x: '类别', y: '数值', color: '年份' },
+    transform: [
+      { type: 'sortColor', by: 'y', reducer: 'min' }, // 按最小值排序
+      { type: 'dodgeX' },
+    ],
+  });
+
+  chart.render();
+  return chart.getContainer();
+})();
 ```
