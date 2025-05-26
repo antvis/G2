@@ -25,20 +25,24 @@ order: 3
 
 视图支持丰富的配置项，涵盖数据、编码、坐标、样式、交互等各个方面。其配置项与顶层 Chart 基本一致，常用如下：
 
-| 配置项           | 说明                         | 类型         | 作用域         |
-| ---------------- | ---------------------------- | ------------ | -------------- |
-| data             | 数据源                       | array/object | 仅本视图       |
-| encode           | 数据到视觉通道的映射         | object       | 仅本视图       |
-| scale            | 视觉通道的比例尺             | object       | 可继承/覆盖    |
-| transform        | 数据变换                     | array        | 可继承/覆盖    |
-| coordinate       | 坐标系配置                   | object       | 仅本视图       |
-| style            | 视图区域样式                 | object       | 仅本视图       |
-| axis             | 坐标轴配置                   | object       | 可继承/覆盖    |
-| legend           | 图例配置                     | object       | 可继承/覆盖    |
-| tooltip          | 提示框配置                   | object       | 仅本视图       |
-| interaction      | 交互配置                     | object       | 仅本视图       |
-| theme            | 主题配置                     | object       | 可继承/覆盖    |
-| children         | 子标记（marks）或子视图      | array        | 仅本视图       |
+| 配置项      | 说明                   | 类型         | 作用范围/继承关系         |
+| ----------- | ---------------------- | ------------ | ------------------------ |
+| data        | 数据源                 | array/object | view 及其所有 children   |
+| encode      | 数据到视觉通道的映射   | object       | view 及其所有 children   |
+| scale       | 视觉通道的比例尺       | object       | 可继承/覆盖（view/mark） |
+| transform   | 数据变换               | array        | 可继承/覆盖（view/mark） |
+| coordinate  | 坐标系配置             | object       | 仅本 view                |
+| style       | 视图区域样式           | object       | 仅本 view                |
+| axis        | 坐标轴配置             | object       | 可继承/覆盖（view/mark） |
+| legend      | 图例配置               | object       | 可继承/覆盖（view/mark） |
+| tooltip     | 提示框配置             | object       | 仅本 view                |
+| interaction | 交互配置               | object       | 仅本 view                |
+| theme       | 主题配置               | object       | 可继承/覆盖              |
+| children    | 子标记（marks）或视图  | array        | 仅本 view                |
+
+**说明：**  
+- `data`、`encode`、`scale`、`axis`、`legend`、`transform` 等配置在 view 层级设置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
+- 其他如 `style`、`coordinate`、`tooltip`、`interaction` 仅作用于当前 view。
 
 **完整配置示例：**
 
@@ -56,7 +60,10 @@ order: 3
   style: { viewFill: '#f5f5f5' },
   axis: { y: { grid: true } },
   legend: { color: { position: 'top' } },
-  tooltip: { showMarkers: true },
+  tooltip: {
+  title: { field: 'type' },
+  items: [{ field: 'value' }],
+},
   interaction: { elementHighlight: true },
   theme: { color: ['#5B8FF9', '#5AD8A6', '#5D7092'] },
   children: [
@@ -204,28 +211,24 @@ chart.style('viewFill', '#e6f7ff').style('contentFill', '#f0f5ff');
 通过分面组件实现多视图布局，每个视图独立配置：
 
 ```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'facetRect',
-    data: [
-      { type: 'A', value: 30, group: 'G1' },
-      { type: 'B', value: 50, group: 'G1' },
-      { type: 'A', value: 20, group: 'G2' },
-      { type: 'B', value: 40, group: 'G2' },
-    ],
-    encode: { x: 'type', y: 'value', series: 'group' },
-    children: [
-      {
-        type: 'interval',
-        state: { active: { fill: 'red' } },
-        interaction: { elementHighlight: true },
-      },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})(); 
+chart.options({
+  type: 'facetRect',
+  data: [
+    { type: 'A', value: 30, group: 'G1' },
+    { type: 'B', value: 50, group: 'G1' },
+    { type: 'A', value: 20, group: 'G2' },
+    { type: 'B', value: 40, group: 'G2' },
+  ],
+  encode: { x: 'group' },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+      state: { active: { fill: 'red' } },
+      interaction: { elementHighlight: true },
+    },
+  ],
+});
 ```
 
 ### 3. 局部交互与样式
@@ -233,38 +236,45 @@ chart.style('viewFill', '#e6f7ff').style('contentFill', '#f0f5ff');
 每个视图可独立配置交互和样式，实现局部高亮、局部主题：
 
 ```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'view',
-    children: [
-      {
-        type: 'view',
-        data: [{ x: 'A', y: 10 }],
-        children: [
-          {
-            type: 'interval',
-            encode: { x: 'x', y: 'y' },
-            state: { active: { fill: 'red' } },
-          },
-        ],
-      },
-      {
-        type: 'view',
-        data: [{ x: 'B', y: 20 }],
-        children: [
-          {
-            type: 'interval',
-            encode: { x: 'x', y: 'y' },
-            state: { active: { fill: 'blue' } },
-          },
-        ],
-      },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'spaceLayer',
+  children: [
+    {
+      type: 'view',
+      x: 300,
+      width: 300,
+      height: 600,
+      data: [{ x: 'A', y: 10 }, { x: 'B', y: 20 }],
+      axis: false,
+      interaction: [{ type: 'elementHighlight' }],
+      children: [
+        {
+          type: 'interval',
+          encode: { x: 'x', y: 'y' },
+          state: { active: { fill: 'red' } },
+        },
+      ],
+    },
+    {
+      type: 'view',
+      width: 300,
+      height: 300,
+      data: [{ x: 'A', y: 10 }, { x: 'B', y: 20 }],
+      interaction: [{ type: 'elementHighlight' }],
+      legend: false,
+      children: [
+        {
+          type: 'interval',
+          encode: { color: 'x', y: 'y' },
+          transform: [{ type: "stackY" }],
+          scale: { color: { palette: "cool", offset: (t) => t * 0.8 + 0.1 } },
+          coordinate: { type: "theta" },
+          state: { active: { lineWidth: 10 } },
+        },
+      ],
+    },
+  ],
+});
 ```
 
 ---
@@ -277,11 +287,26 @@ chart.style('viewFill', '#e6f7ff').style('contentFill', '#f0f5ff');
 
 ```js
 ({
-  type: 'view',
+  type: 'facetRect',
   scale: { y: { nice: true } },
   axis: { y: { grid: true } },
   children: [
-    { type: 'interval', scale: { y: { nice: false } } }, // 局部覆盖
+    {
+      type: 'view',
+      // 本地覆盖父级配置
+      scale: { y: { nice: false } },
+      axis: { y: { grid: false } },
+      children: [
+        { type: 'interval' },
+      ],
+    },
+    {
+      type: 'view',
+      // 继承父级配置
+      children: [
+        { type: 'interval' },
+      ],
+    },
   ],
 });
 ```
@@ -315,7 +340,7 @@ chart.style('viewFill', '#e6f7ff').style('contentFill', '#f0f5ff');
   检查样式属性是否设置在正确层级（视图 vs. 标记），并参考[样式文档](/manual/core/style)。
 
 - **子标记未继承视图配置？**  
-  只有 `scale`、`axis`、`legend`、`transform` 等支持继承，`data`、`encode` 等需显式配置。
+  `data`、`encode`、`scale`、`axis`、`legend`、`transform` 等在 view 层级配置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
 
 - **多视图交互冲突？**  
   建议为每个视图单独配置交互，避免全局交互影响所有视图。
