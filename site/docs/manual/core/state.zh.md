@@ -146,11 +146,19 @@ default:    1
 
 G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 
-| 名称               | 说明           | 典型状态         |
-| ------------------ | -------------- | ---------------- |
-| elementHighlight   | 悬停高亮       | active/inactive  |
-| elementSelect      | 点击选中       | selected/unselected |
-| elementActive      | 鼠标激活       | active/inactive  |
+| 名称                        | 说明           | 典型状态           |
+|-----------------------------|----------------|------------------------|
+| brushAxisHighlight          | 轴刷选高亮     | active/inactive        |
+| brushHighlight              | 区域刷选高亮   | active/inactive        |
+| brushXHighlight             | X 轴刷选高亮   | active/inactive        |
+| brushYHighlight             | Y 轴刷选高亮   | active/inactive        |
+| elementHighlight            | 悬停高亮       | active/inactive        |
+| elementHighlightByColor     | 按颜色高亮     | active/inactive        |
+| elementHighlightByX         | 按 X 高亮      | active/inactive        |
+| legendHighlight             | 图例高亮       | active/inactive        |
+| elementSelect               | 点击选中       | selected/unselected    |
+| elementSelectByColor        | 按颜色选中     | selected/unselected    |
+| elementSelectByX            | 按 X 选中      | selected/unselected    |
 
 ---
 
