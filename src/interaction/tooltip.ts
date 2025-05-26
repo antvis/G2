@@ -28,9 +28,9 @@ function getContainer(
   if (mount) {
     return typeof mount === 'string' ? document.querySelector(mount) : mount;
   }
-  const canvas: any = group.ownerDocument.defaultView
-    .getContextService()
-    .getDomElement();
+  const view = group.ownerDocument?.defaultView;
+  if (!view) return;
+  const canvas: any = view.getContextService().getDomElement();
   return canvas.parentElement as unknown as HTMLElement;
 }
 
