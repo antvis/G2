@@ -3,323 +3,67 @@ title: 视图（View）
 order: 3
 ---
 
-## 概述
-
-在 G2 中，**视图（View）** 是图表的核心组成单元，用于承载和组织多个标记（Mark），并统一管理数据、坐标系、交互、样式等。每个视图拥有独立的数据、坐标系和交互配置，是应用交互和样式的最小单位。通过合理拆分视图，可以实现多图层、分面、嵌套等复杂可视化布局。
-
-视图不仅支持灵活的数据和编码配置，还能继承和覆盖父级（如复合视图、分面等）传递的配置，实现灵活的组合与复用。
-
----
-
-## 适用场景
-
-- 单一图表（如柱状图、折线图等）的基础绘制
-- 多图层叠加（如柱状图+折线图、点图+热力图等）
-- 分面（Facet）、小 multiples、仪表盘等复合布局
-- 局部交互、局部样式、局部数据的独立管理
-- 主题、动画、状态等高级特性分区应用
-
----
-
-## 配置项
-
-视图支持丰富的配置项，涵盖数据、编码、坐标、样式、交互等各个方面。其配置项与顶层 Chart 基本一致，常用如下：
-
-| 配置项           | 说明                         | 类型         | 作用域         |
-| ---------------- | ---------------------------- | ------------ | -------------- |
-| data             | 数据源                       | array/object | 仅本视图       |
-| encode           | 数据到视觉通道的映射         | object       | 仅本视图       |
-| scale            | 视觉通道的比例尺             | object       | 可继承/覆盖    |
-| transform        | 数据变换                     | array        | 可继承/覆盖    |
-| coordinate       | 坐标系配置                   | object       | 仅本视图       |
-| style            | 视图区域样式                 | object       | 仅本视图       |
-| axis             | 坐标轴配置                   | object       | 可继承/覆盖    |
-| legend           | 图例配置                     | object       | 可继承/覆盖    |
-| tooltip          | 提示框配置                   | object       | 仅本视图       |
-| interaction      | 交互配置                     | object       | 仅本视图       |
-| theme            | 主题配置                     | object       | 可继承/覆盖    |
-| children         | 子标记（marks）或子视图      | array        | 仅本视图       |
-
-**完整配置示例：**
+G2 中**视图（View）** 用来绘制多个标记。一个视图拥有一个坐标系，也是应用交互的最小单位。
 
 ```js
 ({
   type: 'view',
-  data: [
-    { type: 'A', value: 30 },
-    { type: 'B', value: 50 },
-    { type: 'C', value: 20 },
-  ],
-  encode: { x: 'type', y: 'value' },
-  scale: { y: { nice: true } },
-  coordinate: { type: 'rect' },
-  style: { viewFill: '#f5f5f5' },
-  axis: { y: { grid: true } },
-  legend: { color: { position: 'top' } },
-  tooltip: { showMarkers: true },
-  interaction: { elementHighlight: true },
-  theme: { color: ['#5B8FF9', '#5AD8A6', '#5D7092'] },
-  children: [
-    { type: 'interval' },
-    { type: 'line', style: { stroke: '#faad14' } },
-  ],
+  children: [{ type: 'interval' }],
 });
 ```
 
----
+顶层 Chart 默认就是一个视图：
 
-## 配置方式
+```js
+// 添加一个 Interval 到该视图
+chart.interval();
+```
 
-### 1. 配置式声明
+当顶层 Chart 添加了复合节点，可以通过 `chart.view` 声明视图：
 
-直接在 options 中声明视图及其子元素：
+```js
+const spaceFlex = chart.spaceFlex();
+
+const view = spaceFlex.view();
+
+view.line();
+view.point();
+```
+
+## 核心概念
+
+- [**data**](/manual/core/data/overview) - 可视化的数据
+- [**encode**](/manual/core/encode) - 编码信息
+- [**scale**](/manual/core/scale/overview) - 映射规则
+- [**transform**](/manual/core/transform/overview) - 转化通道值
+- [**coordinate**](/manual/core/coordinate/overview) - 坐标系变换
+- [**style**](/manual/core/style) - 视觉样式
+- [**labelTransform**](/manual/component/label) - 数据标签转换
+- [**title**](/manual/component/title) - 图表标题
+- [**axis**](/manual/component/axis) - 坐标轴
+- [**legend**](/manual/component/legend) - 图例
+- [**scrollbar**](/manual/component/scrollbar) - 滚动条
+- [**slider**](/manual/component/slider) - 拖拽轴
+- [**interaction**](/manual/core/interaction/overview) - 交互
+- [**theme**](/manual/core/theme/overview) - 主题
 
 ```js
 ({
   type: 'view',
-  data: [...],
-  encode: {...},
-  children: [
-    { type: 'interval', encode: {...} },
-    { type: 'line', encode: {...} },
-  ],
+  data: [],
+  encode: {},
+  scale: {},
+  transform: [],
+  coordinate: {},
+  style: {},
+  labelTransform: {},
+  title: {},
+  axis: {},
+  legend: {},
+  tooltip: {},
+  scrollbar: {},
+  slider: {},
+  interaction: {},
+  theme: {},
 });
 ```
-
-### 2. API 链式调用
-
-通过 API 创建视图并添加标记：
-
-```js
-const chart = new G2.Chart();
-const view = chart.view({ data: [...] });
-view.interval().encode('x', 'type').encode('y', 'value');
-view.line().encode('x', 'type').encode('y', 'value');
-chart.render();
-```
-
-### 3. 复合视图与分面
-
-视图可作为复合节点（如分面、空间布局）的子节点：
-
-```js
-const facet = chart.facetRect();
-facet.view().interval().encode('x', 'type').encode('y', 'value');
-facet.view().line().encode('x', 'type').encode('y', 'value');
-```
-
----
-
-## 视图与样式
-
-视图支持设置自身区域的样式（如背景色、边框等），并可对子标记进行统一样式管理。详见[样式（Style）](/manual/core/style)。
-
-```js
-({
-  type: 'view',
-  style: {
-    viewFill: '#e6f7ff',
-    plotFill: '#fffbe6',
-    mainFill: '#fff',
-    contentFill: '#f0f5ff',
-  },
-  children: [
-    { type: 'interval', style: { fill: '#5B8FF9' } },
-  ],
-});
-```
-
-**API 方式：**
-
-```js
-chart.style('viewFill', '#e6f7ff').style('contentFill', '#f0f5ff');
-```
-
----
-
-## 视图与状态
-
-视图中的每个标记都可以配置[状态（State）](/manual/core/state)，实现高亮、选中、禁用等交互反馈。状态样式可继承视图配置，也可在 mark 层级单独设置。
-
-**示例：**
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'view',
-    data: [
-      { type: 'A', value: 30 },
-      { type: 'B', value: 50 },
-      { type: 'C', value: 20 },
-    ],
-    children: [
-      {
-        type: 'interval',
-        encode: { x: 'type', y: 'value' },
-        state: {
-          active: { fill: 'red' },
-          inactive: { fill: '#aaa' },
-        },
-        interaction: { elementHighlight: true },
-      },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})();
-```
-
----
-
-## 典型场景案例
-
-### 1. 多图层叠加
-
-在同一视图中叠加多种标记，实现多图层效果：
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'view',
-    data: [
-      { type: 'A', value: 30 },
-      { type: 'B', value: 50 },
-      { type: 'C', value: 20 },
-    ],
-    encode: { x: 'type', y: 'value' },
-    children: [
-      { type: 'interval', style: { fill: '#5B8FF9' } },
-      { type: 'line', style: { stroke: '#faad14', lineWidth: 2 } },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})();
-```
-
-### 2. 分面视图
-
-通过分面组件实现多视图布局，每个视图独立配置：
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'facetRect',
-    data: [
-      { type: 'A', value: 30, group: 'G1' },
-      { type: 'B', value: 50, group: 'G1' },
-      { type: 'A', value: 20, group: 'G2' },
-      { type: 'B', value: 40, group: 'G2' },
-    ],
-    encode: { x: 'type', y: 'value', series: 'group' },
-    children: [
-      {
-        type: 'interval',
-        state: { active: { fill: 'red' } },
-        interaction: { elementHighlight: true },
-      },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})(); 
-```
-
-### 3. 局部交互与样式
-
-每个视图可独立配置交互和样式，实现局部高亮、局部主题：
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'view',
-    children: [
-      {
-        type: 'view',
-        data: [{ x: 'A', y: 10 }],
-        children: [
-          {
-            type: 'interval',
-            encode: { x: 'x', y: 'y' },
-            state: { active: { fill: 'red' } },
-          },
-        ],
-      },
-      {
-        type: 'view',
-        data: [{ x: 'B', y: 20 }],
-        children: [
-          {
-            type: 'interval',
-            encode: { x: 'x', y: 'y' },
-            state: { active: { fill: 'blue' } },
-          },
-        ],
-      },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})();
-```
-
----
-
-## 进阶用法
-
-### 1. 继承与覆盖
-
-视图支持从父级（如复合视图、分面）继承 `scale`、`axis`、`legend`、`transform` 等配置，并可在本地覆盖：
-
-```js
-({
-  type: 'view',
-  scale: { y: { nice: true } },
-  axis: { y: { grid: true } },
-  children: [
-    { type: 'interval', scale: { y: { nice: false } } }, // 局部覆盖
-  ],
-});
-```
-
-### 2. 视图嵌套与组合
-
-支持多层嵌套视图，实现复杂布局：
-
-```js
-({
-  type: 'spaceFlex',
-  children: [
-    {
-      type: 'view',
-      children: [{ type: 'interval' }],
-    },
-    {
-      type: 'view',
-      children: [{ type: 'line' }],
-    },
-  ],
-});
-```
-
----
-
-
-## 常见问题
-
-- **视图样式未生效？**  
-  检查样式属性是否设置在正确层级（视图 vs. 标记），并参考[样式文档](/manual/core/style)。
-
-- **子标记未继承视图配置？**  
-  只有 `scale`、`axis`、`legend`、`transform` 等支持继承，`data`、`encode` 等需显式配置。
-
-- **多视图交互冲突？**  
-  建议为每个视图单独配置交互，避免全局交互影响所有视图。
-
-- **复杂布局难以维护？**  
-  推荐合理拆分视图，利用复合节点（如 `spaceFlex`、`facetRect`）组织结构。
-
