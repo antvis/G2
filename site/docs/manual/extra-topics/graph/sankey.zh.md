@@ -507,17 +507,18 @@ state 配置和 style 类似，使用不同的前缀来区分不同的图形配�
     style: {
       labelSpacing: 3,
       labelFontWeight: 'bold',
-      opacity: 0.5 //默认透明度都是 0.5
+      linkFillOpacity: 0.5,
+      nodeFillOpacity: 0.5 //默认透明度都是 0.5
     },
     state: {
       active: {
-        opacity: 0.8, // 鼠标悬浮状态下透明度都是 0.8
+        fillOpacity: 0.8, // 鼠标悬浮状态下透明度都是 0.8
         linkFill: 'red', // link 会变成红色
         nodeFill: 'blue' // node 会变成蓝色
       },
       inactive: {
-        linkOpacity: 0.4,
-        nodeOpacity: 0.2 // node 颜色比 link 浅
+        linkFillOpacity: 0.4,
+        nodeFillOpacity: 0.2 // node 颜色比 link 浅
       }
     },
     interaction: {
