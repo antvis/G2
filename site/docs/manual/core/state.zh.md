@@ -192,6 +192,7 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 **效果说明**：  
 - 鼠标悬停在某个柱子上时，该柱子应用 `active` 样式，其他柱子应用 `inactive` 样式。
 
+
 ---
 ### 2. 选择交互（elementSelect）
 
@@ -200,7 +201,6 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 ```js | ob
 (() => {
   const chart = new G2.Chart();
-
   chart.options({
     type: 'interval',
     data: [
@@ -215,8 +215,6 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
     },
     interaction: { elementSelect: true },
   });
-
-
   chart.render();
   return chart.getContainer();
 })();
@@ -303,7 +301,7 @@ chart.options({
 
 - **多个状态冲突？**  
   合理利用优先级机制，避免同一属性在多个高优先级状态下重复配置。
-
+  
 - **状态样式与动画冲突？**  
   注意状态切换时动画的配置，避免样式和动画叠加导致的视觉异常。
 
