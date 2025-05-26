@@ -3,7 +3,7 @@ title: 雷达图
 order: 3
 screenshot: 'https://os.alipayobjects.com/rmsportal/DLgjgcpcRbaZIfQ.jpg'
 category: ['comparison']
-similar: ['rose-chart', 'radial-bar', 'pie']
+similar: ['rose', 'radial-bar', 'pie']
 ---
 
 <img alt="radar" src="https://os.alipayobjects.com/rmsportal/DLgjgcpcRbaZIfQ.jpg" width=600/>

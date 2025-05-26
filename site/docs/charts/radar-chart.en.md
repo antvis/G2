@@ -3,7 +3,7 @@ title: Radar Chart
 order: 3
 screenshot: 'https://os.alipayobjects.com/rmsportal/DLgjgcpcRbaZIfQ.jpg'
 category: ['comparison']
-similar: ['rose-chart', 'radial-bar', 'pie']
+similar: ['rose', 'radial-bar', 'pie']
 ---
 
 <img alt="radar" src="https://os.alipayobjects.com/rmsportal/DLgjgcpcRbaZIfQ.jpg" width=600/>
@@ -57,7 +57,7 @@ Notes:
 
 ---
 
-## Application Scenarios
+## Use Cases of Radar Chart
 
 ### Suitable Use Cases
 
@@ -209,14 +209,14 @@ chart.render();
 - `type` maps to color differentiation
 - `score` maps to radial length
 
-## Comparison with Other Charts
+## Comparing Radar Chart to Other Charts
 
-### Radar Chart vs [Pie Chart](/charts/pie)
+### Radar Chart and [Pie Chart](/charts/pie)
 
 - Radar charts compare data (size/values) across multiple dimensions
 - Pie charts show proportions between categories
 
-### Radar Chart vs Rose Chart
+### Radar Chart and Rose Chart
 
 - Rose charts compare data through distribution angles, lengths, and color density, showing parts-to-whole relationships
 - Radar charts compare data through edge/arc length from center, suitable for comparing categories across multiple dimensions
