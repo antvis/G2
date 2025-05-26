@@ -31,18 +31,18 @@ order: 3
 | encode      | 数据到视觉通道的映射   | object       | view 及其所有 children   |
 | scale       | 视觉通道的比例尺       | object       | 可继承/覆盖（view/mark） |
 | transform   | 数据变换               | array        | 可继承/覆盖（view/mark） |
-| coordinate  | 坐标系配置             | object       | 仅本 view                |
+| coordinate  | 坐标系配置             | object       | 可继承/覆盖（view/mark） |
 | style       | 视图区域样式           | object       | 仅本 view                |
 | axis        | 坐标轴配置             | object       | 可继承/覆盖（view/mark） |
 | legend      | 图例配置               | object       | 可继承/覆盖（view/mark） |
 | tooltip     | 提示框配置             | object       | 仅本 view                |
-| interaction | 交互配置               | object       | 仅本 view                |
+| interaction | 交互配置               | object       | 可继承/覆盖（view/mark） |
 | theme       | 主题配置               | object       | 可继承/覆盖              |
 | children    | 子标记（marks）或视图  | array        | 仅本 view                |
 
 **说明：**  
-- `data`、`encode`、`scale`、`axis`、`legend`、`transform` 等配置在 view 层级设置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
-- 其他如 `style`、`coordinate`、`tooltip`、`interaction` 仅作用于当前 view。
+- `data`、`encode`、`scale`、`axis`、`legend`、`transform`、`coordinate`、`interaction` 等配置在 view 层级设置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
+- 其他如 `style`、`tooltip` 仅作用于当前 view。
 
 **完整配置示例：**
 
@@ -211,24 +211,24 @@ chart.style('viewFill', '#e6f7ff').style('contentFill', '#f0f5ff');
 通过分面组件实现多视图布局，每个视图独立配置：
 
 ```js | ob
-chart.options({
-  type: 'facetRect',
-  data: [
-    { type: 'A', value: 30, group: 'G1' },
-    { type: 'B', value: 50, group: 'G1' },
-    { type: 'A', value: 20, group: 'G2' },
-    { type: 'B', value: 40, group: 'G2' },
-  ],
-  encode: { x: 'group' },
-  children: [
-    {
-      type: 'interval',
-      encode: { x: 'type', y: 'value' },
-      state: { active: { fill: 'red' } },
-      interaction: { elementHighlight: true },
-    },
-  ],
-});
+(() => {
+  const chart = new G2.Chart();
+  chart.options({
+    type: 'view',
+    data: [
+      { type: 'A', value: 30 },
+      { type: 'B', value: 50 },
+      { type: 'C', value: 20 },
+    ],
+    encode: { x: 'type', y: 'value' },
+    children: [
+      { type: 'interval', style: { fill: '#5B8FF9' } },
+      { type: 'line', style: { stroke: '#faad14', lineWidth: 2 } },
+    ],
+  });
+  chart.render();
+  return chart.getContainer();
+})();
 ```
 
 ### 3. 局部交互与样式
@@ -236,45 +236,50 @@ chart.options({
 每个视图可独立配置交互和样式，实现局部高亮、局部主题：
 
 ```js | ob
-chart.options({
-  type: 'spaceLayer',
-  children: [
-    {
-      type: 'view',
-      x: 300,
-      width: 300,
-      height: 600,
-      data: [{ x: 'A', y: 10 }, { x: 'B', y: 20 }],
-      axis: false,
-      interaction: [{ type: 'elementHighlight' }],
-      children: [
-        {
-          type: 'interval',
-          encode: { x: 'x', y: 'y' },
-          state: { active: { fill: 'red' } },
-        },
-      ],
-    },
-    {
-      type: 'view',
-      width: 300,
-      height: 300,
-      data: [{ x: 'A', y: 10 }, { x: 'B', y: 20 }],
-      interaction: [{ type: 'elementHighlight' }],
-      legend: false,
-      children: [
-        {
-          type: 'interval',
-          encode: { color: 'x', y: 'y' },
-          transform: [{ type: "stackY" }],
-          scale: { color: { palette: "cool", offset: (t) => t * 0.8 + 0.1 } },
-          coordinate: { type: "theta" },
-          state: { active: { lineWidth: 10 } },
-        },
-      ],
-    },
-  ],
-});
+(() => {
+  const chart = new G2.Chart();
+  chart.options({
+    type: 'spaceLayer',
+    children: [
+      {
+        type: 'view',
+        x: 300,
+        width: 300,
+        height: 600,
+        data: [{ x: 'A', y: 10 }, { x: 'B', y: 20 }],
+        axis: false,
+        interaction: [{ type: 'elementHighlight' }],
+        children: [
+          {
+            type: 'interval',
+            encode: { x: 'x', y: 'y' },
+            state: { active: { fill: 'red' } },
+          },
+        ],
+      },
+      {
+        type: 'view',
+        width: 300,
+        height: 300,
+        data: [{ x: 'A', y: 10 }, { x: 'B', y: 20 }],
+        interaction: [{ type: 'elementHighlight' }],
+        legend: false,
+        children: [
+          {
+            type: 'interval',
+            encode: { color: 'x', y: 'y' },
+            transform: [{ type: "stackY" }],
+            scale: { color: { palette: "cool", offset: (t) => t * 0.8 + 0.1 } },
+            coordinate: { type: "theta" },
+            state: { active: { lineWidth: 10 } },
+          },
+        ],
+      },
+    ],
+  });
+  chart.render();
+  return chart.getContainer();
+})();
 ```
 
 ---
