@@ -16,19 +16,25 @@ order: 3
 
 ```js | ob { autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
 // Create a WebGL renderer.
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -72,11 +78,11 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 50, 1280 / 960);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
   camera.rotate(-20, -20, 0);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 2.5,
       fill: 'white',

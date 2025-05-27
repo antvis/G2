@@ -102,18 +102,24 @@ The effect is as follows:
 
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // initialize Chart instance
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -144,10 +150,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
@@ -166,18 +172,24 @@ camera.rotate(-20, -20, 0);
 
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // initialize Chart instance
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -207,11 +219,11 @@ chart
 chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
   camera.rotate(-20, -20, 0);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
@@ -243,18 +255,24 @@ we can use `intensity` to increase the intensity of the light source:
 
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // initialize Chart instance
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -285,10 +303,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 5,
       fill: 'white',
@@ -310,7 +328,12 @@ chart.legend(false);
 This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/manual/component/legend#自定义图例legend), we can customize the legend using HTML:
 
 ```js | ob {  pin: false , autoMount: true }
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 // add legend
 function legendColor(chart) {
@@ -373,17 +396,18 @@ function legendColor(chart) {
   }
 }
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // initialize Chart instance
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -416,10 +440,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
@@ -453,7 +477,21 @@ button.onclick = () => {
 ```
 
 ```js | ob {  pin: false , autoMount: true }
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
 
 function cameraButton(chart) {
   const node = chart.getContainer();
@@ -537,17 +575,9 @@ function legendColor(chart) {
   }
 }
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
-
-const Chart = extend(Runtime, {
-  ...corelib(),
-  ...g2Extension3d.threedlib(),
-});
-
 // initialize Chart instance
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -581,10 +611,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',

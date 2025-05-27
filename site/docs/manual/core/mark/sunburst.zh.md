@@ -10,11 +10,15 @@ order: 16
 `sunburst` 通过 `g2ExtensionPlot` 中以 `rect` 为基础实现，内部实现下钻事件、极坐标、数据转化、样式优化等。
 
 ```js | ob { autoMount: true }
+import { plotlib } from '@antv/g2-extension-plot';
 import { Runtime, corelib, extend } from '@antv/g2';
 
-const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.options({
   type: 'sunburst',
@@ -113,11 +117,15 @@ chart.render();
 `color` 视觉通道影响 `sunburst` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组，默认为内置 `ancestor-node` 路径分组。
 
 ```js | ob { autoMount: true }
+import { plotlib } from '@antv/g2-extension-plot';
 import { Runtime, corelib, extend } from '@antv/g2';
 
-const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.options({
   type: 'sunburst',

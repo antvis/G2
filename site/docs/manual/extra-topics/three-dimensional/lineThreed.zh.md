@@ -16,18 +16,24 @@ order: 2
 
 ```js | ob { autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -67,7 +73,7 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 });
 ```
 

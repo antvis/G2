@@ -102,18 +102,24 @@ chart.render().then(() => {
 
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -144,10 +150,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
@@ -166,18 +172,24 @@ camera.rotate(-20, -20, 0);
 
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -207,11 +219,11 @@ chart
 chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
   camera.rotate(-20, -20, 0);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
@@ -224,7 +236,7 @@ chart.render().then(() => {
 
 ## 添加光源
 
-材质需要配合光源呈现出某种“立体感”。这里我们使用 G 提供的[平行光源](https://g.antv.antgroup.com/api/3d/light)：
+材质需要配合光源呈现出某种"立体感"。这里我们使用 G 提供的[平行光源](https://g.antv.antgroup.com/api/3d/light)：
 
 ```ts
 import { DirectionalLight } from '@antv/g-plugin-3d';
@@ -243,18 +255,24 @@ canvas.appendChild(light);
 
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -285,10 +303,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 5,
       fill: 'white',
@@ -310,7 +328,12 @@ chart.legend(false);
 这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/component/legend#自定义图例legend)，我们可以使用 HTML 自定义图例：
 
 ```js | ob {  pin: false , autoMount: true }
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 // 添加图例
 function legendColor(chart) {
@@ -373,17 +396,18 @@ function legendColor(chart) {
   }
 }
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -416,10 +440,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
@@ -434,7 +458,7 @@ chart.render().then(() => {
 
 3D 场景下的交互和 2D 场景有很大的不同，[g-plugin-control](https://g.antv.antgroup.com/plugins/control) 提供了 3D 场景下基于相机的交互。当我们拖拽画布时，会控制相机绕视点进行旋转操作，而鼠标滚轮的缩放会让相机进行 dolly 操作。需要注意的是缩放操作在正交投影下是没有效果的，但旋转操作依然有效。
 
-当用户经过了一番相机操作，有时想回到初始状态，例如 [plot.ly](https://plotly.com/javascript/3d-line-plots/) 在操作工具栏中就提供了 “Reset camera to default” 按钮。使用 G 提供的[相机动画 API](https://g.antv.antgroup.com/api/camera/animation)，我们可以实现在任意相机位置间平滑过渡：
+当用户经过了一番相机操作，有时想回到初始状态，例如 [plot.ly](https://plotly.com/javascript/3d-line-plots/) 在操作工具栏中就提供了 "Reset camera to default" 按钮。使用 G 提供的[相机动画 API](https://g.antv.antgroup.com/api/camera/animation)，我们可以实现在任意相机位置间平滑过渡：
 
 ```ts
 const camera = canvas.getCamera();
@@ -453,7 +477,12 @@ button.onclick = () => {
 ```
 
 ```js | ob {  pin: false , autoMount: true }
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
 function cameraButton(chart) {
   const node = chart.getContainer();
@@ -537,17 +566,18 @@ function legendColor(chart) {
   }
 }
 
-const renderer = new gWebgl.Renderer();
-renderer.registerPlugin(new gPluginControl.Plugin());
-renderer.registerPlugin(new gPlugin3d.Plugin());
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
 const Chart = extend(Runtime, {
   ...corelib(),
-  ...g2Extension3d.threedlib(),
+  ...threedlib(),
 });
 
 // 初始化图表实例
 const chart = new Chart({
+  container: 'container',
   renderer,
   width: 500,
   height: 500,
@@ -581,10 +611,10 @@ chart.render().then(() => {
   const { canvas } = chart.getContext();
   const camera = canvas.getCamera();
   camera.setPerspective(0.1, 5000, 45, 500 / 500);
-  camera.setType(g.CameraType.ORBITING);
+  camera.setType(CameraType.ORBITING);
 
   // Add a directional light into scene.
-  const light = new gPlugin3d.DirectionalLight({
+  const light = new DirectionalLight({
     style: {
       intensity: 3,
       fill: 'white',
