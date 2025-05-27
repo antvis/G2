@@ -113,7 +113,6 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       .then(() => {
         // Resolve trailing clear.
         if (this._trailingClear) {
-          this._trailingClear = false;
           const options = this.options();
 
           this.clear();
@@ -124,6 +123,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       })
       .catch(reject)
       .then(() => {
+        this._trailingClear = false;
         this._renderTrailing();
       });
 
@@ -188,7 +188,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     return this;
   }
 
-  clear() {
+  clear(isClearEvents = true) {
     // Clear after render, otherwise render with destroyed context will return infinite promise, which will block trialing render.
     if (this._rendering) {
       this._trailingClear = true;
@@ -199,7 +199,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     const options = this.options();
     this.emit(ChartEvent.BEFORE_CLEAR);
     this._reset();
-    destroy(options, this._context, false);
+    destroy(options, this._context, false, isClearEvents);
     this.emit(ChartEvent.AFTER_CLEAR);
   }
 
