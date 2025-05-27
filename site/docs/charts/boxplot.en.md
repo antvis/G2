@@ -3,7 +3,7 @@ title: Box Plot
 order: 3
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yeZuSY9YIEAAAAAAAAAAAAAADmJ7AQ/original'
 category: ['distribution', 'comparison']
-similar: ['violin', 'histogram', 'density', 'ridgeline']
+similar: ['histogram', 'bar', 'scatter']
 ---
 
 <img alt="boxplot" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yeZuSY9YIEAAAAAAAAAAAAAADmJ7AQ/original" width=600/>
@@ -287,16 +287,15 @@ chart.render();
 
 ## Comparing Box Charts to Other Charts
 
-### Box Charts, [Histograms](/en/charts/histogram), and [Density Charts](/en/charts/density)
+### Box Charts and [Histograms](/en/charts/histogram)
 
 - Box charts primarily display statistical summaries (five-number summary) of data, suitable for quick comparison across multiple groups
 - Histograms show the specific distribution shape of data, suitable for distribution analysis of a single variable
-- Density charts display continuous probability distributions of data, suitable for observing detailed distribution characteristics
 
-### Box Charts and [Violin Charts](/en/charts/violin)
+### Box Charts and [Bar Charts](/en/charts/bar)
 
-- Box charts are simple and clear, highlighting statistical measures, suitable for quick comparisons
-- Violin charts combine features of box plots and density plots, showing both statistical summaries and distribution shapes
+- Box charts are suitable for displaying data distribution and statistical characteristics
+- Bar charts are primarily used to compare numerical values across different categories
 
 ### Box Charts and [Scatter Plots](/en/charts/scatter)
 

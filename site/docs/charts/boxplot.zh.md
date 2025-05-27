@@ -3,7 +3,7 @@ title: 箱形图
 order: 3
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yeZuSY9YIEAAAAAAAAAAAAAADmJ7AQ/original'
 category: ['distribution', 'comparison']
-similar: ['violin', 'histogram', 'density', 'ridgeline']
+similar: ['histogram', 'bar', 'scatter']
 ---
 
 <img alt="boxplot" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yeZuSY9YIEAAAAAAAAAAAAAADmJ7AQ/original" width=600/>
@@ -289,16 +289,15 @@ chart.render();
 
 ## 箱形图与其他图表的对比
 
-### 箱形图和[直方图](/charts/histogram)、[密度图](/charts/density)
+### 箱形图和[直方图](/charts/histogram)
 
 - 箱形图主要展示数据的统计摘要（五数概括），适合快速比较多个分组
 - 直方图展示数据的具体分布形状，适合单个变量的分布分析
-- 密度图显示数据的连续概率分布，适合观察分布的细节特征
 
-### 箱形图和[小提琴图](/charts/violin)
+### 箱形图和[柱状图](/charts/bar)
 
-- 箱形图简洁明了，重点突出统计量，适合快速比较
-- 小提琴图结合了箱形图和密度图的特点，能够同时显示统计摘要和分布形状
+- 箱形图适合展示数据的分布情况和统计特征
+- 柱状图主要用于比较不同分类的数值大小
 
 ### 箱形图和[散点图](/charts/scatter)
 
