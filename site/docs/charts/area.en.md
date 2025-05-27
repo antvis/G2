@@ -3,7 +3,7 @@ title: Area Chart
 order: 3
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original'
 category: ['trend']
-similar: ['line', 'stacked-area', 'percentage-area']
+similar: ['line', 'stacked-area']
 ---
 
 <img alt="area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original" width=600/>
@@ -252,61 +252,47 @@ const chart = new Chart({
 });
 
 chart.options({
+  type: "view",
+  autoFit: true,
   data: {
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
+    type: "fetch",
+    value: "https://assets.antv.antgroup.com/g2/range-spline-area.json",
     transform: [
       {
-        type: 'map',
-        callback: ([x, low, high, v2, v3]) => ({ x, low, high, v2, v3 }),
+        type: "map",
+        callback: ([x, low, high, v2, v3]) => ({
+          x,
+          low,
+          high,
+          v2,
+          v3,
+        }),
       },
     ],
   },
-  axis: {
-    y: { title: false }
-  },
-  scale: {
-    x: { type: 'linear', tickCount: 10 }
-  },
+  scale: { x: { type: "linear", tickCount: 10 } },
+  axis: { y: { title: false } },
   children: [
     {
-      type: 'area',
-      encode: {
-        x: 'x',
-        y: ['low', 'high'],
-        shape: 'smooth'
-      },
-      style: {
-        fillOpacity: 0.65,
-        fill: '#64b5f6',
-        lineWidth: 1
-      }
+      type: "area",
+      encode: { x: "x", y: ["low", "high"], shape: "smooth" },
+      style: { fillOpacity: 0.65, fill: "#64b5f6", lineWidth: 1 },
     },
     {
-      type: 'point',
-      encode: {
-        x: 'x',
-        y: 'v2',
-        size: 2,
-        shape: 'point'
-      },
-      tooltip: {
-        items: ['v2']
-      }
+      type: "point",
+      encode: { x: "x", y: "v2", size: 2, shape: "point" },
+      tooltip: { items: ["v2"] },
     },
     {
-      type: 'line',
-      encode: {
-        x: 'x',
-        y: 'v3',
-        color: '#FF6B3B',
-        shape: 'smooth'
-      }
-    }
-  ]
+      type: "line",
+      encode: { x: "x", y: "v3", color: "#FF6B3B", shape: "smooth" },
+    },
+  ],
 });
 
+
 chart.render();
+
 ```
 
 **Notes**:
@@ -373,12 +359,11 @@ chart.render();
 - Line charts are more suitable for showing accurate change trajectories and comparing multiple data lines
 - Pie charts focus on showing proportion relationships at a specific point in time, rather than changes over time
 
-### Area Charts and [Bar Charts](/en/charts/bar), [Stacked Area Charts](/en/charts/stacked-area), [Percentage Area Charts](/en/charts/percentage-area)
+### Area Charts and [Stacked Area Charts](/en/charts/stacked-area)
 
 - Basic area charts are suitable for trend display of a single data series
 - Stacked area charts are suitable for displaying multiple data series and their sum
-- Percentage area charts are suitable for showing how category proportions change over time
-- Bar charts focus on comparing values between different categories, emphasizing comparative relationships
+
 
 ## Similar Charts
 

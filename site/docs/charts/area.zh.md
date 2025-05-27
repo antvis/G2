@@ -3,7 +3,7 @@ title: 面积图
 order: 3
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original'
 category: ['trend']
-similar: ['line', 'stacked-area', 'percentage-area']
+similar: ['line', 'stacked-area']
 ---
 
 
@@ -254,43 +254,45 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
+chart.options({
+  type: "view",
+  autoFit: true,
+  data: {
+    type: "fetch",
+    value: "https://assets.antv.antgroup.com/g2/range-spline-area.json",
     transform: [
       {
-        type: 'map',
-        callback: ([x, low, high, v2, v3]) => ({ x, low, high, v2, v3 }),
+        type: "map",
+        callback: ([x, low, high, v2, v3]) => ({
+          x,
+          low,
+          high,
+          v2,
+          v3,
+        }),
       },
     ],
-  })
-  .axis('y', { title: false })
-  .scale('x', { type: 'linear', tickCount: 10 });
+  },
+  scale: { x: { type: "linear", tickCount: 10 } },
+  axis: { y: { title: false } },
+  children: [
+    {
+      type: "area",
+      encode: { x: "x", y: ["low", "high"], shape: "smooth" },
+      style: { fillOpacity: 0.65, fill: "#64b5f6", lineWidth: 1 },
+    },
+    {
+      type: "point",
+      encode: { x: "x", y: "v2", size: 2, shape: "point" },
+      tooltip: { items: ["v2"] },
+    },
+    {
+      type: "line",
+      encode: { x: "x", y: "v3", color: "#FF6B3B", shape: "smooth" },
+    },
+  ],
+});
 
-chart
-  .area()
-  .encode('x', 'x')
-  .encode('y', ['low', 'high'])
-  .encode('shape', 'smooth')
-  .style('fillOpacity', 0.65)
-  .style('fill', '#64b5f6')
-  .style('lineWidth', 1);
-
-chart
-  .point()
-  .encode('x', 'x')
-  .encode('y', 'v2')
-  .encode('size', 2)
-  .encode('shape', 'point')
-  .tooltip('v2');
-
-chart
-  .line()
-  .encode('x', 'x')
-  .encode('y', 'v3')
-  .encode('color', '#FF6B3B')
-  .encode('shape', 'smooth');
 
 chart.render();
 
@@ -366,11 +368,10 @@ chart.render();
 - 柱状图侧重于不同分类之间数值大小的比较，强调对比关系
 - 饼图侧重展示在特定时间点上的占比关系，而非随时间的变化
 
-### 面积图与[堆叠面积图](/charts/stacked-area)、[百分比面积图](/charts/percentage-area)
+### 面积图与[堆叠面积图](/charts/stacked-area)
 
 - 基础面积图适合单一数据系列的趋势展示
 - 堆叠面积图适合多数据系列及其总和的展示
-- 百分比面积图适合展示各类别占比随时间的变化
 
 ## 相似图表
 
