@@ -24,24 +24,22 @@ similar: ['histogram', 'bar', 'scatter']
 
 <img alt="boxplot-anatomy" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pU-NQa1PgxQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width=600 />
 
-| 图表类型         | 箱形图                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------------------ |
-| 适合的数据       | 一个分类数据字段、一个连续数据字段                                                               |
-| 功能             | 展示数据分布情况，识别异常值，比较不同分组的数据分布                                             |
-| 数据与图形的映射 | 分类数据字段映射到横轴位置<br>连续数据字段自动计算统计值映射到箱体各部分<br>异常值显示为散点     |
-| 适合的数据条数   | 每个分组建议至少有 5-10 个数据点                                                                 |
+| 图表类型         | 箱形图                                                                                       |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| 适合的数据       | 一个分类数据字段、一个连续数据字段                                                           |
+| 功能             | 展示数据分布情况，识别异常值，比较不同分组的数据分布                                         |
+| 数据与图形的映射 | 分类数据字段映射到横轴位置<br>连续数据字段自动计算统计值映射到箱体各部分<br>异常值显示为散点 |
+| 适合的数据条数   | 每个分组建议至少有 5-10 个数据点                                                             |
 
 箱形图的主要组成部分包括：
 
-- **箱体**：从下四分位数（Q1）到上四分位数（Q3）的矩形区域，包含了中间50%的数据
+- **箱体**：从下四分位数（Q1）到上四分位数（Q3）的矩形区域，包含了中间 50%的数据
 - **中位线**：箱体内部的水平线，表示数据的中位数（Q2）
-- **须线**：从箱体延伸出的线段，通常延伸到1.5倍四分位距（IQR）范围内的最远数据点
+- **须线**：从箱体延伸出的线段，通常延伸到 1.5 倍四分位距（IQR）范围内的最远数据点
 - **异常值**：超出须线范围的数据点，以单独的点标记显示
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
@@ -76,14 +74,12 @@ chart.render();
 
 ### 适合的场景
 
-**场景1：数据分布分析**
+**场景 1：数据分布分析**
 
 箱形图是分析数据分布的理想工具，能够快速识别数据的集中趋势、离散程度和偏态分布。
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
@@ -115,18 +111,16 @@ chart.options({
 chart.render();
 ```
 
-**场景2：异常值检测**
+**场景 2：异常值检测**
 
 箱形图能够直观地显示数据中的异常值，帮助识别需要进一步调查的数据点。
 
-**场景3：多组数据比较**
+**场景 3：多组数据比较**
 
 通过并排显示多个箱形图，可以有效地比较不同组别间的数据分布差异。
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
@@ -161,15 +155,15 @@ chart.render();
 
 ### 不适合的场景
 
-**场景1：数据量过少**
+**场景 1：数据量过少**
 
-当每个分组的数据点少于5个时，箱形图的统计意义不大，建议使用散点图或条形图。
+当每个分组的数据点少于 5 个时，箱形图的统计意义不大，建议使用散点图或条形图。
 
-**场景2：展示精确数值**
+**场景 2：展示精确数值**
 
 箱形图侧重于显示数据分布的整体特征，不适合需要精确数值的场景，此时应使用表格或条形图。
 
-**场景3：时间序列分析**
+**场景 3：时间序列分析**
 
 对于时间序列数据的趋势分析，[折线图](/charts/line)或[面积图](/charts/area)更为合适。
 
@@ -181,8 +175,6 @@ chart.render();
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
@@ -222,8 +214,6 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -262,8 +252,6 @@ chart.render();
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',

@@ -10,34 +10,32 @@ order: 5
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  chart.options({
-    type: 'cell',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+chart.options({
+  type: 'cell',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  transform: [{ type: 'group', color: 'max' }], // 对数据进行分组变换，按颜色的最大值进行分组
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(), // 编码 x 轴，使用数据中的日期字段的 UTC 日期部分
+    y: (d) => new Date(d.date).getUTCMonth(), // 编码 y 轴，使用数据中的日期字段的 UTC 月份部分
+    color: 'temp_max', // 编码颜色，使用数据中的 temp_max 字段
+    shape: 'cell',
+  },
+  style: { inset: 0.5 }, // 设置单元格的内边距为 0.5
+  scale: {
+    color: {
+      type: 'sequential', // 设置颜色比例尺为顺序比例尺
+      palette: 'gnBu', // 设置使用 'gnBu' 调色板
     },
-    transform: [{ type: 'group', color: 'max' }], // 对数据进行分组变换，按颜色的最大值进行分组
-    encode: {
-      x: (d) => new Date(d.date).getUTCDate(), // 编码 x 轴，使用数据中的日期字段的 UTC 日期部分
-      y: (d) => new Date(d.date).getUTCMonth(), // 编码 y 轴，使用数据中的日期字段的 UTC 月份部分
-      color: 'temp_max', // 编码颜色，使用数据中的 temp_max 字段
-      shape: 'cell',
-    },
-    style: { inset: 0.5 }, // 设置单元格的内边距为 0.5
-    scale: {
-      color: {
-        type: 'sequential', // 设置颜色比例尺为顺序比例尺
-        palette: 'gnBu', // 设置使用 'gnBu' 调色板
-      },
-    },
-  });
+  },
+});
 
-  chart.render(); // 渲染图标
+chart.render(); // 渲染图标
 ```
 
 更多的案例，可以查看[图表示例](/examples#general-cell)页面。
@@ -48,7 +46,7 @@ const chart = new Chart({
 | --------- | -------------------------------------------------------------------------------------------------- | ----------------------- | ------ | ---- |
 | encode    | 配置 `cell` 标记的视觉通道，包括`x`、`y`、`color`、`shape`等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)       | -      | ✓    |
 | scale     | 配置 `cell` 标记的图形缩放，包括`x`、`y`、`color`、`shape`等                                       | [scale](#scale)         | -      |      |
-| style     | 配置 `cell` 图形样式                                                                         | [style](#style)         | -      |      |
+| style     | 配置 `cell` 图形样式                                                                               | [style](#style)         | -      |      |
 | transform | 配置 `cell` 数据转换操作（如分箱、排序、过滤等）。                                                 | [transform](#transform) | -      |      |
 
 ### encode
@@ -71,59 +69,57 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  chart.options({
-    type: 'cell',
-    data: [
-      { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
-      { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
-      { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
-      { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
-      { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
-      { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
-      { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
-      { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
-      { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
-    ],
-    encode: {
-      x: 'x', // 编码 x 轴
-      y: 'y', // 编码 y 轴
-      color: 'data1', // 使用数据中的 data1 字段
-    },
-    style: {
-      inset: 5,
-      lineWidth: 10,
-    },
-  });
+chart.options({
+  type: 'cell',
+  data: [
+    { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
+    { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
+    { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
+    { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
+    { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
+    { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
+    { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
+    { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
+    { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
+  ],
+  encode: {
+    x: 'x', // 编码 x 轴
+    y: 'y', // 编码 y 轴
+    color: 'data1', // 使用数据中的 data1 字段
+  },
+  style: {
+    inset: 5,
+    lineWidth: 10,
+  },
+});
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择映射到颜色的字段 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = `
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择映射到颜色的字段 ';
+const selector = document.createElement('select');
+selector.innerHTML = `
     <option value="data1" selected>data1</option>
     <option value="data2">data2</option>
   `;
 
-  selector.onchange = (e) => {
-    chart.options({
-      encode: {
-        color: e.target.value, // 使用选中的字段映射颜色
-      },
-    });
-    chart.render(); // 重新渲染图表
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+selector.onchange = (e) => {
+  chart.options({
+    encode: {
+      color: e.target.value, // 使用选中的字段映射颜色
+    },
+  });
+  chart.render(); // 重新渲染图表
+};
+selectorContainer.appendChild(selector);
+const node = chart.getContainer();
+node.insertBefore(selectorContainer, node.childNodes[0]);
 
-  chart.render();
+chart.render();
 
-  return node;
+return node;
 ```
 
 #### shape
@@ -139,8 +135,8 @@ const chart = new Chart({
 
 `scale`用于定义数据如何映射到视觉属性（如颜色、大小、形状等）。在`cell`的使用场景，scale 的常见作用就是为每个视觉通道（如颜色、大小、位置等）提供映射规则，使数据点能够准确地呈现。
 
-| 属性      | 描述                 | 类型                                        | 默认值 |
-| --------- | -------------------- | ------------------------------------------- | ------ |
+| 属性      | 描述                 | 类型                                                 | 默认值 |
+| --------- | -------------------- | ---------------------------------------------------- | ------ |
 | [channel] | 映射到视觉属性的通道 | Record<string, [scale](/manual/core/scale/overview)> | -      |
 
 更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。

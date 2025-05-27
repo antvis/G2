@@ -80,27 +80,25 @@ In addition to `mark.encode`, the visual properties of the mark can also be set 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .style('fill', 'steelblue') // Set data-independent channels
-    .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // Set data-related channels
-    .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
-    .axis('y', { labelFormatter: '.0%' });
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .style('fill', 'steelblue') // Set data-independent channels
+  .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // Set data-related channels
+  .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
+  .axis('y', { labelFormatter: '.0%' });
 
-  chart.render();
+chart.render();
 ```
 
 ## View Style
@@ -117,51 +115,49 @@ For example, color each area in the picture below:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    height: 280,
-    inset: 10,
-    marginTop: 30,
-    marginLeft: 40,
-    marginBottom: 10,
-    marginRight: 20,
-    style: {
-      // Set the view style
-      viewFill: '#4e79a7',
-      plotFill: '#f28e2c',
-      mainFill: '#e15759',
-      contentFill: '#76b7b2',
-    },
-    children: [
-      {
-        type: 'point',
-        data: {
-          type: 'fetch',
-          value: 'https://assets.antv.antgroup.com/g2/commits.json',
-        },
-        encode: {
-          x: (d) => new Date(d.time).getUTCHours(),
-          y: (d) => new Date(d.time).getUTCDay(),
-          size: 'count',
-          shape: 'point',
-        },
-        transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
-        scale: { y: { type: 'point' } },
-        style: { shape: 'point', fill: '#59a14f' },
-        axis: {
-          x: { title: 'time (hours)', tickCount: 24 },
-          y: { title: 'time (day)', grid: true },
-        },
-        legend: false,
+chart.options({
+  type: 'view',
+  height: 280,
+  inset: 10,
+  marginTop: 30,
+  marginLeft: 40,
+  marginBottom: 10,
+  marginRight: 20,
+  style: {
+    // Set the view style
+    viewFill: '#4e79a7',
+    plotFill: '#f28e2c',
+    mainFill: '#e15759',
+    contentFill: '#76b7b2',
+  },
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/commits.json',
       },
-    ],
-  });
+      encode: {
+        x: (d) => new Date(d.time).getUTCHours(),
+        y: (d) => new Date(d.time).getUTCDay(),
+        size: 'count',
+        shape: 'point',
+      },
+      transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
+      scale: { y: { type: 'point' } },
+      style: { shape: 'point', fill: '#59a14f' },
+      axis: {
+        x: { title: 'time (hours)', tickCount: 24 },
+        y: { title: 'time (day)', grid: true },
+      },
+      legend: false,
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```

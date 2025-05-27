@@ -5,7 +5,6 @@ order: 5
 
 In G2, **encoding** is mainly used to specify the relationship between visual element attributes and data. You can specify encoding at the mark level:
 
-
 ```js
 ({
   type: 'interval',
@@ -59,24 +58,21 @@ table({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender');
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender');
 
-  chart.render();
+chart.render();
 ```
 
 This binding process is called **encode**. We often say that a visual attribute of the graph is encoded by a column of data, and this data-driven property is called a **channel**. For example, the x, y, and color channels of the point mark in the example above are each encoded by the corresponding column of data.
@@ -95,7 +91,6 @@ A complete encoding consists of `encode.type` and `encode.value`:
 ```
 
 In most cases, you can directly specify the value, as shown below for encoding some built-in categories:
-
 
 ### Field Encode
 
@@ -180,23 +175,21 @@ For some big data scenarios, using array columns is more suitable, here is a sim
 import { Chart } from '@antv/g2';
 
 const I = [0, 1, 2, 3, 4];
-  const X = I.map((i) => ((i - 2) * Math.PI) / 2);
-  const Y = X.map((x) => Math.sin(x));
-
-  
+const X = I.map((i) => ((i - 2) * Math.PI) / 2);
+const Y = X.map((x) => Math.sin(x));
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .line()
-    .data(I)
-    .encode('x', { type: 'column', value: X })
-    .encode('y', { type: 'column', value: Y })
-    .encode('shape', 'smooth');
+chart
+  .line()
+  .data(I)
+  .encode('x', { type: 'column', value: X })
+  .encode('y', { type: 'column', value: Y })
+  .encode('shape', 'smooth');
 
-  chart.render();
+chart.render();
 ```
 
 ## Array Channels
@@ -239,7 +232,6 @@ Certainly, for spatial channels like x and y channels, you often need more than 
 
 In addition, you can specify them separately in the form of `${channel}${index}`:
 
-
 ```js
 // Equivalent to the above form
 chart.encode('y', 'end').encode('y1', 'start');
@@ -248,7 +240,6 @@ chart.encode('y', 'end').encode('y1', 'start');
 ## Common Channels
 
 Different marks have different channels, but there are also some common channels. Some common and drawing-related common channels are as follows:
-
 
 - **x** - x position
 - **y** - y position
@@ -267,30 +258,28 @@ Channel encode has transitivity, the encoding of the view is passed to the mark 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year') // View level encoding
-    .encode('y', 'value');
+chart
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year') // View level encoding
+  .encode('y', 'value');
 
-  chart.line();
+chart.line();
 
-  chart.point();
+chart.point();
 
-  chart.render();
+chart.render();
 ```

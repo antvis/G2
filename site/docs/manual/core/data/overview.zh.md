@@ -77,32 +77,30 @@ G2 中的**数据（Data）** 主要用于指定需要可视化的数据和数�
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    children: [
-      { type: 'line', encode: { x: 'year', y: 'value' } },
-      { type: 'point', encode: { x: 'year', y: 'value' } },
-    ],
-  });
-  chart.render();
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  children: [
+    { type: 'line', encode: { x: 'year', y: 'value' } },
+    { type: 'point', encode: { x: 'year', y: 'value' } },
+  ],
+});
+chart.render();
 ```
 
 也可以指定在 Mark 层级：
@@ -125,42 +123,40 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    children: [
-      {
-        type: 'rangeX',
-        data: [
-          { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
-          {
-            year: [new Date('1948'), new Date('1989')],
-            event: 'GDR (East Germany)',
-          },
-        ],
-        encode: { x: 'year', color: 'event' },
-        scale: { color: { independent: true, range: ['#FAAD14', '#30BF78'] } },
-        style: { fillOpacity: 0.75 },
-        tooltip: false,
-      },
-      {
-        type: 'line',
-        data: {
-          type: 'fetch',
-          value: 'https://assets.antv.antgroup.com/g2/year-population.json',
+chart.options({
+  type: 'view',
+  autoFit: true,
+  children: [
+    {
+      type: 'rangeX',
+      data: [
+        { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
+        {
+          year: [new Date('1948'), new Date('1989')],
+          event: 'GDR (East Germany)',
         },
-        encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+      ],
+      encode: { x: 'year', color: 'event' },
+      scale: { color: { independent: true, range: ['#FAAD14', '#30BF78'] } },
+      style: { fillOpacity: 0.75 },
+      tooltip: false,
+    },
+    {
+      type: 'line',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/year-population.json',
       },
-    ],
-  });
+      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## DataTransform
@@ -260,67 +256,65 @@ chart.getNodesByType('rect')[0].changeData(data);
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  // 格式化函数：将时间戳转换为 hh:mm:ss 格式
-  function formatTime(timestamp) {
-    const date = new Date(timestamp);
-    const hours = String(date.getHours()).padStart(2, '0'); // 补齐两位
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${hours}:${minutes}:${seconds}`;
+// 格式化函数：将时间戳转换为 hh:mm:ss 格式
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const hours = String(date.getHours()).padStart(2, '0'); // 补齐两位
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+const data = [];
+
+chart.options({
+  type: 'line',
+  data: [],
+  encode: {
+    x: (d) => formatTime(d.time),
+    y: 'temperature',
+    color: 'type',
+    shape: 'smooth',
+    size: 2,
+  },
+  scale: {
+    x: {
+      nice: true,
+    },
+  },
+});
+
+chart.render();
+
+setInterval(function () {
+  const now = new Date();
+  const time = now.getTime();
+
+  const temperature1 = ~~(Math.random() * 5) + 22;
+  const temperature2 = ~~(Math.random() * 7) + 17;
+
+  if (data.length >= 200) {
+    data.shift();
+    data.shift();
   }
 
-  const data = [];
-
-  chart.options({
-    type: 'line',
-    data: [],
-    encode: {
-      x: (d) => formatTime(d.time),
-      y: 'temperature',
-      color: 'type',
-      shape: 'smooth',
-      size: 2,
-    },
-    scale: {
-      x: {
-        nice: true,
-      },
-    },
+  data.push({
+    time, // 使用格式化后的时间
+    temperature: temperature1,
+    type: '记录1',
+  });
+  data.push({
+    time, // 使用格式化后的时间
+    temperature: temperature2,
+    type: '记录2',
   });
 
-  chart.render();
-
-  setInterval(function () {
-    const now = new Date();
-    const time = now.getTime();
-
-    const temperature1 = ~~(Math.random() * 5) + 22;
-    const temperature2 = ~~(Math.random() * 7) + 17;
-
-    if (data.length >= 200) {
-      data.shift();
-      data.shift();
-    }
-
-    data.push({
-      time, // 使用格式化后的时间
-      temperature: temperature1,
-      type: '记录1',
-    });
-    data.push({
-      time, // 使用格式化后的时间
-      temperature: temperature2,
-      type: '记录2',
-    });
-
-    chart.changeData(data);
-  }, 1000);
+  chart.changeData(data);
+}, 1000);
 ```
 
 ## 示例

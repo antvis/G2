@@ -142,66 +142,64 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  chart.options({
-    type: 'line',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  },
+  encode: {
+    x: (d) => new Date(d.Date),
+    y: 'Close',
+    color: 'Symbol',
+    key: 'Symbol',
+    title: (d) => d.Date.toLocaleString(),
+  },
+  axis: {
+    y: {
+      title: '↑ Change in price (%)',
+      labelAutoRotate: false,
     },
-    encode: {
-      x: (d) => new Date(d.Date),
-      y: 'Close',
-      color: 'Symbol',
-      key: 'Symbol',
-      title: (d) => d.Date.toLocaleString(),
+  },
+  scale: {
+    y: {
+      type: 'log',
     },
-    axis: {
-      y: {
-        title: '↑ Change in price (%)',
-        labelAutoRotate: false,
-      },
+  },
+  label: {
+    text: 'Symbol',
+    selector: 'last',
+    style: {
+      fontSize: 10,
     },
-    scale: {
-      y: {
-        type: 'log',
-      },
+  },
+  interaction: {
+    tooltip: {
+      crosshairs: false, // 关闭辅助线
     },
-    label: {
-      text: 'Symbol',
-      selector: 'last',
-      style: {
-        fontSize: 10,
-      },
+    chartIndex: {
+      ruleStroke: 'pink',
+      ruleLineWidth: 8,
+      ruleLineDash: [4, 8],
+      ruleShadowColor: 'green',
+      ruleShadowBlur: 5,
+      ruleShadowOffsetX: 5,
+      ruleShadowOffsetY: 5,
+      ruleOpacity: 0.9,
+      labelDy: 30,
+      labelFontSize: 20,
+      labelTextAlign: 'center',
+      labelFill: 'red',
+      labelStroke: 'yellow',
+      labelLineWidth: 2,
+      labelFormatter: (d) => `${d.toLocaleDateString()}`,
     },
-    interaction: {
-      tooltip: {
-        crosshairs: false, // 关闭辅助线
-      },
-      chartIndex: {
-        ruleStroke: 'pink',
-        ruleLineWidth: 8,
-        ruleLineDash: [4, 8],
-        ruleShadowColor: 'green',
-        ruleShadowBlur: 5,
-        ruleShadowOffsetX: 5,
-        ruleShadowOffsetY: 5,
-        ruleOpacity: 0.9,
-        labelDy: 30,
-        labelFontSize: 20,
-        labelTextAlign: 'center',
-        labelFill: 'red',
-        labelStroke: 'yellow',
-        labelLineWidth: 2,
-        labelFormatter: (d) => `${d.toLocaleDateString()}`,
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```

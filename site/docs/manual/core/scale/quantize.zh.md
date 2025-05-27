@@ -46,14 +46,14 @@ chart.options({
   type: 'cell',
   data: salaryData,
   encode: {
-    color: 'salary'
+    color: 'salary',
   },
   scale: {
     color: {
       type: 'quantize',
-      range: ['#eee', 'pink', 'red'] // 将数据分为三组，每组对应一种颜色
-    }
-  }
+      range: ['#eee', 'pink', 'red'], // 将数据分为三组，每组对应一种颜色
+    },
+  },
 });
 ```
 
@@ -61,15 +61,15 @@ chart.options({
 
 quantize 比例尺主要负责将连续的数据域映射到离散的值域。以下是 quantize 比例尺的配置选项：
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| ---- | ---- | ---- | ------ | ---- |
-| type | 比例尺类型，需为 'quantize' | `string` | 无 | ✓ |
-| domain | 设置数据的定义域范围 | `number[]` | `[0, 1]` | |
-| range | 设置数据映射的值域范围 | `any[]` | `[0.5]` | |
-| unknown | 对于 `undefined`， `NaN`，`null` 空值，返回的数据 | `any` | `undefined` | |
-| tickCount | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` | |
-| tickMethod | 设置生成 tick 的方法，常用于自定义 tick | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` | |
-| nice | 扩展 domain 范围，让输出的 tick 展示得更加友好 | `boolean` | `false` | |
+| 属性       | 描述                                                                        | 类型                                                    | 默认值               | 必选 |
+| ---------- | --------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------- | ---- |
+| type       | 比例尺类型，需为 'quantize'                                                 | `string`                                                | 无                   | ✓    |
+| domain     | 设置数据的定义域范围                                                        | `number[]`                                              | `[0, 1]`             |      |
+| range      | 设置数据映射的值域范围                                                      | `any[]`                                                 | `[0.5]`              |      |
+| unknown    | 对于 `undefined`， `NaN`，`null` 空值，返回的数据                           | `any`                                                   | `undefined`          |      |
+| tickCount  | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number`                                                | `5`                  |      |
+| tickMethod | 设置生成 tick 的方法，常用于自定义 tick                                     | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |      |
+| nice       | 扩展 domain 范围，让输出的 tick 展示得更加友好                              | `boolean`                                               | `false`              |      |
 
 ## 常见用例
 
@@ -81,51 +81,49 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素
-  const container = document.createElement('div');
-
-  
+const container = document.createElement('div');
 
 const chart = new Chart({
   container: 'container',
-    container,
-    height: 340,
-  
+  container,
+  height: 340,
 });
 
-  chart.options({
-    type: 'cell',
-    data: {
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
-      transform: [{ type: 'map', callback: (d) => ({ salary: d }) }],
+chart.options({
+  type: 'cell',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+    transform: [{ type: 'map', callback: (d) => ({ salary: d }) }],
+  },
+  scale: {
+    color: {
+      type: 'quantize',
+      range: ['#eee', 'pink', 'red'], // 将数据分为三组，对应三种颜色
     },
-    scale: {
-      color: {
-        type: 'quantize',
-        range: ['#eee', 'pink', 'red'], // 将数据分为三组，对应三种颜色
-      },
+  },
+  legend: {
+    color: {
+      length: 400,
+      labelFormatter: '.0s', // 格式化图例标签，使用缩写形式（如 10K 代替 10000）
     },
-    legend: {
-      color: {
-        length: 400,
-        labelFormatter: '.0s', // 格式化图例标签，使用缩写形式（如 10K 代替 10000）
-      },
-    },
-    encode: {
-      y: (_, i) => (i % 5) + 1, // 设置单元格的行位置
-      x: (_, i) => ((i / 5) | 0) + 1, // 设置单元格的列位置
-      color: 'salary', // 将薪资数据映射到颜色通道
-    },
-    style: {
-      stroke: '#000', // 设置单元格边框颜色
-      inset: 2, // 设置单元格内边距
-    },
-    animate: {
-      enter: { type: 'fadeIn' }, // 添加淡入动画效果
-    },
-  });
+  },
+  encode: {
+    y: (_, i) => (i % 5) + 1, // 设置单元格的行位置
+    x: (_, i) => ((i / 5) | 0) + 1, // 设置单元格的列位置
+    color: 'salary', // 将薪资数据映射到颜色通道
+  },
+  style: {
+    stroke: '#000', // 设置单元格边框颜色
+    inset: 2, // 设置单元格内边距
+  },
+  animate: {
+    enter: { type: 'fadeIn' }, // 添加淡入动画效果
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 效果说明
@@ -139,11 +137,11 @@ const chart = new Chart({
 
 ## 与其他比例尺的对比
 
-| 比例尺类型 | 数据类型 | 分段方式 | 适用场景 |
-|-----------|---------|---------|---------|
-| quantize | 连续数值 | 等宽分段 | 数据分布均匀，需要按数值范围分组 |
-| quantile | 连续数值 | 等频分段 | 数据分布不均，需要每组数据量相等 |
-| threshold | 连续数值 | 自定义阈值 | 需要按特定阈值分组（如及格线） |
+| 比例尺类型 | 数据类型 | 分段方式   | 适用场景                         |
+| ---------- | -------- | ---------- | -------------------------------- |
+| quantize   | 连续数值 | 等宽分段   | 数据分布均匀，需要按数值范围分组 |
+| quantile   | 连续数值 | 等频分段   | 数据分布不均，需要每组数据量相等 |
+| threshold  | 连续数值 | 自定义阈值 | 需要按特定阈值分组（如及格线）   |
 
 ### 2. quantize 与 quantile 对比示例
 
@@ -153,181 +151,175 @@ const chart = new Chart({
 import { Chart } from '@antv/g2';
 
 // 创建一个偏斜分布的数据集，使用整数值
-  const generateSkewedData = () => {
-    const data = [];
-    // 大部分数据集中在低值区域
-    for (let i = 0; i < 60; i++) {
-      // 使用整数值，避免小数点导致的重叠
-      data.push({ value: Math.floor(5 + Math.random() * 25), type: '偏斜数据' });
-    }
-    // 少量数据分布在高值区域，更加分散
-    for (let i = 0; i < 15; i++) {
-      data.push({ value: Math.floor(60 + Math.random() * 20), type: '偏斜数据' });
-    }
-    // 添加一些中间值，使分布更加明显
-    for (let i = 0; i < 10; i++) {
-      data.push({ value: Math.floor(40 + Math.random() * 15), type: '偏斜数据' });
-    }
-    return data;
-  };
+const generateSkewedData = () => {
+  const data = [];
+  // 大部分数据集中在低值区域
+  for (let i = 0; i < 60; i++) {
+    // 使用整数值，避免小数点导致的重叠
+    data.push({ value: Math.floor(5 + Math.random() * 25), type: '偏斜数据' });
+  }
+  // 少量数据分布在高值区域，更加分散
+  for (let i = 0; i < 15; i++) {
+    data.push({ value: Math.floor(60 + Math.random() * 20), type: '偏斜数据' });
+  }
+  // 添加一些中间值，使分布更加明显
+  for (let i = 0; i < 10; i++) {
+    data.push({ value: Math.floor(40 + Math.random() * 15), type: '偏斜数据' });
+  }
+  return data;
+};
 
-  const data = generateSkewedData();
+const data = generateSkewedData();
 
-  // 创建两个图表进行对比
-  const container = document.createElement('div');
-  container.style.display = 'flex';
-  container.style.flexDirection = 'column';
-  container.style.gap = '40px'; // 增加间距
-  container.style.width = '100%';
-  container.style.maxWidth = '800px';
-  container.style.margin = '0 auto'; // 居中显示
+// 创建两个图表进行对比
+const container = document.createElement('div');
+container.style.display = 'flex';
+container.style.flexDirection = 'column';
+container.style.gap = '40px'; // 增加间距
+container.style.width = '100%';
+container.style.maxWidth = '800px';
+container.style.margin = '0 auto'; // 居中显示
 
-  // 添加标题
-  const title = document.createElement('h3');
-  title.textContent = 'quantize 与 quantile 比例尺对比';
-  title.style.textAlign = 'center';
-  title.style.marginBottom = '10px';
-  container.appendChild(title);
+// 添加标题
+const title = document.createElement('h3');
+title.textContent = 'quantize 与 quantile 比例尺对比';
+title.style.textAlign = 'center';
+title.style.marginBottom = '10px';
+container.appendChild(title);
 
-  // quantize 比例尺图表
-  const chart1Container = document.createElement('div');
-  chart1Container.style.width = '100%';
-  chart1Container.style.height = '220px'; // 增加高度
-  container.appendChild(chart1Container);
-
-  
+// quantize 比例尺图表
+const chart1Container = document.createElement('div');
+chart1Container.style.width = '100%';
+chart1Container.style.height = '220px'; // 增加高度
+container.appendChild(chart1Container);
 
 const chart1 = new Chart({
   container: 'container',
-    container: chart1Container,
-    height: 220,
-    autoFit: true, // 自动适应容器大小
-    padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
-  
+  container: chart1Container,
+  height: 220,
+  autoFit: true, // 自动适应容器大小
+  padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
 });
 
-  chart1.options({
-    type: 'point',
-    data,
-    title: {
-      text: 'quantize 比例尺（等宽分段）',
-      style: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
-    scale: {
-      color: {
-        type: 'quantize',
-        range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
-      },
-      value: {
-        nice: true,
-        tickCount: 5, // 减少刻度数量
-        formatter: '.0f' // 使用G2内置的格式化器显示整数
-      }
-    },
-    encode: {
-      x: 'value',
-      y: 'type',
-      color: 'value',
-      shape: 'circle',
-      size: 8,
-    },
+chart1.options({
+  type: 'point',
+  data,
+  title: {
+    text: 'quantize 比例尺（等宽分段）',
     style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+      fontSize: 14,
+      fontWeight: 'bold',
     },
-    legend: {
-      color: {
-        position: 'top',
-        length: 200, // 设置图例长度
-        labelFormatter: '.0f' // 使用G2内置的格式化器显示整数
-      },
+  },
+  scale: {
+    color: {
+      type: 'quantize',
+      range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
     },
-    axis: {
-      y: false,
-      x: {
-        labelSpacing: 10, // 增加标签间距
-        labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-        tickCount: 5 // 减少刻度数量
-      }
+    value: {
+      nice: true,
+      tickCount: 5, // 减少刻度数量
+      formatter: '.0f', // 使用G2内置的格式化器显示整数
     },
-  });
+  },
+  encode: {
+    x: 'value',
+    y: 'type',
+    color: 'value',
+    shape: 'circle',
+    size: 8,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      position: 'top',
+      length: 200, // 设置图例长度
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+    },
+  },
+  axis: {
+    y: false,
+    x: {
+      labelSpacing: 10, // 增加标签间距
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+      tickCount: 5, // 减少刻度数量
+    },
+  },
+});
 
-  chart1.render();
+chart1.render();
 
-  // quantile 比例尺图表
-  const chart2Container = document.createElement('div');
-  chart2Container.style.width = '100%';
-  chart2Container.style.height = '220px'; // 增加高度
-  container.appendChild(chart2Container);
-
-  
+// quantile 比例尺图表
+const chart2Container = document.createElement('div');
+chart2Container.style.width = '100%';
+chart2Container.style.height = '220px'; // 增加高度
+container.appendChild(chart2Container);
 
 const chart2 = new Chart({
   container: 'container',
-    container: chart2Container,
-    height: 220,
-    autoFit: true, // 自动适应容器大小
-    padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
-  
+  container: chart2Container,
+  height: 220,
+  autoFit: true, // 自动适应容器大小
+  padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
 });
 
-  chart2.options({
-    type: 'point',
-    data,
-    title: {
-      text: 'quantile 比例尺（等频分段）',
-      style: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
-    scale: {
-      color: {
-        type: 'quantile',
-        range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
-      },
-      value: {
-        nice: true,
-        tickCount: 5, // 减少刻度数量
-        formatter: '.0f' // 使用G2内置的格式化器显示整数
-      }
-    },
-    encode: {
-      x: 'value',
-      y: 'type',
-      color: 'value',
-      shape: 'circle',
-      size: 8,
-    },
+chart2.options({
+  type: 'point',
+  data,
+  title: {
+    text: 'quantile 比例尺（等频分段）',
     style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+      fontSize: 14,
+      fontWeight: 'bold',
     },
-    legend: {
-      color: {
-        position: 'top',
-        length: 200, // 设置图例长度
-        labelFormatter: '.0f' // 使用G2内置的格式化器显示整数
-      },
+  },
+  scale: {
+    color: {
+      type: 'quantile',
+      range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
     },
-    axis: {
-      y: false,
-      x: {
-        labelSpacing: 10, // 增加标签间距
-        labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-        tickCount: 5 // 减少刻度数量
-      }
+    value: {
+      nice: true,
+      tickCount: 5, // 减少刻度数量
+      formatter: '.0f', // 使用G2内置的格式化器显示整数
     },
-  });
+  },
+  encode: {
+    x: 'value',
+    y: 'type',
+    color: 'value',
+    shape: 'circle',
+    size: 8,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      position: 'top',
+      length: 200, // 设置图例长度
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+    },
+  },
+  axis: {
+    y: false,
+    x: {
+      labelSpacing: 10, // 增加标签间距
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+      tickCount: 5, // 减少刻度数量
+    },
+  },
+});
 
-  chart2.render();
+chart2.render();
 
-  return container;
+return container;
 ```
 
 在上面的对比示例中：
@@ -344,65 +336,70 @@ const chart2 = new Chart({
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素
-  const container = document.createElement('div');
-
-  
+const container = document.createElement('div');
 
 const chart = new Chart({
   container: 'container',
-    container,
-    height: 300,
-  
+  container,
+  height: 300,
 });
 
-  // 生成测试数据
-  const data = Array.from({ length: 100 }, (_, i) => ({
-    value: Math.random() * 100,
-    id: i + 1
-  }));
+// 生成测试数据
+const data = Array.from({ length: 100 }, (_, i) => ({
+  value: Math.random() * 100,
+  id: i + 1,
+}));
 
-  chart.options({
-    type: 'point',
-    data,
-    scale: {
-      color: {
-        type: 'quantize',
-        domain: [0, 100], // 自定义数据域
-        range: ['#e8f4f8', '#d1e6f0', '#a8d5e5', '#7ec2da', '#4ba3c3', '#2385ab', '#0a6c93'], // 7个颜色对应6个等宽区间
-      },
-      y: {
-        nice: true,
-      }
+chart.options({
+  type: 'point',
+  data,
+  scale: {
+    color: {
+      type: 'quantize',
+      domain: [0, 100], // 自定义数据域
+      range: [
+        '#e8f4f8',
+        '#d1e6f0',
+        '#a8d5e5',
+        '#7ec2da',
+        '#4ba3c3',
+        '#2385ab',
+        '#0a6c93',
+      ], // 7个颜色对应6个等宽区间
     },
-    encode: {
-      x: 'id',
-      y: 'value',
-      color: 'value', // 将值映射到颜色通道
-      shape: 'circle',
-      size: 10,
+    y: {
+      nice: true,
     },
-    style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+  },
+  encode: {
+    x: 'id',
+    y: 'value',
+    color: 'value', // 将值映射到颜色通道
+    shape: 'circle',
+    size: 10,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      length: 300,
+      labelFormatter: '.0f', // 格式化图例标签为整数
     },
-    legend: {
-      color: {
-        length: 300,
-        labelFormatter: '.0f', // 格式化图例标签为整数
-      },
+  },
+  axis: {
+    y: {
+      title: '数值',
     },
-    axis: {
-      y: {
-        title: '数值',
-      },
-      x: {
-        title: 'ID',
-      },
+    x: {
+      title: 'ID',
     },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 完整示例
@@ -416,7 +413,8 @@ const spec = {
   height: 300,
   data: {
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
     transform: [{ type: 'map', callback: (d) => ({ salary: d }) }],
   },
   scale: {

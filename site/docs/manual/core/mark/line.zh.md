@@ -14,25 +14,23 @@ order: 12
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    width: 900,
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    },
-    encode: { x: 'date', y: 'close' },
-  });
+chart.options({
+  type: 'line',
+  width: 900,
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 折线图](/examples#general-line)页面。
@@ -67,40 +65,38 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-      { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
-      { name: 'London', 月份: 'May', 月均降雨量: 47 },
-      { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
-      { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
-      { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
-      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-      { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
-      { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
-      { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
-      { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
-      { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
-    ],
-    encode: {
-      x: '月份',
-      y: '月均降雨量',
-      color: 'name', // 配置color通道，对数据进行分组
-    },
-  });
+chart.options({
+  type: 'line',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: {
+    x: '月份',
+    y: '月均降雨量',
+    color: 'name', // 配置color通道，对数据进行分组
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
@@ -108,45 +104,43 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { year: '2000', value: 50 },
-      { year: '2001', value: 52 },
-      { year: '2002', value: 40 },
-      { year: '2003', value: 70 },
-      { year: '2004', value: 60 },
-      { year: '2005', value: 80 },
-      { year: '2006', value: 88 },
-      { year: '2007', value: 86 },
-      { year: '2008', value: 90 },
-      { year: '2009', value: 78 },
-      { year: '2010', value: 110 },
-      { year: '2011', value: 115 },
-    ],
-    encode: {
-      x: 'year',
-      y: 'value',
-      color: 'value',
-    },
-    scale: {
-      y: { nice: true },
-      color: { palette: 'turbo' },
-    },
-    style: {
-      gradient: 'y', // 渐变的方向
-      lineWidth: 2,
-      lineJoin: 'bevel', // 连接处样式
-    },
-  });
+chart.options({
+  type: 'line',
+  data: [
+    { year: '2000', value: 50 },
+    { year: '2001', value: 52 },
+    { year: '2002', value: 40 },
+    { year: '2003', value: 70 },
+    { year: '2004', value: 60 },
+    { year: '2005', value: 80 },
+    { year: '2006', value: 88 },
+    { year: '2007', value: 86 },
+    { year: '2008', value: 90 },
+    { year: '2009', value: 78 },
+    { year: '2010', value: 110 },
+    { year: '2011', value: 115 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'value',
+  },
+  scale: {
+    y: { nice: true },
+    color: { palette: 'turbo' },
+  },
+  style: {
+    gradient: 'y', // 渐变的方向
+    lineWidth: 2,
+    lineJoin: 'bevel', // 连接处样式
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 #### series
@@ -156,44 +150,42 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-      { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
-      { name: 'London', 月份: 'May', 月均降雨量: 47 },
-      { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
-      { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
-      { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
-      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-      { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
-      { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
-      { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
-      { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
-      { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
-      { name: 'Paris', 月份: 'Jan.', 月均降雨量: 14.4 },
-      { name: 'Paris', 月份: 'Feb.', 月均降雨量: 26.2 },
-      { name: 'Paris', 月份: 'Mar.', 月均降雨量: 37.5 },
-      { name: 'Paris', 月份: 'Apr.', 月均降雨量: 120.7 },
-      { name: 'Paris', 月份: 'May', 月均降雨量: 56.6 },
-      { name: 'Paris', 月份: 'Jun.', 月均降雨量: 45.5 },
-      { name: 'Paris', 月份: 'Jul.', 月均降雨量: 47.4 },
-      { name: 'Paris', 月份: 'Aug.', 月均降雨量: 62.4 },
-    ],
-    encode: { x: '月份', y: '月均降雨量', series: 'name', shape: 'smooth' },
-  });
+chart.options({
+  type: 'line',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+    { name: 'Paris', 月份: 'Jan.', 月均降雨量: 14.4 },
+    { name: 'Paris', 月份: 'Feb.', 月均降雨量: 26.2 },
+    { name: 'Paris', 月份: 'Mar.', 月均降雨量: 37.5 },
+    { name: 'Paris', 月份: 'Apr.', 月均降雨量: 120.7 },
+    { name: 'Paris', 月份: 'May', 月均降雨量: 56.6 },
+    { name: 'Paris', 月份: 'Jun.', 月均降雨量: 45.5 },
+    { name: 'Paris', 月份: 'Jul.', 月均降雨量: 47.4 },
+    { name: 'Paris', 月份: 'Aug.', 月均降雨量: 62.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', series: 'name', shape: 'smooth' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 #### shape
@@ -213,75 +205,73 @@ const chart = new Chart({
 import { Chart } from '@antv/g2';
 
 const shapeList = ['line', 'smooth', 'trail', 'vh', 'hv', 'hvh'];
-  const shapeMap = shapeList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
-
-  
+const shapeMap = shapeList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
 const chart = new Chart({
   container: 'container',
 });
 
+chart.options({
+  type: 'line',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name', size: '月均降雨量' },
+});
+
+const handleSetShape = (shape) => {
   chart.options({
-    type: 'line',
-    data: [
-      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-      { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
-      { name: 'London', 月份: 'May', 月均降雨量: 47 },
-      { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
-      { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
-      { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
-      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-      { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
-      { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
-      { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
-      { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
-      { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
-    ],
-    encode: { x: '月份', y: '月均降雨量', color: 'name', size: '月均降雨量' },
+    encode: {
+      x: '月份',
+      y: '月均降雨量',
+      color: 'name',
+      size: '月均降雨量',
+      shape,
+    },
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetShape = (shape) => {
-    chart.options({
-      encode: {
-        x: '月份',
-        y: '月均降雨量',
-        color: 'name',
-        size: '月均降雨量',
-        shape,
-      },
-    });
-    chart.render(); // 重新渲染图表
-  };
+// 插入Shape 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择折线形状 ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+const node = chart.getContainer();
+node.insertBefore(selectorContainer, node.childNodes[0]);
 
-  // 插入Shape 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择折线形状 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+chart.render();
 
-  chart.render();
-
-  return node;
+return node;
 ```
 
 #### size
@@ -291,33 +281,31 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-      { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
-      { name: 'London', 月份: 'May', 月均降雨量: 47 },
-      { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
-      { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
-      { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
-    ],
-    encode: {
-      x: '月份',
-      y: '月均降雨量',
-      size: '月均降雨量',
-      shape: 'trail',
-    },
-  });
+chart.options({
+  type: 'line',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+  ],
+  encode: {
+    x: '月份',
+    y: '月均降雨量',
+    size: '月均降雨量',
+    shape: 'trail',
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### coordinate
@@ -335,59 +323,57 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { item: 'Design', type: 'a', score: 70 },
-      { item: 'Design', type: 'b', score: 30 },
-      { item: 'Development', type: 'a', score: 60 },
-      { item: 'Development', type: 'b', score: 70 },
-      { item: 'Marketing', type: 'a', score: 50 },
-      { item: 'Marketing', type: 'b', score: 60 },
-      { item: 'Users', type: 'a', score: 40 },
-      { item: 'Users', type: 'b', score: 50 },
-      { item: 'Test', type: 'a', score: 60 },
-      { item: 'Test', type: 'b', score: 70 },
-      { item: 'Language', type: 'a', score: 70 },
-      { item: 'Language', type: 'b', score: 50 },
-      { item: 'Technology', type: 'a', score: 50 },
-      { item: 'Technology', type: 'b', score: 40 },
-      { item: 'Support', type: 'a', score: 30 },
-      { item: 'Support', type: 'b', score: 40 },
-      { item: 'Sales', type: 'a', score: 60 },
-      { item: 'Sales', type: 'b', score: 40 },
-      { item: 'UX', type: 'a', score: 50 },
-      { item: 'UX', type: 'b', score: 60 },
-    ],
-    encode: { x: 'item', y: 'score', color: 'type' },
-    // 调整比例尺，使得极坐标下的展示更友好
-    scale: {
-      x: { padding: 0.5, align: 0 },
-      y: { tickCount: 5, domainMin: 0, domainMax: 80 },
+chart.options({
+  type: 'line',
+  data: [
+    { item: 'Design', type: 'a', score: 70 },
+    { item: 'Design', type: 'b', score: 30 },
+    { item: 'Development', type: 'a', score: 60 },
+    { item: 'Development', type: 'b', score: 70 },
+    { item: 'Marketing', type: 'a', score: 50 },
+    { item: 'Marketing', type: 'b', score: 60 },
+    { item: 'Users', type: 'a', score: 40 },
+    { item: 'Users', type: 'b', score: 50 },
+    { item: 'Test', type: 'a', score: 60 },
+    { item: 'Test', type: 'b', score: 70 },
+    { item: 'Language', type: 'a', score: 70 },
+    { item: 'Language', type: 'b', score: 50 },
+    { item: 'Technology', type: 'a', score: 50 },
+    { item: 'Technology', type: 'b', score: 40 },
+    { item: 'Support', type: 'a', score: 30 },
+    { item: 'Support', type: 'b', score: 40 },
+    { item: 'Sales', type: 'a', score: 60 },
+    { item: 'Sales', type: 'b', score: 40 },
+    { item: 'UX', type: 'a', score: 50 },
+    { item: 'UX', type: 'b', score: 60 },
+  ],
+  encode: { x: 'item', y: 'score', color: 'type' },
+  // 调整比例尺，使得极坐标下的展示更友好
+  scale: {
+    x: { padding: 0.5, align: 0 },
+    y: { tickCount: 5, domainMin: 0, domainMax: 80 },
+  },
+  coordinate: { type: 'polar' }, // 设置极坐标系转换
+  style: { lineWidth: 2 },
+  axis: {
+    x: { grid: true, gridLineWidth: 1, tick: false, gridLineDash: [0, 0] },
+    y: {
+      zIndex: 1,
+      title: false,
+      gridLineWidth: 1, // 网格线宽度
+      gridLineDash: [0, 0], // 网格线虚线样式
+      gridAreaFill: (dataum, index, data) => {
+        return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';
+      }, // 网格线区域填充
     },
-    coordinate: { type: 'polar' }, // 设置极坐标系转换
-    style: { lineWidth: 2 },
-    axis: {
-      x: { grid: true, gridLineWidth: 1, tick: false, gridLineDash: [0, 0] },
-      y: {
-        zIndex: 1,
-        title: false,
-        gridLineWidth: 1, // 网格线宽度
-        gridLineDash: [0, 0], // 网格线虚线样式
-        gridAreaFill: (dataum, index, data) => {
-          return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';
-        }, // 网格线区域填充
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 在**parallel 坐标系**下折线图常用来绘制平行坐标系。平行坐标系，是一种含有多个垂直平行坐标轴的统计图表。每个垂直坐标轴表示一个字段，每个字段又用刻度来标明范围。这样，一个多维的数据可以很容易的在每一条轴上找到“落点”，从而连接起来，形成一条折线。随着数据增多，折线堆叠，分析者则有可能从中发现特性和规律，比如发现数据之间的聚类关系。
@@ -395,67 +381,65 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  const positionList = [
-    'position',
-    'position1',
-    'position2',
-    'position3',
-    'position4',
-    'position5',
-    'position6',
-    'position7',
-  ];
-  const axis = {
-    zIndex: 1,
-    titlePosition: 'right',
-    line: true,
-    labelStroke: '#fff',
-    labelLineWidth: 5,
-    labelFontSize: 10,
-    labelStrokeLineJoin: 'round',
-    titleStroke: '#fff',
-    titleFontSize: 10,
-    titleLineWidth: 5,
-    titleStrokeLineJoin: 'round',
-    titleTransform: 'translate(-50%, 0) rotate(-90)',
-    lineStroke: 'black',
-    tickStroke: 'black',
-    lineLineWidth: 1,
-  };
+const positionList = [
+  'position',
+  'position1',
+  'position2',
+  'position3',
+  'position4',
+  'position5',
+  'position6',
+  'position7',
+];
+const axis = {
+  zIndex: 1,
+  titlePosition: 'right',
+  line: true,
+  labelStroke: '#fff',
+  labelLineWidth: 5,
+  labelFontSize: 10,
+  labelStrokeLineJoin: 'round',
+  titleStroke: '#fff',
+  titleFontSize: 10,
+  titleLineWidth: 5,
+  titleStrokeLineJoin: 'round',
+  titleTransform: 'translate(-50%, 0) rotate(-90)',
+  lineStroke: 'black',
+  tickStroke: 'black',
+  lineLineWidth: 1,
+};
 
-  chart.options({
-    type: 'line',
-    paddingLeft: 20,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/cars3.json',
-    },
-    encode: {
-      position: [
-        'economy (mpg)',
-        'cylinders',
-        'displacement (cc)',
-        'power (hp)',
-        'weight (lb)',
-        '0-60 mph (s)',
-        'year',
-      ],
-      color: 'weight (lb)',
-    },
-    axis: Object.fromEntries(positionList.map((item) => [item, axis])),
-    scale: { color: { palette: 'brBG', offset: (t) => 1 - t } },
-    coordinate: { type: 'parallel' }, // 配置平行坐标系转转换
-    style: { lineWidth: 1.5, strokeOpacity: 0.4 },
-    legend: { color: { length: 400, layout: { justifyContent: 'center' } } },
-    interaction: { tooltip: { series: false } },
-  });
+chart.options({
+  type: 'line',
+  paddingLeft: 20,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+  },
+  encode: {
+    position: [
+      'economy (mpg)',
+      'cylinders',
+      'displacement (cc)',
+      'power (hp)',
+      'weight (lb)',
+      '0-60 mph (s)',
+      'year',
+    ],
+    color: 'weight (lb)',
+  },
+  axis: Object.fromEntries(positionList.map((item) => [item, axis])),
+  scale: { color: { palette: 'brBG', offset: (t) => 1 - t } },
+  coordinate: { type: 'parallel' }, // 配置平行坐标系转转换
+  style: { lineWidth: 1.5, strokeOpacity: 0.4 },
+  legend: { color: { length: 400, layout: { justifyContent: 'center' } } },
+  interaction: { tooltip: { series: false } },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### style
@@ -505,25 +489,23 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { date: '06-10', count: 0, type: '测试' },
-      { date: '06-11', count: 0, type: '测试' },
-      { date: '06-12', count: 0, type: '测试' },
-      { date: '06-13', count: 0, type: '测试' },
-      { date: '06-14', count: 0, type: '测试' },
-      { date: '06-15', count: 0, type: '测试' },
-      { date: '06-16', count: 0, type: '测试' },
-    ],
-    encode: { x: 'date', y: 'count' },
-    scale: { y: { domain: [0, 1] } },
-  });
-  chart.render();
+chart.options({
+  type: 'line',
+  data: [
+    { date: '06-10', count: 0, type: '测试' },
+    { date: '06-11', count: 0, type: '测试' },
+    { date: '06-12', count: 0, type: '测试' },
+    { date: '06-13', count: 0, type: '测试' },
+    { date: '06-14', count: 0, type: '测试' },
+    { date: '06-15', count: 0, type: '测试' },
+    { date: '06-16', count: 0, type: '测试' },
+  ],
+  encode: { x: 'date', y: 'count' },
+  scale: { y: { domain: [0, 1] } },
+});
+chart.render();
 ```

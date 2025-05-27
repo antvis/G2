@@ -99,23 +99,22 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例
-  
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  chart.render();
+chart.render();
 ```

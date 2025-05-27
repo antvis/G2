@@ -70,38 +70,36 @@ This feature is conducive to encapsulation and coordinate-related composite mark
 import { Chart } from '@antv/g2';
 
 function Pie({ encode = {}, ...rest } = {}) {
-    const { value, ...restEncode } = encode;
-    return {
-      ...rest,
-      type: 'interval',
-      coordinate: { type: 'theta' }, // Encapsulation coordinate system
-      transform: [{ type: 'stackY' }],
-      encode: {
-        ...restEncode,
-        y: value,
-      },
-    };
-  }
-
-  
+  const { value, ...restEncode } = encode;
+  return {
+    ...rest,
+    type: 'interval',
+    coordinate: { type: 'theta' }, // Encapsulation coordinate system
+    transform: [{ type: 'stackY' }],
+    encode: {
+      ...restEncode,
+      y: value,
+    },
+  };
+}
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: Pie, // Use this compound mark
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: { value: 'sold', color: 'genre' },
-  });
+chart.options({
+  type: Pie, // Use this compound mark
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { value: 'sold', color: 'genre' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## Common Coordinate Systems
@@ -115,28 +113,26 @@ For example, you can use interval mark and polar coordinate transform to draw ro
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .coordinate({ type: 'polar' })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .axis('y', false);
+chart
+  .interval()
+  .coordinate({ type: 'polar' })
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .axis('y', false);
 
-  chart.render();
+chart.render();
 ```
 
 ### Theta
@@ -146,27 +142,25 @@ You can also use interval mark and theta coordinate system to draw pie charts.
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .coordinate({ type: 'theta' })
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre');
+chart
+  .interval()
+  .coordinate({ type: 'theta' })
+  .transform({ type: 'stackY' })
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('y', 'sold')
+  .encode('color', 'genre');
 
-  chart.render();
+chart.render();
 ```
 
 ### Radial
@@ -176,30 +170,28 @@ You can also use interval mark and radial coordinate systems to draw radial char
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .coordinate({ type: 'radial', endAngle: Math.PI })
-    .data([
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Shooter', sold: 350 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .axis('y', false)
-    .legend('color', false)
-    .axis('x', { title: null });
+chart
+  .interval()
+  .coordinate({ type: 'radial', endAngle: Math.PI })
+  .data([
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Shooter', sold: 350 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .axis('y', false)
+  .legend('color', false)
+  .axis('x', { title: null });
 
-  chart.render();
+chart.render();
 ```
 
 ### Parallel
@@ -210,69 +202,67 @@ In addition to the previous relatively basic coordinate transform, there are als
 import { Chart } from '@antv/g2';
 
 const axis = {
-    zIndex: 1,
-    titlePosition: 'right',
-    line: true,
-    labelStroke: '#fff',
-    labelStrokeWidth: 5,
-    labelFontSize: 10,
-    labelStrokeLineJoin: 'round',
-    titleStroke: '#fff',
-    titleFontSize: 10,
-    titleStrokeWidth: 5,
-    titleStrokeLineJoin: 'round',
-    titleTransform: 'translate(-50%, 0) rotate(-90)',
-    lineStroke: 'black',
-    tickStroke: 'black',
-    lineStrokeWidth: 1,
-  };
-
-  
+  zIndex: 1,
+  titlePosition: 'right',
+  line: true,
+  labelStroke: '#fff',
+  labelStrokeWidth: 5,
+  labelFontSize: 10,
+  labelStrokeLineJoin: 'round',
+  titleStroke: '#fff',
+  titleFontSize: 10,
+  titleStrokeWidth: 5,
+  titleStrokeLineJoin: 'round',
+  titleTransform: 'translate(-50%, 0) rotate(-90)',
+  lineStroke: 'black',
+  tickStroke: 'black',
+  lineStrokeWidth: 1,
+};
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .line()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/cars3.json',
-    })
-    .coordinate({ type: 'parallel' }) // Specify parallel coordinate transform
-    //Specify the data dimension of concern
-    //Each data dimension corresponds to an axis
-    .encode('position', [
-      'economy (mpg)',
-      'cylinders',
-      'displacement (cc)',
-      'power (hp)',
-      'weight (lb)',
-      '0-60 mph (s)',
-      'year',
-    ])
-    .encode('color', 'weight (lb)')
-    .style('strokeWidth', 1.5)
-    .style('strokeOpacity', 0.4)
-    .scale('color', {
-      type: 'sequential',
-      palette: 'brBG',
-      offset: (t) => 1 - t,
-    })
-    .legend({
-      color: { length: 400 },
-    })
-    .axis('position', axis)
-    .axis('position1', axis)
-    .axis('position2', axis)
-    .axis('position3', axis)
-    .axis('position4', axis)
-    .axis('position5', axis)
-    .axis('position6', axis)
-    .axis('position7', axis)
-    .interaction('tooltip', { series: false });
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+  })
+  .coordinate({ type: 'parallel' }) // Specify parallel coordinate transform
+  //Specify the data dimension of concern
+  //Each data dimension corresponds to an axis
+  .encode('position', [
+    'economy (mpg)',
+    'cylinders',
+    'displacement (cc)',
+    'power (hp)',
+    'weight (lb)',
+    '0-60 mph (s)',
+    'year',
+  ])
+  .encode('color', 'weight (lb)')
+  .style('strokeWidth', 1.5)
+  .style('strokeOpacity', 0.4)
+  .scale('color', {
+    type: 'sequential',
+    palette: 'brBG',
+    offset: (t) => 1 - t,
+  })
+  .legend({
+    color: { length: 400 },
+  })
+  .axis('position', axis)
+  .axis('position1', axis)
+  .axis('position2', axis)
+  .axis('position3', axis)
+  .axis('position4', axis)
+  .axis('position5', axis)
+  .axis('position6', axis)
+  .axis('position7', axis)
+  .interaction('tooltip', { series: false });
 
-  chart.render();
+chart.render();
 ```
 
 ## Coordinate Transform
@@ -286,26 +276,24 @@ One of the more commonly used transform is transpose, which is mainly used to ch
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .coordinate({ transform: [{ type: 'transpose' }] }) // Appoint transpose
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+chart
+  .interval()
+  .coordinate({ transform: [{ type: 'transpose' }] }) // Appoint transpose
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  chart.render();
+chart.render();
 ```
 
 ### Fisheye
@@ -315,31 +303,29 @@ There is also a fisheye coordinate transform, which is used to set the focus of 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    })
-    .encode('x', 'GDP')
-    .encode('y', 'LifeExpectancy')
-    .encode('size', 'Population')
-    .encode('color', 'continent')
-    .encode('shape', 'point')
-    .scale('size', { type: 'log', range: [4, 20] })
-    .axis('x', { labelFormatter: '~s' })
-    .style('fillOpacity', 0.3)
-    .style('lineWidth', 1)
-    .legend(false)
-    .interaction('fisheye');
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  })
+  .encode('x', 'GDP')
+  .encode('y', 'LifeExpectancy')
+  .encode('size', 'Population')
+  .encode('color', 'continent')
+  .encode('shape', 'point')
+  .scale('size', { type: 'log', range: [4, 20] })
+  .axis('x', { labelFormatter: '~s' })
+  .style('fillOpacity', 0.3)
+  .style('lineWidth', 1)
+  .legend(false)
+  .interaction('fisheye');
 
-  chart.render();
+chart.render();
 ```
 
 ## 3D Coordinate System

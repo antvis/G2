@@ -1,5 +1,5 @@
 ---
-title: New Version Features  
+title: New Version Features
 order: 1
 ---
 
@@ -9,11 +9,11 @@ Thanks to this, compared to low-level visualization tools like D3, G2 has lower 
 
 Of course, it is only our basic mission to draw more charts more easily. We also hope to convey correct visual thinking to everyone in the process. Language is the most direct way to transmit thinking, so we attach great importance to simplicity and professionalism when designing grammar or API. We refer to many academic research results and best practices in the industry. Based on the original graphics grammar, enhancements including but not limited to the following have been made:
 
-* Simplified syntax for data exploration
-* Add animation syntax
-* Add syntax for unit visualization
-* Add interactive syntax (still under design)
-* ...
+- Simplified syntax for data exploration
+- Add animation syntax
+- Add syntax for unit visualization
+- Add interactive syntax (still under design)
+- ...
 
 In simpler terms: **With G2, you can get more visualization effects more professionally and quickly, and gain visual thinking at the same time** .
 
@@ -24,52 +24,49 @@ You can draw a chart in one sentence, and in addition to drawing the graph itsel
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  //One sentence statement visualization
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender');
+//One sentence statement visualization
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender');
 
-  chart.render();
+chart.render();
 ```
+
 G2 simplicity comes from **default value** : You only need to provide the tag type, data and encoding type, and G2 will infer the rest for you. Of course, the great thing about G2 is that the default values ​​can be overridden as needed. We hope that G2 can look good and display insightful information by default, and you can optimize the display of charts based on your specific scenarios and domain knowledge. Will the appeal chart be more readable if the axis tick display is optimized? If you change it to the following color, do you like it better?
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .scale('x', { nice: true }) // Optimize coordinate tick display
-    .scale('y', { nice: true }) // Optimize coordinate tick display
-    .scale('color', { range: ['steelblue', 'orange'] }); // Change color
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender')
+  .scale('x', { nice: true }) // Optimize coordinate tick display
+  .scale('y', { nice: true }) // Optimize coordinate tick display
+  .scale('color', { range: ['steelblue', 'orange'] }); // Change color
 
-  chart.render();
+chart.render();
 ```
 
 You may think that a scatter plot is too simple, so let’s see how G2 draws a sankey graph in one sentence!
@@ -77,39 +74,35 @@ You may think that a scatter plot is too simple, so let’s see how G2 draws a s
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    width: 900,
-    height: 600,
-    
-  
+  width: 900,
+  height: 600,
 });
 
 // Sankey mark
-  chart
-    .sankey()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/energy.json',
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => ({ links: data }),
-        },
-      ],
-    })
-    .layout({
-      nodeAlign: 'center',
-      nodePadding: 0.03,
-    })
-    .style('labelSpacing', 3)
-    .style('labelFontWeight', 'bold')
-    .style('nodeStrokeWidth', 1.2)
-    .style('linkFillOpacity', 0.4);
+chart
+  .sankey()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/energy.json',
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => ({ links: data }),
+      },
+    ],
+  })
+  .layout({
+    nodeAlign: 'center',
+    nodePadding: 0.03,
+  })
+  .style('labelSpacing', 3)
+  .style('labelFontWeight', 'bold')
+  .style('nodeStrokeWidth', 1.2)
+  .style('linkFillOpacity', 0.4);
 
-  chart.render();
+chart.render();
 ```
 
 ## Rich chart types
@@ -119,30 +112,27 @@ G2 can draw a variety of chart types. In addition to supporting basic fold and c
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .link()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
-    })
-    .encode('x', ['POP_1980', 'POP_2015'])
-    .encode('y', ['R90_10_1980', 'R90_10_2015'])
-    .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
-    .scale('x', { type: 'log' })
-    .style('arrow', true)
-    .style('arrowSize', 6)
-    .axis('x', { labelFormatter: '~s' })
-    .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } })
-    .legend(false);
+chart
+  .link()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
+  })
+  .encode('x', ['POP_1980', 'POP_2015'])
+  .encode('y', ['R90_10_1980', 'R90_10_2015'])
+  .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
+  .scale('x', { type: 'log' })
+  .style('arrow', true)
+  .style('arrowSize', 6)
+  .axis('x', { labelFormatter: '~s' })
+  .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } })
+  .legend(false);
 
-  chart.render();
+chart.render();
 ```
 
 The most wonderful thing about G2 is that you can get new charts by combining different charts (more precisely marks)! For example, if we add the point mark of the scatter chart and the link mark of the connection chart to a chart, we can obtain a labeled point-line connection chart.
@@ -150,55 +140,51 @@ The most wonderful thing about G2 is that you can get new charts by combining di
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    height: 180,
-    
-  
+  height: 180,
 });
 
-  chart.data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-    transform: [
-      {
-        type: 'map',
-        callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
-      },
-    ],
-  });
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+  transform: [
+    {
+      type: 'map',
+      callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
+    },
+  ],
+});
 
-  // Point Symbol
-  chart
-    .point()
-    .encode('x', 'body_mass_g')
-    .encode('y', 'species')
-    .style('stroke', '#000')
-    .tooltip({ channel: 'x' });
+// Point Symbol
+chart
+  .point()
+  .encode('x', 'body_mass_g')
+  .encode('y', 'species')
+  .style('stroke', '#000')
+  .tooltip({ channel: 'x' });
 
-  // Link Symbol
-  chart
-    .link()
-    .encode('x', 'body_mass_g')
-    .encode('y', 'species')
-    .transform({ type: 'groupY', x: 'min', x1: 'max' })
-    .style('stroke', '#000')
-    .tooltip(false);
+// Link Symbol
+chart
+  .link()
+  .encode('x', 'body_mass_g')
+  .encode('y', 'species')
+  .transform({ type: 'groupY', x: 'min', x1: 'max' })
+  .style('stroke', '#000')
+  .tooltip(false);
 
-  // Point Symbol
-  chart
-    .point()
-    .encode('y', 'species')
-    .encode('x', 'body_mass_g')
-    .encode('shape', 'line')
-    .encode('size', 12)
-    .transform({ type: 'groupY', x: 'median' })
-    .style('stroke', 'red')
-    .tooltip({ channel: 'x' });
+// Point Symbol
+chart
+  .point()
+  .encode('y', 'species')
+  .encode('x', 'body_mass_g')
+  .encode('shape', 'line')
+  .encode('size', 12)
+  .transform({ type: 'groupY', x: 'median' })
+  .style('stroke', 'red')
+  .tooltip({ channel: 'x' });
 
-  chart.render();
+chart.render();
 ```
 
 ## Strong data analysis capabilities
@@ -208,23 +194,21 @@ In the process of visualization, processing data often takes a lot of time, and 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    })
-    .encode('x', 'weight')
-    .transform({ type: 'binX', y: 'count' })
-    .style('inset', 0.5);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  })
+  .encode('x', 'weight')
+  .transform({ type: 'binX', y: 'count' })
+  .style('inset', 0.5);
 
-  chart.render();
+chart.render();
 ```
 
 Want your chart split by gender?
@@ -232,25 +216,23 @@ Want your chart split by gender?
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    })
-    .encode('x', 'weight')
-    .encode('color', 'sex') // Include color coding
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY', orderBy: 'series' })
-    .style('inset', 0.5);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  })
+  .encode('x', 'weight')
+  .encode('color', 'sex') // Include color coding
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY', orderBy: 'series' })
+  .style('inset', 0.5);
 
-  chart.render();
+chart.render();
 ```
 
 Want to see the distribution of each gender being separated?
@@ -258,32 +240,29 @@ Want to see the distribution of each gender being separated?
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    
-    paddingLeft: 50,
-    paddingBottom: 50,
-  
+
+  paddingLeft: 50,
+  paddingBottom: 50,
 });
 
-  const facet = chart.facetRect().encode('y', 'sex').data({
+const facet = chart.facetRect().encode('y', 'sex').data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+});
+
+facet
+  .rect()
+  .data({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-  });
+  })
+  .encode('x', 'weight')
+  .transform({ type: 'binX', y: 'count' })
+  .style('inset', 0.5);
 
-  facet
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    })
-    .encode('x', 'weight')
-    .transform({ type: 'binX', y: 'count' })
-    .style('inset', 0.5);
-
-  chart.render();
+chart.render();
 ```
 
 ## Vivid animation capabilities
@@ -293,33 +272,31 @@ G2 can draw data-driven animations to achieve the effect of visual storytelling.
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .coordinate({ transform: [{ type: 'transpose' }] })
-    .data([
-      { name: 'event planning', startTime: 1, endTime: 4 },
-      { name: 'layout logistics', startTime: 3, endTime: 13 },
-      { name: 'select vendors', startTime: 5, endTime: 8 },
-      { name: 'hire venue', startTime: 9, endTime: 13 },
-      { name: 'hire caterer', startTime: 10, endTime: 14 },
-      { name: 'hire event decorators', startTime: 12, endTime: 17 },
-      { name: 'rehearsal', startTime: 14, endTime: 16 },
-      { name: 'event celebration', startTime: 17, endTime: 18 },
-    ])
-    .encode('x', 'name')
-    .encode('y', ['endTime', 'startTime'])
-    .encode('color', 'name')
-    .encode('enterDuration', (d) => d.endTime - d.startTime) // Bind animation duration with durationTime.
-    .encode('enterDelay', 'startTime') // Bind enterDelay and startTime
-    .scale('enterDuration', { zero: true, range: [0, 3000] });
+chart
+  .interval()
+  .coordinate({ transform: [{ type: 'transpose' }] })
+  .data([
+    { name: 'event planning', startTime: 1, endTime: 4 },
+    { name: 'layout logistics', startTime: 3, endTime: 13 },
+    { name: 'select vendors', startTime: 5, endTime: 8 },
+    { name: 'hire venue', startTime: 9, endTime: 13 },
+    { name: 'hire caterer', startTime: 10, endTime: 14 },
+    { name: 'hire event decorators', startTime: 12, endTime: 17 },
+    { name: 'rehearsal', startTime: 14, endTime: 16 },
+    { name: 'event celebration', startTime: 17, endTime: 18 },
+  ])
+  .encode('x', 'name')
+  .encode('y', ['endTime', 'startTime'])
+  .encode('color', 'name')
+  .encode('enterDuration', (d) => d.endTime - d.startTime) // Bind animation duration with durationTime.
+  .encode('enterDelay', 'startTime') // Bind enterDelay and startTime
+  .scale('enterDuration', { zero: true, range: [0, 3000] });
 
-  chart.render();
+chart.render();
 ```
 
 At the same time, the animation channel can be converted to control the order and time of appearance of data elements. For example, in the rose picture below, each "petal" appears in sequence:
@@ -327,30 +304,28 @@ At the same time, the animation channel can be converted to control the order an
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .coordinate({ type: 'polar' })
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/deaths.json',
-    })
-    .encode('x', 'Month')
-    .encode('y', 'Death')
-    .encode('color', 'Type')
-    .transform({ type: 'stackY' })
-    // Appear by order
-    .transform({ type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 })
-    .scale('y', { type: 'sqrt' })
-    .animate('enter', { type: 'waveIn' })
-    .axis('y', false);
+chart
+  .interval()
+  .coordinate({ type: 'polar' })
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/deaths.json',
+  })
+  .encode('x', 'Month')
+  .encode('y', 'Death')
+  .encode('color', 'Type')
+  .transform({ type: 'stackY' })
+  // Appear by order
+  .transform({ type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 })
+  .scale('y', { type: 'sqrt' })
+  .animate('enter', { type: 'waveIn' })
+  .axis('y', false);
 
-  chart.render();
+chart.render();
 ```
 
 In addition to animation in a certain view, you can also do continuous deformation animation between different views: graphics are related together through data, such as the transition animation of scatter plots and aggregated bars below:
@@ -363,7 +338,7 @@ import { Chart } from '@antv/g2';
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  
+
 
 const chart = new Chart({
   container: 'container',
@@ -407,130 +382,124 @@ In addition to providing rich built-in interactions, G2 also provides the abilit
 import { Chart } from '@antv/g2';
 
 const container = document.createElement('div');
-  const focusContainer = document.createElement('div');
-  const contextContainer = document.createElement('div');
-  container.append(focusContainer);
-  container.append(contextContainer);
+const focusContainer = document.createElement('div');
+const contextContainer = document.createElement('div');
+container.append(focusContainer);
+container.append(contextContainer);
 
-  // Render focus view
-  
+// Render focus view
 
 const focus = new Chart({
   container: 'container',
-    container: focusContainer,
-      height: 360,
-    paddingLeft: 50,
-  
+  container: focusContainer,
+  height: 360,
+  paddingLeft: 50,
 });
 
-  focus
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis('x', { grid: false, title: false, tickCount: 5 })
-    .axis('y', { grid: false, tickCount: 5 })
-    .interaction('tooltip', false)
-    .interaction('brushXFilter', true);
+focus
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis('x', { grid: false, title: false, tickCount: 5 })
+  .axis('y', { grid: false, tickCount: 5 })
+  .interaction('tooltip', false)
+  .interaction('brushXFilter', true);
 
-  focus.render();
+focus.render();
 
-  // Render context view
-  
+// Render context view
 
 const context = new Chart({
   container: 'container',
-    container: contextContainer,
-      paddingLeft: 50,
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: 60,
-  
+  container: contextContainer,
+  paddingLeft: 50,
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: 60,
 });
 
-  context
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis(false)
-    .interaction('tooltip', false)
-    .interaction('brushXHighlight', { series: true });
+context
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis(false)
+  .interaction('tooltip', false)
+  .interaction('brushXHighlight', { series: true });
 
-  context.render();
+context.render();
 
-  // Add event listeners for communication between different charts.
-  focus.on('brush:filter', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { selection } = e.data;
-    const { x: scaleX } = focus.getScale();
-    const [[x1, x2]] = selection;
-    const domainX = scaleX.getOptions().domain;
-    if (x1 === domainX[0] && x2 === domainX[1]) {
-      context.emit('brush:remove', {});
-    } else {
-      context.emit('brush:highlight', { data: { selection } });
-    }
-  });
+// Add event listeners for communication between different charts.
+focus.on('brush:filter', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { selection } = e.data;
+  const { x: scaleX } = focus.getScale();
+  const [[x1, x2]] = selection;
+  const domainX = scaleX.getOptions().domain;
+  if (x1 === domainX[0] && x2 === domainX[1]) {
+    context.emit('brush:remove', {});
+  } else {
+    context.emit('brush:highlight', { data: { selection } });
+  }
+});
 
-  context.on('brush:highlight', (e) => {
-    const { nativeEvent, data } = e;
-    if (!nativeEvent) return;
-    const { selection } = data;
-    focus.emit('brush:filter', { data: { selection } });
-  });
+context.on('brush:highlight', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  const { selection } = data;
+  focus.emit('brush:filter', { data: { selection } });
+});
 
-  context.on('brush:remove', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { x: scaleX, y: scaleY } = context.getScale();
-    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
-    focus.emit('brush:filter', { data: { selection } });
-  });
+context.on('brush:remove', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { x: scaleX, y: scaleY } = context.getScale();
+  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+  focus.emit('brush:filter', { data: { selection } });
+});
 
-  return container;
+return container;
 ```
 
 ## Two API styles
 
- G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](#concise-syntax), if you use the optional API, the scatter plot in can be declared as follows:
+G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](#concise-syntax), if you use the optional API, the scatter plot in can be declared as follows:
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
-  // Declare the chart via the options API
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-    encode: {
-      x: 'weight',
-      y: 'height',
-      color: 'gender',
-    },
-  });
+// Declare the chart via the options API
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  },
+  encode: {
+    x: 'weight',
+    y: 'height',
+    color: 'gender',
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 You can find that the charts drawn by the two are exactly the same! In fact, this is indeed true: the visual expression capabilities of the two APIs are the same. In other words, diagrams that can be drawn by the functional API can also be drawn by the optional API, and vice versa. In terms of implementation, the functional API is built on the optional API, which is converted into the corresponding JavaScript and then rendered.
@@ -540,46 +509,42 @@ The choice between the two is more of a matter of style: if you are familiar wit
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    height: 150,
-    padding: 10,
-    
-  
+  height: 150,
+  padding: 10,
 });
 
-  const mock = () => Array.from({ length: 20 }, () => Math.random());
+const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-  //Initialize chart
-  //Use optional API
-  chart.options({
-    type: 'interval',
-    data: mock(),
-    encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
-    axis: false,
-    tooltip: {
-      items: [{ channel: 'y', valueFormatter: '.0%' }],
-    },
-  });
+//Initialize chart
+//Use optional API
+chart.options({
+  type: 'interval',
+  data: mock(),
+  encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
+  axis: false,
+  tooltip: {
+    items: [{ channel: 'y', valueFormatter: '.0%' }],
+  },
+});
 
-  chart.render();
+chart.render();
 
-  //Update chart
-  // Use functional API
-  const button = document.createElement('button');
-  button.style.display = 'block';
-  button.textContent = 'Update data';
-  button.onclick = () => {
-    const interval = chart.getNodeByType('interval'); // Get interval
-    interval.data(mock()); // Update interval data
-    chart.render(); // Render chart
-  };
+//Update chart
+// Use functional API
+const button = document.createElement('button');
+button.style.display = 'block';
+button.textContent = 'Update data';
+button.onclick = () => {
+  const interval = chart.getNodeByType('interval'); // Get interval
+  interval.data(mock()); // Update interval data
+  chart.render(); // Render chart
+};
 
-  const node = chart.getContainer();
-  node.insertBefore(button, node.childNodes[0]);
-  return node;
+const node = chart.getContainer();
+node.insertBefore(button, node.childNodes[0]);
+return node;
 ```
 
 ## Can be combined
@@ -590,61 +555,59 @@ G2 provides a simple compound mark mechanism for enhancing charts or customizing
 import { Chart } from '@antv/g2';
 
 //Declare composite mark
-  function PointLineArea({ data, encode = {}, style = {} } = {}) {
-    const { fillOpacity = 0.1 } = style;
-    return [
-      {
-        type: 'area',
-        data,
-        encode,
-        style: { fillOpacity },
-      },
-      { type: 'line', data, encode },
-      { type: 'point', data, encode },
-    ];
-  }
-
-  
+function PointLineArea({ data, encode = {}, style = {} } = {}) {
+  const { fillOpacity = 0.1 } = style;
+  return [
+    {
+      type: 'area',
+      data,
+      encode,
+      style: { fillOpacity },
+    },
+    { type: 'line', data, encode },
+    { type: 'point', data, encode },
+  ];
+}
 
 const chart = new Chart({
   container: 'container',
 });
 
-  // The usage of composite mark in API
-  chart
-    .mark(PointLineArea)
-    .data([
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 15900 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value');
+// The usage of composite mark in API
+chart
+  .mark(PointLineArea)
+  .data([
+    { year: '1991', value: 15468 },
+    { year: '1992', value: 16100 },
+    { year: '1993', value: 15900 },
+    { year: '1994', value: 17409 },
+    { year: '1995', value: 17000 },
+    { year: '1996', value: 31056 },
+    { year: '1997', value: 31982 },
+    { year: '1998', value: 32040 },
+    { year: '1999', value: 33233 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value');
 
-  // Using composite mark in Spec
-  chart.options({
-    type: PointLineArea,
-    data: [
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 15900 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ],
-    encode: { x: 'year', y: 'value' },
-  });
+// Using composite mark in Spec
+chart.options({
+  type: PointLineArea,
+  data: [
+    { year: '1991', value: 15468 },
+    { year: '1992', value: 16100 },
+    { year: '1993', value: 15900 },
+    { year: '1994', value: 17409 },
+    { year: '1995', value: 17000 },
+    { year: '1996', value: 31056 },
+    { year: '1997', value: 31982 },
+    { year: '1998', value: 32040 },
+    { year: '1999', value: 33233 },
+  ],
+  encode: { x: 'year', y: 'value' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 Composite mark makes it easier to add charts based on G2 and simpler to maintain. At the same time, some marks within G2 are also implemented based on this method.
@@ -656,48 +619,43 @@ G2 is an architecture built by **Runtime** and a series of **Visual component (C
 ```js | ob { autoMount: true }
 import { register, Chart } from '@antv/g2';
 
-
-
-
-  // Customize a triangle shape
-  register('shape.interval.triangle', (style, context) => {
-    const { document } = context;
-    return (P, value, defaults) => {
-      const { color: defaultColor } = defaults;
-      const [p0, p1, p2, p3] = P;
-      const pm = [(p0[0] + p1[0]) / 2, p0[1]];
-      const { color = defaultColor } = value;
-      return document.createElement('polygon', {
-        style: {
-          ...style,
-          fill: color,
-          points: [pm, p2, p3],
-        },
-      });
-    };
-  });
-
-  
+// Customize a triangle shape
+register('shape.interval.triangle', (style, context) => {
+  const { document } = context;
+  return (P, value, defaults) => {
+    const { color: defaultColor } = defaults;
+    const [p0, p1, p2, p3] = P;
+    const pm = [(p0[0] + p1[0]) / 2, p0[1]];
+    const { color = defaultColor } = value;
+    return document.createElement('polygon', {
+      style: {
+        ...style,
+        fill: color,
+        points: [pm, p2, p3],
+      },
+    });
+  };
+});
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .encode('shape', 'triangle'); // Using this shape
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .encode('shape', 'triangle'); // Using this shape
 
-  chart.render();
+chart.render();
 ```
 
 ## Pack on demand

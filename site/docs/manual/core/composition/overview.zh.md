@@ -30,46 +30,44 @@ layer.view();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  const layer = chart.spaceLayer();
+const layer = chart.spaceLayer();
 
-  // 条形图
-  layer
-    .interval()
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+// 条形图
+layer
+  .interval()
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  // 饼图
-  layer
-    .interval() // 创建一个 interval
-    .attr('paddingLeft', 300) // 设置位置
-    .attr('paddingBottom', 250)
-    .coordinate({ type: 'theta' }) // 指定坐标系
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .legend('color', false);
+// 饼图
+layer
+  .interval() // 创建一个 interval
+  .attr('paddingLeft', 300) // 设置位置
+  .attr('paddingBottom', 250)
+  .coordinate({ type: 'theta' }) // 指定坐标系
+  .transform({ type: 'stackY' })
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .legend('color', false);
 
-  chart.render();
+chart.render();
 ```
 
 同时也可以使用 `composition.spaceFlex` 去让视图水平或者竖直排列。
@@ -77,43 +75,41 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  const flex = chart.spaceFlex();
+const flex = chart.spaceFlex();
 
-  // 条形图
-  flex
-    .interval()
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+// 条形图
+flex
+  .interval()
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  // 饼图
-  flex
-    .interval() // 创建一个 interval
-    .coordinate({ type: 'theta' }) // 指定坐标系
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .legend('color', false);
+// 饼图
+flex
+  .interval() // 创建一个 interval
+  .coordinate({ type: 'theta' }) // 指定坐标系
+  .transform({ type: 'stackY' })
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .legend('color', false);
 
-  chart.render();
+chart.render();
 ```
 
 同时这些复合方式是可以嵌套的，所以很容易通过一个单独的声明去实现一个报表。
@@ -125,36 +121,33 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    height: 260,
-    width: 800,
-    paddingLeft: 40,
-    paddingBottom: 50,
-  
+  height: 260,
+  width: 800,
+  paddingLeft: 40,
+  paddingBottom: 50,
 });
 
-  const facetRect = chart
-    .facetRect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-    })
-    // 将数据按照 series 字段划分成一个个子集，
-    // 并且是 x 方向排列
-    .encode('x', 'series');
+const facetRect = chart
+  .facetRect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
+  })
+  // 将数据按照 series 字段划分成一个个子集，
+  // 并且是 x 方向排列
+  .encode('x', 'series');
 
-  facetRect
-    .point()
-    .attr('padding', 'auto')
-    .attr('inset', 10)
-    .encode('x', 'x')
-    .encode('y', 'y')
-    .style('stroke', '#000');
+facetRect
+  .point()
+  .attr('padding', 'auto')
+  .attr('inset', 10)
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .style('stroke', '#000');
 
-  chart.render();
+chart.render();
 ```
 
 ## 重复
@@ -164,38 +157,35 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    width: 900,
-    height: 900,
-    padding: 'auto',
-    paddingLeft: 55,
-    paddingBottom: 45,
-  
+  width: 900,
+  height: 900,
+  padding: 'auto',
+  paddingLeft: 55,
+  paddingBottom: 45,
 });
 
-  const repeatMatrix = chart
-    .repeatMatrix()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      // 数据处理
-    })
-    // 指定需要重复的编码
-    // 一共会生成 4 * 4 = 16 个视图
-    // 每个视图的 x 和 y 编码是下面字段的叉乘
-    .encode('position', [
-      'culmen_length_mm',
-      'culmen_depth_mm',
-      'flipper_length_mm',
-      'body_mass_g',
-    ]);
+const repeatMatrix = chart
+  .repeatMatrix()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    // 数据处理
+  })
+  // 指定需要重复的编码
+  // 一共会生成 4 * 4 = 16 个视图
+  // 每个视图的 x 和 y 编码是下面字段的叉乘
+  .encode('position', [
+    'culmen_length_mm',
+    'culmen_depth_mm',
+    'flipper_length_mm',
+    'body_mass_g',
+  ]);
 
-  repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
+repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
 
-  chart.render();
+chart.render();
 ```
 
 ## 时间
@@ -210,7 +200,7 @@ import { Chart } from '@antv/g2';
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  
+
 
 const chart = new Chart({
   container: 'container',

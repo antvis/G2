@@ -30,46 +30,44 @@ A more common way of composition is `composition.spaceLayer`: overlaying multipl
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  const layer = chart.spaceLayer();
+const layer = chart.spaceLayer();
 
-  // Bar chart
-  layer
-    .interval()
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+// Bar chart
+layer
+  .interval()
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  // Pie chart
-  layer
-    .interval() // Create an interval
-    .attr('paddingLeft', 300) // Setting position
-    .attr('paddingBottom', 250)
-    .coordinate({ type: 'theta' }) // Specify coordinate system
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .legend('color', false);
+// Pie chart
+layer
+  .interval() // Create an interval
+  .attr('paddingLeft', 300) // Setting position
+  .attr('paddingBottom', 250)
+  .coordinate({ type: 'theta' }) // Specify coordinate system
+  .transform({ type: 'stackY' })
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .legend('color', false);
 
-  chart.render();
+chart.render();
 ```
 
 You can also use `composition.spaceFlex` to arrange views horizontally or vertically.
@@ -77,43 +75,41 @@ You can also use `composition.spaceFlex` to arrange views horizontally or vertic
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  const flex = chart.spaceFlex();
+const flex = chart.spaceFlex();
 
-  // Bar chart
-  flex
-    .interval()
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+// Bar chart
+flex
+  .interval()
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  // Pie chart
-  flex
-    .interval() // Create an interval
-    .coordinate({ type: 'theta' }) // Specify coordinate system
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Strategy', sold: 115 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .legend('color', false);
+// Pie chart
+flex
+  .interval() // Create an interval
+  .coordinate({ type: 'theta' }) // Specify coordinate system
+  .transform({ type: 'stackY' })
+  .data([
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Strategy', sold: 115 },
+  ])
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .legend('color', false);
 
-  chart.render();
+chart.render();
 ```
 
 Also, these composition methods can be nested, so it's easy to implement a report through a separate statement.
@@ -125,36 +121,33 @@ Also, these composition methods can be nested, so it's easy to implement a repor
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    height: 260,
-    width: 800,
-    paddingLeft: 40,
-    paddingBottom: 50,
-  
+  height: 260,
+  width: 800,
+  paddingLeft: 40,
+  paddingBottom: 50,
 });
 
-  const facetRect = chart
-    .facetRect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-    })
-    // Partition the data based on the 'series' field,
-    // and arrange them in the x direction
-    .encode('x', 'series');
+const facetRect = chart
+  .facetRect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
+  })
+  // Partition the data based on the 'series' field,
+  // and arrange them in the x direction
+  .encode('x', 'series');
 
-  facetRect
-    .point()
-    .attr('padding', 'auto')
-    .attr('inset', 10)
-    .encode('x', 'x')
-    .encode('y', 'y')
-    .style('stroke', '#000');
+facetRect
+  .point()
+  .attr('padding', 'auto')
+  .attr('inset', 10)
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .style('stroke', '#000');
 
-  chart.render();
+chart.render();
 ```
 
 ## Repeat
@@ -164,38 +157,35 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    width: 900,
-    height: 900,
-    padding: 'auto',
-    paddingLeft: 55,
-    paddingBottom: 45,
-  
+  width: 900,
+  height: 900,
+  padding: 'auto',
+  paddingLeft: 55,
+  paddingBottom: 45,
 });
 
-  const repeatMatrix = chart
-    .repeatMatrix()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      // Data processing
-    })
-    // Specify the encodings to be repeated
-    // A total of 4 * 4 = 16 views will be generated
-    // The x and y encodings of each view are the cross product of the following fields
-    .encode('position', [
-      'culmen_length_mm',
-      'culmen_depth_mm',
-      'flipper_length_mm',
-      'body_mass_g',
-    ]);
+const repeatMatrix = chart
+  .repeatMatrix()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    // Data processing
+  })
+  // Specify the encodings to be repeated
+  // A total of 4 * 4 = 16 views will be generated
+  // The x and y encodings of each view are the cross product of the following fields
+  .encode('position', [
+    'culmen_length_mm',
+    'culmen_depth_mm',
+    'flipper_length_mm',
+    'body_mass_g',
+  ]);
 
-  repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
+repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
 
-  chart.render();
+chart.render();
 ```
 
 ## Time
@@ -210,7 +200,7 @@ import { Chart } from '@antv/g2';
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  
+
 
 const chart = new Chart({
   container: 'container',
@@ -220,7 +210,7 @@ const chart = new Chart({
   const keyframe = chart
     .timingKeyframe() // Create container
     .attr('iterationCount', 2)
-    .attr('direction', 'alternate') 
+    .attr('direction', 'alternate')
     .attr('duration', 1000);
 
   keyframe
@@ -243,4 +233,3 @@ const chart = new Chart({
 
   chart.render();
 ```
-

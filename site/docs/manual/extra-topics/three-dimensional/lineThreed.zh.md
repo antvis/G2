@@ -17,61 +17,58 @@ order: 2
 ```js | ob { autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
+const renderer = new gWebgl.Renderer();
+renderer.registerPlugin(new gPluginControl.Plugin());
+renderer.registerPlugin(new gPlugin3d.Plugin());
 
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...g2Extension3d.threedlib(),
+});
 
+// 初始化图表实例
+const chart = new Chart({
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
 
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+const pointCount = 31;
+let r;
+const data = [];
 
-  const Chart = extend(Runtime, {
-    ...corelib(),
-    ...g2Extension3d.threedlib(),
+for (let i = 0; i < pointCount; i++) {
+  r = 10 * Math.cos(i / 10);
+  data.push({
+    x: r * Math.cos(i),
+    y: r * Math.sin(i),
+    z: i,
   });
+}
 
-  // 初始化图表实例
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
+chart
+  .line3D()
+  .data(data)
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .encode('z', 'z')
+  .encode('size', 4)
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
 
-  const pointCount = 31;
-  let r;
-  const data = [];
-
-  for (let i = 0; i < pointCount; i++) {
-    r = 10 * Math.cos(i / 10);
-    data.push({
-      x: r * Math.cos(i),
-      y: r * Math.sin(i),
-      z: i,
-    });
-  }
-
-  chart
-    .line3D()
-    .data(data)
-    .encode('x', 'x')
-    .encode('y', 'y')
-    .encode('z', 'z')
-    .encode('size', 4)
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-  });
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(g.CameraType.ORBITING);
+});
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。

@@ -82,27 +82,25 @@ chart.style({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .style('fill', 'steelblue') // 设置和数据无关的通道
-    .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // 设置和数据有关的通道
-    .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
-    .axis('y', { labelFormatter: '.0%' });
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .style('fill', 'steelblue') // 设置和数据无关的通道
+  .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // 设置和数据有关的通道
+  .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
+  .axis('y', { labelFormatter: '.0%' });
 
-  chart.render();
+chart.render();
 ```
 
 ### 视图样式
@@ -119,53 +117,51 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    height: 280,
-    inset: 10,
-    marginTop: 30,
-    marginLeft: 40,
-    marginBottom: 10,
-    marginRight: 20,
-    style: {
-      // 设置视图样式
-      viewFill: '#4e79a7',
-      plotFill: '#f28e2c',
-      mainFill: '#e15759',
-      contentFill: '#76b7b2',
-    },
-    children: [
-      {
-        type: 'point',
-        data: {
-          type: 'fetch',
-          value: 'https://assets.antv.antgroup.com/g2/commits.json',
-        },
-        encode: {
-          x: (d) => new Date(d.time).getUTCHours(),
-          y: (d) => new Date(d.time).getUTCDay(),
-          size: 'count',
-          shape: 'point',
-        },
-        transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
-        scale: { y: { type: 'point' } },
-        style: { shape: 'point', fill: '#59a14f' },
-        axis: {
-          x: { title: 'time (hours)', tickCount: 24 },
-          y: { title: 'time (day)', grid: true },
-        },
-        legend: false,
+chart.options({
+  type: 'view',
+  height: 280,
+  inset: 10,
+  marginTop: 30,
+  marginLeft: 40,
+  marginBottom: 10,
+  marginRight: 20,
+  style: {
+    // 设置视图样式
+    viewFill: '#4e79a7',
+    plotFill: '#f28e2c',
+    mainFill: '#e15759',
+    contentFill: '#76b7b2',
+  },
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/commits.json',
       },
-    ],
-  });
+      encode: {
+        x: (d) => new Date(d.time).getUTCHours(),
+        y: (d) => new Date(d.time).getUTCDay(),
+        size: 'count',
+        shape: 'point',
+      },
+      transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
+      scale: { y: { type: 'point' } },
+      style: { shape: 'point', fill: '#59a14f' },
+      axis: {
+        x: { title: 'time (hours)', tickCount: 24 },
+        y: { title: 'time (day)', grid: true },
+      },
+      legend: false,
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 绘图属性
@@ -219,39 +215,37 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    encode: { x: 'year', y: 'value' },
-    scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-    axis: {
-      y: {
-        grid: true,
-        gridStroke: 'red',
-        gridStrokeOpacity: 0.5,
-        gridLineWidth: 2,
-        gridLineDash: [2, 4],
-      },
+chart.options({
+  type: 'line',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  axis: {
+    y: {
+      grid: true,
+      gridStroke: 'red',
+      gridStrokeOpacity: 0.5,
+      gridLineWidth: 2,
+      gridLineDash: [2, 4],
     },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 配置文字样式
@@ -286,56 +280,54 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    encode: { x: 'year', y: 'value' },
-    scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-    title: {
-      size: 30,
-      title: "我是一个标题 I'am a title",
-      align: 'center',
-      spacing: 4,
+chart.options({
+  type: 'line',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  title: {
+    size: 30,
+    title: "我是一个标题 I'am a title",
+    align: 'center',
+    spacing: 4,
 
-      // 绘图属性
-      titleFontSize: 30,
-      titleFontFamily: 'sans-serif',
-      titleFontWeight: 500,
-      titleLineHeight: 30,
-      titleTextAlign: 'center',
-      titleTextBaseline: 'middle',
-      titleFill: '#fff',
-      titleFillOpacity: 0.9,
-      titleStroke: 'yellow',
-      titleStrokeOpacity: 0.9,
-      titleLineWidth: 1,
-      titleLineDash: [1, 2],
-      titleOpacity: 1,
-      titleShadowColor: '#d3d3d3',
-      titleShadowBlur: 10,
-      titleShadowOffsetX: 10,
-      titleShadowOffsetY: 10,
-      titleCursor: 'pointer',
-    },
-  });
+    // 绘图属性
+    titleFontSize: 30,
+    titleFontFamily: 'sans-serif',
+    titleFontWeight: 500,
+    titleLineHeight: 30,
+    titleTextAlign: 'center',
+    titleTextBaseline: 'middle',
+    titleFill: '#fff',
+    titleFillOpacity: 0.9,
+    titleStroke: 'yellow',
+    titleStrokeOpacity: 0.9,
+    titleLineWidth: 1,
+    titleLineDash: [1, 2],
+    titleOpacity: 1,
+    titleShadowColor: '#d3d3d3',
+    titleShadowBlur: 10,
+    titleShadowOffsetX: 10,
+    titleShadowOffsetY: 10,
+    titleCursor: 'pointer',
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 配置线性渐变

@@ -11,7 +11,7 @@ order: 2
 
 ## 使用场景
 
-- 峰值标注：标记折线图的最高/最低点 
+- 峰值标注：标记折线图的最高/最低点
 
 - 首尾标注： 在时间序列中突出显示起点/终点
 
@@ -21,10 +21,10 @@ order: 2
 
 ## 配置项
 
-| 属性     | 描述                                           | 类型                   | 默认值   |
-| -------- | ---------------------------------------------- | ---------------------- | -------- |
-| groupBy  | 针对指定的通道进行分组                         | `string` \| `string[]` | `series` |
-| selector | 针对每个分组，指定对应的数据抽取操作           | [Selector](#selector)             | `first`  |
+| 属性     | 描述                                 | 类型                   | 默认值   |
+| -------- | ------------------------------------ | ---------------------- | -------- |
+| groupBy  | 针对指定的通道进行分组               | `string` \| `string[]` | `series` |
+| selector | 针对每个分组，指定对应的数据抽取操作 | [Selector](#selector)  | `first`  |
 
 ### selector
 
@@ -46,20 +46,18 @@ type Selector =
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
-  chart.options({
+chart.options({
   width: 800,
   paddingLeft: 50,
   paddingRight: 100,
-  data:{
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/indices.json',
   },
-  children:[
+  children: [
     // 折线标记配置
     {
       type: 'line',
@@ -84,24 +82,27 @@ const chart = new Chart({
         color: 'Symbol',
         text: 'Symbol',
       },
-      transform:[{
-        // 使用selectX 转换标记
-        type: 'selectX',
-        // 选择最后一个数据点
-        selector: 'last',
-        
-      }],
+      transform: [
+        {
+          // 使用selectX 转换标记
+          type: 'selectX',
+          // 选择最后一个数据点
+          selector: 'last',
+        },
+      ],
       style: {
-          // 标注文本向右偏移12个像素
-          dx: 12,
+        // 标注文本向右偏移12个像素
+        dx: 12,
       },
       // 关闭文本的tooltip
       tooltip: false,
-    }
-  ]
-  });
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
+```
+
 ```
 
 ```

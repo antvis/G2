@@ -26,38 +26,36 @@ order: 1
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'city' },
-    transform: [{ type: 'stackY' }],
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'city' },
+  transform: [{ type: 'stackY' }],
+});
 
-  chart.render();
+chart.render();
 ```
 
 转换也可以配置在 View 层级：
@@ -74,42 +72,40 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: [
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'city' },
-    transform: [{ type: 'stackY' }], // 视图层级的转换
-    children: [
-      { type: 'area', style: { fillOpacity: 0.5 } },
-      { type: 'line', style: { strokeWidth: 2 }, tooltip: false },
-    ],
-  });
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'city' },
+  transform: [{ type: 'stackY' }], // 视图层级的转换
+  children: [
+    { type: 'area', style: { fillOpacity: 0.5 } },
+    { type: 'line', style: { strokeWidth: 2 }, tooltip: false },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 使用场景
@@ -145,30 +141,28 @@ const chart = new Chart({
 ```js | ob {  pin:false, autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'point',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    },
-    encode: {
-      y: 'Horsepower',
-      x: 'Cylinders',
-      shape: 'hollow',
-      color: 'Cylinders',
-    },
-    scale: { x: { type: 'point' }, color: { type: 'ordinal' } },
-  });
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  },
+  encode: {
+    y: 'Horsepower',
+    x: 'Cylinders',
+    shape: 'hollow',
+    color: 'Cylinders',
+  },
+  scale: { x: { type: 'point' }, color: { type: 'ordinal' } },
+});
 
-  chart.render();
+chart.render();
 ```
 
 可以通过配置 [jitterX](/manual/core/transform/jitter-x) 转换实现在某个区域的 x 方向散开的效果。
@@ -176,31 +170,29 @@ const chart = new Chart({
 ```js | ob {  pin:false, autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'point',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    },
-    encode: {
-      y: 'Horsepower',
-      x: 'Cylinders',
-      shape: 'hollow',
-      color: 'Cylinders',
-    },
-    scale: { x: { type: 'point' }, color: { type: 'ordinal' } },
-    transform: [{ type: 'jitterX' }], //配置 jitterX 转换实现在某个区域的 x 方向散开的效果
-  });
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  },
+  encode: {
+    y: 'Horsepower',
+    x: 'Cylinders',
+    shape: 'hollow',
+    color: 'Cylinders',
+  },
+  scale: { x: { type: 'point' }, color: { type: 'ordinal' } },
+  transform: [{ type: 'jitterX' }], //配置 jitterX 转换实现在某个区域的 x 方向散开的效果
+});
 
-  chart.render();
+chart.render();
 ```
 
 这种情况在柱状图中也很常见，比如如下的数据绘制的柱状图中在 x 通道是分类的情况下，同一个分类下有多条记录是会出现重叠，很难区分。
@@ -208,37 +200,35 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'city' },
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'city' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 这时候可以声明一个 [dodgeX](/manual/core/transform/dodge-x) 去绘制分组柱状图：
@@ -246,38 +236,36 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'city' },
-    transform: [{ type: 'dodgeX' }], //配置 dodgeX 转换实现柱状图的分组
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'city' },
+  transform: [{ type: 'dodgeX' }], //配置 dodgeX 转换实现柱状图的分组
+});
 
-  chart.render();
+chart.render();
 ```
 
 或者声明一个 [stackY](/manual/core/transform/stack-y) 去绘制堆叠柱状图：
@@ -285,38 +273,36 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'city' },
-    transform: [{ type: 'stackY' }], //配置 stackY 转换实现柱状图的堆叠
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'city' },
+  transform: [{ type: 'stackY' }], //配置 stackY 转换实现柱状图的堆叠
+});
 
-  chart.render();
+chart.render();
 ```
 
 以下是 G2 中内置的防止重叠的标记转换：
@@ -349,26 +335,24 @@ table({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'point',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    },
-    encode: { x: (d) => +d.culmen_depth_mm, y: (d) => +d.culmen_length_mm },
-  });
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  },
+  encode: { x: (d) => +d.culmen_depth_mm, y: (d) => +d.culmen_length_mm },
+});
 
-  chart.render();
+chart.render();
 ```
 
 但是散点图无法直观地看出企鹅群体某个数据的分布情况，比如 `culmen_depth_mm` 的具体分布情况，这时候就可以使用 [binX](/manual/core/transform/bin-x) 对数据进行分箱，通过直方图进行进一步的数据分析。
@@ -376,28 +360,26 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'rect',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    },
-    encode: { x: (d) => +d.culmen_depth_mm },
-    transform: [{ type: 'binX', y: 'count' }],
-    style: { insetLeft: 1 },
-  });
+chart.options({
+  type: 'rect',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  },
+  encode: { x: (d) => +d.culmen_depth_mm },
+  transform: [{ type: 'binX', y: 'count' }],
+  style: { insetLeft: 1 },
+});
 
-  chart.render();
+chart.render();
 ```
 
 bin 主要是用来聚合数值类型的数据，group 主要针对离散数据。在上面的例子中，如果想要分析不同岛屿上不同企鹅种类的数量，可以使用 [groupX](/manual/core/transform/group-x)对 x 通道进行分组，并对 y 通道根据 count 方式进行聚合。
@@ -405,35 +387,33 @@ bin 主要是用来聚合数值类型的数据，group 主要针对离散数据�
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    },
-    encode: { x: 'island', color: 'species' },
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
     transform: [
-      {
-        type: 'groupX',
-        y: 'count',
-      },
-      {
-        type: 'stackY',
-      },
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
     ],
-  });
+  },
+  encode: { x: 'island', color: 'species' },
+  transform: [
+    {
+      type: 'groupX',
+      y: 'count',
+    },
+    {
+      type: 'stackY',
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 如果我们不关心具体的数量多少，而是想聚焦于不同种类的企鹅的占比，可以使用 [normalizeY](/manual/core/transform/normalize-y) 进行归一化处理。
@@ -441,38 +421,36 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    },
-    encode: { x: 'island', color: 'species' },
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
     transform: [
-      {
-        type: 'groupX',
-        y: 'count',
-      },
-      {
-        type: 'stackY',
-      },
-      {
-        type: 'normalizeY',
-      },
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
     ],
-  });
+  },
+  encode: { x: 'island', color: 'species' },
+  transform: [
+    {
+      type: 'groupX',
+      y: 'count',
+    },
+    {
+      type: 'stackY',
+    },
+    {
+      type: 'normalizeY',
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 以下是 G2 中内置的用于数据聚合的标记转换：
@@ -509,45 +487,43 @@ groupX 是常用的一种标记转换，基于 **x 通道** 对数据进行分�
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: (d) => new Date(d.date).getUTCMonth(),
+        y: 'precipitation',
+      },
+      transform: [{ type: 'groupX', y: 'mean' }],
+      scale: { y: { tickCount: 5, domainMax: 6 } },
+      tooltip: { items: [{ channel: 'y', valueFormatter: '.2f' }] },
     },
-    children: [
-      {
-        type: 'interval',
-        encode: {
-          x: (d) => new Date(d.date).getUTCMonth(),
-          y: 'precipitation',
-        },
-        transform: [{ type: 'groupX', y: 'mean' }],
-        scale: { y: { tickCount: 5, domainMax: 6 } },
-        tooltip: { items: [{ channel: 'y', valueFormatter: '.2f' }] },
+    {
+      type: 'lineY',
+      encode: { y: 'precipitation' },
+      transform: [{ type: 'groupX', y: 'mean' }],
+      style: {
+        stroke: '#F4664A',
+        strokeOpacity: 1,
+        lineWidth: 2,
+        lineDash: [3, 3],
       },
-      {
-        type: 'lineY',
-        encode: { y: 'precipitation' },
-        transform: [{ type: 'groupX', y: 'mean' }],
-        style: {
-          stroke: '#F4664A',
-          strokeOpacity: 1,
-          lineWidth: 2,
-          lineDash: [3, 3],
-        },
-      },
-    ],
-  });
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 同理我们可以用 groupY 转换来绘制直方图的中位线。
@@ -555,43 +531,41 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/movies.json',
-      transform: [{ type: 'filter', callback: (d) => d['IMDB Rating'] > 0 }],
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+    transform: [{ type: 'filter', callback: (d) => d['IMDB Rating'] > 0 }],
+  },
+  children: [
+    {
+      type: 'rect',
+      encode: { x: 'IMDB Rating' },
+      transform: [{ type: 'binX', y: 'count', thresholds: 9 }],
+      scale: { y: { domainMax: 1000 } },
+      style: { inset: 1 },
     },
-    children: [
-      {
-        type: 'rect',
-        encode: { x: 'IMDB Rating' },
-        transform: [{ type: 'binX', y: 'count', thresholds: 9 }],
-        scale: { y: { domainMax: 1000 } },
-        style: { inset: 1 },
+    {
+      type: 'lineX',
+      encode: { x: 'IMDB Rating' },
+      transform: [{ type: 'groupY', x: 'median' }],
+      style: {
+        stroke: '#F4664A',
+        strokeOpacity: 1,
+        lineWidth: 2,
+        lineDash: [4, 4],
       },
-      {
-        type: 'lineX',
-        encode: { x: 'IMDB Rating' },
-        transform: [{ type: 'groupY', x: 'median' }],
-        style: {
-          stroke: '#F4664A',
-          strokeOpacity: 1,
-          lineWidth: 2,
-          lineDash: [4, 4],
-        },
-      },
-    ],
-  });
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### select
@@ -601,83 +575,81 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: [
-      { month: 'Jan', city: 'Tokyo', temperature: 7 },
-      { month: 'Jan', city: 'London', temperature: 3.9 },
-      { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
-      { month: 'Feb', city: 'London', temperature: 4.2 },
-      { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
-      { month: 'Mar', city: 'London', temperature: 5.7 },
-      { month: 'Apr', city: 'Tokyo', temperature: 14.5 },
-      { month: 'Apr', city: 'London', temperature: 8.5 },
-      { month: 'May', city: 'Tokyo', temperature: 18.4 },
-      { month: 'May', city: 'London', temperature: 11.9 },
-      { month: 'Jun', city: 'Tokyo', temperature: 21.5 },
-      { month: 'Jun', city: 'London', temperature: 15.2 },
-      { month: 'Jul', city: 'Tokyo', temperature: 25.2 },
-      { month: 'Jul', city: 'London', temperature: 17 },
-      { month: 'Aug', city: 'Tokyo', temperature: 26.5 },
-      { month: 'Aug', city: 'London', temperature: 16.6 },
-      { month: 'Sep', city: 'Tokyo', temperature: 23.3 },
-      { month: 'Sep', city: 'London', temperature: 14.2 },
-      { month: 'Oct', city: 'Tokyo', temperature: 18.3 },
-      { month: 'Oct', city: 'London', temperature: 10.3 },
-      { month: 'Nov', city: 'Tokyo', temperature: 13.9 },
-      { month: 'Nov', city: 'London', temperature: 6.6 },
-      { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
-      { month: 'Dec', city: 'London', temperature: 4.8 },
-    ],
-    encode: { x: 'month', y: 'temperature', color: 'city' },
-    scale: { x: { range: [0, 1] }, y: { nice: true } },
-    axis: { y: { labelFormatter: (d) => d + '°C' } },
-    children: [
-      { type: 'line', encode: { shape: 'smooth' } },
-      {
-        type: 'text',
-        encode: {
-          x: 'month',
-          y: 'temperature',
-          text: (d) => `峰值：${d.temperature}`,
-        },
-        transform: [
-          {
-            type: 'selectY',
-            groupBy: 'color',
-            selector: 'max',
-          },
-        ],
-        style: {
-          fill: 'orange',
-          fontSize: 16,
-          dy: -15,
-        },
-        tooltip: false,
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: 7 },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+    { month: 'Apr', city: 'Tokyo', temperature: 14.5 },
+    { month: 'Apr', city: 'London', temperature: 8.5 },
+    { month: 'May', city: 'Tokyo', temperature: 18.4 },
+    { month: 'May', city: 'London', temperature: 11.9 },
+    { month: 'Jun', city: 'Tokyo', temperature: 21.5 },
+    { month: 'Jun', city: 'London', temperature: 15.2 },
+    { month: 'Jul', city: 'Tokyo', temperature: 25.2 },
+    { month: 'Jul', city: 'London', temperature: 17 },
+    { month: 'Aug', city: 'Tokyo', temperature: 26.5 },
+    { month: 'Aug', city: 'London', temperature: 16.6 },
+    { month: 'Sep', city: 'Tokyo', temperature: 23.3 },
+    { month: 'Sep', city: 'London', temperature: 14.2 },
+    { month: 'Oct', city: 'Tokyo', temperature: 18.3 },
+    { month: 'Oct', city: 'London', temperature: 10.3 },
+    { month: 'Nov', city: 'Tokyo', temperature: 13.9 },
+    { month: 'Nov', city: 'London', temperature: 6.6 },
+    { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
+    { month: 'Dec', city: 'London', temperature: 4.8 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  scale: { x: { range: [0, 1] }, y: { nice: true } },
+  axis: { y: { labelFormatter: (d) => d + '°C' } },
+  children: [
+    { type: 'line', encode: { shape: 'smooth' } },
+    {
+      type: 'text',
+      encode: {
+        x: 'month',
+        y: 'temperature',
+        text: (d) => `峰值：${d.temperature}`,
       },
-      {
-        type: 'point',
-        encode: { x: 'month', y: 'temperature' },
-        transform: [
-          {
-            type: 'selectY',
-            groupBy: 'color',
-            selector: 'max',
-          },
-        ],
-        tooltip: false,
+      transform: [
+        {
+          type: 'selectY',
+          groupBy: 'color',
+          selector: 'max',
+        },
+      ],
+      style: {
+        fill: 'orange',
+        fontSize: 16,
+        dy: -15,
       },
-    ],
-  });
+      tooltip: false,
+    },
+    {
+      type: 'point',
+      encode: { x: 'month', y: 'temperature' },
+      transform: [
+        {
+          type: 'selectY',
+          groupBy: 'color',
+          selector: 'max',
+        },
+      ],
+      tooltip: false,
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 示例
@@ -689,30 +661,28 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'rect',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+chart.options({
+  type: 'rect',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
 
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    },
-    encode: { x: (d) => +d.culmen_depth_mm, color: 'sex' },
     transform: [
-      { type: 'binX', y: 'count' }, // 声明 binX 转换
-      { type: 'stackY', orderBy: 'sum', reverse: true }, // 声明 stackY 转换
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
     ],
-    style: { insetLeft: 1 },
-  });
+  },
+  encode: { x: (d) => +d.culmen_depth_mm, color: 'sex' },
+  transform: [
+    { type: 'binX', y: 'count' }, // 声明 binX 转换
+    { type: 'stackY', orderBy: 'sum', reverse: true }, // 声明 stackY 转换
+  ],
+  style: { insetLeft: 1 },
+});
 
-  chart.render();
+chart.render();
 ```

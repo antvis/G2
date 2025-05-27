@@ -10,33 +10,31 @@ G2 中**缩略轴（Slider）** 可以用于过滤数据，让用户在数据量
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  const formatter = (dateTimeString) => {
-    return new Date(dateTimeString).toLocaleString();
-  };
+const formatter = (dateTimeString) => {
+  return new Date(dateTimeString).toLocaleString();
+};
 
-  chart.options({
-    type: 'line',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => `${formatter(d)}`,
     },
-    encode: { x: 'date', y: 'close' },
-    slider: {
-      x: {
-        labelFormatter: (d) => `${formatter(d)}`,
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 配置层级
@@ -395,55 +393,54 @@ chart.render();
 import { Chart } from '@antv/g2';
 
 function sliderX(chart) {
-    // 创建并且挂载 range
-    const container = chart.getContainer();
-    const range = document.createElement('input');
-    container.append(range);
+  // 创建并且挂载 range
+  const container = chart.getContainer();
+  const range = document.createElement('input');
+  container.append(range);
 
-    // 根据 coordinate 设置 range 的宽度等属性
-    const coordinate = chart.getCoordinate();
-    const { paddingLeft, width } = coordinate.getOptions();
-    range.type = 'range';
-    range.min = 0;
-    range.max = width;
-    range.value = width;
-    range.style.display = 'block';
-    range.style.width = width + 'px';
-    range.style.marginLeft = paddingLeft + 'px';
+  // 根据 coordinate 设置 range 的宽度等属性
+  const coordinate = chart.getCoordinate();
+  const { paddingLeft, width } = coordinate.getOptions();
+  range.type = 'range';
+  range.min = 0;
+  range.max = width;
+  range.value = width;
+  range.style.display = 'block';
+  range.style.width = width + 'px';
+  range.style.marginLeft = paddingLeft + 'px';
 
-    // 监听 change 事件，通过 scale 获得筛选得到的 domain
-    // 更新 domain 并且渲染
-    const scale = chart.getScaleByChannel('x');
-    const options = chart.options();
-    range.onchange = (event) => {
-      const value = event.target.value;
-      const range = [0, value / width];
-      const domain = range.map((d) => scale.invert(d));
-      chart.options({
-        ...options,
-        scale: { x: { domain } },
-      });
-      chart.render();
-    };
-  }
+  // 监听 change 事件，通过 scale 获得筛选得到的 domain
+  // 更新 domain 并且渲染
+  const scale = chart.getScaleByChannel('x');
+  const options = chart.options();
+  range.onchange = (event) => {
+    const value = event.target.value;
+    const range = [0, value / width];
+    const domain = range.map((d) => scale.invert(d));
+    chart.options({
+      ...options,
+      scale: { x: { domain } },
+    });
+    chart.render();
+  };
+}
 
-  // 渲染图表
-  const container = document.createElement('div');
-  
+// 渲染图表
+const container = document.createElement('div');
 
 const chart = new Chart({
-  container 
+  container,
 });
 
-  chart.options({
-    type: 'line',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    },
-    encode: { x: 'date', y: 'close' },
-  });
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+});
 
-  chart.render().then(sliderX);
+chart.render().then(sliderX);
 ```

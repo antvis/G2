@@ -91,31 +91,29 @@ chart.scale({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .line()
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value');
+chart
+  .line()
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value');
 
-  chart.lineX().data(['1996']).style('stroke', 'red').style('strokeWidth', 2);
+chart.lineX().data(['1996']).style('stroke', 'red').style('strokeWidth', 2);
 
-  chart.render();
+chart.render();
 ```
 
 ### 比例尺不同步
@@ -125,47 +123,45 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    data: [
-      { time: '10:10', call: 4, waiting: 2, people: 2 },
-      { time: '10:15', call: 2, waiting: 6, people: 3 },
-      { time: '10:20', call: 13, waiting: 2, people: 5 },
-      { time: '10:25', call: 9, waiting: 9, people: 1 },
-      { time: '10:30', call: 5, waiting: 2, people: 3 },
-      { time: '10:35', call: 8, waiting: 2, people: 1 },
-      { time: '10:40', call: 13, waiting: 1, people: 2 },
-    ],
-    children: [
-      {
-        type: 'interval',
-        encode: { x: 'time', y: 'waiting' },
-        axis: { y: { title: 'Waiting', titleFill: '#5B8FF9' } },
-      },
-      {
-        type: 'line',
-        encode: { x: 'time', y: 'people', shape: 'smooth' },
-        scale: { y: { independent: true } }, // 设置 y 方向比例尺不同步
-        style: { stroke: '#fdae6b', lineWidth: 2 },
-        axis: {
-          y: {
-            position: 'right',
-            grid: null,
-            title: 'People',
-            titleFill: '#fdae6b',
-          },
+chart.options({
+  type: 'view',
+  data: [
+    { time: '10:10', call: 4, waiting: 2, people: 2 },
+    { time: '10:15', call: 2, waiting: 6, people: 3 },
+    { time: '10:20', call: 13, waiting: 2, people: 5 },
+    { time: '10:25', call: 9, waiting: 9, people: 1 },
+    { time: '10:30', call: 5, waiting: 2, people: 3 },
+    { time: '10:35', call: 8, waiting: 2, people: 1 },
+    { time: '10:40', call: 13, waiting: 1, people: 2 },
+  ],
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'time', y: 'waiting' },
+      axis: { y: { title: 'Waiting', titleFill: '#5B8FF9' } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'people', shape: 'smooth' },
+      scale: { y: { independent: true } }, // 设置 y 方向比例尺不同步
+      style: { stroke: '#fdae6b', lineWidth: 2 },
+      axis: {
+        y: {
+          position: 'right',
+          grid: null,
+          title: 'People',
+          titleFill: '#fdae6b',
         },
       },
-    ],
-  });
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 如果希望比例尺分组同步，可以声明 `scale.key`，拥有相同 key 的 scale 会同步。比如下面的 Line 和 Point Mark y 通道的比例尺因为 key 都是 line 所以会同步。
@@ -173,53 +169,51 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    data: [
-      { time: '10:10', call: 4, waiting: 2, people: 2 },
-      { time: '10:15', call: 2, waiting: 6, people: 3 },
-      { time: '10:20', call: 13, waiting: 2, people: 5 },
-      { time: '10:25', call: 9, waiting: 9, people: 1 },
-      { time: '10:30', call: 5, waiting: 2, people: 3 },
-      { time: '10:35', call: 8, waiting: 2, people: 1 },
-      { time: '10:40', call: 13, waiting: 1, people: 2 },
-    ],
-    children: [
-      {
-        type: 'interval',
-        encode: { x: 'time', y: 'waiting' },
-        axis: { y: { title: 'Waiting', titleFill: '#5B8FF9' } },
-      },
-      {
-        type: 'line',
-        encode: { x: 'time', y: 'people', shape: 'smooth' },
-        scale: { y: { key: 'line' } }, // 设置 key 为 line
-        style: { stroke: '#fdae6b', lineWidth: 2 },
-        axis: {
-          y: {
-            position: 'right',
-            grid: null,
-            title: 'People',
-            titleFill: '#fdae6b',
-          },
+chart.options({
+  type: 'view',
+  data: [
+    { time: '10:10', call: 4, waiting: 2, people: 2 },
+    { time: '10:15', call: 2, waiting: 6, people: 3 },
+    { time: '10:20', call: 13, waiting: 2, people: 5 },
+    { time: '10:25', call: 9, waiting: 9, people: 1 },
+    { time: '10:30', call: 5, waiting: 2, people: 3 },
+    { time: '10:35', call: 8, waiting: 2, people: 1 },
+    { time: '10:40', call: 13, waiting: 1, people: 2 },
+  ],
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'time', y: 'waiting' },
+      axis: { y: { title: 'Waiting', titleFill: '#5B8FF9' } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'people', shape: 'smooth' },
+      scale: { y: { key: 'line' } }, // 设置 key 为 line
+      style: { stroke: '#fdae6b', lineWidth: 2 },
+      axis: {
+        y: {
+          position: 'right',
+          grid: null,
+          title: 'People',
+          titleFill: '#fdae6b',
         },
       },
-      {
-        type: 'point',
-        encode: { x: 'time', y: 'people' },
-        scale: { y: { key: 'line' } }, // 设置 key 为 line
-        style: { stroke: '#fdae6b', lineWidth: 2 },
-      },
-    ],
-  });
+    },
+    {
+      type: 'point',
+      encode: { x: 'time', y: 'people' },
+      scale: { y: { key: 'line' } }, // 设置 key 为 line
+      style: { stroke: '#fdae6b', lineWidth: 2 },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 视图比例尺
@@ -229,33 +223,31 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .scale('y', { nice: true }); // 视图层级的比例尺设置
+chart
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value')
+  .scale('y', { nice: true }); // 视图层级的比例尺设置
 
-  chart.line();
+chart.line();
 
-  chart.point();
+chart.point();
 
-  chart.render();
+chart.render();
 ```
 
 ## 常见比例尺
@@ -273,24 +265,21 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'weight') // weight 是一个连续的数据
-    .encode('y', 'height') // height 是一个连续的数据
-    .encode('color', 'gender');
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'weight') // weight 是一个连续的数据
+  .encode('y', 'height') // height 是一个连续的数据
+  .encode('color', 'gender');
 
-  chart.render();
+chart.render();
 ```
 
 ### 序数比例尺
@@ -300,30 +289,28 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre') // genre 是一个离散数据
-    .scale('color', {
-      // 指定映射后的颜色
-      range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
-    });
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre') // genre 是一个离散数据
+  .scale('color', {
+    // 指定映射后的颜色
+    range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
+  });
 
-  chart.render();
+chart.render();
 ```
 
 ### 离散化比例尺
@@ -333,33 +320,30 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    
-    height: 240,
-  
+
+  height: 240,
 });
 
-  chart
-    .cell()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
-      transform: [{ type: 'map', callback: (d) => ({ salary: d }) }],
-    })
-    .scale('color', {
-      type: 'quantile',
-      // 分成三组，每组对应下面的一个颜色
-      range: ['#eee', 'pink', 'red'],
-    })
-    .encode('y', (_, i) => (i % 5) + 1)
-    .encode('x', (_, i) => ((i / 5) | 0) + 1)
-    .encode('color', 'salary') // 是连续数据，比例尺按照分位数对数据进行分组
-    .style('stroke', '#000')
-    .style('inset', 2);
+chart
+  .cell()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/89c20fe8-0c6f-46c8-b36b-4cb653dba8ed.json',
+    transform: [{ type: 'map', callback: (d) => ({ salary: d }) }],
+  })
+  .scale('color', {
+    type: 'quantile',
+    // 分成三组，每组对应下面的一个颜色
+    range: ['#eee', 'pink', 'red'],
+  })
+  .encode('y', (_, i) => (i % 5) + 1)
+  .encode('x', (_, i) => ((i / 5) | 0) + 1)
+  .encode('color', 'salary') // 是连续数据，比例尺按照分位数对数据进行分组
+  .style('stroke', '#000')
+  .style('inset', 2);
 
-  chart.render();
+chart.render();
 ```

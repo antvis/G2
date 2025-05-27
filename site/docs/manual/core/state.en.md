@@ -44,27 +44,25 @@ There are currently 4 built-in states:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .axis('y', { labelFormatter: '.0%' })
-    .state('active', { fill: 'red' })
-    .state('inactive', { fill: '#aaa' })
-    .interaction('elementHighlight'); // Set up highlight interaction
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .axis('y', { labelFormatter: '.0%' })
+  .state('active', { fill: 'red' })
+  .state('inactive', { fill: '#aaa' })
+  .interaction('elementHighlight'); // Set up highlight interaction
 
-  chart.render();
+chart.render();
 ```
 
 ## Selected States
@@ -72,25 +70,23 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .axis('y', { labelFormatter: '.0%' })
-    .state('selected', { fill: 'red', stroke: 'blue', strokeWidth: 2 })
-    .state('unselected', { fill: '#aaa' })
-    .interaction('elementSelect'); // Set up selection interaction
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .axis('y', { labelFormatter: '.0%' })
+  .state('selected', { fill: 'red', stroke: 'blue', strokeWidth: 2 })
+  .state('unselected', { fill: '#aaa' })
+  .interaction('elementSelect'); // Set up selection interaction
 
-  chart.render();
+chart.render();
 ```

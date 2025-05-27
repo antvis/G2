@@ -30,41 +30,39 @@ order: 2
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    coordinate: {
-      transform: [{ type: 'fisheye', focusX: 0.5, focusY: 0.5 }]
+chart.options({
+  coordinate: {
+    transform: [{ type: 'fisheye', focusX: 0.5, focusY: 0.5 }],
+  },
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  },
+  encode: {
+    x: 'GDP',
+    y: 'LifeExpectancy',
+    size: 'Population',
+    color: 'continent',
+    shape: 'point',
+  },
+  scale: {
+    size: {
+      type: 'log',
+      range: [4, 20],
     },
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    },
-    encode: {
-      x: 'GDP',
-      y: 'LifeExpectancy',
-      size: 'Population',
-      color: 'continent',
-      shape: 'point'
-    },
-    scale: {
-      size: {
-        type: 'log',
-        range: [4, 20],
-      }
-    },
-    style: {
-      fillOpacity: 0.3,
-      lineWidth: 1
-    }
-  });
+  },
+  style: {
+    fillOpacity: 0.3,
+    lineWidth: 1,
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 使用场景
@@ -109,41 +107,47 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    coordinate: {
-      transform: [{ type: 'fisheye', focusX: 0.7, focusY: 0.3, distortionX: 3, distortionY: 3 }]
-    },
-    type: 'point',
-    data: [
-      { x: 1, y: 1, category: 'A' },
-      { x: 2, y: 2, category: 'B' },
-      { x: 3, y: 3, category: 'C' },
-      { x: 4, y: 4, category: 'D' },
-      { x: 5, y: 5, category: 'E' },
-      { x: 6, y: 6, category: 'F' },
-      { x: 7, y: 7, category: 'G' },
-      { x: 8, y: 8, category: 'H' },
-      { x: 9, y: 9, category: 'I' },
+chart.options({
+  coordinate: {
+    transform: [
+      {
+        type: 'fisheye',
+        focusX: 0.7,
+        focusY: 0.3,
+        distortionX: 3,
+        distortionY: 3,
+      },
     ],
-    encode: {
-      x: 'x',
-      y: 'y',
-      color: 'category',
-      shape: 'point'
-    },
-    style: {
-      r: 6,
-      lineWidth: 1
-    }
-  });
+  },
+  type: 'point',
+  data: [
+    { x: 1, y: 1, category: 'A' },
+    { x: 2, y: 2, category: 'B' },
+    { x: 3, y: 3, category: 'C' },
+    { x: 4, y: 4, category: 'D' },
+    { x: 5, y: 5, category: 'E' },
+    { x: 6, y: 6, category: 'F' },
+    { x: 7, y: 7, category: 'G' },
+    { x: 8, y: 8, category: 'H' },
+    { x: 9, y: 9, category: 'I' },
+  ],
+  encode: {
+    x: 'x',
+    y: 'y',
+    color: 'category',
+    shape: 'point',
+  },
+  style: {
+    r: 6,
+    lineWidth: 1,
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 2. 交互式鱼眼效果
@@ -153,41 +157,39 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  },
+  encode: {
+    x: 'GDP',
+    y: 'LifeExpectancy',
+    size: 'Population',
+    color: 'continent',
+    shape: 'point',
+  },
+  scale: {
+    size: {
+      type: 'log',
+      range: [4, 20],
     },
-    encode: {
-      x: 'GDP',
-      y: 'LifeExpectancy',
-      size: 'Population',
-      color: 'continent',
-      shape: 'point'
-    },
-    scale: {
-      size: {
-        type: 'log',
-        range: [4, 20],
-      }
-    },
-    style: {
-      fillOpacity: 0.3,
-      lineWidth: 1
-    },
-    interaction: {
-      fisheye: true  // 启用鱼眼交互
-    }
-  });
+  },
+  style: {
+    fillOpacity: 0.3,
+    lineWidth: 1,
+  },
+  interaction: {
+    fisheye: true, // 启用鱼眼交互
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 完整示例
@@ -197,78 +199,84 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    width: 800,
-    height: 500,
-    padding: [40, 60, 60, 80],
-    coordinate: {
-      transform: [{ type: 'fisheye', focusX: 0.6, focusY: 0.4, distortionX: 2.5, distortionY: 2.5 }]
-    },
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    },
-    encode: {
-      x: 'GDP',
-      y: 'LifeExpectancy',
-      size: 'Population',
-      color: 'continent',
-      shape: 'point'
-    },
-    scale: {
-      size: {
-        type: 'log',
-        range: [4, 20],
+chart.options({
+  width: 800,
+  height: 500,
+  padding: [40, 60, 60, 80],
+  coordinate: {
+    transform: [
+      {
+        type: 'fisheye',
+        focusX: 0.6,
+        focusY: 0.4,
+        distortionX: 2.5,
+        distortionY: 2.5,
       },
-      x: {
-        nice: true,
-      },
-      y: {
-        nice: true,
-      }
+    ],
+  },
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  },
+  encode: {
+    x: 'GDP',
+    y: 'LifeExpectancy',
+    size: 'Population',
+    color: 'continent',
+    shape: 'point',
+  },
+  scale: {
+    size: {
+      type: 'log',
+      range: [4, 20],
     },
-    style: {
-      fillOpacity: 0.6,
-      lineWidth: 1,
-      stroke: '#fff'
+    x: {
+      nice: true,
     },
-    legend: {
-      color: {
-        position: 'bottom',
-        layout: 'horizontal',
-      },
-      size: false
+    y: {
+      nice: true,
     },
-    axis: {
-      x: {
-        title: 'GDP',
-        titleFill: '#333',
-        labelFontSize: 12,
-      },
-      y: {
-        title: '预期寿命',
-        titleFill: '#333',
-        labelFontSize: 12,
-      }
+  },
+  style: {
+    fillOpacity: 0.6,
+    lineWidth: 1,
+    stroke: '#fff',
+  },
+  legend: {
+    color: {
+      position: 'bottom',
+      layout: 'horizontal',
     },
-    tooltip: {
-      title: (d) => d.country,
-      items: [
-        (d) => ({ name: 'GDP', value: d.GDP }),
-        (d) => ({ name: '预期寿命', value: d.LifeExpectancy }),
-        (d) => ({ name: '人口', value: d.Population })
-      ]
-    }
-  });
+    size: false,
+  },
+  axis: {
+    x: {
+      title: 'GDP',
+      titleFill: '#333',
+      labelFontSize: 12,
+    },
+    y: {
+      title: '预期寿命',
+      titleFill: '#333',
+      labelFontSize: 12,
+    },
+  },
+  tooltip: {
+    title: (d) => d.country,
+    items: [
+      (d) => ({ name: 'GDP', value: d.GDP }),
+      (d) => ({ name: '预期寿命', value: d.LifeExpectancy }),
+      (d) => ({ name: '人口', value: d.Population }),
+    ],
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 这个示例展示了如何创建一个功能完整的鱼眼坐标系散点图，包括以下特性：
@@ -286,35 +294,39 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    coordinate: {
-      transform: [
-        { type: 'transpose' },
-        { type: 'fisheye', focusX: 0.5, focusY: 0.5, distortionX: 2, distortionY: 2 }
-      ]
-    },
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
+chart.options({
+  coordinate: {
+    transform: [
+      { type: 'transpose' },
+      {
+        type: 'fisheye',
+        focusX: 0.5,
+        focusY: 0.5,
+        distortionX: 2,
+        distortionY: 2,
+      },
     ],
-    encode: {
-      x: 'genre',
-      y: 'sold',
-      color: 'genre'
-    }
-  });
+  },
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 总结

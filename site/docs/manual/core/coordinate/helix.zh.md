@@ -10,40 +10,37 @@ order: 10
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    autoFit: true,
-    height: 500,
-  
+  autoFit: true,
+  height: 500,
 });
 
-  // 模拟数据
-  const data = [];
-  for (let i = 0; i < 372; i++) {
-    const time = new Date(Date.now() + i * 1000 * 3600 * 24)
-      .toISOString()
-      .split('T')[0];
-    data.push({ time, value: Math.random() * 100 });
-  }
+// 模拟数据
+const data = [];
+for (let i = 0; i < 372; i++) {
+  const time = new Date(Date.now() + i * 1000 * 3600 * 24)
+    .toISOString()
+    .split('T')[0];
+  data.push({ time, value: Math.random() * 100 });
+}
 
-  chart.data(data);
+chart.data(data);
 
-  chart.coordinate({
-    type: 'helix',
-    startAngle: 0.5 * Math.PI, // 起始角度
-    endAngle: 12.5 * Math.PI, // 结束角度
-  });
+chart.coordinate({
+  type: 'helix',
+  startAngle: 0.5 * Math.PI, // 起始角度
+  endAngle: 12.5 * Math.PI, // 结束角度
+});
 
-  chart
-    .interval()
-    .encode('x', 'time')
-    .encode('y', 'value')
-    .encode('color', 'value')
-    .scale('color', { range: ['#ffffff', '#1890FF'] });
+chart
+  .interval()
+  .encode('x', 'time')
+  .encode('y', 'value')
+  .encode('color', 'value')
+  .scale('color', { range: ['#ffffff', '#1890FF'] });
 
-  chart.render();
+chart.render();
 ```
 
 | 参数        | 说明                     | 类型     | 默认值        |

@@ -14,34 +14,32 @@ order: 2
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'area',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/aapl.json',
-    },
-    // 配置视觉通道
-    encode: {
-      x: (d) => new Date(d.date), // 配置x通道
-      y: 'close', // 配置y通道
-      shape: 'area', // 配置shape通道，默认为'area'的时候可以不写。可选'area', 'smooth', 'hvh', 'vh', 'hv'
-    },
-    // 配置样式
-    style: {
-      fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff', // 配置面积图填充颜色为渐变色
-      fillOpacity: 0.9, // 配置area标记的填充透明度为 0.9
-    },
-    // 配置坐标系
-    coordinate: {},
-  });
+chart.options({
+  type: 'area',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+  },
+  // 配置视觉通道
+  encode: {
+    x: (d) => new Date(d.date), // 配置x通道
+    y: 'close', // 配置y通道
+    shape: 'area', // 配置shape通道，默认为'area'的时候可以不写。可选'area', 'smooth', 'hvh', 'vh', 'hv'
+  },
+  // 配置样式
+  style: {
+    fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff', // 配置面积图填充颜色为渐变色
+    fillOpacity: 0.9, // 配置area标记的填充透明度为 0.9
+  },
+  // 配置坐标系
+  coordinate: {},
+});
 
-  chart.render();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 面积图](/examples#general-area)页面。
@@ -84,46 +82,44 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'area',
-    data: [
-      { country: 'Asia', year: '1750', value: 502 },
-      { country: 'Asia', year: '1800', value: 635 },
-      { country: 'Asia', year: '1850', value: 809 },
-      { country: 'Asia', year: '1900', value: 947 },
-      { country: 'Asia', year: '1950', value: 1402 },
-      { country: 'Asia', year: '1999', value: 3634 },
-      { country: 'Asia', year: '2050', value: 5268 },
-      { country: 'Africa', year: '1750', value: 106 },
-      { country: 'Africa', year: '1800', value: 107 },
-      { country: 'Africa', year: '1850', value: 111 },
-      { country: 'Africa', year: '1900', value: 133 },
-      { country: 'Africa', year: '1950', value: 221 },
-      { country: 'Africa', year: '1999', value: 767 },
-      { country: 'Africa', year: '2050', value: 1766 },
-      { country: 'Europe', year: '1750', value: 163 },
-      { country: 'Europe', year: '1800', value: 203 },
-      { country: 'Europe', year: '1850', value: 276 },
-      { country: 'Europe', year: '1900', value: 408 },
-      { country: 'Europe', year: '1950', value: 547 },
-      { country: 'Europe', year: '1999', value: 729 },
-      { country: 'Europe', year: '2050', value: 628 },
-    ],
-    encode: {
-      x: 'year', // 配置x通道
-      y: 'value', // 配置y通道
-      color: 'country', // 配置color通道
-    },
-    style: { fillOpacity: 0.3 }, // 配置area标记的填充透明度为 0.3
-  });
+chart.options({
+  type: 'area',
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year', // 配置x通道
+    y: 'value', // 配置y通道
+    color: 'country', // 配置color通道
+  },
+  style: { fillOpacity: 0.3 }, // 配置area标记的填充透明度为 0.3
+});
 
-  chart.render();
+chart.render();
 ```
 
 配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成堆叠面积图，避免因为重叠导致的信息模糊：
@@ -131,47 +127,45 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'area',
-    data: [
-      { country: 'Asia', year: '1750', value: 502 },
-      { country: 'Asia', year: '1800', value: 635 },
-      { country: 'Asia', year: '1850', value: 809 },
-      { country: 'Asia', year: '1900', value: 947 },
-      { country: 'Asia', year: '1950', value: 1402 },
-      { country: 'Asia', year: '1999', value: 3634 },
-      { country: 'Asia', year: '2050', value: 5268 },
-      { country: 'Africa', year: '1750', value: 106 },
-      { country: 'Africa', year: '1800', value: 107 },
-      { country: 'Africa', year: '1850', value: 111 },
-      { country: 'Africa', year: '1900', value: 133 },
-      { country: 'Africa', year: '1950', value: 221 },
-      { country: 'Africa', year: '1999', value: 767 },
-      { country: 'Africa', year: '2050', value: 1766 },
-      { country: 'Europe', year: '1750', value: 163 },
-      { country: 'Europe', year: '1800', value: 203 },
-      { country: 'Europe', year: '1850', value: 276 },
-      { country: 'Europe', year: '1900', value: 408 },
-      { country: 'Europe', year: '1950', value: 547 },
-      { country: 'Europe', year: '1999', value: 729 },
-      { country: 'Europe', year: '2050', value: 628 },
-    ],
-    encode: {
-      x: 'year', // 配置x通道
-      y: 'value', // 配置y通道
-      color: 'country', // 配置color通道
-    },
-    transform: [{ type: 'stackY' }], // 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果
-    style: { fillOpacity: 0.3 }, // 配置area标记的填充透明度为 0.3
-  });
+chart.options({
+  type: 'area',
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year', // 配置x通道
+    y: 'value', // 配置y通道
+    color: 'country', // 配置color通道
+  },
+  transform: [{ type: 'stackY' }], // 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果
+  style: { fillOpacity: 0.3 }, // 配置area标记的填充透明度为 0.3
+});
 
-  chart.render();
+chart.render();
 ```
 
 #### shape
@@ -200,44 +194,42 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'area',
-    data: [
-      { item: 'Design', type: 'a', score: 70 },
-      { item: 'Design', type: 'b', score: 30 },
-      { item: 'Development', type: 'a', score: 60 },
-      { item: 'Development', type: 'b', score: 70 },
-      { item: 'Marketing', type: 'a', score: 50 },
-      { item: 'Marketing', type: 'b', score: 60 },
-      { item: 'Users', type: 'a', score: 40 },
-      { item: 'Users', type: 'b', score: 50 },
-      { item: 'Test', type: 'a', score: 60 },
-      { item: 'Test', type: 'b', score: 70 },
-      { item: 'Language', type: 'a', score: 70 },
-      { item: 'Language', type: 'b', score: 50 },
-      { item: 'Technology', type: 'a', score: 50 },
-      { item: 'Technology', type: 'b', score: 40 },
-      { item: 'Support', type: 'a', score: 30 },
-      { item: 'Support', type: 'b', score: 40 },
-      { item: 'Sales', type: 'a', score: 60 },
-      { item: 'Sales', type: 'b', score: 40 },
-      { item: 'UX', type: 'a', score: 50 },
-      { item: 'UX', type: 'b', score: 60 },
-    ],
-    encode: { x: 'item', y: 'score', color: 'type' },
-    coordinate: { type: 'polar' }, // 配置坐标系为极坐标系，用于绘制雷达图
-    style: { fillOpacity: 0.5 },
-    axis: { x: { grid: true }, y: { zIndex: 1, title: false } }, // 配置图表组件 - 坐标轴
-    scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } }, // 配置比例尺，使图表显示效果更好
-  });
+chart.options({
+  type: 'area',
+  data: [
+    { item: 'Design', type: 'a', score: 70 },
+    { item: 'Design', type: 'b', score: 30 },
+    { item: 'Development', type: 'a', score: 60 },
+    { item: 'Development', type: 'b', score: 70 },
+    { item: 'Marketing', type: 'a', score: 50 },
+    { item: 'Marketing', type: 'b', score: 60 },
+    { item: 'Users', type: 'a', score: 40 },
+    { item: 'Users', type: 'b', score: 50 },
+    { item: 'Test', type: 'a', score: 60 },
+    { item: 'Test', type: 'b', score: 70 },
+    { item: 'Language', type: 'a', score: 70 },
+    { item: 'Language', type: 'b', score: 50 },
+    { item: 'Technology', type: 'a', score: 50 },
+    { item: 'Technology', type: 'b', score: 40 },
+    { item: 'Support', type: 'a', score: 30 },
+    { item: 'Support', type: 'b', score: 40 },
+    { item: 'Sales', type: 'a', score: 60 },
+    { item: 'Sales', type: 'b', score: 40 },
+    { item: 'UX', type: 'a', score: 50 },
+    { item: 'UX', type: 'b', score: 60 },
+  ],
+  encode: { x: 'item', y: 'score', color: 'type' },
+  coordinate: { type: 'polar' }, // 配置坐标系为极坐标系，用于绘制雷达图
+  style: { fillOpacity: 0.5 },
+  axis: { x: { grid: true }, y: { zIndex: 1, title: false } }, // 配置图表组件 - 坐标轴
+  scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } }, // 配置比例尺，使图表显示效果更好
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### style

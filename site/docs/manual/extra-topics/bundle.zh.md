@@ -55,41 +55,39 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
 import { Chart } from '@antv/g2';
 
 const data = [
-    { lib: 'Chart', size: 957772, type: 'raw' },
-    { lib: 'Chart', size: 288753, type: 'gzip' },
-    { lib: 'Runtime', size: 855619, type: 'raw' },
-    { lib: 'Runtime', size: 252045, type: 'gzip' },
-  ];
-
-  
+  { lib: 'Chart', size: 957772, type: 'raw' },
+  { lib: 'Chart', size: 288753, type: 'gzip' },
+  { lib: 'Runtime', size: 855619, type: 'raw' },
+  { lib: 'Runtime', size: 252045, type: 'gzip' },
+];
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    data,
-    encode: {
-      x: 'lib',
-      y: 'size',
-      color: 'type',
-    },
-    transform: [{ type: 'dodgeX' }],
-    scale: {
-      y: { nice: true },
-    },
-    axis: {
-      y: { labelFormatter: (d) => d / 1000 + 'kb' },
-      x: { title: false },
-    },
-    legend: {
-      color: { title: false },
-    },
-    labels: [{ text: (d) => (d.size / 1000).toFixed(2) + 'kb' }],
-  });
+chart.options({
+  type: 'interval',
+  data,
+  encode: {
+    x: 'lib',
+    y: 'size',
+    color: 'type',
+  },
+  transform: [{ type: 'dodgeX' }],
+  scale: {
+    y: { nice: true },
+  },
+  axis: {
+    y: { labelFormatter: (d) => d / 1000 + 'kb' },
+    x: { title: false },
+  },
+  legend: {
+    color: { title: false },
+  },
+  labels: [{ text: (d) => (d.size / 1000).toFixed(2) + 'kb' }],
+});
 
-  chart.render();
+chart.render();
 ```
 
 可以发现体积减少了 **100kb** 左右。

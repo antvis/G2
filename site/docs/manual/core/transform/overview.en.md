@@ -48,38 +48,36 @@ Mark transform will modify the data bound to each channel, thereby changing the 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city')
-    .transform({ type: 'stackY' });
+chart
+  .interval()
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city')
+  .transform({ type: 'stackY' });
 
-  chart.render();
+chart.render();
 ```
 
 ## View Transform
@@ -89,41 +87,39 @@ Transform declared on the view will be passed on to the mark declared in `childr
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city')
-    .transform({ type: 'stackY' }); // Transform of the level of view
+chart
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city')
+  .transform({ type: 'stackY' }); // Transform of the level of view
 
-  chart.area().style('fillOpacity', 0.5);
+chart.area().style('fillOpacity', 0.5);
 
-  chart.line().style('strokeWidth', 2).tooltip(false);
+chart.line().style('strokeWidth', 2).tooltip(false);
 
-  chart.render();
+chart.render();
 ```
 
 ## Common Transform
@@ -140,37 +136,35 @@ One function of transform is to prevent overlap. For example, the bars in the fo
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city');
+chart
+  .interval()
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city');
 
-  chart.render();
+chart.render();
 ```
 
 At this time, you can declare a DodgeX to draw a grouped bar chart:
@@ -178,38 +172,36 @@ At this time, you can declare a DodgeX to draw a grouped bar chart:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city')
-    .transform({ type: 'dodgeX' }); // Declare transform
+chart
+  .interval()
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city')
+  .transform({ type: 'dodgeX' }); // Declare transform
 
-  chart.render();
+chart.render();
 ```
 
 This is actually one of the functions of mark transform: **Prevent overlap**. In addition to DodgeX, there are also transform such as StackY and JitterX that can be used to prevent overlap.
@@ -223,25 +215,23 @@ First, let's draw a scatterplot as follows, showing the correlation between peng
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    })
-    .encode('x', (d) => +d.culmen_depth_mm)
-    .encode('y', (d) => +d.culmen_length_mm);
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  })
+  .encode('x', (d) => +d.culmen_depth_mm)
+  .encode('y', (d) => +d.culmen_length_mm);
 
-  chart.render();
+chart.render();
 ```
 
 At this time, if you want to see the distribution of penguin culmen_depth_mm, you can use bin to binning the data.
@@ -249,29 +239,27 @@ At this time, if you want to see the distribution of penguin culmen_depth_mm, yo
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    })
-    .encode('x', (d) => +d.culmen_depth_mm)
-    .transform({
-      type: 'binX', // Bin the x channel value
-      y: 'count', // Generate the y channel and select the count reducer to count the total number of each box
-    })
-    .style('insetLeft', 1);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  })
+  .encode('x', (d) => +d.culmen_depth_mm)
+  .transform({
+    type: 'binX', // Bin the x channel value
+    y: 'count', // Generate the y channel and select the count reducer to count the total number of each box
+  })
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```
 
 Bin is mainly used to aggregate numerical data, and Group is mainly used for discrete data.
@@ -283,26 +271,24 @@ We can also declare multiple transform at the same time. For example, in the pen
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    })
-    .encode('x', (d) => +d.culmen_depth_mm)
-    .encode('color', 'sex')
-    .transform({ type: 'binX', y: 'count' }) // 声明 bin 转换
-    .transform({ type: 'stackY', orderBy: 'sum', reverse: true }) // 声明 stack 转换
-    .style('insetLeft', 1);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  })
+  .encode('x', (d) => +d.culmen_depth_mm)
+  .encode('color', 'sex')
+  .transform({ type: 'binX', y: 'count' }) // 声明 bin 转换
+  .transform({ type: 'stackY', orderBy: 'sum', reverse: true }) // 声明 stack 转换
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```

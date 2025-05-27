@@ -32,27 +32,25 @@ order: 18
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275, color: 'red' },
-      { genre: 'Strategy', sold: 115, color: 'blue' },
-      { genre: 'Action', sold: 120, color: 'green' },
-      { genre: 'Shooter', sold: 350, color: 'red' },
-      { genre: 'Other', sold: 150, color: 'black' },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'color')
-    .scale('color', { type: 'identity' }); // 设置该比例尺为恒等映射
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275, color: 'red' },
+    { genre: 'Strategy', sold: 115, color: 'blue' },
+    { genre: 'Action', sold: 120, color: 'green' },
+    { genre: 'Shooter', sold: 350, color: 'red' },
+    { genre: 'Other', sold: 150, color: 'black' },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'color')
+  .scale('color', { type: 'identity' }); // 设置该比例尺为恒等映射
 
-  chart.render();
+chart.render();
 ```
 
 ### Range
@@ -60,29 +58,27 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .encode('color', 'letter')
-    .axis('y', { labelFormatter: '.0%' })
-    .scale('color', {
-      type: 'ordinal',
-      range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
-    });
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('color', 'letter')
+  .axis('y', { labelFormatter: '.0%' })
+  .scale('color', {
+    type: 'ordinal',
+    range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
+  });
 
-  chart.render();
+chart.render();
 ```
 
 ### Palette
@@ -92,26 +88,24 @@ G2 中可以通过设置 `scale.palette` 去指定色板。这个色板可以是
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .encode('color', 'letter')
-    .axis('y', { labelFormatter: '.0%' })
-    .scale('color', { palette: 'tableau10' });
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('color', 'letter')
+  .axis('y', { labelFormatter: '.0%' })
+  .scale('color', { palette: 'tableau10' });
 
-  chart.render();
+chart.render();
 ```
 
 同时也可以是连续的：
@@ -119,27 +113,24 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    height: 320,
-  
+  height: 320,
 });
 
-  chart
-    .cell()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-    })
-    .transform({ type: 'group', color: 'max' })
-    .encode('x', (d) => new Date(d.date).getUTCDate())
-    .encode('y', (d) => new Date(d.date).getUTCMonth())
-    .encode('color', 'temp_max')
-    .scale('color', { palette: 'rainbow' });
+chart
+  .cell()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  })
+  .transform({ type: 'group', color: 'max' })
+  .encode('x', (d) => new Date(d.date).getUTCDate())
+  .encode('y', (d) => new Date(d.date).getUTCMonth())
+  .encode('color', 'temp_max')
+  .scale('color', { palette: 'rainbow' });
 
-  chart.render();
+chart.render();
 ```
 
 #### 内置色板
@@ -457,34 +448,30 @@ G2 提供了一些内置的色板，可以直接使用，并支持 [d3-scale-chr
 ```js | ob { autoMount: true }
 import { register, Chart } from '@antv/g2';
 
-
-
-
-  register('palette.custom', customPalette);
-  
+register('palette.custom', customPalette);
 
 const chart = new Chart({
   container: 'container',
 });
 
-  function customPalette() {
-    return ['#FFB3BA', '#98FF98', '#89CFF0', '#FFF9B1', '#D1A3FF'];
-  }
+function customPalette() {
+  return ['#FFB3BA', '#98FF98', '#89CFF0', '#FFF9B1', '#D1A3FF'];
+}
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .encode('color', 'letter')
-    .axis('y', { labelFormatter: '.0%' })
-    .scale('color', { palette: 'custom' }); // 指定自定义色板
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('color', 'letter')
+  .axis('y', { labelFormatter: '.0%' })
+  .scale('color', { palette: 'custom' }); // 指定自定义色板
 
-  chart.render();
+chart.render();
 ```
 
 ### Relations
@@ -507,27 +494,25 @@ chart.interval().scale('color', {
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .style('fill', (datum, index, data) => {
-      const { frequency } = datum;
-      if (frequency > 0.1) return '#3376cd';
-      if (frequency > 0.05) return '#f4bb51';
-      return '#b43a29';
-    });
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .style('fill', (datum, index, data) => {
+    const { frequency } = datum;
+    if (frequency > 0.1) return '#3376cd';
+    if (frequency > 0.05) return '#f4bb51';
+    return '#b43a29';
+  });
 
-  chart.render();
+chart.render();
 ```

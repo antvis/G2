@@ -67,12 +67,12 @@ chart
 
 ordinal 比例尺提供了以下配置选项：
 
-| 参数 | 说明 | 类型 | 默认值 | 必选 |
-| ---- | ---- | ---- | ------ | ---- |
-| domain | 设置数据的定义域范围 | `any[]` | `[]` | |
-| range | 设置数据映射的值域范围 | `any[]` | `[]` | |
-| unknown | 对于 `undefined`， `NaN`，`null` 空值，返回的数据 | `any` | `undefined` | |
-| compare | 比较两个值，用于排序的比较器 | `(a: number \| string, b: number \| string) => number` | `undefined` | |
+| 参数    | 说明                                              | 类型                                                   | 默认值      | 必选 |
+| ------- | ------------------------------------------------- | ------------------------------------------------------ | ----------- | ---- |
+| domain  | 设置数据的定义域范围                              | `any[]`                                                | `[]`        |      |
+| range   | 设置数据映射的值域范围                            | `any[]`                                                | `[]`        |      |
+| unknown | 对于 `undefined`， `NaN`，`null` 空值，返回的数据 | `any`                                                  | `undefined` |      |
+| compare | 比较两个值，用于排序的比较器                      | `(a: number \| string, b: number \| string) => number` | `undefined` |      |
 
 ### domain
 
@@ -132,45 +132,42 @@ chart.scale('color', {
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素
-  const container = document.createElement('div');
-  container.style.width = '100%';
-  container.style.height = '500px';
-
-  
+const container = document.createElement('div');
+container.style.width = '100%';
+container.style.height = '500px';
 
 const chart = new Chart({
   container: 'container',
-    container,
-    autoFit: true
-  
+  container,
+  autoFit: true,
 });
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: {
-      x: 'genre',
-      y: 'sold',
-      color: 'genre', // 将 genre 映射到颜色通道
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre', // 将 genre 映射到颜色通道
+  },
+  scale: {
+    color: {
+      type: 'ordinal',
+      // 自定义颜色范围
+      range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
     },
-    scale: {
-      color: {
-        type: 'ordinal',
-        // 自定义颜色范围
-        range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 
-  return container;
+return container;
 ```
 
 在这个示例中，我们使用 ordinal 比例尺将游戏类型（genre）映射到不同的颜色。每个类别都会对应到 range 数组中的一个颜色。
@@ -183,44 +180,42 @@ const chart = new Chart({
 import { Chart } from '@antv/g2';
 
 // 创建容器
-  const container = document.createElement('div');
-  container.style.width = '100%';
-  container.style.height = '500px';
+const container = document.createElement('div');
+container.style.width = '100%';
+container.style.height = '500px';
 
-  // 创建图表实例
-  
+// 创建图表实例
 
 const chart = new Chart({
   container: 'container',
-    container,
-    autoFit: true
-  
+  container,
+  autoFit: true,
 });
 
-  // 准备数据 - 故意使用乱序的类别
-  const data = [
-    { category: 'C', value: 20 },
-    { category: 'A', value: 40 },
-    { category: 'B', value: 30 },
-    { category: 'E', value: 10 },
-    { category: 'D', value: 25 },
-  ];
+// 准备数据 - 故意使用乱序的类别
+const data = [
+  { category: 'C', value: 20 },
+  { category: 'A', value: 40 },
+  { category: 'B', value: 30 },
+  { category: 'E', value: 10 },
+  { category: 'D', value: 25 },
+];
 
-  // 配置图表
-  chart.options({
-    type: 'interval',
-    data,
-    encode: {
-      x: 'category',
-      y: 'value',
-      color: 'category',
-    },
-  });
+// 配置图表
+chart.options({
+  type: 'interval',
+  data,
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category',
+  },
+});
 
-  // 渲染图表
-  chart.render();
+// 渲染图表
+chart.render();
 
-  return container;
+return container;
 ```
 
 在这个示例中，我们可以看到 G2 默认使用 ordinal 比例尺处理分类数据。默认情况下，类别会按照数据中的原始顺序（C, A, B, E, D）显示。
@@ -250,46 +245,44 @@ scale: {
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素
-  const container = document.createElement('div');
-  container.style.width = '100%';
-  container.style.height = '500px';
+const container = document.createElement('div');
+container.style.width = '100%';
+container.style.height = '500px';
 
-  const spec = {
-    type: 'interval',
-    data: [
-      { category: 'A', value: 40 },
-      { category: 'B', value: 30 },
-      { category: 'C', value: 20 },
-      { category: 'D', value: 10 },
-      { category: 'E', value: 25 },
-    ],
-    scale: {
-      color: {
-        type: 'ordinal',
-        domain: ['A', 'B', 'C', 'D', 'E'], // 显式指定类别顺序
-        range: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A'], // 自定义颜色
-      },
+const spec = {
+  type: 'interval',
+  data: [
+    { category: 'A', value: 40 },
+    { category: 'B', value: 30 },
+    { category: 'C', value: 20 },
+    { category: 'D', value: 10 },
+    { category: 'E', value: 25 },
+  ],
+  scale: {
+    color: {
+      type: 'ordinal',
+      domain: ['A', 'B', 'C', 'D', 'E'], // 显式指定类别顺序
+      range: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A'], // 自定义颜色
     },
-    encode: {
-      x: 'category',
-      y: 'value',
-      color: 'category',
-    },
-  };
+  },
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category',
+  },
+};
 
-  // 使用 Chart 渲染
-  
+// 使用 Chart 渲染
 
 const chart = new Chart({
   container: 'container',
-    container,
-    autoFit: true
-  
+  container,
+  autoFit: true,
 });
-  chart.options(spec);
-  chart.render();
+chart.options(spec);
+chart.render();
 
-  return container;
+return container;
 ```
 
 这个示例展示了如何使用 G2 声明式语法创建一个使用 ordinal 比例尺的柱状图，包括以下特性：

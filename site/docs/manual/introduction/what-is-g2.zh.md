@@ -44,24 +44,21 @@ table({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender');
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender');
 
-  chart.render();
+chart.render();
 ```
 
 ## 转换（Transform）
@@ -71,26 +68,23 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .style('insetLeft', 1);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```
 
 ## 比例尺（Scale）
@@ -100,28 +94,25 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .scale('color', { range: ['steelblue', 'orange'] })
-    .scale('y', { nice: true })
-    .style('insetLeft', 1);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .scale('color', { range: ['steelblue', 'orange'] })
+  .scale('y', { nice: true })
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```
 
 ## 坐标系（Coordinate）
@@ -131,30 +122,27 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .scale('color', { range: ['steelblue', 'orange'] })
-    .scale('y', { type: 'sqrt', nice: true })
-    .coordinate({ type: 'polar' })
-    .axis('y', { title: false })
-    .style('insetLeft', 1);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .scale('color', { range: ['steelblue', 'orange'] })
+  .scale('y', { type: 'sqrt', nice: true })
+  .coordinate({ type: 'polar' })
+  .axis('y', { title: false })
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```
 
 ## 视图复合（Composition）
@@ -164,35 +152,30 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    paddingLeft: 60,
-    
-  
+  paddingLeft: 60,
 });
 
-  const facet = chart
-    .facetRect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('y', 'gender');
+const facet = chart
+  .facetRect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('y', 'gender');
 
-  facet
-    .rect()
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .scale('y', { nice: true })
-    .attr('frame', false)
-    .style('insetLeft', 1);
+facet
+  .rect()
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .scale('y', { nice: true })
+  .attr('frame', false)
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```
 
 ## 动画（Animation）
@@ -202,28 +185,25 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .encode('enterDuration', 1000)
-    .transform({ type: 'stackEnter', groupBy: ['color'] })
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .style('insetLeft', 1);
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .encode('enterDuration', 1000)
+  .transform({ type: 'stackEnter', groupBy: ['color'] })
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .style('insetLeft', 1);
 
-  chart.render();
+chart.render();
 ```
 
 ```js | ob { autoMount: true }
@@ -234,7 +214,7 @@ import { Chart } from '@antv/g2';
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  
+
 
 const chart = new Chart({
   container: 'container',
@@ -274,36 +254,33 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('shape', 'point')
-    .style({
-      fillOpacity: 0.7,
-      transform: 'scale(1, 1)',
-      transformOrigin: 'center center',
-    })
-    .state('inactive', {
-      fill: 'black',
-      fillOpacity: 0.5,
-      transform: 'scale(0.5, 0.5)',
-    })
-    .interaction('brushXHighlight', true);
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender')
+  .encode('shape', 'point')
+  .style({
+    fillOpacity: 0.7,
+    transform: 'scale(1, 1)',
+    transformOrigin: 'center center',
+  })
+  .state('inactive', {
+    fill: 'black',
+    fillOpacity: 0.5,
+    transform: 'scale(0.5, 0.5)',
+  })
+  .interaction('brushXHighlight', true);
 
-  chart.render();
+chart.render();
 ```
 
 ## 更多能力

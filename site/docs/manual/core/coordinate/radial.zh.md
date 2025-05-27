@@ -30,57 +30,55 @@ order: 3
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    coordinate: {
-      type: 'radial',
-      innerRadius: 0.1,
-      endAngle: Math.PI,
+chart.options({
+  type: 'interval',
+  coordinate: {
+    type: 'radial',
+    innerRadius: 0.1,
+    endAngle: Math.PI,
+  },
+  data: [
+    { question: '问题 1', percent: 0.21 },
+    { question: '问题 2', percent: 0.4 },
+    { question: '问题 3', percent: 0.49 },
+    { question: '问题 4', percent: 0.52 },
+    { question: '问题 5', percent: 0.53 },
+    { question: '问题 6', percent: 0.84 },
+    { question: '问题 7', percent: 1.0 },
+    { question: '问题 8', percent: 1.2 },
+  ],
+  encode: {
+    x: 'question',
+    y: 'percent',
+    color: 'percent',
+  },
+  style: {
+    stroke: 'white',
+  },
+  scale: {
+    color: {
+      range: '#BAE7FF-#1890FF-#0050B3',
     },
-    data: [
-      { question: '问题 1', percent: 0.21 },
-      { question: '问题 2', percent: 0.4 },
-      { question: '问题 3', percent: 0.49 },
-      { question: '问题 4', percent: 0.52 },
-      { question: '问题 5', percent: 0.53 },
-      { question: '问题 6', percent: 0.84 },
-      { question: '问题 7', percent: 1.0 },
-      { question: '问题 8', percent: 1.2 },
-    ],
-    encode: {
-      x: 'question',
-      y: 'percent',
-      color: 'percent',
+  },
+  legend: {
+    color: {
+      length: 400,
+      position: 'bottom',
+      layout: { justifyContent: 'center' },
     },
-    style: {
-      stroke: 'white',
+  },
+  axis: {
+    y: {
+      tickFilter: (d, i) => i !== 0,
     },
-    scale: {
-      color: {
-        range: '#BAE7FF-#1890FF-#0050B3',
-      },
-    },
-    legend: {
-      color: {
-        length: 400,
-        position: 'bottom',
-        layout: { justifyContent: 'center' },
-      },
-    },
-    axis: {
-      y: {
-        tickFilter: (d, i) => i !== 0,
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 使用场景
@@ -104,22 +102,22 @@ const chart = new Chart({
 
 | 参数        | 说明                   | 类型   | 默认值               | 必选 |
 | ----------- | ---------------------- | ------ | -------------------- | ---- |
-| startAngle  | 极坐标系起始弧度       | number | `-Math.PI / 2`       |  |
-| endAngle    | 极坐标系结束弧度       | number | `(Math.PI \* 3) / 2` |  |
-| innerRadius | 极坐标内半径，范围 0-1 | number | `0`                  |  |
-| outerRadius | 极坐标半径，范围 0-1   | number | `1`                  |  |
+| startAngle  | 极坐标系起始弧度       | number | `-Math.PI / 2`       |      |
+| endAngle    | 极坐标系结束弧度       | number | `(Math.PI \* 3) / 2` |      |
+| innerRadius | 极坐标内半径，范围 0-1 | number | `0`                  |      |
+| outerRadius | 极坐标半径，范围 0-1   | number | `1`                  |      |
 
 ### 角度单位说明
 
 在径向坐标系中，角度使用弧度（radians）作为单位，而非角度（degrees）。以下是常用角度的弧度对照：
 
-| 角度 | 弧度 | 位置 |
-| --- | --- | --- |
-| 0° | 0 | 3点钟方向 |
-| 90° | π/2 | 12点钟方向 |
-| 180° | π | 9点钟方向 |
-| 270° | 3π/2 | 6点钟方向 |
-| 360° | 2π | 3点钟方向（一周） |
+| 角度 | 弧度 | 位置               |
+| ---- | ---- | ------------------ |
+| 0°   | 0    | 3 点钟方向         |
+| 90°  | π/2  | 12 点钟方向        |
+| 180° | π    | 9 点钟方向         |
+| 270° | 3π/2 | 6 点钟方向         |
+| 360° | 2π   | 3 点钟方向（一周） |
 
 可以使用 `Math.PI` 来表示 π，例如 `Math.PI / 2` 表示 90°。
 
@@ -132,26 +130,24 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
+chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
 
-  chart
-    .interval()
-    .data([
-      { category: '类别 A', value: 40 },
-      { category: '类别 B', value: 60 },
-      { category: '类别 C', value: 80 },
-    ])
-    .encode('x', 'category')
-    .encode('y', 'value')
-    .encode('color', 'value');
+chart
+  .interval()
+  .data([
+    { category: '类别 A', value: 40 },
+    { category: '类别 B', value: 60 },
+    { category: '类别 C', value: 80 },
+  ])
+  .encode('x', 'category')
+  .encode('y', 'value')
+  .encode('color', 'value');
 
-  chart.render();
+chart.render();
 ```
 
 ### 2. 径向堆叠条形图
@@ -161,30 +157,28 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.coordinate({ type: 'radial' });
+chart.coordinate({ type: 'radial' });
 
-  chart
-    .interval()
-    .data([
-      { category: '类别 A', type: '类型1', value: 40 },
-      { category: '类别 A', type: '类型2', value: 20 },
-      { category: '类别 B', type: '类型1', value: 30 },
-      { category: '类别 B', type: '类型2', value: 50 },
-      { category: '类别 C', type: '类型1', value: 25 },
-      { category: '类别 C', type: '类型2', value: 35 },
-    ])
-    .encode('x', 'category')
-    .encode('y', 'value')
-    .encode('color', 'type')
-    .transform({ type: 'stackY' });
+chart
+  .interval()
+  .data([
+    { category: '类别 A', type: '类型1', value: 40 },
+    { category: '类别 A', type: '类型2', value: 20 },
+    { category: '类别 B', type: '类型1', value: 30 },
+    { category: '类别 B', type: '类型2', value: 50 },
+    { category: '类别 C', type: '类型1', value: 25 },
+    { category: '类别 C', type: '类型2', value: 35 },
+  ])
+  .encode('x', 'category')
+  .encode('y', 'value')
+  .encode('color', 'type')
+  .transform({ type: 'stackY' });
 
-  chart.render();
+chart.render();
 ```
 
 ### 3. Apple 活动图
@@ -194,39 +188,37 @@ const chart = new Chart({
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  const data = [
-    { name: 'activity1', percent: 0.6, color: '#1ad5de' },
-    { name: 'activity2', percent: 0.2, color: '#a0ff03' },
-    { name: 'activity3', percent: 0.3, color: '#e90b3a' },
-  ];
+const data = [
+  { name: 'activity1', percent: 0.6, color: '#1ad5de' },
+  { name: 'activity2', percent: 0.2, color: '#a0ff03' },
+  { name: 'activity3', percent: 0.3, color: '#e90b3a' },
+];
 
-  chart.coordinate({ type: 'radial', innerRadius: 0.2 });
+chart.coordinate({ type: 'radial', innerRadius: 0.2 });
 
-  // 背景环
-  chart
-    .interval()
-    .data(data)
-    .encode('x', 'name')
-    .encode('y', 1)
-    .style('fillOpacity', 0.25);
+// 背景环
+chart
+  .interval()
+  .data(data)
+  .encode('x', 'name')
+  .encode('y', 1)
+  .style('fillOpacity', 0.25);
 
-  // 数据环
-  chart
-    .interval()
-    .data(data)
-    .encode('x', 'name')
-    .encode('y', 'percent')
-    .encode('color', 'color')
-    .scale('color', { type: 'identity' })
-    .style('radius', 26);
+// 数据环
+chart
+  .interval()
+  .data(data)
+  .encode('x', 'name')
+  .encode('y', 'percent')
+  .encode('color', 'color')
+  .scale('color', { type: 'identity' })
+  .style('radius', 26);
 
-  chart.render();
+chart.render();
 ```
 
 ## 完整示例
@@ -236,70 +228,68 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    coordinate: {
-      type: 'radial',
-      innerRadius: 0.1,
-      endAngle: Math.PI,
+chart.options({
+  type: 'interval',
+  coordinate: {
+    type: 'radial',
+    innerRadius: 0.1,
+    endAngle: Math.PI,
+  },
+  data: [
+    { category: '类别 A', value: 21 },
+    { category: '类别 B', value: 40 },
+    { category: '类别 C', value: 49 },
+    { category: '类别 D', value: 52 },
+    { category: '类别 E', value: 53 },
+    { category: '类别 F', value: 84 },
+    { category: '类别 G', value: 100 },
+    { category: '类别 H', value: 120 },
+  ],
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'value',
+  },
+  style: {
+    stroke: 'white',
+  },
+  scale: {
+    color: {
+      range: '#BAE7FF-#1890FF-#0050B3',
     },
-    data: [
-      { category: '类别 A', value: 21 },
-      { category: '类别 B', value: 40 },
-      { category: '类别 C', value: 49 },
-      { category: '类别 D', value: 52 },
-      { category: '类别 E', value: 53 },
-      { category: '类别 F', value: 84 },
-      { category: '类别 G', value: 100 },
-      { category: '类别 H', value: 120 },
-    ],
-    encode: {
-      x: 'category',
-      y: 'value',
-      color: 'value',
+  },
+  axis: {
+    y: {
+      tickFilter: (d, i) => i !== 0,
     },
-    style: {
-      stroke: 'white',
+  },
+  legend: {
+    color: {
+      length: 400,
+      position: 'bottom',
+      layout: { justifyContent: 'center' },
     },
-    scale: {
-      color: {
-        range: '#BAE7FF-#1890FF-#0050B3',
-      },
+  },
+  label: {
+    text: 'value',
+    position: 'outside',
+    autoRotate: true,
+    rotateToAlignArc: true,
+    dx: 4,
+  },
+  animate: {
+    enter: {
+      type: 'waveIn',
+      duration: 800,
     },
-    axis: {
-      y: {
-        tickFilter: (d, i) => i !== 0
-      },
-    },
-    legend: {
-      color: {
-        length: 400,
-        position: 'bottom',
-        layout: { justifyContent: 'center' },
-      },
-    },
-    label: {
-      text: 'value',
-      position: 'outside',
-      autoRotate: true,
-      rotateToAlignArc: true,
-      dx: 4,
-    },
-    animate: {
-      enter: {
-        type: 'waveIn',
-        duration: 800
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 这个示例展示了如何创建一个带有标签和动画效果的径向条形图，包括以下特性：

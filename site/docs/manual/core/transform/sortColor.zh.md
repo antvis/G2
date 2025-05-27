@@ -20,11 +20,11 @@ order: 2
 
 ## 配置项
 
-| 属性    | 描述                                                   | 类型                         | 默认值  |
-| ------- | ------------------------------------------------------ | ---------------------------- | ------- |
-| by      | 指定排序的通道（如 'y'、'x' 等）                       | `string`                     | `'y'`   |
-| reverse | 是否逆序                                               | `boolean`                    | `false` |
-| reducer | 分组聚合方式，用于多值比较                             | `Reducer`                    | `'max'` |
+| 属性    | 描述                             | 类型      | 默认值  |
+| ------- | -------------------------------- | --------- | ------- |
+| by      | 指定排序的通道（如 'y'、'x' 等） | `string`  | `'y'`   |
+| reverse | 是否逆序                         | `boolean` | `false` |
+| reducer | 分组聚合方式，用于多值比较       | `Reducer` | `'max'` |
 
 ### by
 
@@ -34,7 +34,6 @@ order: 2
 ### reverse
 
 是否逆序排列。`true` 表示将排序结果逆序，`false` 表示保持默认顺序。实际排序方向还与 `reducer` 聚合方式有关（如 `reducer: 'max'` 时，reverse: true 为降序；`reducer: 'min'` 时，reverse: true 为升序）。
-
 
 ### reducer
 
@@ -63,30 +62,28 @@ type Reducer =
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { 类别: 'A', 年份: '2022', 数值: 30 },
-      { 类别: 'A', 年份: '2023', 数值: 50 },
-      { 类别: 'B', 年份: '2022', 数值: 20 },
-      { 类别: 'B', 年份: '2023', 数值: 40 },
-      { 类别: 'C', 年份: '2022', 数值: 35 },
-      { 类别: 'C', 年份: '2023', 数值: 25 },
-    ],
-    encode: { x: '类别', y: '数值', color: '年份' },
-    transform: [
-      { type: 'sortColor', by: 'y', reverse: true },
-      { type: 'dodgeX' },
-    ],
-  });
+chart.options({
+  type: 'interval',
+  data: [
+    { 类别: 'A', 年份: '2022', 数值: 30 },
+    { 类别: 'A', 年份: '2023', 数值: 50 },
+    { 类别: 'B', 年份: '2022', 数值: 20 },
+    { 类别: 'B', 年份: '2023', 数值: 40 },
+    { 类别: 'C', 年份: '2022', 数值: 35 },
+    { 类别: 'C', 年份: '2023', 数值: 25 },
+  ],
+  encode: { x: '类别', y: '数值', color: '年份' },
+  transform: [
+    { type: 'sortColor', by: 'y', reverse: true },
+    { type: 'dodgeX' },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 2. 复杂排序与 reducer 配置
@@ -94,28 +91,26 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { 类别: 'A', 年份: '2022', 数值: 30 },
-      { 类别: 'A', 年份: '2023', 数值: 50 },
-      { 类别: 'B', 年份: '2022', 数值: 20 },
-      { 类别: 'B', 年份: '2023', 数值: 40 },
-      { 类别: 'C', 年份: '2022', 数值: 35 },
-      { 类别: 'C', 年份: '2023', 数值: 25 },
-    ],
-    encode: { x: '类别', y: '数值', color: '年份' },
-    transform: [
-      { type: 'sortColor', by: 'y', reducer: 'min' }, // 按最小值排序
-      { type: 'dodgeX' },
-    ],
-  });
+chart.options({
+  type: 'interval',
+  data: [
+    { 类别: 'A', 年份: '2022', 数值: 30 },
+    { 类别: 'A', 年份: '2023', 数值: 50 },
+    { 类别: 'B', 年份: '2022', 数值: 20 },
+    { 类别: 'B', 年份: '2023', 数值: 40 },
+    { 类别: 'C', 年份: '2022', 数值: 35 },
+    { 类别: 'C', 年份: '2023', 数值: 25 },
+  ],
+  encode: { x: '类别', y: '数值', color: '年份' },
+  transform: [
+    { type: 'sortColor', by: 'y', reducer: 'min' }, // 按最小值排序
+    { type: 'dodgeX' },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```

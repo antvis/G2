@@ -3,7 +3,6 @@ title: 概览
 order: 1
 ---
 
-
 动画作为可视化的重要组成部分，能显著提高数据可视化的表现力。G2 提供了完善的动画系统，支持图形在进入（enter）、更新（update）和退出（exit）三个阶段的动画效果设置，并且能根据数据特性进行动画编码，实现丰富的交互与过渡效果。
 
 G2 动画系统的核心特性：
@@ -19,26 +18,23 @@ G2 动画系统的核心特性：
 
 动画可在图表配置中通过 `animate` 属性进行设置：
 
-
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "line",
+  type: 'line',
   autoFit: true,
   data: {
-    type: "fetch",
+    type: 'fetch',
     value:
-      "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
   },
-  encode: { x: "date", y: "close" },
-  animate: { enter: { type: "pathIn", duration: 1000 } },
+  encode: { x: 'date', y: 'close' },
+  animate: { enter: { type: 'pathIn', duration: 1000 } },
 });
 chart.render();
 ```
@@ -48,44 +44,42 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "line",
+  type: 'line',
   autoFit: true,
   data: {
-    type: "fetch",
+    type: 'fetch',
     value:
-      "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
   },
-  encode: { x: "date", y: "close" },
-  animate: { enter: { type: "false", } },
+  encode: { x: 'date', y: 'close' },
+  animate: { enter: { type: 'false' } },
 });
 chart.render();
 ```
+
 可通过`animate: false`来关闭所有动画:
+
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "line",
+  type: 'line',
   autoFit: true,
   data: {
-    type: "fetch",
+    type: 'fetch',
     value:
-      "https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv",
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
   },
-  encode: { x: "date", y: "close" },
+  encode: { x: 'date', y: 'close' },
   animate: false,
 });
 chart.render();
@@ -96,25 +90,23 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   autoFit: true,
   data: [
-    { genre: "Sports", sold: 275 },
-    { genre: "Strategy", sold: 115 },
-    { genre: "Action", sold: 120 },
-    { genre: "Shooter", sold: 350 },
-    { genre: "Other", sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
   ],
-  encode: { x: "genre", y: "sold", color: "genre" },
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
   animate: {
-    enter: { type: "fadeIn", duration: 1000 },
+    enter: { type: 'fadeIn', duration: 1000 },
   },
 });
 
@@ -122,6 +114,7 @@ chart.render();
 ```
 
 ## 动画属性
+
 标记是通过`mark.animate`指定动画属性的，一共有三个部分的动画可以指定：
 
 **enter**- 新增的图形
@@ -130,33 +123,33 @@ chart.render();
 
 **exit**- 删除的图形
 
-
 ## 配置选项
 
 ### 动画配置完整选项
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| enter | 入场动画配置 | `EnterAnimateOptions` | - |  |
-| update | 更新动画配置 | `UpdateAnimateOptions` | - |  |
-| exit | 退出动画配置 | `ExitAnimateOptions` | - |  |
-| enterType | 入场动画类型 | `string` | `fadeIn` |  |
-| enterDuration | 入场动画持续时间（毫秒） | `number` | `300` |  |
-| enterDelay | 入场动画延迟时间（毫秒） | `number` | `0` |  |
-| enterEasing | 入场动画缓动函数 | `string` | `ease` |  |
-| enterFill | 入场动画非运行状态的展示效果 | `Fill` | `both` |  |
-| updateType | 更新动画类型 | `string` | `morphing` |  |
-| updateDuration | 更新动画持续时间（毫秒） | `number` | `300` |  |
-| updateDelay | 更新动画延迟时间（毫秒） | `number` | `0` |  |
-| updateEasing | 更新动画缓动函数 | `string` | `ease` |  |
-| updateFill | 更新动画非运行状态的展示效果 | `Fill` | `both` |  |
-| exitType | 退出动画类型 | `string` | `fadeOut` |  |
-| exitDuration | 退出动画持续时间（毫秒） | `number` | `300` |  |
-| exitDelay | 退出动画延迟时间（毫秒） | `number` | `0` |  |
-| exitEasing | 退出动画缓动函数 | `string` | `ease` |  |
-| exitFill | 退出动画非运行状态的展示效果 | `Fill` | `both` |  |
+| 属性           | 描述                         | 类型                   | 默认值     | 必选 |
+| -------------- | ---------------------------- | ---------------------- | ---------- | ---- |
+| enter          | 入场动画配置                 | `EnterAnimateOptions`  | -          |      |
+| update         | 更新动画配置                 | `UpdateAnimateOptions` | -          |      |
+| exit           | 退出动画配置                 | `ExitAnimateOptions`   | -          |      |
+| enterType      | 入场动画类型                 | `string`               | `fadeIn`   |      |
+| enterDuration  | 入场动画持续时间（毫秒）     | `number`               | `300`      |      |
+| enterDelay     | 入场动画延迟时间（毫秒）     | `number`               | `0`        |      |
+| enterEasing    | 入场动画缓动函数             | `string`               | `ease`     |      |
+| enterFill      | 入场动画非运行状态的展示效果 | `Fill`                 | `both`     |      |
+| updateType     | 更新动画类型                 | `string`               | `morphing` |      |
+| updateDuration | 更新动画持续时间（毫秒）     | `number`               | `300`      |      |
+| updateDelay    | 更新动画延迟时间（毫秒）     | `number`               | `0`        |      |
+| updateEasing   | 更新动画缓动函数             | `string`               | `ease`     |      |
+| updateFill     | 更新动画非运行状态的展示效果 | `Fill`                 | `both`     |      |
+| exitType       | 退出动画类型                 | `string`               | `fadeOut`  |      |
+| exitDuration   | 退出动画持续时间（毫秒）     | `number`               | `300`      |      |
+| exitDelay      | 退出动画延迟时间（毫秒）     | `number`               | `0`        |      |
+| exitEasing     | 退出动画缓动函数             | `string`               | `ease`     |      |
+| exitFill       | 退出动画非运行状态的展示效果 | `Fill`                 | `both`     |      |
 
 复杂类型说明：
+
 - `EnterAnimateOptions`：入场动画配置对象，包含 type、duration、delay、easing、fill 属性
 - `UpdateAnimateOptions`：更新动画配置对象，包含 type、duration、delay、easing、fill 属性
 - `ExitAnimateOptions`：退出动画配置对象，包含 type、duration、delay、easing、fill 属性
@@ -165,27 +158,25 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   autoFit: true,
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/deaths.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/deaths.json',
   },
-  encode: { x: "Month", y: "Death", color: "Type" },
+  encode: { x: 'Month', y: 'Death', color: 'Type' },
   transform: [
-    { type: "stackY" },
-    { type: "stackEnter", groupBy: ["color", "x"], duration: 2000 },
+    { type: 'stackY' },
+    { type: 'stackEnter', groupBy: ['color', 'x'], duration: 2000 },
   ],
-  scale: { y: { type: "sqrt" } },
-  coordinate: { type: "polar" },
-  animate: { enter: { type: "waveIn" } },
+  scale: { y: { type: 'sqrt' } },
+  coordinate: { type: 'polar' },
+  animate: { enter: { type: 'waveIn' } },
   axis: { y: false },
 });
 
@@ -196,24 +187,21 @@ chart.render();
 
 动画类型 `Type` 决定了动画的视觉效果。G2 提供了多种内置动画类型，也可设置为 `null`、`undefined` 或 `false` 来关闭动画。常见的动画类型包括：
 
-
-| 动画类型 | 作用 |
-|---------|------|
-| fadeIn | 淡入效果，图形从透明到可见 |
-| growInX | 沿X轴方向生长效果 |
-| growInY | 沿Y轴方向生长效果 |
-| scaleInX | 沿X轴缩放进入效果 |
-| scaleInY | 沿Y轴缩放进入效果 |
-| zoomIn | 整体缩放进入效果 |
-| pathIn | 沿路径进入效果 |
-| waveIn | 波浪形进入效果 |
-| morphing | 形变效果，平滑过渡图形变化 |
-| fadeOut | 淡出效果，图形从可见到透明 |
-| scaleOutX | 沿X轴缩放退出效果 |
-| scaleOutY | 沿Y轴缩放退出效果 |
-| zoomOut | 整体缩放退出效果 |
-
-
+| 动画类型  | 作用                       |
+| --------- | -------------------------- |
+| fadeIn    | 淡入效果，图形从透明到可见 |
+| growInX   | 沿 X 轴方向生长效果        |
+| growInY   | 沿 Y 轴方向生长效果        |
+| scaleInX  | 沿 X 轴缩放进入效果        |
+| scaleInY  | 沿 Y 轴缩放进入效果        |
+| zoomIn    | 整体缩放进入效果           |
+| pathIn    | 沿路径进入效果             |
+| waveIn    | 波浪形进入效果             |
+| morphing  | 形变效果，平滑过渡图形变化 |
+| fadeOut   | 淡出效果，图形从可见到透明 |
+| scaleOutX | 沿 X 轴缩放退出效果        |
+| scaleOutY | 沿 Y 轴缩放退出效果        |
+| zoomOut   | 整体缩放退出效果           |
 
 ### 缓动函数 Easing
 
@@ -234,8 +222,6 @@ chart.render();
 |            | in-elastic         | out-elastic    | in-out-elastic        | out-in-elastic        |
 |            | spring / spring-in | spring-out     | spring-in-out         | spring-out-in         |
 
-
-
 ### 动画填充 Fill
 
 动画填充属性规定了图形在动画非运行状态（如开始前、结束后）时的展示效果：
@@ -245,46 +231,38 @@ chart.render();
 - `backwards` - 动画开始前应用第一帧效果
 - `both` - 同时应用 `forwards` 和 `backwards` 的效果
 
-
-
-
-
-
 ## 动画编码
 
 G2 支持将数据值映射到动画属性上，使动画也具备数据可视化的意义。通过 `encode` 可以将数据字段映射到动画属性，如 `enterDuration`、`enterDelay` 等。
 
-
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   autoFit: true,
   data: [
-    { name: "event planning", startTime: 1, endTime: 4 },
-    { name: "layout logistics", startTime: 3, endTime: 13 },
-    { name: "select vendors", startTime: 5, endTime: 8 },
-    { name: "hire venue", startTime: 9, endTime: 13 },
-    { name: "hire caterer", startTime: 10, endTime: 14 },
-    { name: "hire event decorators", startTime: 12, endTime: 17 },
-    { name: "rehearsal", startTime: 14, endTime: 16 },
-    { name: "event celebration", startTime: 17, endTime: 18 },
+    { name: 'event planning', startTime: 1, endTime: 4 },
+    { name: 'layout logistics', startTime: 3, endTime: 13 },
+    { name: 'select vendors', startTime: 5, endTime: 8 },
+    { name: 'hire venue', startTime: 9, endTime: 13 },
+    { name: 'hire caterer', startTime: 10, endTime: 14 },
+    { name: 'hire event decorators', startTime: 12, endTime: 17 },
+    { name: 'rehearsal', startTime: 14, endTime: 16 },
+    { name: 'event celebration', startTime: 17, endTime: 18 },
   ],
   encode: {
-    x: "name",
-    y: ["endTime", "startTime"],
-    color: "name",
+    x: 'name',
+    y: ['endTime', 'startTime'],
+    color: 'name',
     enterDuration: (d) => (d.endTime - d.startTime) * 300,
     enterDelay: (d) => d.startTime * 100,
   },
-  coordinate: { transform: [{ type: "transpose" }] },
+  coordinate: { transform: [{ type: 'transpose' }] },
 });
 
 chart.render();
@@ -294,43 +272,40 @@ chart.render();
 
 G2 提供了 `stackEnter` 标记转换来实现分组动画，使图形按照特定规则依次出现。该转换会先对图形进行分组，然后将它们的出现时间和持续时间在空间上进行堆叠。
 
-
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/doughnut-purchases.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/doughnut-purchases.json',
   },
   children: [
     {
-      type: "line",
-      encode: { x: "year", y: "count", color: "year", shape: "smooth" },
+      type: 'line',
+      encode: { x: 'year', y: 'count', color: 'year', shape: 'smooth' },
       scale: { y: { zero: true, nice: true } },
-      style: { gradient: "x", gradientColor: "start" },
-      animate: { enter: { type: "pathIn", duration: 3000 } },
-      axis: { y: { labelFormatter: "~s" } },
+      style: { gradient: 'x', gradientColor: 'start' },
+      animate: { enter: { type: 'pathIn', duration: 3000 } },
+      axis: { y: { labelFormatter: '~s' } },
     },
     {
-      type: "point",
-      encode: { x: "year", y: "count", color: "year", shape: "point" },
-      transform: [{ type: "stackEnter" }],
+      type: 'point',
+      encode: { x: 'year', y: 'count', color: 'year', shape: 'point' },
+      transform: [{ type: 'stackEnter' }],
       animate: { enter: { duration: 300 } },
     },
     {
-      type: "text",
-      encode: { x: "year", y: "count", text: "year" },
-      transform: [{ type: "stackEnter" }],
-      style: { lineWidth: 5, stroke: "#fff", textAlign: "center", dy: -8 },
+      type: 'text',
+      encode: { x: 'year', y: 'count', text: 'year' },
+      transform: [{ type: 'stackEnter' }],
+      style: { lineWidth: 5, stroke: '#fff', textAlign: 'center', dy: -8 },
       animate: { enter: { duration: 300 } },
     },
   ],
@@ -343,61 +318,58 @@ chart.render();
 
 G2 提供了制作关键帧动画的能力，可以在不同视图间平滑过渡，展示数据变化。通过 `timingKeyframe` 创建时间容器，使用 `key` 和 `groupKey` 通道指定元素之间的对应关系。
 
-
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
 chart.options({
-  type: "timingKeyframe",
+  type: 'timingKeyframe',
   autoFit: true,
-  direction: "alternate",
+  direction: 'alternate',
   iterationCount: 2,
   children: [
     {
-      type: "interval",
+      type: 'interval',
       data: [
-        { gender: "female", height: 161.2, weight: 51.6 },
-        { gender: "female", height: 167.5, weight: 59 },
-        { gender: "female", height: 159.5, weight: 49.2 },
-        { gender: "female", height: 157, weight: 63 },
-        { gender: "female", height: 155.8, weight: 53.6 },
-        { gender: "female", height: 170, weight: 59 },
-        { gender: "man", height: 159.1, weight: 47.6 },
-        { gender: "man", height: 166, weight: 69.8 },
-        { gender: "man", height: 176.2, weight: 66.8 },
-        { gender: "man", height: 160.2, weight: 75.2 },
-        { gender: "man", height: 172.5, weight: 55.2 },
+        { gender: 'female', height: 161.2, weight: 51.6 },
+        { gender: 'female', height: 167.5, weight: 59 },
+        { gender: 'female', height: 159.5, weight: 49.2 },
+        { gender: 'female', height: 157, weight: 63 },
+        { gender: 'female', height: 155.8, weight: 53.6 },
+        { gender: 'female', height: 170, weight: 59 },
+        { gender: 'man', height: 159.1, weight: 47.6 },
+        { gender: 'man', height: 166, weight: 69.8 },
+        { gender: 'man', height: 176.2, weight: 66.8 },
+        { gender: 'man', height: 160.2, weight: 75.2 },
+        { gender: 'man', height: 172.5, weight: 55.2 },
       ],
-      encode: { x: "gender", y: "weight", color: "gender", key: "gender" },
-      transform: [{ type: "groupX", y: "mean" }],
+      encode: { x: 'gender', y: 'weight', color: 'gender', key: 'gender' },
+      transform: [{ type: 'groupX', y: 'mean' }],
     },
     {
-      type: "point",
+      type: 'point',
       data: [
-        { gender: "female", height: 161.2, weight: 51.6 },
-        { gender: "female", height: 167.5, weight: 59 },
-        { gender: "female", height: 159.5, weight: 49.2 },
-        { gender: "female", height: 157, weight: 63 },
-        { gender: "female", height: 155.8, weight: 53.6 },
-        { gender: "female", height: 170, weight: 59 },
-        { gender: "man", height: 159.1, weight: 47.6 },
-        { gender: "man", height: 166, weight: 69.8 },
-        { gender: "man", height: 176.2, weight: 66.8 },
-        { gender: "man", height: 160.2, weight: 75.2 },
-        { gender: "man", height: 172.5, weight: 55.2 },
+        { gender: 'female', height: 161.2, weight: 51.6 },
+        { gender: 'female', height: 167.5, weight: 59 },
+        { gender: 'female', height: 159.5, weight: 49.2 },
+        { gender: 'female', height: 157, weight: 63 },
+        { gender: 'female', height: 155.8, weight: 53.6 },
+        { gender: 'female', height: 170, weight: 59 },
+        { gender: 'man', height: 159.1, weight: 47.6 },
+        { gender: 'man', height: 166, weight: 69.8 },
+        { gender: 'man', height: 176.2, weight: 66.8 },
+        { gender: 'man', height: 160.2, weight: 75.2 },
+        { gender: 'man', height: 172.5, weight: 55.2 },
       ],
       encode: {
-        x: "height",
-        y: "weight",
-        color: "gender",
-        shape: "point",
-        groupKey: "gender",
+        x: 'height',
+        y: 'weight',
+        color: 'gender',
+        shape: 'point',
+        groupKey: 'gender',
       },
     },
   ],
@@ -405,8 +377,9 @@ chart.options({
 });
 
 chart.render();
-```  
-## Lottie动画
+```
+
+## Lottie 动画
 
 `Lottie`能极大丰富动画的描述能力。
 
@@ -414,9 +387,6 @@ chart.render();
 
 具体实现可以参考：[lottie](https://g2.antv.antgroup.com/manual/extra-topics/plugin/lottie)。
 
-
 ## 时序动画
 
 时序动画（timingSequence）还在开发中，敬请期待。
-
-

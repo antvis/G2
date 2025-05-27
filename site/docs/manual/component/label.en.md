@@ -95,40 +95,38 @@ Here's a simple example:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    // Declare the first label
-    .label({
-      text: 'genre', // Specify the bound field
-      style: {
-        dy: -15, // Specify style
-      },
-    })
-    // Declare the second label
-    .label({
-      text: 'sold', // Specify the bound field
-      style: {
-        fill: '#fff', // Specify style
-        dy: 5,
-      },
-    });
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  // Declare the first label
+  .label({
+    text: 'genre', // Specify the bound field
+    style: {
+      dy: -15, // Specify style
+    },
+  })
+  // Declare the second label
+  .label({
+    text: 'sold', // Specify the bound field
+    style: {
+      fill: '#fff', // Specify style
+      dy: 5,
+    },
+  });
 
-  chart.render();
+chart.render();
 ```
 
 ## Selector
@@ -142,31 +140,29 @@ For the mark of a graph corresponding to multiple data items, we can select the 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .line()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
-    })
-    .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
-    .encode('x', (d) => new Date(d.Date))
-    .encode('y', 'Close')
-    .encode('color', 'Symbol')
-    .axis('y', { title: '↑ Change in price (%)' })
-    .label({
-      text: 'Symbol',
-      selector: 'last', // Select the last one
-      style: {
-        fontSize: 10,
-      },
-    });
-  chart.render();
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  })
+  .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
+  .encode('x', (d) => new Date(d.Date))
+  .encode('y', 'Close')
+  .encode('color', 'Symbol')
+  .axis('y', { title: '↑ Change in price (%)' })
+  .label({
+    text: 'Symbol',
+    selector: 'last', // Select the last one
+    style: {
+      fontSize: 10,
+    },
+  });
+chart.render();
 ```
 
 ## Label Transform
@@ -178,30 +174,28 @@ It can be found that in the example below, the labels corresponding to times suc
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .line()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
-    })
-    .transform({ type: 'groupX', y: 'mean' })
-    .encode('x', (d) => new Date(d.date).getFullYear())
-    .encode('y', 'price')
-    .encode('color', 'symbol')
-    .label({
-      text: 'price',
-      fontSize: 10,
-    })
-    .tooltip({ channel: 'y', valueFormatter: '.1f' });
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  })
+  .transform({ type: 'groupX', y: 'mean' })
+  .encode('x', (d) => new Date(d.date).getFullYear())
+  .encode('y', 'price')
+  .encode('color', 'symbol')
+  .label({
+    text: 'price',
+    fontSize: 10,
+  })
+  .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
-  chart.render();
+chart.render();
 ```
 
 At this time, we can set the label transform for the corresponding label: overlapDodgeY, which is used to prevent the labels from overlapping in the y direction.
@@ -209,31 +203,29 @@ At this time, we can set the label transform for the corresponding label: overla
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .line()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
-    })
-    .transform({ type: 'groupX', y: 'mean' })
-    .encode('x', (d) => new Date(d.date).getFullYear())
-    .encode('y', 'price')
-    .encode('color', 'symbol')
-    .label({
-      text: 'price',
-      transform: [{ type: 'overlapDodgeY' }], // Appoint labelTransform
-      fontSize: 10,
-    })
-    .tooltip({ channel: 'y', valueFormatter: '.1f' });
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  })
+  .transform({ type: 'groupX', y: 'mean' })
+  .encode('x', (d) => new Date(d.date).getFullYear())
+  .encode('y', 'price')
+  .encode('color', 'symbol')
+  .label({
+    text: 'price',
+    transform: [{ type: 'overlapDodgeY' }], // Appoint labelTransform
+    fontSize: 10,
+  })
+  .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
-  chart.render();
+chart.render();
 ```
 
 ## View Level Label Transform

@@ -68,44 +68,42 @@ return chart.getContainer();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .scale('x', {
-      range: [0, 1],
-    })
-    .scale('y', {
-      domainMin: 6,
-      nice: true,
-    });
-
-  chart.line().label({
-    text: 'value',
-    style: {
-      dx: -10,
-      dy: -12,
-    },
+chart
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value')
+  .scale('x', {
+    range: [0, 1],
+  })
+  .scale('y', {
+    domainMin: 6,
+    nice: true,
   });
 
-  chart.point().style('fill', 'white').tooltip(false);
-  chart.render();
+chart.line().label({
+  text: 'value',
+  style: {
+    dx: -10,
+    dy: -12,
+  },
+});
+
+chart.point().style('fill', 'white').tooltip(false);
+chart.render();
 ```
 
 如果不希望绘制超出绘制区域的图形，需要配置`clip = true`，此时 类似于 `point` 标记的图形可能被截断，可以通过调整 `inset` 大小来解决。
@@ -113,47 +111,44 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    clip: true,
-    inset: 20,
-  
+  clip: true,
+  inset: 20,
 });
 
-  chart
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .scale('x', {
-      range: [0, 1],
-    })
-    .scale('y', {
-      domainMin: 6,
-      nice: true,
-    });
-
-  chart.line().label({
-    text: 'value',
-    style: {
-      dx: -10,
-      dy: -12,
-    },
+chart
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value')
+  .scale('x', {
+    range: [0, 1],
+  })
+  .scale('y', {
+    domainMin: 6,
+    nice: true,
   });
 
-  chart.point().style('fill', 'white').tooltip(false);
-  chart.render();
+chart.line().label({
+  text: 'value',
+  style: {
+    dx: -10,
+    dy: -12,
+  },
+});
+
+chart.point().style('fill', 'white').tooltip(false);
+chart.render();
 ```
 
 ### ChartCfg.width
@@ -254,62 +249,56 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Light, register, Chart } from '@antv/g2';
 
+// 定义主题
+function CustomTheme() {
+  const light = Light();
+  return {
+    ...light,
+    category20: [
+      '#FFC0CB',
+      '#A2F5E8',
+      '#D4B0FF',
+      '#FFF3A3',
+      '#9AD6E3',
+      '#FFD8B1',
+      '#C3E6B4',
+      '#E8CFF8',
+      '#FFB7A0',
+      '#B8D0EB',
+      '#F5E6C3',
+      '#EED5B7',
+      '#C5D4EB',
+      '#D9C2F0',
+      '#D4EDC9',
+      '#B8E0A8',
+      '#EFD3A7',
+      '#F7CBD4',
+      '#F7ABD4',
+      '#F0E6E6',
+    ],
+  };
+}
 
-
-
-  // 定义主题
-  function CustomTheme() {
-    const light = Light();
-    return {
-      ...light,
-      category20: [
-        '#FFC0CB',
-        '#A2F5E8',
-        '#D4B0FF',
-        '#FFF3A3',
-        '#9AD6E3',
-        '#FFD8B1',
-        '#C3E6B4',
-        '#E8CFF8',
-        '#FFB7A0',
-        '#B8D0EB',
-        '#F5E6C3',
-        '#EED5B7',
-        '#C5D4EB',
-        '#D9C2F0',
-        '#D4EDC9',
-        '#B8E0A8',
-        '#EFD3A7',
-        '#F7CBD4',
-        '#F7ABD4',
-        '#F0E6E6',
-      ],
-    };
-  }
-
-  // 注册主题
-  register('theme.custom', CustomTheme);
-
-  
+// 注册主题
+register('theme.custom', CustomTheme);
 
 const chart = new Chart({
   container: 'container',
-    theme: { type: 'custom' }, // 使用主题
-  
+  theme: { type: 'custom' }, // 使用主题
 });
 
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: { x: 'letter', y: 'frequency', color: 'letter' },
-    axis: { y: { labelFormatter: '.0%' } },
-  });
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### ChartCfg.plugins
@@ -355,28 +344,27 @@ G2 提供了一套命令式的 Functional API 去声明图表，比如如下声�
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例
-  
 
 const chart = new Chart({
   container: 'container',
 });
 
-  // 声明可视化
-  chart
-    .interval() // 创建一个 Interval 标记
-    .data([
-      // 绑定数据
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre') // 编码 x 通道
-    .encode('y', 'sold'); // 编码 y 通道
+// 声明可视化
+chart
+  .interval() // 创建一个 Interval 标记
+  .data([
+    // 绑定数据
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre') // 编码 x 通道
+  .encode('y', 'sold'); // 编码 y 通道
 
-  // 渲染可视化
-  chart.render();
+// 渲染可视化
+chart.render();
 ```
 
 Functional API 是基于 Spec API 实现的：简单来讲，每一个 Chart 实例都有一个 options，Functional API 是通过一系列方法去生成这个 options，而 Spec API 是直接设置这个 options。不论是哪种形式的 API，G2 最后都是直接渲染当前的 options，所以两者声明可视化的能力是完全等价。

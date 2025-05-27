@@ -17,63 +17,60 @@ order: 1
 ```js | ob { autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
+const renderer = new gWebgl.Renderer();
+renderer.registerPlugin(new gPluginControl.Plugin());
+renderer.registerPlugin(new gPlugin3d.Plugin());
 
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...g2Extension3d.threedlib(),
+});
 
+// 初始化图表实例
+const chart = new Chart({
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
 
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Cylinders')
+  .encode('shape', 'cube')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
 
-  const Chart = extend(Runtime, {
-    ...corelib(),
-    ...g2Extension3d.threedlib(),
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(g.CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = new gPlugin3d.DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
   });
-
-  // 初始化图表实例
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'cube')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    canvas.appendChild(light);
-  });
+  canvas.appendChild(light);
+});
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -111,63 +108,60 @@ import { Runtime, corelib, extend } from '@antv/g2';
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
+const renderer = new gWebgl.Renderer();
+renderer.registerPlugin(new gPluginControl.Plugin());
+renderer.registerPlugin(new gPlugin3d.Plugin());
 
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...g2Extension3d.threedlib(),
+});
 
+// 初始化图表实例
+const chart = new Chart({
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
 
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Cylinders')
+  .encode('shape', 'sphere')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
 
-  const Chart = extend(Runtime, {
-    ...corelib(),
-    ...g2Extension3d.threedlib(),
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(g.CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = new gPlugin3d.DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
   });
-
-  // 初始化图表实例
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'sphere')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    canvas.appendChild(light);
-  });
+  canvas.appendChild(light);
+});
 ```
 
 而在使用 2D 图形时，无需添加光源：
@@ -175,53 +169,50 @@ import { Runtime, corelib, extend } from '@antv/g2';
 ```js | ob {  pin: false , autoMount: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
+const renderer = new gWebgl.Renderer();
+renderer.registerPlugin(new gPluginControl.Plugin());
+renderer.registerPlugin(new gPlugin3d.Plugin());
 
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...g2Extension3d.threedlib(),
+});
 
+// 初始化图表实例
+const chart = new Chart({
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
 
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Cylinders')
+  .encode('shape', 'triangle')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
 
-  const Chart = extend(Runtime, {
-    ...corelib(),
-    ...g2Extension3d.threedlib(),
-  });
-
-  // 初始化图表实例
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Cylinders')
-    .encode('shape', 'triangle')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-  });
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(g.CameraType.ORBITING);
+});
 ```
 
 ### 3D 图形

@@ -133,89 +133,87 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  const data = {
-    nodes: [
-      { id: 'a', key: '首页', des: '节点自定义属性' },
-      { id: 'b', key: '页面1', des: '节点自定义属性' },
-      { id: 'b_1', key: '页面1', des: '节点自定义属性' },
-      { id: 'c', key: '页面2', des: '节点自定义属性' },
-      { id: 'c_1', key: '页面2', des: '节点自定义属性' },
-      { id: 'd', key: '页面3', des: '节点自定义属性' },
-      { id: 'd_1', key: '页面3', des: '节点自定义属性' },
-    ],
-    links: [
-      { source: 'a', target: 'b', value: 100 },
-      { source: 'b', target: 'c', value: 80 },
-      { source: 'b', target: 'd', value: 20 },
-      { source: 'c', target: 'b_1', value: 80 },
-      { source: 'b_1', target: 'c_1', value: 40 },
-      { source: 'b_1', target: 'd_1', value: 40 },
-    ],
-  };
+const data = {
+  nodes: [
+    { id: 'a', key: '首页', des: '节点自定义属性' },
+    { id: 'b', key: '页面1', des: '节点自定义属性' },
+    { id: 'b_1', key: '页面1', des: '节点自定义属性' },
+    { id: 'c', key: '页面2', des: '节点自定义属性' },
+    { id: 'c_1', key: '页面2', des: '节点自定义属性' },
+    { id: 'd', key: '页面3', des: '节点自定义属性' },
+    { id: 'd_1', key: '页面3', des: '节点自定义属性' },
+  ],
+  links: [
+    { source: 'a', target: 'b', value: 100 },
+    { source: 'b', target: 'c', value: 80 },
+    { source: 'b', target: 'd', value: 20 },
+    { source: 'c', target: 'b_1', value: 80 },
+    { source: 'b_1', target: 'c_1', value: 40 },
+    { source: 'b_1', target: 'd_1', value: 40 },
+  ],
+};
 
-  chart.options({
-    type: 'sankey',
-    width: 900,
-    height: 600,
-    data: {
-      value: data,
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => ({
-            nodes: data.nodes,
-            links: data.links,
-          }),
-        },
-      ],
-    },
+chart.options({
+  type: 'sankey',
+  width: 900,
+  height: 600,
+  data: {
+    value: data,
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => ({
+          nodes: data.nodes,
+          links: data.links,
+        }),
+      },
+    ],
+  },
+  tooltip: {
+    nodeItems: [
+      (d, index, data, column) => {
+        return {
+          content: d.des,
+        };
+      },
+    ],
+    linkItems: [
+      (d, index, data, column) => {
+        return {
+          color: 'red', // 指定 item 的颜色
+          name: '连接线', // 指定 item 的名字
+          value: `${d.source.key}-${d.target.key}`, // 使用 y 通道的值
+          content: '连接线自定义属性',
+        };
+      },
+    ],
+  },
+  layout: {
+    nodeId: (d) => d.id,
+    nodeAlign: 'center',
+    nodePadding: 0.03,
+    iterations: 25,
+  },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    // linkFillOpacity: 0.2,
+    // linkFill: '#3F96FF',
+  },
+  interaction: {
     tooltip: {
-      nodeItems: [
-        (d, index, data, column) => {
-          return {
-            content: d.des,
-          };
-        },
-      ],
-      linkItems: [
-        (d, index, data, column) => {
-          return {
-            color: 'red', // 指定 item 的颜色
-            name: '连接线', // 指定 item 的名字
-            value: `${d.source.key}-${d.target.key}`, // 使用 y 通道的值
-            content: '连接线自定义属性',
-          };
-        },
-      ],
-    },
-    layout: {
-      nodeId: (d) => d.id,
-      nodeAlign: 'center',
-      nodePadding: 0.03,
-      iterations: 25,
-    },
-    style: {
-      labelSpacing: 3,
-      labelFontWeight: 'bold',
-      // linkFillOpacity: 0.2,
-      // linkFill: '#3F96FF',
-    },
-    interaction: {
-      tooltip: {
-        render: (e, { items, title }) => {
-          return `<div>${items[0].content}</div>`;
-        },
+      render: (e, { items, title }) => {
+        return `<div>${items[0].content}</div>`;
       },
     },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### layout
@@ -239,63 +237,61 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  const data = {
-    nodes: [
-      { id: 'a', key: '首页' },
-      { id: 'b', key: '页面1' },
-      { id: 'b_1', key: '页面1' },
-      { id: 'c', key: '页面2' },
-      { id: 'c_1', key: '页面2' },
-      { id: 'd', key: '页面3' },
-      { id: 'd_1', key: '页面3' },
-    ],
-    links: [
-      { source: 'a', target: 'b', value: 100 },
-      { source: 'b', target: 'c', value: 80 },
-      { source: 'b', target: 'd', value: 20 },
-      { source: 'c', target: 'b_1', value: 80 },
-      { source: 'b_1', target: 'c_1', value: 40 },
-      { source: 'b_1', target: 'd_1', value: 40 },
-    ],
-  };
+const data = {
+  nodes: [
+    { id: 'a', key: '首页' },
+    { id: 'b', key: '页面1' },
+    { id: 'b_1', key: '页面1' },
+    { id: 'c', key: '页面2' },
+    { id: 'c_1', key: '页面2' },
+    { id: 'd', key: '页面3' },
+    { id: 'd_1', key: '页面3' },
+  ],
+  links: [
+    { source: 'a', target: 'b', value: 100 },
+    { source: 'b', target: 'c', value: 80 },
+    { source: 'b', target: 'd', value: 20 },
+    { source: 'c', target: 'b_1', value: 80 },
+    { source: 'b_1', target: 'c_1', value: 40 },
+    { source: 'b_1', target: 'd_1', value: 40 },
+  ],
+};
 
-  chart.options({
-    type: 'sankey',
-    width: 900,
-    height: 600,
-    data: {
-      value: data,
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => ({
-            nodes: data.nodes,
-            links: data.links,
-          }),
-        },
-      ],
-    },
-    layout: {
-      nodeId: (d) => d.id,
-      nodeAlign: 'center',
-      nodePadding: 0.03,
-      iterations: 25,
-    },
-    style: {
-      labelSpacing: 3,
-      labelFontWeight: 'bold',
-      linkFillOpacity: 0.2,
-      linkFill: '#3F96FF',
-    },
-  });
+chart.options({
+  type: 'sankey',
+  width: 900,
+  height: 600,
+  data: {
+    value: data,
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => ({
+          nodes: data.nodes,
+          links: data.links,
+        }),
+      },
+    ],
+  },
+  layout: {
+    nodeId: (d) => d.id,
+    nodeAlign: 'center',
+    nodePadding: 0.03,
+    iterations: 25,
+  },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    linkFillOpacity: 0.2,
+    linkFill: '#3F96FF',
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 #### nodeSort

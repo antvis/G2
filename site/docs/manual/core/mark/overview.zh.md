@@ -12,57 +12,54 @@ order: 1
 ```js | ob {  pin: false, autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    height: 180,
-  
+  height: 180,
 });
 
-  chart.options({
-    type: 'view',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        {
-          type: 'map',
-          callback: (d) => ({
-            ...d,
-            body_mass_g: +d.body_mass_g,
-          }),
-        },
-      ],
-    },
-    children: [
-      // point 标记
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
       {
-        type: 'point',
-        encode: { x: 'body_mass_g', y: 'species' },
-        style: { stroke: '#000' },
-        tooltip: { items: [{ channel: 'x' }] },
-      },
-      // link 标记
-      {
-        type: 'link',
-        encode: { x: 'body_mass_g', y: 'species' },
-        transform: [{ type: 'groupY', x: 'min', x1: 'max' }],
-        style: { stroke: '#000' },
-        tooltip: false,
-      },
-      // point 标记绘制中位线
-      {
-        type: 'point',
-        encode: { y: 'species', x: 'body_mass_g', shape: 'line', size: 12 },
-        transform: [{ type: 'groupY', x: 'median' }],
-        style: { stroke: 'red' },
-        tooltip: { items: [{ channel: 'x' }] },
+        type: 'map',
+        callback: (d) => ({
+          ...d,
+          body_mass_g: +d.body_mass_g,
+        }),
       },
     ],
-  });
+  },
+  children: [
+    // point 标记
+    {
+      type: 'point',
+      encode: { x: 'body_mass_g', y: 'species' },
+      style: { stroke: '#000' },
+      tooltip: { items: [{ channel: 'x' }] },
+    },
+    // link 标记
+    {
+      type: 'link',
+      encode: { x: 'body_mass_g', y: 'species' },
+      transform: [{ type: 'groupY', x: 'min', x1: 'max' }],
+      style: { stroke: '#000' },
+      tooltip: false,
+    },
+    // point 标记绘制中位线
+    {
+      type: 'point',
+      encode: { y: 'species', x: 'body_mass_g', shape: 'line', size: 12 },
+      transform: [{ type: 'groupY', x: 'median' }],
+      style: { stroke: 'red' },
+      tooltip: { items: [{ channel: 'x' }] },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 根据标记可以代表的数据维度来划分，可以分为：
@@ -102,15 +99,15 @@ const chart = new Chart({
 | image     | 在指定位置渲染图像                               | [image](/manual/core/mark/image)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zD2UToZzYloAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | interval  | 基础柱状图/条形图，通过坐标系变换可生成饼图      | [interval](/manual/core/mark/interval)   | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1yoaSJ0rfrYAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Trl1TqdieqIAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original" /> |
 | line      | 折线图，支持平滑曲线和阶梯线                     | [line](/manual/core/mark/line)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WV2nRotltk4AAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jjhCTKfZHpgAAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ" />                                                                                                                       |
-| lineX     | 垂直辅助线，常用于标注特定值                     | [lineX](/manual/core/mark/line-x)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VJVAT7Rkx9MAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| lineY     | 水平辅助线，常用于标注阈值                       | [lineY](/manual/core/mark/line-y)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BG5UTbE7gycAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| lineX     | 垂直辅助线，常用于标注特定值                     | [lineX](/manual/core/mark/line-x)        | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VJVAT7Rkx9MAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| lineY     | 水平辅助线，常用于标注阈值                       | [lineY](/manual/core/mark/line-y)        | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BG5UTbE7gycAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | link      | 带方向箭头标记，展示节点间关系                   | [link](/manual/core/mark/link)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | liquid    | 水波图，展示百分比进度                           | [liquid](/manual/core/mark/liquid)       | <img src="https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*cHArRaizyBsAAAAAAAAAAAAADo2bAQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | point     | 散点图，通过大小/颜色编码多维度数据              | [point](/manual/core/mark/point)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | polygon   | 多边形标记，常配合布局算法使用                   | [polygon](/manual/core/mark/polygon)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | range     | 矩形区域标记，用于高亮特定区间                   | [range](/manual/core/mark/range)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w1BBRYvJf_UAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| rangeX    | 垂直方向区域标记                                 | [rangeX](/manual/core/mark/range-x)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| rangeY    | 水平方向区域标记                                 | [rangeY](/manual/core/mark/range-y)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rangeX    | 垂直方向区域标记                                 | [rangeX](/manual/core/mark/range-x)      | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rangeY    | 水平方向区域标记                                 | [rangeY](/manual/core/mark/range-y)      | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | rect      | 基础矩形标记，用于直方图/矩阵树图                | [rect](/manual/core/mark/rect)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oyXhQKobcMMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | shape     | 完全自定义图形标记                               | [shape](/manual/core/mark/shape)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LA11Rqfk2Y4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 | text      | 数据标签标记，支持富文本格式                     | [text](/manual/core/mark/text)           | <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ" />                                                                                                                                                                                                                                                                                                                                                               |
@@ -218,23 +215,21 @@ G2 中的标记具有许多特性，包括模板化、可叠加、可复合等�
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-    encode: { x: 'height', y: 'weight', color: 'gender' },
-  });
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  },
+  encode: { x: 'height', y: 'weight', color: 'gender' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 而在下面的折线图中，一条线对应多个数据项。
@@ -242,25 +237,23 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    width: 900,
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    },
-    encode: { x: 'date', y: 'close' },
-  });
+chart.options({
+  type: 'line',
+  width: 900,
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 可叠加
@@ -272,38 +265,36 @@ G2 的标记是可以叠加的，换句话说：可以在一个视图里面添�
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    children: [
-      {
-        type: 'line',
-        encode: { x: 'year', y: 'value' },
-      },
-      {
-        type: 'point',
-        encode: { x: 'year', y: 'value' },
-        tooltip: false, // 如果不希望展示某个标记的tooltip，可以单独关闭
-      },
-    ],
-  });
-  chart.render();
+chart.options({
+  type: 'view',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  children: [
+    {
+      type: 'line',
+      encode: { x: 'year', y: 'value' },
+    },
+    {
+      type: 'point',
+      encode: { x: 'year', y: 'value' },
+      tooltip: false, // 如果不希望展示某个标记的tooltip，可以单独关闭
+    },
+  ],
+});
+chart.render();
 ```
 
 当然，我们也可以结合更多的标记绘制一个具有复杂图形意义的区间曲线面积图。
@@ -311,50 +302,48 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
-      transform: [
-        {
-          type: 'map',
-          callback: ([x, low, high, v2, v3]) => ({
-            x,
-            low,
-            high,
-            v2,
-            v3,
-          }),
-        },
-      ],
-    },
-    scale: { x: { type: 'linear', tickCount: 10 } },
-    axis: { y: { title: false } },
-    children: [
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
+    transform: [
       {
-        type: 'area',
-        encode: { x: 'x', y: ['low', 'high'], shape: 'smooth' },
-        style: { fillOpacity: 0.65, fill: '#64b5f6', lineWidth: 1 },
-      },
-      {
-        type: 'point',
-        encode: { x: 'x', y: 'v2', size: 2, shape: 'point' },
-        tooltip: { items: ['v2'] },
-      },
-      {
-        type: 'line',
-        encode: { x: 'x', y: 'v3', color: '#FF6B3B', shape: 'smooth' },
+        type: 'map',
+        callback: ([x, low, high, v2, v3]) => ({
+          x,
+          low,
+          high,
+          v2,
+          v3,
+        }),
       },
     ],
-  });
-  chart.render();
+  },
+  scale: { x: { type: 'linear', tickCount: 10 } },
+  axis: { y: { title: false } },
+  children: [
+    {
+      type: 'area',
+      encode: { x: 'x', y: ['low', 'high'], shape: 'smooth' },
+      style: { fillOpacity: 0.65, fill: '#64b5f6', lineWidth: 1 },
+    },
+    {
+      type: 'point',
+      encode: { x: 'x', y: 'v2', size: 2, shape: 'point' },
+      tooltip: { items: ['v2'] },
+    },
+    {
+      type: 'line',
+      encode: { x: 'x', y: 'v3', color: '#FF6B3B', shape: 'smooth' },
+    },
+  ],
+});
+chart.render();
 ```
 
 ### 可复合
@@ -365,42 +354,40 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
 import { Chart } from '@antv/g2';
 
 // 定义复合 Mark
-  function PointLine({ encode, data } = {}) {
-    return [
-      { type: 'line', data, encode },
-      { type: 'point', data, encode },
-    ];
-  }
-
-  const data = [
-    { year: '1991', value: 3 },
-    { year: '1992', value: 4 },
-    { year: '1993', value: 3.5 },
-    { year: '1994', value: 5 },
-    { year: '1995', value: 4.9 },
-    { year: '1996', value: 6 },
-    { year: '1997', value: 7 },
-    { year: '1998', value: 9 },
-    { year: '1999', value: 13 },
+function PointLine({ encode, data } = {}) {
+  return [
+    { type: 'line', data, encode },
+    { type: 'point', data, encode },
   ];
+}
 
-  
+const data = [
+  { year: '1991', value: 3 },
+  { year: '1992', value: 4 },
+  { year: '1993', value: 3.5 },
+  { year: '1994', value: 5 },
+  { year: '1995', value: 4.9 },
+  { year: '1996', value: 6 },
+  { year: '1997', value: 7 },
+  { year: '1998', value: 9 },
+  { year: '1999', value: 13 },
+];
 
 const chart = new Chart({
   container: 'container',
 });
 
-  // Options 使用复合 Mark
-  chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
+// Options 使用复合 Mark
+chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
 
-  // Spec 使用复合 Mark
-  chart.options({
-    type: PointLine,
-    data,
-    encode: { x: 'year', y: 'value' },
-  });
+// Spec 使用复合 Mark
+chart.options({
+  type: PointLine,
+  data,
+  encode: { x: 'year', y: 'value' },
+});
 
-  chart.render();
+chart.render();
 ```
 
 标记可复合的特性提供了一种简单却强大的扩展 G2 能力的方式，G2 内部也是使用这个机制实现了一些比较复杂的标记，比如桑基图：用两个 Polygon 标记进行复合。
@@ -408,40 +395,37 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    width: 900,
-    height: 600,
-  
+  width: 900,
+  height: 600,
 });
 
-  // Sankey 标记
-  chart.options({
-    type: 'sankey',
-    layout: { nodeAlign: 'center', nodePadding: 0.03 },
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/energy.json',
-      transform: [
-        {
-          type: 'custom',
-          callback: (data) => ({
-            links: data,
-          }),
-        },
-      ],
-    },
-    style: {
-      labelSpacing: 3,
-      labelFontWeight: 'bold',
-      nodeStrokeWidth: 1.2,
-      linkFillOpacity: 0.4,
-    },
-  });
+// Sankey 标记
+chart.options({
+  type: 'sankey',
+  layout: { nodeAlign: 'center', nodePadding: 0.03 },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/energy.json',
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => ({
+          links: data,
+        }),
+      },
+    ],
+  },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    nodeStrokeWidth: 1.2,
+    linkFillOpacity: 0.4,
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 支持多种转换
@@ -453,28 +437,26 @@ G2 的标记支持多种 [转换（Transform）](/manual/core/transform/overview
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'rect',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    },
-    encode: { x: 'weight', color: 'sex' },
-    transform: [
-      { type: 'binX', y: 'count' },
-      { type: 'stackY', orderBy: 'series' },
-    ],
-    style: { inset: 0.5 },
-  });
+chart.options({
+  type: 'rect',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { x: 'weight', color: 'sex' },
+  transform: [
+    { type: 'binX', y: 'count' },
+    { type: 'stackY', orderBy: 'series' },
+  ],
+  style: { inset: 0.5 },
+});
 
-  chart.render();
+chart.render();
 ```
 
 通过配置多种转换，我们可以得到特定表现形式的复杂图表，以下是一个经过 [normalizeY](/manual/core/transform/normalize-y) 和 [stackY](/manual/core/transform/stack-y) 等多个转换后得到的聚合归一化堆叠条形图。
@@ -482,35 +464,33 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
-      transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
-    },
-    encode: { x: 'age', y: 'people', color: 'sex' },
-    transform: [
-      { type: 'groupX', y: 'sum' },
-      { type: 'stackY' },
-      { type: 'normalizeY' },
-    ],
-    scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
-    coordinate: { transform: [{ type: 'transpose' }] },
-    axis: { y: { labelFormatter: '.0%' } },
-    labels: [{ text: 'people', position: 'inside', fill: 'white' }],
-    tooltip: { items: [{ channel: 'y', valueFormatter: '.0%' }] },
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
+  },
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  transform: [
+    { type: 'groupX', y: 'sum' },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
+  ],
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  coordinate: { transform: [{ type: 'transpose' }] },
+  axis: { y: { labelFormatter: '.0%' } },
+  labels: [{ text: 'people', position: 'inside', fill: 'white' }],
+  tooltip: { items: [{ channel: 'y', valueFormatter: '.0%' }] },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 可作为标注
@@ -526,41 +506,39 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/1ecf85d2-8279-46a1-898d-d2e1814617f9.json',
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/1ecf85d2-8279-46a1-898d-d2e1814617f9.json',
+  },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'GDP', y: 'LifeExpectancy', color: 'Continent' },
     },
-    children: [
-      {
-        type: 'point',
-        encode: { x: 'GDP', y: 'LifeExpectancy', color: 'Continent' },
+    {
+      type: 'text',
+      encode: {
+        text: 'Country',
+        x: 'GDP',
+        y: 'LifeExpectancy',
+        series: 'Continent',
       },
-      {
-        type: 'text',
-        encode: {
-          text: 'Country',
-          x: 'GDP',
-          y: 'LifeExpectancy',
-          series: 'Continent',
-        },
-        // 将图形按照 series 分组，也就是 Continent
-        // 通过 x 通道选择，选择其中最大的，也就是 GDP 最大的
-        transform: [{ type: 'select', channel: 'x', selector: 'max' }],
-        style: { textAlign: 'end' },
-      },
-    ],
-  });
+      // 将图形按照 series 分组，也就是 Continent
+      // 通过 x 通道选择，选择其中最大的，也就是 GDP 最大的
+      transform: [{ type: 'select', channel: 'x', selector: 'max' }],
+      style: { textAlign: 'end' },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 对于不需要分组的简单的文本标记，使用 [数据标签（Label）](/manual/component/label) 就可以，否则可以考虑上面的方式。
@@ -582,85 +560,83 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    children: [
-      {
-        type: 'point',
-        data: [
-          { x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' },
-          { x: 86.5, y: 102.9, z: 14.7, name: 'DE', country: 'Germany' },
-          { x: 80.8, y: 91.5, z: 15.8, name: 'FI', country: 'Finland' },
-          { x: 80.4, y: 102.5, z: 12, name: 'NL', country: 'Netherlands' },
-          { x: 80.3, y: 86.1, z: 11.8, name: 'SE', country: 'Sweden' },
-          { x: 78.4, y: 70.1, z: 16.6, name: 'ES', country: 'Spain' },
-          { x: 74.2, y: 68.5, z: 14.5, name: 'FR', country: 'France' },
-          { x: 73.5, y: 83.1, z: 10, name: 'NO', country: 'Norway' },
-          { x: 71, y: 93.2, z: 24.7, name: 'UK', country: 'United Kingdom' },
-          { x: 69.2, y: 57.6, z: 10.4, name: 'IT', country: 'Italy' },
-          { x: 68.6, y: 20, z: 16, name: 'RU', country: 'Russia' },
-          { x: 65.5, y: 126.4, z: 35.3, name: 'US', country: 'United States' },
-          { x: 65.4, y: 50.8, z: 28.5, name: 'HU', country: 'Hungary' },
-          { x: 63.4, y: 51.8, z: 15.4, name: 'PT', country: 'Portugal' },
-          { x: 64, y: 82.9, z: 31.3, name: 'NZ', country: 'New Zealand' },
-        ],
-        encode: { x: 'x', y: 'y', size: 'z', shape: 'point' },
-        scale: {
-          x: { nice: true },
-          y: { nice: true, domainMax: 165, zero: true },
-          size: { range: [10, 40] },
+chart.options({
+  type: 'view',
+  autoFit: true,
+  children: [
+    {
+      type: 'point',
+      data: [
+        { x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' },
+        { x: 86.5, y: 102.9, z: 14.7, name: 'DE', country: 'Germany' },
+        { x: 80.8, y: 91.5, z: 15.8, name: 'FI', country: 'Finland' },
+        { x: 80.4, y: 102.5, z: 12, name: 'NL', country: 'Netherlands' },
+        { x: 80.3, y: 86.1, z: 11.8, name: 'SE', country: 'Sweden' },
+        { x: 78.4, y: 70.1, z: 16.6, name: 'ES', country: 'Spain' },
+        { x: 74.2, y: 68.5, z: 14.5, name: 'FR', country: 'France' },
+        { x: 73.5, y: 83.1, z: 10, name: 'NO', country: 'Norway' },
+        { x: 71, y: 93.2, z: 24.7, name: 'UK', country: 'United Kingdom' },
+        { x: 69.2, y: 57.6, z: 10.4, name: 'IT', country: 'Italy' },
+        { x: 68.6, y: 20, z: 16, name: 'RU', country: 'Russia' },
+        { x: 65.5, y: 126.4, z: 35.3, name: 'US', country: 'United States' },
+        { x: 65.4, y: 50.8, z: 28.5, name: 'HU', country: 'Hungary' },
+        { x: 63.4, y: 51.8, z: 15.4, name: 'PT', country: 'Portugal' },
+        { x: 64, y: 82.9, z: 31.3, name: 'NZ', country: 'New Zealand' },
+      ],
+      encode: { x: 'x', y: 'y', size: 'z', shape: 'point' },
+      scale: {
+        x: { nice: true },
+        y: { nice: true, domainMax: 165, zero: true },
+        size: { range: [10, 40] },
+      },
+      style: { stroke: '#1890ff', fillOpacity: 0.3, fill: '#1890ff' },
+      legend: false,
+      labels: [
+        { text: 'name', position: 'inside', fill: '#1890ff', stroke: '#fff' },
+      ],
+    },
+    {
+      type: 'lineY',
+      data: [50],
+      style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
+      labels: [
+        {
+          text: 'Safe sugar intake 50g/day',
+          position: 'right',
+          textBaseline: 'bottom',
+          fill: '#000',
+          fillOpacity: 0.45,
+          background: true,
+          backgroundFill: '#000',
+          backgroundOpacity: 0.15,
         },
-        style: { stroke: '#1890ff', fillOpacity: 0.3, fill: '#1890ff' },
-        legend: false,
-        labels: [
-          { text: 'name', position: 'inside', fill: '#1890ff', stroke: '#fff' },
-        ],
-      },
-      {
-        type: 'lineY',
-        data: [50],
-        style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
-        labels: [
-          {
-            text: 'Safe sugar intake 50g/day',
-            position: 'right',
-            textBaseline: 'bottom',
-            fill: '#000',
-            fillOpacity: 0.45,
-            background: true,
-            backgroundFill: '#000',
-            backgroundOpacity: 0.15,
-          },
-        ],
-      },
-      {
-        type: 'lineX',
-        data: [65],
-        style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
-        labels: [
-          {
-            text: 'Safe fat intake 65g/day',
-            position: 'top-left',
-            textBaseline: 'bottom',
-            fill: '#000',
-            fillOpacity: 0.45,
-            background: true,
-            backgroundFill: '#000',
-            backgroundOpacity: 0.15,
-          },
-        ],
-      },
-    ],
-  });
+      ],
+    },
+    {
+      type: 'lineX',
+      data: [65],
+      style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
+      labels: [
+        {
+          text: 'Safe fat intake 65g/day',
+          position: 'top-left',
+          textBaseline: 'bottom',
+          fill: '#000',
+          fillOpacity: 0.45,
+          background: true,
+          backgroundFill: '#000',
+          backgroundOpacity: 0.15,
+        },
+      ],
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 除了数据驱动的定位，G2 也提供了非数据驱动的定位方式。通过 `style` 去指定 x 和 y 属性，x 和 y 拥有下面两种类型。分别对应标注的 **绝对定位** 和 **相对定位** 。
@@ -672,42 +648,40 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    children: [
-      {
-        type: 'interval',
-        data: [
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Strategy', sold: 115 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Shooter', sold: 350 },
-          { genre: 'Other', sold: 150 },
-        ],
-        encode: { y: 'sold', color: 'genre' },
-        transform: [{ type: 'stackY' }],
-        coordinate: { type: 'theta', innerRadius: 0.5 },
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      transform: [{ type: 'stackY' }],
+      coordinate: { type: 'theta', innerRadius: 0.5 },
+    },
+    {
+      type: 'text',
+      style: {
+        x: 290, // 配置具体像素坐标
+        y: 200,
+        text: 'hello',
+        textAlign: 'center',
+        fontSize: 60,
+        textBaseline: 'middle',
       },
-      {
-        type: 'text',
-        style: {
-          x: 290, // 配置具体像素坐标
-          y: 200,
-          text: 'hello',
-          textAlign: 'center',
-          fontSize: 60,
-          textBaseline: 'middle',
-        },
-      },
-    ],
-  });
-  chart.render();
+    },
+  ],
+});
+chart.render();
 ```
 
 ##### 相对定位
@@ -717,42 +691,40 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    children: [
-      {
-        type: 'interval',
-        data: [
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Strategy', sold: 115 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Shooter', sold: 350 },
-          { genre: 'Other', sold: 150 },
-        ],
-        encode: { y: 'sold', color: 'genre' },
-        transform: [{ type: 'stackY' }],
-        coordinate: { type: 'theta', innerRadius: 0.5 },
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Other', sold: 150 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      transform: [{ type: 'stackY' }],
+      coordinate: { type: 'theta', innerRadius: 0.5 },
+    },
+    {
+      type: 'text',
+      style: {
+        x: '50%', // 配置百分比坐标
+        y: '50%',
+        text: 'hello',
+        textAlign: 'center',
+        fontSize: 60,
+        textBaseline: 'middle',
       },
-      {
-        type: 'text',
-        style: {
-          x: '50%', // 配置百分比坐标
-          y: '50%',
-          text: 'hello',
-          textAlign: 'center',
-          fontSize: 60,
-          textBaseline: 'middle',
-        },
-      },
-    ],
-  });
-  chart.render();
+    },
+  ],
+});
+chart.render();
 ```
 
 ## 示例
@@ -804,53 +776,49 @@ register('shape.interval.triangle', ShapeTriangle);
 ```js | ob { autoMount: true }
 import { register, Chart } from '@antv/g2';
 
+// 定义图形组件
+function ShapeTriangle(style, context) {
+  const { document } = context;
+  return (P, value, defaults) => {
+    const { color: defaultColor } = defaults;
+    const [p0, p1, p2, p3] = P;
+    const pm = [(p0[0] + p1[0]) / 2, p0[1]];
+    const { color = defaultColor } = value;
+    return document.createElement('polygon', {
+      style: {
+        ...style,
+        fill: color,
+        points: [pm, p2, p3],
+      },
+    });
+  };
+}
 
+// 注册该三角形
+register('shape.interval.triangle', ShapeTriangle);
 
-
-  // 定义图形组件
-  function ShapeTriangle(style, context) {
-    const { document } = context;
-    return (P, value, defaults) => {
-      const { color: defaultColor } = defaults;
-      const [p0, p1, p2, p3] = P;
-      const pm = [(p0[0] + p1[0]) / 2, p0[1]];
-      const { color = defaultColor } = value;
-      return document.createElement('polygon', {
-        style: {
-          ...style,
-          fill: color,
-          points: [pm, p2, p3],
-        },
-      });
-    };
-  }
-
-  // 注册该三角形
-  register('shape.interval.triangle', ShapeTriangle);
-
-  // 初始化图表
-  
+// 初始化图表
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: {
-      x: 'genre',
-      y: 'sold',
-      color: 'genre',
-      shape: 'triangle', // 使用这个形状
-    },
-  });
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+    shape: 'triangle', // 使用这个形状
+  },
+});
 
-  chart.render();
+chart.render();
 ```

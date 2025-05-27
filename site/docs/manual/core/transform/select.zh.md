@@ -11,7 +11,7 @@ order: 2
 
 ## 使用场景
 
-- 峰值标注：标记折线图的最高/最低点 
+- 峰值标注：标记折线图的最高/最低点
 
 - 首尾标注： 在时间序列中突出显示起点/终点
 
@@ -24,8 +24,8 @@ order: 2
 | 属性     | 描述                                           | 类型                   | 默认值   |
 | -------- | ---------------------------------------------- | ---------------------- | -------- |
 | groupBy  | 针对指定的通道进行分组                         | `string` \| `string[]` | `series` |
-| channel  | 针对每个分组，使用指定的通道进行指定的数据抽取 | [Channel](#channel)               |          |
-| selector | 针对每个分组，指定对应的数据抽取操作           | [Selector](#selector)             | `first`  |
+| channel  | 针对每个分组，使用指定的通道进行指定的数据抽取 | [Channel](#channel)    |          |
+| selector | 针对每个分组，指定对应的数据抽取操作           | [Selector](#selector)  | `first`  |
 
 ### channel
 
@@ -110,17 +110,16 @@ const data = [
   { letter: 'Y', frequency: 0.01974 },
   { letter: 'Z', frequency: 0.00074 },
 ];
-  
 
 const chart = new Chart({
   container: 'container',
 });
-  chart.options({
+chart.options({
   width: 800,
   paddingLeft: 50,
   paddingRight: 100,
   data,
-  children:[
+  children: [
     // 柱形图标记配置
     {
       type: 'interval',
@@ -129,32 +128,34 @@ const chart = new Chart({
         y: 'frequency',
       },
     },
-     // 文本标记配置
+    // 文本标记配置
     {
       type: 'text',
       encode: {
         x: 'letter',
         y: 'frequency',
-        text:'frequency',
-        series:'frequency',
+        text: 'frequency',
+        series: 'frequency',
       },
-      transform:[{
-        // 使用select 转换标记
-        type: 'select',
-        // 基于y通道 
-        channel: 'y',
-        // 选择最高点
-        selector: 'max',
-      }],
+      transform: [
+        {
+          // 使用select 转换标记
+          type: 'select',
+          // 基于y通道
+          channel: 'y',
+          // 选择最高点
+          selector: 'max',
+        },
+      ],
       style: {
-          // 标注文本向左偏移12个像素
-          dx: -12,
-          // 标注文本向上偏移12个像素
-          dy: -12,
-      }
-    }
-  ]
-  });
+        // 标注文本向左偏移12个像素
+        dx: -12,
+        // 标注文本向上偏移12个像素
+        dy: -12,
+      },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```

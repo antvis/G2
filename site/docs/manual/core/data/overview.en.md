@@ -3,7 +3,7 @@ title: overview
 order: 1
 ---
 
-In G2, **Data** is primarily used to specify the data to be visualized and data transformation (pre-processing).  Data can be specified at the view level:
+In G2, **Data** is primarily used to specify the data to be visualized and data transformation (pre-processing). Data can be specified at the view level:
 
 ```js
 ({
@@ -76,7 +76,6 @@ A complete data declaration consists of two parts: **Connector** and **Data Tran
 
 If the data satisfies the following three conditions:
 
-
 - Inline data
 - Is an array
 - No pre-processing function
@@ -99,75 +98,69 @@ It can be directly specified as `data`:
 
 Each mark has its data, which means we can visualize multiple datasets in one view, such as the following interval chart:
 
-
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .rangeX()
-    .data([
-      { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
-      {
-        year: [new Date('1948'), new Date('1989')],
-        event: 'GDR (East Germany)',
-      },
-    ])
-    .encode('x', 'year')
-    .encode('color', 'event')
-    .scale('color', { independent: true, range: ['#FAAD14', '#30BF78'] })
-    .style('fillOpacity', 0.75)
-    .tooltip(false);
+chart
+  .rangeX()
+  .data([
+    { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
+    {
+      year: [new Date('1948'), new Date('1989')],
+      event: 'GDR (East Germany)',
+    },
+  ])
+  .encode('x', 'year')
+  .encode('color', 'event')
+  .scale('color', { independent: true, range: ['#FAAD14', '#30BF78'] })
+  .style('fillOpacity', 0.75)
+  .tooltip(false);
 
-  chart
-    .line()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/year-population.json',
-    })
-    .encode('x', (d) => new Date(d.year))
-    .encode('y', 'population')
-    .encode('color', '#333');
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/year-population.json',
+  })
+  .encode('x', (d) => new Date(d.year))
+  .encode('y', 'population')
+  .encode('color', '#333');
 
-  chart.render();
+chart.render();
 ```
 
 ## Data in View
 
 The view can also be data-bound. The data bound to a view is transitive: it will be passed to the marks in `view.children`. If the mark does not have data, its data will be set; otherwise, there is no effect. This means that for marks that share data, you can bind the data to the view.
 
-
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.data([
-    { year: '1991', value: 3 },
-    { year: '1992', value: 4 },
-    { year: '1993', value: 3.5 },
-    { year: '1994', value: 5 },
-    { year: '1995', value: 4.9 },
-    { year: '1996', value: 6 },
-    { year: '1997', value: 7 },
-    { year: '1998', value: 9 },
-    { year: '1999', value: 13 },
-  ]);
+chart.data([
+  { year: '1991', value: 3 },
+  { year: '1992', value: 4 },
+  { year: '1993', value: 3.5 },
+  { year: '1994', value: 5 },
+  { year: '1995', value: 4.9 },
+  { year: '1996', value: 6 },
+  { year: '1997', value: 7 },
+  { year: '1998', value: 9 },
+  { year: '1999', value: 13 },
+]);
 
-  chart.line().encode('x', 'year').encode('y', 'value');
+chart.line().encode('x', 'year').encode('y', 'value');
 
-  chart.point().encode('x', 'year').encode('y', 'value');
+chart.point().encode('x', 'year').encode('y', 'value');
 
-  chart.render();
+chart.render();
 ```
 
 ## Data Updates

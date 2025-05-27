@@ -12,48 +12,46 @@ order: 2
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    coordinate: { transform: [{ type: 'transpose' }] },
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.year === 2000,
-        },
-      ],
-    },
-    transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
-    encode: {
-      x: 'age',
-      y: 'people',
-      color: 'sex',
-    },
-    scale: {
-      color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
-    },
-    axis: {
-      y: { labelFormatter: '.0%' },
-    },
-    labels: [
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    transform: [
       {
-        text: 'people',
-        position: 'inside',
-        style: { fill: 'white' },
+        type: 'filter',
+        callback: (d) => d.year === 2000,
       },
     ],
-  });
+  },
+  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+  encode: {
+    x: 'age',
+    y: 'people',
+    color: 'sex',
+  },
+  scale: {
+    color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
+  },
+  axis: {
+    y: { labelFormatter: '.0%' },
+  },
+  labels: [
+    {
+      text: 'people',
+      position: 'inside',
+      style: { fill: 'white' },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 使用场景
@@ -105,36 +103,34 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { category: 'A', value: 10, group: '1' },
-      { category: 'B', value: 20, group: '1' },
-      { category: 'C', value: 30, group: '1' },
-      { category: 'A', value: 40, group: '2' },
-      { category: 'B', value: 50, group: '2' },
-      { category: 'C', value: 60, group: '2' },
-    ],
-    encode: {
-      x: 'category',
-      y: 'value',
-      color: 'group',
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'A', value: 10, group: '1' },
+    { category: 'B', value: 20, group: '1' },
+    { category: 'C', value: 30, group: '1' },
+    { category: 'A', value: 40, group: '2' },
+    { category: 'B', value: 50, group: '2' },
+    { category: 'C', value: 60, group: '2' },
+  ],
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'group',
+  },
+  transform: [
+    {
+      type: 'normalizeY',
+      basis: 'mean', // 使用平均值作为基准
     },
-    transform: [
-      {
-        type: 'normalizeY',
-        basis: 'mean', // 使用平均值作为基准
-      },
-    ],
-  });
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 交互式对比不同 basis 效果
@@ -143,70 +139,68 @@ const chart = new Chart({
 import { Chart } from '@antv/g2';
 
 const valueList = [
-    'first',
-    'deviation',
-    'last',
-    'max',
-    'mean',
-    'median',
-    'min',
-    'sum',
-  ];
-  const valueMap = valueList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
-
-  
+  'first',
+  'deviation',
+  'last',
+  'max',
+  'mean',
+  'median',
+  'min',
+  'sum',
+];
+const valueMap = valueList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    width: 900,
-    height: 600,
-    insetRight: 20,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
-    },
-    encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
-    transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
-    scale: { y: { type: 'log' } },
-    axis: { y: { title: '↑ Change in price (%)' } },
-    labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
-    tooltip: { items: [{ channel: 'y', valueFormatter: '.1f' }] },
-  });
+chart.options({
+  type: 'line',
+  width: 900,
+  height: 600,
+  insetRight: 20,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  },
+  encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
+  transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
+  scale: { y: { type: 'log' } },
+  axis: { y: { title: '↑ Change in price (%)' } },
+  labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
+  tooltip: { items: [{ channel: 'y', valueFormatter: '.1f' }] },
+});
 
-  const handleSetValue = (value) => {
-    chart.transform([{ type: 'normalizeY', basis: value, groupBy: 'color' }]);
-    chart.render(); // 重新渲染图表
-  };
+const handleSetValue = (value) => {
+  chart.transform([{ type: 'normalizeY', basis: value, groupBy: 'color' }]);
+  chart.render(); // 重新渲染图表
+};
 
-  // 插入Value 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择 basis ';
-  const selector = document.createElement('select');
-  selector.innerHTML = valueMap.map(
-    (value, index) =>
-      `<option value="${value.value}" ${index === 0 ? 'selected' : ''}>${
-        value.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetValue(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+// 插入Value 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择 basis ';
+const selector = document.createElement('select');
+selector.innerHTML = valueMap.map(
+  (value, index) =>
+    `<option value="${value.value}" ${index === 0 ? 'selected' : ''}>${
+      value.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetValue(e.target.value);
+};
+selectorContainer.appendChild(selector);
+const node = chart.getContainer();
+node.insertBefore(selectorContainer, node.childNodes[0]);
 
-  chart.render();
+chart.render();
 
-  return node;
+return node;
 ```
 
 ### 自定义分组
@@ -216,37 +210,35 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { category: 'A', year: '2020', value: 100 },
-      { category: 'B', year: '2020', value: 200 },
-      { category: 'A', year: '2021', value: 150 },
-      { category: 'B', year: '2021', value: 300 },
-      { category: 'A', year: '2022', value: 180 },
-      { category: 'B', year: '2022', value: 360 },
-    ],
-    encode: {
-      x: 'year',
-      y: 'value',
-      color: 'category',
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'A', year: '2020', value: 100 },
+    { category: 'B', year: '2020', value: 200 },
+    { category: 'A', year: '2021', value: 150 },
+    { category: 'B', year: '2021', value: 300 },
+    { category: 'A', year: '2022', value: 180 },
+    { category: 'B', year: '2022', value: 360 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'category',
+  },
+  transform: [
+    {
+      type: 'normalizeY',
+      groupBy: 'color', // 按照 color 通道进行归一化（对应数据字段 category）
     },
-    transform: [
-      {
-        type: 'normalizeY',
-        groupBy: 'color', // 按照 color 通道进行归一化（对应数据字段 category）
-      },
-    ],
-    axis: {
-      y: { labelFormatter: '.0%' },
-    },
-  });
+  ],
+  axis: {
+    y: { labelFormatter: '.0%' },
+  },
+});
 
-  chart.render();
+chart.render();
 ```

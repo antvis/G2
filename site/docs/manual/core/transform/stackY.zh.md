@@ -20,7 +20,6 @@ stackY 通常用于以下图表类型：
 - 堆叠面积图、
 - 等等其他需要数据堆叠的可视化形式。
 
-
 ## 配置项
 
 | 属性    | 描述                      | 类型                 | 默认值 |
@@ -31,7 +30,6 @@ stackY 通常用于以下图表类型：
 | y1      | y1 通道选择的数据通道来源 | `'y'\|'y1'`          | `y1`   |
 | reverse | 是否逆序                  | `boolean`            | false  |
 | series  | 是否有分组字段            | `boolean`            | true   |
-
 
 ### groupBy
 
@@ -95,21 +93,21 @@ type TransformOrder =
 然后，我们再来个相对比较复杂的数据展现情况。比如说，数据来自于 CSV 文件，并且我们需要对数据进行排序和分组：
 
 ```js
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   data: {
-    type: "fetch",
+    type: 'fetch',
     value:
-      "https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv",
-    format: "csv",
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
   },
-  encode: { x: "state", y: "population", color: "age" },
-  transform: [{ type: "stackY" }, { type: "sortX", by: "y", reverse: true }],
-  axis: { y: { labelFormatter: "~s" } },
+  encode: { x: 'state', y: 'population', color: 'age' },
+  transform: [{ type: 'stackY' }, { type: 'sortX', by: 'y', reverse: true }],
+  axis: { y: { labelFormatter: '~s' } },
 });
 
 chart.render();
@@ -130,25 +128,23 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: "area",
-    autoFit: true,
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/unemployment-by-industry.json",
-    },
-    encode: { x: (d) => new Date(d.date), y: "unemployed", color: "industry" },
-    transform: [{ type: "stackY" }, { type: "normalizeY" }],
-    tooltip: { items: [{ channel: "y0", valueFormatter: ".3f" }] },
-  });
+chart.options({
+  type: 'area',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+  },
+  encode: { x: (d) => new Date(d.date), y: 'unemployed', color: 'industry' },
+  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+  tooltip: { items: [{ channel: 'y0', valueFormatter: '.3f' }] },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### 出现顺序堆叠面积图
@@ -164,46 +160,46 @@ const chart = new Chart({
 对应的代码为：
 
 ```ts
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: {
-    type: "fetch",
+    type: 'fetch',
     value:
-      "https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json",
+      'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
   },
   interaction: { tooltip: { filter: (d) => parseInt(d.value) > 0 } },
   children: [
     {
-      type: "area",
+      type: 'area',
       encode: {
         x: (d) => new Date(d.year),
-        y: "revenue",
-        series: "format",
-        color: "group",
-        shape: "smooth",
+        y: 'revenue',
+        series: 'format',
+        color: 'group',
+        shape: 'smooth',
       },
-      transform: [{ type: "stackY", orderBy: "maxIndex", reverse: true }],
-      axis: { y: { labelFormatter: "~s" } },
-      tooltip: { items: [{ channel: "y", valueFormatter: ".2f" }] },
+      transform: [{ type: 'stackY', orderBy: 'maxIndex', reverse: true }],
+      axis: { y: { labelFormatter: '~s' } },
+      tooltip: { items: [{ channel: 'y', valueFormatter: '.2f' }] },
     },
     {
-      type: "line",
+      type: 'line',
       encode: {
         x: (d) => new Date(d.year),
-        y: "revenue",
-        series: "format",
-        shape: "smooth",
-        color: "group",
+        y: 'revenue',
+        series: 'format',
+        shape: 'smooth',
+        color: 'group',
       },
       transform: [
-        { type: "stackY", orderBy: "maxIndex", reverse: true, y: "y1" },
+        { type: 'stackY', orderBy: 'maxIndex', reverse: true, y: 'y1' },
       ],
-      style: { stroke: "white" },
+      style: { stroke: 'white' },
       tooltip: false,
     },
   ],
@@ -214,21 +210,21 @@ chart.render();
 
 详细的示例可以参考我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#cascade-area)，以及线上还有其他的堆叠图示例供参考。 最后，是简单的堆叠柱状图，作为调用本函数的最直观展现：
 
-``` js | ob
-(() => { 
+```js | ob
+(() => {
   const chart = new G2.Chart();
 
   chart.options({
-    type: "interval",
+    type: 'interval',
     autoFit: true,
     data: [
-      { category: "A", value: 10, type: "X" },
-      { category: "A", value: 20, type: "Y" },
-      { category: "B", value: 15, type: "X" },
-      { category: "B", value: 25, type: "Y" },
+      { category: 'A', value: 10, type: 'X' },
+      { category: 'A', value: 20, type: 'Y' },
+      { category: 'B', value: 15, type: 'X' },
+      { category: 'B', value: 25, type: 'Y' },
     ],
-    encode: { x: "category", y: "value", color: "type" },
-    transform: [{ type: "stackY" }],
+    encode: { x: 'category', y: 'value', color: 'type' },
+    transform: [{ type: 'stackY' }],
   });
 
   chart.render();

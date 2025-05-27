@@ -67,53 +67,51 @@ chart
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'area',
-    data: [
-      { country: 'Asia', year: '1750', value: 502 },
-      { country: 'Asia', year: '1800', value: 635 },
-      { country: 'Asia', year: '1850', value: 809 },
-      { country: 'Asia', year: '1900', value: 947 },
-      { country: 'Asia', year: '1950', value: 1402 },
-      { country: 'Asia', year: '1999', value: 3634 },
-      { country: 'Asia', year: '2050', value: 5268 },
-      { country: 'Africa', year: '1750', value: 106 },
-      { country: 'Africa', year: '1800', value: 107 },
-      { country: 'Africa', year: '1850', value: 111 },
-      { country: 'Africa', year: '1900', value: 133 },
-      { country: 'Africa', year: '1950', value: 221 },
-      { country: 'Africa', year: '1999', value: 767 },
-      { country: 'Africa', year: '2050', value: 1766 },
-      { country: 'Europe', year: '1750', value: 163 },
-      { country: 'Europe', year: '1800', value: 203 },
-      { country: 'Europe', year: '1850', value: 276 },
-      { country: 'Europe', year: '1900', value: 408 },
-      { country: 'Europe', year: '1950', value: 547 },
-      { country: 'Europe', year: '1999', value: 729 },
-      { country: 'Europe', year: '2050', value: 628 },
-    ],
-    encode: {
-      x: 'year',
-      y: 'value',
-      color: 'country',
-    },
-    transform: [{ type: 'stackY' }],
-    style: {
-      fillOpacity: 0.3,
-      lineWidth: (datum, index, data, column) =>
-        datum[0].country === 'Asia' ? 2 : 0, // area标记默认的描边宽度为0，要显示描边需要显式传入lineWidth
-      stroke: (datum, index, data, column) =>
-        datum[0].country === 'Asia' ? 'red' : null,
-    },
-  });
+chart.options({
+  type: 'area',
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+    lineWidth: (datum, index, data, column) =>
+      datum[0].country === 'Asia' ? 2 : 0, // area标记默认的描边宽度为0，要显示描边需要显式传入lineWidth
+    stroke: (datum, index, data, column) =>
+      datum[0].country === 'Asia' ? 'red' : null,
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 - 区分样式的多折线图
@@ -121,42 +119,40 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'line',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/c48dbbb1-fccf-4a46-b68f-a3ddb4908b68.json',
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/c48dbbb1-fccf-4a46-b68f-a3ddb4908b68.json',
+  },
+  encode: {
+    x: 'date',
+    y: 'value',
+    color: 'type',
+  },
+  axis: {
+    y: {
+      labelFormatter: (v) =>
+        `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
     },
-    encode: {
-      x: 'date',
-      y: 'value',
-      color: 'type',
+  },
+  scale: { color: { range: ['#30BF78', '#F4664A', '#FAAD14'] } }, // 自定义color通道的颜色值域
+  style: {
+    lineDash: (datum, index, data, column) => {
+      if (datum[0].type === 'register') return [4, 4];
     },
-    axis: {
-      y: {
-        labelFormatter: (v) =>
-          `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
-      },
+    lineWidth: (datum, index, data, column) => {
+      if (datum[0].type !== 'register') return 2;
     },
-    scale: { color: { range: ['#30BF78', '#F4664A', '#FAAD14'] } }, // 自定义color通道的颜色值域
-    style: {
-      lineDash: (datum, index, data, column) => {
-        if (datum[0].type === 'register') return [4, 4];
-      },
-      lineWidth: (datum, index, data, column) => {
-        if (datum[0].type !== 'register') return 2;
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 - 多形状散点图
@@ -164,48 +160,46 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/bd73a175-4417-4749-8b88-bc04d955e899.csv',
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/bd73a175-4417-4749-8b88-bc04d955e899.csv',
+  },
+  encode: {
+    x: 'x',
+    y: 'y',
+    shape: 'category',
+    color: 'category',
+    size: () => 1,
+  },
+  legend: {
+    size: false,
+  },
+  scale: {
+    shape: { range: ['circle', 'plus', 'diamond'] },
+    size: { rangeMin: 5 }, // 设置size通道的比例尺的最小值域为5
+  }, // 定义shape通道的形状值域
+  transform: [{ type: 'groupX', size: 'sum' }], // 对离散的 x 通道进行分组，并且进行求和后映射到size通道
+  style: {
+    fillOpacity: (datum, index, data, column) =>
+      datum.category !== 'setosa' ? 0.8 : 0,
+    stroke: (datum, index, data, column) => {
+      if (datum.category !== 'setosa') {
+        return '#FADC7C';
+      }
     },
-    encode: {
-      x: 'x',
-      y: 'y',
-      shape: 'category',
-      color: 'category',
-      size: () => 1,
-    },
-    legend: {
-      size: false,
-    },
-    scale: {
-      shape: { range: ['circle', 'plus', 'diamond'] },
-      size: { rangeMin: 5 }, // 设置size通道的比例尺的最小值域为5
-    }, // 定义shape通道的形状值域
-    transform: [{ type: 'groupX', size: 'sum' }], // 对离散的 x 通道进行分组，并且进行求和后映射到size通道
-    style: {
-      fillOpacity: (datum, index, data, column) =>
-        datum.category !== 'setosa' ? 0.8 : 0,
-      stroke: (datum, index, data, column) => {
-        if (datum.category !== 'setosa') {
-          return '#FADC7C';
-        }
-      },
-      lineWidth: (datum, index, data, column) =>
-        datum.category !== 'setosa' ? 1 : 2,
-    },
-  });
+    lineWidth: (datum, index, data, column) =>
+      datum.category !== 'setosa' ? 1 : 2,
+  },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 提示信息 Tooltip 展示信息较多，移动鼠标后 Tooltip 不会消失
@@ -233,38 +227,36 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
 ```js | ob { pin: false, autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: [
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 15900 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ],
-    children: [
-      {
-        type: 'area',
-        encode: { x: (d) => d.year, y: 'value', shape: 'area' },
-        style: { opacity: 0.2 },
-        axis: { y: { labelFormatter: '~s', title: false } },
-      },
-      { type: 'line', encode: { x: 'year', y: 'value', shape: 'line' } },
-    ],
-  });
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { year: '1991', value: 15468 },
+    { year: '1992', value: 16100 },
+    { year: '1993', value: 15900 },
+    { year: '1994', value: 17409 },
+    { year: '1995', value: 17000 },
+    { year: '1996', value: 31056 },
+    { year: '1997', value: 31982 },
+    { year: '1998', value: 32040 },
+    { year: '1999', value: 33233 },
+  ],
+  children: [
+    {
+      type: 'area',
+      encode: { x: (d) => d.year, y: 'value', shape: 'area' },
+      style: { opacity: 0.2 },
+      axis: { y: { labelFormatter: '~s', title: false } },
+    },
+    { type: 'line', encode: { x: 'year', y: 'value', shape: 'line' } },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 **解决方案**
@@ -284,43 +276,41 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: [
-      { year: '1991', value: 15468 },
-      { year: '1992', value: 16100 },
-      { year: '1993', value: 15900 },
-      { year: '1994', value: 17409 },
-      { year: '1995', value: 17000 },
-      { year: '1996', value: 31056 },
-      { year: '1997', value: 31982 },
-      { year: '1998', value: 32040 },
-      { year: '1999', value: 33233 },
-    ],
-    scale: {
-      y: {
-        nice: true, // 扩展y通道的比例尺的domain 范围，让输出的 tick 展示得更加友好
-      },
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { year: '1991', value: 15468 },
+    { year: '1992', value: 16100 },
+    { year: '1993', value: 15900 },
+    { year: '1994', value: 17409 },
+    { year: '1995', value: 17000 },
+    { year: '1996', value: 31056 },
+    { year: '1997', value: 31982 },
+    { year: '1998', value: 32040 },
+    { year: '1999', value: 33233 },
+  ],
+  scale: {
+    y: {
+      nice: true, // 扩展y通道的比例尺的domain 范围，让输出的 tick 展示得更加友好
     },
-    children: [
-      {
-        type: 'area',
-        encode: { x: (d) => d.year, y: 'value', shape: 'area' },
-        style: { opacity: 0.2 },
-        axis: { y: { labelFormatter: '~s', title: false } },
-      },
-      { type: 'line', encode: { x: 'year', y: 'value', shape: 'line' } },
-    ],
-  });
+  },
+  children: [
+    {
+      type: 'area',
+      encode: { x: (d) => d.year, y: 'value', shape: 'area' },
+      style: { opacity: 0.2 },
+      axis: { y: { labelFormatter: '~s', title: false } },
+    },
+    { type: 'line', encode: { x: 'year', y: 'value', shape: 'line' } },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```
 
 ## 怎么反转图表的 y 轴，使得从上到下对应的值从小到大
@@ -338,28 +328,26 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { letter: 'A', frequency: 0.08167 },
-      { letter: 'B', frequency: 0.01492 },
-      { letter: 'C', frequency: 0.02782 },
-      { letter: 'D', frequency: 0.04253 },
-      { letter: 'E', frequency: 0.12702 },
-    ],
-    encode: { x: 'letter', y: 'frequency' },
-    scale: { y: { range: [0, 1] } },
-    axis: { x: { position: 'top' } },
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+    { letter: 'D', frequency: 0.04253 },
+    { letter: 'E', frequency: 0.12702 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  scale: { y: { range: [0, 1] } },
+  axis: { x: { position: 'top' } },
+});
 
-  chart.render();
+chart.render();
 ```
 
 - 对于有些标记，例如面积图，当我们使用上面的方式反转后，面积图的填充部分也会到图表上半区域，在某些业务场景下是不符合预期的，例如排名趋势图，此时需要结合 `encode.y`、`axis.y.labelFormatter`等属性做更定制化的处理。
@@ -367,59 +355,57 @@ const chart = new Chart({
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    paddingRight: 10,
-    data: [
-      { month: '一月', rank: 200 },
-      { month: '二月', rank: 160 },
-      { month: '三月', rank: 100 },
-      { month: '四月', rank: 80 },
-      { month: '五月', rank: 99 },
-      { month: '六月', rank: 36 },
-      { month: '七月', rank: 40 },
-      { month: '八月', rank: 20 },
-      { month: '九月', rank: 12 },
-      { month: '十月', rank: 15 },
-      { month: '十一月', rank: 6 },
-      { month: '十二月', rank: 1 },
-    ],
-    scale: {
-      y: {
-        nice: true,
-        tickMethod: () => [0, 50, 100, 170, 199],
-      },
+chart.options({
+  type: 'view',
+  autoFit: true,
+  paddingRight: 10,
+  data: [
+    { month: '一月', rank: 200 },
+    { month: '二月', rank: 160 },
+    { month: '三月', rank: 100 },
+    { month: '四月', rank: 80 },
+    { month: '五月', rank: 99 },
+    { month: '六月', rank: 36 },
+    { month: '七月', rank: 40 },
+    { month: '八月', rank: 20 },
+    { month: '九月', rank: 12 },
+    { month: '十月', rank: 15 },
+    { month: '十一月', rank: 6 },
+    { month: '十二月', rank: 1 },
+  ],
+  scale: {
+    y: {
+      nice: true,
+      tickMethod: () => [0, 50, 100, 170, 199],
     },
-    axis: {
-      y: {
-        labelFormatter: (d) => `第${200 - d}名`,
-      },
+  },
+  axis: {
+    y: {
+      labelFormatter: (d) => `第${200 - d}名`,
     },
-    children: [
-      {
-        type: 'area',
-        encode: { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' },
-        style: { opacity: 0.2 },
-        axis: { y: { labelFormatter: '~s', title: false } },
-        style: {
-          fill: 'l(270) 0:#ffffff 0.9:#7ec2f3 1:#1890ff',
-          fillOpacity: 0.2,
-        },
-        tooltip: false,
+  },
+  children: [
+    {
+      type: 'area',
+      encode: { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' },
+      style: { opacity: 0.2 },
+      axis: { y: { labelFormatter: '~s', title: false } },
+      style: {
+        fill: 'l(270) 0:#ffffff 0.9:#7ec2f3 1:#1890ff',
+        fillOpacity: 0.2,
       },
-      {
-        type: 'line',
-        encode: { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' },
-        interaction: {
-          tooltip: {
-            render: (event, { title, items }) => `
+      tooltip: false,
+    },
+    {
+      type: 'line',
+      encode: { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' },
+      interaction: {
+        tooltip: {
+          render: (event, { title, items }) => `
 <div style="display: flex; align-items: center;">
   <span>${title}：第</span>
   <h2
@@ -436,14 +422,14 @@ const chart = new Chart({
   <span>名</span>
 </div>
           `,
-          },
-        },
-        style: {
-          lineWidth: 2,
         },
       },
-    ],
-  });
+      style: {
+        lineWidth: 2,
+      },
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
 ```

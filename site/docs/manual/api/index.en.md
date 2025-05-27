@@ -69,38 +69,36 @@ With `clip = false`, out-of-bound graphics remain visible:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
 });
 
-  chart
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .scale('x', { range: [0, 1] })
-    .scale('y', { domainMin: 6, nice: true });
+chart
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value')
+  .scale('x', { range: [0, 1] })
+  .scale('y', { domainMin: 6, nice: true });
 
-  chart.line().label({
-    text: 'value',
-    style: {
-      dx: -10,
-      dy: -12,
-    },
-  });
-  chart.point().style('fill', 'white').tooltip(false);
-  chart.render();
+chart.line().label({
+  text: 'value',
+  style: {
+    dx: -10,
+    dy: -12,
+  },
+});
+chart.point().style('fill', 'white').tooltip(false);
+chart.render();
 ```
 
 Set `clip = true` to enable clipping. Adjust `inset` if points get clipped:
@@ -108,47 +106,44 @@ Set `clip = true` to enable clipping. Adjust `inset` if points get clipped:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-
-
 const chart = new Chart({
   container: 'container',
-    clip: true,
-    inset: 20,
-  
+  clip: true,
+  inset: 20,
 });
 
-  chart
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .scale('x', {
-      range: [0, 1],
-    })
-    .scale('y', {
-      domainMin: 6,
-      nice: true,
-    });
-
-  chart.line().label({
-    text: 'value',
-    style: {
-      dx: -10,
-      dy: -12,
-    },
+chart
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value')
+  .scale('x', {
+    range: [0, 1],
+  })
+  .scale('y', {
+    domainMin: 6,
+    nice: true,
   });
 
-  chart.point().style('fill', 'white').tooltip(false);
-  chart.render();
+chart.line().label({
+  text: 'value',
+  style: {
+    dx: -10,
+    dy: -12,
+  },
+});
+
+chart.point().style('fill', 'white').tooltip(false);
+chart.render();
 ```
 
 ### ChartCfg.width
@@ -247,62 +242,56 @@ Configures chart theme. Register custom themes using `register` :
 ```js | ob { autoMount: true }
 import { Light, register, Chart } from '@antv/g2';
 
+// define theme
+function CustomTheme() {
+  const light = Light();
+  return {
+    ...light,
+    category20: [
+      '#FFC0CB',
+      '#A2F5E8',
+      '#D4B0FF',
+      '#FFF3A3',
+      '#9AD6E3',
+      '#FFD8B1',
+      '#C3E6B4',
+      '#E8CFF8',
+      '#FFB7A0',
+      '#B8D0EB',
+      '#F5E6C3',
+      '#EED5B7',
+      '#C5D4EB',
+      '#D9C2F0',
+      '#D4EDC9',
+      '#B8E0A8',
+      '#EFD3A7',
+      '#F7CBD4',
+      '#F7ABD4',
+      '#F0E6E6',
+    ],
+  };
+}
 
-
-
-  // define theme
-  function CustomTheme() {
-    const light = Light();
-    return {
-      ...light,
-      category20: [
-        '#FFC0CB',
-        '#A2F5E8',
-        '#D4B0FF',
-        '#FFF3A3',
-        '#9AD6E3',
-        '#FFD8B1',
-        '#C3E6B4',
-        '#E8CFF8',
-        '#FFB7A0',
-        '#B8D0EB',
-        '#F5E6C3',
-        '#EED5B7',
-        '#C5D4EB',
-        '#D9C2F0',
-        '#D4EDC9',
-        '#B8E0A8',
-        '#EFD3A7',
-        '#F7CBD4',
-        '#F7ABD4',
-        '#F0E6E6',
-      ],
-    };
-  }
-
-  // register theme
-  register('theme.custom', CustomTheme);
-
-  
+// register theme
+register('theme.custom', CustomTheme);
 
 const chart = new Chart({
   container: 'container',
-    theme: { type: 'custom' }, // use theme
-  
+  theme: { type: 'custom' }, // use theme
 });
 
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: { x: 'letter', y: 'frequency', color: 'letter' },
-    axis: { y: { labelFormatter: '.0%' } },
-  });
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+});
 
-  chart.render();
+chart.render();
 ```
 
 ### ChartCfg.plugins
@@ -346,28 +335,27 @@ G2 provides an imperative Functional API for defining charts. Here's an example 
 import { Chart } from '@antv/g2';
 
 // Initialize the chart instance
-  
 
 const chart = new Chart({
   container: 'container',
 });
 
-  // declare the visualization
-  chart
-    .interval() // Create an Interval mark
-    .data([
-      // Bind the data
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre') // Encode data to the x channel
-    .encode('y', 'sold'); // Encode data to the y channel
+// declare the visualization
+chart
+  .interval() // Create an Interval mark
+  .data([
+    // Bind the data
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre') // Encode data to the x channel
+  .encode('y', 'sold'); // Encode data to the y channel
 
-  // Render the visualization
-  chart.render();
+// Render the visualization
+chart.render();
 ```
 
 The Functional API is built on top of the Spec API. Simply put, each `Chart` instance has an `options` object. The Functional API generates this `options` object through a series of methods, while the Spec API directly sets it. Regardless of which API you use, G2 ultimately renders the current `options`. Therefore, both APIs are equally capable of defining visualizations.
