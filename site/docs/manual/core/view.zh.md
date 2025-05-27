@@ -43,7 +43,6 @@ order: 3
 **说明：**  
 - `data`、`encode`、`scale`、`axis`、`legend`、`transform`、`coordinate`、`interaction` 等配置在 view 层级设置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
 - 其他如 `style`、`tooltip` 仅作用于当前 view。
-
 **完整配置示例：**
 
 ```js
@@ -134,4 +133,4 @@ facet.view().line().encode('x', 'type').encode('y', 'value');
     { type: 'interval', style: { fill: '#5B8FF9' } },
   ],
 });
-
+```
