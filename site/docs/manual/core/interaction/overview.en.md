@@ -124,6 +124,87 @@ In addition to selected and unselected, there are the following built-in state t
 - active
 - inactive
 
+## Interaction Events
+
+### Listening to Interaction Events
+
+All interaction events can be listened to. The syntax is as follows:
+
+```js
+chart.on('interaction name（eg: brushFilter）', (e) => {});
+```
+
+Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brush) as an example. When the user makes a mouse brushing selection, the corresponding brushing selection threshold is pushed into brushHistory. When the reset button is clicked, the values are popped up one by one and the brushFilter is actively triggered through `chart.emit()` for brushing selection coverage.
+
+```js | ob
+(() => {
+  const { Chart, ChartEvent} = G2;
+
+  const chart = new Chart({
+    clip: true
+  });
+
+  const brushHistory = []
+
+  chart
+    .point()
+    .data({
+      type: 'fetch',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+    })
+    .encode('x', 'weight')
+    .encode('y', 'height')
+    .encode('color', 'gender')
+    .encode('shape', 'point')
+    .interaction('brushFilter', true);
+
+  // Listen to the brushing selection event
+  chart.on('brush:filter', (e) => {
+    if (e.target) brushHistory.push(e.data.selection);
+  });
+
+  chart.render();
+
+  chart.on(ChartEvent.AFTER_RENDER, () => {
+    const scale = chart.getScale();
+    const { x1, y1 } = scale;
+    const domainX = x1.options.domain;
+    const domainY = y1.options.domain;
+    brushHistory.push([domainX, domainY]);
+  });
+
+  const container = chart.getContainer();
+  const button = document.createElement('button');
+  button.innerText = 'reset';
+  button.onclick = () => {
+    if (brushHistory.length < 2) return;
+    brushHistory.pop();
+    // Actively trigger the brushing selection event
+    chart.emit('brush:filter', {
+      data: {
+        selection: brushHistory[brushHistory.length - 1],
+      },
+    });
+  };
+
+  container.appendChild(button);
+
+  return chart.getContainer();
+})();
+```
+
+### Triggering Interaction Events
+
+Triggering and listening usually occur simultaneously. It is used to actively trigger a certain event. The data in the formal parameter will act on the corresponding interaction event, achieving the effect of resetting or overwriting. For example, to reset the filtering area, taking [brushFilter](/en/manual/core/interaction/brush) as an example, the syntax is as follows.
+
+```js
+chart.emit('brush:filter', {
+  data: {
+    selection: brushHistory[brushHistory.length - 1],
+  },
+});
+```
+
 ## Custom Interaction
 
 If the built-in interaction cannot meet your needs, you can also implement some interactions through custom interaction. Here is a custom highlight interaction.
