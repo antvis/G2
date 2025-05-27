@@ -77,6 +77,8 @@ similar: ['rose', 'radial-bar', 'pie']
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -145,6 +147,8 @@ chart.render();
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',

@@ -139,9 +139,14 @@ chart.render();
 
 ### 指示线和文字
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'line',
     autoFit: true,
@@ -199,6 +204,4 @@ chart.render();
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```

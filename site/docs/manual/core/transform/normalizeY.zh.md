@@ -9,9 +9,14 @@ order: 2
 
 下面这个示例展示了如何创建一个百分比堆积柱状图，展示不同年龄段的性别比例。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -49,8 +54,6 @@ order: 2
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ## 使用场景
@@ -99,9 +102,14 @@ order: 2
 
 下面的例子展示了如何使用不同的 basis 进行归一化：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -127,15 +135,14 @@ order: 2
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 交互式对比不同 basis 效果
 
-```js | ob
-(() => {
-  const valueList = [
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const valueList = [
     'first',
     'deviation',
     'last',
@@ -152,7 +159,11 @@ order: 2
     };
   });
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -196,16 +207,20 @@ order: 2
   chart.render();
 
   return node;
-})();
 ```
 
 ### 自定义分组
 
 可以通过 groupBy 选项指定如何对数据进行分组：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -234,6 +249,4 @@ order: 2
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```

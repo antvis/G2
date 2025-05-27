@@ -60,9 +60,14 @@ band 比例尺将连续的值域范围（range）划分为等宽的区间，每�
 
 band 比例尺最常见的应用是柱状图，通过设置 `padding` 可以控制柱子之间的间距：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -87,18 +92,20 @@ band 比例尺最常见的应用是柱状图，通过设置 `padding` 可以控�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 分组柱状图
 
 在分组柱状图中，band 比例尺与 dodgeX 转换一起使用，可以创建分组效果：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -131,18 +138,20 @@ band 比例尺最常见的应用是柱状图，通过设置 `padding` 可以控�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义柱宽
 
 使用 `flex` 属性可以为不同类别设置不同的宽度比例：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -168,18 +177,20 @@ band 比例尺最常见的应用是柱状图，通过设置 `padding` 可以控�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 条形图（横向柱状图）
 
 通过坐标系转置，可以创建条形图，band 比例尺同样适用：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -205,9 +216,6 @@ band 比例尺最常见的应用是柱状图，通过设置 `padding` 可以控�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 常见问题

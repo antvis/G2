@@ -95,9 +95,14 @@ Marks are the leaf nodes in the view tree and are the "first-class citizens" in 
 
 Marks are templates that generate a series of **data-driven** graphics, each graph corresponds to one or more **data items** (Data Item). For example, in the scatter plot below, there is only one point mark, and this mark generates multiple circles.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -111,16 +116,18 @@ Marks are templates that generate a series of **data-driven** graphics, each gra
     .encode('color', 'gender');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 In the line chart below, a line corresponds to multiple data items.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -135,18 +142,16 @@ In the line chart below, a line corresponds to multiple data items.
     .axis('y', { title: '↑ Change in price (%)' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Stackable
 
 G2's marks can be layered, in other words: multiple marks can be added to one view. In the following example, two marks, a line and a point, are added to the chart:
 
-```js | ob
-(() => {
-  const data = [
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
     { year: '1991', value: 3 },
     { year: '1992', value: 4 },
     { year: '1993', value: 3.5 },
@@ -158,16 +163,17 @@ G2's marks can be layered, in other words: multiple marks can be added to one vi
     { year: '1999', value: 13 },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.line().data(data).encode('x', 'year').encode('y', 'value');
 
   chart.point().data(data).encode('x', 'year').encode('y', 'value');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Composable
@@ -175,9 +181,10 @@ G2's marks can be layered, in other words: multiple marks can be added to one vi
 Marks in G2 can be composed into one mark through a mechanism and then used, for example, the point line chart above:
 
 
-```js | ob
-(() => {
-  // Define a composite mark
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Define a composite mark
   function PointLine({ encode, data } = {}) {
     return [
       { type: 'line', data, encode },
@@ -197,7 +204,11 @@ Marks in G2 can be composed into one mark through a mechanism and then used, for
     { year: '1999', value: 13 },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Use the composite mark in Options
   chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
@@ -210,19 +221,21 @@ Marks in G2 can be composed into one mark through a mechanism and then used, for
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 The composability feature of marks provides a simple yet powerful way to extend the capabilities of G2. G2 also uses this mechanism to implement some rather complex marks, such as Sankey diagrams: using two Polygon marks for composition.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     width: 900,
     height: 600,
-  });
+  
+});
 
   // Sankey mark
   chart
@@ -247,9 +260,6 @@ The composability feature of marks provides a simple yet powerful way to extend 
     .style('linkFillOpacity', 0.4);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Can be used as a annotation
@@ -262,9 +272,14 @@ Since annotation is also a mark, it can also perform transformation. For example
 
 The Select mark transformation provides the ability to select a shape from a set of shapes. For example, in the example below, the country with the largest GDP in each continent is marked.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.data({
     type: 'fetch',
@@ -290,9 +305,6 @@ The Select mark transformation provides the ability to select a shape from a set
     .style('textAlign', 'end');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 For simple text marks that do not need to be grouped, you can use data marks, otherwise, you can consider the above method.
@@ -309,9 +321,14 @@ For annotations, one issue is to position them in the right place. Currently, th
 
 In G2, you can specify data-driven positioning through `mark.data`. For example, if you want to annotate the safe daily intake of sugar and fat, you can do it as follows.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -385,9 +402,6 @@ In G2, you can specify data-driven positioning through `mark.data`. For example,
     });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Absolute Positioning
@@ -398,9 +412,14 @@ In addition to data-driven positioning, G2 also provides non-data-driven positio
 - **Percentage**：The percentage of the content area.
 - **Number**：Coordinates in pixels.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -426,16 +445,18 @@ In addition to data-driven positioning, G2 also provides non-data-driven positio
     textBaseline: 'middle',
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Relative Positioning
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -461,7 +482,4 @@ In addition to data-driven positioning, G2 also provides non-data-driven positio
     textBaseline: 'middle',
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

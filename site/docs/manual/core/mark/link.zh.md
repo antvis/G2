@@ -7,9 +7,14 @@ order: 15
 
 `link` 图形标记 虽然类似折线图 通过指定 `x`，`y` 通道为长度为 2 的字段数组。获取两两对应的 (x,y) 的定位点，并连接对应的定位点，绘制带方向的线段(添加箭头)。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "link",
@@ -27,9 +32,6 @@ order: 15
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 连接图](/examples#general-link)页面。
@@ -86,9 +88,14 @@ order: 15
 
 `color` 视觉通道影响 `link` 图形标记。`link` 标记中单个区域仅能使用一种颜色（或者渐变色），但如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个区域：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "link",
@@ -110,9 +117,6 @@ order: 15
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### shape
@@ -143,9 +147,14 @@ order: 15
 | shadowOffsetY  | 设置阴影距图形的垂直距离                            | _number_ \| _Function\<number\>_              |   -        |       |
 | cursor         | 鼠标样式。同 css 的鼠标样式，默认 'default'。        | _string_ \| _Function\<string\>_               |   `default`  |       |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "link",
@@ -166,9 +175,6 @@ order: 15
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 示例

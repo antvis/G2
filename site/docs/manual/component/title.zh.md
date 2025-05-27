@@ -44,9 +44,14 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -90,9 +95,6 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 标题 title 的设置，最简单的设置方式，就是直接指定一个字符串作为标题，这个时候使用默认的样式和位置。当然也可以使用完整的配置项去做一些灵活的自定义。
@@ -121,19 +123,24 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 尝试一下：
 
-```js | ob { pin: false }
-(() => {
-  const alignList = ['center', 'right', 'left'];
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+const alignList = ['center', 'right', 'left'];
   const alignMap = alignList.map((p) => {
     return {
       label: p,
       value: p,
     };
   });
-  const chart = new G2.Chart({
+  
+
+const chart = new Chart({
+  container: 'container',
     width: 480,
     height: 160,
-  });
+  
+});
 
   const data = [
     264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513,
@@ -177,7 +184,6 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
   chart.render();
 
   return node;
-})();
 ```
 
 ### spacing

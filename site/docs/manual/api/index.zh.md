@@ -65,9 +65,14 @@ return chart.getContainer();
 
 `clip = false` 时，不会对超出绘制区域的图形进行截断。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .data([
@@ -101,19 +106,21 @@ return chart.getContainer();
 
   chart.point().style('fill', 'white').tooltip(false);
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 如果不希望绘制超出绘制区域的图形，需要配置`clip = true`，此时 类似于 `point` 标记的图形可能被截断，可以通过调整 `inset` 大小来解决。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     clip: true,
     inset: 20,
-  });
+  
+});
 
   chart
     .data([
@@ -147,9 +154,6 @@ return chart.getContainer();
 
   chart.point().style('fill', 'white').tooltip(false);
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### ChartCfg.width
@@ -247,11 +251,15 @@ const chart = new Chart({
 
 配置图表主题，目前 g2 内置有三种主题模式，如需要自定义配置，可以先通过 `register` 注册主题，再设置主题 key。
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { Light, register, Chart } from '@antv/g2';
+
+
+
+
   // 定义主题
   function CustomTheme() {
-    const light = G2.Light();
+    const light = Light();
     return {
       ...light,
       category20: [
@@ -280,11 +288,15 @@ const chart = new Chart({
   }
 
   // 注册主题
-  G2.register('theme.custom', CustomTheme);
+  register('theme.custom', CustomTheme);
 
-  const chart = new G2.Chart({
+  
+
+const chart = new Chart({
+  container: 'container',
     theme: { type: 'custom' }, // 使用主题
-  });
+  
+});
 
   chart.options({
     type: 'interval',
@@ -298,9 +310,6 @@ const chart = new Chart({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### ChartCfg.plugins
@@ -342,10 +351,15 @@ const chart = new Chart({
 
 G2 提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 初始化图表实例
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 声明可视化
   chart
@@ -363,9 +377,6 @@ G2 提供了一套命令式的 Functional API 去声明图表，比如如下声�
 
   // 渲染可视化
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Functional API 是基于 Spec API 实现的：简单来讲，每一个 Chart 实例都有一个 options，Functional API 是通过一系列方法去生成这个 options，而 Spec API 是直接设置这个 options。不论是哪种形式的 API，G2 最后都是直接渲染当前的 options，所以两者声明可视化的能力是完全等价。

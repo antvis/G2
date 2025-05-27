@@ -66,9 +66,10 @@ chart.area():
 
 这个特性有利于封装和坐标系相关的复合标记，比如饼图：
 
-```js | ob
-(() => {
-  function Pie({ encode = {}, ...rest } = {}) {
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+function Pie({ encode = {}, ...rest } = {}) {
     const { value, ...restEncode } = encode;
     return {
       ...rest,
@@ -82,7 +83,11 @@ chart.area():
     };
   }
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: Pie, // 使用该复合 Mark
@@ -97,9 +102,6 @@ chart.area():
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 常见坐标系
@@ -110,9 +112,14 @@ chart.area():
 
 比如可以使用 interval 标记和 polar 坐标系变换绘制玫瑰图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -130,18 +137,20 @@ chart.area():
     .axis('y', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Theta
 
 也可以使用 interval 标记和 theta 坐标系来绘制饼图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -158,18 +167,20 @@ chart.area():
     .encode('color', 'genre');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Radial
 
 还可以使用 interval 标记和 radial 坐标系来绘制玉珏图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -189,18 +200,16 @@ chart.area():
     .axis('x', { title: null });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Parallel
 
 除了前面的比较基础的坐标系变换之外，还有一些稍微复杂一点的坐标系变换，比如平行坐标系 parallel。
 
-```js | ob
-(() => {
-  const axis = {
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const axis = {
     zIndex: 1,
     titlePosition: 'right',
     line: true,
@@ -218,7 +227,11 @@ chart.area():
     lineStrokeWidth: 1,
   };
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -260,9 +273,6 @@ chart.area():
     .interaction('tooltip', { series: false });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 坐标系变换
@@ -273,9 +283,14 @@ chart.area():
 
 比较常用的一种变换是转置变换 transpose，主要用来改变图表的方向。比如绘制水平的条形图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -291,18 +306,20 @@ chart.area():
     .encode('y', 'sold');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Fisheye
 
 还有一种鱼眼坐标系变换，用于设置图表焦点，下面是使用方式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -323,9 +340,6 @@ chart.area():
     .interaction('fisheye');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 3D 坐标系

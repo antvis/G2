@@ -9,9 +9,14 @@ order: 7
 
 `density` 的核心目标是从散点或点云数据中提取出其整体分布模式，并将其密度信息映射为一个连续的区域图或渐变效果。这种图表通常用于分析大量数据点的聚集区域、数据集中热点或数据分布的概率密度，例如在地理可视化中用于表示人口分布的密集程度，或者在分析中展示交易频率的区域性。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'density', // 设置图表类型为密度图
@@ -38,9 +43,6 @@ order: 7
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 小提琴图](/examples#general-violin)页面。
@@ -63,9 +65,10 @@ order: 7
 | 直角坐标系 | `'cartesian'` | 和密度图等       |
 | 极坐标系   | `'polar'`     | 极坐标小提琴图等 |
 
-```js | ob { pin: false }
-(() => {
-  const coordinateMap = [
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+const coordinateMap = [
     {
       coordinate: 'cartesian',
       label: '直角坐标系',
@@ -76,7 +79,11 @@ order: 7
     },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'density',
@@ -130,7 +137,6 @@ order: 7
   chart.render();
 
   return node;
-})();
 ```
 
 更多的`coordinate`配置，可以查查看 [coordinate](/manual/core/coordinate/overview) 介绍页面。

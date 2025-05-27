@@ -400,9 +400,14 @@ chart.options({
 
 <img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*J1N_RKY7FtkAAAAAAAAAAAAAemJ7AQ/original" />
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -461,9 +466,6 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 尝试一下
@@ -485,9 +487,14 @@ function render(event, tooltipData) {
 
 下面是一个简单的例子：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -511,9 +518,6 @@ function render(event, tooltipData) {
     });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 事件

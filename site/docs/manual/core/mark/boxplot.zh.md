@@ -87,9 +87,14 @@ order: 4
 
 使用 `boxplot` 标记可以快速创建箱线图，自动计算数据的统计值。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'boxplot',
@@ -108,18 +113,20 @@ order: 4
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 无异常点箱线图
 
 通过设置 `point: false` 可以隐藏异常点，只显示箱体部分。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'boxplot',
@@ -137,18 +144,20 @@ order: 4
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 分组箱线图
 
 使用 `color` 和 `series` 通道可以创建分组箱线图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'boxplot',
@@ -165,18 +174,20 @@ order: 4
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 横向箱线图
 
 通过坐标系转置可以创建横向箱线图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'boxplot',
@@ -196,18 +207,20 @@ order: 4
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 小提琴图
 
 通过设置 `shape: 'violin'` 可以创建小提琴图形状的箱线图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'boxplot',
@@ -229,9 +242,6 @@ order: 4
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 常见问题

@@ -22,9 +22,14 @@ sqrt 比例尺能够使数据在视觉上更加均匀分布，特别是对于具
 - 使用sqrt 比例尺效果
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -45,18 +50,19 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 - 未使用sqrt 比例尺效果
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -76,10 +82,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 
@@ -108,9 +110,14 @@ chart.render();
 
 使用 sqrt 比例尺映射散点图中的点大小，使数值差异更加明显。
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "point",
@@ -132,9 +139,6 @@ chart.render();
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### 代码解读
@@ -150,9 +154,14 @@ chart.render();
 
 使用 sqrt 比例尺处理颜色渐变映射
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "view",
@@ -185,9 +194,6 @@ chart.render();
     ],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### 代码解读

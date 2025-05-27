@@ -5,9 +5,14 @@ order: 6
 
 `chord`是一种用于可视化矩阵关系数据的环形图表，通过围绕圆周排列的节点弧及相互连接的带状曲线，直观展示不同类别间的双向流量或关联强度。在`chord`中，数据点（节点）通常沿着圆环排列，通过弦（曲线）来连接节点之间的关系或流动。每条弦不仅可以体现两个节点之间的连接，还可以通过视觉通道（如颜色、宽度、透明度等）来表示关系的权重或强度。弦图广泛应用于社交网络、系统调用关系、流量分布和交易流分析等场景，通过清晰地展现节点之间的复杂连接，可以帮助用户快速理解数据中的结构和模式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'chord',
@@ -51,9 +56,6 @@ order: 6
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 配置项
@@ -79,9 +81,14 @@ order: 6
 
 `source`、`target` 视觉通道影响 chord 图形标记连接弦的起点和终点的重要属性。`source` 映射到数据中表示连接关系的起始节点字段，而 `target` 则映射到连接关系的终止节点字段。这两个属性共同构建了弦图中节点之间的关系逻辑，通过直观的连接弦表现节点之间的交互或依赖。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'chord',
@@ -111,16 +118,18 @@ order: 6
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 `source`、`target`等 encode 属性也支持动态获取数据中的值，可以传入一个方法，chart 在执行时会调用这个方法计算出需要的结果
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'chord',
@@ -150,9 +159,6 @@ order: 6
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的`encode`配置，可以查查看 [encode](/manual/core/encode) 介绍页面。

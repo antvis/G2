@@ -8,9 +8,14 @@ order: 1
 矩阵树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。
 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。一个 Tree 状结构转化为平面空间矩形的状态。矩形树图的好处在于，相比起传统的树形结构图，矩形树图能更有效得利用空间，并且拥有展示占比的功能。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'treemap',
     data: {
@@ -57,9 +62,6 @@ order: 1
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 关系图](/examples/graph/hierarchy#treemap)页面。
@@ -167,9 +169,14 @@ chart.options({
 
 ## 示例
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'treemap',
@@ -196,9 +203,6 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ```

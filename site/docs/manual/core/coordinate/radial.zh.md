@@ -27,9 +27,14 @@ order: 3
 
 ### 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -76,9 +81,6 @@ order: 3
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 使用场景
@@ -127,9 +129,14 @@ order: 3
 
 玉珏图是径向坐标系最常见的应用之一，它将传统条形图在径向坐标系下展示，形成放射状的视觉效果。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
 
@@ -145,18 +152,20 @@ order: 3
     .encode('color', 'value');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 2. 径向堆叠条形图
 
 通过在径向坐标系中应用堆叠变换，可以创建径向堆叠条形图，适合展示具有层次关系的数据。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.coordinate({ type: 'radial' });
 
@@ -176,18 +185,20 @@ order: 3
     .transform({ type: 'stackY' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 3. Apple 活动图
 
 通过设置适当的内半径和样式，可以创建类似 Apple Watch 活动环的可视化效果。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = [
     { name: 'activity1', percent: 0.6, color: '#1ad5de' },
@@ -216,18 +227,20 @@ order: 3
     .style('radius', 26);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 完整示例
 
 以下是一个带有标签和动画效果的径向条形图完整示例：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -287,9 +300,6 @@ order: 3
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 这个示例展示了如何创建一个带有标签和动画效果的径向条形图，包括以下特性：

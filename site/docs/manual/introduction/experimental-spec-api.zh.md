@@ -5,10 +5,15 @@ order: 4
 
 G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 初始化图表实例
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 声明可视化
   chart
@@ -26,9 +31,6 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 
   // 渲染可视化
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 除了这套函数式风格之外，G2 5.0 还提供了一套全新的 API：Spec API。该 API 通过一个 JavaScript 对象去声明可视化。
@@ -37,10 +39,15 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 
 目前我们通过 `chart.options(spec)` 去声明可视化，下面的例子可以得到和上面一样的效果。
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 初始化图表实例
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 声明可视化
   chart.options({
@@ -61,9 +68,6 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 
   // 渲染可视化
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 比较
@@ -154,9 +158,14 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval', // 标记节点
@@ -174,9 +183,6 @@ spaceFlex.interval();
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 视图节点
@@ -190,9 +196,14 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view', // 视图节点
@@ -218,9 +229,6 @@ spaceFlex.interval();
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 复合节点
@@ -238,9 +246,14 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'spaceFlex',
@@ -278,9 +291,6 @@ spaceFlex.interval();
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 应用场景
@@ -302,10 +312,15 @@ spaceFlex.interval();
 
 ### 饼图
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 初始化图表实例
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 声明可视化
   chart.options({
@@ -341,17 +356,19 @@ spaceFlex.interval();
 
   // 渲染可视化
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 空间复合
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 初始化图表实例
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 声明可视化
   chart.options({
@@ -417,7 +434,4 @@ spaceFlex.interval();
 
   // 渲染可视化
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

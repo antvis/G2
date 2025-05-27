@@ -115,9 +115,14 @@ chart.on('sliderY:filter', (event) => {
 ## 示例
 ### 基础缩略轴筛选
 下面的示例展示了如何在折线图上添加基础的 X 轴缩略轴筛选功能：
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -140,7 +145,4 @@ chart.on('sliderY:filter', (event) => {
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

@@ -51,16 +51,21 @@ For example, package the following web page, which uses G2 to draw a bar chart:
 
 and use Chart object which exposed from `import { Chart } from '@antv/g2'` directly. The bundle package size is compared as follows:
 
-```js | ob {pin:false}
-(() => {
-  const data = [
+```js | ob { pin:false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
     { lib: 'Chart', size: 957772, type: 'raw' },
     { lib: 'Chart', size: 288753, type: 'gzip' },
     { lib: 'Runtime', size: 855619, type: 'raw' },
     { lib: 'Runtime', size: 252045, type: 'gzip' },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -85,9 +90,6 @@ and use Chart object which exposed from `import { Chart } from '@antv/g2'` direc
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 It can be seen that the size has been reduced **100kb** about.

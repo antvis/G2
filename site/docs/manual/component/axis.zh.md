@@ -316,9 +316,14 @@ chart.options({
 
 `labelFormatter` 视觉通道用于调整标签的格式。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -345,9 +350,6 @@ chart.options({
     },
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 `transform` 为了避免刻度标签重叠或超出显示范围，系统提供了多种优化方式，包括缩略、旋转、隐藏和换行。
@@ -360,9 +362,14 @@ chart.options({
 
 > 1. `transform` 数组（多策略组合）
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -418,16 +425,18 @@ chart.options({
     },
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 > 2. 使用 `labelAutoHide`、`labelAutoRotate`、`labelAutoEllipsis`、`labelAutoWrap`、 属性（需设置 `size`）
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -475,9 +484,6 @@ chart.options({
     },
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ```ts
@@ -570,9 +576,14 @@ EffectTiming 支持配置的属性如下：
 
 ## 示例
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval', // 设置图表类型为柱状图
@@ -650,9 +661,6 @@ EffectTiming 支持配置的属性如下：
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看 [图表示例 - 坐标轴](/examples/component/axis/#axis-x) 页面。

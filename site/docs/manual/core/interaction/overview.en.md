@@ -92,9 +92,14 @@ chart.area():
 In G2, you can set the interaction state of the mark through `mark.state`, such as setting the select and unselect states as follows. When using elementSelect, these two states will be consumed.
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -114,9 +119,6 @@ In G2, you can set the interaction state of the mark through `mark.state`, such 
     .interaction('elementSelect', true);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 In addition to selected and unselected, there are the following built-in state types:
@@ -136,9 +138,8 @@ chart.on('interaction name（eg: brushFilter）', (e) => {});
 
 Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brush) as an example. When the user makes a mouse brushing selection, the corresponding brushing selection threshold is pushed into brushHistory. When the reset button is clicked, the values are popped up one by one and the brushFilter is actively triggered through `chart.emit()` for brushing selection coverage.
 
-```js | ob
-(() => {
-  const { Chart, ChartEvent} = G2;
+```js | ob { autoMount: true }
+const { Chart, ChartEvent} = G2;
 
   const chart = new Chart({
     clip: true
@@ -188,9 +189,6 @@ Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brus
   };
 
   container.appendChild(button);
-
-  return chart.getContainer();
-})();
 ```
 
 ### Triggering Interaction Events
@@ -210,9 +208,8 @@ chart.emit('brush:filter', {
 If the built-in interaction cannot meet your needs, you can also implement some interactions through custom interaction. Here is a custom highlight interaction.
 
 
-```js | ob
-(() => {
-  const { Chart, PLOT_CLASS_NAME, ELEMENT_CLASS_NAME, register } = G2;
+```js | ob { autoMount: true }
+const { Chart, PLOT_CLASS_NAME, ELEMENT_CLASS_NAME, register } = G2;
 
   register('interaction.customElementHighlight', () => {
     return (context, _, emitter) => {
@@ -272,9 +269,6 @@ If the built-in interaction cannot meet your needs, you can also implement some 
     .interaction('customElementHighlight', true);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Interaction Syntax

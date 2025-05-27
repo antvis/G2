@@ -69,9 +69,14 @@ type Reducer =
 
 ### 1. 柱状图按 y 值降序排序
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -88,15 +93,18 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 2. 只显示 Top 3 项（slice）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -113,15 +121,18 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 3. 与 dodgeX 联用，分组后排序
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -141,15 +152,18 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 4. 复杂排序与 reducer 配置
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -166,7 +180,5 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 

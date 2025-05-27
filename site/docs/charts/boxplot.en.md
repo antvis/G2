@@ -39,6 +39,8 @@ The main components of a box plot include:
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -78,6 +80,8 @@ Box plots are ideal tools for analyzing data distribution, quickly identifying c
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',
@@ -119,6 +123,8 @@ By displaying multiple box plots side by side, you can effectively compare data 
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',
@@ -174,6 +180,8 @@ By setting different colors and series, you can compare data distributions acros
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -211,6 +219,8 @@ When category labels are too long, horizontal box plots can be used to improve r
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',
@@ -250,6 +260,8 @@ In certain scenarios, outliers can be hidden to focus only on the overall data d
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',

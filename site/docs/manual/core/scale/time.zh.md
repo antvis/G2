@@ -52,9 +52,14 @@ type Interpolate = (a: number, b: number) => (t: number) => T;
 
 ### 开始使用
 
-```js | ob
-(() => {
-const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 const data = [
   {
@@ -298,9 +303,6 @@ chart
   });
 
 chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 示例代码解释

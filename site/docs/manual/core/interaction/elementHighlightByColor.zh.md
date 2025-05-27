@@ -250,9 +250,14 @@ chart.emit('element:unhighlight', {});
 
 ### 基础高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     data: {
@@ -275,16 +280,18 @@ chart.emit('element:unhighlight', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 带连接线高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     data: {
@@ -319,16 +326,18 @@ chart.emit('element:unhighlight', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### transpose
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     height: 600,
@@ -374,7 +383,4 @@ chart.emit('element:unhighlight', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

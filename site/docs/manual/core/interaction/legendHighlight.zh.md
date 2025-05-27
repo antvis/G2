@@ -129,9 +129,14 @@ chart.emit('legend:unhighlight', {});
 ## 示例
 下面的示例展示了一个```legendHighlight```的基本交互功能。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
   type: 'interval',
@@ -177,7 +182,4 @@ chart.emit('legend:unhighlight', {});
 });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

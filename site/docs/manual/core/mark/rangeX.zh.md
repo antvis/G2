@@ -7,12 +7,18 @@ order: 21
 
 使用一组 `x`(x1, x2) 来定位一个绘制于 x 轴的矩形区域，常用于对特定区域进行高亮显示。
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 /**
  * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_falkensee.html
  */
-(() => {
-  const chart = new G2.Chart();
+
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -50,9 +56,6 @@ order: 21
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 此外，rangeX 还提供了简便写法：

@@ -77,9 +77,14 @@ In addition to `mark.encode`, the visual properties of the mark can also be set 
 - The channel set by `mark.encode` will be a bit special, either unique to the mark, such as the src channel of image; or it has some special logic, such as the x channel that affects the generation of the x-direction coordinate axis.
 - `mark.encode` is more inclined to set up channels related to data, but `mark.style` prefers to set up channels that have nothing to do with data. Although `mark.style` also supports callbacks to set up data-driven channels.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -96,9 +101,6 @@ In addition to `mark.encode`, the visual properties of the mark can also be set 
     .axis('y', { labelFormatter: '.0%' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## View Style
@@ -112,9 +114,14 @@ The styles of each area can be set in the form of `${name}${Style}`, among them,
 
 For example, color each area in the picture below:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -157,7 +164,4 @@ For example, color each area in the picture below:
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

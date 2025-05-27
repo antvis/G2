@@ -186,9 +186,14 @@ Of course, for title and item, callbacks are also provided to achieve the greate
 
 G2 opens Tooltip interaction by default. If you need to configure Tooltip properties, you can do so through `chart.interaction.tooltip`.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -211,9 +216,6 @@ G2 opens Tooltip interaction by default. If you need to configure Tooltip proper
     });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Disabling Tooltip
@@ -246,9 +248,14 @@ chart.interaction('tooltip', false);
 
 ## Setting Tooltip Style
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -307,7 +314,4 @@ chart.interaction('tooltip', false);
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

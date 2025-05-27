@@ -14,14 +14,18 @@ order: 1
 
 然后设置 z 通道、scale 和 z 坐标轴，最后在场景中添加光源。
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -70,9 +74,6 @@ order: 1
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -107,14 +108,18 @@ order: 1
 
 使用球体效果如下：
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -163,21 +168,22 @@ order: 1
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 而在使用 2D 图形时，无需添加光源：
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -216,9 +222,6 @@ order: 1
     camera.setPerspective(0.1, 5000, 45, 500 / 500);
     camera.setType(g.CameraType.ORBITING);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ### 3D 图形

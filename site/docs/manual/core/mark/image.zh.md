@@ -7,9 +7,14 @@ order: 10
 
 `image` 图片标记通常不会单独出现，主要在其他的标记基础上进行添加使用，可以增强数据的可视化效果，帮助更直观地传达信息。和[`point`](/manual/core/mark/point) 标记很类似都是以 `x`，`y` 数据通道作为位置居中定位，区别在于 `image` 提供一个特殊的 `src` 数据通道，来指定图片的远程地址或者 base64。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     width: 200,
@@ -38,9 +43,6 @@ order: 10
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 图片](/examples#general-image)页面。

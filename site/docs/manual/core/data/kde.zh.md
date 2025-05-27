@@ -49,9 +49,14 @@ order: 2
 
 下面的示例展示了如何创建基本的密度图，展示不同物种的数据分布：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'density', // 设置图表类型为密度图
     data: {
@@ -75,8 +80,6 @@ order: 2
     tooltip: false, // 关闭图表的 tooltip 功能
   });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 在这个示例中，我们将 `size` 参数设置为 20，比默认值 10 更大，从而获得更精细的密度曲线。
@@ -85,9 +88,14 @@ order: 2
 
 在极坐标系中使用 KDE 可以创建环形的小提琴图，为数据分布可视化提供新的视角：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'view',
     autoFit: true,
@@ -125,8 +133,6 @@ order: 2
     ],
   });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 这个示例展示了如何将 KDE 与箱线图结合使用，创建小提琴图。在极坐标系中，小提琴图呈环形分布，提供了不同的视角来观察数据分布。
@@ -135,9 +141,14 @@ order: 2
 
 通过调整 KDE 的参数，可以控制密度估计的平滑程度和精度：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'density',
     data: {
@@ -165,8 +176,6 @@ order: 2
     tooltip: false,
   });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 这个示例展示了如何自定义 KDE 的各种参数：

@@ -7,12 +7,17 @@ The `helix` coordinate system is a coordinate system that unfolds two-dimensiona
 
 ## Getting Started
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     autoFit: true,
     height: 500,
-  });
+  
+});
 
   // Sample data
   const data = [];
@@ -39,9 +44,6 @@ The `helix` coordinate system is a coordinate system that unfolds two-dimensiona
     .scale('color', { range: ['#ffffff', '#1890FF'] });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 | Parameter   | Description                           | Type     | Default       |

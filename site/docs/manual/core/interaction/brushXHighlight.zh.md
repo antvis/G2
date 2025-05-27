@@ -207,9 +207,10 @@ chart.emit('brush:highlight', { data: { selection } });
 
 ### 多视图图表联动
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const container = document.createElement('div');
   const focusContainer = document.createElement('div');
   const contextContainer = document.createElement('div');
   container.append(focusContainer);
@@ -231,11 +232,15 @@ chart.emit('brush:highlight', { data: { selection } });
 }
 
   // 渲染 focus 视图
-  const focus = new G2.Chart({
+  
+
+const focus = new Chart({
+  container: 'container',
     container: focusContainer,
     height: 360,
     paddingLeft: 50,
-  });
+  
+});
 
   focus
     .area()
@@ -255,13 +260,17 @@ chart.emit('brush:highlight', { data: { selection } });
   focus.render();
 
   // 渲染 context 视图
-  const context = new G2.Chart({
+  
+
+const context = new Chart({
+  container: 'container',
     container: contextContainer,
     paddingLeft: 50,
     paddingTop: 0,
     paddingBottom: 0,
     height: 60,
-  });
+  
+});
 
   context
     .area()
@@ -324,5 +333,4 @@ chart.emit('brush:highlight', { data: { selection } });
   });
 
   return container;
-})();
 ```

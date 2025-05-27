@@ -66,9 +66,14 @@ Whether to clip graphics exceeding the drawing area.
 
 With `clip = false`, out-of-bound graphics remain visible:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .data([
@@ -96,19 +101,21 @@ With `clip = false`, out-of-bound graphics remain visible:
   });
   chart.point().style('fill', 'white').tooltip(false);
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Set `clip = true` to enable clipping. Adjust `inset` if points get clipped:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     clip: true,
     inset: 20,
-  });
+  
+});
 
   chart
     .data([
@@ -142,8 +149,6 @@ Set `clip = true` to enable clipping. Adjust `inset` if points get clipped:
 
   chart.point().style('fill', 'white').tooltip(false);
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### ChartCfg.width
@@ -239,11 +244,15 @@ See [renderer](/manual/extra-topics/plugin/renderer) for renderer details.
 
 Configures chart theme. Register custom themes using `register` :
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { Light, register, Chart } from '@antv/g2';
+
+
+
+
   // define theme
   function CustomTheme() {
-    const light = G2.Light();
+    const light = Light();
     return {
       ...light,
       category20: [
@@ -272,11 +281,15 @@ Configures chart theme. Register custom themes using `register` :
   }
 
   // register theme
-  G2.register('theme.custom', CustomTheme);
+  register('theme.custom', CustomTheme);
 
-  const chart = new G2.Chart({
+  
+
+const chart = new Chart({
+  container: 'container',
     theme: { type: 'custom' }, // use theme
-  });
+  
+});
 
   chart.options({
     type: 'interval',
@@ -290,9 +303,6 @@ Configures chart theme. Register custom themes using `register` :
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### ChartCfg.plugins
@@ -332,10 +342,15 @@ For more information on plugin usage, see [plugin-rough](/manual/extra-topics/pl
 
 G2 provides an imperative Functional API for defining charts. Here's an example of declaring the simplest bar chart:
 
-```js | ob
-(() => {
-  // Initialize the chart instance
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Initialize the chart instance
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // declare the visualization
   chart
@@ -353,9 +368,6 @@ G2 provides an imperative Functional API for defining charts. Here's an example 
 
   // Render the visualization
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 The Functional API is built on top of the Spec API. Simply put, each `Chart` instance has an `options` object. The Functional API generates this `options` object through a series of methods, while the Spec API directly sets it. Regardless of which API you use, G2 ultimately renders the current `options`. Therefore, both APIs are equally capable of defining visualizations.

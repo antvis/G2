@@ -100,14 +100,18 @@ chart.render().then(() => {
 
 The effect is as follows:
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -155,9 +159,6 @@ The effect is as follows:
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 We can also let the camera fix the viewpoint and rotate it at a certain angle. Here we use [rotate](https://g.antv.antgroup.com/api/camera/action#rotate)：
@@ -166,14 +167,18 @@ We can also let the camera fix the viewpoint and rotate it at a certain angle. H
 camera.rotate(-20, -20, 0);
 ```
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -221,9 +226,6 @@ camera.rotate(-20, -20, 0);
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ## Add light source
@@ -245,14 +247,18 @@ canvas.appendChild(light);
 
 we can use `intensity` to increase the intensity of the light source:
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -300,9 +306,6 @@ we can use `intensity` to increase the intensity of the light source:
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ## Add custom legend
@@ -315,8 +318,12 @@ chart.legend(false);
 
 This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/manual/component/legend#自定义图例legend), we can customize the legend using HTML:
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   // add legend
   function legendColor(chart) {
     // create and mound legend
@@ -382,8 +389,8 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -433,9 +440,6 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ## Using camera interaction and animation
@@ -460,8 +464,12 @@ button.onclick = () => {
 };
 ```
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   function cameraButton(chart) {
     const node = chart.getContainer();
     const button = document.createElement('button');
@@ -548,8 +556,8 @@ button.onclick = () => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -600,7 +608,4 @@ button.onclick = () => {
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```

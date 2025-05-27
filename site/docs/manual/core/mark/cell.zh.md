@@ -7,9 +7,14 @@ order: 5
 
 `cell` 是矩形标记（Rect Shape）的一种抽象表示，主要用于表示分面（facet）或者网格中的单元格，是图表中数据映射到视觉元素的最小单元。它一般是在可视化布局中用来表示网格化结构或数据分割的“单元”。具体来说，它是一种对区域的划分，在不同的分面中通常会对应一个独立的绘图区域，常见于矩阵型图表（如日历图、聚合热力图等）中。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'cell',
     data: {
@@ -33,9 +38,6 @@ order: 5
   });
 
   chart.render(); // 渲染图标
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例](/examples#general-cell)页面。
@@ -66,9 +68,14 @@ order: 5
 
 通过 `encode` 的 `color` 属性，你可以将数据字段映射到颜色值，从而根据数据的变化自动调整标记的颜色。这对于数据可视化来说非常有用，因为它可以帮助您快速识别数据的模式和趋势。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'cell',
     data: [
@@ -117,7 +124,6 @@ order: 5
   chart.render();
 
   return node;
-})();
 ```
 
 #### shape

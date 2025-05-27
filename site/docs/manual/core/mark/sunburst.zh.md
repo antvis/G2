@@ -9,9 +9,13 @@ order: 16
 
 `sunburst` 通过 `g2ExtensionPlot` 中以 `rect` 为基础实现，内部实现下钻事件、极坐标、数据转化、样式优化等。
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
+  const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
   const chart = new Chart();
 
@@ -35,9 +39,6 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 旭日图](/examples#general-sunburst) 页面。
@@ -112,9 +113,13 @@ order: 16
 
 `color` 视觉通道影响 `sunburst` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组，默认为内置 `ancestor-node` 路径分组。
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
+  const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
   const chart = new Chart();
 
@@ -131,16 +136,17 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 尝试使用回调进行分组：
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
+  const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
   const chart = new Chart();
 
@@ -160,9 +166,6 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 
@@ -181,9 +184,13 @@ order: 16
 
 可外部配置极坐标坐标 `polar` :
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
+  const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
   const chart = new Chart();
 
@@ -202,16 +209,17 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 还原为直角坐标系 `cartesian` :
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
+  const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
   const chart = new Chart();
 
@@ -226,18 +234,19 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### interaction
 
 `sunburst` 默认配置内置了 `drillDown` 交互事件,
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
+  const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
   const chart = new Chart();
 
@@ -268,9 +277,6 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### style

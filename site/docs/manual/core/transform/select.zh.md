@@ -79,9 +79,10 @@ type Selector =
 
 如下所示，对柱形图顶部进行数值标注：
 
-```js | ob 
-(() => {
-  const data = [
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
   { letter: 'A', frequency: 0.08167 },
   { letter: 'B', frequency: 0.01492 },
   { letter: 'C', frequency: 0.02782 },
@@ -109,7 +110,11 @@ type Selector =
   { letter: 'Y', frequency: 0.01974 },
   { letter: 'Z', frequency: 0.00074 },
 ];
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
   width: 800,
   paddingLeft: 50,
@@ -152,7 +157,4 @@ type Selector =
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

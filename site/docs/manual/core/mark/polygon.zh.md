@@ -10,9 +10,14 @@ order: 19
 
 它是数据可视化、图形学和地理信息系统中不可或缺的工具。
 
-<!-- ```js | ob
-(() => {
-  const chart = new G2.Chart();
+<!-- ```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "polygon",
@@ -84,9 +89,6 @@ order: 19
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ``` -->
 
 更多的案例，可以查看[图表示例 - 地图](/examples#geo-geo)页面。
@@ -116,9 +118,14 @@ order: 19
 
 - `color` 颜色通道, 传入 `string` 类型分组
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "polygon",
@@ -144,16 +151,18 @@ order: 19
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - `color` 颜色通道, 传入 `number` 类型分组
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "polygon",
@@ -179,9 +188,6 @@ order: 19
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### shape

@@ -63,6 +63,8 @@ similar: ['histogram', 'multi-set-bar', 'stacked-bar', 'radial-bar']
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -111,6 +113,8 @@ chart.render();
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',
@@ -198,6 +202,8 @@ chart.render();
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -266,6 +272,8 @@ chart.render();
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -331,6 +339,8 @@ chart.render();
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',

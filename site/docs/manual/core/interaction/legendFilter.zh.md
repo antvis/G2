@@ -129,9 +129,14 @@ chart.emit('legend:reset', {});
 
 下面展示了一个离散型数据的legendfilter交互功能。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
   type: 'line',
@@ -149,7 +154,4 @@ chart.emit('legend:reset', {});
 });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

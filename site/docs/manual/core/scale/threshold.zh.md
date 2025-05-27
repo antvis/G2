@@ -21,9 +21,14 @@ order: 2
 ### 映射效果
 - 使用`threshold`
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -52,14 +57,16 @@ chart.options({
 });
 
 chart.render();
-
-  return chart.getContainer();
-})();
 ```
 - 不使用`threshold`
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -84,9 +91,6 @@ chart.options({
 });
 
 chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 
@@ -109,9 +113,14 @@ chart.render();
 
 ### 基本用法
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -140,16 +149,18 @@ chart.options({
 });
 
 chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 阀值折线图
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "line",
@@ -540,16 +551,17 @@ chart.options({
 
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 ### 柱状图
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "interval",
@@ -582,7 +594,4 @@ chart.options({
   axis: { x: false, y: { title: false } },
 });
 chart.render();
-
-  return chart.getContainer();
-})();
 ```

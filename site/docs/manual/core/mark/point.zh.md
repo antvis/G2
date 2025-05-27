@@ -9,9 +9,14 @@ order: 18
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -32,9 +37,6 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 散点图](/examples#general-point)页面。
@@ -86,9 +88,14 @@ order: 18
 
 `color` 视觉通道影响 `point` 图形标记的 **填充颜色**（在应用某些空心形状的时候，例如 `hollow` ，则会改变图形的 **描边颜色**）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -106,16 +113,18 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -153,9 +162,6 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### shape
@@ -187,9 +193,10 @@ order: 18
 
 尝试一下：
 
-```js | ob { pin: false }
-(() => {
-  // 可选的itemMarker形状
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 可选的itemMarker形状
   const shapeList = [
     'hollow',
     'hollowDiamond',
@@ -219,7 +226,11 @@ order: 18
     };
   });
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -265,16 +276,20 @@ order: 18
   chart.render();
 
   return node;
-})();
 ```
 
 #### size
 
 绑定 `point` 标记的 `size` 属性通道，就能绘制出 **气泡图**，此时数据字段的大小映射到图形的半径（如果是正方形则是 1/2 边长）。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -303,9 +318,6 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### style
@@ -335,9 +347,14 @@ order: 18
 
 受益于 G2 里标记的可组合性，你可以将 `point`标记和 `line` 标记等其他标记结合，增强图表的表现力，或者是绘制一些类似线性回归的特殊图表。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   const d3Regression = window.d3Regression;
 
   chart.options({
@@ -381,16 +398,18 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 下面是另一个 `point` 标记结合其他标记（这个例子中是 `link` 标记）的例子：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -422,18 +441,20 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - 一维散点图相同 x 坐标的点都重叠在一起怎么办？
 
 配置 `y` 通道为常数 `1`, 然后配置 [stackY](/manual/core/transform/stack-y) 数据转换来将相同 x 坐标的点堆叠起来。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -481,16 +502,18 @@ order: 18
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 或者配置 [groupX](/manual/core/transform/group-x) 数据转换来将相同 x 坐标的点进行求和，然后映射到 `size`通道。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -540,7 +563,4 @@ order: 18
     tooltip: { items: [{ channel: 'size', name: '数量' }] },
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

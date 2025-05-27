@@ -11,9 +11,14 @@ order: 2
 
 面积图也可用于多个系列数据的比较，表达数据的总量和趋势。相较于折线图，面积图不仅可以清晰地反映出数据的趋势变化，也能够强调不同类别的数据间的差距对比。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'area',
@@ -37,9 +42,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 面积图](/examples#general-area)页面。
@@ -79,9 +81,14 @@ order: 2
 
 `color` 视觉通道影响 `area` 图形标记包围区域的填充颜色。`area` 标记中单个区域仅能使用一种颜色（或者渐变色），但如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个区域：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'area',
@@ -117,16 +124,18 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成堆叠面积图，避免因为重叠导致的信息模糊：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'area',
@@ -163,9 +172,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### shape
@@ -191,9 +197,14 @@ order: 2
 
 在**极坐标系**下面积图需要进行闭合。常用来绘制雷达图等。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'area',
@@ -227,9 +238,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### style

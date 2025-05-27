@@ -100,14 +100,18 @@ chart.render().then(() => {
 
 效果如下：
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -155,9 +159,6 @@ chart.render().then(() => {
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 我们还可以让相机固定视点进行一定角度的旋转，这里使用了 [rotate](https://g.antv.antgroup.com/api/camera/action#rotate)：
@@ -166,14 +167,18 @@ chart.render().then(() => {
 camera.rotate(-20, -20, 0);
 ```
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -221,9 +226,6 @@ camera.rotate(-20, -20, 0);
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ## 添加光源
@@ -245,14 +247,18 @@ canvas.appendChild(light);
 
 我们可以通过 `intensity` 增大光源的强度：
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   const renderer = new gWebgl.Renderer();
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -300,9 +306,6 @@ canvas.appendChild(light);
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ## 添加自定义图例
@@ -315,8 +318,12 @@ chart.legend(false);
 
 这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/component/legend#自定义图例legend)，我们可以使用 HTML 自定义图例：
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   // 添加图例
   function legendColor(chart) {
     // 创建 Legend 并且挂在图例
@@ -382,8 +389,8 @@ chart.legend(false);
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -433,9 +440,6 @@ chart.legend(false);
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```
 
 ## 使用相机交互与动画
@@ -460,8 +464,12 @@ button.onclick = () => {
 };
 ```
 
-```js | ob { pin: false }
-(() => {
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+
+
+
+
   function cameraButton(chart) {
     const node = chart.getContainer();
     const button = document.createElement('button');
@@ -548,8 +556,8 @@ button.onclick = () => {
   renderer.registerPlugin(new gPluginControl.Plugin());
   renderer.registerPlugin(new gPlugin3d.Plugin());
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
+  const Chart = extend(Runtime, {
+    ...corelib(),
     ...g2Extension3d.threedlib(),
   });
 
@@ -600,7 +608,4 @@ button.onclick = () => {
     });
     canvas.appendChild(light);
   });
-
-  return chart.getContainer();
-})();
 ```

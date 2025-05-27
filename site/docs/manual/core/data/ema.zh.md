@@ -47,9 +47,14 @@ EMA（Exponential Moving Average，指数移动平均）是一种常用的数据
 
 以下示例展示如何在 G2 中对数据字段 `close` 应用 EMA 平滑变换。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -91,14 +96,18 @@ EMA（Exponential Moving Average，指数移动平均）是一种常用的数据
   });
 
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ### 示例一：突出趋势变化（时间序列）
 
-```js | ob { pin:false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin:false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'view',
     children: [
@@ -145,14 +154,18 @@ EMA（Exponential Moving Average，指数移动平均）是一种常用的数据
     ],
   });
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ### 示例二：金融行情走势平滑
 
-```js | ob { pin:false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin:false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = Array.from({ length: 30 }, (_, i) => ({
     date: `2024-01-${String(i + 1).padStart(2, '0')}`,
@@ -208,14 +221,18 @@ EMA（Exponential Moving Average，指数移动平均）是一种常用的数据
   });
 
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ### 示例三：训练过程指标平滑
 
-```js | ob { pin:false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin:false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'view',
     children: [
@@ -260,7 +277,6 @@ EMA（Exponential Moving Average，指数移动平均）是一种常用的数据
     ],
   });
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 

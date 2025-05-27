@@ -25,9 +25,14 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
 
 ### 基础饼图
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -45,15 +50,18 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 基础环图
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -77,15 +85,18 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义起始角度
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -107,15 +118,14 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 组合式调用
 
-```js | ob
-(() => {
-  const data = [
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
     { item: '事例一', count: 40, percent: 0.4 },
     { item: '事例二', count: 21, percent: 0.21 },
     { item: '事例三', count: 17, percent: 0.17 },
@@ -123,7 +133,11 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
     { item: '事例五', count: 9, percent: 0.09 },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.coordinate({ type: 'theta' });
 
   chart
@@ -143,6 +157,4 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
     }));
 
   chart.render();
-  return chart.getContainer();
-})();
 ```

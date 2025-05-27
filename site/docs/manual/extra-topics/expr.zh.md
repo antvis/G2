@@ -157,9 +157,14 @@ labels: [
 
 以下是一个完整的示例，展示了表达式在实际应用中的强大能力：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const spec = {
     type: 'spaceLayer',
@@ -262,7 +267,4 @@ labels: [
   chart.options(spec);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

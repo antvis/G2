@@ -63,9 +63,14 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 每一个标记都可以有多个标签，下面是一个简单的例子：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -85,9 +90,6 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 配置项
@@ -112,9 +114,14 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 `label` 标签文本元素内容配置
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -142,9 +149,6 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 同时，页可以尝试 用 `render` 配置 HTMLElement, 传参和 innerHTML 有区别，但返回时一致的。
@@ -163,9 +167,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 - `last` - 最后一个
 - `function` - 自定义选择器
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "line",
@@ -213,9 +222,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### transform
@@ -242,9 +248,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 ##### 问题案例
 
-```js | ob { pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "line",
@@ -266,16 +277,18 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
     labels: [{ text: "price" }],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ##### 配置 `overlapDodgeY` 转化标签
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
   .options({
@@ -299,9 +312,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 | 属性      | 描述                                                                 | 类型   | 默认值              | 必选 |
@@ -318,9 +328,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob { pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -340,18 +355,20 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ##### 配置 `contrastReverse` 转化标签
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -371,9 +388,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 | 属性      | 描述                                                                 | 类型   | 默认值              | 必选 |
@@ -411,9 +425,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob { pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "line",
@@ -435,18 +454,20 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
     labels: [{ text: "price" }],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ##### 配置 `overlapHide` 转化标签
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
   .options({
@@ -470,9 +491,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### exceedAdjust
@@ -483,9 +501,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 `label` 标签会超出图表，超出的部分会被截断。
 
-```js | ob { pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "line",
@@ -505,18 +528,20 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
     labels: [{ text: "price" }],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ##### 配置 `exceedAdjust` 转化标签
 
 对超出视图的 `label` 标签进行方向优化。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "line",
@@ -537,9 +562,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### position
@@ -548,9 +570,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 
 支持 9 种位置：`top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     height: 300,
     type: 'cell',
@@ -607,7 +634,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   chart.render();
 
   return node;
-})();
 ```
 
 #### 非笛卡尔坐标系下
@@ -707,9 +733,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 | connectorOpacity  | 连接线描边透明度                                  | _number_ | -      |      |
 | connectorDistance  | 连接线和文本的间距                               | _number_ | -      |      |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -743,9 +774,6 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### background
@@ -761,9 +789,14 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 | backgroundLineDash | 背景描边虚线配置  | _\[number,number\]_           | -      |      |
 | backgroundLineWidth | 背景描边宽度 | _number_           | -      |      |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -796,7 +829,4 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

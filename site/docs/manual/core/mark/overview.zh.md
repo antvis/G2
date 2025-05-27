@@ -9,11 +9,16 @@ order: 1
 
 正如上面所说，我们在一个图表中添加散点图的 Point 标记以及连接图的 Link 标记，便可以得到一个带有标注的点线连接图。
 
-```js | ob { pin: false}
-(() => {
-  const chart = new G2.Chart({
+```js | ob {  pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 180,
-  });
+  
+});
 
   chart.options({
     type: 'view',
@@ -58,9 +63,6 @@ order: 1
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 根据标记可以代表的数据维度来划分，可以分为：
@@ -213,9 +215,14 @@ G2 中的标记具有许多特性，包括模板化、可叠加、可复合等�
 
 每个内置标记都是一个图形模版，会生成一系列**数据驱动**的图形，其中每个图形对应一个或者多个**数据项（Data Item）**。比如下面的散点图里只有一个 Point 标记，而这个标记生成了多个圆，每个圆对应一个数据项。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -228,16 +235,18 @@ G2 中的标记具有许多特性，包括模板化、可叠加、可复合等�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 而在下面的折线图中，一条线对应多个数据项。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -252,9 +261,6 @@ G2 中的标记具有许多特性，包括模板化、可叠加、可复合等�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 可叠加
@@ -263,9 +269,14 @@ G2 的标记是可以叠加的，换句话说：可以在一个视图里面添�
 
 下面的例子中给图表添加了 line 和 point 两个标记：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -293,16 +304,18 @@ G2 的标记是可以叠加的，换句话说：可以在一个视图里面添�
     ],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 当然，我们也可以结合更多的标记绘制一个具有复杂图形意义的区间曲线面积图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -342,18 +355,16 @@ G2 的标记是可以叠加的，换句话说：可以在一个视图里面添�
     ],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 可复合
 
 G2 里面的标记可以通过一种机制复合成一个标记，然后使用，比如上面的点线图：
 
-```js | ob
-(() => {
-  // 定义复合 Mark
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 定义复合 Mark
   function PointLine({ encode, data } = {}) {
     return [
       { type: 'line', data, encode },
@@ -373,7 +384,11 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
     { year: '1999', value: 13 },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Options 使用复合 Mark
   chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
@@ -386,19 +401,21 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 标记可复合的特性提供了一种简单却强大的扩展 G2 能力的方式，G2 内部也是使用这个机制实现了一些比较复杂的标记，比如桑基图：用两个 Polygon 标记进行复合。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     width: 900,
     height: 600,
-  });
+  
+});
 
   // Sankey 标记
   chart.options({
@@ -425,9 +442,6 @@ G2 里面的标记可以通过一种机制复合成一个标记，然后使用�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 支持多种转换
@@ -436,9 +450,14 @@ G2 的标记支持多种 [转换（Transform）](/manual/core/transform/overview
 
 以下是一个经过 [binX](/manual/core/transform/bin-x) 和 [stackY](/manual/core/transform/stack-y) 转换后的颜色分类直方图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'rect',
@@ -456,16 +475,18 @@ G2 的标记支持多种 [转换（Transform）](/manual/core/transform/overview
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 通过配置多种转换，我们可以得到特定表现形式的复杂图表，以下是一个经过 [normalizeY](/manual/core/transform/normalize-y) 和 [stackY](/manual/core/transform/stack-y) 等多个转换后得到的聚合归一化堆叠条形图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -490,9 +511,6 @@ G2 的标记支持多种 [转换（Transform）](/manual/core/transform/overview
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 可作为标注
@@ -505,9 +523,14 @@ G2 的标记支持多种 [转换（Transform）](/manual/core/transform/overview
 
 Select 标记转换提供了从一组图形中根据指定通道和 selector 选择数据的能力。比如在下面的例子中，标注出了每个大陆 Continent 中，GDP 最大的国家。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -538,9 +561,6 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 对于不需要分组的简单的文本标记，使用 [数据标签（Label）](/manual/component/label) 就可以，否则可以考虑上面的方式。
@@ -559,9 +579,14 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
 
 在 G2 中可以通过 `data` 去指定数据驱动的定位，比如下面的例子中希望标注每天糖和脂肪的安全摄入量，就可以如下实现。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -636,9 +661,6 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 除了数据驱动的定位，G2 也提供了非数据驱动的定位方式。通过 `style` 去指定 x 和 y 属性，x 和 y 拥有下面两种类型。分别对应标注的 **绝对定位** 和 **相对定位** 。
@@ -647,9 +669,14 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
 
 - **x 和 y 为数字**：像素为单位的坐标。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -681,18 +708,20 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
     ],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ##### 相对定位
 
 - **x 和 y 为百分比**：内容区域的百分比。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -724,9 +753,6 @@ Select 标记转换提供了从一组图形中根据指定通道和 selector 选
     ],
   });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 示例
@@ -775,8 +801,12 @@ register('shape.interval.triangle', ShapeTriangle);
 
 下面是一个完整的例子，展示了如何自定义形状。
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { register, Chart } from '@antv/g2';
+
+
+
+
   // 定义图形组件
   function ShapeTriangle(style, context) {
     const { document } = context;
@@ -796,10 +826,14 @@ register('shape.interval.triangle', ShapeTriangle);
   }
 
   // 注册该三角形
-  G2.register('shape.interval.triangle', ShapeTriangle);
+  register('shape.interval.triangle', ShapeTriangle);
 
   // 初始化图表
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -819,7 +853,4 @@ register('shape.interval.triangle', ShapeTriangle);
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

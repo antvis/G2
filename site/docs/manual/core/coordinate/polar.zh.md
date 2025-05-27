@@ -47,9 +47,14 @@ order: 2
 ### 开始使用
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "interval",
@@ -79,16 +84,17 @@ chart.options({
 
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 ### 雷达图
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -136,18 +142,19 @@ chart.options({
 
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 ### 向量场图
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "vector",
@@ -171,7 +178,4 @@ chart.options({
 });
 
 chart.render();
-
-  return chart.getContainer();
-})();
 ```

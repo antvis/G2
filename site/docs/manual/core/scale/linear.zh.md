@@ -92,9 +92,14 @@ chart
 
 ## 示例
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = [
     { time: '2023-01', sales: 100 },
@@ -116,8 +121,6 @@ chart
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ## FAQ

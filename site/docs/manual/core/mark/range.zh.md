@@ -17,9 +17,14 @@ order: 20
   - `y1`：矩形在垂直方向上从哪里开始。
   - `y2`：矩形在垂直方向上到哪里结束。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -78,9 +83,6 @@ order: 20
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 配置项

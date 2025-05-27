@@ -27,9 +27,14 @@ The most basic way of view composition is **Space Composition**, which is simply
 
 A more common way of composition is `composition.spaceLayer`: overlaying multiple charts together, using scenarios where these views have different coordinate systems, such as the bar and pie charts below.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const layer = chart.spaceLayer();
 
@@ -65,16 +70,18 @@ A more common way of composition is `composition.spaceLayer`: overlaying multipl
     .legend('color', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 You can also use `composition.spaceFlex` to arrange views horizontally or vertically.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   const flex = chart.spaceFlex();
 
   // Bar chart
@@ -107,9 +114,6 @@ You can also use `composition.spaceFlex` to arrange views horizontally or vertic
     .legend('color', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Also, these composition methods can be nested, so it's easy to implement a report through a separate statement.
@@ -118,14 +122,19 @@ Also, these composition methods can be nested, so it's easy to implement a repor
 
 **Facet Composition** differs from Space Composition in that it also partitions the data, with each view presenting a subset of the original data.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 260,
     width: 800,
     paddingLeft: 40,
     paddingBottom: 50,
-  });
+  
+});
 
   const facetRect = chart
     .facetRect()
@@ -146,24 +155,26 @@ Also, these composition methods can be nested, so it's easy to implement a repor
     .style('stroke', '#000');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Repeat
 
 **Repeat Composition** differs from facet in that each view shows the full amount of data, but with repeated encoding to create multiple views.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     width: 900,
     height: 900,
     padding: 'auto',
     paddingLeft: 55,
     paddingBottom: 45,
-  });
+  
+});
 
   const repeatMatrix = chart
     .repeatMatrix()
@@ -185,22 +196,25 @@ Also, these composition methods can be nested, so it's easy to implement a repor
   repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Time
 
 **Time Composition** manages views in space and is used for animation.
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 (async () => {
   const data = await fetch(
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Refer to css animation description
   const keyframe = chart
@@ -228,8 +242,5 @@ Also, these composition methods can be nested, so it's easy to implement a repor
     .encode('groupKey', 'gender'); // Specify groupKey
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 

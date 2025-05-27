@@ -79,9 +79,14 @@ chart.style({
 - `mark.encode` 设置的通道会特殊一点，要么是该标记独有的，比如 image 的 src 通道；要么就是有一些特殊逻辑，比如 x 通道会影响 x 方向坐标轴的生成。
 - `mark.encode` 更倾向于去设置和数据有关的通道，但是 `mark.style` 更倾向于去设置和数据无关的通道。虽然 `mark.style` 也同样支持回调去设置数据驱动的通道。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -98,9 +103,6 @@ chart.style({
     .axis('y', { labelFormatter: '.0%' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 视图样式
@@ -114,9 +116,14 @@ chart.style({
 
 比如下图中给各个区域染色：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -159,9 +166,6 @@ chart.style({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 绘图属性
@@ -212,9 +216,14 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 类似的，我们也可以以相同的方式来配置坐标轴的网格线。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -243,9 +252,6 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 配置文字样式
@@ -277,9 +283,14 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 类似的，我们也可以以相同的方式来配置标题的文字样式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -325,9 +336,6 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 配置线性渐变

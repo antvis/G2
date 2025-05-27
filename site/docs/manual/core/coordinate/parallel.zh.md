@@ -24,9 +24,14 @@ order: 2
 
 ### 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 定义维度数组
   const dimensions = [
@@ -83,10 +88,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
-
 ```
 
 ## 使用场景
@@ -126,9 +127,14 @@ order: 2
 
 垂直平行坐标系是最常见的平行坐标系布局，坐标轴垂直排列。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -160,18 +166,20 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 2. 水平平行坐标系
 
 通过添加 transpose 变换，可以将坐标轴水平排列，创建水平平行坐标系。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -206,18 +214,20 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 3. 带交互的平行坐标系
 
 平行坐标系通常需要交互来增强分析能力，例如添加轴的高亮和筛选功能。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 定义维度数组
   const dimensions = [
@@ -266,18 +276,20 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 完整示例
 
 以下是一个完整的平行坐标系示例，展示了如何使用平行坐标系分析多维数据：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 定义维度数组
   const dimensions = [
@@ -387,9 +399,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 这个示例展示了如何创建一个功能完整的平行坐标系图表，包括以下特性：

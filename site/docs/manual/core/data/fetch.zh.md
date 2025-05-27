@@ -28,9 +28,14 @@ chart.options({
 
 举一个例子如下：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -47,7 +52,6 @@ chart.options({
   });
 
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ## 配置项

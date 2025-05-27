@@ -7,9 +7,14 @@ order: 11
 
 区间图（ `interval` ）图形标记是一种表示数据上下区间的图表的集合。通常用来绘制柱形图、条形图、饼图等，通过坐标系、比例尺、数据 `Transform` 等的变化，可以产生多种多样的可视化表现样式，例如，将多个并列的类别聚类、形成一组，再在组与组之间进行比较，这种图表叫做 `分组柱状图` 或 `簇状柱形图` 。将类别拆分称多个子类别，形成 `堆叠柱状图`。再如将柱形图与折线图结合起来，共同绘制在一张图上，俗称 `双轴图`，等等。`interval` 是图形语法中，最常用的 `Mark`。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -53,9 +58,6 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 条形图](/examples#general-interval)、[图表示例 - 饼图](/examples#general-pie)等页面。
@@ -134,9 +136,14 @@ order: 11
 
 `color` 视觉通道影响 `interval` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -166,16 +173,18 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -193,16 +202,18 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成堆叠面积图，避免因为重叠导致的信息模糊：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -230,18 +241,20 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### series
 
 `series` 视觉通道将 `interval` 图形标记的数据分成多个系列，一般和 `color` 通道一起配置，也可以通过配置图形转换`transform`中的 [dodgeX](/manual/core/transform/dodge-x) ，生成 `series` 通道值为 `color` 通道的值，根据 `series` 通道实现分组效果：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -274,9 +287,6 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### shape
@@ -304,9 +314,14 @@ order: 11
 
 在**transpose 坐标系转置变换**后区间图的表现形式为条形图。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -324,16 +339,18 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 在**极坐标系**下区间图的表现形式为玫瑰图，使用半径大小对比数据大小。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -351,16 +368,18 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 在**theta 坐标系**下区间图的表现形式为饼图，使用弧度大小对比数据大小。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -380,16 +399,18 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 在**radial 坐标系**下区间图的表现形式为玉珏图，同样使用圆弧对比数据大小。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -415,9 +436,6 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### style
@@ -468,9 +486,14 @@ order: 11
 
 配置 `y` 通道的时候，返回一个回调函数，根据一个分类字段，将 `y` 通道的值区分为正值和负值。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -538,7 +561,4 @@ order: 11
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

@@ -103,9 +103,14 @@ p12         p11           p13
 
 使用 `box` 标记可以创建基础箱线图，需要提供包含5个统计值的数组数据。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'box',
@@ -135,18 +140,20 @@ p12         p11           p13
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 分组箱线图
 
 使用 `series` 通道可以创建分组箱线图，对不同类别的数据进行比较。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'box',
@@ -188,18 +195,20 @@ p12         p11           p13
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 极坐标箱线图
 
 通过配置极坐标系，可以创建极坐标下的箱线图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'box',
@@ -243,9 +252,6 @@ p12         p11           p13
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 常见问题

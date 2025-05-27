@@ -13,9 +13,14 @@ order: 8
 - 系统监控：CPU/内存使用率、磁盘容量预警；
 - 设备仪表：车辆时速表、温度计模拟。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'gauge', // 设置图表的类型为仪表盘
@@ -29,9 +34,6 @@ order: 8
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 选项
@@ -83,9 +85,14 @@ order: 8
 
 - 只有`target`或者`percent`，`color`参数`range`可以由两个颜色参数组成，在仪表盘刻度会由这两个颜色将会将仪表盘刻度分成两段
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'gauge',
@@ -102,16 +109,18 @@ order: 8
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - 设置了`thresholds`，`color`参数`range`的颜色与`thresholds`的长度一致，仪表盘刻度会被`thresholds`中的值分段，并填充`scale`参数`color`对应位置的色彩
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'gauge',
@@ -129,9 +138,6 @@ order: 8
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
@@ -239,9 +245,14 @@ order: 8
 | textShadowOffsetY | 仪表盘指示文本阴影垂直偏移                                                 | number \| (datum, index, data) => number                     | -         |      |
 | textCursor        | 仪表盘指示文本鼠标样式                                                     | string \| (datum, index, data) => string                     | `default` |      |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'gauge',
@@ -295,9 +306,6 @@ order: 8
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的`style`配置，可以查看 [style](/manual/core/style) 介绍页面。

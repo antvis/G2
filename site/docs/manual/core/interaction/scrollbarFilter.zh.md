@@ -199,9 +199,14 @@ chart.emit('scrollbarY:filter', {
 
 ### 基础滚动条筛选
 下面的示例展示了如何在柱状图上添加基础的 X 轴滚动条筛选功能：
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -218,16 +223,18 @@ chart.emit('scrollbarY:filter', {
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 监听滚动条值变化
 这个示例展示了如何监听滚动条的 valuechange 事件，获取滚动条滑动前后的值：
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -254,16 +261,18 @@ chart.emit('scrollbarY:filter', {
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义初始数据域范围
 这个示例展示了如何设置滚动条的初始数据域范围，使图表初始显示指定的数据区间：
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 准备月份数据
   const data = [
@@ -303,7 +312,4 @@ chart.emit('scrollbarY:filter', {
     
     console.log('已设置初始数据域范围，显示4月到9月的数据');
   });
-
-  return chart.getContainer();
-})();
 ```

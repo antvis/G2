@@ -41,9 +41,14 @@ There are currently 4 built-in states:
 
 ## Highlighted States
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -60,16 +65,18 @@ There are currently 4 built-in states:
     .interaction('elementHighlight'); // Set up highlight interaction
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Selected States
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -86,7 +93,4 @@ There are currently 4 built-in states:
     .interaction('elementSelect'); // Set up selection interaction
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

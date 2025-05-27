@@ -27,9 +27,14 @@ layer.view();
 
 一个比较常见的复合方式是 `composition.spaceLayer`：将多个图表重叠在一起。使用场景是这些视图拥有的不同的坐标系，比如下面的条形图和饼图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const layer = chart.spaceLayer();
 
@@ -65,16 +70,18 @@ layer.view();
     .legend('color', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 同时也可以使用 `composition.spaceFlex` 去让视图水平或者竖直排列。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   const flex = chart.spaceFlex();
 
   // 条形图
@@ -107,9 +114,6 @@ layer.view();
     .legend('color', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 同时这些复合方式是可以嵌套的，所以很容易通过一个单独的声明去实现一个报表。
@@ -118,14 +122,19 @@ layer.view();
 
 **分面复合（Facet Composition）** 和空间复合的不同在于：它还会对数据划分，每个视图展现原始数据的一个子集。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 260,
     width: 800,
     paddingLeft: 40,
     paddingBottom: 50,
-  });
+  
+});
 
   const facetRect = chart
     .facetRect()
@@ -146,24 +155,26 @@ layer.view();
     .style('stroke', '#000');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 重复
 
 **重复复合（Repeat Composition）** 和分面的区别在于：它的每个视图展现的是全量数据，只不过会对编码进行重复，从而绘制出多个视图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     width: 900,
     height: 900,
     padding: 'auto',
     paddingLeft: 55,
     paddingBottom: 45,
-  });
+  
+});
 
   const repeatMatrix = chart
     .repeatMatrix()
@@ -185,22 +196,25 @@ layer.view();
   repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 时间
 
 **时间复合**在空间上管理视图，用于做动画。
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 (async () => {
   const data = await fetch(
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 参考 css animation 的描述
   const keyframe = chart
@@ -228,7 +242,4 @@ layer.view();
     .encode('groupKey', 'gender'); // 指定 groupKey
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

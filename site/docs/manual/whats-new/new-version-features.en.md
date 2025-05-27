@@ -21,9 +21,14 @@ In simpler terms: **With G2, you can get more visualization effects more profess
 
 You can draw a chart in one sentence, and in addition to drawing the graph itself, you can also add axes, legends, and even interactive prompts!
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   //One sentence statement visualization
   chart
@@ -38,15 +43,17 @@ You can draw a chart in one sentence, and in addition to drawing the graph itsel
     .encode('color', 'gender');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 G2 simplicity comes from **default value** : You only need to provide the tag type, data and encoding type, and G2 will infer the rest for you. Of course, the great thing about G2 is that the default values ​​can be overridden as needed. We hope that G2 can look good and display insightful information by default, and you can optimize the display of charts based on your specific scenarios and domain knowledge. Will the appeal chart be more readable if the axis tick display is optimized? If you change it to the following color, do you like it better?
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -63,20 +70,22 @@ G2 simplicity comes from **default value** : You only need to provide the tag ty
     .scale('color', { range: ['steelblue', 'orange'] }); // Change color
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 You may think that a scatter plot is too simple, so let’s see how G2 draws a sankey graph in one sentence!
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     width: 900,
     height: 600,
     
-  });
+  
+});
 
 // Sankey mark
   chart
@@ -101,18 +110,20 @@ You may think that a scatter plot is too simple, so let’s see how G2 draws a s
     .style('linkFillOpacity', 0.4);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Rich chart types
 
 G2 can draw a variety of chart types. In addition to supporting basic fold and column pie charts, it also supports vector fields, parallel coordinate systems and other slightly more complex charts, such as the following connection chart:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .link()
@@ -132,19 +143,21 @@ G2 can draw a variety of chart types. In addition to supporting basic fold and c
     .legend(false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 The most wonderful thing about G2 is that you can get new charts by combining different charts (more precisely marks)! For example, if we add the point mark of the scatter chart and the link mark of the connection chart to a chart, we can obtain a labeled point-line connection chart.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 180,
     
-  });
+  
+});
 
   chart.data({
     type: 'fetch',
@@ -186,18 +199,20 @@ The most wonderful thing about G2 is that you can get new charts by combining di
     .tooltip({ channel: 'x' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Strong data analysis capabilities
 
 In the process of visualization, processing data often takes a lot of time, and there is a certain cost of getting started. To simplify this process, reduce data preprocessing time and standardize common data analysis capabilities, G2 provides a series of **Transform** to aggregate and generate new data. For example, the following calculates the task distribution of athletes with different weights:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -210,16 +225,18 @@ In the process of visualization, processing data often takes a lot of time, and 
     .style('inset', 0.5);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Want your chart split by gender?
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -234,20 +251,22 @@ Want your chart split by gender?
     .style('inset', 0.5);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Want to see the distribution of each gender being separated?
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     
     paddingLeft: 50,
     paddingBottom: 50,
-  });
+  
+});
 
   const facet = chart.facetRect().encode('y', 'sex').data({
     type: 'fetch',
@@ -265,18 +284,20 @@ Want to see the distribution of each gender being separated?
     .style('inset', 0.5);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Vivid animation capabilities
 
 G2 can draw data-driven animations to achieve the effect of visual storytelling. First, all animation properties (animation type, delay and duration) can be bound to data, such as the following data-driven Gantt chart animation:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -299,16 +320,18 @@ G2 can draw data-driven animations to achieve the effect of visual storytelling.
     .scale('enterDuration', { zero: true, range: [0, 3000] });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 At the same time, the animation channel can be converted to control the order and time of appearance of data elements. For example, in the rose picture below, each "petal" appears in sequence:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -328,20 +351,23 @@ At the same time, the animation channel can be converted to control the order an
     .axis('y', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 In addition to animation in a certain view, you can also do continuous deformation animation between different views: graphics are related together through data, such as the transition animation of scatter plots and aggregated bars below:
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 (async () => {
   const data = await fetch(
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Keyframe container, apply transition animation to the view inside
   const keyframe = chart
@@ -371,29 +397,31 @@ In addition to animation in a certain view, you can also do continuous deformati
     .encode('shape', 'point');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Customized interaction capabilities
 
 In addition to providing rich built-in interactions, G2 also provides the ability to link different views through `chart.on` and `chart.emit` for interactive coordination.interactions between different views, such as the "Focus and Context" ability shown below:
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const container = document.createElement('div');
   const focusContainer = document.createElement('div');
   const contextContainer = document.createElement('div');
   container.append(focusContainer);
   container.append(contextContainer);
 
   // Render focus view
-  const focus = new G2.Chart({
+  
+
+const focus = new Chart({
+  container: 'container',
     container: focusContainer,
       height: 360,
     paddingLeft: 50,
-  });
+  
+});
 
   focus
     .area()
@@ -413,13 +441,17 @@ In addition to providing rich built-in interactions, G2 also provides the abilit
   focus.render();
 
   // Render context view
-  const context = new G2.Chart({
+  
+
+const context = new Chart({
+  container: 'container',
     container: contextContainer,
       paddingLeft: 50,
     paddingTop: 0,
     paddingBottom: 0,
     height: 60,
-  });
+  
+});
 
   context
     .area()
@@ -468,16 +500,20 @@ In addition to providing rich built-in interactions, G2 also provides the abilit
   });
 
   return container;
-})();
 ```
 
 ## Two API styles
 
  G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](#concise-syntax), if you use the optional API, the scatter plot in can be declared as follows:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Declare the chart via the options API
   chart.options({
@@ -495,22 +531,24 @@ In addition to providing rich built-in interactions, G2 also provides the abilit
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 You can find that the charts drawn by the two are exactly the same! In fact, this is indeed true: the visual expression capabilities of the two APIs are the same. In other words, diagrams that can be drawn by the functional API can also be drawn by the optional API, and vice versa. In terms of implementation, the functional API is built on the optional API, which is converted into the corresponding JavaScript and then rendered.
 
 The choice between the two is more of a matter of style: if you are familiar with D3, like functional programming, or are an old user of G2, you can choose the functional API; if you have just started using G2 and are exposed to visualization, then the optional API is recommended API. Of course, if you are packaging your own chart library based on G2, it is recommended to use the optional API. However, there is a best practice: use the option API when initializing the chart, and use the functional API when updating the chart.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 150,
     padding: 10,
     
-  });
+  
+});
 
   const mock = () => Array.from({ length: 20 }, () => Math.random());
 
@@ -542,16 +580,16 @@ The choice between the two is more of a matter of style: if you are familiar wit
   const node = chart.getContainer();
   node.insertBefore(button, node.childNodes[0]);
   return node;
-})();
 ```
 
 ## Can be combined
 
 G2 provides a simple compound mark mechanism for enhancing charts or customizing charts. For example, composite point, line and area mark, you can use the built-in mark just like any built-in mark.
 
-```js | ob
-(() => {
-  //Declare composite mark
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+//Declare composite mark
   function PointLineArea({ data, encode = {}, style = {} } = {}) {
     const { fillOpacity = 0.1 } = style;
     return [
@@ -566,7 +604,11 @@ G2 provides a simple compound mark mechanism for enhancing charts or customizing
     ];
   }
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // The usage of composite mark in API
   chart
@@ -603,9 +645,6 @@ G2 provides a simple compound mark mechanism for enhancing charts or customizing
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Composite mark makes it easier to add charts based on G2 and simpler to maintain. At the same time, some marks within G2 are also implemented based on this method.
@@ -614,10 +653,14 @@ Composite mark makes it easier to add charts based on G2 and simpler to maintain
 
 G2 is an architecture built by **Runtime** and a series of **Visual component (Component)** constituted. The runtime is mainly responsible for completing data mapping, creation and inference of scales, etc., as well as cascading visualization components. Different visualization components have different functions, such as Scale for mapping data and Shape for drawing mapped graphics. Here's how to customize a triangular bar chart:
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { register, Chart } from '@antv/g2';
+
+
+
+
   // Customize a triangle shape
-  G2.register('shape.interval.triangle', (style, context) => {
+  register('shape.interval.triangle', (style, context) => {
     const { document } = context;
     return (P, value, defaults) => {
       const { color: defaultColor } = defaults;
@@ -634,7 +677,11 @@ G2 is an architecture built by **Runtime** and a series of **Visual component (C
     };
   });
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -651,9 +698,6 @@ G2 is an architecture built by **Runtime** and a series of **Visual component (C
     .encode('shape', 'triangle'); // Using this shape
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Pack on demand

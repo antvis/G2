@@ -21,9 +21,14 @@ G2 名字和设计理念都来自于图形语法《[The Grammar of Graphics](htt
 
 你可以一句话绘制一张图表，除了绘制图形本身之外，还会添加坐标轴、图例，甚至交互提示！
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 一句话声明可视化
   chart
@@ -38,18 +43,20 @@ G2 名字和设计理念都来自于图形语法《[The Grammar of Graphics](htt
     .encode('color', 'gender');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 G2 的简洁性源于其内置的**默认值**：你只需提供标记类型、数据和编码方式，G2 会自动帮你推断其他参数。值得一提的是，G2 的一大优势是这些默认设置都可以按需调整。我们希望 G2 能在默认情况下就展现美观并传达洞察力，同时也允许你根据特定场景和专业知识优化图表展示。
 
 让我们看看下面这个例子，优化坐标轴刻度显示是否能让图表更易读？更换为下面的颜色是否更符合你的喜好？
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -66,19 +73,21 @@ G2 的简洁性源于其内置的**默认值**：你只需提供标记类型、�
     .scale('color', { range: ['steelblue', 'orange'] }); // 改变颜色
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 你也许会觉得散点图太简单了，那我们来看看 G2 是如何通过一句话绘制一个桑基图的！
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     width: 900,
     height: 600,
-  });
+  
+});
 
   // Sankey 标记
   chart
@@ -103,18 +112,20 @@ G2 的简洁性源于其内置的**默认值**：你只需提供标记类型、�
     .style('linkFillOpacity', 0.4);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 丰富的图表类型
 
 G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱状图、饼图等图表之外，还支持向量场、平行坐标系等稍微复杂一点的图表，比如下面的连接图：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .link()
@@ -134,18 +145,20 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱�
     .legend(false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 在 G2 中最为美妙的一点在于：你能够通过**组合**不同的图表（更为准确地说是标记）来获取**全新的图表**！例如，我们在一个图表中添加散点图的 Point 标记以及连接图的 Link 标记，便可以得到一个带有标注的点线连接图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 180,
-  });
+  
+});
 
   chart.data({
     type: 'fetch',
@@ -187,9 +200,6 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱�
     .tooltip({ channel: 'x' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 强大的数据分析能力
@@ -198,9 +208,14 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱�
 
 接下来看看在获取到一份原始的运动员体重数据后，应该如何通过数据转换来将运动员的体重分布进行可视化：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -213,16 +228,18 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱�
     .style('inset', 0.5);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 希望对图表根据性别进行拆分？
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -237,19 +254,21 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱�
     .style('inset', 0.5);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 希望通过分面来分别看每个性别的分布？
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     paddingLeft: 50,
     paddingBottom: 50,
-  });
+  
+});
 
   const facet = chart.facetRect().encode('y', 'sex').data({
     type: 'fetch',
@@ -263,18 +282,20 @@ G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱�
     .style('inset', 0.5);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 生动的动画能力
 
 G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。首先是所有的动画属性（动画类型，延迟和持续时间）可以和数据绑定，比如下面的这个数据驱动的甘特图动画，可以点击左边的运行按钮查看效果。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -297,16 +318,18 @@ G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。�
     .scale('enterDuration', { zero: true, range: [0, 3000] }); // 定义enterDuration通道的比例尺，比例尺决定了这些通道该如何被可视化
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 同时，可以对动画通道进行转换，从而控制数据元素的出现顺序和时间，比如下面的玫瑰图每一片“花瓣”按照颜色和先后顺序依次出现，这都多亏了 G2 提供的内置转换，具体用法可以查看[stackEnter](/manual/core/transform/stack-enter)。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -326,20 +349,23 @@ G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。�
     .axis('y', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 除了可以在某个视图内部实现动画效果以外，还可以在不同视图间做连续的形变动画：图形通过数据关联到一起，比如下面散点图和聚合条形图互相转换的过渡动画：
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 (async () => {
   const data = await fetch(
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Keyframe 容器，对里面的视图应用过渡动画
   const keyframe = chart
@@ -369,29 +395,31 @@ G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。�
     .encode('shape', 'point');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 定制化交互能力
 
 G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emit` 提供了一种联动不同视图的交互的能力，比如下面展示的 "Focus and Context" 的能力：
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const container = document.createElement('div');
   const focusContainer = document.createElement('div');
   const contextContainer = document.createElement('div');
   container.append(focusContainer);
   container.append(contextContainer);
 
   // 渲染 focus 视图
-  const focus = new G2.Chart({
+  
+
+const focus = new Chart({
+  container: 'container',
     container: focusContainer,
     height: 360,
     paddingLeft: 50,
-  });
+  
+});
 
   focus
     .area()
@@ -411,13 +439,17 @@ G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emi
   focus.render();
 
   // 渲染 context 视图
-  const context = new G2.Chart({
+  
+
+const context = new Chart({
+  container: 'container',
     container: contextContainer,
     paddingLeft: 50,
     paddingTop: 0,
     paddingBottom: 0,
     height: 60,
-  });
+  
+});
 
   context
     .area()
@@ -466,16 +498,20 @@ G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emi
   });
 
   return container;
-})();
 ```
 
 ## 两种 API 风格
 
 G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前者是通过一系列函数链式调用声明图表，后者是通过一个 JavaScript 对象去声明图表。比如在[简洁语法](#简洁的语法)中的散点图如果使用选项式 API 可以如下声明：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 通过选项式 API 声明图表
   chart.options({
@@ -493,9 +529,6 @@ G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 可以发现两者绘制出的图表一摸一样！事实上也确实如此：两种 API 的可视化表达能力是相同的。换句话说，函数式 API 能绘制的图表，选项式 API 也能绘制，反之亦然。从实现上来讲，函数式 API 是构建在选项式 API 之上的，会转换成对应的 JavaScript 然后渲染。
@@ -504,12 +537,17 @@ G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前
 
 更多内容请阅读 [Spec 和 API](/manual/introduction/experimental-spec-api)。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     height: 150,
     padding: 10,
-  });
+  
+});
 
   const mock = () => Array.from({ length: 20 }, () => Math.random());
 
@@ -541,7 +579,6 @@ G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前
   const node = chart.getContainer();
   node.insertBefore(button, node.childNodes[0]);
   return node;
-})();
 ```
 
 ## 可组合
@@ -550,9 +587,10 @@ G2 提供了一种简单的复合 Mark 的机制，用于增强图表或者自�
 
 更多内容请阅读 [复合](/manual/core/composition/overview)。
 
-```js | ob
-(() => {
-  // 定义复合 mark
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 定义复合 mark
   function PointLineArea({ data, encode = {}, style = {} } = {}) {
     const { fillOpacity = 0.1 } = style;
     return [
@@ -567,7 +605,11 @@ G2 提供了一种简单的复合 Mark 的机制，用于增强图表或者自�
     ];
   }
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // API 的方式使用复合 Mark
   chart
@@ -604,9 +646,6 @@ G2 提供了一种简单的复合 Mark 的机制，用于增强图表或者自�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 复合 Mark 使得基于 G2 去增加图表的能力更加容易和维护起来更简单，同时 G2 内部的一些 Mark 也是基于这个方式实现的。
@@ -615,10 +654,14 @@ G2 提供了一种简单的复合 Mark 的机制，用于增强图表或者自�
 
 G2 是的架构是由 **运行时（Runtime）** 和一系列 **可视化组件（Component）** 构成的。运行时主要负责完成数据映射、比例尺的创建和推断等等，以及串联可视化组件。不同的可视化组件由不同的功能，比如比例尺（Scale）用来映射数据、形状（Shape）用来绘制映射后的图形。下面展示如何自定义一个三角形的条形图：
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { register, Chart } from '@antv/g2';
+
+
+
+
   // 自定义一个三角形的 Shape
-  G2.register('shape.interval.triangle', (style, context) => {
+  register('shape.interval.triangle', (style, context) => {
     const { document } = context;
     return (P, value, defaults) => {
       const { color: defaultColor } = defaults;
@@ -635,7 +678,11 @@ G2 是的架构是由 **运行时（Runtime）** 和一系列 **可视化组件�
     };
   });
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -652,9 +699,6 @@ G2 是的架构是由 **运行时（Runtime）** 和一系列 **可视化组件�
     .encode('shape', 'triangle'); // 使用这个形状
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 按需打包

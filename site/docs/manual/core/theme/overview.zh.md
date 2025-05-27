@@ -176,9 +176,14 @@ chart.options({
 
 下面的示例展示了如何使用内置的暗色主题：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     theme: { 
@@ -203,18 +208,20 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义颜色
 
 下面的示例展示了如何自定义默认颜色：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     theme: { color: '#8a2be2' },  // 设置默认颜色为紫色
@@ -234,18 +241,20 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义颜色方案
 
 下面的示例展示了如何自定义分类颜色方案：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     theme: {
@@ -272,18 +281,20 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义视图区域样式
 
 下面的示例展示了如何自定义视图区域的样式：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     theme: {
@@ -307,9 +318,6 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多主题相关的示例，可以查看[图表示例 - 主题](/examples#style-theme)页面。

@@ -27,9 +27,14 @@ order: 2
 
 ### 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     coordinate: {
@@ -60,9 +65,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 使用场景
@@ -104,9 +106,14 @@ order: 2
 
 最简单的用法是设置一个固定的鱼眼焦点，适用于需要突出显示特定区域的场景。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     coordinate: {
@@ -137,18 +144,20 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 2. 交互式鱼眼效果
 
 通过添加交互组件，可以实现动态的鱼眼效果，焦点随鼠标移动而变化。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -179,18 +188,20 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 完整示例
 
 以下是一个结合了鱼眼坐标系和散点图的完整示例，展示了如何使用鱼眼效果来分析多维数据：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     width: 800,
@@ -258,9 +269,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 这个示例展示了如何创建一个功能完整的鱼眼坐标系散点图，包括以下特性：
@@ -275,9 +283,14 @@ order: 2
 
 鱼眼坐标系变换可以与其他坐标系变换组合使用，例如与 transpose 变换组合：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     coordinate: {
@@ -302,9 +315,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 总结

@@ -43,9 +43,14 @@ type Selector =
 
 如下所示，对不同的数据类型进行标注：
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
   width: 800,
   paddingLeft: 50,
@@ -97,9 +102,6 @@ type Selector =
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ```

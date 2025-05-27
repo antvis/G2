@@ -5,10 +5,15 @@ order: 4
 
 G2 5.0, like version 4.0, provides a set of imperative Functional APIs to declare charts. For example, the simplest bar chart is declared as follows.
 
-```js | ob
-(() => {
-  // Initialize chart instance
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Initialize chart instance
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Declare visualization
   chart
@@ -26,9 +31,6 @@ G2 5.0, like version 4.0, provides a set of imperative Functional APIs to declar
 
   // Render visualization
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 In addition to this functional style, G2 5.0 also provides a new API: Spec API. The API declares visualizations through a JavaScript object.
@@ -37,10 +39,15 @@ In addition to this functional style, G2 5.0 also provides a new API: Spec API. 
 
 Currently we declare the visualization through `chart.options(spec)`, the following example can achieve the same effect as above.
 
-```js | ob
-(() => {
-  // Initialize chart instance
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Initialize chart instance
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Declare visualization
   chart.options({
@@ -61,9 +68,6 @@ Currently we declare the visualization through `chart.options(spec)`, the follow
 
   // Render visualization
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Compare
@@ -122,10 +126,15 @@ The following uses some cases to show you how to use Spec API.
 
 ### Pie Chart
 
-```js | ob
-(() => {
-  // Initialize chart instance
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Initialize chart instance
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Declare visualization
   chart.options({
@@ -161,17 +170,19 @@ The following uses some cases to show you how to use Spec API.
 
   // Render visualization
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Space Composite
 
-```js | ob
-(() => {
-  // Initialize chart instance
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Initialize chart instance
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Declare visualization
   chart.options({
@@ -237,7 +248,4 @@ The following uses some cases to show you how to use Spec API.
 
   // Render
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

@@ -64,9 +64,14 @@ chart
 
 - 描边颜色变化的堆叠面积图
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'area',
@@ -109,16 +114,18 @@ chart
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - 区分样式的多折线图
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'line',
@@ -150,16 +157,18 @@ chart
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - 多形状散点图
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -197,9 +206,6 @@ chart
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 提示信息 Tooltip 展示信息较多，移动鼠标后 Tooltip 不会消失
@@ -224,9 +230,14 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
 
 ## 怎么避免图形标记超出刻度最大值或最小值
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -254,9 +265,6 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 **解决方案**
@@ -273,9 +281,14 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -308,9 +321,6 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 怎么反转图表的 y 轴，使得从上到下对应的值从小到大
@@ -325,9 +335,14 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
 
 以下是一个自上而下的柱状图的例子，当需要绘制自右向左的条形图时同理。（此处要注意条形图是坐标轴转置后的柱状图，左右对应的是 x 轴）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -345,16 +360,18 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - 对于有些标记，例如面积图，当我们使用上面的方式反转后，面积图的填充部分也会到图表上半区域，在某些业务场景下是不符合预期的，例如排名趋势图，此时需要结合 `encode.y`、`axis.y.labelFormatter`等属性做更定制化的处理。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -429,7 +446,4 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

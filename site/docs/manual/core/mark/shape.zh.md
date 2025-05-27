@@ -9,9 +9,14 @@ order: 24
 
 例如，有时需要在图表中的特定数据点添加标记来突出重要信息。以下示例展示了如何使用 `shape` 标记在折线图的关键点上添加自定义注解，我们通过创建基础图形 [Circle](https://g.antv.antgroup.com/api/basic/circle) 和基础图形 [Text](https://g.antv.antgroup.com/api/basic/text)，结合 [场景图](https://g.antv.antgroup.com/api/canvas/scenegraph-lifecycle) 能力实现了一个自定义注解。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const notes = (style, context) => {
     const { x, y } = style;
@@ -85,9 +90,6 @@ order: 24
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图形标注 - 徽章水印](/examples/annotation/shape#watermark)页面。
@@ -123,9 +125,14 @@ order: 24
 
 在图表中添加水印可以保护数据的安全性和知识产权。以下示例展示了如何使用 `shape` 标记在图表上添加水印。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // 定义水印渲染方法
   const watermark = (style, context) => {
@@ -192,7 +199,4 @@ order: 24
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

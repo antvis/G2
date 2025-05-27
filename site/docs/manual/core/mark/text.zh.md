@@ -10,9 +10,14 @@ order: 25
 - 文本可视化
 - 数据的标注和辅助
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view', // 图表类型为 'view'
@@ -38,9 +43,6 @@ order: 25
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -164,9 +166,14 @@ chart
 
 配置 [selectY](/manual/core/transform/select-y) 数据转换，设置分组 `groupBy: 'color'`表示针对 color 通道进行分组，并且设置最大值选择器 `selector: 'max'`，表示使用 max 选择器进行指定的数据抽取，输出到 y 通道。这样就可以在每条折线的最大值处绘制 text 标记了。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -238,7 +245,4 @@ chart
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

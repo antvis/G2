@@ -9,9 +9,14 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 何时使用：内容是否超出显示区域取决于内容的多少以及显示区域的尺寸，当需要显示的内容在纵向方向上超过显示区域的大小时，应当使用垂直滚动条以控制显示的部分，横向滚动条同理。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -42,9 +47,6 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 构成元素
@@ -89,9 +91,14 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 | isRound            | 滚动条样式是否为圆角   | boolean              | true  |       |
 | style                 | 滚动条样式配置，样式都可以直接在配置项中配置       | [style](#style)              |    |       |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   
   chart.options({
     type: "area",
@@ -135,9 +142,6 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### style
@@ -204,9 +208,14 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 | ----------- | -------------------------------- | ------------- |
 | valuechange | 发生滚动变化时触发，通过事件监听 | `({detail: { oldValue: any; value: any }}) => void` |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "interval",
@@ -233,7 +242,4 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

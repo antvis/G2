@@ -60,9 +60,14 @@ type Reducer =
 
 ### 1. 分组柱状图按 y 值排序颜色分组（reverse 控制顺序）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -82,15 +87,18 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 2. 复杂排序与 reducer 配置
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -110,6 +118,4 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```

@@ -76,6 +76,8 @@ Below is a radar chart evaluating personal comprehensive abilities.
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -144,6 +146,8 @@ This radar chart compares Huawei Mate and ZTE Grand Memo smartphones across five
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',

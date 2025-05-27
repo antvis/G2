@@ -228,9 +228,14 @@ chart.emit('element:unselect', {});
 
 ### 基础选择
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     autoFit: true,
@@ -246,16 +251,18 @@ chart.emit('element:unselect', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义选中
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     autoFit: true,
@@ -306,16 +313,18 @@ chart.emit('element:unselect', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 单选模式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     autoFit: true,
@@ -336,16 +345,18 @@ chart.emit('element:unselect', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 多选模式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     autoFit: true,
@@ -366,7 +377,4 @@ chart.emit('element:unselect', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

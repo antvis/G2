@@ -49,9 +49,14 @@ Where:
 ## Implementation Examples
 
 ### Base Example: Stock Price Smoothing
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -93,13 +98,17 @@ Where:
   });
 
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ### Example 1: Time Series Trend Enhancement
-```js | ob { pin:false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin:false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'view',
     children: [
@@ -146,13 +155,17 @@ Where:
     ],
   });
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ### Example 2: Financial Data Smoothing
-```js | ob { pin:false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin:false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = Array.from({ length: 30 }, (_, i) => ({
     date: `2024-01-${String(i + 1).padStart(2, '0')}`,
@@ -208,13 +221,17 @@ Where:
   });
 
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ### Example 3: Training Metric Stabilization
-```js | ob { pin:false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin:false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'view',
     children: [
@@ -259,7 +276,6 @@ Where:
     ],
   });
   return chart.render().then((chart) => chart.getContainer());
-})();
 ```
 
 ## Interactive Demo

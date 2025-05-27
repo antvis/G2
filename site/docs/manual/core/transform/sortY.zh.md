@@ -64,9 +64,14 @@ type Reducer =
 
 ### 1. 散点图 y 轴分组排序
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -87,15 +92,18 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 2. 只显示 Top 2 个分组（slice）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -116,8 +124,6 @@ type Reducer =
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 

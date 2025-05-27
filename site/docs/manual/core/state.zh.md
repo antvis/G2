@@ -35,9 +35,14 @@ G2 支持在 mark 层级通过 `state` 字段配置不同状态下的样式。�
 
 #### 1. 配置式写法（推荐）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   const state = {
     selected: { fill: 'red' },
     active: { fill: 'green', stroke: 'black', lineWidth: 1 },
@@ -59,17 +64,20 @@ G2 支持在 mark 层级通过 `state` 字段配置不同状态下的样式。�
     interaction: { elementHighlight: true, elementSelect: true },
   });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 #### 2. 动态样式（支持函数）
 
 状态样式属性支持函数，根据数据动态返回样式：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -88,8 +96,6 @@ G2 支持在 mark 层级通过 `state` 字段配置不同状态下的样式。�
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 ---
 
@@ -111,9 +117,14 @@ default:    1
 - `active`/`inactive` 次之，常用于悬停高亮
 - `default` 为默认样式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     data: [
@@ -130,8 +141,6 @@ default:    1
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 - 悬停时，`active` 状态生效，显示绿色和黑色描边
@@ -165,9 +174,14 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 
 通过 `elementHighlight` 交互插件，配合 `active` 和 `inactive` 状态样式，实现鼠标悬停高亮效果：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -185,8 +199,6 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 **效果说明**：  
@@ -198,9 +210,14 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 
 通过 `elementSelect` 交互插件，配合 `selected` 和 `unselected` 状态样式，实现点击选中效果：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     data: [
@@ -216,8 +233,6 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
     interaction: { elementSelect: true },
   });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 **效果说明**：  
@@ -229,9 +244,14 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 
 支持同时高亮与选中，常用于仪表盘、BI 报表等场景：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -251,8 +271,6 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 ---
 

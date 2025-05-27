@@ -129,9 +129,10 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 
 图例的位置。默认为 `top`。
 
-```js | ob { pin: false }
-(() => {
-  const positionList = ['top', 'right', 'left', 'bottom'];
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+const positionList = ['top', 'right', 'left', 'bottom'];
   const positionMap = positionList.map((p) => {
     return {
       label: p,
@@ -139,7 +140,11 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
     };
   });
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -194,7 +199,6 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
   chart.render();
 
   return node;
-})();
 ```
 
 ### layout
@@ -442,9 +446,10 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 
 尝试一下：
 
-```js | ob { pin: false }
-(() => {
-  // 可选的itemMarker形状
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 可选的itemMarker形状
   const shapeList = [
     'bowtie',
     'cross',
@@ -481,7 +486,11 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
     };
   });
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'legends',
@@ -522,7 +531,6 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
   chart.render();
 
   return node;
-})();
 ```
 
 在 Legend 组件中配置图例项图标的时候，不是以对象的形式来配置，而是以 `itemMarker`前缀加属性的方式来配置。
@@ -1271,9 +1279,14 @@ legend: {
 
 #### 使用图片
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const logo = [
     [
@@ -1395,9 +1408,6 @@ legend: {
     .tooltip(false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义图例（Legend）
@@ -1446,9 +1456,10 @@ function legendColor(chart) {
 
 绘制完图例项之后我们就应该给每个图例项通过 `item.onclick` 添加交互，收集当前选中的值，并且根据这个值去给图表的声明添加 Filter 转换，最后重新渲染图表。最后完整的实现如下：
 
-```js | ob
-(() => {
-  // 添加图例
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 添加图例
   function legendColor(chart) {
     // 创建 Legend 并且挂载图例
     const node = chart.getContainer();
@@ -1512,9 +1523,13 @@ function legendColor(chart) {
   // 绘制图表
   const container = document.createElement('div');
 
-  const chart = new G2.Chart({
+  
+
+const chart = new Chart({
+  container: 'container',
     container,
-  });
+  
+});
 
   chart.options({
     type: 'interval',
@@ -1530,7 +1545,4 @@ function legendColor(chart) {
   });
 
   chart.render().then(legendColor);
-
-  return chart.getContainer();
-})();
 ```

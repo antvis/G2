@@ -196,9 +196,14 @@ chart.emit('element:unhighlight', {});
 
 ### 基础高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     autoFit: true,
@@ -214,16 +219,18 @@ chart.emit('element:unhighlight', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     autoFit: true,
@@ -261,7 +268,4 @@ chart.emit('element:unhighlight', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

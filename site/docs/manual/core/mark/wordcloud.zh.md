@@ -13,9 +13,14 @@ order: 27
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'wordCloud', // 指定图表类型为词云图
@@ -33,9 +38,6 @@ order: 27
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 文本](/examples#general-text)页面。
@@ -115,9 +117,10 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 | archimedean | 阿基米德螺旋线（默认值），词语从中心向外按螺旋路径排列，布局较紧凑。 | 通用场景，追求自然紧凑的布局 |
 | rectangular | 矩形螺旋，词语按矩形路径排列，计算速度更快，但布局相对松散。         | 数据量大时优化性能           |
 
-```js | ob { pin: false }
-(() => {
-  const spiralMap = [
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+const spiralMap = [
     {
       label: '阿基米德螺旋',
       spiral: 'archimedean',
@@ -128,7 +131,11 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
     },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'wordCloud',
@@ -168,9 +175,6 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
   node.insertBefore(selectorContainer, node.childNodes[0]);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 **imageMask**
@@ -185,9 +189,14 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 - 图像加载：在使用图片遮罩时，确保图像资源已经完全加载，否则可能会出现渲染问题。
 - 性能影响：复杂形状（例如高分辨率图片）可能会影响词云的构造速度。
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'wordCloud',
@@ -206,9 +215,6 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### style

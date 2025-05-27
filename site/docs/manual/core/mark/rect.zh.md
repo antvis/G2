@@ -17,9 +17,14 @@ order: 23
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'rect',
@@ -33,9 +38,6 @@ order: 23
   });
 
   chart.render(); // 渲染图标
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -61,9 +63,14 @@ order: 23
 
 color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空心形状的时候，例如 hollow ，则会改变图形的 描边颜色）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'rect',
@@ -79,9 +86,6 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
   });
 
   chart.render(); // 渲染图标
-
-  return chart.getContainer();
-})();
 ```
 
 **shape**
@@ -93,9 +97,10 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
 | rect   | 矩形     |
 | hollow | 空心矩形 |
 
-```js | ob { pin: false }
-(() => {
-  const shapeMap = [
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+const shapeMap = [
     {
       shape: 'rect',
       label: '矩形',
@@ -106,7 +111,11 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
     },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'rect',
@@ -147,7 +156,6 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
   chart.render();
 
   return node;
-})();
 ```
 
 更多的`encode`配置，可以查查看 [encode](/manual/core/encode) 介绍页面。
@@ -161,9 +169,14 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
 - **bin**: 将连续数据分箱，生成直方图矩形
 - **stackY**: 垂直方向堆叠矩形，自动计算每个分类的堆叠高度
 
-```js | ob {pin: false}
-(()=>{
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "rect",
@@ -181,7 +194,6 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
   chart.render();
 
   return chart.getContainer()
-})()
 ```
 
 更多的`transform`配置，可以查看 [transform](/manual/core/transform/overview) 介绍页面。

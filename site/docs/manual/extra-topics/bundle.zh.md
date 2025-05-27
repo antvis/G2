@@ -51,16 +51,21 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
 
 和直接使用 `import { Chart } from '@antv/g2'` 暴露出的 Chart 对象的打包体积相比如下：
 
-```js | ob {pin:false}
-(() => {
-  const data = [
+```js | ob { pin:false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
     { lib: 'Chart', size: 957772, type: 'raw' },
     { lib: 'Chart', size: 288753, type: 'gzip' },
     { lib: 'Runtime', size: 855619, type: 'raw' },
     { lib: 'Runtime', size: 252045, type: 'gzip' },
   ];
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -85,9 +90,6 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 可以发现体积减少了 **100kb** 左右。

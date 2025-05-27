@@ -20,9 +20,14 @@ G2 动画系统的核心特性：
 动画可在图表配置中通过 `animate` 属性进行设置：
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "line",
@@ -36,17 +41,18 @@ chart.options({
   animate: { enter: { type: "pathIn", duration: 1000 } },
 });
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 可把`type`设置为`null`、`undefined` 或 `false` 来关闭动画:
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "line",
@@ -60,15 +66,16 @@ chart.options({
   animate: { enter: { type: "false", } },
 });
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 可通过`animate: false`来关闭所有动画:
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "line",
@@ -82,17 +89,18 @@ chart.options({
   animate: false,
 });
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 ## 基本使用
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "interval",
@@ -111,10 +119,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 ## 动画属性
@@ -158,9 +162,14 @@ chart.render();
 - `ExitAnimateOptions`：退出动画配置对象，包含 type、duration、delay、easing、fill 属性
 - `Fill`：动画填充模式，可选值为 `'auto'`、`'none'`、`'forwards'`、`'backwards'`、`'both'`
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "interval",
@@ -181,11 +190,6 @@ chart.options({
 });
 
 chart.render();
-
-
-
-  return chart.getContainer();
-})();
 ```
 
 ### 动画类型 Type
@@ -251,9 +255,14 @@ chart.render();
 G2 支持将数据值映射到动画属性上，使动画也具备数据可视化的意义。通过 `encode` 可以将数据字段映射到动画属性，如 `enterDuration`、`enterDelay` 等。
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "interval",
@@ -279,10 +288,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 ## 分组动画
@@ -290,9 +295,14 @@ chart.render();
 G2 提供了 `stackEnter` 标记转换来实现分组动画，使图形按照特定规则依次出现。该转换会先对图形进行分组，然后将它们的出现时间和持续时间在空间上进行堆叠。
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -327,10 +337,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 ## 关键帧动画
@@ -338,9 +344,14 @@ chart.render();
 G2 提供了制作关键帧动画的能力，可以在不同视图间平滑过渡，展示数据变化。通过 `timingKeyframe` 创建时间容器，使用 `key` 和 `groupKey` 通道指定元素之间的对应关系。
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "timingKeyframe",
@@ -394,10 +405,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```  
 ## Lottie动画
 

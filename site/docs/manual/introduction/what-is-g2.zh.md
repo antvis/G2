@@ -17,7 +17,7 @@ order: 1
 
 "Talk is cheap, show me the code"，那么接下来看看基于下面这个简单的数据集，G2 能做出什么可视化效果。
 
-```js | ob { pin: false }
+```js | ob {  pin: false , autoMount: true }
 table({
   url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
 });
@@ -41,9 +41,14 @@ table({
 
 **标记**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标记构成的。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -57,18 +62,20 @@ table({
     .encode('color', 'gender');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 转换（Transform）
 
 **转换**会改变数据和标记的展现形式，多用于数据分析。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -84,18 +91,20 @@ table({
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 比例尺（Scale）
 
 **比例尺**用于控制标记的视觉样式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -113,18 +122,20 @@ table({
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 坐标系（Coordinate）
 
 **坐标系**会改变图表的展示形式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -144,21 +155,23 @@ table({
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 视图复合（Composition）
 
 **视图复合**用于制作多视图图表。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     paddingLeft: 60,
     
-  });
+  
+});
 
   const facet = chart
     .facetRect()
@@ -180,18 +193,20 @@ table({
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 动画（Animation）
 
 **动画**支持分组动画和关键帧动画。可以点击左边的运行按钮看效果。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -209,18 +224,21 @@ table({
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 (async () => {
   const data = await fetch(
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const keyframe = chart
     .timingKeyframe()
@@ -247,18 +265,20 @@ table({
     .encode('shape', 'point');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 交互（Interaction）
 
 交互可以按需探索数据。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -284,9 +304,6 @@ table({
     .interaction('brushXHighlight', true);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 更多能力

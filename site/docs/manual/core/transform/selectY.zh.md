@@ -43,9 +43,10 @@ type Selector =
 
 如下所示，在图表中标注出每个城市的最高温度：
 
-```js | ob 
-(() => {
-  const data = [
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
       { month: 1, city: 'Tokyo', temperature: 7 },
       { month: 1, city: 'London', temperature: 3.9 },
       { month: 2, city: 'Tokyo', temperature: 6.9 },
@@ -71,7 +72,11 @@ type Selector =
       { month: 12, city: 'Tokyo', temperature: 9.6 },
       { month: 12, city: 'London', temperature: 4.8 },
     ];
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
   width: 800,
   paddingLeft: 50,
@@ -136,9 +141,6 @@ type Selector =
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ```

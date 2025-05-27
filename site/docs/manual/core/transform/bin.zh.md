@@ -17,9 +17,14 @@ order: 2
 
 下面这个例子展示了如果创建一个分箱图，展示了两个评分系统评分在不同分数区间中的分布情况，可以直观地观察哪个区间的评分较多，哪个区间评分较少。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'rect', // 图表类型为矩形图（直方图）
@@ -38,9 +43,6 @@ order: 2
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 配置项
@@ -55,9 +57,14 @@ order: 2
 
 `thresholdsX` 和 `thresholdsY` 是用于定义数据分箱的两个非常重要的配置项，主要在二维数据分箱（如网格图或热力图）中使用。它们分别控制在 X 和 Y 方向上的分箱（区间划分）规则或数量，用于将二维连续数据划分为离散的网格。
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   let thresholdsX;
   let thresholdsY;
   chart.options({
@@ -121,9 +128,6 @@ order: 2
   node.insertBefore(container, node.childNodes[0]);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### channel
@@ -166,9 +170,14 @@ type Channel =
 
 ### 使用 `bin` + `opacity` 渲染出透明度分箱
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'rect',
@@ -189,16 +198,18 @@ type Channel =
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 使用 `bin` + `size` 渲染出大小分箱
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point', // 图表类型为矩形图（直方图）
@@ -219,7 +230,4 @@ type Channel =
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

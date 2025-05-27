@@ -95,10 +95,15 @@ chart.render();
 
 No matter which method you use, if you draw a bar chart like the following, it means that everything is going well and the journey of exploring visualization and G2 has officially begun.
 
-```js | ob {pin:false}
-(() => {
-  // Initializing chart instance
-  const chart = new G2.Chart();
+```js | ob { pin:false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Initializing chart instance
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -113,7 +118,4 @@ No matter which method you use, if you draw a bar chart like the following, it m
     .encode('y', 'sold');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

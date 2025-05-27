@@ -7,12 +7,17 @@ order: 10
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     autoFit: true,
     height: 500,
-  });
+  
+});
 
   // 模拟数据
   const data = [];
@@ -39,9 +44,6 @@ order: 10
     .scale('color', { range: ['#ffffff', '#1890FF'] });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 | 参数        | 说明                     | 类型     | 默认值        |

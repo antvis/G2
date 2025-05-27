@@ -7,9 +7,14 @@ order: 16
 
 `liquid` 图形标记可用于绘制各种 水波图（涟漪图或波形图）,通过模拟水面上波纹扩散的动态过程，从视觉上的波动传达信息或增强用户体验。常用于UI设计、数据可视化或动画效果中。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   
   chart.options({
     height: 300,
@@ -26,9 +31,6 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 水波图](/examples#general-Liquid)页面。
@@ -57,9 +59,14 @@ order: 16
 | contentFill     | 文本颜色 | _string_ | -      |       |
 | contentFontSize | 文本大小 | _string_ | -      |       |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'liquid',
@@ -86,9 +93,6 @@ order: 16
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### shape

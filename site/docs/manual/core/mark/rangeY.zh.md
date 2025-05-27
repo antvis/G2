@@ -7,9 +7,14 @@ order: 22
 
 使用一组 `y`(y1, y2) 来定位一个绘制于 y 轴的矩形区域，常用于对特定区域进行高亮显示。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     width: 600,
@@ -30,9 +35,6 @@ order: 22
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 此外，rangeY 还提供了简便写法：

@@ -130,9 +130,14 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 
 示例：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = {
     nodes: [
@@ -211,9 +216,6 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### layout
@@ -234,9 +236,14 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 
 示例：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = {
     nodes: [
@@ -289,9 +296,6 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 #### nodeSort

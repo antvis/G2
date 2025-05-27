@@ -15,9 +15,8 @@ order: 9
 - 密度分析：展示二维数据的密度分布，常用于观察热点区域，例如在地理空间数据中用于分析人群聚集分布。
 - 时间序列与类别分析：将时间（如小时、天、周）与类别数据结合，用于分析时序模式或分类分布。
 
-```js | ob
-(() => {
-  const chart = new g2.Chart();
+```js | ob { autoMount: true }
+const chart = new g2.Chart();
 
   chart.options({
     type: 'heatmap', // 子组件类型为热力图
@@ -31,9 +30,6 @@ order: 9
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例 - 热力图](/examples#general-heatmap)页面。
@@ -103,9 +99,8 @@ const gradient =
 
 - 可以创建一个容器视图，将热力图与地图同时渲染，直观呈现数据在地理位置的差异
 
-```js | ob {pin: false}
-(() => {
-  const chart = new g2.Chart();
+```js | ob { pin: false, autoMount: true }
+const chart = new g2.Chart();
 
   chart.options({
     type: 'view',
@@ -138,7 +133,4 @@ const gradient =
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

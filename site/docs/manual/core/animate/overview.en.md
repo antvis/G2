@@ -57,9 +57,14 @@ Each part of the animation has the following properties:
 - **delay**
 - **easing**
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -79,18 +84,20 @@ Each part of the animation has the following properties:
     });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Animation coding
 
 Animation properties can be used as a channel in G2, and can also encode data. For example, in the gantt chart below, the appearance and duration of each bar are linearly related to the data.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -112,18 +119,20 @@ Animation properties can be used as a channel in G2, and can also encode data. F
     .encode('enterDelay', 'startTime'); // Specify the time of occurrence and encode
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Group animation
 
 G2 also provides the StackEnter mark transform to implement group animation. This mark transform will first group graphics, and then stack their appearance time and duration in space to achieve the effect of appearing sequentially.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -144,22 +153,25 @@ G2 also provides the StackEnter mark transform to implement group animation. Thi
     .encode('enterDuration', 1000); // The duration of each group is 1000
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Keyframe Animation
 
 The animations above are all excessive animations and do not involve data updates. G2 also provides the ability to create keyframe animations. use `chart.timingKeyframe` to create a time container that holds a series of views and applies smooth transitions to related graphical elements within those views. The corresponding relationship is specified by two channels, **key** and **groupKey**.
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 (async () => {
   const data = await fetch(
     'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
   ).then((res) => res.json());
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   // Refer to the description of css animation
   const keyframe = chart
@@ -187,9 +199,6 @@ The animations above are all excessive animations and do not involve data update
     .encode('groupKey', 'gender'); // Specify groupKey
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Time Series Animation

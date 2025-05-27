@@ -17,9 +17,14 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
 
 ## 使用方式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "view",
@@ -68,9 +73,6 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
   });
 
   chart.render(); // 渲染图标
-
-  return chart.getContainer();
-})();
 ```
 
 ## 选项
@@ -113,9 +115,14 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
 
 ### 格式化转化为 `linear`
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: "view",
@@ -155,7 +162,4 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
   });
 
   chart.render(); // 渲染图标
-
-  return chart.getContainer();
-})();
 ```

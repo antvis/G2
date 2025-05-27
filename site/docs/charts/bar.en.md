@@ -63,6 +63,8 @@ The chart below compares the sales of different game genres.
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -113,6 +115,8 @@ When comparing population sizes across provinces, too many categories can cause 
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',
@@ -200,6 +204,8 @@ Switching to a horizontal bar chart makes labels easier to read, as shown below:
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -268,6 +274,8 @@ Bar charts use bar length to compare categorical data but are not effective for 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
 
+
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -333,6 +341,8 @@ For instance, a bar chart is less ideal for showing daily stock prices for Septe
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
+
+
 
 const chart = new Chart({
   container: 'container',

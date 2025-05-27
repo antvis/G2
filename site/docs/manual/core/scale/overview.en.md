@@ -89,9 +89,14 @@ Every channel of the mark is bound to a scale. This scale transforms the column 
 The scale of the same channel of the mark in the same view is synchronized by default: it synchronizes the type, domain, and range of the scale, as well as other configurations. This means that all marks in a view will be drawn with the same scale. For example, the LineX mark in the figure below, although it does not have complete data, is still drawn at the accurate position, because the scale is synchronized.
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -112,9 +117,6 @@ The scale of the same channel of the mark in the same view is synchronized by de
   chart.lineX().data(['1996']).style('stroke', 'red').style('strokeWidth', 2);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Scales Out of Sync
@@ -122,9 +124,14 @@ The scale of the same channel of the mark in the same view is synchronized by de
 If you want to unsynchronized (for example, when drawing a dual-axis chart), you need to set `scale.independent` to `true`. The scale that has set this property will not synchronize with any other scale. In the example below, the y-axis of the interval and line will use two different scales, thus generating two different coordinate axes.
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -161,17 +168,19 @@ If you want to unsynchronized (for example, when drawing a dual-axis chart), you
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 If you want to synchronize scales in groups, you can declare `scale.key`. Scales with the same key will synchronize. For example, the y-axis of Line and Point Mark in the example below will synchronize because the key of both is 'line'.
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'view',
@@ -214,9 +223,6 @@ If you want to synchronize scales in groups, you can declare `scale.key`. Scales
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## View Scale
@@ -224,9 +230,14 @@ If you want to synchronize scales in groups, you can declare `scale.key`. Scales
 The scale can be configured in the view hierarchy and passed to the `children` specified by the mark. If the channel corresponding to the mark does not set the scale, it is set; otherwise, it has no effect. When not drawing multi-axis charts, the scale can be set at the view hierarchy.
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .data([
@@ -249,9 +260,6 @@ The scale can be configured in the view hierarchy and passed to the `children` s
   chart.point();
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Common Scales
@@ -266,9 +274,14 @@ Common scales are divided into three major categories:
 
 The first type of scale is the continuous scale, mainly used for continuous data. Common continuous scales include Linear, Time, Log, etc. For example, the x and y channels in the scatter plot below use the linear scale.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -282,18 +295,20 @@ The first type of scale is the continuous scale, mainly used for continuous data
     .encode('color', 'gender');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Ordinal Scale
 
 The second type of scale is the ordinal scale, mainly used for discrete data. Common ordinal scales include ordinal, point, etc. For example, the color channel in the bar chart below uses the ordinal scale.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -313,21 +328,23 @@ The second type of scale is the ordinal scale, mainly used for discrete data. Co
     });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Discretizing Scale
 
 The third type of scale is the discretizing scale, mainly used for continuous data, which will be discretized and then mapped, such as threshold, quantize, etc. The color channel below uses the quantile scale.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
     
     height: 240,
-  });
+  
+});
 
   chart
     .cell()
@@ -349,7 +366,4 @@ The third type of scale is the discretizing scale, mainly used for continuous da
     .style('inset', 2);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

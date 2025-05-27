@@ -63,9 +63,14 @@ chart.theme({ type: 'light', ...theme });
 
 The following example overrides the default color of the light theme:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -82,25 +87,30 @@ The following example overrides the default color of the light theme:
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 If you want to customize all theme styles, you can add a new theme, override the default theme, register it, and then use it.
 
-```js | ob
-(() => {
+```js | ob { autoMount: true }
+import { Light, register, Chart } from '@antv/g2';
+
+
+
+
   // define the theme
   function CustomTheme() {
-    const light = G2.Light();
+    const light = Light();
     return { ...light, color: 'red' };
   }
 
   // register the theme
-  G2.register('theme.custom', CustomTheme);
+  register('theme.custom', CustomTheme);
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'interval',
@@ -115,9 +125,6 @@ If you want to customize all theme styles, you can add a new theme, override the
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 The default themes included are:

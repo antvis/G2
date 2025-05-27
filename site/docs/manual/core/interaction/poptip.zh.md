@@ -96,9 +96,14 @@ chart.on('poptip:hide', (event) => {
 
 ### 示例二：散点图
 
-```js | ob { pin : false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin : false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   
   // 生成模拟数据
   const generateScatterData = () => {
@@ -217,16 +222,18 @@ chart.on('poptip:hide', (event) => {
     element.style.lineWidth = 1;
     chart.render();
   });
-  
-  return chart.getContainer();
-})();
 ```
 
 ### 示例三：玫瑰图
 
-```js | ob { pin : false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin : false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   
   // 简化的数据集
   const data = [
@@ -300,7 +307,4 @@ chart.on('poptip:hide', (event) => {
     element.style.lineWidth = 1;
     chart.render();
   });
-  
-  return chart.getContainer();
-})();
 ```

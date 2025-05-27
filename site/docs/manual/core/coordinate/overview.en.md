@@ -66,9 +66,10 @@ chart.area():
 
 This feature is conducive to encapsulation and coordinate-related composite mark, such as pie charts:
 
-```js | ob
-(() => {
-  function Pie({ encode = {}, ...rest } = {}) {
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+function Pie({ encode = {}, ...rest } = {}) {
     const { value, ...restEncode } = encode;
     return {
       ...rest,
@@ -82,7 +83,11 @@ This feature is conducive to encapsulation and coordinate-related composite mark
     };
   }
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: Pie, // Use this compound mark
@@ -97,9 +102,6 @@ This feature is conducive to encapsulation and coordinate-related composite mark
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Common Coordinate Systems
@@ -110,9 +112,14 @@ The default coordinate system is the Cartesian coordinate system. In addition, t
 
 For example, you can use interval mark and polar coordinate transform to draw rose charts.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -130,18 +137,20 @@ For example, you can use interval mark and polar coordinate transform to draw ro
     .axis('y', false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Theta
 
 You can also use interval mark and theta coordinate system to draw pie charts.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -158,18 +167,20 @@ You can also use interval mark and theta coordinate system to draw pie charts.
     .encode('color', 'genre');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Radial
 
 You can also use interval mark and radial coordinate systems to draw radial charts.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -189,18 +200,16 @@ You can also use interval mark and radial coordinate systems to draw radial char
     .axis('x', { title: null });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Parallel
 
 In addition to the previous relatively basic coordinate transform, there are also some slightly more complex coordinate transform, such as parallel coordinate system.
 
-```js | ob
-(() => {
-  const axis = {
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const axis = {
     zIndex: 1,
     titlePosition: 'right',
     line: true,
@@ -218,7 +227,11 @@ In addition to the previous relatively basic coordinate transform, there are als
     lineStrokeWidth: 1,
   };
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -260,9 +273,6 @@ In addition to the previous relatively basic coordinate transform, there are als
     .interaction('tooltip', { series: false });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Coordinate Transform
@@ -273,9 +283,14 @@ The above coordinate system can be used in combination with the coordinate trans
 
 One of the more commonly used transform is transpose, which is mainly used to change the direction of the chart. For example, draw horizontal bar charts.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -291,18 +306,20 @@ One of the more commonly used transform is transpose, which is mainly used to ch
     .encode('y', 'sold');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### Fisheye
 
 There is also a fisheye coordinate transform, which is used to set the focus of the chart. Here is how to use it.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -323,9 +340,6 @@ There is also a fisheye coordinate transform, which is used to set the focus of 
     .interaction('fisheye');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 3D Coordinate System

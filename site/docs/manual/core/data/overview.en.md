@@ -100,9 +100,14 @@ It can be directly specified as `data`:
 Each mark has its data, which means we can visualize multiple datasets in one view, such as the following interval chart:
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rangeX()
@@ -130,9 +135,6 @@ Each mark has its data, which means we can visualize multiple datasets in one vi
     .encode('color', '#333');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Data in View
@@ -140,9 +142,14 @@ Each mark has its data, which means we can visualize multiple datasets in one vi
 The view can also be data-bound. The data bound to a view is transitive: it will be passed to the marks in `view.children`. If the mark does not have data, its data will be set; otherwise, there is no effect. This means that for marks that share data, you can bind the data to the view.
 
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.data([
     { year: '1991', value: 3 },
@@ -161,9 +168,6 @@ The view can also be data-bound. The data bound to a view is transitive: it will
   chart.point().encode('x', 'year').encode('y', 'value');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Data Updates

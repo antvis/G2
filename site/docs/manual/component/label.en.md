@@ -92,9 +92,14 @@ Each mark can have multiple labels. The configuration of a label is roughly as f
 
 Here's a simple example:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -124,9 +129,6 @@ Here's a simple example:
     });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Selector
@@ -137,9 +139,14 @@ For the mark of a graph corresponding to multiple data items, we can select the 
 - **last** - the last one
 - **function** - custom selector
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -160,9 +167,6 @@ For the mark of a graph corresponding to multiple data items, we can select the 
       },
     });
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Label Transform
@@ -171,9 +175,14 @@ When the display of labels does not meet expectations, such as overlapping or un
 
 It can be found that in the example below, the labels corresponding to times such as 2004 have overlapped.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -193,16 +202,18 @@ It can be found that in the example below, the labels corresponding to times suc
     .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 At this time, we can set the label transform for the corresponding label: overlapDodgeY, which is used to prevent the labels from overlapping in the y direction.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -223,9 +234,6 @@ At this time, we can set the label transform for the corresponding label: overla
     .tooltip({ channel: 'y', valueFormatter: '.1f' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## View Level Label Transform

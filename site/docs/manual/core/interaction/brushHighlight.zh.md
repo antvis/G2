@@ -113,9 +113,14 @@ chart.render();
 
 - `series: false`
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   const config = {
     type: 'line',
     interaction: { brushHighlight: { series: false } },
@@ -138,16 +143,18 @@ chart.render();
   chart.options(config);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 - `series: true`
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   const config = {
     type: 'line',
     interaction: { brushHighlight: { series: true } },
@@ -170,9 +177,6 @@ chart.render();
   chart.options(config);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### mask
@@ -440,9 +444,14 @@ chart.options({
 
 有些交互会改变元素状态，我们可以通过配置元素状态的表现来改变交互的效果。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'view',
     autoFit: true,
@@ -488,7 +497,4 @@ chart.options({
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

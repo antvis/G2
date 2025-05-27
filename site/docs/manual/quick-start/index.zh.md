@@ -95,10 +95,15 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 
 不管使用哪种方式，如果你绘制出了如下的条形图，那么表示一切顺利，探索可视化和 G2 的旅程正式开始。
 
-```js | ob {pin:false}
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { pin:false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 初始化图表实例
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -113,7 +118,4 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
     .encode('y', 'sold');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

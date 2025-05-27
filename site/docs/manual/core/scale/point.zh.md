@@ -21,9 +21,14 @@ order: 2
 
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "interval",
@@ -42,10 +47,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 
@@ -91,9 +92,14 @@ chart.render();
 ### 散点图
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "point",
@@ -108,18 +114,19 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 
 ### 色块图
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
     chart.options({
       type: "cell",
@@ -137,10 +144,6 @@ chart.render();
 
 
     chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
 

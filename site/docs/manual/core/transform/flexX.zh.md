@@ -14,9 +14,14 @@ flexX 是一个用于调整柱形图宽度的转换方法。它允许根据数�
 
 通过 flexX 转换，我们可以在传统柱状图的基础上增加一个额外的数据维度，使图表更加信息丰富。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     width: 800,
     height: 400,
@@ -43,8 +48,6 @@ flexX 是一个用于调整柱形图宽度的转换方法。它允许根据数�
     });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ## 使用场景
@@ -55,9 +58,14 @@ flexX 是一个用于调整柱形图宽度的转换方法。它允许根据数�
    <br/>
    使用国家 GDP 总量作为柱形宽度，人均 GDP 作为柱形高度：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     width: 1000,
     paddingBottom: 100,
@@ -76,8 +84,6 @@ flexX 是一个用于调整柱形图宽度的转换方法。它允许根据数�
     .encode('color', 'country')
     .axis('y', { labelFormatter: '~s' });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ## 配置项
@@ -110,9 +116,14 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
 
 结合 stackY 和 normalizeY 转换创建市场分析图：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     width: 900,
     height: 800,
@@ -135,8 +146,6 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
     .encode('color', 'segment')
     .scale('x', { paddingOuter: 0, paddingInner: 0.01 });
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 在这个例子中，flexX 转换使得每个市场部分的宽度与其总价值成正比，结合堆叠和归一化处理，可以清晰地展示市场份额的分布情况。
@@ -147,9 +156,14 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
 
 展示每月销售数据，使用交易量作为宽度，价格变化率作为高度：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'interval',
     width: 800,
@@ -175,8 +189,6 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 这个时间序列示例展示了如何使用 flexX 来可视化交易数据，其中柱形的宽度表示交易量大小，高度表示价格变化率，颜色区分涨跌情况。通过这种方式，我们可以同时观察到交易活跃度和价格走势的关系。

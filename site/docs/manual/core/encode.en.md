@@ -50,15 +50,20 @@ chart.encode({ x: 'name', y: 'value' });
 
 To control the style of the mark, we often bind a column of data to its visual attribute. For example, in the example below, we bind the 'height' column of data to the 'x' attribute, the 'weight' column of data to the 'y' attribute, and the 'gender' column of data to the 'color' attribute.
 
-```js | ob { pin: false }
+```js | ob {  pin: false , autoMount: true }
 table({
   url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -72,9 +77,6 @@ table({
     .encode('color', 'gender');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 This binding process is called **encode**. We often say that a visual attribute of the graph is encoded by a column of data, and this data-driven property is called a **channel**. For example, the x, y, and color channels of the point mark in the example above are each encoded by the corresponding column of data.
@@ -174,13 +176,18 @@ Specify the value of a channel as an array.
 
 For some big data scenarios, using array columns is more suitable, here is a simple example.
 
-```js | ob
-(() => {
-  const I = [0, 1, 2, 3, 4];
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const I = [0, 1, 2, 3, 4];
   const X = I.map((i) => ((i - 2) * Math.PI) / 2);
   const Y = X.map((x) => Math.sin(x));
 
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .line()
@@ -190,9 +197,6 @@ For some big data scenarios, using array columns is more suitable, here is a sim
     .encode('shape', 'smooth');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Array Channels
@@ -260,9 +264,14 @@ Different marks have different channels, but there are also some common channels
 
 Channel encode has transitivity, the encoding of the view is passed to the mark specified by `children`, if the mark does not have the encoding of the corresponding channel, then set, otherwise do nothing. For example, draw a point line chart:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .data([
@@ -284,7 +293,4 @@ Channel encode has transitivity, the encoding of the view is passed to the mark 
   chart.point();
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

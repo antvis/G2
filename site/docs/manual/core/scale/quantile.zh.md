@@ -12,9 +12,14 @@ order: 2
 ### 映射效果举例
 
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: "view",
@@ -42,10 +47,6 @@ chart.options({
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 > 上图说明更多的4-5周围的值都被映射到了0.5,故4-5之间的数据密度最大。
 
@@ -74,9 +75,14 @@ chart.render();
 ### 色块图
 以下示例展示如何用 quantile 比例尺将薪资数据分为三组并映射为不同颜色：
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 chart.options({
   type: "cell",
   height: 640,
@@ -94,11 +100,6 @@ chart.options({
 });
       
 chart.render();
-
-
-  return chart.getContainer();
-})();
-
 ```
 
 > 在上例中，quantile 比例尺会自动根据数据分布将薪资分为三组，并映射为三种不同的颜色，适合展示数据分布的分层效果。

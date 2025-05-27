@@ -42,9 +42,14 @@ order: 12
 ### 线性比例尺 (exponent=1)
 当 `exponent=1` 时，`pow` 比例尺等同于线性比例尺。此时数据映射是线性的，适合展示均匀分布的数据。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = [
     { month: '1月', sales: 0.1 },
@@ -67,16 +72,19 @@ order: 12
     });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 平方根比例尺 (exponent=0.5)
 当数据范围很大时，可以使用 `exponent < 1` 的 `pow` 比例尺压缩数据差异。平方根比例尺适合展示数据范围大但希望更均匀分布的情况。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = [
     { city: '北京', population: 2171 },
@@ -101,16 +109,19 @@ order: 12
     })
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 指数比例尺 (exponent=2)
 当需要强调小值间的差异时，可以使用 `exponent > 1` 的 `pow` 比例尺。指数比例尺会放大小值间的差异，适合展示细微但重要的变化。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = [
     { day: '周一', rate: 0.01 },
@@ -133,14 +144,17 @@ order: 12
     });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义插值函数
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const data = [
     { time: '2025-01', value: 0.1 },
@@ -162,6 +176,4 @@ order: 12
     });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```

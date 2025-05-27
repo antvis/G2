@@ -179,9 +179,10 @@ chart.emit('brush:filter', {
 
 ## 案例
 
-```js | ob 
-(() => {
-  const data = [
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const data = [
       { letter: 'A', frequency: 0.08167 },
       { letter: 'B', frequency: 0.01492 },
       { letter: 'C', frequency: 0.02782 },
@@ -209,7 +210,11 @@ chart.emit('brush:filter', {
       { letter: 'Y', frequency: 0.01974 },
       { letter: 'Z', frequency: 0.00074 },
     ];
-  const chart = new G2.Chart();
+  
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     autoFit: true,
     interaction: { brushXFilter: {
@@ -231,7 +236,4 @@ chart.emit('brush:filter', {
   chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

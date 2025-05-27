@@ -17,9 +17,14 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
 
 <img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'vector',
     data: [
@@ -73,8 +78,6 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 ## 配置项
@@ -118,9 +121,14 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
 
 有两种指定箭头图标长度的方式，一种是通过填写像素值，比如 `4`，来指定为固定长度；另外一种是通过指定一个百分比，比如 `30%`，来指定参考箭头长度的相对长度。默认值为 `40%`。如下示例：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
   chart.options({
     type: 'vector',
     data: {
@@ -150,8 +158,6 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
   });
 
   chart.render();
-  return chart.getContainer();
-})();
 ```
 
 更多的案例，可以查看[图表示例](/examples#general-vector)页面。

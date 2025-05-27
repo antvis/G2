@@ -77,15 +77,20 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
 
 下面是一个使用 quantize 比例尺创建热力图的示例，将薪资数据按照数值大小分为三个等宽区间，并映射为不同的颜色：
 
-```js | ob
-(() => {
-  // 创建一个容器元素
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 创建一个容器元素
   const container = document.createElement('div');
 
-  const chart = new G2.Chart({
+  
+
+const chart = new Chart({
+  container: 'container',
     container,
     height: 340,
-  });
+  
+});
 
   chart.options({
     type: 'cell',
@@ -121,9 +126,6 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 效果说明
@@ -147,9 +149,10 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
 
 下面的示例展示了 quantize 和 quantile 比例尺在处理偏斜数据时的区别：
 
-```js | ob
-(() => {
-  // 创建一个偏斜分布的数据集，使用整数值
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 创建一个偏斜分布的数据集，使用整数值
   const generateSkewedData = () => {
     const data = [];
     // 大部分数据集中在低值区域
@@ -192,12 +195,16 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
   chart1Container.style.height = '220px'; // 增加高度
   container.appendChild(chart1Container);
 
-  const chart1 = new G2.Chart({
+  
+
+const chart1 = new Chart({
+  container: 'container',
     container: chart1Container,
     height: 220,
     autoFit: true, // 自动适应容器大小
     padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
-  });
+  
+});
 
   chart1.options({
     type: 'point',
@@ -257,12 +264,16 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
   chart2Container.style.height = '220px'; // 增加高度
   container.appendChild(chart2Container);
 
-  const chart2 = new G2.Chart({
+  
+
+const chart2 = new Chart({
+  container: 'container',
     container: chart2Container,
     height: 220,
     autoFit: true, // 自动适应容器大小
     padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
-  });
+  
+});
 
   chart2.options({
     type: 'point',
@@ -317,7 +328,6 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
   chart2.render();
 
   return container;
-})();
 ```
 
 在上面的对比示例中：
@@ -330,15 +340,20 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
 
 下面是一个更复杂的示例，展示如何使用 quantize 比例尺创建多个分段，并自定义数据域：
 
-```js | ob
-(() => {
-  // 创建一个容器元素
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 创建一个容器元素
   const container = document.createElement('div');
 
-  const chart = new G2.Chart({
+  
+
+const chart = new Chart({
+  container: 'container',
     container,
     height: 300,
-  });
+  
+});
 
   // 生成测试数据
   const data = Array.from({ length: 100 }, (_, i) => ({
@@ -388,9 +403,6 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## 完整示例

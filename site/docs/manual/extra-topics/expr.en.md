@@ -157,9 +157,14 @@ If you need to use expressions in other APIs, please submit an issue for feedbac
 
 Here is a complete example demonstrating the powerful capabilities of expressions in practical applications:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const spec = {
     type: 'spaceLayer',
@@ -262,7 +267,4 @@ Here is a complete example demonstrating the powerful capabilities of expression
   chart.options(spec);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

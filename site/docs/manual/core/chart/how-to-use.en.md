@@ -5,9 +5,14 @@ order: 2
 
 Most of G2's capabilities are exposed to users through the `Chart` object. Here's an example of creating a simple bar chart:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -22,9 +27,6 @@ Most of G2's capabilities are exposed to users through the `Chart` object. Here'
     .encode('y', 'sold');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Let's explore the core usage of the `Chart`.

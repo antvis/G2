@@ -195,9 +195,14 @@ chart.emit('brushAxis:remove', {});
 
 ### 平行坐标系框选高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   const axis = {
     zIndex: 1,
@@ -280,16 +285,18 @@ chart.emit('brushAxis:remove', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 自定义手柄样式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart.options({
     type: 'point',
@@ -331,7 +338,4 @@ chart.emit('brushAxis:remove', {});
   });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```

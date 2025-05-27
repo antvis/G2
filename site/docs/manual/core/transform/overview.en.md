@@ -45,9 +45,14 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 Mark transform will modify the data bound to each channel, thereby changing the display form of the chart. For example, StackY transform stacks the column data bound to bar graph y and y1 channels:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -75,18 +80,20 @@ Mark transform will modify the data bound to each channel, thereby changing the 
     .transform({ type: 'stackY' });
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## View Transform
 
 Transform declared on the view will be passed on to the mark declared in `children`. Set if it is not transformed, otherwise, it has no effect. For example, the following stacked area chart with transform:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .data([
@@ -117,9 +124,6 @@ Transform declared on the view will be passed on to the mark declared in `childr
   chart.line().style('strokeWidth', 2).tooltip(false);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ## Common Transform
@@ -133,9 +137,14 @@ There are generally two common transform functions:
 
 One function of transform is to prevent overlap. For example, the bars in the following data bar chart overlap.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -162,16 +171,18 @@ One function of transform is to prevent overlap. For example, the bars in the fo
     .encode('color', 'city');
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 At this time, you can declare a DodgeX to draw a grouped bar chart:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .interval()
@@ -199,9 +210,6 @@ At this time, you can declare a DodgeX to draw a grouped bar chart:
     .transform({ type: 'dodgeX' }); // Declare transform
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 This is actually one of the functions of mark transform: **Prevent overlap**. In addition to DodgeX, there are also transform such as StackY and JitterX that can be used to prevent overlap.
@@ -212,9 +220,14 @@ In addition to preventing overlap, there is also a type of mark transform mainly
 
 First, let's draw a scatterplot as follows, showing the correlation between penguin culmen_depth_mm and culmen_length_mm.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .point()
@@ -229,16 +242,18 @@ First, let's draw a scatterplot as follows, showing the correlation between peng
     .encode('y', (d) => +d.culmen_length_mm);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 At this time, if you want to see the distribution of penguin culmen_depth_mm, you can use bin to binning the data.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -257,9 +272,6 @@ At this time, if you want to see the distribution of penguin culmen_depth_mm, yo
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 Bin is mainly used to aggregate numerical data, and Group is mainly used for discrete data.
@@ -268,9 +280,14 @@ Bin is mainly used to aggregate numerical data, and Group is mainly used for dis
 
 We can also declare multiple transform at the same time. For example, in the penguin example above, if we consider one more data dimension: the gender of the penguin, we can declare Bin and StackY transform continuously.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+
+
+const chart = new Chart({
+  container: 'container',
+});
 
   chart
     .rect()
@@ -288,7 +305,4 @@ We can also declare multiple transform at the same time. For example, in the pen
     .style('insetLeft', 1);
 
   chart.render();
-
-  return chart.getContainer();
-})();
 ```
