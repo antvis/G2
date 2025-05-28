@@ -1,0 +1,640 @@
+---
+title: Color Map
+order: 2
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original'
+category: ['comparison', 'distribution']
+similar: ['heatmap', 'treemap', 'multi-level-rect']
+---
+
+<img alt="color-map" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+
+## Introduction to Color Map
+
+A typical color map is a visualization chart that uses color to encode numerical data. It divides a rectangular area into a grid, with each grid cell representing an intersection point of categorical data, using color depth to indicate the magnitude of values. Unlike heat maps, color maps are typically used to display relationships between discrete categorical data rather than continuous data distributions.
+
+Color maps are particularly suitable for showing relationships and patterns between multiple categorical variables, such as sales of different products across different time periods, or temperature changes across different regions over different years. Through color encoding, users can quickly identify high and low value areas and overall distribution patterns in the dataset.
+
+It's important to note that when there are too many categories in a color map, it may lead to label overlap and readability issues, which we'll illustrate with examples below.
+
+**Other Names**: Color Block Chart
+
+## Components
+
+### Basic Color Map
+
+<img alt="color-map-basic" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+
+| Chart Type | Basic Color Map |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| Suitable Data | Datasets with two categorical dimensions and one numerical dimension |
+| Function | Display relationships between two categorical dimensions and one numerical variable |
+| Data-to-Visual Mapping | Two categorical data dimensions mapped to grid rows and columns<br>Numerical data mapped to color depth<br>Text labels can be added to display specific values |
+| Suitable Data Count | Usually no more than 20 categories per dimension, with total cells recommended not to exceed 400 |
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { month: 'January', product: 'Product A', sales: 123 },
+    { month: 'January', product: 'Product B', sales: 231 },
+    { month: 'January', product: 'Product C', sales: 145 },
+    { month: 'February', product: 'Product A', sales: 132 },
+    { month: 'February', product: 'Product B', sales: 112 },
+    { month: 'February', product: 'Product C', sales: 178 },
+    { month: 'March', product: 'Product A', sales: 99 },
+    { month: 'March', product: 'Product B', sales: 288 },
+    { month: 'March', product: 'Product C', sales: 133 },
+    { month: 'April', product: 'Product A', sales: 181 },
+    { month: 'April', product: 'Product B', sales: 223 },
+    { month: 'April', product: 'Product C', sales: 141 },
+    { month: 'May', product: 'Product A', sales: 152 },
+    { month: 'May', product: 'Product B', sales: 219 },
+    { month: 'May', product: 'Product C', sales: 109 },
+    { month: 'June', product: 'Product A', sales: 167 },
+    { month: 'June', product: 'Product B', sales: 187 },
+    { month: 'June', product: 'Product C', sales: 255 },
+  ],
+  coordinate: {
+    type: 'cartesian',
+  },
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'month',
+        y: 'product',
+        color: 'sales',
+        link: 'sales'
+      },
+      style: {
+        inset: 1,
+      },
+      labels: [
+        {
+          text: 'sales',
+          style: {
+            fill: (d) => (d.sales > 200 ? '#fff' : '#000'),
+          },
+        },
+      ],
+    },
+  ],
+  legend: {
+    color: {
+      position: 'right',
+      flipPage: false,
+    },
+  },
+  scale: {
+    color: {
+      palette: 'rdBu',
+      offset: (t) => 1 - t,
+    },
+  },
+});
+
+chart.render();
+```
+
+### Color Map with Conditional Formatting
+
+<img alt="color-map-conditional" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dt1gSZ4uiz8AAAAAAAAAAAAADmJ7AQ/original" width=600/>
+
+| Chart Type | Color Map with Conditional Formatting |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| Suitable Data | Datasets that need to highlight specific thresholds or ranges |
+| Function | Apply different color encodings based on different value ranges, highlighting key data points |
+| Data-to-Visual Mapping | In addition to basic color map mappings, custom color intervals and boundary markers can be added |
+| Usage Suggestions | Add clear legend explanations for different color intervals<br>Use contrasting colors to represent different data states<br>Avoid using too many color intervals which can cause confusion |
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+const data = [
+  { month: 'January', product: 'Product A', sales: 123, target: 150 },
+  { month: 'January', product: 'Product B', sales: 231, target: 200 },
+  { month: 'January', product: 'Product C', sales: 145, target: 150 },
+  { month: 'February', product: 'Product A', sales: 132, target: 150 },
+  { month: 'February', product: 'Product B', sales: 112, target: 200 },
+  { month: 'February', product: 'Product C', sales: 178, target: 150 },
+  { month: 'March', product: 'Product A', sales: 99, target: 150 },
+  { month: 'March', product: 'Product B', sales: 288, target: 200 },
+  { month: 'March', product: 'Product C', sales: 133, target: 150 },
+  { month: 'April', product: 'Product A', sales: 181, target: 150 },
+  { month: 'April', product: 'Product B', sales: 223, target: 200 },
+  { month: 'April', product: 'Product C', sales: 141, target: 150 },
+  { month: 'May', product: 'Product A', sales: 152, target: 150 },
+  { month: 'May', product: 'Product B', sales: 219, target: 200 },
+  { month: 'May', product: 'Product C', sales: 109, target: 150 },
+  { month: 'June', product: 'Product A', sales: 167, target: 150 },
+  { month: 'June', product: 'Product B', sales: 187, target: 200 },
+  { month: 'June', product: 'Product C', sales: 255, target: 150 },
+];
+
+// Calculate performance status for each cell
+const processedData = data.map(d => ({
+  ...d,
+  // Calculate ratio to target
+  performance: d.sales / d.target,
+  // Add status label
+  status: d.sales < d.target * 0.8 ? 'Below Target' : 
+          d.sales < d.target ? 'Near Target' : 
+          d.sales < d.target * 1.2 ? 'Met Target' : 'Exceeded Target'
+}));
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: processedData,
+  coordinate: {
+    type: 'cartesian',
+  },
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'month',
+        y: 'product',
+        color: 'performance',
+      },
+      style: {
+        inset: 1,
+      },
+      labels: [
+        {
+          text: d => `${d.sales}/${d.target}`,
+          style: {
+            fill: (d) => (d.performance > 0.95 ? '#fff' : '#000'),
+            textAlign: 'center',
+            fontSize: 11
+          },
+        },
+      ],
+    },
+  ],
+  legend: {
+    color: {
+      position: 'right',
+      flipPage: false,
+    },
+  },
+  scale: {
+    color: {
+      type: 'threshold',
+      domain: [0.8, 1, 1.2],
+      range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2'],
+    },
+  },
+});
+
+chart.render();
+```
+
+## Use Cases of Color Maps
+
+### Suitable Use Cases
+
+Example 1: **Product Sales Matrix Analysis**
+
+The chart below shows the sales performance of different products over the months of a year. Through this color map, you can intuitively see the sales performance of each product in different months, quickly identifying the best and worst product-time combinations.
+
+| month | product | sales |
+| ------------- | --------------- | --------------- |
+| January | Product A | 123 |
+| January | Product B | 231 |
+| ... | ... | ... |
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    { month: 'January', product: 'Product A', sales: 123 },
+    { month: 'January', product: 'Product B', sales: 231 },
+    { month: 'January', product: 'Product C', sales: 145 },
+    { month: 'February', product: 'Product A', sales: 132 },
+    { month: 'February', product: 'Product B', sales: 112 },
+    { month: 'February', product: 'Product C', sales: 178 },
+    { month: 'March', product: 'Product A', sales: 99 },
+    { month: 'March', product: 'Product B', sales: 288 },
+    { month: 'March', product: 'Product C', sales: 133 },
+    { month: 'April', product: 'Product A', sales: 181 },
+    { month: 'April', product: 'Product B', sales: 223 },
+    { month: 'April', product: 'Product C', sales: 141 },
+    { month: 'May', product: 'Product A', sales: 152 },
+    { month: 'May', product: 'Product B', sales: 219 },
+    { month: 'May', product: 'Product C', sales: 109 },
+    { month: 'June', product: 'Product A', sales: 167 },
+    { month: 'June', product: 'Product B', sales: 187 },
+    { month: 'June', product: 'Product C', sales: 255 },
+  ],
+  coordinate: {
+    type: 'cartesian',
+  },
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'month',
+        y: 'product',
+        color: 'sales',
+      },
+      style: {
+        inset: 1,
+      },
+      labels: [
+        {
+          text: 'sales',
+          style: {
+            fill: (d) => (d.sales > 200 ? '#fff' : '#000'),
+          },
+        },
+      ],
+    },
+  ],
+  legend: {
+    color: {
+      position: 'right',
+      flipPage: false,
+    },
+  },
+  scale: {
+    color: {
+      palette: 'rdBu',
+      offset: (t) => 1 - t,
+    },
+  },
+  annotations: [
+    {
+      type: 'text',
+      style: {
+        text: 'Sales Matrix Analysis',
+        x: '50%',
+        y: '0%',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        dy: -20
+      }
+    }
+  ]
+});
+
+chart.render();
+```
+
+**Analysis**:
+- Using month and product as two categorical dimensions
+- Sales are encoded by color depth
+- Specific sales figures are added as labels to enhance data readability
+- It's clear that Product B performed best in March, while Product A performed worst in March
+
+Example 2: **Exam Score Analysis**
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+const students = ['Alex', 'Ben', 'Charlie', 'David', 'Emma', 'Frank', 'Grace', 'Helen'];
+const subjects = ['Math', 'English', 'Physics', 'Chemistry', 'Biology', 'History'];
+
+// Generate score data
+const data = [];
+students.forEach(student => {
+  subjects.forEach(subject => {
+    // Random score between 50-100
+    const score = Math.floor(Math.random() * 51) + 50;
+    data.push({
+      student,
+      subject,
+      score
+    });
+  });
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data,
+  coordinate: {
+    type: 'cartesian',
+  },
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'subject',
+        y: 'student',
+        color: 'score',
+      },
+      style: {
+        inset: 1,
+      },
+      labels: [
+        {
+          text: 'score',
+          style: {
+            fill: (d) => (d.score > 85 ? '#fff' : '#000'),
+            textAlign: 'center',
+          },
+        },
+      ],
+    },
+  ],
+  legend: {
+    color: {
+      position: 'right',
+      flipPage: false,
+      title: 'Score',
+    },
+  },
+  scale: {
+    color: {
+      domain: [60, 70, 80, 90],
+      range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2', '#5B8FF9'],
+    },
+  },
+  annotations: [
+    {
+      type: 'text',
+      style: {
+        text: 'Student Score Analysis',
+        x: '50%',
+        y: '0%',
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        dy: -20
+      }
+    }
+  ]
+});
+
+chart.render();
+```
+
+### Unsuitable Use Cases
+
+Example 1: **Too Few Data Points**
+
+When a dataset has only a few category intersections, a color map may not be the best choice. In such cases, a simple table or bar chart might be more intuitive.
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+// Very few data points
+const data = [
+  { region: 'East', year: '2022', value: 125 },
+  { region: 'West', year: '2022', value: 87 },
+];
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data,
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'year',
+        y: 'region',
+        color: 'value',
+      },
+      style: {
+        inset: 1,
+      },
+      labels: [
+        {
+          text: 'value',
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+In this case, using a bar chart would be more intuitive:
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { region: 'East', year: '2022', value: 125 },
+    { region: 'West', year: '2022', value: 87 },
+  ],
+  encode: { 
+    x: 'region', 
+    y: 'value', 
+    color: 'region' 
+  },
+  labels: [
+    {
+      text: 'value',
+      position: 'top',
+    },
+  ],
+});
+
+chart.render();
+```
+
+Example 2: **Need to Show Precise Trend Changes**
+
+When you need to show precise changes in trends over time, a color map is not as intuitive as a line chart. Below is an example of using a color map to show monthly data changes, but this situation is better suited for a line chart.
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const data = months.map((month, index) => ({
+  month,
+  metric: 'Sales',
+  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10
+}));
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data,
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'month',
+        y: 'metric',
+        color: 'value',
+      },
+      style: {
+        inset: 1,
+      },
+      labels: [
+        {
+          text: d => d.value.toFixed(0),
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+Using a line chart is more suitable for showing trends:
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const data = months.map((month, index) => ({
+  month,
+  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10
+}));
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data,
+  encode: { 
+    x: 'month', 
+    y: 'value' 
+  },
+  style: {
+    lineWidth: 2,
+    point: {
+      fill: '#1890ff',
+      r: 4,
+    },
+  },
+  labels: [
+    {
+      text: d => d.value.toFixed(0),
+      position: 'top',
+    },
+  ],
+});
+
+chart.render();
+```
+
+## Comparing Color Maps to Other Charts
+
+### Color Maps, [Heat Maps](/en/charts/heatmap), and [Treemaps](/en/charts/treemap)
+
+| Chart Type | Main Features | Suitable Scenarios | Data Requirements |
+|---------|---------|---------|---------|
+| Color Map | Uses a regular grid to show intersections of two categorical dimensions | Comparing relationships between categorical data | Two categorical dimensions and one numerical dimension |
+| Heat Map | Can use continuous scales, showing spatial distribution of data | Displaying spatial density or intensity distribution | Usually requires continuous or near-continuous data |
+| Treemap | Displays hierarchical data through nested rectangles | Representing proportional relationships in hierarchical data | Requires a clear hierarchical structure |
+
+### Color Maps, [Tables](/en/charts/table), and [Facet Charts](/en/charts/facet)
+
+| Chart Type | Data Presentation | Visual Effect | Suitable Scenarios |
+|---------|---------|---------|---------|
+| Color Map | Uses color to encode values | Intuitively shows value relationships | Need to quickly identify data patterns and outliers |
+| Table | Displays raw data using text and numbers | Shows precise values | Need to view and compare exact values |
+| Facet Chart | Breaks data into multiple sub-charts | Can both compare and separately analyze | Complex pattern analysis of multidimensional data |
+
+## Best Practices for Color Maps
+
+### Design Suggestions
+
+1. **Color Selection**
+   - Use sequential color palettes to represent changes in continuous data magnitude
+   - Use diverging color palettes to represent deviation from a center value
+   - Add clear legends and explanations for colors
+
+2. **Grid Design**
+   - Keep grid cell sizes consistent to ensure readability
+   - Add value labels in cells to enhance precision
+   - Consider adding spaces between cells to improve distinction
+
+3. **Labels and Interaction**
+   - Add labels for important data points
+   - Add hover interactions to display detailed information
+   - Consider adding sorting functionality for easier data comparison
+
+```js | ob { autoMount: true  }
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/rect_heatmap_weather.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 300,
+});
+
+chart
+  .cell()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  })
+  .transform({ type: 'group', color: 'max' })
+  .encode('x', (d) => new Date(d.date).getUTCDate())
+  .encode('y', (d) => new Date(d.date).getUTCMonth())
+  .encode('color', 'temp_max')
+  .style('inset', 0.5)
+  .scale('color', { palette: 'gnBu' })
+  .animate('enter', { type: 'fadeIn' });
+
+chart.render();
+
+```
+
+## Similar Charts
+
+<code src="./demos/list-card.tsx"></code>
+
+## Categories
+
+<code src="./demos/list-category.tsx"></code>
