@@ -121,6 +121,87 @@ chart.area():
 - active
 - inactive
 
+## 交互事件
+
+### 监听交互事件
+
+所以的交互事件都可以监听，语法如下:
+
+```js
+chart.on('interaction name（eg: brushFilter）', (e) => {});
+```
+
+以鼠标刷选 [brushFilter](/manual/core/interaction/brush-filter) 为例，当用户进行鼠标刷选时，将对应的刷选阈值压入 brushHistory，当点击 reset 按钮时，依次弹出并通过 `chart.emit()` 主动触发 brushFilter 进行刷选覆盖即可：
+
+```js | ob
+(() => {
+  const { Chart, ChartEvent} = G2;
+
+  const chart = new Chart({
+    clip: true
+  });
+
+  const brushHistory = []
+
+  chart
+    .point()
+    .data({
+      type: 'fetch',
+      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+    })
+    .encode('x', 'weight')
+    .encode('y', 'height')
+    .encode('color', 'gender')
+    .encode('shape', 'point')
+    .interaction('brushFilter', true);
+
+  // 监听刷选事件
+  chart.on('brush:filter', (e) => {
+    if (e.target) brushHistory.push(e.data.selection);
+  });
+
+  chart.render();
+
+  chart.on(ChartEvent.AFTER_RENDER, () => {
+    const scale = chart.getScale();
+    const { x1, y1 } = scale;
+    const domainX = x1.options.domain;
+    const domainY = y1.options.domain;
+    brushHistory.push([domainX, domainY]);
+  });
+
+  const container = chart.getContainer();
+  const button = document.createElement('button');
+  button.innerText = 'reset';
+  button.onclick = () => {
+    if (brushHistory.length < 2) return;
+    brushHistory.pop();
+    // 主动触发刷选事件
+    chart.emit('brush:filter', {
+      data: {
+        selection: brushHistory[brushHistory.length - 1],
+      },
+    });
+  };
+
+  container.appendChild(button);
+
+  return chart.getContainer();
+})();
+```
+
+### 触发交互事件
+
+触发和监听一般是同时出现，用于主动触发某个事件，形参中的 data 会作用于对应的交互事件，起到重置、覆盖的效果。例如重置筛选区域，以 [brushFilter](/manual/core/interaction/brush-filter) 为例，语法如下。
+
+```js
+chart.emit('brush:filter', {
+  data: {
+    selection: brushHistory[brushHistory.length - 1],
+  },
+});
+```
+
 ## 自定义交互
 
 如果内置的交互不能满足你的需求，也可以通过自定义交互的方式去实现一些交互。下面自定义一个高亮交互。
@@ -191,7 +272,3 @@ chart.area():
   return chart.getContainer();
 })();
 ```
-
-## 交互语法
-
-> 交互语法还在设计中...

@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ESblSJqW3zYAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "reset-brush.ts",
+      "title": {
+        "zh": "重置刷选",
+        "en": "Reset Brush"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZGksSralKAcAAAAAAAAAAAAAemJ7AQ/original"
+    },
+    {
       "filename": "brush-emit.ts",
       "title": {
         "zh": "刷选事件",

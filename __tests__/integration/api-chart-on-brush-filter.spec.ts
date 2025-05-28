@@ -1,12 +1,24 @@
-import { chartOnBrushFilter as render } from '../plots/api/chart-on-brush-filter';
 import { PLOT_CLASS_NAME } from '../../src';
-import { dblclick, brush } from '../plots/interaction/penguins-point-brush';
+import { chartOnBrushFilter as render } from '../plots/api/chart-on-brush-filter';
+import { brush, dblclick } from '../plots/interaction/penguins-point-brush';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { createPromise, receiveExpectData } from './utils/event';
 import { sleep } from './utils/sleep';
 import './utils/useCustomFetch';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { vi } from 'vitest';
+
+const csv = resolve(__dirname, '../data/penguins.csv');
+const fileContent = readFileSync(csv, 'utf8');
 
 describe('chart.on', () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      text: () => Promise.resolve(fileContent),
+    }),
+  );
   const canvas = createNodeGCanvas(640, 480);
   const { finished, chart } = render({ canvas });
 

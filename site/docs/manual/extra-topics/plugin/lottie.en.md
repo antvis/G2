@@ -1,6 +1,6 @@
 ---
 title: lottie
-order: 2
+order: 3
 ---
 
 <embed src="@/docs/manual/extra-topics/plugin/lottie.zh.md"></embed>
