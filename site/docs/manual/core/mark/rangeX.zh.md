@@ -7,52 +7,53 @@ order: 21
 
 使用一组 `x`(x1, x2) 来定位一个绘制于 x 轴的矩形区域，常用于对特定区域进行高亮显示。
 
-```js | ob
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 /**
  * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_falkensee.html
  */
-(() => {
-  const chart = new G2.Chart();
 
-  chart.options({
-    type: 'view',
-    width: 600,
-    height: 360,
-    paddingLeft: 60,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/year-population.json',
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  width: 600,
+  height: 360,
+  paddingLeft: 60,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/year-population.json',
+  },
+  children: [
+    {
+      type: 'rangeX',
+      data: [
+        { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
+        {
+          year: [new Date('1948'), new Date('1989')],
+          event: 'GDR (East Germany)',
+        },
+      ],
+      encode: { x: 'year', color: 'event' },
+      scale: { color: { independent: true, range: ['#FAAD14', '#30BF78'] } },
+      style: { fillOpacity: 0.75 },
     },
-    children: [
-      {
-        type: 'rangeX',
-        data: [
-          { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
-          {
-            year: [new Date('1948'), new Date('1989')],
-            event: 'GDR (East Germany)',
-          },
-        ],
-        encode: { x: 'year', color: 'event' },
-        scale: { color: { independent: true, range: ['#FAAD14', '#30BF78'] } },
-        style: { fillOpacity: 0.75 },
-      },
-      {
-        type: 'line',
-        encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
-      },
-      {
-        type: 'point',
-        encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
-        style: { lineWidth: 1.5 },
-      },
-    ],
-  });
+    {
+      type: 'line',
+      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+    },
+    {
+      type: 'point',
+      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+      style: { lineWidth: 1.5 },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 此外，rangeX 还提供了简便写法：

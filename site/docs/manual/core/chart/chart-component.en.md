@@ -4,6 +4,7 @@ order: 1
 ---
 
 ## Introduction
+
 To effectively use G2 for data visualization, it's important to understand the components of G2 charts and related concepts.
 
 Here's a simple example:
@@ -50,4 +51,4 @@ Refer to the [Slider](/manual/component/slider) tutorial for more information.
 
 When the mouse hovers over a point, a tooltip appears showing information related to that point, such as its value and data units. The tooltip's content can also be dynamically specified using a formatting function.
 
-Refer to the [Tooltip](/manual/component/tooltip) tutorial for more information.  
+Refer to the [Tooltip](/manual/component/tooltip) tutorial for more information.

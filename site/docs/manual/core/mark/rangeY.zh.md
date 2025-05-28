@@ -7,32 +7,32 @@ order: 22
 
 使用一组 `y`(y1, y2) 来定位一个绘制于 y 轴的矩形区域，常用于对特定区域进行高亮显示。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    width: 600,
-    height: 470,
-    type: 'view',
-    children: [
-      {
-        type: 'point',
-        data: {
-          type: 'fetch',
-          value:
-            'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-        },
-        encode: { x: 'height', y: 'weight', color: 'gender' },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  width: 600,
+  height: 470,
+  type: 'view',
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
       },
-      { type: 'rangeY', data: [{ y: [54, 72] }], encode: { y: 'y' } },
-    ],
-  });
+      encode: { x: 'height', y: 'weight', color: 'gender' },
+    },
+    { type: 'rangeY', data: [{ y: [54, 72] }], encode: { y: 'y' } },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 此外，rangeY 还提供了简便写法：

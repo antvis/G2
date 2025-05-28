@@ -9,16 +9,17 @@ order: 2
 
 ## 使用场景
 
-symmetry y（Y轴对称）通常用于强调或突出数据的对称性、对比或镜像关系。以下是常见的应用场景，结合图表类型和实际案例来说明：
+symmetry y（Y 轴对称）通常用于强调或突出数据的对称性、对比或镜像关系。以下是常见的应用场景，结合图表类型和实际案例来说明：
 `
-| **场景**         | **图表类型**     | **说明**                                                        | **示例**               |
+| **场景** | **图表类型** | **说明** | **示例** |
 | ---------------- | ---------------- | --------------------------------------------------------------- | ---------------------- |
-| **对比两组数据** | 柱状图、条形图   | 两组数据分别显示在Y轴两侧，直观展示对比差异（如A/B测试结果）。  | 男性 vs 女性收入分布   |
-| **镜像关系分析** | 折线图、面积图   | 数据围绕Y轴对称分布，展示正负关联（如收益与亏损、进出口平衡）。 | 公司月度盈利与亏损对比 |
-| **对称分布验证** | 箱线图、小提琴图 | 检查数据是否对称分布（如正态分布检验）。                        | 身高/体重的对称性分析  |
-| **双向偏差展示** | 误差条形图       | 同时显示正向和负向偏差（如预测值与实际值的差异）。              | 天气预报误差范围       |
+| **对比两组数据** | 柱状图、条形图 | 两组数据分别显示在 Y 轴两侧，直观展示对比差异（如 A/B 测试结果）。 | 男性 vs 女性收入分布 |
+| **镜像关系分析** | 折线图、面积图 | 数据围绕 Y 轴对称分布，展示正负关联（如收益与亏损、进出口平衡）。 | 公司月度盈利与亏损对比 |
+| **对称分布验证** | 箱线图、小提琴图 | 检查数据是否对称分布（如正态分布检验）。 | 身高/体重的对称性分析 |
+| **双向偏差展示** | 误差条形图 | 同时显示正向和负向偏差（如预测值与实际值的差异）。 | 天气预报误差范围 |
 
 ### 用途总结
+
 1. **对比分析**：快速识别两组数据的差异或相似性。
 2. **对称验证**：检验数据是否符合对称分布（如正态性）。
 3. **双向表达**：同时展示正向和负向趋势（如盈亏、误差）。
@@ -72,18 +73,18 @@ export type ChannelTypes =
 以下是简单的示例代码，用请注意 `.transform({ type: 'symmetryY' })` 转换以及对比对应的输出：
 
 ```ts
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "area",
+  type: 'area',
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/unemployment-by-industry.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
     transform: [
       {
-        type: "map",
+        type: 'map',
         callback: (d) => ({
           ...d,
           date: new Date(d.date),
@@ -91,8 +92,8 @@ chart.options({
       },
     ],
   },
-  encode: { x: "date", y: "unemployed", color: "industry" },
-  transform: [{ type: "stackY" }, { type: "symmetryY" }],
+  encode: { x: 'date', y: 'unemployed', color: 'industry' },
+  transform: [{ type: 'stackY' }, { type: 'symmetryY' }],
 });
 
 chart.render();
@@ -105,24 +106,24 @@ chart.render();
 同时，怎么绘制一个对称的条形图？同样的，使用这个 transform 即可，如下：
 
 ```ts
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   width: 800,
   height: 300,
   data: [
-    { x: "A", y: 100 },
-    { x: "B", y: 200 },
-    { x: "C", y: 300 },
-    { x: "D", y: 250 },
+    { x: 'A', y: 100 },
+    { x: 'B', y: 200 },
+    { x: 'C', y: 300 },
+    { x: 'D', y: 250 },
   ],
-  encode: { x: "x", y: "y", color: "x" },
-  transform: [{ type: "stackY" }, { type: "symmetryY" }],
+  encode: { x: 'x', y: 'y', color: 'x' },
+  transform: [{ type: 'stackY' }, { type: 'symmetryY' }],
   scale: { x: { padding: 0.5 } },
-  coordinate: { transform: [{ type: "transpose" }] },
+  coordinate: { transform: [{ type: 'transpose' }] },
   legend: false,
 });
 
@@ -140,32 +141,32 @@ symmetryY 还有个比较重要的一个应用场景是[漏斗图](https://g2.an
 对应的示例代码为：
 
 ```ts
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   autoFit: true,
   data: [
-    { action: "浏览网站", pv: 50000 },
-    { action: "放入购物车", pv: 35000 },
-    { action: "生成订单", pv: 25000 },
-    { action: "支付订单", pv: 15000 },
-    { action: "完成交易", pv: 8000 },
+    { action: '浏览网站', pv: 50000 },
+    { action: '放入购物车', pv: 35000 },
+    { action: '生成订单', pv: 25000 },
+    { action: '支付订单', pv: 15000 },
+    { action: '完成交易', pv: 8000 },
   ],
-  encode: { x: "action", y: "pv", color: "action", shape: "funnel" },
-  transform: [{ type: "symmetryY" }],
+  encode: { x: 'action', y: 'pv', color: 'action', shape: 'funnel' },
+  transform: [{ type: 'symmetryY' }],
   scale: { x: { padding: 0 } },
-  coordinate: { transform: [{ type: "transpose" }] },
-  animate: { enter: { type: "fadeIn" } },
+  coordinate: { transform: [{ type: 'transpose' }] },
+  animate: { enter: { type: 'fadeIn' } },
   axis: false,
   labels: [
     {
       text: (d) => `${d.action}\
 ${d.pv}`,
-      position: "inside",
-      transform: [{ type: "contrastReverse" }],
+      position: 'inside',
+      transform: [{ type: 'contrastReverse' }],
     },
   ],
 });
