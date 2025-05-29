@@ -3,7 +3,7 @@ title: K线图
 order: 10
 screenshot: 'https://os.alipayobjects.com/rmsportal/UCqFUhWcZgDJsDH.png'
 category: ['trend', 'time', 'comparison']
-similar: ['line', 'area', 'bar']
+similar: ['line', 'area', 'bar','boxplot']
 ---
 
 <img alt="candlestick" src="https://os.alipayobjects.com/rmsportal/UCqFUhWcZgDJsDH.png" width=600/>
@@ -198,11 +198,6 @@ document.getElementById('container').innerHTML = `
   <div id="volumeChart" style="height: 150px; margin-top: 10px;"></div>
 `;
 
-const KChart = new Chart({
-  container: 'kChart',
-  autoFit: true,
-});
-
 const data = [
   {
     time: '2015-11-19',
@@ -238,20 +233,42 @@ const data = [
   },
 ];
 
-KChart
-  .data(data)
-  .encode('x', 'time')
-  .encode('color', (d) => {
-    const trend = Math.sign(d.start - d.end);
-    return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
-  })
-  .scale('color', {
-    domain: ['下跌', '不变', '上涨'],
-    range: ['#4daf4a', '#999999', '#e41a1c'],
-  });
+const KChart = new Chart({
+  container: 'kChart',
+  autoFit: true,
+});
 
-KChart.link().encode('y', ['min', 'max']);
-KChart.interval().encode('y', ['start', 'end']).style('fillOpacity', 1);
+KChart.options({
+  type: 'view',
+  data,
+  encode: {
+    x: 'time',
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+    }
+  },
+  scale: {
+    color: {
+      domain: ['下跌', '不变', '上涨'],
+      range: ['#4daf4a', '#999999', '#e41a1c'],
+    }
+  },
+  children: [
+    {
+      type: 'link',
+      encode: { y: ['min', 'max'] },
+    },
+    {
+      type: 'interval',
+      encode: { y: ['start', 'end'] },
+      style: { fillOpacity: 1 },
+    }
+  ],
+  axis: {
+    y: { title: '价格' }
+  },
+});
 
 // 成交量图
 const VolumeChart = new Chart({
@@ -259,28 +276,179 @@ const VolumeChart = new Chart({
   autoFit: true,
 });
 
-VolumeChart
-  .data(data)
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'volumn')
-  .encode('color', (d) => {
-    const trend = Math.sign(d.start - d.end);
-    return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
-  })
-  .scale('color', {
-    domain: ['下跌', '不变', '上涨'],
-    range: ['#4daf4a', '#999999', '#e41a1c'],
-  })
-  .axis('y', { title: '成交量' });
+VolumeChart.options({
+  type: 'interval',
+  data,
+  encode: {
+    x: 'time',
+    y: 'volumn',
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+    }
+  },
+  scale: {
+    color: {
+      domain: ['下跌', '不变', '上涨'],
+      range: ['#4daf4a', '#999999', '#e41a1c'],
+    }
+  },
+  axis: {
+    y: { title: '成交量' }
+  },
+});
 
 KChart.render();
 VolumeChart.render();
 ```
 
-### 多时间周期K线
+**说明**：
 
-可以通过切换不同的时间周期（日K、周K、月K）来观察不同层级的价格走势。
+- K线图部分展示价格的四个关键信息（开盘、收盘、最高、最低）
+- 成交量图部分使用相同的颜色编码展示交易量
+- 两个图表通过相同的时间轴对齐，便于关联分析
+
+### K线图与柱状图组合
+
+使用更完整的数据源，结合K线图和柱状图展示股票价格和成交量的关系，并支持图例联动交互。
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 创建K线图和柱状图容器
+document.getElementById('container').innerHTML = `
+  <div id="kChart" style="height: 360px;"></div>
+  <div id="columnChart" style="height: 180px;"></div>
+`;
+
+const KChart = new Chart({
+  container: 'kChart',
+  autoFit: true,
+  height: 360,
+  paddingLeft: 60,
+});
+
+KChart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/candle-sticks.json',
+  },
+  encode: {
+    x: 'time',
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+    }
+  },
+  scale: {
+    x: {
+      compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    },
+    color: {
+      domain: ['下跌', '不变', '上涨'],
+      range: ['#4daf4a', '#999999', '#e41a1c'],
+    }
+  },
+  children: [
+    {
+      type: 'link',
+      encode: { y: ['min', 'max'] },
+      tooltip: {
+        title: 'time',
+        items: [
+          { field: 'start', name: '开盘价' },
+          { field: 'end', name: '收盘价' },
+          { field: 'min', name: '最低价' },
+          { field: 'max', name: '最高价' },
+        ],
+      },
+    },
+    {
+      type: 'interval',
+      encode: { y: ['start', 'end'] },
+      style: { 
+        fillOpacity: 1,
+        stroke: (d) => d.start === d.end ? '#999999' : undefined,
+      },
+      axis: {
+        x: { title: false },
+        y: { title: false },
+      },
+      tooltip: {
+        title: 'time',
+        items: [
+          { field: 'start', name: '开盘价' },
+          { field: 'end', name: '收盘价' },
+          { field: 'min', name: '最低价' },
+          { field: 'max', name: '最高价' },
+        ],
+      },
+    }
+  ],
+});
+
+const ColumnChart = new Chart({
+  container: 'columnChart',
+  autoFit: true,
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: 180,
+  paddingLeft: 60,
+});
+
+ColumnChart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/candle-sticks.json',
+  },
+  encode: {
+    x: 'time',
+    y: 'volumn',
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
+    }
+  },
+  scale: {
+    x: {
+      compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    },
+    color: {
+      domain: ['下跌', '不变', '上涨'],
+      range: ['#4daf4a', '#999999', '#e41a1c'],
+    }
+  },
+  axis: {
+    x: false,
+    y: { title: false },
+  },
+});
+
+// 图例联动交互
+KChart.on('legend:filter', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  ColumnChart.emit('legend:filter', { data });
+});
+
+KChart.on('legend:reset', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  ColumnChart.emit('legend:reset', { data });
+});
+
+KChart.render();
+ColumnChart.render();
+```
+
+**说明**：
+
+- 上方K线图展示价格走势，下方柱状图展示成交量
+- 两个图表使用相同的颜色编码和时间轴对齐
+- 支持图例联动，点击图例可以同时过滤两个图表的数据
+- 使用真实的股票数据源，展示更完整的市场信息
 
 ## K线图与其他图表的对比
 
