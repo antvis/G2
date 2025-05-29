@@ -712,53 +712,6 @@ chart.options({
 chart.render();
 ```
 
-## 色块图最佳实践
-
-### 设计建议
-
-1. **颜色选择**
-   - 使用顺序色板表示连续数据的大小变化
-   - 使用发散色板表示与中心值的偏离程度
-   - 为颜色添加明确的图例和说明
-
-2. **网格设计**
-   - 保持网格单元大小一致，确保可读性
-   - 在单元格中添加数值标签，增强精确度
-   - 考虑在单元格之间添加间距，提高辨识度
-
-3. **标签和交互**
-   - 为重要数据点添加标签
-   - 添加悬停交互，显示详细信息
-   - 考虑添加排序功能，便于数据比较
-
-```js | ob { autoMount: true  }
-/**
- * A recreation of this demo: https://vega.github.io/vega-lite/examples/rect_heatmap_weather.html
- */
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  height: 300,
-});
-
-chart
-  .cell()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .transform({ type: 'group', color: 'max' })
-  .encode('x', (d) => new Date(d.date).getUTCDate())
-  .encode('y', (d) => new Date(d.date).getUTCMonth())
-  .encode('color', 'temp_max')
-  .style('inset', 0.5)
-  .scale('color', { palette: 'gnBu' })
-  .animate('enter', { type: 'fadeIn' });
-
-chart.render();
-
-```
 
 ## 色块图的扩展
 
