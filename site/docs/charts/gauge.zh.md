@@ -2,8 +2,8 @@
 title: 仪表盘
 order: 15
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original'
-category: ['comparison']
-similar: ['pie', 'progress']
+category: ['interval']
+similar: ['pie']
 ---
 
 
