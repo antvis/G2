@@ -14,7 +14,7 @@ order: 3
 function renderBarChart(container) {
   const chart = new Chart({
     container,
-    });
+  });
 
   // 准备数据
   const data = [

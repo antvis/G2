@@ -5,17 +5,17 @@ order: 10
 
 Compared with monotonous fill colors, using pattern fills can enrich expressiveness and it's also useful in accessibility and black-and-white printing scenarios. To achieve this, we offer three methods in increasing order of complexity and usage cost:
 
-* Use built-in patterns.
-* Custom pattern using the G API.
-* Use other pattern sources.
+- Use built-in patterns.
+- Custom pattern using the G API.
+- Use other pattern sources.
 
 ## Use built-in patterns
 
 We have built three common patterns into the [g-pattern](https://g.antv.antgroup.com/api/css/pattern#g-pattern), and the appearance can be easily adjusted through parameters. This is also the simplest way to use pattern:
 
-* [Dots](https://g.antv.antgroup.com/api/css/pattern#dots) made of dots
-* [Lines](https://g.antv.antgroup.com/api/css/pattern#lines) made of straight lines
-* [Squares](https://g.antv.antgroup.com/api/css/pattern#squares) made of squares
+- [Dots](https://g.antv.antgroup.com/api/css/pattern#dots) made of dots
+- [Lines](https://g.antv.antgroup.com/api/css/pattern#lines) made of straight lines
+- [Squares](https://g.antv.antgroup.com/api/css/pattern#squares) made of squares
 
 The usage is as follows, first install the dependencies:
 
@@ -25,9 +25,9 @@ $ npm install @antv/g-pattern  --save;
 
 Then you can use the built-in patterns. In this [example](/en/examples/theme/pattern#lines-pattern):
 
-* We used [lines](https://g.antv.antgroup.com/api/css/pattern#lines), and set attributes like background color, opacity, line color, and spacing.
-* Through [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition), the tiling mode is specified as horizontal and vertical directions
-* Through [transform](https://g.antv.antgroup.com/api/css/pattern#transform), the pattern is rotated 30 degrees clockwise
+- We used [lines](https://g.antv.antgroup.com/api/css/pattern#lines), and set attributes like background color, opacity, line color, and spacing.
+- Through [repetition](https://g.antv.antgroup.com/api/css/pattern#repetition), the tiling mode is specified as horizontal and vertical directions
+- Through [transform](https://g.antv.antgroup.com/api/css/pattern#transform), the pattern is rotated 30 degrees clockwise
 
 ```js
 import { lines } from '@antv/g-pattern';
@@ -102,10 +102,10 @@ For more usage, please refer to [G API](https://g.antv.antgroup.com/api/css/patt
 
 Refer to [G API](https://g.antv.antgroup.com/api/css/pattern#image), other available patterns sources include:
 
-* Image URL, e.g.`'http://example.png'`
-* HTMLImageElement
-* HTMLCanvasElement
-* HTMLVideoElement
+- Image URL, e.g.`'http://example.png'`
+- HTMLImageElement
+- HTMLCanvasElement
+- HTMLVideoElement
 
 Among them, image URL, HTMLImageElement, and HTMLVideoElement are all static resources, while HTMLCanvasElement can be used to programmatically generate patterns, with the following results:
 

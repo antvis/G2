@@ -9,56 +9,60 @@ order: 16
 
 `sunburst` 通过 `g2ExtensionPlot` 中以 `rect` 为基础实现，内部实现下钻事件、极坐标、数据转化、样式优化等。
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
 
-  const chart = new Chart();
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
 
-  chart.options({
-    type: 'sunburst',
-    data:{
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-    },
-    encode: {
-      value: 'sum',
-    },
-    labels:[{
-      text: 'name',    
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'sunburst',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  },
+  encode: {
+    value: 'sum',
+  },
+  labels: [
+    {
+      text: 'name',
       transform: [
         {
           type: 'overflowHide',
         },
-      ], 
-    }],
-  });
+      ],
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 旭日图](/examples#general-sunburst) 页面。
 
 ## 配置项
 
-| 属性       | 描述                                                                                                   | 类型                      | 默认值                 | 必选 |
-| ---------- | ------------------------------------------------------------------------------------------------------ | ------------------------- | ---------------------- | ---- |
-| encode     | 配置 `sunburst` 标记的视觉通道，包括 `value` 等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)         | -                      | ✓    |
-| coordinate | 配置 `sunburst` 标记的坐标系，坐标系会执行一系列点转换，从而改变标记的空间展示形式                     | [coordinate](#coordinate) | `{type: 'polar' }` |      |
-| interaction  | 配置 `sunburst` 标记的交互配置，内置了 `drillDown` 下钻配置                               | [interaction](#interaction)           | `{ drillDown: true }`                      |      |
-| style      | 配置 `sunburst` 标记的图形样式                                                                         | [style](#style)           | -                      |      |
+| 属性        | 描述                                                                                  | 类型                        | 默认值                | 必选 |
+| ----------- | ------------------------------------------------------------------------------------- | --------------------------- | --------------------- | ---- |
+| encode      | 配置 `sunburst` 标记的视觉通道，包括 `value` 等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)           | -                     | ✓    |
+| coordinate  | 配置 `sunburst` 标记的坐标系，坐标系会执行一系列点转换，从而改变标记的空间展示形式    | [coordinate](#coordinate)   | `{type: 'polar' }`    |      |
+| interaction | 配置 `sunburst` 标记的交互配置，内置了 `drillDown` 下钻配置                           | [interaction](#interaction) | `{ drillDown: true }` |      |
+| style       | 配置 `sunburst` 标记的图形样式                                                        | [style](#style)             | -                     |      |
 
 ### encode
 
 配置 `sunburst` 标记的视觉通道。
 
-| 属性   | 描述                                           | 类型                                        | 默认值 | 必选 |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------ | ---- |
-| value      | 绑定 `sunburst` 标记的 `value` 属性通道，用于数据 `data` 中的数值字段                                                      | [encode](/manual/core/encode)               | -      | ✓    |
-| color  | 绑定 `sunburst` 标记的 `color` 属性通道，如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个不同颜色的图形，一般用来配置堆叠柱状图等。内置配置为 `ancestor-node`, 用于区分不同的路径分组 | [encode](/manual/core/encode)               | `ancestor-node`      |      |
+| 属性  | 描述                                                                                                                                                                                                  | 类型                          | 默认值          | 必选 |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | --------------- | ---- |
+| value | 绑定 `sunburst` 标记的 `value` 属性通道，用于数据 `data` 中的数值字段                                                                                                                                 | [encode](/manual/core/encode) | -               | ✓    |
+| color | 绑定 `sunburst` 标记的 `color` 属性通道，如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个不同颜色的图形，一般用来配置堆叠柱状图等。内置配置为 `ancestor-node`, 用于区分不同的路径分组 | [encode](/manual/core/encode) | `ancestor-node` |      |
 
 #### value
 
@@ -112,59 +116,58 @@ order: 16
 
 `color` 视觉通道影响 `sunburst` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组，默认为内置 `ancestor-node` 路径分组。
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
 
-  const chart = new Chart();
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
 
-  chart.options({
-    type: 'sunburst',
-    data:{
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-    },
-    encode: {
-      value: 'sum',
-      color: 'name',
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
-  chart.render();
+chart.options({
+  type: 'sunburst',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  },
+  encode: {
+    value: 'sum',
+    color: 'name',
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 尝试使用回调进行分组：
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
 
-  const chart = new Chart();
+const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-  chart.options({
-    type: 'sunburst',
-    data:{
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+const chart = new Chart();
+
+chart.options({
+  type: 'sunburst',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  },
+  encode: {
+    value: 'sum',
+    color: (data) => {
+      const paths = data.path.split(' / ');
+      return [paths[0], paths[1]].join('/');
     },
-    encode: {
-      value: 'sum',
-      color: (data) => {
-        const paths = data.path.split(' / ');
-        return [paths[0], paths[1]].join('/');
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
-
 
 ### coordinate
 
@@ -181,96 +184,90 @@ order: 16
 
 可外部配置极坐标坐标 `polar` :
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
 
-  const chart = new Chart();
+const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-  chart.options({
-    type: 'sunburst',
-    data:{
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-    },
-    encode: { value: 'sum' },
-    coordinate: {
-      type: 'polar', 
-      innerRadius: 0.3,
-      outerRadius: 0.9,
-    },
-  });
+const chart = new Chart();
 
-  chart.render();
+chart.options({
+  type: 'sunburst',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  },
+  encode: { value: 'sum' },
+  coordinate: {
+    type: 'polar',
+    innerRadius: 0.3,
+    outerRadius: 0.9,
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 还原为直角坐标系 `cartesian` :
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
 
-  const chart = new Chart();
+const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-  chart.options({
-    type: 'sunburst',
-    data:{
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-    },
-    encode: { value: 'sum' },
-    coordinate: { type: 'cartesian' },
-  });
+const chart = new Chart();
 
-  chart.render();
+chart.options({
+  type: 'sunburst',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  },
+  encode: { value: 'sum' },
+  coordinate: { type: 'cartesian' },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### interaction
 
 `sunburst` 默认配置内置了 `drillDown` 交互事件,
 
-```js | ob
-(() => {
-  const Chart = G2.extend(G2.Runtime, { ...G2.corelib(), ...g2ExtensionPlot.plotlib() });
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
 
-  const chart = new Chart();
+const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-  chart.options({
-    type: 'sunburst',
-    data:{
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-    },
-    encode: { value: 'sum' },
-    interaction: {
-      drillDown: {
-        // 面包屑样式
-        breadCrumb: {
-          rootText: '总名称',
-          style: {
-            fontSize: '18px',
-            fill: '#333',
-          },
-          active: {
-            fill: 'red',
-          },
+const chart = new Chart();
+
+chart.options({
+  type: 'sunburst',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  },
+  encode: { value: 'sum' },
+  interaction: {
+    drillDown: {
+      // 面包屑样式
+      breadCrumb: {
+        rootText: '总名称',
+        style: {
+          fontSize: '18px',
+          fill: '#333',
         },
-        // 用于下钻后是否维持原来颜色
-        isFixedColor: true,
+        active: {
+          fill: 'red',
+        },
       },
+      // 用于下钻后是否维持原来颜色
+      isFixedColor: true,
     },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### style

@@ -5,11 +5,11 @@ order: 12
 
 Server-side rendering (SSR) refers to rendering charts in non-browser environments, such as Node.js, Python, Java, PHP, and other backend languages. Typically, in backend environments, the output is a static image without interaction or animation. The typical usage scenarios are as follows:
 
-* Pre-rendering images on the backend to improve page load speed.
-* Script batch processing for easy distribution.
-* Server-side visualization service.
-* Generate images for screenshot comparisons, used in code unit testing.
-* ...
+- Pre-rendering images on the backend to improve page load speed.
+- Script batch processing for easy distribution.
+- Server-side visualization service.
+- Generate images for screenshot comparisons, used in code unit testing.
+- ...
 
 ## Used in NodeJS
 
