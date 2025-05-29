@@ -2,8 +2,8 @@
 title: Line Chart
 order: 2
 screenshot: 'https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg'
-category: ['trend']
-similar: ['area', 'bar', 'scatter']
+category: ['trend', 'time']
+similar: ['area', 'bar', 'scatter', 'stacked-area']
 ---
 
 <img alt="line" src="https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg" width=600/>
@@ -16,7 +16,7 @@ Line charts are particularly suitable for displaying continuous time series data
 
 Compared to area charts, line charts focus more on showing trends and trajectories of data changes rather than total quantities. Compared to bar charts, line charts are more suitable for showing continuous trends rather than discrete numerical comparisons.
 
-**Other Names**: Line Chart, Line Graph
+**Other Names**: Line Chart
 
 ## Components of a Line Chart
 
@@ -219,9 +219,84 @@ Example 1: **Not suitable for displaying discrete category comparisons**
 
 Line charts are primarily used to show trends in continuous data and are not suitable for displaying numerical comparisons between discrete categories. If the main purpose is to compare specific values across different categories, bar charts or column charts would be better choices.
 
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: [
+    { category: 'Electronics', sales: 1200 },
+    { category: 'Clothing', sales: 800 },
+    { category: 'Food', sales: 600 },
+    { category: 'Furniture', sales: 400 },
+    { category: 'Books', sales: 200 },
+  ],
+  encode: { x: 'category', y: 'sales' },
+  axis: {
+    x: { title: null },
+    y: { title: null },
+  },
+  style: {
+    lineWidth: 2,
+    stroke: '#1890ff',
+  },
+});
+
+chart.render();
+```
+
+**Problem description**:
+- Categories have no natural order or continuous relationship
+- The connecting line implies a trend relationship between categories, but this relationship doesn't actually exist
+- The line may mislead readers into thinking there's a trend from "Electronics" to "Clothing"
+- In this case, bar charts would more accurately represent independent numerical comparisons between categories
+
 Example 2: **Poor effectiveness when data points are few or changes are insignificant**
 
 When there are few data points or changes are insignificant, line charts may not fully leverage their advantage of showing trend changes. In such cases, consider using bar charts or dot plots to emphasize comparisons between individual data points.
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: [
+    { quarter: 'Q1', value: 100 },
+    { quarter: 'Q2', value: 101 },
+    { quarter: 'Q3', value: 99 },
+    { quarter: 'Q4', value: 102 },
+  ],
+  encode: { x: 'quarter', y: 'value' },
+  axis: {
+    x: { title: null },
+    y: { title: null },
+  },
+  style: {
+    lineWidth: 2,
+    stroke: '#1890ff',
+  },
+});
+
+chart.render();
+```
+
+**Problem description**:
+- Too few data points (only 4), unable to form a clear trend line
+- Very small value changes (99-102), the line appears almost flat
+- Difficult to extract meaningful trend information
+- Bar charts or dot plots would better emphasize comparisons between individual values
 
 ## Extensions of Line Charts
 
@@ -347,7 +422,13 @@ chart.render();
 - Area charts emphasize visual effects of quantities through filled areas, more suitable for displaying total quantity changes
 - Choose line charts when highlighting change trends, choose area charts when emphasizing magnitude changes
 
-### Line Charts, [Bar Charts](/en/charts/bar), and [Pie Charts](/en/charts/pie)
+### Line Charts and [Stacked Area Charts](/en/charts/stacked-area)
+
+- Line charts are suitable for displaying trends of multiple independent data series, allowing direct comparison between series
+- Stacked area charts show the contribution of each part to the total, emphasizing cumulative effects and part-to-whole relationships
+- Choose line charts when comparing multiple independent trends, choose stacked area charts when showing how parts contribute to total changes
+
+### Line Charts and [Bar Charts](/en/charts/bar)
 
 - Line charts are more suitable for displaying continuous time series change trends, emphasizing data fluidity and continuity
 - Bar charts are more suitable for displaying numerical comparisons between discrete categories, emphasizing size comparisons of individual independent values

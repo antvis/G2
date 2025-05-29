@@ -2,8 +2,8 @@
 title: 折线图
 order: 2
 screenshot: 'https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg'
-category: ['trend']
-similar: ['area', 'bar', 'scatter']
+category: ['trend', 'time']
+similar: ['area', 'bar', 'scatter', 'stacked-area']
 ---
 
 
@@ -17,7 +17,7 @@ similar: ['area', 'bar', 'scatter']
 
 相比于面积图，折线图更侧重于展示数据变化的趋势和轨迹，而非总量；相比于柱状图，折线图更适合展示连续变化的趋势，而非离散的数值比较。
 
-**英文名**：Line Chart, Line Graph
+**英文名**：Line Chart
 
 ## 折线图的构成
 
@@ -221,9 +221,84 @@ chart.render();
 
 折线图主要用于展示连续数据的变化趋势，不适合用于显示离散类别间的数值比较。如果主要目的是比较不同类别的具体数值，柱状图或条形图会是更好的选择。
 
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: [
+    { category: '电子产品', sales: 1200 },
+    { category: '服装', sales: 800 },
+    { category: '食品', sales: 600 },
+    { category: '家具', sales: 400 },
+    { category: '图书', sales: 200 },
+  ],
+  encode: { x: 'category', y: 'sales' },
+  axis: {
+    x: { title: null },
+    y: { title: null },
+  },
+  style: {
+    lineWidth: 2,
+    stroke: '#1890ff',
+  },
+});
+
+chart.render();
+```
+
+**问题说明**：
+- 类别之间没有自然的顺序或连续性关系
+- 连线暗示了类别间的趋势关系，但实际上不存在这种关系
+- 折线可能误导读者认为从"电子产品"到"服装"存在某种变化趋势
+- 这种情况下，柱状图能更准确地表达各类别的独立数值比较
+
 例子 2: **数据点较少或变化不明显时效果不佳**
 
 当数据点较少或变化不明显时，折线图可能无法充分发挥其展示趋势变化的优势。这种情况下，可以考虑使用柱状图或点图来强调个别数据点的比较。
+
+```js | ob { autoMount: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: [
+    { quarter: 'Q1', value: 100 },
+    { quarter: 'Q2', value: 101 },
+    { quarter: 'Q3', value: 99 },
+    { quarter: 'Q4', value: 102 },
+  ],
+  encode: { x: 'quarter', y: 'value' },
+  axis: {
+    x: { title: null },
+    y: { title: null },
+  },
+  style: {
+    lineWidth: 2,
+    stroke: '#1890ff',
+  },
+});
+
+chart.render();
+```
+
+**问题说明**：
+- 数据点太少（仅4个），无法形成明显的趋势线
+- 数值变化很小（99-102），折线看起来几乎是平的
+- 难以从中获得有意义的趋势信息
+- 柱状图或点图能更好地强调各个独立数值的比较
 
 ## 折线图的扩展
 
@@ -348,6 +423,12 @@ chart.render();
 - 折线图侧重于展示数据变化的趋势和轨迹，关注变化的方向和速度
 - 面积图通过填充区域强调数量的视觉效果，更适合展示总量变化
 - 当需要突出变化趋势时选择折线图，当需要强调数量级变化时选择面积图
+
+### 折线图和[堆叠面积图](/charts/stacked-area)
+
+- 折线图适合展示多个独立数据系列的变化趋势，各系列间可以直接比较
+- 堆叠面积图显示各部分对总体的贡献，强调累积效果和部分与整体的关系
+- 当需要比较多个独立趋势时选择折线图，当需要展示部分构成总体的变化时选择堆叠面积图
 
 ### 折线图和[柱状图](/charts/bar)
 
