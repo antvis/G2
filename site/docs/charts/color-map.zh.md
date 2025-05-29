@@ -3,10 +3,10 @@ title: 色块图
 order: 2
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison', 'distribution']
-similar: ['heatmap', 'treemap', 'multi-level-rect']
+similar: ['heatmap', 'treemap']
 ---
 
-<img alt="color-map" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="color-map" src="https://os.alipayobjects.com/rmsportal/dCgVzFLjenQsgWT.png" width=600/>
 
 ## 色块图的简介
 
@@ -22,7 +22,7 @@ similar: ['heatmap', 'treemap', 'multi-level-rect']
 
 ### 基础色块图
 
-<img alt="color-map-basic" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="color-map-basic" src="https://os.alipayobjects.com/rmsportal/nbdQjrGfLveruGA.png" width=600 />
 
 | 图表类型         | 基础色块图                                                                                              |
 | ---------------- | ------------------------------------------------------------------------------------------------------- |
@@ -207,14 +207,14 @@ chart.render();
 
 ### 适合的场景
 
-例子 1: **产品销售矩阵分析**
+例子 1: **杭州地铁票价图**
 
-下图展示了一年内各个月份不同产品的销售情况，通过色块图可以直观地看出每个产品在不同月份的销售表现，快速识别出畅销和滞销的产品-时间组合。
+下图是模拟的杭州地铁票价图。这个色块图展示了不同地铁站点之间的票价关系，通过颜色深浅表示不同的票价级别。可以快速识别票价区间以及任意两站间的出行成本。
 
-| month（月份） | product（产品） | sales（销售额） |
+| from（起点） | to（终点） | price（票价） |
 | ------------- | --------------- | --------------- |
-| 一月          | 产品A           | 123             |
-| 一月          | 产品B           | 231             |
+| 湘湖          | 滨和路           | 2             |
+| 湘湖          | 西兴             | 3             |
 | ...           | ...             | ...             |
 
 ```js | ob { autoMount: true  }
@@ -223,31 +223,46 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  height: 500,
 });
+
+// 地铁1号线站点
+const sites = [
+  "湘湖", "滨康路", "西兴", "滨和路", "江陵路", "近江",
+  "婺江路", "城站", "定安路", "龙翔桥", "凤起路", "武林广场", 
+  "西湖文化广场", "打铁关", "火车东站", "闸弄口", "彭埠", "七堡",
+  "九和路", "九堡", "客运中心", "下沙西", "金沙湖", "高沙路", "文泽路"
+];
+
+// 生成地铁票价数据
+const data = [];
+for (let i = 0; i < sites.length; i++) {
+  for (let j = sites.length - 1; j >= i; j--) {
+    let price = 0;
+    const step = Math.abs(j - i);
+    if (step <= 2) {
+      price = 2;
+    } else if (step <= 4) {
+      price = 3;
+    } else if (step <= 7) {
+      price = 4;
+    } else if (step <= 13) {
+      price = 5;
+    } else if (step <= 16) {
+      price = 6;
+    } else if (step <= 21) {
+      price = 7;
+    } else {
+      price = 8;
+    }
+    data.push({ from: sites[i], to: sites[j], price: price });
+  }
+}
 
 chart.options({
   type: 'view',
   autoFit: true,
-  data: [
-    { month: '一月', product: '产品A', sales: 123 },
-    { month: '一月', product: '产品B', sales: 231 },
-    { month: '一月', product: '产品C', sales: 145 },
-    { month: '二月', product: '产品A', sales: 132 },
-    { month: '二月', product: '产品B', sales: 112 },
-    { month: '二月', product: '产品C', sales: 178 },
-    { month: '三月', product: '产品A', sales: 99 },
-    { month: '三月', product: '产品B', sales: 288 },
-    { month: '三月', product: '产品C', sales: 133 },
-    { month: '四月', product: '产品A', sales: 181 },
-    { month: '四月', product: '产品B', sales: 223 },
-    { month: '四月', product: '产品C', sales: 141 },
-    { month: '五月', product: '产品A', sales: 152 },
-    { month: '五月', product: '产品B', sales: 219 },
-    { month: '五月', product: '产品C', sales: 109 },
-    { month: '六月', product: '产品A', sales: 167 },
-    { month: '六月', product: '产品B', sales: 187 },
-    { month: '六月', product: '产品C', sales: 255 },
-  ],
+  data,
   coordinate: {
     type: 'cartesian',
   },
@@ -255,18 +270,22 @@ chart.options({
     {
       type: 'cell',
       encode: {
-        x: 'month',
-        y: 'product',
-        color: 'sales',
+        x: 'from',
+        y: 'to',
+        color: 'price',
       },
       style: {
         inset: 1,
+        stroke: '#fff',
+        strokeWidth: 1,
       },
       labels: [
         {
-          text: 'sales',
+          text: 'price',
           style: {
-            fill: (d) => (d.sales > 200 ? '#fff' : '#000'),
+            fill: (d) => (d.price > 5 ? '#fff' : '#000'),
+            textAlign: 'center',
+            fontSize: 10,
           },
         },
       ],
@@ -275,20 +294,41 @@ chart.options({
   legend: {
     color: {
       position: 'right',
+      title: '票价（元）',
       flipPage: false,
     },
   },
   scale: {
     color: {
-      palette: 'rdBu',
-      offset: (t) => 1 - t,
+      domain: [2, 3, 4, 5, 6, 7, 8],
+      range: ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4', '#2c7fb8', '#253494', '#081d58'],
+    },
+    from: {
+      values: sites,
+    },
+    to: {
+      values: sites.slice().reverse(),
+    },
+  },
+  axis: {
+    x: {
+      title: false,
+      grid: false,
+      tickLine: false,
+      labelRotate: -Math.PI / 4,
+      labelOffset: 5,
+    },
+    y: {
+      title: false,
+      grid: false,
+      tickLine: false,
     },
   },
   annotations: [
     {
       type: 'text',
       style: {
-        text: '销售额矩阵分析',
+        text: '杭州地铁1号线票价图（模拟）',
         x: '50%',
         y: '0%',
         fontSize: 14,
@@ -304,10 +344,10 @@ chart.render();
 ```
 
 **分析**：
-- 使用月份和产品作为两个分类维度
-- 销售额通过颜色深浅编码
-- 添加了具体销售数字作为标签，增强了数据的可读性
-- 可以清晰看出产品B在三月份的销售表现最佳，产品A在三月份表现最差
+- 站名映射到了 `x`、`y` 轴，以确定位置
+- 票价映射到颜色深浅
+- 票价数据是模拟的，仅表示大概情况
+- 色块图便于快速识别票价区间和站点间的出行成本
 
 例子 2: **考试成绩分析**
 

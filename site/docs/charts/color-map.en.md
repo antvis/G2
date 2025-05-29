@@ -3,10 +3,10 @@ title: Color Map
 order: 2
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison', 'distribution']
-similar: ['heatmap', 'treemap', 'multi-level-rect']
+similar: ['heatmap', 'treemap']
 ---
 
-<img alt="color-map" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="color-map" src="https://os.alipayobjects.com/rmsportal/dCgVzFLjenQsgWT.png" width=600/>
 
 ## Introduction to Color Map
 
@@ -22,7 +22,7 @@ It's important to note that when there are too many categories in a color map, i
 
 ### Basic Color Map
 
-<img alt="color-map-basic" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="color-map-basic" src="https://os.alipayobjects.com/rmsportal/nbdQjrGfLveruGA.png" width=600 />
 
 | Chart Type | Basic Color Map |
 | ---------------- | ------------------------------------------------------------------------------------------------------- |
@@ -207,14 +207,14 @@ chart.render();
 
 ### Suitable Use Cases
 
-Example 1: **Product Sales Matrix Analysis**
+Example 1: **Hangzhou Metro Fare Chart**
 
-The chart below shows the sales performance of different products over the months of a year. Through this color map, you can intuitively see the sales performance of each product in different months, quickly identifying the best and worst product-time combinations.
+The chart below is a simulation of Hangzhou Metro fare chart. This color map shows the fare relationship between different metro stations, with color depth representing different fare levels. You can quickly identify fare zones and the cost of traveling between any two stations.
 
-| month | product | sales |
+| from | to | price |
 | ------------- | --------------- | --------------- |
-| January | Product A | 123 |
-| January | Product B | 231 |
+| Xianghu | Binhe Road | 2 |
+| Xianghu | Xixing | 3 |
 | ... | ... | ... |
 
 ```js | ob { autoMount: true  }
@@ -223,31 +223,47 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  height: 500,
 });
+
+// Metro stations on Line 1
+const sites = [
+  "Xianghu", "Binkang Road", "Xixing", "Binhe Road", "Jiangling Road", "Jinjiang",
+  "Wujiang Road", "Chengzhan", "Ding'an Road", "Longxiang Bridge", "Fengqi Road", 
+  "Wulin Square", "West Lake Cultural Square", "Datieguan", "East Railway Station", 
+  "Zhalongkou", "Pengbu", "Qibao", "Jiuhe Road", "Jiubao", "Passenger Transport Center", 
+  "Xiaxi West", "Jinsha Lake", "Gaosha Road", "Wenze Road"
+];
+
+// Generate metro fare data
+const data = [];
+for (let i = 0; i < sites.length; i++) {
+  for (let j = sites.length - 1; j >= i; j--) {
+    let price = 0;
+    const step = Math.abs(j - i);
+    if (step <= 2) {
+      price = 2;
+    } else if (step <= 4) {
+      price = 3;
+    } else if (step <= 7) {
+      price = 4;
+    } else if (step <= 13) {
+      price = 5;
+    } else if (step <= 16) {
+      price = 6;
+    } else if (step <= 21) {
+      price = 7;
+    } else {
+      price = 8;
+    }
+    data.push({ from: sites[i], to: sites[j], price: price });
+  }
+}
 
 chart.options({
   type: 'view',
   autoFit: true,
-  data: [
-    { month: 'January', product: 'Product A', sales: 123 },
-    { month: 'January', product: 'Product B', sales: 231 },
-    { month: 'January', product: 'Product C', sales: 145 },
-    { month: 'February', product: 'Product A', sales: 132 },
-    { month: 'February', product: 'Product B', sales: 112 },
-    { month: 'February', product: 'Product C', sales: 178 },
-    { month: 'March', product: 'Product A', sales: 99 },
-    { month: 'March', product: 'Product B', sales: 288 },
-    { month: 'March', product: 'Product C', sales: 133 },
-    { month: 'April', product: 'Product A', sales: 181 },
-    { month: 'April', product: 'Product B', sales: 223 },
-    { month: 'April', product: 'Product C', sales: 141 },
-    { month: 'May', product: 'Product A', sales: 152 },
-    { month: 'May', product: 'Product B', sales: 219 },
-    { month: 'May', product: 'Product C', sales: 109 },
-    { month: 'June', product: 'Product A', sales: 167 },
-    { month: 'June', product: 'Product B', sales: 187 },
-    { month: 'June', product: 'Product C', sales: 255 },
-  ],
+  data,
   coordinate: {
     type: 'cartesian',
   },
@@ -255,18 +271,22 @@ chart.options({
     {
       type: 'cell',
       encode: {
-        x: 'month',
-        y: 'product',
-        color: 'sales',
+        x: 'from',
+        y: 'to',
+        color: 'price',
       },
       style: {
         inset: 1,
+        stroke: '#fff',
+        strokeWidth: 1,
       },
       labels: [
         {
-          text: 'sales',
+          text: 'price',
           style: {
-            fill: (d) => (d.sales > 200 ? '#fff' : '#000'),
+            fill: (d) => (d.price > 5 ? '#fff' : '#000'),
+            textAlign: 'center',
+            fontSize: 10,
           },
         },
       ],
@@ -275,20 +295,41 @@ chart.options({
   legend: {
     color: {
       position: 'right',
+      title: 'Fare (CNY)',
       flipPage: false,
     },
   },
   scale: {
     color: {
-      palette: 'rdBu',
-      offset: (t) => 1 - t,
+      domain: [2, 3, 4, 5, 6, 7, 8],
+      range: ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4', '#2c7fb8', '#253494', '#081d58'],
+    },
+    from: {
+      values: sites,
+    },
+    to: {
+      values: sites.slice().reverse(),
+    },
+  },
+  axis: {
+    x: {
+      title: false,
+      grid: false,
+      tickLine: false,
+      labelRotate: -Math.PI / 4,
+      labelOffset: 5,
+    },
+    y: {
+      title: false,
+      grid: false,
+      tickLine: false,
     },
   },
   annotations: [
     {
       type: 'text',
       style: {
-        text: 'Sales Matrix Analysis',
+        text: 'Hangzhou Metro Line 1 Fare Chart (Simulation)',
         x: '50%',
         y: '0%',
         fontSize: 14,
@@ -304,10 +345,10 @@ chart.render();
 ```
 
 **Analysis**:
-- Using month and product as two categorical dimensions
-- Sales are encoded by color depth
-- Specific sales figures are added as labels to enhance data readability
-- It's clear that Product B performed best in March, while Product A performed worst in March
+- Station names are mapped to the `x` and `y` axes to determine position
+- Fare prices are mapped to color depth
+- Fare data is simulated and only represents general relationships
+- The color map makes it easy to identify fare zones and travel costs between stations
 
 Example 2: **Exam Score Analysis**
 
