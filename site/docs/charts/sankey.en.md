@@ -3,7 +3,7 @@ title: Sankey Diagram
 order: 22
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original'
 category: ['flow']
-similar: ['tree', 'chord', 'network']
+similar: ['funnel', 'chord']
 ---
 
 <img alt="Sankey Diagram" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original" width=600/>
@@ -28,19 +28,6 @@ Sankey diagrams are commonly used for visualizing energy flows, material composi
 | Function             | Display flow relationships and quantities between different nodes                   |
 | Data-Visual Mapping  | Source nodes mapped to left positions<br>Target nodes mapped to right positions<br>Flow values mapped to link widths |
 | Suitable Scenarios   | Energy flow analysis, fund flow tracking, user path analysis                       |
-
----
-
-### Multi-layer Sankey Diagram
-
-Multi-layer Sankey diagrams can display more complex flow relationships where nodes can simultaneously serve as both source and target nodes, forming multi-layered flow networks.
-
-| Chart Type           | Multi-layer Sankey Diagram                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data        | Complex flow data: multi-level node relationships with intermediate transformation nodes |
-| Function             | Display complex multi-level flow relationships within systems                      |
-| Data-Visual Mapping  | Nodes automatically layered based on dependencies<br>Flow values determine link widths<br>Colors distinguish different flow types |
-| Suitable Scenarios   | Complex energy transformation systems, multi-step business process analysis       |
 
 ## Use Cases for Sankey Diagrams
 
@@ -215,9 +202,102 @@ Example 1: **Not suitable for simple categorical comparisons**
 
 When data is primarily used for comparing values across different categories rather than showing flow relationships, Sankey diagrams are not the best choice. In such cases, bar charts or pie charts would be more intuitive.
 
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Example: Sales comparison data (not suitable for Sankey diagrams)
+const salesData = [
+  { category: 'Phones', value: 25000 },
+  { category: 'Computers', value: 18000 },
+  { category: 'Tablets', value: 12000 },
+  { category: 'Headphones', value: 8000 },
+  { category: 'Accessories', value: 5000 },
+];
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: { value: salesData },
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category'
+  },
+  axis: {
+    y: { title: 'Sales Amount ($)' },
+    x: { title: 'Product Category' }
+  },
+  style: {
+    fill: '#1890ff',
+  },
+});
+
+chart.render();
+```
+
+**Explanation**: This type of data is better suited for bar charts because the focus is on comparing numerical values across categories, not showing flow relationships between data points. Using a Sankey diagram in this scenario would add unnecessary complexity.
+
 Example 2: **Not suitable for overly complex network relationships**
 
 When there are too many nodes (over 30) or overly complex flow relationships, Sankey diagrams may become difficult to read. In such cases, consider using network graphs or hierarchical diagrams.
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Example: Complex organizational structure (not suitable for Sankey diagrams)
+const complexData = {
+  links: [
+    { source: 'CEO', target: 'R&D VP', value: 1 },
+    { source: 'CEO', target: 'Sales VP', value: 1 },
+    { source: 'CEO', target: 'Marketing VP', value: 1 },
+    { source: 'CEO', target: 'Operations VP', value: 1 },
+    { source: 'R&D VP', target: 'Frontend Team', value: 1 },
+    { source: 'R&D VP', target: 'Backend Team', value: 1 },
+    { source: 'R&D VP', target: 'QA Team', value: 1 },
+    { source: 'R&D VP', target: 'DevOps Team', value: 1 },
+    { source: 'Sales VP', target: 'Direct Sales', value: 1 },
+    { source: 'Sales VP', target: 'Channel Sales', value: 1 },
+    { source: 'Sales VP', target: 'Business Dev', value: 1 },
+    { source: 'Sales VP', target: 'Customer Service', value: 1 },
+    { source: 'Marketing VP', target: 'Brand Team', value: 1 },
+    { source: 'Marketing VP', target: 'Events Team', value: 1 },
+    { source: 'Marketing VP', target: 'Content Team', value: 1 },
+    { source: 'Operations VP', target: 'Data Team', value: 1 },
+    { source: 'Operations VP', target: 'Product Team', value: 1 },
+    { source: 'Operations VP', target: 'User Experience', value: 1 },
+  ]
+};
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'sankey',
+  autoFit: true,
+  data: { value: complexData },
+  layout: {
+    nodeAlign: 'justify',
+    nodePadding: 0.02,
+  },
+  style: {
+    labelSpacing: 2,
+    labelFontSize: 10,
+    nodeStrokeWidth: 1,
+    linkFillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
+
+**Explanation**: This type of hierarchical structural data becomes overcrowded and difficult to read when displayed as a Sankey diagram. It's better suited for organizational charts, tree diagrams, or network graphs. Sankey diagrams excel at showing meaningful "flow" relationships rather than just organizational structures.
 
 ## Extensions for Sankey Diagrams
 
@@ -323,23 +403,18 @@ chart.render();
 
 ## Comparison with Other Charts
 
-### Sankey Diagrams vs [Tree Charts](/en/charts/tree)
+### Sankey Diagrams vs [Funnel Charts](/en/charts/funnel)
 
-- Sankey diagrams focus on flow distribution and direction between nodes
-- Tree charts focus on hierarchical structure and categorical relationships
-- Link width in Sankey diagrams is meaningful (represents flow), while connections in tree charts primarily represent relationships
+- Sankey diagrams show complex many-to-many flow relationships with multiple source and target nodes
+- Funnel charts primarily show single-path conversion processes, typically used for analyzing business conversion rates
+- Link width in Sankey diagrams represents flow volume, while funnel layer width represents conversion quantities
+- Sankey diagrams are suitable for complex process analysis, funnel charts for linear conversion analysis
 
 ### Sankey Diagrams vs [Chord Diagrams](/en/charts/chord)
 
 - Sankey diagrams show directed flow relationships, emphasizing flow direction
 - Chord diagrams primarily show undirected associative relationships, emphasizing relationship strength
 - Sankey diagrams are suitable for process analysis, chord diagrams for relationship network analysis
-
-### Sankey Diagrams vs [Network Graphs](/en/charts/network)
-
-- Sankey diagrams have clear hierarchical structure and flow direction
-- Network graphs can have arbitrary node distribution with more complex relationships
-- Sankey diagrams are suitable for linear processes, network graphs for complex network relationships
 
 ## Similar Charts
 

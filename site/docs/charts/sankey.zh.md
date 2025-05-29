@@ -3,7 +3,7 @@ title: 桑基图
 order: 22
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original'
 category: ['flow']
-similar: ['tree', 'chord', 'network']
+similar: ['funnel', 'chord']
 ---
 
 <img alt="桑基图" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original" width=600/>
@@ -28,19 +28,6 @@ similar: ['tree', 'chord', 'network']
 | 功能             | 展示不同节点之间的流向关系和流量大小                                               |
 | 数据与图形的映射 | 源节点映射到左侧位置<br>目标节点映射到右侧位置<br>流量值映射到连接线的宽度          |
 | 适合的场景       | 展示能源流动、资金流向、用户路径等流程分析                                          |
-
----
-
-### 多层桑基图
-
-多层桑基图可以展示更复杂的流向关系，其中节点可能同时作为源节点和目标节点，形成多层的流动网络。
-
-| 图表类型         | 多层桑基图                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| 适合的数据       | 复杂流向数据：多层级的节点关系，包含中间转换节点                                    |
-| 功能             | 展示复杂系统中的多层级流动关系                                                      |
-| 数据与图形的映射 | 节点根据依赖关系自动分层<br>流量值决定连接线宽度<br>颜色区分不同类型的流量          |
-| 适合的场景       | 复杂的能源转换系统、多步骤的业务流程分析                                            |
 
 ## 桑基图的应用场景
 
@@ -215,9 +202,102 @@ chart.render();
 
 当数据主要用于比较不同类别的数值大小，而非展示流向关系时，桑基图不是最佳选择。这种情况下，柱状图或饼图会更加直观。
 
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 示例：销售额对比数据（不适合用桑基图）
+const salesData = [
+  { category: '手机', value: 25000 },
+  { category: '电脑', value: 18000 },
+  { category: '平板', value: 12000 },
+  { category: '耳机', value: 8000 },
+  { category: '配件', value: 5000 },
+];
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: { value: salesData },
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category'
+  },
+  axis: {
+    y: { title: '销售额（元）' },
+    x: { title: '产品类别' }
+  },
+  style: {
+    fill: '#1890ff',
+  },
+});
+
+chart.render();
+```
+
+**说明**：此类数据更适合使用柱状图展示，因为重点是比较各类别的数值大小，而非展示数据间的流向关系。桑基图在这种场景下会增加不必要的复杂性。
+
 例子 2: **不适合展示过于复杂的网络关系**
 
 当节点数量过多（超过30个）或流向关系过于复杂时，桑基图可能会变得难以阅读。这种情况下，可以考虑使用网络图或层次图。
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 示例：复杂的组织架构关系（不适合用桑基图）
+const complexData = {
+  links: [
+    { source: 'CEO', target: '研发VP', value: 1 },
+    { source: 'CEO', target: '销售VP', value: 1 },
+    { source: 'CEO', target: '市场VP', value: 1 },
+    { source: 'CEO', target: '运营VP', value: 1 },
+    { source: '研发VP', target: '前端团队', value: 1 },
+    { source: '研发VP', target: '后端团队', value: 1 },
+    { source: '研发VP', target: 'QA团队', value: 1 },
+    { source: '研发VP', target: 'DevOps团队', value: 1 },
+    { source: '销售VP', target: '直销团队', value: 1 },
+    { source: '销售VP', target: '渠道团队', value: 1 },
+    { source: '销售VP', target: '商务团队', value: 1 },
+    { source: '销售VP', target: '客服团队', value: 1 },
+    { source: '市场VP', target: '品牌团队', value: 1 },
+    { source: '市场VP', target: '活动团队', value: 1 },
+    { source: '市场VP', target: '内容团队', value: 1 },
+    { source: '运营VP', target: '数据团队', value: 1 },
+    { source: '运营VP', target: '产品团队', value: 1 },
+    { source: '运营VP', target: '用户团队', value: 1 },
+  ]
+};
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'sankey',
+  autoFit: true,
+  data: { value: complexData },
+  layout: {
+    nodeAlign: 'justify',
+    nodePadding: 0.02,
+  },
+  style: {
+    labelSpacing: 2,
+    labelFontSize: 10,
+    nodeStrokeWidth: 1,
+    linkFillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
+
+**说明**：此类层次结构数据使用桑基图会显得过于拥挤且难以阅读。更适合使用组织架构图、树形图或网络图来展示这种层次关系。桑基图的优势在于展示有意义的"流量"关系，而非仅仅是组织结构。
 
 ## 桑基图的扩展
 
@@ -323,23 +403,18 @@ chart.render();
 
 ## 桑基图与其他图表的对比
 
-### 桑基图和[树形图](/charts/tree)
+### 桑基图和[漏斗图](/charts/funnel)
 
-- 桑基图侧重展示流量在不同节点间的分配和流向
-- 树形图侧重展示层次结构和分类关系
-- 桑基图的连接线宽度有意义（表示流量），树形图的连接线主要表示关系
+- 桑基图展示复杂的多对多流向关系，可以有多个源节点和目标节点
+- 漏斗图主要展示单一路径的转化流程，通常用于分析业务转化率
+- 桑基图的连接线宽度表示流量大小，漏斗图的层级宽度表示转化数量
+- 桑基图适合复杂流程分析，漏斗图适合线性转化分析
 
-### 桑基图和[弦图](/charts/chord)
+### 桑基图和[和弦图](/charts/chord)
 
 - 桑基图是有向的流动关系，强调流向性
-- 弦图主要展示无向的关联关系，强调相互关系的强度
-- 桑基图适合流程分析，弦图适合关系网络分析
-
-### 桑基图和[网络图](/charts/network)
-
-- 桑基图有明确的层级结构和流向
-- 网络图节点可以任意分布，关系更加复杂
-- 桑基图适合线性流程，网络图适合复杂的网络关系
+- 和弦图主要展示无向的关联关系，强调相互关系的强度
+- 桑基图适合流程分析，和弦图适合关系网络分析
 
 ## 相似图表
 
