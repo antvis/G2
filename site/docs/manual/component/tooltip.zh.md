@@ -400,70 +400,70 @@ chart.options({
 
 <img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*J1N_RKY7FtkAAAAAAAAAAAAAemJ7AQ/original" />
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    encode: {
-      x: 'state',
-      y: 'population',
-      color: 'age',
-    },
-    transform: [
-      { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
-      { type: 'dodgeX' },
-    ],
-    legend: false,
-    interaction: {
-      tooltip: {
-        shared: true,
-        mount: 'body',
-        css: {
-          '.g2-tooltip': {
-            background: '#eee',
-            'border-radius': ' 0.25em !important',
-          },
-          '.g2-tooltip-title': {
-            'font-size': '20px',
-            'font-weight': 'bold',
-            'padding-bottom': '0.25em',
-          },
-          '.g2-tooltip-list-item': {
-            background: '#ccc',
-            padding: '0.25em',
-            margin: '0.25em',
-            'border-radius': '0.25em',
-          },
-          '.g2-tooltip-list-item-name-label': {
-            'font-weight': 'bold',
-            'font-size': '16px',
-          },
-          'g2-tooltip-list-item-marker': {
-            'border-radius': '0.25em',
-            width: '15px',
-            height: '15px',
-          },
-          '.g2-tooltip-list-item-value': {
-            'font-weight': 'bold',
-            'font-size': '16px',
-          },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  transform: [
+    { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
+    { type: 'dodgeX' },
+  ],
+  legend: false,
+  interaction: {
+    tooltip: {
+      shared: true,
+      mount: 'body',
+      css: {
+        '.g2-tooltip': {
+          background: '#eee',
+          'border-radius': ' 0.25em !important',
+        },
+        '.g2-tooltip-title': {
+          'font-size': '20px',
+          'font-weight': 'bold',
+          'padding-bottom': '0.25em',
+        },
+        '.g2-tooltip-list-item': {
+          background: '#ccc',
+          padding: '0.25em',
+          margin: '0.25em',
+          'border-radius': '0.25em',
+        },
+        '.g2-tooltip-list-item-name-label': {
+          'font-weight': 'bold',
+          'font-size': '16px',
+        },
+        'g2-tooltip-list-item-marker': {
+          'border-radius': '0.25em',
+          width: '15px',
+          height: '15px',
+        },
+        '.g2-tooltip-list-item-value': {
+          'font-weight': 'bold',
+          'font-size': '16px',
         },
       },
     },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 尝试一下
@@ -485,35 +485,35 @@ function render(event, tooltipData) {
 
 下面是一个简单的例子：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .transform([{ type: 'sortX', by: 'y', reverse: true }])
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .interaction('tooltip', {
-      // render 回调方法返回一个innerHTML 或者 DOM
-      render: (event, { title, items }) => `<div>
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .transform([{ type: 'sortX', by: 'y', reverse: true }])
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .interaction('tooltip', {
+    // render 回调方法返回一个innerHTML 或者 DOM
+    render: (event, { title, items }) => `<div>
       <h3 style="padding:0;margin:0">${title}</h3>
       <ul>${items.map(
         (d) =>
           `<li><span style="color: ${d.color}">${d.name}</span> ${d.value}</li>`,
       )}</ul>
       </div>`,
-    });
+  });
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 事件

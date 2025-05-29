@@ -129,72 +129,74 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 
 图例的位置。默认为 `top`。
 
-```js | ob { pin: false }
-(() => {
-  const positionList = ['top', 'right', 'left', 'bottom'];
-  const positionMap = positionList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const chart = new G2.Chart();
-
-  chart.options({
-    type: 'interval',
-    data: [
-      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-      { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
-      { name: 'London', 月份: 'May', 月均降雨量: 47 },
-      { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
-      { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
-      { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
-      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-      { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
-      { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
-      { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
-      { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
-      { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
-    ],
-    encode: { x: '月份', y: '月均降雨量', color: 'name' },
-    transform: [{ type: 'dodgeX' }],
-  });
-
-  const handleSetPosition = (position) => {
-    chart.legend({
-      color: {
-        position,
-      },
-    });
-    chart.render(); // 重新渲染图表
+const positionList = ['top', 'right', 'left', 'bottom'];
+const positionMap = positionList.map((p) => {
+  return {
+    label: p,
+    value: p,
   };
+});
 
-  // 插入Position 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择图例位置 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = positionMap.map(
-    (position, index) =>
-      `<option value="${position.value}" ${index === 0 ? 'selected' : ''}>${
-        position.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetPosition(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'interval',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+});
 
-  return node;
-})();
+const handleSetPosition = (position) => {
+  chart.legend({
+    color: {
+      position,
+    },
+  });
+  chart.render(); // 重新渲染图表
+};
+
+// 插入Position 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择图例位置 ';
+const selector = document.createElement('select');
+selector.innerHTML = positionMap.map(
+  (position, index) =>
+    `<option value="${position.value}" ${index === 0 ? 'selected' : ''}>${
+      position.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetPosition(e.target.value);
+};
+selectorContainer.appendChild(selector);
+const node = chart.getContainer();
+node.insertBefore(selectorContainer, node.childNodes[0]);
+
+chart.render();
+
+return node;
 ```
 
 ### layout
@@ -442,87 +444,89 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 
 尝试一下：
 
-```js | ob { pin: false }
-(() => {
-  // 可选的itemMarker形状
-  const shapeList = [
-    'bowtie',
-    'cross',
-    'dash',
-    'diamond',
-    'dot',
-    'hexagon',
-    'hollowBowtie',
-    'hollowDiamond',
-    'hollowHexagon',
-    'hollowPoint',
-    'hollowSquare',
-    'hollowTriangle',
-    'hollowTriangleDown',
-    'hv',
-    'hvh',
-    'hyphen',
-    'line',
-    'plus',
-    'point',
-    'rect',
-    'smooth',
-    'square',
-    'tick',
-    'triangleDown',
-    'triangle',
-    'vh',
-    'vhv',
-  ];
-  const shapeMap = shapeList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const chart = new G2.Chart();
+// 可选的itemMarker形状
+const shapeList = [
+  'bowtie',
+  'cross',
+  'dash',
+  'diamond',
+  'dot',
+  'hexagon',
+  'hollowBowtie',
+  'hollowDiamond',
+  'hollowHexagon',
+  'hollowPoint',
+  'hollowSquare',
+  'hollowTriangle',
+  'hollowTriangleDown',
+  'hv',
+  'hvh',
+  'hyphen',
+  'line',
+  'plus',
+  'point',
+  'rect',
+  'smooth',
+  'square',
+  'tick',
+  'triangleDown',
+  'triangle',
+  'vh',
+  'vhv',
+];
+const shapeMap = shapeList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
-  chart.options({
-    type: 'legends',
-    height: 60,
-    itemMarker: 'bowtie',
-    scale: {
-      color: {
-        type: 'ordinal',
-        domain: ['a', 'b'],
-        range: ['steelblue', 'orange'],
-      },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'legends',
+  height: 60,
+  itemMarker: 'bowtie',
+  scale: {
+    color: {
+      type: 'ordinal',
+      domain: ['a', 'b'],
+      range: ['steelblue', 'orange'],
     },
+  },
+});
+
+const handleSetShape = (shape) => {
+  chart.options({
+    itemMarker: shape,
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetShape = (shape) => {
-    chart.options({
-      itemMarker: shape,
-    });
-    chart.render(); // 重新渲染图表
-  };
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择图例项图标的形状 ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+const node = chart.getContainer();
+node.insertBefore(selectorContainer, node.childNodes[0]);
 
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择图例项图标的形状 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+chart.render();
 
-  chart.render();
-
-  return node;
-})();
+return node;
 ```
 
 在 Legend 组件中配置图例项图标的时候，不是以对象的形式来配置，而是以 `itemMarker`前缀加属性的方式来配置。
@@ -1271,133 +1275,133 @@ legend: {
 
 #### 使用图片
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const logo = [
-    [
-      '抖音',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8IXHQLvx9QkAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '快手',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*swueRrrKvbcAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '小米',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*79G3TIt3mBoAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '微信',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_ELBTJLp0dQAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'Keep',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JzbKRpFhR14AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'Chrome',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xLnYTaZfdh8AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'QQ',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AbGNTpA5JLwAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '优酷',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UL6lS4jw9lUAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '百度地图',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I6nrTITAxcoAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '腾讯视频',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zwVvT5OFnuYAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '哔哩哔哩',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6jkAQayTiMMAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'Word',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FbkXT6K6mVEAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'Excel',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CKb-R6ZAFpYAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'PowerPoint',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K7-FT4RYRqIAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '腾讯会议',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xbPXR7snu44AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '网易云音乐',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*upKlRJ9QB4cAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'Safari',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kjDHRbiW734AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '地图',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tl-2QIB8LKIAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'Docker',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iJ4dS49yrJ4AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      'VSCode',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rR6nRInEcz4AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '百度网盘',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*futaTbIAkG4AAAAAAAAAAAAADmJ7AQ/original',
-    ],
-    [
-      '印象笔记',
-      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Skh1S4BfL9oAAAAAAAAAAAAADmJ7AQ/original',
-    ],
-  ];
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart
-    .interval()
-    .data(logo)
-    .encode('x', (d) => d[0])
-    .encode('y', () => Math.random())
-    .encode('color', (d) => d[1])
-    .scale('y', { nice: true })
-    .legend({
-      color: {
-        itemMarker: (_, index) => () => {
-          const { document } = chart.getContext().canvas;
-          const image = document.createElement('image', {
-            style: {
-              width: 20,
-              height: 20,
-              transform: `translate(-10, -10)`,
-              src: logo[index][1],
-            },
-          });
-          return image;
-        },
-        itemMarkerSize: 40,
-        itemLabelText: (_, index) => logo[index][0],
-        maxRows: 1,
+const logo = [
+  [
+    '抖音',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8IXHQLvx9QkAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '快手',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*swueRrrKvbcAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '小米',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*79G3TIt3mBoAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '微信',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_ELBTJLp0dQAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Keep',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JzbKRpFhR14AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Chrome',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xLnYTaZfdh8AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'QQ',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AbGNTpA5JLwAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '优酷',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UL6lS4jw9lUAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '百度地图',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I6nrTITAxcoAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '腾讯视频',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zwVvT5OFnuYAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '哔哩哔哩',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6jkAQayTiMMAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Word',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FbkXT6K6mVEAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Excel',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CKb-R6ZAFpYAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'PowerPoint',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K7-FT4RYRqIAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '腾讯会议',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xbPXR7snu44AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '网易云音乐',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*upKlRJ9QB4cAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Safari',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kjDHRbiW734AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '地图',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tl-2QIB8LKIAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'Docker',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iJ4dS49yrJ4AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    'VSCode',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rR6nRInEcz4AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '百度网盘',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*futaTbIAkG4AAAAAAAAAAAAADmJ7AQ/original',
+  ],
+  [
+    '印象笔记',
+    'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Skh1S4BfL9oAAAAAAAAAAAAADmJ7AQ/original',
+  ],
+];
+
+chart
+  .interval()
+  .data(logo)
+  .encode('x', (d) => d[0])
+  .encode('y', () => Math.random())
+  .encode('color', (d) => d[1])
+  .scale('y', { nice: true })
+  .legend({
+    color: {
+      itemMarker: (_, index) => () => {
+        const { document } = chart.getContext().canvas;
+        const image = document.createElement('image', {
+          style: {
+            width: 20,
+            height: 20,
+            transform: `translate(-10, -10)`,
+            src: logo[index][1],
+          },
+        });
+        return image;
       },
-    })
-    .tooltip(false);
+      itemMarkerSize: 40,
+      itemLabelText: (_, index) => logo[index][0],
+      maxRows: 1,
+    },
+  })
+  .tooltip(false);
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 自定义图例（Legend）
@@ -1446,24 +1450,25 @@ function legendColor(chart) {
 
 绘制完图例项之后我们就应该给每个图例项通过 `item.onclick` 添加交互，收集当前选中的值，并且根据这个值去给图表的声明添加 Filter 转换，最后重新渲染图表。最后完整的实现如下：
 
-```js | ob
-(() => {
-  // 添加图例
-  function legendColor(chart) {
-    // 创建 Legend 并且挂载图例
-    const node = chart.getContainer();
-    const legend = document.createElement('div');
-    legend.style.display = 'flex';
-    node.insertBefore(legend, node.childNodes[0]);
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-    // 创建并挂载 Items
-    const { color: scale } = chart.getScale();
-    const { domain } = scale.getOptions();
-    const items = domain.map((value) => {
-      const item = document.createElement('div');
-      const color = scale.map(value);
-      item.style.marginLeft = '1em';
-      item.innerHTML = `
+// 添加图例
+function legendColor(chart) {
+  // 创建 Legend 并且挂载图例
+  const node = chart.getContainer();
+  const legend = document.createElement('div');
+  legend.style.display = 'flex';
+  node.insertBefore(legend, node.childNodes[0]);
+
+  // 创建并挂载 Items
+  const { color: scale } = chart.getScale();
+  const { domain } = scale.getOptions();
+  const items = domain.map((value) => {
+    const item = document.createElement('div');
+    const color = scale.map(value);
+    item.style.marginLeft = '1em';
+    item.innerHTML = `
       <span style="
         background-color:${color};
         display:inline-block;
@@ -1472,65 +1477,63 @@ function legendColor(chart) {
       ></span>
       <span>${value}</span>
       `;
-      return item;
-    });
-    items.forEach((d) => legend.append(d));
+    return item;
+  });
+  items.forEach((d) => legend.append(d));
 
-    // 监听事件
-    const selectedValues = [...domain];
-    const options = chart.options();
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      const value = domain[i];
-      item.style.cursor = 'pointer';
-      item.onclick = () => {
-        const index = selectedValues.indexOf(value);
-        if (index !== -1) {
-          selectedValues.splice(index, 1);
-          item.style.opacity = 0.5;
-        } else {
-          selectedValues.push(value);
-          item.style.opacity = 1;
-        }
-        changeColor(selectedValues);
-      };
-    }
-
-    // 重新渲染视图
-    function changeColor(value) {
-      const { transform = [] } = options;
-      const newTransform = [{ type: 'filter', color: { value } }, ...transform];
-      chart.options({
-        ...options,
-        transform: newTransform, // 指定新的 transform
-        scale: { color: { domain } },
-      });
-      chart.render(); // 重新渲染图表
-    }
+  // 监听事件
+  const selectedValues = [...domain];
+  const options = chart.options();
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const value = domain[i];
+    item.style.cursor = 'pointer';
+    item.onclick = () => {
+      const index = selectedValues.indexOf(value);
+      if (index !== -1) {
+        selectedValues.splice(index, 1);
+        item.style.opacity = 0.5;
+      } else {
+        selectedValues.push(value);
+        item.style.opacity = 1;
+      }
+      changeColor(selectedValues);
+    };
   }
 
-  // 绘制图表
-  const container = document.createElement('div');
+  // 重新渲染视图
+  function changeColor(value) {
+    const { transform = [] } = options;
+    const newTransform = [{ type: 'filter', color: { value } }, ...transform];
+    chart.options({
+      ...options,
+      transform: newTransform, // 指定新的 transform
+      scale: { color: { domain } },
+    });
+    chart.render(); // 重新渲染图表
+  }
+}
 
-  const chart = new G2.Chart({
-    container,
-  });
+// 绘制图表
+const container = document.createElement('div');
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: { x: 'genre', y: 'sold', color: 'genre' },
-    legend: false,
-  });
+const chart = new Chart({
+  container: 'container',
+  container,
+});
 
-  chart.render().then(legendColor);
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: false,
+});
 
-  return chart.getContainer();
-})();
+chart.render().then(legendColor);
 ```
