@@ -5,30 +5,31 @@ order: 4
 
 G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  // 声明可视化
-  chart
-    .interval() // 创建一个 Interval 标记
-    .data([
-      // 绑定数据
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre') // 编码 x 通道
-    .encode('y', 'sold'); // 编码 y 通道
+// 初始化图表实例
 
-  // 渲染可视化
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.getContainer();
-})();
+// 声明可视化
+chart
+  .interval() // 创建一个 Interval 标记
+  .data([
+    // 绑定数据
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre') // 编码 x 通道
+  .encode('y', 'sold'); // 编码 y 通道
+
+// 渲染可视化
+chart.render();
 ```
 
 除了这套函数式风格之外，G2 5.0 还提供了一套全新的 API：Spec API。该 API 通过一个 JavaScript 对象去声明可视化。
@@ -37,33 +38,34 @@ G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声�
 
 目前我们通过 `chart.options(spec)` 去声明可视化，下面的例子可以得到和上面一样的效果。
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  // 声明可视化
-  chart.options({
-    type: 'interval', // 创建一个 Interval 标记
-    data: [
-      // 绑定数据
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: {
-      x: 'genre', // 编码 x 通道
-      y: 'sold', // 编码 y 通道
-    },
-  });
+// 初始化图表实例
 
-  // 渲染可视化
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.getContainer();
-})();
+// 声明可视化
+chart.options({
+  type: 'interval', // 创建一个 Interval 标记
+  data: [
+    // 绑定数据
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre', // 编码 x 通道
+    y: 'sold', // 编码 y 通道
+  },
+});
+
+// 渲染可视化
+chart.render();
 ```
 
 ## 比较
@@ -154,29 +156,29 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval', // 标记节点
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: {
-      x: 'genre',
-      y: 'sold',
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'interval', // 标记节点
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 视图节点
@@ -190,37 +192,37 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view', // 视图节点
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    encode: {
-      x: 'year',
-      y: 'value',
-    },
-    children: [
-      { type: 'line' }, // Line 标记
-      { type: 'point' }, // Point 标记
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'view', // 视图节点
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+  },
+  children: [
+    { type: 'line' }, // Line 标记
+    { type: 'point' }, // Point 标记
+  ],
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 复合节点
@@ -238,49 +240,49 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'spaceFlex',
-    width: 800,
-    height: 400,
-    children: [
-      {
-        type: 'interval',
-        padding: 'auto',
-        data: [
-          { genre: 'Shooter', sold: 350 },
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Other', sold: 150 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Strategy', sold: 115 },
-        ],
-        encode: { x: 'genre', y: 'sold' },
-      },
-      {
-        type: 'interval',
-        padding: 'auto',
-        data: [
-          { genre: 'Shooter', sold: 350 },
-          { genre: 'Sports', sold: 275 },
-          { genre: 'Other', sold: 150 },
-          { genre: 'Action', sold: 120 },
-          { genre: 'Strategy', sold: 115 },
-        ],
-        encode: { y: 'sold', color: 'genre' },
-        transform: [{ type: 'stackY' }],
-        coordinate: { type: 'theta' },
-        legend: { color: false },
-      },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'spaceFlex',
+  width: 800,
+  height: 400,
+  children: [
+    {
+      type: 'interval',
+      padding: 'auto',
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { x: 'genre', y: 'sold' },
+    },
+    {
+      type: 'interval',
+      padding: 'auto',
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      transform: [{ type: 'stackY' }],
+      coordinate: { type: 'theta' },
+      legend: { color: false },
+    },
+  ],
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 应用场景
@@ -302,122 +304,124 @@ spaceFlex.interval();
 
 ### 饼图
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  // 声明可视化
-  chart.options({
-    type: 'interval',
-    height: 640,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv',
+// 初始化图表实例
+
+const chart = new Chart({
+  container: 'container',
+});
+
+// 声明可视化
+chart.options({
+  type: 'interval',
+  height: 640,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv',
+  },
+  transform: [{ type: 'stackY' }],
+  coordinate: { type: 'theta' },
+  scale: {
+    color: { palette: 'spectral', offset: (t) => t * 0.8 + 0.1 },
+  },
+  legend: false,
+  encode: { y: 'value', color: 'name' },
+  style: { stroke: 'white' },
+  labels: [
+    {
+      text: 'name',
+      radius: 0.8,
+      style: { fontSize: 10, fontWeight: 'bold' },
     },
-    transform: [{ type: 'stackY' }],
-    coordinate: { type: 'theta' },
-    scale: {
-      color: { palette: 'spectral', offset: (t) => t * 0.8 + 0.1 },
+    {
+      text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
+      radius: 0.8,
+      style: { fontSize: 9, dy: 12 },
     },
-    legend: false,
-    encode: { y: 'value', color: 'name' },
-    style: { stroke: 'white' },
-    labels: [
-      {
-        text: 'name',
-        radius: 0.8,
-        style: { fontSize: 10, fontWeight: 'bold' },
-      },
-      {
-        text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
-        radius: 0.8,
-        style: { fontSize: 9, dy: 12 },
-      },
-    ],
-    animate: { enter: { type: 'waveIn', duration: 1000 } },
-  });
+  ],
+  animate: { enter: { type: 'waveIn', duration: 1000 } },
+});
 
-  // 渲染可视化
-  chart.render();
-
-  return chart.getContainer();
-})();
+// 渲染可视化
+chart.render();
 ```
 
 ### 空间复合
 
-```js | ob
-(() => {
-  // 初始化图表实例
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  // 声明可视化
-  chart.options({
-    type: 'spaceFlex',
-    width: 900,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+// 初始化图表实例
+
+const chart = new Chart({
+  container: 'container',
+});
+
+// 声明可视化
+chart.options({
+  type: 'spaceFlex',
+  width: 900,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  direction: 'col',
+  ratio: [1, 2],
+  children: [
+    {
+      type: 'interval',
+      paddingBottom: 0,
+      paddingRight: 300,
+      transform: [{ type: 'groupX', y: 'max' }],
+      axis: { x: false },
+      encode: {
+        x: (d) => new Date(d.date).getUTCDate(),
+        y: 'temp_max',
+        color: 'steelblue',
+      },
     },
-    direction: 'col',
-    ratio: [1, 2],
-    children: [
-      {
-        type: 'interval',
-        paddingBottom: 0,
-        paddingRight: 300,
-        transform: [{ type: 'groupX', y: 'max' }],
-        axis: { x: false },
-        encode: {
-          x: (d) => new Date(d.date).getUTCDate(),
-          y: 'temp_max',
-          color: 'steelblue',
+    {
+      type: 'spaceFlex',
+      ratio: [2, 1],
+      children: [
+        {
+          type: 'cell',
+          paddingRight: 0,
+          paddingBottom: 50,
+          transform: [{ type: 'group', color: 'max' }],
+          encode: {
+            x: (d) => new Date(d.date).getUTCDate(),
+            y: (d) => new Date(d.date).getUTCMonth(),
+            color: 'temp_max',
+          },
+          style: { inset: 0.5 },
+          axis: {
+            x: { title: 'Date' },
+            y: { title: 'Month' },
+          },
+          scale: { color: { palette: 'gnBu' } },
+          legend: false,
         },
-      },
-      {
-        type: 'spaceFlex',
-        ratio: [2, 1],
-        children: [
-          {
-            type: 'cell',
-            paddingRight: 0,
-            paddingBottom: 50,
-            transform: [{ type: 'group', color: 'max' }],
-            encode: {
-              x: (d) => new Date(d.date).getUTCDate(),
-              y: (d) => new Date(d.date).getUTCMonth(),
-              color: 'temp_max',
-            },
-            style: { inset: 0.5 },
-            axis: {
-              x: { title: 'Date' },
-              y: { title: 'Month' },
-            },
-            scale: { color: { palette: 'gnBu' } },
-            legend: false,
+        {
+          type: 'interval',
+          paddingBottom: 50,
+          transform: [{ type: 'groupX', y: 'max' }],
+          coordinate: { transform: [{ type: 'transpose' }] },
+          axis: { x: false },
+          encode: {
+            x: (d) => new Date(d.date).getUTCMonth(),
+            y: 'temp_max',
+            color: 'steelblue',
           },
-          {
-            type: 'interval',
-            paddingBottom: 50,
-            transform: [{ type: 'groupX', y: 'max' }],
-            coordinate: { transform: [{ type: 'transpose' }] },
-            axis: { x: false },
-            encode: {
-              x: (d) => new Date(d.date).getUTCMonth(),
-              y: 'temp_max',
-              color: 'steelblue',
-            },
-          },
-        ],
-      },
-    ],
-  });
+        },
+      ],
+    },
+  ],
+});
 
-  // 渲染可视化
-  chart.render();
-
-  return chart.getContainer();
-})();
+// 渲染可视化
+chart.render();
 ```

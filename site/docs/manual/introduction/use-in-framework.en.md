@@ -14,7 +14,7 @@ Achieving this effect mainly relies on the following two functions.
 function renderBarChart(container) {
   const chart = new Chart({
     container,
-    });
+  });
 
   // Prepare data
   const data = [
@@ -214,4 +214,3 @@ export default function G2Demo() {
   );
 }
 ```
-

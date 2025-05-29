@@ -19,88 +19,83 @@ sqrt 比例尺属于**连续比例尺**的一种，适用于:
 
 sqrt 比例尺能够使数据在视觉上更加均匀分布，特别是对于具有较大数值范围的数据集。
 
-- 使用sqrt 比例尺效果
+- 使用 sqrt 比例尺效果
 
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: [
-    { year: "1991", value: 1 },
-    { year: "1992", value: 4 },
-    { year: "1993", value: 9 },
-    { year: "1994", value: 16 },
-    { year: "1995", value: 25 },
+    { year: '1991', value: 1 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 9 },
+    { year: '1994', value: 16 },
+    { year: '1995', value: 25 },
   ],
-  encode: { x: "year", y: "value" },
-  scale: { y: { type: "sqrt" } },
+  encode: { x: 'year', y: 'value' },
+  scale: { y: { type: 'sqrt' } },
   children: [
-    { type: "line", labels: [{ text: "value", style: { dx: -10, dy: -12 } }] },
-    { type: "point", style: { fill: "white" }, tooltip: false },
+    { type: 'line', labels: [{ text: 'value', style: { dx: -10, dy: -12 } }] },
+    { type: 'point', style: { fill: 'white' }, tooltip: false },
   ],
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
 
-- 未使用sqrt 比例尺效果
+- 未使用 sqrt 比例尺效果
 
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: [
-    { year: "1991", value: 1 },
-    { year: "1992", value: 4 },
-    { year: "1993", value: 9 },
-    { year: "1994", value: 16 },
-    { year: "1995", value: 25 },
+    { year: '1991', value: 1 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 9 },
+    { year: '1994', value: 16 },
+    { year: '1995', value: 25 },
   ],
-  encode: { x: "year", y: "value" },
+  encode: { x: 'year', y: 'value' },
   children: [
-    { type: "line", labels: [{ text: "value", style: { dx: -10, dy: -12 } }] },
-    { type: "point", style: { fill: "white" }, tooltip: false },
+    { type: 'line', labels: [{ text: 'value', style: { dx: -10, dy: -12 } }] },
+    { type: 'point', style: { fill: 'white' }, tooltip: false },
   ],
 });
 
 chart.render();
-
-
-  return chart.getContainer();
-})();
 ```
-
 
 ## 配置项
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| -------------| ----------------------------------------------------------- | -----| -------| ----- |
-| domain      | 设置数据的定义域范围                                            | `number[]` | 输入数据的最大最小值范围 |  |
-| domainMin      | 设置数据的定义域最小值                                     | `number` | 输入数据的最小值 |  |
-| domainMax      | 设置数据的定义域最大值                                           | `number` | 输入数据的最大值 |  |
-| range       | 设置数据映射的值域范围                                           | `number[]` \| `string[]` | `[0, 1]` |  |
-| rangeMin       | 设置数据映射的值域最小值                                        | `number \| string` | `0` |  |
-| rangeMax       | 设置数据映射的值域最大值                                      | `number \| string` | `1` |  |
-| unknown     | 对于 `undefined`， `NaN`，`null` 空值，返回的数据                | `any` | `undefined` |  |
-| tickCount   | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` |  |
-| tickMethod  | 设置生成 tick 的方法，常用于自定义 tick                           | `(min: number, max: number, count: number) => number[]`      | `d3-ticks` |  |
-| round       | 输出值去四舍五入                                                | `boolean` | `false` |  |
-| clamp       | 将映射值限定在 range 的范围内                                     | `boolean` | `false` |  |
-| nice        | 扩展 domain 范围，让输出的 tick 展示得更加友好                     | `boolean` | `false` |  |
-| interpolate | 自定义插值函数                                                  | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |  |
-| exponent      | 设定指数，对于 sqrt 比例尺，该值固定为 `0.5`                  | `number` | `0.5` |  |
+| 属性        | 描述                                                                        | 类型                                                    | 默认值                                 | 必选 |
+| ----------- | --------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | ---- |
+| domain      | 设置数据的定义域范围                                                        | `number[]`                                              | 输入数据的最大最小值范围               |      |
+| domainMin   | 设置数据的定义域最小值                                                      | `number`                                                | 输入数据的最小值                       |      |
+| domainMax   | 设置数据的定义域最大值                                                      | `number`                                                | 输入数据的最大值                       |      |
+| range       | 设置数据映射的值域范围                                                      | `number[]` \| `string[]`                                | `[0, 1]`                               |      |
+| rangeMin    | 设置数据映射的值域最小值                                                    | `number \| string`                                      | `0`                                    |      |
+| rangeMax    | 设置数据映射的值域最大值                                                    | `number \| string`                                      | `1`                                    |      |
+| unknown     | 对于 `undefined`， `NaN`，`null` 空值，返回的数据                           | `any`                                                   | `undefined`                            |      |
+| tickCount   | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number`                                                | `5`                                    |      |
+| tickMethod  | 设置生成 tick 的方法，常用于自定义 tick                                     | `(min: number, max: number, count: number) => number[]` | `d3-ticks`                             |      |
+| round       | 输出值去四舍五入                                                            | `boolean`                                               | `false`                                |      |
+| clamp       | 将映射值限定在 range 的范围内                                               | `boolean`                                               | `false`                                |      |
+| nice        | 扩展 domain 范围，让输出的 tick 展示得更加友好                              | `boolean`                                               | `false`                                |      |
+| interpolate | 自定义插值函数                                                              | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |      |
+| exponent    | 设定指数，对于 sqrt 比例尺，该值固定为 `0.5`                                | `number`                                                | `0.5`                                  |      |
 
 ## 示例
 
@@ -108,33 +103,33 @@ chart.render();
 
 使用 sqrt 比例尺映射散点图中的点大小，使数值差异更加明显。
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "point",
-    autoFit: true,
-    data: {
-      type: "fetch",
-      value: "https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json",
-    },
-    encode: {
-      x: "GDP",
-      y: "LifeExpectancy",
-      size: "Population",
-      color: "continent",
-      shape: "point",
-    },
-  scale: { size: { type: "sqrt", range: [4, 50] } },
-    style: { fillOpacity: 0.3, lineWidth: 1 },
-    legend: { size: false },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  },
+  encode: {
+    x: 'GDP',
+    y: 'LifeExpectancy',
+    size: 'Population',
+    color: 'continent',
+    shape: 'point',
+  },
+  scale: { size: { type: 'sqrt', range: [4, 50] } },
+  style: { fillOpacity: 0.3, lineWidth: 1 },
+  legend: { size: false },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 #### 代码解读
@@ -150,44 +145,44 @@ chart.render();
 
 使用 sqrt 比例尺处理颜色渐变映射
 
-```js | ob 
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "view",
-    autoFit: true,
-    children: [
-      {
-        type: "point",
-        data: {
-          type: "fetch",
-          value:
-            "https://gw.alipayobjects.com/os/bmw-prod/56b6b137-e04e-4757-8af5-d75bafaef886.csv",
-        },
-        encode: { x: "date", y: "value", color: "value", shape: "point" },
-        scale: {
-          color: { type: "sqrt", domain: [0, 1], range: ["#1689F1", "#1AC07D"] },
-        },
-        style: { stroke: "#000", strokeOpacity: 0.2 },
-        tooltip: {
-          items: [
-            {
-              channel: "x",
-              name: "year",
-              valueFormatter: (d) => d.getFullYear(),
-            },
-            { channel: "y" },
-          ],
-        },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/56b6b137-e04e-4757-8af5-d75bafaef886.csv',
       },
-      { type: "lineY", data: [0], style: { stroke: "#000", strokeOpacity: 0.2 } },
-    ],
-  });
-  chart.render();
-
-  return chart.getContainer();
-})();
+      encode: { x: 'date', y: 'value', color: 'value', shape: 'point' },
+      scale: {
+        color: { type: 'sqrt', domain: [0, 1], range: ['#1689F1', '#1AC07D'] },
+      },
+      style: { stroke: '#000', strokeOpacity: 0.2 },
+      tooltip: {
+        items: [
+          {
+            channel: 'x',
+            name: 'year',
+            valueFormatter: (d) => d.getFullYear(),
+          },
+          { channel: 'y' },
+        ],
+      },
+    },
+    { type: 'lineY', data: [0], style: { stroke: '#000', strokeOpacity: 0.2 } },
+  ],
+});
+chart.render();
 ```
 
 #### 代码解读

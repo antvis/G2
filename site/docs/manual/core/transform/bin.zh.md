@@ -17,30 +17,32 @@ order: 2
 
 下面这个例子展示了如果创建一个分箱图，展示了两个评分系统评分在不同分数区间中的分布情况，可以直观地观察哪个区间的评分较多，哪个区间评分较少。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'rect', // 图表类型为矩形图（直方图）
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/movies.json',
-    },
-    encode: { 
-      x: 'IMDB Rating', // X 轴编码为 IMDB 评分
-      y: 'Rotten Tomatoes Rating', // Y 轴编码为 Rotten Tomatoes 评分
-    },
-    transform: [{ 
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'rect', // 图表类型为矩形图（直方图）
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating', // X 轴编码为 IMDB 评分
+    y: 'Rotten Tomatoes Rating', // Y 轴编码为 Rotten Tomatoes 评分
+  },
+  transform: [
+    {
       type: 'bin', // 数据转换类型为分箱
       color: 'count', // 通过颜色编码表示每个分箱内的数据点数量
-    }],
-  });
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 配置项
@@ -55,75 +57,81 @@ order: 2
 
 `thresholdsX` 和 `thresholdsY` 是用于定义数据分箱的两个非常重要的配置项，主要在二维数据分箱（如网格图或热力图）中使用。它们分别控制在 X 和 Y 方向上的分箱（区间划分）规则或数量，用于将二维连续数据划分为离散的网格。
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
-  let thresholdsX;
-  let thresholdsY;
-  chart.options({
-    type: 'rect', // 图表类型为矩形图（直方图）
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/movies.json',
-    },
-    encode: { 
-      x: 'IMDB Rating', // X 轴编码为 IMDB 评分
-      y: 'Rotten Tomatoes Rating', // Y 轴编码为 Rotten Tomatoes 评分
-    },
-    transform: [{ 
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+let thresholdsX;
+let thresholdsY;
+chart.options({
+  type: 'rect', // 图表类型为矩形图（直方图）
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating', // X 轴编码为 IMDB 评分
+    y: 'Rotten Tomatoes Rating', // Y 轴编码为 Rotten Tomatoes 评分
+  },
+  transform: [
+    {
       type: 'bin', // 数据转换类型为分箱
       color: 'count', // 通过颜色编码表示每个分箱内的数据点数量
-    }],
-  });
+    },
+  ],
+});
 
-  // 插入 thresholdsX，thresholdsY 的输入框
-  const container = document.createElement("div");
-  const thresholdsX_Text = document.createElement("span");
-  thresholdsX_Text.textContent = "thresholdsX: ";
-  const thresholdsX_Input = document.createElement("input");
-  thresholdsX_Input.setAttribute("type", "number");
-  thresholdsX_Input.addEventListener("input", (e) => {
-    thresholdsX = e.target.value;
-    chart.options({
-      transform: [{
+// 插入 thresholdsX，thresholdsY 的输入框
+const container = document.createElement('div');
+const thresholdsX_Text = document.createElement('span');
+thresholdsX_Text.textContent = 'thresholdsX: ';
+const thresholdsX_Input = document.createElement('input');
+thresholdsX_Input.setAttribute('type', 'number');
+thresholdsX_Input.addEventListener('input', (e) => {
+  thresholdsX = e.target.value;
+  chart.options({
+    transform: [
+      {
         type: 'bin',
         color: 'count',
         thresholdsX,
         thresholdsY,
-      }]
-    });
-    chart.render();
+      },
+    ],
   });
-
-  const thresholdsY_Text = document.createElement("span");
-  thresholdsY_Text.textContent = "　　thresholdsY: ";
-  const thresholdsY_Input = document.createElement("input");
-  thresholdsY_Input.setAttribute("type", "number");
-  thresholdsY_Input.addEventListener("input", (e) => {
-    thresholdsY = e.target.value;
-    chart.options({
-      transform: [{
-        type: 'bin',
-        color: 'count',
-        thresholdsX,
-        thresholdsY,
-      }]
-    });
-    chart.render();
-  });
-
-  container.appendChild(thresholdsX_Text);
-  container.appendChild(thresholdsX_Input);
-  container.appendChild(thresholdsY_Text);
-  container.appendChild(thresholdsY_Input);
-
-  const node = chart.getContainer();
-  node.insertBefore(container, node.childNodes[0]);
-
   chart.render();
+});
 
-  return chart.getContainer();
-})();
+const thresholdsY_Text = document.createElement('span');
+thresholdsY_Text.textContent = '　　thresholdsY: ';
+const thresholdsY_Input = document.createElement('input');
+thresholdsY_Input.setAttribute('type', 'number');
+thresholdsY_Input.addEventListener('input', (e) => {
+  thresholdsY = e.target.value;
+  chart.options({
+    transform: [
+      {
+        type: 'bin',
+        color: 'count',
+        thresholdsX,
+        thresholdsY,
+      },
+    ],
+  });
+  chart.render();
+});
+
+container.appendChild(thresholdsX_Text);
+container.appendChild(thresholdsX_Input);
+container.appendChild(thresholdsY_Text);
+container.appendChild(thresholdsY_Input);
+
+const node = chart.getContainer();
+node.insertBefore(container, node.childNodes[0]);
+
+chart.render();
 ```
 
 ### channel
@@ -161,65 +169,68 @@ type Channel =
   | `position${number}`;
 ```
 
-
 ## 示例
 
 ### 使用 `bin` + `opacity` 渲染出透明度分箱
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'rect',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/movies.json',
-    },
-    encode: { 
-      x: 'IMDB Rating',
-      y: 'Rotten Tomatoes Rating', 
-    },
-    transform: [{ 
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating',
+    y: 'Rotten Tomatoes Rating',
+  },
+  transform: [
+    {
       type: 'bin', // 数据转换类型为分箱
       opacity: 'count', // 通过透明度编码表示每个分箱内的数据点数量
       thresholdsX: 10,
-      thresholdsY: 10
-    }],
-  });
+      thresholdsY: 10,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 使用 `bin` + `size` 渲染出大小分箱
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point', // 图表类型为矩形图（直方图）
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/movies.json',
-    },
-    encode: { 
-      x: 'IMDB Rating',
-      y: 'Rotten Tomatoes Rating',
-    },
-    transform: [{ 
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'point', // 图表类型为矩形图（直方图）
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating',
+    y: 'Rotten Tomatoes Rating',
+  },
+  transform: [
+    {
       type: 'bin', // 数据转换类型为分箱
       size: 'count', // 通过大小编码表示每个分箱内的数据点数量
       thresholdsX: 10,
-      thresholdsY: 10
-    }],
-  });
+      thresholdsY: 10,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

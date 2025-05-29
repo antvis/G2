@@ -45,81 +45,81 @@ chart.transform([{ type: 'stackY' }, { type: 'sortX' }]);
 
 Mark transform will modify the data bound to each channel, thereby changing the display form of the chart. For example, StackY transform stacks the column data bound to bar graph y and y1 channels:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city')
-    .transform({ type: 'stackY' });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city')
+  .transform({ type: 'stackY' });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## View Transform
 
 Transform declared on the view will be passed on to the mark declared in `children`. Set if it is not transformed, otherwise, it has no effect. For example, the following stacked area chart with transform:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city')
-    .transform({ type: 'stackY' }); // Transform of the level of view
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.area().style('fillOpacity', 0.5);
+chart
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city')
+  .transform({ type: 'stackY' }); // Transform of the level of view
 
-  chart.line().style('strokeWidth', 2).tooltip(false);
+chart.area().style('fillOpacity', 0.5);
 
-  chart.render();
+chart.line().style('strokeWidth', 2).tooltip(false);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## Common Transform
@@ -133,75 +133,75 @@ There are generally two common transform functions:
 
 One function of transform is to prevent overlap. For example, the bars in the following data bar chart overlap.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 At this time, you can declare a DodgeX to draw a grouped bar chart:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { city: 'London', month: 'Jan.', rainfall: 18.9 },
-      { city: 'London', month: 'Feb.', rainfall: 28.8 },
-      { city: 'London', month: 'Mar.', rainfall: 39.3 },
-      { city: 'London', month: 'Apr.', rainfall: 81.4 },
-      { city: 'London', month: 'May', rainfall: 47 },
-      { city: 'London', month: 'Jun.', rainfall: 20.3 },
-      { city: 'London', month: 'Jul.', rainfall: 24 },
-      { city: 'London', month: 'Aug.', rainfall: 35.6 },
-      { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { city: 'Berlin', month: 'May', rainfall: 52.6 },
-      { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ])
-    .encode('x', 'month')
-    .encode('y', 'rainfall')
-    .encode('color', 'city')
-    .transform({ type: 'dodgeX' }); // Declare transform
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data([
+    { city: 'London', month: 'Jan.', rainfall: 18.9 },
+    { city: 'London', month: 'Feb.', rainfall: 28.8 },
+    { city: 'London', month: 'Mar.', rainfall: 39.3 },
+    { city: 'London', month: 'Apr.', rainfall: 81.4 },
+    { city: 'London', month: 'May', rainfall: 47 },
+    { city: 'London', month: 'Jun.', rainfall: 20.3 },
+    { city: 'London', month: 'Jul.', rainfall: 24 },
+    { city: 'London', month: 'Aug.', rainfall: 35.6 },
+    { city: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { city: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { city: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { city: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { city: 'Berlin', month: 'May', rainfall: 52.6 },
+    { city: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { city: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { city: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ])
+  .encode('x', 'month')
+  .encode('y', 'rainfall')
+  .encode('color', 'city')
+  .transform({ type: 'dodgeX' }); // Declare transform
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 This is actually one of the functions of mark transform: **Prevent overlap**. In addition to DodgeX, there are also transform such as StackY and JitterX that can be used to prevent overlap.
@@ -212,54 +212,54 @@ In addition to preventing overlap, there is also a type of mark transform mainly
 
 First, let's draw a scatterplot as follows, showing the correlation between penguin culmen_depth_mm and culmen_length_mm.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    })
-    .encode('x', (d) => +d.culmen_depth_mm)
-    .encode('y', (d) => +d.culmen_length_mm);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  })
+  .encode('x', (d) => +d.culmen_depth_mm)
+  .encode('y', (d) => +d.culmen_length_mm);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 At this time, if you want to see the distribution of penguin culmen_depth_mm, you can use bin to binning the data.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    })
-    .encode('x', (d) => +d.culmen_depth_mm)
-    .transform({
-      type: 'binX', // Bin the x channel value
-      y: 'count', // Generate the y channel and select the count reducer to count the total number of each box
-    })
-    .style('insetLeft', 1);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  })
+  .encode('x', (d) => +d.culmen_depth_mm)
+  .transform({
+    type: 'binX', // Bin the x channel value
+    y: 'count', // Generate the y channel and select the count reducer to count the total number of each box
+  })
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 Bin is mainly used to aggregate numerical data, and Group is mainly used for discrete data.
@@ -268,27 +268,27 @@ Bin is mainly used to aggregate numerical data, and Group is mainly used for dis
 
 We can also declare multiple transform at the same time. For example, in the penguin example above, if we consider one more data dimension: the gender of the penguin, we can declare Bin and StackY transform continuously.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-      transform: [
-        { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
-      ],
-    })
-    .encode('x', (d) => +d.culmen_depth_mm)
-    .encode('color', 'sex')
-    .transform({ type: 'binX', y: 'count' }) // 声明 bin 转换
-    .transform({ type: 'stackY', orderBy: 'sum', reverse: true }) // 声明 stack 转换
-    .style('insetLeft', 1);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      { type: 'filter', callback: (d) => d.culmen_depth_mm !== null },
+    ],
+  })
+  .encode('x', (d) => +d.culmen_depth_mm)
+  .encode('color', 'sex')
+  .transform({ type: 'binX', y: 'count' }) // 声明 bin 转换
+  .transform({ type: 'stackY', orderBy: 'sum', reverse: true }) // 声明 stack 转换
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```

@@ -20,15 +20,11 @@ const chart = new Chart({
 
 chart.data(data);
 
-chart
-  .line()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .transform({
-    type: 'sample',
-    thresholds: 500,
-    strategy: 'max',
-  })
+chart.line().encode('x', 'x').encode('y', 'y').transform({
+  type: 'sample',
+  thresholds: 500,
+  strategy: 'max',
+});
 
 chart.render();
 ```
