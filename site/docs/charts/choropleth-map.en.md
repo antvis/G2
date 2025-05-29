@@ -1,22 +1,54 @@
 ---
 title: Choropleth Map
 order: 10
-screenshot: 'https://t.alipayobjects.com/images/T1dSNjXcNhXXXXXXXX.png'
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vcI7RqX24U0AAAAAAAAAAAAADmJ7AQ/original'
 category: ['map']
 similar: ['bubble-map', 'heatmap']
 ---
 
-A Choropleth Map, also known as a color-coded map or thematic map, is a type of specialized map. It divides geographic regions (such as countries, provinces, cities, districts, etc.) based on numerical indicators (such as population density, GDP, sales, etc.) and fills these regions with different colors or patterns to visually display the distribution and differences of these indicators across different regions.
+A Choropleth Map is a type of map that uses visual symbols (usually colors, shading, or hatching of varying density) to represent the distribution of a range of values on map subdivisions. Within multiple small subdivision units (administrative divisions or other subdivision units) of the entire mapping area, classifications are made according to the quantitative (relative) indicators of each subdivision, and corresponding color grades or hatching of different densities are used to reflect the concentration or development level distribution differences of phenomena in each area. It is most commonly seen in the visualization of election and census data, which are organized by geographic regions such as provinces and cities.
 
 ## Introduction to Choropleth Maps
 
-Choropleth maps use color intensity changes to represent data magnitude. Color intensity is usually proportional to numerical values, helping users quickly identify high-value and low-value regions. Here's an example of a choropleth map showing unemployment rates by US counties:
+This method is also called color-graded statistical mapping because it commonly uses color grades for representation. The quantity of each subdivision on the map is represented using different color grades, with typical methods including: (1) mixed gradient from one color to another; (2) single-tone gradient; (3) transparent to opaque; (4) light to dark; (5) using a complete color spectrum variation. Choropleth maps rely on colors to express the inherent patterns in data, so choosing appropriate colors is very important. When the data value range is large or the data types are diverse, choosing appropriate color mapping can be quite challenging.
+
+Choropleth maps' biggest problem is the asymmetry between data distribution and geographic region size. Usually, large amounts of data are concentrated in densely populated areas, while sparsely populated areas occupy most of the screen space. Using large amounts of screen space to represent small portions of data is very uneconomical in terms of space utilization. This asymmetry often causes users to misunderstand the data and cannot help users accurately distinguish and compare data values in different subdivisions on the map.
 
 <div style="text-align: center;">
   <img src="https://t.alipayobjects.com/images/T1dSNjXcNhXXXXXXXX.png" alt="Choropleth Map Example" width="600">
 </div>
 
-Below is an example of a choropleth map showing unemployment rates by US states:
+**Other Names**: Thematic Map, Shaded Map
+
+## Components of a Choropleth Map
+
+| Chart Type           | Choropleth Map                                                                                              |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Suitable Data        | One categorical field, one continuous field                                                                 |
+| Function             | Compare numerical values of categorical data                                                                 |
+| Data-to-Visual Mapping | One categorical field maps to geographic locations on the map<br>Another continuous field maps to color   |
+| Suitable Data Volume | Based on actual geographic location information, no limit                                                   |
+
+## Use Cases of Choropleth Maps
+
+### Suitable Use Cases
+
+Choropleth maps are mostly used to reflect phenomena that are planar but sparsely distributed, such as population density, the ratio of sown area of a certain crop, and per capita income.
+
+Example 1: **Geographic Regional Data Visualization**
+
+The figure below shows the population distribution of US states. The main population distribution is reflected by the color depth. It is clear that California and Texas have the largest populations. It also shows the global gender ratio distribution in 2015, where the value represents the number of males per 100 females. It can be seen that in European and American countries, women generally slightly outnumber men. This phenomenon is particularly prominent in the former Soviet Union region, while the Middle East has more men than women.
+
+| Data Type     | Region/Country | Value    | Description                     |
+| ------------- | -------------- | -------- | ------------------------------- |
+| Population    | California     | 38802500 | CA                              |
+| Population    | Texas          | 26956958 | TX                              |
+| Population    | Florida        | 19893297 | FL                              |
+| ...           | ...            | ...      | ...                             |
+| Gender Ratio  | Russia         | 86.8     | Males per 100 females           |
+| Gender Ratio  | China          | 106.3    | Males per 100 females           |
+| Gender Ratio  | Japan          | 94.7     | Males per 100 females           |
+| ...           | ...            | ...      | ...                             |
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -71,78 +103,11 @@ Promise.all([
     style: {
       stroke: '#666',
       strokeWidth: 0.5,
-    }
-  });
-
-  chart.render();
-});
-```
-
-The above code demonstrates how to create a basic choropleth map using G2. The main steps include:
-
-1. Loading geographic data (GeoJSON/TopoJSON format) and statistical data
-2. Creating a map view and setting appropriate map projection
-3. Associating statistical data with geographic data
-4. Setting color mapping and legend
-
-Below is a more complex example showing the global distribution of Human Development Index (HALE):
-
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
-
-Promise.all([
-  fetch('https://assets.antv.antgroup.com/g2/countries-50m.json').then((res) =>
-    res.json(),
-  ),
-  fetch('https://assets.antv.antgroup.com/g2/hale.json').then((res) =>
-    res.json(),
-  ),
-]).then(([world, hale]) => {
-  const countries = feature(world, world.objects.countries).features;
-
-  const chart = new Chart({
-    container: 'container',
-    autoFit: true,
-  });
-
-  chart.options({
-    type: 'geoPath',
-    data: {
-      value: countries,
-      transform: [
-        {
-          type: 'join',
-          join: hale,
-          on: [(d) => d.properties.name, 'name'],
-          select: ['hale'],
-        },
-      ],
-    },
-    encode: {
-      color: 'hale',
-    },
-    scale: {
-      color: {
-        type: 'sequential',
-        palette: 'spectral',
-        unknown: '#ccc',
-      },
-    },
-    legend: {
-      color: {
-        layout: { justifyContent: 'center' },
-        length: 400,
-      },
-    },
-    style: {
-      stroke: '#000',
-      strokeWidth: 0.5,
     },
     tooltip: {
       title: (d) => d.properties.name,
       items: [
-        { field: 'hale', name: 'HALE Index' },
+        { field: 'rate', name: 'Unemployment Rate' },
       ],
     },
   });
@@ -151,156 +116,40 @@ Promise.all([
 });
 ```
 
-This example demonstrates more advanced features:
-
-1. Using TopoJSON's mesh functionality to create boundary lines
-2. Adding earth outline
-3. Setting color handling for unknown data
-4. Optimizing visual effects of boundary lines
-
-**Chinese Name**: 分级统计地图
-
-**Other Names**: Color-coded map, Thematic map
-
-## Components of Choropleth Maps
-
-| Chart Type           | Choropleth Map                                                                                              |
-| -------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Suitable Data        | Geospatial data (such as GeoJSON, TopoJSON format geographic boundary data) and numerical data related to these geographic regions. |
-| Function             | Display the distribution of numerical data across geographic regions, compare numerical differences between different regions. |
-| Data-to-Visual Mapping | Geographic region boundaries map to polygons on the map, numerical data maps to polygon fill colors.       |
-| Suitable Data Volume | Depends on the granularity of geographic region division; too many or too few regional divisions may affect chart readability. |
-
-## Use Cases of Choropleth Maps
-
-### Suitable Use Cases
-
-- **Population Distribution Display**: For example, showing population density across different provinces, with darker colors indicating higher population density.
-- **Economic Indicator Visualization**: For example, showing GDP totals or per capita GDP across different countries, helping analyze regional economic development.
-- **Election Result Analysis**: For example, showing voting results across different constituencies, using different colors to represent different party victories.
-- **Pandemic Data Display**: For example, showing confirmed cases or growth rates across different regions, helping understand pandemic spread.
-- **Sales Data Analysis**: For example, showing product sales or market share across different sales regions.
+**Note**:
+- The numeric field is mapped to color, representing the size of the data.
+- The name of the geographic area determines where the area is drawn on the map.
+- For smaller blocks, because the value is also smaller, the rendered color is also lighter, making these blocks difficult to see on the map. This is also a limitation of choropleth maps.
 
 ### Unsuitable Use Cases
 
-- **Displaying Precise Values**: Choropleth maps are mainly used to show relative data size and distribution trends, not suitable for scenarios requiring precise value reading.
-- **Large Differences in Regional Areas**: When regional areas vary greatly, larger areas will visually dominate even if their corresponding values are smaller, potentially misleading users. In such cases, consider using bubble maps or other map types.
-- **Data Not Geographically Related**: If data has no direct relationship with geographic location, using choropleth maps is meaningless.
+- **Displaying Precise Values**: Choropleth maps are mainly used to show the relative size and distribution trend of data, and are not suitable for scenarios that require precise numerical reading.
+- **Excessive Differences in Regional Area**: When the regional area differences are very large, the larger area will visually dominate, even if its corresponding value is small, which may mislead users. At this time, consider using other types of maps such as bubble maps.
+- **Data Not Geographically Relevant**: If the data is not directly related to geographic location, using a choropleth map is meaningless.
 
-Here's a typical choropleth map application scenario:
+Example 1: **2008 US Presidential Election Results**
 
-**Global Population Gender Ratio Distribution in 2015.** The chart below shows the global male-to-female ratio in 2015, where values represent the number of males per 100 females. It can be seen that in European and American countries, females generally outnumber males slightly, and this phenomenon is particularly prominent in former Soviet regions, while Middle Eastern regions have more males than females.
+Election visualization can easily give users the illusion of asymmetry between data distribution and geographic area size. States won by Democratic candidate Obama and Republican candidate McCain are represented in blue and red, respectively. From the map, it appears that the Republican Party received more votes than the Democratic Party because the red area occupies a larger area. However, in the US presidential election, the final result depends on the number of electoral votes obtained by the candidate. Each state has a different number of electoral votes, and the candidate who wins in a state will receive all the electoral votes of that state. At this time, it is recommended to use a dot map.
 
-| name (Country) | value (Males per 100 Females) |
-|----------------|-------------------------------|
-| Russia         | 86.8                         |
-| China          | 106.3                        |
-| Japan          | 94.7                         |
-
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
-
-const userData = [
-  {name: 'Russia',value: 86.8},
-  {name: 'China',value: 106.3},
-  {name: 'Japan',value: 94.7},
-  {name: 'Mongolia',value: 98},
-  {name: 'Canada',value: 98.4},
-  {name: 'United Kingdom',value: 97.2},
-  {name: 'United States of America',value: 98.3},
-  {name: 'Brazil',value: 96.7},
-  {name: 'Argentina',value: 95.8},
-  {name: 'Algeria',value: 101.3},
-  {name: 'France',value: 94.8},
-  {name: 'Germany',value: 96.6},
-  {name: 'Ukraine',value: 86.3},
-  {name: 'Egypt',value: 102.1},
-  {name: 'South Africa',value: 101.3},
-  {name: 'India',value: 107.6},
-  {name: 'Australia',value: 99.9},
-  {name: 'Saudi Arabia',value: 130.1},
-  {name: 'Afghanistan',value: 106.5},
-  {name: 'Kazakhstan',value: 93.4},
-  {name: 'Indonesia',value: 101.4}
-];
-
-Promise.all([
-  fetch('https://assets.antv.antgroup.com/g2/countries-50m.json').then((res) =>
-    res.json(),
-  ),
-]).then(([world]) => {
-  const countries = feature(world, world.objects.countries).features;
-
-  const chart = new Chart({
-    container: 'container',
-    autoFit: true,
-  });
-
-  chart.options({
-    type: 'geoPath',
-    data: {
-      value: countries,
-      transform: [
-        {
-          type: 'join',
-          join: userData,
-          on: [(d) => d.properties.name, 'name'],
-          select: ['value'],
-        },
-      ],
-    },
-    encode: {
-      color: 'value',
-    },
-    scale: {
-      color: {
-        type: 'threshold',
-        domain: [95, 100, 105],
-        range: ['#C45A5A', '#E8E8E8', '#14647D'], // More females->Balanced->More males
-        unknown: '#ccc',
-      },
-    },
-    style: {
-      stroke: '#fff',
-      strokeWidth: 0.5,
-    },
-    tooltip: {
-      title: (d) => d.properties.name,
-      items: [
-        { field: 'value', name: 'Gender Ratio' },
-      ],
-    },
-  });
-
-  chart.render();
-});
-```
-
-This example demonstrates:
-
-1. Using threshold scales to group data
-2. Using specific color schemes to express different gender ratio intervals
-3. Adding boundary lines to enhance map readability
-4. Using hover tooltips to display specific values
-
-## Extensions of Choropleth Maps
-
-- **Interactivity**: Add mouse hover tooltips to display specific values, click regions for drill-down to view more detailed data.
-- **Multi-variable Display**: Besides color, combine other visual channels (such as patterns, transparency) to display more dimensions of data, but be careful to avoid over-complication.
-- **Time Series Display**: Through animation or time sliders, show data changes over time.
+| State    | Electoral Votes | Obama Votes | McCain Votes |
+| -------- | --------------- | ----------- | ------------ |
+| Alabama  | 9               | 813479      | 1266546      |
+| Arizona  | 10              | 1034707     | 638017       |
+| Arkansas | 6               | 422310      | 638017       |
 
 ## Comparing Choropleth Maps to Other Charts
 
-### Choropleth Maps and Bubble Maps
+### Choropleth Maps and [Bubble Maps](/en/charts/bubble-map)
 
-- **Choropleth Maps**: Use color intensity to represent value size, suitable for displaying continuous data distribution.
-- **Bubble Maps**: Use bubble size to represent value size, bubble position corresponds to geographic coordinates, suitable for displaying discrete point data or avoiding misleading when regional area differences are large.
+- **Choropleth Maps**: Maps numerical values to the color of map areas, suitable for displaying the distribution of continuous data.
+- **Bubble Maps**: Displays a bubble on the map area, with the size of the bubble representing the numerical value, suitable for displaying discrete point data or avoiding misleading when regional area differences are large.
 
-### Choropleth Maps and Heatmaps (Non-geographic Heatmaps)
+Choropleth maps can often lead to misjudgment, as large areas may have small numerical values (population, electoral votes, etc.).
 
-- **Choropleth Maps**: Specifically used for displaying geospatial data distribution.
-- **Heatmaps**: More general, can use color to display numerical values in any two-dimensional matrix data, such as website click heatmaps.
+### Choropleth Maps and [Dot Maps](/en/charts/dot-map)
+
+- **Dot Maps**: Mainly used to display data at a specific longitude and latitude, while choropleth maps are used to display statistical values for a certain area.
+- **Dot Maps**: Can display a large amount of data values, while choropleth maps are limited by the display area.
 
 ## Similar Charts
 
