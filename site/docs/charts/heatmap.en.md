@@ -1,12 +1,12 @@
 ---
 title: Heatmap
 order: 7
-screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original'
+screenshot: 'https://os.alipayobjects.com/rmsportal/JeleDrjVnkyfPpS.png'
 category: ['distribution', 'comparison']
-similar: ['histogram']
+similar: ['histogram', 'contourline', 'scatter', 'bubble']
 ---
 
-<img alt="heatmap" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="heatmap" src="https://os.alipayobjects.com/rmsportal/JeleDrjVnkyfPpS.png" width=600/>
 
 ## Introduction to Heatmaps
 
@@ -20,29 +20,29 @@ Heatmaps are widely used in geographic spatial analysis, website user behavior r
 
 ## Components of a Heatmap
 
-### Basic Heatmap
+### Heatmap with Unsmoothed Boundaries
 
-<img alt="basic-heatmap" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="basic-heatmap" src="https://os.alipayobjects.com/rmsportal/dbxsqRSCIYXcEeW.png" width=600 />
 
-| Chart Type       | Basic Heatmap                                                                     |
+| Chart Type       | Heatmap with Unsmoothed Boundaries                                               |
 | ---------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data    | Multi-dimensional data: two categorical or continuous data fields (coordinate positions), one continuous data field (color intensity) |
-| Function         | Display data distribution density and clustering patterns                          |
-| Data-to-Visual Mapping | X-axis field mapped to horizontal position<br>Y-axis field mapped to vertical position<br>Value field mapped to color intensity |
-| Suitable Scenarios | Analyzing distribution characteristics of large amounts of data points, identifying patterns and anomalies in data |
+| Suitable Data    | Three continuous fields                                                            |
+| Function         | Observe data distribution patterns                                                 |
+| Data-to-Visual Mapping | Two continuous fields mapped to x-axis and y-axis respectively. One continuous metadata mapped to color |
+| Suitable Data Volume | More than 30 data points                                                        |
 
 ---
 
-### Density Heatmap
+### Heatmap with Smoothed Boundaries
 
-<img alt="density-heatmap" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0AfVQpGgcsoAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="density-heatmap" src="https://os.alipayobjects.com/rmsportal/XKeijYcqHgbSLHN.png" width=600/>
 
-| Chart Type       | Density Heatmap                                                                   |
+| Chart Type       | Heatmap with Smoothed Boundaries                                                 |
 | ---------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data    | Multi-dimensional scatter data: two continuous data fields, with heat distribution generated through kernel density estimation |
-| Function         | Display density distribution and concentration areas of scatter data               |
-| Data-to-Visual Mapping | X-axis field mapped to horizontal position<br>Y-axis field mapped to vertical position<br>Density value mapped to color intensity |
-| Suitable Scenarios | Observing distribution trends of scatter data, identifying data-dense areas       |
+| Suitable Data    | Three continuous fields                                                            |
+| Function         | Display data distribution patterns, with statistical algorithms to predict data in unknown areas |
+| Data-to-Visual Mapping | Two continuous fields mapped to x-axis and y-axis respectively. One continuous metadata mapped to color |
+| Suitable Data Volume | More than 30 data points                                                        |
 
 ## Use Cases of Heatmaps
 
@@ -184,55 +184,345 @@ chart.render();
 
 Example 3: **Suitable for displaying user interaction hot zones**
 
-The example below shows a heatmap of mouse movement tracks on an interface, used to analyze user focus areas. (This example is for illustration purposes only; actual operation requires user interaction)
+The example below shows a heatmap of user mouse movement tracks on an interface, used to analyze user focus areas.
 
 ```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
+import { Chart } from "@antv/g2";
 
-const chart = new Chart({
-  container: 'container',
+const chart = new Chart({ container: "container" });
+
+chart.options({
+  type: "view",
   width: 640,
   height: 480,
   padding: 0,
-});
-
-chart.options({
-  type: 'view',
-  style: {
-    viewFill: '#4e79a7',
-  },
-  data: [],
+  data: [
+    { x: "0", y: "136", v: 1 },
+    { x: "0", y: "280", v: 1 },
+    { x: "24", y: "128", v: 1 },
+    { x: "80", y: "104", v: 1 },
+    { x: "96", y: "152", v: 1 },
+    { x: "96", y: "232", v: 1 },
+    { x: "104", y: "184", v: 1 },
+    { x: "112", y: "216", v: 1 },
+    { x: "120", y: "200", v: 7 },
+    { x: "120", y: "208", v: 3 },
+    { x: "128", y: "112", v: 1 },
+    { x: "128", y: "192", v: 1 },
+    { x: "128", y: "200", v: 3 },
+    { x: "128", y: "208", v: 1 },
+    { x: "136", y: "192", v: 1 },
+    { x: "136", y: "200", v: 1 },
+    { x: "136", y: "208", v: 1 },
+    { x: "144", y: "16", v: 1 },
+    { x: "144", y: "96", v: 1 },
+    { x: "144", y: "144", v: 1 },
+    { x: "144", y: "152", v: 3 },
+    { x: "144", y: "184", v: 1 },
+    { x: "144", y: "200", v: 1 },
+    { x: "152", y: "152", v: 1 },
+    { x: "152", y: "184", v: 1 },
+    { x: "160", y: "184", v: 1 },
+    { x: "160", y: "200", v: 1 },
+    { x: "168", y: "144", v: 3 },
+    { x: "168", y: "200", v: 1 },
+    { x: "168", y: "216", v: 1 },
+    { x: "176", y: "152", v: 1 },
+    { x: "176", y: "168", v: 1 },
+    { x: "176", y: "184", v: 1 },
+    { x: "176", y: "200", v: 1 },
+    { x: "184", y: "144", v: 1 },
+    { x: "192", y: "152", v: 1 },
+    { x: "192", y: "160", v: 1 },
+    { x: "192", y: "200", v: 1 },
+    { x: "200", y: "152", v: 1 },
+    { x: "200", y: "160", v: 1 },
+    { x: "200", y: "216", v: 1 },
+    { x: "208", y: "144", v: 1 },
+    { x: "208", y: "176", v: 1 },
+    { x: "208", y: "224", v: 1 },
+    { x: "208", y: "256", v: 1 },
+    { x: "216", y: "152", v: 2 },
+    { x: "216", y: "200", v: 1 },
+    { x: "216", y: "280", v: 1 },
+    { x: "224", y: "64", v: 1 },
+    { x: "224", y: "144", v: 2 },
+    { x: "224", y: "192", v: 1 },
+    { x: "224", y: "280", v: 1 },
+    { x: "232", y: "152", v: 1 },
+    { x: "232", y: "160", v: 1 },
+    { x: "232", y: "200", v: 4 },
+    { x: "232", y: "280", v: 1 },
+    { x: "240", y: "192", v: 1 },
+    { x: "240", y: "200", v: 4 },
+    { x: "240", y: "216", v: 2 },
+    { x: "248", y: "56", v: 1 },
+    { x: "248", y: "144", v: 1 },
+    { x: "248", y: "152", v: 1 },
+    { x: "248", y: "168", v: 1 },
+    { x: "248", y: "192", v: 4 },
+    { x: "248", y: "200", v: 1 },
+    { x: "248", y: "224", v: 3 },
+    { x: "256", y: "32", v: 1 },
+    { x: "256", y: "144", v: 1 },
+    { x: "256", y: "152", v: 2 },
+    { x: "256", y: "192", v: 1 },
+    { x: "256", y: "232", v: 1 },
+    { x: "256", y: "272", v: 1 },
+    { x: "264", y: "32", v: 1 },
+    { x: "264", y: "144", v: 2 },
+    { x: "264", y: "176", v: 1 },
+    { x: "264", y: "192", v: 1 },
+    { x: "272", y: "136", v: 1 },
+    { x: "272", y: "144", v: 4 },
+    { x: "272", y: "168", v: 1 },
+    { x: "272", y: "184", v: 1 },
+    { x: "272", y: "232", v: 1 },
+    { x: "272", y: "256", v: 1 },
+    { x: "280", y: "128", v: 1 },
+    { x: "280", y: "136", v: 2 },
+    { x: "280", y: "240", v: 1 },
+    { x: "288", y: "128", v: 1 },
+    { x: "288", y: "136", v: 3 },
+    { x: "288", y: "144", v: 1 },
+    { x: "288", y: "160", v: 1 },
+    { x: "288", y: "176", v: 1 },
+    { x: "288", y: "224", v: 1 },
+    { x: "296", y: "120", v: 1 },
+    { x: "296", y: "136", v: 1 },
+    { x: "296", y: "144", v: 1 },
+    { x: "296", y: "232", v: 1 },
+    { x: "296", y: "240", v: 1 },
+    { x: "304", y: "48", v: 1 },
+    { x: "304", y: "120", v: 1 },
+    { x: "304", y: "136", v: 2 },
+    { x: "304", y: "144", v: 1 },
+    { x: "312", y: "112", v: 1 },
+    { x: "312", y: "128", v: 2 },
+    { x: "312", y: "136", v: 1 },
+    { x: "312", y: "144", v: 1 },
+    { x: "312", y: "160", v: 1 },
+    { x: "312", y: "240", v: 1 },
+    { x: "320", y: "120", v: 1 },
+    { x: "320", y: "208", v: 1 },
+    { x: "320", y: "232", v: 1 },
+    { x: "320", y: "248", v: 1 },
+    { x: "328", y: "104", v: 1 },
+    { x: "328", y: "120", v: 1 },
+    { x: "328", y: "152", v: 1 },
+    { x: "328", y: "248", v: 2 },
+    { x: "336", y: "48", v: 1 },
+    { x: "336", y: "104", v: 2 },
+    { x: "336", y: "120", v: 1 },
+    { x: "336", y: "128", v: 1 },
+    { x: "336", y: "240", v: 3 },
+    { x: "336", y: "248", v: 1 },
+    { x: "344", y: "96", v: 1 },
+    { x: "344", y: "104", v: 4 },
+    { x: "344", y: "144", v: 1 },
+    { x: "344", y: "176", v: 1 },
+    { x: "352", y: "48", v: 1 },
+    { x: "352", y: "160", v: 1 },
+    { x: "360", y: "72", v: 1 },
+    { x: "376", y: "64", v: 1 },
+    { x: "376", y: "128", v: 1 },
+    { x: "384", y: "72", v: 1 },
+    { x: "384", y: "104", v: 1 },
+    { x: "408", y: "168", v: 1 },
+    { x: "440", y: "0", v: 1 },
+    { x: "440", y: "144", v: 1 },
+    { x: "456", y: "184", v: 1 },
+    { x: "472", y: "144", v: 1 },
+    { x: "488", y: "192", v: 1 },
+    { x: "520", y: "160", v: 1 },
+    { x: "544", y: "168", v: 1 },
+    { x: "552", y: "168", v: 1 },
+    { x: "552", y: "200", v: 1 },
+    { x: "560", y: "168", v: 1 },
+    { x: "568", y: "176", v: 1 },
+    { x: "568", y: "208", v: 1 },
+    { x: "576", y: "176", v: 1 },
+    { x: "584", y: "216", v: 1 },
+    { x: "592", y: "216", v: 1 },
+    { x: "592", y: "224", v: 1 },
+    { x: "616", y: "192", v: 1 },
+  ],
+  style: { viewFill: "#4e79a7" },
   axis: false,
   children: [
     {
-      type: 'heatmap',
-      encode: { 
-        x: 'x', 
-        y: 'y', 
-        color: 'v' 
-      },
+      type: "heatmap",
+      data: [
+        { x: "0", y: "136", v: 1 },
+        { x: "0", y: "280", v: 1 },
+        { x: "24", y: "128", v: 1 },
+        { x: "80", y: "104", v: 1 },
+        { x: "96", y: "152", v: 1 },
+        { x: "96", y: "232", v: 1 },
+        { x: "104", y: "184", v: 1 },
+        { x: "112", y: "216", v: 1 },
+        { x: "120", y: "200", v: 7 },
+        { x: "120", y: "208", v: 3 },
+        { x: "128", y: "112", v: 1 },
+        { x: "128", y: "192", v: 1 },
+        { x: "128", y: "200", v: 3 },
+        { x: "128", y: "208", v: 1 },
+        { x: "136", y: "192", v: 1 },
+        { x: "136", y: "200", v: 1 },
+        { x: "136", y: "208", v: 1 },
+        { x: "144", y: "16", v: 1 },
+        { x: "144", y: "96", v: 1 },
+        { x: "144", y: "144", v: 1 },
+        { x: "144", y: "152", v: 3 },
+        { x: "144", y: "184", v: 1 },
+        { x: "144", y: "200", v: 1 },
+        { x: "152", y: "152", v: 1 },
+        { x: "152", y: "184", v: 1 },
+        { x: "160", y: "184", v: 1 },
+        { x: "160", y: "200", v: 1 },
+        { x: "168", y: "144", v: 3 },
+        { x: "168", y: "200", v: 1 },
+        { x: "168", y: "216", v: 1 },
+        { x: "176", y: "152", v: 1 },
+        { x: "176", y: "168", v: 1 },
+        { x: "176", y: "184", v: 1 },
+        { x: "176", y: "200", v: 1 },
+        { x: "184", y: "144", v: 1 },
+        { x: "192", y: "152", v: 1 },
+        { x: "192", y: "160", v: 1 },
+        { x: "192", y: "200", v: 1 },
+        { x: "200", y: "152", v: 1 },
+        { x: "200", y: "160", v: 1 },
+        { x: "200", y: "216", v: 1 },
+        { x: "208", y: "144", v: 1 },
+        { x: "208", y: "176", v: 1 },
+        { x: "208", y: "224", v: 1 },
+        { x: "208", y: "256", v: 1 },
+        { x: "216", y: "152", v: 2 },
+        { x: "216", y: "200", v: 1 },
+        { x: "216", y: "280", v: 1 },
+        { x: "224", y: "64", v: 1 },
+        { x: "224", y: "144", v: 2 },
+        { x: "224", y: "192", v: 1 },
+        { x: "224", y: "280", v: 1 },
+        { x: "232", y: "152", v: 1 },
+        { x: "232", y: "160", v: 1 },
+        { x: "232", y: "200", v: 4 },
+        { x: "232", y: "280", v: 1 },
+        { x: "240", y: "192", v: 1 },
+        { x: "240", y: "200", v: 4 },
+        { x: "240", y: "216", v: 2 },
+        { x: "248", y: "56", v: 1 },
+        { x: "248", y: "144", v: 1 },
+        { x: "248", y: "152", v: 1 },
+        { x: "248", y: "168", v: 1 },
+        { x: "248", y: "192", v: 4 },
+        { x: "248", y: "200", v: 1 },
+        { x: "248", y: "224", v: 3 },
+        { x: "256", y: "32", v: 1 },
+        { x: "256", y: "144", v: 1 },
+        { x: "256", y: "152", v: 2 },
+        { x: "256", y: "192", v: 1 },
+        { x: "256", y: "232", v: 1 },
+        { x: "256", y: "272", v: 1 },
+        { x: "264", y: "32", v: 1 },
+        { x: "264", y: "144", v: 2 },
+        { x: "264", y: "176", v: 1 },
+        { x: "264", y: "192", v: 1 },
+        { x: "272", y: "136", v: 1 },
+        { x: "272", y: "144", v: 4 },
+        { x: "272", y: "168", v: 1 },
+        { x: "272", y: "184", v: 1 },
+        { x: "272", y: "232", v: 1 },
+        { x: "272", y: "256", v: 1 },
+        { x: "280", y: "128", v: 1 },
+        { x: "280", y: "136", v: 2 },
+        { x: "280", y: "240", v: 1 },
+        { x: "288", y: "128", v: 1 },
+        { x: "288", y: "136", v: 3 },
+        { x: "288", y: "144", v: 1 },
+        { x: "288", y: "160", v: 1 },
+        { x: "288", y: "176", v: 1 },
+        { x: "288", y: "224", v: 1 },
+        { x: "296", y: "120", v: 1 },
+        { x: "296", y: "136", v: 1 },
+        { x: "296", y: "144", v: 1 },
+        { x: "296", y: "232", v: 1 },
+        { x: "296", y: "240", v: 1 },
+        { x: "304", y: "48", v: 1 },
+        { x: "304", y: "120", v: 1 },
+        { x: "304", y: "136", v: 2 },
+        { x: "304", y: "144", v: 1 },
+        { x: "312", y: "112", v: 1 },
+        { x: "312", y: "128", v: 2 },
+        { x: "312", y: "136", v: 1 },
+        { x: "312", y: "144", v: 1 },
+        { x: "312", y: "160", v: 1 },
+        { x: "312", y: "240", v: 1 },
+        { x: "320", y: "120", v: 1 },
+        { x: "320", y: "208", v: 1 },
+        { x: "320", y: "232", v: 1 },
+        { x: "320", y: "248", v: 1 },
+        { x: "328", y: "104", v: 1 },
+        { x: "328", y: "120", v: 1 },
+        { x: "328", y: "152", v: 1 },
+        { x: "328", y: "248", v: 2 },
+        { x: "336", y: "48", v: 1 },
+        { x: "336", y: "104", v: 2 },
+        { x: "336", y: "120", v: 1 },
+        { x: "336", y: "128", v: 1 },
+        { x: "336", y: "240", v: 3 },
+        { x: "336", y: "248", v: 1 },
+        { x: "344", y: "96", v: 1 },
+        { x: "344", y: "104", v: 4 },
+        { x: "344", y: "144", v: 1 },
+        { x: "344", y: "176", v: 1 },
+        { x: "352", y: "48", v: 1 },
+        { x: "352", y: "160", v: 1 },
+        { x: "360", y: "72", v: 1 },
+        { x: "376", y: "64", v: 1 },
+        { x: "376", y: "128", v: 1 },
+        { x: "384", y: "72", v: 1 },
+        { x: "384", y: "104", v: 1 },
+        { x: "408", y: "168", v: 1 },
+        { x: "440", y: "0", v: 1 },
+        { x: "440", y: "144", v: 1 },
+        { x: "456", y: "184", v: 1 },
+        { x: "472", y: "144", v: 1 },
+        { x: "488", y: "192", v: 1 },
+        { x: "520", y: "160", v: 1 },
+        { x: "544", y: "168", v: 1 },
+        { x: "552", y: "168", v: 1 },
+        { x: "552", y: "200", v: 1 },
+        { x: "560", y: "168", v: 1 },
+        { x: "568", y: "176", v: 1 },
+        { x: "568", y: "208", v: 1 },
+        { x: "576", y: "176", v: 1 },
+        { x: "584", y: "216", v: 1 },
+        { x: "592", y: "216", v: 1 },
+        { x: "592", y: "224", v: 1 },
+        { x: "616", y: "192", v: 1 },
+      ],
+      encode: { x: "x", y: "y", color: "v" },
       scale: {
         x: { domain: [0, 640] },
-        y: { domain: [0, 480], range: [0, 1] }
+        y: { domain: [0, 480], range: [0, 1] },
       },
-      style: { 
-        opacity: 0 
-      },
+      style: { opacity: 0 },
+      animate: false,
       tooltip: false,
-      animate: false
-    }
-  ]
+    },
+  ],
 });
 
 chart.render();
-
-// Note: In actual operation, there would be interaction code here to collect mouse movement data and update the chart
 ```
 
 **Notes**:
-- User mouse position coordinates `x` and `y` are mapped to heatmap positions
-- Mouse dwell time or frequency `v` is mapped to heatmap color intensity
-- The heat effect intuitively reveals which interface areas users focus on
+- Simulates user mouse position coordinates `x` and `y` data
+- Uses `binX` and `binY` transforms to group and count continuous position data
+- Heat effect intuitively reveals dense areas of mouse activity through color intensity
+- Can intuitively identify interface areas that users focus on
 
 ### Unsuitable Use Cases
 
@@ -245,50 +535,6 @@ Example 2: **Not suitable for displaying a small number of discrete data points*
 When there are few data points, the density distribution advantage of heatmaps is not obvious. Using scatter plots directly may be clearer and more intuitive.
 
 ## Extensions of Heatmaps
-
-### Categorical Heatmap (Cell Heatmap)
-
-Categorical heatmaps are suitable for showing the relationship strength between categorical data, commonly used in correlation matrices, confusion matrices, and similar scenarios.
-
-```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  autoFit: true,
-});
-
-chart.options({
-  type: 'cell',
-  data: {
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/salary.json',
-  },
-  encode: {
-    x: 'name',
-    y: 'department',
-    color: 'salary',
-  },
-  scale: {
-    color: {
-      palette: 'rdBu',
-      offset: (t) => 1 - t,
-    },
-  },
-  label: {
-    text: 'salary',
-    formatter: (d) => `${d.salary}`,
-    transform: [{ type: 'contrastColor' }],
-  },
-});
-
-chart.render();
-```
-
-**Notes**:
-- Uses the `cell` type to create a rectangular heatmap
-- The `name` field and `department` field are mapped to the x-axis and y-axis respectively, forming a categorical grid
-- The `salary` field is mapped to color, representing the value magnitude of each cell
 
 ### Threshold Heatmap
 
@@ -338,6 +584,17 @@ chart.render();
 - Scatter plots display each individual data point, more suitable for observing the distribution of individual data points and outliers
 - Heatmaps are suitable for handling large amounts of data points, while scatter plots may face overlap issues with large data volumes
 
+### Heatmaps and [Bubble Charts](/en/charts/bubble-chart)
+
+- Heatmaps express data density or third-dimension values through color intensity
+- Bubble charts express third-dimension values through bubble size while displaying specific data point positions
+- Heatmaps are more suitable for showing continuous distributions and density patterns, while bubble charts are better for showing multi-dimensional relationships of discrete data points
+
+### Heatmaps and [Contour Lines](/en/charts/contourline)
+
+- Heatmaps use color intensity to represent value magnitude, providing intuitive visual comparison
+- Contour lines connect points of equal value, more suitable for analyzing continuous change trends and gradients
+- Heatmaps are better for showing density distribution of discrete data points, while contour lines are better for showing continuous surface change patterns
 
 ### Heatmaps and [Histograms](/en/charts/histogram)
 
