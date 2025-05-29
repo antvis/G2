@@ -127,6 +127,163 @@ chart.options({
 chart.render();
 ```
 
+例子 3: **市场细分分析（非均匀马赛克图）**
+
+这个例子展示了如何使用非均匀马赛克图来展示不同市场细分的分布情况，其中矩形的宽度表示市场规模，高度表示各细分市场的占比。
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 900,
+  height: 800,
+  paddingLeft: 0,
+  paddingRight: 0,
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/3041da62-1bf4-4849-aac3-01a387544bf4.csv',
+  },
+  transform: [
+    { type: 'flexX', reducer: 'sum' }, // 灵活X轴宽度
+    { type: 'stackY' }, // Y轴堆叠
+    { type: 'normalizeY' } // Y轴归一化
+  ],
+  encode: {
+    x: 'market',
+    y: 'value',
+    color: 'segment'
+  },
+  axis: {
+    y: false
+  },
+  scale: {
+    x: { paddingOuter: 0, paddingInner: 0.01 }
+  },
+  tooltip: 'value',
+  label: [
+    {
+      text: 'segment',
+      x: 5,
+      y: 5,
+      textAlign: 'start',
+      textBaseline: 'top',
+      fontSize: 10,
+      fill: '#fff',
+    },
+    {
+      text: 'value',
+      x: 5,
+      y: 5,
+      textAlign: 'start',
+      dy: 15,
+      fontSize: 10,
+      fill: '#fff',
+    }
+  ]
+});
+
+chart.render();
+```
+
+例子 4: **电影评分分布分析（密度马赛克图）**
+
+这个例子展示了如何使用密度马赛克图来分析IMDB和烂番茄评分的关系分布，颜色深浅表示电影数量的多少。
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating',
+    y: 'Rotten Tomatoes Rating'
+  },
+  transform: [{ type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 }],
+  scale: {
+    color: { palette: 'ylGnBu' }
+  },
+  tooltip: {
+    title: { channel: 'color' },
+    items: [
+      (d, i, data, column) => ({
+        name: 'IMDB评分',
+        value: `${column.x.value[i]}, ${column.x1.value[i]}`,
+      }),
+      (d, i, data, column) => ({
+        name: '烂番茄评分',
+        value: `${column.y.value[i]}, ${column.y1.value[i]}`,
+      }),
+    ],
+    render: () => '1',
+  }
+});
+
+chart.render();
+```
+
+例子 5: **运动员生理数据分析（分组密度马赛克图）**
+
+这个例子展示了如何使用马赛克图按性别分组展示运动员身高和体重的分布情况，不透明度表示数据点的密度。
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: {
+    x: 'weight',
+    y: 'height',
+    color: 'sex'
+  },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  legend: {
+    opacity: false
+  },
+  style: {
+    inset: 0.5
+  },
+  tooltip: {
+    title: { channel: 'opacity' },
+    items: [
+      (d, i, data, column) => ({
+        name: '体重',
+        value: `${column.x.value[i]}, ${column.x1.value[i]}`,
+      }),
+      (d, i, data, column) => ({
+        name: '身高',
+        value: `${column.y.value[i]}, ${column.y1.value[i]}`,
+      }),
+    ],
+  }
+});
+
+chart.render();
+```
+
 ## 马赛克图与其他图表的对比
 
 ### 马赛克图和热力图

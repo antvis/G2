@@ -127,6 +127,163 @@ chart.options({
 chart.render();
 ```
 
+Example 3: **Market Segmentation Analysis (Non-uniform Mosaic Plot)**
+
+This example demonstrates how to use a non-uniform mosaic plot to display the distribution of different market segments, where the width of each rectangle represents market size, and the height represents the proportion of each market segment.
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 900,
+  height: 800,
+  paddingLeft: 0,
+  paddingRight: 0,
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/3041da62-1bf4-4849-aac3-01a387544bf4.csv',
+  },
+  transform: [
+    { type: 'flexX', reducer: 'sum' }, // Flexible X-axis width
+    { type: 'stackY' }, // Y-axis stacking
+    { type: 'normalizeY' } // Y-axis normalization
+  ],
+  encode: {
+    x: 'market',
+    y: 'value',
+    color: 'segment'
+  },
+  axis: {
+    y: false
+  },
+  scale: {
+    x: { paddingOuter: 0, paddingInner: 0.01 }
+  },
+  tooltip: 'value',
+  label: [
+    {
+      text: 'segment',
+      x: 5,
+      y: 5,
+      textAlign: 'start',
+      textBaseline: 'top',
+      fontSize: 10,
+      fill: '#fff',
+    },
+    {
+      text: 'value',
+      x: 5,
+      y: 5,
+      textAlign: 'start',
+      dy: 15,
+      fontSize: 10,
+      fill: '#fff',
+    }
+  ]
+});
+
+chart.render();
+```
+
+Example 4: **Movie Rating Distribution Analysis (Density Mosaic Plot)**
+
+This example demonstrates how to use a density mosaic plot to analyze the relationship between IMDB and Rotten Tomatoes ratings, where the color intensity represents the number of movies.
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating',
+    y: 'Rotten Tomatoes Rating'
+  },
+  transform: [{ type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 }],
+  scale: {
+    color: { palette: 'ylGnBu' }
+  },
+  tooltip: {
+    title: { channel: 'color' },
+    items: [
+      (d, i, data, column) => ({
+        name: 'IMDB Rating',
+        value: `${column.x.value[i]}, ${column.x1.value[i]}`,
+      }),
+      (d, i, data, column) => ({
+        name: 'Rotten Tomatoes Rating',
+        value: `${column.y.value[i]}, ${column.y1.value[i]}`,
+      }),
+    ],
+    render: () => '1',
+  }
+});
+
+chart.render();
+```
+
+Example 5: **Athletes' Physiological Data Analysis (Grouped Density Mosaic Plot)**
+
+This example shows how to use a mosaic plot to display the height and weight distribution of athletes grouped by gender, with opacity representing data point density.
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: {
+    x: 'weight',
+    y: 'height',
+    color: 'sex'
+  },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  legend: {
+    opacity: false
+  },
+  style: {
+    inset: 0.5
+  },
+  tooltip: {
+    title: { channel: 'opacity' },
+    items: [
+      (d, i, data, column) => ({
+        name: 'Weight',
+        value: `${column.x.value[i]}, ${column.x1.value[i]}`,
+      }),
+      (d, i, data, column) => ({
+        name: 'Height',
+        value: `${column.y.value[i]}, ${column.y1.value[i]}`,
+      }),
+    ],
+  }
+});
+
+chart.render();
+```
+
 ### Unsuitable Use Cases
 
 Mosaic plots are not suitable for:
