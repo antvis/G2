@@ -37,7 +37,7 @@ const chart = new Chart({
 
 ## Data
 
-In 4.0, each view is bound to a single set of data, and the marks (visual elements)  within that view share the same data. In 5.0 all markers in each view can have independent data, and scales are synchronized by default.
+In 4.0, each view is bound to a single set of data, and the marks (visual elements) within that view share the same data. In 5.0 all markers in each view can have independent data, and scales are synchronized by default.
 
 ```js
 // 4.0
@@ -204,9 +204,9 @@ chart
 
 Some properties of the scale have changed as follows:
 
-* Domain: values ​​-> domain
-* Minimum value of domain: min -> domainMin
-* Maximum value of domain: max -> domainMax
+- Domain: values ​​-> domain
+- Minimum value of domain: min -> domainMin
+- Maximum value of domain: max -> domainMax
 
 ```js
 // 4.0
@@ -333,7 +333,7 @@ chart.interval().animate('enter', {
 
 ## Interaction
 
-In 4.0, using `chart.removeInteraction(name)` can remove the interactions. In 5.0,  using `chart.interaction(name, false)` to remove interaction.
+In 4.0, using `chart.removeInteraction(name)` can remove the interactions. In 5.0, using `chart.interaction(name, false)` to remove interaction.
 
 ```js
 // 4.0

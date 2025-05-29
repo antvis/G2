@@ -9,85 +9,85 @@ order: 24
 
 例如，有时需要在图表中的特定数据点添加标记来突出重要信息。以下示例展示了如何使用 `shape` 标记在折线图的关键点上添加自定义注解，我们通过创建基础图形 [Circle](https://g.antv.antgroup.com/api/basic/circle) 和基础图形 [Text](https://g.antv.antgroup.com/api/basic/text)，结合 [场景图](https://g.antv.antgroup.com/api/canvas/scenegraph-lifecycle) 能力实现了一个自定义注解。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const notes = (style, context) => {
-    const { x, y } = style;
-    const { document } = context;
-    const g = document.createElement('g', {});
-    const c1 = document.createElement('circle', {
-      style: {
-        cx: x,
-        cy: y,
-        r: 3,
-        fill: 'red',
-      },
-    });
-    const c2 = document.createElement('circle', {
-      style: {
-        cx: x,
-        cy: y,
-        r: 5,
-        lineWidth: 8,
-        stroke: 'red',
-        opacity: 0.3,
-      },
-    });
-    const text = document.createElement('text', {
-      style: {
-        x: x + 12,
-        y,
-        text: '最高降雨量',
-        fontSize: 12,
-        textAlign: 'left',
-        textBaseline: 'middle',
-      },
-    });
-    g.appendChild(c1);
-    g.appendChild(c2);
-    g.appendChild(text);
-    return g;
-  };
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    children: [
-      {
-        type: 'line',
-        data: [
-          { month: 'Jan.', rainfall: 18.9 },
-          { month: 'Feb.', rainfall: 28.8 },
-          { month: 'Mar.', rainfall: 39.3 },
-          { month: 'Apr.', rainfall: 81.4 },
-          { month: 'May', rainfall: 47 },
-          { month: 'Jun.', rainfall: 20.3 },
-        ],
-        encode: {
-          x: 'month',
-          y: 'rainfall',
-        },
-      },
-      {
-        type: 'shape',
-        data: [{ month: 'Apr.', rainfall: 81.4 }],
-        encode: {
-          x: 'month',
-          y: 'rainfall',
-        },
-        style: {
-          render: (style, context) => notes(style, context),
-        },
-      },
-    ],
+const notes = (style, context) => {
+  const { x, y } = style;
+  const { document } = context;
+  const g = document.createElement('g', {});
+  const c1 = document.createElement('circle', {
+    style: {
+      cx: x,
+      cy: y,
+      r: 3,
+      fill: 'red',
+    },
   });
+  const c2 = document.createElement('circle', {
+    style: {
+      cx: x,
+      cy: y,
+      r: 5,
+      lineWidth: 8,
+      stroke: 'red',
+      opacity: 0.3,
+    },
+  });
+  const text = document.createElement('text', {
+    style: {
+      x: x + 12,
+      y,
+      text: '最高降雨量',
+      fontSize: 12,
+      textAlign: 'left',
+      textBaseline: 'middle',
+    },
+  });
+  g.appendChild(c1);
+  g.appendChild(c2);
+  g.appendChild(text);
+  return g;
+};
 
-  chart.render();
+chart.options({
+  type: 'view',
+  autoFit: true,
+  children: [
+    {
+      type: 'line',
+      data: [
+        { month: 'Jan.', rainfall: 18.9 },
+        { month: 'Feb.', rainfall: 28.8 },
+        { month: 'Mar.', rainfall: 39.3 },
+        { month: 'Apr.', rainfall: 81.4 },
+        { month: 'May', rainfall: 47 },
+        { month: 'Jun.', rainfall: 20.3 },
+      ],
+      encode: {
+        x: 'month',
+        y: 'rainfall',
+      },
+    },
+    {
+      type: 'shape',
+      data: [{ month: 'Apr.', rainfall: 81.4 }],
+      encode: {
+        x: 'month',
+        y: 'rainfall',
+      },
+      style: {
+        render: (style, context) => notes(style, context),
+      },
+    },
+  ],
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图形标注 - 徽章水印](/examples/annotation/shape#watermark)页面。
@@ -123,76 +123,76 @@ order: 24
 
 在图表中添加水印可以保护数据的安全性和知识产权。以下示例展示了如何使用 `shape` 标记在图表上添加水印。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  // 定义水印渲染方法
-  const watermark = (style, context) => {
-    const { document, canvas } = context;
-    const { width, height } = canvas.context.config;
-    const g = document.createElement('g', {});
-    // 创建重复的水印文字
-    const spacing = 120; // 水印间距
-    for (let x = 0; x < width; x += spacing) {
-      for (let y = 0; y < height; y += spacing) {
-        const text = document.createElement('text', {
-          style: {
-            x: x,
-            y: y,
-            text: 'AntV G2',
-            transformOrigin: 'center',
-            transform: 'rotate(-30)',
-            fontSize: 16,
-            fill: '#000',
-            textAlign: 'center',
-            textBaseline: 'middle',
-            fillOpacity: 0.2,
-          },
-        });
-        g.appendChild(text);
-      }
-    }
-    return g;
-  };
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    children: [
-      // 创建饼图
-      {
-        type: 'interval',
-        zIndex: 2,
-        data: [
-          { item: '分类一', count: 40 },
-          { item: '分类二', count: 21 },
-          { item: '分类三', count: 17 },
-          { item: '分类四', count: 13 },
-          { item: '分类五', count: 9 },
-        ],
-        encode: { y: 'count', color: 'item' },
-        transform: [{ type: 'stackY' }],
-        coordinate: {
-          type: 'theta',
-          outerRadius: 0.8,
-        },
-      },
-      // 添加全图水印
-      {
-        type: 'shape',
-        zIndex: 1,
+// 定义水印渲染方法
+const watermark = (style, context) => {
+  const { document, canvas } = context;
+  const { width, height } = canvas.context.config;
+  const g = document.createElement('g', {});
+  // 创建重复的水印文字
+  const spacing = 120; // 水印间距
+  for (let x = 0; x < width; x += spacing) {
+    for (let y = 0; y < height; y += spacing) {
+      const text = document.createElement('text', {
         style: {
-          x: 0,
-          y: 0,
-          render: (style, context) => watermark(style, context),
+          x: x,
+          y: y,
+          text: 'AntV G2',
+          transformOrigin: 'center',
+          transform: 'rotate(-30)',
+          fontSize: 16,
+          fill: '#000',
+          textAlign: 'center',
+          textBaseline: 'middle',
+          fillOpacity: 0.2,
         },
+      });
+      g.appendChild(text);
+    }
+  }
+  return g;
+};
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  children: [
+    // 创建饼图
+    {
+      type: 'interval',
+      zIndex: 2,
+      data: [
+        { item: '分类一', count: 40 },
+        { item: '分类二', count: 21 },
+        { item: '分类三', count: 17 },
+        { item: '分类四', count: 13 },
+        { item: '分类五', count: 9 },
+      ],
+      encode: { y: 'count', color: 'item' },
+      transform: [{ type: 'stackY' }],
+      coordinate: {
+        type: 'theta',
+        outerRadius: 0.8,
       },
-    ],
-  });
+    },
+    // 添加全图水印
+    {
+      type: 'shape',
+      zIndex: 1,
+      style: {
+        x: 0,
+        y: 0,
+        render: (style, context) => watermark(style, context),
+      },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

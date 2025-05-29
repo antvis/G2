@@ -51,43 +51,43 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
 
 和直接使用 `import { Chart } from '@antv/g2'` 暴露出的 Chart 对象的打包体积相比如下：
 
-```js | ob {pin:false}
-(() => {
-  const data = [
-    { lib: 'Chart', size: 957772, type: 'raw' },
-    { lib: 'Chart', size: 288753, type: 'gzip' },
-    { lib: 'Runtime', size: 855619, type: 'raw' },
-    { lib: 'Runtime', size: 252045, type: 'gzip' },
-  ];
+```js | ob { pin:false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const chart = new G2.Chart();
+const data = [
+  { lib: 'Chart', size: 957772, type: 'raw' },
+  { lib: 'Chart', size: 288753, type: 'gzip' },
+  { lib: 'Runtime', size: 855619, type: 'raw' },
+  { lib: 'Runtime', size: 252045, type: 'gzip' },
+];
 
-  chart.options({
-    type: 'interval',
-    data,
-    encode: {
-      x: 'lib',
-      y: 'size',
-      color: 'type',
-    },
-    transform: [{ type: 'dodgeX' }],
-    scale: {
-      y: { nice: true },
-    },
-    axis: {
-      y: { labelFormatter: (d) => d / 1000 + 'kb' },
-      x: { title: false },
-    },
-    legend: {
-      color: { title: false },
-    },
-    labels: [{ text: (d) => (d.size / 1000).toFixed(2) + 'kb' }],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'interval',
+  data,
+  encode: {
+    x: 'lib',
+    y: 'size',
+    color: 'type',
+  },
+  transform: [{ type: 'dodgeX' }],
+  scale: {
+    y: { nice: true },
+  },
+  axis: {
+    y: { labelFormatter: (d) => d / 1000 + 'kb' },
+    x: { title: false },
+  },
+  legend: {
+    color: { title: false },
+  },
+  labels: [{ text: (d) => (d.size / 1000).toFixed(2) + 'kb' }],
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 可以发现体积减少了 **100kb** 左右。

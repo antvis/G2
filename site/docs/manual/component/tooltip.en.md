@@ -186,34 +186,34 @@ Of course, for title and item, callbacks are also provided to achieve the greate
 
 G2 opens Tooltip interaction by default. If you need to configure Tooltip properties, you can do so through `chart.interaction.tooltip`.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .line()
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .interaction('tooltip', {
-      crosshairsStroke: 'red',
-      crosshairsStrokeWidth: 4,
-    });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .line()
+  .data([
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ])
+  .encode('x', 'year')
+  .encode('y', 'value')
+  .interaction('tooltip', {
+    crosshairsStroke: 'red',
+    crosshairsStrokeWidth: 4,
+  });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## Disabling Tooltip
@@ -246,68 +246,68 @@ chart.interaction('tooltip', false);
 
 ## Setting Tooltip Style
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    encode: {
-      x: 'state',
-      y: 'population',
-      color: 'age',
-    },
-    transform: [
-      { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
-      { type: 'dodgeX' },
-    ],
-    legend: false,
-    interaction: {
-      tooltip: {
-        shared: true,
-        mount: 'body',
-        css: {
-          '.g2-tooltip': {
-            background: '#eee',
-            'border-radius': ' 0.25em !important',
-          },
-          '.g2-tooltip-title': {
-            'font-size': '20px',
-            'font-weight': 'bold',
-            'padding-bottom': '0.25em',
-          },
-          '.g2-tooltip-list-item': {
-            background: '#ccc',
-            padding: '0.25em',
-            margin: '0.25em',
-            'border-radius': '0.25em',
-          },
-          '.g2-tooltip-list-item-name-label': {
-            'font-weight': 'bold',
-            'font-size': '16px',
-          },
-          'g2-tooltip-list-item-marker': {
-            'border-radius': '0.25em',
-            width: '15px',
-            height: '15px',
-          },
-          '.g2-tooltip-list-item-value': {
-            'font-weight': 'bold',
-            'font-size': '16px',
-          },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  transform: [
+    { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
+    { type: 'dodgeX' },
+  ],
+  legend: false,
+  interaction: {
+    tooltip: {
+      shared: true,
+      mount: 'body',
+      css: {
+        '.g2-tooltip': {
+          background: '#eee',
+          'border-radius': ' 0.25em !important',
+        },
+        '.g2-tooltip-title': {
+          'font-size': '20px',
+          'font-weight': 'bold',
+          'padding-bottom': '0.25em',
+        },
+        '.g2-tooltip-list-item': {
+          background: '#ccc',
+          padding: '0.25em',
+          margin: '0.25em',
+          'border-radius': '0.25em',
+        },
+        '.g2-tooltip-list-item-name-label': {
+          'font-weight': 'bold',
+          'font-size': '16px',
+        },
+        'g2-tooltip-list-item-marker': {
+          'border-radius': '0.25em',
+          width: '15px',
+          height: '15px',
+        },
+        '.g2-tooltip-list-item-value': {
+          'font-weight': 'bold',
+          'font-size': '16px',
         },
       },
     },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

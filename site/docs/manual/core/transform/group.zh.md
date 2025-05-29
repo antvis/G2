@@ -37,7 +37,6 @@ order: 2
 | channels  | 针对哪些通道做数据分组聚合                | `string` \| `string[]` | `['x', 'y']` |
 | [channel] | 输出到具体 mark 的 channel 数据的聚合方式 | `Reducer`              |              |
 
-
 ### Channel
 
 Channel 表示数据如何映射到图形的视觉属性（如位置、颜色、大小等）。在 AntV 中，channel 是构建可视化图表的基础，通过将数据字段绑定到特定的视觉通道，生成对应的图形表示。理论上，`channel` 可以设置为所有的通道值，具体可以参考 [encode](/manual/core/encode) 文档。
@@ -93,8 +92,7 @@ type Channel =
 
 - color：图形的颜色，用于区分类别或表示数值范围。
 
-我们提供了对应的  [groupX](/manual/core/transform/group-x)、[groupY](/manual/core/transform/group-y) 以及 [groupColor](/manual/core/transform/group-color)  等预置函数供调用。
-
+我们提供了对应的 [groupX](/manual/core/transform/group-x)、[groupY](/manual/core/transform/group-y) 以及 [groupColor](/manual/core/transform/group-color) 等预置函数供调用。
 
 ### Redeucer
 
@@ -124,32 +122,32 @@ type Reducer =
 
 以下是一个简单的示例，展示如何使用 `group` 函数对数据进行分组并绘制分组柱状图。
 
-``` js | ob
-(() => { 
+```js | ob
+(() => {
   const chart = new G2.Chart();
   chart.options({
-    type: "interval",
+    type: 'interval',
     autoFit: true,
     data: [
-      { year: "1951 年", sales: 38 },
-      { year: "1952 年", sales: 52 },
-      { year: "1956 年", sales: 61 },
-      { year: "1957 年", sales: 145 },
-      { year: "1958 年", sales: 48 },
-      { year: "1959 年", sales: 38 },
-      { year: "1960 年", sales: 38 },
-      { year: "1962 年", sales: 38 },
-      { year: "1951 年", sales: 38 },
-      { year: "1952 年", sales: 52 },
-      { year: "1956 年", sales: 61 },
-      { year: "1957 年", sales: 145 },
-      { year: "1958 年", sales: 48 },
-      { year: "1959 年", sales: 38 },
-      { year: "1960 年", sales: 38 },
-      { year: "1962 年", sales: 38 },
+      { year: '1951 年', sales: 38 },
+      { year: '1952 年', sales: 52 },
+      { year: '1956 年', sales: 61 },
+      { year: '1957 年', sales: 145 },
+      { year: '1958 年', sales: 48 },
+      { year: '1959 年', sales: 38 },
+      { year: '1960 年', sales: 38 },
+      { year: '1962 年', sales: 38 },
+      { year: '1951 年', sales: 38 },
+      { year: '1952 年', sales: 52 },
+      { year: '1956 年', sales: 61 },
+      { year: '1957 年', sales: 145 },
+      { year: '1958 年', sales: 48 },
+      { year: '1959 年', sales: 38 },
+      { year: '1960 年', sales: 38 },
+      { year: '1962 年', sales: 38 },
     ],
-    encode: { x: "year", y: "sales" },
-    transform: [{ type: "group", channels: ["x"], y: "sum" }],
+    encode: { x: 'year', y: 'sales' },
+    transform: [{ type: 'group', channels: ['x'], y: 'sum' }],
   });
 
   chart.render();
@@ -171,25 +169,24 @@ type Reducer =
 下面我们根据具体的数据来进行分组，使用 `group` 函数对数据进行分组处理，并在图表中展示不同的分组结果。
 下面这个示例展示了如何使用 `group` 函数对数据进行分组并去最大值（`max`），并在图表中展示不同的分组结果。
 
-
-``` js | ob
-(() => { 
+```js | ob
+(() => {
   const chart = new G2.Chart();
 
   chart.options({
-    type: "cell",
+    type: 'cell',
     height: 300,
     data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/seattle-weather.json",
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
     },
     encode: {
       x: (d) => new Date(d.date).getUTCDate(),
       y: (d) => new Date(d.date).getUTCMonth(),
-      color: "temp_max",
+      color: 'temp_max',
     },
-    transform: [{ type: "group", color: "max" }],
-    scale: { color: { type: "sequential", palette: "gnBu" } },
+    transform: [{ type: 'group', color: 'max' }],
+    scale: { color: { type: 'sequential', palette: 'gnBu' } },
     style: { inset: 0.5 },
   });
 
