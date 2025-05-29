@@ -1,7 +1,7 @@
 ---
 title: Funnel Chart
 order: 10
-screenshot: https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9GDLQpMor0oAAAAAAAAAAAAADmJ7AQ/original'
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9GDLQpMor0oAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison', 'flow']
 similar: ['sankey']
 ---
