@@ -1,13 +1,13 @@
 ---
 title: 折线图
 order: 2
-screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*37vSSJwbSnwAAAAAAAAAAAAADmJ7AQ/original'
+screenshot: 'https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg'
 category: ['trend']
-similar: ['area', 'stacked-line']
+similar: ['area', 'bar', 'scatter']
 ---
 
 
-<img alt="line" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*37vSSJwbSnwAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="line" src="https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg" width=600/>
 
 ## 折线图的简介
 
@@ -23,7 +23,7 @@ similar: ['area', 'stacked-line']
 
 ### 基础折线图
 
-<img alt="basic-line" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*37vSSJwbSnwAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="basic-line" src="https://t.alipayobjects.com/images/T1c7djXjhXXXXXXXXX.png" width=600 />
 
 | 图表类型         | 基础折线图                                                  |
 | ---------------- | ----------------------------------------------------------- |
@@ -36,7 +36,7 @@ similar: ['area', 'stacked-line']
 
 ### 多系列折线图
 
-<img alt="multi-series-line" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YBR5RIcf97UAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="multi-series-line" src="https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg" width=600/>
 
 | 图表类型         | 多系列折线图                                                |
 | ---------------- | ----------------------------------------------------------- |
