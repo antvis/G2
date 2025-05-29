@@ -3,7 +3,7 @@ title: 和弦图
 order: 38
 screenshot: 'https://zos.alipayobjects.com/rmsportal/wqqqDPsmjjToaWvrNFMY.png'
 category: ["relation"]
-similar: ["radar-chart", "bar", "radial-bar"]
+similar: ["radar-chart", "radial-bar", "sankey", "arcdiagram"]
 ---
 <img alt="chord" src="https://zos.alipayobjects.com/rmsportal/wqqqDPsmjjToaWvrNFMY.png" width=600/>
 
