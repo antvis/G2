@@ -72,40 +72,40 @@ order: 2
     {
       type: 'line',
       // 继承父级的交互配置
-    }
-  ]
+    },
+  ],
 });
 ```
 
 ## 配置项
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| reverse | brush 是否反转，反转后选中区域外的元素会被高亮 | `boolean` | `false` |  |
-| facet | brush 是否跨分面，控制交互方式 | `boolean` | `false` |  |
-| selectedHandles | 可以 resize 的手柄方向 | `string[]` | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |  |
-| brushRegion | 自定义框选区域，一般不用配置，G2 内部用来配置 brushXHighlight 和 brushYHighlight | `(x, y, x1, y1, extent) => any` | `(x, y, x1, y1) => [x, y, x1, y1]` |  |
-| mask | 框选区域的蒙版样式 | 对象 | 详见下方 mask 部分 |  |
-| maskHandle | 框选区域的手柄样式 | 对象 | 详见下方 maskHandle 部分 |  |
+| 属性            | 描述                                                                             | 类型                            | 默认值                                                                                          | 必选 |
+| --------------- | -------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------- | ---- |
+| reverse         | brush 是否反转，反转后选中区域外的元素会被高亮                                   | `boolean`                       | `false`                                                                                         |      |
+| facet           | brush 是否跨分面，控制交互方式                                                   | `boolean`                       | `false`                                                                                         |      |
+| selectedHandles | 可以 resize 的手柄方向                                                           | `string[]`                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |      |
+| brushRegion     | 自定义框选区域，一般不用配置，G2 内部用来配置 brushXHighlight 和 brushYHighlight | `(x, y, x1, y1, extent) => any` | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |      |
+| mask            | 框选区域的蒙版样式                                                               | 对象                            | 详见下方 mask 部分                                                                              |      |
+| maskHandle      | 框选区域的手柄样式                                                               | 对象                            | 详见下方 maskHandle 部分                                                                        |      |
 
 ### mask
 
 配置框选区域的蒙版的样式。
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| maskFill | 蒙版的填充色 | `string` | `#777` |  |
-| maskFillOpacity | 蒙版的填充透明度 | `number` | `0.3` |  |
-| maskStroke | 蒙版的描边 | `string` | `#fff` |  |
-| maskStrokeOpacity | 描边透明度 | `number` |  |  |
-| maskLineWidth | 蒙版描边的宽度 | `number` |  |  |
-| maskLineDash | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` |  |  |
-| maskOpacity | 蒙版的整体透明度 | `number` |  |  |
-| maskShadowColor | 蒙版阴影颜色 | `string` |  |  |
-| maskShadowBlur | 蒙版阴影的高斯模糊系数 | `number` |  |  |
-| maskShadowOffsetX | 设置阴影距蒙版的水平距离 | `number` |  |  |
-| maskShadowOffsetY | 设置阴影距蒙版的垂直距离 | `number` |  |  |
-| maskCursor | 鼠标样式。同 css 的鼠标样式 | `string` | `default` |  |
+| 属性              | 描述                                                                   | 类型              | 默认值    | 必选 |
+| ----------------- | ---------------------------------------------------------------------- | ----------------- | --------- | ---- |
+| maskFill          | 蒙版的填充色                                                           | `string`          | `#777`    |      |
+| maskFillOpacity   | 蒙版的填充透明度                                                       | `number`          | `0.3`     |      |
+| maskStroke        | 蒙版的描边                                                             | `string`          | `#fff`    |      |
+| maskStrokeOpacity | 描边透明度                                                             | `number`          |           |      |
+| maskLineWidth     | 蒙版描边的宽度                                                         | `number`          |           |      |
+| maskLineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` |           |      |
+| maskOpacity       | 蒙版的整体透明度                                                       | `number`          |           |      |
+| maskShadowColor   | 蒙版阴影颜色                                                           | `string`          |           |      |
+| maskShadowBlur    | 蒙版阴影的高斯模糊系数                                                 | `number`          |           |      |
+| maskShadowOffsetX | 设置阴影距蒙版的水平距离                                               | `number`          |           |      |
+| maskShadowOffsetY | 设置阴影距蒙版的垂直距离                                               | `number`          |           |      |
+| maskCursor        | 鼠标样式。同 css 的鼠标样式                                            | `string`          | `default` |      |
 
 在配置框选区域的蒙版样式的时候，不是以对象的形式来配置，而是以 `mask`前缀加属性的方式来配置。
 
@@ -136,22 +136,22 @@ order: 2
 
 ![custom-style](https://github.com/antvis/G2/assets/49330279/eb2d3951-7990-423c-97f3-e3a38b2baf68)
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| mask[handleName]Render | 自定义蒙版手柄的渲染函数 | `(g, options, document) => DisplayObject` |  |  |
-| mask[handleName]Size | 蒙版手柄的宽度 | `string` |  |  |
-| mask[handleName]Fill | 蒙版手柄的填充色 | `string` |  |  |
-| mask[handleName]FillOpacity | 蒙版手柄的填充透明度 | `number` |  |  |
-| mask[handleName]Stroke | 蒙版手柄的描边 | `string` |  |  |
-| mask[handleName]StrokeOpacity | 描边透明度 | `number` |  |  |
-| mask[handleName]LineWidth | 蒙版手柄描边的宽度 | `number` |  |  |
-| mask[handleName]LineDash | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]` |  |  |
-| mask[handleName]Opacity | 蒙版手柄的整体透明度 | `number` |  |  |
-| mask[handleName]ShadowColor | 蒙版手柄阴影颜色 | `string` |  |  |
-| mask[handleName]ShadowBlur | 蒙版手柄阴影的高斯模糊系数 | `number` |  |  |
-| mask[handleName]ShadowOffsetX | 设置阴影距蒙版手柄的水平距离 | `number` |  |  |
-| mask[handleName]ShadowOffsetY | 设置阴影距蒙版手柄的垂直距离 | `number` |  |  |
-| mask[handleName]Cursor | 鼠标样式。同 css 的鼠标样式 | `string` | `default` |  |
+| 属性                          | 描述                                                                   | 类型                                      | 默认值    | 必选 |
+| ----------------------------- | ---------------------------------------------------------------------- | ----------------------------------------- | --------- | ---- |
+| mask[handleName]Render        | 自定义蒙版手柄的渲染函数                                               | `(g, options, document) => DisplayObject` |           |      |
+| mask[handleName]Size          | 蒙版手柄的宽度                                                         | `string`                                  |           |      |
+| mask[handleName]Fill          | 蒙版手柄的填充色                                                       | `string`                                  |           |      |
+| mask[handleName]FillOpacity   | 蒙版手柄的填充透明度                                                   | `number`                                  |           |      |
+| mask[handleName]Stroke        | 蒙版手柄的描边                                                         | `string`                                  |           |      |
+| mask[handleName]StrokeOpacity | 描边透明度                                                             | `number`                                  |           |      |
+| mask[handleName]LineWidth     | 蒙版手柄描边的宽度                                                     | `number`                                  |           |      |
+| mask[handleName]LineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | `[number,number]`                         |           |      |
+| mask[handleName]Opacity       | 蒙版手柄的整体透明度                                                   | `number`                                  |           |      |
+| mask[handleName]ShadowColor   | 蒙版手柄阴影颜色                                                       | `string`                                  |           |      |
+| mask[handleName]ShadowBlur    | 蒙版手柄阴影的高斯模糊系数                                             | `number`                                  |           |      |
+| mask[handleName]ShadowOffsetX | 设置阴影距蒙版手柄的水平距离                                           | `number`                                  |           |      |
+| mask[handleName]ShadowOffsetY | 设置阴影距蒙版手柄的垂直距离                                           | `number`                                  |           |      |
+| mask[handleName]Cursor        | 鼠标样式。同 css 的鼠标样式                                            | `string`                                  | `default` |      |
 
 ## 事件
 
@@ -195,143 +195,143 @@ chart.emit('brushAxis:remove', {});
 
 ### 平行坐标系框选高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const axis = {
-    zIndex: 1,
-    titlePosition: 'right',
-    line: true,
-    style: {
-      labelStroke: '#fff',
-      labelStrokeWidth: 5,
-      labelFontSize: 10,
-      labelStrokeLineJoin: 'round',
-      titleStroke: '#fff',
-      titleFontSize: 10,
-      titleStrokeWidth: 5,
-      titleStrokeLineJoin: 'round',
-      titleTransform: 'translate(-50%, 0) rotate(-90)',
-      lineStroke: 'black',
-      tickStroke: 'black',
-      lineStrokeWidth: 1,
-    },
-  };
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'line',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+const axis = {
+  zIndex: 1,
+  titlePosition: 'right',
+  line: true,
+  style: {
+    labelStroke: '#fff',
+    labelStrokeWidth: 5,
+    labelFontSize: 10,
+    labelStrokeLineJoin: 'round',
+    titleStroke: '#fff',
+    titleFontSize: 10,
+    titleStrokeWidth: 5,
+    titleStrokeLineJoin: 'round',
+    titleTransform: 'translate(-50%, 0) rotate(-90)',
+    lineStroke: 'black',
+    tickStroke: 'black',
+    lineStrokeWidth: 1,
+  },
+};
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+  },
+  coordinate: { type: 'parallel' },
+  encode: {
+    position: [
+      'economy (mpg)',
+      'cylinders',
+      'displacement (cc)',
+      'power (hp)',
+      'weight (lb)',
+      '0-60 mph (s)',
+      'year',
+    ],
+    color: 'weight (lb)',
+  },
+  style: {
+    lineWidth: 1.5,
+    strokeOpacity: 0.4,
+  },
+  scale: {
+    color: {
+      type: 'sequential',
+      palette: 'brBG',
+      offset: (t) => 1 - t,
     },
-    coordinate: { type: 'parallel' },
-    encode: {
-      position: [
-        'economy (mpg)',
-        'cylinders',
-        'displacement (cc)',
-        'power (hp)',
-        'weight (lb)',
-        '0-60 mph (s)',
-        'year',
-      ],
-      color: 'weight (lb)',
+  },
+  legend: {
+    color: {
+      length: 400,
+      layout: { justifyContent: 'center' },
     },
-    style: {
-      lineWidth: 1.5,
-      strokeOpacity: 0.4,
-    },
-    scale: {
-      color: {
-        type: 'sequential',
-        palette: 'brBG',
-        offset: (t) => 1 - t,
+  },
+  state: {
+    active: { lineWidth: 5 },
+    inactive: { stroke: '#eee', opacity: 0.5 },
+  },
+  axis: Object.fromEntries(
+    Array.from({ length: 7 }, (_, i) => [
+      `position${i === 0 ? '' : i}`,
+      {
+        ...axis,
+        title: true,
       },
+    ]),
+  ),
+  interaction: {
+    brushAxisHighlight: {
+      maskFill: '#000',
+      maskFillOpacity: 0.2,
+      maskStroke: '#1890ff',
+      maskLineWidth: 1,
     },
-    legend: {
-      color: {
-        length: 400,
-        layout: { justifyContent: 'center' }
-      },
-    },
-    state: {
-      active: { lineWidth: 5 },
-      inactive: { stroke: '#eee', opacity: 0.5 },
-    },
-    axis: Object.fromEntries(
-      Array.from({ length: 7 }, (_, i) => [
-        `position${i === 0 ? '' : i}`,
-        {
-          ...axis,
-          title: true,
-        },
-      ]),
-    ),
-    interaction: {
-      brushAxisHighlight: {
-        maskFill: '#000',
-        maskFillOpacity: 0.2,
-        maskStroke: '#1890ff',
-        maskLineWidth: 1,
-      },
-      tooltip: false,
-    },
-  });
+    tooltip: false,
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 自定义手柄样式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    data: [
-      { x: 10, y: 5, category: 'A' },
-      { x: 15, y: 8, category: 'A' },
-      { x: 20, y: 12, category: 'A' },
-      { x: 25, y: 15, category: 'A' },
-      { x: 30, y: 10, category: 'B' },
-      { x: 35, y: 7, category: 'B' },
-      { x: 40, y: 13, category: 'B' },
-      { x: 45, y: 18, category: 'B' },
-      { x: 50, y: 20, category: 'C' },
-      { x: 55, y: 16, category: 'C' },
-      { x: 60, y: 9, category: 'C' },
-      { x: 65, y: 6, category: 'C' },
-    ],
-    encode: {
-      color: 'category',
-      x: 'x',
-      y: 'y',
-    },
-    state: {
-      inactive: { stroke: 'gray', opacity: 0.5 },
-    },
-    interaction: {
-      brushAxisHighlight: {
-        maskHandleSize: 20,
-        maskHandleNFill: 'blue',
-        maskHandleEFill: 'red',
-        maskHandleSFill: 'green',
-        maskHandleWFill: 'yellow',
-        maskHandleNWFill: 'black',
-        maskHandleNEFill: 'steelblue',
-        maskHandleSEFill: 'pink',
-        maskHandleSWFill: 'orange',
-      },
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'point',
+  data: [
+    { x: 10, y: 5, category: 'A' },
+    { x: 15, y: 8, category: 'A' },
+    { x: 20, y: 12, category: 'A' },
+    { x: 25, y: 15, category: 'A' },
+    { x: 30, y: 10, category: 'B' },
+    { x: 35, y: 7, category: 'B' },
+    { x: 40, y: 13, category: 'B' },
+    { x: 45, y: 18, category: 'B' },
+    { x: 50, y: 20, category: 'C' },
+    { x: 55, y: 16, category: 'C' },
+    { x: 60, y: 9, category: 'C' },
+    { x: 65, y: 6, category: 'C' },
+  ],
+  encode: {
+    color: 'category',
+    x: 'x',
+    y: 'y',
+  },
+  state: {
+    inactive: { stroke: 'gray', opacity: 0.5 },
+  },
+  interaction: {
+    brushAxisHighlight: {
+      maskHandleSize: 20,
+      maskHandleNFill: 'blue',
+      maskHandleEFill: 'red',
+      maskHandleSFill: 'green',
+      maskHandleWFill: 'yellow',
+      maskHandleNWFill: 'black',
+      maskHandleNEFill: 'steelblue',
+      maskHandleSEFill: 'pink',
+      maskHandleSWFill: 'orange',
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```

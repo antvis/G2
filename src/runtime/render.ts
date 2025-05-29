@@ -171,13 +171,17 @@ export function destroy<T extends G2ViewTree = G2ViewTree>(
   options: T,
   context: G2Context = {},
   isDestroyCanvas = false,
+  isClearEvents = true,
 ) {
   const { canvas, emitter } = context;
   if (canvas) {
     destroyAllInteractions(canvas);
     isDestroyCanvas ? canvas.destroy() : canvas.destroyChildren();
   }
-  emitter.off();
+
+  if (isClearEvents) {
+    emitter.off();
+  }
 }
 
 /**

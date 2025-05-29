@@ -22,12 +22,12 @@ The box plot's design is simple and clear. Through the combination of boxes and 
 
 <img alt="boxplot-anatomy" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pU-NQa1PgxQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width=600 />
 
-| Chart Type       | Box Plot                                                                                                    |
-| ---------------- | ----------------------------------------------------------------------------------------------------------- |
-| Suitable Data    | One categorical data field and one continuous data field                                                   |
-| Functionality    | Display data distribution, identify outliers, compare data distributions across different groups           |
-| Data Mapping     | Categorical data maps to horizontal axis position<br>Continuous data automatically calculates statistics mapped to box components<br>Outliers displayed as scatter points |
-| Data Size Limit  | At least 5-10 data points per group recommended                                                            |
+| Chart Type      | Box Plot                                                                                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data   | One categorical data field and one continuous data field                                                                                                                  |
+| Functionality   | Display data distribution, identify outliers, compare data distributions across different groups                                                                          |
+| Data Mapping    | Categorical data maps to horizontal axis position<br>Continuous data automatically calculates statistics mapped to box components<br>Outliers displayed as scatter points |
+| Data Size Limit | At least 5-10 data points per group recommended                                                                                                                           |
 
 The main components of a box plot include:
 

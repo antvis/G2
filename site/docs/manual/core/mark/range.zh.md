@@ -17,70 +17,70 @@ order: 20
   - `y1`：矩形在垂直方向上从哪里开始。
   - `y2`：矩形在垂直方向上到哪里结束。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747ad9a.json',
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747ad9a.json',
+  },
+  children: [
+    { type: 'lineX', data: [0] },
+    { type: 'lineY', data: [0] },
+    {
+      type: 'range',
+      // 区域图的数据
+      data: [
+        { x: [-25, 0], y: [-30, 0], region: '1' },
+        { x: [-25, 0], y: [0, 20], region: '2' },
+        { x: [0, 5], y: [-30, 0], region: '2' },
+        { x: [0, 5], y: [0, 20], region: '1' },
+      ],
+      // 编码规则，x 和 y 对应数据中的字段，color 对应 region 字段
+      encode: { x: 'x', y: 'y', color: 'region' },
+      scale: {
+        color: {
+          range: ['#d8d0c0', '#a3dda1'],
+          independent: true,
+          guide: null,
+        },
+      },
+
+      style: {
+        fillOpacity: 0.2,
+      },
     },
-    children: [
-      { type: 'lineX', data: [0] },
-      { type: 'lineY', data: [0] },
-      {
-        type: 'range',
-        // 区域图的数据
-        data: [
-          { x: [-25, 0], y: [-30, 0], region: '1' },
-          { x: [-25, 0], y: [0, 20], region: '2' },
-          { x: [0, 5], y: [-30, 0], region: '2' },
-          { x: [0, 5], y: [0, 20], region: '1' },
-        ],
-        // 编码规则，x 和 y 对应数据中的字段，color 对应 region 字段
-        encode: { x: 'x', y: 'y', color: 'region' },
-        scale: {
-          color: {
-            range: ['#d8d0c0', '#a3dda1'],
-            independent: true,
-            guide: null,
-          },
-        },
-
-        style: {
-          fillOpacity: 0.2,
-        },
+    {
+      type: 'point',
+      encode: {
+        x: 'change in female rate',
+        y: 'change in male rate',
+        size: 'pop',
+        color: 'continent',
+        shape: 'point',
       },
-      {
-        type: 'point',
-        encode: {
-          x: 'change in female rate',
-          y: 'change in male rate',
-          size: 'pop',
-          color: 'continent',
-          shape: 'point',
+      scale: {
+        color: {
+          range: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
         },
-        scale: {
-          color: {
-            range: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
-          },
-          x: { domain: [-25, 5] },
-          y: { domain: [-30, 20] },
-          size: { range: [4, 30] },
-        },
-        style: { stroke: '#bbb', fillOpacity: 0.8 },
-        axis: { x: { title: false }, y: { title: false } },
+        x: { domain: [-25, 5] },
+        y: { domain: [-30, 20] },
+        size: { range: [4, 30] },
       },
-    ],
-  });
+      style: { stroke: '#bbb', fillOpacity: 0.8 },
+      axis: { x: { title: false }, y: { title: false } },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 配置项

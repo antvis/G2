@@ -7,41 +7,40 @@ order: 10
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
-    autoFit: true,
-    height: 500,
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  // 模拟数据
-  const data = [];
-  for (let i = 0; i < 372; i++) {
-    const time = new Date(Date.now() + i * 1000 * 3600 * 24)
-      .toISOString()
-      .split('T')[0];
-    data.push({ time, value: Math.random() * 100 });
-  }
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 500,
+});
 
-  chart.data(data);
+// 模拟数据
+const data = [];
+for (let i = 0; i < 372; i++) {
+  const time = new Date(Date.now() + i * 1000 * 3600 * 24)
+    .toISOString()
+    .split('T')[0];
+  data.push({ time, value: Math.random() * 100 });
+}
 
-  chart.coordinate({
-    type: 'helix',
-    startAngle: 0.5 * Math.PI, // 起始角度
-    endAngle: 12.5 * Math.PI, // 结束角度
-  });
+chart.data(data);
 
-  chart
-    .interval()
-    .encode('x', 'time')
-    .encode('y', 'value')
-    .encode('color', 'value')
-    .scale('color', { range: ['#ffffff', '#1890FF'] });
+chart.coordinate({
+  type: 'helix',
+  startAngle: 0.5 * Math.PI, // 起始角度
+  endAngle: 12.5 * Math.PI, // 结束角度
+});
 
-  chart.render();
+chart
+  .interval()
+  .encode('x', 'time')
+  .encode('y', 'value')
+  .encode('color', 'value')
+  .scale('color', { range: ['#ffffff', '#1890FF'] });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 | 参数        | 说明                     | 类型     | 默认值        |
