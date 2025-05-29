@@ -2,12 +2,12 @@
 title: Funnel Chart
 order: 10
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original'
-category: ['comparison']
+category: ['comparison', 'flow']
 similar: ['pyramid']
 ---
 
 
-<img alt="funnel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="funnel" src="https://os.alipayobjects.com/rmsportal/eArJFAYwiiFeJpk.png" width=600/>
 
 ## Introduction to Funnel Charts
 
@@ -23,7 +23,7 @@ Each layer in a funnel chart represents a stage in the process, with the width o
 
 ### Basic Funnel Chart
 
-<img alt="basic-funnel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="basic-funnel" src="https://os.alipayobjects.com/rmsportal/eArJFAYwiiFeJpk.png" width=600 />
 
 | Chart Type      | Basic Funnel Chart                                                                    |
 | --------------- | ------------------------------------------------------------------------------------- |
@@ -53,10 +53,11 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic'
 });
 
 chart.options({
-  type: 'funnel',
+  type: 'interval',
   data: [
     { stage: 'Visits', value: 8043 },
     { stage: 'Inquiries', value: 2136 },
@@ -65,24 +66,34 @@ chart.options({
     { stage: 'Deals', value: 527 },
   ],
   encode: {
-    y: 'stage',
-    value: 'value',
+    x: 'stage',
+    y: 'value',
+    color: 'stage',
     shape: 'funnel',
   },
+  coordinate: { transform: [{ type: "transpose" }] },
   transform: [
     {
       type: 'symmetryY',
-      coordinate: 'rect'
     },
   ],
   scale: {
-    color: { 
+    color: {
       palette: 'spectral',
     },
   },
   style: {
     labelText: (d) => `${d.stage}: ${d.value}`,
   },
+  animate: { enter: { type: "fadeIn" } },
+  axis: false,
+  labels: [
+    {
+      text: (d) => `${d.stage}\n${d.value}`,
+      position: "inside",
+      transform: [{ type: "contrastReverse" }],
+    },
+  ],
   legend: false,
 });
 
@@ -105,10 +116,11 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic'
 });
 
 chart.options({
-  type: 'funnel',
+  type: 'interval',
   data: [
     { stage: 'Homepage Visit', value: 100000, percent: '100%' },
     { stage: 'Product Search', value: 60000, percent: '60%' },
@@ -117,20 +129,35 @@ chart.options({
     { stage: 'Completed Purchase', value: 5000, percent: '5%' },
   ],
   encode: {
-    y: 'stage',
-    value: 'value',
+    x: 'stage',
+    y: 'value',
     color: 'stage',
+    shape: 'funnel',
   },
-  style: {
-    labelText: (d) => `${d.stage}: ${d.percent}`,
-    labelPosition: 'right',
-  },
-  legend: false,
+  coordinate: { transform: [{ type: "transpose" }] },
+  transform: [
+    {
+      type: 'symmetryY',
+    },
+  ],
   scale: {
-    color: { 
+    color: {
       palette: 'blues',
     },
   },
+  style: {
+    labelText: (d) => `${d.stage}: ${d.percent}`,
+  },
+  animate: { enter: { type: "fadeIn" } },
+  axis: false,
+  labels: [
+    {
+      text: (d) => `${d.stage}\n${d.percent}`,
+      position: "inside",
+      transform: [{ type: "contrastReverse" }],
+    },
+  ],
+  legend: false,
 });
 
 chart.render();
@@ -151,6 +178,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic'
 });
 
 chart.options({
@@ -170,39 +198,69 @@ chart.options({
   axis: false,
   children: [
     {
-      type: 'funnel',
+      type: 'interval',
       region: { start: { x: 0, y: 0 }, end: { x: 0.48, y: 1 } },
       transform: [{ type: 'filter', callback: (d) => d.category === 'Channel A' }],
       encode: {
-        y: 'stage',
-        value: 'value',
+        x: 'stage',
+        y: 'value',
         color: 'stage',
+        shape: 'funnel',
       },
+      coordinate: { transform: [{ type: "transpose" }] },
+      transform: [
+        {
+          type: 'symmetryY',
+        },
+      ],
       scale: {
         color: { palette: 'spectral' },
       },
       style: {
         labelText: (d) => `${d.value}`,
-        labelPosition: 'left',
       },
+      animate: { enter: { type: "fadeIn" } },
+      axis: false,
+      labels: [
+        {
+          text: (d) => `${d.value}`,
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+      ],
       title: 'Channel A',
     },
     {
-      type: 'funnel',
+      type: 'interval',
       region: { start: { x: 0.52, y: 0 }, end: { x: 1, y: 1 } },
       transform: [{ type: 'filter', callback: (d) => d.category === 'Channel B' }],
       encode: {
-        y: 'stage',
-        value: 'value',
+        x: 'stage',
+        y: 'value',
         color: 'stage',
+        shape: 'funnel',
       },
+      coordinate: { transform: [{ type: "transpose" }] },
+      transform: [
+        {
+          type: 'symmetryY',
+        },
+      ],
       scale: {
         color: { palette: 'spectral' },
       },
       style: {
         labelText: (d) => `${d.value}`,
-        labelPosition: 'right',
       },
+      animate: { enter: { type: "fadeIn" } },
+      axis: false,
+      labels: [
+        {
+          text: (d) => `${d.value}`,
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+      ],
       title: 'Channel B',
     },
   ],
@@ -229,142 +287,153 @@ Funnel charts typically express a decreasing process from more to less. If there
 
 ## Extensions of Funnel Charts
 
-### Symmetrical Funnel Chart
+### Comparative Funnel Chart
 
-Symmetrical funnel charts can more clearly show comparisons between two related processes, or contrasts between positive and negative factors in the same process.
+Comparative funnel charts can more clearly show comparisons between two different processes or entities, helping to identify differences and advantages between different approaches.
 
 ```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
+import { Chart } from "@antv/g2";
 
-const chart = new Chart({
-  container: 'container',
-});
+const chart = new Chart({ container: "container" });
 
 chart.options({
-  type: 'view',
+  type: "view",
   autoFit: true,
   data: [
-    { stage: 'Acquisition', value: 3800, category: 'Actual' },
-    { stage: 'Activation', value: 2600, category: 'Actual' },
-    { stage: 'Retention', value: 1800, category: 'Actual' },
-    { stage: 'Conversion', value: 1000, category: 'Actual' },
-    { stage: 'Acquisition', value: 4000, category: 'Target' },
-    { stage: 'Activation', value: 3000, category: 'Target' },
-    { stage: 'Retention', value: 2000, category: 'Target' },
-    { stage: 'Conversion', value: 1200, category: 'Target' },
+    { action: "Visit", visitor: 500, site: "Site1" },
+    { action: "Browse", visitor: 400, site: "Site1" },
+    { action: "Interact", visitor: 300, site: "Site1" },
+    { action: "Order", visitor: 200, site: "Site1" },
+    { action: "Complete", visitor: 100, site: "Site1" },
+    { action: "Visit", visitor: 550, site: "Site2" },
+    { action: "Browse", visitor: 420, site: "Site2" },
+    { action: "Interact", visitor: 280, site: "Site2" },
+    { action: "Order", visitor: 150, site: "Site2" },
+    { action: "Complete", visitor: 80, site: "Site2" },
   ],
+  scale: {
+    x: { padding: 0 },
+    color: { range: ["#0050B3", "#1890FF", "#40A9FF", "#69C0FF", "#BAE7FF"] },
+  },
+  coordinate: { transform: [{ type: "transpose" }] },
+  axis: false,
   children: [
     {
-      type: 'funnel',
-      region: { start: { x: 0, y: 0 }, end: { x: 0.48, y: 1 } },
-      transform: [
-        { type: 'filter', callback: (d) => d.category === 'Actual' },
-        { type: 'sortY', by: 'value', reverse: true },
+      type: "interval",
+      data: {
+        transform: [{ type: "filter", callback: (d) => d.site === "Site1" }],
+      },
+      encode: { x: "action", y: "visitor", color: "action", shape: "funnel" },
+      style: { stroke: "#FFF" },
+      animate: { enter: { type: "fadeIn" } },
+      labels: [
+        {
+          text: "visitor",
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+        {
+          text: "action",
+          position: "right",
+          dx: (d) => {
+            return d.action === "Complete" ? 48 : 16;
+          },
+        },
       ],
-      coordinate: { transform: [{ type: 'transpose' }, { type: 'mirror', direction: 'x' }] },
-      encode: {
-        x: 'stage',
-        value: 'value',
-        color: 'stage',
-      },
-      scale: {
-        color: { palette: 'spectral' },
-      },
-      style: {
-        labelText: (d) => `${d.value}`,
-        labelPosition: 'inside',
-      },
-      title: 'Actual Conversion',
     },
     {
-      type: 'funnel',
-      region: { start: { x: 0.52, y: 0 }, end: { x: 1, y: 1 } },
-      transform: [
-        { type: 'filter', callback: (d) => d.category === 'Target' },
-        { type: 'sortY', by: 'value', reverse: true },
-      ],
-      coordinate: { transform: [{ type: 'transpose' }] },
+      type: "interval",
+      data: {
+        transform: [{ type: "filter", callback: (d) => d.site === "Site2" }],
+      },
       encode: {
-        x: 'stage',
-        value: 'value',
-        color: 'stage',
+        x: "action",
+        y: (d) => -d.visitor,
+        color: "action",
+        shape: "funnel",
       },
-      scale: {
-        color: { palette: 'spectral' },
-      },
-      style: {
-        labelText: (d) => `${d.value}`,
-        labelPosition: 'inside',
-      },
-      title: 'Target Conversion',
+      style: { stroke: "#FFF" },
+      animate: { enter: { type: "fadeIn" } },
+      labels: [
+        {
+          text: "visitor",
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+      ],
     },
   ],
-  legend: false,
-  axis: false,
 });
 
 chart.render();
+
 ```
 
 **Explanation**:
-- Horizontal symmetrical layout shows a comparison between actual conversion and target conversion
-- Same color coding and labels on both sides facilitate comparison
-- Mirror transformation enables reversed display of the left funnel
+- Horizontal comparative layout displays the conversion funnel effects of two sites
+- Upper and lower funnels separately show data from different sites for intuitive comparison
+- Uses y-axis negative value transformation to achieve reversed display of the lower funnel, creating a mirrored comparison effect
+- Same color coding and label configuration ensures consistency in comparison
 
 ### Pyramid Funnel Chart
 
-Pyramid funnel charts are a variant more suitable for displaying hierarchical structures or data like population pyramids.
+Pyramid funnel charts are a variant that displays conversion processes through symmetrical pyramid shapes, better highlighting the conversion rate changes at each stage.
 
 ```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
+import { Chart } from "@antv/g2";
 
-const chart = new Chart({
-  container: 'container',
-});
+const chart = new Chart({ container: "container" });
 
 chart.options({
-  type: 'funnel',
-  data: [
-    { age: '80+', male: -100, female: 150 },
-    { age: '70-79', male: -200, female: 260 },
-    { age: '60-69', male: -350, female: 380 },
-    { age: '50-59', male: -500, female: 520 },
-    { age: '40-49', male: -680, female: 700 },
-    { age: '30-39', male: -820, female: 850 },
-    { age: '20-29', male: -950, female: 1000 },
-    { age: '10-19', male: -870, female: 900 },
-    { age: '0-9', male: -600, female: 650 },
+  type: "interval",
+  autoFit: true,
+  paddingRight: 80,
+  data: {
+    type: "inline",
+    value: [
+      { action: "Browse Website", pv: 50000 },
+      { action: "Add to Cart", pv: 35000 },
+      { action: "Generate Order", pv: 25000 },
+      { action: "Pay Order", pv: 15000 },
+      { action: "Complete Transaction", pv: 8000 },
+    ],
+    transform: [
+      {
+        type: "custom",
+        callback: (data) =>
+          data.map((d) => ({
+            ...d,
+            rate: d.pv / data[0].pv,
+          })),
+      },
+    ],
+  },
+  encode: { x: "action", y: "pv", color: "action", shape: "pyramid" },
+  transform: [{ type: "symmetryY" }],
+  scale: { x: { padding: 0 } },
+  coordinate: { transform: [{ type: "transpose" }] },
+  animate: { enter: { type: "fadeIn" } },
+  axis: false,
+  legend: { color: { position: "bottom" } },
+  labels: [
+    { text: (d) => `${d.action} ${d.pv}`, textAlign: "left" },
+    {
+      text: (d) => `${(d.rate * 100).toFixed(1)}%`,
+      position: "inside",
+      transform: [{ type: "contrastReverse" }],
+    },
   ],
-  coordinate: { transform: [{ type: 'transpose' }] },
-  encode: {
-    x: 'age',
-    value: (d) => [Math.abs(d.male), d.female],
-    color: (d, idx) => idx === 0 ? 'Male' : 'Female',
-  },
-  scale: {
-    color: { range: ['#1890ff', '#f5222d'] },
-  },
-  style: {
-    shape: 'pyramid',
-    labelText: (d, idx) => `${idx === 0 ? Math.abs(d.male) : d.female}`,
-    labelPosition: 'inside',
-  },
-  legend: {
-    color: { position: 'top' },
-  },
-  axis: {
-    y: { grid: true, title: false },
-  },
 });
 
 chart.render();
+
 ```
 
 **Explanation**:
-- Horizontal pyramid shape suitable for population structure and other symmetrical data
-- Left and right sides display data for different categories (male/female)
-- Different colors distinguish data flows in two directions
-- Coordinate axis transposition enables horizontal display
+- Uses `shape: "pyramid"` to create symmetrical pyramid shape for better visual balance
+- Implements symmetrical pyramid layout through `symmetryY` transformation
+- Automatically calculates and displays conversion rate percentages for each stage
+- Horizontal display facilitates reading label information, especially suitable for scenarios with longer stage names
 
 ## Comparing Funnel Charts to Other Charts
 

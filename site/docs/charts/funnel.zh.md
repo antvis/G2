@@ -2,12 +2,12 @@
 title: 漏斗图
 order: 10
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original'
-category: ['comparison']
+category: ['comparison', 'flow']
 similar: ['pyramid']
 ---
 
 
-<img alt="funnel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="funnel" src="https://os.alipayobjects.com/rmsportal/eArJFAYwiiFeJpk.png" width=600/>
 
 ## 漏斗图的简介
 
@@ -23,7 +23,7 @@ similar: ['pyramid']
 
 ### 基础漏斗图
 
-<img alt="basic-funnel" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="basic-funnel" src="https://os.alipayobjects.com/rmsportal/eArJFAYwiiFeJpk.png" width=600 />
 
 | 图表类型         | 基础漏斗图                                                                          |
 | ---------------- | ----------------------------------------------------------------------------------- |
@@ -53,10 +53,11 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic'
 });
 
 chart.options({
-  type: 'funnel',
+  type: 'interval',
   data: [
     { stage: '访问', value: 8043 },
     { stage: '咨询', value: 2136 },
@@ -65,24 +66,34 @@ chart.options({
     { stage: '成交', value: 527 },
   ],
   encode: {
-    y: 'stage',
-    value: 'value',
+    x: 'stage',
+    y: 'value',
+    color: 'stage',
     shape: 'funnel',
   },
+  coordinate: { transform: [{ type: "transpose" }] },
   transform: [
     {
       type: 'symmetryY',
-      coordinate: 'rect'
     },
   ],
   scale: {
-    color: { 
+    color: {
       palette: 'spectral',
     },
   },
   style: {
     labelText: (d) => `${d.stage}: ${d.value}`,
   },
+  animate: { enter: { type: "fadeIn" } },
+  axis: false,
+  labels: [
+    {
+      text: (d) => `${d.stage}\n${d.value}`,
+      position: "inside",
+      transform: [{ type: "contrastReverse" }],
+    },
+  ],
   legend: false,
 });
 
@@ -105,10 +116,11 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic'
 });
 
 chart.options({
-  type: 'funnel',
+  type: 'interval',
   data: [
     { stage: '浏览首页', value: 100000, percent: '100%' },
     { stage: '搜索产品', value: 60000, percent: '60%' },
@@ -117,20 +129,35 @@ chart.options({
     { stage: '完成购买', value: 5000, percent: '5%' },
   ],
   encode: {
-    y: 'stage',
-    value: 'value',
+    x: 'stage',
+    y: 'value',
     color: 'stage',
+    shape: 'funnel',
   },
-  style: {
-    labelText: (d) => `${d.stage}: ${d.percent}`,
-    labelPosition: 'right',
-  },
-  legend: false,
+  coordinate: { transform: [{ type: "transpose" }] },
+  transform: [
+    {
+      type: 'symmetryY',
+    },
+  ],
   scale: {
-    color: { 
+    color: {
       palette: 'blues',
     },
   },
+  style: {
+    labelText: (d) => `${d.stage}: ${d.percent}`,
+  },
+  animate: { enter: { type: "fadeIn" } },
+  axis: false,
+  labels: [
+    {
+      text: (d) => `${d.stage}\n${d.percent}`,
+      position: "inside",
+      transform: [{ type: "contrastReverse" }],
+    },
+  ],
+  legend: false,
 });
 
 chart.render();
@@ -151,6 +178,7 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  theme: 'classic'
 });
 
 chart.options({
@@ -170,39 +198,69 @@ chart.options({
   axis: false,
   children: [
     {
-      type: 'funnel',
+      type: 'interval',
       region: { start: { x: 0, y: 0 }, end: { x: 0.48, y: 1 } },
       transform: [{ type: 'filter', callback: (d) => d.category === '渠道A' }],
       encode: {
-        y: 'stage',
-        value: 'value',
+        x: 'stage',
+        y: 'value',
         color: 'stage',
+        shape: 'funnel',
       },
+      coordinate: { transform: [{ type: "transpose" }] },
+      transform: [
+        {
+          type: 'symmetryY',
+        },
+      ],
       scale: {
         color: { palette: 'spectral' },
       },
       style: {
         labelText: (d) => `${d.value}`,
-        labelPosition: 'left',
       },
+      animate: { enter: { type: "fadeIn" } },
+      axis: false,
+      labels: [
+        {
+          text: (d) => `${d.value}`,
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+      ],
       title: '渠道A',
     },
     {
-      type: 'funnel',
+      type: 'interval',
       region: { start: { x: 0.52, y: 0 }, end: { x: 1, y: 1 } },
       transform: [{ type: 'filter', callback: (d) => d.category === '渠道B' }],
       encode: {
-        y: 'stage',
-        value: 'value',
+        x: 'stage',
+        y: 'value',
         color: 'stage',
+        shape: 'funnel',
       },
+      coordinate: { transform: [{ type: "transpose" }] },
+      transform: [
+        {
+          type: 'symmetryY',
+        },
+      ],
       scale: {
         color: { palette: 'spectral' },
       },
       style: {
         labelText: (d) => `${d.value}`,
-        labelPosition: 'right',
       },
+      animate: { enter: { type: "fadeIn" } },
+      axis: false,
+      labels: [
+        {
+          text: (d) => `${d.value}`,
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+      ],
       title: '渠道B',
     },
   ],
@@ -229,142 +287,153 @@ chart.render();
 
 ## 漏斗图的扩展
 
-### 对称漏斗图
+### 对比漏斗图
 
-对称漏斗图可以更清晰地展示两个相关流程的对比，或者同一流程中的正负面因素对比。
+对比漏斗图可以更清晰地展示两个不同流程或实体的转化效果对比，帮助识别不同方案之间的差异和优劣。
 
 ```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
+import { Chart } from "@antv/g2";
 
-const chart = new Chart({
-  container: 'container',
-});
+const chart = new Chart({ container: "container" });
 
 chart.options({
-  type: 'view',
+  type: "view",
   autoFit: true,
   data: [
-    { stage: '获客', value: 3800, category: '实际' },
-    { stage: '激活', value: 2600, category: '实际' },
-    { stage: '留存', value: 1800, category: '实际' },
-    { stage: '转化', value: 1000, category: '实际' },
-    { stage: '获客', value: 4000, category: '目标' },
-    { stage: '激活', value: 3000, category: '目标' },
-    { stage: '留存', value: 2000, category: '目标' },
-    { stage: '转化', value: 1200, category: '目标' },
+    { action: "访问", visitor: 500, site: "站点1" },
+    { action: "浏览", visitor: 400, site: "站点1" },
+    { action: "交互", visitor: 300, site: "站点1" },
+    { action: "下单", visitor: 200, site: "站点1" },
+    { action: "完成", visitor: 100, site: "站点1" },
+    { action: "访问", visitor: 550, site: "站点2" },
+    { action: "浏览", visitor: 420, site: "站点2" },
+    { action: "交互", visitor: 280, site: "站点2" },
+    { action: "下单", visitor: 150, site: "站点2" },
+    { action: "完成", visitor: 80, site: "站点2" },
   ],
+  scale: {
+    x: { padding: 0 },
+    color: { range: ["#0050B3", "#1890FF", "#40A9FF", "#69C0FF", "#BAE7FF"] },
+  },
+  coordinate: { transform: [{ type: "transpose" }] },
+  axis: false,
   children: [
     {
-      type: 'funnel',
-      region: { start: { x: 0, y: 0 }, end: { x: 0.48, y: 1 } },
-      transform: [
-        { type: 'filter', callback: (d) => d.category === '实际' },
-        { type: 'sortY', by: 'value', reverse: true },
+      type: "interval",
+      data: {
+        transform: [{ type: "filter", callback: (d) => d.site === "站点1" }],
+      },
+      encode: { x: "action", y: "visitor", color: "action", shape: "funnel" },
+      style: { stroke: "#FFF" },
+      animate: { enter: { type: "fadeIn" } },
+      labels: [
+        {
+          text: "visitor",
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+        {
+          text: "action",
+          position: "right",
+          dx: (d) => {
+            return d.action === "完成" ? 48 : 16;
+          },
+        },
       ],
-      coordinate: { transform: [{ type: 'transpose' }, { type: 'mirror', direction: 'x' }] },
-      encode: {
-        x: 'stage',
-        value: 'value',
-        color: 'stage',
-      },
-      scale: {
-        color: { palette: 'spectral' },
-      },
-      style: {
-        labelText: (d) => `${d.value}`,
-        labelPosition: 'inside',
-      },
-      title: '实际转化',
     },
     {
-      type: 'funnel',
-      region: { start: { x: 0.52, y: 0 }, end: { x: 1, y: 1 } },
-      transform: [
-        { type: 'filter', callback: (d) => d.category === '目标' },
-        { type: 'sortY', by: 'value', reverse: true },
-      ],
-      coordinate: { transform: [{ type: 'transpose' }] },
+      type: "interval",
+      data: {
+        transform: [{ type: "filter", callback: (d) => d.site === "站点2" }],
+      },
       encode: {
-        x: 'stage',
-        value: 'value',
-        color: 'stage',
+        x: "action",
+        y: (d) => -d.visitor,
+        color: "action",
+        shape: "funnel",
       },
-      scale: {
-        color: { palette: 'spectral' },
-      },
-      style: {
-        labelText: (d) => `${d.value}`,
-        labelPosition: 'inside',
-      },
-      title: '目标转化',
+      style: { stroke: "#FFF" },
+      animate: { enter: { type: "fadeIn" } },
+      labels: [
+        {
+          text: "visitor",
+          position: "inside",
+          transform: [{ type: "contrastReverse" }],
+        },
+      ],
     },
   ],
-  legend: false,
-  axis: false,
 });
 
 chart.render();
+
 ```
 
 **说明**：
-- 使用水平对称的布局展示实际转化与目标转化的对比
-- 两侧使用相同的颜色编码和标签，便于对应比较
-- 通过镜像变换实现左侧漏斗的反向展示
+- 使用水平对比的布局展示两个站点的转化漏斗效果
+- 上下两个漏斗分别展示不同站点的数据，便于直观对比
+- 通过 y 轴负值变换实现下方漏斗的反向展示，形成镜像对比效果
+- 相同的颜色编码和标签配置确保对比的一致性
 
 ### 金字塔漏斗图
 
-金字塔形漏斗图是一种变体，更适合展示层级结构或人口金字塔等数据。
+金字塔形漏斗图是一种变体，通过对称的金字塔形状展示转化流程，能够更突出各阶段的转化率变化。
 
 ```js | ob { autoMount: true  }
-import { Chart } from '@antv/g2';
+import { Chart } from "@antv/g2";
 
-const chart = new Chart({
-  container: 'container',
-});
+const chart = new Chart({ container: "container" });
 
 chart.options({
-  type: 'funnel',
-  data: [
-    { age: '80+', male: -100, female: 150 },
-    { age: '70-79', male: -200, female: 260 },
-    { age: '60-69', male: -350, female: 380 },
-    { age: '50-59', male: -500, female: 520 },
-    { age: '40-49', male: -680, female: 700 },
-    { age: '30-39', male: -820, female: 850 },
-    { age: '20-29', male: -950, female: 1000 },
-    { age: '10-19', male: -870, female: 900 },
-    { age: '0-9', male: -600, female: 650 },
+  type: "interval",
+  autoFit: true,
+  paddingRight: 80,
+  data: {
+    type: "inline",
+    value: [
+      { action: "浏览网站", pv: 50000 },
+      { action: "放入购物车", pv: 35000 },
+      { action: "生成订单", pv: 25000 },
+      { action: "支付订单", pv: 15000 },
+      { action: "完成交易", pv: 8000 },
+    ],
+    transform: [
+      {
+        type: "custom",
+        callback: (data) =>
+          data.map((d) => ({
+            ...d,
+            rate: d.pv / data[0].pv,
+          })),
+      },
+    ],
+  },
+  encode: { x: "action", y: "pv", color: "action", shape: "pyramid" },
+  transform: [{ type: "symmetryY" }],
+  scale: { x: { padding: 0 } },
+  coordinate: { transform: [{ type: "transpose" }] },
+  animate: { enter: { type: "fadeIn" } },
+  axis: false,
+  legend: { color: { position: "bottom" } },
+  labels: [
+    { text: (d) => `${d.action} ${d.pv}`, textAlign: "left" },
+    {
+      text: (d) => `${(d.rate * 100).toFixed(1)}%`,
+      position: "inside",
+      transform: [{ type: "contrastReverse" }],
+    },
   ],
-  coordinate: { transform: [{ type: 'transpose' }] },
-  encode: {
-    x: 'age',
-    value: (d) => [Math.abs(d.male), d.female],
-    color: (d, idx) => idx === 0 ? '男性' : '女性',
-  },
-  scale: {
-    color: { range: ['#1890ff', '#f5222d'] },
-  },
-  style: {
-    shape: 'pyramid',
-    labelText: (d, idx) => `${idx === 0 ? Math.abs(d.male) : d.female}`,
-    labelPosition: 'inside',
-  },
-  legend: {
-    color: { position: 'top' },
-  },
-  axis: {
-    y: { grid: true, title: false },
-  },
 });
 
 chart.render();
+
 ```
 
 **说明**：
-- 横向展示的金字塔形状，适合人口结构等对称性数据
-- 左右两侧展示不同类别（男性/女性）的数据
-- 使用不同颜色区分两个方向的数据流
-- 通过坐标轴转置实现水平展示
+- 使用 `shape: "pyramid"` 创建对称的金字塔形状，视觉效果更加平衡
+- 通过 `symmetryY` 变换实现上下对称的金字塔布局
+- 自动计算并显示每个阶段的转化率百分比
+- 横向展示便于阅读标签信息，特别适合阶段名称较长的场景
 
 ## 漏斗图与其他图表的对比
 
