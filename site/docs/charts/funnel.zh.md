@@ -1,9 +1,9 @@
 ---
 title: 漏斗图
 order: 10
-screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bVErS5tN_goAAAAAAAAAAAAADmJ7AQ/original'
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9GDLQpMor0oAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison', 'flow']
-similar: ['pyramid']
+similar: ['sankey']
 ---
 
 
