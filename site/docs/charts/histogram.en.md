@@ -3,7 +3,7 @@ title: Histogram Chart
 order: 2
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WJFaSp1JLHQAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison', 'distribution']
-similar: ['bar', 'column']
+similar: ['bar', 'boxplot', 'line', 'area']
 ---
 
 
@@ -11,39 +11,46 @@ similar: ['bar', 'column']
 
 ## Introduction to Histogram Charts
 
-A histogram is a statistical chart used to display the distribution of data by dividing continuous data into multiple intervals (bins) and counting the frequency of data points in each interval. Unlike regular bar charts, histograms have no gaps between adjacent bars, indicating that the data is continuous.
+A histogram is a chart that, while similar in shape to [bar charts](/en/charts/bar), has a completely different meaning. Histograms involve statistical concepts, first grouping data, then counting the number of data elements in each group. In a Cartesian coordinate system, the horizontal axis marks the endpoints of each group, the vertical axis represents frequency, and the height of each rectangle represents the corresponding frequency, called a frequency distribution histogram. Standard frequency distribution histograms require calculating frequency times class width to get the count for each group. Since the class width is fixed for the same histogram, using the vertical axis to directly represent counts, with each rectangle's height representing the corresponding number of data elements, preserves the distribution shape while intuitively showing the count for each group. All examples in this document use non-standard histograms with the vertical axis representing counts.
 
-Histograms are particularly suitable for exploring and analyzing the shape of data distributions, such as skewness, kurtosis, and whether the data follows a normal distribution. By observing a histogram, you can quickly understand the central tendency, dispersion, and presence of outliers in a dataset.
+**Related Concepts**:
+- Number of classes: When organizing statistical data, we divide data into several groups by different ranges, and the number of groups is called the number of classes
+- Class width: The difference between the two endpoints of each group
+- Frequency: The number of data elements in a group divided by the class width
 
-In data analysis and statistics, histograms are fundamental and important visualization tools, commonly used during the data preprocessing phase to help researchers understand data characteristics and provide a foundation for subsequent analysis.
+**Functions of Histograms**:
+- Can display the frequency or count distribution of each group
+- Easy to show differences in frequency or count between groups
+
+Through histograms, you can also observe and estimate which data is more concentrated and where abnormal or isolated data is distributed.
 
 **Other Names**: Frequency Distribution Chart
 
 ## Components of a Histogram Chart
 
-### Basic Histogram
+### Frequency Distribution Histogram
 
-<img alt="basic-histogram" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WJFaSp1JLHQAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="basic-histogram" src="https://os.alipayobjects.com/rmsportal/rDGZziKoqcGqXaj.png" width=600 />
 
-| Chart Type       | Basic Histogram                                                                      |
+| Chart Type       | Frequency Distribution Histogram                                                      |
 | ---------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data    | Continuous data: Shows the distribution of a single variable                          |
-| Function         | Counts frequency distribution, displays the shape of data distribution                |
-| Data-to-Visual Mapping | Horizontal axis represents data intervals<br>Vertical axis represents frequency<br>Bar height corresponds to frequency or count |
-| Suitable Scenarios | Exploratory data analysis, understanding central tendency and dispersion           |
+| Suitable Data    | List: one continuous data field, one categorical field (optional)                   |
+| Function         | Show data distribution across different intervals                                     |
+| Data-to-Visual Mapping | Grouped data field (statistical result) mapped to horizontal axis position<br>Frequency field (statistical result) mapped to rectangle height<br>Categorical data can use color to enhance category distinction |
+| Suitable Data Volume | No less than 50 data points                                                       |
 
 ---
 
-### Density Histogram
+### Non-standard Histogram
 
-<img alt="density-histogram" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*j-D7RILbV8oAAAAAAAAAAAAADmJ7AQ/original" width=600/>
+<img alt="density-histogram" src="https://os.alipayobjects.com/rmsportal/ZmewPQkvLvoHAzq.png" width=600/>
 
-| Chart Type       | Density Histogram                                                               |
-| ---------------- | ------------------------------------------------------------------------------- |
-| Suitable Data    | Continuous data: Shows the probability density of a single variable distribution |
-| Function         | Displays density distribution through normalization instead of raw frequency     |
-| Data-to-Visual Mapping | Horizontal axis represents data intervals<br>Vertical axis represents frequency density<br>Bar height corresponds to probability density |
-| Suitable Scenarios | Comparing distributions of different-sized datasets, probability distribution analysis |
+| Chart Type       | Non-standard Histogram                                                               |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| Suitable Data    | List: one continuous data field, one categorical field (optional)                   |
+| Function         | Show data distribution across different intervals                                     |
+| Data-to-Visual Mapping | Grouped data field (statistical result) mapped to horizontal axis position<br>Count field (statistical result) mapped to rectangle height<br>Categorical data can use color to enhance category distinction |
+| Suitable Data Volume | No less than 50 data points                                                       |
 
 ## Use Cases of Histogram Charts
 
@@ -59,36 +66,33 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  autoFit: true,
 });
 
-chart.options({
-  type: 'histogram',
-  autoFit: true,
-  data: {
+chart
+  .interval()
+  .data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  },
-  encode: { 
-    x: 'carat',
-    y: 'count' 
-  },
-  scale: {
+  })
+  .encode('x', 'carat')
+  .encode('y', 'count')
+  .transform({
+    type: 'binX',
+    y: 'count',
+  })
+  .scale({
     y: { nice: true }
-  },
-  axis: {
-    x: {
-      title: 'Diamond Weight (Carats)',
-    },
-    y: {
-      title: 'Frequency',
-    },
-  },
-  style: {
+  })
+  .axis({
+    x: { title: 'Diamond Weight (Carat)' },
+    y: { title: 'Frequency' },
+  })
+  .style({
     fill: '#1890FF',
     fillOpacity: 0.9,
     stroke: '#FFF',
-  }
-});
+  });
 
 chart.render();
 ```
@@ -97,7 +101,7 @@ chart.render();
 **Notes**:
 
 - The `carat` field is mapped to the horizontal axis, representing the range of diamond weights
-- The system automatically calculates the frequency of data in different intervals, mapped to the vertical axis
+- Using `interval()` geometry with `binX` transform to automatically calculate frequency in different intervals
 - There are no gaps between bars, indicating that the data is continuously distributed
 
 Example 2: **Using Different Binning Methods**
@@ -110,47 +114,40 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  autoFit: true,
 });
 
-chart.options({
-  type: 'histogram',
-  autoFit: true,
-  data: {
+chart
+  .interval()
+  .data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  },
-  encode: { 
-    x: 'carat',
-    y: 'count' 
-  },
-  transform: [{ 
-    type: 'binX', 
+  })
+  .encode('x', 'carat')
+  .encode('y', 'count')
+  .transform({
+    type: 'binX',
     y: 'count',
-    bins: 30 // Specify number of bins
-  }],
-  scale: {
+    thresholds: 30, // Specify number of bins
+  })
+  .scale({
     y: { nice: true }
-  },
-  axis: {
-    x: {
-      title: 'Diamond Weight (Carats)',
-    },
-    y: {
-      title: 'Frequency',
-    },
-  },
-  style: {
+  })
+  .axis({
+    x: { title: 'Diamond Weight (Carat)' },
+    y: { title: 'Frequency' },
+  })
+  .style({
     fill: '#1890FF',
     fillOpacity: 0.9,
     stroke: '#FFF',
-  }
-});
+  });
 
 chart.render();
 ```
 
 **Notes**:
-- Using `transform: [{ type: 'binX', bins: 30 }]` to specify 30 bins
+- Using `transform: { type: 'binX', thresholds: 30 }` to specify 30 bins
 - The choice of bin number affects the display of distribution details; more bins can show more detailed distribution patterns
 - Fewer bins can highlight the main distribution trends
 
@@ -164,41 +161,36 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  autoFit: true,
 });
 
-chart.options({
-  type: 'histogram',
-  autoFit: true,
-  data: {
+chart
+  .interval()
+  .data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  },
-  encode: { 
-    x: 'carat',
-    y: 'density'
-  },
-  transform: [{ 
-    type: 'binX', 
+  })
+  .encode('x', 'carat')
+  .encode('y', 'density')
+  .transform({
+    type: 'binX',
     y: 'count',
-    bins: 20
+    thresholds: 20,
   }, {
     type: 'normalizeY'
-  }],
-  axis: {
-    x: { 
-      title: 'Diamond Weight (Carats)' 
-    },
+  })
+  .axis({
+    x: { title: 'Diamond Weight (Carat)' },
     y: { 
       title: 'Density',
       labelFormatter: '.0%'
     }
-  },
-  style: {
+  })
+  .style({
     fill: '#2FC25B',
     fillOpacity: 0.85,
     stroke: '#FFF',
-  }
-});
+  });
 
 chart.render();
 ```
@@ -230,12 +222,12 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  autoFit: true,
 });
 
-chart.options({
-  type: 'histogram',
-  autoFit: true,
-  data: {
+chart
+  .interval()
+  .data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     transform: [
@@ -247,41 +239,38 @@ chart.options({
         }),
       },
     ],
-  },
-  encode: { 
-    x: 'price',
+  })
+  .encode('x', 'price')
+  .encode('y', 'count')
+  .encode('color', 'group')
+  .transform({
+    type: 'binX',
     y: 'count',
-    color: 'group'
-  },
-  transform: [{ 
-    type: 'binX', 
-    y: 'count',
-    bins: 30,
+    thresholds: 30,
     groupBy: ['group']
-  }],
-  scale: {
+  })
+  .scale({
     y: { nice: true },
     color: {
       range: ['#1890FF', '#FF6B3B']
     }
-  },
-  axis: {
+  })
+  .axis({
     x: { title: 'Price (USD)' },
     y: { title: 'Frequency' }
-  },
-  style: {
+  })
+  .style({
     fillOpacity: 0.7,
     stroke: '#FFF',
     lineWidth: 1
-  },
-  legend: true
-});
+  })
+  .legend(true);
 
 chart.render();
 ```
 
 **Notes**:
-- Using `color: 'group'` and `groupBy: ['group']` to achieve multi-distribution comparison
+- Using `encode('color', 'group')` and `groupBy: ['group']` to achieve multi-distribution comparison
 - Using different colors and transparencies to facilitate observation of distribution differences between groups
 
 ### Combining Density Curve with Histogram
@@ -294,67 +283,65 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  autoFit: true,
 });
 
-chart.options({
-  type: 'view',
-  autoFit: true,
-  data: {
+// Add histogram layer
+chart
+  .interval()
+  .data({
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  },
-  children: [
-    {
-      type: 'histogram',
-      encode: { 
-        x: 'price',
-        y: 'count'
-      },
-      transform: [{ 
-        type: 'binX', 
-        y: 'count',
-        bins: 30
-      }],
-      style: {
-        fill: '#1890FF',
-        fillOpacity: 0.6,
-        stroke: '#FFF'
-      }
-    },
-    {
-      type: 'line',
-      encode: { 
-        x: 'price',
-        y: 'density',
-        shape: 'smooth'
-      },
-      transform: [{ 
-        type: 'kde', 
-        field: 'price',
-        as: ['price', 'density'],
-        extent: [0, 20000],
-        bandwidth: 50
-      }],
-      style: {
-        stroke: '#FF6B3B',
-        lineWidth: 2
-      }
-    }
-  ],
-  scale: {
+  })
+  .encode('x', 'price')
+  .encode('y', 'count')
+  .transform({
+    type: 'binX',
+    y: 'count',
+    thresholds: 30
+  })
+  .style({
+    fill: '#1890FF',
+    fillOpacity: 0.6,
+    stroke: '#FFF'
+  });
+
+// Add density curve layer
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+  })
+  .encode('x', 'price')
+  .encode('y', 'density')
+  .encode('shape', 'smooth')
+  .transform({
+    type: 'kde',
+    field: 'price',
+    as: ['price', 'density'],
+    extent: [0, 20000],
+    bandwidth: 50
+  })
+  .style({
+    stroke: '#FF6B3B',
+    lineWidth: 2
+  });
+
+chart
+  .scale({
     y: { nice: true }
-  },
-  axis: {
+  })
+  .axis({
     x: { title: 'Price (USD)' },
     y: { title: 'Frequency' }
-  }
-});
+  });
 
 chart.render();
 ```
 
 **Notes**:
-- Using both histogram and density curve to show distribution characteristics
+- Using separate histogram and line layers to show distribution characteristics
 - Histogram shows actual frequency distribution, while the density curve smoothly shows the overall trend
 - Using the `kde` transform to calculate kernel density estimates
 
