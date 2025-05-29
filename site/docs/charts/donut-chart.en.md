@@ -57,6 +57,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
+  transform: [{ type: "stackY" }], // Add stackY transform
   data: [
     { genre: 'Sports', sold: 27500 },
     { genre: 'Strategy', sold: 11500 },
@@ -302,6 +303,7 @@ chart.options({
   children: [
     {
       type: 'interval',
+      transform: [{ type: "stackY" }], // Add stackY transform
       coordinate: { type: 'theta', innerRadius: 0.5 },
       encode: { y: 'profit', color: 'area' },
       legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },

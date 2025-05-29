@@ -57,6 +57,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
+  transform: [{ type: "stackY" }], // 添加堆叠转换
   data: [
     { genre: 'Sports', sold: 27500 },
     { genre: 'Strategy', sold: 11500 },
@@ -120,6 +121,7 @@ const total = data.reduce((acc, curr) => acc + curr.value, 0);
 chart.options({
   type: 'interval',
   autoFit: true,
+  transform: [{ type: "stackY" }], // 添加堆叠转换
   data,
   coordinate: { type: 'theta', innerRadius: 0.6 },
   encode: { y: 'value', color: 'type' },
@@ -170,6 +172,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
+  transform: [{ type: "stackY" }], // 添加堆叠转换
   data: [
     { province: '北京市', population: 19612368 },
     { province: '天津市', population: 12938693 },
@@ -227,6 +230,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
+  transform: [{ type: "stackY" }], // 添加堆叠转换
   data: [
     { genre: 'Sports', sold: 15000 },
     { genre: 'Strategy', sold: 14900 },
@@ -302,6 +306,7 @@ chart.options({
   children: [
     {
       type: 'interval',
+      transform: [{ type: "stackY" }], // 添加堆叠转换
       coordinate: { type: 'theta', innerRadius: 0.5 },
       encode: { y: 'profit', color: 'area' },
       legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
