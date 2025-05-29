@@ -77,28 +77,28 @@ In addition to `mark.encode`, the visual properties of the mark can also be set 
 - The channel set by `mark.encode` will be a bit special, either unique to the mark, such as the src channel of image; or it has some special logic, such as the x channel that affects the generation of the x-direction coordinate axis.
 - `mark.encode` is more inclined to set up channels related to data, but `mark.style` prefers to set up channels that have nothing to do with data. Although `mark.style` also supports callbacks to set up data-driven channels.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .style('fill', 'steelblue') // Set data-independent channels
-    .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // Set data-related channels
-    .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
-    .axis('y', { labelFormatter: '.0%' });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .style('fill', 'steelblue') // Set data-independent channels
+  .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // Set data-related channels
+  .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
+  .axis('y', { labelFormatter: '.0%' });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## View Style
@@ -112,52 +112,52 @@ The styles of each area can be set in the form of `${name}${Style}`, among them,
 
 For example, color each area in the picture below:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view',
-    height: 280,
-    inset: 10,
-    marginTop: 30,
-    marginLeft: 40,
-    marginBottom: 10,
-    marginRight: 20,
-    style: {
-      // Set the view style
-      viewFill: '#4e79a7',
-      plotFill: '#f28e2c',
-      mainFill: '#e15759',
-      contentFill: '#76b7b2',
-    },
-    children: [
-      {
-        type: 'point',
-        data: {
-          type: 'fetch',
-          value: 'https://assets.antv.antgroup.com/g2/commits.json',
-        },
-        encode: {
-          x: (d) => new Date(d.time).getUTCHours(),
-          y: (d) => new Date(d.time).getUTCDay(),
-          size: 'count',
-          shape: 'point',
-        },
-        transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
-        scale: { y: { type: 'point' } },
-        style: { shape: 'point', fill: '#59a14f' },
-        axis: {
-          x: { title: 'time (hours)', tickCount: 24 },
-          y: { title: 'time (day)', grid: true },
-        },
-        legend: false,
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  height: 280,
+  inset: 10,
+  marginTop: 30,
+  marginLeft: 40,
+  marginBottom: 10,
+  marginRight: 20,
+  style: {
+    // Set the view style
+    viewFill: '#4e79a7',
+    plotFill: '#f28e2c',
+    mainFill: '#e15759',
+    contentFill: '#76b7b2',
+  },
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/commits.json',
       },
-    ],
-  });
+      encode: {
+        x: (d) => new Date(d.time).getUTCHours(),
+        y: (d) => new Date(d.time).getUTCDay(),
+        size: 'count',
+        shape: 'point',
+      },
+      transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
+      scale: { y: { type: 'point' } },
+      style: { shape: 'point', fill: '#59a14f' },
+      axis: {
+        x: { title: 'time (hours)', tickCount: 24 },
+        y: { title: 'time (day)', grid: true },
+      },
+      legend: false,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

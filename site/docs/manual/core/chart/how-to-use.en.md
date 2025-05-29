@@ -5,26 +5,26 @@ order: 2
 
 Most of G2's capabilities are exposed to users through the `Chart` object. Here's an example of creating a simple bar chart:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 Let's explore the core usage of the `Chart`.
@@ -142,4 +142,4 @@ Destroys the canvas and cancels event listeners. This is often used when destroy
 
 ```js
 chart.destroy();
-```  
+```

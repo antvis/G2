@@ -20,45 +20,45 @@ order: 2
 
 例如下面的案例展示了泰坦尼克号乘客按照舱位等级和生存状态的分布情况，通过 `pack` 转换让每个乘客点有序地排列，清晰地展示了各个类别的数量分布。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'facetRect',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/titanic.json',
-      transform: [
-        { type: 'sortBy', fields: ['survived'] },
-        {
-          type: 'map',
-          callback: ({ survived, ...d }) => ({
-            ...d,
-            survived: survived + '',
-          }),
-        },
-      ],
-    },
-    encode: { x: 'pclass' },
-    children: [
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'facetRect',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/titanic.json',
+    transform: [
+      { type: 'sortBy', fields: ['survived'] },
       {
-        type: 'point',
-        encode: { color: 'survived', shape: 'point', size: 3 },
-        transform: [{ type: 'pack' }],
-        legend: {
-          color: { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
-        },
-        tooltip: { title: '', items: ['pclass', 'survived'] },
+        type: 'map',
+        callback: ({ survived, ...d }) => ({
+          ...d,
+          survived: survived + '',
+        }),
       },
     ],
-  });
+  },
+  encode: { x: 'pclass' },
+  children: [
+    {
+      type: 'point',
+      encode: { color: 'survived', shape: 'point', size: 3 },
+      transform: [{ type: 'pack' }],
+      legend: {
+        color: { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
+      },
+      tooltip: { title: '', items: ['pclass', 'survived'] },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[单元可视化](/examples/unit/unit#basic)页面。
@@ -87,44 +87,44 @@ order: 2
 
 以下案例展示了泰坦尼克号乘客性别和生存状态的分布，通过配置 `pack` 转换的 `padding` 和 `direction` 参数，使得结果更为直观。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'facetRect',
-    autoFit: true,
-    shareData: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/titanic.json',
-      transform: [
-        { type: 'sortBy', fields: ['survived'] },
-        {
-          type: 'map',
-          callback: ({ survived, ...d }) => ({
-            ...d,
-            survived: survived + '',
-          }),
-        },
-      ],
-    },
-    encode: { x: 'sex' },
-    children: [
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'facetRect',
+  autoFit: true,
+  shareData: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/titanic.json',
+    transform: [
+      { type: 'sortBy', fields: ['survived'] },
       {
-        type: 'point',
-        encode: { color: 'survived', shape: 'point', size: 3 },
-        transform: [{ type: 'pack', padding: 5, direction: 'row' }],
-        legend: {
-          color: { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
-        },
-        tooltip: { title: '', items: ['sex', 'survived'] },
+        type: 'map',
+        callback: ({ survived, ...d }) => ({
+          ...d,
+          survived: survived + '',
+        }),
       },
     ],
-  });
+  },
+  encode: { x: 'sex' },
+  children: [
+    {
+      type: 'point',
+      encode: { color: 'survived', shape: 'point', size: 3 },
+      transform: [{ type: 'pack', padding: 5, direction: 'row' }],
+      legend: {
+        color: { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
+      },
+      tooltip: { title: '', items: ['sex', 'survived'] },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

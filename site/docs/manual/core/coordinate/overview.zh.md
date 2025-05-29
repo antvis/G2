@@ -66,40 +66,40 @@ chart.area():
 
 这个特性有利于封装和坐标系相关的复合标记，比如饼图：
 
-```js | ob
-(() => {
-  function Pie({ encode = {}, ...rest } = {}) {
-    const { value, ...restEncode } = encode;
-    return {
-      ...rest,
-      type: 'interval',
-      coordinate: { type: 'theta' }, // 封装坐标系
-      transform: [{ type: 'stackY' }],
-      encode: {
-        ...restEncode,
-        y: value,
-      },
-    };
-  }
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const chart = new G2.Chart();
+function Pie({ encode = {}, ...rest } = {}) {
+  const { value, ...restEncode } = encode;
+  return {
+    ...rest,
+    type: 'interval',
+    coordinate: { type: 'theta' }, // 封装坐标系
+    transform: [{ type: 'stackY' }],
+    encode: {
+      ...restEncode,
+      y: value,
+    },
+  };
+}
 
-  chart.options({
-    type: Pie, // 使用该复合 Mark
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: { value: 'sold', color: 'genre' },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: Pie, // 使用该复合 Mark
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { value: 'sold', color: 'genre' },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 常见坐标系
@@ -110,159 +110,159 @@ chart.area():
 
 比如可以使用 interval 标记和 polar 坐标系变换绘制玫瑰图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .coordinate({ type: 'polar' })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .axis('y', false);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .coordinate({ type: 'polar' })
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .axis('y', false);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### Theta
 
 也可以使用 interval 标记和 theta 坐标系来绘制饼图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .coordinate({ type: 'theta' })
-    .transform({ type: 'stackY' })
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('y', 'sold')
-    .encode('color', 'genre');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .coordinate({ type: 'theta' })
+  .transform({ type: 'stackY' })
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('y', 'sold')
+  .encode('color', 'genre');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### Radial
 
 还可以使用 interval 标记和 radial 坐标系来绘制玉珏图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .coordinate({ type: 'radial', endAngle: Math.PI })
-    .data([
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Other', sold: 150 },
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Shooter', sold: 350 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'genre')
-    .axis('y', false)
-    .legend('color', false)
-    .axis('x', { title: null });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .coordinate({ type: 'radial', endAngle: Math.PI })
+  .data([
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Other', sold: 150 },
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Shooter', sold: 350 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .axis('y', false)
+  .legend('color', false)
+  .axis('x', { title: null });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### Parallel
 
 除了前面的比较基础的坐标系变换之外，还有一些稍微复杂一点的坐标系变换，比如平行坐标系 parallel。
 
-```js | ob
-(() => {
-  const axis = {
-    zIndex: 1,
-    titlePosition: 'right',
-    line: true,
-    labelStroke: '#fff',
-    labelStrokeWidth: 5,
-    labelFontSize: 10,
-    labelStrokeLineJoin: 'round',
-    titleStroke: '#fff',
-    titleFontSize: 10,
-    titleStrokeWidth: 5,
-    titleStrokeLineJoin: 'round',
-    titleTransform: 'translate(-50%, 0) rotate(-90)',
-    lineStroke: 'black',
-    tickStroke: 'black',
-    lineStrokeWidth: 1,
-  };
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const chart = new G2.Chart();
+const axis = {
+  zIndex: 1,
+  titlePosition: 'right',
+  line: true,
+  labelStroke: '#fff',
+  labelStrokeWidth: 5,
+  labelFontSize: 10,
+  labelStrokeLineJoin: 'round',
+  titleStroke: '#fff',
+  titleFontSize: 10,
+  titleStrokeWidth: 5,
+  titleStrokeLineJoin: 'round',
+  titleTransform: 'translate(-50%, 0) rotate(-90)',
+  lineStroke: 'black',
+  tickStroke: 'black',
+  lineStrokeWidth: 1,
+};
 
-  chart
-    .line()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/cars3.json',
-    })
-    .coordinate({ type: 'parallel' }) // 指定平行坐标系变换
-    // 指定关心的数据维度
-    // 每一个数据维度都对应一根轴
-    .encode('position', [
-      'economy (mpg)',
-      'cylinders',
-      'displacement (cc)',
-      'power (hp)',
-      'weight (lb)',
-      '0-60 mph (s)',
-      'year',
-    ])
-    .encode('color', 'weight (lb)')
-    .style('strokeWidth', 1.5)
-    .style('strokeOpacity', 0.4)
-    .scale('color', {
-      type: 'sequential',
-      palette: 'brBG',
-      offset: (t) => 1 - t,
-    })
-    .legend({
-      color: { length: 400 },
-    })
-    .axis('position', axis)
-    .axis('position1', axis)
-    .axis('position2', axis)
-    .axis('position3', axis)
-    .axis('position4', axis)
-    .axis('position5', axis)
-    .axis('position6', axis)
-    .axis('position7', axis)
-    .interaction('tooltip', { series: false });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+  })
+  .coordinate({ type: 'parallel' }) // 指定平行坐标系变换
+  // 指定关心的数据维度
+  // 每一个数据维度都对应一根轴
+  .encode('position', [
+    'economy (mpg)',
+    'cylinders',
+    'displacement (cc)',
+    'power (hp)',
+    'weight (lb)',
+    '0-60 mph (s)',
+    'year',
+  ])
+  .encode('color', 'weight (lb)')
+  .style('strokeWidth', 1.5)
+  .style('strokeOpacity', 0.4)
+  .scale('color', {
+    type: 'sequential',
+    palette: 'brBG',
+    offset: (t) => 1 - t,
+  })
+  .legend({
+    color: { length: 400 },
+  })
+  .axis('position', axis)
+  .axis('position1', axis)
+  .axis('position2', axis)
+  .axis('position3', axis)
+  .axis('position4', axis)
+  .axis('position5', axis)
+  .axis('position6', axis)
+  .axis('position7', axis)
+  .interaction('tooltip', { series: false });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 坐标系变换
@@ -273,59 +273,59 @@ chart.area():
 
 比较常用的一种变换是转置变换 transpose，主要用来改变图表的方向。比如绘制水平的条形图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .coordinate({ transform: [{ type: 'transpose' }] }) // 指定 transpose
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .coordinate({ transform: [{ type: 'transpose' }] }) // 指定 transpose
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### Fisheye
 
 还有一种鱼眼坐标系变换，用于设置图表焦点，下面是使用方式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    })
-    .encode('x', 'GDP')
-    .encode('y', 'LifeExpectancy')
-    .encode('size', 'Population')
-    .encode('color', 'continent')
-    .encode('shape', 'point')
-    .scale('size', { type: 'log', range: [4, 20] })
-    .axis('x', { labelFormatter: '~s' })
-    .style('fillOpacity', 0.3)
-    .style('lineWidth', 1)
-    .legend(false)
-    .interaction('fisheye');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  })
+  .encode('x', 'GDP')
+  .encode('y', 'LifeExpectancy')
+  .encode('size', 'Population')
+  .encode('color', 'continent')
+  .encode('shape', 'point')
+  .scale('size', { type: 'log', range: [4, 20] })
+  .axis('x', { labelFormatter: '~s' })
+  .style('fillOpacity', 0.3)
+  .style('lineWidth', 1)
+  .legend(false)
+  .interaction('fisheye');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 3D 坐标系

@@ -43,22 +43,22 @@ chart.options({
   },
   transform: [
     { type: 'stackY' },
-    { type: 'sortX', by: 'y', reverse: true, slice: 5 }
+    { type: 'sortX', by: 'y', reverse: true, slice: 5 },
   ],
-  encode: { 
+  encode: {
     x: 'state',
     y: 'population',
-    color: 'age'
+    color: 'age',
   },
   axis: { y: { labelFormatter: '~s' } },
-  state: { 
+  state: {
     selected: { fill: 'red', linkFillOpacity: 0.5 },
-    unselected: { opacity: 0.5 }
+    unselected: { opacity: 0.5 },
   },
-  interaction: { 
+  interaction: {
     elementSelectByColor: {
-      link: true
-    }
+      link: true,
+    },
   },
 });
 
@@ -121,35 +121,35 @@ chart.render();
 
 ### 交互配置
 
-| 属性                 | 描述                                                                                     | 类型                | 默认值 |
-| -------------------- | ---------------------------------------------------------------------------------------- | ------------------- | ------ |
-| background           | 是否高亮背景                                                                             | `boolean`           | false  |
-| region               | 点击空白区域是否触发选择                                                                 | `boolean`           | false  |
-| single               | 是否单选，设置为 true 时每次只能选中一个颜色组                                           | `boolean`           | false  |
-| multipleSelectHotkey | 多选热键的code，按住热键后变为多选，设置此属性后`single`无效。不设置时默认为多选模式     | `string` \| `string[]` | -      |
-| link                 | 是否展示连接线                                                                           | `boolean`           | false  |
+| 属性                 | 描述                                                                                  | 类型                   | 默认值 |
+| -------------------- | ------------------------------------------------------------------------------------- | ---------------------- | ------ |
+| background           | 是否高亮背景                                                                          | `boolean`              | false  |
+| region               | 点击空白区域是否触发选择                                                              | `boolean`              | false  |
+| single               | 是否单选，设置为 true 时每次只能选中一个颜色组                                        | `boolean`              | false  |
+| multipleSelectHotkey | 多选热键的 code，按住热键后变为多选，设置此属性后`single`无效。不设置时默认为多选模式 | `string` \| `string[]` | -      |
+| link                 | 是否展示连接线                                                                        | `boolean`              | false  |
 
 ### 元素选中样式
 
 元素选中样式，效果见示例[自定义选中](#自定义选中)
 
-| 属性                    | 描述                                                                                                                   | 类型                                                         | 默认值        | 必选 |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
-| offset                  | 主方向上的便偏移量                                                                                                     | number                                                       | `0`           |      |
-| radius                  | 元素圆角                                                                                                               | number \| (datum, index, data) => number                     | `0`           |      |
-| fill                    | 元素填充色                                                                                                             | string \| (datum, index, data) => string                     | -             |      |
-| fillOpacity             | 元素填充透明度                                                                                                         | number \| (datum, index, data) => number                     | -             |      |
-| stroke                  | 元素的描边                                                                                                             | string \| (datum, index, data) => string                     | -             |      |
-| strokeOpacity           | 元素描边透明度                                                                                                         | number \| (datum, index, data) => number                     | -             |      |
-| lineWidth               | 元素描边的宽度                                                                                                         | number \| (datum, index, data) => number                     | -             |      |
-| lineDash                | 元素描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。     | [number,number] \| (datum, index, data) => [number , number] | -             |      |
-| opacity                 | 元素的整体透明度                                                                                                       | number \| (datum, index, data) => number                     | -             |      |
-| shadowColor             | 元素阴影颜色                                                                                                           | string \| (datum, index, data) => string                     | -             |      |
-| shadowBlur              | 元素阴影的高斯模糊系数                                                                                                 | number \| (datum, index, data) => number                     | -             |      |
-| shadowOffsetX           | 设置阴影距元素的水平距离                                                                                               | number \| (datum, index, data) => number                     | -             |      |
-| shadowOffsetY           | 设置阴影距元素的垂直距离                                                                                               | number \| (datum, index, data) => number                     | -             |      |
-| cursor                  | 元素鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                     | `default`     |      |
-| backgroundRadius        | 背景圆角                                                                                                               | number \| (datum, index, data) => number                     | `0`           |      |
+| 属性                    | 描述                                                                                                             | 类型                                                         | 默认值        | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
+| offset                  | 主方向上的便偏移量                                                                                               | number                                                       | `0`           |      |
+| radius                  | 元素圆角                                                                                                         | number \| (datum, index, data) => number                     | `0`           |      |
+| fill                    | 元素填充色                                                                                                       | string \| (datum, index, data) => string                     | -             |      |
+| fillOpacity             | 元素填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
+| stroke                  | 元素的描边                                                                                                       | string \| (datum, index, data) => string                     | -             |      |
+| strokeOpacity           | 元素描边透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
+| lineWidth               | 元素描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
+| lineDash                | 元素描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -             |      |
+| opacity                 | 元素的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -             |      |
+| shadowColor             | 元素阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -             |      |
+| shadowBlur              | 元素阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -             |      |
+| shadowOffsetX           | 设置阴影距元素的水平距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
+| shadowOffsetY           | 设置阴影距元素的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
+| cursor                  | 元素鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default`     |      |
+| backgroundRadius        | 背景圆角                                                                                                         | number \| (datum, index, data) => number                     | `0`           |      |
 | backgroundFill          | 背景填充色                                                                                                       | string \| (datum, index, data) => string                     | `transparent` |      |
 | backgroundFillOpacity   | 背景填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
 | backgroundStroke        | 背景的描边                                                                                                       | string \| (datum, index, data) => string                     | -             |      |
@@ -164,10 +164,11 @@ chart.render();
 | backgroundCursor        | 背景鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default`     |      |
 
 ### linkStyle
+
 连接样式详见示例[带连接线选择](#带连接线选择)
 
-| 属性                    | 描述                                                                                                             | 类型                                                         | 默认值        | 必选 |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
+| 属性              | 描述                                                                                                               | 类型                                                         | 默认值        | 必选 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ------------- | ---- |
 | linkRadius        | 连接线圆角                                                                                                         | number \| (datum, index, data) => number                     | `0`           |      |
 | linkFill          | 连接线填充色                                                                                                       | string \| (datum, index, data) => string                     | `transparent` |      |
 | linkFillOpacity   | 连接线填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
@@ -243,184 +244,184 @@ chart.emit('element:unselect', {});
 
 ### 基础选择
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    transform: [
-      { type: 'stackY' },
-      { type: 'sortX', by: 'y', reverse: true, slice: 5 }
-    ],
-    encode: { 
-      x: 'state',
-      y: 'population',
-      color: 'age'
-    },
-    axis: { y: { labelFormatter: '~s' } },
-    interaction: { elementSelectByColor: true },
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'sortX', by: 'y', reverse: true, slice: 5 },
+  ],
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  axis: { y: { labelFormatter: '~s' } },
+  interaction: { elementSelectByColor: true },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 自定义选中
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    transform: [
-      { type: 'stackY' },
-      { type: 'sortX', by: 'y', reverse: true, slice: 5 }
-    ],
-    encode: { 
-      x: 'state',
-      y: 'population',
-      color: 'age'
-    },
-    axis: { y: { labelFormatter: '~s' } },
-    state: {
-      selected: {
-        offset: 10,
-        radius: 50,
-        fill: (d) => (d.population > 1000000 ? 'red' : '#000'),
-        fillOpacity: 0.9,
-        stroke: '#DAF5EC',
-        strokeOpacity: 0.9,
-        lineWidth: 2,
-        lineDash: [4, 8],
-        opacity: 1,
-        shadowColor: '#d3d3d3',
-        shadowBlur: 10,
-        shadowOffsetX: 10,
-        shadowOffsetY: 10,
-        cursor: 'pointer',
-        backgroundRadius: 50,
-        backgroundFill: (d) => (d.population > 1000000 ? 'red' : '#000'),
-        backgroundFillOpacity: 0.9,
-        backgroundStroke: '#DAF5EC',
-        backgroundStrokeOpacity: 0.9,
-        backgroundLineWidth: 2,
-        backgroundLineDash: [4, 8],
-        backgroundOpacity: 1,
-        backgroundShadowColor: '#d3d3d3',
-        backgroundShadowBlur: 10,
-        backgroundShadowOffsetX: 10,
-        backgroundShadowOffsetY: 10,
-        backgroundCursor: 'pointer',
-        linkFillOpacity: 0.5,
-      },
-    },
-    interaction: {
-      elementSelectByColor: {
-        background: true,
-        link: true,
-      },
-    },
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'sortX', by: 'y', reverse: true, slice: 5 },
+  ],
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  axis: { y: { labelFormatter: '~s' } },
+  state: {
+    selected: {
+      offset: 10,
+      radius: 50,
+      fill: (d) => (d.population > 1000000 ? 'red' : '#000'),
+      fillOpacity: 0.9,
+      stroke: '#DAF5EC',
+      strokeOpacity: 0.9,
+      lineWidth: 2,
+      lineDash: [4, 8],
+      opacity: 1,
+      shadowColor: '#d3d3d3',
+      shadowBlur: 10,
+      shadowOffsetX: 10,
+      shadowOffsetY: 10,
+      cursor: 'pointer',
+      backgroundRadius: 50,
+      backgroundFill: (d) => (d.population > 1000000 ? 'red' : '#000'),
+      backgroundFillOpacity: 0.9,
+      backgroundStroke: '#DAF5EC',
+      backgroundStrokeOpacity: 0.9,
+      backgroundLineWidth: 2,
+      backgroundLineDash: [4, 8],
+      backgroundOpacity: 1,
+      backgroundShadowColor: '#d3d3d3',
+      backgroundShadowBlur: 10,
+      backgroundShadowOffsetX: 10,
+      backgroundShadowOffsetY: 10,
+      backgroundCursor: 'pointer',
+      linkFillOpacity: 0.5,
+    },
+  },
+  interaction: {
+    elementSelectByColor: {
+      background: true,
+      link: true,
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 单选模式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    transform: [
-      { type: 'stackY' },
-      { type: 'sortX', by: 'y', reverse: true, slice: 5 }
-    ],
-    encode: { 
-      x: 'state',
-      y: 'population',
-      color: 'age'
-    },
-    axis: { y: { labelFormatter: '~s' } },
-    interaction: { 
-      elementSelectByColor: { 
-        single: true, // 设置为单选模式
-        background: true,
-        link: true,
-      } 
-    },
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'sortX', by: 'y', reverse: true, slice: 5 },
+  ],
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  axis: { y: { labelFormatter: '~s' } },
+  interaction: {
+    elementSelectByColor: {
+      single: true, // 设置为单选模式
+      background: true,
+      link: true,
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 多选模式
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    transform: [
-      { type: 'stackY' },
-      { type: 'sortX', by: 'y', reverse: true, slice: 5 }
-    ],
-    encode: { 
-      x: 'state',
-      y: 'population',
-      color: 'age'
-    },
-    axis: { y: { labelFormatter: '~s' } },
-    state: { 
-      selected: { fill: 'red', linkFillOpacity: 0.5 },
-      unselected: { opacity: 0.5 }
-    },
-    interaction: { 
-      elementSelectByColor: {
-        multipleSelectHotkey: 'ShiftLeft', // 按住左 Shift 键进入多选模式
-        link: true
-      }
-    },
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'sortX', by: 'y', reverse: true, slice: 5 },
+  ],
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  axis: { y: { labelFormatter: '~s' } },
+  state: {
+    selected: { fill: 'red', linkFillOpacity: 0.5 },
+    unselected: { opacity: 0.5 },
+  },
+  interaction: {
+    elementSelectByColor: {
+      multipleSelectHotkey: 'ShiftLeft', // 按住左 Shift 键进入多选模式
+      link: true,
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```

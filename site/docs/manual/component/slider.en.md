@@ -7,7 +7,6 @@ In G2, the **Slider** can be used to filter data, and it can be bound with the x
 
 The slider can be configured at the mark level:
 
-
 ```js
 ({
   type: 'interval',
