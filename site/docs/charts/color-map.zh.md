@@ -615,13 +615,6 @@ chart.render();
 | 热力图 | 可以使用连续尺度，展示数据的空间分布 | 展示空间密度或强度分布 | 通常需要连续的或近似连续的数据 |
 | 矩阵树图 | 通过嵌套矩形展示层次结构数据 | 表示层次数据的比例关系 | 需要有明确的层次结构 |
 
-### 色块图和[表格](/charts/table)、[分面图](/charts/facet)
-
-| 图表类型 | 数据呈现方式 | 视觉效果 | 适用场景 |
-|---------|---------|---------|---------|
-| 色块图 | 使用颜色编码数值 | 直观展示数值大小关系 | 需要快速识别数据模式和异常值 |
-| 表格 | 使用文本和数字展示原始数据 | 精确展示具体数值 | 需要查看和比较精确数值 |
-| 分面图 | 将数据分解为多个子图表 | 既可比较也可分开分析 | 多维度数据的复杂模式分析 |
 
 ## 色块图最佳实践
 
@@ -655,8 +648,8 @@ const rows = ['A', 'B', 'C', 'D', 'E'];
 const cols = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
 const data = [];
 
-rows.forEach(row => {
-  cols.forEach(col => {
+rows.forEach((row) => {
+  cols.forEach((col) => {
     const value = Math.floor(Math.random() * 100);
     const baseline = 50;
     data.push({
@@ -664,18 +657,16 @@ rows.forEach(row => {
       col,
       value,
       diff: value - baseline,
-      performance: value >= baseline ? '达标' : '不达标'
+      performance: value >= baseline ? '达标' : '不达标',
     });
   });
 });
+console.log('data', data)
 
 chart.options({
   type: 'view',
   autoFit: true,
   data,
-  coordinate: {
-    type: 'cartesian',
-  },
   children: [
     {
       type: 'cell',
@@ -693,38 +684,29 @@ chart.options({
           style: {
             fill: (d) => (Math.abs(d.diff) > 25 ? '#fff' : '#000'),
             textAlign: 'center',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           },
         },
       ],
     },
   ],
-  legend: {
-    color: {
-      position: 'right',
-      flipPage: false,
-      title: '与基准的差异',
-    },
-  },
   scale: {
     color: {
-      type: 'diverging',
-      domain: [-50, 0, 50],
-      range: ['#2B83BA', '#EEEEEE', '#D7191C'],
+      type: 'threshold',
+      domain: [0],
+      range: ['#2B83BA', '#D7191C'],
     },
   },
   tooltip: {
-    title: d => `${d.row}-${d.col}`,
+    title: (d) => `${d.row}-${d.col}`,
     items: [
       { field: 'value', name: '数值' },
       { field: 'diff', name: '与基准差异' },
-      { field: 'performance', name: '达标状态' }
-    ]
+      { field: 'performance', name: '达标状态' },
+    ],
   },
-  interaction: [
-    { type: 'tooltip' },
-    { type: 'element-highlight' }
-  ]
+  legend: false,
+  interaction: [{ type: 'tooltip' }, { type: 'elementHighlight' }],
 });
 
 chart.render();

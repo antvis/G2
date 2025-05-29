@@ -616,13 +616,6 @@ chart.render();
 | Heat Map | Can use continuous scales, showing spatial distribution of data | Displaying spatial density or intensity distribution | Usually requires continuous or near-continuous data |
 | Treemap | Displays hierarchical data through nested rectangles | Representing proportional relationships in hierarchical data | Requires a clear hierarchical structure |
 
-### Color Maps, [Tables](/en/charts/table), and [Facet Charts](/en/charts/facet)
-
-| Chart Type | Data Presentation | Visual Effect | Suitable Scenarios |
-|---------|---------|---------|---------|
-| Color Map | Uses color to encode values | Intuitively shows value relationships | Need to quickly identify data patterns and outliers |
-| Table | Displays raw data using text and numbers | Shows precise values | Need to view and compare exact values |
-| Facet Chart | Breaks data into multiple sub-charts | Can both compare and separately analyze | Complex pattern analysis of multidimensional data |
 
 ## Best Practices for Color Maps
 
@@ -644,29 +637,78 @@ chart.render();
    - Consider adding sorting functionality for easier data comparison
 
 ```js | ob { autoMount: true  }
-/**
- * A recreation of this demo: https://vega.github.io/vega-lite/examples/rect_heatmap_weather.html
- */
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  height: 300,
+  theme: 'classic',
 });
 
-chart
-  .cell()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .transform({ type: 'group', color: 'max' })
-  .encode('x', (d) => new Date(d.date).getUTCDate())
-  .encode('y', (d) => new Date(d.date).getUTCMonth())
-  .encode('color', 'temp_max')
-  .style('inset', 0.5)
-  .scale('color', { palette: 'gnBu' })
-  .animate('enter', { type: 'fadeIn' });
+// 生成示例数据
+const rows = ['A', 'B', 'C', 'D', 'E'];
+const cols = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
+const data = [];
+
+rows.forEach((row) => {
+  cols.forEach((col) => {
+    const value = Math.floor(Math.random() * 100);
+    const baseline = 50;
+    data.push({
+      row,
+      col,
+      value,
+      diff: value - baseline,
+      performance: value >= baseline ? '达标' : '不达标',
+    });
+  });
+});
+console.log('data', data)
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data,
+  children: [
+    {
+      type: 'cell',
+      encode: {
+        x: 'col',
+        y: 'row',
+        color: 'diff',
+      },
+      style: {
+        inset: 2,
+      },
+      labels: [
+        {
+          text: 'value',
+          style: {
+            fill: (d) => (Math.abs(d.diff) > 25 ? '#fff' : '#000'),
+            textAlign: 'center',
+            fontWeight: 'bold',
+          },
+        },
+      ],
+    },
+  ],
+  scale: {
+    color: {
+      type: 'threshold',
+      domain: [0],
+      range: ['#2B83BA', '#D7191C'],
+    },
+  },
+  tooltip: {
+    title: (d) => `${d.row}-${d.col}`,
+    items: [
+      { field: 'value', name: '数值' },
+      { field: 'diff', name: '与基准差异' },
+      { field: 'performance', name: '达标状态' },
+    ],
+  },
+  legend: false,
+  interaction: [{ type: 'tooltip' }, { type: 'elementHighlight' }],
+});
 
 chart.render();
 
