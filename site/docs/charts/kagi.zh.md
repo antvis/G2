@@ -2,8 +2,8 @@
 title: 卡吉图
 order: 25
 screenshot: 'https://zos.alipayobjects.com/rmsportal/GYxDnAkxCMrLfpB.png'
-category: ['trend']
-similar: ['line', 'area', 'candlestick']
+category: ['trend',' time']
+similar: ['line', 'area', ' k-chart']
 ---
 
 <img alt="kagi" src="https://zos.alipayobjects.com/rmsportal/GYxDnAkxCMrLfpB.png" width=600/>
