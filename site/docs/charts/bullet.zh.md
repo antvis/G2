@@ -55,52 +55,50 @@ const data = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'ranges')
-  .encode('color', '#f0efff')
-  .style('maxWidth', 30)
-  .axis({
-    y: {
-      grid: true,
-      gridLineWidth: 2,
-      title: '完成率 (%)',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data,
+      encode: { x: 'title', y: 'ranges', color: '#f0efff' },
+      style: { maxWidth: 30 },
+      axis: {
+        y: {
+          grid: true,
+          gridLineWidth: 2,
+          title: '完成率 (%)',
+        },
+        x: {
+          title: false,
+        },
+      },
     },
-    x: {
-      title: false,
+    {
+      type: 'interval',
+      data,
+      encode: { x: 'title', y: 'measures', color: '#5B8FF9' },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'right',
+        textAlign: 'left',
+        dx: 5,
+        formatter: (d) => `${d}%`,
+      },
     },
-  });
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'measures')
-  .encode('color', '#5B8FF9')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-    formatter: (d) => `${d}%`,
-  });
-
-chart
-  .point()
-  .encode('x', 'title')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#3D76DD')
-  .encode('size', 8)
-  .tooltip({
-    title: false,
-    items: [{ channel: 'y', name: '目标值', valueFormatter: (d) => `${d}%` }],
-  });
+    {
+      type: 'point',
+      data,
+      encode: { x: 'title', y: 'target', shape: 'line', color: '#3D76DD', size: 8 },
+      tooltip: {
+        title: false,
+        items: [{ channel: 'y', name: '目标值', valueFormatter: (d) => `${d}%` }],
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -123,83 +121,70 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const performanceData = [
-  {
-    indicator: '销售额',
-    ranges: [60, 80, 100],
-    measures: 85,
-    target: 90,
-  },
-  {
-    indicator: '客户满意度',
-    ranges: [70, 85, 100],
-    measures: 88,
-    target: 85,
-  },
-  {
-    indicator: '成本控制',
-    ranges: [60, 80, 100],
-    measures: 75,
-    target: 80,
-  },
+const colors = {
+  ranges: ['#ffebee', '#fff3e0', '#e8f5e8'],
+  measures: '#1890ff',
+  target: '#ff4d4f',
+};
+
+// 转换数据结构
+const transformedData = [
+  { title: '项目进度', value: 40, level: '差' },
+  { title: '项目进度', value: 30, level: '良' },
+  { title: '项目进度', value: 30, level: '优' },
 ];
 
-// 转换数据为适合的格式
-const chartData = [];
-performanceData.forEach(item => {
-  // 添加表现区间
-  item.ranges.forEach((range, index) => {
-    chartData.push({
-      indicator: item.indicator,
-      value: range,
-      type: ['差', '良', '优'][index],
-      category: 'range'
-    });
-  });
-  // 添加实际值
-  chartData.push({
-    indicator: item.indicator,
-    value: item.measures,
-    type: '实际值',
-    category: 'measure'
-  });
-  // 添加目标值
-  chartData.push({
-    indicator: item.indicator,
-    value: item.target,
-    type: '目标值',
-    category: 'target'
-  });
+chart.options({
+  type: "view",
+  coordinate: { transform: [{ type: "transpose" }] },
+  children: [
+    {
+      type: "interval",
+      data: transformedData,
+      encode: { x: "title", y: "value", color: "level" },
+      transform: [{ type: "stackY" }],
+      scale: {
+        color: {
+          domain: ["差", "良", "优"],
+          range: colors.ranges,
+        },
+      },
+      style: { maxWidth: 30 },
+    },
+    {
+      type: "interval",
+      data: {
+        value: [
+          { title: "项目进度", value: 60, type: "实际进度" },
+          { title: "项目进度", value: 80, type: "目标进度" },
+        ],
+        transform: [{ type: "filter", callback: (d) => d.type === "实际进度" }],
+      },
+      encode: { x: "title", y: "value", color: colors.measures },
+      style: { maxWidth: 16 },
+    },
+    {
+      type: "point",
+      data: {
+        value: [
+          { title: "项目进度", value: 60, type: "实际进度" },
+          { title: "项目进度", value: 80, type: "目标进度" },
+        ],
+        transform: [{ type: "filter", callback: (d) => d.type === "目标进度" }],
+      },
+      encode: {
+        x: "title",
+        y: "value",
+        shape: "line",
+        color: colors.target,
+        size: 8,
+      },
+      axis: { y: { grid: true, title: "进度 (%)" }, x: { title: false } },
+    },
+  ],
 });
-
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(chartData);
-
-// 绘制表现区间
-chart
-  .interval()
-  .transform({ type: 'stackY' })
-  .encode('x', 'indicator')
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .encode('series', 'category')
-  .style('maxWidth', 30)
-  .scale('color', {
-    domain: ['差', '良', '优', '实际值', '目标值'],
-    range: ['#ffcccb', '#ffe4b5', '#e0ffe0', '#5B8FF9', '#ff6b6b']
-  })
-  .axis({
-    y: {
-      grid: true,
-      title: '完成率 (%)',
-    },
-    x: {
-      title: '业绩指标',
-    },
-  });
-
 chart.render();
+
 ```
 
 **场景2：预算执行跟踪**
@@ -245,50 +230,49 @@ const resourceData = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(resourceData);
-
-// 背景区间
-chart
-  .interval()
-  .encode('x', 'resource')
-  .encode('y', 'ranges')
-  .encode('color', '#f5f5f5')
-  .style('maxWidth', 30);
-
-// 实际使用量
-chart
-  .interval()
-  .encode('x', 'resource')
-  .encode('y', 'measures')
-  .encode('color', (d) => d.measures > d.target ? '#ff7875' : '#52c41a')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-    formatter: (d) => `${d}%`,
-  });
-
-// 目标线
-chart
-  .point()
-  .encode('x', 'resource')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#1890ff')
-  .encode('size', 6)
-  .axis({
-    y: {
-      grid: true,
-      title: '使用率 (%)',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: resourceData,
+      encode: { x: 'resource', y: 'ranges', color: '#f5f5f5' },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: '系统资源',
+    {
+      type: 'interval',
+      data: resourceData,
+      encode: {
+        x: 'resource',
+        y: 'measures',
+        color: (d) => d.measures > d.target ? '#ff7875' : '#52c41a'
+      },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'right',
+        textAlign: 'left',
+        dx: 5,
+        formatter: (d) => `${d}%`,
+      },
     },
-  });
+    {
+      type: 'point',
+      data: resourceData,
+      encode: { x: 'resource', y: 'target', shape: 'line', color: '#1890ff', size: 6 },
+      axis: {
+        y: {
+          grid: true,
+          title: '使用率 (%)',
+        },
+        x: {
+          title: '系统资源',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -352,49 +336,44 @@ const multiData = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(multiData);
-
-// 背景
-chart
-  .interval()
-  .encode('x', 'indicator')
-  .encode('y', 'ranges')
-  .encode('color', '#f0f0f0')
-  .style('maxWidth', 30);
-
-// 实际值
-chart
-  .interval()
-  .encode('x', 'indicator')
-  .encode('y', 'measures')
-  .encode('color', 'department')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-  });
-
-// 目标值
-chart
-  .point()
-  .encode('x', 'indicator')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#666')
-  .encode('size', 6)
-  .axis({
-    y: {
-      grid: true,
-      title: '完成度',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: multiData,
+      encode: { x: 'indicator', y: 'ranges', color: '#f0f0f0' },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: '关键指标',
+    {
+      type: 'interval',
+      data: multiData,
+      encode: { x: 'indicator', y: 'measures', color: 'department' },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'right',
+        textAlign: 'left',
+        dx: 5,
+      },
     },
-  });
+    {
+      type: 'point',
+      data: multiData,
+      encode: { x: 'indicator', y: 'target', shape: 'line', color: '#666', size: 6 },
+      axis: {
+        y: {
+          grid: true,
+          title: '完成度',
+        },
+        x: {
+          title: '关键指标',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -417,17 +396,6 @@ const colors = {
   target: '#ff4d4f',
 };
 
-const layeredData = [
-  {
-    title: '项目进度',
-    poor: 40,
-    good: 70,
-    excellent: 100,
-    measures: 75,
-    target: 80,
-  },
-];
-
 // 转换数据结构
 const transformedData = [
   { title: '项目进度', value: 40, level: '差' },
@@ -435,55 +403,55 @@ const transformedData = [
   { title: '项目进度', value: 30, level: '优' },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(transformedData);
-
-// 分层背景
-chart
-  .interval()
-  .transform({ type: 'stackY' })
-  .encode('x', 'title')
-  .encode('y', 'value')
-  .encode('color', 'level')
-  .style('maxWidth', 30)
-  .scale('color', {
-    domain: ['差', '良', '优'],
-    range: colors.ranges
-  });
-
-// 添加实际值和目标值
-chart.data([
-  { title: '项目进度', value: 75, type: '实际进度' },
-  { title: '项目进度', value: 80, type: '目标进度' }
-]);
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'value')
-  .encode('color', colors.measures)
-  .style('maxWidth', 20)
-  .transform({ type: 'filter', callback: (d) => d.type === '实际进度' });
-
-chart
-  .point()
-  .encode('x', 'title')
-  .encode('y', 'value')
-  .encode('shape', 'line')
-  .encode('color', colors.target)
-  .encode('size', 8)
-  .transform({ type: 'filter', callback: (d) => d.type === '目标进度' })
-  .axis({
-    y: {
-      grid: true,
-      title: '进度 (%)',
+chart.options({
+  type: "view",
+  coordinate: { transform: [{ type: "transpose" }] },
+  children: [
+    {
+      type: "interval",
+      data: transformedData,
+      encode: { x: "title", y: "value", color: "level" },
+      transform: [{ type: "stackY" }],
+      scale: {
+        color: {
+          domain: ["差", "良", "优"],
+          range: colors.ranges,
+        },
+      },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: false,
+    {
+      type: "interval",
+      data: {
+        value: [
+          { title: "项目进度", value: 60, type: "实际进度" },
+          { title: "项目进度", value: 80, type: "目标进度" },
+        ],
+        transform: [{ type: "filter", callback: (d) => d.type === "实际进度" }],
+      },
+      encode: { x: "title", y: "value", color: colors.measures },
+      style: { maxWidth: 16 },
     },
-  });
-
+    {
+      type: "point",
+      data: {
+        value: [
+          { title: "项目进度", value: 60, type: "实际进度" },
+          { title: "项目进度", value: 80, type: "目标进度" },
+        ],
+        transform: [{ type: "filter", callback: (d) => d.type === "目标进度" }],
+      },
+      encode: {
+        x: "title",
+        y: "value",
+        shape: "line",
+        color: colors.target,
+        size: 8,
+      },
+      axis: { y: { grid: true, title: "进度 (%)" }, x: { title: false } },
+    },
+  ],
+});
 chart.render();
 ```
 
@@ -520,48 +488,43 @@ const verticalData = [
   },
 ];
 
-// 不使用transpose，保持垂直方向
-chart.data(verticalData);
-
-// 背景
-chart
-  .interval()
-  .encode('x', 'metric')
-  .encode('y', 'ranges')
-  .encode('color', '#f0f0f0')
-  .style('maxWidth', 30);
-
-// 实际值
-chart
-  .interval()
-  .encode('x', 'metric')
-  .encode('y', 'measures')
-  .encode('color', '#52c41a')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'top',
-    textAlign: 'center',
-    dy: -5,
-  });
-
-// 目标线
-chart
-  .point()
-  .encode('x', 'metric')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#ff4d4f')
-  .encode('size', 6)
-  .axis({
-    y: {
-      grid: true,
-      title: '销售额 (万元)',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: verticalData,
+      encode: { x: 'metric', y: 'ranges', color: '#f0f0f0' },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: '季度',
+    {
+      type: 'interval',
+      data: verticalData,
+      encode: { x: 'metric', y: 'measures', color: '#52c41a' },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'top',
+        textAlign: 'center',
+        dy: -5,
+      },
     },
-  });
+    {
+      type: 'point',
+      data: verticalData,
+      encode: { x: 'metric', y: 'target', shape: 'line', color: '#ff4d4f', size: 6 },
+      axis: {
+        y: {
+          grid: true,
+          title: '销售额 (万元)',
+        },
+        x: {
+          title: '季度',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```

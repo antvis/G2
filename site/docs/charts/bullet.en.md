@@ -55,52 +55,50 @@ const data = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'ranges')
-  .encode('color', '#f0efff')
-  .style('maxWidth', 30)
-  .axis({
-    y: {
-      grid: true,
-      gridLineWidth: 2,
-      title: 'Completion Rate (%)',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data,
+      encode: { x: 'title', y: 'ranges', color: '#f0efff' },
+      style: { maxWidth: 30 },
+      axis: {
+        y: {
+          grid: true,
+          gridLineWidth: 2,
+          title: 'Completion Rate (%)',
+        },
+        x: {
+          title: false,
+        },
+      },
     },
-    x: {
-      title: false,
+    {
+      type: 'interval',
+      data,
+      encode: { x: 'title', y: 'measures', color: '#5B8FF9' },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'right',
+        textAlign: 'left',
+        dx: 5,
+        formatter: (d) => `${d}%`,
+      },
     },
-  });
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'measures')
-  .encode('color', '#5B8FF9')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-    formatter: (d) => `${d}%`,
-  });
-
-chart
-  .point()
-  .encode('x', 'title')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#3D76DD')
-  .encode('size', 8)
-  .tooltip({
-    title: false,
-    items: [{ channel: 'y', name: 'Target Value', valueFormatter: (d) => `${d}%` }],
-  });
+    {
+      type: 'point',
+      data,
+      encode: { x: 'title', y: 'target', shape: 'line', color: '#3D76DD', size: 8 },
+      tooltip: {
+        title: false,
+        items: [{ channel: 'y', name: 'Target Value', valueFormatter: (d) => `${d}%` }],
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -123,83 +121,70 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const performanceData = [
-  {
-    indicator: 'Sales Revenue',
-    ranges: [60, 80, 100],
-    measures: 85,
-    target: 90,
-  },
-  {
-    indicator: 'Customer Satisfaction',
-    ranges: [70, 85, 100],
-    measures: 88,
-    target: 85,
-  },
-  {
-    indicator: 'Cost Control',
-    ranges: [60, 80, 100],
-    measures: 75,
-    target: 80,
-  },
+const colors = {
+  ranges: ['#ffebee', '#fff3e0', '#e8f5e8'],
+  measures: '#1890ff',
+  target: '#ff4d4f',
+};
+
+// Transform data structure
+const transformedData = [
+  { title: 'Project Progress', value: 40, level: 'Poor' },
+  { title: 'Project Progress', value: 30, level: 'Good' },
+  { title: 'Project Progress', value: 30, level: 'Excellent' },
 ];
 
-// Transform data to suitable format
-const chartData = [];
-performanceData.forEach(item => {
-  // Add performance ranges
-  item.ranges.forEach((range, index) => {
-    chartData.push({
-      indicator: item.indicator,
-      value: range,
-      type: ['Poor', 'Good', 'Excellent'][index],
-      category: 'range'
-    });
-  });
-  // Add actual value
-  chartData.push({
-    indicator: item.indicator,
-    value: item.measures,
-    type: 'Actual Value',
-    category: 'measure'
-  });
-  // Add target value
-  chartData.push({
-    indicator: item.indicator,
-    value: item.target,
-    type: 'Target Value',
-    category: 'target'
-  });
+chart.options({
+  type: "view",
+  coordinate: { transform: [{ type: "transpose" }] },
+  children: [
+    {
+      type: "interval",
+      data: transformedData,
+      encode: { x: "title", y: "value", color: "level" },
+      transform: [{ type: "stackY" }],
+      scale: {
+        color: {
+          domain: ["Poor", "Good", "Excellent"],
+          range: colors.ranges,
+        },
+      },
+      style: { maxWidth: 30 },
+    },
+    {
+      type: "interval",
+      data: {
+        value: [
+          { title: "Project Progress", value: 60, type: "Actual Progress" },
+          { title: "Project Progress", value: 80, type: "Target Progress" },
+        ],
+        transform: [{ type: "filter", callback: (d) => d.type === "Actual Progress" }],
+      },
+      encode: { x: "title", y: "value", color: colors.measures },
+      style: { maxWidth: 16 },
+    },
+    {
+      type: "point",
+      data: {
+        value: [
+          { title: "Project Progress", value: 60, type: "Actual Progress" },
+          { title: "Project Progress", value: 80, type: "Target Progress" },
+        ],
+        transform: [{ type: "filter", callback: (d) => d.type === "Target Progress" }],
+      },
+      encode: {
+        x: "title",
+        y: "value",
+        shape: "line",
+        color: colors.target,
+        size: 8,
+      },
+      axis: { y: { grid: true, title: "Progress (%)" }, x: { title: false } },
+    },
+  ],
 });
-
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(chartData);
-
-// Draw performance ranges
-chart
-  .interval()
-  .transform({ type: 'stackY' })
-  .encode('x', 'indicator')
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .encode('series', 'category')
-  .style('maxWidth', 30)
-  .scale('color', {
-    domain: ['Poor', 'Good', 'Excellent', 'Actual Value', 'Target Value'],
-    range: ['#ffcccb', '#ffe4b5', '#e0ffe0', '#5B8FF9', '#ff6b6b']
-  })
-  .axis({
-    y: {
-      grid: true,
-      title: 'Completion Rate (%)',
-    },
-    x: {
-      title: 'Performance Indicators',
-    },
-  });
-
 chart.render();
+
 ```
 
 **Scenario 2: Budget Execution Tracking**
@@ -245,50 +230,49 @@ const resourceData = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(resourceData);
-
-// Background range
-chart
-  .interval()
-  .encode('x', 'resource')
-  .encode('y', 'ranges')
-  .encode('color', '#f5f5f5')
-  .style('maxWidth', 30);
-
-// Actual usage
-chart
-  .interval()
-  .encode('x', 'resource')
-  .encode('y', 'measures')
-  .encode('color', (d) => d.measures > d.target ? '#ff7875' : '#52c41a')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-    formatter: (d) => `${d}%`,
-  });
-
-// Target line
-chart
-  .point()
-  .encode('x', 'resource')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#1890ff')
-  .encode('size', 6)
-  .axis({
-    y: {
-      grid: true,
-      title: 'Usage Rate (%)',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: resourceData,
+      encode: { x: 'resource', y: 'ranges', color: '#f5f5f5' },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: 'System Resources',
+    {
+      type: 'interval',
+      data: resourceData,
+      encode: {
+        x: 'resource',
+        y: 'measures',
+        color: (d) => d.measures > d.target ? '#ff7875' : '#52c41a'
+      },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'right',
+        textAlign: 'left',
+        dx: 5,
+        formatter: (d) => `${d}%`,
+      },
     },
-  });
+    {
+      type: 'point',
+      data: resourceData,
+      encode: { x: 'resource', y: 'target', shape: 'line', color: '#1890ff', size: 6 },
+      axis: {
+        y: {
+          grid: true,
+          title: 'Usage Rate (%)',
+        },
+        x: {
+          title: 'System Resources',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -352,49 +336,44 @@ const multiData = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(multiData);
-
-// Background
-chart
-  .interval()
-  .encode('x', 'indicator')
-  .encode('y', 'ranges')
-  .encode('color', '#f0f0f0')
-  .style('maxWidth', 30);
-
-// Actual values
-chart
-  .interval()
-  .encode('x', 'indicator')
-  .encode('y', 'measures')
-  .encode('color', 'department')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-  });
-
-// Target values
-chart
-  .point()
-  .encode('x', 'indicator')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#666')
-  .encode('size', 6)
-  .axis({
-    y: {
-      grid: true,
-      title: 'Completion Rate',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: multiData,
+      encode: { x: 'indicator', y: 'ranges', color: '#f0f0f0' },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: 'Key Indicators',
+    {
+      type: 'interval',
+      data: multiData,
+      encode: { x: 'indicator', y: 'measures', color: 'department' },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'right',
+        textAlign: 'left',
+        dx: 5,
+      },
     },
-  });
+    {
+      type: 'point',
+      data: multiData,
+      encode: { x: 'indicator', y: 'target', shape: 'line', color: '#666', size: 6 },
+      axis: {
+        y: {
+          grid: true,
+          title: 'Completion Rate',
+        },
+        x: {
+          title: 'Key Indicators',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -417,17 +396,6 @@ const colors = {
   target: '#ff4d4f',
 };
 
-const layeredData = [
-  {
-    title: 'Project Progress',
-    poor: 40,
-    good: 70,
-    excellent: 100,
-    measures: 75,
-    target: 80,
-  },
-];
-
 // Transform data structure
 const transformedData = [
   { title: 'Project Progress', value: 40, level: 'Poor' },
@@ -435,55 +403,55 @@ const transformedData = [
   { title: 'Project Progress', value: 30, level: 'Excellent' },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart.data(transformedData);
-
-// Layered background
-chart
-  .interval()
-  .transform({ type: 'stackY' })
-  .encode('x', 'title')
-  .encode('y', 'value')
-  .encode('color', 'level')
-  .style('maxWidth', 30)
-  .scale('color', {
-    domain: ['Poor', 'Good', 'Excellent'],
-    range: colors.ranges
-  });
-
-// Add actual and target values
-chart.data([
-  { title: 'Project Progress', value: 75, type: 'Actual Progress' },
-  { title: 'Project Progress', value: 80, type: 'Target Progress' }
-]);
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'value')
-  .encode('color', colors.measures)
-  .style('maxWidth', 20)
-  .transform({ type: 'filter', callback: (d) => d.type === 'Actual Progress' });
-
-chart
-  .point()
-  .encode('x', 'title')
-  .encode('y', 'value')
-  .encode('shape', 'line')
-  .encode('color', colors.target)
-  .encode('size', 8)
-  .transform({ type: 'filter', callback: (d) => d.type === 'Target Progress' })
-  .axis({
-    y: {
-      grid: true,
-      title: 'Progress (%)',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: transformedData,
+      encode: { x: 'title', y: 'value', color: 'level' },
+      transform: [{ type: 'stackY' }],
+      scale: {
+        color: {
+          domain: ['Poor', 'Good', 'Excellent'],
+          range: colors.ranges,
+        },
+      },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: false,
+    {
+      type: 'interval',
+      data: {
+        value: [
+          { title: 'Project Progress', value: 60, type: 'Actual Progress' },
+          { title: 'Project Progress', value: 80, type: 'Target Progress' },
+        ],
+        transform: [{ type: 'filter', callback: (d) => d.type === 'Actual Progress' }],
+      },
+      encode: { x: 'title', y: 'value', color: colors.measures },
+      style: { maxWidth: 16 },
     },
-  });
-
+    {
+      type: 'point',
+      data: {
+        value: [
+          { title: 'Project Progress', value: 60, type: 'Actual Progress' },
+          { title: 'Project Progress', value: 80, type: 'Target Progress' },
+        ],
+        transform: [{ type: 'filter', callback: (d) => d.type === 'Target Progress' }],
+      },
+      encode: {
+        x: 'title',
+        y: 'value',
+        shape: 'line',
+        color: colors.target,
+        size: 8,
+      },
+      axis: { y: { grid: true, title: 'Progress (%)' }, x: { title: false } },
+    },
+  ],
+});
 chart.render();
 ```
 
@@ -520,48 +488,43 @@ const verticalData = [
   },
 ];
 
-// Don't use transpose, keep vertical direction
-chart.data(verticalData);
-
-// Background
-chart
-  .interval()
-  .encode('x', 'metric')
-  .encode('y', 'ranges')
-  .encode('color', '#f0f0f0')
-  .style('maxWidth', 30);
-
-// Actual values
-chart
-  .interval()
-  .encode('x', 'metric')
-  .encode('y', 'measures')
-  .encode('color', '#52c41a')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'top',
-    textAlign: 'center',
-    dy: -5,
-  });
-
-// Target line
-chart
-  .point()
-  .encode('x', 'metric')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', '#ff4d4f')
-  .encode('size', 6)
-  .axis({
-    y: {
-      grid: true,
-      title: 'Sales (10k CNY)',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: verticalData,
+      encode: { x: 'metric', y: 'ranges', color: '#f0f0f0' },
+      style: { maxWidth: 30 },
     },
-    x: {
-      title: 'Quarter',
+    {
+      type: 'interval',
+      data: verticalData,
+      encode: { x: 'metric', y: 'measures', color: '#52c41a' },
+      style: { maxWidth: 20 },
+      label: {
+        text: 'measures',
+        position: 'top',
+        textAlign: 'center',
+        dy: -5,
+      },
     },
-  });
+    {
+      type: 'point',
+      data: verticalData,
+      encode: { x: 'metric', y: 'target', shape: 'line', color: '#ff4d4f', size: 6 },
+      axis: {
+        y: {
+          grid: true,
+          title: 'Sales (10k CNY)',
+        },
+        x: {
+          title: 'Quarter',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
