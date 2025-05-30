@@ -221,7 +221,7 @@ chart.render();
 
 折线图主要用于展示连续数据的变化趋势，不适合用于显示离散类别间的数值比较。如果主要目的是比较不同类别的具体数值，柱状图或条形图会是更好的选择。
 
-```js | ob { autoMount: true  }
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -263,7 +263,7 @@ chart.render();
 
 当数据点较少或变化不明显时，折线图可能无法充分发挥其展示趋势变化的优势。这种情况下，可以考虑使用柱状图或点图来强调个别数据点的比较。
 
-```js | ob { autoMount: true  }
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

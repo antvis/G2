@@ -219,7 +219,7 @@ Example 1: **Not suitable for displaying discrete category comparisons**
 
 Line charts are primarily used to show trends in continuous data and are not suitable for displaying numerical comparisons between discrete categories. If the main purpose is to compare specific values across different categories, bar charts or column charts would be better choices.
 
-```js | ob { autoMount: true  }
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -261,7 +261,7 @@ Example 2: **Poor effectiveness when data points are few or changes are insignif
 
 When there are few data points or changes are insignificant, line charts may not fully leverage their advantage of showing trend changes. In such cases, consider using bar charts or dot plots to emphasize comparisons between individual data points.
 
-```js | ob { autoMount: true  }
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
