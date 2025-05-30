@@ -21,5 +21,5 @@ export function chartRender(context) {
 
   const finished = chart.render();
 
-  return { finished };
+  return { finished, chart };
 }

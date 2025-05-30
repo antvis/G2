@@ -555,84 +555,83 @@ chart.render();
 
 支持 9 种位置：`top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`。
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-const chart = new Chart({
-  container: 'container',
-});
-chart.options({
-  height: 300,
-  type: 'cell',
-  data: [
-    { x: 'x-a', y: 'y-a', data: 1 },
-    { x: 'x-a', y: 'y-b', data: 3 },
-    { x: 'x-a', y: 'y-c', data: 2 },
-    { x: 'x-b', y: 'y-a', data: 8 },
-    { x: 'x-b', y: 'y-b', data: 5 },
-    { x: 'x-b', y: 'y-c', data: 6 },
-    { x: 'x-c', y: 'y-a', data: 7 },
-    { x: 'x-c', y: 'y-b', data: 4 },
-    { x: 'x-c', y: 'y-c', data: 9 },
-  ],
-  legend: false,
-  axis: false,
-  encode: {
-    x: 'x', // 编码 x 轴
-    y: 'y', // 编码 y 轴
-    color: 'data', // 使用数据中的 data1 字段
-  },
-  labels: [
-    {
-      text: 'data',
-      style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
-    },
-  ],
-  style: {
-    inset: 5,
-    lineWidth: 10,
-  },
-});
-
-// 插入Encode-Color 选择器
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = 'position: ';
-const selector = document.createElement('select');
-selector.innerHTML = [
-  'top',
-  'left',
-  'right',
-  'bottom',
-  'top-left',
-  'top-right',
-  'bottom-left',
-  'bottom-right',
-  'inside',
-].reduce((v, position) => {
-  return `${v}<option value="${position}" ${
-    position === 'top' ? 'selected' : ''
-  }>${position}</option>`;
-}, '');
-
-selector.onchange = (e) => {
   chart.options({
+    height: 300,
+    type: 'cell',
+    data: [
+      { x: 'x-a', y: 'y-a', data: 1 },
+      { x: 'x-a', y: 'y-b', data: 3 },
+      { x: 'x-a', y: 'y-c', data: 2 },
+      { x: 'x-b', y: 'y-a', data: 8 },
+      { x: 'x-b', y: 'y-b', data: 5 },
+      { x: 'x-b', y: 'y-c', data: 6 },
+      { x: 'x-c', y: 'y-a', data: 7 },
+      { x: 'x-c', y: 'y-b', data: 4 },
+      { x: 'x-c', y: 'y-c', data: 9 },
+    ],
+    legend: false,
+    axis: false,
+    encode: {
+      x: 'x', // 编码 x 轴
+      y: 'y', // 编码 y 轴
+      color: 'data', // 使用数据中的 data1 字段
+    },
     labels: [
       {
         text: 'data',
-        position: e.target.value,
         style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
       },
     ],
+    style: {
+      inset: 5,
+      lineWidth: 10,
+    },
   });
-  chart.render(); // 重新渲染图表
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
 
-chart.render();
+  // 插入Encode-Color 选择器
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = 'position: ';
+  const selector = document.createElement('select');
+  selector.innerHTML = [
+    'top',
+    'left',
+    'right',
+    'bottom',
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right',
+    'inside',
+  ].reduce((v, position) => {
+    return `${v}<option value="${position}" ${
+      position === 'top' ? 'selected' : ''
+    }>${position}</option>`;
+  }, '');
 
-return node;
+  selector.onchange = (e) => {
+    chart.options({
+      labels: [
+        {
+          text: 'data',
+          position: e.target.value,
+          style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
+        },
+      ],
+    });
+    chart.render(); // 重新渲染图表
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
+
+  chart.render();
+
+  return node;
+})();
 ```
 
 #### 非笛卡尔坐标系下
