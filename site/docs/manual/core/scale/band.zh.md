@@ -60,7 +60,7 @@ band 比例尺将连续的值域范围（range）划分为等宽的区间，每�
 
 band 比例尺最常见的应用是柱状图，通过设置 `padding` 可以控制柱子之间的间距：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -97,7 +97,7 @@ chart.render();
 
 在分组柱状图中，band 比例尺与 dodgeX 转换一起使用，可以创建分组效果：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -180,7 +180,7 @@ chart.render();
 
 通过坐标系转置，可以创建条形图，band 比例尺同样适用：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -218,7 +218,7 @@ chart.render();
 
 使用 `stackY` 转换可以创建堆叠柱状图，展示各部分的累积效果：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -263,7 +263,7 @@ chart.render();
 
 根据指定字段的值自动调整柱子宽度，适合表示权重或比例关系：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -302,7 +302,7 @@ chart.render();
 
 处理时间数据时，band 比例尺能很好地处理时间间隔的可视化：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -350,7 +350,7 @@ chart.render();
 
 展示具有层次结构的分类数据：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -397,7 +397,7 @@ chart.render();
 
 使用 paddingInner 和 paddingOuter 精确控制间距，适合对比分析：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -443,7 +443,7 @@ chart.render();
 
 结合 compare 函数对数据进行排序，并使用不同的柱宽策略：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -493,7 +493,7 @@ chart.render();
 
 展示数值的逐步累积变化过程：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 // 瀑布图数据处理
@@ -554,7 +554,7 @@ chart.render();
 
 使用 band 比例尺结合分面布局展示多维数据：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
