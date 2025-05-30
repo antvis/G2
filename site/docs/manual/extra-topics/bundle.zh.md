@@ -248,7 +248,7 @@ chart.auto(); // Auto Mark
 
 > 开发中，预计 10 月底上线
 
-返回 3D 分析库，提供 3D 可视化的能力。该 library 不会包含在 [G2.stdlib](#g2stdlib) 里面，同样不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。[示例](/manual/extra-topics/3d-charts)
+返回 3D 分析库，提供 3D 可视化的能力。该 library 不会包含在 [G2.stdlib](#g2stdlib) 里面，同样不能单独使用，需要配合 [G2.corelib](#g2corelib) 使用。[示例](/manual/extra-topics/three-dimensional/draw-threed-chart)
 
 ```js
 import { Runtime, extend, corelib } from '@antv/g2';
