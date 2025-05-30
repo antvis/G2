@@ -142,7 +142,7 @@ chart.render();
 
 使用 `flex` 属性可以为不同类别设置不同的宽度比例：
 
-```js | ob
+```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
