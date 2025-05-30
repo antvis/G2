@@ -1,7 +1,7 @@
 ---
 title: 色块图
 order: 2
-screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUEsSqBFVpUAAAAAAAAAAAAADmJ7AQ/original'
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*F8DLSYJAyKQAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison', 'distribution']
 similar: ['heatmap', 'treemap']
 ---
