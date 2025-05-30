@@ -1,12 +1,12 @@
 ---
 title: Heatmap
 order: 7
-screenshot: 'https://os.alipayobjects.com/rmsportal/JeleDrjVnkyfPpS.png'
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original'
 category: ['distribution', 'comparison']
 similar: ['histogram', 'contourline', 'scatter', 'bubble']
 ---
 
-<img alt="heatmap" src="https://os.alipayobjects.com/rmsportal/JeleDrjVnkyfPpS.png" width=600/>
+<img alt="heatmap" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
 ## Introduction to Heatmaps
 
