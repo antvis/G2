@@ -135,72 +135,72 @@ chart.render();
 
 ### 交互式对比不同 basis 效果
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob { pin: false }
+(() => {
+  const valueList = [
+    'first',
+    'deviation',
+    'last',
+    'max',
+    'mean',
+    'median',
+    'min',
+    'sum',
+  ];
+  const valueMap = valueList.map((p) => {
+    return {
+      label: p,
+      value: p,
+    };
+  });
 
-const valueList = [
-  'first',
-  'deviation',
-  'last',
-  'max',
-  'mean',
-  'median',
-  'min',
-  'sum',
-];
-const valueMap = valueList.map((p) => {
-  return {
-    label: p,
-    value: p,
+  const chart = new G2.Chart();
+
+  chart.options({
+    type: 'line',
+    width: 900,
+    height: 600,
+    insetRight: 20,
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/indices.json',
+    },
+    encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
+    transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
+    scale: { y: { type: 'log' } },
+    axis: { y: { title: '↑ Change in price (%)' } },
+    labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
+    tooltip: { items: [{ channel: 'y', valueFormatter: '.1f' }] },
+  });
+
+  const handleSetValue = (value) => {
+    chart.options({
+      transform: [{ type: 'normalizeY', basis: value, groupBy: 'color' }],
+    });
+    chart.render(); // 重新渲染图表
   };
-});
 
-const chart = new Chart({
-  container: 'container',
-});
+  // 插入Value 选择器
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = '选择 basis ';
+  const selector = document.createElement('select');
+  selector.innerHTML = valueMap.map(
+    (value, index) =>
+      `<option value="${value.value}" ${index === 0 ? 'selected' : ''}>${
+        value.label
+      }</option>`,
+  );
+  selector.onchange = (e) => {
+    handleSetValue(e.target.value);
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
 
-chart.options({
-  type: 'line',
-  width: 900,
-  height: 600,
-  insetRight: 20,
-  data: {
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/indices.json',
-  },
-  encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
-  transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
-  scale: { y: { type: 'log' } },
-  axis: { y: { title: '↑ Change in price (%)' } },
-  labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
-  tooltip: { items: [{ channel: 'y', valueFormatter: '.1f' }] },
-});
+  chart.render();
 
-const handleSetValue = (value) => {
-  chart.transform([{ type: 'normalizeY', basis: value, groupBy: 'color' }]);
-  chart.render(); // 重新渲染图表
-};
-
-// 插入Value 选择器
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = '选择 basis ';
-const selector = document.createElement('select');
-selector.innerHTML = valueMap.map(
-  (value, index) =>
-    `<option value="${value.value}" ${index === 0 ? 'selected' : ''}>${
-      value.label
-    }</option>`,
-);
-selector.onchange = (e) => {
-  handleSetValue(e.target.value);
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
-
-chart.render();
-
-return node;
+  return node;
+})();
 ```
 
 ### 自定义分组

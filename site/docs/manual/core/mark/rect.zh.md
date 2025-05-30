@@ -95,63 +95,61 @@ chart.render(); // 渲染图标
 | rect   | 矩形     |
 | hollow | 空心矩形 |
 
-```js | ob {  pin: false , autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob {  pin: false }
+(() => {
+  const shapeMap = [
+    {
+      shape: 'rect',
+      label: '矩形',
+    },
+    {
+      shape: 'hollow',
+      label: '空心矩形',
+    },
+  ];
 
-const shapeMap = [
-  {
-    shape: 'rect',
-    label: '矩形',
-  },
-  {
-    shape: 'hollow',
-    label: '空心矩形',
-  },
-];
+  const chart = new G2.Chart();
 
-const chart = new Chart({
-  container: 'container',
-});
-
-chart.options({
-  type: 'rect',
-  data: {
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-  },
-  encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
-  transform: [{ type: 'bin', opacity: 'count' }],
-  style: { inset: 0.5 },
-});
-
-const handleSetShape = (shape) => {
-  // 设置选中的坐标系
   chart.options({
-    encode: { shape },
+    type: 'rect',
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+    },
+    encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
+    transform: [{ type: 'bin', opacity: 'count' }],
+    style: { inset: 0.5 },
   });
-  chart.render(); // 重新渲染图表
-};
 
-// 插入Encode-Color 选择器
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = '选择形状 ';
-const selector = document.createElement('select');
-selector.innerHTML = shapeMap.map(
-  (shape, index) =>
-    `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
-      shape.label
-    }</option>`,
-);
-selector.onchange = (e) => {
-  handleSetShape(e.target.value);
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
+  const handleSetShape = (shape) => {
+    // 设置选中的坐标系
+    chart.options({
+      encode: { shape },
+    });
+    chart.render(); // 重新渲染图表
+  };
 
-chart.render();
+  // 插入Encode-Color 选择器
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = '选择形状 ';
+  const selector = document.createElement('select');
+  selector.innerHTML = shapeMap.map(
+    (shape, index) =>
+      `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
+        shape.label
+      }</option>`,
+  );
+  selector.onchange = (e) => {
+    handleSetShape(e.target.value);
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
 
-return node;
+  chart.render();
+
+  return node;
+})();
 ```
 
 更多的`encode`配置，可以查查看 [encode](/manual/core/encode) 介绍页面。
@@ -186,8 +184,6 @@ chart.options({
 });
 
 chart.render();
-
-return chart.getContainer();
 ```
 
 更多的`transform`配置，可以查看 [transform](/manual/core/transform/overview) 介绍页面。

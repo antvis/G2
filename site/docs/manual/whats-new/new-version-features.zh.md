@@ -507,45 +507,41 @@ chart.render();
 
 更多内容请阅读 [Spec 和 API](/manual/introduction/experimental-spec-api)。
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob
+(() => {
+  const chart = new G2.Chart({ height: 150, padding: 10 });
 
-const chart = new Chart({
-  container: 'container',
-  height: 150,
-  padding: 10,
-});
+  const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-const mock = () => Array.from({ length: 20 }, () => Math.random());
+  // 初始化图表
+  // 使用选项式 API
+  chart.options({
+    type: 'interval',
+    data: mock(),
+    encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
+    axis: false,
+    tooltip: {
+      items: [{ channel: 'y', valueFormatter: '.0%' }],
+    },
+  });
 
-// 初始化图表
-// 使用选项式 API
-chart.options({
-  type: 'interval',
-  data: mock(),
-  encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
-  axis: false,
-  tooltip: {
-    items: [{ channel: 'y', valueFormatter: '.0%' }],
-  },
-});
+  chart.render();
 
-chart.render();
+  // 更新图表
+  // 使用函数式 API
+  const button = document.createElement('button');
+  button.style.display = 'block';
+  button.textContent = '更新数据';
+  button.onclick = () => {
+    const interval = chart.getNodeByType('interval'); // 获得 interval
+    interval.data(mock()); // 更新 interval 的数据
+    chart.render(); // 渲染图表
+  };
 
-// 更新图表
-// 使用函数式 API
-const button = document.createElement('button');
-button.style.display = 'block';
-button.textContent = '更新数据';
-button.onclick = () => {
-  const interval = chart.getNodeByType('interval'); // 获得 interval
-  interval.data(mock()); // 更新 interval 的数据
-  chart.render(); // 渲染图表
-};
-
-const node = chart.getContainer();
-node.insertBefore(button, node.childNodes[0]);
-return node;
+  const node = chart.getContainer();
+  node.insertBefore(button, node.childNodes[0]);
+  return node;
+})();
 ```
 
 ## 可组合

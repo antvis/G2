@@ -248,7 +248,7 @@ chart.auto(); // Auto Mark
 
 > Under development, expected to be online by the end of October
 
-Return to the 3D analysis library, providing capabilities for 3D visualization. This library will not be included in [G2.stdlib](#g2stdlib). It cannot be used independently, it needs to be used with [G2.corelib](#g2corelib). [Example](/manual/extra-topics/3d-charts)
+Return to the 3D analysis library, providing capabilities for 3D visualization. This library will not be included in [G2.stdlib](#g2stdlib). It cannot be used independently, it needs to be used with [G2.corelib](#g2corelib). [Example](/manual/extra-topics/three-dimensional/draw-threed-chart)
 
 ```js
 import { Runtime, extend, corelib } from '@antv/g2';
