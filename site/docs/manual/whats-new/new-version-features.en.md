@@ -506,45 +506,42 @@ You can find that the charts drawn by the two are exactly the same! In fact, thi
 
 The choice between the two is more of a matter of style: if you are familiar with D3, like functional programming, or are an old user of G2, you can choose the functional API; if you have just started using G2 and are exposed to visualization, then the optional API is recommended API. Of course, if you are packaging your own chart library based on G2, it is recommended to use the optional API. However, there is a best practice: use the option API when initializing the chart, and use the functional API when updating the chart.
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob
+(() => {
+  const chart = new G2.Chart({ height: 150, padding: 10 });
 
-const chart = new Chart({
-  container: 'container',
-  height: 150,
-  padding: 10,
-});
+  const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-const mock = () => Array.from({ length: 20 }, () => Math.random());
+  //Initialize chart
+  //Use optional API
+  chart.options({
+    type: 'interval',
+    data: mock(),
+    encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
+    axis: false,
+    tooltip: {
+      items: [{ channel: 'y', valueFormatter: '.0%' }],
+    },
+  });
 
-//Initialize chart
-//Use optional API
-chart.options({
-  type: 'interval',
-  data: mock(),
-  encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
-  axis: false,
-  tooltip: {
-    items: [{ channel: 'y', valueFormatter: '.0%' }],
-  },
-});
+  chart.render();
 
-chart.render();
+  //Update chart
+  // Use functional API
+  const button = document.createElement('button');
+  button.style.display = 'block';
+  button.textContent = 'Update data';
+  button.onclick = () => {
+    const interval = chart.getNodeByType('interval'); // Get interval
+    interval.data(mock()); // Update interval data
+    chart.render(); // Render chart
+  };
 
-//Update chart
-// Use functional API
-const button = document.createElement('button');
-button.style.display = 'block';
-button.textContent = 'Update data';
-button.onclick = () => {
-  const interval = chart.getNodeByType('interval'); // Get interval
-  interval.data(mock()); // Update interval data
-  chart.render(); // Render chart
-};
+  const node = chart.getContainer();
+  node.insertBefore(button, node.childNodes[0]);
 
-const node = chart.getContainer();
-node.insertBefore(button, node.childNodes[0]);
-return node;
+  return node;
+})();
 ```
 
 ## Can be combined

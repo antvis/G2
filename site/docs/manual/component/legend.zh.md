@@ -129,74 +129,74 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 
 图例的位置。默认为 `top`。
 
-```js | ob {  pin: false , autoMount: true }
-import { Chart } from '@antv/g2';
-
-const positionList = ['top', 'right', 'left', 'bottom'];
-const positionMap = positionList.map((p) => {
-  return {
-    label: p,
-    value: p,
-  };
-});
-
-const chart = new Chart({
-  container: 'container',
-});
-
-chart.options({
-  type: 'interval',
-  data: [
-    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
-    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
-    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
-    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
-    { name: 'London', 月份: 'May', 月均降雨量: 47 },
-    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
-    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
-    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
-    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
-    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
-    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
-    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
-    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
-    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
-    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
-    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
-  ],
-  encode: { x: '月份', y: '月均降雨量', color: 'name' },
-  transform: [{ type: 'dodgeX' }],
-});
-
-const handleSetPosition = (position) => {
-  chart.legend({
-    color: {
-      position,
-    },
+```js | ob {  pin: false }
+(() => {
+  const positionList = ['top', 'right', 'left', 'bottom'];
+  const positionMap = positionList.map((p) => {
+    return {
+      label: p,
+      value: p,
+    };
   });
-  chart.render(); // 重新渲染图表
-};
 
-// 插入Position 选择器
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = '选择图例位置 ';
-const selector = document.createElement('select');
-selector.innerHTML = positionMap.map(
-  (position, index) =>
-    `<option value="${position.value}" ${index === 0 ? 'selected' : ''}>${
-      position.label
-    }</option>`,
-);
-selector.onchange = (e) => {
-  handleSetPosition(e.target.value);
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
+  const chart = new G2.Chart();
 
-chart.render();
+  chart.options({
+    type: 'interval',
+    data: [
+      { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+      { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+      { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+      { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+      { name: 'London', 月份: 'May', 月均降雨量: 47 },
+      { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+      { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+      { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+      { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+      { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+      { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+      { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+      { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+      { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+      { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+      { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+    ],
+    encode: { x: '月份', y: '月均降雨量', color: 'name' },
+    transform: [{ type: 'dodgeX' }],
+  });
 
-return node;
+  const handleSetPosition = (position) => {
+    chart.options({
+      legend: {
+        color: {
+          position,
+        },
+      },
+    });
+    chart.render(); // 重新渲染图表
+  };
+
+  // 插入Position 选择器
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = '选择图例位置 ';
+  const selector = document.createElement('select');
+  selector.innerHTML = positionMap.map(
+    (position, index) =>
+      `<option value="${position.value}" ${index === 0 ? 'selected' : ''}>${
+        position.label
+      }</option>`,
+  );
+  selector.onchange = (e) => {
+    handleSetPosition(e.target.value);
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
+
+  chart.render();
+
+  return node;
+})();
 ```
 
 ### layout
@@ -444,89 +444,87 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 
 尝试一下：
 
-```js | ob {  pin: false , autoMount: true }
-import { Chart } from '@antv/g2';
-
-// 可选的itemMarker形状
-const shapeList = [
-  'bowtie',
-  'cross',
-  'dash',
-  'diamond',
-  'dot',
-  'hexagon',
-  'hollowBowtie',
-  'hollowDiamond',
-  'hollowHexagon',
-  'hollowPoint',
-  'hollowSquare',
-  'hollowTriangle',
-  'hollowTriangleDown',
-  'hv',
-  'hvh',
-  'hyphen',
-  'line',
-  'plus',
-  'point',
-  'rect',
-  'smooth',
-  'square',
-  'tick',
-  'triangleDown',
-  'triangle',
-  'vh',
-  'vhv',
-];
-const shapeMap = shapeList.map((p) => {
-  return {
-    label: p,
-    value: p,
-  };
-});
-
-const chart = new Chart({
-  container: 'container',
-});
-
-chart.options({
-  type: 'legends',
-  height: 60,
-  itemMarker: 'bowtie',
-  scale: {
-    color: {
-      type: 'ordinal',
-      domain: ['a', 'b'],
-      range: ['steelblue', 'orange'],
-    },
-  },
-});
-
-const handleSetShape = (shape) => {
-  chart.options({
-    itemMarker: shape,
+```js | ob {  pin: false }
+(() => {
+  // 可选的itemMarker形状
+  const shapeList = [
+    'bowtie',
+    'cross',
+    'dash',
+    'diamond',
+    'dot',
+    'hexagon',
+    'hollowBowtie',
+    'hollowDiamond',
+    'hollowHexagon',
+    'hollowPoint',
+    'hollowSquare',
+    'hollowTriangle',
+    'hollowTriangleDown',
+    'hv',
+    'hvh',
+    'hyphen',
+    'line',
+    'plus',
+    'point',
+    'rect',
+    'smooth',
+    'square',
+    'tick',
+    'triangleDown',
+    'triangle',
+    'vh',
+    'vhv',
+  ];
+  const shapeMap = shapeList.map((p) => {
+    return {
+      label: p,
+      value: p,
+    };
   });
-  chart.render(); // 重新渲染图表
-};
 
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = '选择图例项图标的形状 ';
-const selector = document.createElement('select');
-selector.innerHTML = shapeMap.map(
-  (shape, index) =>
-    `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
-      shape.label
-    }</option>`,
-);
-selector.onchange = (e) => {
-  handleSetShape(e.target.value);
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
+  const chart = new G2.Chart();
 
-chart.render();
+  chart.options({
+    type: 'legends',
+    height: 60,
+    itemMarker: 'bowtie',
+    scale: {
+      color: {
+        type: 'ordinal',
+        domain: ['a', 'b'],
+        range: ['steelblue', 'orange'],
+      },
+    },
+  });
 
-return node;
+  const handleSetShape = (shape) => {
+    chart.options({
+      itemMarker: shape,
+    });
+    chart.render(); // 重新渲染图表
+  };
+
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = '选择图例项图标的形状 ';
+  const selector = document.createElement('select');
+  selector.innerHTML = shapeMap.map(
+    (shape, index) =>
+      `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
+        shape.label
+      }</option>`,
+  );
+  selector.onchange = (e) => {
+    handleSetShape(e.target.value);
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
+
+  chart.render();
+
+  return node;
+})();
 ```
 
 在 Legend 组件中配置图例项图标的时候，不是以对象的形式来配置，而是以 `itemMarker`前缀加属性的方式来配置。
