@@ -66,60 +66,58 @@ chart.render(); // 渲染图标
 
 通过 `encode` 的 `color` 属性，你可以将数据字段映射到颜色值，从而根据数据的变化自动调整标记的颜色。这对于数据可视化来说非常有用，因为它可以帮助您快速识别数据的模式和趋势。
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob
+(() => {
+  const chart = new G2.Chart();
 
-const chart = new Chart({
-  container: 'container',
-});
-chart.options({
-  type: 'cell',
-  data: [
-    { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
-    { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
-    { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
-    { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
-    { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
-    { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
-    { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
-    { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
-    { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
-  ],
-  encode: {
-    x: 'x', // 编码 x 轴
-    y: 'y', // 编码 y 轴
-    color: 'data1', // 使用数据中的 data1 字段
-  },
-  style: {
-    inset: 5,
-    lineWidth: 10,
-  },
-});
+  chart.options({
+    type: 'cell',
+    data: [
+      { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
+      { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
+      { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
+      { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
+      { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
+      { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
+      { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
+      { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
+      { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
+    ],
+    encode: {
+      x: 'x', // 编码 x 轴
+      y: 'y', // 编码 y 轴
+      color: 'data1', // 使用数据中的 data1 字段
+    },
+    style: {
+      inset: 5,
+      lineWidth: 10,
+    },
+  });
 
-// 插入Encode-Color 选择器
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = '选择映射到颜色的字段 ';
-const selector = document.createElement('select');
-selector.innerHTML = `
+  // 插入Encode-Color 选择器
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = '选择映射到颜色的字段 ';
+  const selector = document.createElement('select');
+  selector.innerHTML = `
     <option value="data1" selected>data1</option>
     <option value="data2">data2</option>
   `;
 
-selector.onchange = (e) => {
-  chart.options({
-    encode: {
-      color: e.target.value, // 使用选中的字段映射颜色
-    },
-  });
-  chart.render(); // 重新渲染图表
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
+  selector.onchange = (e) => {
+    chart.options({
+      encode: {
+        color: e.target.value, // 使用选中的字段映射颜色
+      },
+    });
+    chart.render(); // 重新渲染图表
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
 
-chart.render();
-
-return node;
+  chart.render();
+  return node;
+})();
 ```
 
 #### shape
