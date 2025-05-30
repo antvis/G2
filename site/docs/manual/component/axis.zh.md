@@ -175,6 +175,32 @@ chart.options({
 | animate  | 设置坐标轴动画效果             | `boolean` &#124; [animate](#animate)               | -                            |
 | position | 设置坐标轴的位置               | `left` &#124; `right` &#124; `top` &#124; `bottom` | `x: bottom` &#124; `y: left` |      |
 
+:::warning{title=注意}
+标题（title）、轴线（line）、刻度（tick）、刻度值（label）以及网格线（grid）的配置同级，不是以对象的形式来配置，而是以前缀加属性的方式来配置。
+:::
+
+例如配置刻度值的旋转，不是在 label 对象下配置，而是通过如下的方式：
+
+```js
+({
+  axis: {
+    x: {
+      title: 'x 轴标题',
+      labelFontSize: 12,
+      labelFormatter: (d) => `2025-${d}`,
+      transform: [
+        // 旋转
+        {
+          type: 'rotate',
+          optionalAngles: [0, 45, 90], // 尝试旋转 0 度、45 度、90 度
+          recoverWhenFailed: true, // 如果旋转后无法解决问题，恢复到默认角度
+        },
+      ],
+    },
+  },
+});
+```
+
 ### title
 
 | 属性               | 描述                                                           | 类型                                                                                                               | 默认值        | 必须 |
@@ -290,29 +316,30 @@ chart.options({
 
 ### label
 
-| 属性               | 描述                                                                                                                | 类型                                                              | 默认值     | 必须 |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ---------- | ---- |
-| label              | 是否显示刻度值                                                                                                      | `boolean`                                                         | -          |      |
-| labelFontSize      | 刻度值文字大小                                                                                                      | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
-| labelOpacity       | 刻度值透明度                                                                                                        | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
-| labelFontWeight    | 刻度值字体粗细                                                                                                      | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
-| labelFontFamily    | 刻度值文字字体                                                                                                      | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
-| labelAlign         | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴   | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`       | `parallel` |      |
-| labelFilter        | 刻度值过滤                                                                                                          | `(datum, index, data)=> boolean`                                  | -          |      |
-| labelFormatter     | 刻度值格式化，可以传入一个函数或者是 [d3-format](https://d3js.org/d3-format) 支持的字符串                           | `string` \| `(datum, index, array) => string`                     | -          |      |
-| transform          | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                    | `Transform[]`                                                     | -          |      |
-| labelAutoHide      | 自动隐藏重叠的刻度值，设置 size 值的时候生效                                                                        | `boolean` &#124; `HideOverlapCfg`                                 | -          |      |
-| labelAutoRotate    | 自动旋转刻度，设置 size 值的时候生效值                                                                              | `boolean` &#124; `RotateOverlapCfg`                               | -          |      |
-| labelAutoEllipsis  | 自动缩略刻度值，设置 size 值的时候生效                                                                              | `boolean` &#124; `EllipsisOverlapCfg`                             | -          |      |
-| labelAutoWrap      | 自动换行刻度值，设置 size 值的时候是生效                                                                            | `boolean` &#124; `WrapOverlapCfg`                                 | -          |      |
-| labelDirection     | 刻度值位于轴线的位置，参考`tickDirection`                                                                           | `'positive'` &#124; `'negative'`                                  | `positive` |      |
-| labelSpacing       | 刻度值到其对应刻度的间距                                                                                            | `number`                                                          | 0          |      |
-| labelLineWidth     | 刻度值宽度                                                                                                          | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
-| labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | `[number,number]` &#124; `(datum, index, data)=>[number, number]` | -          |      |
-| labelFill          | 刻度值字体颜色                                                                                                      | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
-| labelFillOpacity   | 刻度值文本透明度                                                                                                    | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
-| labelStroke        | 刻度值文本描边颜色                                                                                                  | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
-| labelStrokeOpacity | 刻度值文本描边透明度                                                                                                | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| 属性               | 描述                                                                                                                                                                  | 类型                                                              | 默认值     | 必须 |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ---------- | ---- |
+| label              | 是否显示刻度值                                                                                                                                                        | `boolean`                                                         | -          |      |
+| labelFontSize      | 刻度值文字大小                                                                                                                                                        | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelOpacity       | 刻度值透明度                                                                                                                                                          | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelFontWeight    | 刻度值字体粗细                                                                                                                                                        | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
+| labelFontFamily    | 刻度值文字字体                                                                                                                                                        | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelAlign         | 刻度值对齐方式<br/>- 'horizontal' 始终保持水平<br/> - 'parallel' 平行于坐标轴<br/> - 'perpendicular' 垂直于坐标轴                                                     | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`       | `parallel` |      |
+| labelFilter        | 刻度值过滤                                                                                                                                                            | `(datum, index, data)=> boolean`                                  | -          |      |
+| labelFormatter     | 刻度值格式化，可以传入一个函数或者是 [d3-format](https://d3js.org/d3-format) 支持的字符串                                                                             | `string` \| `(datum, index, array) => string`                     | -          |      |
+| transform          | 刻度值转换，避免文本之间发生重叠。当前支持超长文本缩略、重叠刻度值隐藏、自动旋转                                                                                      | `Transform[]`                                                     | -          |      |
+| labelTransform     | 刻度值转换，在局部坐标系下进行变换的快捷方式，包括缩放、平移、旋转、拉伸、矩阵变换，具体见[transform](https://g.antv.antgroup.com/api/basic/display-object#transform) | `string`                                                          | -          |      |
+| labelAutoHide      | 自动隐藏重叠的刻度值，设置 size 值的时候生效                                                                                                                          | `boolean` &#124; `HideOverlapCfg`                                 | -          |      |
+| labelAutoRotate    | 自动旋转刻度，设置 size 值的时候生效值                                                                                                                                | `boolean` &#124; `RotateOverlapCfg`                               | -          |      |
+| labelAutoEllipsis  | 自动缩略刻度值，设置 size 值的时候生效                                                                                                                                | `boolean` &#124; `EllipsisOverlapCfg`                             | -          |      |
+| labelAutoWrap      | 自动换行刻度值，设置 size 值的时候是生效                                                                                                                              | `boolean` &#124; `WrapOverlapCfg`                                 | -          |      |
+| labelDirection     | 刻度值位于轴线的位置，参考`tickDirection`                                                                                                                             | `'positive'` &#124; `'negative'`                                  | `positive` |      |
+| labelSpacing       | 刻度值到其对应刻度的间距                                                                                                                                              | `number`                                                          | 0          |      |
+| labelLineWidth     | 刻度值宽度                                                                                                                                                            | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
+| labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。                                                   | `[number,number]` &#124; `(datum, index, data)=>[number, number]` | -          |      |
+| labelFill          | 刻度值字体颜色                                                                                                                                                        | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelFillOpacity   | 刻度值文本透明度                                                                                                                                                      | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelStroke        | 刻度值文本描边颜色                                                                                                                                                    | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelStrokeOpacity | 刻度值文本描边透明度                                                                                                                                                  | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
 
 `labelFormatter` 视觉通道用于调整标签的格式。
 
@@ -421,6 +448,23 @@ chart.options({
   },
 });
 chart.render();
+```
+
+`labelTransform` 是 G 提供的在局部坐标系下进行变换的快捷方式，同时与 [CSS Transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 保持一致。
+
+下面的例子展示了如何配置 `labelTransform` 来让 x 轴刻度值旋转 90 度。
+
+```js
+({
+  axis: {
+    x: {
+      title: 'x 轴标题',
+      labelFontSize: 12,
+      labelFormatter: (d) => `2025-${d}`,
+      labelTransform: 'rotate(90)',
+    },
+  },
+});
 ```
 
 > 2. 使用 `labelAutoHide`、`labelAutoRotate`、`labelAutoEllipsis`、`labelAutoWrap`、 属性（需设置 `size`）
