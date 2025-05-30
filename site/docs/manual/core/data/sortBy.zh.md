@@ -40,14 +40,17 @@ chart.data({
       fields: [['sold', false]], // 排序方式变为降序
     },
   ],
-})
+});
 ```
 
 当存在多个排序字段时，若前一个字段相同，则继续比较下一个字段。
 
 ```ts
 const options = {
-  fields: [['name', true], ['age', false]],
+  fields: [
+    ['name', true],
+    ['age', false],
+  ],
 };
 
 const data = [

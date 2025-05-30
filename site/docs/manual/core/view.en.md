@@ -66,4 +66,4 @@ view.point();
   interaction: {},
   theme: {},
 });
-```  
+```

@@ -41,52 +41,52 @@ There are currently 4 built-in states:
 
 ## Highlighted States
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .axis('y', { labelFormatter: '.0%' })
-    .state('active', { fill: 'red' })
-    .state('inactive', { fill: '#aaa' })
-    .interaction('elementHighlight'); // Set up highlight interaction
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .axis('y', { labelFormatter: '.0%' })
+  .state('active', { fill: 'red' })
+  .state('inactive', { fill: '#aaa' })
+  .interaction('elementHighlight'); // Set up highlight interaction
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## Selected States
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .axis('y', { labelFormatter: '.0%' })
-    .state('selected', { fill: 'red', stroke: 'blue', strokeWidth: 2 })
-    .state('unselected', { fill: '#aaa' })
-    .interaction('elementSelect'); // Set up selection interaction
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .axis('y', { labelFormatter: '.0%' })
+  .state('selected', { fill: 'red', stroke: 'blue', strokeWidth: 2 })
+  .state('unselected', { fill: '#aaa' })
+  .interaction('elementSelect'); // Set up selection interaction
 
-  return chart.getContainer();
-})();
+chart.render();
 ```

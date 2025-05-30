@@ -92,28 +92,35 @@ reducer 是一个函数，用于在分组后对数据进行处理。它接收两
 ```ts
 // 使用自定义 reducer 计算每组数据的总和
 chart.options({
-  // ... 
-  transform: [{
-    type: 'stackEnter',
-    groupBy: 'x',
-    reducer: (indices, values) => {
-      // 计算当前分组的所有值的总和
-      return indices.reduce((sum, index) => sum + values[index].value, 0);
+  // ...
+  transform: [
+    {
+      type: 'stackEnter',
+      groupBy: 'x',
+      reducer: (indices, values) => {
+        // 计算当前分组的所有值的总和
+        return indices.reduce((sum, index) => sum + values[index].value, 0);
+      },
     },
-  }],
+  ],
 });
 
 // 使用自定义 reducer 计算每组数据的平均值
 chart.options({
-  // ... 
-  transform: [{
-    type: 'stackEnter',
-    groupBy: 'x',
-    reducer: (indices, values) => {
-      const sum = indices.reduce((acc, index) => acc + values[index].value, 0);
-      return sum / indices.length; // 返回平均值
+  // ...
+  transform: [
+    {
+      type: 'stackEnter',
+      groupBy: 'x',
+      reducer: (indices, values) => {
+        const sum = indices.reduce(
+          (acc, index) => acc + values[index].value,
+          0,
+        );
+        return sum / indices.length; // 返回平均值
+      },
     },
-  }],
+  ],
 });
 ```
 

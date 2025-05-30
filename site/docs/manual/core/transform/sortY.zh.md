@@ -8,7 +8,6 @@ order: 2
 `sortY` 是 G2 提供的一个常用数据变换（transform），用于对**离散型 y 轴**的定义域进行排序。通过指定排序依据，可以让图表的 y 轴按照某个度量值（如 x、color 等）进行升序或降序排列，从而更直观地展示数据的大小关系或分布趋势。  
 `sortY` 支持灵活的排序通道、聚合方式、分片等配置，常用于突出重点、优化可读性、对比分析等场景，**尤其适用于 y 通道为离散型的 mark（如散点图、词云、image 等）**。
 
-
 ---
 
 ## 使用场景
@@ -22,17 +21,16 @@ order: 2
 
 ## 配置项
 
-| 属性    | 描述                                                   | 类型                         | 默认值  |
-| ------- | ------------------------------------------------------ | ---------------------------- | ------- |
-| by      | 指定排序的通道（如 'x'、'color'、'size' 等）           | `string`                     | `'y'`   |
-| reverse | 是否逆序                                               | `boolean`                    | `false` |
-| slice   | 选择一个分片范围（如前 N 项、区间）                    | `number \| [number, number]` |         |
-| reducer | 分组聚合方式，用于多值比较                             | `Reducer`                    | `'max'` |
+| 属性    | 描述                                         | 类型                         | 默认值  |
+| ------- | -------------------------------------------- | ---------------------------- | ------- |
+| by      | 指定排序的通道（如 'x'、'color'、'size' 等） | `string`                     | `'y'`   |
+| reverse | 是否逆序                                     | `boolean`                    | `false` |
+| slice   | 选择一个分片范围（如前 N 项、区间）          | `number \| [number, number]` |         |
+| reducer | 分组聚合方式，用于多值比较                   | `Reducer`                    | `'max'` |
 
 ### by
 
 指定排序依据的通道，常用如 `'x'`（按 x 值排序）、`'color'`（按颜色分组排序）、`'size'`（按点大小排序）等。
-
 
 ### reverse
 
@@ -64,62 +62,58 @@ type Reducer =
 
 ### 1. 散点图 y 轴分组排序
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    data: [
-      { city: '北京', year: '2020', value: 30 },
-      { city: '上海', year: '2020', value: 50 },
-      { city: '广州', year: '2020', value: 20 },
-      { city: '深圳', year: '2020', value: 40 },
-      { city: '北京', year: '2021', value: 35 },
-      { city: '上海', year: '2021', value: 55 },
-      { city: '广州', year: '2021', value: 25 },
-      { city: '深圳', year: '2021', value: 45 },
-    ],
-    encode: { x: 'year', y: 'city', color: 'city', size: 'value' },
-    transform: [
-      { type: 'sortY', by: 'size', reverse: true },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'point',
+  data: [
+    { city: '北京', year: '2020', value: 30 },
+    { city: '上海', year: '2020', value: 50 },
+    { city: '广州', year: '2020', value: 20 },
+    { city: '深圳', year: '2020', value: 40 },
+    { city: '北京', year: '2021', value: 35 },
+    { city: '上海', year: '2021', value: 55 },
+    { city: '广州', year: '2021', value: 25 },
+    { city: '深圳', year: '2021', value: 45 },
+  ],
+  encode: { x: 'year', y: 'city', color: 'city', size: 'value' },
+  transform: [{ type: 'sortY', by: 'size', reverse: true }],
+});
+
+chart.render();
 ```
 
 ### 2. 只显示 Top 2 个分组（slice）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    data: [
-      { city: '北京', year: '2020', value: 30 },
-      { city: '上海', year: '2020', value: 50 },
-      { city: '广州', year: '2020', value: 20 },
-      { city: '深圳', year: '2020', value: 40 },
-      { city: '北京', year: '2021', value: 35 },
-      { city: '上海', year: '2021', value: 55 },
-      { city: '广州', year: '2021', value: 25 },
-      { city: '深圳', year: '2021', value: 45 },
-    ],
-    encode: { x: 'year', y: 'city', color: 'city', size: 'value' },
-    transform: [
-      { type: 'sortY', by: 'size', reverse: true, slice: 2 },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'point',
+  data: [
+    { city: '北京', year: '2020', value: 30 },
+    { city: '上海', year: '2020', value: 50 },
+    { city: '广州', year: '2020', value: 20 },
+    { city: '深圳', year: '2020', value: 40 },
+    { city: '北京', year: '2021', value: 35 },
+    { city: '上海', year: '2021', value: 55 },
+    { city: '广州', year: '2021', value: 25 },
+    { city: '深圳', year: '2021', value: 45 },
+  ],
+  encode: { x: 'year', y: 'city', color: 'city', size: 'value' },
+  transform: [{ type: 'sortY', by: 'size', reverse: true, slice: 2 }],
+});
+
+chart.render();
 ```
 
-
 ---
-
