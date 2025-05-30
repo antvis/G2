@@ -1,6 +1,6 @@
 ---
 title: 分组柱状图
-order: 4
+order: 2
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original'
 category: ['comparison']
 similar: ['bar', 'stacked-bar', 'histogram']
@@ -41,6 +41,8 @@ similar: ['bar', 'stacked-bar', 'histogram']
 水平轴显示的是不同的游戏类型，每种游戏类型作为一个柱状图的分组，在每一个分组内对比不同年份的销售数量。
 
 ```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 const data = [
   {year: '2001', genre: 'Sports', sold: 27500},
   {year: '2001', genre: 'Strategy', sold: 11500},
@@ -59,7 +61,7 @@ const data = [
   {year: '2003', genre: 'Other', sold: 2000},
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 400,
@@ -92,7 +94,277 @@ chart.render();
 
 例子1：**分组过多、分类过多**
 
-当分组和分类过多时会导致柱子过多过密，可读性不佳。推荐使用层叠柱状图，当数据更多时，可将纵向柱状图改为横向柱状图。
+当分组和分类过多时会导致柱子过多过密，可读性不佳，如下图所示：
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 完整的barley数据集 - 演示分组过多的问题
+const barleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 39.93, variety: 'Manchuria', year: 1931, site: 'Crookston'},
+  {yield: 32.97, variety: 'Manchuria', year: 1931, site: 'Grand Rapids'},
+  {yield: 28.97, variety: 'Manchuria', year: 1931, site: 'Duluth'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 38.13, variety: 'Glabron', year: 1931, site: 'Crookston'},
+  {yield: 29.13, variety: 'Glabron', year: 1931, site: 'Grand Rapids'},
+  {yield: 29.67, variety: 'Glabron', year: 1931, site: 'Duluth'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 40.47, variety: 'Svansota', year: 1931, site: 'Crookston'},
+  {yield: 29.67, variety: 'Svansota', year: 1931, site: 'Grand Rapids'},
+  {yield: 25.7, variety: 'Svansota', year: 1931, site: 'Duluth'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 41.33, variety: 'Velvet', year: 1931, site: 'Crookston'},
+  {yield: 23.03, variety: 'Velvet', year: 1931, site: 'Grand Rapids'},
+  {yield: 26.3, variety: 'Velvet', year: 1931, site: 'Duluth'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+  {yield: 46.93, variety: 'Trebi', year: 1931, site: 'Crookston'},
+  {yield: 29.77, variety: 'Trebi', year: 1931, site: 'Grand Rapids'},
+  {yield: 33.93, variety: 'Trebi', year: 1931, site: 'Duluth'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 50,
+});
+
+chart.options({
+  type: 'interval',
+  data: barleyData,
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [{ type: 'dodgeX' }],
+  axis: {
+    x: {
+      labelAutoHide: true,
+      labelAutoRotate: true,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
+
+**优化方式1：仅显示重要数据**
+
+通过筛选或聚合数据，只展示排名靠前或最重要的几个分组：
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 筛选后的数据 - 只显示前3个地点，演示优化效果
+const filteredBarleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 50,
+});
+
+chart.options({
+  type: 'interval',
+  data: filteredBarleyData,
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [{ type: 'dodgeX' }],
+  axis: {
+    x: {
+      labelAutoHide: true,
+      labelAutoRotate: true,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
+
+**优化方式2：使用堆叠柱状图**
+
+如果需要展示完整数据，推荐使用堆叠柱状图来减少图表宽度，提高可读性：
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 完整的barley数据集 - 演示堆叠柱状图优化效果
+const barleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 39.93, variety: 'Manchuria', year: 1931, site: 'Crookston'},
+  {yield: 32.97, variety: 'Manchuria', year: 1931, site: 'Grand Rapids'},
+  {yield: 28.97, variety: 'Manchuria', year: 1931, site: 'Duluth'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 38.13, variety: 'Glabron', year: 1931, site: 'Crookston'},
+  {yield: 29.13, variety: 'Glabron', year: 1931, site: 'Grand Rapids'},
+  {yield: 29.67, variety: 'Glabron', year: 1931, site: 'Duluth'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 40.47, variety: 'Svansota', year: 1931, site: 'Crookston'},
+  {yield: 29.67, variety: 'Svansota', year: 1931, site: 'Grand Rapids'},
+  {yield: 25.7, variety: 'Svansota', year: 1931, site: 'Duluth'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 41.33, variety: 'Velvet', year: 1931, site: 'Crookston'},
+  {yield: 23.03, variety: 'Velvet', year: 1931, site: 'Grand Rapids'},
+  {yield: 26.3, variety: 'Velvet', year: 1931, site: 'Duluth'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+  {yield: 46.93, variety: 'Trebi', year: 1931, site: 'Crookston'},
+  {yield: 29.77, variety: 'Trebi', year: 1931, site: 'Grand Rapids'},
+  {yield: 33.93, variety: 'Trebi', year: 1931, site: 'Duluth'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 50,
+});
+
+chart.options({
+  type: 'interval',
+  data: barleyData,
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [{ type: 'stackY' }],
+  axis: {
+    x: {
+      labelAutoHide: true,
+      labelAutoRotate: true,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
+
+**优化方式3：使用横向堆叠柱状图**
+
+对于大量数据的情况，横向堆叠柱状图是更好的选择，可以充分利用垂直空间展示更多分类：
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 完整的barley数据集 - 演示横向堆叠柱状图的优化效果
+const barleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 39.93, variety: 'Manchuria', year: 1931, site: 'Crookston'},
+  {yield: 32.97, variety: 'Manchuria', year: 1931, site: 'Grand Rapids'},
+  {yield: 28.97, variety: 'Manchuria', year: 1931, site: 'Duluth'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 38.13, variety: 'Glabron', year: 1931, site: 'Crookston'},
+  {yield: 29.13, variety: 'Glabron', year: 1931, site: 'Grand Rapids'},
+  {yield: 29.67, variety: 'Glabron', year: 1931, site: 'Duluth'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 40.47, variety: 'Svansota', year: 1931, site: 'Crookston'},
+  {yield: 29.67, variety: 'Svansota', year: 1931, site: 'Grand Rapids'},
+  {yield: 25.7, variety: 'Svansota', year: 1931, site: 'Duluth'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 41.33, variety: 'Velvet', year: 1931, site: 'Crookston'},
+  {yield: 23.03, variety: 'Velvet', year: 1931, site: 'Grand Rapids'},
+  {yield: 26.3, variety: 'Velvet', year: 1931, site: 'Duluth'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+  {yield: 46.93, variety: 'Trebi', year: 1931, site: 'Crookston'},
+  {yield: 29.77, variety: 'Trebi', year: 1931, site: 'Grand Rapids'},
+  {yield: 33.93, variety: 'Trebi', year: 1931, site: 'Duluth'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 400,
+});
+
+chart.options({
+  type: 'interval',
+  data: barleyData,
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'sortX', by: 'y', reverse: true }
+  ],
+  axis: {
+    y: { 
+      labelAutoHide: false,
+      title: 'Yield (bushels/acre)',
+    },
+    x: {
+      labelAutoHide: false,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
 
 ## 分组柱状图的扩展
 
@@ -101,6 +373,8 @@ chart.render();
 当分组名称较长或者需要显示更多分组时，可以使用横向分组柱状图：
 
 ```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 const data = [
   {category: '体育游戏', year: '2001', sold: 27500},
   {category: '策略游戏', year: '2001', sold: 11500},
@@ -116,7 +390,7 @@ const data = [
   {category: '射击游戏', year: '2003', sold: 6500},
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 400,

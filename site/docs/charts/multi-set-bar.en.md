@@ -41,6 +41,8 @@ The chart below compares the sales of various game types for "I Am Rich" gaming 
 The horizontal axis shows different game types, with each game type forming a group in the bar chart, comparing sales numbers for different years within each group.
 
 ```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 const data = [
   {year: '2001', genre: 'Sports', sold: 27500},
   {year: '2001', genre: 'Strategy', sold: 11500},
@@ -59,7 +61,7 @@ const data = [
   {year: '2003', genre: 'Other', sold: 2000},
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 400,
@@ -92,7 +94,277 @@ Explanation:
 
 Example 1: **Too many groups and categories**
 
-When there are too many groups and categories, it leads to overcrowded and densely packed bars, resulting in poor readability. It's recommended to use stacked bar charts instead, and when there's even more data, consider switching from vertical to horizontal bar charts.
+When there are too many groups and categories, it leads to overcrowded and densely packed bars, resulting in poor readability, as shown in the chart below:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Complete barley dataset - demonstrating the problem of too many groups
+const barleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 39.93, variety: 'Manchuria', year: 1931, site: 'Crookston'},
+  {yield: 32.97, variety: 'Manchuria', year: 1931, site: 'Grand Rapids'},
+  {yield: 28.97, variety: 'Manchuria', year: 1931, site: 'Duluth'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 38.13, variety: 'Glabron', year: 1931, site: 'Crookston'},
+  {yield: 29.13, variety: 'Glabron', year: 1931, site: 'Grand Rapids'},
+  {yield: 29.67, variety: 'Glabron', year: 1931, site: 'Duluth'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 40.47, variety: 'Svansota', year: 1931, site: 'Crookston'},
+  {yield: 29.67, variety: 'Svansota', year: 1931, site: 'Grand Rapids'},
+  {yield: 25.7, variety: 'Svansota', year: 1931, site: 'Duluth'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 41.33, variety: 'Velvet', year: 1931, site: 'Crookston'},
+  {yield: 23.03, variety: 'Velvet', year: 1931, site: 'Grand Rapids'},
+  {yield: 26.3, variety: 'Velvet', year: 1931, site: 'Duluth'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+  {yield: 46.93, variety: 'Trebi', year: 1931, site: 'Crookston'},
+  {yield: 29.77, variety: 'Trebi', year: 1931, site: 'Grand Rapids'},
+  {yield: 33.93, variety: 'Trebi', year: 1931, site: 'Duluth'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 50,
+});
+
+chart.options({
+  type: 'interval',
+  data: barleyData,
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [{ type: 'dodgeX' }],
+  axis: {
+    x: {
+      labelAutoHide: true,
+      labelAutoRotate: true,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
+
+**Optimization Method 1: Show only important data**
+
+Filter or aggregate data to show only the top-ranked or most important groups:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Filtered data - showing only top 3 locations to demonstrate optimization effect
+const filteredBarleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 50,
+});
+
+chart.options({
+  type: 'interval',
+  data: filteredBarleyData,
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [{ type: 'dodgeX' }],
+  axis: {
+    x: {
+      labelAutoHide: true,
+      labelAutoRotate: true,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
+
+**Optimization Method 2: Use stacked bar charts**
+
+If you need to display complete data, we recommend using stacked bar charts to reduce chart width and improve readability:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// Complete barley dataset - demonstrating stacked bar chart optimization effect
+const barleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 39.93, variety: 'Manchuria', year: 1931, site: 'Crookston'},
+  {yield: 32.97, variety: 'Manchuria', year: 1931, site: 'Grand Rapids'},
+  {yield: 28.97, variety: 'Manchuria', year: 1931, site: 'Duluth'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 38.13, variety: 'Glabron', year: 1931, site: 'Crookston'},
+  {yield: 29.13, variety: 'Glabron', year: 1931, site: 'Grand Rapids'},
+  {yield: 29.67, variety: 'Glabron', year: 1931, site: 'Duluth'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 40.47, variety: 'Svansota', year: 1931, site: 'Crookston'},
+  {yield: 29.67, variety: 'Svansota', year: 1931, site: 'Grand Rapids'},
+  {yield: 25.7, variety: 'Svansota', year: 1931, site: 'Duluth'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 41.33, variety: 'Velvet', year: 1931, site: 'Crookston'},
+  {yield: 23.03, variety: 'Velvet', year: 1931, site: 'Grand Rapids'},
+  {yield: 26.3, variety: 'Velvet', year: 1931, site: 'Duluth'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+  {yield: 46.93, variety: 'Trebi', year: 1931, site: 'Crookston'},
+  {yield: 29.77, variety: 'Trebi', year: 1931, site: 'Grand Rapids'},
+  {yield: 33.93, variety: 'Trebi', year: 1931, site: 'Duluth'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 50,
+});
+
+chart.options({
+  type: 'interval',
+  data: barleyData,
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [{ type: 'stackY' }],
+  axis: {
+    x: {
+      labelAutoHide: true,
+      labelAutoRotate: true,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
+
+**Optimization Method 3: Use horizontal stacked bar charts**
+
+For large amounts of data, horizontal stacked bar charts are a better choice, making full use of vertical space to display more categories:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+// 完整的barley数据集 - 演示横向堆叠柱状图的优化效果
+const barleyData = [
+  {yield: 27, variety: 'Manchuria', year: 1931, site: 'University Farm'},
+  {yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca'},
+  {yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris'},
+  {yield: 39.93, variety: 'Manchuria', year: 1931, site: 'Crookston'},
+  {yield: 32.97, variety: 'Manchuria', year: 1931, site: 'Grand Rapids'},
+  {yield: 28.97, variety: 'Manchuria', year: 1931, site: 'Duluth'},
+  {yield: 43.07, variety: 'Glabron', year: 1931, site: 'University Farm'},
+  {yield: 55.2, variety: 'Glabron', year: 1931, site: 'Waseca'},
+  {yield: 28.77, variety: 'Glabron', year: 1931, site: 'Morris'},
+  {yield: 38.13, variety: 'Glabron', year: 1931, site: 'Crookston'},
+  {yield: 29.13, variety: 'Glabron', year: 1931, site: 'Grand Rapids'},
+  {yield: 29.67, variety: 'Glabron', year: 1931, site: 'Duluth'},
+  {yield: 35.13, variety: 'Svansota', year: 1931, site: 'University Farm'},
+  {yield: 47.33, variety: 'Svansota', year: 1931, site: 'Waseca'},
+  {yield: 25.77, variety: 'Svansota', year: 1931, site: 'Morris'},
+  {yield: 40.47, variety: 'Svansota', year: 1931, site: 'Crookston'},
+  {yield: 29.67, variety: 'Svansota', year: 1931, site: 'Grand Rapids'},
+  {yield: 25.7, variety: 'Svansota', year: 1931, site: 'Duluth'},
+  {yield: 39.9, variety: 'Velvet', year: 1931, site: 'University Farm'},
+  {yield: 50.23, variety: 'Velvet', year: 1931, site: 'Waseca'},
+  {yield: 26.13, variety: 'Velvet', year: 1931, site: 'Morris'},
+  {yield: 41.33, variety: 'Velvet', year: 1931, site: 'Crookston'},
+  {yield: 23.03, variety: 'Velvet', year: 1931, site: 'Grand Rapids'},
+  {yield: 26.3, variety: 'Velvet', year: 1931, site: 'Duluth'},
+  {yield: 36.57, variety: 'Trebi', year: 1931, site: 'University Farm'},
+  {yield: 63.83, variety: 'Trebi', year: 1931, site: 'Waseca'},
+  {yield: 43.77, variety: 'Trebi', year: 1931, site: 'Morris'},
+  {yield: 46.93, variety: 'Trebi', year: 1931, site: 'Crookston'},
+  {yield: 29.77, variety: 'Trebi', year: 1931, site: 'Grand Rapids'},
+  {yield: 33.93, variety: 'Trebi', year: 1931, site: 'Duluth'},
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 400,
+});
+
+chart.options({
+  type: 'interval',
+  data: barleyData,
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  encode: {
+    x: 'site',
+    y: 'yield',
+    color: 'variety',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'sortX', by: 'y', reverse: true }
+  ],
+  axis: {
+    y: { 
+      labelAutoHide: false,
+      title: 'Yield (bushels/acre)',
+    },
+    x: {
+      labelAutoHide: false,
+    },
+  },
+  tooltip: {
+    title: 'site',
+  },
+});
+
+chart.render();
+```
 
 ## Extensions of Multi-set Bar Charts
 
@@ -101,6 +373,8 @@ When there are too many groups and categories, it leads to overcrowded and dense
 When group names are long or you need to display more groups, you can use horizontal multi-set bar charts:
 
 ```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
 const data = [
   {category: 'Sports Games', year: '2001', sold: 27500},
   {category: 'Strategy Games', year: '2001', sold: 11500},
@@ -116,7 +390,7 @@ const data = [
   {category: 'Shooter Games', year: '2003', sold: 6500},
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: 'container',
   autoFit: true,
   height: 400,
