@@ -131,7 +131,7 @@ All interaction events can be listened to. The syntax is as follows:
 chart.on('interaction name（eg: brushFilter）', (e) => {});
 ```
 
-Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brush) as an example. When the user makes a mouse brushing selection, the corresponding brushing selection threshold is pushed into brushHistory. When the reset button is clicked, the values are popped up one by one and the brushFilter is actively triggered through `chart.emit()` for brushing selection coverage.
+Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brush-filter) as an example. When the user makes a mouse brushing selection, the corresponding brushing selection threshold is pushed into brushHistory. When the reset button is clicked, the values are popped up one by one and the brushFilter is actively triggered through `chart.emit()` for brushing selection coverage.
 
 ```js | ob { autoMount: true }
 const { Chart, ChartEvent } = G2;
@@ -188,7 +188,7 @@ container.appendChild(button);
 
 ### Triggering Interaction Events
 
-Triggering and listening usually occur simultaneously. It is used to actively trigger a certain event. The data in the formal parameter will act on the corresponding interaction event, achieving the effect of resetting or overwriting. For example, to reset the filtering area, taking [brushFilter](/en/manual/core/interaction/brush) as an example, the syntax is as follows.
+Triggering and listening usually occur simultaneously. It is used to actively trigger a certain event. The data in the formal parameter will act on the corresponding interaction event, achieving the effect of resetting or overwriting. For example, to reset the filtering area, taking [brushFilter](/en/manual/core/interaction/brush-filter) as an example, the syntax is as follows.
 
 ```js
 chart.emit('brush:filter', {

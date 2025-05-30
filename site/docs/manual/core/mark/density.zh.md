@@ -63,76 +63,74 @@ chart.render();
 | 直角坐标系 | `'cartesian'` | 和密度图等       |
 | 极坐标系   | `'polar'`     | 极坐标小提琴图等 |
 
-```js | ob {  pin: false , autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob {  pin: false }
+(() => {
+  const coordinateMap = [
+    {
+      coordinate: 'cartesian',
+      label: '直角坐标系',
+    },
+    {
+      coordinate: 'polar',
+      label: '极坐标系',
+    },
+  ];
 
-const coordinateMap = [
-  {
-    coordinate: 'cartesian',
-    label: '直角坐标系',
-  },
-  {
-    coordinate: 'polar',
-    label: '极坐标系',
-  },
-];
+  const chart = new G2.Chart();
 
-const chart = new Chart({
-  container: 'container',
-});
-
-chart.options({
-  type: 'density',
-  data: {
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/species.json',
-    transform: [
-      {
-        type: 'kde',
-        field: 'y',
-        groupBy: ['x', 'species'],
-      },
-    ],
-  },
-  encode: {
-    x: 'x',
-    y: 'y',
-    color: 'species',
-    size: 'size',
-    series: 'species',
-  },
-  coordinate: { type: coordinateMap[0].coordinate },
-  tooltip: false,
-});
-
-const handleSetCoordinate = (coordinate) => {
-  // 设置选中的坐标系
-  chart.coordinate({
-    type: coordinate,
+  chart.options({
+    type: 'density',
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/species.json',
+      transform: [
+        {
+          type: 'kde',
+          field: 'y',
+          groupBy: ['x', 'species'],
+        },
+      ],
+    },
+    encode: {
+      x: 'x',
+      y: 'y',
+      color: 'species',
+      size: 'size',
+      series: 'species',
+    },
+    coordinate: { type: coordinateMap[0].coordinate },
+    tooltip: false,
   });
-  chart.render(); // 重新渲染图表
-};
 
-// 插入Encode-Color 选择器
-const selectorContainer = document.createElement('div');
-selectorContainer.textContent = '选择坐标系 ';
-const selector = document.createElement('select');
-selector.innerHTML = coordinateMap.map(
-  (coordinate, index) =>
-    `<option value="${coordinate.coordinate}" ${
-      index === 0 ? 'selected' : ''
-    }>${coordinate.label}</option>`,
-);
-selector.onchange = (e) => {
-  handleSetCoordinate(e.target.value);
-};
-selectorContainer.appendChild(selector);
-const node = chart.getContainer();
-node.insertBefore(selectorContainer, node.childNodes[0]);
+  const handleSetCoordinate = (coordinate) => {
+    // 设置选中的坐标系
+    chart.coordinate({
+      type: coordinate,
+    });
+    chart.render(); // 重新渲染图表
+  };
 
-chart.render();
+  // 插入Encode-Color 选择器
+  const selectorContainer = document.createElement('div');
+  selectorContainer.textContent = '选择坐标系 ';
+  const selector = document.createElement('select');
+  selector.innerHTML = coordinateMap.map(
+    (coordinate, index) =>
+      `<option value="${coordinate.coordinate}" ${
+        index === 0 ? 'selected' : ''
+      }>${coordinate.label}</option>`,
+  );
+  selector.onchange = (e) => {
+    handleSetCoordinate(e.target.value);
+  };
+  selectorContainer.appendChild(selector);
+  const node = chart.getContainer();
+  node.insertBefore(selectorContainer, node.childNodes[0]);
 
-return node;
+  chart.render();
+
+  return node;
+})();
 ```
 
 更多的`coordinate`配置，可以查查看 [coordinate](/manual/core/coordinate/overview) 介绍页面。
