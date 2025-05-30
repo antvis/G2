@@ -2,7 +2,7 @@
 title: Sankey Diagram
 order: 22
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original'
-category: ['flow']
+category: ['flow','relation']
 similar: ['funnel', 'chord']
 ---
 
@@ -10,9 +10,15 @@ similar: ['funnel', 'chord']
 
 ## Introduction to Sankey Diagrams
 
-A Sankey diagram is a specialized flow diagram used to depict the flow of values from one set of nodes to another. Key characteristics of Sankey diagrams include: the total width of all incoming flows equals the total width of all outgoing flows, maintaining flow conservation; internal flows are represented by links whose width is proportional to the flow quantity they represent; nodes have varying widths representing the total flow volume at that particular state.
+A Sankey diagram (Sankey Diagram) is a specialized flow diagram used to depict the flow of values from one set of nodes to another. The image above shows Napoleon's Russian Campaign of 1812, drawn by Charles Minard in 1869, which is a flow diagram overlaid on a map using the Sankey diagram technique. In 1898, Irish engineer Matthew Henry Phineas Riall Sankey first introduced an energy flow diagram in a paper about steam engine efficiency in the Minutes of Proceedings of the Institution of Civil Engineers, after which this type of diagram was named the Sankey diagram.
 
-Sankey diagrams are commonly used for visualizing energy flows, material composition analysis, financial fund flows, website user behavior analysis, and other flow-based data. They can clearly display the flow paths and distribution of resources or information within a system, helping to identify major flow patterns and bottlenecks.
+The width of the extending branches in the diagram corresponds to the size of the data flow. Key characteristics of Sankey diagrams include:
+
+- The total width of all incoming flows equals the total width of all outgoing flows, maintaining flow conservation
+- Internal flows are represented by different lines, with their widths proportionally showing the flow quantity of each branch
+- Nodes have varying widths representing the total flow volume at that particular state
+
+Sankey diagrams are commonly used for visualizing data in energy, material composition, and financial analysis.
 
 **Chinese Name**: 桑基图
 
@@ -20,7 +26,7 @@ Sankey diagrams are commonly used for visualizing energy flows, material composi
 
 ### Basic Sankey Diagram
 
-<img alt="basic-sankey" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="桑基图" src="https://zos.alipayobjects.com/rmsportal/xdfcZJIJNiHPxdLGcRDT.png"  width="600"/>
 
 | Chart Type           | Basic Sankey Diagram                                                                |
 | -------------------- | ----------------------------------------------------------------------------------- |

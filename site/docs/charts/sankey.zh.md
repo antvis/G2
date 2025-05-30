@@ -2,7 +2,7 @@
 title: 桑基图
 order: 22
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original'
-category: ['flow']
+category: ['flow','relation']
 similar: ['funnel', 'chord']
 ---
 
@@ -10,9 +10,15 @@ similar: ['funnel', 'chord']
 
 ## 桑基图的简介
 
-桑基图（Sankey Diagram）是一种特定类型的流图，用于描述一组值到另一组值的流向。桑基图的特点如下：起始流量和结束流量相同，所有主支宽度的总和与所有分出去的分支宽度总和相等，保持能量的平衡；在内部，不同的线条代表了不同的流量分流情况，它的宽度成比例地显示此分支占有的流量；节点不同的宽度代表了特定状态下的流量大小。
+桑基图 (Sankey Diagram)，是一种特定类型的流图，用于描述一组值到另一组值的流向。上图为1869年，查尔斯米纳德（Charles Minard）绘制的1812年拿破仑征俄图（Map of Napolean's Russian Campaign of 1812），这是一个在地图上覆盖桑基图的流程图。1898年爱尔兰人 Matthew Henry Phineas Riall Sankey 在土木工程师学会会报纪要的一篇关于蒸汽机能源效率的文章中首次推出了第一个能量流动图，此后便以其名字命名为 Sankey 图，中文音译为桑基图。
 
-桑基图通常应用于能源流动、物料成分分析、金融资金流向、网站用户行为分析等数据的可视化。它能够清晰地展示系统中资源或信息的流动路径和流量分布，帮助识别主要的流动路径和瓶颈。
+图中延伸的分支的宽度对应数据流量的大小。桑基图的特点如下：
+
+- 起始流量和结束流量相同，所有主支宽度的总和与所有分出去的分支宽度总和相等，保持能量的平衡；
+- 在内部，不同的线条代表了不同的流量分流情况，它的宽度成比例地显示此分支占有的流量；
+- 节点不同的宽度代表了特定状态下的流量大小。
+
+桑基图通常应用于能源、材料成分、金融等数据的可视化分析。
 
 **英文名**：Sankey Diagram
 
@@ -20,7 +26,7 @@ similar: ['funnel', 'chord']
 
 ### 基础桑基图
 
-<img alt="basic-sankey" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original" width=600 />
+<img alt="桑基图" src="https://zos.alipayobjects.com/rmsportal/xdfcZJIJNiHPxdLGcRDT.png"  width="600"/>
 
 | 图表类型         | 基础桑基图                                                                          |
 | ---------------- | ----------------------------------------------------------------------------------- |
