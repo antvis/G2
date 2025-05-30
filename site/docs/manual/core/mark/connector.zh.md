@@ -14,6 +14,32 @@ order: 27
 - **中间点**：根据偏移量和连接长度计算的路径转折点
 - **端点标记**：可选的箭头或标记符号
 
+### 路径计算逻辑
+
+### 直角坐标系
+在标准的直角坐标系中，连接器会创建一个L型路径：
+
+```
+  起点
+    ───┐
+       │
+       │(中间段)
+       │
+       └── 终点 →
+
+```
+
+### 转置坐标系
+在转置坐标系中，路径会相应调整：
+
+```
+起点
+ │
+ │ (中间段)  
+ │
+ └─────── 终点 →
+```
+
 ## 配置项
 
 | 属性 | 描述 | 类型 | 默认值 | 必选 |
@@ -43,32 +69,6 @@ order: 27
 | endMarkerFill | 端点标记的填充色 | `string` | - |
 | endMarkerStroke | 端点标记的描边色 | `string` | - |
 
-## 路径计算逻辑
-
-### 直角坐标系
-在标准的直角坐标系中，连接器会创建一个L型路径：
-
-```
-  起点
-    ───┐
-       │
-       │(中间段)
-       │
-       └── 终点 →
-
-```
-
-### 转置坐标系
-在转置坐标系中，路径会相应调整：
-
-```
-起点
- │
- │ (中间段)  
- │
- └─────── 终点 →
-```
-
 ## 使用示例
 
 ### 基础连接器
@@ -97,6 +97,68 @@ order: 27
       endMarker: true
     },
     legend: false
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
+
+### 组合使用
+
+连接器通常和其他mark一起使用：
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  // 原始数据
+  const data = [
+    { type: '分类一', value: 27 },
+    { type: '分类二', value: 25 },
+    { type: '分类三', value: 18 },
+    { type: '分类四', value: 15 },
+    { type: '分类五', value: 10 },
+    { type: 'Other', value: 5 },
+  ];
+
+  chart.options({
+    type: 'view',
+    children: [
+      {
+        type: 'interval',
+        data: data,
+        encode: {
+          x: 'type',
+          y: 'value',
+          color: 'type'
+        }
+      },
+      {
+        type: 'connector',
+        data: [
+          { 
+            source: '分类一', 
+            target: '分类三',
+            x1:'分类一',
+            x2:'分类三',
+            y1:27,
+            y2:18
+          }
+        ],
+        encode: {
+          x: ['x1', 'x2'],
+          y: ['y1', 'y2']
+        },
+        style: {
+          stroke: 'orange',
+          strokeWidth: 2,
+          sourceOffsetX: 15,
+          targetOffsetX: -20
+        },
+        legend: false
+      }
+    ]
   });
 
   chart.render();
