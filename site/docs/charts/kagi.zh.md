@@ -2,7 +2,7 @@
 title: 卡吉图
 order: 25
 screenshot: 'https://zos.alipayobjects.com/rmsportal/GYxDnAkxCMrLfpB.png'
-category: ['trend',' time']
+category: ['trend','time']
 similar: ['line', 'area', ' k-chart']
 ---
 
