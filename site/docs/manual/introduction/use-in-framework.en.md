@@ -119,6 +119,10 @@ If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuej
       // save the bar chart instance
       this.chart = renderBarChart(this.$refs.container);
     },
+    unmounted() {
+      // destroy the chart instance
+      this.chart.destroy();
+    },
     methods: {
       onClick() {
         updateBarChart(this.chart);
@@ -134,7 +138,7 @@ If you use the composition API of Vue3, the implementation is as follows, comple
 
 ```html
 <script setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { Chart } from '@antv/g2';
 
   let chart;
@@ -142,6 +146,11 @@ If you use the composition API of Vue3, the implementation is as follows, comple
 
   onMounted(() => {
     chart = renderBarChart(container.value);
+  });
+  
+  onUnmounted(() => {
+    chart.destroy();
+    chart = null;
   });
 
   function onClick() {
@@ -196,6 +205,11 @@ export default function G2Demo() {
     if (!chart.current) {
       chart.current = renderBarChart(container.current);
     }
+    
+    return () => {
+      chart.current.destroy();
+      chart.current = null;
+    };
   }, []);
 
   function renderBarChart(container) {
