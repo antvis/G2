@@ -176,7 +176,7 @@ chart.options({
 ```js
 chart.options({
   tooltip: {
-    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()}
+    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()},
     items: [{ channel: 'y', valueFormatter: '.0%' }],
   },
 });
@@ -190,15 +190,15 @@ chart.options({
 chart.options({
   tooltip: {
     title: (datum, index, data, column) => ({
-      value: `<span style="color: #00ff00; font-style: italic;">${d.letter}</span>`,
-      custom: ...
+      value: `<span style="color: #00ff00; font-style: italic;">${datum.letter}</span>`,
+      custom: "..."
     }),
     items: [
       (datum, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
-        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // 指定 item 的名字
-        value: column.y.value[index], // 使用 y 通道的值、
-        custom: ...
+        color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
+        name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
+        value: column.y.value[index], // 使用 y 通道的值
+        custom: "..."
       }),
     ],
   },
@@ -607,10 +607,10 @@ chart.options({
   tooltip: {
     items: [
       (datum, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
-        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // 指定 item 的名字
-        value: column.y.value[index], // 使用 y 通道的值、
-        custom1: '自定义参数1'，
+        color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
+        name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
+        value: column.y.value[index], // 使用 y 通道的值
+        custom1: '自定义参数1',
         custom2: '自定义参数2'
       }),
     ],
@@ -622,9 +622,9 @@ chart.options({
         return  `<div>
           <h3 style="padding:0;margin:0">${title}</h3>
           <ul>${items.map(
-              ({ color, name, value, custom1, custom2 }) => ...
+              ({ color, name, value, custom1, custom2 }) => "..."
           )}</ul>
-        </div>`,
+        </div>`
       }
     }
   }
