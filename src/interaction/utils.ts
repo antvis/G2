@@ -666,10 +666,10 @@ export function createFindElementByEvent({
     const bandWidth = scaleX?.getBandWidth?.() ?? 0;
     const xof = scaleSeries
       ? (d) => {
-          const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+          const seriesCount = Math.round(1 / (scaleSeries.valueBandWidth ?? 1));
           return (
             d.__data__.x +
-            d.__data__.series * bandWidth +
+            (d.__data__.series ?? 0) * bandWidth +
             bandWidth / (seriesCount * 2)
           );
         }

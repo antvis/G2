@@ -1,7 +1,7 @@
 import { Chart } from '../src';
 // 有必要的话，请在需要注意的地方加上注释
 
-const chart = new Chart({ container: 'container' });
+const chart = new Chart({ container: 'container', autoFit: true });
 
 // ========== spec 风格模板 ==========
 // chart.options({
