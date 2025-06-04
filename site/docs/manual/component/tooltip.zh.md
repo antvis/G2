@@ -244,8 +244,8 @@ items 返回值可用作 `interaction.tooltip.render` 的入参，您可以设�
 chart.options({
   tooltip: {
     items: [
-      {name： '张三', channel: 'y1'},
-      {name： '李四', channel: 'y2'},
+      {name: '张三', channel: 'y1'},
+      {name: '李四', channel: 'y2'},
     ],
   },
 });
@@ -259,8 +259,8 @@ chart.options({
 chart.options({
   tooltip: {
     items: [
-      {color： 'pink', channel: 'y1'},
-      {color： '#f00', channel: 'y2'},
+      {color: 'pink', channel: 'y1'},
+      {color: '#f00', channel: 'y2'},
     ],
   },
 });
