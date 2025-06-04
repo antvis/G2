@@ -100,64 +100,68 @@ chart.render().then(() => {
 
 The effect is as follows:
 
-```js | ob { pin: false }
-(() => {
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
+
+// initialize Chart instance
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
+
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Origin')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = new DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
   });
-
-  // initialize Chart instance
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Origin')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    canvas.appendChild(light);
-  });
-
-  return chart.getContainer();
-})();
+  canvas.appendChild(light);
+});
 ```
 
 We can also let the camera fix the viewpoint and rotate it at a certain angle. Here we use [rotate](https://g.antv.antgroup.com/api/camera/action#rotate)：
@@ -166,64 +170,68 @@ We can also let the camera fix the viewpoint and rotate it at a certain angle. H
 camera.rotate(-20, -20, 0);
 ```
 
-```js | ob { pin: false }
-(() => {
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
+
+// initialize Chart instance
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
+
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Origin')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setType(CameraType.ORBITING);
+  camera.rotate(-20, -20, 0);
+
+  // Add a directional light into scene.
+  const light = new DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
   });
-
-  // initialize Chart instance
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Origin')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setType(g.CameraType.ORBITING);
-    camera.rotate(-20, -20, 0);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
-    });
-    canvas.appendChild(light);
-  });
-
-  return chart.getContainer();
-})();
+  canvas.appendChild(light);
+});
 ```
 
 ## Add light source
@@ -245,64 +253,68 @@ canvas.appendChild(light);
 
 we can use `intensity` to increase the intensity of the light source:
 
-```js | ob { pin: false }
-(() => {
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+```js | ob {  pin: false , autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
+
+// initialize Chart instance
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
+
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Origin')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = new DirectionalLight({
+    style: {
+      intensity: 5,
+      fill: 'white',
+      direction: [0, 0, 1],
+    },
   });
-
-  // initialize Chart instance
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Origin')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 5,
-        fill: 'white',
-        direction: [0, 0, 1],
-      },
-    });
-    canvas.appendChild(light);
-  });
-
-  return chart.getContainer();
-})();
+  canvas.appendChild(light);
+});
 ```
 
 ## Add custom legend
@@ -315,24 +327,30 @@ chart.legend(false);
 
 This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/manual/component/legend#自定义图例legend), we can customize the legend using HTML:
 
-```js | ob { pin: false }
-(() => {
-  // add legend
-  function legendColor(chart) {
-    // create and mound legend
-    const node = chart.getContainer();
-    const legend = document.createElement('div');
-    legend.style.display = 'flex';
-    node.insertBefore(legend, node.childNodes[0]);
+```js | ob {  pin: false , autoMount: true }
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
-    // create and mount Items
-    const { color: scale } = chart.getScale();
-    const { domain } = scale.getOptions();
-    const items = domain.map((value) => {
-      const item = document.createElement('div');
-      const color = scale.map(value);
-      item.style.marginLeft = '1em';
-      item.innerHTML = `
+// add legend
+function legendColor(chart) {
+  // create and mound legend
+  const node = chart.getContainer();
+  const legend = document.createElement('div');
+  legend.style.display = 'flex';
+  node.insertBefore(legend, node.childNodes[0]);
+
+  // create and mount Items
+  const { color: scale } = chart.getScale();
+  const { domain } = scale.getOptions();
+  const items = domain.map((value) => {
+    const item = document.createElement('div');
+    const color = scale.map(value);
+    item.style.marginLeft = '1em';
+    item.innerHTML = `
     <span style="
       background-color:${color};
       display:inline-block;
@@ -341,101 +359,99 @@ This is because graphics in a 3D scene are all affected by the camera, but HUD c
     ></span>
     <span>${value}</span>
     `;
-      return item;
-    });
-    items.forEach((d) => legend.append(d));
+    return item;
+  });
+  items.forEach((d) => legend.append(d));
 
-    // event listener
-    const selectedValues = [...domain];
-    const options = chart.options();
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      const value = domain[i];
-      item.style.cursor = 'pointer';
-      item.onclick = () => {
-        const index = selectedValues.indexOf(value);
-        if (index !== -1) {
-          selectedValues.splice(index, 1);
-          item.style.opacity = 0.5;
-        } else {
-          selectedValues.push(value);
-          item.style.opacity = 1;
-        }
-        changeColor(selectedValues);
-      };
-    }
-
-    // rerender view
-    function changeColor(value) {
-      const { transform = [] } = options;
-      const newTransform = [{ type: 'filter', color: { value } }, ...transform];
-      chart.options({
-        ...options,
-        transform: newTransform, // set new transform
-        scale: { color: { domain } },
-      });
-      chart.render(); // rerender chart
-    }
+  // event listener
+  const selectedValues = [...domain];
+  const options = chart.options();
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const value = domain[i];
+    item.style.cursor = 'pointer';
+    item.onclick = () => {
+      const index = selectedValues.indexOf(value);
+      if (index !== -1) {
+        selectedValues.splice(index, 1);
+        item.style.opacity = 0.5;
+      } else {
+        selectedValues.push(value);
+        item.style.opacity = 1;
+      }
+      changeColor(selectedValues);
+    };
   }
 
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
-
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
-  });
-
-  // initialize Chart instance
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Origin')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    legendColor(chart);
-
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
+  // rerender view
+  function changeColor(value) {
+    const { transform = [] } = options;
+    const newTransform = [{ type: 'filter', color: { value } }, ...transform];
+    chart.options({
+      ...options,
+      transform: newTransform, // set new transform
+      scale: { color: { domain } },
     });
-    canvas.appendChild(light);
-  });
+    chart.render(); // rerender chart
+  }
+}
 
-  return chart.getContainer();
-})();
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
+
+// initialize Chart instance
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
+
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Origin')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
+
+chart.render().then(() => {
+  legendColor(chart);
+
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
+  });
+  canvas.appendChild(light);
+});
 ```
 
 ## Using camera interaction and animation
@@ -460,45 +476,60 @@ button.onclick = () => {
 };
 ```
 
-```js | ob { pin: false }
-(() => {
-  function cameraButton(chart) {
-    const node = chart.getContainer();
-    const button = document.createElement('button');
-    button.textContent = 'Reset camera to default';
-    node.insertBefore(button, node.childNodes[0]);
+```js | ob {  pin: false , autoMount: true }
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
 
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.createLandmark('default', {
-      position: [250, 250, 500],
-      focalPoint: [250, 250, 0],
-      zoom: 1,
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
+
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
+
+function cameraButton(chart) {
+  const node = chart.getContainer();
+  const button = document.createElement('button');
+  button.textContent = 'Reset camera to default';
+  node.insertBefore(button, node.childNodes[0]);
+
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.createLandmark('default', {
+    position: [250, 250, 500],
+    focalPoint: [250, 250, 0],
+    zoom: 1,
+  });
+
+  button.onclick = () => {
+    camera.gotoLandmark('default', {
+      duration: 300,
+      easing: 'linear',
     });
+  };
+}
+// add legend
+function legendColor(chart) {
+  // create and mount legend 并且挂在图例
+  const node = chart.getContainer();
+  const legend = document.createElement('div');
+  legend.style.display = 'flex';
+  node.insertBefore(legend, node.childNodes[0]);
 
-    button.onclick = () => {
-      camera.gotoLandmark('default', {
-        duration: 300,
-        easing: 'linear',
-      });
-    };
-  }
-  // add legend
-  function legendColor(chart) {
-    // create and mount legend 并且挂在图例
-    const node = chart.getContainer();
-    const legend = document.createElement('div');
-    legend.style.display = 'flex';
-    node.insertBefore(legend, node.childNodes[0]);
-
-    // create and mount Items
-    const { color: scale } = chart.getScale();
-    const { domain } = scale.getOptions();
-    const items = domain.map((value) => {
-      const item = document.createElement('div');
-      const color = scale.map(value);
-      item.style.marginLeft = '1em';
-      item.innerHTML = `
+  // create and mount Items
+  const { color: scale } = chart.getScale();
+  const { domain } = scale.getOptions();
+  const items = domain.map((value) => {
+    const item = document.createElement('div');
+    const color = scale.map(value);
+    item.style.marginLeft = '1em';
+    item.innerHTML = `
     <span style="
       background-color:${color};
       display:inline-block;
@@ -507,100 +538,89 @@ button.onclick = () => {
     ></span>
     <span>${value}</span>
     `;
-      return item;
-    });
-    items.forEach((d) => legend.append(d));
+    return item;
+  });
+  items.forEach((d) => legend.append(d));
 
-    // event listeners
-    const selectedValues = [...domain];
-    const options = chart.options();
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      const value = domain[i];
-      item.style.cursor = 'pointer';
-      item.onclick = () => {
-        const index = selectedValues.indexOf(value);
-        if (index !== -1) {
-          selectedValues.splice(index, 1);
-          item.style.opacity = 0.5;
-        } else {
-          selectedValues.push(value);
-          item.style.opacity = 1;
-        }
-        changeColor(selectedValues);
-      };
-    }
-
-    // rerender view
-    function changeColor(value) {
-      const { transform = [] } = options;
-      const newTransform = [{ type: 'filter', color: { value } }, ...transform];
-      chart.options({
-        ...options,
-        transform: newTransform, // set new transform
-        scale: { color: { domain } },
-      });
-      chart.render(); // rerender chart
-    }
+  // event listeners
+  const selectedValues = [...domain];
+  const options = chart.options();
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const value = domain[i];
+    item.style.cursor = 'pointer';
+    item.onclick = () => {
+      const index = selectedValues.indexOf(value);
+      if (index !== -1) {
+        selectedValues.splice(index, 1);
+        item.style.opacity = 0.5;
+      } else {
+        selectedValues.push(value);
+        item.style.opacity = 1;
+      }
+      changeColor(selectedValues);
+    };
   }
 
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
-
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
-  });
-
-  // initialize Chart instance
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
-
-  chart
-    .point3D()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    })
-    .encode('x', 'Horsepower')
-    .encode('y', 'Miles_per_Gallon')
-    .encode('z', 'Weight_in_lbs')
-    .encode('color', 'Origin')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 });
-
-  chart.render().then(() => {
-    legendColor(chart);
-    cameraButton(chart);
-
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 45, 500 / 500);
-    camera.setType(g.CameraType.ORBITING);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 3,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
+  // rerender view
+  function changeColor(value) {
+    const { transform = [] } = options;
+    const newTransform = [{ type: 'filter', color: { value } }, ...transform];
+    chart.options({
+      ...options,
+      transform: newTransform, // set new transform
+      scale: { color: { domain } },
     });
-    canvas.appendChild(light);
-  });
+    chart.render(); // rerender chart
+  }
+}
 
-  return chart.getContainer();
-})();
+// initialize Chart instance
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
+
+chart
+  .point3D()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  })
+  .encode('x', 'Horsepower')
+  .encode('y', 'Miles_per_Gallon')
+  .encode('z', 'Weight_in_lbs')
+  .encode('color', 'Origin')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 });
+
+chart.render().then(() => {
+  legendColor(chart);
+  cameraButton(chart);
+
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 500 / 500);
+  camera.setType(CameraType.ORBITING);
+
+  // Add a directional light into scene.
+  const light = new DirectionalLight({
+    style: {
+      intensity: 3,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
+  });
+  canvas.appendChild(light);
+});
 ```

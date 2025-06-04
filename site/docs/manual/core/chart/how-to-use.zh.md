@@ -5,26 +5,26 @@ order: 2
 
 G2 的大部分能力通过 `Chart` 对象暴露给用户，比如绘制一个简单的条形图：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 接下来我们就来看看 `Chart` 的核心使用方式。

@@ -5,7 +5,8 @@
     "build": "dumi build",
     "analyze": "ANALYZE=1 dumi build",
     "deploy": "gh-pages -d dist",
-    "preview": "dumi preview"
+    "preview": "dumi preview",
+    "format:md": "prettier --write \"**/*.md\""
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
