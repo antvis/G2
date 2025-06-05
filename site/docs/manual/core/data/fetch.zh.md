@@ -48,7 +48,7 @@ chart.options({
   },
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ## 配置项
