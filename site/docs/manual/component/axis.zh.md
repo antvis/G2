@@ -341,6 +341,8 @@ chart.options({
 | labelStroke        | 刻度值文本描边颜色                                                                                                                                                    | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
 | labelStrokeOpacity | 刻度值文本描边透明度                                                                                                                                                  | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
 
+#### labelFormatter
+
 `labelFormatter` 视觉通道用于调整标签的格式。
 
 ```js | ob {  pin: false , autoMount: true }
@@ -376,6 +378,27 @@ chart.options({
 });
 chart.render();
 ```
+
+#### labelTransform
+
+`labelTransform` 是 G 提供的在局部坐标系下进行变换的快捷方式，同时与 [CSS Transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 保持一致。
+
+下面的例子展示了如何配置 `labelTransform` 来让 x 轴刻度值旋转 90 度。
+
+```js
+({
+  axis: {
+    x: {
+      title: 'x 轴标题',
+      labelFontSize: 12,
+      labelFormatter: (d) => `2025-${d}`,
+      labelTransform: 'rotate(90)',
+    },
+  },
+});
+```
+
+#### transform
 
 `transform` 为了避免刻度标签重叠或超出显示范围，系统提供了多种优化方式，包括缩略、旋转、隐藏和换行。
 这些功能可通过两种方式配置：
@@ -448,23 +471,6 @@ chart.options({
   },
 });
 chart.render();
-```
-
-`labelTransform` 是 G 提供的在局部坐标系下进行变换的快捷方式，同时与 [CSS Transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 保持一致。
-
-下面的例子展示了如何配置 `labelTransform` 来让 x 轴刻度值旋转 90 度。
-
-```js
-({
-  axis: {
-    x: {
-      title: 'x 轴标题',
-      labelFontSize: 12,
-      labelFormatter: (d) => `2025-${d}`,
-      labelTransform: 'rotate(90)',
-    },
-  },
-});
 ```
 
 > 2. 使用 `labelAutoHide`、`labelAutoRotate`、`labelAutoEllipsis`、`labelAutoWrap`、 属性（需设置 `size`）
