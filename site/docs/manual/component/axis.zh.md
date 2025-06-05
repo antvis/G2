@@ -473,6 +473,23 @@ chart.options({
 chart.render();
 ```
 
+`labelTransform` 是 G 提供的在局部坐标系下进行变换的快捷方式，同时与 [CSS Transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 保持一致。
+
+下面的例子展示了如何配置 `labelTransform` 来让 x 轴刻度值旋转 90 度。
+
+```js
+({
+  axis: {
+    x: {
+      title: 'x 轴标题',
+      labelFontSize: 12,
+      labelFormatter: (d) => `2025-${d}`,
+      labelTransform: 'rotate(90)',
+    },
+  },
+});
+```
+
 > 2. 使用 `labelAutoHide`、`labelAutoRotate`、`labelAutoEllipsis`、`labelAutoWrap`、 属性（需设置 `size`）
 
 ```js | ob {  pin: false , autoMount: true }

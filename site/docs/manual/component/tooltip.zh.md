@@ -176,7 +176,7 @@ chart.options({
 ```js
 chart.options({
   tooltip: {
-    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()}
+    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()},
     items: [{ channel: 'y', valueFormatter: '.0%' }],
   },
 });
@@ -190,15 +190,15 @@ chart.options({
 chart.options({
   tooltip: {
     title: (datum, index, data, column) => ({
-      value: `<span style="color: #00ff00; font-style: italic;">${d.letter}</span>`,
-      custom: ...
+      value: `<span style="color: #00ff00; font-style: italic;">${datum.letter}</span>`,
+      custom: "..."
     }),
     items: [
       (datum, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
-        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // 指定 item 的名字
-        value: column.y.value[index], // 使用 y 通道的值、
-        custom: ...
+        color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
+        name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
+        value: column.y.value[index], // 使用 y 通道的值
+        custom: "..."
       }),
     ],
   },
@@ -244,8 +244,8 @@ items 返回值可用作 `interaction.tooltip.render` 的入参，您可以设�
 chart.options({
   tooltip: {
     items: [
-      {name： '张三', channel: 'y1'},
-      {name： '李四', channel: 'y2'},
+      {name: '张三', channel: 'y1'},
+      {name: '李四', channel: 'y2'},
     ],
   },
 });
@@ -259,8 +259,8 @@ chart.options({
 chart.options({
   tooltip: {
     items: [
-      {color： 'pink', channel: 'y1'},
-      {color： '#f00', channel: 'y2'},
+      {color: 'pink', channel: 'y1'},
+      {color: '#f00', channel: 'y2'},
     ],
   },
 });
@@ -607,10 +607,10 @@ chart.options({
   tooltip: {
     items: [
       (datum, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
-        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // 指定 item 的名字
-        value: column.y.value[index], // 使用 y 通道的值、
-        custom1: '自定义参数1'，
+        color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
+        name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
+        value: column.y.value[index], // 使用 y 通道的值
+        custom1: '自定义参数1',
         custom2: '自定义参数2'
       }),
     ],
@@ -622,9 +622,9 @@ chart.options({
         return  `<div>
           <h3 style="padding:0;margin:0">${title}</h3>
           <ul>${items.map(
-              ({ color, name, value, custom1, custom2 }) => ...
+              ({ color, name, value, custom1, custom2 }) => "..."
           )}</ul>
-        </div>`,
+        </div>`
       }
     }
   }
