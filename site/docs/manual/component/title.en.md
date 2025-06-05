@@ -1,5 +1,5 @@
 ---
-title: 标题（Title）
+title: Title
 order: 7
 ---
 
