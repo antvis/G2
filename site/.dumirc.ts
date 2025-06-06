@@ -142,7 +142,7 @@ export default defineConfig({
           zh: '核心概念',
           en: 'Core Concepts',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'manual/core/chart',
