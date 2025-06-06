@@ -1,6 +1,6 @@
 ---
 title: '图表 API'
-order: 4
+order: 3
 ---
 
 <style>

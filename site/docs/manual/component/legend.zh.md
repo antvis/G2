@@ -393,22 +393,22 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 
 适用于 <Badge type="success">分类图例</Badge> 。配置图例项的图标。_LegendItemMarkerCfg_ 配置如下：
 
-| 属性                    | 描述                                                                                                                   | 类型                                                         | 默认值    | 必选 |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------- | ---- |
-| itemMarker              | 图例项图标                                                                                                             | _Symbols_ \|(datum, index, data)=>_Symbols_                  | `circle`  |      |
-| itemMarkerSize          | 图例项图标大小                                                                                                         | number \| (datum, index, data) => number                     | `8`       |      |
-| itemMarkerFill          | 图例项图标填充色                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
-| itemMarkerFillOpacity   | 图例项图标填充透明度                                                                                                   | number \| (datum, index, data) => number                     | `1`       |      |
-| itemMarkerStroke        | 图例项图标的描边                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
-| itemMarkerStrokeOpacity | 图例项图标描边透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerLineWidth     | 图例项图标描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerLineDash      | 图例项图标描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -         |      |
-| itemMarkerOpacity       | 图例项图标的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerShadowColor   | 图例项图标阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |
-| itemMarkerShadowBlur    | 图例项图标阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerShadowOffsetX | 设置阴影距图例项图标的水平距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerShadowOffsetY | 设置阴影距图例项图标的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerCursor        | 图例项图标鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default` |      |
+| 属性                    | 描述                                                                                                                   | 类型                                                         | 默认值              | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------- | ---- |
+| itemMarker              | 图例项图标                                                                                                             | _Symbols_ \|(datum, index, data)=>_Symbols_                  | `circle`            |      |
+| itemMarkerSize          | 图例项图标大小                                                                                                         | number \| (datum, index, data) => number                     | `8`                 |      |
+| itemMarkerFill          | 图例项图标填充色                                                                                                       | string \| (datum, index, data) => string                     | -                   |      |
+| itemMarkerFillOpacity   | 图例项图标填充透明度                                                                                                   | number \| (datum, index, data) => number                     | `1`                 |      |
+| itemMarkerStroke        | 图例项图标的描边                                                                                                       | string \| (datum, index, data) => string                     | -                   |      |
+| itemMarkerStrokeOpacity | 图例项图标描边透明度                                                                                                   | number \| (datum, index, data) => number                     | -                   |      |
+| itemMarkerLineWidth     | 图例项图标描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | 线形图标为`4`       |      |
+| itemMarkerLineDash      | 图例项图标描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -                   |      |
+| itemMarkerOpacity       | 图例项图标的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -                   |      |
+| itemMarkerShadowColor   | 图例项图标阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -                   |      |
+| itemMarkerShadowBlur    | 图例项图标阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -                   |      |
+| itemMarkerShadowOffsetX | 设置阴影距图例项图标的水平距离                                                                                         | number \| (datum, index, data) => number                     | -                   |      |
+| itemMarkerShadowOffsetY | 设置阴影距图例项图标的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -                   |      |
+| itemMarkerCursor        | 图例项图标鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default`           |      |
 
 #### Symbols 可选类型
 
@@ -772,7 +772,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 | navPageNumShadowBlur    | 分页器数字文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                                   | -            |      |
 | navPageNumShadowOffsetX | 设置阴影距分页器数字文字的水平距离                                                                                         | number \| (datum, index, data) => number                                   | -            |      |
 | navPageNumShadowOffsetY | 设置阴影距分页器数字文字的垂直距离                                                                                         | number \| (datum, index, data) => number                                   | -            |      |
-| navPageNumCursor        | 分页器数字鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                                   | `default`    |      |
+| navPageNumCursor        | 分页器数字鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                                   | `default`    |      |
 | navButtonSize           | 分页器按钮尺寸                                                                                                             | number \| (datum, index, data) => number                                   | -            |      |
 | navButtonFill           | 分页器按钮填充色                                                                                                           | string \| (datum, index, data) => string                                   | `#1D2129`    |      |
 | navButtonFillOpacity    | 分页器按钮填充透明度                                                                                                       | number \| (datum, index, data) => number                                   | `0.65`       |      |
@@ -962,7 +962,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 | handleLabelShadowBlur    | 手柄标签文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -            |      |
 | handleLabelShadowOffsetX | 设置阴影距手柄标签文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -            |      |
 | handleLabelShadowOffsetY | 设置阴影距手柄标签文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -            |      |
-| handleLabelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                     | `default`    |      |
+| handleLabelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                     | `default`    |      |
 | handleIconSize           | 手柄图标尺寸色                                                                                                           | number \| (datum, index, data) => number                     | -            |      |
 | handleIconFill           | 手柄图标填充色                                                                                                           | string \| (datum, index, data) => string                     | `#1D2129`    |      |
 | handleIconFillOpacity    | 手柄图标填充透明度                                                                                                       | number \| (datum, index, data) => number                     | `0.65`       |      |
@@ -1058,7 +1058,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 | labelShadowBlur    | 连续图例刻度值文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -          |      |
 | labelShadowOffsetX | 设置阴影距连续图例刻度值文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -          |      |
 | labelShadowOffsetY | 设置阴影距连续图例刻度值文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -          |      |
-| labelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式                                                                                            | string \| (datum, index, data) => string                     | `default`  |      |
+| labelCursor        | 手柄标签鼠标样式。同 css 的鼠标样式。                                                                                            | string \| (datum, index, data) => string                     | `default`  |      |
 
 <b>刻度值对齐方式</b>
 
@@ -1137,7 +1137,7 @@ _LegendIndicatorCfg_ 配置如下：
 | indicatorLabelShadowBlur         | 值指示器文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -         |      |
 | indicatorLabelShadowOffsetX      | 设置阴影距值指示器文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
 | indicatorLabelShadowOffsetY      | 设置阴影距值指示器文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
-| indicatorLabelCursor             | 值指示器鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                     | `default` |      |
+| indicatorLabelCursor             | 值指示器鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                     | `default` |      |
 | indicatorBackgroundFill          | 值指示器背景填充色                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
 | indicatorBackgroundFillOpacity   | 值指示器背景填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
 | indicatorBackgroundStroke        | 值指示器背景的描边                                                                                                       | string \| (datum, index, data) => string                     | -         |      |

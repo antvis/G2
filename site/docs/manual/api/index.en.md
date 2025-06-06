@@ -1,6 +1,6 @@
 ---
 title: 'Chart API'
-order: 4
+order: 3
 ---
 
 <style>
