@@ -122,6 +122,54 @@ function inferItemMarkerSize(scales: Scale[], defaults: number) {
   return defaults;
 }
 
+function inferItemMarkerLineWidth(options, context: GuideComponentContext) {
+  const { scales, markState } = context;
+  const [mark, shapes] = inferShape(scales, markState);
+  const { itemMarker, itemMarkerLineWidth } = options;
+
+  // If user explicitly set itemMarkerLineWidth, use it
+  if (itemMarkerLineWidth !== undefined) {
+    return itemMarkerLineWidth;
+  }
+
+  // Define line-based shapes that should have thicker line width
+  const lineShapes = [
+    'line',
+    'hyphen',
+    'dash',
+    'smooth',
+    'hv',
+    'hvh',
+    'vh',
+    'vhv',
+  ];
+
+  // If itemMarker is explicitly set to a line shape
+  if (typeof itemMarker === 'string' && lineShapes.includes(itemMarker)) {
+    return 4;
+  }
+
+  // If itemMarker is a function, we need to return a function that checks each shape
+  if (typeof itemMarker === 'function') {
+    return (d, i) => {
+      const markerShape = itemMarker(d.id, i);
+      if (typeof markerShape === 'string' && lineShapes.includes(markerShape)) {
+        return 4;
+      }
+      return undefined;
+    };
+  }
+
+  // Check if any of the inferred shapes are line-based
+  const shapesArray = Array.isArray(shapes) ? shapes : [shapes];
+  const hasLineShape = shapesArray.some((shape) => lineShapes.includes(shape));
+  if (hasLineShape) {
+    return 4;
+  }
+
+  return undefined;
+}
+
 function inferCategoryStyle(options, context: GuideComponentContext) {
   const { labelFormatter = (d) => `${d}` } = options;
   const { scales, theme } = context;
@@ -131,6 +179,7 @@ function inferCategoryStyle(options, context: GuideComponentContext) {
     itemMarker: inferItemMarker({ ...options, itemMarkerSize }, context),
     itemMarkerSize: itemMarkerSize,
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
+    itemMarkerLineWidth: inferItemMarkerLineWidth(options, context),
   };
 
   const finalLabelFormatter =
