@@ -100,6 +100,8 @@ Renders in ~400ms with browser-equivalent quality:
 
 We've open-sourced an AI-oriented visualization solution leveraging this SSR capability: [mcp-server-chart](https://github.com/antvis/mcp-server-chart). It interprets AI model outputs and user intent to generate visualizations, currently supporting 15+ chart types and relational diagrams.
 
+<img width="640" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZlzKQKoJzsYAAAAAAAAAAAAAemJ7AQ/fmt.webp" />
+
 
 ## Use in other server-side locales
 

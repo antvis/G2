@@ -107,6 +107,8 @@ chart.toBuffer();
 
 基于以上的 AntV SSR 服务端出图的能力，我们开源了面向 AI 大模型场景的 MCP：[mcp-server-chart](https://github.com/antvis/mcp-server-chart)，针对大模型的输出，以及用户的意图，就可以生成对应的可视化图表，目前支持了 15+ 中常用的统计图表、关系图。
 
+<img width="640" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZlzKQKoJzsYAAAAAAAAAAAAAemJ7AQ/fmt.webp" />
+
 
 ## 在其他服务端语言环境中使用
 
