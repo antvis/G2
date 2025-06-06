@@ -100,7 +100,7 @@ chart.options({
   ],
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ### Example 1: Time Series Trend Enhancement
@@ -156,7 +156,7 @@ chart.options({
     },
   ],
 });
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ### Example 2: Financial Data Smoothing
@@ -218,7 +218,7 @@ chart.options({
   ],
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ### Example 3: Training Metric Stabilization
@@ -272,7 +272,7 @@ chart.options({
     },
   ],
 });
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ## Interactive Demo
