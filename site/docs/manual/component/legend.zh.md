@@ -401,7 +401,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 | itemMarkerFillOpacity   | 图例项图标填充透明度                                                                                                   | number \| (datum, index, data) => number                     | `1`       |      |
 | itemMarkerStroke        | 图例项图标的描边                                                                                                       | string \| (datum, index, data) => string                     | -         |      |
 | itemMarkerStrokeOpacity | 图例项图标描边透明度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
-| itemMarkerLineWidth     | 图例项图标描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | -         |      |
+| itemMarkerLineWidth     | 图例项图标描边的宽度                                                                                                   | number \| (datum, index, data) => number                     | `4`         |      |
 | itemMarkerLineDash      | 图例项图标描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number] | -         |      |
 | itemMarkerOpacity       | 图例项图标的整体透明度                                                                                                 | number \| (datum, index, data) => number                     | -         |      |
 | itemMarkerShadowColor   | 图例项图标阴影颜色                                                                                                     | string \| (datum, index, data) => string                     | -         |      |

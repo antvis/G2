@@ -1,4 +1,4 @@
 ---
-title: 图表标题
+title: Title
 order: 0
 ---

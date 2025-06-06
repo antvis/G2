@@ -81,7 +81,7 @@ export default defineConfig({
         slug: 'docs/charts/overview',
         title: {
           zh: '图表介绍',
-          en: 'Chart Introduction',
+          en: 'Chart Gallery',
         },
         order: 2,
       },
