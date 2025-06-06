@@ -1,51 +1,53 @@
 ---
-title: Rose Chart
+title: Nightingale Rose Chart
 order: 15
 screenshot: 'https://os.alipayobjects.com/rmsportal/nstvbQupOcPOzIw.jpg'
 category: ['comparison']
-similar: ['radial-bar', 'histogram']
+similar: ['radial-bar', 'histogram','pie']
 ---
 
 <img alt="rose" src="https://os.alipayobjects.com/rmsportal/nstvbQupOcPOzIw.jpg" width=600/>
 
-## Introduction to Rose Chart
+## Introduction to Nightingale Rose Charts
 
-The Nightingale Rose Chart (also known as Coxcomb Chart or Polar Area Diagram) was invented by Florence Nightingale during the Crimean War when she submitted a report on soldier casualties.
+The Nightingale Rose Chart (also known as Coxcomb Chart or Polar Area Diagram) is a chart form invented by Florence Nightingale during the Crimean War for a report on soldier mortality.
 
-The Nightingale Rose Chart is essentially a bar chart drawn in polar coordinates, using the radius length of the circular arcs to represent data magnitude (quantity).
+The Nightingale Rose Chart is a bar chart plotted in polar coordinates, using the radius of circular arcs to represent the magnitude of data (the quantity).
 
-- Due to the squared relationship between radius and area, the Nightingale Rose Chart amplifies data proportions, making it especially suitable for comparing values that are similar in magnitude.
-- Due to the cyclical nature of circles, rose charts are also suitable for representing time concepts within a cycle, such as days of the week or months.
+- Due to the square relationship between radius and area, the Nightingale Rose Chart exaggerates the proportional size of data, making it particularly suitable for comparing values that are close in magnitude.
+- Due to the cyclical nature of circles, the rose chart is also suitable for representing time concepts within a cycle, such as days of the week or months.
 
-**Other Names**: Nightingale Rose Chart, Coxcomb Chart, Polar Area Diagram
+**Other Names**
 
-## Components of Rose Chart
+Nightingale Rose Chart, Coxcomb Chart, Polar Area Diagram
+
+## Components of a Nightingale Rose Chart
 
 <img alt="rose-structure" src="https://t.alipayobjects.com/images/T1f7djXhBXXXXXXXXX.png" width=600/>
 
-| Chart Type           | Rose Chart                                                                                                                      |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Suitable Data        | List: one categorical data field, one continuous data field                                                                    |
-| Function             | Compare numerical values of categorical data                                                                                    |
-| Data-Graphics Mapping| Categorical data field maps to position on categorical axis<br>Continuous data field maps to radius axis height<br>Categorical data can also use color to enhance category distinction |
-| Suitable Data Count  | No more than 30 data points                                                                                                    |
+| Chart Type             | Nightingale Rose Chart                                                                                                |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | List: One categorical data field, one continuous data field                                                           |
+| Functionality          | Comparing the numerical values of categorical data                                                                    |
+| Data-to-Graphic Mapping| Categorical data field maps to the position on the category axis<br>Continuous data field maps to the height on the radius axis <br>Categorical data can also set color to enhance category distinction |
+| Suitable Data Count    | Not exceeding 30 data items                                                                                           |
 
-## Use Cases of Rose Charts
+## Use Cases of Nightingale Rose Charts
 
 ### Suitable Use Cases
 
-Example 1: **Comparing different categories**
+Example 1: **Comparing the size of different categories**
 
-The chart below compares manufacturing indices of various countries, with the US as baseline (100). China's manufacturing cost index is 96, meaning that for the same product, if it costs $1 to manufacture in the US, it would cost $0.96 in China. The chart shows that China's manufacturing advantage is no longer prominent.
+The chart below shows a comparison of manufacturing indices for various countries, with the United States as the benchmark (100). China's manufacturing cost index is 96, meaning that if a product costs $1 to manufacture in the US, it would cost $0.96 in China. The chart indicates that China's manufacturing advantage is no longer significant.
 
-| country | cost (Manufacturing Index) |
-| ------- | -------------------------- |
-| China   | 96                         |
-| Germany | 121                        |
-| USA     | 100                        |
-| Japan   | 111                        |
-| Korea   | 102                        |
-| ...     | ...                        |
+| country（Country） | cost（Manufacturing Index） |
+| --------------- | ---------------- |
+| China            | 96               |
+| Germany            | 121              |
+| United States            | 100              |
+| Japan            | 111              |
+| South Korea            | 102              |
+| ...             | ...              |
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
@@ -111,16 +113,17 @@ chart.render();
 
 ### Unsuitable Use Cases
 
-Example 1: **Too few categories**
+Example 1: **Scenarios with too few categories**
 
-The chart below shows the number of male and female students in a class. For such scenarios, pie chart is recommended.
+The chart below shows the number of male and female students in a class. This scenario compares a rose chart with a pie chart. When there are very few categories, a pie chart is more suitable than a rose chart.
 
 | gender | count |
 | ------ | ----- |
 | Male   | 40    |
 | Female | 30    |
 
-```js | ob { autoMount: true  }
+#### Rose Chart
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -149,19 +152,51 @@ chart.options({
 chart.render();
 ```
 
-Example 2: **Categories with very small values**
+#### Pie Chart
+```js | ob {autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
 
-Using a rose chart to display population data for different provinces is inappropriate because categories with very small values become extremely difficult to observe in rose charts. Horizontal bar chart is recommended instead.
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
 
-| province | population  |
-| -------- | ----------- |
-| Beijing  | 19,612,368  |
-| Tianjin  | 12,938,693  |
-| Hebei    | 71,854,210  |
-| Shanxi   | 27,500,000  |
-| ...      | ...         |
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { type: 'polar' },
+  data: [
+    { gender: 'Male', count: 40 },
+    { gender: 'Female', count: 30 },
+  ],
+  encode: { 
+    x: 'gender', 
+    y: 'count', 
+    color: 'gender' 
+  },
+  scale: { 
+    y: { nice: true, min: 0 }
+  },
+});
 
-```js | ob { autoMount: true  }
+chart.render();
+```
+
+Example 2: **Scenarios with vastly different category values**
+
+Below, a Nightingale Rose Chart and a horizontal bar chart are used to display population data for various provinces. In this scenario, using a rose chart is inappropriate because the vast differences in values make it difficult to observe smaller categories. A horizontal bar chart is recommended.
+
+| province   | population   |
+| ---------- | ------------ |
+| Beijing    | 19,612,368   |
+| Tianjin    | 12,938,693   |
+| Hebei      | 71,854,210   |
+| Shanxi     | 27,500,000   |
+| ...        | ...          |
+
+**Nightingale Rose Chart (Not Recommended)**
+
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -225,11 +260,176 @@ chart.options({
 chart.render();
 ```
 
-## Extensions of Rose Charts
+**Horizontal Bar Chart (Recommended)**
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { type: 'rect' },
+  data: [
+    { province: 'Beijing', population: 19612368 },
+    { province: 'Tianjin', population: 12938693 },
+    { province: 'Hebei', population: 71854210 },
+    { province: 'Shanxi', population: 27500000 },
+    { province: 'Inner Mongolia', population: 24706291 },
+    { province: 'Liaoning', population: 43746323 },
+    { province: 'Jilin', population: 27452815 },
+    { province: 'Heilongjiang', population: 38313991 },
+    { province: 'Shanghai', population: 23019196 },
+    { province: 'Jiangsu', population: 78660941 },
+    { province: 'Zhejiang', population: 54426891 },
+    { province: 'Anhui', population: 59500468 },
+    { province: 'Fujian', population: 36894217 },
+    { province: 'Jiangxi', population: 44567797 },
+    { province: 'Shandong', population: 95792719 },
+    { province: 'Henan', population: 94029939 },
+    { province: 'Hubei', population: 57237727 },
+    { province: 'Hunan', population: 65700762 },
+    { province: 'Guangdong', population: 104320459 },
+    { province: 'Guangxi', population: 46023761 },
+    { province: 'Hainan', population: 8671485 },
+    { province: 'Chongqing', population: 28846170 },
+    { province: 'Sichuan', population: 80417528 },
+    { province: 'Guizhou', population: 34748556 },
+    { province: 'Yunnan', population: 45966766 },
+    { province: 'Tibet', population: 3002165 },
+    { province: 'Shaanxi', population: 37327379 },
+    { province: 'Gansu', population: 25575263 },
+    { province: 'Qinghai', population: 5626723 },
+  ],
+  encode: { 
+    x: 'province', 
+    y: 'population', 
+    color: 'province' 
+  },
+  scale: { 
+    y: { nice: true },
+    color: { palette: 'category20' }
+  },
+  axis: {
+    y: { labelFormatter: null },
+    x: { 
+      labelFormatter: (text) => text.length > 6 ? text.slice(0, 6) + '...' : text,
+      labelRotate: Math.PI / 4 
+    }
+  },
+});
+
+chart.render();
+```
+
+Example 3: **Scenarios where some category values are too small**
+
+The chart below shows the pass rates for various subjects in a class, displayed using both a Nightingale Rose Chart and a horizontal bar chart. In this scenario, because some category values are too small, using a Nightingale Rose Chart can distort the graph, making it difficult to observe the true proportions of the data.
+
+| Subject   | Pass Rate |
+| ------ | ------ |
+| Math   | 98%    |
+| English   | 95%    |
+| Physics   | 60%    |
+| Chemistry   | 55%    |
+| Biology   | 30%    |
+| Geography   | 5%     |
+
+#### Nightingale Rose Chart (Not Recommended)
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { type: 'polar' },
+  data: [
+    { subject: 'Math', passRate: 98 },
+    { subject: 'English', passRate: 95 },
+    { subject: 'Physics', passRate: 60 },
+    { subject: 'Chemistry', passRate: 55 },
+    { subject: 'Biology', passRate: 30 },
+    { subject: 'Geography', passRate: 5 },
+  ],
+  encode: { 
+    x: 'subject', 
+    y: 'passRate', 
+    color: 'subject' 
+  },
+  scale: { 
+    y: { nice: true },
+    color: { palette: 'category20' }
+  },
+  axis: {
+    y: { labelFormatter: null },
+    x: { 
+      labelFormatter: (text) => text.length > 6 ? text.slice(0, 6) + '...' : text,
+      labelRotate: Math.PI / 4 
+    }
+  },
+});
+
+chart.render();
+```
+
+#### Horizontal Bar Chart (Recommended)
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { type: 'rect' },
+  data: [
+    { subject: 'Math', passRate: 98 },
+    { subject: 'English', passRate: 95 },
+    { subject: 'Physics', passRate: 60 },
+    { subject: 'Chemistry', passRate: 55 },
+    { subject: 'Biology', passRate: 30 },
+    { subject: 'Geography', passRate: 5 },
+  ],
+  encode: { 
+    x: 'subject', 
+    y: 'passRate', 
+    color: 'subject' 
+  },
+  scale: { 
+    y: { nice: true },
+    color: { palette: 'category20' }
+  },
+  axis: {
+    y: { labelFormatter: null },
+    x: { 
+      labelFormatter: (text) => text.length > 6 ? text.slice(0, 6) + '...' : text,
+      labelRotate: Math.PI / 4 
+    }
+  },
+});
+
+chart.render();
+```
+
+## Extensions of Nightingale Rose Charts
 
 ### Fan-shaped Rose Chart
 
-By setting the start angle of polar coordinates, you can create fan-shaped Nightingale Rose Charts:
+A sector Nightingale Rose Chart can be achieved by setting the start angle of the polar coordinates:
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
@@ -292,15 +492,15 @@ chart.render();
 
 ### Stacked Rose Chart
 
-The Nightingale Rose Chart is implemented by drawing bar charts in polar coordinates. If we extend bar charts to stacked bar charts, we can similarly create stacked rose charts.
+The Nightingale Rose Chart is essentially a bar chart plotted in polar coordinates. If a bar chart is extended to a stacked bar chart, a stacked rose chart can also be implemented.
 
-The chart below shows refugee data from the past decade, which can be roughly divided into refugees (those who crossed borders), internally displaced persons (those who didn't cross borders), and asylum-seekers (those who haven't yet obtained refugee status).
+The chart below shows refugee data from the last decade, broadly categorized into refugees who have crossed national borders, internally displaced persons who have not, and asylum-seekers who have not yet obtained refugee status.
 
-| year | internally (Internally Displaced) | refugees (Cross-border Refugees) | seekers (Asylum Seekers) |
-| ---- | --------------------------------- | -------------------------------- | ------------------------ |
-| 2000 | 21.0                              | 16                               | 0.8                      |
-| 2001 | 25.0                              | 16                               | 0.8                      |
-| ...  | ...                               | ...                              | ...                      |
+| year | internally displaced persons | refugees (crossed borders) | asylum-seekers |
+| ---- | ---------------------------- | -------------------------- | -------------- |
+| 2000 | 21.0                         | 16                         | 0.8            |
+| 2001 | 25.0                         | 16                         | 0.8            |
+| ...  | ...                          | ...                        | ...            |
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
@@ -385,18 +585,19 @@ chart.options({
 chart.render();
 ```
 
-## Comparing Rose Charts to Other Charts
+## Comparing Nightingale Rose Charts to Other Charts
 
-### Rose Charts and Bar Charts
+### Nightingale Rose Charts, [Line Charts](/en/charts/line), and [Pie Charts](/en/charts/pie)
 
-- Rose charts are essentially bar charts displayed in polar coordinates
-- Bar charts use rectangle height to represent data values
-- Rose charts use the radius size of sectors to represent data values
+**Nightingale Rose Charts and Pie Charts**
+- Nightingale Rose Charts use the radius of sectors to represent numerical values, while pie charts use the arc length (angle) of sectors to represent data proportions.
+- Nightingale Rose Charts can typically display more categories simultaneously than pie charts.
+(Note: Comparison with Line Charts is not detailed in this section based on the source material.)
 
-### Rose Charts and Pie Charts
-
-- Rose charts use sector radius to represent data values, while pie charts use sector arc length to represent data values
-- Rose charts can display more categories simultaneously than pie charts
+### Nightingale Rose Charts and Bar Charts
+- The Nightingale Rose Chart is essentially a bar chart displayed in polar coordinates.
+- Bar charts use the height of rectangles to represent numerical values.
+- Nightingale Rose Charts use the radius of sectors to represent numerical values.
 
 ## Similar Charts
 

@@ -3,7 +3,7 @@ title: 南丁格尔玫瑰图
 order: 15
 screenshot: 'https://os.alipayobjects.com/rmsportal/nstvbQupOcPOzIw.jpg'
 category: ['comparison']
-similar: ['radial-bar', 'histogram']
+similar: ['radial-bar', 'histogram','pie']
 ---
 
 <img alt="rose" src="https://os.alipayobjects.com/rmsportal/nstvbQupOcPOzIw.jpg" width=600/>
@@ -113,25 +113,28 @@ chart.render();
 
 例子 1: **分类过少的场景**
 
-下图展示一个班级男女同学的个数，这种场景建议使用饼图。
+下图展示一个班级男女同学的个数，这种场景下使用玫瑰图和饼图的对比。当分类很少时，饼图比玫瑰图更适合。
 
 | gender（性别） | count（人数） |
 | -------------- | ------------- |
 | 男             | 40            |
 | 女             | 30            |
 
-```js | ob { autoMount: true  }
+#### 玫瑰图
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({
+const chart1 = new Chart({
   container: 'container',
   theme: 'classic',
 });
 
-chart.options({
+chart1.options({
   type: 'interval',
   autoFit: true,
-  coordinate: { type: 'polar' },
+  coordinate: { 
+    type: 'polar'
+  },
   data: [
     { gender: '男', count: 40 },
     { gender: '女', count: 30 },
@@ -142,16 +145,59 @@ chart.options({
     color: 'gender' 
   },
   scale: { 
-    y: { nice: true, min: 0 }
+    y: { nice: true, min: 0 },
+    color: { range: ['#4F81BD', '#70AD47'] }
   },
+  style: {
+    stroke: 'white',
+    lineWidth: 1
+  },
+  axis: {
+    y: { 
+      grid: true,
+      labelFormatter: (val) => `${val}` 
+    }
+  },
+  title: '玫瑰图'
 });
 
-chart.render();
+chart1.render();
 ```
 
-例子 2: **部分分类数值过小的场景**
+#### 饼图
+```js | ob {autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
 
-下面使用南丁格尔玫瑰图展示各个省份的人口数据，这种场景下使用玫瑰图不合适，原因是在玫瑰图中数值过小的分类会非常难以观察。推荐使用横向柱状图。
+const chart2 = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart2.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { type: 'theta' },
+  data: [
+    { gender: '男', count: 40 },
+    { gender: '女', count: 30 },
+  ],
+  encode: { 
+    color: 'gender',
+    y: 'count'
+  },
+  style: {
+    stroke: 'white',
+    lineWidth: 1
+  },
+  title: '饼图'
+});
+
+chart2.render();
+```
+
+例子 2: **分类数值相差悬殊的场景**
+
+下面使用南丁格尔玫瑰图和横向柱状图分别展示各个省份的人口数据，这种场景下使用玫瑰图不合适，原因是在玫瑰图中数值相差悬殊的分类会导致较小数值的分类难以观察。推荐使用横向柱状图。
 
 | province（省份） | population（人口数量） |
 | ---------------- | ---------------------- |
@@ -161,7 +207,9 @@ chart.render();
 | 山西省           | 27,500,000             |
 | ...              | ...                    |
 
-```js | ob { autoMount: true  }
+**南丁格尔玫瑰图（不推荐）**
+
+```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -220,9 +268,199 @@ chart.options({
       labelRotate: Math.PI / 4 
     }
   },
+  title: '南丁格尔玫瑰图（不推荐）',
 });
 
 chart.render();
+```
+
+**横向柱状图（推荐）**
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { province: '北京市', population: 19612368 },
+  { province: '天津市', population: 12938693 },
+  { province: '河北省', population: 71854210 },
+  { province: '山西省', population: 27500000 },
+  { province: '内蒙古自治区', population: 24706291 },
+  { province: '辽宁省', population: 43746323 },
+  { province: '吉林省', population: 27452815 },
+  { province: '黑龙江省', population: 38313991 },
+  { province: '上海市', population: 23019196 },
+  { province: '江苏省', population: 78660941 },
+  { province: '浙江省', population: 54426891 },
+  { province: '安徽省', population: 59500468 },
+  { province: '福建省', population: 36894217 },
+  { province: '江西省', population: 44567797 },
+  { province: '山东省', population: 95792719 },
+  { province: '河南省', population: 94029939 },
+  { province: '湖北省', population: 57237727 },
+  { province: '湖南省', population: 65700762 },
+  { province: '广东省', population: 104320459 },
+  { province: '广西壮族自治区', population: 46023761 },
+  { province: '海南省', population: 8671485 },
+  { province: '重庆市', population: 28846170 },
+  { province: '四川省', population: 80417528 },
+  { province: '贵州省', population: 34748556 },
+  { province: '云南省', population: 45966766 },
+  { province: '西藏自治区', population: 3002165 },
+  { province: '陕西省', population: 37327379 },
+  { province: '甘肃省', population: 25575263 },
+  { province: '青海省', population: 5626723 },
+];
+const sortedData = [...data].sort((a, b) => b.population - a.population);
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: sortedData.slice(0, 15), // 截取前15个，避免过多数据
+  encode: { 
+    x: 'population', 
+    y: 'province', 
+    color: 'province' 
+  },
+  scale: { 
+    x: { nice: true },
+    color: { palette: 'category20' }
+  },
+  axis: {
+    x: { 
+      title: '人口数量',
+      labelFormatter: (val) => {
+        return (val / 1000000).toFixed(1) + 'M';
+      }
+    },
+    y: { 
+      title: '省份',
+      labelFormatter: (text) => text.length > 5 ? text.slice(0, 5) + '...' : text
+    }
+  },
+  legend: false,
+  title: '横向柱状图（推荐）',
+  style: {
+    fillOpacity: 0.85
+  },
+  animate: {
+    enter: { type: 'growInX' }
+  }
+});
+
+chart.render();
+```
+
+例子 3: **部分分类数值过小的场景**
+
+下图展示了某个班级的各科及格率，使用南丁格尔玫瑰图和横向柱状图分别展示。这种场景由于存在部分分类数值过小的情况，使用南丁格尔玫瑰图会导致图形扭曲，不易于观察数据的真实比例关系。
+
+| 科目   | 及格率 |
+| ------ | ------ |
+| 数学   | 98%    |
+| 英语   | 95%    |
+| 物理   | 60%    |
+| 化学   | 55%    |
+| 生物   | 30%    |
+| 地理   | 5%     |
+
+#### 南丁格尔玫瑰图（不推荐）
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart1 = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart1.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { type: 'polar' },
+  data: [
+    { subject: '数学', pass: 98 },
+    { subject: '英语', pass: 95 },
+    { subject: '物理', pass: 60 },
+    { subject: '化学', pass: 55 },
+    { subject: '生物', pass: 30 },
+    { subject: '地理', pass: 5 },
+  ],
+  encode: { 
+    x: 'subject', 
+    y: 'pass', 
+    color: 'subject' 
+  },
+  scale: { 
+    y: { nice: true, min: 0 },
+    color: { range: ['#4F81BD', '#70AD47', '#F79646', '#A9A9A9', '#C0504D'] }
+  },
+  style: {
+    stroke: 'white',
+    lineWidth: 1
+  },
+  axis: {
+    y: { 
+      grid: true,
+      labelFormatter: (val) => `${val}` 
+    }
+  },
+  title: '南丁格尔玫瑰图（不推荐）'
+});
+
+chart1.render();
+```
+
+#### 横向柱状图（推荐）
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart2 = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart2.options({
+  type: 'interval',
+  autoFit: true,
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: [
+    { subject: '数学', pass: 98 },
+    { subject: '英语', pass: 95 },
+    { subject: '物理', pass: 60 },
+    { subject: '化学', pass: 55 },
+    { subject: '生物', pass: 30 },
+    { subject: '地理', pass: 5 },
+  ],
+  encode: { 
+    x: 'subject', 
+    y: 'pass', 
+    color: 'subject' 
+  },
+  scale: { 
+    y: { nice: true, min: 0 },
+    color: { range: ['#4F81BD', '#70AD47', '#F79646', '#A9A9A9', '#C0504D'] }
+  },
+  style: {
+    stroke: 'white',
+    lineWidth: 1
+  },
+  axis: {
+    y: { 
+      grid: true,
+      labelFormatter: (val) => `${val}` 
+    }
+  },
+  title: '横向柱状图（推荐）'
+});
+
+chart2.render();
 ```
 
 ## 南丁格尔玫瑰图的扩展
@@ -368,7 +606,6 @@ chart.options({
     x: 'year', 
     y: 'count',
     color: 'type',
-    series: 'type'
   },
   transform: [{ type: 'stackY' }],
   scale: { 
