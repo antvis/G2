@@ -3,7 +3,7 @@ title: 服务端渲染（SSR）
 order: 12
 ---
 
-服务端渲染（SSR）是指在非浏览器环境渲染出图表，比如在 Node.js、Python、Java、PHP 等后端语言环境中，一般在后端语言中，最终出来的是一张没有交互和动画的图片。一般使用的场景如下：
+服务端渲染 SSR（Server Side Render）是相比于客户端渲染 CSR（Client Side Render），就是指在非浏览器环境渲染出图表，比如在 Node.js、Python、Java、PHP 等后端语言环境中，一般在后端语言中，最终出来的是一张没有交互和动画的图片。一般使用的场景如下：
 
 - 后端预渲成图片，提高页面打开的速度
 - 脚本批处理，便于传播
@@ -13,87 +13,14 @@ order: 12
 
 ## 在 Node.js 中使用
 
-在 Node.js 生态中，以下库实现了浏览器环境中常见的渲染 API：
+前端数据可视化的开源库，都是基于浏览器 DOM Canvas API 去在做封装和绘图，适用于浏览器环境，如果需要在 Node.js 中绘制出图形，那就需要将开源库中的 DOM Canvas 改成 Node Canvas，在 NodeJS 生态中，有 [node-canvas](https://github.com/Automattic/node-canvas) 提供了基于 Cairo 的 Canvas2D API 实现，和浏览器的 Canvas API 保持一致。
 
-- [node-canvas](https://github.com/Automattic/node-canvas) 提供了基于 Cairo 的 Canvas2D API 实现
-- [jsdom](https://github.com/jsdom/jsdom) 提供了 DOM API 实现
+所以基于 `node-canvas`，再结合 AntV 的 G2 在 API 设计上支持传入自定义 Canvas 对象，就可以切换成 NodeJS 的绘图引擎，从而实现服务端渲染出图。
 
-基于它们创建对应的渲染器，就可以让 G2 渲染得到 PNG 或者 SVG 结果。下面我们分别介绍基于这两种实现的示例代码。
 
-### jsdom
+## 基于 node-canvas + G2
 
-[在线示例](https://stackblitz.com/edit/stackblitz-starters-6zfeng?file=index.js)
-
-首先使用 JSDOM 创建一个容器 `container`，后续图表将渲染到这里，另外保存 `window` 和 `document` 对象供后续使用：
-
-```js
-const jsdom = require('jsdom');
-
-const { JSDOM } = jsdom;
-const { window } = new JSDOM(`<!DOCTYPE html>`);
-const { document } = window;
-const container = document.createElement('div');
-```
-
-然后创建一个 SVG 渲染器，移除掉依赖 DOM API 的插件后创建画布：
-
-```js
-const { Canvas } = require('@antv/g');
-const { Renderer } = require('@antv/g-svg');
-
-const renderer = new Renderer();
-const htmlRendererPlugin = renderer.getPlugin('html-renderer');
-renderer.unregisterPlugin(htmlRendererPlugin);
-const domInteractionPlugin = renderer.getPlugin('dom-interaction');
-renderer.unregisterPlugin(domInteractionPlugin);
-
-const gCanvas = new Canvas({
-  renderer,
-  width,
-  height,
-  container, // 使用上一步创建的容器
-  document,
-  offscreenCanvas: offscreenNodeCanvas,
-  requestAnimationFrame: window.requestAnimationFrame,
-  cancelAnimationFrame: window.cancelAnimationFrame,
-});
-```
-
-接着正常创建 G2 Chart，传入之前创建的画布和容器，详见参考文档[快速上手](/manual/quick-start)：
-
-```js
-const { Chart } = require('@antv/g2');
-
-const chart = new Chart({
-  width,
-  height,
-  canvas: gCanvas,
-  container,
-});
-```
-
-最后渲染图表，从 JSDOM 中获取渲染结果并序列化成 SVG 字符串，随后可以选择保存成本地文件，这里示例代码就直接输出到控制台了：
-
-```js
-const xmlserializer = require('xmlserializer');
-
-(async () => {
-  await chart.render();
-
-  const svg = xmlserializer.serializeToString(container.childNodes[0]);
-  console.log(svg); // '<svg>...</svg>
-
-  chart.destroy();
-})();
-```
-
-值得一提的是目前在 G2 的集成测试中，由于 SVG 具有良好的跨平台兼容性，我们也使用了该技术用于[截图比对](https://github.com/antvis/G2/tree/v5/__tests__/integration/snapshots/static)。
-
-### node-canvas
-
-[在线示例](https://stackblitz.com/edit/stackblitz-starters-evrvef?file=index.js)
-
-基于 jsdom 的方案只能生成 SVG，如果想生成类似 PNG 格式的图片，可以使用 [node-canvas](https://github.com/Automattic/node-canvas) 渲染。
+[在线示例](https://stackblitz.com/edit/stackblitz-starters-evrvef?file=index.js)，基于 jsdom 的方案只能生成 SVG，如果想生成类似 PNG 格式的图片，可以使用 [node-canvas](https://github.com/Automattic/node-canvas) 渲染。
 
 首先创建两个 node-canvas，分别用于渲染场景和度量文本宽度：
 
@@ -133,6 +60,53 @@ function writePNG(nodeCanvas) {
   });
 }
 ```
+
+
+## 使用 G2 SSR 开源项目
+
+我们把上面基于 node-canvas 的 SSR 代码，封装成一个直接可用的库： [@antv/g2-ssr](https://github.com/antvis/g2-extensions/blob/master/ssr/README.md)，不用去额外感知复杂的代码，使用方法很简单，如下：
+
+```ts
+import { createChart } from '@antv/g2-ssr';
+
+// 创建 Chart 和配置
+const chart = await createChart({
+  width: 640,
+  height: 480,
+  imageType: 'png', // or 'jpeg'
+  // 其他的配置透传 G2 Spec，可以参考 G2 的配置文档
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
+
+// 导出
+chart.exportToFile('chart');
+// -> chart.png
+
+chart.toBuffer();
+// -> get buffer
+```
+
+大概会在 `400ms` 左右生成一张可视化图如下，基本和在浏览器端渲染的没有太大区别。
+
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqCnTbkpAkQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="640" alt="example">
+
+
+## 在 AI MCP 下使用
+
+基于以上的 AntV SSR 服务端出图的能力，我们开源了面向 AI 大模型场景的 MCP：[mcp-server-chart](https://github.com/antvis/mcp-server-chart)，针对大模型的输出，以及用户的意图，就可以生成对应的可视化图表，目前支持了 15+ 中常用的统计图表、关系图。
+
 
 ## 在其他服务端语言环境中使用
 
