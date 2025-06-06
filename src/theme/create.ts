@@ -305,6 +305,7 @@ export function create({
       itemLabelFontWeight: 'normal',
       itemMarkerFillOpacity: 1,
       itemMarkerSize: 8,
+      itemMarkerLineWidth: 4,
       itemSpacing: [padding1, padding1],
       itemValueFill: colorBlack,
       itemValueFillOpacity: 0.65,
