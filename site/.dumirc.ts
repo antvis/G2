@@ -70,28 +70,20 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
-        slug: 'docs/manual/quick-start',
-        title: {
-          zh: '文档',
-          en: 'Docs',
-        },
-        order: 3,
-      },
-      {
         slug: 'docs/charts/overview',
         title: {
           zh: '图表介绍',
           en: 'Chart Gallery',
         },
-        order: 2,
+        order: 1,
       },
       {
-        slug: 'docs/api/overview',
+        slug: 'docs/manual/quick-start',
         title: {
-          zh: 'API',
-          en: 'API',
+          zh: '文档',
+          en: 'Docs',
         },
-        order: 1,
+        order: 2,
       },
       {
         slug: 'examples',

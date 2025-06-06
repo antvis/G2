@@ -13,7 +13,7 @@ const GRAPH_USAGES_MAP = new Map(GRAPH_USAGES.map((g) => [g.id, g]));
 
 // 全局样式：隐藏页面标题
 const GlobalStyle = createGlobalStyle`
- h1:first-child {
+ [class*="contentTitle"] {
     display: none !important;
   }
 `;
