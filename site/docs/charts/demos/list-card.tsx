@@ -45,7 +45,7 @@ export default () => {
             lang === LANGUAGE_MAP.ZH ? item.nameZh : item.nameEn,
           );
         return (
-          <Col span={6} key={link}>
+          <Col span={8} key={link}>
             <MemoChartCard
               title={metaTitle || frontmatterTitle || ''}
               screenshot={screenshot}
