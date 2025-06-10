@@ -195,41 +195,42 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
+    // Refer to css animation description
+    const keyframe = chart
+      .timingKeyframe() // Create container
+      .attr('iterationCount', 2)
+      .attr('direction', 'alternate')
+      .attr('duration', 1000);
 
+    keyframe
+      .interval()
+      .transform({ type: 'groupX', y: 'mean' })
+      .data(data)
+      .encode('x', 'gender')
+      .encode('y', 'weight')
+      .encode('color', 'gender')
+      .encode('key', 'gender'); // Specify key
 
-const chart = new Chart({
-  container: 'container',
-});
+    keyframe
+      .point()
+      .data(data)
+      .encode('x', 'height')
+      .encode('y', 'weight')
+      .encode('color', 'gender')
+      .encode('shape', 'point')
+      .encode('groupKey', 'gender'); // Specify groupKey
 
-  // Refer to css animation description
-  const keyframe = chart
-    .timingKeyframe() // Create container
-    .attr('iterationCount', 2)
-    .attr('direction', 'alternate')
-    .attr('duration', 1000);
-
-  keyframe
-    .interval()
-    .transform({ type: 'groupX', y: 'mean' })
-    .data(data)
-    .encode('x', 'gender')
-    .encode('y', 'weight')
-    .encode('color', 'gender')
-    .encode('key', 'gender'); // Specify key
-
-  keyframe
-    .point()
-    .data(data)
-    .encode('x', 'height')
-    .encode('y', 'weight')
-    .encode('color', 'gender')
-    .encode('shape', 'point')
-    .encode('groupKey', 'gender'); // Specify groupKey
-
-  chart.render();
+    chart.render();
+  });
 ```
