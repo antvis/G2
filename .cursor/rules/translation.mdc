@@ -81,4 +81,6 @@ When translating files under the `site/docs` directory, please adhere to the fol
 
 8. **Add '/en' Prefix to Internal Links**: Ensure that all internal links in English documentation have the '/en' prefix to maintain consistency and correct navigation.
 
+9. **Always check if ${target_path} exists in the project structure,never create new files when translating existing documents.
+
 By following these guidelines, translations will be more accurate and consistent, facilitating easier review and integration into the documentation.
