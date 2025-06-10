@@ -4,38 +4,40 @@ order: 23
 ---
 
 ## 概述
+
 `rect` 是用于绘制矩形标记的核心图表元素，它通过定义矩形的起点、终点、宽度、高度以及其他图形属性（如颜色、样式），实现不同的可视化需求。`rect`可以根据绑定的数据动态调整矩形的位置、大小和样式，从而直观地展示数据的分布、对比关系或密度信息。`rect`广泛应用于柱状图、热力图、矩阵图等场景。
 
 `rect`核心功能特点：
+
 - **绘制矩形形状**：rect 是构建矩形类图表的基础单元，可以用来构建柱、块、热力等图表。
-每个矩形单元通过映射数据的数值或分类信息，展示具体数据内容。
+  每个矩形单元通过映射数据的数值或分类信息，展示具体数据内容。
 - **丰富的编码映射**：用户可以自由将数据字段映射到矩形的 X 轴、Y 轴、大小、颜色等视觉属性。
-提供灵活的自定义能力，通过字段和样式的结合，生成多种样式的矩形图形。
+  提供灵活的自定义能力，通过字段和样式的结合，生成多种样式的矩形图形。
 - **高扩展性和互动性**：支持交互功能（如点击、高亮、缩放等），提升图形与用户间的动态互动。
-适用于不同领域的矩形可视化需求，如栅格图（heatmap）、数据密度分布图等。
+  适用于不同领域的矩形可视化需求，如栅格图（heatmap）、数据密度分布图等。
 - **与 G2 生态无缝衔接**：作为 G2 Mark 系统的一部分，rect 与其他组件（如 line、point 等）能够自由组合，满足复杂场景的数据可视化需求。
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'rect',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    },
-    encode: { x: 'weight', y: 'height', color: 'sex' },
-    transform: [{ type: 'bin', opacity: 'count' }],
-    style: { inset: 0.5 },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render(); // 渲染图标
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { x: 'weight', y: 'height', color: 'sex' },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  style: { inset: 0.5 },
+});
 
-  return chart.getContainer();
-})();
+chart.render(); // 渲染图标
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -61,27 +63,27 @@ order: 23
 
 color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空心形状的时候，例如 hollow ，则会改变图形的 描边颜色）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'rect',
-    data: [
-      {x: 1, y: 1, type: 'type1'},
-      {x: 1, y: 2, type: 'type2'},
-      {x: 2, y: 1, type: 'type3'},
-      {x: 2, y: 2, type: 'type1'},
-    ],
-    transform: [{ type: 'bin' }],
-    encode: { shape: 'rect', x: 'x', y: 'y', color: 'type' },
-    style: { inset: 0.5 },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render(); // 渲染图标
+chart.options({
+  type: 'rect',
+  data: [
+    { x: 1, y: 1, type: 'type1' },
+    { x: 1, y: 2, type: 'type2' },
+    { x: 2, y: 1, type: 'type3' },
+    { x: 2, y: 2, type: 'type1' },
+  ],
+  transform: [{ type: 'bin' }],
+  encode: { shape: 'rect', x: 'x', y: 'y', color: 'type' },
+  style: { inset: 0.5 },
+});
 
-  return chart.getContainer();
-})();
+chart.render(); // 渲染图标
 ```
 
 **shape**
@@ -93,7 +95,7 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
 | rect   | 矩形     |
 | hollow | 空心矩形 |
 
-```js | ob { pin: false }
+```js | ob {  pin: false }
 (() => {
   const shapeMap = [
     {
@@ -156,32 +158,32 @@ color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空
 
 `transform` 是用于数据转换的核心配置项，它允许在数据绑定到图形标记之前对原始数据进行预处理。通过对数据的加工，生成更适合可视化的结构化数据，从而更清晰地表达数据分布、密度或统计特征。
 
-常用的转换类型type有以下几个：
+常用的转换类型 type 有以下几个：
 
 - **bin**: 将连续数据分箱，生成直方图矩形
 - **stackY**: 垂直方向堆叠矩形，自动计算每个分类的堆叠高度
 
-```js | ob {pin: false}
-(()=>{
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "rect",
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/athletes.json",
-    },
-    encode: { x: "weight", color: "sex" },
-    transform: [
-      { type: "binX", y: "count" },
-      { type: "stackY", orderBy: "series" },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { x: 'weight', color: 'sex' },
+  transform: [
+    { type: 'binX', y: 'count' },
+    { type: 'stackY', orderBy: 'series' },
+  ],
+});
 
-  return chart.getContainer()
-})()
+chart.render();
 ```
 
 更多的`transform`配置，可以查看 [transform](/manual/core/transform/overview) 介绍页面。

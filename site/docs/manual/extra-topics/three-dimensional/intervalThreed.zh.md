@@ -14,79 +14,83 @@ order: 3
 
 然后设置 z 通道、scale 和 z 坐标轴，最后在场景中添加光源。
 
-```js | ob
-(() => {
-  // Create a WebGL renderer.
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+```js | ob { autoMount: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
-  });
+// Create a WebGL renderer.
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
-  // 初始化图表实例
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
 
-  const data = [];
-  for (let x = 0; x < 5; ++x) {
-    for (let z = 0; z < 5; ++z) {
-      data.push({
-        x: `x-${x}`,
-        z: `z-${z}`,
-        y: 10 - x - z,
-        color: Math.random() < 0.33 ? 0 : Math.random() < 0.67 ? 1 : 2,
-      });
-    }
-  }
+// 初始化图表实例
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
 
-  chart
-    .interval3D()
-    .data({
-      type: 'inline',
-      value: data,
-    })
-    .encode('x', 'x')
-    .encode('y', 'y')
-    .encode('z', 'z')
-    .encode('color', 'color')
-    .encode('shape', 'cube')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 2 })
-    .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 2 })
-    .style('opacity', 0.7);
-
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 5000, 50, 1280 / 960);
-    camera.setType(g.CameraType.ORBITING);
-    camera.rotate(-20, -20, 0);
-
-    // Add a directional light into scene.
-    const light = new gPlugin3d.DirectionalLight({
-      style: {
-        intensity: 2.5,
-        fill: 'white',
-        direction: [-1, 0, 1],
-      },
+const data = [];
+for (let x = 0; x < 5; ++x) {
+  for (let z = 0; z < 5; ++z) {
+    data.push({
+      x: `x-${x}`,
+      z: `z-${z}`,
+      y: 10 - x - z,
+      color: Math.random() < 0.33 ? 0 : Math.random() < 0.67 ? 1 : 2,
     });
-    canvas.appendChild(light);
-  });
+  }
+}
 
-  return chart.getContainer();
-})();
+chart
+  .interval3D()
+  .data({
+    type: 'inline',
+    value: data,
+  })
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .encode('z', 'z')
+  .encode('color', 'color')
+  .encode('shape', 'cube')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 2 })
+  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 2 })
+  .style('opacity', 0.7);
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 50, 1280 / 960);
+  camera.setType(CameraType.ORBITING);
+  camera.rotate(-20, -20, 0);
+
+  // Add a directional light into scene.
+  const light = new DirectionalLight({
+    style: {
+      intensity: 2.5,
+      fill: 'white',
+      direction: [-1, 0, 1],
+    },
+  });
+  canvas.appendChild(light);
+});
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。

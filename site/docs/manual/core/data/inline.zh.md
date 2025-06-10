@@ -40,27 +40,29 @@ chart.data([
 
 举一个例子如下：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ],
-    encode: {
-      x: 'genre',
-      y: 'sold',
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.render().then((chart) => chart.getContainer());
-})();
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+  },
+});
+
+chart.render()
 ```
 
 ## 配置项

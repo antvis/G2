@@ -14,7 +14,7 @@ order: 3
 function renderBarChart(container) {
   const chart = new Chart({
     container,
-    });
+  });
 
   // 准备数据
   const data = [
@@ -119,6 +119,10 @@ function updateBarChart(chart) {
       // 保存图表实例
       this.chart = renderBarChart(this.$refs.container);
     },
+    unmounted() {
+      // 清理图表实例
+      this.chart.destroy();
+    },
     methods: {
       onClick() {
         updateBarChart(this.chart);
@@ -134,7 +138,7 @@ function updateBarChart(chart) {
 
 ```html
 <script setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { Chart } from '@antv/g2';
 
   let chart;
@@ -142,6 +146,11 @@ function updateBarChart(chart) {
 
   onMounted(() => {
     chart = renderBarChart(container.value);
+  });
+  
+  onUnmounted(() => {
+    chart.destroy();
+    chart = null;
   });
 
   function onClick() {
@@ -196,6 +205,11 @@ export default function G2Demo() {
     if (!chart.current) {
       chart.current = renderBarChart(container.current);
     }
+    
+    return () => {
+      chart.current.destroy();
+      chart.current = null;
+    };
   }, []);
 
   function renderBarChart(container) {

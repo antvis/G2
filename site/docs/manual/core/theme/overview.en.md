@@ -37,7 +37,6 @@ chart.interval().theme({});
 
 G2 provides built-in themes that can be switched using the `type` property.
 
-
 ```js
 chart.theme({ type: 'classicDark' }); // use the dark theme
 ```
@@ -63,61 +62,61 @@ chart.theme({ type: 'light', ...theme });
 
 The following example overrides the default color of the light theme:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: { x: 'letter', y: 'frequency' },
-    axis: { y: { labelFormatter: '.0%' } },
-    theme: {
-      color: 'red', // Set the default color to red
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  axis: { y: { labelFormatter: '.0%' } },
+  theme: {
+    color: 'red', // Set the default color to red
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 If you want to customize all theme styles, you can add a new theme, override the default theme, register it, and then use it.
 
-```js | ob
-(() => {
-  // define the theme
-  function CustomTheme() {
-    const light = G2.Light();
-    return { ...light, color: 'red' };
-  }
+```js | ob { autoMount: true }
+import { Light, register, Chart } from '@antv/g2';
 
-  // register the theme
-  G2.register('theme.custom', CustomTheme);
+// define the theme
+function CustomTheme() {
+  const light = Light();
+  return { ...light, color: 'red' };
+}
 
-  const chart = new G2.Chart();
+// register the theme
+register('theme.custom', CustomTheme);
 
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: { x: 'letter', y: 'frequency' },
-    axis: { y: { labelFormatter: '.0%' } },
-    theme: { type: 'custom' }, // use the theme
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  axis: { y: { labelFormatter: '.0%' } },
+  theme: { type: 'custom' }, // use the theme
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 The default themes included are:
@@ -129,4 +128,3 @@ The default themes included are:
 - `G2.Academy`
 
 For a complete theme configuration, you can refer to the [light](https://github.com/antvis/G2/blob/v5/src/theme/light.ts) theme.
-

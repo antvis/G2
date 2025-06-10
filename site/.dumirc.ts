@@ -73,28 +73,20 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
+        slug: 'docs/charts/overview',
+        title: {
+          zh: '图表介绍',
+          en: 'Chart Gallery',
+        },
+        order: 1,
+      },
+      {
         slug: 'docs/manual/quick-start',
         title: {
           zh: '文档',
           en: 'Docs',
         },
-        order: 3,
-      },
-      {
-        slug: 'docs/charts/overview',
-        title: {
-          zh: '图表介绍',
-          en: 'Chart Introduction',
-        },
         order: 2,
-      },
-      {
-        slug: 'docs/api/overview',
-        title: {
-          zh: 'API',
-          en: 'API',
-        },
-        order: 1,
       },
       {
         slug: 'examples',
@@ -145,7 +137,7 @@ export default defineConfig({
           zh: '核心概念',
           en: 'Core Concepts',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'manual/core/chart',

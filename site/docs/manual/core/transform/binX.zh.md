@@ -18,25 +18,25 @@ binX 是一个针对 X 通道数据进行分箱处理的重要函数。它主要
 
 希望对 Y 通道进行分箱，使用 binX + transpose 坐标系。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "rect",
-    autoFit: true,
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/unemployment2.json",
-    },
-    encode: { x: "rate" },
-    transform: [{ type: "binX", y: "count" }],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'rect',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment2.json',
+  },
+  encode: { x: 'rate' },
+  transform: [{ type: 'binX', y: 'count' }],
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 配置项
@@ -50,55 +50,59 @@ binX 是一个针对 X 通道数据进行分箱处理的重要函数。它主要
 
 `binX` 是一种专门用于对 X 轴方向上的连续型数据进行分箱（离散化）的变换操作。通过配置 `thresholdsX`，可以明确指定 X 轴方向上的分箱边界，从而实现对数据的精细化控制。
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
-  let thresholdsX;
-  chart.options({
-    type: 'rect', // 图表类型为矩形图（直方图）
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/movies.json',
-    },
-    encode: { 
-      x: 'IMDB Rating', // X 轴编码为 IMDB 评分
-      y: 'Rotten Tomatoes Rating', // Y 轴编码为 Rotten Tomatoes 评分
-    },
-    transform: [{ 
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+let thresholdsX;
+chart.options({
+  type: 'rect', // 图表类型为矩形图（直方图）
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  },
+  encode: {
+    x: 'IMDB Rating', // X 轴编码为 IMDB 评分
+    y: 'Rotten Tomatoes Rating', // Y 轴编码为 Rotten Tomatoes 评分
+  },
+  transform: [
+    {
       type: 'bin', // 数据转换类型为分箱
       color: 'count', // 通过颜色编码表示每个分箱内的数据点数量
-    }],
-  });
+    },
+  ],
+});
 
-  // 插入 thresholdsX 的输入框
-  const container = document.createElement("div");
-  const thresholdsX_Text = document.createElement("span");
-  thresholdsX_Text.textContent = "thresholdsX: ";
-  const thresholdsX_Input = document.createElement("input");
-  thresholdsX_Input.setAttribute("type", "number");
-  thresholdsX_Input.addEventListener("input", (e) => {
-    thresholdsX = e.target.value;
-    chart.options({
-      transform: [{
+// 插入 thresholdsX 的输入框
+const container = document.createElement('div');
+const thresholdsX_Text = document.createElement('span');
+thresholdsX_Text.textContent = 'thresholdsX: ';
+const thresholdsX_Input = document.createElement('input');
+thresholdsX_Input.setAttribute('type', 'number');
+thresholdsX_Input.addEventListener('input', (e) => {
+  thresholdsX = e.target.value;
+  chart.options({
+    transform: [
+      {
         type: 'bin',
         color: 'count',
         thresholdsX,
         thresholdsY,
-      }]
-    });
-    chart.render();
+      },
+    ],
   });
-
-  container.appendChild(thresholdsX_Text);
-  container.appendChild(thresholdsX_Input);
-
-  const node = chart.getContainer();
-  node.insertBefore(container, node.childNodes[0]);
-
   chart.render();
+});
 
-  return chart.getContainer();
-})();
+container.appendChild(thresholdsX_Text);
+container.appendChild(thresholdsX_Input);
+
+const node = chart.getContainer();
+node.insertBefore(container, node.childNodes[0]);
+
+chart.render();
 ```
 
 ### channel
@@ -140,54 +144,55 @@ type Channel =
 
 ### 使用 `bin` + `opacity` 渲染出颜色分类直方图
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "rect",
-    autoFit: true,
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/athletes.json",
-    },
-    encode: { x: "weight", color: "sex" },
-    transform: [
-      { type: "binX", y: "count" },
-      { type: "stackY", orderBy: "series" },
-    ],
-    style: { inset: 0.5 },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'rect',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { x: 'weight', color: 'sex' },
+  transform: [
+    { type: 'binX', y: 'count' },
+    { type: 'stackY', orderBy: 'series' },
+  ],
+  style: { inset: 0.5 },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 泊松分布
 
-```js | ob {pin: false}
-(() => {
-  const random = d3Random.randomPoisson(Math.pow(10, 2.6));
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "rect",
-    autoFit: true,
-    data: new Array(5000).fill(0).map(random),
-    encode: { x: (d) => d },
-    transform: [{ type: "binX", y: "count" }],
-    style: { stroke: "white" },
-    tooltip: {
-      title: (d, i, data, column) => ({
-        value: `${column.x.value[i]} ~ ${column.x1.value[i]}`,
-      }),
-    },
-  });
+const random = d3Random.randomPoisson(Math.pow(10, 2.6));
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.getContainer();
-})(); 
+chart.options({
+  type: 'rect',
+  autoFit: true,
+  data: new Array(5000).fill(0).map(random),
+  encode: { x: (d) => d },
+  transform: [{ type: 'binX', y: 'count' }],
+  style: { stroke: 'white' },
+  tooltip: {
+    title: (d, i, data, column) => ({
+      value: `${column.x.value[i]} ~ ${column.x1.value[i]}`,
+    }),
+  },
+});
+
+chart.render();
 ```

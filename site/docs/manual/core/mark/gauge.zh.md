@@ -13,25 +13,25 @@ order: 8
 - 系统监控：CPU/内存使用率、磁盘容量预警；
 - 设备仪表：车辆时速表、温度计模拟。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'gauge', // 设置图表的类型为仪表盘
-    data: {
-      value: {
-        target: 120, // 仪表盘的目标值
-        total: 400, // 仪表盘的总值
-        name: 'score', // 仪表盘数据的名称
-      },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'gauge', // 设置图表的类型为仪表盘
+  data: {
+    value: {
+      target: 120, // 仪表盘的目标值
+      total: 400, // 仪表盘的总值
+      name: 'score', // 仪表盘数据的名称
     },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 选项
@@ -83,55 +83,55 @@ order: 8
 
 - 只有`target`或者`percent`，`color`参数`range`可以由两个颜色参数组成，在仪表盘刻度会由这两个颜色将会将仪表盘刻度分成两段
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'gauge',
-    data: {
-      value: {
-        target: 120,
-        total: 400,
-        name: 'score',
-      },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'gauge',
+  data: {
+    value: {
+      target: 120,
+      total: 400,
+      name: 'score',
     },
-    scale: {
-      color: { range: ['#FAAD14', 'green'] },
-    },
-  });
+  },
+  scale: {
+    color: { range: ['#FAAD14', 'green'] },
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 - 设置了`thresholds`，`color`参数`range`的颜色与`thresholds`的长度一致，仪表盘刻度会被`thresholds`中的值分段，并填充`scale`参数`color`对应位置的色彩
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'gauge',
-    data: {
-      value: {
-        target: 120,
-        total: 400,
-        name: 'score',
-        thresholds: [100, 200, 400],
-      },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'gauge',
+  data: {
+    value: {
+      target: 120,
+      total: 400,
+      name: 'score',
+      thresholds: [100, 200, 400],
     },
-    scale: {
-      color: { range: ['#F4664A', '#FAAD14', 'green'] },
-    },
-  });
+  },
+  scale: {
+    color: { range: ['#F4664A', '#FAAD14', 'green'] },
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
@@ -239,65 +239,65 @@ order: 8
 | textShadowOffsetY | 仪表盘指示文本阴影垂直偏移                                                 | number \| (datum, index, data) => number                     | -         |      |
 | textCursor        | 仪表盘指示文本鼠标样式                                                     | string \| (datum, index, data) => string                     | `default` |      |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'gauge',
-    data: {
-      value: {
-        target: 159,
-        total: 400,
-        name: 'score',
-        // thresholds: [200, 400],
-      },
-    },
-    scale: {
-      color: {
-        range: ['l(0):0:#62CFF4 1:#2C67F2', 'l(0):0:#2C67F2 1:#00008B'],
-      },
-      y: {
-        range: [1, -0.5],
-      },
-    },
-    style: {
-      // 配置仪表盘指示文本样式
-      textContent: (target, total) => `占比：${(target / total) * 100}%`,
-      textFill: '#000',
-      textFontSize: 24,
-      textfontWeight: 300,
-      textX: '35%',
-      textY: '75%',
-      // 配置仪表盘指针样式
-      pointerStroke: '#c5c5c5',
-      pointershadowColor: '#333333',
-      pointershadowBlur: 10,
-      pointershadowOffsetX: 5,
-      pointershadowOffsetY: 5,
-      // 配置仪表盘指针轴心样式
-      pinStroke: '#d5d5d5',
-      pinFill: '#d5d5d5',
-      pinlinewidth: 6,
-      pinshadowColor: '#333333',
-      pinshadowBlur: 30,
-      pinshadowOffsetX: 5,
-      pinshadowOffsetY: 5,
-      // 配置仪表盘圆弧样式
-      arcLineWidth: 2,
-      arcStroke: '#fff',
-      arcshadowColor: '#333333',
-      arcshadowBlur: 30,
-      arcshadowOffsetX: 5,
-      arcshadowOffsetY: 5,
-    },
-    legend: false,
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'gauge',
+  data: {
+    value: {
+      target: 159,
+      total: 400,
+      name: 'score',
+      // thresholds: [200, 400],
+    },
+  },
+  scale: {
+    color: {
+      range: ['l(0):0:#62CFF4 1:#2C67F2', 'l(0):0:#2C67F2 1:#00008B'],
+    },
+    y: {
+      range: [1, -0.5],
+    },
+  },
+  style: {
+    // 配置仪表盘指示文本样式
+    textContent: (target, total) => `占比：${(target / total) * 100}%`,
+    textFill: '#000',
+    textFontSize: 24,
+    textfontWeight: 300,
+    textX: '35%',
+    textY: '75%',
+    // 配置仪表盘指针样式
+    pointerStroke: '#c5c5c5',
+    pointershadowColor: '#333333',
+    pointershadowBlur: 10,
+    pointershadowOffsetX: 5,
+    pointershadowOffsetY: 5,
+    // 配置仪表盘指针轴心样式
+    pinStroke: '#d5d5d5',
+    pinFill: '#d5d5d5',
+    pinlinewidth: 6,
+    pinshadowColor: '#333333',
+    pinshadowBlur: 30,
+    pinshadowOffsetX: 5,
+    pinshadowOffsetY: 5,
+    // 配置仪表盘圆弧样式
+    arcLineWidth: 2,
+    arcStroke: '#fff',
+    arcshadowColor: '#333333',
+    arcshadowBlur: 30,
+    arcshadowOffsetX: 5,
+    arcshadowOffsetY: 5,
+  },
+  legend: false,
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的`style`配置，可以查看 [style](/manual/core/style) 介绍页面。

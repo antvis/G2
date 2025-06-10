@@ -37,9 +37,9 @@
                                 <path width="24.68" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.68 0 0 23-24.68 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="m-8-6.9282 16 0-8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="m-8-6.9282 16 0-8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -55,9 +55,9 @@
                                 <path width="22.76" height="23" fill="rgba(0,0,0,0)" d="m0 0 22.76 0 0 23-22.76 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -73,9 +73,9 @@
                                 <path width="24.44" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.44 0 0 23-24.44 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -91,9 +91,9 @@
                                 <path width="24.68" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.68 0 0 23-24.68 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-4.944 0 4.944-8 4.944 8-4.944 8Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-4.944 0 4.944-8 4.944 8-4.944 8Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -109,9 +109,9 @@
                                 <path width="24.92" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.92 0 0 23-24.92 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m0-8 6.9282 4 0 8-6.9282 4-6.9282-4 0-8Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m0-8 6.9282 4 0 8-6.9282 4-6.9282-4 0-8Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -127,9 +127,9 @@
                                 <path width="24.56" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.56 0 0 23-24.56 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -145,9 +145,9 @@
                                 <path width="24.8" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.8 0 0 23-24.8 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8-6.9282 16 0-8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8-6.9282 16 0-8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -163,9 +163,9 @@
                                 <path width="23.96" height="23" fill="rgba(0,0,0,0)" d="m0 0 23.96 0 0 23-23.96 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8 6.9282 8-13.8564 8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8 6.9282 8-13.8564 8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -181,9 +181,9 @@
                                 <path width="24.8" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.8 0 0 23-24.8 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8-6.5 16 13 0-13-16 13Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8-6.5 16 13 0-13-16 13Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -199,9 +199,9 @@
                                 <path width="24.8" height="23" fill="rgba(0,0,0,0)" d="m0 0 24.8 0 0 23-24.8 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -217,9 +217,9 @@
                                 <path width="30.44" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.44 0 0 23-30.44 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="M-8 0a8 8 0 1 0 16 0 8 8 0 1 0-16 0Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -235,9 +235,9 @@
                                 <path width="28.52" height="23" fill="rgba(0,0,0,0)" d="m0 0 28.52 0 0 23-28.52 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8 0 16 0m-8-8 0 16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8 0 16 0m-8-8 0 16" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -253,9 +253,9 @@
                                 <path width="30.2" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.2 0 0 23-30.2 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="m-4.944 0 4.944-8 4.944 8-4.944 8Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="m-4.944 0 4.944-8 4.944 8-4.944 8Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -271,9 +271,9 @@
                                 <path width="30.44" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.44 0 0 23-30.44 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -289,9 +289,9 @@
                                 <path width="30.68" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.68 0 0 23-30.68 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="m-8 6.9282 8-13.8564 8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="m-8 6.9282 8-13.8564 8 13.8564Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -307,9 +307,9 @@
                                 <path width="30.32" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.32 0 0 23-30.32 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="m0-8 6.9282 4 0 8-6.9282 4-6.9282-4 0-8Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="m0-8 6.9282 4 0 8-6.9282 4-6.9282-4 0-8Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -325,9 +325,9 @@
                                 <path width="30.56" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.56 0 0 23-30.56 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8-8 16 16m0-16-16 16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8-8 16 16m0-16-16 16" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -343,9 +343,9 @@
                                 <path width="29.72" height="23" fill="rgba(0,0,0,0)" d="m0 0 29.72 0 0 23-29.72 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="rgba(36,183,242,1)" stroke-width="0" d="m-8-6.5 16 13 0-13-16 13Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(36,183,242,1)" stroke-width="4" d="m-8-6.5 16 13 0-13-16 13Z" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -361,9 +361,9 @@
                                 <path width="30.56" height="23" fill="rgba(0,0,0,0)" d="m0 0 30.56 0 0 23-30.56 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.41161 0 0 .41161 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="2" d="m-8 0 16 0" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(36,183,242,1)" stroke-width="4" d="m-8 0 16 0" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">

@@ -23,24 +23,24 @@ order: 2
 
 简单的示例可以参考 [jitter](/manual/core/transform/jitter) 的示例，下面针对 `jitterX` 函数的场景使用进行说明和演示。
 
-``` js | ob
-(() => { 
+```js | ob
+(() => {
   const chart = new G2.Chart();
   chart.options({
-    type: "point",
+    type: 'point',
     data: {
-      type: "fetch",
+      type: 'fetch',
       value:
-        "https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv",
+        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
     },
     encode: {
-      y: "Horsepower",
-      x: "Cylinders",
-      shape: "hollow",
-      color: "Cylinders",
+      y: 'Horsepower',
+      x: 'Cylinders',
+      shape: 'hollow',
+      color: 'Cylinders',
     },
-    transform: [{ type: "sortX", channel: "x" }, { type: "jitterX" }],
-    scale: { x: { type: "point" }, color: { type: "ordinal" } },
+    transform: [{ type: 'sortX', channel: 'x' }, { type: 'jitterX' }],
+    scale: { x: { type: 'point' }, color: { type: 'ordinal' } },
   });
 
   chart.render();

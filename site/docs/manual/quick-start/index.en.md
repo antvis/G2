@@ -5,8 +5,8 @@ order: 1
 
 There are currently two ways to use G2:
 
-* Package manager
-* CDN
+- Package manager
+- CDN
 
 ## Package manager
 
@@ -60,7 +60,7 @@ chart.render();
 
 ## CDN
 
- G2 also provides a UMD version, which can be loaded directly through CDN and used directly. At this time `Chart` object can be accessed through namespaces `G2`.
+G2 also provides a UMD version, which can be loaded directly through CDN and used directly. At this time `Chart` object can be accessed through namespaces `G2`.
 
 ```html
 <script src="https://unpkg.com/@antv/g2/dist/g2.min.js"></script>
@@ -95,25 +95,26 @@ chart.render();
 
 No matter which method you use, if you draw a bar chart like the following, it means that everything is going well and the journey of exploring visualization and G2 has officially begun.
 
-```js | ob {pin:false}
-(() => {
-  // Initializing chart instance
-  const chart = new G2.Chart();
+```js | ob { pin:false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-      { genre: 'Other', sold: 150 },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold');
+// Initializing chart instance
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.getContainer();
-})();
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold');
+
+chart.render();
 ```
