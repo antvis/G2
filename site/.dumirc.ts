@@ -54,6 +54,9 @@ export default defineConfig({
       show: true, // 开启petercat辅助答疑机器人
       token: '26c62f06-1155-4b2c-8f4b-aa443d4af2c6',
     },
+    showWeavefox: {
+      internal: true,
+    },
     links: true, // 是否显示links研发小蜜
     feedback: true, // 开启文档用户反馈
     versions: {
