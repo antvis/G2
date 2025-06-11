@@ -200,7 +200,3 @@ chart.options({
 
 chart.render();
 ```
-
-```
-
-```

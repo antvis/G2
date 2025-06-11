@@ -332,144 +332,145 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
+    // Keyframe 容器，对里面的视图应用过渡动画
+    const keyframe = chart
+      .timingKeyframe()
+      .attr('direction', 'alternate')
+      .attr('iterationCount', 4);
 
+    // 第一个视图：散点图
+    keyframe
+      .interval()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'gender')
+      .encode('color', 'gender')
+      .encode('key', 'gender')
+      .transform({ type: 'groupX', y: 'count' });
 
-const chart = new Chart({
-  container: 'container',
-});
+    // 第二个视图：聚合条形图
+    keyframe
+      .point()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'weight')
+      .encode('y', 'height')
+      .encode('color', 'gender')
+      .encode('groupKey', 'gender')
+      .encode('shape', 'point');
 
-  // Keyframe 容器，对里面的视图应用过渡动画
-  const keyframe = chart
-    .timingKeyframe()
-    .attr('direction', 'alternate')
-    .attr('iterationCount', 4);
-
-  // 第一个视图：散点图
-  keyframe
-    .interval()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'gender')
-    .encode('color', 'gender')
-    .encode('key', 'gender')
-    .transform({ type: 'groupX', y: 'count' });
-
-  // 第二个视图：聚合条形图
-  keyframe
-    .point()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('groupKey', 'gender')
-    .encode('shape', 'point');
-
-  chart.render();
+    chart.render();
+  });
 ```
 
 ## 定制化交互能力
 
 G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emit` 提供了一种联动不同视图的交互的能力，比如下面展示的 "Focus and Context" 的能力：
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
+```js | ob
+(() => {
+  const container = document.createElement('div');
+  const focusContainer = document.createElement('div');
+  const contextContainer = document.createElement('div');
+  container.append(focusContainer);
+  container.append(contextContainer);
 
-const container = document.createElement('div');
-const focusContainer = document.createElement('div');
-const contextContainer = document.createElement('div');
-container.append(focusContainer);
-container.append(contextContainer);
+  // 渲染 focus 视图
 
-// 渲染 focus 视图
+  const focus = new G2.Chart({
+    container: 'container',
+    container: focusContainer,
+    height: 360,
+    paddingLeft: 50,
+  });
 
-const focus = new Chart({
-  container: 'container',
-  container: focusContainer,
-  height: 360,
-  paddingLeft: 50,
-});
+  focus
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+    })
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .animate(false)
+    .axis('x', { grid: false, title: false, tickCount: 5 })
+    .axis('y', { grid: false, tickCount: 5 })
+    .interaction('tooltip', false)
+    .interaction('brushXFilter', true);
 
-focus
-  .area()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis('x', { grid: false, title: false, tickCount: 5 })
-  .axis('y', { grid: false, tickCount: 5 })
-  .interaction('tooltip', false)
-  .interaction('brushXFilter', true);
+  focus.render();
 
-focus.render();
+  // 渲染 context 视图
 
-// 渲染 context 视图
+  const context = new G2.Chart({
+    container: 'container',
+    container: contextContainer,
+    paddingLeft: 50,
+    paddingTop: 0,
+    paddingBottom: 0,
+    height: 60,
+  });
 
-const context = new Chart({
-  container: 'container',
-  container: contextContainer,
-  paddingLeft: 50,
-  paddingTop: 0,
-  paddingBottom: 0,
-  height: 60,
-});
+  context
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+    })
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .animate(false)
+    .axis(false)
+    .interaction('tooltip', false)
+    .interaction('brushXHighlight', { series: true });
 
-context
-  .area()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis(false)
-  .interaction('tooltip', false)
-  .interaction('brushXHighlight', { series: true });
+  context.render();
 
-context.render();
+  // 添加事件监听器在不同图表之间交流
+  focus.on('brush:filter', (e) => {
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
+    const { selection } = e.data;
+    const { x: scaleX } = focus.getScale();
+    const [[x1, x2]] = selection;
+    const domainX = scaleX.getOptions().domain;
+    if (x1 === domainX[0] && x2 === domainX[1]) {
+      context.emit('brush:remove', {});
+    } else {
+      context.emit('brush:highlight', { data: { selection } });
+    }
+  });
 
-// 添加事件监听器在不同图表之间交流
-focus.on('brush:filter', (e) => {
-  const { nativeEvent } = e;
-  if (!nativeEvent) return;
-  const { selection } = e.data;
-  const { x: scaleX } = focus.getScale();
-  const [[x1, x2]] = selection;
-  const domainX = scaleX.getOptions().domain;
-  if (x1 === domainX[0] && x2 === domainX[1]) {
-    context.emit('brush:remove', {});
-  } else {
-    context.emit('brush:highlight', { data: { selection } });
-  }
-});
+  context.on('brush:highlight', (e) => {
+    const { nativeEvent, data } = e;
+    if (!nativeEvent) return;
+    const { selection } = data;
+    focus.emit('brush:filter', { data: { selection } });
+  });
 
-context.on('brush:highlight', (e) => {
-  const { nativeEvent, data } = e;
-  if (!nativeEvent) return;
-  const { selection } = data;
-  focus.emit('brush:filter', { data: { selection } });
-});
+  context.on('brush:remove', (e) => {
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
+    const { x: scaleX, y: scaleY } = context.getScale();
+    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+    focus.emit('brush:filter', { data: { selection } });
+  });
 
-context.on('brush:remove', (e) => {
-  const { nativeEvent } = e;
-  if (!nativeEvent) return;
-  const { x: scaleX, y: scaleY } = context.getScale();
-  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
-  focus.emit('brush:filter', { data: { selection } });
-});
-
-return container;
+  return container;
+})();
 ```
 
 ## 两种 API 风格

@@ -149,7 +149,10 @@ import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.options({
   type: 'sunburst',
@@ -189,7 +192,10 @@ import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.options({
   type: 'sunburst',
@@ -215,7 +221,10 @@ import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.options({
   type: 'sunburst',
@@ -239,7 +248,10 @@ import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
 
-const chart = new Chart();
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
 
 chart.options({
   type: 'sunburst',

@@ -102,7 +102,3 @@ chart.options({
 
 chart.render();
 ```
-
-```
-
-```
