@@ -5,18 +5,11 @@ import * as React from 'react';
 import { useFullSidebarData, useLocale, useSiteSearch } from 'dumi';
 import { Tag, Flex, Row, Col, AutoComplete } from 'antd';
 import { AppstoreOutlined, FilterOutlined } from '@ant-design/icons';
-import { styled, createGlobalStyle } from 'styled-components';
+import { styled } from 'styled-components';
 import { GRAPH_USAGES, LANGUAGE_MAP } from './constants';
 import ChartCard from './chart-card';
 
 const GRAPH_USAGES_MAP = new Map(GRAPH_USAGES.map((g) => [g.id, g]));
-
-// 全局样式：隐藏页面标题
-const GlobalStyle = createGlobalStyle`
- [class*="contentTitle"] {
-    display: none !important;
-  }
-`;
 
 const StyledWrapper = styled.div`
   .header-section {
@@ -368,7 +361,6 @@ export default () => {
 
   return (
     <StyledWrapper>
-      <GlobalStyle />
       {/* 顶部搜索区域 */}
       <div className="header-section">
         <div className="search-container">
