@@ -205,7 +205,7 @@ The chart title, specifically the main title, can be customized with the followi
 
 | Property           | Description             | Type                                             | Default Value |
 | ------------------ | ----------------------- | ------------------------------------------------ | ------------- |
-| title              | Chart title text        | `number` \| `(datum, index, data) => number`     | -             |
+| title              | Chart title text        | `string` \| `(datum, index, data) => string`     | -             |
 | titleFontSize      | Chart title font size   | `number` \| `(datum, index, data) => number`     | 14            |
 | titleFontFamily    | Chart title font family | `string` \| `(datum, index, data) => string`     | sans-serif    |
 | titleFontWeight    | Chart title font weight | `string` \| `(datum, index, data) => string`     | normal        |

@@ -3,23 +3,23 @@ title: New Version Features
 order: 1
 ---
 
-The name and design concept of G2 comes from Graphic Grammar "[The Grammar of Graphics](https://book.douban.com/subject/10123863/)》. The core of this theory is to reject the classification of charts and use some basic marks and a series of visual components (scale bars, coordinate systems, etc.) to describe a visualization.
+The name and design philosophy of G2 both derive from the Grammar of Graphics book "[The Grammar of Graphics](https://book.douban.com/subject/10123863/)". The core of this theory is: reject chart classification, and use some basic marks and a series of visualization components (scales, coordinate systems, etc.) to describe a visualization.
 
-Thanks to this, compared to low-level visualization tools like D3, G2 has lower usage and learning costs, which can improve research and development efficiency. Compared with the chart template library, G2 can produce different types of charts, which also changes the way G2 users think about charts: charts are no longer an indivisible whole, but can be combined by tags with different uses. This allows you to spend less time writing code or wondering whether this chart can be realized, and more time "thinking visually in the data world."
+Because of this, compared to low-level visualization tools like D3, G2 has lower usage and learning costs, helping to improve development efficiency. Compared to chart template libraries, G2 can create a richer variety of charts, and also changes how G2 users think about charts: charts are no longer an indivisible whole, but can be composed of marks with different purposes. This allows users to spend less time writing code or worrying about whether charts can be implemented, and instead spend more time on "visual thinking in the data world".
 
-Of course, it is only our basic mission to draw more charts more easily. We also hope to convey correct visual thinking to everyone in the process. Language is the most direct way to transmit thinking, so we attach great importance to simplicity and professionalism when designing grammar or API. We refer to many academic research results and best practices in the industry. Based on the original graphics grammar, enhancements including but not limited to the following have been made:
+Of course, drawing more charts more easily is just our basic task. We hope to convey correct visualization thinking to everyone in this process. Language is the most direct way to convey thinking, so we pay great attention to simplicity and professionalism when designing syntax or APIs. For this reason, we have referenced a large number of academic research results and industrial best practices. Based on the original Grammar of Graphics, we have made enhancements including but not limited to the following aspects:
 
 - Simplified syntax for data exploration
-- Add animation syntax
-- Add syntax for unit visualization
-- Add interactive syntax (still under design)
+- Added animation syntax
+- Added unit visualization syntax
+- Added interaction syntax (still in design)
 - ...
 
-In simpler terms: **With G2, you can get more visualization effects more professionally and quickly, and gain visual thinking at the same time** .
+Simply put: **Using G2, you can not only quickly obtain more professional visualization effects, but also cultivate and improve your visualization thinking ability**.
 
-## concise syntax
+## Concise Syntax
 
-You can draw a chart in one sentence, and in addition to drawing the graph itself, you can also add axes, legends, and even interactive prompts!
+You can draw a chart with one sentence. In addition to drawing the graphics themselves, it will also add coordinate axes, legends, and even interactive tooltips!
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -28,7 +28,7 @@ const chart = new Chart({
   container: 'container',
 });
 
-//One sentence statement visualization
+// Declare visualization in one sentence
 chart
   .point()
   .data({
@@ -43,7 +43,9 @@ chart
 chart.render();
 ```
 
-G2 simplicity comes from **default value** : You only need to provide the tag type, data and encoding type, and G2 will infer the rest for you. Of course, the great thing about G2 is that the default values ​​can be overridden as needed. We hope that G2 can look good and display insightful information by default, and you can optimize the display of charts based on your specific scenarios and domain knowledge. Will the appeal chart be more readable if the axis tick display is optimized? If you change it to the following color, do you like it better?
+G2's conciseness comes from its built-in **default values**: you only need to provide the mark type, data, and encoding method, and G2 will automatically infer other parameters for you. It's worth mentioning that one of G2's great advantages is that these default settings can all be adjusted as needed. We hope that G2 can be beautiful and insightful by default, while also allowing you to optimize chart display based on specific scenarios and professional knowledge.
+
+Let's see the following example. Does optimizing axis tick display make the chart more readable? Is changing to the following colors more to your liking?
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -64,12 +66,12 @@ chart
   .encode('color', 'gender')
   .scale('x', { nice: true }) // Optimize coordinate tick display
   .scale('y', { nice: true }) // Optimize coordinate tick display
-  .scale('color', { range: ['steelblue', 'orange'] }); // Change color
+  .scale('color', { range: ['steelblue', 'orange'] }); // Change colors
 
 chart.render();
 ```
 
-You may think that a scatter plot is too simple, so let’s see how G2 draws a sankey graph in one sentence!
+You might think scatter plots are too simple, so let's see how G2 draws a Sankey diagram with one sentence!
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -105,9 +107,9 @@ chart
 chart.render();
 ```
 
-## Rich chart types
+## Rich Chart Types
 
-G2 can draw a variety of chart types. In addition to supporting basic fold and column pie charts, it also supports vector fields, parallel coordinate systems and other slightly more complex charts, such as the following connection chart:
+G2 can draw rich chart types. In addition to supporting basic line charts, bar charts, pie charts and other charts, it also supports slightly more complex charts such as vector fields and parallel coordinate systems, such as the link chart below:
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -135,7 +137,7 @@ chart
 chart.render();
 ```
 
-The most wonderful thing about G2 is that you can get new charts by combining different charts (more precisely marks)! For example, if we add the point mark of the scatter chart and the link mark of the connection chart to a chart, we can obtain a labeled point-line connection chart.
+The most wonderful thing about G2 is: you can **combine** different charts (more accurately called marks) to get **brand new charts**! For example, we add both Point marks from scatter plots and Link marks from link charts to a chart, and we can get an annotated point-line connection chart.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -156,7 +158,7 @@ chart.data({
   ],
 });
 
-// Point Symbol
+// Point mark
 chart
   .point()
   .encode('x', 'body_mass_g')
@@ -164,7 +166,7 @@ chart
   .style('stroke', '#000')
   .tooltip({ channel: 'x' });
 
-// Link Symbol
+// Link mark
 chart
   .link()
   .encode('x', 'body_mass_g')
@@ -173,7 +175,7 @@ chart
   .style('stroke', '#000')
   .tooltip(false);
 
-// Point Symbol
+// Point mark draws median line
 chart
   .point()
   .encode('y', 'species')
@@ -187,9 +189,11 @@ chart
 chart.render();
 ```
 
-## Strong data analysis capabilities
+## Powerful Data Analysis Capabilities
 
-In the process of visualization, processing data often takes a lot of time, and there is a certain cost of getting started. To simplify this process, reduce data preprocessing time and standardize common data analysis capabilities, G2 provides a series of **Transform** to aggregate and generate new data. For example, the following calculates the task distribution of athletes with different weights:
+In the data visualization workflow, data processing often takes up a lot of time and also requires a certain learning cost. To simplify this process, shorten data preprocessing time, and standardize common data analysis capabilities, G2 provides a series of **transforms** for aggregating and generating new data.
+
+Let's see how to visualize the weight distribution of athletes after obtaining raw athlete weight data through data transformation:
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -211,7 +215,7 @@ chart
 chart.render();
 ```
 
-Want your chart split by gender?
+Want to split the chart by gender?
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -227,7 +231,7 @@ chart
     value: 'https://assets.antv.antgroup.com/g2/athletes.json',
   })
   .encode('x', 'weight')
-  .encode('color', 'sex') // Include color coding
+  .encode('color', 'sex') // Add color encoding
   .transform({ type: 'binX', y: 'count' })
   .transform({ type: 'stackY', orderBy: 'series' })
   .style('inset', 0.5);
@@ -235,14 +239,13 @@ chart
 chart.render();
 ```
 
-Want to see the distribution of each gender being separated?
+Want to see the distribution of each gender separately through faceting?
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-
   paddingLeft: 50,
   paddingBottom: 50,
 });
@@ -254,10 +257,6 @@ const facet = chart.facetRect().encode('y', 'sex').data({
 
 facet
   .rect()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-  })
   .encode('x', 'weight')
   .transform({ type: 'binX', y: 'count' })
   .style('inset', 0.5);
@@ -265,9 +264,9 @@ facet
 chart.render();
 ```
 
-## Vivid animation capabilities
+## Vivid Animation Capabilities
 
-G2 can draw data-driven animations to achieve the effect of visual storytelling. First, all animation properties (animation type, delay and duration) can be bound to data, such as the following data-driven Gantt chart animation:
+G2 can create data-driven animations to achieve visualization storytelling effects. First, all animation properties (animation type, delay and duration) can be bound to data, such as the data-driven Gantt chart animation below. You can click the run button on the left to see the effect.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -292,14 +291,14 @@ chart
   .encode('x', 'name')
   .encode('y', ['endTime', 'startTime'])
   .encode('color', 'name')
-  .encode('enterDuration', (d) => d.endTime - d.startTime) // Bind animation duration with durationTime.
-  .encode('enterDelay', 'startTime') // Bind enterDelay and startTime
-  .scale('enterDuration', { zero: true, range: [0, 3000] });
+  .encode('enterDuration', (d) => d.endTime - d.startTime) // Animation duration bound to durationTime
+  .encode('enterDelay', 'startTime') // Appearance time bound to startTime
+  .scale('enterDuration', { zero: true, range: [0, 3000] }); // Define scale for enterDuration channel, scale determines how these channels should be visualized
 
 chart.render();
 ```
 
-At the same time, the animation channel can be converted to control the order and time of appearance of data elements. For example, in the rose picture below, each "petal" appears in sequence:
+At the same time, animation channels can be transformed to control the appearance order and timing of data elements. For example, in the rose chart below, each "petal" appears in sequence according to color and order, thanks to the built-in transforms provided by G2. For specific usage, see [stackEnter](/en/manual/core/transform/stack-enter).
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -319,8 +318,8 @@ chart
   .encode('y', 'Death')
   .encode('color', 'Type')
   .transform({ type: 'stackY' })
-  // Appear by order
-  .transform({ type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 })
+  // Appear in sequence
+  .transform({ type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 }) // Try changing groupBy and duration to see what happens
   .scale('y', { type: 'sqrt' })
   .animate('enter', { type: 'waveIn' })
   .axis('y', false);
@@ -328,163 +327,164 @@ chart
 chart.render();
 ```
 
-In addition to animation in a certain view, you can also do continuous deformation animation between different views: graphics are related together through data, such as the transition animation of scatter plots and aggregated bars below:
+In addition to implementing animation effects within a single view, you can also create continuous morphing animations between different views: graphics are linked together through data association, such as the transition animation between scatter plots and aggregated bar charts below:
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
+    // Keyframe container, applies transition animations to views inside
+    const keyframe = chart
+      .timingKeyframe()
+      .attr('direction', 'alternate')
+      .attr('iterationCount', 4);
 
+    // First view: scatter plot
+    keyframe
+      .interval()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'gender')
+      .encode('color', 'gender')
+      .encode('key', 'gender')
+      .transform({ type: 'groupX', y: 'count' });
+
+    // Second view: aggregated bar chart
+    keyframe
+      .point()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'weight')
+      .encode('y', 'height')
+      .encode('color', 'gender')
+      .encode('groupKey', 'gender')
+      .encode('shape', 'point');
+
+    chart.render();
+  });
+```
+
+## Customizable Interaction Capabilities
+
+In addition to providing rich built-in interactions, G2 also provides the ability to link different views through `chart.on` and `chart.emit`, such as the "Focus and Context" capability shown below:
+
+```js | ob
+(() => {
+  const container = document.createElement('div');
+  const focusContainer = document.createElement('div');
+  const contextContainer = document.createElement('div');
+  container.append(focusContainer);
+  container.append(contextContainer);
+
+  // Render focus view
+
+  const focus = new G2.Chart({
+    container: 'container',
+    container: focusContainer,
+    height: 360,
+    paddingLeft: 50,
+  });
+
+  focus
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+    })
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .animate(false)
+    .axis('x', { grid: false, title: false, tickCount: 5 })
+    .axis('y', { grid: false, tickCount: 5 })
+    .interaction('tooltip', false)
+    .interaction('brushXFilter', true);
+
+  focus.render();
+
+  // Render context view
+
+  const context = new G2.Chart({
+    container: 'container',
+    container: contextContainer,
+    paddingLeft: 50,
+    paddingTop: 0,
+    paddingBottom: 0,
+    height: 60,
+  });
+
+  context
+    .area()
+    .data({
+      type: 'fetch',
+      value:
+        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+    })
+    .encode('x', 'date')
+    .encode('y', 'close')
+    .animate(false)
+    .axis(false)
+    .interaction('tooltip', false)
+    .interaction('brushXHighlight', { series: true });
+
+  context.render();
+
+  // Add event listeners to communicate between different charts
+  focus.on('brush:filter', (e) => {
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
+    const { selection } = e.data;
+    const { x: scaleX } = focus.getScale();
+    const [[x1, x2]] = selection;
+    const domainX = scaleX.getOptions().domain;
+    if (x1 === domainX[0] && x2 === domainX[1]) {
+      context.emit('brush:remove', {});
+    } else {
+      context.emit('brush:highlight', { data: { selection } });
+    }
+  });
+
+  context.on('brush:highlight', (e) => {
+    const { nativeEvent, data } = e;
+    if (!nativeEvent) return;
+    const { selection } = data;
+    focus.emit('brush:filter', { data: { selection } });
+  });
+
+  context.on('brush:remove', (e) => {
+    const { nativeEvent } = e;
+    if (!nativeEvent) return;
+    const { x: scaleX, y: scaleY } = context.getScale();
+    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+    focus.emit('brush:filter', { data: { selection } });
+  });
+
+  return container;
+})();
+```
+
+## Two API Styles
+
+G2 provides two styles of APIs: **Functional API** and **Options API**. The former declares charts through a series of chained function calls, while the latter declares charts through a JavaScript object. For example, the scatter plot in [Concise Syntax](#concise-syntax) can be declared using the Options API as follows:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
 });
 
-  // Keyframe container, apply transition animation to the view inside
-  const keyframe = chart
-    .timingKeyframe()
-    .attr('direction', 'alternate')
-    .attr('iterationCount', 4);
-
-  // First view: Scatter plot
-  keyframe
-    .interval()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'gender')
-    .encode('color', 'gender')
-    .encode('key', 'gender')
-    .transform({ type: 'groupX', y: 'count' });
-
-  // Second view: Aggregated bar chart
-  keyframe
-    .point()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('groupKey', 'gender')
-    .encode('shape', 'point');
-
-  chart.render();
-```
-
-## Customized interaction capabilities
-
-In addition to providing rich built-in interactions, G2 also provides the ability to link different views through `chart.on` and `chart.emit` for interactive coordination.interactions between different views, such as the "Focus and Context" ability shown below:
-
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
-
-const container = document.createElement('div');
-const focusContainer = document.createElement('div');
-const contextContainer = document.createElement('div');
-container.append(focusContainer);
-container.append(contextContainer);
-
-// Render focus view
-
-const focus = new Chart({
-  container: 'container',
-  container: focusContainer,
-  height: 360,
-  paddingLeft: 50,
-});
-
-focus
-  .area()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis('x', { grid: false, title: false, tickCount: 5 })
-  .axis('y', { grid: false, tickCount: 5 })
-  .interaction('tooltip', false)
-  .interaction('brushXFilter', true);
-
-focus.render();
-
-// Render context view
-
-const context = new Chart({
-  container: 'container',
-  container: contextContainer,
-  paddingLeft: 50,
-  paddingTop: 0,
-  paddingBottom: 0,
-  height: 60,
-});
-
-context
-  .area()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis(false)
-  .interaction('tooltip', false)
-  .interaction('brushXHighlight', { series: true });
-
-context.render();
-
-// Add event listeners for communication between different charts.
-focus.on('brush:filter', (e) => {
-  const { nativeEvent } = e;
-  if (!nativeEvent) return;
-  const { selection } = e.data;
-  const { x: scaleX } = focus.getScale();
-  const [[x1, x2]] = selection;
-  const domainX = scaleX.getOptions().domain;
-  if (x1 === domainX[0] && x2 === domainX[1]) {
-    context.emit('brush:remove', {});
-  } else {
-    context.emit('brush:highlight', { data: { selection } });
-  }
-});
-
-context.on('brush:highlight', (e) => {
-  const { nativeEvent, data } = e;
-  if (!nativeEvent) return;
-  const { selection } = data;
-  focus.emit('brush:filter', { data: { selection } });
-});
-
-context.on('brush:remove', (e) => {
-  const { nativeEvent } = e;
-  if (!nativeEvent) return;
-  const { x: scaleX, y: scaleY } = context.getScale();
-  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
-  focus.emit('brush:filter', { data: { selection } });
-});
-
-return container;
-```
-
-## Two API styles
-
-G2 provides two styles of API: **Functional API** and **Optional API** . The former declares the chart through a series of function chain calls, and the latter declares the chart through a JavaScript object. For example in [concise syntax](#concise-syntax), if you use the optional API, the scatter plot in can be declared as follows:
-
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-});
-
-// Declare the chart via the options API
+// Declare chart through Options API
 chart.options({
   type: 'point',
   data: {
@@ -502,9 +502,11 @@ chart.options({
 chart.render();
 ```
 
-You can find that the charts drawn by the two are exactly the same! In fact, this is indeed true: the visual expression capabilities of the two APIs are the same. In other words, diagrams that can be drawn by the functional API can also be drawn by the optional API, and vice versa. In terms of implementation, the functional API is built on the optional API, which is converted into the corresponding JavaScript and then rendered.
+You can see that the two produce identical charts! In fact, this is true: the visualization expression capabilities of both APIs are the same. In other words, charts that can be drawn with the Functional API can also be drawn with the Options API, and vice versa. From an implementation perspective, the Functional API is built on top of the Options API and is converted to corresponding JavaScript before rendering.
 
-The choice between the two is more of a matter of style: if you are familiar with D3, like functional programming, or are an old user of G2, you can choose the functional API; if you have just started using G2 and are exposed to visualization, then the optional API is recommended API. Of course, if you are packaging your own chart library based on G2, it is recommended to use the optional API. However, there is a best practice: use the option API when initializing the chart, and use the functional API when updating the chart.
+The choice between the two is more a matter of style: if you are familiar with D3, or prefer functional programming, or are an old G2 user, you can choose the Functional API; if you are just starting to use G2 and getting into visualization, then the Options API is recommended. Of course, if you are building your own chart library based on G2, then the Options API is recommended. However, there is one best practice: use the Options API when initializing charts, and use the Functional API when updating charts.
+
+For more content, please read [Spec and API](/en/manual/introduction/experimental-spec-api).
 
 ```js | ob
 (() => {
@@ -512,8 +514,8 @@ The choice between the two is more of a matter of style: if you are familiar wit
 
   const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-  //Initialize chart
-  //Use optional API
+  // Initialize chart
+  // Use Options API
   chart.options({
     type: 'interval',
     data: mock(),
@@ -526,11 +528,11 @@ The choice between the two is more of a matter of style: if you are familiar wit
 
   chart.render();
 
-  //Update chart
-  // Use functional API
+  // Update chart
+  // Use Functional API
   const button = document.createElement('button');
   button.style.display = 'block';
-  button.textContent = 'Update data';
+  button.textContent = 'Update Data';
   button.onclick = () => {
     const interval = chart.getNodeByType('interval'); // Get interval
     interval.data(mock()); // Update interval data
@@ -539,19 +541,20 @@ The choice between the two is more of a matter of style: if you are familiar wit
 
   const node = chart.getContainer();
   node.insertBefore(button, node.childNodes[0]);
-
   return node;
 })();
 ```
 
-## Can be combined
+## Composable
 
-G2 provides a simple compound mark mechanism for enhancing charts or customizing charts. For example, composite point, line and area mark, you can use the built-in mark just like any built-in mark.
+G2 provides a simple composite mark mechanism for enhancing charts or customizing charts. For example, compositing Point, Line, and Area.
+
+For more content, please read [Composition](/en/manual/core/composition/overview).
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-//Declare composite mark
+// Define composite mark
 function PointLineArea({ data, encode = {}, style = {} } = {}) {
   const { fillOpacity = 0.1 } = style;
   return [
@@ -570,7 +573,7 @@ const chart = new Chart({
   container: 'container',
 });
 
-// The usage of composite mark in API
+// Use composite mark via API
 chart
   .mark(PointLineArea)
   .data([
@@ -587,7 +590,7 @@ chart
   .encode('x', 'year')
   .encode('y', 'value');
 
-// Using composite mark in Spec
+// Use composite mark via Spec
 chart.options({
   type: PointLineArea,
   data: [
@@ -607,16 +610,16 @@ chart.options({
 chart.render();
 ```
 
-Composite mark makes it easier to add charts based on G2 and simpler to maintain. At the same time, some marks within G2 are also implemented based on this method.
+Composite marks make it easier to add chart capabilities based on G2 and simpler to maintain, and some marks within G2 are also implemented based on this approach.
 
-## Scalable
+## Extensible
 
-G2 is an architecture built by **Runtime** and a series of **Visual component (Component)** constituted. The runtime is mainly responsible for completing data mapping, creation and inference of scales, etc., as well as cascading visualization components. Different visualization components have different functions, such as Scale for mapping data and Shape for drawing mapped graphics. Here's how to customize a triangular bar chart:
+G2's architecture consists of a **Runtime** and a series of **visualization components**. The runtime is mainly responsible for completing data mapping, scale creation and inference, etc., as well as connecting visualization components. Different visualization components have different functions, such as scales for mapping data and shapes for drawing mapped graphics. The following shows how to customize a triangular bar chart:
 
 ```js | ob { autoMount: true }
 import { register, Chart } from '@antv/g2';
 
-// Customize a triangle shape
+// Custom triangle shape
 register('shape.interval.triangle', (style, context) => {
   const { document } = context;
   return (P, value, defaults) => {
@@ -650,14 +653,14 @@ chart
   .encode('x', 'genre')
   .encode('y', 'sold')
   .encode('color', 'genre')
-  .encode('shape', 'triangle'); // Using this shape
+  .encode('shape', 'triangle'); // Use this shape
 
 chart.render();
 ```
 
-## Pack on demand
+## Tree Shaking
 
-The visual components available in G2 Runtime are organized through Library. Library is essentially a JavaScript object as follows:
+Visualization components available to G2 Runtime are organized through libraries. A library is essentially a JavaScript object like the following:
 
 ```js
 const library = {
@@ -667,14 +670,14 @@ const library = {
 };
 ```
 
-Therefore, on-demand packaging can be achieved by modifying the library and the packaging tool Tree Shaking, thereby reducing the package size. For example, if you only need to draw some simple charts in your project, and do not need to draw geography (GeoPath), graphs (ForceGraph) or advanced statistical charts (Sankey), then you can customize your own Chart object as follows:
+So you can achieve tree shaking by modifying the library and using the tree shaking capability of bundling tools, thereby reducing bundle size. For example, if your project only needs to draw some simple charts and doesn't need to draw geographic (GeoPath), graph (ForceGraph) or advanced statistical charts (Sankey), then you can customize your own Chart object as follows:
 
 ```js
 import { Runtime, corelib, extend } from '@antv/g2';
 
-//Extend Runtime based on corelib
-// 1. Add type (if using TypeScript)
-// 2. Add mark
+// Extend Runtime based on corelib
+// 1. Add types (if using TypeScript)
+// 2. Add marks
 const Chart = extend(Runtime, { ...corelib() });
 
 const chart = new Chart({ container: 'container' });
@@ -695,12 +698,12 @@ chart
 chart.render();
 ```
 
-If you wish to draw a geographical chart, you can do the following:
+If you want to draw geographic charts, you can do the following:
 
 ```js
 import { Runtime, corelib, geolib, extend } from '@antv/g2';
 
-// Ability to use two libs at the same time
+// Use capabilities from both libraries
 const Chart = extend(Runtime, { ...corelib, ...geolib });
 
 const chart = new Chart({ container: 'container' });

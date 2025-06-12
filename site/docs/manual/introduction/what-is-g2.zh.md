@@ -209,42 +209,43 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
+    const keyframe = chart
+      .timingKeyframe()
+      .attr('direction', 'alternate')
+      .attr('iterationCount', 4);
 
+    keyframe
+      .interval()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'gender')
+      .encode('color', 'gender')
+      .encode('key', 'gender')
+      .transform({ type: 'groupX', y: 'count' });
 
-const chart = new Chart({
-  container: 'container',
-});
+    keyframe
+      .point()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'weight')
+      .encode('y', 'height')
+      .encode('color', 'gender')
+      .encode('groupKey', 'gender')
+      .encode('shape', 'point');
 
-  const keyframe = chart
-    .timingKeyframe()
-    .attr('direction', 'alternate')
-    .attr('iterationCount', 4);
-
-  keyframe
-    .interval()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'gender')
-    .encode('color', 'gender')
-    .encode('key', 'gender')
-    .transform({ type: 'groupX', y: 'count' });
-
-  keyframe
-    .point()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('groupKey', 'gender')
-    .encode('shape', 'point');
-
-  chart.render();
+    chart.render();
+  });
 ```
 
 ## 交互（Interaction）

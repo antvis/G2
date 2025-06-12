@@ -9,7 +9,7 @@ order: 1
 
 下面是一个基本的 G2 图表，图表由 **组件（Component）** 和 **标记（Mark）** 组成。
 
-需要特别注意的是，G2 5.0 中不再需要单独配置标注（Annotation） ，标注也是一种标记，或者说某些标记也也可以用来做标注，比如 Text，Image， Line 等标记。
+需要特别注意的是，G2 5.0 中不再需要单独配置标注（Annotation），标注也是一种标记，或者说某些标记也可以用来做标注，比如 Text，Image， Line 等标记。
 
 <img alt="chart-component" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-8XRSYHZ8S8AAAAAAAAAAAAAemJ7AQ/original" width=900/>
 
@@ -200,7 +200,7 @@ G2 内部对于图表显示区域设置了一个兜底机制，当视图中存�
 
 #### autoFit
 
-如果希望图表的宽高和容器保持一致，那么可以将 `options.autoFit` 设置为 `true`，其优先级比指定宽高高。
+如果希望图表的宽高和容器保持一致，那么可以将 `options.autoFit` 设置为 `true`，其优先级比指定宽高低。
 
 ```js
 ({ type: 'view', autoFit: true });

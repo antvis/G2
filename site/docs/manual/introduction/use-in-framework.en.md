@@ -1,13 +1,13 @@
 ---
-title: Use In Framework
+title: Using in Frontend Frameworks
 order: 3
 ---
 
-Here is a brief introduction to how to use G2 in some front-end frameworks. We will use different frameworks to achieve the following update effects of bar chart.
+Here's a brief introduction to using G2 in various frontend frameworks. We'll implement the following bar chart update effect using different frameworks.
 
 <img src="https://gw.alipayobjects.com/zos/raptor/1670210808073/framework-example.gif" width="640" alt="framework">
 
-Achieving this effect mainly relies on the following two functions.
+This effect is mainly achieved through the following two functions.
 
 ```js
 // Render bar chart
@@ -27,12 +27,12 @@ function renderBarChart(container) {
 
   // Declare visualization
   chart
-    .interval() // Create an Interval tag
+    .interval() // Create an Interval mark
     .data(data) // Bind data
     .encode('x', 'genre') // Encode x channel
     .encode('y', 'sold') // Encode y channel
     .encode('key', 'genre') // Specify key
-    .animate('update', { duration: 300 }); // Specify the time to update the animation
+    .animate('update', { duration: 300 }); // Specify update animation duration
 
   // Render visualization
   chart.render();
@@ -42,9 +42,9 @@ function renderBarChart(container) {
 ```
 
 ```js
-//Update bar chart data
+// Update bar chart data
 function updateBarChart(chart) {
-  // Get Interval Mark
+  // Get the Interval Mark
   const interval = chart.getNodesByType('interval')[0];
 
   // Simulate and update Interval data
@@ -60,13 +60,13 @@ function updateBarChart(chart) {
 }
 ```
 
-It should be noted here that in the framework, it is not recommended to use the `new Chart({ container: 'id' })` to specify the container. Instead, use the HTML element directly as the container: `new Chart({ container: HTMLContainer })`. This is to prevent problems where different components have the same id and cannot be rendered predictably.
+Note that in frameworks, it's not recommended to use `new Chart({ container: 'id' })` to specify the container. Instead, use the HTML element directly as the container: `new Chart({ container: HTMLContainer })`. This prevents issues with different components having the same ID, which could lead to unexpected rendering problems.
 
-Next, let's take a look at how to use these two functions in the framework.
+Next, let's see how to use these two functions in frameworks.
 
 ## Vue
 
-In Vue, the first step is to import the defined `G2Demo` component.
+In Vue, first import the defined `G2Demo` component.
 
 ```html
 <!-- App.vue -->
@@ -90,7 +90,7 @@ In Vue, the first step is to import the defined `G2Demo` component.
 
 ### Options API
 
-If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuejs/core) options API, you can define the `G2Demo` component as follows, complete code reference [here](https://stackblitz.com/edit/vitejs-vite-m9ycn2z5?file=src%2Fcomponents%2FG2Demo.vue).
+If you're using [Vue2](https://github.com/vuejs/vue) or [Vue3](https://github.com/vuejs/core) Options API, you can define the `G2Demo` component as follows. For complete code, refer to [here](https://stackblitz.com/edit/vitejs-vite-m9ycn2z5?file=src%2Fcomponents%2FG2Demo.vue).
 
 ```html
 <!-- components/G2Demo.vue -->
@@ -105,22 +105,22 @@ If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuej
   import { Chart } from '@antv/g2';
 
   function renderBarChart(container) {
-    // as shown above
+    // As above
   }
 
   function updateBarChart(chart) {
-    // as shown above
+    // As above
   }
 
   export default {
     name: 'G2Demo',
     props: {},
     mounted() {
-      // save the bar chart instance
+      // Save chart instance
       this.chart = renderBarChart(this.$refs.container);
     },
     unmounted() {
-      // destroy the chart instance
+      // Clean up chart instance
       this.chart.destroy();
     },
     methods: {
@@ -134,7 +134,7 @@ If using [Vue2](https://github.com/vuejs/vue) and [Vue3](https://github.com/vuej
 
 ### Composition API
 
-If you use the composition API of Vue3, the implementation is as follows, complete code reference [here](https://stackblitz.com/edit/vitejs-vite-xnjhfj6f?file=src%2Fcomponents%2FG2Demo.vue).
+If you're using Vue3 Composition API, the implementation is as follows. For complete code, refer to [here](https://stackblitz.com/edit/vitejs-vite-xnjhfj6f?file=src%2Fcomponents%2FG2Demo.vue).
 
 ```html
 <script setup>
@@ -158,11 +158,11 @@ If you use the composition API of Vue3, the implementation is as follows, comple
   }
 
   function renderBarChart(container) {
-    // as above
+    // As above
   }
 
   function updateBarChart(chart) {
-    // as above
+    // As above
   }
 </script>
 
@@ -176,7 +176,7 @@ If you use the composition API of Vue3, the implementation is as follows, comple
 
 ## React
 
-In [React](https://github.com/facebook/react), the first step is also to import the defined `G2Demo` component.
+In [React](https://github.com/facebook/react), first import the defined `G2Demo` component.
 
 ```js
 import './styles.css';
@@ -191,7 +191,7 @@ export default function App() {
 }
 ```
 
-Next, define the `G2Demo` component, complete code reference [here](https://stackblitz.com/edit/vitejs-vite-qbgzwdht?file=src%2Fcomponents%2FG2Demo.jsx).
+Next, define the `G2Demo` component. For complete code, refer to [here](https://stackblitz.com/edit/vitejs-vite-qbgzwdht?file=src%2Fcomponents%2FG2Demo.jsx).
 
 ```js
 import { Chart } from '@antv/g2';
@@ -213,11 +213,11 @@ export default function G2Demo() {
   }, []);
 
   function renderBarChart(container) {
-    // as above
+    // As above
   }
 
   function updateBarChart(chart) {
-    // as above
+    // As above
   }
 
   return (

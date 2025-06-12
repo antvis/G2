@@ -398,7 +398,7 @@ chart.render();
 
 ##### 问题案例
 
-当一个图有多个小的图形组成，如果每个小图形都映射有一个 `label` 标签都话，就会出现重叠和图表不清的情况。比如旭日图、矩阵树图等。
+当一个图有多个小的图形组成，如果每个小图形都映射有一个 `label` 标签都话，就会出现重叠和图表不清的情况。比如旭日图、矩形树图等。
 
 <img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PTxzSqaZKtwAAAAAAAAAAAAAemJ7AQ/original' width='50%' />
 <img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LeNnSZqTtlYAAAAAAAAAAAAAemJ7AQ/original' width='50%' />

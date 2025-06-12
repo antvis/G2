@@ -16,7 +16,11 @@ order: 9
 - 时间序列与类别分析：将时间（如小时、天、周）与类别数据结合，用于分析时序模式或分类分布。
 
 ```js | ob { autoMount: true }
-const chart = new g2.Chart();
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: 'heatmap', // 子组件类型为热力图

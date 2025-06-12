@@ -3,19 +3,19 @@ title: What is G2
 order: 1
 ---
 
-**G2** It is a concise progressive syntax mainly used for making web-based visualizations. It provides a set of functional style, declarative API and component programming paradigm, hoping to help users quickly complete **dashboard building** 、**data exploration** 、**storytelling** and other diverse needs.
+**G2** is a concise and progressive grammar primarily for creating web-based visualizations. It provides a set of functional-style, declarative APIs and a component-based programming paradigm, aiming to help users quickly accomplish diverse needs such as **report building**, **data exploration**, and **storytelling**.
 
-This article will give you a brief introduction to the core concepts of G2:
+This article will briefly introduce the core concepts of G2:
 
 - **Mark**: Draw data-driven graphics
-- **Transform**: Derived data
-- **Scale**: Mapping abstract data into visual data
-- **Coordinate system**: applies point transformation to the spatial channel
-- **View composition (Composition)**: Manage and enhance views
-- **Animation**: Data-driven animation and continuous deformation animation
-- **Interaction**: Manipulate the view and display detailed information
+- **Transform**: Derive data
+- **Scale**: Map abstract data to visual data
+- **Coordinate**: Apply point transformations to spatial channels
+- **Composition**: Manage and enhance views
+- **Animation**: Data-driven animations and continuous morphing animations
+- **Interaction**: Manipulate views and display detailed information
 
-"Talk is cheap, show me the code", then let's take a look at what visualization effects G2 can make based on the following simple data set.
+"Talk is cheap, show me the code" - let's see what visualizations G2 can create based on the simple dataset below.
 
 ```js | ob {  pin: false , autoMount: true }
 table({
@@ -23,23 +23,23 @@ table({
 });
 ```
 
-:::info{title=Tips}
-In the documentation on the G2 official website, specific code blocks will mount the DOM they return and display them on the web page.
+:::info{title=Tip}
+In the G2 official documentation, specific code blocks will mount their returned DOM and display it on the webpage.
 
 ```js
 (() => {
   const chart = new G2.Chart();
   // ...
-  return chart.getContainer(); // Mount the container for the chart
+  return chart.getContainer(); // Mount the chart container
 })();
 ```
 
-This is the syntax for a specific operating environment on the G2 official website. Please refer to G2 when using it in actual projects.[Get Started](/manual/quick-start)。
+This is the syntax for G2's specific runtime environment on the official website. For using G2 in actual projects, please refer to [Quick Start](/en/manual/quick-start).
 :::
 
 ## Mark
 
-**Mark** It is the smallest visual unit in G2. All charts in G2 are composed of different markers.
+**Mark** is the smallest visual unit in G2, and all charts in G2 are composed of different marks.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -63,7 +63,7 @@ chart.render();
 
 ## Transform
 
-**Transform** will change the display form of data and marks, and is mostly used for data analysis.
+**Transform** changes the presentation of data and marks, mainly used for data analysis.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -89,7 +89,7 @@ chart.render();
 
 ## Scale
 
-**Scale** is used to control the visual style of markup.
+**Scale** controls the visual style of marks.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -115,9 +115,9 @@ chart
 chart.render();
 ```
 
-## Coordinate system
+## Coordinate
 
-**Coordinate System** will change the display format of the chart.
+**Coordinate** changes the display form of charts.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -145,9 +145,9 @@ chart
 chart.render();
 ```
 
-## View composition (Composition)
+## Composition
 
-**View composition** is used to create multi-view diagrams.
+**Composition** is used to create multi-view charts.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -180,7 +180,7 @@ chart.render();
 
 ## Animation
 
-**Animation** supports group animation and keyframe animation. You can click the run button on the left to see the effect.
+**Animation** supports group animations and keyframe animations. You can click the run button on the left to see the effect.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -209,47 +209,48 @@ chart.render();
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
+    const keyframe = chart
+      .timingKeyframe()
+      .attr('direction', 'alternate')
+      .attr('iterationCount', 4);
 
+    keyframe
+      .interval()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'gender')
+      .encode('color', 'gender')
+      .encode('key', 'gender')
+      .transform({ type: 'groupX', y: 'count' });
 
-const chart = new Chart({
-  container: 'container',
-});
+    keyframe
+      .point()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'weight')
+      .encode('y', 'height')
+      .encode('color', 'gender')
+      .encode('groupKey', 'gender')
+      .encode('shape', 'point');
 
-  const keyframe = chart
-    .timingKeyframe()
-    .attr('direction', 'alternate')
-    .attr('iterationCount', 4);
-
-  keyframe
-    .interval()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'gender')
-    .encode('color', 'gender')
-    .encode('key', 'gender')
-    .transform({ type: 'groupX', y: 'count' });
-
-  keyframe
-    .point()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('groupKey', 'gender')
-    .encode('shape', 'point');
-
-  chart.render();
+    chart.render();
+  });
 ```
 
 ## Interaction
 
-Interactions can explore data on demand.
+Interaction allows for on-demand data exploration.
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
@@ -283,6 +284,6 @@ chart
 chart.render();
 ```
 
-## More capabilities
+## More Capabilities
 
-Because G2's marks are composable and provide a mechanism for creating composite marks to extend G2, you can quickly create virtually any visualization. On the [Case page](/examples), you can find more inspiration, and the documentation offers a comprehensive understanding of G2's capabilities.
+Because G2's marks are composable and provide **composite mark** mechanisms to extend G2, you can basically quickly draw any visualization. On the [examples page](/en/examples), you can get more inspiration and learn about G2's full capabilities through the documentation.

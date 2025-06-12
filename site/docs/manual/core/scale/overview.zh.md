@@ -605,3 +605,87 @@ chart.options({
 
 chart.render();
 ```
+
+## 比例尺类型推断
+
+G2 具备智能的 scale 类型推断能力，当用户没有明确指定 scale 类型时，会根据数据特征和通道特性自动选择最适合的 scale 类型。推断机制遵循以下优先级规则：
+
+### 推断优先级
+
+**1. 显式指定优先级最高**
+
+如果用户在 scale 配置中明确指定了 `type` 属性，G2 会直接使用该类型，跳过所有自动推断逻辑。
+
+**2. 特殊数据类型判断**
+
+G2 会首先检查数据的特殊性质：
+
+- **对象类型数据**：如果数据包含严格对象（非 Date、非 null、非数组的对象），使用 `identity` 比例尺。
+
+```ts
+export function isStrictObject(d: any): boolean {
+  return (
+    typeof d === 'object' &&
+    !(d instanceof Date) &&
+    d !== null &&
+    !Array.isArray(d)
+  );
+}
+```
+
+- **字符串类型 range**：当 range 参数是字符串时，使用 `linear` 比例尺。
+- **多值域/定义域**：当 domain 或 range 数组长度超过 2 时，推断为分类比例尺。
+
+**3. 基于定义域(domain)的推断**
+
+当提供了 domain 参数时：
+
+- 如果 domain 包含字符串或布尔值，推断为分类比例尺。
+- 如果数据包含 Date 对象，使用 `time` 比例尺。
+- 其他情况推断为连续比例尺。
+
+**4. 基于数据值的自动推断**
+
+当没有 domain 参数时，G2 会分析实际数据：
+
+- **分类型检测**：数据中包含字符串或布尔值时，推断为分类比例尺。
+- **时间类型检测**：数据中包含 Date 对象时，使用 `time` 比例尺。
+- **其他情况**：推断为连续型比例尺。
+
+### 进一步推断
+
+当推断为分类比例尺时，G2 会根据通道名称进一步细分：
+
+- 对于定量通道（x、y、position、size 开头的通道），使用 `point` 比例尺。
+- 其他通道使用 `ordinal` 比例尺。
+
+当推断为连续比例尺时：
+
+- 对于非颜色通道，使用 `linear` 比例尺。
+- 对于颜色通道：
+  - 有 range 参数时使用 `linear` 比例尺。
+  - 无 range 参数时使用 `sequential` 比例尺。（ sequential 比例尺构造可创建一个在输入和输出之间通过插值函数进行转换的比例尺，内部比例尺处理时使用）
+
+### 示例说明
+
+```js
+// 字符串数据 → ordinal scale
+chart.interval().encode('x', 'category'); // category: ['A', 'B', 'C']
+
+// 数值数据 → linear scale
+chart.line().encode('y', 'value'); // value: [10, 20, 30]
+
+// 时间数据 → time scale
+chart.line().encode('x', 'date'); // date: [new Date('2023-01-01'), ...]
+
+// 定量通道的字符串数据 → point scale
+chart.interval().encode('x', 'month'); // month: ['Jan', 'Feb', 'Mar']
+
+// 显式指定优先级最高
+chart.interval().scale('y', { type: 'log' }); // 强制使用 log scale
+
+// 多值 range → 推断为分类型
+chart.point().scale('color', {
+  range: ['red', 'green', 'blue', 'yellow'], // 4个值，推断为 ordinal
+});
+```

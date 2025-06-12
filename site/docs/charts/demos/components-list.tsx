@@ -13,7 +13,7 @@ const GRAPH_USAGES_MAP = new Map(GRAPH_USAGES.map((g) => [g.id, g]));
 
 // 全局样式：隐藏页面标题
 const GlobalStyle = createGlobalStyle`
- [class*="contentTitle"] {
+ .ant-layout-content > div > h1:first-child {
     display: none !important;
   }
 `;
@@ -209,10 +209,24 @@ export default () => {
   }, []);
 
   const metaList = React.useMemo(() => {
-    const path = lang === LANGUAGE_MAP.ZH ? '/charts' : `/${lang}/charts`;
-    return Array.isArray(data?.[path]?.[0]?.children)
-      ? data[path][0].children
+    const chartsPath = lang === LANGUAGE_MAP.ZH ? '/charts' : `/${lang}/charts`;
+    const todoPath =
+      lang === LANGUAGE_MAP.ZH ? '/charts/todo' : `/${lang}/charts/todo`;
+
+    const chartsData = Array.isArray(data?.[chartsPath]?.[0]?.children)
+      ? data[chartsPath][0].children
       : [];
+    const todoData = Array.isArray(data?.[todoPath]?.[0]?.children)
+      ? data[todoPath][0].children
+      : [];
+
+    // 将todo数据标记为来自todo文件夹
+    const markedTodoData = todoData.map((item) => ({
+      ...item,
+      _isTodo: true,
+    }));
+
+    return [...chartsData, ...markedTodoData];
   }, [data, lang]);
 
   const searchOptions = React.useMemo(() => {
@@ -229,6 +243,7 @@ export default () => {
           if (
             hint.link &&
             hint.link.startsWith(chartPath) &&
+            !hint.link.includes('/todo/') &&
             hint.highlightTitleTexts
           ) {
             // 检查标题中是否有高亮的匹配字符
@@ -323,7 +338,12 @@ export default () => {
           );
         })
         .map((meta) => {
-          const { frontmatter = {}, link = '', title: metaTitle } = meta;
+          const {
+            frontmatter = {},
+            link = '',
+            title: metaTitle,
+            _isTodo = false,
+          } = meta;
           const { title: fmTitle, screenshot, category = [] } = frontmatter;
           const categoryList = category
             .map((tagId) => GRAPH_USAGES_MAP.get(tagId))
@@ -338,6 +358,7 @@ export default () => {
                 screenshot={screenshot}
                 link={link}
                 categoryList={categoryList}
+                disabled={_isTodo}
               />
             </Col>
           );

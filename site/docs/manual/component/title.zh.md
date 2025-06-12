@@ -190,7 +190,7 @@ chart.render();
 
 | 属性               | 描述                | 类型                                             | 默认值      |
 | ------------------ | ------------------- | ------------------------------------------------ | ----------- |
-| title              | 图表标题文字内容    | `number` \| `(datum, index, data) => number`     | -           |
+| title              | 图表标题文字内容    | `string` \| `(datum, index, data) => string`     | -           |
 | titleFontSize      | 图表标题字体大小    | `number` \| `(datum, index, data) => number`     | 14          |
 | titleFontFamily    | 图表标题字体类型    | `string` \| `(datum, index, data) => string`     | sans-serif  |
 | titleFontWeight    | 图表标题字体粗细    | `string` \| `(datum, index, data) => string`     | normal      |
@@ -216,7 +216,7 @@ chart.render();
 
 | 属性                  | 描述                  | 类型                                             | 默认值      |
 | --------------------- | --------------------- | ------------------------------------------------ | ----------- |
-| subtitle              | 图表副标题文本        | `number` \| `(datum, index, data) => number`     | 12          |
+| subtitle              | 图表副标题文本        | `string` \| `(datum, index, data) => string`     | 12          |
 | subtitleFontSize      | 图表副标题字体大小    | `number` \| `(datum, index, data) => number`     | 12          |
 | subtitleFontFamily    | 图表副标题字体类型    | `string` \| `(datum, index, data) => string`     | sans-serif  |
 | subtitleFontWeight    | 图表副标题字体粗细    | `string` \| `(datum, index, data) => string`     | normal      |
