@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Flex, Card } from 'antd';
 import { FileExclamationOutlined } from '@ant-design/icons';
 import { styled } from 'styled-components';
-import { useNavigate } from 'dumi';
+import { useNavigate, useLocale } from 'dumi';
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -54,6 +54,11 @@ const StyledCard = styled(Card)`
 const ChartCard: React.FC = (props) => {
   const { title, screenshot, link, categoryList, disabled = false } = props;
   const navigate = useNavigate();
+  const { id: lang } = useLocale();
+
+  const getDisabledText = () => {
+    return lang === 'zh' ? '相关文档待补充' : 'Documentation to be added';
+  };
 
   const handleClick = () => {
     if (!disabled) {
@@ -86,7 +91,7 @@ const ChartCard: React.FC = (props) => {
         <div className="disabled-overlay">
           <div className="disabled-text">
             <FileExclamationOutlined style={{ marginRight: 6 }} />
-            相关文档待补充
+            {getDisabledText()}
           </div>
         </div>
       )}
