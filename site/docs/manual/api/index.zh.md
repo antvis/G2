@@ -1621,7 +1621,7 @@ chart.render();
 
 ### view.treemap()
 
-添加 [treemap](/manual/extra-topics/graph/treemap) 图形。矩阵树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。
+添加 [treemap](/manual/extra-topics/graph/treemap) 图形。矩形树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。
 
 <img alt="treemap" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BD2zQIr7D5MAAAAAAAAAAAAADmJ7AQ/original
 " width="600" />
