@@ -216,21 +216,22 @@ chart.emit('brush:highlight', { data: { selection } });
   container.append(contextContainer);
 
   function createPathRender(compute) {
-  return (group, options, document) => {
-    if (!group.handle) {
-      const path = document.createElement('path');
-      group.handle = path;
-      group.appendChild(group.handle);
-    }
-    const { handle } = group;
-    const { x, y, width, height, ...rest } = options;
-    if (width === undefined || height === undefined) return handle;
-    handle.attr({ ...compute(x, y, width, height), ...rest });
-    return handle;
-  };
-}
+    return (group, options, document) => {
+      if (!group.handle) {
+        const path = document.createElement('path');
+        group.handle = path;
+        group.appendChild(group.handle);
+      }
+      const { handle } = group;
+      const { x, y, width, height, ...rest } = options;
+      if (width === undefined || height === undefined) return handle;
+      handle.attr({ ...compute(x, y, width, height), ...rest });
+      return handle;
+    };
+  }
 
   // 渲染 focus 视图
+
   const focus = new G2.Chart({
     container: focusContainer,
     height: 360,
@@ -255,7 +256,9 @@ chart.emit('brush:highlight', { data: { selection } });
   focus.render();
 
   // 渲染 context 视图
+
   const context = new G2.Chart({
+    container: 'container',
     container: contextContainer,
     paddingLeft: 50,
     paddingTop: 0,

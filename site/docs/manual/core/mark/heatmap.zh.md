@@ -15,25 +15,25 @@ order: 9
 - 密度分析：展示二维数据的密度分布，常用于观察热点区域，例如在地理空间数据中用于分析人群聚集分布。
 - 时间序列与类别分析：将时间（如小时、天、周）与类别数据结合，用于分析时序模式或分类分布。
 
-```js | ob
-(() => {
-  const chart = new g2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'heatmap', // 子组件类型为热力图
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
-    },
-    encode: { x: 'g', y: 'l', color: 'tmp' }, // 数据编码配置，x 轴为 'g'，y 轴为 'l'，颜色为 'tmp'
-    style: { opacity: 0 }, // 热力图的透明度为 0
-    tooltip: false,
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'heatmap', // 子组件类型为热力图
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
+  },
+  encode: { x: 'g', y: 'l', color: 'tmp' }, // 数据编码配置，x 轴为 'g'，y 轴为 'l'，颜色为 'tmp'
+  style: { opacity: 0 }, // 热力图的透明度为 0
+  tooltip: false,
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 热力图](/examples#general-heatmap)页面。
@@ -103,42 +103,38 @@ const gradient =
 
 - 可以创建一个容器视图，将热力图与地图同时渲染，直观呈现数据在地理位置的差异
 
-```js | ob {pin: false}
-(() => {
-  const chart = new g2.Chart();
+```js | ob { pin: false, autoMount: true }
+const chart = new g2.Chart();
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    padding: 0,
-    axis: false,
-    children: [
-      {
-        type: 'image',
-        style: {
-          src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
-          x: '50%',
-          y: '50%',
-          width: '100%',
-          height: '100%',
-        },
-        tooltip: false,
+chart.options({
+  type: 'view',
+  autoFit: true,
+  padding: 0,
+  axis: false,
+  children: [
+    {
+      type: 'image',
+      style: {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
+        x: '50%',
+        y: '50%',
+        width: '100%',
+        height: '100%',
       },
-      {
-        type: 'heatmap',
-        data: {
-          type: 'fetch',
-          value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
-        },
-        encode: { x: 'g', y: 'l', color: 'tmp' },
-        style: { opacity: 0 },
-        tooltip: false,
+      tooltip: false,
+    },
+    {
+      type: 'heatmap',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
       },
-    ],
-  });
+      encode: { x: 'g', y: 'l', color: 'tmp' },
+      style: { opacity: 0 },
+      tooltip: false,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

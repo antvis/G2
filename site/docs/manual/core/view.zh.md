@@ -25,25 +25,26 @@ order: 3
 
 视图支持丰富的配置项，涵盖数据、编码、坐标、样式、交互等各个方面。其配置项与顶层 Chart 基本一致，常用如下：
 
-| 配置项      | 说明                   | 类型         | 作用范围/继承关系         |
-| ----------- | ---------------------- | ------------ | ------------------------ |
-| data        | 数据源                 | array/object | view 及其所有 children   |
-| encode      | 数据到视觉通道的映射   | object       | view 及其所有 children   |
-| scale       | 视觉通道的比例尺       | object       | 可继承/覆盖（view/mark） |
-| transform   | 数据变换               | array        | 可继承/覆盖（view/mark） |
-| coordinate  | 坐标系配置             | object       | 可继承/覆盖（view/mark） |
-| style       | 视图区域样式           | object       | 仅本 view                |
-| axis        | 坐标轴配置             | object       | 可继承/覆盖（view/mark） |
-| legend      | 图例配置               | object       | 可继承/覆盖（view/mark） |
-| tooltip     | 提示框配置             | object       | 仅本 view                |
-| interaction | 交互配置               | object       | 可继承/覆盖（view/mark） |
-| theme       | 主题配置               | object       | 可继承/覆盖              |
-| children    | 子标记（marks）或视图  | array        | 仅本 view                |
+| 配置项      | 说明                  | 类型         | 作用范围/继承关系        |
+| ----------- | --------------------- | ------------ | ------------------------ |
+| data        | 数据源                | array/object | view 及其所有 children   |
+| encode      | 数据到视觉通道的映射  | object       | view 及其所有 children   |
+| scale       | 视觉通道的比例尺      | object       | 可继承/覆盖（view/mark） |
+| transform   | 数据变换              | array        | 可继承/覆盖（view/mark） |
+| coordinate  | 坐标系配置            | object       | 可继承/覆盖（view/mark） |
+| style       | 视图区域样式          | object       | 仅本 view                |
+| axis        | 坐标轴配置            | object       | 可继承/覆盖（view/mark） |
+| legend      | 图例配置              | object       | 可继承/覆盖（view/mark） |
+| tooltip     | 提示框配置            | object       | 仅本 view                |
+| interaction | 交互配置              | object       | 可继承/覆盖（view/mark） |
+| theme       | 主题配置              | object       | 可继承/覆盖              |
+| children    | 子标记（marks）或视图 | array        | 仅本 view                |
 
-**说明：**  
+**说明：**
+
 - `data`、`encode`、`scale`、`axis`、`legend`、`transform`、`coordinate`、`interaction` 等配置在 view 层级设置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
 - 其他如 `style`、`tooltip` 仅作用于当前 view。
-**完整配置示例：**
+  **完整配置示例：**
 
 ```js
 ({
@@ -60,9 +61,9 @@ order: 3
   axis: { y: { grid: true } },
   legend: { color: { position: 'top' } },
   tooltip: {
-  title: { field: 'type' },
-  items: [{ field: 'value' }],
-},
+    title: { field: 'type' },
+    items: [{ field: 'value' }],
+  },
   interaction: { elementHighlight: true },
   theme: { color: ['#5B8FF9', '#5AD8A6', '#5D7092'] },
   children: [
@@ -129,8 +130,6 @@ facet.view().line().encode('x', 'type').encode('y', 'value');
     mainFill: '#fff',
     contentFill: '#f0f5ff',
   },
-  children: [
-    { type: 'interval', style: { fill: '#5B8FF9' } },
-  ],
+  children: [{ type: 'interval', style: { fill: '#5B8FF9' } }],
 });
 ```

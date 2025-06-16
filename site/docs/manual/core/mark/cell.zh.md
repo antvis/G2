@@ -7,35 +7,35 @@ order: 5
 
 `cell` 是矩形标记（Rect Shape）的一种抽象表示，主要用于表示分面（facet）或者网格中的单元格，是图表中数据映射到视觉元素的最小单元。它一般是在可视化布局中用来表示网格化结构或数据分割的“单元”。具体来说，它是一种对区域的划分，在不同的分面中通常会对应一个独立的绘图区域，常见于矩阵型图表（如日历图、聚合热力图等）中。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'cell',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-    },
-    transform: [{ type: 'group', color: 'max' }], // 对数据进行分组变换，按颜色的最大值进行分组
-    encode: {
-      x: (d) => new Date(d.date).getUTCDate(), // 编码 x 轴，使用数据中的日期字段的 UTC 日期部分
-      y: (d) => new Date(d.date).getUTCMonth(), // 编码 y 轴，使用数据中的日期字段的 UTC 月份部分
-      color: 'temp_max', // 编码颜色，使用数据中的 temp_max 字段
-      shape: 'cell',
-    },
-    style: { inset: 0.5 }, // 设置单元格的内边距为 0.5
-    scale: {
-      color: {
-        type: 'sequential', // 设置颜色比例尺为顺序比例尺
-        palette: 'gnBu', // 设置使用 'gnBu' 调色板
-      },
-    },
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.render(); // 渲染图标
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'cell',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  transform: [{ type: 'group', color: 'max' }], // 对数据进行分组变换，按颜色的最大值进行分组
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(), // 编码 x 轴，使用数据中的日期字段的 UTC 日期部分
+    y: (d) => new Date(d.date).getUTCMonth(), // 编码 y 轴，使用数据中的日期字段的 UTC 月份部分
+    color: 'temp_max', // 编码颜色，使用数据中的 temp_max 字段
+    shape: 'cell',
+  },
+  style: { inset: 0.5 }, // 设置单元格的内边距为 0.5
+  scale: {
+    color: {
+      type: 'sequential', // 设置颜色比例尺为顺序比例尺
+      palette: 'gnBu', // 设置使用 'gnBu' 调色板
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render(); // 渲染图标
 ```
 
 更多的案例，可以查看[图表示例](/examples#general-cell)页面。
@@ -46,7 +46,7 @@ order: 5
 | --------- | -------------------------------------------------------------------------------------------------- | ----------------------- | ------ | ---- |
 | encode    | 配置 `cell` 标记的视觉通道，包括`x`、`y`、`color`、`shape`等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)       | -      | ✓    |
 | scale     | 配置 `cell` 标记的图形缩放，包括`x`、`y`、`color`、`shape`等                                       | [scale](#scale)         | -      |      |
-| style     | 配置 `cell` 图形样式                                                                         | [style](#style)         | -      |      |
+| style     | 配置 `cell` 图形样式                                                                               | [style](#style)         | -      |      |
 | transform | 配置 `cell` 数据转换操作（如分箱、排序、过滤等）。                                                 | [transform](#transform) | -      |      |
 
 ### encode
@@ -69,6 +69,7 @@ order: 5
 ```js | ob
 (() => {
   const chart = new G2.Chart();
+
   chart.options({
     type: 'cell',
     data: [
@@ -115,7 +116,6 @@ order: 5
   node.insertBefore(selectorContainer, node.childNodes[0]);
 
   chart.render();
-
   return node;
 })();
 ```
@@ -133,8 +133,8 @@ order: 5
 
 `scale`用于定义数据如何映射到视觉属性（如颜色、大小、形状等）。在`cell`的使用场景，scale 的常见作用就是为每个视觉通道（如颜色、大小、位置等）提供映射规则，使数据点能够准确地呈现。
 
-| 属性      | 描述                 | 类型                                        | 默认值 |
-| --------- | -------------------- | ------------------------------------------- | ------ |
+| 属性      | 描述                 | 类型                                                 | 默认值 |
+| --------- | -------------------- | ---------------------------------------------------- | ------ |
 | [channel] | 映射到视觉属性的通道 | Record<string, [scale](/manual/core/scale/overview)> | -      |
 
 更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。

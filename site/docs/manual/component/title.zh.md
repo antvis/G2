@@ -44,55 +44,55 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    marginTop: 40,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: {
-      x: 'letter',
-      y: 'frequency',
-    },
-    title: {
-      align: 'center', // 图表标题的对齐方式
-      size: 28, // 图表标题的高度，默认为 36
-      spacing: 4, // 主标题和副标题之间的间距
+const chart = new Chart({
+  container: 'container',
+});
 
-      // 标题
-      title: "我是一个标题 I'am a title", // 图表标题的文本
-      titleFontSize: 28, // 图表主标题的字体大小
-      titleFontFamily: 'sans-serif', // 图表主标题的字体
-      titleFontWeight: 600, // 图表主标题的字体粗细
-      titleFill: '#fff', // 图表主标题的文字颜色
-      titleFillOpacity: 1, // 图表主标题的文字透明度
-      titleStroke: '#000', // 图表主标题的文字描边颜色
-      titleLineWidth: 2, // 图表主标题的文字描边线宽
-      titleStrokeOpacity: 1, // 图表主标题的文字描边透明度
+chart.options({
+  type: 'interval',
+  marginTop: 40,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: {
+    x: 'letter',
+    y: 'frequency',
+  },
+  title: {
+    align: 'center', // 图表标题的对齐方式
+    size: 28, // 图表标题的高度，默认为 36
+    spacing: 4, // 主标题和副标题之间的间距
 
-      // 副标题
-      subtitle: "我是一个副标题 I'am a subtitle", // 图表副标题的文本
-      subtitleFontSize: 16, // 图表副标题的字体大小
-      subtitleFontFamily: 'Arial', // 图表副标题的字体
-      subtitleFontWeight: 300, // 图表副标题的字体粗细
-      subtitleFill: '#2989FF', // 图表副标题的文字颜色
-      subtitleFillOpacity: 1, // 图表副标题的文字透明度
-      subtitleStroke: '#000', // 图表副标题的文字描边颜色
-      subtitleLineWidth: 1, // 图表副标题的文字描边线宽
-      subtitleStrokeOpacity: 0.5, // 图表副标题的文字描边透明度
-    },
-  });
+    // 标题
+    title: "我是一个标题 I'am a title", // 图表标题的文本
+    titleFontSize: 28, // 图表主标题的字体大小
+    titleFontFamily: 'sans-serif', // 图表主标题的字体
+    titleFontWeight: 600, // 图表主标题的字体粗细
+    titleFill: '#fff', // 图表主标题的文字颜色
+    titleFillOpacity: 1, // 图表主标题的文字透明度
+    titleStroke: '#000', // 图表主标题的文字描边颜色
+    titleLineWidth: 2, // 图表主标题的文字描边线宽
+    titleStrokeOpacity: 1, // 图表主标题的文字描边透明度
 
-  chart.render();
+    // 副标题
+    subtitle: "我是一个副标题 I'am a subtitle", // 图表副标题的文本
+    subtitleFontSize: 16, // 图表副标题的字体大小
+    subtitleFontFamily: 'Arial', // 图表副标题的字体
+    subtitleFontWeight: 300, // 图表副标题的字体粗细
+    subtitleFill: '#2989FF', // 图表副标题的文字颜色
+    subtitleFillOpacity: 1, // 图表副标题的文字透明度
+    subtitleStroke: '#000', // 图表副标题的文字描边颜色
+    subtitleLineWidth: 1, // 图表副标题的文字描边线宽
+    subtitleStrokeOpacity: 0.5, // 图表副标题的文字描边透明度
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 标题 title 的设置，最简单的设置方式，就是直接指定一个字符串作为标题，这个时候使用默认的样式和位置。当然也可以使用完整的配置项去做一些灵活的自定义。
@@ -121,18 +121,16 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 尝试一下：
 
-```js | ob { pin: false }
+```js | ob
 (() => {
+  const chart = new G2.Chart({ width: 480, height: 160 });
+
   const alignList = ['center', 'right', 'left'];
   const alignMap = alignList.map((p) => {
     return {
       label: p,
       value: p,
     };
-  });
-  const chart = new G2.Chart({
-    width: 480,
-    height: 160,
   });
 
   const data = [
@@ -192,7 +190,7 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 | 属性               | 描述                | 类型                                             | 默认值      |
 | ------------------ | ------------------- | ------------------------------------------------ | ----------- |
-| title              | 图表标题文字内容    | `number` \| `(datum, index, data) => number`     | -           |
+| title              | 图表标题文字内容    | `string` \| `(datum, index, data) => string`     | -           |
 | titleFontSize      | 图表标题字体大小    | `number` \| `(datum, index, data) => number`     | 14          |
 | titleFontFamily    | 图表标题字体类型    | `string` \| `(datum, index, data) => string`     | sans-serif  |
 | titleFontWeight    | 图表标题字体粗细    | `string` \| `(datum, index, data) => string`     | normal      |
@@ -218,7 +216,7 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 | 属性                  | 描述                  | 类型                                             | 默认值      |
 | --------------------- | --------------------- | ------------------------------------------------ | ----------- |
-| subtitle              | 图表副标题文本        | `number` \| `(datum, index, data) => number`     | 12          |
+| subtitle              | 图表副标题文本        | `string` \| `(datum, index, data) => string`     | 12          |
 | subtitleFontSize      | 图表副标题字体大小    | `number` \| `(datum, index, data) => number`     | 12          |
 | subtitleFontFamily    | 图表副标题字体类型    | `string` \| `(datum, index, data) => string`     | sans-serif  |
 | subtitleFontWeight    | 图表副标题字体粗细    | `string` \| `(datum, index, data) => string`     | normal      |

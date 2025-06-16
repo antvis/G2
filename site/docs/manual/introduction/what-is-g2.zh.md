@@ -17,7 +17,7 @@ order: 1
 
 "Talk is cheap, show me the code"，那么接下来看看基于下面这个简单的数据集，G2 能做出什么可视化效果。
 
-```js | ob { pin: false }
+```js | ob {  pin: false , autoMount: true }
 table({
   url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
 });
@@ -41,252 +41,247 @@ table({
 
 **标记**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标记构成的。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender');
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender');
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 转换（Transform）
 
 **转换**会改变数据和标记的展现形式，多用于数据分析。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .style('insetLeft', 1);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 比例尺（Scale）
 
 **比例尺**用于控制标记的视觉样式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .scale('color', { range: ['steelblue', 'orange'] })
-    .scale('y', { nice: true })
-    .style('insetLeft', 1);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .scale('color', { range: ['steelblue', 'orange'] })
+  .scale('y', { nice: true })
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 坐标系（Coordinate）
 
 **坐标系**会改变图表的展示形式。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .scale('color', { range: ['steelblue', 'orange'] })
-    .scale('y', { type: 'sqrt', nice: true })
-    .coordinate({ type: 'polar' })
-    .axis('y', { title: false })
-    .style('insetLeft', 1);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .scale('color', { range: ['steelblue', 'orange'] })
+  .scale('y', { type: 'sqrt', nice: true })
+  .coordinate({ type: 'polar' })
+  .axis('y', { title: false })
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 视图复合（Composition）
 
 **视图复合**用于制作多视图图表。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
-    paddingLeft: 60,
-    
-  });
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const facet = chart
-    .facetRect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('y', 'gender');
+const chart = new Chart({
+  container: 'container',
+  paddingLeft: 60,
+});
 
-  facet
-    .rect()
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .scale('y', { nice: true })
-    .attr('frame', false)
-    .style('insetLeft', 1);
+const facet = chart
+  .facetRect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('y', 'gender');
 
-  chart.render();
+facet
+  .rect()
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .scale('y', { nice: true })
+  .attr('frame', false)
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 动画（Animation）
 
 **动画**支持分组动画和关键帧动画。可以点击左边的运行按钮看效果。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .rect()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'height')
-    .encode('color', 'gender')
-    .encode('enterDuration', 1000)
-    .transform({ type: 'stackEnter', groupBy: ['color'] })
-    .transform({ type: 'binX', y: 'count' })
-    .transform({ type: 'stackY' })
-    .style('insetLeft', 1);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'height')
+  .encode('color', 'gender')
+  .encode('enterDuration', 1000)
+  .transform({ type: 'stackEnter', groupBy: ['color'] })
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY' })
+  .style('insetLeft', 1);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
-```js | ob
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const chart = new G2.Chart();
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
-  const keyframe = chart
-    .timingKeyframe()
-    .attr('direction', 'alternate')
-    .attr('iterationCount', 4);
+    const keyframe = chart
+      .timingKeyframe()
+      .attr('direction', 'alternate')
+      .attr('iterationCount', 4);
 
-  keyframe
-    .interval()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'gender')
-    .encode('color', 'gender')
-    .encode('key', 'gender')
-    .transform({ type: 'groupX', y: 'count' });
+    keyframe
+      .interval()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'gender')
+      .encode('color', 'gender')
+      .encode('key', 'gender')
+      .transform({ type: 'groupX', y: 'count' });
 
-  keyframe
-    .point()
-    .attr('padding', 'auto')
-    .data(data)
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('groupKey', 'gender')
-    .encode('shape', 'point');
+    keyframe
+      .point()
+      .attr('padding', 'auto')
+      .data(data)
+      .encode('x', 'weight')
+      .encode('y', 'height')
+      .encode('color', 'gender')
+      .encode('groupKey', 'gender')
+      .encode('shape', 'point');
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+    chart.render();
+  });
 ```
 
 ## 交互（Interaction）
 
 交互可以按需探索数据。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .point()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-    })
-    .encode('x', 'weight')
-    .encode('y', 'height')
-    .encode('color', 'gender')
-    .encode('shape', 'point')
-    .style({
-      fillOpacity: 0.7,
-      transform: 'scale(1, 1)',
-      transformOrigin: 'center center',
-    })
-    .state('inactive', {
-      fill: 'black',
-      fillOpacity: 0.5,
-      transform: 'scale(0.5, 0.5)',
-    })
-    .interaction('brushXHighlight', true);
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .point()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+  })
+  .encode('x', 'weight')
+  .encode('y', 'height')
+  .encode('color', 'gender')
+  .encode('shape', 'point')
+  .style({
+    fillOpacity: 0.7,
+    transform: 'scale(1, 1)',
+    transformOrigin: 'center center',
+  })
+  .state('inactive', {
+    fill: 'black',
+    fillOpacity: 0.5,
+    transform: 'scale(0.5, 0.5)',
+  })
+  .interaction('brushXHighlight', true);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 更多能力

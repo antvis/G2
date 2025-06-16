@@ -3,37 +3,36 @@ title: Tooltip
 order: 7.5
 ---
 
-In G2, the **Tooltip** can provide additional information about data points, helping users better understand and interpret visualization. In visualization, Tooltip usually has the following roles:
+## Overview
 
-- **Display detailed information**: Tooltip can display detailed information about data points, such as specific values, percentages, or other related attributes. This helps users understand the data more deeply.
-- **Improve readability**: In complex visualizations, Tooltip can help users more easily identify and understand data points. For example, in a scatter plot, when data points are dense, Tooltip can display detailed information of a specific point without having to hover the mouse over each point.
-- **Enhance interactivity**: Tooltip can enhance the interactivity of visualization. Users can view more information by hovering over or clicking on data points, making the visualization more dynamic and interesting.
-- **Highlight key information**: Tooltip can be used to highlight key information. For example, in a time series chart, you can use Tooltip to display important events or mutations at specific time points.
+`Tooltip` is one of the core components of chart interaction, used to dynamically display detailed information about data points, helping users quickly understand the values, categories, or other dimensional information in specific areas of the chart. It can dynamically show related data information when the mouse hovers, clicks, or moves to a chart element (such as bars in a bar chart or data points in a line chart).
 
-In G2, you can specify the tooltip information that this mark needs to display through `mark.tooltip`.
+- **Display detailed information**: Tooltip can show detailed information about data points, such as specific values, percentages, or other related attributes. This helps users understand the data more deeply.
+- **Improve readability**: In complex visualizations, Tooltip can help users more easily identify and understand data points. For example, in scatter plots where data points are dense, Tooltip can display detailed information about specific points without having to hover over each point.
+- **Enhance interactivity**: Tooltip can enhance the interactivity of visualizations. Users can view more information by hovering or clicking on data points, making the visualization more dynamic and engaging.
+- **Highlight key information**: Tooltip can be used to highlight key information. For example, in time series charts, you can use Tooltip to display important events or mutations at specific time points.
+- **Support multiple trigger methods**: Can be triggered through mouse hover, click, touch and other events.
+
+### Components
+
+<img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_NcgQbSbuBoAAAAAAAAAAAAAemJ7AQ/original" />
+
+### Usage
 
 ```js
-({
+chart.options({
   type: 'interval',
   tooltip: {
-    title: 'name', // title
-    items: ['genre'], // data items
+    title: 'name', // Title
+    items: ['genre'], // Data items
   },
 });
 ```
 
-```js
-// API
-chart.interval().tooltip({
-  title: 'name', // title
-  items: ['genre'], // data items
-});
-```
-
-And combine `view.interaction.tooltip` to configure the rendering and additional configuration of tooltip information.
+And combined with `view.interaction.tooltip` to configure tooltip rendering and additional settings.
 
 ```js
-({
+chart.options({
   type: 'view',
   interaction: {
     tooltip: { series: true },
@@ -41,15 +40,10 @@ And combine `view.interaction.tooltip` to configure the rendering and additional
 });
 ```
 
-```js
-// API
-chart.interaction('tooltip', { series: true });
-```
-
-When there is only one mark in this view, you can also configure the rendering and additional configuration of tooltip information through `mark.interaction.tooltip`.
+When there is only one mark in the view, configuring tooltip rendering and additional settings through `mark.interaction.tooltip` is also possible.
 
 ```js
-({
+chart.options({
   type: 'line',
   interaction: {
     tooltip: { series: true },
@@ -57,71 +51,94 @@ When there is only one mark in this view, you can also configure the rendering a
 });
 ```
 
+If you want to disable tooltip display, you can turn it off with the following configuration.
+
 ```js
-// API
-chart.line().interaction('tooltip', { series: true });
+chart.options({
+  type: 'interval',
+  tooltip: false,
+});
 ```
 
-## Setting Tooltip Content
-
-Different marks have different default tooltip information, you can override the default content through `mark.tooltip(tooltipData)`. The complete structure of tooltipData is as follows:
+If you want the chart to have no tooltip interaction, you can achieve this through `chart.interaction`.
 
 ```js
-({
+chart.options({
+  type: 'view',
+  interaction: { tooltip: false },
+});
+```
+
+Try it out
+
+<Playground path="style/component/tooltip/demo/tooltip-series.ts" rid="area-style"></playground>
+
+## Configuration Options
+
+Configuration options are divided into two parts
+
+- `tooltip` is a UI component in G2 used to display detailed information about data points. When users hover over a data point in the chart, tooltip displays related information about that data point, such as coordinate values, measure values, etc.
+
+- `interaction.tooltip` is part of G2's interaction mechanism, belonging to the interaction module. It's a built-in interactive behavior used to enhance tooltip functionality, especially in certain specific interactive scenarios (such as dynamically showing or hiding tooltips).
+
+`tooltip` and `interaction.tooltip` are configurations in two different dimensions, but they can be confusing. Here are their core differences:
+
+| Feature    | tooltip                                      | interaction.tooltip                           |
+| ---------- | -------------------------------------------- | --------------------------------------------- |
+| Responsibility | Define tooltip content, style and basic behavior | Define tooltip behavior in interactive scenarios |
+| Configuration | Configured through chart.tooltip()          | Enabled or customized through chart.interaction() |
+| Scope      | Global effect, affects the entire chart     | Bound to specific interactive behaviors        |
+| Typical Use | Set tooltip fields, styles, content, etc.   | Control dynamic display/hide or other interactive logic |
+
+### tooltip
+
+| Property  | Description                                                                                                              | Type            | Default | Applicable to        |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ | --------------- | ------- | -------------------- |
+| title     | Set tooltip title content: If value is a data field name, it will display the value of that field in the data. If the field doesn't exist in the data, use the value as title. See [title configuration](#title) | [title](#title) |         |                      |
+| nodeTitle | Set node title attribute for composite chart tooltip titles                                                              | [title](#title) |         | Composite charts like Sankey |
+| linkTitle | Set link title attribute for composite chart tooltip titles                                                              | [title](#title) |         | Composite charts like Sankey |
+| items     | Specify fields displayed in tooltip. Different charts have different default field lists. Works better when used with channel configuration. See [items configuration](#items) | [items](#items) |         |                      |
+| nodeItems | Set node items attribute for composite chart tooltip                                                                     | [items](#items) |         | Composite charts like Sankey |
+| linkItems | Set link items attribute for composite chart tooltip                                                                     | [items](#items) |         | Composite charts like Sankey |
+
+#### title
+
+`title` is a field used to display the main title of the currently hovered data point, typically used to represent the category or contextual information that the data point belongs to.
+
+`title` can be directly written as a fixed string to display, or a method to dynamically get the title from `data`
+
+```js
+chart.options({
   type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ],
   tooltip: {
-    title: (d) => (d.sold > 150 ? 'high' : 'low'), // set title
-    items: [
-      'genre', // First item
-      'sold', // Second item
-    ],
+    title: (d) => (d.sold > 150 ? 'high' : 'low'), // Set title
   },
 });
 ```
 
-When you don't need to set the title, you can directly declare it as an array:
+When you don't need to customize the title, you can directly declare tooltip as an array, in which case the title will use default configuration:
 
 ```js
-({
+chart.options({
   type: 'interval',
   tooltip: ['genre', 'sold'],
 });
 ```
 
-```js
-// API
-// First method
-chart.interval().tooltip('genre').tooltip('sold');
+The complete title structure is as follows:
+| Sub-configuration Name | Type | Function Description |
+| ---------------------- | ---- | -------------------- |
+| channel | `string` | Define the channel for generating title |
+| field | `string` | Define the field for generating title |
+| value | `string` | Title value |
+| valueFormatter | `string` \| `Function` | Format title |
 
-// Second method
-chart.interval().tooltip(['genre', 'sold']);
-```
+- **Field**
 
-The complete structure of title and item is as follows:
-
-```ts
-type Item = {
-  color?: string; // color of the marker
-  name?: string; // name of the item
-  value?: string; // value of the item
-};
-```
-
-They can be set in the following ways.
-
-### Field
-
-Their values can come from the original data, specified by a string or `item.field`.
+Their values can come from original data, specified by string or `title.field`.
 
 ```js
-({
+chart.options({
   tooltip: {
     title: 'sold',
     items: ['genre'],
@@ -131,20 +148,20 @@ Their values can come from the original data, specified by a string or `item.fie
 
 ```js
 // Equivalent to
-({
+chart.options({
   tooltip: {
-    title: 'sold',
+    title: { field: 'sold' },
     items: [{ field: 'genre' }],
   },
 });
 ```
 
-### Channel
+- **Channel**
 
-Their values can come from channel values, specified by `item.channel`, often used for charts that generate new channels using `mark.transform`.
+Their values can come from channel values, specified through `title.channel`, often used for charts that generate new channels using `mark.transform`.
 
 ```js
-({
+chart.options({
   tooltip: {
     title: { channel: 'x' },
     items: [{ channel: 'y' }],
@@ -152,162 +169,650 @@ Their values can come from channel values, specified by `item.channel`, often us
 });
 ```
 
-### Formatting
+- **Formatting**
 
-You can specify the display of the title or item value through `item.valueFormatter`, which can be a function or a string supported by d3-format.
+You can specify the display of title value through `title.valueFormatter`. `title.valueFormatter` can be a function or a string supported by d3-format.
 
 ```js
-({
+chart.options({
   tooltip: {
+    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()}
     items: [{ channel: 'y', valueFormatter: '.0%' }],
   },
 });
 ```
 
-### Customization
+- **Personalized Configuration**
 
-Of course, for title and item, callbacks are also provided to achieve the greatest customization ability.
+Of course, callbacks are also provided for title to achieve maximum personalized configuration capability.
 
 ```js
-({
+chart.options({
   tooltip: {
+    title: (datum, index, data, column) => ({
+      value: `<span style="color: #00ff00; font-style: italic;">${d.letter}</span>`,
+      custom: ...
+    }),
     items: [
-      (d, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // specify the color of the item
-        name: index === 0 ? d.genre : `${d.genre} ${data[i].genre}`, // specify the name of the item
-        value: column.y.value[i], // use the value of the y channel
+      (datum, index, data, column) => ({
+        color: d.sold > 150 ? 'red' : 'blue', // Specify item color
+        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // Specify item name
+        value: column.y.value[index], // Use y channel value
+        custom: ...
       }),
     ],
   },
 });
 ```
 
-## Built-in Tooltip
+The return value of items can be used as input parameters for `interaction.tooltip.render`. You can set some custom parameters. See [Custom Render Content](#custom-render-content)
 
-G2 opens Tooltip interaction by default. If you need to configure Tooltip properties, you can do so through `chart.interaction.tooltip`.
+**Composite Chart Configuration**
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-
-  chart
-    .line()
-    .data([
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ])
-    .encode('x', 'year')
-    .encode('y', 'value')
-    .interaction('tooltip', {
-      crosshairsStroke: 'red',
-      crosshairsStrokeWidth: 4,
-    });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-## Disabling Tooltip
-
-If you don't want to display the tooltip information for this Mark, you can do so through `mark.tooltip`.
+Composite charts need to configure nodes and links separately when configuring `tooltip.title`
 
 ```js
 ({
-  type: 'interval',
-  tooltip: false,
+  tooltip: {
+    nodeTitle: (d) => d.key,
+    linkTitle: (d) => 'link',
+  },
 });
 ```
 
+#### items
+
+`items` is a key attribute in tooltip configuration. `items` is an array representing the content of each item in the tooltip. Each item usually corresponds to a data field or a graphic element (such as a bar in a bar chart, a point in a line chart, etc.). By customizing `items`, you can flexibly control the display content of tooltips, including name, value, color and other information.
+
+The complete title structure is as follows:
+| Sub-configuration Name | Type | Function Description |
+| ---------------------- | ---- | -------------------- |
+| color | `string` | Marker color |
+| field | `string` | Define the field for generating item |
+| name | `string` | Item name |
+| value | `string` | Item value |
+| channel | `string` | Define the channel for generating item value |
+| valueFormatter | `string` \| `Function` | Format item |
+
+**The configuration methods for `value`, `channel`, and `valueFormatter` attributes of `items` are consistent with `title`. For detailed configuration, please refer to [title](#title)**
+
+**Name**
+
+Through `name`, you can conveniently modify the name of `item` in `tooltip`, and use `channel` to match the corresponding entry in the chart.
+
 ```js
-chart.interval().tooltip(false);
-```
-
-If you don't want the chart to have tooltip interaction, you can do so through `chart.interaction`.
-
-```js
-({
-  type: 'view',
-  interaction: { tooltip: false },
-});
-```
-
-```js
-chart.interaction('tooltip', false);
-```
-
-## Setting Tooltip Style
-
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-
-  chart.options({
-    type: 'interval',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
-      format: 'csv',
-    },
-    encode: {
-      x: 'state',
-      y: 'population',
-      color: 'age',
-    },
-    transform: [
-      { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
-      { type: 'dodgeX' },
+chart.options({
+  tooltip: {
+    items: [
+      {name: 'Zhang San', channel: 'y1'},
+      {name: 'Li Si', channel: 'y2'},
     ],
-    legend: false,
-    interaction: {
-      tooltip: {
-        shared: true,
-        mount: 'body',
-        css: {
-          '.g2-tooltip': {
-            background: '#eee',
-            'border-radius': ' 0.25em !important',
-          },
-          '.g2-tooltip-title': {
-            'font-size': '20px',
-            'font-weight': 'bold',
-            'padding-bottom': '0.25em',
-          },
-          '.g2-tooltip-list-item': {
-            background: '#ccc',
-            padding: '0.25em',
-            margin: '0.25em',
-            'border-radius': '0.25em',
-          },
-          '.g2-tooltip-list-item-name-label': {
-            'font-weight': 'bold',
-            'font-size': '16px',
-          },
-          'g2-tooltip-list-item-marker': {
-            'border-radius': '0.25em',
-            width: '15px',
-            height: '15px',
-          },
-          '.g2-tooltip-list-item-value': {
-            'font-weight': 'bold',
-            'font-size': '16px',
-          },
+  },
+});
+```
+
+**Color**
+
+`tooltip` will automatically assign colors to `tooltip` `item` based on chart content, but in actual applications, you may need to specify certain colors according to some rules. In this case, you can configure through the `color` attribute. Use `channel` to match the corresponding entry in the chart.
+
+```js
+chart.options({
+  tooltip: {
+    items: [
+      {color: 'pink', channel: 'y1'},
+      {color: '#f00', channel: 'y2'},
+    ],
+  },
+});
+```
+
+**Composite Chart Configuration**
+
+Composite charts need to configure nodes and links separately when configuring `tooltip.items`
+
+```js
+({
+  tooltip: {
+    nodeItems: [
+      (datum, index, data, column) => {
+        return {
+          color: 'red', // Specify item color
+          name: 'Node', // Specify item name
+          value: d.key, // Use y channel value
+          content: 'Node custom attribute',
+        };
+      },
+    ],
+    linkItems: [
+      (datum, index, data, column) => {
+        return {
+          color: 'red', // Specify item color
+          name: 'Link', // Specify item name
+          value: `${d.source.key}-${d.target.key}`, // Use y channel value
+          content: 'Link custom attribute',
+        };
+      },
+    ],
+  },
+});
+```
+
+### interaction.tooltip
+
+| Property      | Description                                                                                                               | Type                                                                                                                   | Default                        | Applicable to        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------ | -------------------- |
+| body          | Whether to display tooltip                                                                                                | `boolean`                                                                                                              | `true`                         |                      |
+| bounding      | Control tooltip display boundaries, position will be automatically adjusted when exceeded                                | `{ x: number, y: number, width: number, height: number }`                                                              | Chart area size                |                      |
+| css           | Set tooltip CSS styles                                                                                                    | [css](#styling)                                                                                                        | -                              |                      |
+| crosshairs    | Configure crosshairs style                                                                                                | [crosshairs](#crosshairs)                                                                                              | See [crosshairs](#crosshairs)  |                      |
+| disableNative | Disable native pointerover and pointerout events, should be set to true when custom tooltip interaction is needed       | `boolean`                                                                                                              | `false`                        |                      |
+| enterable     | Whether tooltip allows mouse entry                                                                                        | `boolean`                                                                                                              | `false`                        |                      |
+| facet         | Whether it's a faceted chart tooltip                                                                                      | `boolean`                                                                                                              | `false`                        | Faceted composite charts |
+| filter        | Item filter                                                                                                               | `(d: TooltipItemValue) => any`                                                                                         | -                              |                      |
+| groupName     | Whether to use groupName                                                                                                  | `boolean`                                                                                                              | `true`                         |                      |
+| leading       | Whether to update tooltip at the beginning of time interval                                                              | `boolean`                                                                                                              | `true`                         |                      |
+| marker        | Configure marker styles                                                                                                   | [marker](#marker)                                                                                                      | See [marker](#marker)          |                      |
+| markerType    | markerType controls whether the selected marker style is hollow or solid when displaying tooltip, default is solid, set to `'hollow'` for hollow | `'hollow' \| undefined`                                                                                                | `undefined`                    |                      |
+| mount         | Specify tooltip mount node                                                                                                | `string` \| `HTMLElement`                                                                                              | Chart container                |                      |
+| position      | Set fixed tooltip display position relative to data point                                                                | `'top'` \| `'bottom'` \| `'left'` \| `'right'` \| `'top-left'` \| `'top-right'` \| `'bottom-left'` \| `'bottom-right'` | `'right-bottom'`               |                      |
+| offset        | Offset in position direction                                                                                              | `[number, number]`                                                                                                     | `[10, 10]`                     |                      |
+| render        | [Custom render tooltip content](#custom-render-content)                                                                  | `(event, options) => HTMLElement \| string`                                                                            | -                              |                      |
+| series        | Whether it's a series element tooltip                                                                                     | `boolean`                                                                                                              | `false`                        | Multiple lines, multiple bar groups |
+| shared        | Whether elements with same x share tooltip                                                                                | `boolean`                                                                                                              | `false`                        |                      |
+| sort          | Item sorter                                                                                                               | `(d: TooltipItemValue) => any`                                                                                         | -                              |                      |
+| trailing      | Whether to update tooltip at the end of time interval                                                                    | `boolean`                                                                                                              | `false`                        |                      |
+| wait          | Tooltip update time interval in milliseconds                                                                             | `number`                                                                                                               | `50`                           |                      |
+
+#### crosshairs
+
+`crosshairs` is an auxiliary line feature of tooltip, used to mark the precise position of current data points in charts, mainly used for continuous charts such as line charts and area charts. Usually presented as horizontal or vertical reference lines to help users intuitively locate data.
+
+Additionally, setting styles through prefixes `crosshairsX` and `crosshairsY` has higher priority than `crosshairs` and will override the latter.
+
+| Property                 | Description                        | Type            | Default | Required |
+| ------------------------ | ---------------------------------- | --------------- | ------- | -------- |
+| crosshairs               | Whether to show crosshairs         | boolean         | `true`  |          |
+| crosshairsStroke         | Crosshairs stroke color            | string          | -       |          |
+| crosshairsStrokeOpacity  | Crosshairs opacity                 | number          | -       |          |
+| crosshairsLineWidth      | Crosshairs width                   | number          | -       |          |
+| crosshairsLineDash       | Crosshairs dash pattern            | [number,number] | -       |          |
+| crosshairsX              | Whether to show horizontal crosshairs | boolean         | `false` |          |
+| crosshairsXStroke        | Horizontal crosshairs stroke color | string          | -       |          |
+| crosshairsXStrokeOpacity | Horizontal crosshairs opacity      | number          | -       |          |
+| crosshairsXLineWidth     | Horizontal crosshairs width        | number          | -       |          |
+| crosshairsXLineDash      | Horizontal crosshairs dash pattern | [number,number] | -       |          |
+| crosshairsY              | Whether to show vertical crosshairs | boolean         | `true`  |          |
+| crosshairsYStroke        | Vertical crosshairs stroke color   | string          | -       |          |
+| crosshairsYStrokeOpacity | Vertical crosshairs opacity        | number          | -       |          |
+| crosshairsYLineWidth     | Vertical crosshairs width          | number          | -       |          |
+| crosshairsYLineDash      | Vertical crosshairs dash pattern   | [number,number] | -       |          |
+
+```js
+chart.options({
+  interaction: {
+    legendFilter: false,
+    elementPointMove: true,
+    tooltip: {
+      crosshairs: true, // Enable crosshairs
+      crosshairsStroke: 'red', // Crosshairs color is red
+      crosshairsYStroke: 'yellow', // Vertical crosshairs color set to yellow separately
+      crosshairsLineDash: [4, 4], // Crosshairs dash style
+      markerType: 'hollow', // Tooltip marker is hollow
+    },
+  },
+});
+```
+
+#### marker
+
+| Property            | Description               | Type            | Default   | Required |
+| ------------------- | ------------------------- | --------------- | --------- | -------- |
+| marker              | Whether to show marker    | boolean         | `true`    |          |
+| markerFill          | Marker fill color         | string          | -         |          |
+| markerFillOpacity   | Marker fill opacity       | number          | -         |          |
+| markerStroke        | Marker stroke color       | string          | -         |          |
+| markerStrokeOpacity | Marker stroke opacity     | number          | -         |          |
+| markerLineWidth     | Marker stroke width       | number          | -         |          |
+| markerLineDash      | Marker dash configuration | [number,number] | -         |          |
+| markerOpacity       | Marker overall opacity    | number          | -         |          |
+| markerShadowColor   | Marker shadow color       | string          | -         |          |
+| markerShadowBlur    | Marker shadow blur coefficient | number          | -         |          |
+| markerShadowOffsetX | Marker shadow horizontal offset | number          | -         |          |
+| markerCursor        | Marker cursor style       | string          | `default` |          |
+
+```js
+chart.options({
+  interaction: {
+    tooltip: {
+      marker: true,
+      markerType: 'hollow', // Tooltip marker is hollow
+      markerStroke: 'yellow',
+      markerLineWidth: 2,
+      markerLineDash: [4, 4],
+    },
+  },
+});
+```
+
+#### Styling
+
+The `tooltip` cssStyle configuration option allows direct customization of tooltip appearance through CSS styles, enabling quick visual customization of tooltips to adapt to different themes or interactive scenario requirements.
+
+<img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*J1N_RKY7FtkAAAAAAAAAAAAAemJ7AQ/original" />
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  encode: {
+    x: 'state',
+    y: 'population',
+    color: 'age',
+  },
+  transform: [
+    { type: 'sortX', by: 'y', reverse: true, reducer: 'sum', slice: 6 },
+    { type: 'dodgeX' },
+  ],
+  legend: false,
+  interaction: {
+    tooltip: {
+      shared: true,
+      mount: 'body',
+      css: {
+        '.g2-tooltip': {
+          background: '#eee',
+          'border-radius': ' 0.25em !important',
+        },
+        '.g2-tooltip-title': {
+          'font-size': '20px',
+          'font-weight': 'bold',
+          'padding-bottom': '0.25em',
+        },
+        '.g2-tooltip-list-item': {
+          background: '#ccc',
+          padding: '0.25em',
+          margin: '0.25em',
+          'border-radius': '0.25em',
+        },
+        '.g2-tooltip-list-item-name-label': {
+          'font-weight': 'bold',
+          'font-size': '16px',
+        },
+        'g2-tooltip-list-item-marker': {
+          'border-radius': '0.25em',
+          width: '15px',
+          height: '15px',
+        },
+        '.g2-tooltip-list-item-value': {
+          'font-weight': 'bold',
+          'font-size': '16px',
         },
       },
     },
+  },
+});
+
+chart.render();
+```
+
+Try it out
+
+<Playground path="style/component/tooltip/demo/tooltip-style.ts" rid="tooltip-style"></playground>
+
+#### Custom Render Content
+
+Sometimes the built-in Tooltip cannot meet requirements. In this case, you can render custom tooltips through the _render_ function of `mark.interaction.tooltip.render` or `view.interaction.tooltip.render`.
+
+The _render_ function accepts event object _event_ and tooltip data _tooltipData_, returning a string or DOM object. Where _event_ is a mouse object thrown by [@antv/g](https://g.antv.antgroup.com/), and _tooltipData_ is title and items data declared through `mark.tooltip`. If the return value is a string, it will be used as innerHTML of the tooltip container, otherwise the return value will be mounted. A tooltip render function definition is roughly as follows:
+
+```js
+function render(event, tooltipData) {
+  const { title, items } = tooltipData;
+  return `<div></div>`;
+}
+```
+
+Here's a simple example:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .transform([{ type: 'sortX', by: 'y', reverse: true }])
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .interaction('tooltip', {
+    // render callback method returns innerHTML or DOM
+    render: (event, { title, items }) => `<div>
+      <h3 style="padding:0;margin:0">${title}</h3>
+      <ul>${items.map(
+        (d) =>
+          `<li><span style="color: ${d.color}">${d.name}</span> ${d.value}</li>`,
+      )}</ul>
+      </div>`,
   });
 
-  chart.render();
+chart.render();
+```
 
-  return chart.getContainer();
-})();
+## Events
+
+The chart.on() method registers the specified listener to the chart. When the object triggers the specified event, the specified callback function will be executed.
+
+Here's an example of how to configure tooltip show/hide events:
+
+```js
+chart.on('tooltip:show', (event) => {
+  console.log(event.data.data);
+});
+
+chart.on('tooltip:hide', () => {
+  console.log('hide');
+});
+```
+
+Try it out
+
+<Playground path="style/annotation/line/demo/histogram-mean-line.ts" rid="tooltip-custom"></playground>
+
+## Examples
+
+### title
+
+```js
+mark.tooltip({
+  title: 'name', // Field
+});
+
+mark.tooltip({
+  title: (d) => (d.value > 100 ? d.name : d.age), // Transform
+});
+```
+
+### item
+
+```js
+// Single field
+mark.tooltip('a');
+mark.tooltip({ field: 'a' });
+
+// Single channel
+mark.tooltip({ channel: 'y' });
+
+// Transform
+mark.tooltip((d) => (d.value > 100 ? d.name : d.age));
+
+// Formatting
+mark.tooltip({ channel: 'y', valueFormatter: (d) => d.toFixed(1) });
+
+// d3-format supported characters
+// https://github.com/d3/d3-format
+mark.tooltip({ channel: 'y', valueFormatter: '~s' });
+
+// Complete information
+mark.tooltip({ name: 'name', color: 'red', value: 'color' });
+
+// Callback
+mark.tooltip(
+  (
+    d, // Each data item
+    index, // Index
+    data, // Complete data
+    column, // Channel
+  ) => ({
+    value: `${column.y.value[index]} - ${column.y1.value[index]}`,
+  }),
+);
+
+// Multiple items
+mark.tooltip({ channel: 'y' }).tooltip({ channel: 'x' });
+```
+
+### title + item
+
+```js
+mark.tooltip({
+  title: 'a',
+  items: [{ channel: 'x' }, { channel: 'y' }],
+});
+```
+
+### How to use additional data from data as parameters for custom render function
+
+The render function provides powerful personalized configuration capabilities. Through configuration of `tooltip.render` function return parameters, you can customize the input parameters of `interaction.tooltip.render`
+
+```js
+chart.options({
+  tooltip: {
+    items: [
+      (datum, index, data, column) => ({
+        color: d.sold > 150 ? 'red' : 'blue', // Specify item color
+        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // Specify item name
+        value: column.y.value[index], // Use y channel value
+        custom1: 'Custom parameter 1',
+        custom2: 'Custom parameter 2'
+      }),
+    ],
+  },
+  interaction: {
+    tooltip: {
+      // render callback method returns innerHTML or DOM
+      render: (event, { title, items }) => {
+        return  `<div>
+          <h3 style="padding:0;margin:0">${title}</h3>
+          <ul>${items.map(
+              ({ color, name, value, custom1, custom2 }) => ...
+          )}</ul>
+        </div>`,
+      }
+    }
+  }
+});
+```
+
+### Manual Control Show/Hide
+
+For non-series marks like Interval, Point, the control display method is as follows:
+
+```js
+// Bar chart, point chart, etc.
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre');
+
+chart.render().then((chart) =>
+  chart.emit('tooltip:show', {
+    offsetX: 10, // Position relative to plot area
+    offsetY: 20, // Position relative to plot area
+    data: {
+      data: { genre: 'Sports' }, // Will find matching data from original data
+    },
+  }),
+);
+```
+
+For series marks like Line, Area, the control display method is as follows:
+
+```js
+chart
+  .line()
+  .data({ type: 'fetch', value: 'data/aapl.csv' })
+  .encode('x', 'date')
+  .encode('y', 'close');
+
+// Pick based on data
+chart.render((chart) =>
+  chart.emit('tooltip:show', {
+    data: {
+      data: { x: new Date('2010-11-16') },
+    },
+  }),
+);
+
+// Pick based on pixels
+chart.render((chart) =>
+  chart.emit('tooltip:show', {
+    offsetX: 200,
+    offsetY: 200,
+  }),
+);
+```
+
+Hide method is as follows:
+
+```js
+chart.emit('tooltip:hide');
+```
+
+### Enable/Disable Interaction
+
+```js
+chart.emit('tooltip:disable'); // Disable tooltip
+chart.emit('tooltip:enable'); // Enable interaction
+```
+
+### Set Crosshairs
+
+By default, `crosshairsY` is enabled and `crosshairsX` is disabled, so if you want to enable crosshairs, there are two ways:
+
+1. Set `crosshairs` to `true`.
+
+```js
+chart.interaction('tooltip', {
+  crosshairs: true, // Enable crosshairs
+  crosshairsXStroke: 'red', // Set X-axis crosshairs color to 'red'
+  crosshairsYStroke: 'blue', // Set Y-axis crosshairs color to 'blue'
+});
+```
+
+2. Set `crosshairsX` to `true`.
+
+```js
+chart.interaction('tooltip', {
+  crosshairsX: true, // Enable crosshairsX
+  crosshairsXStroke: 'red', // Set X-axis crosshairs color to 'red'
+  crosshairsYStroke: 'blue', // Set Y-axis crosshairs color to 'blue'
+});
+```
+
+`crosshairsX` has higher priority than `crosshairs`.
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_LFDT7p6hRQAAAAAAAAAAAAADmJ7AQ/original" width="640">
+
+### Set Tooltip Point as Hollow Circle
+
+```js
+chart.interaction('tooltip', {
+  markerType: 'hollow', // Set tooltip point style to hollow circle
+});
+```
+
+<img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*s8KjQLiSyTwAAAAAAAAAAAAADmJ7AQ/original" width="640">
+
+### How to use supplementary attributes from data to implement custom tooltip display for composite charts like Sankey?
+
+Similar to the method for customizing `tooltip` interaction for general `Mark`, first return custom attributes in the chart's `tooltip.render`, then use them in `interaction.render`.
+
+```js
+({
+  type: 'sankey',
+  data: {
+    value: {
+      nodes: [
+        { id: 'a', key: 'Home', des: 'Node custom attribute' },
+        { id: 'b', key: 'Page1', des: 'Node custom attribute' },
+        { id: 'b_1', key: 'Page1', des: 'Node custom attribute' },
+        { id: 'c', key: 'Page2', des: 'Node custom attribute' },
+        { id: 'c_1', key: 'Page2', des: 'Node custom attribute' },
+        { id: 'd', key: 'Page3', des: 'Node custom attribute' },
+        { id: 'd_1', key: 'Page3', des: 'Node custom attribute' },
+      ],
+      links: [
+        { source: 'a', target: 'b', value: 100 },
+        { source: 'b', target: 'c', value: 80 },
+        { source: 'b', target: 'd', value: 20 },
+        { source: 'c', target: 'b_1', value: 80 },
+        { source: 'b_1', target: 'c_1', value: 40 },
+        { source: 'b_1', target: 'd_1', value: 40 },
+      ],
+    },
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => ({
+          nodes: data.nodes,
+          links: data.links,
+        }),
+      },
+    ],
+  },
+  tooltip: {
+    nodeItems: [
+      (datum, index, data, column) => {
+        return {
+          content: d.des,
+        };
+      },
+    ],
+    linkItems: [
+      (datum, index, data, column) => {
+        return {
+          color: 'red', // Specify item color
+          name: 'Link', // Specify item name
+          value: `${d.source.key}-${d.target.key}`, // Use y channel value
+          content: 'Link custom attribute',
+        };
+      },
+    ],
+  },
+  layout: {
+    nodeId: (d) => d.id,
+    nodeAlign: 'center',
+    nodePadding: 0.03,
+    iterations: 25,
+  },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    linkFillOpacity: 0.2,
+    linkFill: '#3F96FF',
+  },
+  interaction: {
+    tooltip: {
+      render: (e, { items, title }) => {
+        return `<div>${items[0].content}</div>`;
+      },
+    },
+  },
+});
 ```

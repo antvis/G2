@@ -1,99 +1,25 @@
 ---
-title: Server-side rendering（SSR）
+title: Server-Side Rendering (SSR)
 order: 12
 ---
 
-Server-side rendering (SSR) refers to rendering charts in non-browser environments, such as Node.js, Python, Java, PHP, and other backend languages. Typically, in backend environments, the output is a static image without interaction or animation. The typical usage scenarios are as follows:
+Server-Side Rendering (SSR) refers to rendering charts in non-browser environments, as opposed to Client-Side Rendering (CSR). This typically occurs in backend languages like Node.js, Python, Java, PHP, etc., producing static images without interactivity or animations. Common use cases include:
 
-* Pre-rendering images on the backend to improve page load speed.
-* Script batch processing for easy distribution.
-* Server-side visualization service.
-* Generate images for screenshot comparisons, used in code unit testing.
-* ...
+- Pre-rendering images on the backend to improve page load speed
+- Batch processing scripts for easier distribution
+- Server-side visualization services
+- Generating images for screenshot comparison in unit testing
+- ...
 
-## Used in NodeJS
+## Using in Node.js
 
-In the Node.js ecosystem, the following libraries implement common rendering APIs found in the browser environment:
+Frontend data visualization libraries are built upon browser DOM Canvas APIs. To render charts in Node.js, we need to replace the DOM Canvas with Node Canvas. In the Node.js ecosystem, [node-canvas](https://github.com/Automattic/node-canvas) provides a Cairo-based implementation of the Canvas2D API that aligns with browser standards.
 
-- [Node-canvas](https://github.com/Automattic/node-canvas) it provides an implementation of the Canvas2D API based on Cairo.
-- [JSdom](https://github.com/jsdom/jsdom) it offers an implementation of the DOM API.
+By leveraging `node-canvas` and AntV's G2 (which supports custom Canvas objects), we can switch to Node.js rendering engines for server-side chart generation.
 
-By creating corresponding renderers based on those, G2 can render PNG or SVG results. Below, we will introduce example code for both implementations separately.
+## Implementation with node-canvas + G2
 
-### jsdom
-
-[online example](https://stackblitz.com/edit/stackblitz-starters-6zfeng?file=index.js)
-
-First, use JSDOM to create a container `container` where the chart will be rendered. Additionally, save the `window` and `document` objects for later use:
-
-```js
-const jsdom = require('jsdom');
-
-const { JSDOM } = jsdom;
-const { window } = new JSDOM(`<!DOCTYPE html>`);
-const { document } = window;
-const container = document.createElement('div');
-```
-
-Then, create a SVG renderer, remove plugins that depend on the DOM API, and create a canvas:
-
-```js
-const { Canvas } = require('@antv/g');
-const { Renderer } = require('@antv/g-svg');
-
-const renderer = new Renderer();
-const htmlRendererPlugin = renderer.getPlugin('html-renderer');
-renderer.unregisterPlugin(htmlRendererPlugin);
-const domInteractionPlugin = renderer.getPlugin('dom-interaction');
-renderer.unregisterPlugin(domInteractionPlugin);
-
-const gCanvas = new Canvas({
-  renderer,
-  width,
-  height,
-  container, // use container created in last step
-  document,
-  offscreenCanvas: offscreenNodeCanvas,
-  requestAnimationFrame: window.requestAnimationFrame,
-  cancelAnimationFrame: window.cancelAnimationFrame,
-});
-```
-
-Then, proceed to create a G2 Chart as usual by providing the previously created canvas and container. For more details, refer to the documentation under [quick start](/manual/quick-start)：
-
-```js
-const { Chart } = require('@antv/g2');
-
-const chart = new Chart({
-  width,
-  height,
-  canvas: gCanvas,
-  container,
-});
-```
-
-Finally, render the chart, retrieve the rendering result from JSDOM, serialize it into an SVG string. Afterwards, you can choose to save it as a local file. In this example code, the result is directly output to the console.
-
-```js
-const xmlserializer = require('xmlserializer');
-
-(async () => {
-  await chart.render();
-
-  const svg = xmlserializer.serializeToString(container.childNodes[0]);
-  console.log(svg); // '<svg>...</svg>
-
-  chart.destroy();
-})();
-```
-
-It is worth mentioning that currently, in G2's integration testing, due to SVG's excellent cross-platform compatibility, we also apply this technology for [screenshot comparisons](https://github.com/antvis/G2/tree/v5/__tests__/integration/snapshots/static).
-
-### node-canvas
-
-[online example](https://stackblitz.com/edit/stackblitz-starters-evrvef?file=index.js)
-
-The solution based on jsdom can only generate SVG. If you want to generate images in formats like PNG, you can use [node-canvas](https://github.com/Automattic/node-canvas).
+[Online Example](https://stackblitz.com/edit/stackblitz-starters-evrvef?file=index.js) - Note: jsdom-based solutions can only generate SVG. For PNG-like formats, use [node-canvas](https://github.com/Automattic/node-canvas).
 
 Firstly, create two node-canvases, one for rendering the scene and the other for measuring text width:
 
@@ -133,6 +59,49 @@ function writePNG(nodeCanvas) {
   });
 }
 ```
+
+
+## Using G2 SSR Open-Source Project
+
+We've packaged the SSR solution into a ready-to-use library: [@antv/g2-ssr](https://github.com/antvis/g2-extensions/blob/master/ssr/README.md).
+
+```ts
+const chart = await createChart({
+  width: 640,
+  height: 480,
+  imageType: 'png', // or 'jpeg'
+  // Other G2 configurations (refer to G2 docs)
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
+
+// Export
+chart.exportToFile('chart'); // -> chart.png
+chart.toBuffer(); // -> get buffer
+```
+
+Renders in ~400ms with browser-equivalent quality:
+
+<img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XqCnTbkpAkQAAAAAAAAAAAAADmJ7AQ/fmt.webp" width="640" alt="Example chart generated by G2 SSR">
+
+
+## AI MCP Integration
+
+We've open-sourced an AI-oriented visualization solution leveraging this SSR capability: [mcp-server-chart](https://github.com/antvis/mcp-server-chart). It interprets AI model outputs and user intent to generate visualizations, currently supporting 15+ chart types and relational diagrams.
+
+<img width="640" alt="mcp-server-chart preview" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZlzKQKoJzsYAAAAAAAAAAAAAemJ7AQ/fmt.webp" />
+
 
 ## Use in other server-side locales
 

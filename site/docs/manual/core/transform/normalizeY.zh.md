@@ -9,48 +9,49 @@ order: 2
 
 下面这个示例展示了如何创建一个百分比堆积柱状图，展示不同年龄段的性别比例。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    coordinate: { transform: [{ type: 'transpose' }] },
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.year === 2000,
-        },
-      ],
-    },
-    transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
-    encode: {
-      x: 'age',
-      y: 'people',
-      color: 'sex',
-    },
-    scale: {
-      color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
-    },
-    axis: {
-      y: { labelFormatter: '.0%' },
-    },
-    labels: [
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    transform: [
       {
-        text: 'people',
-        position: 'inside',
-        style: { fill: 'white' },
+        type: 'filter',
+        callback: (d) => d.year === 2000,
       },
     ],
-  });
+  },
+  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+  encode: {
+    x: 'age',
+    y: 'people',
+    color: 'sex',
+  },
+  scale: {
+    color: { type: 'ordinal', range: ['#ca8861', '#675193'] },
+  },
+  axis: {
+    y: { labelFormatter: '.0%' },
+  },
+  labels: [
+    {
+      text: 'people',
+      position: 'inside',
+      style: { fill: 'white' },
+    },
+  ],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 使用场景
@@ -99,41 +100,42 @@ order: 2
 
 下面的例子展示了如何使用不同的 basis 进行归一化：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { category: 'A', value: 10, group: '1' },
-      { category: 'B', value: 20, group: '1' },
-      { category: 'C', value: 30, group: '1' },
-      { category: 'A', value: 40, group: '2' },
-      { category: 'B', value: 50, group: '2' },
-      { category: 'C', value: 60, group: '2' },
-    ],
-    encode: {
-      x: 'category',
-      y: 'value',
-      color: 'group',
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'A', value: 10, group: '1' },
+    { category: 'B', value: 20, group: '1' },
+    { category: 'C', value: 30, group: '1' },
+    { category: 'A', value: 40, group: '2' },
+    { category: 'B', value: 50, group: '2' },
+    { category: 'C', value: 60, group: '2' },
+  ],
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'group',
+  },
+  transform: [
+    {
+      type: 'normalizeY',
+      basis: 'mean', // 使用平均值作为基准
     },
-    transform: [
-      {
-        type: 'normalizeY',
-        basis: 'mean', // 使用平均值作为基准
-      },
-    ],
-  });
+  ],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 交互式对比不同 basis 效果
 
-```js | ob
+```js | ob { pin: false }
 (() => {
   const valueList = [
     'first',
@@ -172,7 +174,9 @@ order: 2
   });
 
   const handleSetValue = (value) => {
-    chart.transform([{ type: 'normalizeY', basis: value, groupBy: 'color' }]);
+    chart.options({
+      transform: [{ type: 'normalizeY', basis: value, groupBy: 'color' }],
+    });
     chart.render(); // 重新渲染图表
   };
 
@@ -203,37 +207,38 @@ order: 2
 
 可以通过 groupBy 选项指定如何对数据进行分组：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { category: 'A', year: '2020', value: 100 },
-      { category: 'B', year: '2020', value: 200 },
-      { category: 'A', year: '2021', value: 150 },
-      { category: 'B', year: '2021', value: 300 },
-      { category: 'A', year: '2022', value: 180 },
-      { category: 'B', year: '2022', value: 360 },
-    ],
-    encode: {
-      x: 'year',
-      y: 'value',
-      color: 'category',
-    },
-    transform: [
-      {
-        type: 'normalizeY',
-        groupBy: 'color', // 按照 color 通道进行归一化（对应数据字段 category）
-      },
-    ],
-    axis: {
-      y: { labelFormatter: '.0%' },
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'A', year: '2020', value: 100 },
+    { category: 'B', year: '2020', value: 200 },
+    { category: 'A', year: '2021', value: 150 },
+    { category: 'B', year: '2021', value: 300 },
+    { category: 'A', year: '2022', value: 180 },
+    { category: 'B', year: '2022', value: 360 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'category',
+  },
+  transform: [
+    {
+      type: 'normalizeY',
+      groupBy: 'color', // 按照 color 通道进行归一化（对应数据字段 category）
+    },
+  ],
+  axis: {
+    y: { labelFormatter: '.0%' },
+  },
+});
+
+chart.render();
 ```

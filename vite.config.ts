@@ -24,6 +24,18 @@ const baseOptions: UserConfig = {
 };
 
 /**
+ * @desc Playground configuration
+ * @type {import('vite').UserConfig}
+ */
+const playgroundOptions: UserConfig = {
+  root: './playground/',
+  server: {
+    port: 8081,
+    open: '/',
+  },
+};
+
+/**
  * @desc Link configuration
  * @link https://vitejs.dev/config/
  * @type {import('vite').UserConfig}
@@ -44,6 +56,12 @@ const linkOptions: UserConfig = {
  * @link https://vitejs.dev/config/
  * @type {import('vite').UserConfig}
  */
-export default defineConfig(
-  deepMix(baseOptions, LINK === '1' ? linkOptions : {}),
-);
+export default defineConfig(({ command, mode }) => {
+  const modeOptionsMap = {
+    playground: playgroundOptions,
+    default: baseOptions,
+  };
+
+  const options = modeOptionsMap[mode] || modeOptionsMap['default'];
+  return deepMix(options, LINK === '1' ? linkOptions : {});
+});

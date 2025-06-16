@@ -13,29 +13,29 @@ order: 27
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'wordCloud', // 指定图表类型为词云图
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
-    },
-    layout: {
-      spiral: 'rectangular', // 词云布局模式：矩形螺旋布局
-    },
-    encode: { color: 'text' }, // 将数据字段 `text` 映射到词云图的颜色
-    legend: false,
-    axis: false,
-    tooltip: false,
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'wordCloud', // 指定图表类型为词云图
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
+  },
+  layout: {
+    spiral: 'rectangular', // 词云布局模式：矩形螺旋布局
+  },
+  encode: { color: 'text' }, // 将数据字段 `text` 映射到词云图的颜色
+  legend: false,
+  axis: false,
+  tooltip: false,
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 文本](/examples#general-text)页面。
@@ -68,8 +68,8 @@ order: 27
 
 `scale`用于定义数据如何映射到视觉属性（如颜色、大小、形状等）。在`cell`的使用场景，scale 的常见作用就是为每个视觉通道（如颜色、大小、位置等）提供映射规则，使数据点能够准确地呈现。
 
-| 属性 | 描述                                  | 类型                                        | 默认值              | 必选 |
-| ---- | ------------------------------------- | ------------------------------------------- | ------------------- | ---- |
+| 属性 | 描述                                  | 类型                                                 | 默认值              | 必选 |
+| ---- | ------------------------------------- | ---------------------------------------------------- | ------------------- | ---- |
 | x    | 定义数据字段到 X 轴视觉位置的映射规则 | Record<string, [scale](/manual/core/scale/overview)> | `{ range: [0, 1] }` |      |
 | y    | 定义数据字段到 X 轴视觉位置的映射规则 | Record<string, [scale](/manual/core/scale/overview)> | `{ range: [0, 1] }` |      |
 
@@ -83,7 +83,7 @@ order: 27
 type Position = 'Top' | 'Bottom' | 'left' | 'right';
 ```
 
-与layout中的 `padding` 配置项对比
+与 layout 中的 `padding` 配置项对比
 
 | 属性                  | 描述                                                   | 类型                            | 示例                                                                                                             |
 | --------------------- | ------------------------------------------------------ | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -94,8 +94,8 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 
 | 属性         | 描述                                                                                               | 类型                                                                                                               | 默认值                                   |
 | ------------ | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- |
-| font         | 设置字体样式，可以是字符串或函数，函数根据单词返回字体，修改d3词云配置                             | string \| (word: any) => string                                                                                    | 'Impact'                                 |
-| fontSize     | 设置字体大小，可以是具体值、范围 [min, max] 或函数，修改d3词云配置                                 | number \| [number, number] \| (word: any) => number                                                                | -                                        |
+| font         | 设置字体样式，可以是字符串或函数，函数根据单词返回字体，修改 d3 词云配置                           | string \| (word: any) => string                                                                                    | 'Impact'                                 |
+| fontSize     | 设置字体大小，可以是具体值、范围 [min, max] 或函数，修改 d3 词云配置                               | number \| [number, number] \| (word: any) => number                                                                | -                                        |
 | imageMask    | 设置图像作为单词布局的遮罩，可以是 HTML 图像元素或图像路径字符串                                   | 'HTMLImageElement \| string                                                                                        | -                                        |
 | on           | 配置事件监听器函数，可以监听布局完成 (end) 或单词更新 (word)                                       | ((type: 'end', details?: { cloud; words; bounds }) => void) \| ((type: 'word', details?: { cloud; word }) => void) | -                                        |
 | padding      | 设置单词之间的间距，单位为像素，可以是具体值或动态函数                                             | number \| (word: any) => number                                                                                    | `2`                                      |
@@ -115,7 +115,7 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 | archimedean | 阿基米德螺旋线（默认值），词语从中心向外按螺旋路径排列，布局较紧凑。 | 通用场景，追求自然紧凑的布局 |
 | rectangular | 矩形螺旋，词语按矩形路径排列，计算速度更快，但布局相对松散。         | 数据量大时优化性能           |
 
-```js | ob { pin: false }
+```js | ob {  pin: false }
 (() => {
   const spiralMap = [
     {
@@ -169,7 +169,7 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 
   chart.render();
 
-  return chart.getContainer();
+  return node;
 })();
 ```
 
@@ -185,30 +185,30 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 - 图像加载：在使用图片遮罩时，确保图像资源已经完全加载，否则可能会出现渲染问题。
 - 性能影响：复杂形状（例如高分辨率图片）可能会影响词云的构造速度。
 
-```js | ob {pin: false}
-(() => {
-  const chart = new G2.Chart();
+```js | ob { pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'wordCloud',
-    layout: {
-      imageMask:
-        'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LKU4TYEiB-4AAAAAAAAAAAAADmJ7AQ/original',
-      fontSize: 12,
-    },
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json',
-    },
-    encode: { color: 'name', text: 'name' },
-    legend: false,
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'wordCloud',
+  layout: {
+    imageMask:
+      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LKU4TYEiB-4AAAAAAAAAAAAADmJ7AQ/original',
+    fontSize: 12,
+  },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json',
+  },
+  encode: { color: 'name', text: 'name' },
+  legend: false,
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### style
@@ -217,9 +217,9 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 
 | 属性          | 描述                                                                                                          | 类型                                                                        | 默认值    |
 | ------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------- |
-| fontStyle     | 设置文本的样式，调用G绘图进行绘制                                                                             | FontStyle \| (datum, index, data, column) => FontStyle                      | 'normal'  |
-| fontSize      | 设置文本的字体大小，调用G绘图进行绘制                                                                         | number \| (datum, index, data, column) => number                            | -         |
-| fontWeight    | 设置文本的字体粗细，调用G绘图进行绘制                                                                         | FontWeight \| number \| (datum, index, data, column) => number \|FontWeight | 'normal'  |
+| fontStyle     | 设置文本的样式，调用 G 绘图进行绘制                                                                           | FontStyle \| (datum, index, data, column) => FontStyle                      | 'normal'  |
+| fontSize      | 设置文本的字体大小，调用 G 绘图进行绘制                                                                       | number \| (datum, index, data, column) => number                            | -         |
+| fontWeight    | 设置文本的字体粗细，调用 G 绘图进行绘制                                                                       | FontWeight \| number \| (datum, index, data, column) => number \|FontWeight | 'normal'  |
 | fill          | 图形的填充色                                                                                                  | number \| (datum, index, data, column) => string                            | -         |
 | fillOpacity   | 图形的填充透明度                                                                                              | number \| (datum, index, data, column) => number                            | -         |
 | stroke        | 图形的描边                                                                                                    | number \| (datum, index, data, column) => string                            | -         |

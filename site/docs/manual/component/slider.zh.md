@@ -7,34 +7,34 @@ order: 7.4
 
 G2 中**缩略轴（Slider）** 可以用于过滤数据，让用户在数据量较大的情况下一次只用关注局部的数据，是一种辅助看数据的组件。它将大量数据浓缩到一个轴上，既可以缩小宏观看数据全貌，又可以放大微观看数据的片段，同时还可以拖拽观察数据在一定区间内的演变。缩略轴可以和 x 或者 y 通道绑定，用于显示不同方向的缩略轴，缩略轴默认都是关闭的。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  const formatter = (dateTimeString) => {
-    return new Date(dateTimeString).toLocaleString();
-  };
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'line',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+const formatter = (dateTimeString) => {
+  return new Date(dateTimeString).toLocaleString();
+};
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => `${formatter(d)}`,
     },
-    encode: { x: 'date', y: 'close' },
-    slider: {
-      x: {
-        labelFormatter: (d) => `${formatter(d)}`,
-      },
-    },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 配置层级
@@ -439,7 +439,6 @@ chart.render();
   });
 
   chart.render().then(sliderX);
-
   return chart.getContainer();
 })();
 ```

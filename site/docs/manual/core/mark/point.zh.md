@@ -9,32 +9,32 @@ order: 18
 
 ## 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-    },
-    encode: {
-      x: 'GDP',
-      y: 'LifeExpectancy',
-      size: 'Population',
-      color: 'continent',
-      shape: 'point',
-    },
-    scale: { size: { type: 'log', range: [4, 20] } }, // Population数据差异较大，使用log比例尺对size通道的数据进行映射后，使得显示更友好
-    legend: { size: false }, // 关闭size通道的图例
-    style: { fillOpacity: 0.3, lineWidth: 1 },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  },
+  encode: {
+    x: 'GDP',
+    y: 'LifeExpectancy',
+    size: 'Population',
+    color: 'continent',
+    shape: 'point',
+  },
+  scale: { size: { type: 'log', range: [4, 20] } }, // Population数据差异较大，使用log比例尺对size通道的数据进行映射后，使得显示更友好
+  legend: { size: false }, // 关闭size通道的图例
+  style: { fillOpacity: 0.3, lineWidth: 1 },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 散点图](/examples#general-point)页面。
@@ -52,7 +52,7 @@ order: 18
 
 | 属性  | 描述                                                                                             | 类型                                                                                                                                                                                                                                                                                         | 默认值   | 必选 |
 | ----- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- |
-| x     | 绑定 `point` 标记的 `x` 属性通道，可以是 `data` 中的数值字段、有序名词和无序名词                                     | [encode](/manual/core/encode)                                                                                                                                                                                                                                                                | -        | ✓    |
+| x     | 绑定 `point` 标记的 `x` 属性通道，可以是 `data` 中的数值字段、有序名词和无序名词                 | [encode](/manual/core/encode)                                                                                                                                                                                                                                                                | -        | ✓    |
 | y     | 绑定 `point` 标记的 `y` 属性通道，一般是 `data` 中的数值字段，为空的时候用来绘制一维散点图       | [encode](/manual/core/encode)                                                                                                                                                                                                                                                                | -        |      |
 | color | 绑定 `point` 标记的 `color` 属性通道，一般用于区分不同的数据类型，映射到分类字段                 | [encode](/manual/core/encode)                                                                                                                                                                                                                                                                | -        |      |
 | shape | 绑定 `point` 标记的 `shape` 属性通道，改变图形标记的绘制形状                                     | `hollow` \| `hollowDiamond` \| `hollowHexagon` \| `hollowSquare` \| `hollowTriangleDown` \| `hollowTriangle` \| `hollowBowtie` \| `point` \| `plus` \| `diamond` \| `square` \| `triangle` \| `triangleDown` \| `hexagon` \| `cross` \| `bowtie` \| `hyphen` \| `line` \| `tick` \| `circle` | `hollow` |      |
@@ -86,76 +86,76 @@ order: 18
 
 `color` 视觉通道影响 `point` 图形标记的 **填充颜色**（在应用某些空心形状的时候，例如 `hollow` ，则会改变图形的 **描边颜色**）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-    },
-    encode: {
-      x: 'height',
-      y: 'weight',
-      color: 'gender', // color通道映射gender字段，对不同的性别进行分组
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+  },
+  encode: {
+    x: 'height',
+    y: 'weight',
+    color: 'gender', // color通道映射gender字段，对不同的性别进行分组
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    children: [
-      {
-        type: 'point',
-        data: {
-          type: 'fetch',
-          value:
-            'https://gw.alipayobjects.com/os/bmw-prod/56b6b137-e04e-4757-8af5-d75bafaef886.csv',
-        },
-        encode: { x: 'date', y: 'value', color: 'value', shape: 'point' },
-        scale: { color: { palette: 'rdBu', offset: (t) => 1 - t } }, // 配置color通道的比例尺，调整色板和偏移量
-        style: { stroke: '#000', strokeOpacity: 0.2 }, // 配置point标记的样式
-        // 自定义tooltip的items
-        tooltip: {
-          items: [
-            {
-              channel: 'x',
-              name: 'year',
-              valueFormatter: (d) => d.getFullYear(),
-            },
-            { channel: 'y' },
-          ],
-        },
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/56b6b137-e04e-4757-8af5-d75bafaef886.csv',
       },
-      // 添加lineY标记作为辅助线标注
-      {
-        type: 'lineY',
-        data: [0],
-        style: { stroke: '#000', strokeOpacity: 0.2 },
+      encode: { x: 'date', y: 'value', color: 'value', shape: 'point' },
+      scale: { color: { palette: 'rdBu', offset: (t) => 1 - t } }, // 配置color通道的比例尺，调整色板和偏移量
+      style: { stroke: '#000', strokeOpacity: 0.2 }, // 配置point标记的样式
+      // 自定义tooltip的items
+      tooltip: {
+        items: [
+          {
+            channel: 'x',
+            name: 'year',
+            valueFormatter: (d) => d.getFullYear(),
+          },
+          { channel: 'y' },
+        ],
       },
-    ],
-  });
+    },
+    // 添加lineY标记作为辅助线标注
+    {
+      type: 'lineY',
+      data: [0],
+      style: { stroke: '#000', strokeOpacity: 0.2 },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 #### shape
@@ -187,7 +187,7 @@ order: 18
 
 尝试一下：
 
-```js | ob { pin: false }
+```js | ob {  pin: false }
 (() => {
   // 可选的itemMarker形状
   const shapeList = [
@@ -237,11 +237,13 @@ order: 18
   });
 
   const handleSetShape = (shape) => {
-    chart.encode({
-      x: 'x',
-      y: 'y',
-      size: 10,
-      shape,
+    chart.options({
+      encode: {
+        x: 'x',
+        y: 'y',
+        size: 10,
+        shape,
+      },
     });
     chart.render(); // 重新渲染图表
   };
@@ -272,40 +274,40 @@ order: 18
 
 绑定 `point` 标记的 `size` 属性通道，就能绘制出 **气泡图**，此时数据字段的大小映射到图形的半径（如果是正方形则是 1/2 边长）。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2b48887c-56fb-437e-a91c-6f48e80e5a91.csv',
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.Entity !== 'All natural disasters',
-        },
-      ],
-    },
-    encode: {
-      x: 'Year',
-      y: 'Entity',
-      size: 'Deaths',
-      color: 'Entity',
-      shape: 'point',
-    },
-    scale: { size: { rangeMax: 35 } }, // 配置size通道的比例尺，设置最大值域为35
-    style: { stroke: 'black', strokeOpacity: 0.1, opacity: 0.8, lineWidth: 1 }, // 配置point标记的样式
-    legend: { color: false }, // 关闭color通道的图例
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2b48887c-56fb-437e-a91c-6f48e80e5a91.csv',
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d.Entity !== 'All natural disasters',
+      },
+    ],
+  },
+  encode: {
+    x: 'Year',
+    y: 'Entity',
+    size: 'Deaths',
+    color: 'Entity',
+    shape: 'point',
+  },
+  scale: { size: { rangeMax: 35 } }, // 配置size通道的比例尺，设置最大值域为35
+  style: { stroke: 'black', strokeOpacity: 0.1, opacity: 0.8, lineWidth: 1 }, // 配置point标记的样式
+  legend: { color: false }, // 关闭color通道的图例
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### style
@@ -335,212 +337,212 @@ order: 18
 
 受益于 G2 里标记的可组合性，你可以将 `point`标记和 `line` 标记等其他标记结合，增强图表的表现力，或者是绘制一些类似线性回归的特殊图表。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  const d3Regression = window.d3Regression;
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/linear-regression.json',
+const chart = new Chart({
+  container: 'container',
+});
+const d3Regression = window.d3Regression;
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/linear-regression.json',
+  },
+  children: [
+    {
+      type: 'point',
+      encode: { x: (d) => d[0], y: (d) => d[1], shape: 'point' },
+      scale: { x: { domain: [0, 1] }, y: { domain: [0, 5] } },
+      style: { fillOpacity: 0.75 },
     },
-    children: [
-      {
-        type: 'point',
-        encode: { x: (d) => d[0], y: (d) => d[1], shape: 'point' },
-        scale: { x: { domain: [0, 1] }, y: { domain: [0, 5] } },
-        style: { fillOpacity: 0.75 },
-      },
-      {
-        type: 'line',
-        // 使用d3Regression的regressionLinear方法处理数据，绘制回归线
-        data: {
-          transform: [
-            {
-              type: 'custom',
-              callback: d3Regression.regressionLinear(),
-            },
-          ],
-        },
-        encode: { x: (d) => d[0], y: (d) => d[1] },
-        style: { stroke: '#30BF78', lineWidth: 2 },
-        labels: [
+    {
+      type: 'line',
+      // 使用d3Regression的regressionLinear方法处理数据，绘制回归线
+      data: {
+        transform: [
           {
-            text: 'y = 1.7x+3.01',
-            selector: 'last',
-            position: 'right',
-            textAlign: 'end',
-            dy: -8,
+            type: 'custom',
+            callback: d3Regression.regressionLinear(),
           },
         ],
-        tooltip: false,
       },
-    ],
-  });
+      encode: { x: (d) => d[0], y: (d) => d[1] },
+      style: { stroke: '#30BF78', lineWidth: 2 },
+      labels: [
+        {
+          text: 'y = 1.7x+3.01',
+          selector: 'last',
+          position: 'right',
+          textAlign: 'end',
+          dy: -8,
+        },
+      ],
+      tooltip: false,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 下面是另一个 `point` 标记结合其他标记（这个例子中是 `link` 标记）的例子：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view',
-    width: 800,
-    height: 1200,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  width: 800,
+  height: 1200,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
+  },
+  coordinate: { transform: [{ type: 'transpose' }] }, // 配置坐标系transpose转换
+  interaction: { tooltip: { shared: true } }, // 相同 x 的元素共享 tooltip
+  children: [
+    {
+      type: 'link',
+      encode: { x: 'state', y: 'population' },
+      transform: [{ type: 'groupX', y: 'min', y1: 'max' }],
+      scale: { y: { labelFormatter: '.0%' } },
+      style: { stroke: '#000' },
+      tooltip: false,
     },
-    coordinate: { transform: [{ type: 'transpose' }] }, // 配置坐标系transpose转换
-    interaction: { tooltip: { shared: true } }, // 相同 x 的元素共享 tooltip
-    children: [
-      {
-        type: 'link',
-        encode: { x: 'state', y: 'population' },
-        transform: [{ type: 'groupX', y: 'min', y1: 'max' }],
-        scale: { y: { labelFormatter: '.0%' } },
-        style: { stroke: '#000' },
-        tooltip: false,
-      },
-      {
-        type: 'point',
-        encode: { x: 'state', y: 'population', shape: 'point', color: 'age' },
-        scale: { color: { palette: 'spectral' } },
-        tooltip: { title: 'state', items: ['population'] },
-      },
-    ],
-  });
+    {
+      type: 'point',
+      encode: { x: 'state', y: 'population', shape: 'point', color: 'age' },
+      scale: { color: { palette: 'spectral' } },
+      tooltip: { title: 'state', items: ['population'] },
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 - 一维散点图相同 x 坐标的点都重叠在一起怎么办？
 
 配置 `y` 通道为常数 `1`, 然后配置 [stackY](/manual/core/transform/stack-y) 数据转换来将相同 x 坐标的点堆叠起来。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    height: 200,
-    data: [
-      { x: 1 },
-      { x: 1 },
-      { x: 1 },
-      { x: 2 },
-      { x: 2 },
-      { x: 2 },
-      { x: 2 },
-      { x: 2 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 4 },
-      { x: 5 },
-    ],
-    encode: {
-      x: 'x',
-      y: () => 1,
-      shape: 'point',
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'point',
+  height: 200,
+  data: [
+    { x: 1 },
+    { x: 1 },
+    { x: 1 },
+    { x: 2 },
+    { x: 2 },
+    { x: 2 },
+    { x: 2 },
+    { x: 2 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 4 },
+    { x: 5 },
+  ],
+  encode: {
+    x: 'x',
+    y: () => 1,
+    shape: 'point',
+  },
+  transform: [
+    {
+      type: 'stackY', // 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果
     },
-    transform: [
-      {
-        type: 'stackY', // 按照指定通道分组，对每组的 y 和 y1 通道进行堆叠，实现堆叠效果
-      },
-    ],
-    scale: { x: { nice: true } },
-    tooltip: { items: [{ channel: 'x', name: 'x' }] },
-  });
+  ],
+  scale: { x: { nice: true } },
+  tooltip: { items: [{ channel: 'x', name: 'x' }] },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 或者配置 [groupX](/manual/core/transform/group-x) 数据转换来将相同 x 坐标的点进行求和，然后映射到 `size`通道。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'point',
-    height: 200,
-    data: [
-      { x: 1 },
-      { x: 1 },
-      { x: 1 },
-      { x: 2 },
-      { x: 2 },
-      { x: 2 },
-      { x: 2 },
-      { x: 2 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 3 },
-      { x: 4 },
-      { x: 5 },
-    ],
-    encode: {
-      x: 'x',
-      y: () => 1,
-      shape: 'point',
-      size: () => 1,
-    },
-    transform: [{ type: 'groupX', size: 'sum' }], // 对离散的 x 通道进行分组，并且进行求和后映射到size通道
-    scale: {
-      x: { nice: true },
-      size: { rangeMin: 5 }, // 设置size通道的比例尺的最小值域为5
-    },
-    axis: {
-      y: false,
-    },
-    tooltip: { items: [{ channel: 'size', name: '数量' }] },
-  });
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'point',
+  height: 200,
+  data: [
+    { x: 1 },
+    { x: 1 },
+    { x: 1 },
+    { x: 2 },
+    { x: 2 },
+    { x: 2 },
+    { x: 2 },
+    { x: 2 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 3 },
+    { x: 4 },
+    { x: 5 },
+  ],
+  encode: {
+    x: 'x',
+    y: () => 1,
+    shape: 'point',
+    size: () => 1,
+  },
+  transform: [{ type: 'groupX', size: 'sum' }], // 对离散的 x 通道进行分组，并且进行求和后映射到size通道
+  scale: {
+    x: { nice: true },
+    size: { rangeMin: 5 }, // 设置size通道的比例尺的最小值域为5
+  },
+  axis: {
+    y: false,
+  },
+  tooltip: { items: [{ channel: 'size', name: '数量' }] },
+});
+chart.render();
 ```
