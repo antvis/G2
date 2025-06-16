@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" color-interpolation-filters="sRGB" style="background: transparent;">
+  <defs>
+    <clipPath id="b" transform="matrix(1 0 0 1 -16 -16)">
+      <use href="#a" transform="matrix(1 0 0 1 16 16)"/>
+    </clipPath>
+  </defs>
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
+        <g>
+          <path width="600" height="400" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 600 0 0 400-600 0z" class="area"/>
+        </g>
+        <g>
+          <path width="568" height="368" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 568 0 0 368-568 0z" class="area"/>
+        </g>
+        <g>
+          <path width="568" height="333" x="16" y="51" fill="rgba(0,0,0,0)" d="m16 51 568 0 0 333-568 0z" class="area"/>
+        </g>
+        <g>
+          <path width="568" height="333" x="16" y="51" fill="rgba(0,0,0,0)" d="m16 51 568 0 0 333-568 0z" class="area"/>
+        </g>
+        <g fill="none" class="component">
+          <g fill="none" transform="matrix(1 0 0 1 16 16)">
+            <g fill="none" class="legend-category">
+              <g fill="none" class="legend-title-group">
+                <g fill="none" class="legend-title"/>
+              </g>
+              <g fill="none" class="legend-items-group">
+                <g fill="none" class="legend-items">
+                  <g fill="none" class="items-navigator">
+                    <g fill="none" class="navigator-content-group" clip-path="url(#b)">
+                      <g fill="none" class="navigator-play-window">
+                        <g fill="none" class="items-item-page">
+                          <g fill="none" class="items-item">
+                            <g fill="none" class="legend-category-item-background-group">
+                              <g>
+                                <path width="41" height="23" fill="rgba(0,0,0,0)" d="m0 0 41 0 0 23-41 0z" class="legend-category-item-background" visibility="visible"/>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                              <g>
+                                <path fill="rgba(23,131,255,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
+                              <g>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">文具</text>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-value-group"/>
+                          </g>
+                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 53 0)">
+                            <g fill="none" class="legend-category-item-background-group">
+                              <g>
+                                <path width="41" height="23" fill="rgba(0,0,0,0)" d="m0 0 41 0 0 23-41 0z" class="legend-category-item-background" visibility="visible"/>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                              <g>
+                                <path fill="rgba(0,201,201,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
+                              <g>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">零食</text>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-value-group"/>
+                          </g>
+                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 106 0)">
+                            <g fill="none" class="legend-category-item-background-group">
+                              <g>
+                                <path width="41" height="23" fill="rgba(0,0,0,0)" d="m0 0 41 0 0 23-41 0z" class="legend-category-item-background" visibility="visible"/>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
+                              <g>
+                                <path fill="rgba(240,136,77,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
+                              <g>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">其他</text>
+                              </g>
+                            </g>
+                            <g fill="none" class="legend-category-item-value-group"/>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <g fill="none" class="navigator-controller"/>
+                    <g>
+                      <path id="a" width="147" height="23" fill="none" d="m0 0 147 0 0 23-147 0z" class="navigator-clip-path"/>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g transform="matrix(1 0 0 1 16 51)">
+          <path width="568" height="333" fill="rgba(0,0,0,0)" d="m0 0 568 0 0 333-568 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g>
+              <path width="488.2993" height="181.1752" x="0" y="0" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="m0 0 488.2993 0 0 181.1752-488.2993 0z" class="element"/>
+            </g>
+            <g>
+              <path width="488.2993" height="151.8248" x="0" y="181.1752" fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="m0 181.1752 488.2993 0 0 151.8248-488.2993 0z" class="element"/>
+            </g>
+            <g>
+              <path width="79.7007" height="333" x="488.2993" y="0" fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(255,255,255,1)" stroke-width="1" d="m488.2993 0 79.7007 0 0 333-79.7007 0z" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="label-layer">
+            <g fill="none" class="label">
+              <g>
+                <path width="29.5" height="27.5" x="5" y="5" fill="none" d="m5 5 29.5 0 0 27.5-29.5 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(0,0,0,1)" fill-opacity=".65" stroke="rgba(255,255,255,1)" stroke-width="1.5" dominant-baseline="central" dx=".75" dy="13.75" font-size="14" font-weight="normal" paint-order="stroke" style="transform:translate(5px, 5px);" text-anchor="left">文具</text>
+              </g>
+              <g>
+                <path fill="none" d="m5 5-5-5"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 0 181.1752)">
+              <g>
+                <path width="29.5" height="27.5" x="5" y="5" fill="none" d="m5 5 29.5 0 0 27.5-29.5 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(0,0,0,1)" fill-opacity=".65" stroke="rgba(255,255,255,1)" stroke-width="1.5" dominant-baseline="central" dx=".75" dy="13.75" font-size="14" font-weight="normal" paint-order="stroke" style="transform:translate(5px, 5px);" text-anchor="left">零食</text>
+              </g>
+              <g>
+                <path fill="none" d="m5 5-5-5"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 488.2993 0)">
+              <g>
+                <path width="29.5" height="27.5" x="5" y="5" fill="none" d="m5 5 29.5 0 0 27.5-29.5 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(0,0,0,1)" fill-opacity=".65" stroke="rgba(255,255,255,1)" stroke-width="1.5" dominant-baseline="central" dx=".75" dy="13.75" font-size="14" font-weight="normal" paint-order="stroke" style="transform:translate(5px, 5px);" text-anchor="left">其他</text>
+              </g>
+              <g>
+                <path fill="none" d="m5 5-5-5"/>
+              </g>
+            </g>
+          </g>
+          <g fill="none"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

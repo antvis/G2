@@ -149,6 +149,7 @@ export { countries50mProjectionComparison } from './countries-50m-projection-com
 export { flareTreemapDefault } from './flare-treemap-default';
 export { flareTreemapCustom } from './flare-treemap-custom';
 export { flareTreemapDrillDown } from './flare-treemap-drill-down';
+export { flareTreemapDrillDownWithView } from './flare-treemap-drill-down-with-view';
 export { metrosLinkTrending } from './metros-link-trending';
 export { incomeLinkAnnotation } from './income-link-annotation';
 export { alphabetIntervalSpaceLayer } from './alphabet-interval-space-layer';
