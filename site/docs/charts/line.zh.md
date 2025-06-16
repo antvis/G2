@@ -219,7 +219,11 @@ chart.render();
 
 例子 1: **不适合展示离散类别的比较**
 
-折线图主要用于展示连续数据的变化趋势，不适合用于显示离散类别间的数值比较。如果主要目的是比较不同类别的具体数值，柱状图或条形图会是更好的选择。
+当水平轴的数据类型为无序的分类或者垂直轴的数据类型为连续时间时，不适合使用折线图。
+
+我们以一个不同游戏类型的销量对比的场景为例，对于表示分类对比的数据时，我们更应该使用[柱状图](/charts/bar)，而不是折线图。
+
+**错误的做法**
 
 ```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
@@ -227,25 +231,31 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  height: 250,
 });
 
 chart.options({
   type: 'line',
   autoFit: true,
   data: [
-    { category: '电子产品', sales: 1200 },
-    { category: '服装', sales: 800 },
-    { category: '食品', sales: 600 },
-    { category: '家具', sales: 400 },
-    { category: '图书', sales: 200 },
+    { genre: 'Sports', sold: 27500 },
+    { genre: 'Strategy', sold: 11500 },
+    { genre: 'Action', sold: 6000 },
+    { genre: 'Shooter', sold: 3500 },
+    { genre: 'Other', sold: 1500 },
   ],
-  encode: { x: 'category', y: 'sales' },
+  encode: { x: 'genre', y: 'sold' },
   axis: {
-    x: { title: null },
-    y: { title: null },
+    x: { 
+      title: '游戏类型'
+    },
+    y: { 
+      title: '销售量',
+      labelFormatter: (val) => (val / 1000) + 'k'
+    },
   },
   style: {
-    lineWidth: 2,
+    lineWidth: 3,
     stroke: '#1890ff',
   },
 });
@@ -253,11 +263,47 @@ chart.options({
 chart.render();
 ```
 
+**正确的做法**
+
+```js | ob { autoMount: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  height: 250,
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { genre: 'Sports', sold: 27500 },
+    { genre: 'Strategy', sold: 11500 },
+    { genre: 'Action', sold: 6000 },
+    { genre: 'Shooter', sold: 3500 },
+    { genre: 'Other', sold: 1500 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  axis: {
+    x: { 
+      title: '游戏类型'
+    },
+    y: { 
+      title: '销售量',
+      labelFormatter: (val) => (val / 1000) + 'k'
+    },
+  },
+});
+
+chart.render();
+```
+
 **问题说明**：
-- 类别之间没有自然的顺序或连续性关系
+- 游戏类型之间没有自然的顺序或连续性关系
 - 连线暗示了类别间的趋势关系，但实际上不存在这种关系
-- 折线可能误导读者认为从"电子产品"到"服装"存在某种变化趋势
-- 这种情况下，柱状图能更准确地表达各类别的独立数值比较
+- 折线可能误导读者认为从"Sports"到"Strategy"存在某种变化趋势
+- 柱状图能更准确地表达各游戏类型的独立销量比较
 
 例子 2: **数据点较少或变化不明显时效果不佳**
 

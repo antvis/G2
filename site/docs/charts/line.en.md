@@ -217,7 +217,11 @@ chart.render();
 
 Example 1: **Not suitable for displaying discrete category comparisons**
 
-Line charts are primarily used to show trends in continuous data and are not suitable for displaying numerical comparisons between discrete categories. If the main purpose is to compare specific values across different categories, bar charts or column charts would be better choices.
+When the horizontal axis data type is unordered categories or the vertical axis data type is continuous time, line charts are not suitable.
+
+We take a scenario comparing sales of different game types as an example. For data representing categorical comparisons, we should use [bar charts](/en/charts/bar) instead of line charts.
+
+**Wrong approach (using line chart):**
 
 ```js | ob { autoMount: true, pin: false }
 import { Chart } from '@antv/g2';
@@ -225,25 +229,31 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
+  height: 250,
 });
 
 chart.options({
   type: 'line',
   autoFit: true,
   data: [
-    { category: 'Electronics', sales: 1200 },
-    { category: 'Clothing', sales: 800 },
-    { category: 'Food', sales: 600 },
-    { category: 'Furniture', sales: 400 },
-    { category: 'Books', sales: 200 },
+    { genre: 'Sports', sold: 27500 },
+    { genre: 'Strategy', sold: 11500 },
+    { genre: 'Action', sold: 6000 },
+    { genre: 'Shooter', sold: 3500 },
+    { genre: 'Other', sold: 1500 },
   ],
-  encode: { x: 'category', y: 'sales' },
+  encode: { x: 'genre', y: 'sold' },
   axis: {
-    x: { title: null },
-    y: { title: null },
+    x: { 
+      title: 'Game Type'
+    },
+    y: { 
+      title: 'Sales',
+      labelFormatter: (val) => (val / 1000) + 'k'
+    },
   },
   style: {
-    lineWidth: 2,
+    lineWidth: 3,
     stroke: '#1890ff',
   },
 });
@@ -251,11 +261,47 @@ chart.options({
 chart.render();
 ```
 
+**Correct approach (using bar chart):**
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  height: 250,
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { genre: 'Sports', sold: 27500 },
+    { genre: 'Strategy', sold: 11500 },
+    { genre: 'Action', sold: 6000 },
+    { genre: 'Shooter', sold: 3500 },
+    { genre: 'Other', sold: 1500 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  axis: {
+    x: { 
+      title: 'Game Type'
+    },
+    y: { 
+      title: 'Sales',
+      labelFormatter: (val) => (val / 1000) + 'k'
+    },
+  },
+});
+
+chart.render();
+```
+
 **Problem description**:
-- Categories have no natural order or continuous relationship
+- Game types have no natural order or continuous relationship
 - The connecting line implies a trend relationship between categories, but this relationship doesn't actually exist
-- The line may mislead readers into thinking there's a trend from "Electronics" to "Clothing"
-- In this case, bar charts would more accurately represent independent numerical comparisons between categories
+- The line may mislead readers into thinking there's a trend from "Sports" to "Strategy"
+- Bar charts can more accurately represent independent sales comparisons between game types
 
 Example 2: **Poor effectiveness when data points are few or changes are insignificant**
 
