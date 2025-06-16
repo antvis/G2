@@ -93,7 +93,7 @@ chart.options({
   ],
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ### 示例一：突出趋势变化（时间序列）
@@ -149,7 +149,7 @@ chart.options({
     },
   ],
 });
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ### 示例二：金融行情走势平滑
@@ -211,7 +211,7 @@ chart.options({
   ],
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ### 示例三：训练过程指标平滑
@@ -265,7 +265,7 @@ chart.options({
     },
   ],
 });
-return chart.render().then((chart) => chart.getContainer());
+chart.render()
 ```
 
 ## 尝试一下

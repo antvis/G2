@@ -131,14 +131,8 @@ chart.scale('color', {
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-// 创建一个容器元素
-const container = document.createElement('div');
-container.style.width = '100%';
-container.style.height = '500px';
-
 const chart = new Chart({
   container: 'container',
-  container,
   autoFit: true,
 });
 
@@ -166,8 +160,6 @@ chart.options({
 });
 
 chart.render();
-
-return container;
 ```
 
 在这个示例中，我们使用 ordinal 比例尺将游戏类型（genre）映射到不同的颜色。每个类别都会对应到 range 数组中的一个颜色。
@@ -179,16 +171,10 @@ return container;
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-// 创建容器
-const container = document.createElement('div');
-container.style.width = '100%';
-container.style.height = '500px';
-
 // 创建图表实例
 
 const chart = new Chart({
   container: 'container',
-  container,
   autoFit: true,
 });
 
@@ -214,8 +200,6 @@ chart.options({
 
 // 渲染图表
 chart.render();
-
-return container;
 ```
 
 在这个示例中，我们可以看到 G2 默认使用 ordinal 比例尺处理分类数据。默认情况下，类别会按照数据中的原始顺序（C, A, B, E, D）显示。
@@ -244,11 +228,6 @@ scale: {
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
-// 创建一个容器元素
-const container = document.createElement('div');
-container.style.width = '100%';
-container.style.height = '500px';
-
 const spec = {
   type: 'interval',
   data: [
@@ -276,13 +255,10 @@ const spec = {
 
 const chart = new Chart({
   container: 'container',
-  container,
   autoFit: true,
 });
 chart.options(spec);
 chart.render();
-
-return container;
 ```
 
 这个示例展示了如何使用 G2 声明式语法创建一个使用 ordinal 比例尺的柱状图，包括以下特性：

@@ -44,7 +44,6 @@
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*H6BoRoDMolwAAAAAAAAAAAAADmJ7AQ/fmt.webp"
     },
-    
     {
       "filename": "wordCloud-mask.ts",
       "title": {
@@ -52,6 +51,14 @@
         "en": "WordCloud with image mask"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*P6MoSriYWhkAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "stem-leaf.ts",
+      "title": {
+        "zh": "茎叶图",
+        "en": "Stem Leaf"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5NHKSLY9WFgAAAAAQsAAAAgAemJ7AQ/original"
     }
   ]
 }

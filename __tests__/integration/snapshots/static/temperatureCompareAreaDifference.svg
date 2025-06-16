@@ -37,9 +37,9 @@
                                 <path width="72.44" height="23" fill="rgba(0,0,0,0)" d="m0 0 72.44 0 0 23-72.44 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.3746 0 0 .3746 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.30477 0 0 .30477 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(103,169,207,1)" stroke-width="2" d="m-9 2.5 5 0 0-5 8 0 0 5 5 0" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(103,169,207,1)" stroke-width="4" d="m-9 2.5 5 0 0-5 8 0 0 5 5 0" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
@@ -55,9 +55,9 @@
                                 <path width="98.24" height="23" fill="rgba(0,0,0,0)" d="m0 0 98.24 0 0 23-98.24 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
-                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.3746 0 0 .3746 4 11.5)">
+                            <g fill="none" class="legend-category-item-marker-group" transform="matrix(.30477 0 0 .30477 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(239,138,98,1)" stroke-width="2" d="m-9 2.5 5 0 0-5 8 0 0 5 5 0" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(239,138,98,1)" stroke-width="4" d="m-9 2.5 5 0 0-5 8 0 0 5 5 0" class="legend-category-item-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">

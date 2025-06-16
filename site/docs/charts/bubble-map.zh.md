@@ -2,8 +2,8 @@
 title: 带气泡的地图
 order: 3
 screenshot: 'https://t.alipayobjects.com/images/T1exRjXb4XXXXXXXXX.png'
-category: ['location', 'comparison']
-similar: ['scatter-chart', 'dot-map', 'choropleth-map']
+category: ['map', 'comparison']
+similar: ['scatter-plot', 'dot-map', 'choropleth-map']
 ---
 
 <img alt="bubble-map" src="https://t.alipayobjects.com/images/T1exRjXb4XXXXXXXXX.png" width=600/>
