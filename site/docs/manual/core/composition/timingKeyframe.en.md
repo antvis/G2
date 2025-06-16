@@ -3,7 +3,7 @@ title: timingKeyframe
 order: 2
 ---
 
-Executes continuous transition animations between different views. Uses `mark.key` and `mark.groupKey` to associate graphics.
+Execute continuous transition animations between different views. Use `mark.key` and `mark.groupKey` to associate graphics.
 
 ## Getting Started
 
@@ -43,7 +43,7 @@ fetch(
       .encode('x', 'height')
       .encode('y', 'weight')
       .encode('color', 'gender')
-      .encode('groupKey', 'gender') // Specify key for merging bars
+      .encode('groupKey', 'gender') // Specify the key for the merged bars
       .encode('shape', 'point');
 
     chart.render();
@@ -52,9 +52,9 @@ fetch(
 
 ## Options
 
-| Property       | Description                                             | Type     | Default    |
-| -------------- | ------------------------------------------------------- | -------- | ---------- |
-| duration       | Animation transition time for each view                 | `number` | 1000       |
-| iterationCount | `'infinite' \| number`                                  |          | 1          |
-| direction      | `'normal' \| 'reverse' \| 'alternate' \| 'reverse-alternate'` | `number` | `'normal'` |
-| children       | View nodes executing animations                         | `Node[]` | `[]`       |
+| Property       | Description                                                       | Type     | Default    |
+| -------------- | ----------------------------------------------------------------- | -------- | ---------- |
+| duration       | Animation transition time for each view                           | `number` | 1000       |
+| iterationCount | `'infinite' \| number`                                            |          | 1          |
+| direction      | `'normal' \| 'reverse' \| 'alternate' \| 'reverse-alternate'`     | `number` | `'normal'` |
+| children       | View nodes that execute animations                                | `Node[]` | `[]`       |

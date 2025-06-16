@@ -5,9 +5,9 @@ order: 2
 
 ## Overview
 
-The Parallel coordinate system is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axes, with each data record represented as a polyline connecting corresponding values on each coordinate axis. Parallel coordinate systems are particularly suitable for analyzing relationships and patterns among multiple variables, as well as identifying outliers and clusters in datasets.
+Parallel coordinate system (Parallel) is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axes, with each data record represented as a polyline connecting corresponding values on each coordinate axis. Parallel coordinate systems are particularly suitable for analyzing relationships and patterns among multiple variables, as well as identifying outliers and clusters in datasets.
 
-In G2, the parallel coordinate system is implemented by transforming Cartesian rectangular coordinate systems into parallel coordinate systems, with each data dimension corresponding to a vertical coordinate axis.
+In G2, the parallel coordinate system is implemented by transforming the Cartesian coordinate system into a parallel coordinate system, where each data dimension corresponds to a vertical coordinate axis.
 
 ### Coordinate System Principles
 
@@ -15,12 +15,12 @@ The basic principles of parallel coordinate systems are:
 
 1. Map multiple data dimensions to parallel arranged coordinate axes
 2. Each data record is represented as a polyline passing through all coordinate axes
-3. The position of the line on each coordinate axis corresponds to the data value for that dimension
+3. The position of the line on each coordinate axis corresponds to the data value of that dimension
 
-Parallel coordinate systems have two common layout types:
+Parallel coordinate systems have two common layout methods:
 
-- Vertical layout: coordinate axes arranged vertically (default)
-- Horizontal layout: coordinate axes arranged horizontally through transpose transformation
+- Vertical layout: Coordinate axes are arranged vertically (default)
+- Horizontal layout: Coordinate axes are arranged horizontally through transpose transform
 
 ### Getting Started
 
@@ -92,38 +92,38 @@ chart.render();
 
 Parallel coordinate systems are particularly suitable for the following scenarios:
 
-1. **Multi-dimensional data analysis**: When you need to analyze relationships among multiple variables simultaneously, parallel coordinate systems can display all dimensions in one view
-2. **Pattern recognition**: By observing line trajectories, you can identify patterns and trends in the data
-3. **Outlier detection**: Abnormal data typically appears as lines with significantly different paths from most line trajectories
+1. **Multi-dimensional data analysis**: When you need to analyze relationships between multiple variables simultaneously, parallel coordinate systems can display all dimensions in one view
+2. **Pattern recognition**: By observing the direction of lines, you can identify patterns and trends in the data
+3. **Outlier detection**: Abnormal data usually appears as lines with paths significantly different from most other lines
 4. **Cluster analysis**: Similar data records will form similar line paths, making it easy to identify data clusters
 
 ### Notes
 
-1. **Data volume**: When there are too many data records, lines will overlap causing visual confusion; it's recommended to use transparency or interactive filtering
-2. **Axis order**: The arrangement order of coordinate axes affects visualization results; variables with strong correlations placed adjacent usually facilitate analysis
+1. **Data volume**: When there are too many data records, lines will overlap causing visual clutter. It's recommended to use transparency or interactive filtering
+2. **Axis order**: The arrangement order of coordinate axes will affect the visualization effect. Variables with strong correlations placed in adjacent positions are usually more conducive to analysis
 3. **Axis scaling**: Different dimensions may have vastly different data ranges, requiring appropriate scale settings for better comparison
 
 ## Configuration
 
 The configuration options for parallel coordinate systems are relatively simple, mainly set through the `coordinate` property:
 
-| Property  | Description                                     | Type          | Default | Required |
-| --------- | ----------------------------------------------- | ------------- | ------- | -------- |
-| transform | Coordinate system transformations, can be used to implement horizontal layout | Transform[] | []      |          |
+| Property  | Description                                    | Type        | Default | Required |
+| --------- | ---------------------------------------------- | ----------- | ------- | -------- |
+| transform | Coordinate system transforms, can be used to implement horizontal layout | Transform[] | []      |          |
 
-### Coordinate System Transformations
+### Coordinate System Transforms
 
-Parallel coordinate systems support the following coordinate system transformations:
+Parallel coordinate systems support the following coordinate system transforms:
 
-| Transform Type | Description                           | Example                                  |
-| -------------- | ------------------------------------- | ---------------------------------------- |
+| Transform Type | Description                              | Example                                  |
+| -------------- | ---------------------------------------- | ---------------------------------------- |
 | transpose      | Convert vertical layout to horizontal layout | `{ transform: [{ type: 'transpose' }] }` |
 
 ## Common Use Cases
 
 ### 1. Vertical Parallel Coordinate System
 
-Vertical parallel coordinate system is the most common parallel coordinate layout, with coordinate axes arranged vertically.
+Vertical parallel coordinate system is the most common parallel coordinate system layout, with coordinate axes arranged vertically.
 
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
@@ -166,7 +166,7 @@ chart.render();
 
 ### 2. Horizontal Parallel Coordinate System
 
-By adding transpose transformation, you can arrange coordinate axes horizontally to create a horizontal parallel coordinate system.
+By adding transpose transform, you can arrange coordinate axes horizontally to create horizontal parallel coordinate systems.
 
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
@@ -210,9 +210,9 @@ chart.options({
 chart.render();
 ```
 
-### 3. Interactive Parallel Coordinate System
+### 3. Interactive Data Analysis
 
-Parallel coordinate systems typically require interaction to enhance analytical capabilities, such as adding axis highlighting and filtering functionality.
+Parallel coordinate systems can be combined with interaction components to implement interactive data analysis functionality.
 
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
@@ -221,33 +221,24 @@ const chart = new Chart({
   container: 'container',
 });
 
-// Define dimensions array
-const dimensions = [
-  'economy (mpg)',
-  'cylinders',
-  'displacement (cc)',
-  'power (hp)',
-  'weight (lb)',
-];
-
 chart.options({
   type: 'line',
   coordinate: { type: 'parallel' },
   data: {
     type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/iris.json',
   },
   encode: {
-    position: dimensions,
-    color: 'cylinders',
+    position: ['sepalLength', 'sepalWidth', 'petalLength', 'petalWidth'],
+    color: 'species',
   },
   style: {
+    strokeOpacity: 0.6,
     lineWidth: 1.5,
-    strokeOpacity: 0.4,
   },
   scale: {
     color: {
-      palette: 'brBG',
+      palette: 'category10',
     },
   },
   axis: {
@@ -255,15 +246,9 @@ chart.options({
     position1: { zIndex: 1 },
     position2: { zIndex: 1 },
     position3: { zIndex: 1 },
-    position4: { zIndex: 1 },
   },
   interaction: {
-    tooltip: { series: false },
-    brushAxisHighlight: true,
-  },
-  state: {
-    active: { lineWidth: 3 },
-    inactive: { stroke: 'grey', opacity: 0.3 },
+    brushHighlight: true,
   },
 });
 
@@ -272,37 +257,32 @@ chart.render();
 
 ## Complete Example
 
-The following is a complete parallel coordinate system example demonstrating how to use parallel coordinate systems to analyze multi-dimensional data:
+Here's a complete example showing how to use parallel coordinate systems for automobile data analysis:
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
+  paddingLeft: 80,
 });
 
-// Define dimensions array
 const dimensions = [
   'Cylinders',
-  'Displacement',
-  'Weight_in_lbs',
+  'Displacement', 
   'Horsepower',
+  'Weight_in_lbs',
   'Acceleration',
   'Miles_per_Gallon',
-  'Year',
 ];
 
 chart.options({
   type: 'line',
-  width: 800,
-  height: 500,
-  padding: [40, 100, 60, 100], // Increase padding on all sides to provide more space for labels
   coordinate: { type: 'parallel' },
   data: {
     type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-    callback: (d) => Object.assign(d, { year: new Date(d.year) }),
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
     transform: [
       {
         type: 'filter',
@@ -313,94 +293,64 @@ chart.options({
   encode: {
     position: dimensions,
     color: 'Origin',
-    size: 1.01,
+    size: 1.2,
   },
   style: {
-    strokeOpacity: 0.3,
+    strokeOpacity: 0.4,
   },
   scale: {
-    // Set the same configuration for all positions
-    ...Object.fromEntries(
-      dimensions.map((_, i) => [`position${i > 0 ? i : ''}`, { nice: true }]),
-    ),
-    // Set time format for year
-    Year: {
-      type: 'time',
-      tickCount: 6,
-      mask: 'YYYY',
+    position: { nice: true },
+    position1: { nice: true },
+    position2: { nice: true },
+    position3: { nice: true },
+    position4: { nice: true },
+    position5: { nice: true },
+    color: {
+      palette: 'set2',
     },
   },
   axis: {
-    // Define base axis configuration
-    ...(() => {
-      // Create base configuration object
-      const baseAxisConfig = {
-        zIndex: 1,
-        line: true,
-        labelStroke: '#fff',
-        labelLineWidth: 5,
-        labelFontSize: 12,
-        labelStrokeLineJoin: 'round',
-        titleStroke: '#fff',
-        titleFontSize: 14,
-        titleLineWidth: 5,
-        titleStrokeLineJoin: 'round',
-        lineStroke: 'black',
-        tickStroke: 'black',
-        lineLineWidth: 1,
-        grid: null, // Remove grid lines
-        tickCount: 5, // Reduce number of ticks
-        labelSpacing: 8, // Increase distance between labels and axis
-      };
-
-      // Create configuration for each dimension
-      return Object.fromEntries(
-        dimensions.map((dim, i) => {
-          const key = `position${i > 0 ? i : ''}`;
-          // Add special configuration for the last dimension (Year)
-          if (i === dimensions.length - 1) {
-            return [
-              key,
-              {
-                ...baseAxisConfig,
-                labelFormatter: (text) => text.slice(0, 4), // Show only year
-              },
-            ];
-          }
-          return [key, baseAxisConfig];
-        }),
-      );
-    })(),
+    position: { 
+      zIndex: 1,
+      title: { text: 'Cylinders' },
+    },
+    position1: { 
+      zIndex: 1,
+      title: { text: 'Displacement' },
+    },
+    position2: { 
+      zIndex: 1,
+      title: { text: 'Horsepower' },
+    },
+    position3: { 
+      zIndex: 1,
+      title: { text: 'Weight (lbs)' },
+    },
+    position4: { 
+      zIndex: 1,
+      title: { text: 'Acceleration' },
+    },
+    position5: { 
+      zIndex: 1,
+      title: { text: 'MPG' },
+    },
   },
   legend: {
     color: {
-      position: 'bottom', // Place legend at bottom
-      layout: 'horizontal',
+      position: 'top',
+      layout: { justifyContent: 'center' },
     },
   },
   interaction: {
-    tooltip: { series: false },
-    brushAxisHighlight: {
-      maskFill: '#d8d0c0',
-      maskOpacity: 0.3,
+    tooltip: {
+      shared: true,
+      crosshairsLineDash: [4, 4],
     },
-  },
-  state: {
-    active: { lineWidth: 3, strokeOpacity: 1 },
-    inactive: { stroke: '#ccc', opacity: 0.3 },
+    brushHighlight: {
+      series: true,
+    },
   },
 });
 
 chart.render();
 ```
-
-This example demonstrates how to create a fully functional parallel coordinate system chart, including the following features:
-
-1. Using multiple data dimensions to create parallel coordinate axes
-2. Setting line colors based on data values
-3. Customizing coordinate axis styles to improve readability
-4. Adding interactive functionality to support axis highlighting and filtering
-5. Setting active and inactive state styles to enhance interactive experience
-6. Adding legends to help understand color encoding
-
-Through these configurations, you can create both beautiful and practical parallel coordinate system visualizations that effectively analyze relationships between multi-dimensional data.

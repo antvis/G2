@@ -3,7 +3,7 @@ title: helix
 order: 10
 ---
 
-The `helix` coordinate system is a coordinate system that unfolds two-dimensional data along a spiral line. It is commonly used for visualizing time series data or gene expression data, using the spiral extension to show the periodicity or trends of the data.
+The `helix` coordinate system is a coordinate system that expands two-dimensional data along a spiral line. It is commonly used for visualizing time series data or gene expression data, showing the cyclical nature or trends of data through spiral extension.
 
 ## Getting Started
 
@@ -29,8 +29,8 @@ chart.data(data);
 
 chart.coordinate({
   type: 'helix',
-  startAngle: 0.5 * Math.PI, // Start angle
-  endAngle: 12.5 * Math.PI, // End angle
+  startAngle: 0.5 * Math.PI, // Starting angle
+  endAngle: 12.5 * Math.PI,  // Ending angle
 });
 
 chart
@@ -43,8 +43,10 @@ chart
 chart.render();
 ```
 
-| Parameter   | Description                             | Type     | Default       |
-| ----------- | --------------------------------------- | -------- | ------------- |
+## Configuration
+
+| Parameter   | Description                        | Type     | Default       |
+| ----------- | ---------------------------------- | -------- | ------------- |
 | startAngle  | Starting angle of the spiral (radians) | `number` | `0`           |
 | endAngle    | Ending angle of the spiral (radians)   | `number` | `Math.PI * 6` |
 | innerRadius | Inner radius of the spiral (0 to 1)    | `number` | `0`           |
