@@ -136,20 +136,6 @@ chart.options({
       },
     },
   ],
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: `总计\n${total.toFixed(1)}%`,
-        x: '50%',
-        y: '50%',
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: 'bold',
-        fill: '#8c8c8c',
-      },
-    },
-  ],
 });
 
 chart.render();

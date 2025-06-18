@@ -324,20 +324,6 @@ chart.options({
       tickLine: false,
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: '杭州地铁1号线票价图（模拟）',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();
@@ -418,20 +404,6 @@ chart.options({
       range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2', '#5B8FF9'],
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: '学生成绩分析',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();

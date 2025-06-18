@@ -1,5 +1,5 @@
 ---
-title: Area
+title: area
 order: 2
 ---
 

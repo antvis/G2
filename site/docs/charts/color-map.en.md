@@ -325,20 +325,6 @@ chart.options({
       tickLine: false,
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: 'Hangzhou Metro Line 1 Fare Chart (Simulation)',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();
@@ -419,20 +405,6 @@ chart.options({
       range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2', '#5B8FF9'],
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: 'Student Score Analysis',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();

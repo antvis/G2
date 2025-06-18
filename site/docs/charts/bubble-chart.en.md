@@ -260,22 +260,6 @@ chart.options({
     y: { title: 'Stock Price' },
     x: { title: 'Date' }
   },
-  annotations: [
-    {
-      type: 'line',
-      data: [
-        { day: '2015/9/1', share: 10 },
-        { day: '2015/9/5', share: 20 },
-        { day: '2015/9/10', share: 32 },
-        { day: '2015/9/15', share: 45 },
-        { day: '2015/9/20', share: 51 },
-        { day: '2015/9/25', share: 45 },
-        { day: '2015/9/30', share: 40 },
-      ],
-      encode: { x: 'day', y: 'share' },
-      style: { stroke: '#1890ff', lineWidth: 2 }
-    }
-  ]
 });
 
 chart.render();
