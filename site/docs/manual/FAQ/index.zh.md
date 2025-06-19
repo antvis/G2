@@ -436,6 +436,8 @@ chart.render();
 
 ## 如何调整折线图两端的间隔
 
+下面是一个简单的折线图，可以看出 x 轴有明显的 `paddingOuter`，默认值为 `0.5`。
+
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
 
@@ -445,6 +447,9 @@ const chart = new Chart({
 
 chart.options({
   type: 'line',
+  viewStyle: {
+    contentFill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+  },
   data: [
     { year: '1991', value: 3 },
     { year: '1992', value: 4 },
@@ -463,3 +468,92 @@ chart.options({
 
 chart.render();
 ```
+
+point 比例尺是 bandWidth 恒为 0 的 band 比例尺，内部固定了以下属性：
+
+```js
+padding: 0.5, // 内部赋值
+paddingInner: 1, // 不可修改
+paddingOuter: 0.5 // // 内部赋值
+```
+
+如果想自定义 `paddingOuter` 的值，可以通过修改 `padding` 实现。例如：
+
+```js
+(scale: {
+  x: {
+    type: 'point',
+    padding: 0, // 只会对 paddingOuter 生效，paddingInner 恒为 1
+  },
+});
+```
+
+通过配置，可以使得折线图两端的间隔为 `0` 。
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  viewStyle: {
+    contentFill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+  },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
+  encode: { x: 'year', y: 'value' },
+  scale: {
+    y: { domainMin: 0, nice: true },
+    x: {
+      padding: 0,
+    },
+  },
+});
+
+chart.render();
+```
+
+## 首次渲染图表时默认只显示部分图例
+
+目前暂时还没有内置 API，需要通过手动触发一下 legendFilter 来实现。
+
+```js | ob { autoMount: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
+
+chart.render();
+
+chart.on(ChartEvent.AFTER_RENDER, () => {
+  chart.emit('legend:filter', {
+    data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
+  });
+});
+```
+
+可以通过设置 `animate: false` 避免触发更新动画，但还是会有闪动，后续会通过配置项在内部处理，实现更好的筛选效果。

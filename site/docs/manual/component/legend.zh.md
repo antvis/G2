@@ -1224,6 +1224,38 @@ chart.on('afterrender', () => {
 
 ## 示例
 
+### 首次渲染图表时默认只显示部分图例
+
+目前暂时还没有内置 API，需要通过手动触发一下 `legendFilter`交互来实现。
+
+```js | ob { autoMount: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
+
+chart.render();
+
+chart.on(ChartEvent.AFTER_RENDER, () => {
+  chart.emit('legend:filter', {
+    data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
+  });
+});
+```
+
+可以通过设置 `animate: false` 避免触发更新动画，但还是会有闪动，后续会通过配置项在内部处理，实现更好的筛选效果。
+
 ### 自定义图例项图标（itemMarker）
 
 在具体开发过程中，内置的图例项图标可能无法满足你的要求，不用担心，G2 提供了强大的自定义功能。
