@@ -82,7 +82,7 @@ chart.render();
 | 属性       | 描述                                               | 类型            | 默认值   | 必选 |
 | ---------- | -------------------------------------------------- | --------------- | -------- | ---- |
 | ratio      | 滚动条的比例，为单页显示数据在总数据量上单比例     | number          | `0.5`    |      |
-| value      | 滚动条的起始位置, x 轴默认值为 `0`, y 轴默认为 `1` | [0, 1]          |          |      |
+| value      | 滚动条的起始位置，水平方向默认值为 `0`，垂直方向默认为 `1` | [0, 1]          |          |      |
 | slidable   | 是否可以拖动                                       | boolean         | true     |      |
 | scrollable | 是否支持滚轮滚动                                   | boolean         | true     |      |
 | position   | 滚动条相对图表方位                                 | string          | `bottom` |      |
@@ -146,13 +146,20 @@ chart.render();
 
 #### 滚动条滑块(thumb)
 
-| 属性               | 描述                   | 类型   | 默认值 | 必选 |
-| ------------------ | ---------------------- | ------ | ------ | ---- |
-| thumbFill          | 滚动条滑块填充色       | string | `#000` |      |
-| thumbFillOpacity   | 滚动条滑块填充色透明度 | number | `0.15` |      |
-| thumbStroke        | 滚动条滑块描边色       | string | –      |      |
-| thumbLineWidth     | 滚动条滑块描边宽度     | number | –      |      |
-| thumbStrokeOpacity | 滚动条滑块描边色透明度 | number | –      |      |
+| 属性               | 描述                           | 类型            | 默认值    | 必选 |
+| ------------------ | ------------------------------ | --------------- | --------- | ---- |
+| thumbFill          | 滚动条滑块图形的填充色         | string          | `#000`    |      |
+| thumbFillOpacity   | 滚动条滑块图形的填充透明度     | number          | `0.15`    |      |
+| thumbStroke        | 滚动条滑块图形的描边颜色       | string          | –         |      |
+| thumbLineWidth     | 滚动条滑块图形的描边宽度       | number          | –         |      |
+| thumbStrokeOpacity | 滚动条滑块图形的描边透明度     | number          | –         |      |
+| thumbLineDash      | 滚动条滑块图形的虚线配置       | [number,number] | –         |      |
+| thumbOpacity       | 滚动条滑块图形的整体透明度     | number          | –         |      |
+| thumbShadowColor   | 滚动条滑块图形阴影颜色         | string          | –         |      |
+| thumbShadowBlur    | 滚动条滑块图形阴影的高斯模糊系数 | number          | –         |      |
+| thumbShadowOffsetX | 滚动条滑块阴影距图形的水平距离 | number          | –         |      |
+| thumbShadowOffsetY | 滚动条滑块阴影距图形的垂直距离 | number          | –         |      |
+| thumbCursor        | 滚动条滑块鼠标样式             | string          | `default` |      |
 
 ```js
 ({
@@ -171,15 +178,22 @@ chart.render();
 
 #### 滚动条滑轨(track)
 
-| 属性               | 描述                   | 类型   | 默认值 | 必选 |
-| ------------------ | ---------------------- | ------ | ------ | ---- |
-| trackSize          | 滚动条的轨道宽度       | number | `10`   |      |
-| trackLength        | 滚动条的轨道长度       | number |        |      |
-| trackFill          | 滚动条轨道填充色       | string | -      |      |
-| trackFillOpacity   | 滚动条轨道填充色透明度 | number | `0`    |      |
-| trackLineWidth     | 滚动条轨道描边宽度     | number | –      |      |
-| trackStroke        | 滚动条轨道描边色       | string | –      |      |
-| trackStrokeOpacity | 滚动条轨道描边色透明度 | number | –      |      |
+| 属性               | 描述                           | 类型            | 默认值    | 必选 |
+| ------------------ | ------------------------------ | --------------- | --------- | ---- |
+| trackSize          | 滚动条滑轨的轨道宽度           | number          | `10`      |      |
+| trackLength        | 滚动条滑轨的轨道长度           | number          | –         |      |
+| trackFill          | 滚动条滑轨图形的填充色         | string          | –         |      |
+| trackFillOpacity   | 滚动条滑轨图形的填充透明度     | number          | `0`       |      |
+| trackStroke        | 滚动条滑轨图形的描边颜色       | string          | –         |      |
+| trackLineWidth     | 滚动条滑轨图形的描边宽度       | number          | –         |      |
+| trackStrokeOpacity | 滚动条滑轨图形的描边透明度     | number          | –         |      |
+| trackLineDash      | 滚动条滑轨图形的虚线配置       | [number,number] | –         |      |
+| trackOpacity       | 滚动条滑轨图形的整体透明度     | number          | –         |      |
+| trackShadowColor   | 滚动条滑轨图形阴影颜色         | string          | –         |      |
+| trackShadowBlur    | 滚动条滑轨图形阴影的高斯模糊系数 | number          | –         |      |
+| trackShadowOffsetX | 滚动条滑轨阴影距图形的水平距离 | number          | –         |      |
+| trackShadowOffsetY | 滚动条滑轨阴影距图形的垂直距离 | number          | –         |      |
+| trackCursor        | 滚动条滑轨鼠标样式             | string          | `default` |      |
 
 ```js
 ({
