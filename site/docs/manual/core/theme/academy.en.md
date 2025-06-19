@@ -1,5 +1,5 @@
 ---
-title: Academy
+title: academy
 order: 2
 ---
 

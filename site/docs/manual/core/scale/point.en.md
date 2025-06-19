@@ -53,19 +53,30 @@ chart.render();
 | align    | Alignment, within the range [0, 1]                            | `number`                                               | `0.5`         |          |
 | compare  | Sort the domain                                                | `(a: string \| number, b: string \| number) => number` | `undefined`   |          |
 
-> Complex type descriptions:
->
-> - `domain`: An array of categories, which can be strings, numbers, or dates.
-> - `range`: The continuous interval for mapping, typically `[0, 1]` or pixel intervals.
-> - `compare`: Custom sorting function that determines the order of the domain.
->
-> Note: The point scale is a band scale with a constant bandWidth of 0. The following properties are internally fixed and cannot be modified:
->
-> ```js
-> padding: 0,
-> paddingInner: 1,
-> paddingOuter: 0
-> ```
+**Complex Type Descriptions:**
+
+- `domain`: An array of categories, which can be strings, numbers, or dates.
+- `range`: The continuous interval for mapping, typically `[0, 1]` or pixel intervals.
+- `compare`: Custom sorting function that determines the order of the domain.
+
+**Note:** The point scale is a band scale with a constant bandWidth of 0. The following properties are internally fixed:
+
+```js
+padding: 0.5, // internally assigned
+paddingInner: 1, // cannot be modified
+paddingOuter: 0.5 // internally assigned
+```
+
+If you want to customize the `paddingOuter` value, you can modify it through the `padding` property. For example:
+
+```js
+(scale: {
+  x: {
+    type: 'point',
+    padding: 0, // only affects paddingOuter, paddingInner is always 1
+  },
+});
+```
 
 ```plan
 |<------------------------------------------- range ------------------------------------------->|
@@ -103,7 +114,7 @@ chart.options({
 chart.render();
 ```
 
-### Heatmap
+### Cell Chart
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';
