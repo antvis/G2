@@ -26,7 +26,7 @@ Mosaic plots are divided into two types: uniform and non-uniform. Uniform mosaic
 | --------------- | ------------------------------------------------------------------------------------------------------------ |
 | Suitable Data   | Multi-dimensional categorical data                                                                           |
 | Functionality   | Display distribution of multi-dimensional categorical data                                                   |
-| Data Mapping    | Categorical data fields map to non-uniform coordinate axes<br>Area and color represent data proportions and classifications |
+| Data Mapping    | Categorical data fields map to non-uniform coordinate axis<br>Area and color represent data proportions and classifications |
 | Data Size Limit | More effective with higher dimensional data                                                                  |
 
 ---
@@ -39,7 +39,7 @@ Mosaic plots are divided into two types: uniform and non-uniform. Uniform mosaic
 | --------------- | ------------------------------------------------------------------------------------------------------------ |
 | Suitable Data   | Two-dimensional categorical data                                                                             |
 | Functionality   | Display distribution of two-dimensional categorical data                                                     |
-| Data Mapping    | Categorical data fields map to uniform coordinate axes<br>Color represents data classifications              |
+| Data Mapping    | Categorical data fields map to uniform coordinate axis<br>Color represents data classifications              |
 | Data Size Limit | More effective with lower dimensional data                                                                   |
 
 ## Use Cases of Mosaic Plots

@@ -116,7 +116,7 @@ The default coordinate system is Cartesian coordinate system. In addition, there
 | :-----------------: | :---------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: |
 |      cartesian      |                    Cartesian coordinate system, G2's default.                |  <img width=100 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original">  |
 |        helix        |                 Helix coordinate system, based on Archimedean spiral.                 |  <img width=100 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oTCKSYpIWBwAAAAAAAAAAAAADmJ7AQ/fmt.webp">  |
-|      parallel       |       Parallel coordinate system, mapping multiple data dimensions to parallel axes.        |    <img width=100 src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ">     |
+|      parallel       |       Parallel coordinate system, mapping multiple data dimensions to parallel axis.        |    <img width=100 src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ">     |
 |        polar        |         Polar coordinate system, a 2D coordinate system built with angle and radius.         | <img width=100 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dHw7RYx7V3cAAAAAAAAAAAAADmJ7AQ/original">   |
 |        radar        | Radar coordinate system, combining features of parallel and polar coordinates for radar charts. | <img width=100 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*M3nGRIBdVXoAAAAAAAAAAAAAemJ7AQ/fmt.webp">   |
 |       radial        | A special polar coordinate system obtained by transposing polar coordinates, commonly used for radial bar charts. |  <img width=100 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original">  |
@@ -212,7 +212,7 @@ chart.render();
 
 ### Parallel
 
-Parallel coordinate system is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axes, with each data record represented as a polyline connecting corresponding values on each coordinate axis.
+Parallel coordinate system is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axis, with each data record represented as a polyline connecting corresponding values on each coordinate axis.
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';
@@ -313,7 +313,7 @@ chart.render();
 
 ### Radar
 
-Radar coordinate system is a specialized form of polar coordinate system, combining parallel coordinate system features, constructing a star-shaped grid through N equally spaced independent dimensional axes, specifically designed for multi-dimensional data comparative analysis. Each axis represents an independent measurement dimension, and data points are presented through closed polygons showing multi-dimensional characteristics.
+Radar coordinate system is a specialized form of polar coordinate system, combining parallel coordinate system features, constructing a star-shaped grid through N equally spaced independent dimensional axis, specifically designed for multi-dimensional data comparative analysis. Each axis represents an independent measurement dimension, and data points are presented through closed polygons showing multi-dimensional characteristics.
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';

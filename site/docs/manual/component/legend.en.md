@@ -1224,6 +1224,36 @@ chart.on('afterrender', () => {
 
 ## Examples
 
+### Default Display of Only Partial Legends on First Chart Render
+
+There's currently no built-in API for this, so you need to manually trigger legendFilter to achieve it.
+
+```js | ob { autoMount: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
+
+chart.render();
+
+chart.on(ChartEvent.AFTER_RENDER, () => {
+  chart.emit('legend:filter', {
+    data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
+  });
+});
+```
+
 ### Custom Legend Item Marker (itemMarker)
 
 In actual development, the built-in legend item markers may not meet your requirements. Don't worry, G2 provides powerful customization features.

@@ -3,7 +3,7 @@ title: transpose
 order: 2
 ---
 
-Transpose is a coordinate system transformation that transforms (x, y) to (y, x), commonly used for conversion between bar charts and column charts.
+Transpose is a coordinate system transformation that transforms (x, y) to (y, x), commonly used for converting between bar charts and column charts.
 
 ## Getting Started
 

@@ -85,7 +85,7 @@ The x-axis of Kagi charts is unique (turning point time), making it impossible t
 | Feature       | Kagi Chart                        | Line Chart                            |
 | ------------- | --------------------------------- | ------------------------------------- |
 | Data Processing | Turning point data calculated by algorithm | Strictly plotted based on original data coordinates |
-| Axes          | X-axis represents calculated turning points | Both axes correspond to original data |
+| Axis          | X-axis represents calculated turning points | Both axis correspond to original data |
 | Line Meaning  | Color and thickness represent specific meanings (Yang and Yin lines) | Usually only represents data connection relationships |
 | Multi-Series  | Cannot plot multiple data groups  | Can plot multiple data groups for comparison |
 | Noise Filtering | Automatically filters minor fluctuations | Displays all data fluctuations       |

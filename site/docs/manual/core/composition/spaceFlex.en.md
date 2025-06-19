@@ -3,11 +3,11 @@ title: spaceFlex
 order: 2
 ---
 
-Uses a CSS flex-like layout method to partition spatial areas, commonly used for multi-chart comparison views.
+Use a layout similar to CSS flex to divide spatial areas, commonly used for multi-chart comparison views.
 
 ## Getting Started
 
-Provides a two-level flex container layout canvas.
+Provides a canvas with two-level flex container layout.
 
 <img alt="spaceFlex" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*lLecQJkdPbIAAAAAAAAAAAAADmJ7AQ" width="600" />
 
@@ -74,19 +74,19 @@ flex
 chart.render();
 ```
 
-For more examples, please visit the [Chart Examples](/examples) page.
+For more examples, visit the [Chart Examples](/en/examples) page.
 
 ## Options
 
-Currently, flex mainly provides the two core configurations for space partitioning.
+Currently flex mainly provides the two most core configurations for convenient space partitioning.
 
-| Property  | Description                                               | Type           | Default    |
-| --------- | --------------------------------------------------------- | -------------- | ---------- |
-| ratio     | Set the proportion of space occupied by child elements in flex container | `number[]`     | Equal split |
-| direction | Set the direction of flex space partitioning             | `col` \| `row` | `row`      |
-| data      | Data for the flex container                               | `Data`         |            |
+| Property  | Description                                               | Type           | Default     |
+| --------- | --------------------------------------------------------- | -------------- | ----------- |
+| ratio     | Set the proportion of space occupied by child elements in the flex container | `number[]`     | Equal division |
+| direction | Set the direction for flex space division                 | `col` \| `row` | `row`       |
+| data      | Data for the flex container                               | `Data`         |             |
 
-All configurations for `spaceFlex` can be set using the API, for example:
+All configurations corresponding to `spaceFlex` can be set using the API, for example:
 
 ```ts
 chart.spaceFlex().attr('ratio', [1, 2, 3]).attr('direction', 'col');
@@ -96,4 +96,4 @@ chart.spaceFlex().attr('ratio', [1, 2, 3]).attr('direction', 'col');
 
 - How to use spaceFlex to define complex chart layouts?
 
-SpaceFlex provides proportional horizontal and vertical space partitioning. For complex layouts, theoretically all can be achieved by continuously breaking down container hierarchy structures.
+spaceFlex provides proportional horizontal and vertical space division. For complex layouts, theoretically they can all be achieved by continuously splitting container hierarchy structures.

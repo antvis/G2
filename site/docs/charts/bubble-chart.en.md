@@ -12,7 +12,7 @@ similar: ['scatter', 'bubble-map']
 
 A bubble chart is a multivariate chart that is a variant of scatter plots and can also be considered a combination of scatter plots and percentage area charts.
 
-The most basic use of bubble charts is to use three values to determine each data series. Like scatter plots, bubble charts map two-dimensional data values to coordinate points on a Cartesian coordinate system, where the X and Y axes represent different two dimensions of data. However, unlike scatter plots, each bubble in a bubble chart has categorical information (they are displayed next to points or as legends). The area of each bubble represents the third numerical data. Additionally, different colors can be used to distinguish categorical data or other numerical data, or brightness or transparency can be used. When representing time-dimensional data, the time dimension can be used as one dimension in the rectangular coordinate system, or combined with animation to show how data changes over time.
+The most basic use of bubble charts is to use three values to determine each data series. Like scatter plots, bubble charts map two-dimensional data values to coordinate points on a Cartesian coordinate system, where the X and Y axis represent different two dimensions of data. However, unlike scatter plots, each bubble in a bubble chart has categorical information (they are displayed next to points or as legends). The area of each bubble represents the third numerical data. Additionally, different colors can be used to distinguish categorical data or other numerical data, or brightness or transparency can be used. When representing time-dimensional data, the time dimension can be used as one dimension in the rectangular coordinate system, or combined with animation to show how data changes over time.
 
 Bubble charts are typically used to compare and display relationships between different categories of dots (which we call bubbles here) through the position and area size of bubbles. From an overall perspective, bubble charts can be used to analyze correlations in data.
 
@@ -33,7 +33,7 @@ Additionally, **the size of bubbles is mapped to area rather than radius or diam
 
 | Chart Type | Basic Bubble Chart |
 | ---------------- | ----------------------------------------------------------------------------------------------- |
-| Suitable Data | Multidimensional data: at least two continuous data fields (X, Y axes) and one numerical data field (bubble size) |
+| Suitable Data | Multidimensional data: at least two continuous data fields (X, Y axis) and one numerical data field (bubble size) |
 | Function | Display relationships between multiple variables, discover data patterns and correlations |
 | Data-to-Visual Mapping | Two continuous variables mapped to XY coordinates<br>Third variable mapped to bubble size<br>Optional categorical variable mapped to bubble color or shape |
 | Suitable Data Count | Usually not exceeding 100 data points; too many will lead to chart crowding |
@@ -260,22 +260,6 @@ chart.options({
     y: { title: 'Stock Price' },
     x: { title: 'Date' }
   },
-  annotations: [
-    {
-      type: 'line',
-      data: [
-        { day: '2015/9/1', share: 10 },
-        { day: '2015/9/5', share: 20 },
-        { day: '2015/9/10', share: 32 },
-        { day: '2015/9/15', share: 45 },
-        { day: '2015/9/20', share: 51 },
-        { day: '2015/9/25', share: 45 },
-        { day: '2015/9/30', share: 40 },
-      ],
-      encode: { x: 'day', y: 'share' },
-      style: { stroke: '#1890ff', lineWidth: 2 }
-    }
-  ]
 });
 
 chart.render();

@@ -325,27 +325,13 @@ chart.options({
       tickLine: false,
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: 'Hangzhou Metro Line 1 Fare Chart (Simulation)',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();
 ```
 
 **Analysis**:
-- Station names are mapped to the `x` and `y` axes to determine position
+- Station names are mapped to the `x` and `y` axis to determine position
 - Fare prices are mapped to color depth
 - Fare data is simulated and only represents general relationships
 - The color map makes it easy to identify fare zones and travel costs between stations
@@ -419,20 +405,6 @@ chart.options({
       range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2', '#5B8FF9'],
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: 'Student Score Analysis',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();

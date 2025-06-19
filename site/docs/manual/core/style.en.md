@@ -177,7 +177,7 @@ For user convenience, here's a brief introduction to commonly used drawing prope
 | fill          | Fill color of the graphic                                                                                        | string          |           |          |
 | fillOpacity   | Fill transparency of the graphic                                                                                 | number          |           |          |
 | stroke        | Stroke color of the graphic                                                                                      | string          |           |          |
-| strokeOpacity | Stroke transparency                                                                                              | number          |           |          |
+| strokeOpacity | Stroke transparency of the graphic                                                                                | number          |           |          |
 | lineWidth     | Width of the graphic's stroke                                                                                    | number          |           |          |
 | lineDash      | Dashed stroke configuration. First value is the length of each dash, second is the gap. [0,0] means no stroke. | [number,number] |           |          |
 | opacity       | Overall transparency of the graphic                                                                              | number          |           |          |
@@ -270,6 +270,8 @@ chart.render();
 | shadowOffsetX | Horizontal distance of shadow from text                                                                        | number                                                     |           |          |
 | shadowOffsetY | Vertical distance of shadow from text                                                                          | number                                                     |           |          |
 | cursor        | Mouse cursor style. Same as CSS cursor                                                                        | string                                                     | `default` |          |
+| dx            | Horizontal offset of text                                                                                      | number                                                     | 0         |          |
+| dy            | Vertical offset of text                                                                                        | number                                                     | 0         |          |
 
 Try using the full range of text style properties to configure the center text style of a liquid chart in the code editor below:
 
@@ -324,6 +326,8 @@ chart.options({
     titleShadowOffsetX: 10,
     titleShadowOffsetY: 10,
     titleCursor: 'pointer',
+    titleDx: 10,
+    titleDy: 10,
   },
 });
 
