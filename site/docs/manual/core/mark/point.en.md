@@ -3,9 +3,9 @@ title: point
 order: 18
 ---
 
-The `point` mark is primarily used for drawing **scatter plots**, also known as point plots or scatter diagrams. A scatter plot is a statistical chart that displays all data as points on a Cartesian coordinate system. It requires at least two different variables, one plotted along the x-axis and another along the y-axis. Each point has a definite position on both the X and Y axes. The overlay of numerous scatter points helps reveal the "overall landscape" of the dataset, thereby helping us analyze the correlation between two variables or discover trends and patterns. Additionally, we can add additional variables to group, color, set transparency, etc., for the scatter points.
+The `point` mark is primarily used for drawing **scatter plots**, also known as point plots or scatter diagrams. A scatter plot is a statistical chart that displays all data as points on a Cartesian coordinate system. It requires at least two different variables, one plotted along the x-axis and another along the y-axis. Each point has a definite position on both the X and Y axis. The overlay of numerous scatter points helps reveal the "overall landscape" of the dataset, thereby helping us analyze the correlation between two variables or discover trends and patterns. Additionally, we can add additional variables to group, color, set transparency, etc., for the scatter points.
 
-When we encode the `size` channel of a scatter plot, we can create a **bubble chart**. In a bubble chart, generally, each bubble represents a set of three-dimensional data (x, y, size). Two of these dimensions determine the position of the bubble in the Cartesian coordinate system (i.e., the values on the x and y axes), while the third is represented by the size of the bubble.
+When we encode the `size` channel of a scatter plot, we can create a **bubble chart**. In a bubble chart, generally, each bubble represents a set of three-dimensional data (x, y, size). Two of these dimensions determine the position of the bubble in the Cartesian coordinate system (i.e., the values on the x and y axis), while the third is represented by the size of the bubble.
 
 ## Getting Started
 

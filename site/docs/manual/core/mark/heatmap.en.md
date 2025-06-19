@@ -6,7 +6,7 @@ order: 9
 ## Overview
 
 `heatmap` is a visualization chart that maps the density or value magnitude of two-dimensional data through color intensity, excelling at revealing data distribution patterns, clustering characteristics, and outliers.
-`heatmap` maps two categorical/continuous fields (such as x, y) to coordinate axes, and a third numerical field (such as value) to a color gradient (such as color: 'value'), forming a grid of colored blocks in a matrix.
+`heatmap` maps two categorical/continuous fields (such as x, y) to coordinate axis, and a third numerical field (such as value) to a color gradient (such as color: 'value'), forming a grid of colored blocks in a matrix.
 `heatmap` can define color scales, with cool colors (such as blue) representing low values and warm colors (such as red) representing high values, intuitively showing the magnitude or frequency distribution of values.
 
 Typical applications include:

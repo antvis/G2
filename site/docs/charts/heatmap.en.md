@@ -10,7 +10,7 @@ similar: ['histogram', 'contourline', 'scatter', 'bubble']
 
 ## Introduction to Heatmaps
 
-A heatmap is a visualization technique that uses color intensity to map the density or magnitude of two-dimensional data, excelling at revealing distribution patterns, clusters, and anomalies. Heatmaps map two categorical or continuous fields (such as x, y) to coordinate axes and a third numerical field (such as value) to a color gradient, forming a grid-like matrix of colored cells. Typically, cool colors (like blue) represent low values and warm colors (like red) represent high values.
+A heatmap is a visualization technique that uses color intensity to map the density or magnitude of two-dimensional data, excelling at revealing distribution patterns, clusters, and anomalies. Heatmaps map two categorical or continuous fields (such as x, y) to coordinate axis and a third numerical field (such as value) to a color gradient, forming a grid-like matrix of colored cells. Typically, cool colors (like blue) represent low values and warm colors (like red) represent high values.
 
 Heatmaps are particularly suitable for displaying the distribution characteristics of large amounts of data points. Through color variations, they intuitively reflect density or intensity changes in a dataset, helping to identify patterns and relationships. When displaying multi-dimensional data, heatmaps are more intuitive than bar charts or scatter plots, clearly showing areas of data concentration and sparsity at a glance.
 

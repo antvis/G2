@@ -256,12 +256,12 @@ chart.render();
 
 #### Position Encoding Scales
 
-Mainly used for x, y coordinate axes:
+Mainly used for x, y coordinate axis:
 
-- **linear**: Numerical coordinate axes
-- **time**: Time axes
-- **band**: Categorical coordinate axes
-- **point**: Categorical coordinate axes
+- **linear**: Numerical coordinate axis
+- **time**: Time axis
+- **band**: Categorical coordinate axis
+- **point**: Categorical coordinate axis
 
 #### Visual Attribute Encoding Scales
 
@@ -271,7 +271,7 @@ Mainly used for visual channels like color, size, shape:
 - **linear/log/pow/sqrt**: Color gradients and numerical size mapping for continuous data
 - **quantize/quantile/threshold**: Segmented color mapping for continuous data
 
-For example, in a basic bar chart, the x channel scale defaults to `band` for implementing categorical coordinate axes in bar charts, while the y channel scale defaults to `linear`, mapping continuous data from the y channel's corresponding data column to bar lengths with visual properties.
+For example, in a basic bar chart, the x channel scale defaults to `band` for implementing categorical coordinate axis in bar charts, while the y channel scale defaults to `linear`, mapping continuous data from the y channel's corresponding data column to bar lengths with visual properties.
 
 Summary:
 
@@ -281,7 +281,7 @@ Summary:
 | **log**       | Continuous      | y = log<sub>base</sub>(x) + b | Position, color  | Exponentially growing data with large spans    |
 | **pow**       | Continuous      | y = x<sup>k</sup> + b         | Position, color, size | When data difference intensity needs adjustment |
 | **sqrt**      | Continuous      | y = x<sup>0.5</sup> + b       | Size, color      | Compressing large value differences (e.g., area mapping) |
-| **time**      | Time data       | Auto-calculated time intervals and ticks | Time axes | Time series data visualization, supports UTC and local time |
+| **time**      | Time data       | Auto-calculated time intervals and ticks | Time axis | Time series data visualization, supports UTC and local time |
 | **ordinal**   | Categorical     | One-to-one mapping            | Color, shape     | Visual attribute mapping for categorical data   |
 | **band**      | Categorical     | Equal-width interval allocation | x/y axis position | Bar charts, column charts                      |
 | **point**     | Categorical     | Point position allocation     | x/y axis position | Point charts, line charts                      |
@@ -473,7 +473,7 @@ chart.render();
 
 ### Scale Non-Synchronization
 
-If you want to disable synchronization (e.g., when drawing dual-axis charts), you need to set `scale.independent` to `true`. Scales with this property won't synchronize with any other scales. In the example below, the y channels of interval and line will use two different scales, generating two different coordinate axes.
+If you want to disable synchronization (e.g., when drawing dual-axis charts), you need to set `scale.independent` to `true`. Scales with this property won't synchronize with any other scales. In the example below, the y channels of interval and line will use two different scales, generating two different coordinate axis.
 
 ```js | ob { autoMount: true  }
 import { Chart } from '@antv/g2';

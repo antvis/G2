@@ -19,7 +19,7 @@ Simply put: **Using G2, you can not only quickly obtain more professional visual
 
 ## Concise Syntax
 
-You can draw a chart with one sentence. In addition to drawing the graphics themselves, it will also add coordinate axes, legends, and even interactive tooltips!
+You can draw a chart with one sentence. In addition to drawing the graphics themselves, it will also add coordinate axis, legends, and even interactive tooltips!
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';

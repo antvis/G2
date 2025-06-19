@@ -1497,7 +1497,7 @@ chart
     { x: 'Other Income', value: 750000, start: 1484500, end: 2234500 },
     { x: 'Extraordinary Gain', value: -230050, start: 2234500, end: 2004450 },
     { x: 'Interest Expense', value: -500000, start: 2004450, end: 1504450 },
-    { x: 'Taxes', value: 490000, start: 1504450, end: 1994450 },
+    { x: 'Taxis', value: 490000, start: 1504450, end: 1994450 },
     { x: 'Net Income', isTotal: true, value: 1994450, start: 0, end: 1994450 },
   ])
   .axis('x', { title: false, labelTransform: 'rotate(-90)' })

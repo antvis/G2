@@ -5,9 +5,9 @@ order: 2
 
 ## Overview
 
-The `brushAxisHighlight` interaction targets the coordinate axes, allowing users to brush select areas on axes to highlight corresponding chart elements. This interaction is particularly suitable for parallel coordinate charts, helping users quickly filter and analyze multi-dimensional data.
+The `brushAxisHighlight` interaction targets the coordinate axis, allowing users to brush select areas on axis to highlight corresponding chart elements. This interaction is particularly suitable for parallel coordinate charts, helping users quickly filter and analyze multi-dimensional data.
 
-- **Trigger**: Brush selection on the coordinate axes.
+- **Trigger**: Brush selection on the coordinate axis.
 - **End**: Click on non-brush areas of the axis or double-click on an existing brush area.
 - **Affected States**:
   - Elements within the brush range become `active`.

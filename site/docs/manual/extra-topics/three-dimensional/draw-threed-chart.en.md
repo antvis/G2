@@ -7,7 +7,7 @@ Taking a 3D scatter plot as an example, creating the chart requires the followin
 
 - Create WebGL renderers and plugin.
 - Extend threedlib.
-- Set z-channel, scale and axes.
+- Set z-channel, scale and axis.
 - Set up the camera in the scene.
 - Add light source.
 - Add custom legend.
@@ -47,7 +47,7 @@ import { threedlib } from '@antv/g2-extension-3d';
 const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
 ```
 
-## Set z-channel, scale and axes
+## Set z-channel, scale and axis
 
 Using `depth` to specified depth when creating the Chart
 
@@ -60,7 +60,7 @@ const chart = new Chart({
 ```
 
 We use [point3D](/manual/extra-topics/three-dimensional/point-threed) mark and select cube as the shape to draw.
-Then set the z channel, scale and axes.
+Then set the z channel, scale and axis.
 
 ```ts
 chart

@@ -9,7 +9,7 @@ The `point` scale belongs to the **categorical scale** category and is a special
 
 ### Use Cases
 
-- Even distribution of discrete data (such as categorical axes, grouped point distribution, etc.)
+- Even distribution of discrete data (such as categorical axis, grouped point distribution, etc.)
 
 - Scenarios where categorical data needs to be mapped to a continuous range
 

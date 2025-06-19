@@ -150,21 +150,18 @@ chart.render();
 ({
   slider: {
     x: {
-      // 不写在style里也行，G2内部做了兼容
-      style: {
-        selectionFill: '#000',
-        selectionFillOpacity: 0.9,
-        selectionStroke: '#DAF5EC',
-        selectionStrokeOpacity: 0.9,
-        selectionLineWidth: 2,
-        selectionLineDash: [4, 8],
-        selectionOpacity: 1,
-        selectionShadowColor: '#d3d3d3',
-        selectionShadowBlur: 10,
-        selectionShadowOffsetX: 10,
-        selectionShadowOffsetY: 10,
-        selectionCursor: 'pointer',
-      },
+      selectionFill: '#000',
+      selectionFillOpacity: 0.9,
+      selectionStroke: '#DAF5EC',
+      selectionStrokeOpacity: 0.9,
+      selectionLineWidth: 2,
+      selectionLineDash: [4, 8],
+      selectionOpacity: 1,
+      selectionShadowColor: '#d3d3d3',
+      selectionShadowBlur: 10,
+      selectionShadowOffsetX: 10,
+      selectionShadowOffsetY: 10,
+      selectionCursor: 'pointer',
     },
   },
 });
@@ -197,22 +194,19 @@ chart.render();
 ({
   slider: {
     x: {
-      // 不写在style里也行，G2内部做了兼容
-      style: {
-        trackSize: 20,
-        trackFill: '#000',
-        trackFillOpacity: 0.9,
-        trackStroke: '#DAF5EC',
-        trackStrokeOpacity: 0.9,
-        trackLineWidth: 2,
-        trackLineDash: [4, 8],
-        trackOpacity: 1,
-        trackShadowColor: '#d3d3d3',
-        trackShadowBlur: 10,
-        trackShadowOffsetX: 10,
-        trackShadowOffsetY: 10,
-        trackCursor: 'pointer',
-      },
+      trackSize: 20,
+      trackFill: '#000',
+      trackFillOpacity: 0.9,
+      trackStroke: '#DAF5EC',
+      trackStrokeOpacity: 0.9,
+      trackLineWidth: 2,
+      trackLineDash: [4, 8],
+      trackOpacity: 1,
+      trackShadowColor: '#d3d3d3',
+      trackShadowBlur: 10,
+      trackShadowOffsetX: 10,
+      trackShadowOffsetY: 10,
+      trackCursor: 'pointer',
     },
   },
 });
@@ -265,43 +259,40 @@ chart.render();
 ({
   slider: {
     x: {
-      // 不写在style里也行，G2内部做了兼容
-      style: {
-        //配置handleLabel的绘图属性
-        handleLabelFontSize: 16,
-        handleLabelFontFamily: 'sans-serif',
-        handleLabelFontWeight: 500,
-        handleLabelLineHeight: 20,
-        handleLabelTextAlign: 'center',
-        handleLabelTextBaseline: 'middle',
-        handleLabelFill: '#000',
-        handleLabelFillOpacity: 0.9,
-        handleLabelStroke: '#DAF5EC',
-        handleLabelStrokeOpacity: 0.9,
-        handleLabelLineWidth: 2,
-        handleLabelLineDash: [4, 8],
-        handleLabelOpacity: 1,
-        handleLabelShadowColor: '#d3d3d3',
-        handleLabelShadowBlur: 10,
-        handleLabelShadowOffsetX: 10,
-        handleLabelShadowOffsetY: 10,
-        handleLabelCursor: 'pointer',
+      //配置handleLabel的绘图属性
+      handleLabelFontSize: 16,
+      handleLabelFontFamily: 'sans-serif',
+      handleLabelFontWeight: 500,
+      handleLabelLineHeight: 20,
+      handleLabelTextAlign: 'center',
+      handleLabelTextBaseline: 'middle',
+      handleLabelFill: '#000',
+      handleLabelFillOpacity: 0.9,
+      handleLabelStroke: '#DAF5EC',
+      handleLabelStrokeOpacity: 0.9,
+      handleLabelLineWidth: 2,
+      handleLabelLineDash: [4, 8],
+      handleLabelOpacity: 1,
+      handleLabelShadowColor: '#d3d3d3',
+      handleLabelShadowBlur: 10,
+      handleLabelShadowOffsetX: 10,
+      handleLabelShadowOffsetY: 10,
+      handleLabelCursor: 'pointer',
 
-        handleIconSize: 50,
-        // 配置handleIcon的绘图属性
-        handleIconFill: '#000',
-        handleIconFillOpacity: 0.9,
-        handleIconStroke: '#DAF5EC',
-        handleIconStrokeOpacity: 0.9,
-        handleIconLineWidth: 2,
-        handleIconLineDash: [4, 8],
-        handleIconOpacity: 1,
-        handleIconShadowColor: '#d3d3d3',
-        handleIconShadowBlur: 10,
-        handleIconShadowOffsetX: 10,
-        handleIconShadowOffsetY: 10,
-        handleIconCursor: 'pointer',
-      },
+      handleIconSize: 50,
+      // 配置handleIcon的绘图属性
+      handleIconFill: '#000',
+      handleIconFillOpacity: 0.9,
+      handleIconStroke: '#DAF5EC',
+      handleIconStrokeOpacity: 0.9,
+      handleIconLineWidth: 2,
+      handleIconLineDash: [4, 8],
+      handleIconOpacity: 1,
+      handleIconShadowColor: '#d3d3d3',
+      handleIconShadowBlur: 10,
+      handleIconShadowOffsetX: 10,
+      handleIconShadowOffsetY: 10,
+      handleIconCursor: 'pointer',
     },
   },
 });
@@ -311,22 +302,22 @@ chart.render();
 
 配置缩略轴迷你图的样式。
 
-| 属性                       | 描述                                                                                                                        | 类型                                          | 默认值 | 必选 |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------ | ---- |
-| sparklineType              | 迷你图类型：折线图、直方图                                                                                                  | `line` \| `column`                            | `line` |      |
-| sparklineIsStack           | 是否对数据进行堆叠                                                                                                          | boolean                                       | false  |      |
-| sparklineRange             | 指定值范围，未指定时将使用 data 的最小值和最大值                                                                            | [number, number]                              | -      |      |
-| sparklineColor             | 指定颜色                                                                                                                    | string \| string[] \| (index: number)=>string | -      |      |
-| sparklineSmooth            | 适用于折线图，平滑曲线                                                                                                      | boolean                                       | false  |      |
-| sparklineLineStroke        | 适用于折线图，线的颜色                                                                                                      | string                                        | -      |      |
-| sparklineLineStrokeOpacity | 适用于折线图，线的透明度                                                                                                    | number                                        | -      |      |
+| 属性                       | 描述                                                                                                                      | 类型                                          | 默认值 | 必选 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------ | ---- |
+| sparklineType              | 迷你图类型：折线图、直方图                                                                                                | `line` \| `column`                            | `line` |      |
+| sparklineIsStack           | 是否对数据进行堆叠                                                                                                        | boolean                                       | false  |      |
+| sparklineRange             | 指定值范围，未指定时将使用 data 的最小值和最大值                                                                          | [number, number]                              | -      |      |
+| sparklineColor             | 指定颜色                                                                                                                  | string \| string[] \| (index: number)=>string | -      |      |
+| sparklineSmooth            | 适用于折线图，平滑曲线                                                                                                    | boolean                                       | false  |      |
+| sparklineLineStroke        | 适用于折线图，线的颜色                                                                                                    | string                                        | -      |      |
+| sparklineLineStrokeOpacity | 适用于折线图，线的透明度                                                                                                  | number                                        | -      |      |
 | sparklineLineLineDash      | 适用于折线图，线的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。 | [number,number]                               | -      |      |
-| sparklineAreaFill          | 适用于折线图，填充区域的颜色                                                                                                | string                                        | -      |      |
-| sparklineAreaFillOpacity   | 适用于折线图，填充区域的透明度                                                                                              | number                                        | -      |      |
-| sparklineColumnFill        | 适用于直方图，条形的颜色                                                                                                    | string                                        | -      |      |
-| sparklineColumnFillOpacity | 适用于直方图，条形的透明度                                                                                                  | number                                        | -      |      |
-| sparklineIsGroup           | 适用于直方图，是否分组显示                                                                                                  | boolean                                       | false  |      |
-| sparklineSpacing           | 适用于直方图，分组直方的间距                                                                                                | number                                        | `0`    |      |
+| sparklineAreaFill          | 适用于折线图，填充区域的颜色                                                                                              | string                                        | -      |      |
+| sparklineAreaFillOpacity   | 适用于折线图，填充区域的透明度                                                                                            | number                                        | -      |      |
+| sparklineColumnFill        | 适用于直方图，条形的颜色                                                                                                  | string                                        | -      |      |
+| sparklineColumnFillOpacity | 适用于直方图，条形的透明度                                                                                                | number                                        | -      |      |
+| sparklineIsGroup           | 适用于直方图，是否分组显示                                                                                                | boolean                                       | false  |      |
+| sparklineSpacing           | 适用于直方图，分组直方的间距                                                                                              | number                                        | `0`    |      |
 
 在 Slider 组件中配置迷你图属性的时候，不是以对象的形式来配置，而是以 `sparkline`前缀加属性的方式来配置。
 
@@ -334,11 +325,8 @@ chart.render();
 ({
   slider: {
     x: {
-      // 不写在style里也行，G2内部做了兼容
-      style: {
-        sparklineType: 'line',
-        sparklineColor: 'red',
-      },
+      sparklineType: 'line',
+      sparklineColor: 'red',
     },
   },
 });

@@ -225,7 +225,7 @@ chart.options({
   encode: { x: 'item', y: 'score', color: 'type' },
   coordinate: { type: 'polar' }, // Configure coordinate system as polar for drawing radar charts
   style: { fillOpacity: 0.5 },
-  axis: { x: { grid: true }, y: { zIndex: 1, title: false } }, // Configure chart components - coordinate axes
+  axis: { x: { grid: true }, y: { zIndex: 1, title: false } }, // Configure chart components - coordinate axis
   scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } }, // Configure scales for better chart display
 });
 

@@ -78,7 +78,7 @@ Theme configuration options can be divided into four parts: basic configuration,
 | type       | Specifies the theme type to use | `'light'` \| `'dark'` \| `'classic'` \| `'classicDark'` \| `'academy'` | `'light'`  |          |
 | padding    | Chart inner padding              | `'auto'` \| `number`                                                   | `'auto'`   |          |
 | margin     | Chart outer margin               | `number`                                                               | `16`       |          |
-| inset      | Spacing between chart graphics and axes | `'auto'` \| `number`                                            | `'auto'`   |          |
+| inset      | Spacing between chart graphics and axis | `'auto'` \| `number`                                            | `'auto'`   |          |
 | color      | Default color                    | `string`                                                               | Theme dependent |      |
 | size       | Default size                     | `number`                                                               | `1`        |          |
 | category10 | Categorical color scheme (10 colors) | `string` \| `string[]`                                             | Theme dependent |      |

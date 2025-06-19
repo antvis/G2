@@ -160,7 +160,7 @@ Example Explanation
 - In this example, we first define a set of sales data `data`, including year and sales amount.
 - In the above code, the `transform` method uses a `group` type data transformation to group data by the `x` channel.
 - After grouping, the data will be aggregated according to the value of the `x` channel, calculating the sum of `sales` for each `year`.
-- Finally, the grouped data is mapped to the `x` and `y` axes of the chart through the `encode` method for rendering.
+- Finally, the grouped data is mapped to the `x` and `y` axis of the chart through the `encode` method for rendering.
 
 ### Advanced Example
 

@@ -218,7 +218,7 @@ chart.render();
 ### Bi-directional Bar Chart vs [Bar Chart](/en/charts/bar)
 
 - Bar charts can only plot on one axis, with each bar representing one data point
-- Bi-directional bar charts contain both positive and negative axes, with each bar potentially representing both positive and negative data
+- Bi-directional bar charts contain both positive and negative axis, with each bar potentially representing both positive and negative data
 
 ## Similar Charts
 

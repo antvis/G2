@@ -68,4 +68,4 @@ Explanation:
 1. In this example, we first define a set of penguin data `data`, containing penguin body mass and species;
 2. In the code above, the `transform` method uses a `groupY` type data transformation to group data by the `y` channel;
 3. After grouping, the data is aggregated according to the values of the `y` channel, calculating the minimum and maximum values of `body_mass_g` for each `species`;
-4. Finally, through the `encode` method, the grouped data is mapped to the chart's `x` and `y` axes for rendering.
+4. Finally, through the `encode` method, the grouped data is mapped to the chart's `x` and `y` axis for rendering.

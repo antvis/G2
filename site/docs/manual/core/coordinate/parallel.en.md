@@ -5,7 +5,7 @@ order: 2
 
 ## Overview
 
-Parallel coordinate system (Parallel) is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axes, with each data record represented as a polyline connecting corresponding values on each coordinate axis. Parallel coordinate systems are particularly suitable for analyzing relationships and patterns among multiple variables, as well as identifying outliers and clusters in datasets.
+Parallel coordinate system (Parallel) is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axis, with each data record represented as a polyline connecting corresponding values on each coordinate axis. Parallel coordinate systems are particularly suitable for analyzing relationships and patterns among multiple variables, as well as identifying outliers and clusters in datasets.
 
 In G2, the parallel coordinate system is implemented by transforming the Cartesian coordinate system into a parallel coordinate system, where each data dimension corresponds to a vertical coordinate axis.
 
@@ -13,14 +13,14 @@ In G2, the parallel coordinate system is implemented by transforming the Cartesi
 
 The basic principles of parallel coordinate systems are:
 
-1. Map multiple data dimensions to parallel arranged coordinate axes
-2. Each data record is represented as a polyline passing through all coordinate axes
+1. Map multiple data dimensions to parallel arranged coordinate axis
+2. Each data record is represented as a polyline passing through all coordinate axis
 3. The position of the line on each coordinate axis corresponds to the data value of that dimension
 
 Parallel coordinate systems have two common layout methods:
 
-- Vertical layout: Coordinate axes are arranged vertically (default)
-- Horizontal layout: Coordinate axes are arranged horizontally through transpose transform
+- Vertical layout: Coordinate axis are arranged vertically (default)
+- Horizontal layout: Coordinate axis are arranged horizontally through transpose transform
 
 ### Getting Started
 
@@ -100,7 +100,7 @@ Parallel coordinate systems are particularly suitable for the following scenario
 ### Notes
 
 1. **Data volume**: When there are too many data records, lines will overlap causing visual clutter. It's recommended to use transparency or interactive filtering
-2. **Axis order**: The arrangement order of coordinate axes will affect the visualization effect. Variables with strong correlations placed in adjacent positions are usually more conducive to analysis
+2. **Axis order**: The arrangement order of coordinate axis will affect the visualization effect. Variables with strong correlations placed in adjacent positions are usually more conducive to analysis
 3. **Axis scaling**: Different dimensions may have vastly different data ranges, requiring appropriate scale settings for better comparison
 
 ## Configuration
@@ -123,7 +123,7 @@ Parallel coordinate systems support the following coordinate system transforms:
 
 ### 1. Vertical Parallel Coordinate System
 
-Vertical parallel coordinate system is the most common parallel coordinate system layout, with coordinate axes arranged vertically.
+Vertical parallel coordinate system is the most common parallel coordinate system layout, with coordinate axis arranged vertically.
 
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';
@@ -166,7 +166,7 @@ chart.render();
 
 ### 2. Horizontal Parallel Coordinate System
 
-By adding transpose transform, you can arrange coordinate axes horizontally to create horizontal parallel coordinate systems.
+By adding transpose transform, you can arrange coordinate axis horizontally to create horizontal parallel coordinate systems.
 
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';

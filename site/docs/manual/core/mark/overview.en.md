@@ -146,7 +146,7 @@ Each graphic mark is an independent entity, with the mark type specified through
 
   - [**title**](/en/manual/component/title) Chart title. Supports configuring title and subtitle
   - [**label**](/en/manual/component/label) Data label system. Supports anti-overlap layout, custom content, connector lines and other features, adapting to different mark types
-  - [**axis**](/en/manual/component/axis) Coordinate axes. Supports custom configuration of ticks, grid lines, and labels
+  - [**axis**](/en/manual/component/axis) Coordinate axis. Supports custom configuration of ticks, grid lines, and labels
   - [**legend**](/en/manual/component/legend) Legend. Supports continuous/categorical legend interactions
   - [**tooltip**](/en/manual/component/tooltip) Tooltip information. Supports field mapping, formatting, and custom content
   - [**scrollbar**](/en/manual/component/scrollbar) Scrollbar component. Scrollbars are disabled by default. Solves the problem of too dense chart information that cannot be fully displayed

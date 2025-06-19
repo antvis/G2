@@ -9,7 +9,7 @@ Theta is a special polar coordinate system that combines the characteristics of 
 
 Theta coordinate system is essentially a combination of Transpose and Polar coordinate systems:
 
-1. First, exchange x/y axes through Transpose
+1. First, exchange x/y axis through Transpose
 2. Then, convert Cartesian coordinates to polar coordinates through Polar
 3. Finally, achieve angle encoding of data on a fixed radius
 

@@ -372,7 +372,7 @@ chart.options({
 chart.render();
 ```
 
-In **parallel coordinate system**, line charts are commonly used to draw parallel coordinate plots. Parallel coordinate plots are statistical charts containing multiple vertical parallel coordinate axes. Each vertical coordinate axis represents a field, and each field uses scales to indicate ranges. This way, multidimensional data can easily find "landing points" on each axis, connecting them to form a line. As data increases and lines stack up, analysts may discover characteristics and patterns, such as clustering relationships between data.
+In **parallel coordinate system**, line charts are commonly used to draw parallel coordinate plots. Parallel coordinate plots are statistical charts containing multiple vertical parallel coordinate axis. Each vertical coordinate axis represents a field, and each field uses scales to indicate ranges. This way, multidimensional data can easily find "landing points" on each axis, connecting them to form a line. As data increases and lines stack up, analysts may discover characteristics and patterns, such as clustering relationships between data.
 
 ```js | ob {  pin: false , autoMount: true }
 import { Chart } from '@antv/g2';

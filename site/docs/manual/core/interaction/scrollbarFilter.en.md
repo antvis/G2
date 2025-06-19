@@ -262,7 +262,7 @@ chart.render();
 
 ### Dual-Axis Scrollbar
 
-This example demonstrates how to use scrollbars on both X and Y axes simultaneously:
+This example demonstrates how to use scrollbars on both X and Y axis simultaneously:
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';

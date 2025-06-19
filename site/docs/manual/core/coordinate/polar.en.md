@@ -9,7 +9,7 @@ order: 2
 
 ### Coordinate System Characteristics
 
-- The center serves as the pole (origin), with straight lines radiating outward from the center as polar axes
+- The center serves as the pole (origin), with straight lines radiating outward from the center as polar axis
 
 - Data point positions are determined jointly by the distance to the center (radius r) and the angle with the polar axis (angle θ)
 

@@ -317,13 +317,13 @@ chart.render();
 
 **Problem Description**
 
-In business scenarios, you may need the y-axis domain to display opposite to normal coordinate axes, making values increase from top to bottom. In other words, smaller y channel values should appear higher in the chart, suitable for scenarios where smaller numbers represent greater weight, such as rankings.
+In business scenarios, you may need the y-axis domain to display opposite to normal coordinate axis, making values increase from top to bottom. In other words, smaller y channel values should appear higher in the chart, suitable for scenarios where smaller numbers represent greater weight, such as rankings.
 
 **Solution**
 
 - Adjust the y channel scale range, which defaults to `[1,0]`. If inversion is needed, adjust to `[0,1]`. For better appearance, you can also adjust the x-axis position accordingly.
 
-Here's an example of a top-to-bottom bar chart. The same principle applies when creating left-to-right bar charts. (Note that bar charts are column charts with transposed coordinate axes, where left-right corresponds to the x-axis)
+Here's an example of a top-to-bottom bar chart. The same principle applies when creating left-to-right bar charts. (Note that bar charts are column charts with transposed coordinate axis, where left-right corresponds to the x-axis)
 
 ```js | ob { autoMount: true }
 import { Chart } from '@antv/g2';

@@ -54,4 +54,4 @@ Explanation:
 1. In this example, we first define a set of sales data `data`, including region, age, and population;
 2. In the above code, the `transform` method uses a `groupX` type data transformation, grouping data by the `x` channel, with 'y' and 'y1' taking the minimum and maximum values respectively;
 3. After grouping, the data is aggregated according to the values of the `x` channel, calculating the line length of `population` for each `state`;
-4. Finally, the `encode` method maps the grouped data to the chart's `x` and `y` axes for point rendering.
+4. Finally, the `encode` method maps the grouped data to the chart's `x` and `y` axis for point rendering.
