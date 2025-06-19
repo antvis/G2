@@ -112,8 +112,8 @@ chart.render();
 | shadowOffsetX    | 设置阴影距图形的水平距离                                                                                                    | `number` \| `Function<number>`                    | -         |
 | shadowOffsetY    | 设置阴影距图形的垂直距离                                                                                                    | `number` \| `Function<number>`                    | -         |
 | cursor           | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                               | `string` \| `Function<string>`                    | 'default' |
-| dx               | 文本在 x 方向上的偏移量                                                                                                     | `number`                                          | -         |
-| dy               | 文本在 y 方向上的偏移量                                                                                                     | `number`                                          | -         |
+| dx               | 文本在水平方向的偏移量                                                                                                     | `number`                                          | -         |
+| dy               | 文本在垂直方向的偏移量                                                                                                     | `number`                                          | -         |
 | text             | 要绘制的文本内容                                                                                                            | `string`                                          | -         |
 | x                | 文本的 x 坐标                                                                                                               | `string`                                          | -         |
 | y                | 文本的 y 坐标                                                                                                               | `string`                                          | -         |

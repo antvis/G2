@@ -223,8 +223,8 @@ chart.options({
 | titleOpacity       | 标题整体透明度                                                 | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |      |
 | titleShadowColor   | 标题阴影颜色                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | `transparent` |      |
 | titleShadowBlur    | 标题阴影模糊度                                                 | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
-| titleShadowOffsetX | 标题阴影 X 偏移                                                | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
-| titleShadowOffsetY | 标题阴影 Y 偏移                                                | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
+| titleShadowOffsetX | 标题阴影水平偏移量                                               | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
+| titleShadowOffsetY | 标题阴影垂直偏移量                                               | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |      |
 | titleCursor        | 标题鼠标样式                                                   | `string` &#124; `(datum, index, data) => string`                                                                   | `default`     |      |
 
 > 配置方式
@@ -334,12 +334,12 @@ chart.options({
 | labelAutoWrap      | 自动换行刻度值，设置 size 值的时候是生效                                                                                                                              | `boolean` &#124; `WrapOverlapCfg`                                 | -          |      |
 | labelDirection     | 刻度值位于轴线的位置，参考`tickDirection`                                                                                                                             | `'positive'` &#124; `'negative'`                                  | `positive` |      |
 | labelSpacing       | 刻度值到其对应刻度的间距                                                                                                                                              | `number`                                                          | 0          |      |
-| labelLineWidth     | 刻度值宽度                                                                                                                                                            | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
-| labelLineDash      | 刻度值描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。                                                   | `[number,number]` &#124; `(datum, index, data)=>[number, number]` | -          |      |
-| labelFill          | 刻度值字体颜色                                                                                                                                                        | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
-| labelFillOpacity   | 刻度值文本透明度                                                                                                                                                      | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
-| labelStroke        | 刻度值文本描边颜色                                                                                                                                                    | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
-| labelStrokeOpacity | 刻度值文本描边透明度                                                                                                                                                  | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelLineWidth     | 刻度标签描边宽度                                                                                                                                                            | `number` &#124;`(datum, index, data)=>number`                     | -          |      |
+| labelLineDash      | 刻度标签描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。                                                   | `[number,number]` &#124; `(datum, index, data)=>[number, number]` | -          |      |
+| labelFill          | 刻度标签文字颜色                                                                                                                                                        | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelFillOpacity   | 刻度标签文字透明度                                                                                                                                                      | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
+| labelStroke        | 刻度标签文字描边颜色                                                                                                                                                    | `string` &#124; `(datum, index, data)=>string`                    | -          |      |
+| labelStrokeOpacity | 刻度标签文字描边透明度                                                                                                                                                  | `number` &#124; `(datum, index, data)=>number`                    | -          |      |
 
 #### labelFormatter
 

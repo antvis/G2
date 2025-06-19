@@ -188,27 +188,27 @@ chart.render();
 
 图表的标题，具体来说是主标题，可以用以下的配置来定制标题的各种样式。
 
-| 属性               | 描述                | 类型                                             | 默认值      |
-| ------------------ | ------------------- | ------------------------------------------------ | ----------- |
-| title              | 图表标题文字内容    | `string` \| `(datum, index, data) => string`     | -           |
-| titleFontSize      | 图表标题字体大小    | `number` \| `(datum, index, data) => number`     | 14          |
-| titleFontFamily    | 图表标题字体类型    | `string` \| `(datum, index, data) => string`     | sans-serif  |
-| titleFontWeight    | 图表标题字体粗细    | `string` \| `(datum, index, data) => string`     | normal      |
-| titleTextAlign     | 图表标题水平对齐    | `string` \| `(datum, index, data) => string`     | center      |
-| titleTextBaseline  | 图表标题垂直基线    | `string` \| `(datum, index, data) => string`     | middle      |
-| titleFill          | 图表标题填充颜色    | `string` \| `(datum, index, data) => string`     | #000        |
-| titleFillOpacity   | 图表标题填充透明度  | `number` \| `(datum, index, data) => number`     | 1           |
-| titleStroke        | 图表标题描边颜色    | `string` \| `(datum, index, data) => string`     | transparent |
-| titleStrokeOpacity | 图表标题描边透明度  | `number` \| `(datum, index, data) => number`     | 1           |
-| titleLineHeight    | 图表标题行高        | `number` \| `(datum, index, data) => number`     | 14          |
-| titleLineWidth     | 图表标题描边宽度    | `number` \| `(datum, index, data) => number`     | 0           |
-| titleLineDash      | 图表标题虚线样式    | `number[]` \| `(datum, index, data) => number[]` | []          |
-| titleOpacity       | 图表标题整体透明度  | `number` \| `(datum, index, data) => number`     | 1           |
-| titleShadowColor   | 图表标题阴影颜色    | `string` \| `(datum, index, data) => string`     | transparent |
-| titleShadowBlur    | 图表标题阴影模糊度  | `number` \| `(datum, index, data) => number`     | 0           |
-| titleShadowOffsetX | 图表标题阴影 X 偏移 | `number` \| `(datum, index, data) => number`     | 0           |
-| titleShadowOffsetY | 图表标题阴影 Y 偏移 | `number` \| `(datum, index, data) => number`     | 0           |
-| titleCursor        | 图表标题鼠标样式    | `string` \| `(datum, index, data) => string`     | default     |
+| 属性               | 描述                           | 类型                                             | 默认值      |
+| ------------------ | ------------------------------ | ------------------------------------------------ | ----------- |
+| title              | 图表标题文字内容               | `string` \| `(datum, index, data) => string`     | -           |
+| titleFontSize      | 图表标题字体大小               | `number` \| `(datum, index, data) => number`     | 14          |
+| titleFontFamily    | 图表标题字体类型               | `string` \| `(datum, index, data) => string`     | sans-serif  |
+| titleFontWeight    | 图表标题字体粗细               | `string` \| `(datum, index, data) => string`     | normal      |
+| titleTextAlign     | 图表标题行内内容的水平对齐方式 | `string` \| `(datum, index, data) => string`     | center      |
+| titleTextBaseline  | 图表标题垂直方向的基线               | `string` \| `(datum, index, data) => string`     | middle      |
+| titleFill          | 图表标题填充颜色               | `string` \| `(datum, index, data) => string`     | #000        |
+| titleFillOpacity   | 图表标题填充透明度             | `number` \| `(datum, index, data) => number`     | 1           |
+| titleStroke        | 图表标题描边颜色               | `string` \| `(datum, index, data) => string`     | transparent |
+| titleStrokeOpacity | 图表标题描边透明度             | `number` \| `(datum, index, data) => number`     | 1           |
+| titleLineHeight    | 图表标题行高                   | `number` \| `(datum, index, data) => number`     | 14          |
+| titleLineWidth     | 图表标题描边宽度               | `number` \| `(datum, index, data) => number`     | 0           |
+| titleLineDash      | 图表标题虚线样式               | `number[]` \| `(datum, index, data) => number[]` | []          |
+| titleOpacity       | 图表标题整体透明度             | `number` \| `(datum, index, data) => number`     | 1           |
+| titleShadowColor   | 图表标题阴影颜色               | `string` \| `(datum, index, data) => string`     | transparent |
+| titleShadowBlur    | 图表标题阴影模糊度             | `number` \| `(datum, index, data) => number`     | 0           |
+| titleShadowOffsetX | 图表标题阴影水平偏移量            | `number` \| `(datum, index, data) => number`     | 0           |
+| titleShadowOffsetY | 图表标题阴影垂直偏移量            | `number` \| `(datum, index, data) => number`     | 0           |
+| titleCursor        | 图表标题鼠标样式               | `string` \| `(datum, index, data) => string`     | default     |
 
 ### subtitle
 
@@ -220,8 +220,8 @@ chart.render();
 | subtitleFontSize      | 图表副标题字体大小    | `number` \| `(datum, index, data) => number`     | 12          |
 | subtitleFontFamily    | 图表副标题字体类型    | `string` \| `(datum, index, data) => string`     | sans-serif  |
 | subtitleFontWeight    | 图表副标题字体粗细    | `string` \| `(datum, index, data) => string`     | normal      |
-| subtitleTextAlign     | 图表副标题水平对齐    | `string` \| `(datum, index, data) => string`     | center      |
-| subtitleTextBaseline  | 图表副标题垂直基线    | `string` \| `(datum, index, data) => string`     | middle      |
+| subtitleTextAlign     | 图表副标题行内内容的水平对齐方式    | `string` \| `(datum, index, data) => string`     | center      |
+| subtitleTextBaseline  | 图表副标题垂直方向的基线     | `string` \| `(datum, index, data) => string`     | middle      |
 | subtitleFill          | 图表副标题填充颜色    | `string` \| `(datum, index, data) => string`     | #666        |
 | subtitleFillOpacity   | 图表副标题填充透明度  | `number` \| `(datum, index, data) => number`     | 1           |
 | subtitleStroke        | 图表副标题描边颜色    | `string` \| `(datum, index, data) => string`     | transparent |
@@ -232,8 +232,8 @@ chart.render();
 | subtitleOpacity       | 图表副标题整体透明度  | `number` \| `(datum, index, data) => number`     | 1           |
 | subtitleShadowColor   | 图表副标题阴影颜色    | `string` \| `(datum, index, data) => string`     | transparent |
 | subtitleShadowBlur    | 图表副标题阴影模糊度  | `number` \| `(datum, index, data) => number`     | 0           |
-| subtitleShadowOffsetX | 图表副标题阴影 X 偏移 | `number` \| `(datum, index, data) => number`     | 0           |
-| subtitleShadowOffsetY | 图表副标题阴影 Y 偏移 | `number` \| `(datum, index, data) => number`     | 0           |
+| subtitleShadowOffsetX | 图表副标题阴影水平偏移量 | `number` \| `(datum, index, data) => number`     | 0           |
+| subtitleShadowOffsetY | 图表副标题阴影垂直偏移量 | `number` \| `(datum, index, data) => number`     | 0           |
 | subtitleCursor        | 图表副标题鼠标样式    | `string` \| `(datum, index, data) => string`     | default     |
 
 尝试一下：

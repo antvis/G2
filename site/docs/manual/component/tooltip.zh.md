@@ -334,17 +334,17 @@ chart.options({
 | crosshairs               | 是否显示十字辅助线     | boolean         | `true`  |      |
 | crosshairsStroke         | 十字辅助线描边颜色     | string          | -       |      |
 | crosshairsStrokeOpacity  | 十字辅助线透明度       | number          | -       |      |
-| crosshairsLineWidth      | 十字辅助线宽度         | number          | -       |      |
+| crosshairsLineWidth      | 十字辅助线描边宽度     | number          | -       |      |
 | crosshairsLineDash       | 十字辅助线虚线         | [number,number] | -       |      |
 | crosshairsX              | 是否显示水平方向辅助线 | boolean         | `false` |      |
 | crosshairsXStroke        | 水平方向辅助线描边颜色 | string          | -       |      |
 | crosshairsXStrokeOpacity | 水平方向辅助线透明度   | number          | -       |      |
-| crosshairsXLineWidth     | 水平方向辅助线宽度     | number          | -       |      |
+| crosshairsXLineWidth     | 水平方向辅助线描边宽度 | number          | -       |      |
 | crosshairsXLineDash      | 水平方向辅助线虚线     | [number,number] | -       |      |
 | crosshairsY              | 是否显示垂直方向辅助线 | boolean         | `true`  |      |
 | crosshairsYStroke        | 垂直方向辅助线描边颜色 | string          | -       |      |
 | crosshairsYStrokeOpacity | 垂直方向辅助线透明度   | number          | -       |      |
-| crosshairsYLineWidth     | 垂直方向辅助线宽度     | number          | -       |      |
+| crosshairsYLineWidth     | 垂直方向辅助线描边宽度 | number          | -       |      |
 | crosshairsYLineDash      | 垂直方向辅助线虚线     | [number,number] | -       |      |
 
 ```js

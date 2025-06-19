@@ -178,7 +178,7 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 | fillOpacity   | 图形的填充透明度                                                                                             | number          |           |      |
 | stroke        | 图形的描边                                                                                                   | string          |           |      |
 | strokeOpacity | 描边透明度                                                                                                   | number          |           |      |
-| lineWidth     | 图形描边的宽度                                                                                               | number          |           |      |
+| lineWidth     | 描边宽度                                                                                                   | number          |           |      |
 | lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] |           |      |
 | opacity       | 图形的整体透明度                                                                                             | number          |           |      |
 | shadowColor   | 图形阴影颜色                                                                                                 | string          |           |      |
@@ -197,7 +197,7 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 | ------------- | ------------------------------------------------------------------------------------------------------ | --------------- | --------- | ---- |
 | stroke        | 线的颜色                                                                                               | string          |           |      |
 | strokeOpacity | 线的透明度                                                                                             | number          |           |      |
-| lineWidth     | 线宽                                                                                                   | number          |           |      |
+| lineWidth     | 描边宽度                                                                                                   | number          |           |      |
 | lineDash      | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] |           |      |
 | opacity       | 整体透明度                                                                                             | number          |           |      |
 | shadowColor   | 阴影颜色                                                                                               | string          |           |      |
@@ -256,12 +256,12 @@ chart.render();
 | fontFamily    | 文字字体                                                                                                     | string                                                     |           |      |
 | fontWeight    | 字体粗细                                                                                                     | number                                                     |           |      |
 | lineHeight    | 文字的行高                                                                                                   | number                                                     |           |      |
-| textAlign     | 设置文本内容的当前对齐方式                                                                                   | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |      |
-| textBaseline  | 设置在绘制文本时使用的当前文本基线                                                                           | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |      |
+| textAlign     | 设置行内内容的水平对齐方式                                                                                   | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |      |
+| textBaseline  | 设置在绘制文本时垂直方向的基线                                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |      |
 | fill          | 文字的填充色                                                                                                 | string                                                     |           |      |
 | fillOpacity   | 文字的填充透明度                                                                                             | number                                                     |           |      |
 | stroke        | 文字的描边                                                                                                   | string                                                     |           |      |
-| lineWidth     | 文字描边的宽度                                                                                               | number                                                     |           |      |
+| lineWidth     | 描边宽度                                                                                                   | number                                                     |           |      |
 | lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number]                                            |           |      |
 | strokeOpacity | 描边透明度                                                                                                   | number                                                     |           |      |
 | opacity       | 文字的整体透明度                                                                                             | number                                                     |           |      |
@@ -270,6 +270,8 @@ chart.render();
 | shadowOffsetX | 设置阴影距文字的水平距离                                                                                     | number                                                     |           |      |
 | shadowOffsetY | 设置阴影距文字的垂直距离                                                                                     | number                                                     |           |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式                                                                                  | string                                                     | `default` |      |
+| dx            | 文字在水平方向的偏移量                                                                                       | number                                                     | 0         |      |
+| dy            | 文字在垂直方向的偏移量                                                                                       | number                                                     | 0         |      |
 
 接下来，试试使用全量文字的样式配置水波图的中心文字的样式，在下面的代码编辑器里修改属性试试效果：
 
@@ -324,6 +326,8 @@ chart.options({
     titleShadowOffsetX: 10,
     titleShadowOffsetY: 10,
     titleCursor: 'pointer',
+    titleDx: 10,
+    titleDy: 10,
   },
 });
 

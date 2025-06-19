@@ -284,14 +284,14 @@ Legend 组件在布局的时候的排序。默认为 `1`。G2 内部的组件都
 | titleFillOpacity   | 标题字体颜色透明度                                                                                                   | number \| (datum, index, data) => number                                                                   | `0.65`                            |      |
 | titleStroke        | 标题字体描边颜色                                                                                                     | string \| (datum, index, data) => string                                                                   | -                                 |      |
 | titleStrokeOpacity | 标题字体描边颜色透明度                                                                                               | number \| (datum, index, data) => number                                                                   | -                                 |      |
-| titleLineWidth     | 标题字体描边的宽度                                                                                                   | number \| (datum, index, data) => number                                                                   | -                                 |      |
+| titleLineWidth     | 标题描边宽度                                                                                                   | number \| (datum, index, data) => number                                                                   | -                                 |      |
 | titleLineDash      | 标题字体描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] \| (datum, index, data) => [number , number]                                               | -                                 |      |
 | titleOpacity       | 标题文字的整体透明度                                                                                                 | number \| (datum, index, data) => number                                                                   | -                                 |      |
 | titleShadowColor   | 标题文字阴影颜色                                                                                                     | string \| (datum, index, data) => string                                                                   | -                                 |      |
 | titleShadowBlur    | 标题文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                                                                   | -                                 |      |
-| titleShadowOffsetX | 设置阴影距标题文字的水平距离                                                                                         | number \| (datum, index, data) => number                                                                   | -                                 |      |
-| titleShadowOffsetY | 设置阴影距标题文字的垂直距离                                                                                         | number \| (datum, index, data) => number                                                                   | -                                 |      |
-| titleCursor        | 标题鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                                                                   | `default`                         |      |
+| titleShadowOffsetX | 标题阴影水平偏移量                                                                                         | number \| (datum, index, data) => number                                                                   | -                                 |      |
+| titleShadowOffsetY | 标题阴影垂直偏移量                                                                                         | number \| (datum, index, data) => number                                                                   | -                                 |      |
+| titleCursor        | 标题鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                                                                   | `default`                         |      |
 
 在 Legend 组件中配置标题的时候，不是以对象的形式来配置，而是以 `title`前缀加属性的方式来配置。
 
@@ -578,7 +578,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 | itemLabelShadowBlur    | 图例项标签文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                       | -         |      |
 | itemLabelShadowOffsetX | 设置阴影距图例项标签文字的水平距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
 | itemLabelShadowOffsetY | 设置阴影距图例项标签文字的垂直距离                                                                                         | number \| (datum, index, data) => number                       | -         |      |
-| itemLabelCursor        | 图例项标签鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                       | `default` |      |
+| itemLabelCursor        | 图例项标签鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                       | `default` |      |
 
 在 Legend 组件中配置图例项标签的时候，不是以对象的形式来配置，而是以 `itemLabel`前缀加属性的方式来配置。
 
@@ -636,7 +636,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 | itemValueShadowBlur    | 图例项值文字阴影的高斯模糊系数                                                                                           | number \| (datum, index, data) => number                     | -         |      |
 | itemValueShadowOffsetX | 设置阴影距图例项值文字的水平距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
 | itemValueShadowOffsetY | 设置阴影距图例项值文字的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -         |      |
-| itemValueCursor        | 图例项值鼠标样式。同 css 的鼠标样式                                                                                      | string \| (datum, index, data) => string                     | `default` |      |
+| itemValueCursor        | 图例项值鼠标样式。同 css 的鼠标样式。                                                                                      | string \| (datum, index, data) => string                     | `default` |      |
 
 在 Legend 组件中配置图例项值的时候，不是以对象的形式来配置，而是以 `itemValue`前缀加属性的方式来配置。
 

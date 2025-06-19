@@ -684,18 +684,20 @@ chart.render();
 | lineHeight    | 文字的行高                                                                                                                  | _number_ \| _Function<number>_                      | -         |      |
 | textAlign     | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`                  | _string_ \| _Function<string>_                      | -         |      |
 | textBaseline  | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom` | _string_ \| _Function<string>_                      | -         |      |
-| fill          | 图形的填充色                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
-| fillOpacity   | 图形的填充透明度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
-| stroke        | 图形的描边                                                                                                                  | _string_ \| _Function<string>_                      | -         |      |
-| strokeOpacity | 描边透明度                                                                                                                  | _number_ \| _Function<number>_                      | -         |      |
-| lineWidth     | 图形描边的宽度                                                                                                              | _number_ \| _Function<number>_                      | -         |      |
-| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。               | _\[number,number\]_ \| _Function<[number, number]>_ | -         |      |
-| opacity       | 图形的整体透明度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
-| shadowColor   | 图形阴影颜色                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
-| shadowBlur    | 图形阴影的高斯模糊系数                                                                                                      | _number_ \| _Function<number>_                      | -         |      |
-| shadowOffsetX | 设置阴影距图形的水平距离                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
-| shadowOffsetY | 设置阴影距图形的垂直距离                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
+| fill          | 标签文字的填充色                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
+| fillOpacity   | 标签文字的填充透明度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
+| stroke        | 标签文字的描边                                                                                                                  | _string_ \| _Function<string>_                      | -         |      |
+| strokeOpacity | 标签文字描边透明度                                                                                                                  | _number_ \| _Function<number>_                      | -         |      |
+| lineWidth     | 标签文字描边宽度                                                                                                              | _number_ \| _Function<number>_                      | -         |      |
+| lineDash      | 标签文字描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。               | _\[number,number\]_ \| _Function<[number, number]>_ | -         |      |
+| opacity       | 标签文字的整体透明度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
+| shadowColor   | 标签文字阴影颜色                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
+| shadowBlur    | 标签文字阴影的高斯模糊系数                                                                                                      | _number_ \| _Function<number>_                      | -         |      |
+| shadowOffsetX | 标签文字阴影水平偏移量                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
+| shadowOffsetY | 标签文字阴影垂直偏移量                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                               | _string_ \| _Function<string>_                      | `default` |      |
+| dx            | 标签文字在水平方向的偏移量                                                                                                | _number_ \| _Function<number>_                      | 0         |      |
+| dy            | 标签文字在垂直方向的偏移量                                                                                                | _number_ \| _Function<number>_                      | 0         |      |
 
 ```js
 ({
@@ -730,7 +732,7 @@ chart.render();
 | 参数               | 说明                 | 类型                | 默认值 | 必选 |
 | ------------------ | -------------------- | ------------------- | ------ | ---- |
 | connectorStroke    | 连接线描边色         | _string_            | -      |      |
-| connectorLineWidth | 连接线描边线宽       | _number_            | -      |      |
+| connectorLineWidth | 连接线描边宽度       | _number_            | -      |      |
 | connectorLineDash  | 连接线描边的虚线配置 | _\[number,number\]_ | -      |      |
 | connectorOpacity   | 连接线描边透明度     | _number_            | -      |      |
 | connectorDistance  | 连接线和文本的间距   | _number_            | -      |      |
