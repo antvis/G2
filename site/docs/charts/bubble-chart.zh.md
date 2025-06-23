@@ -77,7 +77,7 @@ similar: ['scatter', 'bubble-map']
 | Germany         | 46136           | 81.0                       | 82695000           | Europe            |
 | ...             | ...             | ...                        | ...                | ...               |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -135,7 +135,7 @@ chart.render();
 
 以下是一个包含大量数据点的气泡图示例，可以看到随着数据点的增加，气泡之间的重叠让图表变得难以解读：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -180,7 +180,7 @@ chart.render();
 
 下面是一个不使用气泡图而使用折线图展示时序数据的例子：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -224,7 +224,7 @@ chart.render();
 
 如果确实需要在时序数据中加入第三个维度的信息，可以使用带有大小编码的时间序列气泡图：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -304,7 +304,7 @@ chart.render();
 
 ### 代码示例：添加悬停交互的气泡图
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

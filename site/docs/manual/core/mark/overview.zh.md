@@ -9,7 +9,7 @@ order: 1
 
 正如上面所说，我们在一个图表中添加散点图的 Point 标记以及连接图的 Link 标记，便可以得到一个带有标注的点线连接图。
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

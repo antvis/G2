@@ -83,7 +83,7 @@ chart.render();
 
 - 只有`target`或者`percent`，`color`参数`range`可以由两个颜色参数组成，在仪表盘刻度会由这两个颜色将会将仪表盘刻度分成两段
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -109,7 +109,7 @@ chart.render();
 
 - 设置了`thresholds`，`color`参数`range`的颜色与`thresholds`的长度一致，仪表盘刻度会被`thresholds`中的值分段，并填充`scale`参数`color`对应位置的色彩
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

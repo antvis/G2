@@ -52,7 +52,7 @@ similar: ['histogram', 'contourline', 'scatter', 'bubble']
 
 下面这张热力图展示了二维空间上的温度分布情况。通过颜色的变化可以直观地看出不同区域的温度差异。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -108,7 +108,7 @@ chart.render();
 
 密度热力图可以展示散点数据的集中区域，下面的例子展示了钻石数据集中克拉数和价格的分布关系。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
@@ -200,7 +200,7 @@ chart.render();
 
 阈值热力图根据预设的阈值区间，将连续数据划分为离散的颜色区间，适合强调特定范围内的数据。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -111,7 +111,7 @@ chart.render().then(() => {
 
 使用球体效果如下：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -178,7 +178,7 @@ chart.render().then(() => {
 
 而在使用 2D 图形时，无需添加光源：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';

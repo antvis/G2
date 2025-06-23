@@ -39,7 +39,7 @@ Example 1: **Suitable for showing goal completion progress**
 
 The gauge chart below shows the completion status of a scoring metric, with a current score of 120 out of a total of 400.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -73,7 +73,7 @@ Example 2: **Suitable for multi-threshold status monitoring**
 
 Gauge charts can clearly show which range the data falls into by setting multiple thresholds and different colors, suitable for system status monitoring, performance evaluation, and other scenarios.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -117,7 +117,7 @@ Example 3: **Customizing gauge chart styles**
 
 Gauge charts support highly customizable styles that can be adjusted based on business requirements.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -176,7 +176,7 @@ Gauge charts display static data at a specific moment and cannot effectively exp
 
 Gauge charts support customizing the pointer shape, allowing you to adjust the pointer style according to business scenarios, making the chart more personalized.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import { Path } from '@antv/g';
 

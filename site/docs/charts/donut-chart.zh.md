@@ -46,7 +46,7 @@ similar: ['pie', 'rose', 'radial-bar']
 | Shooter           | 3,500          |
 | Other             | 1,500          |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -104,7 +104,7 @@ chart.render();
 
 环图的空心区域可以用来显示总数、标题或其他重要信息：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -151,7 +151,7 @@ chart.render();
 
 下图是各个省的人口的占比情况，因为这张图上包含的分类过多，很难清晰对比各个省份的人口数据占比情况，所以这种情况下，我们推荐使用[柱状图](/charts/bar)。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -209,7 +209,7 @@ chart.render();
 
 下图中游戏公司的不同种类游戏的销售量相近，角度差异很小，不太适合使用环图，此时可以使用[柱状图](/charts/bar)。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -269,7 +269,7 @@ chart.render();
 | 2011 | 拉丁美洲   | 495.3              |
 | ……   | ……         | ……                 |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

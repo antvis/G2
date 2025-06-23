@@ -251,7 +251,7 @@ chart.render();
 
 ##### 问题案例
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -448,7 +448,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -519,7 +519,7 @@ chart.render();
 
 `label` 标签会超出图表，超出的部分会被截断。
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

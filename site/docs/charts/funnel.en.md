@@ -47,7 +47,7 @@ The chart below shows the conversion across different stages of a sales funnel, 
 | Negotiations | 691   |
 | Deals        | 527   |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -109,7 +109,7 @@ Example 2: **Website Traffic Conversion Analysis**
 
 Funnel charts can effectively analyze the conversion of website traffic from visits to final actions, helping identify key points of user drop-off.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,7 +172,7 @@ Example 3: **Comparative Funnel Charts for Different Channels**
 
 When you need to compare conversion effectiveness across different channels or time periods, comparative funnel charts are useful for analysis.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -295,7 +295,7 @@ Funnel charts typically express a decreasing process from more to less. If there
 
 Comparative funnel charts can more clearly show comparisons between two different processes or entities, helping to identify differences and advantages between different approaches.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
@@ -383,7 +383,7 @@ chart.render();
 
 Pyramid funnel charts are a variant that displays conversion processes through symmetrical pyramid shapes, better highlighting the conversion rate changes at each stage.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });

@@ -61,7 +61,7 @@ Example 1: **Statistical Analysis of Data Distribution**
 
 The following chart shows a histogram of diamond weight distribution, displaying how diamond weights are distributed across different intervals.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -108,7 +108,7 @@ Example 2: **Using Different Binning Methods**
 
 The key to histograms is how to divide data intervals (i.e., "binning"). Different binning methods affect the understanding of data distribution. The chart below uses a custom number of bins.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -156,7 +156,7 @@ Example 3: **Probability Distribution Analysis with Density Histogram**
 
 Density histograms normalize frequency counts, making them more suitable for comparing distributions of datasets of different sizes.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -221,7 +221,7 @@ Histograms focus on showing data distribution characteristics rather than trends
 
 A multi-distribution histogram can display the distribution of multiple datasets in the same coordinate system, facilitating comparison of distribution characteristics between different datasets.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

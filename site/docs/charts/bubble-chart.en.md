@@ -76,7 +76,7 @@ The following chart shows the relationship between GDP per capita, life expectan
 | Japan         | 38428              | 83.9           | 127141000  | Asia      |
 | Germany       | 46136              | 81.0           | 82695000   | Europe    |
 | ...           | ...                | ...            | ...        | ...       |
-| ```js         | ob { inject true } |
+| ```js         | ob { inject: true } |
 
 import { Chart } from '@antv/g2';
 
@@ -135,7 +135,7 @@ When data points exceed 100 or bubbles seriously overlap, bubble charts may beco
 
 Below is an example of a bubble chart with numerous data points; as the number of data points increases, the overlap between bubbles makes the chart difficult to interpret:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -180,7 +180,7 @@ Bubble charts are not suitable for displaying time series trend data. For data t
 
 Below is an example using a line chart instead of a bubble chart to display time series data:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -224,7 +224,7 @@ chart.render();
 
 If a third dimension of information is indeed needed in time series data, you can use a time series bubble chart with size encoding:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

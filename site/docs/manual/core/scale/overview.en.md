@@ -23,7 +23,7 @@ Handle `continuous` numerical data while preserving proportional relationships b
 
 For example, both x and y channels in the scatter plot below use `linear` scales.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -45,7 +45,7 @@ chart.render();
 
 When we try to change the scales of the x and y channels:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ Handle `discrete` categorical data:
 
 For example, the color channel in the bar chart below uses an `ordinal` scale.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -116,7 +116,7 @@ We can see the difference between `band` scale and `point` scale through the fol
 
 `point` scale
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -142,7 +142,7 @@ chart.render();
 
 `band` scale
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -178,7 +178,7 @@ The following shows the effect of applying `quantile` scale and `quantize` scale
 
 `quantile` scale
 
-```js | ob { inject true, pin:false  }
+```js | ob { inject: true, pin:false  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -216,7 +216,7 @@ chart.render();
 
 `quantize` scale
 
-```js | ob { inject true, pin:false  }
+```js | ob { inject: true, pin:false  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -475,7 +475,7 @@ chart.render();
 
 If you want to disable synchronization (e.g., when drawing dual-axis charts), you need to set `scale.independent` to `true`. Scales with this property won't synchronize with any other scales. In the example below, the y channels of interval and line will use two different scales, generating two different coordinate axis.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -522,7 +522,7 @@ chart.render();
 
 If you want scales to synchronize in groups, you can declare `scale.key`. Scales with the same key will synchronize. For example, below, the y channel scales of Line and Point marks synchronize because their keys are both 'line'.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -577,7 +577,7 @@ chart.render();
 
 Scales can be configured at the view level and will be passed to marks specified in `children`. If the corresponding channel of that mark doesn't have a scale set, it will be set; otherwise, there's no effect. When not drawing multi-axis charts, scales can be set at the view level.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

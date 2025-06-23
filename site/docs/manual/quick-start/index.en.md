@@ -95,7 +95,7 @@ G2 also provides a UMD version, which can be loaded directly through CDN and use
 
 No matter which method you use, if you draw a bar chart like the following, it means that everything is going well and the journey of exploring visualization and G2 has officially begun.
 
-```js | ob { pin:false, inject true }
+```js | ob { pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 // Initializing chart instance

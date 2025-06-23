@@ -60,7 +60,7 @@ Configure visual channels for the `line` mark.
 
 The `color` visual channel affects the fill color of the `line` graphic mark. When applied to line charts, it generally maps categorical fields to group data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -99,7 +99,7 @@ chart.render();
 
 In some special cases, it can also map to continuous fields, using different colors for graphics corresponding to different value ranges:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,7 +145,7 @@ chart.render();
 
 The `series` visual channel groups data to draw series line charts.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -272,7 +272,7 @@ chart.render();
 
 Bind the `size` property channel for `line` mark to change the size of the graphic mark. For lines, the `size` visual channel maps to line width, typically used together with the `trail` shape in the `shape` channel.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -314,7 +314,7 @@ The `line` graphic mark displays differently in different coordinate systems. De
 
 In **polar coordinate system**, line charts appear as radar charts. In polar coordinates, line area charts need to be closed. Commonly used to draw radar charts, etc.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -372,7 +372,7 @@ chart.render();
 
 In **parallel coordinate system**, line charts are commonly used to draw parallel coordinate plots. Parallel coordinate plots are statistical charts containing multiple vertical parallel coordinate axis. Each vertical coordinate axis represents a field, and each field uses scales to indicate ranges. This way, multidimensional data can easily find "landing points" on each axis, connecting them to form a line. As data increases and lines stack up, analysts may discover characteristics and patterns, such as clustering relationships between data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

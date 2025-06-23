@@ -183,7 +183,7 @@ Notes:
 - Image loading: When using image masks, ensure that image resources are fully loaded, otherwise rendering issues may occur.
 - Performance impact: Complex shapes (such as high-resolution images) may affect word cloud construction speed.
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

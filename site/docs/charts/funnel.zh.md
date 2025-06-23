@@ -47,7 +47,7 @@ similar: ['sankey']
 | 议价          | 691           |
 | 成交          | 527           |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -109,7 +109,7 @@ chart.render();
 
 漏斗图可以有效地分析网站流量从访问到最终行为的转化过程，帮助识别用户流失的关键环节。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,7 +172,7 @@ chart.render();
 
 当需要比较不同渠道或时期的转化效果时，可以使用对比漏斗图进行分析。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -291,7 +291,7 @@ chart.render();
 
 对比漏斗图可以更清晰地展示两个不同流程或实体的转化效果对比，帮助识别不同方案之间的差异和优劣。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
@@ -379,7 +379,7 @@ chart.render();
 
 金字塔形漏斗图是一种变体，通过对称的金字塔形状展示转化流程，能够更突出各阶段的转化率变化。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });

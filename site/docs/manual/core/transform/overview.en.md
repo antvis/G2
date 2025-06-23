@@ -138,7 +138,7 @@ The purpose of adjusting data is to prevent graphics from obscuring each other, 
 
 For example, in the scatter plot drawn from the following data, points with the same x channel completely overlap, making them difficult to distinguish.
 
-```js | ob {  pin:false, inject true }
+```js | ob {  pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -167,7 +167,7 @@ chart.render();
 
 You can configure the [jitterX](/en/manual/core/transform/jitter-x) transform to achieve a spreading effect in the x direction within a certain area.
 
-```js | ob {  pin:false, inject true }
+```js | ob {  pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -322,7 +322,7 @@ The following are the built-in mark transforms in G2 for preventing overlap:
 
 Another type of mark transform is mainly used for data aggregation: such as [bin](/en/manual/core/transform/bin) and [group](/en/manual/core/transform/group). Unlike traditional data aggregation, mark aggregation occurs during rendering, not before rendering. This allows us to operate directly on channel values without needing to manipulate abstract raw data. This greatly improves our efficiency in exploring data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 table({
   url: 'https://assets.antv.antgroup.com/g2/penguins.json',
 });

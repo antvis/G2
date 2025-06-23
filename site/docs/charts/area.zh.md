@@ -59,7 +59,7 @@ similar: ['line', 'stacked-area']
 | 2015/1/7     | 116.75          |
 | ...          | ...             |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -122,7 +122,7 @@ chart.render();
 
 堆叠面积图可以同时展示多个数据系列随时间的变化，以及它们的总和趋势。下图展示了不同行业失业人数的变化趋势。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -171,7 +171,7 @@ chart.render();
 
 当需要展示各类别在总体中的占比随时间的变化时，百分比堆叠面积图是非常合适的选择。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -242,7 +242,7 @@ chart.render();
 
 区间面积图可以表示数据的上下限范围，通常用于表示数据的不确定性或波动范围。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 /**
  * A recreation of this demo: https://www.anychart.com/zh/products/anychart/gallery/Combined_Charts/Range_Spline-Area,_Spline_and_Marker_Chart.php
  */
@@ -304,7 +304,7 @@ chart.render();
 
 差分面积图用于比较两个数据系列，突出它们之间的差异区域。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

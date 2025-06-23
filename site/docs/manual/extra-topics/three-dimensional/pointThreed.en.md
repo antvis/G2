@@ -111,7 +111,7 @@ Currently, point3D has the following built-in shape graphics, including 3D and 2
 
 Using sphere shape effect as shown below:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -178,7 +178,7 @@ chart.render().then(() => {
 
 When using 2D shapes, no light source is needed:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';

@@ -57,7 +57,7 @@ chart.render();
 
 `thresholdsX` 和 `thresholdsY` 是用于定义数据分箱的两个非常重要的配置项，主要在二维数据分箱（如网格图或热力图）中使用。它们分别控制在 X 和 Y 方向上的分箱（区间划分）规则或数量，用于将二维连续数据划分为离散的网格。
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -173,7 +173,7 @@ type Channel =
 
 ### 使用 `bin` + `opacity` 渲染出透明度分箱
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -205,7 +205,7 @@ chart.render();
 
 ### 使用 `bin` + `size` 渲染出大小分箱
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

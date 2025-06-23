@@ -111,7 +111,7 @@ order: 5
 
 下面是一组筹备活动的时间数据：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 table([
   { name: '活动策划', startTime: 1, endTime: 4 },
   { name: '场地物流规划', startTime: 3, endTime: 13 },

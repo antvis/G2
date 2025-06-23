@@ -104,7 +104,7 @@ chart.render();
 
 最简单的用法是设置一个固定的鱼眼焦点，适用于需要突出显示特定区域的场景。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 通过添加交互组件，可以实现动态的鱼眼效果，焦点随鼠标移动而变化。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -291,7 +291,7 @@ chart.render();
 
 鱼眼坐标系变换可以与其他坐标系变换组合使用，例如与 transpose 变换组合：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

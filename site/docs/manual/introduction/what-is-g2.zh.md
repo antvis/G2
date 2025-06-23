@@ -17,7 +17,7 @@ order: 1
 
 "Talk is cheap, show me the code"，那么接下来看看基于下面这个简单的数据集，G2 能做出什么可视化效果。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 table({
   url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
 });

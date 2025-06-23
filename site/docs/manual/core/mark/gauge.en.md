@@ -83,7 +83,7 @@ The color distribution is related to the data in data. Colors here can be set as
 
 - With only `target` or `percent`, the `color` parameter `range` can consist of two color parameters. On the gauge scale, these two colors will divide the gauge scale into two segments
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -109,7 +109,7 @@ chart.render();
 
 - When `thresholds` is set, the colors in the `color` parameter `range` should match the length of `thresholds`. The gauge scale will be segmented by the values in `thresholds` and filled with colors from the corresponding positions in the `scale` parameter `color`
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -79,7 +79,7 @@ The position visual channels of `area` marks require values from both `x` and `y
 
 The `color` visual channel affects the fill color of the enclosed area in `area` graphic marks. A single area in an `area` mark can only use one color (or gradient), but if data fields are mapped to color channels, the data will be grouped and split into multiple areas:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -124,7 +124,7 @@ chart.render();
 
 By configuring [stackY](/en/manual/core/transform/stack-y) in the `transform`, grouped areas can be stacked to form stacked area charts, avoiding information blur caused by overlapping:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -191,7 +191,7 @@ The display of `area` graphic marks differs under different coordinate systems. 
 
 In **polar coordinate systems**, area charts need to be closed. Commonly used to draw radar charts.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

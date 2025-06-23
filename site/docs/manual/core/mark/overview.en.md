@@ -9,7 +9,7 @@ Marks are the most fundamental graphic units in the G2 drawing framework and are
 
 As mentioned above, by adding Point marks for scatter plots and Link marks for connection graphs to a chart, we can obtain a point-line connection graph with annotations.
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

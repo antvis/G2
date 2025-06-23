@@ -251,7 +251,7 @@ Targets chaotic situations caused by crowded overlapping labels, adjusting overl
 
 ##### Problem Case
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 When some graphic colors are close to label colors, visibility issues occur.
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -448,7 +448,7 @@ chart.render();
 
 When some graphic colors are close to label colors, visibility issues occur.
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -519,7 +519,7 @@ chart.render();
 
 `label` will exceed the chart, and the exceeding part will be cut off.
 
-```js | ob {  pin: false, inject true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

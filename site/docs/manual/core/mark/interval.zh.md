@@ -134,7 +134,7 @@ chart.render();
 
 `color` 视觉通道影响 `interval` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -173,7 +173,7 @@ chart.render();
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -200,7 +200,7 @@ chart.render();
 
 配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成堆叠面积图，避免因为重叠导致的信息模糊：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -239,7 +239,7 @@ chart.render();
 
 `series` 视觉通道将 `interval` 图形标记的数据分成多个系列，一般和 `color` 通道一起配置，也可以通过配置图形转换`transform`中的 [dodgeX](/manual/core/transform/dodge-x) ，生成 `series` 通道值为 `color` 通道的值，根据 `series` 通道实现分组效果：
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -304,7 +304,7 @@ chart.render();
 
 在**transpose 坐标系转置变换**后区间图的表现形式为条形图。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -331,7 +331,7 @@ chart.render();
 
 在**极坐标系**下区间图的表现形式为玫瑰图，使用半径大小对比数据大小。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -358,7 +358,7 @@ chart.render();
 
 在**theta 坐标系**下区间图的表现形式为饼图，使用弧度大小对比数据大小。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -387,7 +387,7 @@ chart.render();
 
 在**radial 坐标系**下区间图的表现形式为玉珏图，同样使用圆弧对比数据大小。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -49,7 +49,7 @@ The chart below shows a comparison of manufacturing indices for various countrie
 | South Korea        | 102                         |
 | ...                | ...                         |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -124,7 +124,7 @@ The chart below shows the number of male and female students in a class. This sc
 
 #### Rose Chart
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -155,7 +155,7 @@ chart.render();
 
 #### Pie Chart
 
-```js | ob {inject true, pin: false }
+```js | ob {inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -198,7 +198,7 @@ Below, a Nightingale Rose Chart and a horizontal bar chart are used to display p
 
 **Nightingale Rose Chart (Not Recommended)**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -265,7 +265,7 @@ chart.render();
 
 **Horizontal Bar Chart (Recommended)**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -345,7 +345,7 @@ The chart below shows the pass rates for various subjects in a class, displayed 
 
 #### Nightingale Rose Chart (Not Recommended)
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -389,7 +389,7 @@ chart.render();
 
 #### Horizontal Bar Chart (Recommended)
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -437,7 +437,7 @@ chart.render();
 
 A sector Nightingale Rose Chart can be achieved by setting the start angle of the polar coordinates:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -508,7 +508,7 @@ The chart below shows refugee data from the last decade, broadly categorized int
 | 2001 | 25.0                         | 16                         | 0.8            |
 | ...  | ...                          | ...                        | ...            |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

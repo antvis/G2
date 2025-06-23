@@ -138,7 +138,7 @@ chart.render();
 
 比如如下的数据绘制的散点图中 x 通道相同的点完全重叠在一起，很难区分。
 
-```js | ob {  pin:false, inject true }
+```js | ob {  pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -167,7 +167,7 @@ chart.render();
 
 可以通过配置 [jitterX](/manual/core/transform/jitter-x) 转换实现在某个区域的 x 方向散开的效果。
 
-```js | ob {  pin:false, inject true }
+```js | ob {  pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -322,7 +322,7 @@ chart.render();
 
 还有一类标记转换主要是用来做数据聚合：比如 [bin](/manual/core/transform/bin) 和 [group](/manual/core/transform/group)。和传统的数据聚合不同，标记聚合是发生在绘制之中，而不是在绘制之前。这使得我们不需要去操作抽象的原始数据，而是直接操作通道值即可。这大大提高了我们探索数据的效率。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 table({
   url: 'https://assets.antv.antgroup.com/g2/penguins.json',
 });

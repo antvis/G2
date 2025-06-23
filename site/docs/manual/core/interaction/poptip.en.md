@@ -96,7 +96,7 @@ chart.on('poptip:hide', (event) => {
 
 ### Example 2: Scatter Plot
 
-```js | ob {  pin : false , inject true }
+```js | ob {  pin : false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -227,7 +227,7 @@ chart.on('element:mouseleave', (event) => {
 
 ### Example 3: Rose Chart
 
-```js | ob {  pin : false , inject true }
+```js | ob {  pin : false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

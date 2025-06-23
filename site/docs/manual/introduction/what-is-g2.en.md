@@ -17,7 +17,7 @@ This article will briefly introduce the core concepts of G2:
 
 "Talk is cheap, show me the code" - let's see what visualizations G2 can create based on the simple dataset below.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 table({
   url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
 });

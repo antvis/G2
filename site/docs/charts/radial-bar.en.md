@@ -53,7 +53,7 @@ The chart below shows the level of American public concern about different areas
 | China Taking Away American Jobs      | 0.60           |
 | China Holding US Massive Debt        | 0.67           |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -129,7 +129,7 @@ Example 2: **Displaying country data comparison**
 
 The chart below shows the percentage of people in each country who think climate change is a serious problem.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -217,7 +217,7 @@ The following shows a comparison between incorrect and correct usage:
 
 **Incorrect Example (Unsorted):**
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -294,7 +294,7 @@ In the incorrect example above, due to unsorted data, the outer ring Brazil (0.8
 
 You can use colors or grouping to display multi-dimensional data comparisons:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

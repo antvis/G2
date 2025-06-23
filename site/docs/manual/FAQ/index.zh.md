@@ -224,7 +224,7 @@ G2 内部算法会尝试将 tooltip 限制在图表内部，但如果图表高�
 
 ## 怎么避免图形标记超出刻度最大值或最小值
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

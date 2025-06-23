@@ -17,7 +17,7 @@ The `dodgeX` transform is primarily used for scenarios where data within the sam
 
 For example, the following case shows the population distribution of different age groups across US states. Through the `dodgeX` transform, data from different age groups are displayed side by side within each state, making it easy to visually compare them.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,7 +91,7 @@ The following example demonstrates the functionality of various configuration op
 - **reverse**: Set to true to arrange elements within groups from high to low performance values
 - **padding**: Set spacing between elements within groups to 0.1
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

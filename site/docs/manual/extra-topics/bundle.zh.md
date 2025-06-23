@@ -51,7 +51,7 @@ G2 5.0.19 版本推出了按需打包的功能。可以借助 [Rollup](https://r
 
 和直接使用 `import { Chart } from '@antv/g2'` 暴露出的 Chart 对象的打包体积相比如下：
 
-```js | ob { pin:false, inject true }
+```js | ob { pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

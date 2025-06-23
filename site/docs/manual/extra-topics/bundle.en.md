@@ -51,7 +51,7 @@ For example, package the following web page, which uses G2 to draw a bar chart:
 
 and use Chart object which exposed from `import { Chart } from '@antv/g2'` directly. The bundle package size is compared as follows:
 
-```js | ob { pin:false, inject true }
+```js | ob { pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [
