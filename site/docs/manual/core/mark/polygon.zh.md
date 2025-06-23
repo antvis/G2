@@ -303,6 +303,3 @@ chart.render();
 | shadowOffsetY | 设置阴影距图形的垂直距离                                                                                      | `number` \| `Function<number>`                    | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | `string` \| `Function<string>`                    | 'default' |      |
 
-尝试一下：
-
-<Playground path="style/general/geo/geo/demo/hexbin-china.ts" rid="polygon-style"></playground>

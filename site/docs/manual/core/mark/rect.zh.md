@@ -217,6 +217,28 @@ chart.render();
 
 尝试一下
 
-<Playground path="style/analysis/bin/demo/binx-color.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  })
+  .encode('x', 'weight')
+  .encode('color', 'sex')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY', orderBy: 'series' })
+  .style('inset', 0.5);
+
+chart.render();
+
+```
 
 更多的`style`配置，可以查看 [style](/manual/core/style) 介绍页面。

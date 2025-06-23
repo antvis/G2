@@ -302,7 +302,3 @@ For `ribbon` implementation examples, you can check chord diagrams and sankey di
 | shadowOffsetX | Sets the horizontal distance of shadow from the graphic                                                                                                                                       | `number` \| `Function<number>`                    | -             |
 | shadowOffsetY | Sets the vertical distance of shadow from the graphic                                                                                                                                         | `number` \| `Function<number>`                    | -             |
 | cursor        | Mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                                                                                                          | `string` \| `Function<string>`                    | 'default'     |
-
-Try it out:
-
-<Playground path="style/general/geo/geo/demo/hexbin-china.ts" rid="polygon-style"></Playground>

@@ -71,7 +71,42 @@ chart.options({
 
 尝试一下
 
-<Playground path="style/component/tooltip/demo/tooltip-series.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  })
+  .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
+  .encode('x', (d) => new Date(d.Date))
+  .encode('y', 'Close')
+  .encode('color', 'Symbol')
+  .axis('y', { title: '↑ Change in price (%)' })
+  .tooltip({
+    title: (d) => new Date(d.Date).toUTCString(),
+    items: [
+      (d, i, data, column) => ({
+        name: 'Close',
+        value: column.y.value[i].toFixed(1),
+      }),
+    ],
+  })
+  .label({
+    text: 'Symbol',
+    selector: 'last',
+    fontSize: 10,
+  });
+
+chart.render();
+
+```
 
 ## 配置项
 
@@ -487,7 +522,65 @@ chart.render();
 
 尝试一下
 
-<Playground path="style/component/tooltip/demo/tooltip-style.ts" rid="tooltip-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  })
+  .transform({ type: 'sortX', by: 'y', reverse: true, slice: 6 })
+  .transform({ type: 'dodgeX' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .encode('color', 'age')
+  .scale('y', { nice: true })
+  .axis('y', { labelFormatter: '~s' })
+  .interaction('tooltip', {
+    shared: true,
+    css: {
+      '.g2-tooltip': {
+        background: '#eee',
+        'border-radius': ' 0.25em !important',
+      },
+      '.g2-tooltip-title': {
+        'font-size': '20px',
+        'font-weight': 'bold',
+        'padding-bottom': '0.25em',
+      },
+      '.g2-tooltip-list-item': {
+        background: '#ccc',
+        padding: '0.25em',
+        margin: '0.25em',
+        'border-radius': '0.25em',
+      },
+      '.g2-tooltip-list-item-name-label': {
+        'font-weight': 'bold',
+        'font-size': '16px',
+      },
+      'g2-tooltip-list-item-marker': {
+        'border-radius': '0.25em',
+        width: '15px',
+        height: '15px',
+      },
+      '.g2-tooltip-list-item-value': {
+        'font-weight': 'bold',
+        'font-size': '16px',
+      },
+    },
+  });
+
+chart.render();
+
+```
 
 #### 自定义渲染内容
 
@@ -553,7 +646,47 @@ chart.on('tooltip:hide', () => {
 
 尝试一下
 
-<Playground path="style/annotation/line/demo/histogram-mean-line.ts" rid="tooltip-custom"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_histogram_global_mean.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  transform: [
+    {
+      type: 'filter',
+      callback: (d) => d['IMDB Rating'] > 0,
+    },
+  ],
+});
+
+chart
+  .rect()
+  .transform({ type: 'binX', y: 'count', thresholds: 9 })
+  .encode('x', 'IMDB Rating')
+  .scale('y', { domainMax: 1000 })
+  .style('inset', 1);
+
+chart
+  .lineX()
+  .transform({ type: 'groupColor', x: 'mean' }) // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
+  .encode('x', 'IMDB Rating')
+  .style('stroke', '#F4664A')
+  .style('strokeOpacity', 1)
+  .style('lineWidth', 2)
+  .style('lineDash', [4, 4]);
+
+chart.render();
+
+```
 
 ## 示例
 
