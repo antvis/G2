@@ -147,7 +147,7 @@ In the above example:
 
 The following example shows the difference between quantize and quantile scales when handling skewed data:
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

@@ -136,7 +136,7 @@ Used to configure the horizontal alignment of the chart title. Default is `left`
 
 Try it out:
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

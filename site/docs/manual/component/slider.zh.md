@@ -379,7 +379,7 @@ chart.render();
 
 第一步的的关键是通过 `chart.getCoordinate` 获得的 coordinate 对象确定 slider 的位置和长度。第二步的关键是通过 `chart.getScale` 获得 scale 对选择的范围进行 invert，最后获得选择的数据范围，然后更新 scale 的定义域。
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

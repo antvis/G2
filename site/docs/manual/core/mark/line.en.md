@@ -199,7 +199,7 @@ The supported shapes for `line` mark are:
 | hvh    | Draw step line chart, vertical-horizontal-vertical, midpoint connection                                            |
 | trail  | Draw trail, similar to a brush stroke, used to draw lines with varying thickness when `size` channel is configured |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

@@ -19,7 +19,7 @@ For detailed information about `Reducer`, please refer to the configuration opti
 
 In the following example, we retrieve the `species` and `sex` fields from the `penguins.json` dataset, group by the `species` field, and perform count aggregation on the `sex` field. Finally, we map the `species` field to the `color` channel. Note that the corresponding mark has transform methods available for data transformation.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

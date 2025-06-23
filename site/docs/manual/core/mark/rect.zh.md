@@ -95,7 +95,7 @@ chart.render(); // 渲染图标
 | rect   | 矩形     |
 | hollow | 空心矩形 |
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

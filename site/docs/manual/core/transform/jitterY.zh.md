@@ -23,7 +23,7 @@ order: 2
 
 简单的示例可以参考 [jitter](/manual/core/transform/jitter) 的示例，下面针对 `jitterY` 函数的场景使用进行说明和演示。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

@@ -66,7 +66,7 @@ For more `encode` configurations, please check the [encode](/manual/core/encode)
 
 Through the `color` property in `encode`, you can map data fields to color values, automatically adjusting mark colors based on data changes. This is very useful for data visualization as it helps you quickly identify data patterns and trends.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

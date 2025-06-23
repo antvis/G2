@@ -378,7 +378,7 @@ fetch(
 
 In addition to providing rich built-in interactions, G2 also provides the ability to link different views through `chart.on` and `chart.emit`, such as the "Focus and Context" capability shown below:
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -506,7 +506,7 @@ The choice between the two is more a matter of style: if you are familiar with D
 
 For more content, please read [Spec and API](/en/manual/introduction/experimental-spec-api).
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

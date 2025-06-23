@@ -63,7 +63,7 @@ For more examples, please check the [Chart Examples - Violin Plot](/en/examples#
 | Cartesian         | `'cartesian'` | Density plot, etc.      |
 | Polar             | `'polar'`     | Polar violin plot, etc. |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

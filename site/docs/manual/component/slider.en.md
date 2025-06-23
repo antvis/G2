@@ -389,7 +389,7 @@ If you don't want to use G2's default slider, you can customize a drag axis foll
 
 The key to the first step is determining the slider's position and length through the coordinate object obtained via `chart.getCoordinate`. The key to the second step is using the scale obtained through `chart.getScale` to invert the selected range, finally obtaining the selected data range, then updating the scale's domain.
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

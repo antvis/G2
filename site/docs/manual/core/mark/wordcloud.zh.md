@@ -115,7 +115,7 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 | archimedean | 阿基米德螺旋线（默认值），词语从中心向外按螺旋路径排列，布局较紧凑。 | 通用场景，追求自然紧凑的布局 |
 | rectangular | 矩形螺旋，词语按矩形路径排列，计算速度更快，但布局相对松散。         | 数据量大时优化性能           |
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

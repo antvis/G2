@@ -135,7 +135,7 @@ chart.render();
 
 ### 交互式对比不同 basis 效果
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

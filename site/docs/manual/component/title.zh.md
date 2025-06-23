@@ -121,7 +121,7 @@ chart.render();
 
 尝试一下：
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

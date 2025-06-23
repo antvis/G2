@@ -23,7 +23,7 @@ It adds random offsets along the x-axis to visually disperse data points, thereb
 
 For simple examples, you can refer to the [jitter](/en/manual/core/transform/jitter) examples. Below are specific demonstrations for `jitterX` function usage scenarios.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

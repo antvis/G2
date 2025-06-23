@@ -207,7 +207,7 @@ chart.emit('brush:highlight', { data: { selection } });
 
 ### 多视图图表联动
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

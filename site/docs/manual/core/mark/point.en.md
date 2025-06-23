@@ -187,7 +187,7 @@ The built-in shape graphics for `point` marks are as follows, with `hollow` as t
 
 Try it out:
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

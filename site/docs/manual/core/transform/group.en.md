@@ -122,7 +122,7 @@ type Reducer =
 
 The following is a simple example showing how to use the `group` function to group data and draw a grouped bar chart.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -169,7 +169,7 @@ Example Explanation
 Below we group according to specific data, using the `group` function to process data grouping and display different grouping results in the chart.
 The following example shows how to use the `group` function to group data and take the maximum value (`max`), and display different grouping results in the chart.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

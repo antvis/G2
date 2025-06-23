@@ -115,7 +115,7 @@ Comparison with `padding` configuration in layout
 | archimedean     | Archimedean spiral (default), words arrange from center outward in spiral path, more compact layout.    | General scenarios, pursuing natural compact layout |
 | rectangular     | Rectangular spiral, words arrange in rectangular path, faster computation but relatively sparse layout. | Optimizing performance when data volume is large   |
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

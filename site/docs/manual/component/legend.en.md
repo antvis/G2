@@ -129,7 +129,7 @@ Legend orientation, which is the scroll direction for categorical legends. Defau
 
 Position of the legend. Default is `top`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -516,7 +516,7 @@ Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend
 
 Try it out:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

@@ -555,7 +555,7 @@ chart.render();
 
 Supports 9 positions: `top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, ChartEvent } = G2;
 const chart = new Chart({
   container: 'container',

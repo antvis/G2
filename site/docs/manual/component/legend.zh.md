@@ -129,7 +129,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 
 图例的位置。默认为 `top`。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -516,7 +516,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 
 尝试一下：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

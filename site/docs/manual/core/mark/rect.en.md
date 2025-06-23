@@ -95,7 +95,7 @@ Through the `shape` property of `encode`, you can specify the geometric shape of
 | rect   | Rectangle        |
 | hollow | Hollow rectangle |
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

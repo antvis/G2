@@ -17,7 +17,7 @@ For detailed information about `Reducer`, please refer to the configuration opti
 
 Below, we demonstrate the age distribution of different population groups. We use the `groupX` function to group the data and aggregate the `x` channel, calculating the line length and distribution of `population` for each `state`. Note that the corresponding mark has transform methods available for data transformation.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

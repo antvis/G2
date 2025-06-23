@@ -17,7 +17,7 @@ order: 2
 
 例如，在对应的 mark 中有 transform 方法可以使用数据的变换。那么我们可以使用 groupY 来对数据进行分组聚合。下面的示例中，我们将对 y 通道进行分组，并计算每个组的最小值和最大值。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

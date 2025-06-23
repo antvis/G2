@@ -63,7 +63,7 @@ chart.render();
 | 直角坐标系 | `'cartesian'` | 和密度图等       |
 | 极坐标系   | `'polar'`     | 极坐标小提琴图等 |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

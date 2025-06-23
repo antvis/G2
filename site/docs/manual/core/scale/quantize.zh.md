@@ -147,7 +147,7 @@ chart.render();
 
 下面的示例展示了 quantize 和 quantile 比例尺在处理偏斜数据时的区别：
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

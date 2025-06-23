@@ -201,7 +201,7 @@ chart.render();
 | hvh    | 绘制阶梯折线图，竖横竖，中点连接                                     |
 | trail  | 绘制轨迹，类似一个笔迹，当配置了 `size` 通道时，用来绘制粗细变化的线 |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
