@@ -28,27 +28,27 @@ Note: Jitter is a visual adjustment method that may slightly change the precise 
 
 Let's start with a simple example, drawing a scatter plot where data points overlap at certain positions:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'point',
-    autoFit: true,
-    data: [
-      { x: 1, y: 2 },
-      { x: 1, y: 2 },
-      { x: 2, y: 3 },
-      { x: 2, y: 3 },
-      { x: 3, y: 4 },
-    ],
-    encode: { x: 'clarity', color: 'clarity' },
-    transform: [{ type: 'jitter' }],
-    legend: false,
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data: [
+    { x: 1, y: 2 },
+    { x: 1, y: 2 },
+    { x: 2, y: 3 },
+    { x: 2, y: 3 },
+    { x: 3, y: 4 },
+  ],
+  encode: { x: 'clarity', color: 'clarity' },
+  transform: [{ type: 'jitter' }],
+  legend: false,
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 Please note that there are two points with identical values in the `data`. Without `jitter`, the data points (1, 2) and (2, 3) would completely overlap, visually showing only one point.
@@ -58,26 +58,25 @@ After applying `jitter`, these points will be randomly offset by a small distanc
 
 Here's a more complex scatter plot example using `jitter` to avoid data point overlap:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-    },
-    encode: { x: 'clarity', color: 'clarity' },
-    transform: [{ type: 'jitter' }],
-    coordinate: { type: 'polar' },
-    legend: false,
-  });
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+  },
+  encode: { x: 'clarity', color: 'clarity' },
+  transform: [{ type: 'jitter' }],
+  coordinate: { type: 'polar' },
+  legend: false,
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 In this example, we fetch data from a remote data source and use `jitter` to handle data point overlap issues. Through the `transform` property, we can easily apply `jitter` to the data, thereby improving the visualization effect.

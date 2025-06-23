@@ -115,62 +115,60 @@ Comparison with `padding` configuration in layout
 | archimedean     | Archimedean spiral (default), words arrange from center outward in spiral path, more compact layout.    | General scenarios, pursuing natural compact layout |
 | rectangular     | Rectangular spiral, words arrange in rectangular path, faster computation but relatively sparse layout. | Optimizing performance when data volume is large   |
 
-```js | ob {  pin: false }
-(() => {
-  const spiralMap = [
-    {
-      label: 'Archimedean Spiral',
-      spiral: 'archimedean',
-    },
-    {
-      label: 'Rectangular Spiral',
-      spiral: 'rectangular',
-    },
-  ];
+```js | ob {  autoMount: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const spiralMap = [
+  {
+    label: 'Archimedean Spiral',
+    spiral: 'archimedean',
+  },
+  {
+    label: 'Rectangular Spiral',
+    spiral: 'rectangular',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'wordCloud',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
+  },
+  layout: {
+    spiral: 'rectangular',
+  },
+  encode: { color: 'text' },
+});
 
+const handleSetSpiral = (spiral) => {
+  // Set selected coordinate system
   chart.options({
-    type: 'wordCloud',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
-    },
-    layout: {
-      spiral: 'rectangular',
-    },
-    encode: { color: 'text' },
+    layout: { spiral },
   });
+  chart.render(); // Re-render chart
+};
 
-  const handleSetSpiral = (spiral) => {
-    // Set selected coordinate system
-    chart.options({
-      layout: { spiral },
-    });
-    chart.render(); // Re-render chart
-  };
+// layout-spiral selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Choose spiral ';
+const selector = document.createElement('select');
+selector.innerHTML = spiralMap.map(
+  (spiral, index) =>
+    `<option value="${spiral.spiral}" ${index === 0 ? 'selected' : ''}>${
+      spiral.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetSpiral(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // layout-spiral selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Choose spiral ';
-  const selector = document.createElement('select');
-  selector.innerHTML = spiralMap.map(
-    (spiral, index) =>
-      `<option value="${spiral.spiral}" ${index === 0 ? 'selected' : ''}>${
-        spiral.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetSpiral(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 **imageMask**

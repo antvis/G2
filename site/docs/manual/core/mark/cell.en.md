@@ -66,58 +66,58 @@ For more `encode` configurations, please check the [encode](/manual/core/encode)
 
 Through the `color` property in `encode`, you can map data fields to color values, automatically adjusting mark colors based on data changes. This is very useful for data visualization as it helps you quickly identify data patterns and trends.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-  chart.options({
-    type: 'cell',
-    data: [
-      { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
-      { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
-      { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
-      { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
-      { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
-      { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
-      { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
-      { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
-      { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
-    ],
-    encode: {
-      x: 'x', // Encode x-axis
-      y: 'y', // Encode y-axis
-      color: 'data1', // Use data1 field from data
-    },
-    style: {
-      inset: 5,
-      lineWidth: 10,
-    },
-  });
+chart.options({
+  type: 'cell',
+  data: [
+    { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
+    { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
+    { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
+    { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
+    { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
+    { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
+    { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
+    { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
+    { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
+  ],
+  encode: {
+    x: 'x', // Encode x-axis
+    y: 'y', // Encode y-axis
+    color: 'data1', // Use data1 field from data
+  },
+  style: {
+    inset: 5,
+    lineWidth: 10,
+  },
+});
 
-  // Insert Encode-Color selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select field to map to color ';
-  const selector = document.createElement('select');
-  selector.innerHTML = `
+// Insert Encode-Color selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select field to map to color ';
+const selector = document.createElement('select');
+selector.innerHTML = `
     <option value="data1" selected>data1</option>
     <option value="data2">data2</option>
   `;
 
-  selector.onchange = (e) => {
-    chart.options({
-      encode: {
-        color: e.target.value, // Map color using the selected field
-      },
-    });
-    chart.render(); // Re-render the chart
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+selector.onchange = (e) => {
+  chart.options({
+    encode: {
+      color: e.target.value, // Map color using the selected field
+    },
+  });
+  chart.render(); // Re-render the chart
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  chart.render();
-  return node;
-})();
+chart.render();
 ```
 
 #### shape

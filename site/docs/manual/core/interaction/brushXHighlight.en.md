@@ -207,112 +207,108 @@ chart.emit('brush:highlight', { data: { selection } });
 
 ### Multi-view Chart Linkage
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
-  const focusContainer = document.createElement('div');
-  const contextContainer = document.createElement('div');
-  container.append(focusContainer);
-  container.append(contextContainer);
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const focusContainer = document.createElement('div');
+const contextContainer = document.createElement('div');
+container.append(focusContainer);
+container.append(contextContainer);
 
-  function createPathRender(compute) {
-    return (group, options, document) => {
-      if (!group.handle) {
-        const path = document.createElement('path');
-        group.handle = path;
-        group.appendChild(group.handle);
-      }
-      const { handle } = group;
-      const { x, y, width, height, ...rest } = options;
-      if (width === undefined || height === undefined) return handle;
-      handle.attr({ ...compute(x, y, width, height), ...rest });
-      return handle;
-    };
-  }
+function createPathRender(compute) {
+  return (group, options, document) => {
+    if (!group.handle) {
+      const path = document.createElement('path');
+      group.handle = path;
+      group.appendChild(group.handle);
+    }
+    const { handle } = group;
+    const { x, y, width, height, ...rest } = options;
+    if (width === undefined || height === undefined) return handle;
+    handle.attr({ ...compute(x, y, width, height), ...rest });
+    return handle;
+  };
+}
 
-  // Render focus view
+// Render focus view
 
-  const focus = new G2.Chart({
-    container: focusContainer,
-    height: 360,
-    paddingLeft: 50,
+const focus = new G2.Chart({
+  container: focusContainer,
+  height: 360,
+  paddingLeft: 50,
+});
+
+focus
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .interaction('brushXHighlight', {
+    series: true,
+    maskHandleWRender: createPathRender((x, y, w, h) => ({
+      d: `M${x + w / 2},${y}L${x - w / 2},${y + h / 2}L${x + w / 2},${y + h}Z`,
+      fill: '#1890FF',
+    })),
+    maskHandleERender: createPathRender((x, y, w, h) => ({
+      d: `M${x + w / 2},${y}L${x + (w * 3) / 2},${y + h / 2}L${x + w / 2},${
+        y + h
+      }Z`,
+      fill: '#1890FF',
+    })),
   });
 
-  focus
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .interaction('brushXHighlight', {
-      series: true,
-      maskHandleWRender: createPathRender((x, y, w, h) => ({
-        d: `M${x + w / 2},${y}L${x - w / 2},${y + h / 2}L${x + w / 2},${
-          y + h
-        }Z`,
-        fill: '#1890FF',
-      })),
-      maskHandleERender: createPathRender((x, y, w, h) => ({
-        d: `M${x + w / 2},${y}L${x + (w * 3) / 2},${y + h / 2}L${x + w / 2},${
-          y + h
-        }Z`,
-        fill: '#1890FF',
-      })),
-    });
+// Render context view
 
-  // Render context view
+const context = new G2.Chart({
+  container: contextContainer,
+  height: 80,
+  paddingLeft: 50,
+});
 
-  const context = new G2.Chart({
-    container: contextContainer,
-    height: 80,
-    paddingLeft: 50,
+context
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis('x', { title: false })
+  .axis('y', false)
+  .interaction('brushXHighlight', {
+    series: true,
+    maskHandleWRender: createPathRender((x, y, w, h) => ({
+      d: `M${x + w / 2},${y}L${x - w / 2},${y + h / 2}L${x + w / 2},${y + h}Z`,
+      fill: '#1890FF',
+    })),
+    maskHandleERender: createPathRender((x, y, w, h) => ({
+      d: `M${x + w / 2},${y}L${x + (w * 3) / 2},${y + h / 2}L${x + w / 2},${
+        y + h
+      }Z`,
+      fill: '#1890FF',
+    })),
   });
 
-  context
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis('x', { title: false })
-    .axis('y', false)
-    .interaction('brushXHighlight', {
-      series: true,
-      maskHandleWRender: createPathRender((x, y, w, h) => ({
-        d: `M${x + w / 2},${y}L${x - w / 2},${y + h / 2}L${x + w / 2},${
-          y + h
-        }Z`,
-        fill: '#1890FF',
-      })),
-      maskHandleERender: createPathRender((x, y, w, h) => ({
-        d: `M${x + w / 2},${y}L${x + (w * 3) / 2},${y + h / 2}L${x + w / 2},${
-          y + h
-        }Z`,
-        fill: '#1890FF',
-      })),
-    });
-
-  Promise.all([focus.render(), context.render()]).then(() => {
-    // Add cross-chart linkage
-    context.on('brush:highlight', (e) => {
-      const { selection } = e.data;
-      focus.emit('brush:highlight', { data: { selection } });
-    });
-
-    focus.on('brush:highlight', (e) => {
-      const { selection } = e.data;
-      context.emit('brush:highlight', { data: { selection } });
-    });
+Promise.all([focus.render(), context.render()]).then(() => {
+  // Add cross-chart linkage
+  context.on('brush:highlight', (e) => {
+    const { selection } = e.data;
+    focus.emit('brush:highlight', { data: { selection } });
   });
 
-  return container;
-})();
+  focus.on('brush:highlight', (e) => {
+    const { selection } = e.data;
+    context.emit('brush:highlight', { data: { selection } });
+  });
+});
 ```

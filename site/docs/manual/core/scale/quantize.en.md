@@ -147,187 +147,187 @@ In the above example:
 
 The following example shows the difference between quantize and quantile scales when handling skewed data:
 
-```js | ob
-(() => {
-  // Create a skewed distribution dataset using integer values
-  const generateSkewedData = () => {
-    const data = [];
-    // Most data concentrated in low value area
-    for (let i = 0; i < 60; i++) {
-      // Use integer values to avoid decimal overlap
-      data.push({
-        value: Math.floor(5 + Math.random() * 25),
-        type: 'Skewed Data',
-      });
-    }
-    // Few data points distributed in high value area, more scattered
-    for (let i = 0; i < 15; i++) {
-      data.push({
-        value: Math.floor(60 + Math.random() * 20),
-        type: 'Skewed Data',
-      });
-    }
-    // Add some middle values to make distribution more obvious
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        value: Math.floor(40 + Math.random() * 15),
-        type: 'Skewed Data',
-      });
-    }
-    return data;
-  };
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+// Create a skewed distribution dataset using integer values
+const generateSkewedData = () => {
+  const data = [];
+  // Most data concentrated in low value area
+  for (let i = 0; i < 60; i++) {
+    // Use integer values to avoid decimal overlap
+    data.push({
+      value: Math.floor(5 + Math.random() * 25),
+      type: 'Skewed Data',
+    });
+  }
+  // Few data points distributed in high value area, more scattered
+  for (let i = 0; i < 15; i++) {
+    data.push({
+      value: Math.floor(60 + Math.random() * 20),
+      type: 'Skewed Data',
+    });
+  }
+  // Add some middle values to make distribution more obvious
+  for (let i = 0; i < 10; i++) {
+    data.push({
+      value: Math.floor(40 + Math.random() * 15),
+      type: 'Skewed Data',
+    });
+  }
+  return data;
+};
 
-  const data = generateSkewedData();
+const data = generateSkewedData();
 
-  // Create two charts for comparison
-  const container = document.createElement('div');
-  container.style.display = 'flex';
-  container.style.flexDirection = 'column';
-  container.style.gap = '40px'; // Increase spacing
-  container.style.width = '100%';
-  container.style.maxWidth = '800px';
-  container.style.margin = '0 auto'; // Center display
+// Create two charts for comparison
+container.style.display = 'flex';
+container.style.flexDirection = 'column';
+container.style.gap = '40px'; // Increase spacing
+container.style.width = '100%';
+container.style.maxWidth = '800px';
+container.style.margin = '0 auto'; // Center display
 
-  // Add title
-  const title = document.createElement('h3');
-  title.textContent = 'quantize vs quantile Scale Comparison';
-  title.style.textAlign = 'center';
-  title.style.marginBottom = '10px';
-  container.appendChild(title);
+// Add title
+const title = document.createElement('h3');
+title.textContent = 'quantize vs quantile Scale Comparison';
+title.style.textAlign = 'center';
+title.style.marginBottom = '10px';
+container.appendChild(title);
 
-  // quantize scale chart
-  const chart1Container = document.createElement('div');
-  chart1Container.style.width = '100%';
-  chart1Container.style.height = '220px'; // Increase height
-  container.appendChild(chart1Container);
+// quantize scale chart
+const chart1Container = document.createElement('div');
+chart1Container.style.width = '100%';
+chart1Container.style.height = '220px'; // Increase height
+container.appendChild(chart1Container);
 
-  const chart1 = new G2.Chart({
-    container: chart1Container,
-    height: 220,
-    autoFit: true, // Auto-fit container size
-    padding: [50, 100, 70, 100], // Increase padding, leave more space for labels
-  });
+const chart1 = new G2.Chart({
+  container: chart1Container,
+  height: 220,
+  autoFit: true, // Auto-fit container size
+  padding: [50, 100, 70, 100], // Increase padding, leave more space for labels
+});
 
-  chart1.options({
-    type: 'point',
-    data,
-    title: {
-      text: 'quantize Scale (Equal-width Segmentation)',
-      style: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
-    scale: {
-      color: {
-        type: 'quantize',
-        range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4 color segments
-      },
-      value: {
-        nice: true,
-        tickCount: 5, // Reduce tick count
-        formatter: '.0f', // Use G2 built-in formatter to display integers
-      },
-    },
-    encode: {
-      x: 'value',
-      y: 'type',
-      color: 'value',
-      shape: 'circle',
-      size: 8,
-    },
+chart1.options({
+  type: 'point',
+  data,
+  title: {
+    text: 'quantize Scale (Equal-width Segmentation)',
     style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+      fontSize: 14,
+      fontWeight: 'bold',
     },
-    legend: {
-      color: {
-        position: 'top',
-        length: 200, // Set legend length
-        labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-      },
+  },
+  scale: {
+    color: {
+      type: 'quantize',
+      range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4 color segments
     },
-    axis: {
-      y: false,
-      x: {
-        labelSpacing: 10, // Increase label spacing
-        labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-        tickCount: 5, // Reduce tick count
-      },
+    value: {
+      nice: true,
+      tickCount: 5, // Reduce tick count
+      formatter: '.0f', // Use G2 built-in formatter to display integers
     },
-  });
+  },
+  encode: {
+    x: 'value',
+    y: 'type',
+    color: 'value',
+    shape: 'circle',
+    size: 8,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      position: 'top',
+      length: 200, // Set legend length
+      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
+    },
+  },
+  axis: {
+    y: false,
+    x: {
+      labelSpacing: 10, // Increase label spacing
+      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
+      tickCount: 5, // Reduce tick count
+    },
+  },
+});
 
-  chart1.render();
+chart1.render();
 
-  // quantile scale chart
-  const chart2Container = document.createElement('div');
-  chart2Container.style.width = '100%';
-  chart2Container.style.height = '220px'; // Increase height
-  container.appendChild(chart2Container);
+// quantile scale chart
+const chart2Container = document.createElement('div');
+chart2Container.style.width = '100%';
+chart2Container.style.height = '220px'; // Increase height
+container.appendChild(chart2Container);
 
-  const chart2 = new G2.Chart({
-    container: 'container',
-    container: chart2Container,
-    height: 220,
-    autoFit: true, // Auto-fit container size
-    padding: [50, 100, 70, 100], // Increase padding, leave more space for labels
-  });
+const chart2 = new G2.Chart({
+  container: 'container',
+  container: chart2Container,
+  height: 220,
+  autoFit: true, // Auto-fit container size
+  padding: [50, 100, 70, 100], // Increase padding, leave more space for labels
+});
 
-  chart2.options({
-    type: 'point',
-    data,
-    title: {
-      text: 'quantile Scale (Equal-frequency Segmentation)',
-      style: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
-    scale: {
-      color: {
-        type: 'quantile',
-        range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4 color segments
-      },
-      value: {
-        nice: true,
-        tickCount: 5, // Reduce tick count
-        formatter: '.0f', // Use G2 built-in formatter to display integers
-      },
-    },
-    encode: {
-      x: 'value',
-      y: 'type',
-      color: 'value',
-      shape: 'circle',
-      size: 8,
-    },
+chart2.options({
+  type: 'point',
+  data,
+  title: {
+    text: 'quantile Scale (Equal-frequency Segmentation)',
     style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+      fontSize: 14,
+      fontWeight: 'bold',
     },
-    legend: {
-      color: {
-        position: 'top',
-        length: 200, // Set legend length
-        labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-      },
+  },
+  scale: {
+    color: {
+      type: 'quantile',
+      range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4 color segments
     },
-    axis: {
-      y: false,
-      x: {
-        labelSpacing: 10, // Increase label spacing
-        labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-        tickCount: 5, // Reduce tick count
-      },
+    value: {
+      nice: true,
+      tickCount: 5, // Reduce tick count
+      formatter: '.0f', // Use G2 built-in formatter to display integers
     },
-  });
+  },
+  encode: {
+    x: 'value',
+    y: 'type',
+    color: 'value',
+    shape: 'circle',
+    size: 8,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      position: 'top',
+      length: 200, // Set legend length
+      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
+    },
+  },
+  axis: {
+    y: false,
+    x: {
+      labelSpacing: 10, // Increase label spacing
+      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
+      tickCount: 5, // Reduce tick count
+    },
+  },
+});
 
-  chart2.render();
-
-  return container;
-})();
+chart2.render();
 ```
 
 In the above comparison example:

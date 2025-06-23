@@ -555,83 +555,82 @@ chart.render();
 
 Supports 9 positions: `top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart, ChartEvent } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-  chart.options({
-    height: 300,
-    type: 'cell',
-    data: [
-      { x: 'x-a', y: 'y-a', data: 1 },
-      { x: 'x-a', y: 'y-b', data: 3 },
-      { x: 'x-a', y: 'y-c', data: 2 },
-      { x: 'x-b', y: 'y-a', data: 8 },
-      { x: 'x-b', y: 'y-b', data: 5 },
-      { x: 'x-b', y: 'y-c', data: 6 },
-      { x: 'x-c', y: 'y-a', data: 7 },
-      { x: 'x-c', y: 'y-b', data: 4 },
-      { x: 'x-c', y: 'y-c', data: 9 },
-    ],
-    legend: false,
-    axis: false,
-    encode: {
-      x: 'x', // Encode x axis
-      y: 'y', // Encode y axis
-      color: 'data', // Use data field from data
+chart.options({
+  height: 300,
+  type: 'cell',
+  data: [
+    { x: 'x-a', y: 'y-a', data: 1 },
+    { x: 'x-a', y: 'y-b', data: 3 },
+    { x: 'x-a', y: 'y-c', data: 2 },
+    { x: 'x-b', y: 'y-a', data: 8 },
+    { x: 'x-b', y: 'y-b', data: 5 },
+    { x: 'x-b', y: 'y-c', data: 6 },
+    { x: 'x-c', y: 'y-a', data: 7 },
+    { x: 'x-c', y: 'y-b', data: 4 },
+    { x: 'x-c', y: 'y-c', data: 9 },
+  ],
+  legend: false,
+  axis: false,
+  encode: {
+    x: 'x', // Encode x axis
+    y: 'y', // Encode y axis
+    color: 'data', // Use data field from data
+  },
+  labels: [
+    {
+      text: 'data',
+      style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
     },
+  ],
+  style: {
+    inset: 5,
+    lineWidth: 10,
+  },
+});
+
+// Insert Encode-Color selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'position: ';
+const selector = document.createElement('select');
+selector.innerHTML = [
+  'top',
+  'left',
+  'right',
+  'bottom',
+  'top-left',
+  'top-right',
+  'bottom-left',
+  'bottom-right',
+  'inside',
+].reduce((v, position) => {
+  return `${v}<option value="${position}" ${
+    position === 'top' ? 'selected' : ''
+  }>${position}</option>`;
+}, '');
+
+selector.onchange = (e) => {
+  chart.options({
     labels: [
       {
         text: 'data',
+        position: e.target.value,
         style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
       },
     ],
-    style: {
-      inset: 5,
-      lineWidth: 10,
-    },
   });
+  chart.render(); // Re-render chart
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // Insert Encode-Color selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'position: ';
-  const selector = document.createElement('select');
-  selector.innerHTML = [
-    'top',
-    'left',
-    'right',
-    'bottom',
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right',
-    'inside',
-  ].reduce((v, position) => {
-    return `${v}<option value="${position}" ${
-      position === 'top' ? 'selected' : ''
-    }>${position}</option>`;
-  }, '');
-
-  selector.onchange = (e) => {
-    chart.options({
-      labels: [
-        {
-          text: 'data',
-          position: e.target.value,
-          style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
-        },
-      ],
-    });
-    chart.render(); // Re-render chart
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 #### In Non-Cartesian Coordinate Systems

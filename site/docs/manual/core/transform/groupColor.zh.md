@@ -19,31 +19,31 @@ order: 2
 
 下面例子中,我们获取 `penguins.json` 数据集中的 `species` 和 `sex` 字段,并且对 `species` 字段进行分组,对 `sex` 字段进行计数聚合。最后将 `species` 字段映射到 `color` 通道上。注意，在对应的 mark 中有 transform 方法可以使用数据的变换。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'interval',
-    height: 120,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-    },
-    encode: { color: 'sex' },
-    transform: [
-      { type: 'groupColor', y: 'count' },
-      { type: 'stackY' },
-      { type: 'normalizeY' },
-    ],
-    coordinate: { transform: [{ type: 'transpose' }] },
-    axis: { y: { labelFormatter: '.0%' } },
-    labels: [{ text: 'sex', position: 'inside' }],
-  });
+chart.options({
+  type: 'interval',
+  height: 120,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+  },
+  encode: { color: 'sex' },
+  transform: [
+    { type: 'groupColor', y: 'count' },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
+  ],
+  coordinate: { transform: [{ type: 'transpose' }] },
+  axis: { y: { labelFormatter: '.0%' } },
+  labels: [{ text: 'sex', position: 'inside' }],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 说明：

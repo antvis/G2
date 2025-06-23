@@ -43,10 +43,10 @@ Interaction can also be set at the mark level:
 
 ```js
 // API
-//First method
+// First method
 chart.interval().interaction('tooltip', {}).interaction('brushHighlight', {});
 
-//Second method
+// Second method
 chart.interval().interaction({
   tooltip: {},
   brushHighlight: {},
@@ -82,7 +82,7 @@ This is equivalent to the following situation:
 ```js
 chart.interaction('elementHighlight', { link: false, background: false });
 chart.line();
-chart.area():
+chart.area();
 ```
 
 ## Interaction State
@@ -137,6 +137,7 @@ Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brus
 const { Chart, ChartEvent } = G2;
 
 const chart = new Chart({
+  container: 'container',
   clip: true,
 });
 
@@ -234,7 +235,7 @@ register('interaction.customElementHighlight', () => {
   };
 });
 
-const chart = new Chart();
+const chart = new Chart({ container: 'container' });
 
 chart
   .interval()
@@ -264,7 +265,3 @@ chart
 
 chart.render();
 ```
-
-## Interaction Syntax
-
-> Interaction syntax is still under design...

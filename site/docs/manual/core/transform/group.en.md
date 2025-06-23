@@ -122,37 +122,37 @@ type Reducer =
 
 The following is a simple example showing how to use the `group` function to group data and draw a grouped bar chart.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { year: '1951', sales: 38 },
-      { year: '1952', sales: 52 },
-      { year: '1956', sales: 61 },
-      { year: '1957', sales: 145 },
-      { year: '1958', sales: 48 },
-      { year: '1959', sales: 38 },
-      { year: '1960', sales: 38 },
-      { year: '1962', sales: 38 },
-      { year: '1951', sales: 38 },
-      { year: '1952', sales: 52 },
-      { year: '1956', sales: 61 },
-      { year: '1957', sales: 145 },
-      { year: '1958', sales: 48 },
-      { year: '1959', sales: 38 },
-      { year: '1960', sales: 38 },
-      { year: '1962', sales: 38 },
-    ],
-    encode: { x: 'year', y: 'sales' },
-    transform: [{ type: 'group', channels: ['x'], y: 'sum' }],
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { year: '1951', sales: 38 },
+    { year: '1952', sales: 52 },
+    { year: '1956', sales: 61 },
+    { year: '1957', sales: 145 },
+    { year: '1958', sales: 48 },
+    { year: '1959', sales: 38 },
+    { year: '1960', sales: 38 },
+    { year: '1962', sales: 38 },
+    { year: '1951', sales: 38 },
+    { year: '1952', sales: 52 },
+    { year: '1956', sales: 61 },
+    { year: '1957', sales: 145 },
+    { year: '1958', sales: 48 },
+    { year: '1959', sales: 38 },
+    { year: '1960', sales: 38 },
+    { year: '1962', sales: 38 },
+  ],
+  encode: { x: 'year', y: 'sales' },
+  transform: [{ type: 'group', channels: ['x'], y: 'sum' }],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 Example Explanation
@@ -169,28 +169,28 @@ Example Explanation
 Below we group according to specific data, using the `group` function to process data grouping and display different grouping results in the chart.
 The following example shows how to use the `group` function to group data and take the maximum value (`max`), and display different grouping results in the chart.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'cell',
-    height: 300,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-    },
-    encode: {
-      x: (d) => new Date(d.date).getUTCDate(),
-      y: (d) => new Date(d.date).getUTCMonth(),
-      color: 'temp_max',
-    },
-    transform: [{ type: 'group', color: 'max' }],
-    scale: { color: { type: 'sequential', palette: 'gnBu' } },
-    style: { inset: 0.5 },
-  });
+chart.options({
+  type: 'cell',
+  height: 300,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(),
+    y: (d) => new Date(d.date).getUTCMonth(),
+    color: 'temp_max',
+  },
+  transform: [{ type: 'group', color: 'max' }],
+  scale: { color: { type: 'sequential', palette: 'gnBu' } },
+  style: { inset: 0.5 },
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```

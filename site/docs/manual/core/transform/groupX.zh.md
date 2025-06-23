@@ -17,36 +17,36 @@ order: 2
 
 下面，我们展现个人群的年龄分布情况。我们使用 `groupX` 函数对数据进行分组，并且对 `x` 通道进行聚合，计算出每个 `state` 的 `population` 折线长度和分布情况。注意在对应的 mark 中有 transform 方法可以使用数据的变换。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.coordinate({ transform: [{ type: 'transpose' }] });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
-  chart.data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
-  });
+chart.data({
+  type: 'fetch',
+  value:
+    'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
+});
 
-  chart
-    .link()
-    .scale('y', { formatter: '.0%' })
-    .transform({ type: 'groupX', y: 'min', y1: 'max' })
-    .encode('x', 'state')
-    .encode('y', 'population')
-    .style('stroke', '#000');
+chart
+  .link()
+  .scale('y', { formatter: '.0%' })
+  .transform({ type: 'groupX', y: 'min', y1: 'max' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .style('stroke', '#000');
 
-  chart
-    .point()
-    .scale('color', { palette: 'spectral' })
-    .encode('x', 'state')
-    .encode('y', 'population')
-    .encode('shape', 'point')
-    .encode('color', 'age');
+chart
+  .point()
+  .scale('color', { palette: 'spectral' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .encode('shape', 'point')
+  .encode('color', 'age');
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 说明：

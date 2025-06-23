@@ -103,8 +103,11 @@ const gradient =
 
 - 可以创建一个容器视图，将热力图与地图同时渲染，直观呈现数据在地理位置的差异
 
-```js | ob { pin: false, inject true }
-const chart = new g2.Chart();
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: 'view',

@@ -63,74 +63,72 @@ For more examples, please check the [Chart Examples - Violin Plot](/en/examples#
 | Cartesian         | `'cartesian'` | Density plot, etc.      |
 | Polar             | `'polar'`     | Polar violin plot, etc. |
 
-```js | ob {  pin: false }
-(() => {
-  const coordinateMap = [
-    {
-      coordinate: 'cartesian',
-      label: 'Cartesian Coordinate System',
-    },
-    {
-      coordinate: 'polar',
-      label: 'Polar Coordinate System',
-    },
-  ];
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const coordinateMap = [
+  {
+    coordinate: 'cartesian',
+    label: 'Cartesian Coordinate System',
+  },
+  {
+    coordinate: 'polar',
+    label: 'Polar Coordinate System',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'density',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+    transform: [
+      {
+        type: 'kde',
+        field: 'y',
+        groupBy: ['x', 'species'],
+      },
+    ],
+  },
+  encode: {
+    x: 'x',
+    y: 'y',
+    color: 'species',
+    size: 'size',
+    series: 'species',
+  },
+  coordinate: { type: coordinateMap[0].coordinate },
+  tooltip: false,
+});
 
-  chart.options({
-    type: 'density',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/species.json',
-      transform: [
-        {
-          type: 'kde',
-          field: 'y',
-          groupBy: ['x', 'species'],
-        },
-      ],
-    },
-    encode: {
-      x: 'x',
-      y: 'y',
-      color: 'species',
-      size: 'size',
-      series: 'species',
-    },
-    coordinate: { type: coordinateMap[0].coordinate },
-    tooltip: false,
+const handleSetCoordinate = (coordinate) => {
+  // Set selected coordinate system
+  chart.coordinate({
+    type: coordinate,
   });
+  chart.render(); // Re-render chart
+};
 
-  const handleSetCoordinate = (coordinate) => {
-    // Set selected coordinate system
-    chart.coordinate({
-      type: coordinate,
-    });
-    chart.render(); // Re-render chart
-  };
+// Insert Encode-Color selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select Coordinate System ';
+const selector = document.createElement('select');
+selector.innerHTML = coordinateMap.map(
+  (coordinate, index) =>
+    `<option value="${coordinate.coordinate}" ${
+      index === 0 ? 'selected' : ''
+    }>${coordinate.label}</option>`,
+);
+selector.onchange = (e) => {
+  handleSetCoordinate(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // Insert Encode-Color selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select Coordinate System ';
-  const selector = document.createElement('select');
-  selector.innerHTML = coordinateMap.map(
-    (coordinate, index) =>
-      `<option value="${coordinate.coordinate}" ${
-        index === 0 ? 'selected' : ''
-      }>${coordinate.label}</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetCoordinate(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 For more `coordinate` configuration, please check the [coordinate](/en/manual/core/coordinate/overview) introduction page.

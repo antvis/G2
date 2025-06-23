@@ -129,74 +129,72 @@ Legend orientation, which is the scroll direction for categorical legends. Defau
 
 Position of the legend. Default is `top`.
 
-```js | ob {  pin: false }
-(() => {
-  const positionList = ['top', 'right', 'left', 'bottom'];
-  const positionMap = positionList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const positionList = ['top', 'right', 'left', 'bottom'];
+const positionMap = positionList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'interval',
+  data: [
+    { name: 'London', month: 'Jan.', rainfall: 18.9 },
+    { name: 'London', month: 'Feb.', rainfall: 28.8 },
+    { name: 'London', month: 'Mar.', rainfall: 39.3 },
+    { name: 'London', month: 'Apr.', rainfall: 81.4 },
+    { name: 'London', month: 'May', rainfall: 47 },
+    { name: 'London', month: 'Jun.', rainfall: 20.3 },
+    { name: 'London', month: 'Jul.', rainfall: 24 },
+    { name: 'London', month: 'Aug.', rainfall: 35.6 },
+    { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { name: 'Berlin', month: 'May', rainfall: 52.6 },
+    { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+});
 
+const handleSetPosition = (position) => {
   chart.options({
-    type: 'interval',
-    data: [
-      { name: 'London', month: 'Jan.', rainfall: 18.9 },
-      { name: 'London', month: 'Feb.', rainfall: 28.8 },
-      { name: 'London', month: 'Mar.', rainfall: 39.3 },
-      { name: 'London', month: 'Apr.', rainfall: 81.4 },
-      { name: 'London', month: 'May', rainfall: 47 },
-      { name: 'London', month: 'Jun.', rainfall: 20.3 },
-      { name: 'London', month: 'Jul.', rainfall: 24 },
-      { name: 'London', month: 'Aug.', rainfall: 35.6 },
-      { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { name: 'Berlin', month: 'May', rainfall: 52.6 },
-      { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'name' },
-    transform: [{ type: 'dodgeX' }],
-  });
-
-  const handleSetPosition = (position) => {
-    chart.options({
-      legend: {
-        color: {
-          position,
-        },
+    legend: {
+      color: {
+        position,
       },
-    });
-    chart.render(); // Re-render the chart
-  };
+    },
+  });
+  chart.render(); // Re-render the chart
+};
 
-  // Insert Position selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select legend position ';
-  const selector = document.createElement('select');
-  selector.innerHTML = positionMap.map(
-    (position, index) =>
-      `<option value="${position.value}" ${index === 0 ? 'selected' : ''}>${
-        position.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetPosition(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+// Insert Position selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select legend position ';
+const selector = document.createElement('select');
+selector.innerHTML = positionMap.map(
+  (position, index) =>
+    `<option value="${position.value}" ${index === 0 ? 'selected' : ''}>${
+      position.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetPosition(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 ### layout
@@ -518,87 +516,85 @@ Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend
 
 Try it out:
 
-```js | ob {  pin: false }
-(() => {
-  // Available itemMarker shapes
-  const shapeList = [
-    'bowtie',
-    'cross',
-    'dash',
-    'diamond',
-    'dot',
-    'hexagon',
-    'hollowBowtie',
-    'hollowDiamond',
-    'hollowHexagon',
-    'hollowPoint',
-    'hollowSquare',
-    'hollowTriangle',
-    'hollowTriangleDown',
-    'hv',
-    'hvh',
-    'hyphen',
-    'line',
-    'plus',
-    'point',
-    'rect',
-    'smooth',
-    'square',
-    'tick',
-    'triangleDown',
-    'triangle',
-    'vh',
-    'vhv',
-  ];
-  const shapeMap = shapeList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+// Available itemMarker shapes
+const shapeList = [
+  'bowtie',
+  'cross',
+  'dash',
+  'diamond',
+  'dot',
+  'hexagon',
+  'hollowBowtie',
+  'hollowDiamond',
+  'hollowHexagon',
+  'hollowPoint',
+  'hollowSquare',
+  'hollowTriangle',
+  'hollowTriangleDown',
+  'hv',
+  'hvh',
+  'hyphen',
+  'line',
+  'plus',
+  'point',
+  'rect',
+  'smooth',
+  'square',
+  'tick',
+  'triangleDown',
+  'triangle',
+  'vh',
+  'vhv',
+];
+const shapeMap = shapeList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
-  const chart = new G2.Chart();
-
-  chart.options({
-    type: 'legends',
-    height: 60,
-    itemMarker: 'bowtie',
-    scale: {
-      color: {
-        type: 'ordinal',
-        domain: ['a', 'b'],
-        range: ['steelblue', 'orange'],
-      },
+chart.options({
+  type: 'legends',
+  height: 60,
+  itemMarker: 'bowtie',
+  scale: {
+    color: {
+      type: 'ordinal',
+      domain: ['a', 'b'],
+      range: ['steelblue', 'orange'],
     },
+  },
+});
+
+const handleSetShape = (shape) => {
+  chart.options({
+    itemMarker: shape,
   });
+  chart.render(); // Re-render the chart
+};
 
-  const handleSetShape = (shape) => {
-    chart.options({
-      itemMarker: shape,
-    });
-    chart.render(); // Re-render the chart
-  };
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select legend item marker shape ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select legend item marker shape ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 When configuring legend item markers in the Legend component, it's not configured as an object, but with `itemMarker` prefix plus property.

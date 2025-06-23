@@ -95,61 +95,59 @@ Through the `shape` property of `encode`, you can specify the geometric shape of
 | rect   | Rectangle        |
 | hollow | Hollow rectangle |
 
-```js | ob {  pin: false }
-(() => {
-  const shapeMap = [
-    {
-      shape: 'rect',
-      label: 'Rectangle',
-    },
-    {
-      shape: 'hollow',
-      label: 'Hollow Rectangle',
-    },
-  ];
+```js | ob {  autoMount: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const shapeMap = [
+  {
+    shape: 'rect',
+    label: 'Rectangle',
+  },
+  {
+    shape: 'hollow',
+    label: 'Hollow Rectangle',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  style: { inset: 0.5 },
+});
 
+const handleSetShape = (shape) => {
+  // Set the selected coordinate system
   chart.options({
-    type: 'rect',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    },
-    encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
-    transform: [{ type: 'bin', opacity: 'count' }],
-    style: { inset: 0.5 },
+    encode: { shape },
   });
+  chart.render(); // Re-render chart
+};
 
-  const handleSetShape = (shape) => {
-    // Set the selected coordinate system
-    chart.options({
-      encode: { shape },
-    });
-    chart.render(); // Re-render chart
-  };
+// Insert Encode-Color selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select Shape ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // Insert Encode-Color selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select Shape ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 For more `encode` configurations, please check the [encode](/en/manual/core/encode) introduction page.

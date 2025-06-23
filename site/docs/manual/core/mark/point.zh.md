@@ -187,87 +187,85 @@ chart.render();
 
 尝试一下：
 
-```js | ob {  pin: false }
-(() => {
-  // 可选的itemMarker形状
-  const shapeList = [
-    'hollow',
-    'hollowDiamond',
-    'hollowHexagon',
-    'hollowSquare',
-    'hollowTriangleDown',
-    'hollowTriangle',
-    'hollowBowtie',
-    'point',
-    'plus',
-    'diamond',
-    'square',
-    'triangle',
-    'triangleDown',
-    'hexagon',
-    'cross',
-    'bowtie',
-    'hyphen',
-    'line',
-    'tick',
-    'circle',
-  ];
-  const shapeMap = shapeList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob { autoMount: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+// 可选的itemMarker形状
+const shapeList = [
+  'hollow',
+  'hollowDiamond',
+  'hollowHexagon',
+  'hollowSquare',
+  'hollowTriangleDown',
+  'hollowTriangle',
+  'hollowBowtie',
+  'point',
+  'plus',
+  'diamond',
+  'square',
+  'triangle',
+  'triangleDown',
+  'hexagon',
+  'cross',
+  'bowtie',
+  'hyphen',
+  'line',
+  'tick',
+  'circle',
+];
+const shapeMap = shapeList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'point',
+  height: 150,
+  data: [{ x: 0.5, y: 0.5 }],
+  encode: {
+    x: 'x',
+    y: 'y',
+    size: 10,
+  },
+  scale: {
+    x: { domain: [0, 1], nice: true },
+    y: { domain: [0, 1], nice: true },
+  },
+});
 
+const handleSetShape = (shape) => {
   chart.options({
-    type: 'point',
-    height: 150,
-    data: [{ x: 0.5, y: 0.5 }],
     encode: {
       x: 'x',
       y: 'y',
       size: 10,
-    },
-    scale: {
-      x: { domain: [0, 1], nice: true },
-      y: { domain: [0, 1], nice: true },
+      shape,
     },
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetShape = (shape) => {
-    chart.options({
-      encode: {
-        x: 'x',
-        y: 'y',
-        size: 10,
-        shape,
-      },
-    });
-    chart.render(); // 重新渲染图表
-  };
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择point标记的形状 ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择point标记的形状 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 #### size

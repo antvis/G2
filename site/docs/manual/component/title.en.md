@@ -136,61 +136,62 @@ Used to configure the horizontal alignment of the chart title. Default is `left`
 
 Try it out:
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({ width: 480, height: 160 });
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+  width: 480,
+  height: 160,
+});
+const container = chart.getContainer();
 
-  const alignList = ['center', 'right', 'left'];
-  const alignMap = alignList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
-
-  const data = [
-    264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513,
-    546, 983, 340, 539, 243, 226, 192,
-  ];
-
-  chart.options({
-    data,
-    type: 'interval',
-    encode: {
-      x: (_, idx) => idx,
-      y: (d) => d,
-    },
-    title: {
-      align: 'center',
-      title: 'This is a chart title.',
-      subtitle: 'Displayed are sampled values.',
-    },
-    axis: false,
-  });
-  const handleSetAlign = (align) => {
-    chart.title({ align });
-    chart.render(); // Re-render the chart
+const alignList = ['center', 'right', 'left'];
+const alignMap = alignList.map((p) => {
+  return {
+    label: p,
+    value: p,
   };
+});
 
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select title alignment ';
-  const selector = document.createElement('select');
-  selector.innerHTML = alignMap.map(
-    (align, index) =>
-      `<option value="${align.value}" ${index === 0 ? 'selected' : ''}>${
-        align.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetAlign(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-  chart.render();
+const data = [
+  264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513,
+  546, 983, 340, 539, 243, 226, 192,
+];
 
-  return node;
-})();
+chart.options({
+  data,
+  type: 'interval',
+  encode: {
+    x: (_, idx) => idx,
+    y: (d) => d,
+  },
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  axis: false,
+});
+const handleSetAlign = (align) => {
+  chart.title({ align });
+  chart.render(); // Re-render the chart
+};
+
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select title alignment ';
+const selector = document.createElement('select');
+selector.innerHTML = alignMap.map(
+  (align, index) =>
+    `<option value="${align.value}" ${index === 0 ? 'selected' : ''}>${
+      align.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetAlign(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
+chart.render();
 ```
 
 ### spacing

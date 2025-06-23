@@ -199,75 +199,73 @@ The supported shapes for `line` mark are:
 | hvh    | Draw step line chart, vertical-horizontal-vertical, midpoint connection                                            |
 | trail  | Draw trail, similar to a brush stroke, used to draw lines with varying thickness when `size` channel is configured |
 
-```js | ob { pin: false }
-(() => {
-  const shapeList = ['line', 'smooth', 'trail', 'vh', 'hv', 'hvh'];
-  const shapeMap = shapeList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const shapeList = ['line', 'smooth', 'trail', 'vh', 'hv', 'hvh'];
+const shapeMap = shapeList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'line',
+  data: [
+    { name: 'London', month: 'Jan.', rainfall: 18.9 },
+    { name: 'London', month: 'Feb.', rainfall: 28.8 },
+    { name: 'London', month: 'Mar.', rainfall: 39.3 },
+    { name: 'London', month: 'Apr.', rainfall: 81.4 },
+    { name: 'London', month: 'May', rainfall: 47 },
+    { name: 'London', month: 'Jun.', rainfall: 20.3 },
+    { name: 'London', month: 'Jul.', rainfall: 24 },
+    { name: 'London', month: 'Aug.', rainfall: 35.6 },
+    { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { name: 'Berlin', month: 'May', rainfall: 52.6 },
+    { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'name', size: 'rainfall' },
+});
 
+const handleSetShape = (shape) => {
   chart.options({
-    type: 'line',
-    data: [
-      { name: 'London', month: 'Jan.', rainfall: 18.9 },
-      { name: 'London', month: 'Feb.', rainfall: 28.8 },
-      { name: 'London', month: 'Mar.', rainfall: 39.3 },
-      { name: 'London', month: 'Apr.', rainfall: 81.4 },
-      { name: 'London', month: 'May', rainfall: 47 },
-      { name: 'London', month: 'Jun.', rainfall: 20.3 },
-      { name: 'London', month: 'Jul.', rainfall: 24 },
-      { name: 'London', month: 'Aug.', rainfall: 35.6 },
-      { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-      { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-      { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-      { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-      { name: 'Berlin', month: 'May', rainfall: 52.6 },
-      { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-      { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-      { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
-    ],
-    encode: { x: 'month', y: 'rainfall', color: 'name', size: 'rainfall' },
+    encode: {
+      x: 'month',
+      y: 'rainfall',
+      color: 'name',
+      size: 'rainfall',
+      shape,
+    },
   });
+  chart.render(); // Re-render chart
+};
 
-  const handleSetShape = (shape) => {
-    chart.options({
-      encode: {
-        x: 'month',
-        y: 'rainfall',
-        color: 'name',
-        size: 'rainfall',
-        shape,
-      },
-    });
-    chart.render(); // Re-render chart
-  };
+// Insert Shape selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select line shape ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // Insert Shape selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select line shape ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.value}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 #### size

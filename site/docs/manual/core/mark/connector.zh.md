@@ -77,97 +77,95 @@ order: 27
 
 使用 connector 标记可以创建基础连接线，连接两个数据点。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'connector',
-    data: [
-      { source: 'A', target: 'B', x1: 100, y1: 100, x2: 300, y2: 200 },
-      { source: 'B', target: 'C', x1: 300, y1: 200, x2: 500, y2: 150 },
-      { source: 'C', target: 'D', x1: 500, y1: 150, x2: 400, y2: 300 },
-    ],
-    encode: {
-      x: ['x1', 'x2'],
-      y: ['y1', 'y2'],
-      color: 'source',
-    },
-    style: {
-      stroke: '#1890ff',
-      strokeWidth: 2,
-      endMarker: true,
-    },
-    legend: false,
-  });
+chart.options({
+  type: 'connector',
+  data: [
+    { source: 'A', target: 'B', x1: 100, y1: 100, x2: 300, y2: 200 },
+    { source: 'B', target: 'C', x1: 300, y1: 200, x2: 500, y2: 150 },
+    { source: 'C', target: 'D', x1: 500, y1: 150, x2: 400, y2: 300 },
+  ],
+  encode: {
+    x: ['x1', 'x2'],
+    y: ['y1', 'y2'],
+    color: 'source',
+  },
+  style: {
+    stroke: '#1890ff',
+    strokeWidth: 2,
+    endMarker: true,
+  },
+  legend: false,
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 组合使用
 
 连接器通常和其他 mark 一起使用：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  // 原始数据
-  const data = [
-    { type: '分类一', value: 27 },
-    { type: '分类二', value: 25 },
-    { type: '分类三', value: 18 },
-    { type: '分类四', value: 15 },
-    { type: '分类五', value: 10 },
-    { type: 'Other', value: 5 },
-  ];
+// 原始数据
+const data = [
+  { type: '分类一', value: 27 },
+  { type: '分类二', value: 25 },
+  { type: '分类三', value: 18 },
+  { type: '分类四', value: 15 },
+  { type: '分类五', value: 10 },
+  { type: 'Other', value: 5 },
+];
 
-  chart.options({
-    type: 'view',
-    children: [
-      {
-        type: 'interval',
-        data: data,
-        encode: {
-          x: 'type',
-          y: 'value',
-          color: 'type',
-        },
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'type',
+        y: 'value',
+        color: 'type',
       },
-      {
-        type: 'connector',
-        data: [
-          {
-            source: '分类一',
-            target: '分类三',
-            x1: '分类一',
-            x2: '分类三',
-            y1: 27,
-            y2: 18,
-          },
-        ],
-        encode: {
-          x: ['x1', 'x2'],
-          y: ['y1', 'y2'],
+    },
+    {
+      type: 'connector',
+      data: [
+        {
+          source: '分类一',
+          target: '分类三',
+          x1: '分类一',
+          x2: '分类三',
+          y1: 27,
+          y2: 18,
         },
-        style: {
-          stroke: 'orange',
-          strokeWidth: 2,
-          sourceOffsetX: 15,
-          targetOffsetX: -20,
-        },
-        legend: false,
+      ],
+      encode: {
+        x: ['x1', 'x2'],
+        y: ['y1', 'y2'],
       },
-    ],
-  });
+      style: {
+        stroke: 'orange',
+        strokeWidth: 2,
+        sourceOffsetX: 15,
+        targetOffsetX: -20,
+      },
+      legend: false,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 高级用法

@@ -23,24 +23,24 @@ order: 2
 
 简单的示例可以参考 [jitter](/manual/core/transform/jitter) 的示例，下面针对 `jitterY` 函数的场景使用进行说明和演示。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'point',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-    },
-    encode: { x: 'Horsepower', y: 'Cylinders', color: 'Cylinders' },
-    transform: [{ type: 'sortY' }, { type: 'jitterY' }],
-    scale: { y: { type: 'point' }, color: { type: 'ordinal' } },
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  },
+  encode: { x: 'Horsepower', y: 'Cylinders', color: 'Cylinders' },
+  transform: [{ type: 'sortY' }, { type: 'jitterY' }],
+  scale: { y: { type: 'point' }, color: { type: 'ordinal' } },
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 补充说明：和 `jitter` 函数一样，`jitterY` 是一种视觉调整方法，可能会稍微改变数据的精确位置，因此不适合对位置精度要求极高的场景。

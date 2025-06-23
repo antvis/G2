@@ -379,56 +379,56 @@ chart.render();
 
 第一步的的关键是通过 `chart.getCoordinate` 获得的 coordinate 对象确定 slider 的位置和长度。第二步的关键是通过 `chart.getScale` 获得 scale 对选择的范围进行 invert，最后获得选择的数据范围，然后更新 scale 的定义域。
 
-```js | ob
-(() => {
-  function sliderX(chart) {
-    // 创建并且挂载 range
-    const container = chart.getContainer();
-    const range = document.createElement('input');
-    container.append(range);
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-    // 根据 coordinate 设置 range 的宽度等属性
-    const coordinate = chart.getCoordinate();
-    const { paddingLeft, width } = coordinate.getOptions();
-    range.type = 'range';
-    range.min = 0;
-    range.max = width;
-    range.value = width;
-    range.style.display = 'block';
-    range.style.width = width + 'px';
-    range.style.marginLeft = paddingLeft + 'px';
+function sliderX(chart) {
+  // 创建并且挂载 range
+  const container = chart.getContainer();
+  const range = document.createElement('input');
+  container.append(range);
 
-    // 监听 change 事件，通过 scale 获得筛选得到的 domain
-    // 更新 domain 并且渲染
-    const scale = chart.getScaleByChannel('x');
-    const options = chart.options();
-    range.onchange = (event) => {
-      const value = event.target.value;
-      const range = [0, value / width];
-      const domain = range.map((d) => scale.invert(d));
-      chart.options({
-        ...options,
-        scale: { x: { domain } },
-      });
-      chart.render();
-    };
-  }
+  // 根据 coordinate 设置 range 的宽度等属性
+  const coordinate = chart.getCoordinate();
+  const { paddingLeft, width } = coordinate.getOptions();
+  range.type = 'range';
+  range.min = 0;
+  range.max = width;
+  range.value = width;
+  range.style.display = 'block';
+  range.style.width = width + 'px';
+  range.style.marginLeft = paddingLeft + 'px';
 
-  // 渲染图表
-  const container = document.createElement('div');
-  const chart = new G2.Chart({ container });
+  // 监听 change 事件，通过 scale 获得筛选得到的 domain
+  // 更新 domain 并且渲染
+  const scale = chart.getScaleByChannel('x');
+  const options = chart.options();
+  range.onchange = (event) => {
+    const value = event.target.value;
+    const range = [0, value / width];
+    const domain = range.map((d) => scale.invert(d));
+    chart.options({
+      ...options,
+      scale: { x: { domain } },
+    });
+    chart.render();
+  };
+}
 
-  chart.options({
-    type: 'line',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    },
-    encode: { x: 'date', y: 'close' },
-  });
+// 渲染图表
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+});
 
-  chart.render().then(sliderX);
-  return chart.getContainer();
-})();
+chart.render().then(sliderX);
 ```

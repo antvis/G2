@@ -19,31 +19,31 @@ For detailed information about `Reducer`, please refer to the configuration opti
 
 In the following example, we retrieve the `species` and `sex` fields from the `penguins.json` dataset, group by the `species` field, and perform count aggregation on the `sex` field. Finally, we map the `species` field to the `color` channel. Note that the corresponding mark has transform methods available for data transformation.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'interval',
-    height: 120,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-    },
-    encode: { color: 'sex' },
-    transform: [
-      { type: 'groupColor', y: 'count' },
-      { type: 'stackY' },
-      { type: 'normalizeY' },
-    ],
-    coordinate: { transform: [{ type: 'transpose' }] },
-    axis: { y: { labelFormatter: '.0%' } },
-    labels: [{ text: 'sex', position: 'inside' }],
-  });
+chart.options({
+  type: 'interval',
+  height: 120,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+  },
+  encode: { color: 'sex' },
+  transform: [
+    { type: 'groupColor', y: 'count' },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
+  ],
+  coordinate: { transform: [{ type: 'transpose' }] },
+  axis: { y: { labelFormatter: '.0%' } },
+  labels: [{ text: 'sex', position: 'inside' }],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 Explanation:

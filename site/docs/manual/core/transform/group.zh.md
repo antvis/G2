@@ -122,37 +122,37 @@ type Reducer =
 
 以下是一个简单的示例，展示如何使用 `group` 函数对数据进行分组并绘制分组柱状图。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { year: '1951 年', sales: 38 },
-      { year: '1952 年', sales: 52 },
-      { year: '1956 年', sales: 61 },
-      { year: '1957 年', sales: 145 },
-      { year: '1958 年', sales: 48 },
-      { year: '1959 年', sales: 38 },
-      { year: '1960 年', sales: 38 },
-      { year: '1962 年', sales: 38 },
-      { year: '1951 年', sales: 38 },
-      { year: '1952 年', sales: 52 },
-      { year: '1956 年', sales: 61 },
-      { year: '1957 年', sales: 145 },
-      { year: '1958 年', sales: 48 },
-      { year: '1959 年', sales: 38 },
-      { year: '1960 年', sales: 38 },
-      { year: '1962 年', sales: 38 },
-    ],
-    encode: { x: 'year', y: 'sales' },
-    transform: [{ type: 'group', channels: ['x'], y: 'sum' }],
-  });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { year: '1951 年', sales: 38 },
+    { year: '1952 年', sales: 52 },
+    { year: '1956 年', sales: 61 },
+    { year: '1957 年', sales: 145 },
+    { year: '1958 年', sales: 48 },
+    { year: '1959 年', sales: 38 },
+    { year: '1960 年', sales: 38 },
+    { year: '1962 年', sales: 38 },
+    { year: '1951 年', sales: 38 },
+    { year: '1952 年', sales: 52 },
+    { year: '1956 年', sales: 61 },
+    { year: '1957 年', sales: 145 },
+    { year: '1958 年', sales: 48 },
+    { year: '1959 年', sales: 38 },
+    { year: '1960 年', sales: 38 },
+    { year: '1962 年', sales: 38 },
+  ],
+  encode: { x: 'year', y: 'sales' },
+  transform: [{ type: 'group', channels: ['x'], y: 'sum' }],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 示例说明
@@ -169,28 +169,28 @@ type Reducer =
 下面我们根据具体的数据来进行分组，使用 `group` 函数对数据进行分组处理，并在图表中展示不同的分组结果。
 下面这个示例展示了如何使用 `group` 函数对数据进行分组并去最大值（`max`），并在图表中展示不同的分组结果。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'cell',
-    height: 300,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-    },
-    encode: {
-      x: (d) => new Date(d.date).getUTCDate(),
-      y: (d) => new Date(d.date).getUTCMonth(),
-      color: 'temp_max',
-    },
-    transform: [{ type: 'group', color: 'max' }],
-    scale: { color: { type: 'sequential', palette: 'gnBu' } },
-    style: { inset: 0.5 },
-  });
+chart.options({
+  type: 'cell',
+  height: 300,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(),
+    y: (d) => new Date(d.date).getUTCMonth(),
+    color: 'temp_max',
+  },
+  transform: [{ type: 'group', color: 'max' }],
+  scale: { color: { type: 'sequential', palette: 'gnBu' } },
+  style: { inset: 0.5 },
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```

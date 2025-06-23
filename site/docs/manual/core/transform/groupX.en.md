@@ -17,36 +17,36 @@ For detailed information about `Reducer`, please refer to the configuration opti
 
 Below, we demonstrate the age distribution of different population groups. We use the `groupX` function to group the data and aggregate the `x` channel, calculating the line length and distribution of `population` for each `state`. Note that the corresponding mark has transform methods available for data transformation.
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.coordinate({ transform: [{ type: 'transpose' }] });
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.coordinate({ transform: [{ type: 'transpose' }] });
 
-  chart.data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
-  });
+chart.data({
+  type: 'fetch',
+  value:
+    'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
+});
 
-  chart
-    .link()
-    .scale('y', { formatter: '.0%' })
-    .transform({ type: 'groupX', y: 'min', y1: 'max' })
-    .encode('x', 'state')
-    .encode('y', 'population')
-    .style('stroke', '#000');
+chart
+  .link()
+  .scale('y', { formatter: '.0%' })
+  .transform({ type: 'groupX', y: 'min', y1: 'max' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .style('stroke', '#000');
 
-  chart
-    .point()
-    .scale('color', { palette: 'spectral' })
-    .encode('x', 'state')
-    .encode('y', 'population')
-    .encode('shape', 'point')
-    .encode('color', 'age');
+chart
+  .point()
+  .scale('color', { palette: 'spectral' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .encode('shape', 'point')
+  .encode('color', 'age');
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 Explanation:
