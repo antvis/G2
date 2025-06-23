@@ -47,7 +47,7 @@ similar: ['radial-bar', 'histogram', 'pie']
 | 韩国            | 102              |
 | ...             | ...              |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -122,7 +122,7 @@ chart.render();
 
 #### 玫瑰图
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart1 = new Chart({
@@ -167,7 +167,7 @@ chart1.render();
 
 #### 饼图
 
-```js | ob {inject true, pin: false }
+```js | ob {inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart2 = new Chart({
@@ -211,7 +211,7 @@ chart2.render();
 
 **南丁格尔玫瑰图（不推荐）**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -279,7 +279,7 @@ chart.render();
 
 **横向柱状图（推荐）**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -375,7 +375,7 @@ chart.render();
 
 #### 南丁格尔玫瑰图（不推荐）
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart1 = new Chart({
@@ -422,7 +422,7 @@ chart1.render();
 
 #### 横向柱状图（推荐）
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart2 = new Chart({
@@ -473,7 +473,7 @@ chart2.render();
 
 通过设置极坐标的起始角度可以实现扇形南丁格尔玫瑰图：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -544,7 +544,7 @@ chart.render();
 | 2001         | 25.0                         | 16                         | 0.8                       |
 | ...          | ...                          | ...                        | ...                       |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

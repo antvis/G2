@@ -98,7 +98,7 @@ chart.render();
 
 ### Example 1: Highlighting Trend Changes (Time Series)
 
-```js | ob {  pin:false , inject true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 ### Example 2: Financial Market Trend Smoothing
 
-```js | ob {  pin:false , inject true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -216,7 +216,7 @@ chart.render();
 
 ### Example 3: Training Process Metric Smoothing
 
-```js | ob {  pin:false , inject true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

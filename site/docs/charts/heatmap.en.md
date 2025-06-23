@@ -52,7 +52,7 @@ Example 1: **Suitable for displaying two-dimensional data distribution density**
 
 The heatmap below shows the temperature distribution in a two-dimensional space. Through color variations, you can intuitively see temperature differences across different areas.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -108,7 +108,7 @@ Example 2: **Suitable for displaying density distribution of scatter data**
 
 Density heatmaps can show concentration areas of scatter data. The example below shows the relationship between carat and price in a diamond dataset.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
@@ -207,7 +207,7 @@ When there are few data points, the density distribution advantage of heatmaps i
 
 Threshold heatmaps divide continuous data into discrete color intervals based on preset threshold ranges, suitable for emphasizing data within specific ranges.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

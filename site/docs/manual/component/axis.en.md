@@ -426,7 +426,7 @@ For example, to configure label rotation, it's not configured under a label obje
 
 The `labelFormatter` visual channel is used to adjust label formatting.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -491,7 +491,7 @@ Both approaches have identical core functionality, differing only in use cases a
 
 > 1. `transform` array (multi-strategy combination)
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -556,7 +556,7 @@ chart.render();
 
 > 2. Using `labelAutoHide`, `labelAutoRotate`, `labelAutoEllipsis`, `labelAutoWrap` properties (requires `size` setting)
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

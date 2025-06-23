@@ -46,7 +46,7 @@ This usage is similar to pie charts. The chart below shows sales data from a gam
 | Shooter  | 3,500  |
 | Other    | 1,500  |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -104,7 +104,7 @@ Example 2: **Displaying Additional Information in the Center**
 
 The hollow center area of donut charts can be used to display totals, titles, or other important information:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -150,7 +150,7 @@ Example 1: **Too Many Categories**
 
 The chart below shows population proportions by province. Due to the excessive number of categories, it's difficult to clearly compare population data across provinces. In such cases, we recommend using [bar charts](/en/charts/bar).
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -207,7 +207,7 @@ Example 2: **Similar Proportions Among Categories**
 
 In the chart below, different game genres have similar sales volumes with very small angular differences, making donut charts unsuitable. In this case, [bar charts](/en/charts/bar) would be more appropriate.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -266,7 +266,7 @@ Using G2's faceting functionality, grouped data can be rendered as multiple donu
 | 2011 | Latin America        | 495.3                |
 | ...  | ...                  | ...                  |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

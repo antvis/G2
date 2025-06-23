@@ -9,7 +9,7 @@ The shape mark is a special `Mark` type in G2, typically used to draw static cus
 
 For example, sometimes you need to add markers at specific data points in a chart to highlight important information. The following example shows how to use the `shape` mark to add custom annotations at key points on a line chart. We create basic graphics [Circle](https://g.antv.antgroup.com/api/basic/circle) and basic graphics [Text](https://g.antv.antgroup.com/api/basic/text), combined with [scene graph](https://g.antv.antgroup.com/api/canvas/scenegraph-lifecycle) capabilities to implement a custom annotation.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -123,7 +123,7 @@ Configure the graphic style of the `shape` mark.
 
 Adding watermarks to charts can protect data security and intellectual property. The following example shows how to use the `shape` mark to add watermarks to a chart.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

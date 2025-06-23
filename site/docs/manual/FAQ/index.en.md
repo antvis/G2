@@ -224,7 +224,7 @@ Both issues are caused by the chart area being too small and tooltip taking up t
 
 ## How to Prevent Graphic Marks from Exceeding Maximum or Minimum Scale Values
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

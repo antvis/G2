@@ -100,7 +100,7 @@ chart.render().then(() => {
 
 The effect is as follows:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -170,7 +170,7 @@ We can also let the camera fix the viewpoint and rotate it at a certain angle. H
 camera.rotate(-20, -20, 0);
 ```
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -253,7 +253,7 @@ canvas.appendChild(light);
 
 we can use `intensity` to increase the intensity of the light source:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -327,7 +327,7 @@ chart.legend(false);
 
 This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/manual/component/legend#自定义图例legend), we can customize the legend using HTML:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
@@ -476,7 +476,7 @@ button.onclick = () => {
 };
 ```
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';

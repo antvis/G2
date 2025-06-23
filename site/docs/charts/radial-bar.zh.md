@@ -53,7 +53,7 @@ similar: ['bar', 'multi-set-bar', 'stacked-bar']
 | 中国带走了美国的就业岗位 | 0.60         |
 | 中国持有美国巨额国债     | 0.67         |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -129,7 +129,7 @@ chart.render();
 
 下图反映了各国人民认为气候变化是严重问题的比例。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -217,7 +217,7 @@ chart.render();
 
 **错误示例（未排序）：**
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -294,7 +294,7 @@ chart.render();
 
 可以通过颜色或分组来展示多维度的数据对比：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

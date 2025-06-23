@@ -31,7 +31,7 @@ It's important to note that when there are too many categories in a color map, i
 | Data-to-Visual Mapping | Two categorical data dimensions mapped to grid rows and columns<br>Numerical data mapped to color depth<br>Text labels can be added to display specific values |
 | Suitable Data Count    | Usually no more than 20 categories per dimension, with total cells recommended not to exceed 400                                                               |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ chart.render();
 | Data-to-Visual Mapping | In addition to basic color map mappings, custom color intervals and boundary markers can be added                                                                                          |
 | Usage Suggestions      | Add clear legend explanations for different color intervals<br>Use contrasting colors to represent different data states<br>Avoid using too many color intervals which can cause confusion |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -222,7 +222,7 @@ The chart below is a simulation of Hangzhou Metro fare chart. This color map sho
 | Xianghu | Xixing     | 3     |
 | ...     | ...        | ...   |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -372,7 +372,7 @@ chart.render();
 
 Example 2: **Exam Score Analysis**
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -466,7 +466,7 @@ Example 1: **Too Few Data Points**
 
 When a dataset has only a few category intersections, a color map may not be the best choice. In such cases, a simple table or bar chart might be more intuitive.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -509,7 +509,7 @@ chart.render();
 
 In this case, using a bar chart would be more intuitive:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -544,7 +544,7 @@ Example 2: **Need to Show Precise Trend Changes**
 
 When you need to show precise changes in trends over time, a color map is not as intuitive as a line chart. Below is an example of using a color map to show monthly data changes, but this situation is better suited for a line chart.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -601,7 +601,7 @@ chart.render();
 
 Using a line chart is more suitable for showing trends:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -685,7 +685,7 @@ chart.render();
    - Add hover interactions to display detailed information
    - Consider adding sorting functionality for easier data comparison
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

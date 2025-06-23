@@ -125,7 +125,7 @@ chart.render();
 
 垂直平行坐标系是最常见的平行坐标系布局，坐标轴垂直排列。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ chart.render();
 
 通过添加 transpose 变换，可以将坐标轴水平排列，创建水平平行坐标系。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +214,7 @@ chart.render();
 
 平行坐标系通常需要交互来增强分析能力，例如添加轴的高亮和筛选功能。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

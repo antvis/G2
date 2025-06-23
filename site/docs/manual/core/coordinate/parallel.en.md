@@ -125,7 +125,7 @@ Parallel coordinate systems support the following coordinate system transforms:
 
 Vertical parallel coordinate system is the most common parallel coordinate system layout, with coordinate axis arranged vertically.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ chart.render();
 
 By adding transpose transform, you can arrange coordinate axis horizontally to create horizontal parallel coordinate systems.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +214,7 @@ chart.render();
 
 Parallel coordinate systems can be combined with interaction components to implement interactive data analysis functionality.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

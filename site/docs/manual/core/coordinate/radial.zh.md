@@ -127,7 +127,7 @@ chart.render();
 
 玉珏图是径向坐标系最常见的应用之一，它将传统条形图在径向坐标系下展示，形成放射状的视觉效果。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 通过在径向坐标系中应用堆叠变换，可以创建径向堆叠条形图，适合展示具有层次关系的数据。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -185,7 +185,7 @@ chart.render();
 
 通过设置适当的内半径和样式，可以创建类似 Apple Watch 活动环的可视化效果。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

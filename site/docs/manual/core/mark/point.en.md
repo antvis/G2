@@ -86,7 +86,7 @@ The position visual channels for the `point` mark require values from both `x` a
 
 The `color` visual channel affects the **fill color** of the `point` mark (when applying certain hollow shapes, such as `hollow`, it changes the **stroke color** of the graphic). When applied to point plots, it's generally mapped to categorical fields to group data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,7 +113,7 @@ chart.render();
 
 However, in some special cases, it may also be mapped to continuous fields, using different colors for graphics corresponding to values in different intervals:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -272,7 +272,7 @@ chart.render();
 
 Binding the `size` property channel for the `point` mark creates a **bubble chart**, where the size of data fields maps to the radius of the graphic (or 1/2 side length for squares).
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -98,7 +98,7 @@ chart.render();
 
 ### 示例一：突出趋势变化（时间序列）
 
-```js | ob {  pin:false , inject true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 ### 示例二：金融行情走势平滑
 
-```js | ob {  pin:false , inject true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -216,7 +216,7 @@ chart.render();
 
 ### 示例三：训练过程指标平滑
 
-```js | ob {  pin:false , inject true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

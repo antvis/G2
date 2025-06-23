@@ -39,7 +39,7 @@ similar: ['pie']
 
 下面的仪表盘展示了一个评分指标的完成情况，当前得分为 120，总分为 400。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -73,7 +73,7 @@ chart.render();
 
 仪表盘可以通过设置多个阈值和不同颜色，清晰地展示数据落在哪个区间，适用于系统状态监控、性能评估等场景。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -117,7 +117,7 @@ chart.render();
 
 仪表盘支持高度的样式自定义，可以根据业务需求调整外观和交互方式。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -176,7 +176,7 @@ chart.render();
 
 仪表盘支持自定义指针的形状，可以根据业务场景调整指针的样式，使图表更具个性化。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import { Path } from '@antv/g';
 

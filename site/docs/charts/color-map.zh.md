@@ -31,7 +31,7 @@ similar: ['heatmap', 'treemap']
 | 数据与图形的映射 | 两个分类数据维度映射到网格的行和列<br>数值数据映射到颜色深浅<br>可以添加文本标签显示具体数值 |
 | 适合的数据条数   | 每个维度通常不超过 20 个分类，总单元格数建议不超过 400 个                                    |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ chart.render();
 | 数据与图形的映射 | 除基础色块图的映射外，还可以添加自定义的颜色区间和边界标记                                                 |
 | 使用建议         | 为不同颜色区间添加清晰的图例说明<br>使用对比鲜明的颜色表示不同的数据状态<br>避免使用过多的颜色区间造成混淆 |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -222,7 +222,7 @@ chart.render();
 | 湘湖         | 西兴       | 3             |
 | ...          | ...        | ...           |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -372,7 +372,7 @@ chart.render();
 
 例子 2: **考试成绩分析**
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -459,7 +459,7 @@ chart.render();
 
 当数据集只有少量的分类交叉点时，色块图可能不是最佳选择，这种情况下简单的表格或条形图可能更为直观。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -502,7 +502,7 @@ chart.render();
 
 这种情况下，使用柱状图会更加直观：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -537,7 +537,7 @@ chart.render();
 
 当需要展示随时间的精确变化趋势时，色块图不如折线图直观。以下是一个使用色块图展示月度数据变化的例子，但这种情况更适合使用折线图。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -594,7 +594,7 @@ chart.render();
 
 使用折线图更适合展示趋势：
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -678,7 +678,7 @@ chart.render();
    - 添加悬停交互，显示详细信息
    - 考虑添加排序功能，便于数据比较
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

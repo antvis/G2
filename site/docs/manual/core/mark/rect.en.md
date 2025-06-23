@@ -63,7 +63,7 @@ Configure visual channels for `rect` mark, an important configuration that defin
 
 The color visual channel affects the fill color of `rect` graphic marks (when applying certain hollow shapes, such as hollow, it will change the stroke color of the graphic). When applied to point charts, it generally maps categorical fields and groups the data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -161,7 +161,7 @@ Common transformation types include:
 - **bin**: Bin continuous data to generate histogram rectangles
 - **stackY**: Stack rectangles vertically, automatically calculating stacked height for each category
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

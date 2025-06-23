@@ -52,7 +52,7 @@ Example 1: **Multi-dimensional Data Relationship Analysis**
 
 The following chart shows the relationships between multiple performance indicators in an automotive dataset, including fuel economy, cylinders, displacement, horsepower, weight, etc.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -139,7 +139,7 @@ Example 2: **Data Clustering Identification**
 
 Parallel coordinates can be used to identify data groups with similar patterns.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -215,7 +215,7 @@ Example 1: **Too Few Dimensions**
 
 When there are only 2-3 dimensions, scatter plots or other chart types would be more intuitive.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 // Not recommended: Using parallel coordinates for only two dimensions
 import { Chart } from '@antv/g2';
 
@@ -254,7 +254,7 @@ chart.render();
 
 For two-dimensional data, scatter plots are more suitable:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 // Recommended: Using scatter plot for two-dimensional data
 import { Chart } from '@antv/g2';
 
@@ -297,7 +297,7 @@ Example 2: **Too Much Data Causing Visual Clutter**
 
 When there are too many data records, lines will severely overlap, affecting readability.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 // Generate large amounts of data to simulate excessive records
@@ -348,7 +348,7 @@ chart.render();
 
 ### Changing Line Shape
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -426,7 +426,7 @@ chart.render();
 
 Add axis brushing and highlighting functionality to enhance data exploration capabilities:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -510,7 +510,7 @@ chart.render();
 
 Inspired by [Fathom Information Design](https://benfry.com/fortune500/), this example shows how to use parallel coordinates to analyze large-scale enterprise data over time. By displaying three dimensions - ranking, revenue, and profit - you can observe enterprise performance trajectories and relationships across different years.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 // Using real Fortune 500 data

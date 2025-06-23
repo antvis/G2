@@ -133,7 +133,7 @@ The position visual channels of the `interval` mark require values for both `x` 
 
 The `color` visual channel affects the fill color of the `interval` mark. When applied to interval charts, it usually maps to a categorical field and groups the data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,7 +172,7 @@ chart.render();
 
 In some special cases, it can also be mapped to a continuous field, using different colors for different value ranges:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -199,7 +199,7 @@ chart.render();
 
 Configuring the [stackY](/en/manual/core/transform/stack-y) transform allows stacking of grouped areas, forming a stacked area chart and avoiding information loss due to overlap:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -238,7 +238,7 @@ chart.render();
 
 The `series` visual channel divides the data of the `interval` mark into multiple series. It is usually configured together with the `color` channel, or you can configure the [dodgeX](/en/manual/core/transform/dodge-x) transform to generate `series` channel values from the `color` channel, achieving grouping effects based on the `series` channel:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -303,7 +303,7 @@ The display of the `interval` mark varies under different coordinate systems. By
 
 After applying the **transpose transform**, the interval chart appears as a column chart.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -330,7 +330,7 @@ chart.render();
 
 Under the **polar coordinate system**, the interval chart appears as a rose chart, using radius to compare data size.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 Under the **theta coordinate system**, the interval chart appears as a pie chart, using arc size to compare data size.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -386,7 +386,7 @@ chart.render();
 
 Under the **radial coordinate system**, the interval chart appears as a radial chart, also using arcs to compare data size.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

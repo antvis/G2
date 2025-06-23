@@ -50,7 +50,7 @@ chart.render();
 
 `binX` is a transformation operation specifically designed for binning (discretizing) continuous data in the X-axis direction. By configuring `thresholdsX`, you can explicitly specify the binning boundaries in the X-axis direction, enabling fine-grained control over the data.
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -144,7 +144,7 @@ type Channel =
 
 ### Using `bin` + `opacity` to render color-categorized histogram
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -171,7 +171,7 @@ chart.render();
 
 ### Poisson Distribution
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const random = d3Random.randomPoisson(Math.pow(10, 2.6));

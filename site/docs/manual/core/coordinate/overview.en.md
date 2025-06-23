@@ -66,7 +66,7 @@ chart.area():
 
 This feature is beneficial for encapsulating composite marks related to coordinate systems, such as pie charts:
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 function Pie({ encode = {}, ...rest } = {}) {
@@ -126,7 +126,7 @@ The default coordinate system is Cartesian coordinate system. In addition, there
 
 Cartesian coordinate system, the default coordinate system in G2.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -159,7 +159,7 @@ The helix coordinate system is a polar coordinate variant based on the Archimede
 - Radius expansion: r = r0 + kθ (r0 is the starting radius, k is the spiral spacing coefficient, θ is the rotation angle)
 - Angle mapping: θ is linearly converted from data values, with range defined by startAngle and endAngle
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +214,7 @@ chart.render();
 
 Parallel coordinate system is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axis, with each data record represented as a polyline connecting corresponding values on each coordinate axis.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const baseAxis = {
@@ -287,7 +287,7 @@ Polar coordinate system is a non-Cartesian coordinate system that converts point
 - Polar coordinate system converts points (x, y) in Cartesian coordinates to points (r, θ) in polar coordinates.
 - Where r represents the distance to the origin (radius), and θ represents the angle with the x-axis (radians).
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -315,7 +315,7 @@ chart.render();
 
 Radar coordinate system is a specialized form of polar coordinate system, combining parallel coordinate system features, constructing a star-shaped grid through N equally spaced independent dimensional axis, specifically designed for multi-dimensional data comparative analysis. Each axis represents an independent measurement dimension, and data points are presented through closed polygons showing multi-dimensional characteristics.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -391,7 +391,7 @@ chart.render();
 
 Radial coordinate system is an extended implementation of polar coordinate system, enhancing data hierarchical expressiveness through circular spatial layout.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -426,7 +426,7 @@ chart.render();
 
 Theta coordinate system is a specialized form of polar coordinate system, designed specifically for circular data visualization by fixing the radius dimension and enhancing angle dimension analysis capabilities. In G2, it's mainly used for angle-dominant charts like pie charts.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -477,7 +477,7 @@ Coordinate system transforms are configured as follows, and multiple transforms 
 
 A commonly used transformation is the transpose transformation, mainly used to change the orientation of charts. For example, drawing horizontal bar charts.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -504,7 +504,7 @@ chart.render();
 
 Fisheye coordinate system is a special coordinate transformation that applies a Cartesian fisheye effect to input dimensions, magnifying the focus area while compressing areas away from the focus. This transformation is similar to the visual effect of a fisheye lens, allowing you to highlight local details while maintaining a global view.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -592,7 +592,7 @@ chart.render();
 
 Currently, we only support the `cartesian3D` coordinate system. cartesian3D is extended from the 2D Cartesian coordinate system by adding a Z-axis.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';

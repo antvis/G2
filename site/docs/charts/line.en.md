@@ -59,7 +59,7 @@ The following chart is a line chart of stock price trends, showing the change tr
 | 2015/1/7 | 116.75 |
 | ...      | ...    |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -111,7 +111,7 @@ Example 2: **Suitable for displaying comparative trends of multiple data series*
 
 Multi-series line charts can simultaneously display changes of multiple data series over time, facilitating comparative analysis. The following chart shows unemployment rate trends in different regions.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -156,7 +156,7 @@ Example 3: **Displaying subtle data changes and fluctuations**
 
 Line charts can clearly display subtle data changes and fluctuations, especially when there are many data points with frequent changes.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -226,7 +226,7 @@ We take a scenario comparing sales of different game types as an example. For da
 
 **Wrong approach (using line chart):**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -311,7 +311,7 @@ Example 2: **Poor effectiveness when data points are few or changes are insignif
 
 When there are few data points or changes are insignificant, line charts may not fully leverage their advantage of showing trend changes. In such cases, consider using bar charts or dot plots to emphasize comparisons between individual data points.
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -355,7 +355,7 @@ chart.render();
 
 Step line charts use horizontal and vertical line segments to connect data points, creating a step-like effect, suitable for displaying data that changes abruptly at specific time points.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -407,7 +407,7 @@ chart.render();
 
 Dashed line charts use different line styles to distinguish different data series or represent specific meanings, such as predicted values, reference lines, etc.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

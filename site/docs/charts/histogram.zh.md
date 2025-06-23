@@ -61,7 +61,7 @@ similar: ['bar', 'boxplot', 'line', 'area']
 
 下图是一个钻石重量分布的直方图，展示了钻石重量在不同区间的分布情况。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -108,7 +108,7 @@ chart.render();
 
 直方图的关键是如何划分数据区间（即"分箱"），不同的分箱方式会影响对数据分布的理解。下图使用了自定义的分箱数量。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -156,7 +156,7 @@ chart.render();
 
 密度直方图将频数标准化，更适合比较不同规模数据集的分布。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -221,7 +221,7 @@ chart.render();
 
 多分布直方图可以在同一坐标系中展示多个数据集的分布情况，便于比较不同数据集的分布特征。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

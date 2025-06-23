@@ -111,7 +111,7 @@ To control the style of marks, we often bind a column of data to one of its visu
 
 Here is a set of event planning timeline data:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 table([
   { name: 'Event Planning', startTime: 1, endTime: 4 },
   { name: 'Venue Logistics Planning', startTime: 3, endTime: 13 },

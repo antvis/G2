@@ -74,7 +74,7 @@ similar: ['rose', 'radial-bar', 'pie']
 | 运动     | 4.5                       |
 | 学习     | 8.3                       |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -143,7 +143,7 @@ chart.render();
 | 跑分                    | 中兴 Grand Memo  | 82                         |
 | 续航                    | 中兴 Grand Memo  | 78                         |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

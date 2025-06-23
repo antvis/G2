@@ -59,7 +59,7 @@ The chart below is an area chart of stock price trends, showing how a company's 
 | 2015/1/7 | 116.75 |
 | ...      | ...    |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -122,7 +122,7 @@ Example 2: **Suitable for displaying stacked trends of multiple data series**
 
 Stacked area charts can show changes in multiple data series over time, as well as their sum trend. The chart below shows trends in unemployment numbers across different industries.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -171,7 +171,7 @@ Example 3: **Percentage stacked area chart for displaying proportion changes**
 
 When you need to display how each category's proportion of the total changes over time, percentage stacked area charts are a very suitable choice.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -242,7 +242,7 @@ When multiple data series fluctuate dramatically and intersect frequently, using
 
 Range area charts can represent upper and lower limits of data, commonly used to show data uncertainty or fluctuation ranges.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 /**
  * A recreation of this demo: https://www.anychart.com/zh/products/anychart/gallery/Combined_Charts/Range_Spline-Area,_Spline_and_Marker_Chart.php
  */
@@ -304,7 +304,7 @@ chart.render();
 
 Difference area charts are used to compare two data series, highlighting the difference areas between them.
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

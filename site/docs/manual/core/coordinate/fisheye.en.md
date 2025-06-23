@@ -104,7 +104,7 @@ The configuration options for fisheye coordinate systems are as follows:
 
 The simplest usage is to set a fixed fisheye focus, suitable for scenarios that need to highlight specific areas.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 By adding interaction components, you can implement dynamic fisheye effects where the focus changes with mouse movement.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -280,7 +280,7 @@ This example demonstrates how to use fisheye coordinate systems to analyze multi
 
 Fisheye coordinate system transformations can be combined with other coordinate system transformations, such as combining with transpose transformation:
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

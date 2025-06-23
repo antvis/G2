@@ -127,7 +127,7 @@ You can use `Math.PI` to represent π, for example `Math.PI / 2` represents 90°
 
 Coxcomb charts are one of the most common applications of radial coordinate systems, displaying traditional bar charts in a radial coordinate system to create a radial visual effect.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 By applying stacking transforms in the radial coordinate system, you can create radial stacked bar charts suitable for displaying hierarchical data.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -185,7 +185,7 @@ chart.render();
 
 By setting appropriate inner radius and styles, you can create visualization effects similar to Apple Watch activity rings.
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

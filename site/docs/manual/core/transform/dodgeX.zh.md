@@ -17,7 +17,7 @@ order: 2
 
 例如下面的案例展示了美国各州不同年龄段人口的分布情况，通过 `dodgeX` 转换让不同年龄段的数据在同一州内并排展示，便于直观比较。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,7 +91,7 @@ type TransformOrder =
 - **reverse**: 设置为 true，使组内元素按业绩值从高到低排列
 - **padding**: 设置组内元素间距为 0.1
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -63,7 +63,7 @@ chart.render(); // 渲染图标
 
 color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空心形状的时候，例如 hollow ，则会改变图形的 描边颜色）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob {  pin: false , inject true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -161,7 +161,7 @@ chart.render();
 - **bin**: 将连续数据分箱，生成直方图矩形
 - **stackY**: 垂直方向堆叠矩形，自动计算每个分类的堆叠高度
 
-```js | ob { pin: false, inject true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

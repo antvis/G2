@@ -59,7 +59,7 @@ similar: ['area', 'bar', 'scatter', 'stacked-area']
 | 2015/1/7     | 116.75          |
 | ...          | ...             |
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -111,7 +111,7 @@ chart.render();
 
 多系列折线图可以同时展示多个数据系列随时间的变化，便于进行比较分析。下图展示了不同地区失业率的变化趋势。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -156,7 +156,7 @@ chart.render();
 
 折线图可以清晰地展示数据的细微变化和波动，特别是当数据点较多且变化频繁时。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -226,7 +226,7 @@ chart.render();
 
 **错误的做法**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -266,7 +266,7 @@ chart.render();
 
 **正确的做法**
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -311,7 +311,7 @@ chart.render();
 
 当数据点较少或变化不明显时，折线图可能无法充分发挥其展示趋势变化的优势。这种情况下，可以考虑使用柱状图或点图来强调个别数据点的比较。
 
-```js | ob { inject true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -355,7 +355,7 @@ chart.render();
 
 阶梯折线图使用水平和垂直线段连接数据点，形成阶梯状的效果，适合展示在特定时间点发生突变的数据。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -407,7 +407,7 @@ chart.render();
 
 虚线折线图通过不同的线型来区分不同的数据系列或表示特定含义，如预测值、参考线等。
 
-```js | ob { inject true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
