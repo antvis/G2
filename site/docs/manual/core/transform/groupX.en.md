@@ -7,8 +7,8 @@ order: 2
 
 ## Options
 
-| Property  | Description                                              | Type      | Default |
-| --------- | -------------------------------------------------------- | --------- | ------- |
+| Property  | Description                                                 | Type      | Default |
+| --------- | ----------------------------------------------------------- | --------- | ------- |
 | [channel] | Aggregation method for channel data output to specific mark | `Reducer` |         |
 
 For detailed information about `Reducer`, please refer to the configuration options of the [group](/en/manual/core/transform/group) function.

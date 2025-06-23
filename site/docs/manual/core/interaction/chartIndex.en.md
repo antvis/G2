@@ -103,43 +103,43 @@ It can also be configured at the View level. Interactions declared on the view w
 
 ## Configuration Options
 
-| Property           | Description                                                                                                        | Type                                                      | Default  | Required |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- | -------- | -------- |
-| ruleStroke         | Color of the indicator line                                                                                        | string                                                    | `black`  |          |
-| ruleLineWidth      | Width of the indicator line                                                                                        | number                                                    | `1`      |          |
-| ruleLineDash       | Dash configuration. First value is dash length, second is gap length. Setting ruleLineDash to [0,0] means no stroke. | `[number,number]`                                         |          |          |
-| ruleStrokeOpacity  | Opacity of the indicator line                                                                                      | number                                                    |          |          |
-| ruleOpacity        | Overall opacity                                                                                                    | number                                                    |          |          |
-| ruleShadowColor    | Indicator line shadow color                                                                                        | string                                                    |          |          |
-| ruleShadowBlur     | Indicator line Gaussian blur coefficient                                                                           | number                                                    |          |          |
-| ruleShadowOffsetX  | Horizontal distance of shadow from indicator line                                                                  | number                                                    |          |          |
-| ruleShadowOffsetY  | Vertical distance of shadow from indicator line                                                                    | number                                                    |          |          |
-| labelFontSize      | Text size                                                                                                          | number                                                    |          |          |
-| labelFontFamily    | Text font                                                                                                          | string                                                    |          |          |
-| labelFontWeight    | Font weight                                                                                                        | number                                                    |          |          |
-| labelLineHeight    | Text line height                                                                                                   | number                                                    |          |          |
-| labelTextAlign     | Set the current alignment of text content                                                                          | `center` \| `end` \| `left` \| `right` \| `start`        |          |          |
-| labelTextBaseline  | Set the current text baseline used when drawing text                                                               | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |          |          |
-| labelFill          | Text fill color                                                                                                    | string                                                    |          |          |
-| labelFillOpacity   | Text fill opacity                                                                                                  | number                                                    |          |          |
-| labelStroke        | Text stroke                                                                                                        | string                                                    |          |          |
-| labelLineWidth     | Text stroke width                                                                                                  | number                                                    |          |          |
-| labelLineDash      | Stroke dash configuration. First value is dash length, second is gap length. Setting labelLineDash to [0,0] means no stroke. | `[number,number]`                                       |          |          |
-| labelStrokeOpacity | Stroke opacity                                                                                                     | number                                                    |          |          |
-| labelOpacity       | Text overall opacity                                                                                               | number                                                    |          |          |
-| labelShadowColor   | Text shadow color                                                                                                  | string                                                    |          |          |
-| labelShadowBlur    | Text shadow Gaussian blur coefficient                                                                              | number                                                    |          |          |
-| labelShadowOffsetX | Set horizontal distance of shadow from text                                                                        | number                                                    |          |          |
-| labelShadowOffsetY | Set vertical distance of shadow from text                                                                          | number                                                    |          |          |
-| labelDx            | Text offset in x direction                                                                                         | number                                                    |          |          |
-| labelDy            | Text offset in y direction                                                                                         | number                                                    |          |          |
-| labelFormatter     | Format date                                                                                                        | `FormatterFunction`                                       |          |          |
+| Property           | Description                                                                                                                  | Type                                                       | Default | Required |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------- | -------- |
+| ruleStroke         | Color of the indicator line                                                                                                  | string                                                     | `black` |          |
+| ruleLineWidth      | Width of the indicator line                                                                                                  | number                                                     | `1`     |          |
+| ruleLineDash       | Dash configuration. First value is dash length, second is gap length. Setting ruleLineDash to [0,0] means no stroke.         | `[number,number]`                                          |         |          |
+| ruleStrokeOpacity  | Opacity of the indicator line                                                                                                | number                                                     |         |          |
+| ruleOpacity        | Overall opacity                                                                                                              | number                                                     |         |          |
+| ruleShadowColor    | Indicator line shadow color                                                                                                  | string                                                     |         |          |
+| ruleShadowBlur     | Indicator line Gaussian blur coefficient                                                                                     | number                                                     |         |          |
+| ruleShadowOffsetX  | Horizontal distance of shadow from indicator line                                                                            | number                                                     |         |          |
+| ruleShadowOffsetY  | Vertical distance of shadow from indicator line                                                                              | number                                                     |         |          |
+| labelFontSize      | Text size                                                                                                                    | number                                                     |         |          |
+| labelFontFamily    | Text font                                                                                                                    | string                                                     |         |          |
+| labelFontWeight    | Font weight                                                                                                                  | number                                                     |         |          |
+| labelLineHeight    | Text line height                                                                                                             | number                                                     |         |          |
+| labelTextAlign     | Set the current alignment of text content                                                                                    | `center` \| `end` \| `left` \| `right` \| `start`          |         |          |
+| labelTextBaseline  | Set the current text baseline used when drawing text                                                                         | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |         |          |
+| labelFill          | Text fill color                                                                                                              | string                                                     |         |          |
+| labelFillOpacity   | Text fill opacity                                                                                                            | number                                                     |         |          |
+| labelStroke        | Text stroke                                                                                                                  | string                                                     |         |          |
+| labelLineWidth     | Text stroke width                                                                                                            | number                                                     |         |          |
+| labelLineDash      | Stroke dash configuration. First value is dash length, second is gap length. Setting labelLineDash to [0,0] means no stroke. | `[number,number]`                                          |         |          |
+| labelStrokeOpacity | Stroke opacity                                                                                                               | number                                                     |         |          |
+| labelOpacity       | Text overall opacity                                                                                                         | number                                                     |         |          |
+| labelShadowColor   | Text shadow color                                                                                                            | string                                                     |         |          |
+| labelShadowBlur    | Text shadow Gaussian blur coefficient                                                                                        | number                                                     |         |          |
+| labelShadowOffsetX | Set horizontal distance of shadow from text                                                                                  | number                                                     |         |          |
+| labelShadowOffsetY | Set vertical distance of shadow from text                                                                                    | number                                                     |         |          |
+| labelDx            | Text offset in x direction                                                                                                   | number                                                     |         |          |
+| labelDy            | Text offset in y direction                                                                                                   | number                                                     |         |          |
+| labelFormatter     | Format date                                                                                                                  | `FormatterFunction`                                        |         |          |
 
 ## Examples
 
 ### Indicator Line and Text
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

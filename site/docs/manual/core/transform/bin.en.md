@@ -17,7 +17,7 @@ The core purpose of `bin` is to perform binning operations on raw data according
 
 The following example shows how to create a binning chart, displaying the distribution of two rating systems' scores across different score intervals, allowing you to intuitively observe which intervals have more ratings and which have fewer.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -47,17 +47,17 @@ chart.render();
 
 ## Configuration
 
-| Property    | Description                                                    | Type                | Default             |
-| ----------- | -------------------------------------------------------------- | ------------------- | ------------------- |
-| thresholdsX | Number of bins for x-axis                                      | number              | `d3.thresholdScott` |
-| thresholdsY | Number of bins for y-axis                                      | number              | `d3.thresholdScott` |
+| Property    | Description                                                  | Type                | Default             |
+| ----------- | ------------------------------------------------------------ | ------------------- | ------------------- |
+| thresholdsX | Number of bins for x-axis                                    | number              | `d3.thresholdScott` |
+| thresholdsY | Number of bins for y-axis                                    | number              | `d3.thresholdScott` |
 | [channel]   | Aggregation method for channel data output to specific marks | [channel](#channel) |                     |
 
 ### thresholdsX and thresholdsY
 
 `thresholdsX` and `thresholdsY` are two very important configuration options for defining data binning, mainly used in two-dimensional data binning (such as grid charts or heatmaps). They control the binning (interval division) rules or quantities in the X and Y directions respectively, used to divide two-dimensional continuous data into discrete grids.
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -173,7 +173,7 @@ type Channel =
 
 ### Using `bin` + `opacity` to render opacity binning
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -205,7 +205,7 @@ chart.render();
 
 ### Using `bin` + `size` to render size binning
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

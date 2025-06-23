@@ -31,20 +31,20 @@ chart.render();
 
 ## Options
 
-| Property   | Description                             | Type             | Default |
-| ---------- | --------------------------------------- | ---------------- | ------- |
-| layout     | Layout configuration                    | `ForceTransform` | -       |
-| style      | Configure graphics style and label style | -                | -       |
+| Property   | Description                               | Type             | Default |
+| ---------- | ----------------------------------------- | ---------------- | ------- |
+| layout     | Layout configuration                      | `ForceTransform` | -       |
+| style      | Configure graphics style and label style  | -                | -       |
 | nodeLabels | Custom configuration for node data labels | label[]          | []      |
 | linkLabels | Custom configuration for link data labels | label[]          | []      |
 
 ### layout
 
-| Property     | Description                        | Type                      | Default |
-| ------------ | ---------------------------------- | ------------------------- | ------- |
+| Property     | Description                                | Type                      | Default |
+| ------------ | ------------------------------------------ | ------------------------- | ------- |
 | joint        | Discrete force layout or attraction layout | boolean                   | true    |
-| nodeStrength | Node attraction force              | `number \| (d => number)` | -       |
-| linkStrength | Link attraction force              | `number \| (d => number)` | -       |
+| nodeStrength | Node attraction force                      | `number \| (d => number)` | -       |
+| linkStrength | Link attraction force                      | `number \| (d => number)` | -       |
 
 ### style
 

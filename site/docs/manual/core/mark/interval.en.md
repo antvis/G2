@@ -7,7 +7,7 @@ order: 11
 
 The interval mark (`interval`) is a collection of chart marks used to represent upper and lower intervals of data. It is commonly used to draw bar charts, column charts, pie charts, etc. By changing the coordinate system, scales, and data `Transform`, a variety of visual styles can be produced. For example, grouping multiple parallel categories to form a group and then comparing between groups is called a grouped bar chart or clustered column chart. Splitting categories into multiple subcategories forms a stacked bar chart. Combining bar charts with line charts on the same chart is commonly known as a dual-axis chart, and so on. `interval` is the most commonly used `Mark` in the grammar of graphics.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -62,23 +62,23 @@ For more examples, see [Chart Examples - Bar](/en/examples#general-interval), [C
 
 ## Configuration
 
-| Property   | Description                                                                                                   | Type                      | Default                 | Required |
-| ---------- | ------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
+| Property   | Description                                                                                                                                                              | Type                      | Default                | Required |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- | ---------------------- | -------- |
 | encode     | Configure the visual channels of the `interval` mark, including `x`, `y`, `color`, `shape`, etc., to specify the relationship between visual element properties and data | [encode](#encode)         | -                      | ✓        |
-| coordinate | Configure the coordinate system for the `interval` mark, which performs a series of point transformations to change the spatial display form of the mark | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
-| style      | Configure the graphic style of the `interval` mark                                                            | [style](#style)           | -                      |          |
+| coordinate | Configure the coordinate system for the `interval` mark, which performs a series of point transformations to change the spatial display form of the mark                 | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
+| style      | Configure the graphic style of the `interval` mark                                                                                                                       | [style](#style)           | -                      |          |
 
 ### encode
 
 Configure the visual channels of the `interval` mark.
 
-| Property | Description                                                                                                                                              | Type                                        | Default | Required |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- | -------- |
-| x        | Bind the `x` property channel of the `interval` mark, usually an ordered or unordered field from `data`. Can be empty when drawing pie charts           | [encode](/en/manual/core/encode)            | -       | ✓        |
-| y        | Bind the `y` property channel of the `interval` mark, usually a numeric or array field from `data`                                                      | [encode](/en/manual/core/encode)            | -       | ✓        |
+| Property | Description                                                                                                                                                                                                                | Type                                        | Default | Required |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- | -------- |
+| x        | Bind the `x` property channel of the `interval` mark, usually an ordered or unordered field from `data`. Can be empty when drawing pie charts                                                                              | [encode](/en/manual/core/encode)            | -       | ✓        |
+| y        | Bind the `y` property channel of the `interval` mark, usually a numeric or array field from `data`                                                                                                                         | [encode](/en/manual/core/encode)            | -       | ✓        |
 | color    | Bind the `color` property channel of the `interval` mark. Mapping data fields to the color channel will group the data and split it into multiple shapes with different colors, commonly used for stacked bar charts, etc. | [encode](/en/manual/core/encode)            | -       |          |
-| series   | Bind the `series` property channel of the `interval` mark to achieve grouping effects                              | [encode](/en/manual/core/encode)            | -       |          |
-| shape    | Bind the `shape` property channel of the `interval` mark to change the drawing shape of the mark                   | `rect` \| `hollow` \| `funnel` \| `pyramid` | `rect`  |          |
+| series   | Bind the `series` property channel of the `interval` mark to achieve grouping effects                                                                                                                                      | [encode](/en/manual/core/encode)            | -       |          |
+| shape    | Bind the `shape` property channel of the `interval` mark to change the drawing shape of the mark                                                                                                                           | `rect` \| `hollow` \| `funnel` \| `pyramid` | `rect`  |          |
 
 #### x & y
 
@@ -123,17 +123,17 @@ The position visual channels of the `interval` mark require values for both `x` 
 }
 ```
 
-| x channel value | y channel value | Explanation                                         |
-| -------------- | -------------- | --------------------------------------------------- |
-| number         | number         | Standard bar chart, rose chart                      |
-| number         | array          | Interval bar chart, interval rose chart, stacked bar chart, stacked rose chart, funnel chart |
-| empty          | number         | Pie chart                                           |
+| x channel value | y channel value | Explanation                                                                                  |
+| --------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| number          | number          | Standard bar chart, rose chart                                                               |
+| number          | array           | Interval bar chart, interval rose chart, stacked bar chart, stacked rose chart, funnel chart |
+| empty           | number          | Pie chart                                                                                    |
 
 #### color
 
 The `color` visual channel affects the fill color of the `interval` mark. When applied to interval charts, it usually maps to a categorical field and groups the data.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,7 +172,7 @@ chart.render();
 
 In some special cases, it can also be mapped to a continuous field, using different colors for different value ranges:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -199,7 +199,7 @@ chart.render();
 
 Configuring the [stackY](/en/manual/core/transform/stack-y) transform allows stacking of grouped areas, forming a stacked area chart and avoiding information loss due to overlap:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -238,7 +238,7 @@ chart.render();
 
 The `series` visual channel divides the data of the `interval` mark into multiple series. It is usually configured together with the `color` channel, or you can configure the [dodgeX](/en/manual/core/transform/dodge-x) transform to generate `series` channel values from the `color` channel, achieving grouping effects based on the `series` channel:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -282,8 +282,8 @@ chart.render();
 
 The supported shapes for the `interval` mark are as follows:
 
-| Shape   | Description         | Example                                                                                                             |
-| ------- | ------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Shape   | Description           | Example                                                                                                          |
+| ------- | --------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | rect    | Draw filled rectangle | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*y3SSRawOBTMAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | hollow  | Draw hollow rectangle | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qTYkSraMAsQAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | funnel  | Draw funnel shape     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*5l6BTaPpHPwAAAAAAAAAAAAAemJ7AQ/original"></img> |
@@ -293,17 +293,17 @@ The supported shapes for the `interval` mark are as follows:
 
 The display of the `interval` mark varies under different coordinate systems. By changing the coordinate system or applying coordinate transforms, you can draw bar charts, column charts, rose charts, pie charts, and more.
 
-| Coordinate System or Transform | Coordinate System Configuration                        | Chart Type         |
-| ------------------------------ | ----------------------------------------------------- | ------------------ |
-| Cartesian                      | `{ type: 'cartesian' }`                               | Bar, histogram, etc. |
-| transpose transform            | `{ transform: [{ type: 'transpose' }] }`              | Column, etc.         |
-| Polar                          | `{ type: 'polar' }`                                   | Rose, etc.          |
-| Theta                          | `{ type: 'theta' }`                                   | Pie, donut, etc.     |
-| Radial                         | `{ type: 'radial' }`                                  | Radial, etc.        |
+| Coordinate System or Transform | Coordinate System Configuration          | Chart Type           |
+| ------------------------------ | ---------------------------------------- | -------------------- |
+| Cartesian                      | `{ type: 'cartesian' }`                  | Bar, histogram, etc. |
+| transpose transform            | `{ transform: [{ type: 'transpose' }] }` | Column, etc.         |
+| Polar                          | `{ type: 'polar' }`                      | Rose, etc.           |
+| Theta                          | `{ type: 'theta' }`                      | Pie, donut, etc.     |
+| Radial                         | `{ type: 'radial' }`                     | Radial, etc.         |
 
 After applying the **transpose transform**, the interval chart appears as a column chart.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -330,7 +330,7 @@ chart.render();
 
 Under the **polar coordinate system**, the interval chart appears as a rose chart, using radius to compare data size.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 Under the **theta coordinate system**, the interval chart appears as a pie chart, using arc size to compare data size.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -386,7 +386,7 @@ chart.render();
 
 Under the **radial coordinate system**, the interval chart appears as a radial chart, also using arcs to compare data size.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -423,43 +423,93 @@ chart.render();
 
 Configure the style of the `interval` mark.
 
-| Property              | Description                                                                                                                         | Type                                                             | Default                    | Required |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------- | -------- |
-| columnWidthRatio      | Set the bar width ratio, range `0` - `1`                                                                                            | number \| (d, index, data, column) => number                      | `0.9`                      |          |
-| minWidth              | Minimum width of the interval bar, in pixels                                                                                        | number \| (d, index, data, column) => number                      | `- Infinity`               |          |
-| maxWidth              | Maximum width of the interval bar, in pixels                                                                                        | number \| (d, index, data, column) => number                      | `Infinity`                 |          |
-| minHeight             | Minimum height of the interval bar, in pixels                                                                                       | number \| (d, index, data, column) => number                      | `- Infinity`               |          |
-| radius                | Border radius for all four corners of the outer rectangle                                                                           | number \| (d, index, data, column) => number                      | `0`                        |          |
-| radiusTopLeft         | Top-left corner radius                                                                                                               | number \| (d, index, data, column) => number                      | `0`                        |          |
-| radiusTopRight        | Top-right corner radius                                                                                                              | number \| (d, index, data, column) => number                      | `0`                        |          |
-| radiusBottomRight     | Bottom-right corner radius                                                                                                           | number \| (d, index, data, column) => number                      | `0`                        |          |
-| radiusBottomLeft      | Bottom-left corner radius                                                                                                            | number \| (d, index, data, column) => number                      | `0`                        |          |
-| innerRadius           | Border radius for all four corners of the inner rectangle                                                                           | number \| (d, index, data, column) => number                      | `0`                        |          |
-| innerRadiusTopLeft    | Top-left corner radius of the inner rectangle                                                                                        | number \| (d, index, data, column) => number                      | `0`                        |          |
-| innerRadiusTopRight   | Top-right corner radius of the inner rectangle                                                                                       | number \| (d, index, data, column) => number                      | `0`                        |          |
-| innerRadiusBottomRight| Bottom-right corner radius of the inner rectangle                                                                                     | number \| (d, index, data, column) => number                      | `0`                        |          |
-| innerRadiusBottomLeft | Bottom-left corner radius of the inner rectangle                                                                                     | number \| (d, index, data, column) => number                      | `0`                        |          |
-| inset                 | Inset padding for all four directions of the rectangle                                                                              | number \| (d, index, data, column) => number                      | `0`                        |          |
-| insetLeft             | Left inset padding                                                                                                                   | number \| (d, index, data, column) => number                      | `0`                        |          |
-| insetRight            | Right inset padding                                                                                                                  | number \| (d, index, data, column) => number                      | `0`                        |          |
-| insetBottom           | Bottom inset padding                                                                                                                 | number \| (d, index, data, column) => number                      | `0`                        |          |
-| insetTop              | Top inset padding                                                                                                                    | number \| (d, index, data, column) => number                      | `0`                        |          |
-| fill                  | Fill color of the graphic                                                                                                            | string \| (d, index, data, column) => string                      | '' (when `hollow`)         |          |
-| fillOpacity           | Fill opacity of the graphic                                                                                                          | number \| (d, index, data, column) => number                      | 0.95 (when `rect`)         |          |
-| stroke                | Stroke of the graphic                                                                                                                | string \| (d, index, data, column) => string                      | -                          |          |
-| strokeOpacity         | Stroke opacity                                                                                                                       | number \| (d, index, data, column) => number                      | 1 (when `hollow`)          |          |
-| lineWidth             | Width of the graphic stroke                                                                                                          | number \| (d, index, data, column) => number                      | 2 (when `hollow`)          |          |
-| lineDash              | Dashed stroke configuration. The first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke. | [number,number] \| (d, index, data, column) => [number , number] | -                          |          |
-| opacity               | Overall opacity of the graphic                                                                                                       | number \| (d, index, data, column) => number                      | -                          |          |
-| shadowColor           | Shadow color of the graphic                                                                                                          | string \| (d, index, data, column) => string                      | -                          |          |
-| shadowBlur            | Gaussian blur coefficient of the graphic shadow                                                                                      | number \| (d, index, data, column) => number                      | -                          |          |
-| shadowOffsetX         | Horizontal distance of the shadow from the graphic                                                                                   | number \| (d, index, data, column) => number                      | -                          |          |
-| shadowOffsetY         | Vertical distance of the shadow from the graphic                                                                                     | number \| (d, index, data, column) => number                      | -                          |          |
-| cursor                | Mouse cursor style. Same as CSS cursor style.                                                                                        | string \| (d, index, data, column) => string                      | `default`                  |          |
+| Property               | Description                                                                                                                                                                          | Type                                                             | Default            | Required |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- | ------------------ | -------- |
+| columnWidthRatio       | Set the bar width ratio, range `0` - `1`                                                                                                                                             | number \| (d, index, data, column) => number                     | `0.9`              |          |
+| minWidth               | Minimum width of the interval bar, in pixels                                                                                                                                         | number \| (d, index, data, column) => number                     | `- Infinity`       |          |
+| maxWidth               | Maximum width of the interval bar, in pixels                                                                                                                                         | number \| (d, index, data, column) => number                     | `Infinity`         |          |
+| minHeight              | Minimum height of the interval bar, in pixels                                                                                                                                        | number \| (d, index, data, column) => number                     | `- Infinity`       |          |
+| radius                 | Border radius for all four corners of the outer rectangle                                                                                                                            | number \| (d, index, data, column) => number                     | `0`                |          |
+| radiusTopLeft          | Top-left corner radius                                                                                                                                                               | number \| (d, index, data, column) => number                     | `0`                |          |
+| radiusTopRight         | Top-right corner radius                                                                                                                                                              | number \| (d, index, data, column) => number                     | `0`                |          |
+| radiusBottomRight      | Bottom-right corner radius                                                                                                                                                           | number \| (d, index, data, column) => number                     | `0`                |          |
+| radiusBottomLeft       | Bottom-left corner radius                                                                                                                                                            | number \| (d, index, data, column) => number                     | `0`                |          |
+| innerRadius            | Border radius for all four corners of the inner rectangle                                                                                                                            | number \| (d, index, data, column) => number                     | `0`                |          |
+| innerRadiusTopLeft     | Top-left corner radius of the inner rectangle                                                                                                                                        | number \| (d, index, data, column) => number                     | `0`                |          |
+| innerRadiusTopRight    | Top-right corner radius of the inner rectangle                                                                                                                                       | number \| (d, index, data, column) => number                     | `0`                |          |
+| innerRadiusBottomRight | Bottom-right corner radius of the inner rectangle                                                                                                                                    | number \| (d, index, data, column) => number                     | `0`                |          |
+| innerRadiusBottomLeft  | Bottom-left corner radius of the inner rectangle                                                                                                                                     | number \| (d, index, data, column) => number                     | `0`                |          |
+| inset                  | Inset padding for all four directions of the rectangle                                                                                                                               | number \| (d, index, data, column) => number                     | `0`                |          |
+| insetLeft              | Left inset padding                                                                                                                                                                   | number \| (d, index, data, column) => number                     | `0`                |          |
+| insetRight             | Right inset padding                                                                                                                                                                  | number \| (d, index, data, column) => number                     | `0`                |          |
+| insetBottom            | Bottom inset padding                                                                                                                                                                 | number \| (d, index, data, column) => number                     | `0`                |          |
+| insetTop               | Top inset padding                                                                                                                                                                    | number \| (d, index, data, column) => number                     | `0`                |          |
+| fill                   | Fill color of the graphic                                                                                                                                                            | string \| (d, index, data, column) => string                     | '' (when `hollow`) |          |
+| fillOpacity            | Fill opacity of the graphic                                                                                                                                                          | number \| (d, index, data, column) => number                     | 0.95 (when `rect`) |          |
+| stroke                 | Stroke of the graphic                                                                                                                                                                | string \| (d, index, data, column) => string                     | -                  |          |
+| strokeOpacity          | Stroke opacity                                                                                                                                                                       | number \| (d, index, data, column) => number                     | 1 (when `hollow`)  |          |
+| lineWidth              | Width of the graphic stroke                                                                                                                                                          | number \| (d, index, data, column) => number                     | 2 (when `hollow`)  |          |
+| lineDash               | Dashed stroke configuration. The first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke. | [number,number] \| (d, index, data, column) => [number , number] | -                  |          |
+| opacity                | Overall opacity of the graphic                                                                                                                                                       | number \| (d, index, data, column) => number                     | -                  |          |
+| shadowColor            | Shadow color of the graphic                                                                                                                                                          | string \| (d, index, data, column) => string                     | -                  |          |
+| shadowBlur             | Gaussian blur coefficient of the graphic shadow                                                                                                                                      | number \| (d, index, data, column) => number                     | -                  |          |
+| shadowOffsetX          | Horizontal distance of the shadow from the graphic                                                                                                                                   | number \| (d, index, data, column) => number                     | -                  |          |
+| shadowOffsetY          | Vertical distance of the shadow from the graphic                                                                                                                                     | number \| (d, index, data, column) => number                     | -                  |          |
+| cursor                 | Mouse cursor style. Same as CSS cursor style.                                                                                                                                        | string \| (d, index, data, column) => string                     | `default`          |          |
 
 Try it out:
 
-<Playground path="general/interval/demo/interval-style.ts" rid="interval-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'stackY' }],
+  style: {
+    minHeight: 20,
+    columnWidthRatio: 0.5,
+    radiusTopLeft: 20,
+    radiusTopRight: 20,
+    insetBottom: 5,
+    // 绘图属性
+    fill: (d) => (d.name === 'London' ? '#688FD4' : '#55BECC'), // 绘图属性也可以是一个回调函数
+    fillOpacity: 0.9,
+    stroke: '#fff',
+    lineWidth: 1,
+    lineDash: [4, 5],
+    strokeOpacity: 0.5,
+    opacity: 1,
+    shadowColor: '#BABBBD',
+    shadowBlur: 10,
+    shadowOffsetX: 5,
+    shadowOffsetY: 5,
+    cursor: 'pointer',
+  },
+});
+
+chart.render();
+```
 
 ## Examples
 
@@ -467,7 +517,7 @@ Try it out:
 
 When configuring the `y` channel, return a callback function to distinguish positive and negative values based on a categorical field.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

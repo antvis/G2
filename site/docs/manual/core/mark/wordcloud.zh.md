@@ -13,7 +13,7 @@ order: 27
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -185,7 +185,7 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 - 图像加载：在使用图片遮罩时，确保图像资源已经完全加载，否则可能会出现渲染问题。
 - 性能影响：复杂形状（例如高分辨率图片）可能会影响词云的构造速度。
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

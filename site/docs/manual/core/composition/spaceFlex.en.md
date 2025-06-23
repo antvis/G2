@@ -80,11 +80,11 @@ For more examples, visit the [Chart Examples](/en/examples) page.
 
 Currently flex mainly provides the two most core configurations for convenient space partitioning.
 
-| Property  | Description                                               | Type           | Default     |
-| --------- | --------------------------------------------------------- | -------------- | ----------- |
+| Property  | Description                                                                  | Type           | Default        |
+| --------- | ---------------------------------------------------------------------------- | -------------- | -------------- |
 | ratio     | Set the proportion of space occupied by child elements in the flex container | `number[]`     | Equal division |
-| direction | Set the direction for flex space division                 | `col` \| `row` | `row`       |
-| data      | Data for the flex container                               | `Data`         |             |
+| direction | Set the direction for flex space division                                    | `col` \| `row` | `row`          |
+| data      | Data for the flex container                                                  | `Data`         |                |
 
 All configurations corresponding to `spaceFlex` can be set using the API, for example:
 

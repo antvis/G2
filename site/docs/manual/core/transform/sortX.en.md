@@ -21,12 +21,12 @@ order: 2
 
 ## Configuration Options
 
-| Property | Description                                                  | Type                         | Default |
-| -------- | ------------------------------------------------------------ | ---------------------------- | ------- |
-| by       | Specify the sorting channel (e.g., 'y', 'color', 'size', etc.) | `string`                     | `'y'`   |
-| reverse  | Whether to reverse the order                                 | `boolean`                    | `false` |
-| slice    | Select a slice range (e.g., top N items, interval)          | `number \| [number, number]` |         |
-| reducer  | Aggregation method for grouped comparisons                   | `Reducer`                    | `'max'` |
+| Property | Description                                                                 | Type                         | Default |
+| -------- | --------------------------------------------------------------------------- | ---------------------------- | ------- |
+| by       | Specify the sorting channel (e.g., 'y', 'color', 'size', etc.)              | `string`                     | `'y'`   |
+| reverse  | Whether to reverse the order                                                | `boolean`                    | `false` |
+| slice    | Select a slice range (e.g., top N items, interval)                          | `number \| [number, number]` |         |
+| reducer  | Aggregation method for grouped comparisons                                  | `Reducer`                    | `'max'` |
 | ordinal  | Whether to handle as categorical channel (set to false for continuous data) | `boolean`                    | `true`  |
 
 ### by
@@ -67,7 +67,7 @@ type Reducer =
 
 ### 1. Bar Chart Sorted by y Values in Descending Order
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,7 +91,7 @@ chart.render();
 
 ### 2. Show Only Top 3 Items (slice)
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ chart.render();
 
 ### 3. Used with dodgeX, Sorting After Grouping
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -141,7 +141,7 @@ chart.render();
 
 ### 4. Complex Sorting with Reducer Configuration
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

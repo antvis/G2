@@ -9,7 +9,7 @@ order: 7
 
 `density` 的核心目标是从散点或点云数据中提取出其整体分布模式，并将其密度信息映射为一个连续的区域图或渐变效果。这种图表通常用于分析大量数据点的聚集区域、数据集中热点或数据分布的概率密度，例如在地理可视化中用于表示人口分布的密集程度，或者在分析中展示交易频率的区域性。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

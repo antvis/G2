@@ -6,7 +6,6 @@ category: ['comparison', 'flow']
 similar: ['sankey']
 ---
 
-
 <img alt="funnel" src="https://os.alipayobjects.com/rmsportal/eArJFAYwiiFeJpk.png" width=600/>
 
 ## 漏斗图的简介
@@ -25,8 +24,8 @@ similar: ['sankey']
 
 <img alt="basic-funnel" src="https://os.alipayobjects.com/rmsportal/eArJFAYwiiFeJpk.png" width=600 />
 
-| 图表类型         | 基础漏斗图                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------- |
+| 图表类型         | 基础漏斗图                                                                         |
+| ---------------- | ---------------------------------------------------------------------------------- |
 | 适合的数据       | 有序分类数据：表示流程各阶段的分类字段、每个阶段的数值字段                         |
 | 功能             | 展示业务流程各阶段的数据流转和转化率                                               |
 | 数据与图形的映射 | 分类字段映射到漏斗的各层<br>数值字段映射到漏斗各层的宽度或面积<br>颜色区分不同阶段 |
@@ -42,18 +41,18 @@ similar: ['sankey']
 
 | stage（阶段） | value（数量） |
 | ------------- | ------------- |
-| 访问         | 8043          |
-| 咨询         | 2136          |
-| 报价         | 908           |
-| 议价         | 691           |
-| 成交         | 527           |
+| 访问          | 8043          |
+| 咨询          | 2136          |
+| 报价          | 908           |
+| 议价          | 691           |
+| 成交          | 527           |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic'
+  theme: 'classic',
 });
 
 chart.options({
@@ -71,7 +70,7 @@ chart.options({
     color: 'stage',
     shape: 'funnel',
   },
-  coordinate: { transform: [{ type: "transpose" }] },
+  coordinate: { transform: [{ type: 'transpose' }] },
   transform: [
     {
       type: 'symmetryY',
@@ -85,13 +84,13 @@ chart.options({
   style: {
     labelText: (d) => `${d.stage}: ${d.value}`,
   },
-  animate: { enter: { type: "fadeIn" } },
+  animate: { enter: { type: 'fadeIn' } },
   axis: false,
   labels: [
     {
       text: (d) => `${d.stage}\n${d.value}`,
-      position: "inside",
-      transform: [{ type: "contrastReverse" }],
+      position: 'inside',
+      transform: [{ type: 'contrastReverse' }],
     },
   ],
   legend: false,
@@ -99,7 +98,6 @@ chart.options({
 
 chart.render();
 ```
-
 
 **说明** ：
 
@@ -111,12 +109,12 @@ chart.render();
 
 漏斗图可以有效地分析网站流量从访问到最终行为的转化过程，帮助识别用户流失的关键环节。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic'
+  theme: 'classic',
 });
 
 chart.options({
@@ -134,7 +132,7 @@ chart.options({
     color: 'stage',
     shape: 'funnel',
   },
-  coordinate: { transform: [{ type: "transpose" }] },
+  coordinate: { transform: [{ type: 'transpose' }] },
   transform: [
     {
       type: 'symmetryY',
@@ -148,13 +146,13 @@ chart.options({
   style: {
     labelText: (d) => `${d.stage}: ${d.percent}`,
   },
-  animate: { enter: { type: "fadeIn" } },
+  animate: { enter: { type: 'fadeIn' } },
   axis: false,
   labels: [
     {
       text: (d) => `${d.stage}\n${d.percent}`,
-      position: "inside",
-      transform: [{ type: "contrastReverse" }],
+      position: 'inside',
+      transform: [{ type: 'contrastReverse' }],
     },
   ],
   legend: false,
@@ -164,6 +162,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 每一层代表网站流量转化的不同阶段
 - 层的宽度反映了该阶段的用户数量
 - 通过比较相邻层的差异，可以发现用户流失的主要环节
@@ -173,12 +172,12 @@ chart.render();
 
 当需要比较不同渠道或时期的转化效果时，可以使用对比漏斗图进行分析。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
-  theme: 'classic'
+  theme: 'classic',
 });
 
 chart.options({
@@ -207,7 +206,7 @@ chart.options({
         color: 'stage',
         shape: 'funnel',
       },
-      coordinate: { transform: [{ type: "transpose" }] },
+      coordinate: { transform: [{ type: 'transpose' }] },
       transform: [
         {
           type: 'symmetryY',
@@ -219,13 +218,13 @@ chart.options({
       style: {
         labelText: (d) => `${d.value}`,
       },
-      animate: { enter: { type: "fadeIn" } },
+      animate: { enter: { type: 'fadeIn' } },
       axis: false,
       labels: [
         {
           text: (d) => `${d.value}`,
-          position: "inside",
-          transform: [{ type: "contrastReverse" }],
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
         },
       ],
       title: '渠道A',
@@ -240,7 +239,7 @@ chart.options({
         color: 'stage',
         shape: 'funnel',
       },
-      coordinate: { transform: [{ type: "transpose" }] },
+      coordinate: { transform: [{ type: 'transpose' }] },
       transform: [
         {
           type: 'symmetryY',
@@ -252,13 +251,13 @@ chart.options({
       style: {
         labelText: (d) => `${d.value}`,
       },
-      animate: { enter: { type: "fadeIn" } },
+      animate: { enter: { type: 'fadeIn' } },
       axis: false,
       labels: [
         {
           text: (d) => `${d.value}`,
-          position: "inside",
-          transform: [{ type: "contrastReverse" }],
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
         },
       ],
       title: '渠道B',
@@ -271,6 +270,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 左右并排展示两个渠道的转化漏斗，实现直观对比
 - 通过相同的颜色编码对应相同的阶段，便于比较
 - 可以清晰地观察到不同渠道在各个阶段的转化效率差异
@@ -291,74 +291,74 @@ chart.render();
 
 对比漏斗图可以更清晰地展示两个不同流程或实体的转化效果对比，帮助识别不同方案之间的差异和优劣。
 
-```js | ob { autoMount: true  }
-import { Chart } from "@antv/g2";
+```js | ob { inject true  }
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: [
-    { action: "访问", visitor: 500, site: "站点1" },
-    { action: "浏览", visitor: 400, site: "站点1" },
-    { action: "交互", visitor: 300, site: "站点1" },
-    { action: "下单", visitor: 200, site: "站点1" },
-    { action: "完成", visitor: 100, site: "站点1" },
-    { action: "访问", visitor: 550, site: "站点2" },
-    { action: "浏览", visitor: 420, site: "站点2" },
-    { action: "交互", visitor: 280, site: "站点2" },
-    { action: "下单", visitor: 150, site: "站点2" },
-    { action: "完成", visitor: 80, site: "站点2" },
+    { action: '访问', visitor: 500, site: '站点1' },
+    { action: '浏览', visitor: 400, site: '站点1' },
+    { action: '交互', visitor: 300, site: '站点1' },
+    { action: '下单', visitor: 200, site: '站点1' },
+    { action: '完成', visitor: 100, site: '站点1' },
+    { action: '访问', visitor: 550, site: '站点2' },
+    { action: '浏览', visitor: 420, site: '站点2' },
+    { action: '交互', visitor: 280, site: '站点2' },
+    { action: '下单', visitor: 150, site: '站点2' },
+    { action: '完成', visitor: 80, site: '站点2' },
   ],
   scale: {
     x: { padding: 0 },
-    color: { range: ["#0050B3", "#1890FF", "#40A9FF", "#69C0FF", "#BAE7FF"] },
+    color: { range: ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'] },
   },
-  coordinate: { transform: [{ type: "transpose" }] },
+  coordinate: { transform: [{ type: 'transpose' }] },
   axis: false,
   children: [
     {
-      type: "interval",
+      type: 'interval',
       data: {
-        transform: [{ type: "filter", callback: (d) => d.site === "站点1" }],
+        transform: [{ type: 'filter', callback: (d) => d.site === '站点1' }],
       },
-      encode: { x: "action", y: "visitor", color: "action", shape: "funnel" },
-      style: { stroke: "#FFF" },
-      animate: { enter: { type: "fadeIn" } },
+      encode: { x: 'action', y: 'visitor', color: 'action', shape: 'funnel' },
+      style: { stroke: '#FFF' },
+      animate: { enter: { type: 'fadeIn' } },
       labels: [
         {
-          text: "visitor",
-          position: "inside",
-          transform: [{ type: "contrastReverse" }],
+          text: 'visitor',
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
         },
         {
-          text: "action",
-          position: "right",
+          text: 'action',
+          position: 'right',
           dx: (d) => {
-            return d.action === "完成" ? 48 : 16;
+            return d.action === '完成' ? 48 : 16;
           },
         },
       ],
     },
     {
-      type: "interval",
+      type: 'interval',
       data: {
-        transform: [{ type: "filter", callback: (d) => d.site === "站点2" }],
+        transform: [{ type: 'filter', callback: (d) => d.site === '站点2' }],
       },
       encode: {
-        x: "action",
+        x: 'action',
         y: (d) => -d.visitor,
-        color: "action",
-        shape: "funnel",
+        color: 'action',
+        shape: 'funnel',
       },
-      style: { stroke: "#FFF" },
-      animate: { enter: { type: "fadeIn" } },
+      style: { stroke: '#FFF' },
+      animate: { enter: { type: 'fadeIn' } },
       labels: [
         {
-          text: "visitor",
-          position: "inside",
-          transform: [{ type: "contrastReverse" }],
+          text: 'visitor',
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
         },
       ],
     },
@@ -366,10 +366,10 @@ chart.options({
 });
 
 chart.render();
-
 ```
 
 **说明**：
+
 - 使用水平对比的布局展示两个站点的转化漏斗效果
 - 上下两个漏斗分别展示不同站点的数据，便于直观对比
 - 通过 y 轴负值变换实现下方漏斗的反向展示，形成镜像对比效果
@@ -379,27 +379,27 @@ chart.render();
 
 金字塔形漏斗图是一种变体，通过对称的金字塔形状展示转化流程，能够更突出各阶段的转化率变化。
 
-```js | ob { autoMount: true  }
-import { Chart } from "@antv/g2";
+```js | ob { inject true  }
+import { Chart } from '@antv/g2';
 
-const chart = new Chart({ container: "container" });
+const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: "interval",
+  type: 'interval',
   autoFit: true,
   paddingRight: 80,
   data: {
-    type: "inline",
+    type: 'inline',
     value: [
-      { action: "浏览网站", pv: 50000 },
-      { action: "放入购物车", pv: 35000 },
-      { action: "生成订单", pv: 25000 },
-      { action: "支付订单", pv: 15000 },
-      { action: "完成交易", pv: 8000 },
+      { action: '浏览网站', pv: 50000 },
+      { action: '放入购物车', pv: 35000 },
+      { action: '生成订单', pv: 25000 },
+      { action: '支付订单', pv: 15000 },
+      { action: '完成交易', pv: 8000 },
     ],
     transform: [
       {
-        type: "custom",
+        type: 'custom',
         callback: (data) =>
           data.map((d) => ({
             ...d,
@@ -408,28 +408,28 @@ chart.options({
       },
     ],
   },
-  encode: { x: "action", y: "pv", color: "action", shape: "pyramid" },
-  transform: [{ type: "symmetryY" }],
+  encode: { x: 'action', y: 'pv', color: 'action', shape: 'pyramid' },
+  transform: [{ type: 'symmetryY' }],
   scale: { x: { padding: 0 } },
-  coordinate: { transform: [{ type: "transpose" }] },
-  animate: { enter: { type: "fadeIn" } },
+  coordinate: { transform: [{ type: 'transpose' }] },
+  animate: { enter: { type: 'fadeIn' } },
   axis: false,
-  legend: { color: { position: "bottom" } },
+  legend: { color: { position: 'bottom' } },
   labels: [
-    { text: (d) => `${d.action} ${d.pv}`, textAlign: "left" },
+    { text: (d) => `${d.action} ${d.pv}`, textAlign: 'left' },
     {
       text: (d) => `${(d.rate * 100).toFixed(1)}%`,
-      position: "inside",
-      transform: [{ type: "contrastReverse" }],
+      position: 'inside',
+      transform: [{ type: 'contrastReverse' }],
     },
   ],
 });
 
 chart.render();
-
 ```
 
 **说明**：
+
 - 使用 `shape: "pyramid"` 创建对称的金字塔形状，视觉效果更加平衡
 - 通过 `symmetryY` 变换实现上下对称的金字塔布局
 - 自动计算并显示每个阶段的转化率百分比

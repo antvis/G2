@@ -32,21 +32,21 @@ Let's introduce the configuration options for creating each of the three rendere
 
 ### Canvas Renderer
 
-| Property                           | Description                              | Type      | Default |
-| ---------------------------------- | ---------------------------------------- | --------- | ------- |
-| enableDirtyRectangleRendering      | Whether to enable "dirty rectangle" rendering | `boolean` | `true`  |
+| Property                           | Description                                              | Type      | Default |
+| ---------------------------------- | -------------------------------------------------------- | --------- | ------- |
+| enableDirtyRectangleRendering      | Whether to enable "dirty rectangle" rendering            | `boolean` | `true`  |
 | enableDirtyRectangleRenderingDebug | Whether to enable "dirty rectangle" rendering debug mode | `boolean` | `false` |
 
 ### SVG Renderer
 
-| Property           | Description                                        | Type      | Default |
-| ------------------ | -------------------------------------------------- | --------- | ------- |
+| Property           | Description                                            | Type      | Default |
+| ------------------ | ------------------------------------------------------ | --------- | ------- |
 | outputSVGElementId | Whether to add id attribute when generating SVGElement | `boolean` | `true`  |
 
 ### WebGL Renderer
 
-| Property | Description                                          | Type       | Default                |
-| -------- | ---------------------------------------------------- | ---------- | ---------------------- |
+| Property | Description                                              | Type       | Default                |
+| -------- | -------------------------------------------------------- | ---------- | ---------------------- |
 | targets  | Select rendering environment and auto-downgrade in order | `string[]` | `['webgl2', 'webgl1']` |
 
 ### UMD Usage

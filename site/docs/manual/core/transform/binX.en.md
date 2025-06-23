@@ -18,7 +18,7 @@ Similar to bin, binX is specifically used for data binning in the X-axis directi
 
 To bin the Y channel, use binX + transpose coordinate system.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -41,16 +41,16 @@ chart.render();
 
 ## Configuration Options
 
-| Property   | Description                                           | Type                | Default             |
-| ---------- | ----------------------------------------------------- | ------------------- | ------------------- |
-| thresholds | Number of bins for x binning                          | number              | `d3.thresholdScott` |
+| Property   | Description                                            | Type                | Default             |
+| ---------- | ------------------------------------------------------ | ------------------- | ------------------- |
+| thresholds | Number of bins for x binning                           | number              | `d3.thresholdScott` |
 | [channel]  | Aggregation method for outputting data to mark channel | [channel](#channel) |                     |
 
 ### thresholdsX
 
 `binX` is a transformation operation specifically designed for binning (discretizing) continuous data in the X-axis direction. By configuring `thresholdsX`, you can explicitly specify the binning boundaries in the X-axis direction, enabling fine-grained control over the data.
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -144,7 +144,7 @@ type Channel =
 
 ### Using `bin` + `opacity` to render color-categorized histogram
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -171,7 +171,7 @@ chart.render();
 
 ### Poisson Distribution
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const random = d3Random.randomPoisson(Math.pow(10, 2.6));

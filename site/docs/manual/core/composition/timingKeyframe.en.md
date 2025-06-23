@@ -52,9 +52,9 @@ fetch(
 
 ## Options
 
-| Property       | Description                                                       | Type     | Default    |
-| -------------- | ----------------------------------------------------------------- | -------- | ---------- |
-| duration       | Animation transition time for each view                           | `number` | 1000       |
-| iterationCount | `'infinite' \| number`                                            |          | 1          |
-| direction      | `'normal' \| 'reverse' \| 'alternate' \| 'reverse-alternate'`     | `number` | `'normal'` |
-| children       | View nodes that execute animations                                | `Node[]` | `[]`       |
+| Property       | Description                                                   | Type     | Default    |
+| -------------- | ------------------------------------------------------------- | -------- | ---------- |
+| duration       | Animation transition time for each view                       | `number` | 1000       |
+| iterationCount | `'infinite' \| number`                                        |          | 1          |
+| direction      | `'normal' \| 'reverse' \| 'alternate' \| 'reverse-alternate'` | `number` | `'normal'` |
+| children       | View nodes that execute animations                            | `Node[]` | `[]`       |

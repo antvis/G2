@@ -61,14 +61,14 @@ Scrollbar filtering interaction can be configured at the View level:
 
 Scrollbar filtering interaction supports the following configuration options:
 
-| Property      | Description                                                          | Type                                         | Default                                            | Required |
-| ------------- | -------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------- | -------- |
-| initDomain    | Initialize the data domain range, used to set initial filter range  | { x: [number, number], y: [number, number] } | Automatically calculated based on data             | No       |
-| className     | CSS class name for scrollbar, used for style customization and DOM selection | string                           | 'g2-scrollbar'                                    | No       |
-| prefix        | Event prefix, used to define triggered event names                  | string                                       | 'scrollbar'                                        | No       |
-| hasState      | Whether to enable state management, controls state changes during scrollbar filtering | boolean                      | true                                               | No       |
-| setValue      | Custom function to set scrollbar value                              | (component, values) => void                  | (component, values) => component.setValue(values[0]) | No       |
-| getInitValues | Custom function to get scrollbar initial values                     | (scrollbar) => any                           | Internal default implementation                    | No       |
+| Property      | Description                                                                           | Type                                         | Default                                              | Required |
+| ------------- | ------------------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------- | -------- |
+| initDomain    | Initialize the data domain range, used to set initial filter range                    | { x: [number, number], y: [number, number] } | Automatically calculated based on data               | No       |
+| className     | CSS class name for scrollbar, used for style customization and DOM selection          | string                                       | 'g2-scrollbar'                                       | No       |
+| prefix        | Event prefix, used to define triggered event names                                    | string                                       | 'scrollbar'                                          | No       |
+| hasState      | Whether to enable state management, controls state changes during scrollbar filtering | boolean                                      | true                                                 | No       |
+| setValue      | Custom function to set scrollbar value                                                | (component, values) => void                  | (component, values) => component.setValue(values[0]) | No       |
+| getInitValues | Custom function to get scrollbar initial values                                       | (scrollbar) => any                           | Internal default implementation                      | No       |
 
 ### Complex Type Description
 
@@ -144,11 +144,11 @@ You can customize this function to control the initial position of the scrollbar
 
 In addition to the scrollbarFilter interaction configuration, the scrollbar component itself has some important configuration options that affect the behavior of scrollbar filtering:
 
-| Property | Description                                | Type           | Default | Required |
-| -------- | ------------------------------------------ | -------------- | ------- | -------- |
+| Property | Description                                 | Type           | Default | Required |
+| -------- | ------------------------------------------- | -------------- | ------- | -------- |
 | ratio    | Ratio of displayed data, value range [0, 1] | number         | 1       | No       |
-| style    | Style configuration for scrollbar          | ScrollbarStyle | -       | No       |
-| animate  | Whether to enable animation               | boolean        | true    | No       |
+| style    | Style configuration for scrollbar           | ScrollbarStyle | -       | No       |
+| animate  | Whether to enable animation                 | boolean        | true    | No       |
 
 For detailed documentation see [Scrollbar Component](/en/manual/component/scrollbar)
 
@@ -196,7 +196,7 @@ chart.emit('scrollbarY:filter', {
 
 The following example shows how to add basic X-axis scrollbar filtering functionality to a column chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -224,7 +224,7 @@ chart.render();
 
 This example shows how to listen to the scrollbar's valuechange event to get the values before and after scrollbar sliding:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -249,7 +249,7 @@ chart.options({
 chart.on('afterrender', () => {
   const { canvas } = chart.getContext();
   const scrollbar = canvas.document.getElementsByClassName('g2-scrollbar')[0];
-  
+
   if (scrollbar) {
     scrollbar.addEventListener('valuechange', (e) => {
       console.log('Scrollbar value changed:', e.detail);
@@ -264,7 +264,7 @@ chart.render();
 
 This example demonstrates how to use scrollbars on both X and Y axis simultaneously:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

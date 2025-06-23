@@ -127,17 +127,17 @@ chart.on('label:click', (event) => console.log(event));
 
 ### Pointer Events
 
-| Event Name                     | Description                                                | Callback Parameters |
-| ------------------------------ | ---------------------------------------------------------- | ------------------- |
-| `ChartEvent.`POINTER_TAP       |                                                            | `Event`             |
-| `ChartEvent.`POINTER_DOWN      | When pointer is pressed down                               | `Event`             |
-| `ChartEvent.`POINTER_UP        | When pointer is released                                   | `Event`             |
-| `ChartEvent.`POINTER_OVER      | When pointer enters the target element                     | `Event`             |
-| `ChartEvent.`POINTER_OUT       | When pointer leaves the target element                     | `Event`             |
-| `ChartEvent.`POINTER_MOVE      | When pointer coordinates change                            | `Event`             |
+| Event Name                     | Description                                               | Callback Parameters |
+| ------------------------------ | --------------------------------------------------------- | ------------------- |
+| `ChartEvent.`POINTER_TAP       |                                                           | `Event`             |
+| `ChartEvent.`POINTER_DOWN      | When pointer is pressed down                              | `Event`             |
+| `ChartEvent.`POINTER_UP        | When pointer is released                                  | `Event`             |
+| `ChartEvent.`POINTER_OVER      | When pointer enters the target element                    | `Event`             |
+| `ChartEvent.`POINTER_OUT       | When pointer leaves the target element                    | `Event`             |
+| `ChartEvent.`POINTER_MOVE      | When pointer coordinates change                           | `Event`             |
 | `ChartEvent.`POINTER_ENTER     | When pointer enters the target element or its descendants | `Event`             |
 | `ChartEvent.`POINTER_LEAVE     | When pointer leaves the target element or its descendants | `Event`             |
-| `ChartEvent.`POINTER_UPOUTSIDE |                                                            | `Event`             |
+| `ChartEvent.`POINTER_UPOUTSIDE |                                                           | `Event`             |
 
 ### Drag Events
 
@@ -149,13 +149,13 @@ chart.interval().style('draggable', true).style('droppable', true);
 
 | Event Name              | Description                                              | Callback Parameters |
 | ----------------------- | -------------------------------------------------------- | ------------------- |
-| `ChartEvent.`DRAG_START | When dragging starts                                    | `Event`             |
+| `ChartEvent.`DRAG_START | When dragging starts                                     | `Event`             |
 | `ChartEvent.`DRAG       | During dragging                                          | `Event`             |
 | `ChartEvent.`DRAG_END   | When dragging ends                                       | `Event`             |
-| `ChartEvent.`DRAG_ENTER | When element is dragged into the target element         | `Event`             |
-| `ChartEvent.`DRAG_LEAVE | When element is dragged away from the target element    | `Event`             |
-| `ChartEvent.`DRAG_OVER  | When element is dragged and hovering over target element| `Event`             |
-| `ChartEvent.`DROP       | When element is dropped into the target element         | `Event`             |
+| `ChartEvent.`DRAG_ENTER | When element is dragged into the target element          | `Event`             |
+| `ChartEvent.`DRAG_LEAVE | When element is dragged away from the target element     | `Event`             |
+| `ChartEvent.`DRAG_OVER  | When element is dragged and hovering over target element | `Event`             |
+| `ChartEvent.`DROP       | When element is dropped into the target element          | `Event`             |
 
 ## Examples
 

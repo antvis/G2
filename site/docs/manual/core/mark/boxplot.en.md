@@ -25,23 +25,23 @@ Therefore, `boxplot` is more suitable for frontend data exploration and analysis
 
 ## Configuration
 
-| Property | Description                                                                                 | Type              | Default Value | Required |
-| -------- | ------------------------------------------------------------------------------------------- | ----------------- | ------------- | -------- |
+| Property | Description                                                                                  | Type              | Default Value | Required |
+| -------- | -------------------------------------------------------------------------------------------- | ----------------- | ------------- | -------- |
 | encode   | Configure visual channels for the `boxplot` mark, including `x`, `y`, `color`, `shape`, etc. | [encode](#encode) | -             | ✓        |
-| style    | Configure the graphic style of the `boxplot` mark                                           | [style](#style)   | -             |          |
-| point    | Whether to show outliers                                                                    | `boolean`         | `true`        |          |
+| style    | Configure the graphic style of the `boxplot` mark                                            | [style](#style)   | -             |          |
+| point    | Whether to show outliers                                                                     | `boolean`         | `true`        |          |
 
 ### encode
 
 Configure visual channels for the `boxplot` mark.
 
-| Property | Description                                                                                                                      | Type                          | Default Value | Required |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------- | -------- |
-| x        | Bind the `x` property channel for the `boxplot` mark, usually a categorical field                                                | [encode](/en/manual/core/encode) | -             | ✓        |
-| y        | Bind the `y` property channel for the `boxplot` mark, usually a numeric field used to calculate boxplot statistical values     | [encode](/en/manual/core/encode) | -             | ✓        |
-| color    | Bind the `color` property channel for the `boxplot` mark, used to distinguish boxplots of different categories                 | [encode](/en/manual/core/encode) | -             |          |
-| shape    | Bind the `shape` property channel for the `boxplot` mark, available values are `box`, `violin`                                 | `'box'` \| `'violin'`         | `'box'`       |          |
-| series   | Bind the `series` property channel for the `boxplot` mark, used for grouped display of boxplots                                | [encode](/en/manual/core/encode) | -             |          |
+| Property | Description                                                                                                                | Type                             | Default Value | Required |
+| -------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------- | -------- |
+| x        | Bind the `x` property channel for the `boxplot` mark, usually a categorical field                                          | [encode](/en/manual/core/encode) | -             | ✓        |
+| y        | Bind the `y` property channel for the `boxplot` mark, usually a numeric field used to calculate boxplot statistical values | [encode](/en/manual/core/encode) | -             | ✓        |
+| color    | Bind the `color` property channel for the `boxplot` mark, used to distinguish boxplots of different categories             | [encode](/en/manual/core/encode) | -             |          |
+| shape    | Bind the `shape` property channel for the `boxplot` mark, available values are `box`, `violin`                             | `'box'` \| `'violin'`            | `'box'`       |          |
+| series   | Bind the `series` property channel for the `boxplot` mark, used for grouped display of boxplots                            | [encode](/en/manual/core/encode) | -             |          |
 
 ### style
 
@@ -49,36 +49,36 @@ Configure the graphic style of the `boxplot` mark. The `boxplot` consists of two
 
 #### Box Style
 
-| Property         | Description                                                                                       | Type                                                                    | Default Value | Required |
-| ---------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------- | -------- |
-| boxFill          | Fill color of the box                                                                             | `string` \| `(datum, index, data, column) => string`                    | -             |          |
-| boxFillOpacity   | Fill opacity of the box                                                                           | `number` \| `(datum, index, data, column) => number`                    | `0.95`        |          |
-| boxStroke        | Stroke color of the box                                                                           | `string` \| `(datum, index, data, column) => string`                    | `#000`        |          |
-| boxLineWidth     | Width of the box stroke                                                                           | `number` \| `(datum, index, data, column) => number`                    | `1`           |          |
+| Property         | Description                                                                                           | Type                                                                    | Default Value | Required |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------- | -------- |
+| boxFill          | Fill color of the box                                                                                 | `string` \| `(datum, index, data, column) => string`                    | -             |          |
+| boxFillOpacity   | Fill opacity of the box                                                                               | `number` \| `(datum, index, data, column) => number`                    | `0.95`        |          |
+| boxStroke        | Stroke color of the box                                                                               | `string` \| `(datum, index, data, column) => string`                    | `#000`        |          |
+| boxLineWidth     | Width of the box stroke                                                                               | `number` \| `(datum, index, data, column) => number`                    | `1`           |          |
 | boxLineDash      | Dash pattern for box stroke, first value is length of each dash segment, second is gap between dashes | `[number,number]` \| `(datum, index, data, column) => [number, number]` | -             |          |
-| boxLineOpacity   | Opacity of the box stroke                                                                         | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| boxOpacity       | Overall opacity of the box                                                                        | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| boxShadowColor   | Shadow color of the box                                                                           | `string` \| `(datum, index, data, column) => string`                    | -             |          |
-| boxShadowBlur    | Gaussian blur coefficient for the box shadow                                                      | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| boxShadowOffsetX | Horizontal distance of shadow from box                                                            | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| boxShadowOffsetY | Vertical distance of shadow from box                                                              | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| boxCursor        | Mouse cursor style. Same as CSS cursor style                                                      | `string` \| `(datum, index, data, column) => string`                    | `'default'`   |          |
+| boxLineOpacity   | Opacity of the box stroke                                                                             | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| boxOpacity       | Overall opacity of the box                                                                            | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| boxShadowColor   | Shadow color of the box                                                                               | `string` \| `(datum, index, data, column) => string`                    | -             |          |
+| boxShadowBlur    | Gaussian blur coefficient for the box shadow                                                          | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| boxShadowOffsetX | Horizontal distance of shadow from box                                                                | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| boxShadowOffsetY | Vertical distance of shadow from box                                                                  | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| boxCursor        | Mouse cursor style. Same as CSS cursor style                                                          | `string` \| `(datum, index, data, column) => string`                    | `'default'`   |          |
 
 #### Outlier Point Style
 
-| Property           | Description                                | Type                                                                    | Default Value | Required |
-| ------------------ | ------------------------------------------ | ----------------------------------------------------------------------- | ------------- | -------- |
-| pointFill          | Fill color of outlier points              | `string` \| `(datum, index, data, column) => string`                    | -             |          |
-| pointFillOpacity   | Fill opacity of outlier points            | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| pointStroke        | Stroke color of outlier points            | `string` \| `(datum, index, data, column) => string`                    | -             |          |
-| pointLineWidth     | Width of outlier point stroke             | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| pointLineDash      | Dash pattern for outlier point stroke     | `[number,number]` \| `(datum, index, data, column) => [number, number]` | -             |          |
-| pointStrokeOpacity | Stroke opacity of outlier points          | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| pointOpacity       | Overall opacity of outlier points         | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| pointShadowColor   | Shadow color of outlier points            | `string` \| `(datum, index, data, column) => string`                    | -             |          |
-| pointShadowBlur    | Gaussian blur coefficient for point shadow | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| pointShadowOffsetX | Horizontal distance of shadow from point  | `number` \| `(datum, index, data, column) => number`                    | -             |          |
-| pointShadowOffsetY | Vertical distance of shadow from point    | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| Property           | Description                                  | Type                                                                    | Default Value | Required |
+| ------------------ | -------------------------------------------- | ----------------------------------------------------------------------- | ------------- | -------- |
+| pointFill          | Fill color of outlier points                 | `string` \| `(datum, index, data, column) => string`                    | -             |          |
+| pointFillOpacity   | Fill opacity of outlier points               | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| pointStroke        | Stroke color of outlier points               | `string` \| `(datum, index, data, column) => string`                    | -             |          |
+| pointLineWidth     | Width of outlier point stroke                | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| pointLineDash      | Dash pattern for outlier point stroke        | `[number,number]` \| `(datum, index, data, column) => [number, number]` | -             |          |
+| pointStrokeOpacity | Stroke opacity of outlier points             | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| pointOpacity       | Overall opacity of outlier points            | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| pointShadowColor   | Shadow color of outlier points               | `string` \| `(datum, index, data, column) => string`                    | -             |          |
+| pointShadowBlur    | Gaussian blur coefficient for point shadow   | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| pointShadowOffsetX | Horizontal distance of shadow from point     | `number` \| `(datum, index, data, column) => number`                    | -             |          |
+| pointShadowOffsetY | Vertical distance of shadow from point       | `number` \| `(datum, index, data, column) => number`                    | -             |          |
 | pointCursor        | Mouse cursor style. Same as CSS cursor style | `string` \| `(datum, index, data, column) => string`                    | `'default'`   |          |
 
 ## Examples
@@ -87,7 +87,7 @@ Configure the graphic style of the `boxplot` mark. The `boxplot` consists of two
 
 Use the `boxplot` mark to quickly create a boxplot with automatic calculation of statistical values.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -117,7 +117,7 @@ chart.render();
 
 Set `point: false` to hide outliers and show only the box portion.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -146,7 +146,7 @@ chart.render();
 
 Use the `color` and `series` channels to create grouped boxplots.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -174,7 +174,7 @@ chart.render();
 
 Create a horizontal boxplot by transposing the coordinate system.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -205,7 +205,7 @@ chart.render();
 
 Create a violin-shaped boxplot by setting `shape: 'violin'`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

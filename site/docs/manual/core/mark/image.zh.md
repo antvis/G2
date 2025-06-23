@@ -7,7 +7,7 @@ order: 10
 
 `image` 图片标记通常不会单独出现，主要在其他的标记基础上进行添加使用，可以增强数据的可视化效果，帮助更直观地传达信息。和[`point`](/manual/core/mark/point) 标记很类似都是以 `x`，`y` 数据通道作为位置居中定位，区别在于 `image` 提供一个特殊的 `src` 数据通道，来指定图片的远程地址或者 base64。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

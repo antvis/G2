@@ -89,7 +89,7 @@ chart.area():
 
 在 G2 中可以通过 `mark.state` 去设置标记的交互状态，比如如下设置 select 和 unselect 的状态，当使用 elementSelect 的时候会消费这两个状态。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -133,7 +133,7 @@ chart.on('interaction name（eg: brushFilter）', (e) => {});
 
 以鼠标刷选 [brushFilter](/manual/core/interaction/brush-filter) 为例，当用户进行鼠标刷选时，将对应的刷选阈值压入 brushHistory，当点击 reset 按钮时，依次弹出并通过 `chart.emit()` 主动触发 brushFilter 进行刷选覆盖即可：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, ChartEvent } = G2;
 
 const chart = new Chart({
@@ -202,7 +202,7 @@ chart.emit('brush:filter', {
 
 如果内置的交互不能满足你的需求，也可以通过自定义交互的方式去实现一些交互。下面自定义一个高亮交互。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, PLOT_CLASS_NAME, ELEMENT_CLASS_NAME, register } = G2;
 
 register('interaction.customElementHighlight', () => {

@@ -27,14 +27,14 @@ order: 2
 
 ## Configuration
 
-| Property    | Description                                    | Type                    | Default             | Required |
-| ----------- | ---------------------------------------------- | ----------------------- | ------------------- | -------- |
-| type        | Coordinate system type, set to 'polar'        | `string`                | None                | ✓        |
-| startAngle  | Starting angle of polar coordinate system      | `number`                | `-Math.PI / 2`      |          |
-| endAngle    | Ending angle of polar coordinate system        | `number`                | `(Math.PI * 3) / 2` |          |
-| innerRadius | Inner radius of polar coordinate, as percentage of canvas height (0-1) | `number` | `0`   |          |
-| outerRadius | Outer radius of polar coordinate, as percentage of canvas height (0-1) | `number` | `1`   |          |
-| transform   | Coordinate system transform configuration      | `CoordinateTransform[]` | `undefined`         |          |
+| Property    | Description                                                            | Type                    | Default             | Required |
+| ----------- | ---------------------------------------------------------------------- | ----------------------- | ------------------- | -------- |
+| type        | Coordinate system type, set to 'polar'                                 | `string`                | None                | ✓        |
+| startAngle  | Starting angle of polar coordinate system                              | `number`                | `-Math.PI / 2`      |          |
+| endAngle    | Ending angle of polar coordinate system                                | `number`                | `(Math.PI * 3) / 2` |          |
+| innerRadius | Inner radius of polar coordinate, as percentage of canvas height (0-1) | `number`                | `0`                 |          |
+| outerRadius | Outer radius of polar coordinate, as percentage of canvas height (0-1) | `number`                | `1`                 |          |
+| transform   | Coordinate system transform configuration                              | `CoordinateTransform[]` | `undefined`         |          |
 
 > Complex type descriptions:
 >
@@ -46,7 +46,7 @@ order: 2
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -84,7 +84,7 @@ chart.render();
 
 ### Radar Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -140,7 +140,7 @@ chart.render();
 
 ### Vector Field Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

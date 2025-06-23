@@ -24,7 +24,7 @@ Parallel coordinate systems have two common layout methods:
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -107,16 +107,16 @@ Parallel coordinate systems are particularly suitable for the following scenario
 
 The configuration options for parallel coordinate systems are relatively simple, mainly set through the `coordinate` property:
 
-| Property  | Description                                    | Type        | Default | Required |
-| --------- | ---------------------------------------------- | ----------- | ------- | -------- |
+| Property  | Description                                                              | Type        | Default | Required |
+| --------- | ------------------------------------------------------------------------ | ----------- | ------- | -------- |
 | transform | Coordinate system transforms, can be used to implement horizontal layout | Transform[] | []      |          |
 
 ### Coordinate System Transforms
 
 Parallel coordinate systems support the following coordinate system transforms:
 
-| Transform Type | Description                              | Example                                  |
-| -------------- | ---------------------------------------- | ---------------------------------------- |
+| Transform Type | Description                                  | Example                                  |
+| -------------- | -------------------------------------------- | ---------------------------------------- |
 | transpose      | Convert vertical layout to horizontal layout | `{ transform: [{ type: 'transpose' }] }` |
 
 ## Common Use Cases
@@ -125,7 +125,7 @@ Parallel coordinate systems support the following coordinate system transforms:
 
 Vertical parallel coordinate system is the most common parallel coordinate system layout, with coordinate axis arranged vertically.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ chart.render();
 
 By adding transpose transform, you can arrange coordinate axis horizontally to create horizontal parallel coordinate systems.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +214,7 @@ chart.render();
 
 Parallel coordinate systems can be combined with interaction components to implement interactive data analysis functionality.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -259,7 +259,7 @@ chart.render();
 
 Here's a complete example showing how to use parallel coordinate systems for automobile data analysis:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -270,7 +270,7 @@ const chart = new Chart({
 
 const dimensions = [
   'Cylinders',
-  'Displacement', 
+  'Displacement',
   'Horsepower',
   'Weight_in_lbs',
   'Acceleration',
@@ -282,7 +282,8 @@ chart.options({
   coordinate: { type: 'parallel' },
   data: {
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
     transform: [
       {
         type: 'filter',
@@ -310,27 +311,27 @@ chart.options({
     },
   },
   axis: {
-    position: { 
+    position: {
       zIndex: 1,
       title: { text: 'Cylinders' },
     },
-    position1: { 
+    position1: {
       zIndex: 1,
       title: { text: 'Displacement' },
     },
-    position2: { 
+    position2: {
       zIndex: 1,
       title: { text: 'Horsepower' },
     },
-    position3: { 
+    position3: {
       zIndex: 1,
       title: { text: 'Weight (lbs)' },
     },
-    position4: { 
+    position4: {
       zIndex: 1,
       title: { text: 'Acceleration' },
     },
-    position5: { 
+    position5: {
       zIndex: 1,
       title: { text: 'MPG' },
     },

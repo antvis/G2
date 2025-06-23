@@ -54,27 +54,27 @@ Interaction can be configured at the View level:
 
 ## Configuration Options
 
-| Property      | Description                                          | Type                                         | Default                                            | Required |
-| :------------ | :--------------------------------------------------- | :------------------------------------------- | :------------------------------------------------- | :------- |
-| initDomain    | Initialize coordinate axis range                     | { x: [number, number], y: [number, number] } | {}                                                 |          |
-| className     | CSS class name for slider component                 | string                                       | 'slider'                                           |          |
-| prefix        | Slider component prefix, used for identification and event naming | string                           | 'slider'                                           |          |
-| setValue      | Custom function to set slider value                 | (component, values) => void                  | (component, values) => component.setValues(values) |          |
-| hasState      | Whether to save slider ratio state                  | boolean                                      | false                                              |          |
-| wait          | Throttle wait time (milliseconds)                   | number                                       | 50                                                 |          |
-| leading       | Whether to execute at the beginning during throttling | boolean                                    | true                                               |          |
-| trailing      | Whether to execute at the end during throttling     | boolean                                      | false                                              |          |
-| getInitValues | Function to get initial slider values               | (slider) => [number, number]                 | undefined                                          |          |
+| Property      | Description                                                       | Type                                         | Default                                            | Required |
+| :------------ | :---------------------------------------------------------------- | :------------------------------------------- | :------------------------------------------------- | :------- |
+| initDomain    | Initialize coordinate axis range                                  | { x: [number, number], y: [number, number] } | {}                                                 |          |
+| className     | CSS class name for slider component                               | string                                       | 'slider'                                           |          |
+| prefix        | Slider component prefix, used for identification and event naming | string                                       | 'slider'                                           |          |
+| setValue      | Custom function to set slider value                               | (component, values) => void                  | (component, values) => component.setValues(values) |          |
+| hasState      | Whether to save slider ratio state                                | boolean                                      | false                                              |          |
+| wait          | Throttle wait time (milliseconds)                                 | number                                       | 50                                                 |          |
+| leading       | Whether to execute at the beginning during throttling             | boolean                                      | true                                               |          |
+| trailing      | Whether to execute at the end during throttling                   | boolean                                      | false                                              |          |
+| getInitValues | Function to get initial slider values                             | (slider) => [number, number]                 | undefined                                          |          |
 
 ### slider Component Configuration
 
 In addition to the configuration for sliderFilter interaction, the slider component itself has some important configuration options that affect the behavior of slider axis filtering:
 
-| Property | Description                                      | Type               | Default | Required |
-| -------- | ------------------------------------------------ | ------------------ | ------- | -------- |
-| padding  | Slider axis inner padding                       | number \| number[] | -       |          |
-| values   | Initial selection range of slider axis, in 0～1 interval | [number, number]   | -       |          |
-| slidable | Whether to allow dragging selection and handles | boolean            | true    |          |
+| Property | Description                                                | Type               | Default | Required |
+| -------- | ---------------------------------------------------------- | ------------------ | ------- | -------- |
+| padding  | Slider axis inner padding                                  | number \| number[] | -       |          |
+| values   | Initial selection range of slider axis, in 0 ～ 1 interval | [number, number]   | -       |          |
+| slidable | Whether to allow dragging selection and handles            | boolean            | true    |          |
 
 For detailed documentation see [Slider Component](/en/manual/component/slider)
 
@@ -120,7 +120,7 @@ chart.on('sliderY:filter', (event) => {
 
 The following example shows how to add basic X-axis slider axis filtering functionality to a line chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

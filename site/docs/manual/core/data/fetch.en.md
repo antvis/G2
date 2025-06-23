@@ -28,7 +28,7 @@ chart.options({
 
 Here is an example:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -48,18 +48,18 @@ chart.options({
   },
 });
 
-chart.render()
+chart.render();
 ```
 
 ## Configuration
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| value | Network address for fetch request | string | [] |
-| format | Data format type of remote file, determines parsing method | `'json' \| 'csv'` | Default takes the suffix after the last `.` in value |
-| delimiter | Delimiter for parsing CSV files | string | `,` |
-| autoType | Whether to automatically determine column data types when parsing CSV files | boolean | true |
-| transform | Transform operations on loaded data | [DataTransform](/en/manual/core/data/overview#datatransform) | [] |
+| Property  | Description                                                                 | Type                                                         | Default                                              |
+| --------- | --------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| value     | Network address for fetch request                                           | string                                                       | []                                                   |
+| format    | Data format type of remote file, determines parsing method                  | `'json' \| 'csv'`                                            | Default takes the suffix after the last `.` in value |
+| delimiter | Delimiter for parsing CSV files                                             | string                                                       | `,`                                                  |
+| autoType  | Whether to automatically determine column data types when parsing CSV files | boolean                                                      | true                                                 |
+| transform | Transform operations on loaded data                                         | [DataTransform](/en/manual/core/data/overview#datatransform) | []                                                   |
 
 In the `fetch` implementation, if format is `json`, it uses JavaScript's `fetch` API and converts the return value to a JSON Object; if format is `csv`, it calls `d3-dsv` to parse the interface return value.
 
@@ -76,7 +76,7 @@ chart.data({
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -96,7 +96,7 @@ chart.options({
   },
 });
 
-chart.render()
+chart.render();
 ```
 
 ## 选项

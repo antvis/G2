@@ -96,7 +96,7 @@ chart.on('poptip:hide', (event) => {
 
 ### 示例二：散点图
 
-```js | ob {  pin : false , autoMount: true }
+```js | ob {  pin : false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -227,7 +227,7 @@ chart.on('element:mouseleave', (event) => {
 
 ### 示例三：玫瑰图
 
-```js | ob {  pin : false , autoMount: true }
+```js | ob {  pin : false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

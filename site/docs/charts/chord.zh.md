@@ -2,9 +2,10 @@
 title: 和弦图
 order: 38
 screenshot: 'https://zos.alipayobjects.com/rmsportal/wqqqDPsmjjToaWvrNFMY.png'
-category: ["relation"]
-similar: ["radar-chart", "radial-bar", "sankey", "arcdiagram"]
+category: ['relation']
+similar: ['radar-chart', 'radial-bar', 'sankey', 'arcdiagram']
 ---
+
 <img alt="chord" src="https://zos.alipayobjects.com/rmsportal/wqqqDPsmjjToaWvrNFMY.png" width=600/>
 
 ## 和弦图的简介
@@ -19,12 +20,12 @@ similar: ["radar-chart", "radial-bar", "sankey", "arcdiagram"]
 
 <img alt="chord-structure" src="https://zos.alipayobjects.com/rmsportal/djkdEIgCQjeCCqCNwuct.png" width=600 />
 
-| 图表类型         | 和弦图                                                                                              |
-| ---------------- | --------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 节点数据集（可选）、边数据集：源节点、目标节点、流量值                                              |
-| 功能             | 观察节点关系，展示多个实体间的双向流动关系                                                          |
-| 数据与图形的映射 | 权重映射到节点和边的宽度<br>源节点和目标节点映射到圆周上的弧段位置<br>节点可以用颜色区分            |
-| 适合的数据条数   | 节点数据两组以上，5-15 个节点效果最佳                                                               |
+| 图表类型         | 和弦图                                                                                   |
+| ---------------- | ---------------------------------------------------------------------------------------- |
+| 适合的数据       | 节点数据集（可选）、边数据集：源节点、目标节点、流量值                                   |
+| 功能             | 观察节点关系，展示多个实体间的双向流动关系                                               |
+| 数据与图形的映射 | 权重映射到节点和边的宽度<br>源节点和目标节点映射到圆周上的弧段位置<br>节点可以用颜色区分 |
+| 适合的数据条数   | 节点数据两组以上，5-15 个节点效果最佳                                                    |
 
 ### 和弦图的组成部分
 
@@ -49,7 +50,7 @@ similar: ["radar-chart", "radial-bar", "sankey", "arcdiagram"]
 | 上海             | 广州               | 90,000            |
 | 广州             | 深圳               | 120,000           |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -112,7 +113,7 @@ chart.render();
 
 下图展示了软件包之间的依赖关系，每个节点表示一个独立的包，每条边展示了包与包之间的依赖关系。边的粗细表示依赖的强度。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,6 +173,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 节点表示不同的软件包模块
 - 边的粗细表示依赖关系的强度
 - 颜色用于区分不同的包，便于识别循环依赖
@@ -180,9 +182,9 @@ chart.render();
 
 例子 1: **节点过多导致可读性差**
 
-当节点数量超过15个时，和弦图会变得拥挤难读，连接线重叠严重。
+当节点数量超过 15 个时，和弦图会变得拥挤难读，连接线重叠严重。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -191,8 +193,28 @@ const chart = new Chart({
 });
 
 // 模拟20个省份的数据，节点过多导致可读性差
-const provinces = ['北京', '上海', '广州', '深圳', '杭州', '南京', '武汉', '成都', '西安', '重庆', 
-                 '天津', '苏州', '青岛', '大连', '厦门', '宁波', '长沙', '郑州', '济南', '福州'];
+const provinces = [
+  '北京',
+  '上海',
+  '广州',
+  '深圳',
+  '杭州',
+  '南京',
+  '武汉',
+  '成都',
+  '西安',
+  '重庆',
+  '天津',
+  '苏州',
+  '青岛',
+  '大连',
+  '厦门',
+  '宁波',
+  '长沙',
+  '郑州',
+  '济南',
+  '福州',
+];
 
 const data = [];
 provinces.forEach((source, i) => {
@@ -201,7 +223,7 @@ provinces.forEach((source, i) => {
       data.push({
         source,
         target,
-        value: Math.floor(Math.random() * 50) + 10
+        value: Math.floor(Math.random() * 50) + 10,
       });
     }
   });
@@ -234,13 +256,13 @@ chart.render();
 
 ### 自定义颜色和样式
 
-下图展示了某个时段用户使用Uber软件在美国旧金山各个城市之间乘车交通的情况。图中的节点表示城市，节点大小表示了交通流量的多少，从图中可以看出，交通行为主要发生在几个主要城市之间。
+下图展示了某个时段用户使用 Uber 软件在美国旧金山各个城市之间乘车交通的情况。图中的节点表示城市，节点大小表示了交通流量的多少，从图中可以看出，交通行为主要发生在几个主要城市之间。
 
 <img alt="uber-traffic" src="https://zos.alipayobjects.com/rmsportal/IWssILKPItzzYdrsmclc.png" width=500 />
 
 以下是使用自定义颜色和样式的和弦图示例：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

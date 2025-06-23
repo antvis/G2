@@ -77,25 +77,25 @@ They can also be configured at the View level:
 
 ## Configuration Options
 
-| Property    | Description                                                                                  | Type                                                    | Default Value                          |
-| ----------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
-| domain      | Set the domain range of the data                                                            | `number[]`                                              | Min-max range of input data            |
-| domainMin   | Set the minimum value of the data domain                                                     | `number`                                                | Minimum value of input data            |
-| domainMax   | Set the maximum value of the data domain                                                     | `number`                                                | Maximum value of input data            |
-| range       | Set the range of data mapping                                                                | `number[]` \| `string[]`                                | `[0, 1]`                               |
-| rangeMin    | Set the minimum value of the data mapping range                                              | `number \| string`                                      | `0`                                    |
-| rangeMax    | Set the maximum value of the data mapping range                                              | `number \| string`                                      | `1`                                    |
-| unknown     | Return value for `undefined`, `NaN`, `null` values                                           | `any`                                                   | `undefined`                            |
-| tickCount   | Set the recommended number of ticks to generate; tickCount is only a suggestion             | `number`                                                | `5`                                    |
-| tickMethod  | Set the method for generating ticks, commonly used for custom ticks                          | `(min: number, max: number, count: number) => number[]` | `d3-ticks`                             |
-| round       | Round output values                                                                          | `boolean`                                               | `false`                                |
-| clamp       | Limit mapped values to the range                                                             | `boolean`                                               | `false`                                |
-| nice        | Extend domain range to make tick display more friendly                                       | `boolean`                                               | `false`                                |
-| interpolate | Custom interpolation function                                                                | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |
+| Property    | Description                                                                     | Type                                                    | Default Value                          |
+| ----------- | ------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- |
+| domain      | Set the domain range of the data                                                | `number[]`                                              | Min-max range of input data            |
+| domainMin   | Set the minimum value of the data domain                                        | `number`                                                | Minimum value of input data            |
+| domainMax   | Set the maximum value of the data domain                                        | `number`                                                | Maximum value of input data            |
+| range       | Set the range of data mapping                                                   | `number[]` \| `string[]`                                | `[0, 1]`                               |
+| rangeMin    | Set the minimum value of the data mapping range                                 | `number \| string`                                      | `0`                                    |
+| rangeMax    | Set the maximum value of the data mapping range                                 | `number \| string`                                      | `1`                                    |
+| unknown     | Return value for `undefined`, `NaN`, `null` values                              | `any`                                                   | `undefined`                            |
+| tickCount   | Set the recommended number of ticks to generate; tickCount is only a suggestion | `number`                                                | `5`                                    |
+| tickMethod  | Set the method for generating ticks, commonly used for custom ticks             | `(min: number, max: number, count: number) => number[]` | `d3-ticks`                             |
+| round       | Round output values                                                             | `boolean`                                               | `false`                                |
+| clamp       | Limit mapped values to the range                                                | `boolean`                                               | `false`                                |
+| nice        | Extend domain range to make tick display more friendly                          | `boolean`                                               | `false`                                |
+| interpolate | Custom interpolation function                                                   | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |
 
 ## Example
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

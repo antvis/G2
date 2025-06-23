@@ -32,10 +32,10 @@ In multi-dimensional data analysis, grouping data by multiple fields for further
 
 ## Configuration
 
-| Property  | Description                                                    | Type                   | Default      |
-| --------- | -------------------------------------------------------------- | ---------------------- | ------------ |
-| channels  | Which channels to perform data grouping and aggregation on    | `string` \| `string[]` | `['x', 'y']` |
-| [channel] | Aggregation method for channel data output to specific marks  | `Reducer`              |              |
+| Property  | Description                                                  | Type                   | Default      |
+| --------- | ------------------------------------------------------------ | ---------------------- | ------------ |
+| channels  | Which channels to perform data grouping and aggregation on   | `string` \| `string[]` | `['x', 'y']` |
+| [channel] | Aggregation method for channel data output to specific marks | `Reducer`              |              |
 
 ### Channel
 

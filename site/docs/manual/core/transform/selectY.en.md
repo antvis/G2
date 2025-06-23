@@ -43,7 +43,7 @@ type Selector =
 
 As shown below, annotate the highest temperature for each city in the chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

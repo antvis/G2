@@ -63,7 +63,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 每一个标记都可以有多个标签，下面是一个简单的例子：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -94,10 +94,10 @@ chart.render();
 
 | 属性       | 描述                                                                                                | 类型                             | 默认值                        | 必选 |
 | ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------- | ---- |
-| dx         | 标签文字在水平方向的偏移量，也可通过 style.dx 配置                                                    | number                           | 0                             |      |
-| dy         | 标签文字在垂直方向的偏移量，也可通过 style.dy 配置                                                   | number                           | 0                             |      |
-| offset     | 标签偏移距离，也可通过 style.offset 配置                                                        | number                           | -                             |      |
-| text       | 标签数据通道，类似 mark 标记的 `x` 通道，对应到文本元素上，可以用回调自定义 `string` 文本.      | string \| Function               | -                             |      |
+| dx         | 标签文字在水平方向的偏移量，也可通过 style.dx 配置                                                  | number                           | 0                             |      |
+| dy         | 标签文字在垂直方向的偏移量，也可通过 style.dy 配置                                                  | number                           | 0                             |      |
+| offset     | 标签偏移距离，也可通过 style.offset 配置                                                            | number                           | -                             |      |
+| text       | 标签数据通道，类似 mark 标记的 `x` 通道，对应到文本元素上，可以用回调自定义 `string` 文本.          | string \| Function               | -                             |      |
 | innerHTML  | 和 `text` 配置类似，同时配置 `text` 会失效，可以用回调自定义 `string` 文本或 `HTMElement` 复杂 html | string \| Function               | -                             |      |
 | formatter  | 标签文本格式化                                                                                      | _string_ \| _Function\<string\>_ | -                             |      |
 | render     | 和 `innerHTML` 配置类型一致                                                                         | string \| Function               | -                             |      |
@@ -112,7 +112,7 @@ chart.render();
 
 `label` 标签文本元素内容配置
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -170,7 +170,7 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 - `last` - 最后一个
 - `function` - 自定义选择器
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -251,7 +251,7 @@ chart.render();
 
 ##### 问题案例
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -282,7 +282,7 @@ chart.render();
 
 ##### 配置 `overlapDodgeY` 转化标签
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -419,7 +419,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -452,7 +452,7 @@ chart.render();
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -490,7 +490,7 @@ chart.render();
 
 `label` 标签会超出图表，超出的部分会被截断。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -521,7 +521,7 @@ chart.render();
 
 对超出视图的 `label` 标签进行方向优化。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -729,21 +729,21 @@ chart.render();
 
 标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线的颜色。 需要 position `spider`、`surround` 才会有 connector 元素。
 
-| 参数                  | 说明                                                                                                         | 类型                | 默认值    | 必选 |
-| --------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------- | --------- | ---- |
-| connectorStroke       | 连接线的颜色                                                                                                 | _string_            | -         |      |
-| connectorStrokeOpacity| 连接线的透明度                                                                                               | _number_            | -         |      |
-| connectorLineWidth    | 连接线描边宽度                                                                                               | _number_            | -         |      |
-| connectorLineDash     | 连接线虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _\[number,number\]_ | -         |      |
-| connectorOpacity      | 连接线的整体透明度                                                                                           | _number_            | -         |      |
-| connectorShadowColor  | 连接线阴影颜色                                                                                               | _string_            | -         |      |
-| connectorShadowBlur   | 连接线阴影的高斯模糊系数                                                                                     | _number_            | -         |      |
-| connectorShadowOffsetX| 连接线阴影水平偏移量                                                                                         | _number_            | -         |      |
-| connectorShadowOffsetY| 连接线阴影垂直偏移量                                                                                         | _number_            | -         |      |
-| connectorCursor       | 鼠标样式。同 css 的鼠标样式                                                                                  | _string_            | `default` |      |
-| connectorDistance     | 连接线和文本的距离                                                                                           | _number_            | -         |      |
+| 参数                   | 说明                                                                                                         | 类型                | 默认值    | 必选 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------- | --------- | ---- |
+| connectorStroke        | 连接线的颜色                                                                                                 | _string_            | -         |      |
+| connectorStrokeOpacity | 连接线的透明度                                                                                               | _number_            | -         |      |
+| connectorLineWidth     | 连接线描边宽度                                                                                               | _number_            | -         |      |
+| connectorLineDash      | 连接线虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _\[number,number\]_ | -         |      |
+| connectorOpacity       | 连接线的整体透明度                                                                                           | _number_            | -         |      |
+| connectorShadowColor   | 连接线阴影颜色                                                                                               | _string_            | -         |      |
+| connectorShadowBlur    | 连接线阴影的高斯模糊系数                                                                                     | _number_            | -         |      |
+| connectorShadowOffsetX | 连接线阴影水平偏移量                                                                                         | _number_            | -         |      |
+| connectorShadowOffsetY | 连接线阴影垂直偏移量                                                                                         | _number_            | -         |      |
+| connectorCursor        | 鼠标样式。同 css 的鼠标样式                                                                                  | _string_            | `default` |      |
+| connectorDistance      | 连接线和文本的距离                                                                                           | _number_            | -         |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -788,24 +788,24 @@ chart.render();
 
 标签**文本背景框样式**配置，格式为: `background${style}`, 如: `backgroundFill` 代表背景框填充色。
 
-| 参数                   | 说明                                                                                                     | 类型                | 默认值    | 必选 |
-| ---------------------- | -------------------------------------------------------------------------------------------------------- | ------------------- | --------- | ---- |
-| backgroundFill         | 背景框的填充色                                                                                           | _string_            | -         |      |
-| backgroundFillOpacity  | 背景框的填充透明度                                                                                       | _number_            | -         |      |
-| backgroundStroke       | 背景框的描边                                                                                             | _string_            | -         |      |
-| backgroundStrokeOpacity| 背景框描边透明度                                                                                         | _number_            | -         |      |
-| backgroundLineWidth    | 背景框描边宽度                                                                                           | _number_            | -         |      |
-| backgroundLineDash     | 背景框描边虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _\[number,number\]_ | -         |      |
-| backgroundOpacity      | 背景框的整体透明度                                                                                       | _number_            | -         |      |
-| backgroundShadowColor  | 背景框阴影颜色                                                                                           | _string_            | -         |      |
-| backgroundShadowBlur   | 背景框阴影的高斯模糊系数                                                                                 | _number_            | -         |      |
-| backgroundShadowOffsetX| 背景框阴影水平偏移量                                                                                     | _number_            | -         |      |
-| backgroundShadowOffsetY| 背景框阴影垂直偏移量                                                                                     | _number_            | -         |      |
-| backgroundCursor       | 鼠标样式。同 css 的鼠标样式                                                                              | _string_            | `default` |      |
-| backgroundRadius       | 背景框圆角半径                                                                                           | _number_            | -         |      |
-| backgroundPadding      | 背景框内边距                                                                                             | _number[]_          | -         |      |
+| 参数                    | 说明                                                                                                             | 类型                | 默认值    | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------- | --------- | ---- |
+| backgroundFill          | 背景框的填充色                                                                                                   | _string_            | -         |      |
+| backgroundFillOpacity   | 背景框的填充透明度                                                                                               | _number_            | -         |      |
+| backgroundStroke        | 背景框的描边                                                                                                     | _string_            | -         |      |
+| backgroundStrokeOpacity | 背景框描边透明度                                                                                                 | _number_            | -         |      |
+| backgroundLineWidth     | 背景框描边宽度                                                                                                   | _number_            | -         |      |
+| backgroundLineDash      | 背景框描边虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _\[number,number\]_ | -         |      |
+| backgroundOpacity       | 背景框的整体透明度                                                                                               | _number_            | -         |      |
+| backgroundShadowColor   | 背景框阴影颜色                                                                                                   | _string_            | -         |      |
+| backgroundShadowBlur    | 背景框阴影的高斯模糊系数                                                                                         | _number_            | -         |      |
+| backgroundShadowOffsetX | 背景框阴影水平偏移量                                                                                             | _number_            | -         |      |
+| backgroundShadowOffsetY | 背景框阴影垂直偏移量                                                                                             | _number_            | -         |      |
+| backgroundCursor        | 鼠标样式。同 css 的鼠标样式                                                                                      | _string_            | `default` |      |
+| backgroundRadius        | 背景框圆角半径                                                                                                   | _number_            | -         |      |
+| backgroundPadding       | 背景框内边距                                                                                                     | _number[]_          | -         |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

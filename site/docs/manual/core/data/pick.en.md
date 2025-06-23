@@ -36,6 +36,6 @@ After the above example is processed, the data becomes:
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| fields | Data fields to extract | `string[]` |  |
+| Property | Description            | Type       | Default |
+| -------- | ---------------------- | ---------- | ------- |
+| fields   | Data fields to extract | `string[]` |         |

@@ -9,7 +9,7 @@ The `quantile` scale belongs to the **discretizing scale** category, primarily u
 
 ### Mapping Effect Example
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -50,14 +50,14 @@ chart.render();
 
 ## Configuration Options
 
-| Property   | Description                                                                    | Type                                                    | Default Value        | Required |
-| ---------- | ------------------------------------------------------------------------------ | ------------------------------------------------------- | -------------------- | -------- |
-| domain     | Sets the domain range of the data                                              | `number[]`                                              | `[]`                 |          |
-| range      | Sets the range for data mapping                                                | `any[]`                                                 | `[]`                 | ✔        |
-| unknown    | Return value for `undefined`, `NaN`, `null` empty values                       | `any`                                                   | `undefined`          |          |
+| Property   | Description                                                                                                               | Type                                                    | Default Value        | Required |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------- | -------- |
+| domain     | Sets the domain range of the data                                                                                         | `number[]`                                              | `[]`                 |          |
+| range      | Sets the range for data mapping                                                                                           | `any[]`                                                 | `[]`                 | ✔        |
+| unknown    | Return value for `undefined`, `NaN`, `null` empty values                                                                  | `any`                                                   | `undefined`          |          |
 | tickCount  | Sets the recommended number of ticks to generate, tickCount is only a suggestion and not guaranteed to be fully effective | `number`                                                | `5`                  |          |
-| tickMethod | Sets the method for generating ticks, commonly used for custom ticks           | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |          |
-| nice       | Extends the domain range to make output ticks display more friendly            | `boolean`                                               | `false`              |          |
+| tickMethod | Sets the method for generating ticks, commonly used for custom ticks                                                      | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |          |
+| nice       | Extends the domain range to make output ticks display more friendly                                                       | `boolean`                                               | `false`              |          |
 
 ### Complex Type Descriptions
 
@@ -72,7 +72,7 @@ chart.render();
 
 The following example shows how to use quantile scale to divide salary data into three groups and map them to different colors:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

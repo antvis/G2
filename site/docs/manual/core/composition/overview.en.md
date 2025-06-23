@@ -27,7 +27,7 @@ The most basic view composition method is **Space Composition**, which only divi
 
 A common composition method is `composition.spaceLayer`: overlaying multiple charts. This is used when the views have different coordinate systems, such as the bar chart and pie chart below.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -72,7 +72,7 @@ chart.render();
 
 You can also use `composition.spaceFlex` to arrange views horizontally or vertically.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -118,7 +118,7 @@ These composition methods can be nested, making it easy to implement a dashboard
 
 **Facet Composition** differs from space composition in that it also divides the data, with each view displaying a subset of the original data.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 **Repeat Composition** differs from facet in that each view displays the full data, but the encoding is repeated to draw multiple views.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -192,7 +192,7 @@ chart.render();
 
 **Timing Composition** manages views in space for animation.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 fetch(

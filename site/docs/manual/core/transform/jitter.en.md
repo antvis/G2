@@ -17,12 +17,12 @@ Note: Jitter is a visual adjustment method that may slightly change the precise 
 
 ## Configuration
 
-| Property | Description                                    | Type           | Default     |
-| -------- | ---------------------------------------------- | -------------- | ----------- |
-| padding  | Spacing of groups in x,y directions [0 ~ 1]   | `number`       | 0           |
-| paddingX | Spacing of groups in x direction [0 ~ 1]       | `number`       | 0           |
-| paddingY | Spacing of groups in y direction [0 ~ 1]       | `number`       | 0           |
-| random   | Random function, returns value in [0, 1)       | `() => number` | Math.random |
+| Property | Description                                 | Type           | Default     |
+| -------- | ------------------------------------------- | -------------- | ----------- |
+| padding  | Spacing of groups in x,y directions [0 ~ 1] | `number`       | 0           |
+| paddingX | Spacing of groups in x direction [0 ~ 1]    | `number`       | 0           |
+| paddingY | Spacing of groups in y direction [0 ~ 1]    | `number`       | 0           |
+| random   | Random function, returns value in [0, 1)    | `() => number` | Math.random |
 
 ## Examples
 

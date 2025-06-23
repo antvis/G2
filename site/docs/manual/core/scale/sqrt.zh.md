@@ -21,7 +21,7 @@ sqrt 比例尺能够使数据在视觉上更加均匀分布，特别是对于具
 
 - 使用 sqrt 比例尺效果
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -51,7 +51,7 @@ chart.render();
 
 - 未使用 sqrt 比例尺效果
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -103,7 +103,7 @@ chart.render();
 
 使用 sqrt 比例尺映射散点图中的点大小，使数值差异更加明显。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,7 +145,7 @@ chart.render();
 
 使用 sqrt 比例尺处理颜色渐变映射
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

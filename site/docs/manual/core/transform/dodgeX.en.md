@@ -17,7 +17,7 @@ The `dodgeX` transform is primarily used for scenarios where data within the sam
 
 For example, the following case shows the population distribution of different age groups across US states. Through the `dodgeX` transform, data from different age groups are displayed side by side within each state, making it easy to visually compare them.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -46,12 +46,12 @@ chart.render();
 
 ## Configuration Options
 
-| Property | Description                                       | Type               | Default Value | Required |
-| -------- | ------------------------------------------------- | ------------------ | ------------- | -------- |
-| groupBy  | Channel or channel combination for data grouping  | string \| string[] | `x`           |          |
-| orderBy  | Sorting rule for elements within groups           | TransformOrder     | () => null    |          |
+| Property | Description                                        | Type               | Default Value | Required |
+| -------- | -------------------------------------------------- | ------------------ | ------------- | -------- |
+| groupBy  | Channel or channel combination for data grouping   | string \| string[] | `x`           |          |
+| orderBy  | Sorting rule for elements within groups            | TransformOrder     | () => null    |          |
 | reverse  | Whether to reverse the order of elements in groups | boolean            | false         |          |
-| padding  | Spacing between elements within groups (0 ~ 1)   | number             | 0             |          |
+| padding  | Spacing between elements within groups (0 ~ 1)     | number             | 0             |          |
 
 ### groupBy
 
@@ -91,7 +91,7 @@ The following example demonstrates the functionality of various configuration op
 - **reverse**: Set to true to arrange elements within groups from high to low performance values
 - **padding**: Set spacing between elements within groups to 0.1
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

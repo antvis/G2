@@ -7,7 +7,7 @@ order: 5
 
 `cell` 是矩形标记（Rect Shape）的一种抽象表示，主要用于表示分面（facet）或者网格中的单元格，是图表中数据映射到视觉元素的最小单元。它一般是在可视化布局中用来表示网格化结构或数据分割的“单元”。具体来说，它是一种对区域的划分，在不同的分面中通常会对应一个独立的绘图区域，常见于矩阵型图表（如日历图、聚合热力图等）中。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

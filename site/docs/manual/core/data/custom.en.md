@@ -27,6 +27,6 @@ chart.data({
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| callback | Custom processing function | `(data: any[]) => any[]` |  |
+| Property | Description                | Type                     | Default |
+| -------- | -------------------------- | ------------------------ | ------- |
+| callback | Custom processing function | `(data: any[]) => any[]` |         |

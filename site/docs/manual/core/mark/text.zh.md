@@ -10,7 +10,7 @@ order: 25
 - 文本可视化
 - 数据的标注和辅助
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -112,8 +112,8 @@ chart.render();
 | shadowOffsetX    | 设置阴影距图形的水平距离                                                                                                    | `number` \| `Function<number>`                    | -         |
 | shadowOffsetY    | 设置阴影距图形的垂直距离                                                                                                    | `number` \| `Function<number>`                    | -         |
 | cursor           | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                               | `string` \| `Function<string>`                    | 'default' |
-| dx               | 文本在水平方向的偏移量                                                                                                     | `number`                                          | -         |
-| dy               | 文本在垂直方向的偏移量                                                                                                     | `number`                                          | -         |
+| dx               | 文本在水平方向的偏移量                                                                                                      | `number`                                          | -         |
+| dy               | 文本在垂直方向的偏移量                                                                                                      | `number`                                          | -         |
 | text             | 要绘制的文本内容                                                                                                            | `string`                                          | -         |
 | x                | 文本的 x 坐标                                                                                                               | `string`                                          | -         |
 | y                | 文本的 y 坐标                                                                                                               | `string`                                          | -         |
@@ -164,7 +164,7 @@ chart
 
 配置 [selectY](/manual/core/transform/select-y) 数据转换，设置分组 `groupBy: 'color'`表示针对 color 通道进行分组，并且设置最大值选择器 `selector: 'max'`，表示使用 max 选择器进行指定的数据抽取，输出到 y 通道。这样就可以在每条折线的最大值处绘制 text 标记了。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

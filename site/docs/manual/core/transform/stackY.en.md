@@ -22,14 +22,14 @@ stackY is commonly used for the following chart types:
 
 ## Configuration Options
 
-| Property | Description                                | Type                 | Default |
-| -------- | ------------------------------------------ | -------------------- | ------- |
-| groupBy  | Specifies the grouping channel             | `string \| string[]` | `x`     |
-| orderBy  | Specifies the data for sorting             | `TransformOrder`     | null    |
-| y        | Y channel data source selection            | `'y'\|'y1'`          | `y`     |
-| y1       | Y1 channel data source selection           | `'y'\|'y1'`          | `y1`    |
-| reverse  | Whether to reverse the order               | `boolean`            | false   |
-| series   | Whether there is a grouping field          | `boolean`            | true    |
+| Property | Description                       | Type                 | Default |
+| -------- | --------------------------------- | -------------------- | ------- |
+| groupBy  | Specifies the grouping channel    | `string \| string[]` | `x`     |
+| orderBy  | Specifies the data for sorting    | `TransformOrder`     | null    |
+| y        | Y channel data source selection   | `'y'\|'y1'`          | `y`     |
+| y1       | Y1 channel data source selection  | `'y'\|'y1'`          | `y1`    |
+| reverse  | Whether to reverse the order      | `boolean`            | false   |
+| series   | Whether there is a grouping field | `boolean`            | true    |
 
 ### groupBy
 
@@ -124,7 +124,7 @@ Next, let's look at a relatively complex scenario - the normalized stacked area 
 
 It is used to show trends of multiple categories of data changing over time or other continuous variables, while emphasizing the relative proportions of each category in the total, rather than absolute values. For example, if we need a normalized stacked area chart, we can achieve the following effect. You can refer to the corresponding example code, and for details, check our online [chart examples](https://g2.antv.antgroup.com/en/examples/general/area/#percentage-area):
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

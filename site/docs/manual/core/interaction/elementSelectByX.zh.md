@@ -227,7 +227,7 @@ chart.emit('element:unselect', {});
 
 ### 基础选择
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -256,7 +256,7 @@ chart.render();
 
 ### 自定义选中
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -321,7 +321,7 @@ chart.render();
 
 ### 单选模式
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -355,7 +355,7 @@ chart.render();
 
 ### 多选模式
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

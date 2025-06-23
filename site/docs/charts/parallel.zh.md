@@ -52,7 +52,7 @@ similar: ['radar', 'line', 'sankey']
 
 下图展示了汽车数据集中多个性能指标之间的关系，包括燃油经济性、气缸数、排量、马力、重量等。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -139,7 +139,7 @@ chart.render();
 
 通过平行坐标系可以识别具有相似模式的数据群组。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -215,7 +215,7 @@ chart.render();
 
 当只有 2-3 个维度时，使用散点图或其他图表类型会更直观。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 // 不推荐：只有两个维度使用平行坐标系
 import { Chart } from '@antv/g2';
 
@@ -254,7 +254,7 @@ chart.render();
 
 对于二维数据，散点图更适合：
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 // 推荐：二维数据使用散点图
 import { Chart } from '@antv/g2';
 
@@ -297,7 +297,7 @@ chart.render();
 
 当数据记录过多时，线条会严重重叠，影响可读性。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 // 生成大量数据模拟过多记录的情况
@@ -348,7 +348,7 @@ chart.render();
 
 ### 改变线的形状
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -426,7 +426,7 @@ chart.render();
 
 添加轴刷选和高亮功能，增强数据探索能力：
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -510,7 +510,7 @@ chart.render();
 
 受[Fathom Information Design](https://benfry.com/fortune500/)启发，这个例子展示了如何使用平行坐标系来分析大规模企业数据的时间变化。通过展示排名、收入和利润三个维度，可以观察企业在不同年份的表现轨迹和相互关系。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 // 使用真实的财富500强数据

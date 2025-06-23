@@ -79,7 +79,7 @@ In addition to setting visual properties through `mark.encode`, they can also be
 - Channels set by `mark.encode` are special - either unique to the mark (like the `src` channel for images) or have special logic (like the `x` channel affecting x-axis generation).
 - `mark.encode` tends to set data-related channels, while `mark.style` tends to set data-independent channels. However, `mark.style` also supports callbacks for data-driven channels.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -114,7 +114,7 @@ Styles for different areas can be set using the `${name}${Style}` format, where 
 
 For example, coloring different areas in the chart below:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,47 +172,114 @@ For user convenience, here's a brief introduction to commonly used drawing prope
 
 ### Configuring Graphic Styles
 
-| Property      | Description                                                                                                      | Type            | Default   | Required |
-| ------------- | ---------------------------------------------------------------------------------------------------------------- | --------------- | --------- | -------- |
-| fill          | Fill color of the graphic                                                                                        | string          |           |          |
-| fillOpacity   | Fill transparency of the graphic                                                                                 | number          |           |          |
-| stroke        | Stroke color of the graphic                                                                                      | string          |           |          |
-| strokeOpacity | Stroke transparency of the graphic                                                                                | number          |           |          |
-| lineWidth     | Width of the graphic's stroke                                                                                    | number          |           |          |
+| Property      | Description                                                                                                    | Type            | Default   | Required |
+| ------------- | -------------------------------------------------------------------------------------------------------------- | --------------- | --------- | -------- |
+| fill          | Fill color of the graphic                                                                                      | string          |           |          |
+| fillOpacity   | Fill transparency of the graphic                                                                               | number          |           |          |
+| stroke        | Stroke color of the graphic                                                                                    | string          |           |          |
+| strokeOpacity | Stroke transparency of the graphic                                                                             | number          |           |          |
+| lineWidth     | Width of the graphic's stroke                                                                                  | number          |           |          |
 | lineDash      | Dashed stroke configuration. First value is the length of each dash, second is the gap. [0,0] means no stroke. | [number,number] |           |          |
-| opacity       | Overall transparency of the graphic                                                                              | number          |           |          |
-| shadowColor   | Shadow color of the graphic                                                                                      | string          |           |          |
-| shadowBlur    | Gaussian blur coefficient for the graphic's shadow                                                               | number          |           |          |
-| shadowOffsetX | Horizontal distance of shadow from the graphic                                                                   | number          |           |          |
-| shadowOffsetY | Vertical distance of shadow from the graphic                                                                     | number          |           |          |
-| cursor        | Mouse cursor style. Same as CSS cursor                                                                          | string          | `default` |          |
+| opacity       | Overall transparency of the graphic                                                                            | number          |           |          |
+| shadowColor   | Shadow color of the graphic                                                                                    | string          |           |          |
+| shadowBlur    | Gaussian blur coefficient for the graphic's shadow                                                             | number          |           |          |
+| shadowOffsetX | Horizontal distance of shadow from the graphic                                                                 | number          |           |          |
+| shadowOffsetY | Vertical distance of shadow from the graphic                                                                   | number          |           |          |
+| cursor        | Mouse cursor style. Same as CSS cursor                                                                         | string          | `default` |          |
 
 Try using the full range of graphic style properties to configure the `interval` graphic style of a basic bar chart in the code editor below:
 
-<Playground path="style/graphic/demo/mark.ts" rid="mark-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 30 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+  style: {
+    fill: 'skyblue',
+    fillOpacity: 0.5,
+    stroke: 'black',
+    lineWidth: 1,
+    lineDash: [4, 5],
+    strokeOpacity: 0.7,
+    opacity: 0.9,
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffsetX: 5,
+    shadowOffsetY: 5,
+    cursor: 'pointer',
+  },
+});
+
+chart.render();
+```
 
 ### Configuring Line Styles
 
-| Property      | Description                                                                                                    | Type            | Default   | Required |
-| ------------- | -------------------------------------------------------------------------------------------------------------- | --------------- | --------- | -------- |
-| stroke        | Line color                                                                                                     | string          |           |          |
-| strokeOpacity | Line transparency                                                                                              | number          |           |          |
-| lineWidth     | Line width                                                                                                     | number          |           |          |
-| lineDash      | Dashed line configuration. First value is dash length, second is gap length. [0,0] means no stroke.          | [number,number] |           |          |
-| opacity       | Overall transparency                                                                                           | number          |           |          |
-| shadowColor   | Shadow color                                                                                                   | string          |           |          |
-| shadowBlur    | Gaussian blur coefficient                                                                                      | number          |           |          |
-| shadowOffsetX | Horizontal distance of shadow from the graphic                                                                 | number          |           |          |
-| shadowOffsetY | Vertical distance of shadow from the graphic                                                                   | number          |           |          |
-| cursor        | Mouse cursor style. Same as CSS cursor                                                                        | string          | `default` |          |
+| Property      | Description                                                                                         | Type            | Default   | Required |
+| ------------- | --------------------------------------------------------------------------------------------------- | --------------- | --------- | -------- |
+| stroke        | Line color                                                                                          | string          |           |          |
+| strokeOpacity | Line transparency                                                                                   | number          |           |          |
+| lineWidth     | Line width                                                                                          | number          |           |          |
+| lineDash      | Dashed line configuration. First value is dash length, second is gap length. [0,0] means no stroke. | [number,number] |           |          |
+| opacity       | Overall transparency                                                                                | number          |           |          |
+| shadowColor   | Shadow color                                                                                        | string          |           |          |
+| shadowBlur    | Gaussian blur coefficient                                                                           | number          |           |          |
+| shadowOffsetX | Horizontal distance of shadow from the graphic                                                      | number          |           |          |
+| shadowOffsetY | Vertical distance of shadow from the graphic                                                        | number          |           |          |
+| cursor        | Mouse cursor style. Same as CSS cursor                                                              | string          | `default` |          |
 
 Try using the full range of line style properties to configure the `line` style of a basic line chart in the code editor below:
 
-<Playground path="style/graphic/demo/line.ts" rid="line-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'line',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  style: {
+    stroke: 'skyblue',
+    strokeOpacity: 0.9,
+    lineWidth: 4,
+    lineDash: [4, 8],
+    opacity: 0.9,
+    shadowColor: '#d3d3d3',
+    shadowBlur: 10,
+    shadowOffsetX: 10,
+    shadowOffsetY: 10,
+    cursor: 'pointer',
+  },
+});
+
+chart.render();
+```
 
 Similarly, we can configure axis grid lines in the same way:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -250,36 +317,78 @@ chart.render();
 
 ### Configuring Text Styles
 
-| Property      | Description                                                                                                    | Type                                                       | Default   | Required |
-| ------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | --------- | -------- |
-| fontSize      | Font size                                                                                                      | number                                                     |           |          |
-| fontFamily    | Font family                                                                                                    | string                                                     |           |          |
-| fontWeight    | Font weight                                                                                                    | number                                                     |           |          |
-| lineHeight    | Line height of text                                                                                            | number                                                     |           |          |
-| textAlign     | Text alignment                                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`         | `start`   |          |
-| textBaseline  | Text baseline when drawing text                                                                                | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |          |
-| fill          | Text fill color                                                                                                | string                                                     |           |          |
-| fillOpacity   | Text fill transparency                                                                                         | number                                                     |           |          |
-| stroke        | Text stroke color                                                                                              | string                                                     |           |          |
-| lineWidth     | Text stroke width                                                                                              | number                                                     |           |          |
-| lineDash      | Dashed stroke configuration. First value is dash length, second is gap length. [0,0] means no stroke.        | [number,number]                                            |           |          |
-| strokeOpacity | Stroke transparency                                                                                            | number                                                     |           |          |
-| opacity       | Overall text transparency                                                                                      | number                                                     |           |          |
-| shadowColor   | Text shadow color                                                                                              | string                                                     |           |          |
-| shadowBlur    | Gaussian blur coefficient for text shadow                                                                      | number                                                     |           |          |
-| shadowOffsetX | Horizontal distance of shadow from text                                                                        | number                                                     |           |          |
-| shadowOffsetY | Vertical distance of shadow from text                                                                          | number                                                     |           |          |
-| cursor        | Mouse cursor style. Same as CSS cursor                                                                        | string                                                     | `default` |          |
-| dx            | Horizontal offset of text                                                                                      | number                                                     | 0         |          |
-| dy            | Vertical offset of text                                                                                        | number                                                     | 0         |          |
+| Property      | Description                                                                                           | Type                                                       | Default   | Required |
+| ------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | --------- | -------- |
+| fontSize      | Font size                                                                                             | number                                                     |           |          |
+| fontFamily    | Font family                                                                                           | string                                                     |           |          |
+| fontWeight    | Font weight                                                                                           | number                                                     |           |          |
+| lineHeight    | Line height of text                                                                                   | number                                                     |           |          |
+| textAlign     | Text alignment                                                                                        | `center` \| `end` \| `left` \| `right` \| `start`          | `start`   |          |
+| textBaseline  | Text baseline when drawing text                                                                       | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` | `bottom`  |          |
+| fill          | Text fill color                                                                                       | string                                                     |           |          |
+| fillOpacity   | Text fill transparency                                                                                | number                                                     |           |          |
+| stroke        | Text stroke color                                                                                     | string                                                     |           |          |
+| lineWidth     | Text stroke width                                                                                     | number                                                     |           |          |
+| lineDash      | Dashed stroke configuration. First value is dash length, second is gap length. [0,0] means no stroke. | [number,number]                                            |           |          |
+| strokeOpacity | Stroke transparency                                                                                   | number                                                     |           |          |
+| opacity       | Overall text transparency                                                                             | number                                                     |           |          |
+| shadowColor   | Text shadow color                                                                                     | string                                                     |           |          |
+| shadowBlur    | Gaussian blur coefficient for text shadow                                                             | number                                                     |           |          |
+| shadowOffsetX | Horizontal distance of shadow from text                                                               | number                                                     |           |          |
+| shadowOffsetY | Vertical distance of shadow from text                                                                 | number                                                     |           |          |
+| cursor        | Mouse cursor style. Same as CSS cursor                                                                | string                                                     | `default` |          |
+| dx            | Horizontal offset of text                                                                             | number                                                     | 0         |          |
+| dy            | Vertical offset of text                                                                               | number                                                     | 0         |          |
 
 Try using the full range of text style properties to configure the center text style of a liquid chart in the code editor below:
 
-<Playground path="style/graphic/demo/text.ts" rid="text-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'liquid',
+  autoFit: true,
+  data: 0.581,
+  style: {
+    waveLength: 50,
+    contentText: 'center text',
+    outlineBorder: 4,
+    outlineDistance: 8,
+    // 绘图属性
+    contentFontSize: 30,
+    contentFontFamily: 'sans-serif',
+    contentFontWeight: 500,
+    contentLineHeight: 20,
+    contentTextAlign: 'center',
+    contentTextBaseline: 'middle',
+    contentFill: '#fff',
+    contentFillOpacity: 0.9,
+    contentStroke: 'yellow',
+    contentStrokeOpacity: 0.9,
+    contentLineWidth: 2,
+    contentLineDash: [4, 8],
+    contentOpacity: 1,
+    contentShadowColor: '#d3d3d3',
+    contentShadowBlur: 10,
+    contentShadowOffsetX: 10,
+    contentShadowOffsetY: 10,
+    contentCursor: 'pointer',
+    contentDx: 10,
+    contentDy: 10,
+  },
+});
+
+chart.render();
+```
 
 Similarly, we can configure title text styles in the same way:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -349,11 +458,65 @@ stroke: 'linear-gradient(270deg, #ffffff 0%, #7ec2f3 50%, #1890ff 100%)';
 
 Try configuring the fill color of an area chart as a linear gradient in the code editor below:
 
-<Playground path="style/graphic/demo/area.ts" rid="area-style"></Playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/area_gradient.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/stocks.json',
+    transform: [{ type: 'filter', callback: (d) => d.symbol === 'GOOG' }],
+  },
+  children: [
+    {
+      type: 'area',
+      encode: { x: (d) => new Date(d.date), y: 'price' },
+      style: { fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff' },
+      // style: { fill: "linear-gradient(270deg, #ffffff 0%, #7ec2f3 50%, #1890ff 100%)" },
+    },
+  ],
+});
+
+chart.render();
+```
 
 You can also create a gradient gauge by configuring the `color` channel scale in the code editor below:
 
-<Playground path="style/graphic/demo/gauge.ts" rid="gauge-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'gauge',
+  data: {
+    value: { target: 159, total: 400, name: 'score', thresholds: [200, 400] },
+  },
+  scale: {
+    color: { range: ['l(0):0:#37b38e 1:#D9C652', 'l(0):0:#D9C652 1:#f96e3e'] },
+  },
+  style: {
+    textContent: (target, total) => `得分：${target}
+占比：${(target / total) * 100}%`,
+  },
+  legend: false,
+});
+
+chart.render();
+```
 
 ### Configuring Radial Gradients
 
@@ -368,7 +531,29 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 
 Try configuring the fill color of a bar chart as a radial gradient in the code editor below:
 
-<Playground path="style/graphic/demo/radial-gradient.ts" rid="radial-gradient-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  height: 350,
+  data: [
+    { genre: 'Sports', sold: 30 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+  style: {
+    fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff',
+  },
+});
+
+chart.render();
+```
 
 ### Configuring Patterns
 
@@ -391,6 +576,28 @@ style: {
 
 Try configuring the fill color of a bar chart as a pattern in the code editor below:
 
-<Playground path="style/graphic/demo/pattern.ts" rid="pattern"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  height: 350,
+  data: [
+    { genre: 'Sports', sold: 30 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+  style: {
+    fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ',
+  },
+});
+
+chart.render();
+```
 
 In addition, G2 provides multiple ways to set patterns including `built-in patterns` and `G API custom patterns`. For details, see [Setting Patterns](/en/manual/extra-topics/pattern).

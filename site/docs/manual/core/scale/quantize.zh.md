@@ -77,7 +77,7 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
 
 下面是一个使用 quantize 比例尺创建热力图的示例，将薪资数据按照数值大小分为三个等宽区间，并映射为不同的颜色：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素
@@ -340,7 +340,7 @@ chart.render();
 
 下面是一个更复杂的示例，展示如何使用 quantize 比例尺创建多个分段，并自定义数据域：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素

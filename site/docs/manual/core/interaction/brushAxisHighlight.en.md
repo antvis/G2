@@ -79,33 +79,33 @@ It can also be configured at the View level, where interactions declared on the 
 
 ## Configuration Options
 
-| Property        | Description                                                                                            | Type                            | Default Value                                                                                   | Required |
-| --------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------- | -------- |
-| reverse         | Whether to reverse the brush; when reversed, elements outside the selection area will be highlighted | `boolean`                       | `false`                                                                                         |          |
-| facet           | Whether brush spans across facets, controlling interaction behavior                                   | `boolean`                       | `false`                                                                                         |          |
-| selectedHandles | Resizable handle directions                                                                            | `string[]`                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |          |
+| Property        | Description                                                                                                  | Type                            | Default Value                                                                                   | Required |
+| --------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------- | -------- |
+| reverse         | Whether to reverse the brush; when reversed, elements outside the selection area will be highlighted         | `boolean`                       | `false`                                                                                         |          |
+| facet           | Whether brush spans across facets, controlling interaction behavior                                          | `boolean`                       | `false`                                                                                         |          |
+| selectedHandles | Resizable handle directions                                                                                  | `string[]`                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |          |
 | brushRegion     | Custom brush region, generally not configured, used internally by G2 for brushXHighlight and brushYHighlight | `(x, y, x1, y1, extent) => any` | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |          |
-| mask            | Style of the brush area mask                                                                          | Object                          | See mask section below                                                                          |          |
-| maskHandle      | Style of the brush area handles                                                                       | Object                          | See maskHandle section below                                                                    |          |
+| mask            | Style of the brush area mask                                                                                 | Object                          | See mask section below                                                                          |          |
+| maskHandle      | Style of the brush area handles                                                                              | Object                          | See maskHandle section below                                                                    |          |
 
 ### mask
 
 Configure the style of the brush area mask.
 
-| Property          | Description                                                                               | Type              | Default Value | Required |
-| ----------------- | ----------------------------------------------------------------------------------------- | ----------------- | ------------- | -------- |
-| maskFill          | Fill color of the mask                                                                    | `string`          | `#777`        |          |
-| maskFillOpacity   | Fill opacity of the mask                                                                  | `number`          | `0.3`         |          |
-| maskStroke        | Stroke of the mask                                                                        | `string`          | `#fff`        |          |
-| maskStrokeOpacity | Stroke opacity                                                                            | `number`          |               |          |
-| maskLineWidth     | Width of the mask stroke                                                                  | `number`          |               |          |
-| maskLineDash      | Dash configuration for stroke, first value is dash length, second is gap distance       | `[number,number]` |               |          |
-| maskOpacity       | Overall opacity of the mask                                                               | `number`          |               |          |
-| maskShadowColor   | Shadow color of the mask                                                                  | `string`          |               |          |
-| maskShadowBlur    | Gaussian blur coefficient for mask shadow                                                 | `number`          |               |          |
-| maskShadowOffsetX | Horizontal distance of shadow from mask                                                   | `number`          |               |          |
-| maskShadowOffsetY | Vertical distance of shadow from mask                                                     | `number`          |               |          |
-| maskCursor        | Mouse cursor style. Same as CSS cursor styles                                             | `string`          | `default`     |          |
+| Property          | Description                                                                       | Type              | Default Value | Required |
+| ----------------- | --------------------------------------------------------------------------------- | ----------------- | ------------- | -------- |
+| maskFill          | Fill color of the mask                                                            | `string`          | `#777`        |          |
+| maskFillOpacity   | Fill opacity of the mask                                                          | `number`          | `0.3`         |          |
+| maskStroke        | Stroke of the mask                                                                | `string`          | `#fff`        |          |
+| maskStrokeOpacity | Stroke opacity                                                                    | `number`          |               |          |
+| maskLineWidth     | Width of the mask stroke                                                          | `number`          |               |          |
+| maskLineDash      | Dash configuration for stroke, first value is dash length, second is gap distance | `[number,number]` |               |          |
+| maskOpacity       | Overall opacity of the mask                                                       | `number`          |               |          |
+| maskShadowColor   | Shadow color of the mask                                                          | `string`          |               |          |
+| maskShadowBlur    | Gaussian blur coefficient for mask shadow                                         | `number`          |               |          |
+| maskShadowOffsetX | Horizontal distance of shadow from mask                                           | `number`          |               |          |
+| maskShadowOffsetY | Vertical distance of shadow from mask                                             | `number`          |               |          |
+| maskCursor        | Mouse cursor style. Same as CSS cursor styles                                     | `string`          | `default`     |          |
 
 When configuring the brush area mask style, instead of using an object format, configure with `mask` prefix plus property:
 
@@ -136,22 +136,22 @@ The eight directional handles are named as follows (using compass directions). S
 
 ![custom-style](https://github.com/antvis/G2/assets/49330279/eb2d3951-7990-423c-97f3-e3a38b2baf68)
 
-| Property                      | Description                                                                               | Type                                      | Default Value | Required |
-| ----------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------- | ------------- | -------- |
-| mask[handleName]Render        | Custom render function for mask handles                                                  | `(g, options, document) => DisplayObject` |               |          |
-| mask[handleName]Size          | Width of mask handles                                                                     | `string`                                  |               |          |
-| mask[handleName]Fill          | Fill color of mask handles                                                                | `string`                                  |               |          |
-| mask[handleName]FillOpacity   | Fill opacity of mask handles                                                              | `number`                                  |               |          |
-| mask[handleName]Stroke        | Stroke of mask handles                                                                    | `string`                                  |               |          |
-| mask[handleName]StrokeOpacity | Stroke opacity                                                                            | `number`                                  |               |          |
-| mask[handleName]LineWidth     | Width of mask handle stroke                                                               | `number`                                  |               |          |
-| mask[handleName]LineDash      | Dash configuration for stroke, first value is dash length, second is gap distance       | `[number,number]`                         |               |          |
-| mask[handleName]Opacity       | Overall opacity of mask handles                                                           | `number`                                  |               |          |
-| mask[handleName]ShadowColor   | Shadow color of mask handles                                                              | `string`                                  |               |          |
-| mask[handleName]ShadowBlur    | Gaussian blur coefficient for mask handle shadow                                          | `number`                                  |               |          |
-| mask[handleName]ShadowOffsetX | Horizontal distance of shadow from mask handle                                            | `number`                                  |               |          |
-| mask[handleName]ShadowOffsetY | Vertical distance of shadow from mask handle                                              | `number`                                  |               |          |
-| mask[handleName]Cursor        | Mouse cursor style. Same as CSS cursor styles                                             | `string`                                  | `default`     |          |
+| Property                      | Description                                                                       | Type                                      | Default Value | Required |
+| ----------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------- | ------------- | -------- |
+| mask[handleName]Render        | Custom render function for mask handles                                           | `(g, options, document) => DisplayObject` |               |          |
+| mask[handleName]Size          | Width of mask handles                                                             | `string`                                  |               |          |
+| mask[handleName]Fill          | Fill color of mask handles                                                        | `string`                                  |               |          |
+| mask[handleName]FillOpacity   | Fill opacity of mask handles                                                      | `number`                                  |               |          |
+| mask[handleName]Stroke        | Stroke of mask handles                                                            | `string`                                  |               |          |
+| mask[handleName]StrokeOpacity | Stroke opacity                                                                    | `number`                                  |               |          |
+| mask[handleName]LineWidth     | Width of mask handle stroke                                                       | `number`                                  |               |          |
+| mask[handleName]LineDash      | Dash configuration for stroke, first value is dash length, second is gap distance | `[number,number]`                         |               |          |
+| mask[handleName]Opacity       | Overall opacity of mask handles                                                   | `number`                                  |               |          |
+| mask[handleName]ShadowColor   | Shadow color of mask handles                                                      | `string`                                  |               |          |
+| mask[handleName]ShadowBlur    | Gaussian blur coefficient for mask handle shadow                                  | `number`                                  |               |          |
+| mask[handleName]ShadowOffsetX | Horizontal distance of shadow from mask handle                                    | `number`                                  |               |          |
+| mask[handleName]ShadowOffsetY | Vertical distance of shadow from mask handle                                      | `number`                                  |               |          |
+| mask[handleName]Cursor        | Mouse cursor style. Same as CSS cursor styles                                     | `string`                                  | `default`     |          |
 
 ## Events
 
@@ -195,7 +195,7 @@ chart.emit('brushAxis:remove', {});
 
 ### Parallel Coordinate Brush Highlighting
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -287,7 +287,7 @@ chart.render();
 
 ### Custom Handle Styles
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -33,13 +33,13 @@ Through `stackEnter`, AntV makes the initial rendering of stacked charts more ex
 
 ## Configuration Options
 
-| Property | Description                                  | Type                             | Default Value       |
-| -------- | -------------------------------------------- | -------------------------------- | ------------------- |
-| groupBy  | Select a grouping channel                    | `string \| string[]`             | `x`                 |
-| reducer  | Grouping value method                        | `(I: number[], V: any[]) => any` | `(I, V) => V[I[0]]` |
-| orderBy  | Sorting channel                              | `string`                         | null                |
-| reverse  | Whether to reverse order                     | `boolean`                        | true                |
-| duration | Animation duration (in milliseconds)        | `number`                         | 3000                |
+| Property | Description                          | Type                             | Default Value       |
+| -------- | ------------------------------------ | -------------------------------- | ------------------- |
+| groupBy  | Select a grouping channel            | `string \| string[]`             | `x`                 |
+| reducer  | Grouping value method                | `(I: number[], V: any[]) => any` | `(I, V) => V[I[0]]` |
+| orderBy  | Sorting channel                      | `string`                         | null                |
+| reverse  | Whether to reverse order             | `boolean`                        | true                |
+| duration | Animation duration (in milliseconds) | `number`                         | 3000                |
 
 ### groupBy
 

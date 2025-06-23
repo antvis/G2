@@ -4,10 +4,11 @@ order: 1
 ---
 
 A Sankey diagram is a specific type of flow diagram used to describe the flow from one set of values to another. Sankey diagrams have the following characteristics:
+
 - The starting flow and ending flow are the same, with the sum of all main branch widths equal to the sum of all split branch widths, maintaining energy balance;
 - Internally, different lines represent different flow distribution scenarios, with widths proportionally displaying the flow share of each branch;
 - Different node widths represent flow magnitudes under specific states.
-Sankey diagrams are commonly used for visualization analysis of energy, material composition, financial, and other data.
+  Sankey diagrams are commonly used for visualization analysis of energy, material composition, financial, and other data.
 
 ## Getting Started
 
@@ -66,13 +67,13 @@ chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 
 ## Options
 
-| Property   | Description                                                             | Type      | Default                          |
-| ---------- | ----------------------------------------------------------------------- | --------- | -------------------------------- |
-| tooltip    | Configure Sankey diagram tooltip, see [tooltip configuration](#tooltip) | _object_  | See [tooltip configuration](#tooltip) |
-| layout     | Configure Sankey diagram layout, see [layout configuration](#layout)   | _object_  | See [layout configuration](#layout)   |
-| style      | Configure graphic and label styles, see [style configuration](#style)  | _object_  | See [style configuration](#style)     |
-| nodeLabels | Custom node data label configuration, see [nodeLabels configuration](##nodelabels) | _label[]_ | []                               |
-| linkLabels | Custom link data label configuration, see [linkLabels configuration](#linklabels) | _label[]_ | []                               |
+| Property   | Description                                                                        | Type      | Default                               |
+| ---------- | ---------------------------------------------------------------------------------- | --------- | ------------------------------------- |
+| tooltip    | Configure Sankey diagram tooltip, see [tooltip configuration](#tooltip)            | _object_  | See [tooltip configuration](#tooltip) |
+| layout     | Configure Sankey diagram layout, see [layout configuration](#layout)               | _object_  | See [layout configuration](#layout)   |
+| style      | Configure graphic and label styles, see [style configuration](#style)              | _object_  | See [style configuration](#style)     |
+| nodeLabels | Custom node data label configuration, see [nodeLabels configuration](##nodelabels) | _label[]_ | []                                    |
+| linkLabels | Custom link data label configuration, see [linkLabels configuration](#linklabels)  | _label[]_ | []                                    |
 
 ### tooltip
 
@@ -130,7 +131,7 @@ Similar to general `Mark` custom `tooltip` interaction methods, first pass custo
 
 Example:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -234,7 +235,7 @@ For nodes that appear multiple times, set an id as unique identifier and configu
 
 Example:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -370,62 +371,62 @@ Composite graphic marks need to use different prefixes to distinguish graphic co
 
 - `<label>`: Prefix for configuring data labels.
 
-| Property           | Type                 | Description                                                                                                                            |
-| ------------------ | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| labelText          | _(d: any) => string_ | Configure default data label value for Sankey diagram, defaults to `(d) => d.key`                                                     |
-| labelSpacing       | _number_             | Configure data label spacing for Sankey diagram, defaults to `5`                                                                       |
-| labelFontSize      | _number_             | Sankey diagram data label font size                                                                                                    |
-| labelFontFamily    | _string_             | Sankey diagram data label font family                                                                                                  |
-| labelFontWeight    | _number_             | Sankey diagram data label font weight                                                                                                  |
-| labelLineHeight    | _number_             | Sankey diagram data label text line height                                                                                             |
-| labelTextAlign     | _string_             | Set current alignment for Sankey diagram data label text content, supported values: `center` \| `end` \| `left` \| `right` \| `start`, defaults to `start` |
+| Property           | Type                 | Description                                                                                                                                                                    |
+| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| labelText          | _(d: any) => string_ | Configure default data label value for Sankey diagram, defaults to `(d) => d.key`                                                                                              |
+| labelSpacing       | _number_             | Configure data label spacing for Sankey diagram, defaults to `5`                                                                                                               |
+| labelFontSize      | _number_             | Sankey diagram data label font size                                                                                                                                            |
+| labelFontFamily    | _string_             | Sankey diagram data label font family                                                                                                                                          |
+| labelFontWeight    | _number_             | Sankey diagram data label font weight                                                                                                                                          |
+| labelLineHeight    | _number_             | Sankey diagram data label text line height                                                                                                                                     |
+| labelTextAlign     | _string_             | Set current alignment for Sankey diagram data label text content, supported values: `center` \| `end` \| `left` \| `right` \| `start`, defaults to `start`                     |
 | labelTextBaseline  | _string_             | Set current text baseline used when drawing Sankey diagram data label text, supported values: `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`. Defaults to `bottom` |
-| labelFill          | _string_             | Sankey diagram data label text fill color                                                                                              |
-| labelFillOpacity   | _number_             | Sankey diagram data label text fill opacity                                                                                            |
-| labelStroke        | _string_             | Sankey diagram data label text stroke                                                                                                  |
-| labelLineWidth     | _number_             | Sankey diagram data label text stroke width                                                                                            |
-| labelLineDash      | _[number,number]_    | Sankey diagram data label stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke. |
-| labelStrokeOpacity | _number_             | Sankey diagram data label stroke opacity                                                                                               |
-| labelOpacity       | _number_             | Sankey diagram data label text overall opacity                                                                                         |
-| labelShadowColor   | _string_             | Sankey diagram data label text shadow color                                                                                            |
-| labelShadowBlur    | _number_             | Sankey diagram data label text shadow Gaussian blur coefficient                                                                        |
-| labelShadowOffsetX | _number_             | Set horizontal distance of Sankey diagram data label shadow from text                                                                  |
-| labelShadowOffsetY | _number_             | Set vertical distance of Sankey diagram data label shadow from text                                                                    |
-| labelCursor        | _string_             | Sankey diagram data label mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                        |
+| labelFill          | _string_             | Sankey diagram data label text fill color                                                                                                                                      |
+| labelFillOpacity   | _number_             | Sankey diagram data label text fill opacity                                                                                                                                    |
+| labelStroke        | _string_             | Sankey diagram data label text stroke                                                                                                                                          |
+| labelLineWidth     | _number_             | Sankey diagram data label text stroke width                                                                                                                                    |
+| labelLineDash      | _[number,number]_    | Sankey diagram data label stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke.         |
+| labelStrokeOpacity | _number_             | Sankey diagram data label stroke opacity                                                                                                                                       |
+| labelOpacity       | _number_             | Sankey diagram data label text overall opacity                                                                                                                                 |
+| labelShadowColor   | _string_             | Sankey diagram data label text shadow color                                                                                                                                    |
+| labelShadowBlur    | _number_             | Sankey diagram data label text shadow Gaussian blur coefficient                                                                                                                |
+| labelShadowOffsetX | _number_             | Set horizontal distance of Sankey diagram data label shadow from text                                                                                                          |
+| labelShadowOffsetY | _number_             | Set vertical distance of Sankey diagram data label shadow from text                                                                                                            |
+| labelCursor        | _string_             | Sankey diagram data label mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                                                                 |
 
 - `<node>`: Prefix for configuring nodes.
 
-| Property          | Type              | Description                                                                                                                        |
-| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| nodeFill          | _string_          | Sankey diagram node fill color                                                                                                     |
-| nodeFillOpacity   | _number_          | Sankey diagram node fill opacity                                                                                                   |
-| nodeStroke        | _string_          | Sankey diagram node stroke                                                                                                         |
-| nodeStrokeOpacity | _number_          | Sankey diagram node stroke opacity                                                                                                 |
-| nodeLineWidth     | _number_          | Sankey diagram node stroke width                                                                                                   |
+| Property          | Type              | Description                                                                                                                                                      |
+| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nodeFill          | _string_          | Sankey diagram node fill color                                                                                                                                   |
+| nodeFillOpacity   | _number_          | Sankey diagram node fill opacity                                                                                                                                 |
+| nodeStroke        | _string_          | Sankey diagram node stroke                                                                                                                                       |
+| nodeStrokeOpacity | _number_          | Sankey diagram node stroke opacity                                                                                                                               |
+| nodeLineWidth     | _number_          | Sankey diagram node stroke width                                                                                                                                 |
 | nodeLineDash      | _[number,number]_ | Sankey diagram node stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke. |
-| nodeOpacity       | _number_          | Sankey diagram node overall opacity                                                                                                |
-| nodeShadowColor   | _string_          | Sankey diagram node shadow color                                                                                                   |
-| nodeShadowBlur    | _number_          | Sankey diagram node shadow Gaussian blur coefficient                                                                               |
-| nodeShadowOffsetX | _number_          | Set horizontal distance of shadow from Sankey diagram node                                                                         |
-| nodeShadowOffsetY | _number_          | Set vertical distance of shadow from Sankey diagram node                                                                           |
-| nodeCursor        | _string_          | Sankey diagram node mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                          |
+| nodeOpacity       | _number_          | Sankey diagram node overall opacity                                                                                                                              |
+| nodeShadowColor   | _string_          | Sankey diagram node shadow color                                                                                                                                 |
+| nodeShadowBlur    | _number_          | Sankey diagram node shadow Gaussian blur coefficient                                                                                                             |
+| nodeShadowOffsetX | _number_          | Set horizontal distance of shadow from Sankey diagram node                                                                                                       |
+| nodeShadowOffsetY | _number_          | Set vertical distance of shadow from Sankey diagram node                                                                                                         |
+| nodeCursor        | _string_          | Sankey diagram node mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                                                         |
 
 - `<link>`: Prefix for configuring links.
 
-| Property          | Type              | Description                                                                                                                        |
-| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| linkFill          | _string_          | Sankey diagram link fill color                                                                                                     |
-| linkFillOpacity   | _number_          | Sankey diagram link fill opacity                                                                                                   |
-| linkStroke        | _string_          | Sankey diagram link stroke                                                                                                         |
-| linkStrokeOpacity | _number_          | Sankey diagram link stroke opacity                                                                                                 |
-| linkLineWidth     | _number_          | Sankey diagram link stroke width                                                                                                   |
+| Property          | Type              | Description                                                                                                                                                      |
+| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| linkFill          | _string_          | Sankey diagram link fill color                                                                                                                                   |
+| linkFillOpacity   | _number_          | Sankey diagram link fill opacity                                                                                                                                 |
+| linkStroke        | _string_          | Sankey diagram link stroke                                                                                                                                       |
+| linkStrokeOpacity | _number_          | Sankey diagram link stroke opacity                                                                                                                               |
+| linkLineWidth     | _number_          | Sankey diagram link stroke width                                                                                                                                 |
 | linkLineDash      | _[number,number]_ | Sankey diagram link stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke. |
-| linkOpacity       | _number_          | Sankey diagram link overall opacity                                                                                                |
-| linkShadowColor   | _string_          | Sankey diagram link shadow color                                                                                                   |
-| linkShadowBlur    | _number_          | Sankey diagram link shadow Gaussian blur coefficient                                                                               |
-| linkShadowOffsetX | _number_          | Set horizontal distance of shadow from Sankey diagram link                                                                         |
-| linkShadowOffsetY | _number_          | Set vertical distance of shadow from Sankey diagram link                                                                           |
-| linkCursor        | _string_          | Sankey diagram link mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                          |
+| linkOpacity       | _number_          | Sankey diagram link overall opacity                                                                                                                              |
+| linkShadowColor   | _string_          | Sankey diagram link shadow color                                                                                                                                 |
+| linkShadowBlur    | _number_          | Sankey diagram link shadow Gaussian blur coefficient                                                                                                             |
+| linkShadowOffsetX | _number_          | Set horizontal distance of shadow from Sankey diagram link                                                                                                       |
+| linkShadowOffsetY | _number_          | Set vertical distance of shadow from Sankey diagram link                                                                                                         |
+| linkCursor        | _string_          | Sankey diagram link mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                                                         |
 
 ### nodeLabels
 

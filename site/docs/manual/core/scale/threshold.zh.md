@@ -21,7 +21,7 @@ order: 2
 
 - 使用`threshold`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -60,7 +60,7 @@ chart.render();
 
 - 不使用`threshold`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -110,7 +110,7 @@ chart.render();
 
 ### 基本用法
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -149,7 +149,7 @@ chart.render();
 
 ### 阀值折线图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -548,7 +548,7 @@ chart.render();
 
 ### 柱状图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -9,7 +9,7 @@ order: 18
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 `color` 视觉通道影响 `point` 图形标记的 **填充颜色**（在应用某些空心形状的时候，例如 `hollow` ，则会改变图形的 **描边颜色**）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,7 +113,7 @@ chart.render();
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -274,7 +274,7 @@ chart.render();
 
 绑定 `point` 标记的 `size` 属性通道，就能绘制出 **气泡图**，此时数据字段的大小映射到图形的半径（如果是正方形则是 1/2 边长）。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -329,7 +329,43 @@ chart.render();
 
 尝试一下：
 
-<Playground path="general/point/demo/point-style.ts" rid="point-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'point',
+  style: {
+    fill: 'skyblue', // 图形填充颜色，支持颜色字符串，优先级高于color通道
+    fillOpacity: 0.9, // 填充颜色透明度，范围 0-1
+    stroke: '#FADC7C', // 图形描边颜色
+    lineWidth: 3, // 描边宽度（像素）
+    lineDash: [1, 2], // 虚线配置[实线长度, 间隔长度]，[0,0]表示无描边
+    strokeOpacity: 0.95, // 描边透明度，范围 0-1
+    opacity: 0.9, // 整体透明度，影响填充和描边
+    shadowColor: 'black', // 阴影颜色
+    shadowBlur: 10, // 阴影模糊程度（像素）
+    shadowOffsetX: 5, // 阴影水平偏移量（像素）
+    shadowOffsetY: 5, // 阴影垂直偏移量（像素）
+    cursor: 'pointer', // 鼠标悬停样式（同CSS cursor属性）
+  },
+  height: 350,
+  data: [{ x: 0.5, y: 0.5 }],
+  encode: {
+    x: 'x',
+    y: 'y',
+    size: 10,
+    shape: 'point',
+  },
+  scale: {
+    x: { domain: [0, 1], nice: true },
+    y: { domain: [0, 1], nice: true },
+  },
+});
+
+chart.render();
+```
 
 ## 示例
 
@@ -337,7 +373,7 @@ chart.render();
 
 受益于 G2 里标记的可组合性，你可以将 `point`标记和 `line` 标记等其他标记结合，增强图表的表现力，或者是绘制一些类似线性回归的特殊图表。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -390,7 +426,7 @@ chart.render();
 
 下面是另一个 `point` 标记结合其他标记（这个例子中是 `link` 标记）的例子：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -433,7 +469,7 @@ chart.render();
 
 配置 `y` 通道为常数 `1`, 然后配置 [stackY](/manual/core/transform/stack-y) 数据转换来将相同 x 坐标的点堆叠起来。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -490,7 +526,7 @@ chart.render();
 
 或者配置 [groupX](/manual/core/transform/group-x) 数据转换来将相同 x 坐标的点进行求和，然后映射到 `size`通道。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

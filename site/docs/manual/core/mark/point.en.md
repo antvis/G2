@@ -9,7 +9,7 @@ When we encode the `size` channel of a scatter plot, we can create a **bubble ch
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -41,22 +41,22 @@ For more examples, check out the [Chart Examples - Scatter Plot](/en/examples#ge
 
 ## Configuration
 
-| Property | Description                                                                                                        | Type              | Default | Required |
-| -------- | ------------------------------------------------------------------------------------------------------------------ | ----------------- | ------- | -------- |
+| Property | Description                                                                                                                                                                | Type              | Default | Required |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
 | encode   | Configure visual channels for the `point` mark, including `x`, `y`, `color`, `shape`, `size`, etc., to specify the relationship between visual element properties and data | [encode](#encode) | -       | ✓        |
-| style    | Configure graphic style for the `point` mark                                                                       | [style](#style)   | -       |          |
+| style    | Configure graphic style for the `point` mark                                                                                                                               | [style](#style)   | -       |          |
 
 ### encode
 
 Configure visual channels for the `point` mark.
 
-| Property | Description                                                                                          | Type                                                                                                                                                                                                                                                                                         | Default  | Required |
-| -------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------- |
-| x        | Bind the `x` property channel for the `point` mark, can be numeric fields, ordered nominal, or unordered nominal in `data` | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                                | -        | ✓        |
-| y        | Bind the `y` property channel for the `point` mark, generally numeric fields in `data`, used to draw one-dimensional scatter plots when empty | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                                | -        |          |
-| color    | Bind the `color` property channel for the `point` mark, generally used to distinguish different data types, mapped to categorical fields | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                                | -        |          |
-| shape    | Bind the `shape` property channel for the `point` mark, changes the drawing shape of the graphic mark | `hollow` \| `hollowDiamond` \| `hollowHexagon` \| `hollowSquare` \| `hollowTriangleDown` \| `hollowTriangle` \| `hollowBowtie` \| `point` \| `plus` \| `diamond` \| `square` \| `triangle` \| `triangleDown` \| `hexagon` \| `cross` \| `bowtie` \| `hyphen` \| `line` \| `tick` \| `circle` | `hollow` |          |
-| size     | Bind the `size` property channel for the `point` mark, data field size maps to graphic radius (or 1/2 side length for squares) | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                                | -        |          |
+| Property | Description                                                                                                                                   | Type                                                                                                                                                                                                                                                                                         | Default  | Required |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------- |
+| x        | Bind the `x` property channel for the `point` mark, can be numeric fields, ordered nominal, or unordered nominal in `data`                    | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                             | -        | ✓        |
+| y        | Bind the `y` property channel for the `point` mark, generally numeric fields in `data`, used to draw one-dimensional scatter plots when empty | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                             | -        |          |
+| color    | Bind the `color` property channel for the `point` mark, generally used to distinguish different data types, mapped to categorical fields      | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                             | -        |          |
+| shape    | Bind the `shape` property channel for the `point` mark, changes the drawing shape of the graphic mark                                         | `hollow` \| `hollowDiamond` \| `hollowHexagon` \| `hollowSquare` \| `hollowTriangleDown` \| `hollowTriangle` \| `hollowBowtie` \| `point` \| `plus` \| `diamond` \| `square` \| `triangle` \| `triangleDown` \| `hexagon` \| `cross` \| `bowtie` \| `hyphen` \| `line` \| `tick` \| `circle` | `hollow` |          |
+| size     | Bind the `size` property channel for the `point` mark, data field size maps to graphic radius (or 1/2 side length for squares)                | [encode](/en/manual/core/encode)                                                                                                                                                                                                                                                             | -        |          |
 
 #### x & y
 
@@ -86,7 +86,7 @@ The position visual channels for the `point` mark require values from both `x` a
 
 The `color` visual channel affects the **fill color** of the `point` mark (when applying certain hollow shapes, such as `hollow`, it changes the **stroke color** of the graphic). When applied to point plots, it's generally mapped to categorical fields to group data.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,7 +113,7 @@ chart.render();
 
 However, in some special cases, it may also be mapped to continuous fields, using different colors for graphics corresponding to values in different intervals:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -162,28 +162,28 @@ chart.render();
 
 The built-in shape graphics for `point` marks are as follows, with `hollow` as the default.
 
-| Shape              | Description              |
-| ------------------ | ------------------------ |
-| hollow             | Hollow circle           |
-| hollowDiamond      | Hollow diamond          |
-| hollowHexagon      | Hollow hexagon          |
-| hollowSquare       | Hollow square           |
-| hollowTriangleDown | Hollow inverted triangle |
-| hollowTriangle     | Hollow triangle         |
-| hollowBowtie       | Hollow bowtie           |
-| point              | Solid circle            |
-| plus               | Plus symbol             |
-| diamond            | Solid diamond           |
-| square             | Solid square            |
-| triangle           | Solid triangle          |
-| triangleDown       | Solid inverted triangle |
-| hexagon            | Solid hexagon           |
-| cross              | Cross symbol            |
-| bowtie             | Solid bowtie            |
-| hyphen             | Hyphen (short dash)     |
-| line               | Vertical line symbol    |
+| Shape              | Description                       |
+| ------------------ | --------------------------------- |
+| hollow             | Hollow circle                     |
+| hollowDiamond      | Hollow diamond                    |
+| hollowHexagon      | Hollow hexagon                    |
+| hollowSquare       | Hollow square                     |
+| hollowTriangleDown | Hollow inverted triangle          |
+| hollowTriangle     | Hollow triangle                   |
+| hollowBowtie       | Hollow bowtie                     |
+| point              | Solid circle                      |
+| plus               | Plus symbol                       |
+| diamond            | Solid diamond                     |
+| square             | Solid square                      |
+| triangle           | Solid triangle                    |
+| triangleDown       | Solid inverted triangle           |
+| hexagon            | Solid hexagon                     |
+| cross              | Cross symbol                      |
+| bowtie             | Solid bowtie                      |
+| hyphen             | Hyphen (short dash)               |
+| line               | Vertical line symbol              |
 | tick               | Short vertical line (tick symbol) |
-| circle             | Circle symbol           |
+| circle             | Circle symbol                     |
 
 Try it out:
 
@@ -274,7 +274,7 @@ Try it out:
 
 Binding the `size` property channel for the `point` mark creates a **bubble chart**, where the size of data fields maps to the radius of the graphic (or 1/2 side length for squares).
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -312,24 +312,60 @@ chart.render();
 
 ### style
 
-| Property      | Description                          | Type                                                         | Default                                      | Required |
-| ------------- | ------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- | -------- |
-| fill          | `point` mark fill color              | string \| (datum, index, data) => string                     | -                                            |          |
-| fillOpacity   | `point` mark fill opacity            | number \| (datum, index, data) => number                     | point: `0.95`                                |          |
-| stroke        | `point` mark stroke color            | string \| (datum, index, data) => string                     | -                                            |          |
-| strokeOpacity | `point` mark stroke opacity          | number \| (datum, index, data) => number                     | hollow, plus, diamond : `0.95`               |          |
-| lineWidth     | `point` mark stroke width            | number \| (datum, index, data) => number                     | hollow, diamond: `1`<br> point: `0`<br>plus: `3` |          |
-| lineDash      | `point` mark stroke dash configuration | [number,number] \| (datum, index, data) => [number , number] | -                                            |          |
-| opacity       | `point` mark overall opacity         | number \| (datum, index, data) => number                     | -                                            |          |
-| shadowColor   | `point` mark shadow color            | string \| (datum, index, data) => string                     | -                                            |          |
-| shadowBlur    | `point` mark shadow blur factor      | number \| (datum, index, data) => number                     | -                                            |          |
-| shadowOffsetX | `point` mark shadow horizontal offset | number \| (datum, index, data) => number                     | -                                            |          |
-| shadowOffsetY | `point` mark shadow vertical offset  | number \| (datum, index, data) => number                     | -                                            |          |
-| cursor        | `point` mark mouse cursor style      | string \| (datum, index, data) => string                     | `default`                                    |          |
+| Property      | Description                            | Type                                                         | Default                                          | Required |
+| ------------- | -------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ | -------- |
+| fill          | `point` mark fill color                | string \| (datum, index, data) => string                     | -                                                |          |
+| fillOpacity   | `point` mark fill opacity              | number \| (datum, index, data) => number                     | point: `0.95`                                    |          |
+| stroke        | `point` mark stroke color              | string \| (datum, index, data) => string                     | -                                                |          |
+| strokeOpacity | `point` mark stroke opacity            | number \| (datum, index, data) => number                     | hollow, plus, diamond : `0.95`                   |          |
+| lineWidth     | `point` mark stroke width              | number \| (datum, index, data) => number                     | hollow, diamond: `1`<br> point: `0`<br>plus: `3` |          |
+| lineDash      | `point` mark stroke dash configuration | [number,number] \| (datum, index, data) => [number , number] | -                                                |          |
+| opacity       | `point` mark overall opacity           | number \| (datum, index, data) => number                     | -                                                |          |
+| shadowColor   | `point` mark shadow color              | string \| (datum, index, data) => string                     | -                                                |          |
+| shadowBlur    | `point` mark shadow blur factor        | number \| (datum, index, data) => number                     | -                                                |          |
+| shadowOffsetX | `point` mark shadow horizontal offset  | number \| (datum, index, data) => number                     | -                                                |          |
+| shadowOffsetY | `point` mark shadow vertical offset    | number \| (datum, index, data) => number                     | -                                                |          |
+| cursor        | `point` mark mouse cursor style        | string \| (datum, index, data) => string                     | `default`                                        |          |
 
 Try it out:
 
-<Playground path="general/point/demo/point-style.ts" rid="point-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'point',
+  style: {
+    fill: 'skyblue', // 图形填充颜色，支持颜色字符串，优先级高于color通道
+    fillOpacity: 0.9, // 填充颜色透明度，范围 0-1
+    stroke: '#FADC7C', // 图形描边颜色
+    lineWidth: 3, // 描边宽度（像素）
+    lineDash: [1, 2], // 虚线配置[实线长度, 间隔长度]，[0,0]表示无描边
+    strokeOpacity: 0.95, // 描边透明度，范围 0-1
+    opacity: 0.9, // 整体透明度，影响填充和描边
+    shadowColor: 'black', // 阴影颜色
+    shadowBlur: 10, // 阴影模糊程度（像素）
+    shadowOffsetX: 5, // 阴影水平偏移量（像素）
+    shadowOffsetY: 5, // 阴影垂直偏移量（像素）
+    cursor: 'pointer', // 鼠标悬停样式（同CSS cursor属性）
+  },
+  height: 350,
+  data: [{ x: 0.5, y: 0.5 }],
+  encode: {
+    x: 'x',
+    y: 'y',
+    size: 10,
+    shape: 'point',
+  },
+  scale: {
+    x: { domain: [0, 1], nice: true },
+    y: { domain: [0, 1], nice: true },
+  },
+});
+
+chart.render();
+```
 
 ## Examples
 
@@ -337,7 +373,7 @@ Try it out:
 
 Thanks to the composability of marks in G2, you can combine the `point` mark with other marks like the `line` mark to enhance chart expressiveness or create special charts like linear regression.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -390,7 +426,7 @@ chart.render();
 
 Here's another example of combining the `point` mark with other marks (in this case, the `link` mark):
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -433,7 +469,7 @@ chart.render();
 
 Configure the `y` channel to a constant `1`, then configure the [stackY](/en/manual/core/transform/stack-y) data transformation to stack points with the same x coordinate.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -490,7 +526,7 @@ chart.render();
 
 Or configure the [groupX](/en/manual/core/transform/group-x) data transformation to sum points with the same x coordinate, then map to the `size` channel.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

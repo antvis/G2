@@ -9,9 +9,9 @@ Groups discrete color channels and aggregates channels according to specified Re
 
 ## Options
 
-| Property  | Description                                                    | Type      | Default |
-| --------- | -------------------------------------------------------------- | --------- | ------- |
-| [channel] | Aggregation method for channel data output to specific marks  | `Reducer` |         |
+| Property  | Description                                                  | Type      | Default |
+| --------- | ------------------------------------------------------------ | --------- | ------- |
+| [channel] | Aggregation method for channel data output to specific marks | `Reducer` |         |
 
 For detailed information about `Reducer`, please refer to the configuration options of the [group](/en/manual/core/transform/group) function.
 

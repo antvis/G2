@@ -14,7 +14,7 @@ First, you need to use [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/
 
 Then set the z channel, scale, and z-axis, and finally add a light source to the scene.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -107,8 +107,8 @@ Currently, interval3D has the following built-in shape types:
 
 ### cube
 
-| Property | Description                                                                                   | Type                           | Default Value |
-| -------- | --------------------------------------------------------------------------------------------- | ------------------------------ | ------------- |
-| fill     | Fill color of the shape                                                                       | `string` \| `Function<string>` | -             |
-| opacity  | Overall opacity of the shape                                                                  | `number` \| `Function<number>` | -             |
-| cursor   | Mouse cursor style. Same as CSS cursor style, defaults to 'default'.                        | `string` \| `Function<string>` | 'default'     |
+| Property | Description                                                          | Type                           | Default Value |
+| -------- | -------------------------------------------------------------------- | ------------------------------ | ------------- |
+| fill     | Fill color of the shape                                              | `string` \| `Function<string>` | -             |
+| opacity  | Overall opacity of the shape                                         | `number` \| `Function<number>` | -             |
+| cursor   | Mouse cursor style. Same as CSS cursor style, defaults to 'default'. | `string` \| `Function<string>` | 'default'     |

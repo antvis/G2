@@ -24,12 +24,12 @@ Compared to area charts, line charts focus more on showing trends and trajectori
 
 <img alt="basic-line" src="https://t.alipayobjects.com/images/T1c7djXjhXXXXXXXXX.png" width=600 />
 
-| Chart Type | Basic Line Chart |
-| ---------- | ---------------- |
-| Suitable Data | Time series data: one ordered/continuous data field (usually time), one continuous data field |
-| Function | Display data trends over time or ordered dimensions |
+| Chart Type               | Basic Line Chart                                                                                                                        |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data            | Time series data: one ordered/continuous data field (usually time), one continuous data field                                           |
+| Function                 | Display data trends over time or ordered dimensions                                                                                     |
 | Data-to-Graphics Mapping | Time field maps to x-axis position<br>Value field maps to y-axis height<br>Data points are connected by lines to show change trajectory |
-| Suitable Scenarios | Single data series change trends over time |
+| Suitable Scenarios       | Single data series change trends over time                                                                                              |
 
 ---
 
@@ -37,12 +37,12 @@ Compared to area charts, line charts focus more on showing trends and trajectori
 
 <img alt="multi-series-line" src="https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg" width=600/>
 
-| Chart Type | Multi-Series Line Chart |
-| ---------- | ----------------------- |
-| Suitable Data | Multi-series time data: one ordered/continuous data field (usually time), one continuous data field, one categorical data field |
-| Function | Display trends of multiple data series over time, facilitating comparison of relationships between different series |
-| Data-to-Graphics Mapping | Time field maps to x-axis position<br>Value field maps to y-axis height<br>Category field maps to different colored lines |
-| Suitable Scenarios | Comparison of multiple data series trends over time |
+| Chart Type               | Multi-Series Line Chart                                                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data            | Multi-series time data: one ordered/continuous data field (usually time), one continuous data field, one categorical data field |
+| Function                 | Display trends of multiple data series over time, facilitating comparison of relationships between different series             |
+| Data-to-Graphics Mapping | Time field maps to x-axis position<br>Value field maps to y-axis height<br>Category field maps to different colored lines       |
+| Suitable Scenarios       | Comparison of multiple data series trends over time                                                                             |
 
 ## Use Cases of Line Charts
 
@@ -52,14 +52,14 @@ Example 1: **Suitable for displaying continuous time series trends**
 
 The following chart is a line chart of stock price trends, showing the change trend of a company's stock price over time.
 
-| date | close |
-| ---- | ----- |
+| date     | close  |
+| -------- | ------ |
 | 2015/1/5 | 121.73 |
 | 2015/1/6 | 115.07 |
 | 2015/1/7 | 116.75 |
-| ... | ... |
+| ...      | ...    |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -111,7 +111,7 @@ Example 2: **Suitable for displaying comparative trends of multiple data series*
 
 Multi-series line charts can simultaneously display changes of multiple data series over time, facilitating comparative analysis. The following chart shows unemployment rate trends in different regions.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -124,12 +124,13 @@ chart.options({
   autoFit: true,
   data: {
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv',
   },
-  encode: { 
-    x: 'date', 
-    y: 'unemployment', 
-    color: 'division' 
+  encode: {
+    x: 'date',
+    y: 'unemployment',
+    color: 'division',
   },
   axis: {
     x: {
@@ -145,6 +146,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - The `date` field maps to the x-axis, representing the time dimension
 - The `unemployment` field maps to the y-axis, representing unemployment rate
 - The `division` field maps to color, distinguishing different regions
@@ -154,7 +156,7 @@ Example 3: **Displaying subtle data changes and fluctuations**
 
 Line charts can clearly display subtle data changes and fluctuations, especially when there are many data points with frequent changes.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -193,13 +195,13 @@ chart.options({
   ],
   encode: { x: 'month', y: 'temperature', color: 'city' },
   axis: {
-    y: { 
+    y: {
       title: null,
-      labelFormatter: (d) => d + '°C' 
+      labelFormatter: (d) => d + '°C',
     },
-    x: { 
-      title: null 
-    }
+    x: {
+      title: null,
+    },
   },
   style: {
     lineWidth: 2,
@@ -210,6 +212,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - The line chart clearly displays annual temperature change curves for Tokyo and London
 - Through different colored lines, temperature differences and change patterns between the two cities can be intuitively compared
 
@@ -223,7 +226,7 @@ We take a scenario comparing sales of different game types as an example. For da
 
 **Wrong approach (using line chart):**
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -244,12 +247,12 @@ chart.options({
   ],
   encode: { x: 'genre', y: 'sold' },
   axis: {
-    x: { 
-      title: 'Game Type'
+    x: {
+      title: 'Game Type',
     },
-    y: { 
+    y: {
       title: 'Sales',
-      labelFormatter: (val) => (val / 1000) + 'k'
+      labelFormatter: (val) => val / 1000 + 'k',
     },
   },
   style: {
@@ -263,7 +266,7 @@ chart.render();
 
 **Correct approach (using bar chart):**
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -284,12 +287,12 @@ chart.options({
   ],
   encode: { x: 'genre', y: 'sold', color: 'genre' },
   axis: {
-    x: { 
-      title: 'Game Type'
+    x: {
+      title: 'Game Type',
     },
-    y: { 
+    y: {
       title: 'Sales',
-      labelFormatter: (val) => (val / 1000) + 'k'
+      labelFormatter: (val) => val / 1000 + 'k',
     },
   },
 });
@@ -298,6 +301,7 @@ chart.render();
 ```
 
 **Problem description**:
+
 - Game types have no natural order or continuous relationship
 - The connecting line implies a trend relationship between categories, but this relationship doesn't actually exist
 - The line may mislead readers into thinking there's a trend from "Sports" to "Strategy"
@@ -307,7 +311,7 @@ Example 2: **Poor effectiveness when data points are few or changes are insignif
 
 When there are few data points or changes are insignificant, line charts may not fully leverage their advantage of showing trend changes. In such cases, consider using bar charts or dot plots to emphasize comparisons between individual data points.
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -339,6 +343,7 @@ chart.render();
 ```
 
 **Problem description**:
+
 - Too few data points (only 4), unable to form a clear trend line
 - Very small value changes (99-102), the line appears almost flat
 - Difficult to extract meaningful trend information
@@ -350,7 +355,7 @@ chart.render();
 
 Step line charts use horizontal and vertical line segments to connect data points, creating a step-like effect, suitable for displaying data that changes abruptly at specific time points.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -377,12 +382,12 @@ chart.options({
   ],
   encode: { x: 'month', y: 'value', shape: 'hv' },
   axis: {
-    x: { 
-      title: null 
+    x: {
+      title: null,
     },
-    y: { 
-      title: null
-    }
+    y: {
+      title: null,
+    },
   },
   style: {
     lineWidth: 2,
@@ -394,6 +399,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - Use `encode: { shape: 'hv' }` to specify step-like line shape
 - Suitable for displaying data that changes at specific time points and remains stable until the next change point, such as tiered electricity prices, inventory level changes, etc.
 
@@ -401,7 +407,7 @@ chart.render();
 
 Dashed line charts use different line styles to distinguish different data series or represent specific meanings, such as predicted values, reference lines, etc.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -457,6 +463,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - Use `lineDash: (d) => (d[0].type === 'Predicted' ? [4, 4] : null)` to set dashed line style for predicted values
 - Solid lines represent existing historical data, dashed lines represent predicted or estimated data, enhancing data readability
 

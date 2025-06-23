@@ -58,22 +58,22 @@ For more examples, visit the [Chart Examples](/en/examples) page.
 
 The underlying implementation of facetCircle is consistent with mark, so many configuration options are the same.
 
-| Property      | Description                                                                      | Type     | Default |
-| ------------- | -------------------------------------------------------------------------------- | -------- | ------- |
-| data          | Refer to [data](/en/manual/core/data/overview) for related information          | `Data`   |         |
-| encode        | Channel settings, see table below                                               |          |         |
-| padding       | Padding size                                                                     | `number` | 0       |
-| paddingLeft   |                                                                                  | `number` | 0       |
-| paddingRight  |                                                                                  | `number` | 0       |
-| paddingTop    |                                                                                  | `number` | 0       |
-| paddingBottom |                                                                                  | `number` | 0       |
-| margin        | Margin                                                                           | `number` | 0       |
-| marginLeft    |                                                                                  | `number` | 0       |
-| marginRight   |                                                                                  | `number` | 0       |
-| marginTop     |                                                                                  | `number` | 0       |
-| marginBottom  |                                                                                  | `number` | 0       |
-| title         | Refer to [title](/en/manual/component/title) for related information            |          |         |
-| scale         | Refer to [scale](/en/manual/core/scale/overview) for related information        |          |         |
+| Property      | Description                                                              | Type     | Default |
+| ------------- | ------------------------------------------------------------------------ | -------- | ------- |
+| data          | Refer to [data](/en/manual/core/data/overview) for related information   | `Data`   |         |
+| encode        | Channel settings, see table below                                        |          |         |
+| padding       | Padding size                                                             | `number` | 0       |
+| paddingLeft   |                                                                          | `number` | 0       |
+| paddingRight  |                                                                          | `number` | 0       |
+| paddingTop    |                                                                          | `number` | 0       |
+| paddingBottom |                                                                          | `number` | 0       |
+| margin        | Margin                                                                   | `number` | 0       |
+| marginLeft    |                                                                          | `number` | 0       |
+| marginRight   |                                                                          | `number` | 0       |
+| marginTop     |                                                                          | `number` | 0       |
+| marginBottom  |                                                                          | `number` | 0       |
+| title         | Refer to [title](/en/manual/component/title) for related information     |          |         |
+| scale         | Refer to [scale](/en/manual/core/scale/overview) for related information |          |         |
 
 All configurations corresponding to `facetCircle` can be set using the API, for example:
 
@@ -85,6 +85,6 @@ chart.facetCircle().data([1, 2, 3]).encode('position', 'month');
 
 For facetCircle, there are unique encode channels.
 
-| Channel  | Description                                                  | Type                               | Default |
-| -------- | ------------------------------------------------------------ | ---------------------------------- | ------- |
+| Channel  | Description                                                   | Type                               | Default |
+| -------- | ------------------------------------------------------------- | ---------------------------------- | ------- |
 | position | Divide the angular space in the circle based on position data | `string` \| `(d, idx, arr) => any` |         |

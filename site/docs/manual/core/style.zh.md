@@ -79,7 +79,7 @@ chart.style({
 - `mark.encode` 设置的通道会特殊一点，要么是该标记独有的，比如 image 的 src 通道；要么就是有一些特殊逻辑，比如 x 通道会影响 x 方向坐标轴的生成。
 - `mark.encode` 更倾向于去设置和数据有关的通道，但是 `mark.style` 更倾向于去设置和数据无关的通道。虽然 `mark.style` 也同样支持回调去设置数据驱动的通道。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -114,7 +114,7 @@ chart.render();
 
 比如下图中给各个区域染色：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -178,7 +178,7 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 | fillOpacity   | 图形的填充透明度                                                                                             | number          |           |      |
 | stroke        | 图形的描边                                                                                                   | string          |           |      |
 | strokeOpacity | 描边透明度                                                                                                   | number          |           |      |
-| lineWidth     | 描边宽度                                                                                                   | number          |           |      |
+| lineWidth     | 描边宽度                                                                                                     | number          |           |      |
 | lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] |           |      |
 | opacity       | 图形的整体透明度                                                                                             | number          |           |      |
 | shadowColor   | 图形阴影颜色                                                                                                 | string          |           |      |
@@ -189,7 +189,39 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 接下来，试试使用全量图形样式配置基础柱状图的 `interval` 的图形样式，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/mark.ts" rid="mark-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 30 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+  style: {
+    fill: 'skyblue',
+    fillOpacity: 0.5,
+    stroke: 'black',
+    lineWidth: 1,
+    lineDash: [4, 5],
+    strokeOpacity: 0.7,
+    opacity: 0.9,
+    shadowColor: 'black',
+    shadowBlur: 10,
+    shadowOffsetX: 5,
+    shadowOffsetY: 5,
+    cursor: 'pointer',
+  },
+});
+
+chart.render();
+```
 
 ### 配置线的样式
 
@@ -197,7 +229,7 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 | ------------- | ------------------------------------------------------------------------------------------------------ | --------------- | --------- | ---- |
 | stroke        | 线的颜色                                                                                               | string          |           |      |
 | strokeOpacity | 线的透明度                                                                                             | number          |           |      |
-| lineWidth     | 描边宽度                                                                                                   | number          |           |      |
+| lineWidth     | 描边宽度                                                                                               | number          |           |      |
 | lineDash      | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number] |           |      |
 | opacity       | 整体透明度                                                                                             | number          |           |      |
 | shadowColor   | 阴影颜色                                                                                               | string          |           |      |
@@ -208,11 +240,46 @@ G2 使用 [G](https://g.antv.antgroup.com/) 作为绘图引擎，一些图形的
 
 接下来，试试使用全量线的样式配置基础折线图的 `line` 的样式，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/line.ts" rid="line-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'line',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  style: {
+    stroke: 'skyblue',
+    strokeOpacity: 0.9,
+    lineWidth: 4,
+    lineDash: [4, 8],
+    opacity: 0.9,
+    shadowColor: '#d3d3d3',
+    shadowBlur: 10,
+    shadowOffsetX: 10,
+    shadowOffsetY: 10,
+    cursor: 'pointer',
+  },
+});
+
+chart.render();
+```
 
 类似的，我们也可以以相同的方式来配置坐标轴的网格线。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -261,7 +328,7 @@ chart.render();
 | fill          | 文字的填充色                                                                                                 | string                                                     |           |      |
 | fillOpacity   | 文字的填充透明度                                                                                             | number                                                     |           |      |
 | stroke        | 文字的描边                                                                                                   | string                                                     |           |      |
-| lineWidth     | 描边宽度                                                                                                   | number                                                     |           |      |
+| lineWidth     | 描边宽度                                                                                                     | number                                                     |           |      |
 | lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | [number,number]                                            |           |      |
 | strokeOpacity | 描边透明度                                                                                                   | number                                                     |           |      |
 | opacity       | 文字的整体透明度                                                                                             | number                                                     |           |      |
@@ -275,11 +342,53 @@ chart.render();
 
 接下来，试试使用全量文字的样式配置水波图的中心文字的样式，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/text.ts" rid="text-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'liquid',
+  autoFit: true,
+  data: 0.581,
+  style: {
+    waveLength: 50,
+    contentText: 'center text',
+    outlineBorder: 4,
+    outlineDistance: 8,
+    // 绘图属性
+    contentFontSize: 30,
+    contentFontFamily: 'sans-serif',
+    contentFontWeight: 500,
+    contentLineHeight: 20,
+    contentTextAlign: 'center',
+    contentTextBaseline: 'middle',
+    contentFill: '#fff',
+    contentFillOpacity: 0.9,
+    contentStroke: 'yellow',
+    contentStrokeOpacity: 0.9,
+    contentLineWidth: 2,
+    contentLineDash: [4, 8],
+    contentOpacity: 1,
+    contentShadowColor: '#d3d3d3',
+    contentShadowBlur: 10,
+    contentShadowOffsetX: 10,
+    contentShadowOffsetY: 10,
+    contentCursor: 'pointer',
+    contentDx: 10,
+    contentDy: 10,
+  },
+});
+
+chart.render();
+```
 
 类似的，我们也可以以相同的方式来配置标题的文字样式。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -349,11 +458,65 @@ stroke: 'linear-gradient(270deg, #ffffff 0%, #7ec2f3 50%, #1890ff 100%)';
 
 接下来，试试配置面积图的填充颜色为线性渐变色，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/area.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/area_gradient.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/stocks.json',
+    transform: [{ type: 'filter', callback: (d) => d.symbol === 'GOOG' }],
+  },
+  children: [
+    {
+      type: 'area',
+      encode: { x: (d) => new Date(d.date), y: 'price' },
+      style: { fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff' },
+      // style: { fill: "linear-gradient(270deg, #ffffff 0%, #7ec2f3 50%, #1890ff 100%)" },
+    },
+  ],
+});
+
+chart.render();
+```
 
 也可以通过配置 `color` 通道的比例尺来实现一个渐变色仪表盘，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/gauge.ts" rid="gauge-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'gauge',
+  data: {
+    value: { target: 159, total: 400, name: 'score', thresholds: [200, 400] },
+  },
+  scale: {
+    color: { range: ['l(0):0:#37b38e 1:#D9C652', 'l(0):0:#D9C652 1:#f96e3e'] },
+  },
+  style: {
+    textContent: (target, total) => `得分：${target}
+占比：${(target / total) * 100}%`,
+  },
+  legend: false,
+});
+
+chart.render();
+```
 
 ### 配置环形渐变
 
@@ -368,7 +531,29 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 
 接下来，试试配置条形图的填充颜色为环形渐变色，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/radial-gradient.ts" rid="radial-gradient-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  height: 350,
+  data: [
+    { genre: 'Sports', sold: 30 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+  style: {
+    fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff',
+  },
+});
+
+chart.render();
+```
 
 ### 配置纹理
 
@@ -391,6 +576,28 @@ style: {
 
 接下来，试试配置条形图的填充颜色为纹理，在下面的代码编辑器里修改属性试试效果：
 
-<Playground path="style/graphic/demo/pattern.ts" rid="pattern"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  height: 350,
+  data: [
+    { genre: 'Sports', sold: 30 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+  style: {
+    fill: 'p(a)https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*58XjQY1tO7gAAAAAAAAAAABkARQnAQ',
+  },
+});
+
+chart.render();
+```
 
 除此之外，G2 提供了 `内置纹理`、 `G API 自定义纹理` 等多种方式来设置纹理，详情见 [设置纹理](/manual/extra-topics/pattern)。

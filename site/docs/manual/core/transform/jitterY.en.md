@@ -14,10 +14,10 @@ It adds random offsets along the y-axis, visually dispersing data points to avoi
 
 ## Configuration
 
-| Property | Description                                  | Type           | Default Value |
-| -------- | -------------------------------------------- | -------------- | ------------- |
-| padding  | Spacing between each group [0 ~ 1]           | `number`       | 0             |
-| random   | Random function that returns a value [0, 1)  | `() => number` | Math.random   |
+| Property | Description                                 | Type           | Default Value |
+| -------- | ------------------------------------------- | -------------- | ------------- |
+| padding  | Spacing between each group [0 ~ 1]          | `number`       | 0             |
+| random   | Random function that returns a value [0, 1) | `() => number` | Math.random   |
 
 ## Example
 

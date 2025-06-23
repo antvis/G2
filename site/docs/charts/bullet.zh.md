@@ -24,12 +24,12 @@ similar: ['bar', 'multi-set-bar', 'stacked-bar']
 
 <img alt="bullet-anatomy" src="https://zos.alipayobjects.com/rmsportal/DkOloAVoymGGRJgmezOc.png" width=600 />
 
-| 图表类型         | 子弹图                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------------------ |
-| 适合的数据       | 一个分类数据字段、一个连续数据字段（实际值）、一个目标值、可选的表现区间                         |
-| 功能             | 展示实际值与目标值的对比，评估表现等级                                                           |
+| 图表类型         | 子弹图                                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| 适合的数据       | 一个分类数据字段、一个连续数据字段（实际值）、一个目标值、可选的表现区间                                 |
+| 功能             | 展示实际值与目标值的对比，评估表现等级                                                                   |
 | 数据与图形的映射 | 分类数据字段映射到纵轴位置<br>连续数据字段映射到条形长度<br>目标值映射到标记线<br>表现区间映射到背景色带 |
-| 适合的数据条数   | 单个或多个指标，建议不超过 10 个                                                                 |
+| 适合的数据条数   | 单个或多个指标，建议不超过 10 个                                                                         |
 
 子弹图的主要组成部分包括：
 
@@ -38,7 +38,7 @@ similar: ['bar', 'multi-set-bar', 'stacked-bar']
 - **表现区间**：背景使用不同深浅的色带表示，通常分为差、良、优等区间
 - **刻度轴**：提供数值参考，帮助读者理解具体的数值大小
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,10 +91,18 @@ chart.options({
     {
       type: 'point',
       data,
-      encode: { x: 'title', y: 'target', shape: 'line', color: '#3D76DD', size: 8 },
+      encode: {
+        x: 'title',
+        y: 'target',
+        shape: 'line',
+        color: '#3D76DD',
+        size: 8,
+      },
       tooltip: {
         title: false,
-        items: [{ channel: 'y', name: '目标值', valueFormatter: (d) => `${d}%` }],
+        items: [
+          { channel: 'y', name: '目标值', valueFormatter: (d) => `${d}%` },
+        ],
       },
     },
   ],
@@ -109,11 +117,11 @@ chart.render();
 
 ### 适合的场景
 
-**场景1：业绩指标监控**
+**场景 1：业绩指标监控**
 
 子弹图是展示业绩指标完成情况的理想工具，能够清晰地对比实际表现与目标要求。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -135,67 +143,66 @@ const transformedData = [
 ];
 
 chart.options({
-  type: "view",
-  coordinate: { transform: [{ type: "transpose" }] },
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
   children: [
     {
-      type: "interval",
+      type: 'interval',
       data: transformedData,
-      encode: { x: "title", y: "value", color: "level" },
-      transform: [{ type: "stackY" }],
+      encode: { x: 'title', y: 'value', color: 'level' },
+      transform: [{ type: 'stackY' }],
       scale: {
         color: {
-          domain: ["差", "良", "优"],
+          domain: ['差', '良', '优'],
           range: colors.ranges,
         },
       },
       style: { maxWidth: 30 },
     },
     {
-      type: "interval",
+      type: 'interval',
       data: {
         value: [
-          { title: "项目进度", value: 60, type: "实际进度" },
-          { title: "项目进度", value: 80, type: "目标进度" },
+          { title: '项目进度', value: 60, type: '实际进度' },
+          { title: '项目进度', value: 80, type: '目标进度' },
         ],
-        transform: [{ type: "filter", callback: (d) => d.type === "实际进度" }],
+        transform: [{ type: 'filter', callback: (d) => d.type === '实际进度' }],
       },
-      encode: { x: "title", y: "value", color: colors.measures },
+      encode: { x: 'title', y: 'value', color: colors.measures },
       style: { maxWidth: 16 },
     },
     {
-      type: "point",
+      type: 'point',
       data: {
         value: [
-          { title: "项目进度", value: 60, type: "实际进度" },
-          { title: "项目进度", value: 80, type: "目标进度" },
+          { title: '项目进度', value: 60, type: '实际进度' },
+          { title: '项目进度', value: 80, type: '目标进度' },
         ],
-        transform: [{ type: "filter", callback: (d) => d.type === "目标进度" }],
+        transform: [{ type: 'filter', callback: (d) => d.type === '目标进度' }],
       },
       encode: {
-        x: "title",
-        y: "value",
-        shape: "line",
+        x: 'title',
+        y: 'value',
+        shape: 'line',
         color: colors.target,
         size: 8,
       },
-      axis: { y: { grid: true, title: "进度 (%)" }, x: { title: false } },
+      axis: { y: { grid: true, title: '进度 (%)' }, x: { title: false } },
     },
   ],
 });
 chart.render();
-
 ```
 
-**场景2：预算执行跟踪**
+**场景 2：预算执行跟踪**
 
 子弹图能够有效地显示预算的执行情况，包括实际支出、预算目标和预警区间。
 
-**场景3：资源利用率监控**
+**场景 3：资源利用率监控**
 
 通过子弹图可以直观地了解各类资源的使用情况，识别过度使用或利用不足的资源。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -246,7 +253,7 @@ chart.options({
       encode: {
         x: 'resource',
         y: 'measures',
-        color: (d) => d.measures > d.target ? '#ff7875' : '#52c41a'
+        color: (d) => (d.measures > d.target ? '#ff7875' : '#52c41a'),
       },
       style: { maxWidth: 20 },
       label: {
@@ -260,7 +267,13 @@ chart.options({
     {
       type: 'point',
       data: resourceData,
-      encode: { x: 'resource', y: 'target', shape: 'line', color: '#1890ff', size: 6 },
+      encode: {
+        x: 'resource',
+        y: 'target',
+        shape: 'line',
+        color: '#1890ff',
+        size: 6,
+      },
       axis: {
         y: {
           grid: true,
@@ -279,15 +292,15 @@ chart.render();
 
 ### 不适合的场景
 
-**场景1：时间趋势分析**
+**场景 1：时间趋势分析**
 
 子弹图主要展示某个时点的状态对比，不适合展示随时间变化的趋势，此时应使用折线图。
 
-**场景2：部分与整体关系**
+**场景 2：部分与整体关系**
 
 如果需要展示各部分占整体的比例关系，饼图或环形图更为合适。
 
-**场景3：数据量过大**
+**场景 3：数据量过大**
 
 当需要展示大量指标时，子弹图会导致视觉混乱，建议使用分组展示或其他图表类型。
 
@@ -297,7 +310,7 @@ chart.render();
 
 通过分组显示多个相关指标的表现情况，便于横向对比。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -361,7 +374,13 @@ chart.options({
     {
       type: 'point',
       data: multiData,
-      encode: { x: 'indicator', y: 'target', shape: 'line', color: '#666', size: 6 },
+      encode: {
+        x: 'indicator',
+        y: 'target',
+        shape: 'line',
+        color: '#666',
+        size: 6,
+      },
       axis: {
         y: {
           grid: true,
@@ -382,7 +401,7 @@ chart.render();
 
 通过不同颜色深浅的背景区间，提供更细致的表现评估标准。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -404,51 +423,51 @@ const transformedData = [
 ];
 
 chart.options({
-  type: "view",
-  coordinate: { transform: [{ type: "transpose" }] },
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
   children: [
     {
-      type: "interval",
+      type: 'interval',
       data: transformedData,
-      encode: { x: "title", y: "value", color: "level" },
-      transform: [{ type: "stackY" }],
+      encode: { x: 'title', y: 'value', color: 'level' },
+      transform: [{ type: 'stackY' }],
       scale: {
         color: {
-          domain: ["差", "良", "优"],
+          domain: ['差', '良', '优'],
           range: colors.ranges,
         },
       },
       style: { maxWidth: 30 },
     },
     {
-      type: "interval",
+      type: 'interval',
       data: {
         value: [
-          { title: "项目进度", value: 60, type: "实际进度" },
-          { title: "项目进度", value: 80, type: "目标进度" },
+          { title: '项目进度', value: 60, type: '实际进度' },
+          { title: '项目进度', value: 80, type: '目标进度' },
         ],
-        transform: [{ type: "filter", callback: (d) => d.type === "实际进度" }],
+        transform: [{ type: 'filter', callback: (d) => d.type === '实际进度' }],
       },
-      encode: { x: "title", y: "value", color: colors.measures },
+      encode: { x: 'title', y: 'value', color: colors.measures },
       style: { maxWidth: 16 },
     },
     {
-      type: "point",
+      type: 'point',
       data: {
         value: [
-          { title: "项目进度", value: 60, type: "实际进度" },
-          { title: "项目进度", value: 80, type: "目标进度" },
+          { title: '项目进度', value: 60, type: '实际进度' },
+          { title: '项目进度', value: 80, type: '目标进度' },
         ],
-        transform: [{ type: "filter", callback: (d) => d.type === "目标进度" }],
+        transform: [{ type: 'filter', callback: (d) => d.type === '目标进度' }],
       },
       encode: {
-        x: "title",
-        y: "value",
-        shape: "line",
+        x: 'title',
+        y: 'value',
+        shape: 'line',
         color: colors.target,
         size: 8,
       },
-      axis: { y: { grid: true, title: "进度 (%)" }, x: { title: false } },
+      axis: { y: { grid: true, title: '进度 (%)' }, x: { title: false } },
     },
   ],
 });
@@ -459,7 +478,7 @@ chart.render();
 
 在空间受限或需要特殊布局时，可以使用垂直方向的子弹图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -512,7 +531,13 @@ chart.options({
     {
       type: 'point',
       data: verticalData,
-      encode: { x: 'metric', y: 'target', shape: 'line', color: '#ff4d4f', size: 6 },
+      encode: {
+        x: 'metric',
+        y: 'target',
+        shape: 'line',
+        color: '#ff4d4f',
+        size: 6,
+      },
       axis: {
         y: {
           grid: true,
@@ -552,4 +577,4 @@ chart.render();
 
 ## 分类
 
-<code src="./demos/list-category.tsx"></code> 
+<code src="./demos/list-category.tsx"></code>

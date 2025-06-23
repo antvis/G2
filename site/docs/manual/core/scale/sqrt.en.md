@@ -21,7 +21,7 @@ The sqrt scale can make data more evenly distributed visually, especially for da
 
 - Using sqrt scale effect
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -51,7 +51,7 @@ chart.render();
 
 - Without sqrt scale effect
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -80,22 +80,22 @@ chart.render();
 
 ## Options
 
-| Property    | Description                                                                                         | Type                                                    | Default Value                          | Required |
-| ----------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | -------- |
+| Property    | Description                                                                                        | Type                                                    | Default Value                          | Required |
+| ----------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | -------- |
 | domain      | Set the domain range of the data                                                                   | `number[]`                                              | Min-max range of input data            |          |
 | domainMin   | Set the minimum value of the data domain                                                           | `number`                                                | Minimum value of input data            |          |
 | domainMax   | Set the maximum value of the data domain                                                           | `number`                                                | Maximum value of input data            |          |
 | range       | Set the value range for data mapping                                                               | `number[]` \| `string[]`                                | `[0, 1]`                               |          |
 | rangeMin    | Set the minimum value of the data mapping range                                                    | `number \| string`                                      | `0`                                    |          |
 | rangeMax    | Set the maximum value of the data mapping range                                                    | `number \| string`                                      | `1`                                    |          |
-| unknown     | The returned data for null values like `undefined`, `NaN`, `null`                                 | `any`                                                   | `undefined`                            |          |
+| unknown     | The returned data for null values like `undefined`, `NaN`, `null`                                  | `any`                                                   | `undefined`                            |          |
 | tickCount   | Set the recommended number of ticks to generate, tickCount is only a suggested value, not absolute | `number`                                                | `5`                                    |          |
 | tickMethod  | Set the method for generating ticks, commonly used for custom ticks                                | `(min: number, max: number, count: number) => number[]` | `d3-ticks`                             |          |
 | round       | Round the output values                                                                            | `boolean`                                               | `false`                                |          |
 | clamp       | Limit the mapped values to the range                                                               | `boolean`                                               | `false`                                |          |
 | nice        | Extend the domain range to make the output ticks display more nicely                               | `boolean`                                               | `false`                                |          |
 | interpolate | Custom interpolation function                                                                      | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |          |
-| exponent    | Set the exponent, for sqrt scale, this value is fixed at `0.5`                                    | `number`                                                | `0.5`                                  |          |
+| exponent    | Set the exponent, for sqrt scale, this value is fixed at `0.5`                                     | `number`                                                | `0.5`                                  |          |
 
 ## Examples
 
@@ -103,7 +103,7 @@ chart.render();
 
 Use sqrt scale to map point sizes in a scatter plot to make numerical differences more apparent.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,7 +145,7 @@ chart.render();
 
 Using sqrt scale for color gradient mapping
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

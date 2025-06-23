@@ -147,7 +147,7 @@ If you're using Vue3 Composition API, the implementation is as follows. For comp
   onMounted(() => {
     chart = renderBarChart(container.value);
   });
-  
+
   onUnmounted(() => {
     chart.destroy();
     chart = null;
@@ -205,7 +205,7 @@ export default function G2Demo() {
     if (!chart.current) {
       chart.current = renderBarChart(container.current);
     }
-    
+
     return () => {
       chart.current.destroy();
       chart.current = null;

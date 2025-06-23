@@ -11,12 +11,12 @@ Group by specified channel and add offset to the y and y1 channels of each group
 
 SymmetryY (Y-axis symmetry) is typically used to emphasize or highlight data symmetry, comparison, or mirror relationships. Here are common application scenarios with chart types and practical examples:
 
-| **Scenario** | **Chart Type** | **Description** | **Example** |
-| ---------------- | ---------------- | --------------------------------------------------------------- | ---------------------- |
-| **Compare Two Groups** | Bar Chart, Column Chart | Two groups of data displayed on both sides of the Y-axis, intuitively showing comparison differences (e.g., A/B test results). | Male vs Female Income Distribution |
-| **Mirror Relationship Analysis** | Line Chart, Area Chart | Data symmetrically distributed around the Y-axis, showing positive and negative correlations (e.g., profit vs loss, import/export balance). | Company Monthly Profit vs Loss Comparison |
-| **Symmetry Distribution Verification** | Box Plot, Violin Plot | Check if data follows symmetric distribution (e.g., normal distribution test). | Height/Weight Symmetry Analysis |
-| **Bidirectional Deviation Display** | Error Bar Chart | Display both positive and negative deviations simultaneously (e.g., difference between predicted and actual values). | Weather Forecast Error Range |
+| **Scenario**                           | **Chart Type**          | **Description**                                                                                                                             | **Example**                               |
+| -------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| **Compare Two Groups**                 | Bar Chart, Column Chart | Two groups of data displayed on both sides of the Y-axis, intuitively showing comparison differences (e.g., A/B test results).              | Male vs Female Income Distribution        |
+| **Mirror Relationship Analysis**       | Line Chart, Area Chart  | Data symmetrically distributed around the Y-axis, showing positive and negative correlations (e.g., profit vs loss, import/export balance). | Company Monthly Profit vs Loss Comparison |
+| **Symmetry Distribution Verification** | Box Plot, Violin Plot   | Check if data follows symmetric distribution (e.g., normal distribution test).                                                              | Height/Weight Symmetry Analysis           |
+| **Bidirectional Deviation Display**    | Error Bar Chart         | Display both positive and negative deviations simultaneously (e.g., difference between predicted and actual values).                        | Weather Forecast Error Range              |
 
 ### Summary of Uses
 
@@ -27,9 +27,9 @@ SymmetryY (Y-axis symmetry) is typically used to emphasize or highlight data sym
 
 ## Configuration
 
-| Property | Description | Type | Default |
-| ------- | ---------------------------------------------------------------- | -------------------- | ------ |
-| groupBy | Specify grouping channel, can be a single channel name or multiple channels (string array) | `string \| string[]` | `x` |
+| Property | Description                                                                                | Type                 | Default |
+| -------- | ------------------------------------------------------------------------------------------ | -------------------- | ------- |
+| groupBy  | Specify grouping channel, can be a single channel name or multiple channels (string array) | `string \| string[]` | `x`     |
 
 ### groupBy
 

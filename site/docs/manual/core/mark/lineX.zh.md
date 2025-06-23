@@ -7,7 +7,7 @@ order: 13
 
 `lineX`和`lineY`图形标记配置相似，`lineX`图形标记用于绘制垂直于 x 轴的辅助线，常用于绘制平均值或其他聚合数据辅助线。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

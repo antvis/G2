@@ -17,18 +17,18 @@ The `pow` scale is particularly useful for scenarios where you need to emphasize
 
 ## Configuration
 
-| Property    | Description                                      | Type                                                                                      | Default                    | Required |
-| ----------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------- | -------------------------- | -------- |
-| type        | Scale type, must be 'pow'                       | string                                                                                    | None                       | ✓        |
-| domain      | Domain, representing the original range of input data | (number &#124; string)[]                                                            | [0, 1]                     |          |
-| range       | Range, representing the visual range after mapping | number[]                                                                               | [0, 1]                     |          |
-| exponent    | Exponent value, determining the strength of exponential transformation | number                                                | 2                          |          |
-| nice        | Whether to optimize the domain range            | boolean                                                                                   | false                      |          |
-| clamp       | Whether to limit values outside the domain to the range | boolean                                                                        | false                      |          |
-| round       | Whether to round the output values              | boolean                                                                                   | false                      |          |
-| tickMethod  | Method for calculating ticks                    | (min: number, max: number, count: number) => number[]                                     | d3Ticks                    |          |
-| tickCount   | Number of ticks                                 | number                                                                                    | 5                          |          |
-| interpolate | Custom interpolator, supports numeric and color values | (a: number &#124; string, b: number &#124; string) => (t: number) => number &#124; string | Numbers: linear interpolation; Colors: RGBA interpolation |          |
+| Property    | Description                                                            | Type                                                                                      | Default                                                   | Required |
+| ----------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------- | -------- |
+| type        | Scale type, must be 'pow'                                              | string                                                                                    | None                                                      | ✓        |
+| domain      | Domain, representing the original range of input data                  | (number &#124; string)[]                                                                  | [0, 1]                                                    |          |
+| range       | Range, representing the visual range after mapping                     | number[]                                                                                  | [0, 1]                                                    |          |
+| exponent    | Exponent value, determining the strength of exponential transformation | number                                                                                    | 2                                                         |          |
+| nice        | Whether to optimize the domain range                                   | boolean                                                                                   | false                                                     |          |
+| clamp       | Whether to limit values outside the domain to the range                | boolean                                                                                   | false                                                     |          |
+| round       | Whether to round the output values                                     | boolean                                                                                   | false                                                     |          |
+| tickMethod  | Method for calculating ticks                                           | (min: number, max: number, count: number) => number[]                                     | d3Ticks                                                   |          |
+| tickCount   | Number of ticks                                                        | number                                                                                    | 5                                                         |          |
+| interpolate | Custom interpolator, supports numeric and color values                 | (a: number &#124; string, b: number &#124; string) => (t: number) => number &#124; string | Numbers: linear interpolation; Colors: RGBA interpolation |          |
 
 ## Notes
 
@@ -45,7 +45,7 @@ The `pow` scale is particularly useful for scenarios where you need to emphasize
 
 When `exponent=1`, the `pow` scale is equivalent to a linear scale. In this case, data mapping is linear, suitable for displaying evenly distributed data.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -79,7 +79,7 @@ chart.render();
 
 When data has a large range, you can use a `pow` scale with `exponent < 1` to compress data differences. Square root scales are suitable for displaying data with large ranges but wanting more even distribution.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ chart.render();
 
 When you need to emphasize differences between small values, you can use a `pow` scale with `exponent > 1`. Exponential scales amplify differences between small values, suitable for displaying subtle but important changes.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -147,7 +147,7 @@ chart.render();
 
 ### Custom Interpolation Function
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

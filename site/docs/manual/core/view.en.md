@@ -25,20 +25,20 @@ Views not only support flexible data and encoding configurations but can also in
 
 Views support rich configuration options covering data, encoding, coordinates, styles, interactions, and other aspects. The configuration options are essentially the same as the top-level Chart, commonly used as follows:
 
-| Configuration | Description                        | Type         | Scope/Inheritance          |
-| ------------- | ---------------------------------- | ------------ | -------------------------- |
-| data          | Data source                        | array/object | view and all its children  |
-| encode        | Mapping from data to visual channels| object      | view and all its children  |
-| scale         | Scales for visual channels         | object       | Inheritable/Override (view/mark) |
-| transform     | Data transformation                | array        | Inheritable/Override (view/mark) |
-| coordinate    | Coordinate system configuration    | object       | Inheritable/Override (view/mark) |
-| style         | View area styles                   | object       | This view only            |
-| axis          | Axis configuration                 | object       | Inheritable/Override (view/mark) |
-| legend        | Legend configuration               | object       | Inheritable/Override (view/mark) |
-| tooltip       | Tooltip configuration              | object       | This view only            |
-| interaction   | Interaction configuration          | object       | Inheritable/Override (view/mark) |
-| theme         | Theme configuration                | object       | Inheritable/Override      |
-| children      | Child marks or views               | array        | This view only            |
+| Configuration | Description                          | Type         | Scope/Inheritance                |
+| ------------- | ------------------------------------ | ------------ | -------------------------------- |
+| data          | Data source                          | array/object | view and all its children        |
+| encode        | Mapping from data to visual channels | object       | view and all its children        |
+| scale         | Scales for visual channels           | object       | Inheritable/Override (view/mark) |
+| transform     | Data transformation                  | array        | Inheritable/Override (view/mark) |
+| coordinate    | Coordinate system configuration      | object       | Inheritable/Override (view/mark) |
+| style         | View area styles                     | object       | This view only                   |
+| axis          | Axis configuration                   | object       | Inheritable/Override (view/mark) |
+| legend        | Legend configuration                 | object       | Inheritable/Override (view/mark) |
+| tooltip       | Tooltip configuration                | object       | This view only                   |
+| interaction   | Interaction configuration            | object       | Inheritable/Override (view/mark) |
+| theme         | Theme configuration                  | object       | Inheritable/Override             |
+| children      | Child marks or views                 | array        | This view only                   |
 
 **Notes:**
 

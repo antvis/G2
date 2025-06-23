@@ -10,7 +10,7 @@ order: 25
 - Text visualization
 - Data annotation and assistance
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -47,29 +47,29 @@ For more examples, please check the [Chart Examples](/examples) page.
 
 ## Configuration
 
-| Property | Description                                                                                               | Type              | Default | Required |
-| -------- | --------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
+| Property | Description                                                                                                                                                    | Type              | Default | Required |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
 | encode   | Configure visual channels for `text` marks, including `x`, `y`, `color`, `shape`, etc., to specify the relationship between visual element properties and data | [encode](#encode) | -       |          |
-| style    | Configure `text` graphic styles                                                                           | [style](#style)   | -       |          |
-| scale    | Configure graphic scaling for `text` marks, including `text`, `fontSize`, etc.                           | [scale](#scale)   | -       |          |
+| style    | Configure `text` graphic styles                                                                                                                                | [style](#style)   | -       |          |
+| scale    | Configure graphic scaling for `text` marks, including `text`, `fontSize`, etc.                                                                                 | [scale](#scale)   | -       |          |
 
 ### encode
 
 Configure visual channels for `text` marks, an important configuration that defines the mapping relationship between data fields and visual attributes, determining how data is transformed into visual representation.
 
-| Property | Description                          | Type                          | Default |
-| -------- | ------------------------------------ | ----------------------------- | ------- |
-| x        | Bind the `x` property channel for `text` marks | [encode](/manual/core/encode) | -       |
-| y        | Bind the `y` property channel for `text` marks | [encode](/manual/core/encode) | -       |
-| text     | Bind the `text` property channel for `text` marks | [encode](/manual/core/encode) | -       |
+| Property | Description                                        | Type                          | Default |
+| -------- | -------------------------------------------------- | ----------------------------- | ------- |
+| x        | Bind the `x` property channel for `text` marks     | [encode](/manual/core/encode) | -       |
+| y        | Bind the `y` property channel for `text` marks     | [encode](/manual/core/encode) | -       |
+| text     | Bind the `text` property channel for `text` marks  | [encode](/manual/core/encode) | -       |
 | shape    | Bind the `shape` property channel for `text` marks | [encode](/manual/core/encode) | -       |
 
 **shape**
 
 Configure the shape of the text container
 
-| Shape | Description                                   | Example                                                                                                            |
-| ----- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Shape | Description                                   | Example                                                                                                                            |
+| ----- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | text  | Draw text                                     | <img alt="link" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*goS1QJfB1kIAAAAAAAAAAAAAemJ7AQ/original" width="80" /> |
 | badge | Draw text with markers, shaped like a balloon | <img alt="link" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DZH8Q7GMMsoAAAAAAAAAAAAAemJ7AQ/original" width="80" /> |
 
@@ -79,11 +79,11 @@ For more `encode` configurations, please check the [encode](/manual/core/encode)
 
 `scale` is used to define how data maps to visual properties.
 
-| Property | Description                         | Type                                  | Default            |
-| -------- | ----------------------------------- | ------------------------------------- | ------------------ |
-| text     | Define text mapping rules           | [scale](/manual/core/scale/overview)> | `{type: identity}` |
+| Property | Description                             | Type                                  | Default            |
+| -------- | --------------------------------------- | ------------------------------------- | ------------------ |
+| text     | Define text mapping rules               | [scale](/manual/core/scale/overview)> | `{type: identity}` |
 | fontSize | Define font size mapping rules for text | [scale](/manual/core/scale/overview)> | `{type: identity}` |
-| rotate   | Define rotation mapping rules for text | [scale](/manual/core/scale/overview)> | `{type: identity}` |
+| rotate   | Define rotation mapping rules for text  | [scale](/manual/core/scale/overview)> | `{type: identity}` |
 
 For more `scale` configurations, please check the [scale](/manual/core/scale/overview) introduction page.
 
@@ -91,51 +91,51 @@ For more `scale` configurations, please check the [scale](/manual/core/scale/ove
 
 `style` is used to set the appearance styles of text, including fill color, border styles, shadow effects, etc.
 
-| Property         | Description                                                                                                                        | Type                                              | Default   |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | --------- |
-| shape            | Modify text container graphics, consistent with `shape` property channel configuration in `encode`                                | `string` \| `Function<string>`                    | -         |
-| fontSize         | Text size                                                                                                                          | `number` \| `Function<number>`                    | -         |
-| fontFamily       | Text font                                                                                                                          | `string` \| `Function<string>`                    | -         |
-| fontWeight       | Font weight                                                                                                                        | `number` \| `Function<number>`                    | -         |
-| lineHeight       | Line height of text                                                                                                                | `number` \| `Function<number>`                    | -         |
-| textAlign        | Set current alignment of text content, supported properties: `center` \| `end` \| `left` \| `right` \| `start`, default is `start` | `string` \| `Function<string>`                    | -         |
-| textBaseline     | Set current text baseline used when drawing text, supported properties: `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`. Default is `bottom` | `string` \| `Function<string>`                    | -         |
-| fill             | Fill color of the graphic                                                                                                          | `string` \| `Function<string>`                    | -         |
-| fillOpacity      | Fill opacity of the graphic                                                                                                        | `number` \| `Function<number>`                    | -         |
-| stroke           | Stroke of the graphic                                                                                                              | `string` \| `Function<string>`                    | -         |
-| strokeOpacity    | Stroke opacity                                                                                                                     | `number` \| `Function<number>`                    | -         |
-| lineWidth        | Width of the graphic stroke                                                                                                        | `number` \| `Function<number>`                    | -         |
+| Property         | Description                                                                                                                                                                  | Type                                              | Default   |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | --------- |
+| shape            | Modify text container graphics, consistent with `shape` property channel configuration in `encode`                                                                           | `string` \| `Function<string>`                    | -         |
+| fontSize         | Text size                                                                                                                                                                    | `number` \| `Function<number>`                    | -         |
+| fontFamily       | Text font                                                                                                                                                                    | `string` \| `Function<string>`                    | -         |
+| fontWeight       | Font weight                                                                                                                                                                  | `number` \| `Function<number>`                    | -         |
+| lineHeight       | Line height of text                                                                                                                                                          | `number` \| `Function<number>`                    | -         |
+| textAlign        | Set current alignment of text content, supported properties: `center` \| `end` \| `left` \| `right` \| `start`, default is `start`                                           | `string` \| `Function<string>`                    | -         |
+| textBaseline     | Set current text baseline used when drawing text, supported properties: `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`. Default is `bottom`                      | `string` \| `Function<string>`                    | -         |
+| fill             | Fill color of the graphic                                                                                                                                                    | `string` \| `Function<string>`                    | -         |
+| fillOpacity      | Fill opacity of the graphic                                                                                                                                                  | `number` \| `Function<number>`                    | -         |
+| stroke           | Stroke of the graphic                                                                                                                                                        | `string` \| `Function<string>`                    | -         |
+| strokeOpacity    | Stroke opacity                                                                                                                                                               | `number` \| `Function<number>`                    | -         |
+| lineWidth        | Width of the graphic stroke                                                                                                                                                  | `number` \| `Function<number>`                    | -         |
 | lineDash         | Dashed stroke configuration. First value is the length of each dash segment, second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke. | `[number,number]` \| `Function<[number, number]>` | -         |
-| opacity          | Overall opacity of the graphic                                                                                                     | `number` \| `Function<number>`                    | -         |
-| shadowColor      | Shadow color of the graphic                                                                                                        | `string` \| `Function<string>`                    | -         |
-| shadowBlur       | Gaussian blur coefficient of the graphic shadow                                                                                    | `number` \| `Function<number>`                    | -         |
-| shadowOffsetX    | Horizontal distance of shadow from the graphic                                                                                     | `number` \| `Function<number>`                    | -         |
-| shadowOffsetY    | Vertical distance of shadow from the graphic                                                                                       | `number` \| `Function<number>`                    | -         |
-| cursor           | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                  | `string` \| `Function<string>`                    | 'default' |
-| dx               | Offset of text in x direction                                                                                                      | `number`                                          | -         |
-| dy               | Offset of text in y direction                                                                                                      | `number`                                          | -         |
-| text             | Text content to be drawn                                                                                                           | `string`                                          | -         |
-| x                | X coordinate of text                                                                                                               | `string`                                          | -         |
-| y                | Y coordinate of text                                                                                                               | `string`                                          | -         |
-| wordWrap         | Whether to enable text wrapping                                                                                                    | `boolean`                                         | -         |
-| wordWrapWidth    | Maximum width for text wrapping                                                                                                    | `number`                                          | -         |
-| background       | Background color of text                                                                                                           | `string`                                          | -         |
-| backgroundRadius | Border radius of text background                                                                                                   | `boolean`                                         | -         |
-| mark             | Properties of link markers                                                                                                         | [mark](#mark)                                     | -         |
-| transform        | Configure text transformation properties                                                                                           | `string`                                          | -         |
-| color            | Text color                                                                                                                         | `string`                                          | -         |
+| opacity          | Overall opacity of the graphic                                                                                                                                               | `number` \| `Function<number>`                    | -         |
+| shadowColor      | Shadow color of the graphic                                                                                                                                                  | `string` \| `Function<string>`                    | -         |
+| shadowBlur       | Gaussian blur coefficient of the graphic shadow                                                                                                                              | `number` \| `Function<number>`                    | -         |
+| shadowOffsetX    | Horizontal distance of shadow from the graphic                                                                                                                               | `number` \| `Function<number>`                    | -         |
+| shadowOffsetY    | Vertical distance of shadow from the graphic                                                                                                                                 | `number` \| `Function<number>`                    | -         |
+| cursor           | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                                                             | `string` \| `Function<string>`                    | 'default' |
+| dx               | Offset of text in x direction                                                                                                                                                | `number`                                          | -         |
+| dy               | Offset of text in y direction                                                                                                                                                | `number`                                          | -         |
+| text             | Text content to be drawn                                                                                                                                                     | `string`                                          | -         |
+| x                | X coordinate of text                                                                                                                                                         | `string`                                          | -         |
+| y                | Y coordinate of text                                                                                                                                                         | `string`                                          | -         |
+| wordWrap         | Whether to enable text wrapping                                                                                                                                              | `boolean`                                         | -         |
+| wordWrapWidth    | Maximum width for text wrapping                                                                                                                                              | `number`                                          | -         |
+| background       | Background color of text                                                                                                                                                     | `string`                                          | -         |
+| backgroundRadius | Border radius of text background                                                                                                                                             | `boolean`                                         | -         |
+| mark             | Properties of link markers                                                                                                                                                   | [mark](#mark)                                     | -         |
+| transform        | Configure text transformation properties                                                                                                                                     | `string`                                          | -         |
+| color            | Text color                                                                                                                                                                   | `string`                                          | -         |
 
 **<span id='mark'>mark</span>**
 
 When `shape` is `badge`, `style` also has the following configurations.
 
-| Property            | Description              | Type     | Default |
-| ------------------- | ------------------------ | -------- | ------- |
-| markerSize          | Marker size              | `number` | 24      |
-| markerFill          | Marker fill color        | `string` |         |
-| markerFillOpacity   | Marker fill opacity      | `number` |         |
-| markerStroke        | Marker stroke color      | `string` |         |
-| markerStrokeOpacity | Marker stroke opacity    | `number` |         |
+| Property            | Description           | Type     | Default |
+| ------------------- | --------------------- | -------- | ------- |
+| markerSize          | Marker size           | `number` | 24      |
+| markerFill          | Marker fill color     | `string` |         |
+| markerFillOpacity   | Marker fill opacity   | `number` |         |
+| markerStroke        | Marker stroke color   | `string` |         |
+| markerStrokeOpacity | Marker stroke opacity | `number` |         |
 
 For more `style` configurations, please check the [style](/manual/core/style) introduction page.
 
@@ -164,7 +164,7 @@ chart
 
 Configure [selectY](/manual/core/transform/select-y) data transformation, set grouping `groupBy: 'color'` to group by color channel, and set maximum value selector `selector: 'max'` to use the max selector for specified data extraction, outputting to the y channel. This way you can draw text marks at the maximum value of each line.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

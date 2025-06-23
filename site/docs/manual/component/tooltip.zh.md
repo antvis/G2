@@ -176,7 +176,7 @@ chart.options({
 ```js
 chart.options({
   tooltip: {
-    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()},
+    title: { field: 'sold', valueFormatter: (sold) => sold.toUpperCase() },
     items: [{ channel: 'y', valueFormatter: '.0%' }],
   },
 });
@@ -191,14 +191,14 @@ chart.options({
   tooltip: {
     title: (datum, index, data, column) => ({
       value: `<span style="color: #00ff00; font-style: italic;">${datum.letter}</span>`,
-      custom: "..."
+      custom: '...',
     }),
     items: [
       (datum, index, data, column) => ({
         color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
         name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
         value: column.y.value[index], // 使用 y 通道的值
-        custom: "..."
+        custom: '...',
       }),
     ],
   },
@@ -244,8 +244,8 @@ items 返回值可用作 `interaction.tooltip.render` 的入参，您可以设�
 chart.options({
   tooltip: {
     items: [
-      {name: '张三', channel: 'y1'},
-      {name: '李四', channel: 'y2'},
+      { name: '张三', channel: 'y1' },
+      { name: '李四', channel: 'y2' },
     ],
   },
 });
@@ -259,8 +259,8 @@ chart.options({
 chart.options({
   tooltip: {
     items: [
-      {color: 'pink', channel: 'y1'},
-      {color: '#f00', channel: 'y2'},
+      { color: 'pink', channel: 'y1' },
+      { color: '#f00', channel: 'y2' },
     ],
   },
 });
@@ -329,41 +329,41 @@ chart.options({
 
 另外，通过前缀`crosshairsX` 和 `crosshairsY` 设置样式的优先级比 `crosshairs`高，会覆盖后者。
 
-| 属性                     | 描述                           | 类型            | 默认值  | 必选 |
-| ------------------------ | ------------------------------ | --------------- | ------- | ---- |
-| crosshairs               | 是否显示十字辅助线             | boolean         | `true`  |      |
-| crosshairsStroke         | 十字辅助线的颜色               | string          | -       |      |
-| crosshairsStrokeOpacity  | 十字辅助线的透明度             | number          | -       |      |
-| crosshairsLineWidth      | 十字辅助线的描边宽度           | number          | -       |      |
-| crosshairsLineDash       | 十字辅助线的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | [number,number] | -       |      |
-| crosshairsOpacity        | 十字辅助线的整体透明度         | number          | -       |      |
-| crosshairsShadowColor    | 十字辅助线的阴影颜色           | string          | -       |      |
-| crosshairsShadowBlur     | 十字辅助线的阴影高斯模糊系数   | number          | -       |      |
-| crosshairsShadowOffsetX  | 十字辅助线阴影的水平方向偏移量 | number          | -       |      |
-| crosshairsShadowOffsetY  | 十字辅助线阴影的垂直方向偏移量 | number          | -       |      |
-| crosshairsCursor         | 十字辅助线的鼠标样式           | string          | `default` |      |
-| crosshairsX              | 是否显示水平方向辅助线         | boolean         | `false` |      |
-| crosshairsXStroke        | 水平方向辅助线的颜色           | string          | -       |      |
-| crosshairsXStrokeOpacity | 水平方向辅助线的透明度         | number          | -       |      |
-| crosshairsXLineWidth     | 水平方向辅助线的描边宽度       | number          | -       |      |
-| crosshairsXLineDash      | 水平方向辅助线的虚线配置       | [number,number] | -       |      |
-| crosshairsXOpacity       | 水平方向辅助线的整体透明度     | number          | -       |      |
-| crosshairsXShadowColor   | 水平方向辅助线的阴影颜色       | string          | -       |      |
-| crosshairsXShadowBlur    | 水平方向辅助线的阴影高斯模糊系数 | number        | -       |      |
-| crosshairsXShadowOffsetX | 水平方向辅助线阴影的水平方向偏移量 | number      | -       |      |
-| crosshairsXShadowOffsetY | 水平方向辅助线阴影的垂直方向偏移量 | number      | -       |      |
-| crosshairsXCursor        | 水平方向辅助线的鼠标样式       | string          | `default` |      |
-| crosshairsY              | 是否显示垂直方向辅助线         | boolean         | `true`  |      |
-| crosshairsYStroke        | 垂直方向辅助线的颜色           | string          | -       |      |
-| crosshairsYStrokeOpacity | 垂直方向辅助线的透明度         | number          | -       |      |
-| crosshairsYLineWidth     | 垂直方向辅助线的描边宽度       | number          | -       |      |
-| crosshairsYLineDash      | 垂直方向辅助线的虚线配置       | [number,number] | -       |      |
-| crosshairsYOpacity       | 垂直方向辅助线的整体透明度     | number          | -       |      |
-| crosshairsYShadowColor   | 垂直方向辅助线的阴影颜色       | string          | -       |      |
-| crosshairsYShadowBlur    | 垂直方向辅助线的阴影高斯模糊系数 | number        | -       |      |
-| crosshairsYShadowOffsetX | 垂直方向辅助线阴影的水平方向偏移量 | number      | -       |      |
-| crosshairsYShadowOffsetY | 垂直方向辅助线阴影的垂直方向偏移量 | number      | -       |      |
-| crosshairsYCursor        | 垂直方向辅助线的鼠标样式       | string          | `default` |      |
+| 属性                     | 描述                                                                         | 类型            | 默认值    | 必选 |
+| ------------------------ | ---------------------------------------------------------------------------- | --------------- | --------- | ---- |
+| crosshairs               | 是否显示十字辅助线                                                           | boolean         | `true`    |      |
+| crosshairsStroke         | 十字辅助线的颜色                                                             | string          | -         |      |
+| crosshairsStrokeOpacity  | 十字辅助线的透明度                                                           | number          | -         |      |
+| crosshairsLineWidth      | 十字辅助线的描边宽度                                                         | number          | -         |      |
+| crosshairsLineDash       | 十字辅助线的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | [number,number] | -         |      |
+| crosshairsOpacity        | 十字辅助线的整体透明度                                                       | number          | -         |      |
+| crosshairsShadowColor    | 十字辅助线的阴影颜色                                                         | string          | -         |      |
+| crosshairsShadowBlur     | 十字辅助线的阴影高斯模糊系数                                                 | number          | -         |      |
+| crosshairsShadowOffsetX  | 十字辅助线阴影的水平方向偏移量                                               | number          | -         |      |
+| crosshairsShadowOffsetY  | 十字辅助线阴影的垂直方向偏移量                                               | number          | -         |      |
+| crosshairsCursor         | 十字辅助线的鼠标样式                                                         | string          | `default` |      |
+| crosshairsX              | 是否显示水平方向辅助线                                                       | boolean         | `false`   |      |
+| crosshairsXStroke        | 水平方向辅助线的颜色                                                         | string          | -         |      |
+| crosshairsXStrokeOpacity | 水平方向辅助线的透明度                                                       | number          | -         |      |
+| crosshairsXLineWidth     | 水平方向辅助线的描边宽度                                                     | number          | -         |      |
+| crosshairsXLineDash      | 水平方向辅助线的虚线配置                                                     | [number,number] | -         |      |
+| crosshairsXOpacity       | 水平方向辅助线的整体透明度                                                   | number          | -         |      |
+| crosshairsXShadowColor   | 水平方向辅助线的阴影颜色                                                     | string          | -         |      |
+| crosshairsXShadowBlur    | 水平方向辅助线的阴影高斯模糊系数                                             | number          | -         |      |
+| crosshairsXShadowOffsetX | 水平方向辅助线阴影的水平方向偏移量                                           | number          | -         |      |
+| crosshairsXShadowOffsetY | 水平方向辅助线阴影的垂直方向偏移量                                           | number          | -         |      |
+| crosshairsXCursor        | 水平方向辅助线的鼠标样式                                                     | string          | `default` |      |
+| crosshairsY              | 是否显示垂直方向辅助线                                                       | boolean         | `true`    |      |
+| crosshairsYStroke        | 垂直方向辅助线的颜色                                                         | string          | -         |      |
+| crosshairsYStrokeOpacity | 垂直方向辅助线的透明度                                                       | number          | -         |      |
+| crosshairsYLineWidth     | 垂直方向辅助线的描边宽度                                                     | number          | -         |      |
+| crosshairsYLineDash      | 垂直方向辅助线的虚线配置                                                     | [number,number] | -         |      |
+| crosshairsYOpacity       | 垂直方向辅助线的整体透明度                                                   | number          | -         |      |
+| crosshairsYShadowColor   | 垂直方向辅助线的阴影颜色                                                     | string          | -         |      |
+| crosshairsYShadowBlur    | 垂直方向辅助线的阴影高斯模糊系数                                             | number          | -         |      |
+| crosshairsYShadowOffsetX | 垂直方向辅助线阴影的水平方向偏移量                                           | number          | -         |      |
+| crosshairsYShadowOffsetY | 垂直方向辅助线阴影的垂直方向偏移量                                           | number          | -         |      |
+| crosshairsYCursor        | 垂直方向辅助线的鼠标样式                                                     | string          | `default` |      |
 
 ```js
 chart.options({
@@ -383,21 +383,21 @@ chart.options({
 
 #### marker
 
-| 属性                | 描述                           | 类型            | 默认值    | 必选 |
-| ------------------- | ------------------------------ | --------------- | --------- | ---- |
-| marker              | 是否展示标记点                 | boolean         | `true`    |      |
-| markerFill          | 标记点的填充色                 | string          | -         |      |
-| markerFillOpacity   | 标记点的填充透明度             | number          | -         |      |
-| markerStroke        | 标记点的描边颜色               | string          | -         |      |
-| markerStrokeOpacity | 标记点的描边透明度             | number          | -         |      |
-| markerLineWidth     | 标记点的描边宽度               | number          | -         |      |
+| 属性                | 描述                                                                         | 类型            | 默认值    | 必选 |
+| ------------------- | ---------------------------------------------------------------------------- | --------------- | --------- | ---- |
+| marker              | 是否展示标记点                                                               | boolean         | `true`    |      |
+| markerFill          | 标记点的填充色                                                               | string          | -         |      |
+| markerFillOpacity   | 标记点的填充透明度                                                           | number          | -         |      |
+| markerStroke        | 标记点的描边颜色                                                             | string          | -         |      |
+| markerStrokeOpacity | 标记点的描边透明度                                                           | number          | -         |      |
+| markerLineWidth     | 标记点的描边宽度                                                             | number          | -         |      |
 | markerLineDash      | 标记点的描边虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | [number,number] | -         |      |
-| markerOpacity       | 标记点的整体透明度             | number          | -         |      |
-| markerShadowColor   | 标记点的阴影颜色               | string          | -         |      |
-| markerShadowBlur    | 标记点的阴影高斯模糊系数       | number          | -         |      |
-| markerShadowOffsetX | 标记点阴影的水平方向偏移量     | number          | -         |      |
-| markerShadowOffsetY | 标记点阴影的垂直方向偏移量     | number          | -         |      |
-| markerCursor        | 标记点的鼠标样式               | string          | `default` |      |
+| markerOpacity       | 标记点的整体透明度                                                           | number          | -         |      |
+| markerShadowColor   | 标记点的阴影颜色                                                             | string          | -         |      |
+| markerShadowBlur    | 标记点的阴影高斯模糊系数                                                     | number          | -         |      |
+| markerShadowOffsetX | 标记点阴影的水平方向偏移量                                                   | number          | -         |      |
+| markerShadowOffsetY | 标记点阴影的垂直方向偏移量                                                   | number          | -         |      |
+| markerCursor        | 标记点的鼠标样式                                                             | string          | `default` |      |
 
 ```js
 chart.options({
@@ -419,7 +419,7 @@ chart.options({
 
 <img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*J1N_RKY7FtkAAAAAAAAAAAAAemJ7AQ/original" />
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -504,7 +504,7 @@ function render(event, tooltipData) {
 
 下面是一个简单的例子：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -630,7 +630,7 @@ chart.options({
         name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
         value: column.y.value[index], // 使用 y 通道的值
         custom1: '自定义参数1',
-        custom2: '自定义参数2'
+        custom2: '自定义参数2',
       }),
     ],
   },
@@ -638,15 +638,15 @@ chart.options({
     tooltip: {
       // render 回调方法返回一个innerHTML 或者 DOM
       render: (event, { title, items }) => {
-        return  `<div>
+        return `<div>
           <h3 style="padding:0;margin:0">${title}</h3>
           <ul>${items.map(
-              ({ color, name, value, custom1, custom2 }) => "..."
+            ({ color, name, value, custom1, custom2 }) => '...',
           )}</ul>
-        </div>`
-      }
-    }
-  }
+        </div>`;
+      },
+    },
+  },
 });
 ```
 

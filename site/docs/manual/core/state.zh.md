@@ -35,7 +35,7 @@ G2 支持在 mark 层级通过 `state` 字段配置不同状态下的样式。�
 
 #### 1. 配置式写法（推荐）
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -68,7 +68,7 @@ chart.render();
 
 状态样式属性支持函数，根据数据动态返回样式：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -114,7 +114,7 @@ default:    1
 - `active`/`inactive` 次之，常用于悬停高亮
 - `default` 为默认样式
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -169,7 +169,7 @@ G2 提供了丰富的交互，配合状态样式可实现多种交互效果：
 
 通过 `elementHighlight` 交互插件，配合 `active` 和 `inactive` 状态样式，实现鼠标悬停高亮效果：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -204,7 +204,7 @@ chart.render();
 
 通过 `elementSelect` 交互插件，配合 `selected` 和 `unselected` 状态样式，实现点击选中效果：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -237,7 +237,7 @@ chart.render();
 
 支持同时高亮与选中，常用于仪表盘、BI 报表等场景：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

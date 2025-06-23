@@ -74,7 +74,7 @@ Data can be specified at the View level:
 
 Data bound to a view is transitive: it will be passed to marks in `view.children`. If the mark does not have data, its data will be set; otherwise, there is no effect. This means that for marks that share data, you can bind the data to the view.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -120,7 +120,7 @@ Data can also be specified at the Mark level:
 
 Each mark has its own data, which means we can visualize multiple datasets in one view, such as the following interval annotation chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -184,21 +184,21 @@ A complete data declaration consists of two parts: **Connector** and **DataTrans
 
 Currently, G2 has the following built-in data transforms:
 
-| type   | Description                                                                                   | Properties                               |
-| ------ | --------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| custom | Custom data processing logic that allows users to define their own operation methods         | [custom](/en/manual/core/data/custom)   |
-| ema    | Calculate exponential moving average for data smoothing                                       | [ema](/en/manual/core/data/ema)          |
-| filter | Filter data based on specified conditions                                                    | [filter](/en/manual/core/data/filter)   |
-| fold   | Unfold multiple fields into specified key-value organization format for easier processing and analysis | [fold](/en/manual/core/data/fold)       |
-| join   | Merge two data tables based on certain conditions to associate corresponding data rows       | [join](/en/manual/core/data/join)       |
-| kde    | Estimate data distribution density, commonly used for probability density analysis           | [kde](/en/manual/core/data/kde)         |
-| log    | Print current data in the data transform flow to console for developers to debug data processing | [log](/en/manual/core/data/log)         |
-| map    | Perform mapping operations on data, converting one type of value to another                  | [map](/en/manual/core/data/map)         |
-| pick   | Select specified fields from data for extracting specific information                        | [pick](/en/manual/core/data/pick)       |
-| rename | Rename data fields for easier subsequent processing and reading                              | [rename](/en/manual/core/data/rename)   |
-| slice  | Extract a subset of data, equivalent to data pagination or cropping                          | [slice](/en/manual/core/data/slice)     |
-| sort   | Sort data with support for custom sorting rules                                              | [sort](/en/manual/core/data/sort)       |
-| sortBy | Sort data by a specified field                                                               | [sortBy](/en/manual/core/data/sort-by)  |
+| type   | Description                                                                                            | Properties                             |
+| ------ | ------------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| custom | Custom data processing logic that allows users to define their own operation methods                   | [custom](/en/manual/core/data/custom)  |
+| ema    | Calculate exponential moving average for data smoothing                                                | [ema](/en/manual/core/data/ema)        |
+| filter | Filter data based on specified conditions                                                              | [filter](/en/manual/core/data/filter)  |
+| fold   | Unfold multiple fields into specified key-value organization format for easier processing and analysis | [fold](/en/manual/core/data/fold)      |
+| join   | Merge two data tables based on certain conditions to associate corresponding data rows                 | [join](/en/manual/core/data/join)      |
+| kde    | Estimate data distribution density, commonly used for probability density analysis                     | [kde](/en/manual/core/data/kde)        |
+| log    | Print current data in the data transform flow to console for developers to debug data processing       | [log](/en/manual/core/data/log)        |
+| map    | Perform mapping operations on data, converting one type of value to another                            | [map](/en/manual/core/data/map)        |
+| pick   | Select specified fields from data for extracting specific information                                  | [pick](/en/manual/core/data/pick)      |
+| rename | Rename data fields for easier subsequent processing and reading                                        | [rename](/en/manual/core/data/rename)  |
+| slice  | Extract a subset of data, equivalent to data pagination or cropping                                    | [slice](/en/manual/core/data/slice)    |
+| sort   | Sort data with support for custom sorting rules                                                        | [sort](/en/manual/core/data/sort)      |
+| sortBy | Sort data by a specified field                                                                         | [sortBy](/en/manual/core/data/sort-by) |
 
 ## Data Update
 
@@ -253,7 +253,7 @@ chart.getNodesByType('rect')[0].changeData(data);
 
 Here's an example of a line chart that updates data in real-time:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

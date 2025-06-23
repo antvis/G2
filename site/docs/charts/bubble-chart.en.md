@@ -24,19 +24,18 @@ Additionally, **the size of bubbles is mapped to area rather than radius or diam
 
 ## Components of a Bubble Chart
 
-
 <img class="constitute-img" src="https://t.alipayobjects.com/images/T1jixjXhdkXXXXXXXX.png"/>
 
 ### Basic Bubble Chart
 
 <img alt="bubble-basic" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z8JFRLxrs_IAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| Chart Type | Basic Bubble Chart |
-| ---------------- | ----------------------------------------------------------------------------------------------- |
-| Suitable Data | Multidimensional data: at least two continuous data fields (X, Y axis) and one numerical data field (bubble size) |
-| Function | Display relationships between multiple variables, discover data patterns and correlations |
-| Data-to-Visual Mapping | Two continuous variables mapped to XY coordinates<br>Third variable mapped to bubble size<br>Optional categorical variable mapped to bubble color or shape |
-| Suitable Data Count | Usually not exceeding 100 data points; too many will lead to chart crowding |
+| Chart Type                | Basic Bubble Chart                                                                                                                                                                        |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data             | Multidimensional data: at least two continuous data fields (X, Y axis) and one numerical data field (bubble size)                                                                         |
+| Function                  | Display relationships between multiple variables, discover data patterns and correlations                                                                                                 |
+| Data-to-Visual Mapping    | Two continuous variables mapped to XY coordinates<br>Third variable mapped to bubble size<br>Optional categorical variable mapped to bubble color or shape                                |
+| Suitable Data Count       | Usually not exceeding 100 data points; too many will lead to chart crowding                                                                                                               |
 | Visual Design Suggestions | Use semi-transparent bubbles to avoid overlap occlusion<br>Bubble size range should be moderate, avoiding too large or too small<br>Add grid lines to assist in reading coordinate values |
 
 ---
@@ -45,14 +44,14 @@ Additionally, **the size of bubbles is mapped to area rather than radius or diam
 
 <img alt="bubble-log" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mezjR7Iy-TYAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| Chart Type | Logarithmic Bubble Chart |
-| ---------------- | ---------------------------------------------------------------------------------------------------- |
-| Suitable Data | Datasets with extreme value differences requiring logarithmic transformation |
-| Function | Handling data with large spans, such as population data, GDP data, etc. |
+| Chart Type             | Logarithmic Bubble Chart                                                                                                                                                               |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Datasets with extreme value differences requiring logarithmic transformation                                                                                                           |
+| Function               | Handling data with large spans, such as population data, GDP data, etc.                                                                                                                |
 | Data-to-Visual Mapping | Same as basic bubble chart but using logarithmic scale<br>Two continuous variables mapped to XY coordinates<br>Third variable mapped to bubble size through logarithmic transformation |
-| Usage Scenario | When data exhibits exponential growth or value ranges spanning multiple orders of magnitude |
-| Implementation Method | Using `scale: { size: { type: 'log', range: [4, 20] } }` to configure logarithmic scale |
-| Considerations | Should clearly indicate the use of logarithmic transformation in legends or labels to avoid misleading readers |
+| Usage Scenario         | When data exhibits exponential growth or value ranges spanning multiple orders of magnitude                                                                                            |
+| Implementation Method  | Using `scale: { size: { type: 'log', range: [4, 20] } }` to configure logarithmic scale                                                                                                |
+| Considerations         | Should clearly indicate the use of logarithmic transformation in legends or labels to avoid misleading readers                                                                         |
 
 ## Use Cases of Bubble Charts
 
@@ -69,50 +68,52 @@ Bubble charts are most suitable for the following scenarios:
 
 The following chart shows the relationship between GDP per capita, life expectancy, and population size of different countries, while using colors to distinguish different continents, effectively presenting four dimensions of data in one chart.
 
-| country | GDP (per capita) | lifeExpectancy | population | continent |
-| --------------- | -------------- | -------------------------- | ------------------ | ----------------- |
-| China | 12547 | 76.9 | 1403500365 | Asia |
-| United States | 59532 | 78.5 | 321773631 | Americas |
-| India | 6427 | 68.3 | 1324517249 | Asia |
-| Japan | 38428 | 83.9 | 127141000 | Asia |
-| Germany | 46136 | 81.0 | 82695000 | Europe |
-| ...             | ...            | ...                        | ...                | ...               |
-```js | ob { autoMount: true  }
+| country       | GDP (per capita)   | lifeExpectancy | population | continent |
+| ------------- | ------------------ | -------------- | ---------- | --------- |
+| China         | 12547              | 76.9           | 1403500365 | Asia      |
+| United States | 59532              | 78.5           | 321773631  | Americas  |
+| India         | 6427               | 68.3           | 1324517249 | Asia      |
+| Japan         | 38428              | 83.9           | 127141000  | Asia      |
+| Germany       | 46136              | 81.0           | 82695000   | Europe    |
+| ...           | ...                | ...            | ...        | ...       |
+| ```js         | ob { inject true } |
+
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
+container: 'container',
+theme: 'classic',
 });
 
 chart.options({
-  type: 'point',
-  autoFit: true,
-  data: {
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-  },
-  encode: {
-    x: 'GDP',
-    y: 'LifeExpectancy',
-    size: 'Population',
-    color: 'continent',
-    shape: 'point'
-  },
-  scale: { 
-    size: { type: 'log', range: [4, 20] } 
-  },
-  style: { 
-    fillOpacity: 0.3, 
-    lineWidth: 1 
-  },
-  legend: {
-    size: false
-  }
+type: 'point',
+autoFit: true,
+data: {
+type: 'fetch',
+value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+},
+encode: {
+x: 'GDP',
+y: 'LifeExpectancy',
+size: 'Population',
+color: 'continent',
+shape: 'point'
+},
+scale: {
+size: { type: 'log', range: [4, 20] }
+},
+style: {
+fillOpacity: 0.3,
+lineWidth: 1
+},
+legend: {
+size: false
+}
 });
 
 chart.render();
-```
+
+````
 
 **Analysis**:
 
@@ -134,7 +135,7 @@ When data points exceed 100 or bubbles seriously overlap, bubble charts may beco
 
 Below is an example of a bubble chart with numerous data points; as the number of data points increases, the overlap between bubbles makes the chart difficult to interpret:
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -160,14 +161,14 @@ chart.options({
     size: 'size',
     color: 'category'
   },
-  style: { 
-    fillOpacity: 0.3, 
-    lineWidth: 1 
+  style: {
+    fillOpacity: 0.3,
+    lineWidth: 1
   },
 });
 
 chart.render();
-```
+````
 
 Example 2: **Only Two Variables Need Comparison**
 
@@ -179,7 +180,7 @@ Bubble charts are not suitable for displaying time series trend data. For data t
 
 Below is an example using a line chart instead of a bubble chart to display time series data:
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -223,7 +224,7 @@ chart.render();
 
 If a third dimension of information is indeed needed in time series data, you can use a time series bubble chart with size encoding:
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -243,22 +244,22 @@ chart.options({
     { day: '2015/9/25', share: 45, volume: 3800 },
     { day: '2015/9/30', share: 40, volume: 2700 },
   ],
-  encode: { 
-    x: 'day', 
+  encode: {
+    x: 'day',
     y: 'share',
-    size: 'volume'
+    size: 'volume',
   },
   scale: {
-    size: { range: [10, 40] }
+    size: { range: [10, 40] },
   },
-  style: { 
-    fillOpacity: 0.6, 
+  style: {
+    fillOpacity: 0.6,
     stroke: '#1890ff',
-    fill: '#1890ff'
+    fill: '#1890ff',
   },
   axis: {
     y: { title: 'Stock Price' },
-    x: { title: 'Date' }
+    x: { title: 'Date' },
   },
 });
 
@@ -269,19 +270,19 @@ chart.render();
 
 ### Bubble Charts, [Scatter Plots](/en/charts/scatter), and [Heat Maps](/en/charts/heatmap)
 
-| Chart Type | Main Features | Suitable Scenarios | Data Dimensions |
-|---------|---------|---------|---------|
-| Bubble Chart | Encodes additional dimension through point size | Multivariate relationship analysis | 3-4 variables (X, Y, size, color) |
-| Scatter Plot | Only displays point positions | Two-dimensional correlation analysis | 2-3 variables (X, Y, color) |
-| Heat Map | Displays density or value through color intensity | Showing distribution density | 3 variables (X, Y, color intensity) |
+| Chart Type   | Main Features                                     | Suitable Scenarios                   | Data Dimensions                     |
+| ------------ | ------------------------------------------------- | ------------------------------------ | ----------------------------------- |
+| Bubble Chart | Encodes additional dimension through point size   | Multivariate relationship analysis   | 3-4 variables (X, Y, size, color)   |
+| Scatter Plot | Only displays point positions                     | Two-dimensional correlation analysis | 2-3 variables (X, Y, color)         |
+| Heat Map     | Displays density or value through color intensity | Showing distribution density         | 3 variables (X, Y, color intensity) |
 
 ### Bubble Charts, [Scatter Maps](/en/charts/scatter-map), and [Bubble Maps](/en/charts/bubble-map)
 
-| Chart Type | Coordinate System | Data Constraints | Application Scenarios |
-|---------|---------|---------|---------|
-| Bubble Chart | Abstract coordinate system | Can use any values as XY coordinates | Multidimensional data relationship visualization |
-| Bubble Map | Geographic coordinate system | Point positions constrained by geographic coordinates | Multivariate analysis in geographic data |
-| Scatter Map | Geographic coordinate system | Point positions constrained by geographic coordinates | Simple distribution of geographic locations |
+| Chart Type   | Coordinate System            | Data Constraints                                      | Application Scenarios                            |
+| ------------ | ---------------------------- | ----------------------------------------------------- | ------------------------------------------------ |
+| Bubble Chart | Abstract coordinate system   | Can use any values as XY coordinates                  | Multidimensional data relationship visualization |
+| Bubble Map   | Geographic coordinate system | Point positions constrained by geographic coordinates | Multivariate analysis in geographic data         |
+| Scatter Map  | Geographic coordinate system | Point positions constrained by geographic coordinates | Simple distribution of geographic locations      |
 
 ## Similar Charts
 

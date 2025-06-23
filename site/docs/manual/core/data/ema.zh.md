@@ -45,7 +45,7 @@ EMA（Exponential Moving Average，指数移动平均）是一种常用的数据
 
 以下示例展示如何在 G2 中对数据字段 `close` 应用 EMA 平滑变换。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -93,12 +93,12 @@ chart.options({
   ],
 });
 
-chart.render()
+chart.render();
 ```
 
 ### 示例一：突出趋势变化（时间序列）
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -149,12 +149,12 @@ chart.options({
     },
   ],
 });
-chart.render()
+chart.render();
 ```
 
 ### 示例二：金融行情走势平滑
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -211,12 +211,12 @@ chart.options({
   ],
 });
 
-chart.render()
+chart.render();
 ```
 
 ### 示例三：训练过程指标平滑
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -265,9 +265,85 @@ chart.options({
     },
   ],
 });
-chart.render()
+chart.render();
 ```
 
 ## 尝试一下
 
-<Playground path="general/ema/demo/ema-basic.ts" rid="ema-style" ></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 300,
+});
+
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      data: {
+        type: 'inline',
+        value: [
+          { x: 0, y: 30 },
+          { x: 1, y: 80 },
+          { x: 2, y: 45 },
+          { x: 3, y: 90 },
+          { x: 4, y: 20 },
+          { x: 5, y: 60 },
+          { x: 6, y: 30 },
+          { x: 7, y: 85 },
+          { x: 8, y: 40 },
+          { x: 9, y: 70 },
+        ],
+        transform: [
+          {
+            type: 'ema',
+            field: 'y',
+            alpha: 0.6,
+            as: 'emaY',
+          },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'emaY',
+      },
+      style: {
+        stroke: '#f90',
+        lineWidth: 2,
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        type: 'inline',
+        value: [
+          { x: 0, y: 30 },
+          { x: 1, y: 80 },
+          { x: 2, y: 45 },
+          { x: 3, y: 90 },
+          { x: 4, y: 20 },
+          { x: 5, y: 60 },
+          { x: 6, y: 30 },
+          { x: 7, y: 85 },
+          { x: 8, y: 40 },
+          { x: 9, y: 70 },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+      },
+      style: {
+        stroke: '#ccc',
+        lineDash: [4, 2],
+      },
+    },
+  ],
+});
+
+chart.render();
+```

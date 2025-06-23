@@ -9,7 +9,7 @@ Normalizes y-related channels (such as y, y1, etc.) based on the specified basis
 
 The following example demonstrates how to create a percentage stacked bar chart showing gender proportions across different age groups.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -62,10 +62,10 @@ chart.render();
 
 ## Configuration
 
-| Property | Type                                                                                                      | Default | Description                                                                                    |
-| :------- | :-------------------------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------- |
-| groupBy  | `string \| string[]`                                                                                      | `'x'`   | Specifies the field(s) to group data by. Each group will be normalized independently.         |
-| basis    | `'deviation' \| 'first' \| 'last' \| 'max' \| 'mean' \| 'median' \| 'min' \| 'sum' \| ((I, Y) => number)` | `'max'` | Specifies the basis value for normalization calculation.                                       |
+| Property | Type                                                                                                      | Default | Description                                                                           |
+| :------- | :-------------------------------------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------ |
+| groupBy  | `string \| string[]`                                                                                      | `'x'`   | Specifies the field(s) to group data by. Each group will be normalized independently. |
+| basis    | `'deviation' \| 'first' \| 'last' \| 'max' \| 'mean' \| 'median' \| 'min' \| 'sum' \| ((I, Y) => number)` | `'max'` | Specifies the basis value for normalization calculation.                              |
 
 ### groupBy Description
 
@@ -100,7 +100,7 @@ Specifies the field(s) to group data by. Each group will be normalized independe
 
 The following example shows how to use different basis values for normalization:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -207,7 +207,7 @@ chart.render();
 
 You can specify how to group data using the groupBy option:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

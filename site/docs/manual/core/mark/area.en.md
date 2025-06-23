@@ -11,7 +11,7 @@ Additionally, in terms of data structure, the difference between `area` and `lin
 
 Area charts can also be used for comparing multiple series of data, expressing data totals and trends. Compared to line charts, area charts can not only clearly reflect data trend changes but also emphasize differences and comparisons between data of different categories.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -46,22 +46,22 @@ For more examples, check the [Chart Examples - Area Charts](/en/examples#general
 
 ## Configuration
 
-| Property   | Description                                                                                                                                       | Type                        | Default Value           | Required |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ----------------------- | -------- |
-| encode     | Configure visual channels for `area` marks, including `x`, `y`, `color`, `shape`, etc., to specify relationships between visual elements and data | [encode](#encode)           | -                       | ✓        |
-| coordinate | Configure coordinate system for `area` marks. The coordinate system performs a series of point transformations to change the spatial display form | [coordinate](#coordinate)   | `{type: 'cartesian' }`  |          |
-| style      | Configure graphic styles for `area` marks                                                                                                         | [style](#style)             | -                       |          |
+| Property   | Description                                                                                                                                       | Type                      | Default Value          | Required |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
+| encode     | Configure visual channels for `area` marks, including `x`, `y`, `color`, `shape`, etc., to specify relationships between visual elements and data | [encode](#encode)         | -                      | ✓        |
+| coordinate | Configure coordinate system for `area` marks. The coordinate system performs a series of point transformations to change the spatial display form | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
+| style      | Configure graphic styles for `area` marks                                                                                                         | [style](#style)           | -                      |          |
 
 ### encode
 
 Configure visual channels for `area` marks.
 
-| Property | Description                                                                                                                                                                             | Type                                        | Default Value | Required |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------------- | -------- |
-| x        | Bind the `x` property channel of `area` marks, usually a time or ordered categorical field in `data`                                                                                    | [encode](/en/manual/core/encode)            | -             | ✓        |
-| y        | Bind the `y` property channel of `area` marks, usually a numerical or array field in `data`                                                                                            | [encode](/en/manual/core/encode)            | -             | ✓        |
+| Property | Description                                                                                                                                                                              | Type                                        | Default Value | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------------- | -------- |
+| x        | Bind the `x` property channel of `area` marks, usually a time or ordered categorical field in `data`                                                                                     | [encode](/en/manual/core/encode)            | -             | ✓        |
+| y        | Bind the `y` property channel of `area` marks, usually a numerical or array field in `data`                                                                                              | [encode](/en/manual/core/encode)            | -             | ✓        |
 | color    | Bind the `color` property channel of `area` marks. If data fields are mapped to color channels, data will be grouped and split into multiple areas of different colors for stacked areas | [encode](/en/manual/core/encode)            | -             |          |
-| shape    | Bind the `shape` property channel of `area` marks to change the drawing shape of the graphic mark                                                                                       | `area` \| `smooth` \| `vh` \| `hv` \| `hvh` | `area`        |          |
+| shape    | Bind the `shape` property channel of `area` marks to change the drawing shape of the graphic mark                                                                                        | `area` \| `smooth` \| `vh` \| `hv` \| `hvh` | `area`        |          |
 
 #### x & y
 
@@ -79,7 +79,7 @@ The position visual channels of `area` marks require values from both `x` and `y
 
 The `color` visual channel affects the fill color of the enclosed area in `area` graphic marks. A single area in an `area` mark can only use one color (or gradient), but if data fields are mapped to color channels, the data will be grouped and split into multiple areas:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -124,7 +124,7 @@ chart.render();
 
 By configuring [stackY](/en/manual/core/transform/stack-y) in the `transform`, grouped areas can be stacked to form stacked area charts, avoiding information blur caused by overlapping:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,26 +172,26 @@ chart.render();
 
 The supported shapes for `area` marks are as follows:
 
-| Shape  | Description                                  | Example                                                                                                          |
-| ------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| area   | Draw area chart with straight line connections | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_nCpS59Cc_MAAAAAAAAAAAAAemJ7AQ/original"></img> |
-| smooth | Draw area chart with smooth curves          | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7GhERYQPy4UAAAAAAAAAAAAAemJ7AQ/original"></img> |
-| vh     | Draw step area chart, vertical then horizontal lines | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B893SYRqUUwAAAAAAAAAAAAAemJ7AQ/original"></img> |
-| hv     | Draw step area chart, horizontal then vertical lines | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A2RnTI55cVoAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| Shape  | Description                                                             | Example                                                                                                          |
+| ------ | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| area   | Draw area chart with straight line connections                          | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_nCpS59Cc_MAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| smooth | Draw area chart with smooth curves                                      | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7GhERYQPy4UAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| vh     | Draw step area chart, vertical then horizontal lines                    | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B893SYRqUUwAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| hv     | Draw step area chart, horizontal then vertical lines                    | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A2RnTI55cVoAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | hvh    | Draw step area chart, vertical-horizontal-vertical, midpoint connection | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0QEpT47_yGQAAAAAAAAAAAAAemJ7AQ/original"></img> |
 
 ### coordinate
 
 The display of `area` graphic marks differs under different coordinate systems. Depending on the coordinate system or coordinate system transformations, various charts such as area charts and radar charts can be drawn.
 
-| Coordinate System or Transformation | Coordinate Configuration | Chart Type      |
-| ----------------------------------- | ------------------------ | --------------- |
-| Cartesian coordinate system        | `{ type: 'cartesian' }`  | Area charts etc |
-| Polar coordinate system            | `{ type: 'polar' }`      | Radar charts etc |
+| Coordinate System or Transformation | Coordinate Configuration | Chart Type       |
+| ----------------------------------- | ------------------------ | ---------------- |
+| Cartesian coordinate system         | `{ type: 'cartesian' }`  | Area charts etc  |
+| Polar coordinate system             | `{ type: 'polar' }`      | Radar charts etc |
 
 In **polar coordinate systems**, area charts need to be closed. Commonly used to draw radar charts.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -236,38 +236,68 @@ chart.render();
 
 Configure styles for `area` marks.
 
-| Property             | Description                                                                                                                                                      | Type                                                             | Default Value                                                   | Required |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------- | -------- |
-| connect              | Whether to connect null values with `connector` graphics                                                                                                        | boolean                                                          | `false`                                                         |          |
-| defined              | Determines if data is a null value                                                                                                                               | (d) => boolean                                                   | `(d) => !Number.isNaN(d) && d !== undefined && d !== null`     |          |
-| connectFill          | `connector` graphic fill color                                                                                                                                   | string \| (d, index, data, column) => string                    | -                                                               |          |
-| connectFillOpacity   | `connector` graphic fill opacity                                                                                                                                 | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectStroke        | `connector` graphic stroke                                                                                                                                       | string \| (d, index, data, column) => string                    | -                                                               |          |
-| connectStrokeOpacity | `connector` graphic stroke opacity                                                                                                                               | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectLineWidth     | `connector` graphic stroke width                                                                                                                                 | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectLineDash      | `connector` graphic stroke dash configuration. First value is dash segment length, second is gap distance. Setting lineDash to [0,0] results in no stroke     | [number,number] \| (d, index, data, column) => [number, number] | -                                                               |          |
-| connectOpacity       | `connector` graphic overall opacity                                                                                                                              | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectShadowColor   | `connector` graphic shadow color                                                                                                                                 | string \| (d, index, data, column) => string                    | -                                                               |          |
-| connectShadowBlur    | `connector` graphic shadow Gaussian blur coefficient                                                                                                             | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectShadowOffsetX | Horizontal distance of shadow from `connector` graphic                                                                                                          | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectShadowOffsetY | Vertical distance of shadow from `connector` graphic                                                                                                            | number \| (d, index, data, column) => number                    | -                                                               |          |
-| connectCursor        | `connector` graphic mouse cursor style. Same as CSS cursor style                                                                                                | string \| (d, index, data, column) => string                    | `default`                                                       |          |
-| fill                 | `area` graphic fill color                                                                                                                                        | string \| (d, index, data, column) => string                    | -                                                               |          |
-| fillOpacity          | `area` graphic fill opacity                                                                                                                                      | number \| (d, index, data, column) => number                    | `0.85`                                                          |          |
-| stroke               | `area` graphic stroke                                                                                                                                            | string \| (d, index, data, column) => string                    | -                                                               |          |
-| strokeOpacity        | `area` graphic stroke opacity                                                                                                                                    | number \| (d, index, data, column) => number                    | -                                                               |          |
-| lineWidth            | `area` graphic stroke width                                                                                                                                      | number \| (d, index, data, column) => number                    | `0`                                                             |          |
-| lineDash             | `area` graphic stroke dash configuration. First value is dash segment length, second is gap distance. Setting lineDash to [0, 0] results in no stroke        | [number,number] \| (d, index, data, column) => [number, number] | -                                                               |          |
-| opacity              | `area` graphic overall opacity                                                                                                                                   | number \| (d, index, data, column) => number                    | -                                                               |          |
-| shadowColor          | `area` graphic shadow color                                                                                                                                      | string \| (d, index, data, column) => string                    | -                                                               |          |
-| shadowBlur           | `area` graphic shadow Gaussian blur coefficient                                                                                                                  | number \| (d, index, data, column) => number                    | -                                                               |          |
-| shadowOffsetX        | Horizontal distance of shadow from `area` graphic                                                                                                               | number \| (d, index, data, column) => number                    | -                                                               |          |
-| shadowOffsetY        | Vertical distance of shadow from `area` graphic                                                                                                                 | number \| (d, index, data, column) => number                    | -                                                               |          |
-| cursor               | `area` graphic mouse cursor style. Same as CSS cursor style                                                                                                     | string \| (d, index, data, column) => string                    | `default`                                                       |          |
+| Property             | Description                                                                                                                                               | Type                                                            | Default Value                                              | Required |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------- | -------- |
+| connect              | Whether to connect null values with `connector` graphics                                                                                                  | boolean                                                         | `false`                                                    |          |
+| defined              | Determines if data is a null value                                                                                                                        | (d) => boolean                                                  | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |          |
+| connectFill          | `connector` graphic fill color                                                                                                                            | string \| (d, index, data, column) => string                    | -                                                          |          |
+| connectFillOpacity   | `connector` graphic fill opacity                                                                                                                          | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectStroke        | `connector` graphic stroke                                                                                                                                | string \| (d, index, data, column) => string                    | -                                                          |          |
+| connectStrokeOpacity | `connector` graphic stroke opacity                                                                                                                        | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectLineWidth     | `connector` graphic stroke width                                                                                                                          | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectLineDash      | `connector` graphic stroke dash configuration. First value is dash segment length, second is gap distance. Setting lineDash to [0,0] results in no stroke | [number,number] \| (d, index, data, column) => [number, number] | -                                                          |          |
+| connectOpacity       | `connector` graphic overall opacity                                                                                                                       | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectShadowColor   | `connector` graphic shadow color                                                                                                                          | string \| (d, index, data, column) => string                    | -                                                          |          |
+| connectShadowBlur    | `connector` graphic shadow Gaussian blur coefficient                                                                                                      | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectShadowOffsetX | Horizontal distance of shadow from `connector` graphic                                                                                                    | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectShadowOffsetY | Vertical distance of shadow from `connector` graphic                                                                                                      | number \| (d, index, data, column) => number                    | -                                                          |          |
+| connectCursor        | `connector` graphic mouse cursor style. Same as CSS cursor style                                                                                          | string \| (d, index, data, column) => string                    | `default`                                                  |          |
+| fill                 | `area` graphic fill color                                                                                                                                 | string \| (d, index, data, column) => string                    | -                                                          |          |
+| fillOpacity          | `area` graphic fill opacity                                                                                                                               | number \| (d, index, data, column) => number                    | `0.85`                                                     |          |
+| stroke               | `area` graphic stroke                                                                                                                                     | string \| (d, index, data, column) => string                    | -                                                          |          |
+| strokeOpacity        | `area` graphic stroke opacity                                                                                                                             | number \| (d, index, data, column) => number                    | -                                                          |          |
+| lineWidth            | `area` graphic stroke width                                                                                                                               | number \| (d, index, data, column) => number                    | `0`                                                        |          |
+| lineDash             | `area` graphic stroke dash configuration. First value is dash segment length, second is gap distance. Setting lineDash to [0, 0] results in no stroke     | [number,number] \| (d, index, data, column) => [number, number] | -                                                          |          |
+| opacity              | `area` graphic overall opacity                                                                                                                            | number \| (d, index, data, column) => number                    | -                                                          |          |
+| shadowColor          | `area` graphic shadow color                                                                                                                               | string \| (d, index, data, column) => string                    | -                                                          |          |
+| shadowBlur           | `area` graphic shadow Gaussian blur coefficient                                                                                                           | number \| (d, index, data, column) => number                    | -                                                          |          |
+| shadowOffsetX        | Horizontal distance of shadow from `area` graphic                                                                                                         | number \| (d, index, data, column) => number                    | -                                                          |          |
+| shadowOffsetY        | Vertical distance of shadow from `area` graphic                                                                                                           | number \| (d, index, data, column) => number                    | -                                                          |          |
+| cursor               | `area` graphic mouse cursor style. Same as CSS cursor style                                                                                               | string \| (d, index, data, column) => string                    | `default`                                                  |          |
 
 Try it out:
 
-<Playground path="general/area/demo/missing-data-area.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'area',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    // Mock missing data. Set NaN from Jan. to Mar.
+    y: (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close),
+  },
+  style: {
+    connect: true,
+    // 配置connector样式
+    connectFill: 'grey',
+    connectFillOpacity: 0.15,
+    // 配置area样式
+    fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+    opacity: 0.9,
+    stroke: 'yellow',
+  },
+});
+
+chart.render();
+```
 
 ## Examples
 

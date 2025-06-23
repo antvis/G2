@@ -17,7 +17,7 @@ Vector graphic marks map data into vector data through the above channels: `[sta
 
 <img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -80,37 +80,37 @@ chart.render();
 
 ## Configuration
 
-| Property | Description                                                                                                                                     | Type              | Default | Required |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
+| Property | Description                                                                                                                                                            | Type              | Default | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
 | encode   | Configure the visual channels of the `vector` mark, including `x`, `y`, `rotate`, `size`, etc., to specify the relationship between visual element properties and data | [encode](#encode) | -       | ✓        |
-| style    | Configure the graphic style of the `vector` mark                                                                                                | [style](#style)   | -       |          |
+| style    | Configure the graphic style of the `vector` mark                                                                                                                       | [style](#style)   | -       |          |
 
 ### encode
 
-| Property | Description                                                                                                                                                       | Type                          | Default | Required |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------- | -------- |
-| x        | Bind the `x` property channel of the `vector` mark, binding the horizontal position corresponding to the x-axis scale                                             | [encode](/en/manual/core/encode) | -       | ✓        |
-| y        | Bind the `y` property channel of the `vector` mark, binding the vertical position corresponding to the y-axis scale, position anchor is positioned at the center of the arrow | [encode](/en/manual/core/encode) | -       | ✓        |
-| size     | Bind the `size` property channel of the `vector` mark, changing the size of the graphic mark, the `size` visual channel is mapped to the length of the arrow    | [encode](/en/manual/core/encode) | -       | ✓        |
-| rotate   | Bind the `rotate` property channel of the `vector` mark, used to map data fields to the rotation angle of the arrow                                              | [encode](/en/manual/core/encode) | -       | ✓        |
+| Property | Description                                                                                                                                                                                                                                                | Type                             | Default | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------- | -------- |
+| x        | Bind the `x` property channel of the `vector` mark, binding the horizontal position corresponding to the x-axis scale                                                                                                                                      | [encode](/en/manual/core/encode) | -       | ✓        |
+| y        | Bind the `y` property channel of the `vector` mark, binding the vertical position corresponding to the y-axis scale, position anchor is positioned at the center of the arrow                                                                              | [encode](/en/manual/core/encode) | -       | ✓        |
+| size     | Bind the `size` property channel of the `vector` mark, changing the size of the graphic mark, the `size` visual channel is mapped to the length of the arrow                                                                                               | [encode](/en/manual/core/encode) | -       | ✓        |
+| rotate   | Bind the `rotate` property channel of the `vector` mark, used to map data fields to the rotation angle of the arrow                                                                                                                                        | [encode](/en/manual/core/encode) | -       | ✓        |
 | color    | Bind the `color` property channel of the `vector` mark. If a data field is mapped to the color channel, the data will be grouped, with different colors corresponding to different groups. The `color` visual channel is mapped to the color of the arrow. | [encode](/en/manual/core/encode) | -       |          |
 
 ### style
 
-| Property      | Description                                                                                                                                                                          | Type                                              | Default   | Required |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | --------- | -------- |
-| arrowSize     | Size of the arrow icon, can specify pixel values or relative values of arrow length                                                                                                  | `string` \| `number`                              | '40%'     |          |
-| fill          | Fill color of the graphic                                                                                                                                                            | `string` \| `Function<string>`                    | -         |          |
-| fillOpacity   | Fill opacity of the graphic                                                                                                                                                          | `number` \| `Function<number>`                    | -         |          |
-| stroke        | Stroke of the graphic                                                                                                                                                                | `string` \| `Function<string>`                    | -         |          |
-| strokeOpacity | Stroke opacity                                                                                                                                                                       | `number` \| `Function<number>`                    | -         |          |
-| lineWidth     | Width of the graphic stroke                                                                                                                                                          | `number` \| `Function<number>`                    | -         |          |
+| Property      | Description                                                                                                                                                                         | Type                                              | Default   | Required |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | --------- | -------- |
+| arrowSize     | Size of the arrow icon, can specify pixel values or relative values of arrow length                                                                                                 | `string` \| `number`                              | '40%'     |          |
+| fill          | Fill color of the graphic                                                                                                                                                           | `string` \| `Function<string>`                    | -         |          |
+| fillOpacity   | Fill opacity of the graphic                                                                                                                                                         | `number` \| `Function<number>`                    | -         |          |
+| stroke        | Stroke of the graphic                                                                                                                                                               | `string` \| `Function<string>`                    | -         |          |
+| strokeOpacity | Stroke opacity                                                                                                                                                                      | `number` \| `Function<number>`                    | -         |          |
+| lineWidth     | Width of the graphic stroke                                                                                                                                                         | `number` \| `Function<number>`                    | -         |          |
 | lineDash      | Dashed stroke configuration. The first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke | `[number,number]` \| `Function<[number, number]>` | -         |          |
-| opacity       | Overall opacity of the graphic                                                                                                                                                       | `number` \| `Function<number>`                    | -         |          |
-| shadowColor   | Shadow color of the graphic                                                                                                                                                          | `string` \| `Function<string>`                    | -         |          |
-| shadowBlur    | Gaussian blur coefficient of the graphic shadow                                                                                                                                      | `number` \| `Function<number>`                    | -         |          |
-| shadowOffsetX | Horizontal distance of the shadow from the graphic                                                                                                                                   | `number` \| `Function<number>`                    | -         |          |
-| shadowOffsetY | Vertical distance of the shadow from the graphic                                                                                                                                     | `number` \| `Function<number>`                    | -         |          |
+| opacity       | Overall opacity of the graphic                                                                                                                                                      | `number` \| `Function<number>`                    | -         |          |
+| shadowColor   | Shadow color of the graphic                                                                                                                                                         | `string` \| `Function<string>`                    | -         |          |
+| shadowBlur    | Gaussian blur coefficient of the graphic shadow                                                                                                                                     | `number` \| `Function<number>`                    | -         |          |
+| shadowOffsetX | Horizontal distance of the shadow from the graphic                                                                                                                                  | `number` \| `Function<number>`                    | -         |          |
+| shadowOffsetY | Vertical distance of the shadow from the graphic                                                                                                                                    | `number` \| `Function<number>`                    | -         |          |
 | cursor        | Mouse cursor style. Same as CSS cursor style, default 'default'                                                                                                                     | `string` \| `Function<string>`                    | 'default' |          |
 
 ## Examples
@@ -119,7 +119,7 @@ chart.render();
 
 There are two ways to specify the length of arrow icons. One is by filling in pixel values, such as `4`, to specify a fixed length; the other is by specifying a percentage, such as `30%`, to specify the relative length with reference to the arrow length. The default value is `40%`. Example as follows:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

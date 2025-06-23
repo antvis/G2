@@ -121,13 +121,13 @@ Element select by color interaction configuration has two parts:
 
 ### Interaction Configuration
 
-| Property             | Description                                                                                                                              | Type                   | Default |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- |
-| background           | Whether to highlight background                                                                                                          | `boolean`              | false   |
-| region               | Whether clicking empty area triggers selection                                                                                          | `boolean`              | false   |
-| single               | Whether single-select mode. When set to true, only one color group can be selected at a time                                          | `boolean`              | false   |
-| multipleSelectHotkey | Hotkey code for multi-select. Hold hotkey to enable multi-select. When set, `single` becomes invalid. Default to multi-select mode   | `string` \| `string[]` | -       |
-| link                 | Whether to show connection lines                                                                                                        | `boolean`              | false   |
+| Property             | Description                                                                                                                        | Type                   | Default |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- |
+| background           | Whether to highlight background                                                                                                    | `boolean`              | false   |
+| region               | Whether clicking empty area triggers selection                                                                                     | `boolean`              | false   |
+| single               | Whether single-select mode. When set to true, only one color group can be selected at a time                                       | `boolean`              | false   |
+| multipleSelectHotkey | Hotkey code for multi-select. Hold hotkey to enable multi-select. When set, `single` becomes invalid. Default to multi-select mode | `string` \| `string[]` | -       |
+| link                 | Whether to show connection lines                                                                                                   | `boolean`              | false   |
 
 ### Element Selection Style
 
@@ -142,13 +142,13 @@ Element selection style, see example [Custom Selection](#custom-selection)
 | stroke                  | Element stroke                                                                                                                     | string \| (datum, index, data) => string                     | -             |          |
 | strokeOpacity           | Element stroke opacity                                                                                                             | number \| (datum, index, data) => number                     | -             |          |
 | lineWidth               | Element stroke width                                                                                                               | number \| (datum, index, data) => number                     | -             |          |
-| lineDash                | Element stroke dash configuration. First value is dash length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
+| lineDash                | Element stroke dash configuration. First value is dash length, second is gap length. Setting lineDash to [0,0] means no stroke.    | [number,number] \| (datum, index, data) => [number , number] | -             |          |
 | opacity                 | Element overall opacity                                                                                                            | number \| (datum, index, data) => number                     | -             |          |
 | shadowColor             | Element shadow color                                                                                                               | string \| (datum, index, data) => string                     | -             |          |
 | shadowBlur              | Element shadow Gaussian blur coefficient                                                                                           | number \| (datum, index, data) => number                     | -             |          |
 | shadowOffsetX           | Set horizontal distance of shadow from element                                                                                     | number \| (datum, index, data) => number                     | -             |          |
 | shadowOffsetY           | Set vertical distance of shadow from element                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| cursor                  | Element mouse cursor style. Same as CSS cursor style.                                                                             | string \| (datum, index, data) => string                     | `default`     |          |
+| cursor                  | Element mouse cursor style. Same as CSS cursor style.                                                                              | string \| (datum, index, data) => string                     | `default`     |          |
 | backgroundRadius        | Background border radius                                                                                                           | number \| (datum, index, data) => number                     | `0`           |          |
 | backgroundFill          | Background fill color                                                                                                              | string \| (datum, index, data) => string                     | `transparent` |          |
 | backgroundFillOpacity   | Background fill opacity                                                                                                            | number \| (datum, index, data) => number                     | -             |          |
@@ -161,27 +161,27 @@ Element selection style, see example [Custom Selection](#custom-selection)
 | backgroundShadowBlur    | Background shadow Gaussian blur coefficient                                                                                        | number \| (datum, index, data) => number                     | -             |          |
 | backgroundShadowOffsetX | Set horizontal distance of shadow from background                                                                                  | number \| (datum, index, data) => number                     | -             |          |
 | backgroundShadowOffsetY | Set vertical distance of shadow from background                                                                                    | number \| (datum, index, data) => number                     | -             |          |
-| backgroundCursor        | Background mouse cursor style. Same as CSS cursor style.                                                                          | string \| (datum, index, data) => string                     | `default`     |          |
+| backgroundCursor        | Background mouse cursor style. Same as CSS cursor style.                                                                           | string \| (datum, index, data) => string                     | `default`     |          |
 
 ### linkStyle
 
 Connection style, see example [Selection with Connection Lines](#selection-with-connection-lines)
 
-| Property              | Description                                                                                                                        | Type                                                         | Default       | Required |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| linkRadius            | Connection line border radius                                                                                                      | number \| (datum, index, data) => number                     | `0`           |          |
-| linkFill              | Connection line fill color                                                                                                         | string \| (datum, index, data) => string                     | `transparent` |          |
-| linkFillOpacity       | Connection line fill opacity                                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| linkStroke            | Connection line stroke                                                                                                             | string \| (datum, index, data) => string                     | -             |          |
-| linkStrokeOpacity     | Connection line stroke opacity                                                                                                     | number \| (datum, index, data) => number                     | -             |          |
-| linkLineWidth         | Connection line stroke width                                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| linkLineDash          | Connection line stroke dash configuration. First value is dash length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| linkOpacity           | Connection line overall opacity                                                                                                    | number \| (datum, index, data) => number                     | -             |          |
-| linkShadowColor       | Connection line shadow color                                                                                                       | string \| (datum, index, data) => string                     | -             |          |
-| linkShadowBlur        | Connection line shadow Gaussian blur coefficient                                                                                   | number \| (datum, index, data) => number                     | -             |          |
-| linkShadowOffsetX     | Set horizontal distance of shadow from connection line                                                                             | number \| (datum, index, data) => number                     | -             |          |
-| linkShadowOffsetY     | Set vertical distance of shadow from connection line                                                                               | number \| (datum, index, data) => number                     | -             |          |
-| linkCursor            | Connection line mouse cursor style. Same as CSS cursor style.                                                                      | string \| (datum, index, data) => string                     | `default`     |          |
+| Property          | Description                                                                                                                             | Type                                                         | Default       | Required |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
+| linkRadius        | Connection line border radius                                                                                                           | number \| (datum, index, data) => number                     | `0`           |          |
+| linkFill          | Connection line fill color                                                                                                              | string \| (datum, index, data) => string                     | `transparent` |          |
+| linkFillOpacity   | Connection line fill opacity                                                                                                            | number \| (datum, index, data) => number                     | -             |          |
+| linkStroke        | Connection line stroke                                                                                                                  | string \| (datum, index, data) => string                     | -             |          |
+| linkStrokeOpacity | Connection line stroke opacity                                                                                                          | number \| (datum, index, data) => number                     | -             |          |
+| linkLineWidth     | Connection line stroke width                                                                                                            | number \| (datum, index, data) => number                     | -             |          |
+| linkLineDash      | Connection line stroke dash configuration. First value is dash length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
+| linkOpacity       | Connection line overall opacity                                                                                                         | number \| (datum, index, data) => number                     | -             |          |
+| linkShadowColor   | Connection line shadow color                                                                                                            | string \| (datum, index, data) => string                     | -             |          |
+| linkShadowBlur    | Connection line shadow Gaussian blur coefficient                                                                                        | number \| (datum, index, data) => number                     | -             |          |
+| linkShadowOffsetX | Set horizontal distance of shadow from connection line                                                                                  | number \| (datum, index, data) => number                     | -             |          |
+| linkShadowOffsetY | Set vertical distance of shadow from connection line                                                                                    | number \| (datum, index, data) => number                     | -             |          |
+| linkCursor        | Connection line mouse cursor style. Same as CSS cursor style.                                                                           | string \| (datum, index, data) => string                     | `default`     |          |
 
 ```js
 ({
@@ -244,7 +244,7 @@ chart.emit('element:unselect', {});
 
 ### Basic Selection
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -277,7 +277,7 @@ chart.render();
 
 ### Custom Selection
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -347,7 +347,7 @@ chart.render();
 
 ### Single-Select Mode
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -386,7 +386,7 @@ chart.render();
 
 ### Multi-Select Mode
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -15,7 +15,7 @@ The `point` scale belongs to the **categorical scale** category and is a special
 
 ### Mapping Effect Diagram
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -43,15 +43,15 @@ chart.render();
 
 ## Configuration Options
 
-| Property | Description                                                    | Type                                                   | Default Value | Required |
-| -------- | -------------------------------------------------------------- | ------------------------------------------------------ | ------------- | -------- |
-| type     | Scale type, must be 'point'                                   | `string`                                               | None          | ✓        |
-| domain   | Domain array, collection of categories                        | `number[]` \| `string[]` \| `Date[]`                   | `[]`          |          |
-| range    | Range, the continuous interval for mapping                     | `number[]` \| `string[]`                               | `[0, 1]`      |          |
-| unknown  | Value returned when input is `undefined`, `NaN`, or `null`    | `any`                                                  | `undefined`   |          |
-| round    | Whether to round the output values                             | `boolean`                                              | `false`       |          |
-| align    | Alignment, within the range [0, 1]                            | `number`                                               | `0.5`         |          |
-| compare  | Sort the domain                                                | `(a: string \| number, b: string \| number) => number` | `undefined`   |          |
+| Property | Description                                                | Type                                                   | Default Value | Required |
+| -------- | ---------------------------------------------------------- | ------------------------------------------------------ | ------------- | -------- |
+| type     | Scale type, must be 'point'                                | `string`                                               | None          | ✓        |
+| domain   | Domain array, collection of categories                     | `number[]` \| `string[]` \| `Date[]`                   | `[]`          |          |
+| range    | Range, the continuous interval for mapping                 | `number[]` \| `string[]`                               | `[0, 1]`      |          |
+| unknown  | Value returned when input is `undefined`, `NaN`, or `null` | `any`                                                  | `undefined`   |          |
+| round    | Whether to round the output values                         | `boolean`                                              | `false`       |          |
+| align    | Alignment, within the range [0, 1]                         | `number`                                               | `0.5`         |          |
+| compare  | Sort the domain                                            | `(a: string \| number, b: string \| number) => number` | `undefined`   |          |
 
 **Complex Type Descriptions:**
 
@@ -92,7 +92,7 @@ If you want to customize the `paddingOuter` value, you can modify it through the
 
 ### Scatter Plot
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -116,7 +116,7 @@ chart.render();
 
 ### Cell Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

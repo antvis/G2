@@ -44,16 +44,16 @@ Corresponding to visual channels in visual encoding, visual channels in G2 can b
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3suYQYaNeP4AAAAAAAAAAAAAemJ7AQ/original" width=400/>
 
-| Visual Channel        | Description                                                                                    |
-| --------------------- | ---------------------------------------------------------------------------------------------- |
-| **x**                 | Defines the position of elements in the horizontal direction                                   |
-| **y**                 | Defines the position of elements in the vertical direction                                     |
-| **z**                 | Defines the depth position of elements in three-dimensional space                             |
-| **x1**                | Defines the end position of elements in the horizontal direction                              |
+| Visual Channel        | Description                                                                                                                 |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **x**                 | Defines the position of elements in the horizontal direction                                                                |
+| **y**                 | Defines the position of elements in the vertical direction                                                                  |
+| **z**                 | Defines the depth position of elements in three-dimensional space                                                           |
+| **x1**                | Defines the end position of elements in the horizontal direction                                                            |
 | **y1**                | Defines the end position of elements in the vertical direction; stacked bar charts internally calculate `y1` channel values |
-| **series**            | Distinguishes different data series through spatial position                                   |
-| **position**          | Custom composite chart display position, used for parallel coordinates and circular facet charts, etc. |
-| **position${number}** | Custom composite chart display position, used for parallel coordinates and circular facet charts, etc. |
+| **series**            | Distinguishes different data series through spatial position                                                                |
+| **position**          | Custom composite chart display position, used for parallel coordinates and circular facet charts, etc.                      |
+| **position${number}** | Custom composite chart display position, used for parallel coordinates and circular facet charts, etc.                      |
 
 #### Color-related Visual Channels
 
@@ -63,47 +63,47 @@ Corresponding to visual channels in visual encoding, visual channels in G2 can b
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WvwnS41yNZ0AAAAAAAAAAAAAemJ7AQ/original" width=400/>
 
-| Visual Channel | Description                                                                                      |
-| -------------- | ------------------------------------------------------------------------------------------------ |
-| **color**      | Maps data categorical attributes through hue                                                     |
+| Visual Channel | Description                                                                                                                                |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **color**      | Maps data categorical attributes through hue                                                                                               |
 | **opacity**    | Controls element transparency, commonly used to highlight focus or express numerical intensity (such as gradient transparency in heatmaps) |
 
 #### Shape-related Visual Channels
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n2-PR4Q39owAAAAAAAAAAAAAemJ7AQ/original" width=400/>
 
-| Visual Channel | Description                                                    |
-| -------------- | -------------------------------------------------------------- |
+| Visual Channel | Description                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------------- |
 | **shape**      | Distinguishes data categories through geometric forms, suitable for categorical data encoding |
 
 #### Size-related Visual Channels
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*noVCTI3JEpwAAAAAAAAAAAAAemJ7AQ/original" width=400/>
 
-| Visual Channel | Description                                                           |
-| -------------- | --------------------------------------------------------------------- |
+| Visual Channel | Description                                                                                                       |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- |
 | **size**       | Controls element physical dimensions (point radius/line width/bar width), suitable for encoding quantitative data |
 
 #### Animation-related Visual Channels
 
 <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vtjDQ4sJHJkAAAAAAAAAAAAADmJ7AQ/original" width=600>
 
-| Visual Channel     | Description                                        |
-| ------------------ | -------------------------------------------------- |
-| **key**            | Unique identifier for animation elements, used for data updates |
-| **groupKey**       | Animation group identifier, used for data updates |
+| Visual Channel     | Description                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| **key**            | Unique identifier for animation elements, used for data updates     |
+| **groupKey**       | Animation group identifier, used for data updates                   |
 | **enterType**      | Animation type for element entry into scene (such as scale/fade in) |
-| **enterEasing**    | Easing function for enter animation               |
-| **enterDuration**  | Duration of enter animation                       |
-| **enterDelay**     | Delay time for enter animation                    |
-| **updateType**     | Transition animation type for data updates        |
-| **updateEasing**   | Easing function for update animation              |
-| **updateDuration** | Duration of update animation                      |
-| **updateDelay**    | Delay time for update animation                   |
-| **exitType**       | Animation type for element exit from scene (such as slide out) |
-| **exitEasing**     | Easing function for exit animation                |
-| **exitDuration**   | Duration of exit animation                        |
-| **exitDelay**      | Delay time for exit animation                     |
+| **enterEasing**    | Easing function for enter animation                                 |
+| **enterDuration**  | Duration of enter animation                                         |
+| **enterDelay**     | Delay time for enter animation                                      |
+| **updateType**     | Transition animation type for data updates                          |
+| **updateEasing**   | Easing function for update animation                                |
+| **updateDuration** | Duration of update animation                                        |
+| **updateDelay**    | Delay time for update animation                                     |
+| **exitType**       | Animation type for element exit from scene (such as slide out)      |
+| **exitEasing**     | Easing function for exit animation                                  |
+| **exitDuration**   | Duration of exit animation                                          |
+| **exitDelay**      | Delay time for exit animation                                       |
 
 ## Encode
 
@@ -111,7 +111,7 @@ To control the style of marks, we often bind a column of data to one of its visu
 
 Here is a set of event planning timeline data:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 table([
   { name: 'Event Planning', startTime: 1, endTime: 4 },
   { name: 'Venue Logistics Planning', startTime: 3, endTime: 13 },
@@ -126,7 +126,7 @@ table([
 
 In the following example, we bind the `name` column in the data to the `x` channel, and bind the value of `endTime` column minus `startTime` column to the `y` channel. This binding process is called **Encode**. We often say that a certain visual attribute of a graphic encodes a column of data, and this data-driven attribute is called a **Channel**. For example, the `x` and `y` channels of the interval mark below encode the corresponding column data respectively, clearly showing the relationship between different tasks and time consumption.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ When we want to further analyze the temporal relationships of tasks, we need to 
 
 In the following example, we bind the `startTime` column in the data to the `y` channel, and bind the `endTime` column to the `y1` channel (of course, you can also bind `[startTime, endTime]` to the `y` channel, see [Array Channels](#array-channels) for details). Through this data encoding method, we achieve a Gantt chart effect. To better distinguish different tasks, in addition to encoding the `name` column data to the `x` channel, we also bind the `name` column data to the `color` channel. This way, through different colors and different x-axis positions, we can better distinguish different tasks.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -210,7 +210,7 @@ chart.render();
 
 This is already a relatively complete Gantt chart. If you want to emphasize the time sequence, you can use animation-related visual channels in G2 to achieve temporal animation effects. The following example encodes the `enterDuration` and `enterDelay` channels, making the enter animation delay time and duration of marks corresponding to different tasks correlate with the start time and end time in the data.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -299,7 +299,7 @@ chart.encode({ x: 'name', y: 'value' });
 
 Channel encoding has transitivity. View encoding will be passed to marks specified by `children`. If the mark doesn't have encoding for the corresponding channel, it will be set; otherwise, nothing will be done. For example, drawing a point-line chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -334,12 +334,12 @@ A complete encoding consists of `encode.type` and `encode.value`.
 
 After encoding, an array will be generated under the specified channel according to the encoding method.
 
-| Encoding Method |    type     |                             value                              |                  Description                  |
-| :-------------: | :---------: | :------------------------------------------------------------: | :-------------------------------------------: |
-| Field Encoding  |   `field`   |                             string                             |           Field name of a data column           |
+|  Encoding Method  |    type     |                             value                              |                    Description                    |
+| :---------------: | :---------: | :------------------------------------------------------------: | :-----------------------------------------------: |
+|  Field Encoding   |   `field`   |                             string                             |            Field name of a data column            |
 | Function Encoding | `transform` | `(value, index, array) => number \| string \| boolean \| Date` | Specify channel binding through callback function |
-| Constant Encoding | `constant`  |                              any                               |            Specify channel value as constant            |
-| Data Encoding   |  `column`   |          number[] \| string[] \| boolean[] \| Date[]           |          Specify channel value as an array          |
+| Constant Encoding | `constant`  |                              any                               |         Specify channel value as constant         |
+|   Data Encoding   |  `column`   |          number[] \| string[] \| boolean[] \| Date[]           |         Specify channel value as an array         |
 
 G2 provides syntactic sugar, and in most cases `encode.type` can be omitted.
 
@@ -423,7 +423,7 @@ Specify channel binding to newly generated data:
 
 You can also generate corresponding channel legends in multi-axis charts through function encoding.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -478,7 +478,7 @@ chart.render();
 
 Function encoding can also disable certain channels in some cases. In G2, when the `series` channel is not defined and the `color` channel is already defined, a copy of values will be made to the `series` channel to achieve categorization effects. In the following example, the `color` channel is mapped to a continuous field. If the `series` is also mapped to a continuous field, it will affect the display of gradient lines, so you need to disable it with `series: () => undefined`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -554,7 +554,7 @@ Specify the value of a certain channel as an array.
 
 For some big data scenarios, using array columns would be more suitable. Here's a simple example.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const I = [0, 1, 2, 3, 4];
@@ -588,7 +588,7 @@ chart.render();
 
 Of course, for position-related visual channels: such as x and y channels, often more than one column of data is needed. For example, in a waterfall chart, you can specify multiple columns for one channel through an array.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

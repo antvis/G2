@@ -14,7 +14,7 @@ flexX is a transform method used to adjust the width of bar charts. It allows fo
 
 Through the flexX transform, we can add an additional data dimension on top of traditional bar charts, making charts more information-rich.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -56,7 +56,7 @@ chart.render();
    <br/>
    Using country GDP as bar width and GDP per capita as bar height:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -84,11 +84,11 @@ chart.render();
 
 ## Configuration
 
-| Property | Description                                         | Type                                  | Default | Required |
-| -------- | --------------------------------------------------- | ------------------------------------- | ------- | -------- |
-| field    | Specifies the field for generating weight array    | `string` \| `(d: any) => Primitive[]` | -       | No       |
-| channel  | Specifies the channel for generating weight array  | string                                | `y`     | No       |
-| reducer  | Function to aggregate weights in each group         | `Reducer`                             | sum     | No       |
+| Property | Description                                       | Type                                  | Default | Required |
+| -------- | ------------------------------------------------- | ------------------------------------- | ------- | -------- |
+| field    | Specifies the field for generating weight array   | `string` \| `(d: any) => Primitive[]` | -       | No       |
+| channel  | Specifies the channel for generating weight array | string                                | `y`     | No       |
+| reducer  | Function to aggregate weights in each group       | `Reducer`                             | sum     | No       |
 
 ### Type Definitions
 
@@ -112,7 +112,7 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
 
 Creating market analysis charts by combining stackY and normalizeY transforms:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -150,7 +150,7 @@ This example demonstrates how to use flexX to visualize population data, where b
 
 Displaying monthly sales data using transaction volume as width and price change rate as height:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

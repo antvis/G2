@@ -14,7 +14,7 @@ First, you need to use [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/
 
 Then set up the z channel, scale, and z-axis. No need to add light sources to the scene.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';

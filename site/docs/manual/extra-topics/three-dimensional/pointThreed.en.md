@@ -14,7 +14,7 @@ First, you need to use [@antv/g-webgl](https://g.antv.antgroup.com/api/renderer/
 
 Then set the z channel, scale, and z-axis, and finally add light sources to the scene.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -85,33 +85,33 @@ For more examples, you can visit the [Examples](/en/examples) page.
 
 Currently, point3D has the following built-in shape graphics, including 3D and 2D:
 
-| Shape              | Description                | Example |
-| ------------------ | -------------------------- | ------- |
-| cube               | Draw cube                  |         |
-| sphere             | Draw sphere                |         |
-| hollow             | Draw hollow circle         |         |
-| hollowDiamond      | Draw hollow diamond        |         |
-| hollowHexagon      | Draw hollow hexagon        |         |
-| hollowSquare       | Draw hollow square         |         |
-| hollowTriangleDown | Draw hollow downward triangle |       |
-| hollowTriangle     | Draw hollow triangle       |         |
-| hollowBowtie       | Draw hollow bowtie         |         |
-| point              | Draw circle                |         |
-| plus               | Draw plus sign             |         |
-| diamond            | Draw diamond               |         |
-| square             | Draw square                |         |
-| triangle           | Draw triangle              |         |
-| triangleDown       | Draw downward triangle     |         |
-| hexagon            | Draw hexagon               |         |
-| cross              | Draw cross symbol          |         |
-| bowtie             | Draw bowtie                |         |
-| hyphen             | Draw hyphen                |         |
-| line               | Draw vertical line         |         |
-| tick               | Draw tick                  |         |
+| Shape              | Description                   | Example |
+| ------------------ | ----------------------------- | ------- |
+| cube               | Draw cube                     |         |
+| sphere             | Draw sphere                   |         |
+| hollow             | Draw hollow circle            |         |
+| hollowDiamond      | Draw hollow diamond           |         |
+| hollowHexagon      | Draw hollow hexagon           |         |
+| hollowSquare       | Draw hollow square            |         |
+| hollowTriangleDown | Draw hollow downward triangle |         |
+| hollowTriangle     | Draw hollow triangle          |         |
+| hollowBowtie       | Draw hollow bowtie            |         |
+| point              | Draw circle                   |         |
+| plus               | Draw plus sign                |         |
+| diamond            | Draw diamond                  |         |
+| square             | Draw square                   |         |
+| triangle           | Draw triangle                 |         |
+| triangleDown       | Draw downward triangle        |         |
+| hexagon            | Draw hexagon                  |         |
+| cross              | Draw cross symbol             |         |
+| bowtie             | Draw bowtie                   |         |
+| hyphen             | Draw hyphen                   |         |
+| line               | Draw vertical line            |         |
+| tick               | Draw tick                     |         |
 
 Using sphere shape effect as shown below:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -178,7 +178,7 @@ chart.render().then(() => {
 
 When using 2D shapes, no light source is needed:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -235,27 +235,27 @@ chart.render().then(() => {
 
 ### 3D Shapes
 
-| Property | Description                                      | Type                           | Default Value |
-| -------- | ------------------------------------------------ | ------------------------------ | ------------- |
-| fill     | Fill color of the shape                          | `string` \| `Function<string>` | -             |
-| opacity  | Overall opacity of the shape                     | `number` \| `Function<number>` | -             |
+| Property | Description                                                | Type                           | Default Value |
+| -------- | ---------------------------------------------------------- | ------------------------------ | ------------- |
+| fill     | Fill color of the shape                                    | `string` \| `Function<string>` | -             |
+| opacity  | Overall opacity of the shape                               | `number` \| `Function<number>` | -             |
 | cursor   | Mouse cursor style. Same as CSS cursor, default 'default'. | `string` \| `Function<string>` | 'default'     |
 
 Other point3D shape configuration options are consistent with `cube`.
 
 ### 2D Shapes
 
-| Property      | Description                                                                                                   | Type                                              | Default Value |
-| ------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------- |
-| fill          | Fill color of the shape                                                                                       | `string` \| `Function<string>`                    | -             |
-| fillOpacity   | Fill opacity of the shape                                                                                     | `number` \| `Function<number>`                    | -             |
-| stroke        | Stroke color of the shape                                                                                     | `string` \| `Function<string>`                    | -             |
-| strokeOpacity | Stroke opacity                                                                                                | `number` \| `Function<number>`                    | -             |
-| lineWidth     | Width of the shape stroke                                                                                     | `number` \| `Function<number>`                    | -             |
+| Property      | Description                                                                                                                                                                           | Type                                              | Default Value |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------- |
+| fill          | Fill color of the shape                                                                                                                                                               | `string` \| `Function<string>`                    | -             |
+| fillOpacity   | Fill opacity of the shape                                                                                                                                                             | `number` \| `Function<number>`                    | -             |
+| stroke        | Stroke color of the shape                                                                                                                                                             | `string` \| `Function<string>`                    | -             |
+| strokeOpacity | Stroke opacity                                                                                                                                                                        | `number` \| `Function<number>`                    | -             |
+| lineWidth     | Width of the shape stroke                                                                                                                                                             | `number` \| `Function<number>`                    | -             |
 | lineDash      | Dashed line configuration for stroke. First value is the length of each dash segment, second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke. | `[number,number]` \| `Function<[number, number]>` | -             |
-| opacity       | Overall opacity of the shape                                                                                  | `number` \| `Function<number>`                    | -             |
-| shadowColor   | Shadow color of the shape                                                                                     | `string` \| `Function<string>`                    | -             |
-| shadowBlur    | Gaussian blur coefficient for the shape shadow                                                                | `number` \| `Function<number>`                    | -             |
-| shadowOffsetX | Horizontal distance of shadow from the shape                                                                  | `number` \| `Function<number>`                    | -             |
-| shadowOffsetY | Vertical distance of shadow from the shape                                                                    | `number` \| `Function<number>`                    | -             |
-| cursor        | Mouse cursor style. Same as CSS cursor, default 'default'.                                                   | `string` \| `Function<string>`                    | 'default'     |
+| opacity       | Overall opacity of the shape                                                                                                                                                          | `number` \| `Function<number>`                    | -             |
+| shadowColor   | Shadow color of the shape                                                                                                                                                             | `string` \| `Function<string>`                    | -             |
+| shadowBlur    | Gaussian blur coefficient for the shape shadow                                                                                                                                        | `number` \| `Function<number>`                    | -             |
+| shadowOffsetX | Horizontal distance of shadow from the shape                                                                                                                                          | `number` \| `Function<number>`                    | -             |
+| shadowOffsetY | Vertical distance of shadow from the shape                                                                                                                                            | `number` \| `Function<number>`                    | -             |
+| cursor        | Mouse cursor style. Same as CSS cursor, default 'default'.                                                                                                                            | `string` \| `Function<string>`                    | 'default'     |

@@ -11,7 +11,7 @@ Line charts are used to analyze how things change over time or ordered categorie
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -37,30 +37,30 @@ For more examples, check out the [Chart Examples - Line Charts](/en/examples#gen
 
 ## Configuration Options
 
-| Property   | Description                                                                                                                     | Type                      | Default Value          | Required |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
+| Property   | Description                                                                                                                                              | Type                      | Default Value          | Required |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
 | encode     | Configure visual channels for `line` mark, including `x`, `y`, `color`, `shape`, `size`, etc., to specify relationships between visual elements and data | [encode](#encode)         | -                      | ✓        |
-| coordinate | Configure coordinate system for `line` mark, which performs a series of point transformations to change the spatial display form of the mark | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
-| style      | Configure graphic styles for `line` mark                                                                                       | [style](#style)           | -                      |          |
+| coordinate | Configure coordinate system for `line` mark, which performs a series of point transformations to change the spatial display form of the mark             | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
+| style      | Configure graphic styles for `line` mark                                                                                                                 | [style](#style)           | -                      |          |
 
 ### encode
 
 Configure visual channels for the `line` mark.
 
-| Property | Description                                                                                                                                                                                                 | Type                                                   | Default Value | Required |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------- | -------- |
-| x        | Bind the `x` property channel for `line` mark, typically a time or ordered categorical field from `data`                                                                                                   | [encode](/en/manual/core/encode)                       | -             | ✓        |
-| y        | Bind the `y` property channel for `line` mark, typically a numerical field from `data`                                                                                                                     | [encode](/en/manual/core/encode)                       | -             | ✓        |
+| Property | Description                                                                                                                                                                                                                        | Type                                                   | Default Value | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------- | -------- |
+| x        | Bind the `x` property channel for `line` mark, typically a time or ordered categorical field from `data`                                                                                                                           | [encode](/en/manual/core/encode)                       | -             | ✓        |
+| y        | Bind the `y` property channel for `line` mark, typically a numerical field from `data`                                                                                                                                             | [encode](/en/manual/core/encode)                       | -             | ✓        |
 | color    | Bind the `color` property channel for `line` mark. When mapping data fields to color channel, data is grouped and split into multiple lines with different colors for multi-line charts, or split into multi-colored line segments | [encode](/en/manual/core/encode)                       | -             |          |
-| series   | Bind the `series` property channel for `line` mark, implementing series line charts based on the series channel                                                                                           | [encode](/en/manual/core/encode)                       | -             |          |
-| shape    | Bind the `shape` property channel for `line` mark, changing the drawing shape of the graphic mark                                                                                                          | `line` \| `smooth` \| `vh` \| `hv` \| `hvh` \| `trail` | `line`        |          |
-| size     | Bind the `size` property channel for `line` mark, changing the size of the graphic mark. For lines, the `size` visual channel maps to line width                                                        | [encode](/en/manual/core/encode)                       | -             |          |
+| series   | Bind the `series` property channel for `line` mark, implementing series line charts based on the series channel                                                                                                                    | [encode](/en/manual/core/encode)                       | -             |          |
+| shape    | Bind the `shape` property channel for `line` mark, changing the drawing shape of the graphic mark                                                                                                                                  | `line` \| `smooth` \| `vh` \| `hv` \| `hvh` \| `trail` | `line`        |          |
+| size     | Bind the `size` property channel for `line` mark, changing the size of the graphic mark. For lines, the `size` visual channel maps to line width                                                                                   | [encode](/en/manual/core/encode)                       | -             |          |
 
 #### color
 
 The `color` visual channel affects the fill color of the `line` graphic mark. When applied to line charts, it generally maps categorical fields to group data.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -99,7 +99,7 @@ chart.render();
 
 In some special cases, it can also map to continuous fields, using different colors for graphics corresponding to different value ranges:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,7 +145,7 @@ chart.render();
 
 The `series` visual channel groups data to draw series line charts.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -190,13 +190,13 @@ chart.render();
 
 The supported shapes for `line` mark are:
 
-| Shape  | Description                                                                                              |
-| ------ | -------------------------------------------------------------------------------------------------------- |
-| line   | Draw straight line connections                                                                           |
-| smooth | Draw smooth curve connections                                                                            |
-| vh     | Draw step line chart, vertical line first then horizontal line connection                               |
-| hv     | Draw step line chart, horizontal line first then vertical line connection                               |
-| hvh    | Draw step line chart, vertical-horizontal-vertical, midpoint connection                                 |
+| Shape  | Description                                                                                                        |
+| ------ | ------------------------------------------------------------------------------------------------------------------ |
+| line   | Draw straight line connections                                                                                     |
+| smooth | Draw smooth curve connections                                                                                      |
+| vh     | Draw step line chart, vertical line first then horizontal line connection                                          |
+| hv     | Draw step line chart, horizontal line first then vertical line connection                                          |
+| hvh    | Draw step line chart, vertical-horizontal-vertical, midpoint connection                                            |
 | trail  | Draw trail, similar to a brush stroke, used to draw lines with varying thickness when `size` channel is configured |
 
 ```js | ob { pin: false }
@@ -274,7 +274,7 @@ The supported shapes for `line` mark are:
 
 Bind the `size` property channel for `line` mark to change the size of the graphic mark. For lines, the `size` visual channel maps to line width, typically used together with the `trail` shape in the `shape` channel.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -308,15 +308,15 @@ chart.render();
 
 The `line` graphic mark displays differently in different coordinate systems. Depending on the coordinate system or coordinate transformations, you can draw line charts, bar charts, radar charts, pie charts, and various other chart types.
 
-| Coordinate System or Transform | Coordinate Configuration    | Chart Type         |
-| ------------------------------ | --------------------------- | ------------------ |
-| Cartesian coordinate system    | `{ type: 'cartesian' }`     | Line charts, etc.  |
-| Polar coordinate system        | `{ type: 'polar' }`         | Radar charts, etc. |
-| `parallel` coordinate system   | `{ type: 'parallel' }`      | Parallel coordinates, etc. |
+| Coordinate System or Transform | Coordinate Configuration | Chart Type                 |
+| ------------------------------ | ------------------------ | -------------------------- |
+| Cartesian coordinate system    | `{ type: 'cartesian' }`  | Line charts, etc.          |
+| Polar coordinate system        | `{ type: 'polar' }`      | Radar charts, etc.         |
+| `parallel` coordinate system   | `{ type: 'parallel' }`   | Parallel coordinates, etc. |
 
 In **polar coordinate system**, line charts appear as radar charts. In polar coordinates, line area charts need to be closed. Commonly used to draw radar charts, etc.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -374,7 +374,7 @@ chart.render();
 
 In **parallel coordinate system**, line charts are commonly used to draw parallel coordinate plots. Parallel coordinate plots are statistical charts containing multiple vertical parallel coordinate axis. Each vertical coordinate axis represents a field, and each field uses scales to indicate ranges. This way, multidimensional data can easily find "landing points" on each axis, connecting them to form a line. As data increases and lines stack up, analysts may discover characteristics and patterns, such as clustering relationships between data.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -442,35 +442,35 @@ chart.render();
 
 Configure styles for the `line` mark.
 
-| Property             | Description                                                                                                                      | Type                          | Default Value                                              | Required |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ---------------------------------------------------------- | -------- |
-| gradient             | Configure gradient direction for gradient line charts, defaults to `y` when true                                                | `x` \| `y` \|true             | false                                                      |          |
-| gradientColor        | Color corresponding to gradient part for each node                                                                              | `between` \| `start` \|`end`  | `between`                                                  |          |
-| lineJoin             | Connection style, see [lineJoin](https://g.antv.antgroup.com/api/basic/display-object#%E6%8F%8F%E8%BE%B9)                     | `miter` \| `round` \| `bevel` | -                                                          |          |
-| connect              | Whether to connect null values with `connector` graphics                                                                        | boolean                       | false                                                      |          |
-| defined              | Determine if data is null                                                                                                        | (d: any) => boolean           | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |          |
-| connectFill          | `connector` graphic fill color                                                                                                   | string                        | -                                                          |          |
-| connectFillOpacity   | `connector` graphic fill opacity                                                                                                 | number                        | -                                                          |          |
-| connectStroke        | `connector` graphic stroke                                                                                                       | string                        | -                                                          |          |
-| connectStrokeOpacity | `connector` graphic stroke opacity                                                                                               | number                        | -                                                          |          |
-| connectLineWidth     | `connector` graphic stroke width                                                                                                 | number                        | -                                                          |          |
+| Property             | Description                                                                                                                                                        | Type                          | Default Value                                              | Required |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ---------------------------------------------------------- | -------- |
+| gradient             | Configure gradient direction for gradient line charts, defaults to `y` when true                                                                                   | `x` \| `y` \|true             | false                                                      |          |
+| gradientColor        | Color corresponding to gradient part for each node                                                                                                                 | `between` \| `start` \|`end`  | `between`                                                  |          |
+| lineJoin             | Connection style, see [lineJoin](https://g.antv.antgroup.com/api/basic/display-object#%E6%8F%8F%E8%BE%B9)                                                          | `miter` \| `round` \| `bevel` | -                                                          |          |
+| connect              | Whether to connect null values with `connector` graphics                                                                                                           | boolean                       | false                                                      |          |
+| defined              | Determine if data is null                                                                                                                                          | (d: any) => boolean           | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |          |
+| connectFill          | `connector` graphic fill color                                                                                                                                     | string                        | -                                                          |          |
+| connectFillOpacity   | `connector` graphic fill opacity                                                                                                                                   | number                        | -                                                          |          |
+| connectStroke        | `connector` graphic stroke                                                                                                                                         | string                        | -                                                          |          |
+| connectStrokeOpacity | `connector` graphic stroke opacity                                                                                                                                 | number                        | -                                                          |          |
+| connectLineWidth     | `connector` graphic stroke width                                                                                                                                   | number                        | -                                                          |          |
 | connectLineDash      | `connector` graphic stroke dash configuration, first value is dash segment length, second value is segment gap distance. Setting lineDash to [0,0] removes stroke. | [number,number]               | -                                                          |          |
-| connectOpacity       | `connector` graphic overall opacity                                                                                              | number                        | -                                                          |          |
-| connectShadowColor   | `connector` graphic shadow color                                                                                                 | string                        | -                                                          |          |
-| connectShadowBlur    | `connector` graphic shadow gaussian blur coefficient                                                                             | number                        | -                                                          |          |
-| connectShadowOffsetX | Set horizontal distance of shadow from `connector` graphic                                                                      | number                        | -                                                          |          |
-| connectShadowOffsetY | Set vertical distance of shadow from `connector` graphic                                                                        | number                        | -                                                          |          |
-| connectCursor        | `connector` graphic mouse style. Same as CSS mouse style.                                                                       | string                        | `default`                                                  |          |
-| stroke               | `line` graphic stroke                                                                                                            | string                        | -                                                          |          |
-| strokeOpacity        | `line` graphic stroke opacity                                                                                                    | number                        | `1`                                                        |          |
-| lineWidth            | `line` graphic stroke width                                                                                                      | number                        | `1`                                                        |          |
-| lineDash             | `line` graphic stroke dash configuration, first value is dash segment length, second value is segment gap distance. Setting lineDash to [0, 0] removes stroke. | [number,number]               | -                                                          |          |
-| opacity              | `line` graphic overall opacity                                                                                                   | number                        | -                                                          |          |
-| shadowColor          | `line` graphic shadow color                                                                                                      | string                        | -                                                          |          |
-| shadowBlur           | `line` graphic shadow gaussian blur coefficient                                                                                  | number                        | -                                                          |          |
-| shadowOffsetX        | Set horizontal distance of shadow from `line` graphic                                                                           | number                        | -                                                          |          |
-| shadowOffsetY        | Set vertical distance of shadow from `line` graphic                                                                             | number                        | -                                                          |          |
-| cursor               | `line` graphic mouse style. Same as CSS mouse style.                                                                            | string                        | `default`                                                  |          |
+| connectOpacity       | `connector` graphic overall opacity                                                                                                                                | number                        | -                                                          |          |
+| connectShadowColor   | `connector` graphic shadow color                                                                                                                                   | string                        | -                                                          |          |
+| connectShadowBlur    | `connector` graphic shadow gaussian blur coefficient                                                                                                               | number                        | -                                                          |          |
+| connectShadowOffsetX | Set horizontal distance of shadow from `connector` graphic                                                                                                         | number                        | -                                                          |          |
+| connectShadowOffsetY | Set vertical distance of shadow from `connector` graphic                                                                                                           | number                        | -                                                          |          |
+| connectCursor        | `connector` graphic mouse style. Same as CSS mouse style.                                                                                                          | string                        | `default`                                                  |          |
+| stroke               | `line` graphic stroke                                                                                                                                              | string                        | -                                                          |          |
+| strokeOpacity        | `line` graphic stroke opacity                                                                                                                                      | number                        | `1`                                                        |          |
+| lineWidth            | `line` graphic stroke width                                                                                                                                        | number                        | `1`                                                        |          |
+| lineDash             | `line` graphic stroke dash configuration, first value is dash segment length, second value is segment gap distance. Setting lineDash to [0, 0] removes stroke.     | [number,number]               | -                                                          |          |
+| opacity              | `line` graphic overall opacity                                                                                                                                     | number                        | -                                                          |          |
+| shadowColor          | `line` graphic shadow color                                                                                                                                        | string                        | -                                                          |          |
+| shadowBlur           | `line` graphic shadow gaussian blur coefficient                                                                                                                    | number                        | -                                                          |          |
+| shadowOffsetX        | Set horizontal distance of shadow from `line` graphic                                                                                                              | number                        | -                                                          |          |
+| shadowOffsetY        | Set vertical distance of shadow from `line` graphic                                                                                                                | number                        | -                                                          |          |
+| cursor               | `line` graphic mouse style. Same as CSS mouse style.                                                                                                               | string                        | `default`                                                  |          |
 
 Try it out:
 
@@ -482,7 +482,7 @@ Try it out:
 
 Configure the `scale` for the `y` channel to customize the y-axis domain.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -504,3 +504,4 @@ chart.options({
   scale: { y: { domain: [0, 1] } },
 });
 chart.render();
+```

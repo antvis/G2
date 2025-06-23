@@ -43,7 +43,7 @@ type Selector =
 
 如下所示，对不同的数据类型进行标注：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

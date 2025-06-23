@@ -20,7 +20,7 @@ The `pack` transform is primarily used for Unit Visualization, effectively solvi
 
 For example, the following case shows the distribution of Titanic passengers by cabin class and survival status. Through the `pack` transform, each passenger point is arranged in an orderly manner, clearly showing the quantity distribution of each category.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -65,10 +65,10 @@ For more examples, you can check the [Unit Visualization](/en/examples/unit/unit
 
 ## Configuration Options
 
-| Property  | Description                                    | Type           | Default | Required |
-| --------- | --------------------------------------------- | -------------- | ------- | -------- |
-| padding   | Spacing between each element, in pixels       | number         | 0       |          |
-| direction | Stacking direction of elements                | `row` \| `col` | `col`   |          |
+| Property  | Description                             | Type           | Default | Required |
+| --------- | --------------------------------------- | -------------- | ------- | -------- |
+| padding   | Spacing between each element, in pixels | number         | 0       |          |
+| direction | Stacking direction of elements          | `row` \| `col` | `col`   |          |
 
 ### padding
 
@@ -87,7 +87,7 @@ By adjusting `direction`, you can change the layout direction of data points in 
 
 The following case shows the distribution of Titanic passengers by gender and survival status. By configuring the `padding` and `direction` parameters of the `pack` transform, the results are more intuitive.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

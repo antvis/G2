@@ -73,7 +73,7 @@ Below is a radar chart evaluating personal comprehensive abilities.
 | Sports   | 4.5            |
 | Learning | 8.3            |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -142,7 +142,7 @@ This radar chart compares Huawei Mate and ZTE Grand Memo smartphones across five
 | Benchmark   | ZTE Grand Memo | 82              |
 | Battery     | ZTE Grand Memo | 78              |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

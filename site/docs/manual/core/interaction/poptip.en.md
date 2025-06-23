@@ -48,8 +48,8 @@ chart.options({
 
 poptip interaction supports the following configuration options:
 
-| Property | Description                                      | Type     | Default | Required |
-| -------- | ------------------------------------------------ | -------- | ------- | -------- |
+| Property | Description                                             | Type     | Default | Required |
+| -------- | ------------------------------------------------------- | -------- | ------- | -------- |
 | offsetX  | X-direction offset of tooltip relative to trigger point | `number` | `8`     |          |
 | offsetY  | Y-direction offset of tooltip relative to trigger point | `number` | `8`     |          |
 
@@ -57,22 +57,22 @@ poptip interaction supports the following configuration options:
 
 poptip style configuration options need to be prefixed with `tip`:
 
-| Property           | Description          | Type     | Default                                                                                              | Required |
-| ------------------ | -------------------- | -------- | ---------------------------------------------------------------------------------------------------- | -------- |
+| Property           | Description              | Type     | Default                                                                                             | Required |
+| ------------------ | ------------------------ | -------- | --------------------------------------------------------------------------------------------------- | -------- |
 | tipBackgroundColor | Tooltip background color | `string` | `'rgba(0,0,0,0.75)'`                                                                                |          |
-| tipColor           | Text color           | `string` | `'#fff'`                                                                                            |          |
-| tipWidth           | Tooltip width        | `string` | `'max-content'`                                                                                     |          |
-| tipPadding         | Tooltip padding      | `string` | `'1px 4px'`                                                                                         |          |
-| tipFontSize        | Text font size       | `string` | `'12px'`                                                                                            |          |
-| tipBorderRadius    | Tooltip border radius | `string` | `'2.5px'`                                                                                           |          |
-| tipBoxShadow       | Tooltip shadow       | `string` | `'0 3px 6px -4px rgba(0,0,0,0.12), 0 6px 16px 0 rgba(0,0,0,0.08), 0 9px 28px 8px rgba(0,0,0,0.05)'` |          |
+| tipColor           | Text color               | `string` | `'#fff'`                                                                                            |          |
+| tipWidth           | Tooltip width            | `string` | `'max-content'`                                                                                     |          |
+| tipPadding         | Tooltip padding          | `string` | `'1px 4px'`                                                                                         |          |
+| tipFontSize        | Text font size           | `string` | `'12px'`                                                                                            |          |
+| tipBorderRadius    | Tooltip border radius    | `string` | `'2.5px'`                                                                                           |          |
+| tipBoxShadow       | Tooltip shadow           | `string` | `'0 3px 6px -4px rgba(0,0,0,0.12), 0 6px 16px 0 rgba(0,0,0,0.08), 0 9px 28px 8px rgba(0,0,0,0.05)'` |          |
 
 ## Events
 
 poptip interaction triggers the following events:
 
-| Event Name  | Description              | Callback Parameters      |
-| ----------- | ------------------------ | ------------------------ |
+| Event Name  | Description                 | Callback Parameters      |
+| ----------- | --------------------------- | ------------------------ |
 | poptip:show | Triggered when poptip shows | `{ data, target, x, y }` |
 | poptip:hide | Triggered when poptip hides | `{ target }`             |
 
@@ -96,7 +96,7 @@ chart.on('poptip:hide', (event) => {
 
 ### Example 2: Scatter Plot
 
-```js | ob {  pin : false , autoMount: true }
+```js | ob {  pin : false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -227,7 +227,7 @@ chart.on('element:mouseleave', (event) => {
 
 ### Example 3: Rose Chart
 
-```js | ob {  pin : false , autoMount: true }
+```js | ob {  pin : false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -43,7 +43,7 @@ type Selector =
 
 如下所示，在图表中标注出每个城市的最高温度：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

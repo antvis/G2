@@ -9,7 +9,7 @@ In G2, **Scrollbar** can be used to filter data and can be bound to the x or y c
 
 When to use: Whether content exceeds the display area depends on the amount of content and the size of the display area. When the content to be displayed exceeds the size of the display area in the vertical direction, a vertical scrollbar should be used to control the displayed portion. The same principle applies to horizontal scrollbars.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -79,17 +79,17 @@ Scrollbars can also be configured at the View level. Scrollbars have inheritance
 
 ## Configuration Options
 
-| Property   | Description                                                           | Type            | Default Value | Required |
-| ---------- | --------------------------------------------------------------------- | --------------- | ------------- | -------- |
-| ratio      | Scrollbar ratio, the proportion of single page data in total data    | number          | `0.5`         |          |
+| Property   | Description                                                                     | Type            | Default Value | Required |
+| ---------- | ------------------------------------------------------------------------------- | --------------- | ------------- | -------- |
+| ratio      | Scrollbar ratio, the proportion of single page data in total data               | number          | `0.5`         |          |
 | value      | Starting position of scrollbar, default is `0` for horizontal, `1` for vertical | [0, 1]          |               |          |
-| slidable   | Whether it can be dragged                                             | boolean         | true          |          |
-| scrollable | Whether it supports mouse wheel scrolling                             | boolean         | true          |          |
-| position   | Scrollbar position relative to chart                                  | string          | `bottom`      |          |
-| isRound    | Whether scrollbar style is rounded                                    | boolean         | true          |          |
-| style      | Scrollbar style configuration, all styles can be configured directly | [style](#style) |               |          |
+| slidable   | Whether it can be dragged                                                       | boolean         | true          |          |
+| scrollable | Whether it supports mouse wheel scrolling                                       | boolean         | true          |          |
+| position   | Scrollbar position relative to chart                                            | string          | `bottom`      |          |
+| isRound    | Whether scrollbar style is rounded                                              | boolean         | true          |          |
+| style      | Scrollbar style configuration, all styles can be configured directly            | [style](#style) |               |          |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -146,20 +146,20 @@ chart.render();
 
 #### Scrollbar Thumb
 
-| Property           | Description                             | Type            | Default Value | Required |
-| ------------------ | --------------------------------------- | --------------- | ------------- | -------- |
-| thumbFill          | Scrollbar thumb fill color              | string          | `#000`        |          |
-| thumbFillOpacity   | Scrollbar thumb fill opacity           | number          | `0.15`        |          |
-| thumbStroke        | Scrollbar thumb stroke color           | string          | –             |          |
-| thumbLineWidth     | Scrollbar thumb stroke width           | number          | –             |          |
-| thumbStrokeOpacity | Scrollbar thumb stroke opacity         | number          | –             |          |
-| thumbLineDash      | Scrollbar thumb dash configuration     | [number,number] | –             |          |
-| thumbOpacity       | Scrollbar thumb overall opacity        | number          | –             |          |
-| thumbShadowColor   | Scrollbar thumb shadow color           | string          | –             |          |
-| thumbShadowBlur    | Scrollbar thumb shadow blur coefficient| number          | –             |          |
-| thumbShadowOffsetX | Scrollbar thumb shadow horizontal offset| number          | –             |          |
-| thumbShadowOffsetY | Scrollbar thumb shadow vertical offset | number          | –             |          |
-| thumbCursor        | Scrollbar thumb cursor style           | string          | `default`     |          |
+| Property           | Description                              | Type            | Default Value | Required |
+| ------------------ | ---------------------------------------- | --------------- | ------------- | -------- |
+| thumbFill          | Scrollbar thumb fill color               | string          | `#000`        |          |
+| thumbFillOpacity   | Scrollbar thumb fill opacity             | number          | `0.15`        |          |
+| thumbStroke        | Scrollbar thumb stroke color             | string          | –             |          |
+| thumbLineWidth     | Scrollbar thumb stroke width             | number          | –             |          |
+| thumbStrokeOpacity | Scrollbar thumb stroke opacity           | number          | –             |          |
+| thumbLineDash      | Scrollbar thumb dash configuration       | [number,number] | –             |          |
+| thumbOpacity       | Scrollbar thumb overall opacity          | number          | –             |          |
+| thumbShadowColor   | Scrollbar thumb shadow color             | string          | –             |          |
+| thumbShadowBlur    | Scrollbar thumb shadow blur coefficient  | number          | –             |          |
+| thumbShadowOffsetX | Scrollbar thumb shadow horizontal offset | number          | –             |          |
+| thumbShadowOffsetY | Scrollbar thumb shadow vertical offset   | number          | –             |          |
+| thumbCursor        | Scrollbar thumb cursor style             | string          | `default`     |          |
 
 ```js
 ({
@@ -178,22 +178,22 @@ chart.render();
 
 #### Scrollbar Track
 
-| Property           | Description                             | Type            | Default Value | Required |
-| ------------------ | --------------------------------------- | --------------- | ------------- | -------- |
-| trackSize          | Scrollbar track width                   | number          | `10`          |          |
-| trackLength        | Scrollbar track length                  | number          | –             |          |
-| trackFill          | Scrollbar track fill color             | string          | –             |          |
-| trackFillOpacity   | Scrollbar track fill opacity          | number          | `0`           |          |
-| trackStroke        | Scrollbar track stroke color          | string          | –             |          |
-| trackLineWidth     | Scrollbar track stroke width          | number          | –             |          |
-| trackStrokeOpacity | Scrollbar track stroke opacity        | number          | –             |          |
-| trackLineDash      | Scrollbar track dash configuration    | [number,number] | –             |          |
-| trackOpacity       | Scrollbar track overall opacity       | number          | –             |          |
-| trackShadowColor   | Scrollbar track shadow color          | string          | –             |          |
-| trackShadowBlur    | Scrollbar track shadow blur coefficient| number          | –             |          |
-| trackShadowOffsetX | Scrollbar track shadow horizontal offset| number          | –             |          |
-| trackShadowOffsetY | Scrollbar track shadow vertical offset | number          | –             |          |
-| trackCursor        | Scrollbar track cursor style          | string          | `default`     |          |
+| Property           | Description                              | Type            | Default Value | Required |
+| ------------------ | ---------------------------------------- | --------------- | ------------- | -------- |
+| trackSize          | Scrollbar track width                    | number          | `10`          |          |
+| trackLength        | Scrollbar track length                   | number          | –             |          |
+| trackFill          | Scrollbar track fill color               | string          | –             |          |
+| trackFillOpacity   | Scrollbar track fill opacity             | number          | `0`           |          |
+| trackStroke        | Scrollbar track stroke color             | string          | –             |          |
+| trackLineWidth     | Scrollbar track stroke width             | number          | –             |          |
+| trackStrokeOpacity | Scrollbar track stroke opacity           | number          | –             |          |
+| trackLineDash      | Scrollbar track dash configuration       | [number,number] | –             |          |
+| trackOpacity       | Scrollbar track overall opacity          | number          | –             |          |
+| trackShadowColor   | Scrollbar track shadow color             | string          | –             |          |
+| trackShadowBlur    | Scrollbar track shadow blur coefficient  | number          | –             |          |
+| trackShadowOffsetX | Scrollbar track shadow horizontal offset | number          | –             |          |
+| trackShadowOffsetY | Scrollbar track shadow vertical offset   | number          | –             |          |
+| trackCursor        | Scrollbar track cursor style             | string          | `default`     |          |
 
 ```js
 ({
@@ -214,11 +214,11 @@ chart.render();
 
 ## Events
 
-| Property    | Description                                      | Type                                                |
-| ----------- | ------------------------------------------------ | --------------------------------------------------- |
+| Property    | Description                                           | Type                                                |
+| ----------- | ----------------------------------------------------- | --------------------------------------------------- |
 | valuechange | Triggered when scroll value changes, listen via event | `({detail: { oldValue: any; value: any }}) => void` |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

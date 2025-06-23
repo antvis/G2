@@ -14,24 +14,24 @@ The Time scale is a type of continuous scale primarily used for visualizing time
 
 ## Configuration Options
 
-| Property     | Description                                                                           | Type                                                    | Default Value                          | Required |
-| ------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | -------- |
-| domain       | Set the domain range of the data                                                      | `Date[]`                                                | Min-max range of input data            |          |
-| domainMin    | Set the minimum value of the data domain                                              | `Date`                                                  | Minimum value of input data            |          |
-| domainMax    | Set the maximum value of the data domain                                              | `Date`                                                  | Maximum value of input data            |          |
-| range        | Set the range of data mapping values                                                  | `number[]` \| `string[]`                                | `[0, 1]`                               |          |
-| rangeMin     | Set the minimum value of the data mapping range                                       | `number`\| `string`                                     | `0`                                    |          |
-| rangeMax     | Set the maximum value of the data mapping range                                       | `number`\| `string`                                     | `1`                                    |          |
-| unknown      | Return value for `undefined`, `NaN`, `null` empty values                              | `any`                                                   | `undefined`                            |          |
-| tickCount    | Set recommended number of ticks to generate, tickCount is only a suggestion value    | `number`                                                | `5`                                    |          |
-| tickInterval | Set recommended interval between ticks, tickInterval has higher priority than tickCount | `number`                                              | `undefined`                            |          |
-| tickMethod   | Set the method for generating ticks, commonly used for custom ticks                   | `(min: number, max: number, count: number) => number[]` | `d3Time`                               |          |
-| round        | Round output values                                                                   | `boolean`                                               | `false`                                |          |
-| clamp        | Limit mapping values to the range                                                     | `boolean`                                               | `false`                                |          |
-| nice         | Extend domain range to make tick display more friendly                                | `boolean`                                               | `false`                                |          |
-| mask         | Set time display format, using [fetcha](https://github.com/taylorhakes/fecha) under the hood | `string`                                        | `undefined`                            |          |
-| utc          | Whether to use UTC time                                                               | `boolean`                                               | `false`                                |          |
-| interpolate  | Custom interpolation function                                                         | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |          |
+| Property     | Description                                                                                  | Type                                                    | Default Value                          | Required |
+| ------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | -------- |
+| domain       | Set the domain range of the data                                                             | `Date[]`                                                | Min-max range of input data            |          |
+| domainMin    | Set the minimum value of the data domain                                                     | `Date`                                                  | Minimum value of input data            |          |
+| domainMax    | Set the maximum value of the data domain                                                     | `Date`                                                  | Maximum value of input data            |          |
+| range        | Set the range of data mapping values                                                         | `number[]` \| `string[]`                                | `[0, 1]`                               |          |
+| rangeMin     | Set the minimum value of the data mapping range                                              | `number`\| `string`                                     | `0`                                    |          |
+| rangeMax     | Set the maximum value of the data mapping range                                              | `number`\| `string`                                     | `1`                                    |          |
+| unknown      | Return value for `undefined`, `NaN`, `null` empty values                                     | `any`                                                   | `undefined`                            |          |
+| tickCount    | Set recommended number of ticks to generate, tickCount is only a suggestion value            | `number`                                                | `5`                                    |          |
+| tickInterval | Set recommended interval between ticks, tickInterval has higher priority than tickCount      | `number`                                                | `undefined`                            |          |
+| tickMethod   | Set the method for generating ticks, commonly used for custom ticks                          | `(min: number, max: number, count: number) => number[]` | `d3Time`                               |          |
+| round        | Round output values                                                                          | `boolean`                                               | `false`                                |          |
+| clamp        | Limit mapping values to the range                                                            | `boolean`                                               | `false`                                |          |
+| nice         | Extend domain range to make tick display more friendly                                       | `boolean`                                               | `false`                                |          |
+| mask         | Set time display format, using [fetcha](https://github.com/taylorhakes/fecha) under the hood | `string`                                                | `undefined`                            |          |
+| utc          | Whether to use UTC time                                                                      | `boolean`                                               | `false`                                |          |
+| interpolate  | Custom interpolation function                                                                | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |          |
 
 ### Complex Type Descriptions
 
@@ -55,7 +55,7 @@ Used to customize interpolation method between two time values, defaults to line
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

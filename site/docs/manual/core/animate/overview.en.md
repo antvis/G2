@@ -18,7 +18,7 @@ Animation properties can be set through the `animate` configuration option, eith
 
 Animation can be set in chart configuration through the `animate` property:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -41,7 +41,7 @@ chart.render();
 
 You can set `type` to `null`, `undefined`, or `false` to disable animation:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -64,7 +64,7 @@ chart.render();
 
 You can disable all animations with `animate: false`:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -87,7 +87,7 @@ chart.render();
 
 ## Basic Usage
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -127,26 +127,26 @@ Marks specify animation properties through `mark.animate`, with three parts of a
 
 ### Complete Animation Configuration Options
 
-| Property       | Description                                    | Type                   | Default    | Required |
-| -------------- | ---------------------------------------------- | ---------------------- | ---------- | -------- |
-| enter          | Enter animation configuration                  | `EnterAnimateOptions`  | -          |          |
-| update         | Update animation configuration                 | `UpdateAnimateOptions` | -          |          |
-| exit           | Exit animation configuration                   | `ExitAnimateOptions`   | -          |          |
-| enterType      | Enter animation type                           | `string`               | `fadeIn`   |          |
-| enterDuration  | Enter animation duration (milliseconds)        | `number`               | `300`      |          |
-| enterDelay     | Enter animation delay (milliseconds)           | `number`               | `0`        |          |
-| enterEasing    | Enter animation easing function                | `string`               | `ease`     |          |
-| enterFill      | Enter animation display effect in non-running state | `Fill`                 | `both`     |          |
-| updateType     | Update animation type                          | `string`               | `morphing` |          |
-| updateDuration | Update animation duration (milliseconds)       | `number`               | `300`      |          |
-| updateDelay    | Update animation delay (milliseconds)          | `number`               | `0`        |          |
-| updateEasing   | Update animation easing function               | `string`               | `ease`     |          |
+| Property       | Description                                          | Type                   | Default    | Required |
+| -------------- | ---------------------------------------------------- | ---------------------- | ---------- | -------- |
+| enter          | Enter animation configuration                        | `EnterAnimateOptions`  | -          |          |
+| update         | Update animation configuration                       | `UpdateAnimateOptions` | -          |          |
+| exit           | Exit animation configuration                         | `ExitAnimateOptions`   | -          |          |
+| enterType      | Enter animation type                                 | `string`               | `fadeIn`   |          |
+| enterDuration  | Enter animation duration (milliseconds)              | `number`               | `300`      |          |
+| enterDelay     | Enter animation delay (milliseconds)                 | `number`               | `0`        |          |
+| enterEasing    | Enter animation easing function                      | `string`               | `ease`     |          |
+| enterFill      | Enter animation display effect in non-running state  | `Fill`                 | `both`     |          |
+| updateType     | Update animation type                                | `string`               | `morphing` |          |
+| updateDuration | Update animation duration (milliseconds)             | `number`               | `300`      |          |
+| updateDelay    | Update animation delay (milliseconds)                | `number`               | `0`        |          |
+| updateEasing   | Update animation easing function                     | `string`               | `ease`     |          |
 | updateFill     | Update animation display effect in non-running state | `Fill`                 | `both`     |          |
-| exitType       | Exit animation type                            | `string`               | `fadeOut`  |          |
-| exitDuration   | Exit animation duration (milliseconds)         | `number`               | `300`      |          |
-| exitDelay      | Exit animation delay (milliseconds)            | `number`               | `0`        |          |
-| exitEasing     | Exit animation easing function                 | `string`               | `ease`     |          |
-| exitFill       | Exit animation display effect in non-running state | `Fill`                 | `both`     |          |
+| exitType       | Exit animation type                                  | `string`               | `fadeOut`  |          |
+| exitDuration   | Exit animation duration (milliseconds)               | `number`               | `300`      |          |
+| exitDelay      | Exit animation delay (milliseconds)                  | `number`               | `0`        |          |
+| exitEasing     | Exit animation easing function                       | `string`               | `ease`     |          |
+| exitFill       | Exit animation display effect in non-running state   | `Fill`                 | `both`     |          |
 
 Complex type descriptions:
 
@@ -155,7 +155,7 @@ Complex type descriptions:
 - `ExitAnimateOptions`: Exit animation configuration object, containing type, duration, delay, easing, fill properties
 - `Fill`: Animation fill mode, options are `'auto'`, `'none'`, `'forwards'`, `'backwards'`, `'both'`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -187,21 +187,21 @@ chart.render();
 
 Animation `Type` determines the visual effect of the animation. G2 provides various built-in animation types, and can also be set to `null`, `undefined`, or `false` to disable animation. Common animation types include:
 
-| Animation Type | Function                                      |
-| -------------- | --------------------------------------------- |
-| fadeIn         | Fade-in effect, graphics from transparent to visible |
-| growInX        | Growth effect along X-axis direction         |
-| growInY        | Growth effect along Y-axis direction         |
-| scaleInX       | Scale enter effect along X-axis               |
-| scaleInY       | Scale enter effect along Y-axis               |
-| zoomIn         | Overall scale enter effect                    |
-| pathIn         | Path enter effect                             |
-| waveIn         | Wave enter effect                             |
+| Animation Type | Function                                              |
+| -------------- | ----------------------------------------------------- |
+| fadeIn         | Fade-in effect, graphics from transparent to visible  |
+| growInX        | Growth effect along X-axis direction                  |
+| growInY        | Growth effect along Y-axis direction                  |
+| scaleInX       | Scale enter effect along X-axis                       |
+| scaleInY       | Scale enter effect along Y-axis                       |
+| zoomIn         | Overall scale enter effect                            |
+| pathIn         | Path enter effect                                     |
+| waveIn         | Wave enter effect                                     |
 | morphing       | Morphing effect, smooth transition of graphic changes |
 | fadeOut        | Fade-out effect, graphics from visible to transparent |
-| scaleOutX      | Scale exit effect along X-axis                |
-| scaleOutY      | Scale exit effect along Y-axis                |
-| zoomOut        | Overall scale exit effect                     |
+| scaleOutX      | Scale exit effect along X-axis                        |
+| scaleOutY      | Scale exit effect along Y-axis                        |
+| zoomOut        | Overall scale exit effect                             |
 
 ### Easing Function
 
@@ -235,7 +235,7 @@ Animation fill property specifies the display effect of graphics in non-running 
 
 G2 supports mapping data values to animation properties, making animation also have data visualization significance. Through `encode`, data fields can be mapped to animation properties such as `enterDuration`, `enterDelay`, etc.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -272,7 +272,7 @@ chart.render();
 
 G2 provides the `stackEnter` mark transform to implement group animations, making graphics appear sequentially according to specific rules. This transform first groups graphics and then stacks their appearance time and duration spatially.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -318,7 +318,7 @@ chart.render();
 
 G2 provides the capability to create keyframe animations that can smoothly transition between different views to show data changes. Create timing containers through `timingKeyframe`, and use `key` and `groupKey` channels to specify correspondences between elements.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

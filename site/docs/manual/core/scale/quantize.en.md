@@ -61,15 +61,15 @@ chart.options({
 
 The quantize scale is primarily responsible for mapping continuous data domains to discrete ranges. Here are the configuration options for the quantize scale:
 
-| Property   | Description                                                                                    | Type                                                    | Default Value        | Required |
-| ---------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------- | -------- |
-| type       | Scale type, must be 'quantize'                                                                | `string`                                                | None                 | ✓        |
-| domain     | Set the domain range of the data                                                               | `number[]`                                              | `[0, 1]`             |          |
-| range      | Set the range of data mapping values                                                           | `any[]`                                                 | `[0.5]`              |          |
-| unknown    | Return value for `undefined`, `NaN`, `null` empty values                                       | `any`                                                   | `undefined`          |          |
-| tickCount  | Set the recommended number of ticks to generate, tickCount is only a suggestion value         | `number`                                                | `5`                  |          |
-| tickMethod | Set the method for generating ticks, commonly used for custom ticks                            | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |          |
-| nice       | Extend the domain range to make the output ticks display more friendly                         | `boolean`                                               | `false`              |          |
+| Property   | Description                                                                           | Type                                                    | Default Value        | Required |
+| ---------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------- | -------- |
+| type       | Scale type, must be 'quantize'                                                        | `string`                                                | None                 | ✓        |
+| domain     | Set the domain range of the data                                                      | `number[]`                                              | `[0, 1]`             |          |
+| range      | Set the range of data mapping values                                                  | `any[]`                                                 | `[0.5]`              |          |
+| unknown    | Return value for `undefined`, `NaN`, `null` empty values                              | `any`                                                   | `undefined`          |          |
+| tickCount  | Set the recommended number of ticks to generate, tickCount is only a suggestion value | `number`                                                | `5`                  |          |
+| tickMethod | Set the method for generating ticks, commonly used for custom ticks                   | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |          |
+| nice       | Extend the domain range to make the output ticks display more friendly                | `boolean`                                               | `false`              |          |
 
 ## Common Use Cases
 
@@ -77,7 +77,7 @@ The quantize scale is primarily responsible for mapping continuous data domains 
 
 Below is an example of creating a heatmap using the quantize scale, dividing salary data into three equal-width intervals based on numerical values and mapping them to different colors:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Create a container element
@@ -137,11 +137,11 @@ In the above example:
 
 ## Comparison with Other Scales
 
-| Scale Type | Data Type      | Segmentation Method | Use Case                                          |
-| ---------- | -------------- | ------------------- | ------------------------------------------------- |
-| quantize   | Continuous     | Equal-width         | Uniform data distribution, need to group by range |
-| quantile   | Continuous     | Equal-frequency     | Uneven data distribution, need equal data per group |
-| threshold  | Continuous     | Custom thresholds   | Need to group by specific thresholds (e.g., pass/fail) |
+| Scale Type | Data Type  | Segmentation Method | Use Case                                               |
+| ---------- | ---------- | ------------------- | ------------------------------------------------------ |
+| quantize   | Continuous | Equal-width         | Uniform data distribution, need to group by range      |
+| quantile   | Continuous | Equal-frequency     | Uneven data distribution, need equal data per group    |
+| threshold  | Continuous | Custom thresholds   | Need to group by specific thresholds (e.g., pass/fail) |
 
 ### 2. quantize vs quantile Comparison Example
 
@@ -340,7 +340,7 @@ In the above comparison example:
 
 Below is a more complex example showing how to use the quantize scale to create multiple segments and customize the data domain:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Create a container element

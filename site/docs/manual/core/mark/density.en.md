@@ -9,7 +9,7 @@ order: 7
 
 The core goal of `density` is to extract overall distribution patterns from scatter or point cloud data and map density information to a continuous area chart or gradient effect. This chart type is commonly used to analyze aggregation areas of large amounts of data points, data concentration hotspots, or probability density of data distribution, such as representing population density in geographic visualization, or showing regional trading frequency in analysis.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -47,21 +47,21 @@ For more examples, please check the [Chart Examples - Violin Plot](/en/examples#
 
 ## Configuration Options
 
-| Property   | Description                                                                                                                                                | Type                      | Default Value | Required |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------- | -------- |
-| coordinate | Configure `density` chart coordinate system, supports properties: `cartesian` \| `polar`                                                                  | [coordinate](#coordinate) | `'cartesian'` |          |
+| Property   | Description                                                                                                                                                   | Type                      | Default Value | Required |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------- | -------- |
+| coordinate | Configure `density` chart coordinate system, supports properties: `cartesian` \| `polar`                                                                      | [coordinate](#coordinate) | `'cartesian'` |          |
 | encode     | Configure `density` mark visual channels, including `x`, `y`, `color`, `size`, etc., used to specify relationships between visual element properties and data | [encode](#encode)         | -             | ✓        |
-| scale      | Configure `density` mark graphic scaling, including `x`, `y`, `series`, `size`, etc.                                                                      | [scale](#scale)           | -             |          |
-| style      | Configure `density` graphic style                                                                                                                          | [style](#style)           | -             |          |
+| scale      | Configure `density` mark graphic scaling, including `x`, `y`, `series`, `size`, etc.                                                                          | [scale](#scale)           | -             |          |
+| style      | Configure `density` graphic style                                                                                                                             | [style](#style)           | -             |          |
 
 ### coordinate
 
 `coordinate` is the core system in data visualization that defines how data maps to graphic space. It determines how data transforms from "numerical domain" to "visual position". Coordinate systems reshape the visual expression of density distribution through different spatial transformation rules.
 
-| Coordinate System | Type          | Chart                    |
-| ----------------- | ------------- | ------------------------ |
-| Cartesian         | `'cartesian'` | Density plot, etc.       |
-| Polar             | `'polar'`     | Polar violin plot, etc.  |
+| Coordinate System | Type          | Chart                   |
+| ----------------- | ------------- | ----------------------- |
+| Cartesian         | `'cartesian'` | Density plot, etc.      |
+| Polar             | `'polar'`     | Polar violin plot, etc. |
 
 ```js | ob {  pin: false }
 (() => {
@@ -139,13 +139,13 @@ For more `coordinate` configuration, please check the [coordinate](/en/manual/co
 
 Configure `density` mark visual channels, an important configuration that defines the mapping relationships between data fields and visual properties, determining how data transforms into visual representation.
 
-| Property | Description                                                                                                                                                                                                                                  | Type                          | Default Value | Required |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------- | -------- |
-| x        | Bind the `x` property channel of `density` mark, usually a time or ordered categorical field in `data`                                                                                                                                       | [encode](/en/manual/core/encode) | -             | ✓        |
-| y        | Bind the `y` property channel of `density` mark, usually a numerical or array field in `data`                                                                                                                                               | [encode](/en/manual/core/encode) | -             | ✓        |
-| color    | Bind the `color` property channel of `density` mark. If a data field is mapped to the color channel, data will be grouped and split into multiple areas with different colors                                                              | [encode](/en/manual/core/encode) | -             |          |
+| Property | Description                                                                                                                                                                                                                                                                 | Type                             | Default Value | Required |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------- | -------- |
+| x        | Bind the `x` property channel of `density` mark, usually a time or ordered categorical field in `data`                                                                                                                                                                      | [encode](/en/manual/core/encode) | -             | ✓        |
+| y        | Bind the `y` property channel of `density` mark, usually a numerical or array field in `data`                                                                                                                                                                               | [encode](/en/manual/core/encode) | -             | ✓        |
+| color    | Bind the `color` property channel of `density` mark. If a data field is mapped to the color channel, data will be grouped and split into multiple areas with different colors                                                                                               | [encode](/en/manual/core/encode) | -             |          |
 | size     | Bind the `size` property channel of `density` mark, used to map data fields to the size property of graphic elements, enhancing data distribution comparison dimensions and information density by adjusting density curve line thickness or filled area visual proportions | [encode](/en/manual/core/encode) | -             | ✓        |
-| series   | Bind the `series` property channel of `density` mark, used to map data grouping fields to chart series or categories, classifying data according to a field and generating independent graphic representations for each category            | [encode](/en/manual/core/encode) | -             | ✓        |
+| series   | Bind the `series` property channel of `density` mark, used to map data grouping fields to chart series or categories, classifying data according to a field and generating independent graphic representations for each category                                            | [encode](/en/manual/core/encode) | -             | ✓        |
 
 For more `encode` configuration, please check the [encode](/en/manual/core/encode) introduction page.
 
@@ -153,11 +153,11 @@ For more `encode` configuration, please check the [encode](/en/manual/core/encod
 
 `scale` is used to define how data maps to visual properties (such as color, size, shape, etc.). In `density` usage scenarios, the common role of scale is to provide mapping rules for each visual channel (such as color, size, position, etc.), enabling data points to be accurately presented.
 
-| Property | Description                                                                                                                              | Type                                 | Default Value        | Required |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | -------------------- | -------- |
-| x        | Define mapping rules from data fields to X-axis visual positions                                                                        | [scale](/en/manual/core/scale/overview) | `{type: 'band'}`     |          |
-| series   | Control mapping rules from categorical fields (series encoding) to visual properties (such as color, line type, symbols)               | [scale](/en/manual/core/scale/overview) | `{type: 'band'}`     |          |
-| size     | Map data fields to size properties of visual elements (such as density curve width, point area, or region height)                      | [scale](/en/manual/core/scale/overview) | `{type: 'identity'}` |          |
+| Property | Description                                                                                                              | Type                                    | Default Value        | Required |
+| -------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- | -------------------- | -------- |
+| x        | Define mapping rules from data fields to X-axis visual positions                                                         | [scale](/en/manual/core/scale/overview) | `{type: 'band'}`     |          |
+| series   | Control mapping rules from categorical fields (series encoding) to visual properties (such as color, line type, symbols) | [scale](/en/manual/core/scale/overview) | `{type: 'band'}`     |          |
+| size     | Map data fields to size properties of visual elements (such as density curve width, point area, or region height)        | [scale](/en/manual/core/scale/overview) | `{type: 'identity'}` |          |
 
 For more `scale` configuration, please check the [scale](/en/manual/core/scale/overview) introduction page.
 
@@ -165,20 +165,20 @@ For more `scale` configuration, please check the [scale](/en/manual/core/scale/o
 
 `style` is used to set the appearance style of chart elements, including fill color, border style, shadow effects, etc.
 
-| Property      | Description                                                                                                                                                                                                                                             | Type                                              | Default Value | Required |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------- | -------- |
-| fill          | Fill color of the graphic                                                                                                                                                                                                                               | `string` \| `Function<string>`                    | -             |          |
-| fillOpacity   | Fill opacity of the graphic                                                                                                                                                                                                                             | `number` \| `Function<number>`                    | -             |          |
-| stroke        | Stroke of the graphic                                                                                                                                                                                                                                   | `string` \| `Function<string>`                    | -             |          |
-| strokeOpacity | Stroke opacity                                                                                                                                                                                                                                          | `number` \| `Function<number>`                    | -             |          |
-| lineWidth     | Width of graphic stroke                                                                                                                                                                                                                                 | `number` \| `Function<number>`                    | -             |          |
-| lineDash      | Dashed line configuration for stroke. The first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke.                                                       | `[number,number]` \| `Function<[number, number]>` | -             |          |
-| opacity       | Overall opacity of the graphic                                                                                                                                                                                                                          | `number` \| `Function<number>`                    | -             |          |
-| shadowColor   | Shadow color of the graphic                                                                                                                                                                                                                             | `string` \| `Function<string>`                    | -             |          |
-| shadowBlur    | Gaussian blur coefficient of graphic shadow                                                                                                                                                                                                             | `number` \| `Function<number>`                    | -             |          |
-| shadowOffsetX | Set horizontal distance of shadow from graphic                                                                                                                                                                                                          | `number` \| `Function<number>`                    | -             |          |
-| shadowOffsetY | Set vertical distance of shadow from graphic                                                                                                                                                                                                            | `number` \| `Function<number>`                    | -             |          |
-| cursor        | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                                                                                                                                       | `string` \| `Function<string>`                    | `'default'`   |          |
+| Property      | Description                                                                                                                                                                                   | Type                                              | Default Value | Required |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------- | -------- |
+| fill          | Fill color of the graphic                                                                                                                                                                     | `string` \| `Function<string>`                    | -             |          |
+| fillOpacity   | Fill opacity of the graphic                                                                                                                                                                   | `number` \| `Function<number>`                    | -             |          |
+| stroke        | Stroke of the graphic                                                                                                                                                                         | `string` \| `Function<string>`                    | -             |          |
+| strokeOpacity | Stroke opacity                                                                                                                                                                                | `number` \| `Function<number>`                    | -             |          |
+| lineWidth     | Width of graphic stroke                                                                                                                                                                       | `number` \| `Function<number>`                    | -             |          |
+| lineDash      | Dashed line configuration for stroke. The first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke. | `[number,number]` \| `Function<[number, number]>` | -             |          |
+| opacity       | Overall opacity of the graphic                                                                                                                                                                | `number` \| `Function<number>`                    | -             |          |
+| shadowColor   | Shadow color of the graphic                                                                                                                                                                   | `string` \| `Function<string>`                    | -             |          |
+| shadowBlur    | Gaussian blur coefficient of graphic shadow                                                                                                                                                   | `number` \| `Function<number>`                    | -             |          |
+| shadowOffsetX | Set horizontal distance of shadow from graphic                                                                                                                                                | `number` \| `Function<number>`                    | -             |          |
+| shadowOffsetY | Set vertical distance of shadow from graphic                                                                                                                                                  | `number` \| `Function<number>`                    | -             |          |
+| cursor        | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                                                                              | `string` \| `Function<string>`                    | `'default'`   |          |
 
 For more `style` configuration, please check the [style](/en/manual/core/style) introduction page.
 

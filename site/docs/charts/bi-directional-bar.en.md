@@ -40,7 +40,7 @@ The chart below simulates completion status of tasks by different departments in
 | Dept 0     | Group0 | 37        | 9           |
 | ...        | ...    | ...       | ...         |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,7 +145,7 @@ The chart below shows statistics of agreement levels for different types of peop
 | Question 1 | 11.7           | 59.9  | 18.5                       | 9.1      | 0.7               |
 | ...        | ...            | ...   | ...                        | ...      | ...               |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -7,7 +7,7 @@ order: 22
 
 使用一组 `y`(y1, y2) 来定位一个绘制于 y 轴的矩形区域，常用于对特定区域进行高亮显示。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

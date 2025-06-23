@@ -33,7 +33,7 @@ After the above example is processed, the data becomes:
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| start | Start index for slicing | `number` | `0` |
-| end | End index for slicing | `number` | `arr.length - 1` |
+| Property | Description             | Type     | Default          |
+| -------- | ----------------------- | -------- | ---------------- |
+| start    | Start index for slicing | `number` | `0`              |
+| end      | End index for slicing   | `number` | `arr.length - 1` |

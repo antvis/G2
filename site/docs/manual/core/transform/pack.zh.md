@@ -20,7 +20,7 @@ order: 2
 
 例如下面的案例展示了泰坦尼克号乘客按照舱位等级和生存状态的分布情况，通过 `pack` 转换让每个乘客点有序地排列，清晰地展示了各个类别的数量分布。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -87,7 +87,7 @@ chart.render();
 
 以下案例展示了泰坦尼克号乘客性别和生存状态的分布，通过配置 `pack` 转换的 `padding` 和 `direction` 参数，使得结果更为直观。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

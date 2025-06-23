@@ -33,6 +33,6 @@ After the above example is processed, the data becomes:
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
+| Property | Description                                                 | Type                                           | Default                                                    |
+| -------- | ----------------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------- |
 | callback | Function that takes current data and returns processed data | `(d: any, idx: number, arr: any[]) => boolean` | `(d) => d !== undefined && d !== null && !Number.isNaN(d)` |

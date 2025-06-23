@@ -3,7 +3,7 @@ title: 南丁格尔玫瑰图
 order: 15
 screenshot: 'https://os.alipayobjects.com/rmsportal/nstvbQupOcPOzIw.jpg'
 category: ['comparison']
-similar: ['radial-bar', 'histogram','pie']
+similar: ['radial-bar', 'histogram', 'pie']
 ---
 
 <img alt="rose" src="https://os.alipayobjects.com/rmsportal/nstvbQupOcPOzIw.jpg" width=600/>
@@ -23,12 +23,12 @@ similar: ['radial-bar', 'histogram','pie']
 
 <img alt="rose-structure" src="https://t.alipayobjects.com/images/T1f7djXhBXXXXXXXXX.png" width=600/>
 
-| 图表类型         | 南丁格尔玫瑰图                                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 列表：一个分类数据字段、一个连续数据字段                                                                |
-| 功能             | 对比分类数据的数值大小                                                                                  |
+| 图表类型         | 南丁格尔玫瑰图                                                                                              |
+| ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| 适合的数据       | 列表：一个分类数据字段、一个连续数据字段                                                                    |
+| 功能             | 对比分类数据的数值大小                                                                                      |
 | 数据与图形的映射 | 分类数据字段映射到分类轴的位置<br>连续数据字段映射到半径轴的高度 <br>分类数据也可以设置颜色增强分类的区分度 |
-| 适合的数据条数   | 不超过 30 条数据                                                                                        |
+| 适合的数据条数   | 不超过 30 条数据                                                                                            |
 
 ## 南丁格尔玫瑰图的应用场景
 
@@ -47,7 +47,7 @@ similar: ['radial-bar', 'histogram','pie']
 | 韩国            | 102              |
 | ...             | ...              |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -85,18 +85,18 @@ chart.options({
     { country: '奥地利', cost: 111 },
     { country: '捷克', cost: 107 },
   ],
-  encode: { 
-    x: 'country', 
-    y: 'cost', 
-    color: 'country' 
+  encode: {
+    x: 'country',
+    y: 'cost',
+    color: 'country',
   },
-  scale: { 
+  scale: {
     y: { nice: true },
-    color: { palette: 'category20' }
+    color: { palette: 'category20' },
   },
   axis: {
     y: { labelFormatter: null },
-    x: { grid: true }
+    x: { grid: true },
   },
   interaction: [
     {
@@ -121,7 +121,8 @@ chart.render();
 | 女             | 30            |
 
 #### 玫瑰图
-```js | ob { autoMount: true, pin: false }
+
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart1 = new Chart({
@@ -132,40 +133,41 @@ const chart1 = new Chart({
 chart1.options({
   type: 'interval',
   autoFit: true,
-  coordinate: { 
-    type: 'polar'
+  coordinate: {
+    type: 'polar',
   },
   data: [
     { gender: '男', count: 40 },
     { gender: '女', count: 30 },
   ],
-  encode: { 
-    x: 'gender', 
-    y: 'count', 
-    color: 'gender' 
+  encode: {
+    x: 'gender',
+    y: 'count',
+    color: 'gender',
   },
-  scale: { 
+  scale: {
     y: { nice: true, min: 0 },
-    color: { range: ['#4F81BD', '#70AD47'] }
+    color: { range: ['#4F81BD', '#70AD47'] },
   },
   style: {
     stroke: 'white',
-    lineWidth: 1
+    lineWidth: 1,
   },
   axis: {
-    y: { 
+    y: {
       grid: true,
-      labelFormatter: (val) => `${val}` 
-    }
+      labelFormatter: (val) => `${val}`,
+    },
   },
-  title: '玫瑰图'
+  title: '玫瑰图',
 });
 
 chart1.render();
 ```
 
 #### 饼图
-```js | ob {autoMount: true, pin: false }
+
+```js | ob {inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart2 = new Chart({
@@ -181,15 +183,15 @@ chart2.options({
     { gender: '男', count: 40 },
     { gender: '女', count: 30 },
   ],
-  encode: { 
+  encode: {
     color: 'gender',
-    y: 'count'
+    y: 'count',
   },
   style: {
     stroke: 'white',
-    lineWidth: 1
+    lineWidth: 1,
   },
-  title: '饼图'
+  title: '饼图',
 });
 
 chart2.render();
@@ -209,7 +211,7 @@ chart2.render();
 
 **南丁格尔玫瑰图（不推荐）**
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -252,21 +254,22 @@ chart.options({
     { province: '甘肃省', population: 25575263 },
     { province: '青海省', population: 5626723 },
   ],
-  encode: { 
-    x: 'province', 
-    y: 'population', 
-    color: 'province' 
+  encode: {
+    x: 'province',
+    y: 'population',
+    color: 'province',
   },
-  scale: { 
+  scale: {
     y: { nice: true },
-    color: { palette: 'category20' }
+    color: { palette: 'category20' },
   },
   axis: {
     y: { labelFormatter: null },
-    x: { 
-      labelFormatter: (text) => text.length > 3 ? text.slice(0, 3) + '...' : text,
-      labelRotate: Math.PI / 4 
-    }
+    x: {
+      labelFormatter: (text) =>
+        text.length > 3 ? text.slice(0, 3) + '...' : text,
+      labelRotate: Math.PI / 4,
+    },
   },
   title: '南丁格尔玫瑰图（不推荐）',
 });
@@ -276,7 +279,7 @@ chart.render();
 
 **横向柱状图（推荐）**
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -322,35 +325,36 @@ chart.options({
   autoFit: true,
   coordinate: { transform: [{ type: 'transpose' }] },
   data: sortedData.slice(0, 15), // 截取前15个，避免过多数据
-  encode: { 
-    x: 'population', 
-    y: 'province', 
-    color: 'province' 
+  encode: {
+    x: 'population',
+    y: 'province',
+    color: 'province',
   },
-  scale: { 
+  scale: {
     x: { nice: true },
-    color: { palette: 'category20' }
+    color: { palette: 'category20' },
   },
   axis: {
-    x: { 
+    x: {
       title: '人口数量',
       labelFormatter: (val) => {
         return (val / 1000000).toFixed(1) + 'M';
-      }
+      },
     },
-    y: { 
+    y: {
       title: '省份',
-      labelFormatter: (text) => text.length > 5 ? text.slice(0, 5) + '...' : text
-    }
+      labelFormatter: (text) =>
+        text.length > 5 ? text.slice(0, 5) + '...' : text,
+    },
   },
   legend: false,
   title: '横向柱状图（推荐）',
   style: {
-    fillOpacity: 0.85
+    fillOpacity: 0.85,
   },
   animate: {
-    enter: { type: 'growInX' }
-  }
+    enter: { type: 'growInX' },
+  },
 });
 
 chart.render();
@@ -360,18 +364,18 @@ chart.render();
 
 下图展示了某个班级的各科及格率，使用南丁格尔玫瑰图和横向柱状图分别展示。这种场景由于存在部分分类数值过小的情况，使用南丁格尔玫瑰图会导致图形扭曲，不易于观察数据的真实比例关系。
 
-| 科目   | 及格率 |
-| ------ | ------ |
-| 数学   | 98%    |
-| 英语   | 95%    |
-| 物理   | 60%    |
-| 化学   | 55%    |
-| 生物   | 30%    |
-| 地理   | 5%     |
+| 科目 | 及格率 |
+| ---- | ------ |
+| 数学 | 98%    |
+| 英语 | 95%    |
+| 物理 | 60%    |
+| 化学 | 55%    |
+| 生物 | 30%    |
+| 地理 | 5%     |
 
 #### 南丁格尔玫瑰图（不推荐）
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart1 = new Chart({
@@ -391,26 +395,26 @@ chart1.options({
     { subject: '生物', pass: 30 },
     { subject: '地理', pass: 5 },
   ],
-  encode: { 
-    x: 'subject', 
-    y: 'pass', 
-    color: 'subject' 
+  encode: {
+    x: 'subject',
+    y: 'pass',
+    color: 'subject',
   },
-  scale: { 
+  scale: {
     y: { nice: true, min: 0 },
-    color: { range: ['#4F81BD', '#70AD47', '#F79646', '#A9A9A9', '#C0504D'] }
+    color: { range: ['#4F81BD', '#70AD47', '#F79646', '#A9A9A9', '#C0504D'] },
   },
   style: {
     stroke: 'white',
-    lineWidth: 1
+    lineWidth: 1,
   },
   axis: {
-    y: { 
+    y: {
       grid: true,
-      labelFormatter: (val) => `${val}` 
-    }
+      labelFormatter: (val) => `${val}`,
+    },
   },
-  title: '南丁格尔玫瑰图（不推荐）'
+  title: '南丁格尔玫瑰图（不推荐）',
 });
 
 chart1.render();
@@ -418,7 +422,7 @@ chart1.render();
 
 #### 横向柱状图（推荐）
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart2 = new Chart({
@@ -438,26 +442,26 @@ chart2.options({
     { subject: '生物', pass: 30 },
     { subject: '地理', pass: 5 },
   ],
-  encode: { 
-    x: 'subject', 
-    y: 'pass', 
-    color: 'subject' 
+  encode: {
+    x: 'subject',
+    y: 'pass',
+    color: 'subject',
   },
-  scale: { 
+  scale: {
     y: { nice: true, min: 0 },
-    color: { range: ['#4F81BD', '#70AD47', '#F79646', '#A9A9A9', '#C0504D'] }
+    color: { range: ['#4F81BD', '#70AD47', '#F79646', '#A9A9A9', '#C0504D'] },
   },
   style: {
     stroke: 'white',
-    lineWidth: 1
+    lineWidth: 1,
   },
   axis: {
-    y: { 
+    y: {
       grid: true,
-      labelFormatter: (val) => `${val}` 
-    }
+      labelFormatter: (val) => `${val}`,
+    },
   },
-  title: '横向柱状图（推荐）'
+  title: '横向柱状图（推荐）',
 });
 
 chart2.render();
@@ -469,7 +473,7 @@ chart2.render();
 
 通过设置极坐标的起始角度可以实现扇形南丁格尔玫瑰图：
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -480,10 +484,10 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
-  coordinate: { 
+  coordinate: {
     type: 'polar',
     startAngle: Math.PI,
-    endAngle: Math.PI * (3 / 2)
+    endAngle: Math.PI * (3 / 2),
   },
   data: [
     { country: '中国', cost: 96 },
@@ -499,18 +503,18 @@ chart.options({
     { country: '加拿大', cost: 115 },
     { country: '俄罗斯', cost: 99 },
   ],
-  encode: { 
-    x: 'country', 
-    y: 'cost', 
-    color: 'country' 
+  encode: {
+    x: 'country',
+    y: 'cost',
+    color: 'country',
   },
-  scale: { 
+  scale: {
     y: { nice: true },
-    color: { range: ['#fc8f48', '#ffd787'] }
+    color: { range: ['#fc8f48', '#ffd787'] },
   },
   style: {
     lineWidth: 1,
-    stroke: '#fff'
+    stroke: '#fff',
   },
   labels: [
     {
@@ -518,11 +522,11 @@ chart.options({
       style: {
         textAlign: 'center',
         fontSize: 10,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       },
-      transform: [{ type: 'overlapDodgeY' }]
-    }
-  ]
+      transform: [{ type: 'overlapDodgeY' }],
+    },
+  ],
 });
 
 chart.render();
@@ -540,7 +544,7 @@ chart.render();
 | 2001         | 25.0                         | 16                         | 0.8                       |
 | ...          | ...                          | ...                        | ...                       |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -551,9 +555,9 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
-  coordinate: { 
+  coordinate: {
     type: 'polar',
-    innerRadius: 0.1
+    innerRadius: 0.1,
   },
   data: [
     { year: '2000', type: '境内流离失所者', count: 21.0 },
@@ -602,21 +606,21 @@ chart.options({
     { year: '2014', type: '跨越国境的难民', count: 19.5 },
     { year: '2014', type: '未取得难民身份', count: 1.8 },
   ],
-  encode: { 
-    x: 'year', 
+  encode: {
+    x: 'year',
     y: 'count',
     color: 'type',
   },
   transform: [{ type: 'stackY' }],
-  scale: { 
-    color: { 
-      range: ['rgb(136,186,174)', 'rgb(184,189,61)', 'rgb(107,136,138)'] 
-    }
+  scale: {
+    color: {
+      range: ['rgb(136,186,174)', 'rgb(184,189,61)', 'rgb(107,136,138)'],
+    },
   },
   style: {
     stroke: 'white',
-    lineWidth: 1
-  }
+    lineWidth: 1,
+  },
 });
 
 chart.render();
