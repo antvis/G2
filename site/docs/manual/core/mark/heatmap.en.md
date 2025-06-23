@@ -103,8 +103,11 @@ Give it a try:
 
 - You can create a container view to render both heatmap and map simultaneously, intuitively presenting data differences in geographical locations
 
-```js | ob { pin: false, autoMount: true }
-const chart = new g2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
 chart.options({
   type: 'view',

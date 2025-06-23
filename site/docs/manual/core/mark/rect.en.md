@@ -44,20 +44,20 @@ For more examples, please visit the [Chart Examples](/en/examples) page.
 
 ## Configuration
 
-| Property  | Description                                                                                                                 | Type                    | Default | Required |
-| --------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------- | -------- |
+| Property  | Description                                                                                                                                            | Type                    | Default | Required |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | ------- | -------- |
 | encode    | Configure visual channels for `rect` mark, including `x`, `y`, `color`, etc., used to specify relationships between visual element properties and data | [encode](#encode)       | -       | ✓        |
-| transform | Configure data transformation operations for `rect` (such as binning, sorting, filtering, etc.).                           | [transform](#transform) | -       |          |
-| style     | Configure graphic styles for `rect`                                                                                         | [style](#style)         | -       |          |
+| transform | Configure data transformation operations for `rect` (such as binning, sorting, filtering, etc.).                                                       | [transform](#transform) | -       |          |
+| style     | Configure graphic styles for `rect`                                                                                                                    | [style](#style)         | -       |          |
 
 ### encode
 
 Configure visual channels for `rect` mark, an important configuration that defines the mapping relationship between data fields and visual properties, determining how data is transformed into visual representation.
 
-| Property | Description                                                                                                                                                               | Type                          | Default | Required |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------- | -------- |
+| Property | Description                                                                                                                                                                  | Type                             | Default | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------- | -------- |
 | color    | Bind the `color` property channel of `rect` mark. If a data field is mapped to the color channel, the data will be grouped and split into multiple areas of different colors | [encode](/en/manual/core/encode) | -       |          |
-| shape    | Bind the `shape` property channel of `rect` mark, changing the drawing shape of the graphic mark                                                                          | [encode](/en/manual/core/encode) | 'rect'  |          |
+| shape    | Bind the `shape` property channel of `rect` mark, changing the drawing shape of the graphic mark                                                                             | [encode](/en/manual/core/encode) | 'rect'  |          |
 
 **color**
 
@@ -90,66 +90,64 @@ chart.render(); // Render chart
 
 Through the `shape` property of `encode`, you can specify the geometric shape of cells. Shape determines what shape each cell is rendered as on the canvas. The supported shapes for `shape` mark are as follows:
 
-| Shape  | Description    |
-| ------ | -------------- |
-| rect   | Rectangle      |
+| Shape  | Description      |
+| ------ | ---------------- |
+| rect   | Rectangle        |
 | hollow | Hollow rectangle |
 
-```js | ob {  pin: false }
-(() => {
-  const shapeMap = [
-    {
-      shape: 'rect',
-      label: 'Rectangle',
-    },
-    {
-      shape: 'hollow',
-      label: 'Hollow Rectangle',
-    },
-  ];
+```js | ob {  autoMount: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const shapeMap = [
+  {
+    shape: 'rect',
+    label: 'Rectangle',
+  },
+  {
+    shape: 'hollow',
+    label: 'Hollow Rectangle',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  style: { inset: 0.5 },
+});
 
+const handleSetShape = (shape) => {
+  // Set the selected coordinate system
   chart.options({
-    type: 'rect',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    },
-    encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
-    transform: [{ type: 'bin', opacity: 'count' }],
-    style: { inset: 0.5 },
+    encode: { shape },
   });
+  chart.render(); // Re-render chart
+};
 
-  const handleSetShape = (shape) => {
-    // Set the selected coordinate system
-    chart.options({
-      encode: { shape },
-    });
-    chart.render(); // Re-render chart
-  };
+// Insert Encode-Color selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select Shape ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // Insert Encode-Color selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select Shape ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 For more `encode` configurations, please check the [encode](/en/manual/core/encode) introduction page.
@@ -192,30 +190,30 @@ For more `transform` configurations, please check the [transform](/en/manual/cor
 
 `style` is used to set the appearance styles of chart elements, including fill color, border style, shadow effects, etc.
 
-| Property          | Description                                                                                                                | Type                                                               | Default   |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | --------- |
-| radius            | Border radius for all four corners of the rectangle                                                                       | number \| (datum, index, data, column) => number                   | `0`       |
-| radiusTopLeft     | Border radius for top-left corner                                                                                         | number \| (datum, index, data, column) => number                   | `0`       |
-| radiusTopRight    | Border radius for top-right corner                                                                                        | number \| (datum, index, data, column) => number                   | `0`       |
-| radiusBottomRight | Border radius for bottom-right corner                                                                                     | number \| (datum, index, data, column) => number                   | `0`       |
-| radiusBottomLeft  | Border radius for bottom-left corner                                                                                      | number \| (datum, index, data, column) => number                   | `0`       |
-| inset             | Inner padding for all four directions of the rectangle                                                                    | number \| (datum, index, data, column) => number                   | `0`       |
-| insetLeft         | Left inner spacing                                                                                                         | number \| (datum, index, data, column) => number                   | `0`       |
-| insetRight        | Right inner spacing                                                                                                        | number \| (datum, index, data, column) => number                   | `0`       |
-| insetBottom       | Bottom inner spacing                                                                                                       | number \| (datum, index, data, column) => number                   | `0`       |
-| insetTop          | Top inner spacing                                                                                                          | number \| (datum, index, data, column) => number                   | `0`       |
-| fill              | Fill color of the graphic                                                                                                  | number \| (datum, index, data, column) => string                   | -         |
-| fillOpacity       | Fill opacity of the graphic                                                                                               | number \| (datum, index, data, column) => number                   | -         |
-| stroke            | Stroke of the graphic                                                                                                      | number \| (datum, index, data, column) => string                   | -         |
-| strokeOpacity     | Stroke opacity                                                                                                             | number \| (datum, index, data, column) => number                   | -         |
-| lineWidth         | Width of the graphic stroke                                                                                                | number \| (datum, index, data, column) => number                   | -         |
+| Property          | Description                                                                                                                                                              | Type                                                               | Default   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | --------- |
+| radius            | Border radius for all four corners of the rectangle                                                                                                                      | number \| (datum, index, data, column) => number                   | `0`       |
+| radiusTopLeft     | Border radius for top-left corner                                                                                                                                        | number \| (datum, index, data, column) => number                   | `0`       |
+| radiusTopRight    | Border radius for top-right corner                                                                                                                                       | number \| (datum, index, data, column) => number                   | `0`       |
+| radiusBottomRight | Border radius for bottom-right corner                                                                                                                                    | number \| (datum, index, data, column) => number                   | `0`       |
+| radiusBottomLeft  | Border radius for bottom-left corner                                                                                                                                     | number \| (datum, index, data, column) => number                   | `0`       |
+| inset             | Inner padding for all four directions of the rectangle                                                                                                                   | number \| (datum, index, data, column) => number                   | `0`       |
+| insetLeft         | Left inner spacing                                                                                                                                                       | number \| (datum, index, data, column) => number                   | `0`       |
+| insetRight        | Right inner spacing                                                                                                                                                      | number \| (datum, index, data, column) => number                   | `0`       |
+| insetBottom       | Bottom inner spacing                                                                                                                                                     | number \| (datum, index, data, column) => number                   | `0`       |
+| insetTop          | Top inner spacing                                                                                                                                                        | number \| (datum, index, data, column) => number                   | `0`       |
+| fill              | Fill color of the graphic                                                                                                                                                | number \| (datum, index, data, column) => string                   | -         |
+| fillOpacity       | Fill opacity of the graphic                                                                                                                                              | number \| (datum, index, data, column) => number                   | -         |
+| stroke            | Stroke of the graphic                                                                                                                                                    | number \| (datum, index, data, column) => string                   | -         |
+| strokeOpacity     | Stroke opacity                                                                                                                                                           | number \| (datum, index, data, column) => number                   | -         |
+| lineWidth         | Width of the graphic stroke                                                                                                                                              | number \| (datum, index, data, column) => number                   | -         |
 | lineDash          | Dashed line configuration for stroke. First value is the length of each dash segment, second value is the gap distance. Setting lineDash to [0, 0] results in no stroke. | [number,number] \|(datum, index, data, column) => [number, number] | -         |
-| opacity           | Overall opacity of the graphic                                                                                            | number \| (datum, index, data, column) => number                   | -         |
-| shadowColor       | Shadow color of the graphic                                                                                                | number \| (datum, index, data, column) => string                   | -         |
-| shadowBlur        | Gaussian blur coefficient for the graphic shadow                                                                           | number \| (datum, index, data, column) => number                   | -         |
-| shadowOffsetX     | Horizontal distance of shadow from the graphic                                                                             | number \| (datum, index, data, column) => number                   | -         |
-| shadowOffsetY     | Vertical distance of shadow from the graphic                                                                               | number \| (datum, index, data, column) => number                   | -         |
-| cursor            | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                          | number \| (datum, index, data, column) => string                   | 'default' |
+| opacity           | Overall opacity of the graphic                                                                                                                                           | number \| (datum, index, data, column) => number                   | -         |
+| shadowColor       | Shadow color of the graphic                                                                                                                                              | number \| (datum, index, data, column) => string                   | -         |
+| shadowBlur        | Gaussian blur coefficient for the graphic shadow                                                                                                                         | number \| (datum, index, data, column) => number                   | -         |
+| shadowOffsetX     | Horizontal distance of shadow from the graphic                                                                                                                           | number \| (datum, index, data, column) => number                   | -         |
+| shadowOffsetY     | Vertical distance of shadow from the graphic                                                                                                                             | number \| (datum, index, data, column) => number                   | -         |
+| cursor            | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                                                         | number \| (datum, index, data, column) => string                   | 'default' |
 
 Try it out
 

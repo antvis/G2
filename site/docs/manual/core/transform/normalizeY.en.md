@@ -62,10 +62,10 @@ chart.render();
 
 ## Configuration
 
-| Property | Type                                                                                                      | Default | Description                                                                                    |
-| :------- | :-------------------------------------------------------------------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------- |
-| groupBy  | `string \| string[]`                                                                                      | `'x'`   | Specifies the field(s) to group data by. Each group will be normalized independently.         |
-| basis    | `'deviation' \| 'first' \| 'last' \| 'max' \| 'mean' \| 'median' \| 'min' \| 'sum' \| ((I, Y) => number)` | `'max'` | Specifies the basis value for normalization calculation.                                       |
+| Property | Type                                                                                                      | Default | Description                                                                           |
+| :------- | :-------------------------------------------------------------------------------------------------------- | :------ | :------------------------------------------------------------------------------------ |
+| groupBy  | `string \| string[]`                                                                                      | `'x'`   | Specifies the field(s) to group data by. Each group will be normalized independently. |
+| basis    | `'deviation' \| 'first' \| 'last' \| 'max' \| 'mean' \| 'median' \| 'min' \| 'sum' \| ((I, Y) => number)` | `'max'` | Specifies the basis value for normalization calculation.                              |
 
 ### groupBy Description
 
@@ -135,72 +135,70 @@ chart.render();
 
 ### Interactive Comparison of Different Basis Effects
 
-```js | ob { pin: false }
-(() => {
-  const valueList = [
-    'first',
-    'deviation',
-    'last',
-    'max',
-    'mean',
-    'median',
-    'min',
-    'sum',
-  ];
-  const valueMap = valueList.map((p) => {
-    return {
-      label: p,
-      value: p,
-    };
-  });
+```js | ob {  autoMount: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const valueList = [
+  'first',
+  'deviation',
+  'last',
+  'max',
+  'mean',
+  'median',
+  'min',
+  'sum',
+];
+const valueMap = valueList.map((p) => {
+  return {
+    label: p,
+    value: p,
+  };
+});
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'line',
+  width: 900,
+  height: 600,
+  insetRight: 20,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  },
+  encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
+  transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
+  scale: { y: { type: 'log' } },
+  axis: { y: { title: '↑ Change in price (%)' } },
+  labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
+  tooltip: { items: [{ channel: 'y', valueFormatter: '.1f' }] },
+});
 
+const handleSetValue = (value) => {
   chart.options({
-    type: 'line',
-    width: 900,
-    height: 600,
-    insetRight: 20,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
-    },
-    encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
-    transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
-    scale: { y: { type: 'log' } },
-    axis: { y: { title: '↑ Change in price (%)' } },
-    labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
-    tooltip: { items: [{ channel: 'y', valueFormatter: '.1f' }] },
+    transform: [{ type: 'normalizeY', basis: value, groupBy: 'color' }],
   });
+  chart.render(); // Re-render the chart
+};
 
-  const handleSetValue = (value) => {
-    chart.options({
-      transform: [{ type: 'normalizeY', basis: value, groupBy: 'color' }],
-    });
-    chart.render(); // Re-render the chart
-  };
+// Insert Value selector
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'Select basis ';
+const selector = document.createElement('select');
+selector.innerHTML = valueMap.map(
+  (value, index) =>
+    `<option value="${value.value}" ${index === 0 ? 'selected' : ''}>${
+      value.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetValue(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // Insert Value selector
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'Select basis ';
-  const selector = document.createElement('select');
-  selector.innerHTML = valueMap.map(
-    (value, index) =>
-      `<option value="${value.value}" ${index === 0 ? 'selected' : ''}>${
-        value.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetValue(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 ### Custom Grouping

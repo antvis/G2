@@ -210,26 +210,26 @@ chart.render();
 
 详细的示例可以参考我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#cascade-area)，以及线上还有其他的堆叠图示例供参考。 最后，是简单的堆叠柱状图，作为调用本函数的最直观展现：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: [
-      { category: 'A', value: 10, type: 'X' },
-      { category: 'A', value: 20, type: 'Y' },
-      { category: 'B', value: 15, type: 'X' },
-      { category: 'B', value: 25, type: 'Y' },
-    ],
-    encode: { x: 'category', y: 'value', color: 'type' },
-    transform: [{ type: 'stackY' }],
-  });
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { category: 'A', value: 10, type: 'X' },
+    { category: 'A', value: 20, type: 'Y' },
+    { category: 'B', value: 15, type: 'X' },
+    { category: 'B', value: 25, type: 'Y' },
+  ],
+  encode: { x: 'category', y: 'value', color: 'type' },
+  transform: [{ type: 'stackY' }],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 图表中，X 和 Y 的值在同一分类下堆叠在一起，形成了一个整体的高度。
