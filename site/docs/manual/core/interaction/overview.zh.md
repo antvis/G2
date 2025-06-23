@@ -137,6 +137,7 @@ chart.on('interaction name（eg: brushFilter）', (e) => {});
 const { Chart, ChartEvent } = G2;
 
 const chart = new Chart({
+  container: 'container',
   clip: true,
 });
 
@@ -234,7 +235,7 @@ register('interaction.customElementHighlight', () => {
   };
 });
 
-const chart = new Chart();
+const chart = new Chart({ container: 'container' });
 
 chart
   .interval()

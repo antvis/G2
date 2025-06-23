@@ -378,99 +378,97 @@ fetch(
 
 G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emit` 提供了一种联动不同视图的交互的能力，比如下面展示的 "Focus and Context" 的能力：
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
-  const focusContainer = document.createElement('div');
-  const contextContainer = document.createElement('div');
-  container.append(focusContainer);
-  container.append(contextContainer);
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const focusContainer = document.createElement('div');
+const contextContainer = document.createElement('div');
+container.append(focusContainer);
+container.append(contextContainer);
 
-  // 渲染 focus 视图
+// 渲染 focus 视图
 
-  const focus = new G2.Chart({
-    container: 'container',
-    container: focusContainer,
-    height: 360,
-    paddingLeft: 50,
-  });
+const focus = new G2.Chart({
+  container: focusContainer,
+  height: 360,
+  paddingLeft: 50,
+});
 
-  focus
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis('x', { grid: false, title: false, tickCount: 5 })
-    .axis('y', { grid: false, tickCount: 5 })
-    .interaction('tooltip', false)
-    .interaction('brushXFilter', true);
+focus
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis('x', { grid: false, title: false, tickCount: 5 })
+  .axis('y', { grid: false, tickCount: 5 })
+  .interaction('tooltip', false)
+  .interaction('brushXFilter', true);
 
-  focus.render();
+focus.render();
 
-  // 渲染 context 视图
+// 渲染 context 视图
 
-  const context = new G2.Chart({
-    container: 'container',
-    container: contextContainer,
-    paddingLeft: 50,
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: 60,
-  });
+const context = new G2.Chart({
+  container: contextContainer,
+  paddingLeft: 50,
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: 60,
+});
 
-  context
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis(false)
-    .interaction('tooltip', false)
-    .interaction('brushXHighlight', { series: true });
+context
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis(false)
+  .interaction('tooltip', false)
+  .interaction('brushXHighlight', { series: true });
 
-  context.render();
+context.render();
 
-  // 添加事件监听器在不同图表之间交流
-  focus.on('brush:filter', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { selection } = e.data;
-    const { x: scaleX } = focus.getScale();
-    const [[x1, x2]] = selection;
-    const domainX = scaleX.getOptions().domain;
-    if (x1 === domainX[0] && x2 === domainX[1]) {
-      context.emit('brush:remove', {});
-    } else {
-      context.emit('brush:highlight', { data: { selection } });
-    }
-  });
+// 添加事件监听器在不同图表之间交流
+focus.on('brush:filter', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { selection } = e.data;
+  const { x: scaleX } = focus.getScale();
+  const [[x1, x2]] = selection;
+  const domainX = scaleX.getOptions().domain;
+  if (x1 === domainX[0] && x2 === domainX[1]) {
+    context.emit('brush:remove', {});
+  } else {
+    context.emit('brush:highlight', { data: { selection } });
+  }
+});
 
-  context.on('brush:highlight', (e) => {
-    const { nativeEvent, data } = e;
-    if (!nativeEvent) return;
-    const { selection } = data;
-    focus.emit('brush:filter', { data: { selection } });
-  });
+context.on('brush:highlight', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  const { selection } = data;
+  focus.emit('brush:filter', { data: { selection } });
+});
 
-  context.on('brush:remove', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { x: scaleX, y: scaleY } = context.getScale();
-    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
-    focus.emit('brush:filter', { data: { selection } });
-  });
-
-  return container;
-})();
+context.on('brush:remove', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { x: scaleX, y: scaleY } = context.getScale();
+  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+  focus.emit('brush:filter', { data: { selection } });
+});
 ```
 
 ## 两种 API 风格
@@ -508,41 +506,43 @@ chart.render();
 
 更多内容请阅读 [Spec 和 API](/manual/introduction/experimental-spec-api)。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({ height: 150, padding: 10 });
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+  height: 150,
+  padding: 10,
+});
+const container = chart.getContainer();
 
-  const mock = () => Array.from({ length: 20 }, () => Math.random());
+const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-  // 初始化图表
-  // 使用选项式 API
-  chart.options({
-    type: 'interval',
-    data: mock(),
-    encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
-    axis: false,
-    tooltip: {
-      items: [{ channel: 'y', valueFormatter: '.0%' }],
-    },
-  });
+// 初始化图表
+// 使用选项式 API
+chart.options({
+  type: 'interval',
+  data: mock(),
+  encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
+  axis: false,
+  tooltip: {
+    items: [{ channel: 'y', valueFormatter: '.0%' }],
+  },
+});
 
-  chart.render();
+chart.render();
 
-  // 更新图表
-  // 使用函数式 API
-  const button = document.createElement('button');
-  button.style.display = 'block';
-  button.textContent = '更新数据';
-  button.onclick = () => {
-    const interval = chart.getNodeByType('interval'); // 获得 interval
-    interval.data(mock()); // 更新 interval 的数据
-    chart.render(); // 渲染图表
-  };
+// 更新图表
+// 使用函数式 API
+const button = document.createElement('button');
+button.style.display = 'block';
+button.textContent = '更新数据';
+button.onclick = () => {
+  const interval = chart.getNodeByType('interval'); // 获得 interval
+  interval.data(mock()); // 更新 interval 的数据
+  chart.render(); // 渲染图表
+};
 
-  const node = chart.getContainer();
-  node.insertBefore(button, node.childNodes[0]);
-  return node;
-})();
+container.insertBefore(button, container.childNodes[0]);
 ```
 
 ## 可组合

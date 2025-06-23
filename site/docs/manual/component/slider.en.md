@@ -389,55 +389,55 @@ If you don't want to use G2's default slider, you can customize a drag axis foll
 
 The key to the first step is determining the slider's position and length through the coordinate object obtained via `chart.getCoordinate`. The key to the second step is using the scale obtained through `chart.getScale` to invert the selected range, finally obtaining the selected data range, then updating the scale's domain.
 
-```js | ob
-(() => {
-  function sliderX(chart) {
-    // Create and mount range
-    const container = chart.getContainer();
-    const range = document.createElement('input');
-    container.append(range);
+```js | ob {  autoMount: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-    // Set range width and other properties based on coordinate
-    const coordinate = chart.getCoordinate();
-    const { paddingLeft, width } = coordinate.getOptions();
-    range.type = 'range';
-    range.min = 0;
-    range.max = width;
-    range.value = width;
-    range.style.display = 'block';
-    range.style.width = width + 'px';
-    range.style.marginLeft = paddingLeft + 'px';
+function sliderX(chart) {
+  // Create and mount range
+  const container = chart.getContainer();
+  const range = document.createElement('input');
+  container.append(range);
 
-    // Listen to change event, get filtered domain through scale
-    // Update domain and render
-    const scale = chart.getScaleByChannel('x');
-    const options = chart.options();
-    range.onchange = (event) => {
-      const value = event.target.value;
-      const range = [0, value / width];
-      const domain = range.map((d) => scale.invert(d));
-      chart.options({
-        ...options,
-        scale: { x: { domain } },
-      });
-      chart.render();
-    };
-  }
+  // Set range width and other properties based on coordinate
+  const coordinate = chart.getCoordinate();
+  const { paddingLeft, width } = coordinate.getOptions();
+  range.type = 'range';
+  range.min = 0;
+  range.max = width;
+  range.value = width;
+  range.style.display = 'block';
+  range.style.width = width + 'px';
+  range.style.marginLeft = paddingLeft + 'px';
 
-  const container = document.createElement('div');
-  const chart = new G2.Chart({ container });
+  // Listen to change event, get filtered domain through scale
+  // Update domain and render
+  const scale = chart.getScaleByChannel('x');
+  const options = chart.options();
+  range.onchange = (event) => {
+    const value = event.target.value;
+    const range = [0, value / width];
+    const domain = range.map((d) => scale.invert(d));
+    chart.options({
+      ...options,
+      scale: { x: { domain } },
+    });
+    chart.render();
+  };
+}
 
-  chart.options({
-    type: 'line',
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    },
-    encode: { x: 'date', y: 'close' },
-  });
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+});
 
-  chart.render().then(sliderX);
-  return chart.getContainer();
-})();
+chart.render().then(sliderX);
 ```
