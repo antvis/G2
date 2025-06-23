@@ -64,6 +64,6 @@ This result is sorted by name in ascending order, and when names are the same, s
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| fields | Fields to sort by | `(string \| [string, boolean])[]` | `[]` |
+| Property | Description       | Type                              | Default |
+| -------- | ----------------- | --------------------------------- | ------- |
+| fields   | Fields to sort by | `(string \| [string, boolean])[]` | `[]`    |

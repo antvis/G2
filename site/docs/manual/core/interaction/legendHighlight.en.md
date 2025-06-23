@@ -120,7 +120,7 @@ chart.emit('legend:unhighlight', {});
 
 The following example demonstrates the basic interaction functionality of `legendHighlight`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

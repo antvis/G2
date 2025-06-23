@@ -47,6 +47,6 @@ Note: The `sort` data transform is in `data.transform`. When data configuration 
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
+| Property | Description                                                  | Type                         | Default       |
+| -------- | ------------------------------------------------------------ | ---------------------------- | ------------- |
 | callback | Array.sort comparator, returns 1, 0, -1 representing >, =, < | `(a: any, b: any) => number` | `(a, b) => 0` |

@@ -15,18 +15,18 @@ Theta coordinate system is essentially a combination of Transpose and Polar coor
 
 ## Configuration
 
-| Property    | Description                                                                                                                                                   | Type     | Default             | Required |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------- | -------- |
-| startAngle  | Starting angle (in radians), controls the starting angle position of pie/donut charts                                                                        | `number` | `-Math.PI / 2`      |          |
-| endAngle    | Ending angle (in radians), controls the ending angle position of pie/donut charts                                                                            | `number` | `(Math.PI * 3) / 2` |          |
+| Property    | Description                                                                                                                                                                                                                                                                        | Type     | Default             | Required |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------- | -------- |
+| startAngle  | Starting angle (in radians), controls the starting angle position of pie/donut charts                                                                                                                                                                                              | `number` | `-Math.PI / 2`      |          |
+| endAngle    | Ending angle (in radians), controls the ending angle position of pie/donut charts                                                                                                                                                                                                  | `number` | `(Math.PI * 3) / 2` |          |
 | innerRadius | Inner radius (ratio 0-1), controls the inner circle radius size of donut charts. 0 represents solid pie chart, greater than 0 represents donut chart. Generally we keep this value smaller than outerRadius. If it exceeds, it can still be displayed but may affect label display | `number` | `0`                 |          |
-| outerRadius | Outer radius (ratio 0-1), controls the outer circle radius size of pie/donut charts. 1 represents filling the entire drawing area. Values greater than 1 will exceed the container (excess parts will be clipped) | `number` | `1`                 |          |
+| outerRadius | Outer radius (ratio 0-1), controls the outer circle radius size of pie/donut charts. 1 represents filling the entire drawing area. Values greater than 1 will exceed the container (excess parts will be clipped)                                                                  | `number` | `1`                 |          |
 
 ## Examples
 
 ### Basic Pie Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -53,7 +53,7 @@ chart.render();
 
 ### Basic Donut Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 ### Custom Starting Angle
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -117,7 +117,7 @@ chart.render();
 
 ### Compositional API Usage
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -151,4 +151,3 @@ chart
 
 chart.render();
 ```
-

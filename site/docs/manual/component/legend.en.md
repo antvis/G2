@@ -129,7 +129,7 @@ Legend orientation, which is the scroll direction for categorical legends. Defau
 
 Position of the legend. Default is `top`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -234,7 +234,42 @@ By configuring the legend's `position` and `layout`, we can flexibly change the 
 
 Try it out:
 
-<Playground path="component/legend/demo/position.ts" rid="legend-position"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 50 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      // 图例显示位置 可选 top ｜ bottom | right | left
+      position: 'top',
+      layout: {
+        // 主轴对齐方式 可选 flex-start | flex-end | center
+        justifyContent: 'flex-start',
+        // 交叉轴对齐方式 可选 flex-start | flex-end | center
+        alignItems: 'flex-start',
+        // 主轴方向 可选 row | column
+        flexDirection: 'row',
+      },
+    },
+  },
+});
+
+chart.render();
+```
 
 ### size
 
@@ -326,7 +361,46 @@ When configuring title in the Legend component, it's not configured as an object
 
 Try it out:
 
-<Playground path="component/legend/demo/title.ts" rid="legend-title"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 300 });
+
+chart.options({
+  type: 'legends',
+  title: '图例标题',
+  titleSpacing: 0,
+  titleInset: 0,
+  titlePosition: 't',
+  titleFontSize: 16,
+  titleFontFamily: 'sans-serif',
+  titleFontWeight: 500,
+  titleLineHeight: 20,
+  titleTextAlign: 'center',
+  titleTextBaseline: 'middle',
+  titleFill: '#000',
+  titleFillOpacity: 0.9,
+  titleStroke: '#DAF5EC',
+  titleStrokeOpacity: 0.9,
+  titleLineWidth: 2,
+  titleLineDash: [4, 8],
+  titleOpacity: 1,
+  titleShadowColor: '#d3d3d3',
+  titleShadowBlur: 10,
+  titleShadowOffsetX: 10,
+  titleShadowOffsetY: 10,
+  titleCursor: 'pointer',
+  scale: {
+    size: {
+      type: 'linear',
+      domain: [0, 10],
+      range: [0, 100],
+    },
+  },
+});
+
+chart.render();
+```
 
 ### cols
 
@@ -442,7 +516,7 @@ Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend
 
 Try it out:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -712,7 +786,41 @@ When configuring legend item background in the Legend component, it's not config
 
 Next, let's try combining various properties of `itemMarker`, `itemLabel`, `itemValue`, and `itemBackground` to configure a custom legend:
 
-<Playground path="component/legend/demo/item-style.ts" rid="legend-item-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+const shapeList = ['bowtie', 'smooth', 'hv', 'rect', 'hollowPoint'];
+const data = [
+  { genre: 'Sports', sold: 50 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      size: 100,
+      itemWidth: 120,
+      // itemMarker
+      itemMarker: (d, index) => shapeList[index],
+      // itemLabel
+      itemLabelFill: 'red',
+      // itemValue
+      itemValueText: (d, index) => data[index]['sold'],
+      // itemBackground
+      itemBackgroundFill: (d) => d.color,
+      itemBackgroundFillOpacity: 0.2,
+    },
+  },
+});
+
+chart.render();
+```
 
 ### itemWidth
 
@@ -840,7 +948,71 @@ When configuring navigator properties in the Legend component, it's not configur
 
 Try it out:
 
-<Playground path="component/legend/demo/nav-style.ts" rid="legend-nav-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 50 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      itemWidth: 160,
+      navEffect: 'cubic-bezier',
+      navDuration: 400,
+      navOrientation: 'vertical',
+      navDefaultPage: 2,
+      navLoop: true,
+
+      //配置navPageNum的绘图属性
+      navPageNumFontSize: 16,
+      navPageNumFontFamily: 'sans-serif',
+      navPageNumFontWeight: 500,
+      navPageNumLineHeight: 20,
+      navPageNumTextAlign: 'center',
+      navPageNumTextBaseline: 'middle',
+      navPageNumFill: '#2989FF',
+      navPageNumFillOpacity: 0.9,
+      navPageNumStroke: '#DAF5EC',
+      navPageNumStrokeOpacity: 0.9,
+      navPageNumLineWidth: 2,
+      navPageNumLineDash: [4, 8],
+      navPageNumOpacity: 1,
+      navPageNumShadowColor: '#d3d3d3',
+      navPageNumShadowBlur: 10,
+      navPageNumShadowOffsetX: 10,
+      navPageNumShadowOffsetY: 10,
+      navPageNumCursor: 'pointer',
+
+      // 配置navButton的绘图属性
+      navButtonFill: '#2989FF',
+      navButtonFillOpacity: 0.7,
+      navButtonStroke: '#DAF5EC',
+      navButtonStrokeOpacity: 0.9,
+      navButtonLineWidth: 2,
+      navButtonLineDash: [4, 8],
+      navButtonOpacity: 0.9,
+      navButtonShadowColor: '#d3d3d3',
+      navButtonShadowBlur: 10,
+      navButtonShadowOffsetX: 10,
+      navButtonShadowOffsetY: 10,
+      navButtonCursor: 'pointer',
+
+      navFormatter: (current, total) => `第${current}页/共${total}页`,
+    },
+  },
+});
+
+chart.render();
+```
 
 ### color
 
@@ -1224,7 +1396,7 @@ chart.on('afterrender', () => {
 
 There's currently no built-in API for this, so you need to manually trigger legendFilter to achieve it.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart, ChartEvent } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
@@ -1299,7 +1471,7 @@ legend: {
 
 #### Using Images
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -1474,7 +1646,7 @@ function legendColor(chart) {
 
 After drawing legend items, we should add interactions to each legend item through `item.onclick`, collect currently selected values, and add Filter transforms to the chart declaration based on these values, then re-render the chart. The complete implementation is as follows:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Add legend

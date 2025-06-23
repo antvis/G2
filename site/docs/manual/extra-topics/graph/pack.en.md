@@ -46,18 +46,18 @@ chart.render();
 
 ## Options
 
-| Property | Description                           | Type            | Default Value |
-| -------- | ------------------------------------- | --------------- | ------------- |
-| layout   | Layout configuration                  | `TreeTransform` | -             |
-| style    | Configure graphic styles and labels   | -               | -             |
-| labels   | Custom configuration for data labels  | label[]         | []            |
+| Property | Description                          | Type            | Default Value |
+| -------- | ------------------------------------ | --------------- | ------------- |
+| layout   | Layout configuration                 | `TreeTransform` | -             |
+| style    | Configure graphic styles and labels  | -               | -             |
+| labels   | Custom configuration for data labels | label[]         | []            |
 
 ### layout
 
-| Property | Description  | Type                 | Default Value                 |
-| -------- | ------------ | -------------------- | ----------------------------- |
-| sort     | Sorting mode | `((a, b) => number)` | `(a, b) => b.value - a.value` |
-| padding  | Inner spacing| `number`             | 0                             |
+| Property | Description   | Type                 | Default Value                 |
+| -------- | ------------- | -------------------- | ----------------------------- |
+| sort     | Sorting mode  | `((a, b) => number)` | `(a, b) => b.value - a.value` |
+| padding  | Inner spacing | `number`             | 0                             |
 
 ### style
 

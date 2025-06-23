@@ -24,12 +24,12 @@ Bubble Maps are more suitable for comparing geographically related data than [Ch
 
 <img alt="bubble-map-anatomy" src="https://t.alipayobjects.com/images/T1yxpjXnVfXXXXXXXX.png" width=600 />
 
-| Chart Type      | Bubble Map                                                                                        |
-| --------------- | ------------------------------------------------------------------------------------------------- |
-| Suitable Data   | Data containing geographic coordinates (longitude and latitude) and one or more numeric fields     |
-| Function        | Display geographic distribution and value relationships on a geographic background                 |
-| Data Mapping    | Longitude/latitude fields mapped to map position<br>Numeric field mapped to bubble size<br>Category field can be mapped to color<br>Other values can be mapped to color intensity |
-| Data Volume     | Recommended not to exceed 100 data points to avoid bubble overlap affecting readability            |
+| Chart Type    | Bubble Map                                                                                                                                                                        |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data | Data containing geographic coordinates (longitude and latitude) and one or more numeric fields                                                                                    |
+| Function      | Display geographic distribution and value relationships on a geographic background                                                                                                |
+| Data Mapping  | Longitude/latitude fields mapped to map position<br>Numeric field mapped to bubble size<br>Category field can be mapped to color<br>Other values can be mapped to color intensity |
+| Data Volume   | Recommended not to exceed 100 data points to avoid bubble overlap affecting readability                                                                                           |
 
 The main components of a Bubble Map include:
 
@@ -113,7 +113,7 @@ In G2 5.0, we can implement bubble maps by drawing `point` on `geoView`. Here ar
 
 Based on London map data, showing the population distribution across different areas:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 import { feature } from 'topojson';
 
@@ -137,7 +137,9 @@ Promise.all([
     name: d.name || `Area ${index + 1}`, // Ensure each data point has a name
     population: Math.floor(Math.random() * 500000) + 100000, // 100K-600K population
     gdp: Math.floor(Math.random() * 50000) + 20000, // 20K-70K GDP
-    category: ['Business', 'Residential', 'Industrial', 'Mixed'][Math.floor(Math.random() * 4)]
+    category: ['Business', 'Residential', 'Industrial', 'Mixed'][
+      Math.floor(Math.random() * 4)
+    ],
   }));
 
   const chart = new Chart({
@@ -154,8 +156,8 @@ Promise.all([
         style: {
           fill: 'lightgray',
           stroke: 'white',
-          lineWidth: 1
-        }
+          lineWidth: 1,
+        },
       },
       {
         type: 'point',
@@ -165,31 +167,41 @@ Promise.all([
           y: 'cy',
           size: 'population',
           color: 'category',
-          shape: 'point'
+          shape: 'point',
         },
         style: {
           opacity: 0.7,
           stroke: 'white',
-          lineWidth: 1
+          lineWidth: 1,
         },
         scale: {
           size: {
-            range: [4, 30]
+            range: [4, 30],
           },
           color: {
-            range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
-          }
+            range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'],
+          },
         },
         tooltip: {
           title: 'name',
           items: [
-            { name: 'Population', channel: 'size', valueFormatter: (value) => `${value ? value.toLocaleString() : 'N/A'} people` },
-            { name: 'GDP', field: 'gdp', valueFormatter: (value) => `${value ? value.toLocaleString() : 'N/A'} million` },
-            { name: 'Type', field: 'category' }
-          ]
-        }
-      }
-    ]
+            {
+              name: 'Population',
+              channel: 'size',
+              valueFormatter: (value) =>
+                `${value ? value.toLocaleString() : 'N/A'} people`,
+            },
+            {
+              name: 'GDP',
+              field: 'gdp',
+              valueFormatter: (value) =>
+                `${value ? value.toLocaleString() : 'N/A'} million`,
+            },
+            { name: 'Type', field: 'category' },
+          ],
+        },
+      },
+    ],
   });
 
   chart.render();
@@ -200,30 +212,156 @@ Promise.all([
 
 Displaying GDP distribution of major cities worldwide:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Global major cities data - ensuring data completeness
 const worldCities = [
-  { name: 'Beijing', lng: 116.4074, lat: 39.9042, gdp: 4027, population: 2154, region: 'Asia' },
-  { name: 'Shanghai', lng: 121.4737, lat: 31.2304, gdp: 4321, population: 2424, region: 'Asia' },
-  { name: 'New York', lng: -74.0059, lat: 40.7128, gdp: 1700, population: 851, region: 'North America' },
-  { name: 'Los Angeles', lng: -118.2437, lat: 34.0522, gdp: 710, population: 397, region: 'North America' },
-  { name: 'London', lng: -0.1276, lat: 51.5074, gdp: 653, population: 898, region: 'Europe' },
-  { name: 'Tokyo', lng: 139.6917, lat: 35.6895, gdp: 1617, population: 1396, region: 'Asia' },
-  { name: 'Paris', lng: 2.3522, lat: 48.8566, gdp: 709, population: 1068, region: 'Europe' },
-  { name: 'Berlin', lng: 13.4050, lat: 52.5200, gdp: 147, population: 367, region: 'Europe' },
-  { name: 'Sydney', lng: 151.2093, lat: -33.8688, gdp: 337, population: 518, region: 'Oceania' },
-  { name: 'Toronto', lng: -79.3832, lat: 43.6532, gdp: 324, population: 294, region: 'North America' },
-  { name: 'Seoul', lng: 126.9780, lat: 37.5665, gdp: 779, population: 969, region: 'Asia' },
-  { name: 'Singapore', lng: 103.8198, lat: 1.3521, gdp: 340, population: 584, region: 'Asia' },
-  { name: 'Chicago', lng: -87.6298, lat: 41.8781, gdp: 689, population: 271, region: 'North America' },
-  { name: 'Frankfurt', lng: 8.6821, lat: 50.1109, gdp: 731, population: 75, region: 'Europe' },
-  { name: 'Hong Kong', lng: 114.1694, lat: 22.3193, gdp: 365, population: 745, region: 'Asia' },
-  { name: 'Mumbai', lng: 72.8777, lat: 19.0760, gdp: 310, population: 1284, region: 'Asia' },
-  { name: 'São Paulo', lng: -46.6333, lat: -23.5505, gdp: 430, population: 1252, region: 'South America' },
-  { name: 'Mexico City', lng: -99.1332, lat: 19.4326, gdp: 411, population: 912, region: 'North America' }
-].map(city => ({
+  {
+    name: 'Beijing',
+    lng: 116.4074,
+    lat: 39.9042,
+    gdp: 4027,
+    population: 2154,
+    region: 'Asia',
+  },
+  {
+    name: 'Shanghai',
+    lng: 121.4737,
+    lat: 31.2304,
+    gdp: 4321,
+    population: 2424,
+    region: 'Asia',
+  },
+  {
+    name: 'New York',
+    lng: -74.0059,
+    lat: 40.7128,
+    gdp: 1700,
+    population: 851,
+    region: 'North America',
+  },
+  {
+    name: 'Los Angeles',
+    lng: -118.2437,
+    lat: 34.0522,
+    gdp: 710,
+    population: 397,
+    region: 'North America',
+  },
+  {
+    name: 'London',
+    lng: -0.1276,
+    lat: 51.5074,
+    gdp: 653,
+    population: 898,
+    region: 'Europe',
+  },
+  {
+    name: 'Tokyo',
+    lng: 139.6917,
+    lat: 35.6895,
+    gdp: 1617,
+    population: 1396,
+    region: 'Asia',
+  },
+  {
+    name: 'Paris',
+    lng: 2.3522,
+    lat: 48.8566,
+    gdp: 709,
+    population: 1068,
+    region: 'Europe',
+  },
+  {
+    name: 'Berlin',
+    lng: 13.405,
+    lat: 52.52,
+    gdp: 147,
+    population: 367,
+    region: 'Europe',
+  },
+  {
+    name: 'Sydney',
+    lng: 151.2093,
+    lat: -33.8688,
+    gdp: 337,
+    population: 518,
+    region: 'Oceania',
+  },
+  {
+    name: 'Toronto',
+    lng: -79.3832,
+    lat: 43.6532,
+    gdp: 324,
+    population: 294,
+    region: 'North America',
+  },
+  {
+    name: 'Seoul',
+    lng: 126.978,
+    lat: 37.5665,
+    gdp: 779,
+    population: 969,
+    region: 'Asia',
+  },
+  {
+    name: 'Singapore',
+    lng: 103.8198,
+    lat: 1.3521,
+    gdp: 340,
+    population: 584,
+    region: 'Asia',
+  },
+  {
+    name: 'Chicago',
+    lng: -87.6298,
+    lat: 41.8781,
+    gdp: 689,
+    population: 271,
+    region: 'North America',
+  },
+  {
+    name: 'Frankfurt',
+    lng: 8.6821,
+    lat: 50.1109,
+    gdp: 731,
+    population: 75,
+    region: 'Europe',
+  },
+  {
+    name: 'Hong Kong',
+    lng: 114.1694,
+    lat: 22.3193,
+    gdp: 365,
+    population: 745,
+    region: 'Asia',
+  },
+  {
+    name: 'Mumbai',
+    lng: 72.8777,
+    lat: 19.076,
+    gdp: 310,
+    population: 1284,
+    region: 'Asia',
+  },
+  {
+    name: 'São Paulo',
+    lng: -46.6333,
+    lat: -23.5505,
+    gdp: 430,
+    population: 1252,
+    region: 'South America',
+  },
+  {
+    name: 'Mexico City',
+    lng: -99.1332,
+    lat: 19.4326,
+    gdp: 411,
+    population: 912,
+    region: 'North America',
+  },
+].map((city) => ({
   ...city,
   // Data validation and formatting
   name: city.name || 'Unknown City',
@@ -231,12 +369,26 @@ const worldCities = [
   lat: typeof city.lat === 'number' ? city.lat : 0,
   gdp: typeof city.gdp === 'number' ? city.gdp : 0,
   population: typeof city.population === 'number' ? city.population : 0,
-  region: city.region || 'Unknown Region'
+  region: city.region || 'Unknown Region',
 }));
 
 // Simplified global map outline data
 const worldOutline = [
-  { type: 'Feature', geometry: { type: 'Polygon', coordinates: [[[-180, -60], [180, -60], [180, 75], [-180, 75], [-180, -60]]] }}
+  {
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-180, -60],
+          [180, -60],
+          [180, 75],
+          [-180, 75],
+          [-180, -60],
+        ],
+      ],
+    },
+  },
 ];
 
 const chart = new Chart({
@@ -253,8 +405,8 @@ chart.options({
       style: {
         fill: '#f0f0f0',
         stroke: '#d0d0d0',
-        lineWidth: 1
-      }
+        lineWidth: 1,
+      },
     },
     {
       type: 'point',
@@ -264,31 +416,46 @@ chart.options({
         y: 'lat',
         size: 'gdp',
         color: 'region',
-        shape: 'point'
+        shape: 'point',
       },
       style: {
         opacity: 0.8,
         stroke: 'white',
-        lineWidth: 2
+        lineWidth: 2,
       },
       scale: {
         size: {
-          range: [8, 40]
+          range: [8, 40],
         },
         color: {
-          range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
-        }
+          range: [
+            '#1f77b4',
+            '#ff7f0e',
+            '#2ca02c',
+            '#d62728',
+            '#9467bd',
+            '#8c564b',
+          ],
+        },
       },
       tooltip: {
         title: 'name',
         items: [
-          { name: 'GDP', channel: 'size', valueFormatter: (value) => `${value || 0} billion USD` },
-          { name: 'Population', field: 'population', valueFormatter: (value) => `${value || 0} million` },
-          { name: 'Region', field: 'region' }
-        ]
-      }
-    }
-  ]
+          {
+            name: 'GDP',
+            channel: 'size',
+            valueFormatter: (value) => `${value || 0} billion USD`,
+          },
+          {
+            name: 'Population',
+            field: 'population',
+            valueFormatter: (value) => `${value || 0} million`,
+          },
+          { name: 'Region', field: 'region' },
+        ],
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -300,7 +467,7 @@ Essential elements for creating bubble maps with G2 5.0:
 
 1. **Use geoView**: Create a geographic coordinate system view with `type: 'geoView'`
 2. **Point marks**: Use `type: 'point'` in children to draw bubbles
-3. **Encoding mapping**: 
+3. **Encoding mapping**:
    - Map `x`, `y` to longitude and latitude coordinates in the `encode` object
    - Map `size` to numeric values
    - Map `color` to categories or values

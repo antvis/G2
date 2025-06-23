@@ -5,7 +5,7 @@ order: 4
 
 G2 5.0 和 4.0 版本一样，提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例
@@ -38,7 +38,7 @@ chart.render();
 
 目前我们通过 `chart.options(spec)` 去声明可视化，下面的例子可以得到和上面一样的效果。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例
@@ -156,7 +156,7 @@ spaceFlex.interval();
 });
 ```
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -192,7 +192,7 @@ chart.render();
 });
 ```
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -240,7 +240,7 @@ chart.render();
 });
 ```
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -304,7 +304,7 @@ chart.render();
 
 ### 饼图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例
@@ -351,7 +351,7 @@ chart.render();
 
 ### 空间复合
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例

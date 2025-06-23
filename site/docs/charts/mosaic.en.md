@@ -22,12 +22,12 @@ Mosaic plots are divided into two types: uniform and non-uniform. Uniform mosaic
 
 <img alt="mosaic-uneven" src="https://os.alipayobjects.com/rmsportal/RKlgDYrPsNzxKHt.png" width=600/>
 
-| Chart Type      | Non-uniform Axis Mosaic Plot                                                                                |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| Suitable Data   | Multi-dimensional categorical data                                                                           |
-| Functionality   | Display distribution of multi-dimensional categorical data                                                   |
+| Chart Type      | Non-uniform Axis Mosaic Plot                                                                                                |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data   | Multi-dimensional categorical data                                                                                          |
+| Functionality   | Display distribution of multi-dimensional categorical data                                                                  |
 | Data Mapping    | Categorical data fields map to non-uniform coordinate axis<br>Area and color represent data proportions and classifications |
-| Data Size Limit | More effective with higher dimensional data                                                                  |
+| Data Size Limit | More effective with higher dimensional data                                                                                 |
 
 ---
 
@@ -35,12 +35,12 @@ Mosaic plots are divided into two types: uniform and non-uniform. Uniform mosaic
 
 <img alt="mosaic-even" src="https://os.alipayobjects.com/rmsportal/VwBbTVppnBdxlhk.png" width=600/>
 
-| Chart Type      | Uniform Axis Mosaic Plot                                                                                    |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| Suitable Data   | Two-dimensional categorical data                                                                             |
-| Functionality   | Display distribution of two-dimensional categorical data                                                     |
-| Data Mapping    | Categorical data fields map to uniform coordinate axis<br>Color represents data classifications              |
-| Data Size Limit | More effective with lower dimensional data                                                                   |
+| Chart Type      | Uniform Axis Mosaic Plot                                                                        |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| Suitable Data   | Two-dimensional categorical data                                                                |
+| Functionality   | Display distribution of two-dimensional categorical data                                        |
+| Data Mapping    | Categorical data fields map to uniform coordinate axis<br>Color represents data classifications |
+| Data Size Limit | More effective with lower dimensional data                                                      |
 
 ## Use Cases of Mosaic Plots
 
@@ -52,7 +52,7 @@ Example 1: **Suitable for multi-dimensional categorical data analysis**
 
 Example 2: **Suitable for two-dimensional categorical data analysis**
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const chart = new G2.Chart({
   container: 'container',
   autoFit: true,
@@ -131,7 +131,7 @@ Example 3: **Market Segmentation Analysis (Non-uniform Mosaic Plot)**
 
 This example demonstrates how to use a non-uniform mosaic plot to display the distribution of different market segments, where the width of each rectangle represents market size, and the height represents the proportion of each market segment.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -152,18 +152,18 @@ chart.options({
   transform: [
     { type: 'flexX', reducer: 'sum' }, // Flexible X-axis width
     { type: 'stackY' }, // Y-axis stacking
-    { type: 'normalizeY' } // Y-axis normalization
+    { type: 'normalizeY' }, // Y-axis normalization
   ],
   encode: {
     x: 'market',
     y: 'value',
-    color: 'segment'
+    color: 'segment',
   },
   axis: {
-    y: false
+    y: false,
   },
   scale: {
-    x: { paddingOuter: 0, paddingInner: 0.01 }
+    x: { paddingOuter: 0, paddingInner: 0.01 },
   },
   tooltip: 'value',
   label: [
@@ -184,8 +184,8 @@ chart.options({
       dy: 15,
       fontSize: 10,
       fill: '#fff',
-    }
-  ]
+    },
+  ],
 });
 
 chart.render();
@@ -195,7 +195,7 @@ Example 4: **Movie Rating Distribution Analysis (Density Mosaic Plot)**
 
 This example demonstrates how to use a density mosaic plot to analyze the relationship between IMDB and Rotten Tomatoes ratings, where the color intensity represents the number of movies.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -211,11 +211,13 @@ chart.options({
   },
   encode: {
     x: 'IMDB Rating',
-    y: 'Rotten Tomatoes Rating'
+    y: 'Rotten Tomatoes Rating',
   },
-  transform: [{ type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 }],
+  transform: [
+    { type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 },
+  ],
   scale: {
-    color: { palette: 'ylGnBu' }
+    color: { palette: 'ylGnBu' },
   },
   tooltip: {
     title: { channel: 'color' },
@@ -230,7 +232,7 @@ chart.options({
       }),
     ],
     render: () => '1',
-  }
+  },
 });
 
 chart.render();
@@ -240,7 +242,7 @@ Example 5: **Athletes' Physiological Data Analysis (Grouped Density Mosaic Plot)
 
 This example shows how to use a mosaic plot to display the height and weight distribution of athletes grouped by gender, with opacity representing data point density.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -257,14 +259,14 @@ chart.options({
   encode: {
     x: 'weight',
     y: 'height',
-    color: 'sex'
+    color: 'sex',
   },
   transform: [{ type: 'bin', opacity: 'count' }],
   legend: {
-    opacity: false
+    opacity: false,
   },
   style: {
-    inset: 0.5
+    inset: 0.5,
   },
   tooltip: {
     title: { channel: 'opacity' },
@@ -278,7 +280,7 @@ chart.options({
         value: `${column.y.value[i]}, ${column.y1.value[i]}`,
       }),
     ],
-  }
+  },
 });
 
 chart.render();
@@ -287,6 +289,7 @@ chart.render();
 ### Unsuitable Use Cases
 
 Mosaic plots are not suitable for:
+
 - Displaying continuous numerical data trends
 - Showing precise numerical comparisons
 - Analyzing time series data

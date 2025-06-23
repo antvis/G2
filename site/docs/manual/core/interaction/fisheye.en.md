@@ -19,16 +19,16 @@ To enable fisheye interaction, add it to the chart configuration:
 
 ## Configuration Options
 
-| Property | Description                  | Type      | Default | Required |
-| -------- | ---------------------------- | --------- | ------- | -------- |
-| radius   | Fisheye lens radius         | `number`  | 100     |          |
-| distortion | Distortion factor         | `number`  | 2       |          |
+| Property   | Description         | Type     | Default | Required |
+| ---------- | ------------------- | -------- | ------- | -------- |
+| radius     | Fisheye lens radius | `number` | 100     |          |
+| distortion | Distortion factor   | `number` | 2       |          |
 
 ## Examples
 
 ### Basic Fisheye
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

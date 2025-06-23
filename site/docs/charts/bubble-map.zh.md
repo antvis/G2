@@ -26,12 +26,12 @@ similar: ['scatter-plot', 'dot-map', 'choropleth-map']
 
 <img alt="bubble-map-anatomy" src="https://t.alipayobjects.com/images/T1yxpjXnVfXXXXXXXX.png" width=600 />
 
-| 图表类型         | 带气泡的地图                                                                                         |
-| ---------------- | ---------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 包含地理坐标（经纬度）的数据和一个或多个数值字段                                                     |
-| 功能             | 在地理背景上展示数据的地理分布和数值大小关系                                                         |
+| 图表类型         | 带气泡的地图                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| 适合的数据       | 包含地理坐标（经纬度）的数据和一个或多个数值字段                                                       |
+| 功能             | 在地理背景上展示数据的地理分布和数值大小关系                                                           |
 | 数据与图形的映射 | 经纬度字段映射到地图位置<br>数值字段映射到气泡大小<br>分类字段可映射到颜色<br>其他数值可映射到颜色深度 |
-| 适合的数据条数   | 建议不超过 100 个数据点，避免气泡重叠影响阅读                                                        |
+| 适合的数据条数   | 建议不超过 100 个数据点，避免气泡重叠影响阅读                                                          |
 
 带气泡的地图的主要组成部分包括：
 
@@ -46,31 +46,31 @@ similar: ['scatter-plot', 'dot-map', 'choropleth-map']
 
 ### 适合的场景
 
-**场景1：地理数据分布分析**
+**场景 1：地理数据分布分析**
 
 带气泡的地图是分析具有地理属性数据的理想工具，能够直观展示数据在地理空间上的分布规律。
 
 <img alt="geographic-distribution" src="https://t.alipayobjects.com/images/T1exRjXb4XXXXXXXXX.png" width=600 />
 
-**场景2：区域对比分析**
+**场景 2：区域对比分析**
 
 通过气泡大小和颜色的对比，可以有效地比较不同地区间的数据差异。
 
-**场景3：多维地理数据展示**
+**场景 3：多维地理数据展示**
 
 带气泡的地图可以同时展示位置、数值大小、分类等多个维度的信息。
 
 ### 不适合的场景
 
-**场景1：数据点过多导致重叠**
+**场景 1：数据点过多导致重叠**
 
 当地图上的数据点过多时，气泡间会相互遮盖，影响数据的清晰展示，此时应考虑使用热力图或点密度图。
 
-**场景2：缺乏地理坐标信息**
+**场景 2：缺乏地理坐标信息**
 
 对于没有经纬度信息的数据，需要先进行地理编码转换，或考虑使用其他图表类型。
 
-**场景3：精确数值展示**
+**场景 3：精确数值展示**
 
 带气泡的地图侧重于显示数据的地理分布趋势，不适合需要精确数值的场景，此时应使用表格或其他精确展示方式。
 
@@ -107,15 +107,15 @@ similar: ['scatter-plot', 'dot-map', 'choropleth-map']
 - 带气泡的地图结合了地理信息，位置具有地理意义
 - 普通点图位置仅表示数据维度，不具备地理属性
 
-## 在G2 5.0中实现带气泡的地图
+## 在 G2 5.0 中实现带气泡的地图
 
-在G2 5.0中，我们可以通过在 `geoView` 上绘制 `point` 来实现带气泡的地图。以下是两个实际可用的示例：
+在 G2 5.0 中，我们可以通过在 `geoView` 上绘制 `point` 来实现带气泡的地图。以下是两个实际可用的示例：
 
-### 示例1：伦敦人口分布气泡图
+### 示例 1：伦敦人口分布气泡图
 
 基于伦敦地图数据，展示各区域的人口分布情况：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 import { feature } from 'topojson';
 
@@ -139,7 +139,9 @@ Promise.all([
     name: d.name || `区域${index + 1}`, // 确保每个数据点都有名称
     population: Math.floor(Math.random() * 500000) + 100000, // 10万-60万人口
     gdp: Math.floor(Math.random() * 50000) + 20000, // 2万-7万GDP
-    category: ['商业区', '住宅区', '工业区', '混合区'][Math.floor(Math.random() * 4)]
+    category: ['商业区', '住宅区', '工业区', '混合区'][
+      Math.floor(Math.random() * 4)
+    ],
   }));
 
   const chart = new Chart({
@@ -156,8 +158,8 @@ Promise.all([
         style: {
           fill: 'lightgray',
           stroke: 'white',
-          lineWidth: 1
-        }
+          lineWidth: 1,
+        },
       },
       {
         type: 'point',
@@ -167,65 +169,201 @@ Promise.all([
           y: 'cy',
           size: 'population',
           color: 'category',
-          shape: 'point'
+          shape: 'point',
         },
         style: {
           opacity: 0.7,
           stroke: 'white',
-          lineWidth: 1
+          lineWidth: 1,
         },
         scale: {
           size: {
-            range: [4, 30]
+            range: [4, 30],
           },
           color: {
-            range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
-          }
+            range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728'],
+          },
         },
         tooltip: {
           title: 'name',
           items: [
-            { name: '人口', channel: 'size', valueFormatter: (value) => `${value ? value.toLocaleString() : 'N/A'}人` },
-            { name: 'GDP', field: 'gdp', valueFormatter: (value) => `${value ? value.toLocaleString() : 'N/A'}万元` },
-            { name: '类型', field: 'category' }
-          ]
-        }
-      }
-    ]
+            {
+              name: '人口',
+              channel: 'size',
+              valueFormatter: (value) =>
+                `${value ? value.toLocaleString() : 'N/A'}人`,
+            },
+            {
+              name: 'GDP',
+              field: 'gdp',
+              valueFormatter: (value) =>
+                `${value ? value.toLocaleString() : 'N/A'}万元`,
+            },
+            { name: '类型', field: 'category' },
+          ],
+        },
+      },
+    ],
   });
 
   chart.render();
 });
 ```
 
-### 示例2：全球主要城市GDP气泡图
+### 示例 2：全球主要城市 GDP 气泡图
 
-展示世界主要城市的GDP分布：
+展示世界主要城市的 GDP 分布：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 全球主要城市数据 - 确保数据完整性
 const worldCities = [
-  { name: '北京', lng: 116.4074, lat: 39.9042, gdp: 4027, population: 2154, region: '亚洲' },
-  { name: '上海', lng: 121.4737, lat: 31.2304, gdp: 4321, population: 2424, region: '亚洲' },
-  { name: '纽约', lng: -74.0059, lat: 40.7128, gdp: 1700, population: 851, region: '北美' },
-  { name: '洛杉矶', lng: -118.2437, lat: 34.0522, gdp: 710, population: 397, region: '北美' },
-  { name: '伦敦', lng: -0.1276, lat: 51.5074, gdp: 653, population: 898, region: '欧洲' },
-  { name: '东京', lng: 139.6917, lat: 35.6895, gdp: 1617, population: 1396, region: '亚洲' },
-  { name: '巴黎', lng: 2.3522, lat: 48.8566, gdp: 709, population: 1068, region: '欧洲' },
-  { name: '柏林', lng: 13.4050, lat: 52.5200, gdp: 147, population: 367, region: '欧洲' },
-  { name: '悉尼', lng: 151.2093, lat: -33.8688, gdp: 337, population: 518, region: '大洋洲' },
-  { name: '多伦多', lng: -79.3832, lat: 43.6532, gdp: 324, population: 294, region: '北美' },
-  { name: '首尔', lng: 126.9780, lat: 37.5665, gdp: 779, population: 969, region: '亚洲' },
-  { name: '新加坡', lng: 103.8198, lat: 1.3521, gdp: 340, population: 584, region: '亚洲' },
-  { name: '芝加哥', lng: -87.6298, lat: 41.8781, gdp: 689, population: 271, region: '北美' },
-  { name: '法兰克福', lng: 8.6821, lat: 50.1109, gdp: 731, population: 75, region: '欧洲' },
-  { name: '香港', lng: 114.1694, lat: 22.3193, gdp: 365, population: 745, region: '亚洲' },
-  { name: '孟买', lng: 72.8777, lat: 19.0760, gdp: 310, population: 1284, region: '亚洲' },
-  { name: '圣保罗', lng: -46.6333, lat: -23.5505, gdp: 430, population: 1252, region: '南美' },
-  { name: '墨西哥城', lng: -99.1332, lat: 19.4326, gdp: 411, population: 912, region: '北美' }
-].map(city => ({
+  {
+    name: '北京',
+    lng: 116.4074,
+    lat: 39.9042,
+    gdp: 4027,
+    population: 2154,
+    region: '亚洲',
+  },
+  {
+    name: '上海',
+    lng: 121.4737,
+    lat: 31.2304,
+    gdp: 4321,
+    population: 2424,
+    region: '亚洲',
+  },
+  {
+    name: '纽约',
+    lng: -74.0059,
+    lat: 40.7128,
+    gdp: 1700,
+    population: 851,
+    region: '北美',
+  },
+  {
+    name: '洛杉矶',
+    lng: -118.2437,
+    lat: 34.0522,
+    gdp: 710,
+    population: 397,
+    region: '北美',
+  },
+  {
+    name: '伦敦',
+    lng: -0.1276,
+    lat: 51.5074,
+    gdp: 653,
+    population: 898,
+    region: '欧洲',
+  },
+  {
+    name: '东京',
+    lng: 139.6917,
+    lat: 35.6895,
+    gdp: 1617,
+    population: 1396,
+    region: '亚洲',
+  },
+  {
+    name: '巴黎',
+    lng: 2.3522,
+    lat: 48.8566,
+    gdp: 709,
+    population: 1068,
+    region: '欧洲',
+  },
+  {
+    name: '柏林',
+    lng: 13.405,
+    lat: 52.52,
+    gdp: 147,
+    population: 367,
+    region: '欧洲',
+  },
+  {
+    name: '悉尼',
+    lng: 151.2093,
+    lat: -33.8688,
+    gdp: 337,
+    population: 518,
+    region: '大洋洲',
+  },
+  {
+    name: '多伦多',
+    lng: -79.3832,
+    lat: 43.6532,
+    gdp: 324,
+    population: 294,
+    region: '北美',
+  },
+  {
+    name: '首尔',
+    lng: 126.978,
+    lat: 37.5665,
+    gdp: 779,
+    population: 969,
+    region: '亚洲',
+  },
+  {
+    name: '新加坡',
+    lng: 103.8198,
+    lat: 1.3521,
+    gdp: 340,
+    population: 584,
+    region: '亚洲',
+  },
+  {
+    name: '芝加哥',
+    lng: -87.6298,
+    lat: 41.8781,
+    gdp: 689,
+    population: 271,
+    region: '北美',
+  },
+  {
+    name: '法兰克福',
+    lng: 8.6821,
+    lat: 50.1109,
+    gdp: 731,
+    population: 75,
+    region: '欧洲',
+  },
+  {
+    name: '香港',
+    lng: 114.1694,
+    lat: 22.3193,
+    gdp: 365,
+    population: 745,
+    region: '亚洲',
+  },
+  {
+    name: '孟买',
+    lng: 72.8777,
+    lat: 19.076,
+    gdp: 310,
+    population: 1284,
+    region: '亚洲',
+  },
+  {
+    name: '圣保罗',
+    lng: -46.6333,
+    lat: -23.5505,
+    gdp: 430,
+    population: 1252,
+    region: '南美',
+  },
+  {
+    name: '墨西哥城',
+    lng: -99.1332,
+    lat: 19.4326,
+    gdp: 411,
+    population: 912,
+    region: '北美',
+  },
+].map((city) => ({
   ...city,
   // 数据验证和格式化
   name: city.name || '未知城市',
@@ -233,12 +371,26 @@ const worldCities = [
   lat: typeof city.lat === 'number' ? city.lat : 0,
   gdp: typeof city.gdp === 'number' ? city.gdp : 0,
   population: typeof city.population === 'number' ? city.population : 0,
-  region: city.region || '未知地区'
+  region: city.region || '未知地区',
 }));
 
 // 简化的全球地图轮廓数据
 const worldOutline = [
-  { type: 'Feature', geometry: { type: 'Polygon', coordinates: [[[-180, -60], [180, -60], [180, 75], [-180, 75], [-180, -60]]] }}
+  {
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-180, -60],
+          [180, -60],
+          [180, 75],
+          [-180, 75],
+          [-180, -60],
+        ],
+      ],
+    },
+  },
 ];
 
 const chart = new Chart({
@@ -255,8 +407,8 @@ chart.options({
       style: {
         fill: '#f0f0f0',
         stroke: '#d0d0d0',
-        lineWidth: 1
-      }
+        lineWidth: 1,
+      },
     },
     {
       type: 'point',
@@ -266,31 +418,46 @@ chart.options({
         y: 'lat',
         size: 'gdp',
         color: 'region',
-        shape: 'point'
+        shape: 'point',
       },
       style: {
         opacity: 0.8,
         stroke: 'white',
-        lineWidth: 2
+        lineWidth: 2,
       },
       scale: {
         size: {
-          range: [8, 40]
+          range: [8, 40],
         },
         color: {
-          range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
-        }
+          range: [
+            '#1f77b4',
+            '#ff7f0e',
+            '#2ca02c',
+            '#d62728',
+            '#9467bd',
+            '#8c564b',
+          ],
+        },
       },
       tooltip: {
         title: 'name',
         items: [
-          { name: 'GDP', channel: 'size', valueFormatter: (value) => `${value || 0}亿美元` },
-          { name: '人口', field: 'population', valueFormatter: (value) => `${value || 0}万人` },
-          { name: '地区', field: 'region' }
-        ]
-      }
-    }
-  ]
+          {
+            name: 'GDP',
+            channel: 'size',
+            valueFormatter: (value) => `${value || 0}亿美元`,
+          },
+          {
+            name: '人口',
+            field: 'population',
+            valueFormatter: (value) => `${value || 0}万人`,
+          },
+          { name: '地区', field: 'region' },
+        ],
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -302,7 +469,7 @@ chart.render();
 
 1. **使用 geoView**: 通过 `type: 'geoView'` 创建地理坐标系统的视图
 2. **point 标记**: 在 children 中使用 `type: 'point'` 来绘制气泡
-3. **编码映射**: 
+3. **编码映射**:
    - 在 `encode` 对象中映射 `x`, `y` 到经纬度坐标
    - `size` 映射到数值大小
    - `color` 映射到分类或数值
@@ -326,6 +493,5 @@ chart.render();
 在实际应用中，要正确显示地图背景，需要：
 
 1. 引入地图投影组件
-2. 加载完整的GeoJSON地图数据
-3. 使用正确的transform配置
-
+2. 加载完整的 GeoJSON 地图数据
+3. 使用正确的 transform 配置

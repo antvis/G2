@@ -17,7 +17,7 @@ Based on the mathematical formula `y = log(base) + b`.
 
 ## Usage
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -75,22 +75,22 @@ chart.render(); // Render chart
 
 ## Options
 
-| Property    | Description                                                                             | Type                                                    | Default Value                          | Required |
-| ----------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | -------- |
-| domain      | Set the domain range of the data                                                       | `number[]`                                              | Min and max range of input data       |          |
-| domainMin   | Set the minimum value of the data domain                                               | `number`                                                | Minimum value of input data            |          |
-| domainMax   | Set the maximum value of the data domain                                               | `number`                                                | Maximum value of input data            |          |
-| range       | Set the range of mapped values                                                         | `number[]` \| `string[]`                                | `[0, 1]`                               |          |
-| rangeMin    | Set the minimum value of the mapped range                                              | `number \| string`                                      | `0`                                    |          |
-| rangeMax    | Set the maximum value of the mapped range                                              | `number \| string`                                      | `1`                                    |          |
-| unknown     | Return value for `undefined`, `NaN`, `null` empty values                               | `any`                                                   | `undefined`                            |          |
-| tickCount   | Set the recommended number of ticks to generate; tickCount is only a suggestion       | `number`                                                | `5`                                    |          |
-| tickMethod  | Set the method for generating ticks, commonly used for custom ticks                    | `(min: number, max: number, count: number) => number[]` | `calculateLogTicks`                    |          |
-| round       | Round output values                                                                    | `boolean`                                               | `false`                                |          |
-| clamp       | Limit mapped values to the range                                                      | `boolean`                                               | `false`                                |          |
-| nice        | Extend domain range to make output ticks display more friendly                         | `boolean`                                               | `false`                                |          |
-| interpolate | Custom interpolation function                                                          | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |          |
-| base        | Set the logarithmic base                                                               | `number`                                                | `10`                                   |          |
+| Property    | Description                                                                     | Type                                                    | Default Value                          | Required |
+| ----------- | ------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | -------- |
+| domain      | Set the domain range of the data                                                | `number[]`                                              | Min and max range of input data        |          |
+| domainMin   | Set the minimum value of the data domain                                        | `number`                                                | Minimum value of input data            |          |
+| domainMax   | Set the maximum value of the data domain                                        | `number`                                                | Maximum value of input data            |          |
+| range       | Set the range of mapped values                                                  | `number[]` \| `string[]`                                | `[0, 1]`                               |          |
+| rangeMin    | Set the minimum value of the mapped range                                       | `number \| string`                                      | `0`                                    |          |
+| rangeMax    | Set the maximum value of the mapped range                                       | `number \| string`                                      | `1`                                    |          |
+| unknown     | Return value for `undefined`, `NaN`, `null` empty values                        | `any`                                                   | `undefined`                            |          |
+| tickCount   | Set the recommended number of ticks to generate; tickCount is only a suggestion | `number`                                                | `5`                                    |          |
+| tickMethod  | Set the method for generating ticks, commonly used for custom ticks             | `(min: number, max: number, count: number) => number[]` | `calculateLogTicks`                    |          |
+| round       | Round output values                                                             | `boolean`                                               | `false`                                |          |
+| clamp       | Limit mapped values to the range                                                | `boolean`                                               | `false`                                |          |
+| nice        | Extend domain range to make output ticks display more friendly                  | `boolean`                                               | `false`                                |          |
+| interpolate | Custom interpolation function                                                   | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |          |
+| base        | Set the logarithmic base                                                        | `number`                                                | `10`                                   |          |
 
 Configuration and notes:
 
@@ -113,7 +113,7 @@ If you need a minimum value `domainMin: 0`, please refer to the [Chart Examples 
 
 ### Format conversion to `linear`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

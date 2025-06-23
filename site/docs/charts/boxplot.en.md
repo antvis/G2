@@ -36,7 +36,7 @@ The main components of a box plot include:
 - **Whiskers**: Line segments extending from the box, typically extending to the farthest data point within 1.5 times the interquartile range (IQR)
 - **Outliers**: Data points beyond the whisker range, displayed as individual point markers
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -76,7 +76,7 @@ chart.render();
 
 Box plots are ideal tools for analyzing data distribution, quickly identifying central tendency, dispersion, and skewed distribution of data.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -117,7 +117,7 @@ Box plots can visually display outliers in data, helping to identify data points
 
 By displaying multiple box plots side by side, you can effectively compare data distribution differences between different groups.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -171,7 +171,7 @@ For trend analysis of time series data, [line charts](/en/charts/line) or [area 
 
 By setting different colors and series, you can compare data distributions across multiple dimensions within the same chart.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -209,7 +209,7 @@ chart.render();
 
 When category labels are too long, horizontal box plots can be used to improve readability.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -248,7 +248,7 @@ chart.render();
 
 In certain scenarios, outliers can be hidden to focus only on the overall data distribution.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

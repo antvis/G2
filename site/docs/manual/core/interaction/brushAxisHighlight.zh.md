@@ -195,7 +195,7 @@ chart.emit('brushAxis:remove', {});
 
 ### 平行坐标系框选高亮
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -287,7 +287,7 @@ chart.render();
 
 ### 自定义手柄样式
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

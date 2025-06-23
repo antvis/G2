@@ -65,7 +65,7 @@ return chart.getContainer();
 
 `clip = false` 时，不会对超出绘制区域的图形进行截断。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -108,7 +108,7 @@ chart.render();
 
 如果不希望绘制超出绘制区域的图形，需要配置`clip = true`，此时 类似于 `point` 标记的图形可能被截断，可以通过调整 `inset` 大小来解决。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -246,7 +246,7 @@ const chart = new Chart({
 
 配置图表主题，目前 g2 内置有三种主题模式，如需要自定义配置，可以先通过 `register` 注册主题，再设置主题 key。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Light, register, Chart } from '@antv/g2';
 
 // 定义主题
@@ -340,7 +340,7 @@ const chart = new Chart({
 
 G2 提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例

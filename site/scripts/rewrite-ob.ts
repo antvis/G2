@@ -12,7 +12,7 @@ import * as path from 'path';
  * import { Chart } from "@antv/g2"
  * const chart = new Chart({ container: 'container',...options });
  *
- * Also ensures that ```js | ob {} includes autoMount: true
+ * Also ensures that ```js | ob {} includes inject true
  */
 
 // Regular expression to match ob code blocks with chart
@@ -84,42 +84,42 @@ function transformG2APIs(content: string): string {
 }
 
 /**
- * Ensure autoMount: true is included in ob options
+ * Ensure inject true is included in ob options
  * @param obOptions The options string like ' { pin: false }' or ''
- * @returns Updated options string with autoMount: true
+ * @returns Updated options string with inject true
  */
 function ensureAutoMount(obOptions: string): string {
-  // If there are no options, add them with autoMount: true
+  // If there are no options, add them with inject true
   if (!obOptions || obOptions.trim() === '') {
-    return ' { autoMount: true }';
+    return ' { inject true }';
   }
 
   // Check if there are already options
   const trimmed = obOptions.trim();
   if (!trimmed.includes('{')) {
-    return ` { autoMount: true }`;
+    return ` { inject true }`;
   }
 
   // Parse the options to see if autoMount already exists
   const optionsMatch = trimmed.match(/\{(.*)\}/);
   if (!optionsMatch) {
-    return ` { autoMount: true }`;
+    return ` { inject true }`;
   }
 
   const optionsContent = optionsMatch[1].trim();
   if (optionsContent === '') {
-    return ` { autoMount: true }`;
+    return ` { inject true }`;
   }
 
   // Check if autoMount already exists
-  if (optionsContent.includes('autoMount:')) {
+  if (optionsContent.includes('inject')) {
     return obOptions;
   }
 
-  // Add autoMount: true to existing options
+  // Add inject true to existing options
   const updatedOptions = trimmed.replace(/\{(.*)\}/, (match, content) => {
     const separator = content.trim() ? ', ' : '';
-    return `{ ${content}${separator}autoMount: true }`;
+    return `{ ${content}${separator}inject true }`;
   });
 
   return ` ${updatedOptions}`;
@@ -138,7 +138,7 @@ function processFile(filePath: string): void {
     content = content.replace(
       OB_CODE_BLOCK_REGEX,
       (match, obOptions: string, codeContent: string) => {
-        // Ensure autoMount: true is included in ob options
+        // Ensure inject true is included in ob options
         const updatedObOptions = ensureAutoMount(obOptions);
 
         // Replace G2.Chart with Chart instance in the code content

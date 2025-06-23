@@ -28,7 +28,7 @@ Note: Jitter is a visual adjustment method that may slightly change the precise 
 
 Let's start with a simple example, drawing a scatter plot where data points overlap at certain positions:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -58,7 +58,7 @@ After applying `jitter`, these points will be randomly offset by a small distanc
 
 Here's a more complex scatter plot example using `jitter` to avoid data point overlap:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

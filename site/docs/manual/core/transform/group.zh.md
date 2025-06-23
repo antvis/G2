@@ -122,7 +122,7 @@ type Reducer =
 
 以下是一个简单的示例，展示如何使用 `group` 函数对数据进行分组并绘制分组柱状图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -169,7 +169,7 @@ chart.render();
 下面我们根据具体的数据来进行分组，使用 `group` 函数对数据进行分组处理，并在图表中展示不同的分组结果。
 下面这个示例展示了如何使用 `group` 函数对数据进行分组并去最大值（`max`），并在图表中展示不同的分组结果。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

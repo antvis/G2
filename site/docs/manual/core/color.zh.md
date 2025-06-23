@@ -29,7 +29,7 @@ order: 18
 
 当设置颜色比例尺为恒等比例尺（Identity）的时候，color 通道的数据会被作为视觉数据绘制到最后的可视化中，但是不会去生成比例尺。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -55,7 +55,7 @@ chart.render();
 
 ### Range
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -85,7 +85,7 @@ chart.render();
 
 G2 中可以通过设置 `scale.palette` 去指定色板。这个色板可以是离散的：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -110,7 +110,7 @@ chart.render();
 
 同时也可以是连续的：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -445,7 +445,7 @@ G2 提供了一些内置的色板，可以直接使用，并支持 [d3-scale-chr
 
 如果内置的色板不能满足你的要求，也可以试试自定义色板，以下是一个简单的例子，展示了如何自定义注册色板和使用。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { register, Chart } from '@antv/g2';
 
 register('palette.custom', customPalette);
@@ -491,7 +491,7 @@ chart.interval().scale('color', {
 
 通过 `mark.style` 来设置颜色，这里设置的颜色比 `encode.color` 的优先级更高，同时不会生成图例。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

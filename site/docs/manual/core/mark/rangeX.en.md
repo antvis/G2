@@ -7,7 +7,7 @@ order: 21
 
 Uses a set of `x` values (x1, x2) to position a rectangular area drawn on the x-axis, commonly used for highlighting specific areas.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 /**
@@ -70,36 +70,36 @@ chart.rangeX().data([new Date('2010'), new Date('2011')]);
 
 ## Configuration
 
-| Property | Description                                                                                                                                  | Type              | Default | Required |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
+| Property | Description                                                                                                                                                            | Type              | Default | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
 | encode   | Configure the visual channels of the `rangeX` mark, including `x`, `y`, `color`, `shape`, etc., to specify the relationship between visual element properties and data | [encode](#encode) | -       | ✓        |
-| style    | Configure the graphic style of the `rangeX` mark                                                                                             | [style](#style)   | -       |          |
+| style    | Configure the graphic style of the `rangeX` mark                                                                                                                       | [style](#style)   | -       |          |
 
 ### encode
 
 Configure the visual channels of the `rangeX` mark.
 
-| Property | Description                                                                                   | Type     | Default | Required |
-| -------- | --------------------------------------------------------------------------------------------- | -------- | ------- | -------- |
+| Property | Description                                                                                     | Type     | Default | Required |
+| -------- | ----------------------------------------------------------------------------------------------- | -------- | ------- | -------- |
 | x        | Bind the `x` property channel of the `rangeX` mark, usually a time or ordinal field from `data` | `string` | -       | ✓        |
 
 For more `encode` configurations, you can check the [Encode](/en/manual/core/encode) introduction page.
 
 ### style
 
-| Property      | Description                                                                                                                                                                          | Type                                              | Default   | Required |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | --------- | -------- |
-| fill          | Fill color of the graphic                                                                                                                                                            | `string` \| `Function<string>`                    | -         |          |
-| fillOpacity   | Fill opacity of the graphic                                                                                                                                                          | `number` \| `Function<number>`                    | -         |          |
-| stroke        | Stroke of the graphic                                                                                                                                                                | `string` \| `Function<string>`                    | -         |          |
-| strokeOpacity | Stroke opacity                                                                                                                                                                       | `number` \| `Function<number>`                    | -         |          |
-| lineWidth     | Width of the graphic stroke                                                                                                                                                          | `number` \| `Function<number>`                    | -         |          |
+| Property      | Description                                                                                                                                                                         | Type                                              | Default   | Required |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | --------- | -------- |
+| fill          | Fill color of the graphic                                                                                                                                                           | `string` \| `Function<string>`                    | -         |          |
+| fillOpacity   | Fill opacity of the graphic                                                                                                                                                         | `number` \| `Function<number>`                    | -         |          |
+| stroke        | Stroke of the graphic                                                                                                                                                               | `string` \| `Function<string>`                    | -         |          |
+| strokeOpacity | Stroke opacity                                                                                                                                                                      | `number` \| `Function<number>`                    | -         |          |
+| lineWidth     | Width of the graphic stroke                                                                                                                                                         | `number` \| `Function<number>`                    | -         |          |
 | lineDash      | Dashed stroke configuration. The first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke | `[number,number]` \| `Function<[number, number]>` | -         |          |
-| opacity       | Overall opacity of the graphic                                                                                                                                                       | `number` \| `Function<number>`                    | -         |          |
-| shadowColor   | Shadow color of the graphic                                                                                                                                                          | `string` \| `Function<string>`                    | -         |          |
-| shadowBlur    | Gaussian blur coefficient of the graphic shadow                                                                                                                                      | `number` \| `Function<number>`                    | -         |          |
-| shadowOffsetX | Horizontal distance of the shadow from the graphic                                                                                                                                   | `number` \| `Function<number>`                    | -         |          |
-| shadowOffsetY | Vertical distance of the shadow from the graphic                                                                                                                                     | `number` \| `Function<number>`                    | -         |          |
+| opacity       | Overall opacity of the graphic                                                                                                                                                      | `number` \| `Function<number>`                    | -         |          |
+| shadowColor   | Shadow color of the graphic                                                                                                                                                         | `string` \| `Function<string>`                    | -         |          |
+| shadowBlur    | Gaussian blur coefficient of the graphic shadow                                                                                                                                     | `number` \| `Function<number>`                    | -         |          |
+| shadowOffsetX | Horizontal distance of the shadow from the graphic                                                                                                                                  | `number` \| `Function<number>`                    | -         |          |
+| shadowOffsetY | Vertical distance of the shadow from the graphic                                                                                                                                    | `number` \| `Function<number>`                    | -         |          |
 | cursor        | Mouse cursor style. Same as CSS cursor style, default 'default'                                                                                                                     | `string` \| `Function<string>`                    | 'default' |          |
 
 For more `style` configurations, you can check the [Style](/en/manual/core/style) introduction page.

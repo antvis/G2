@@ -11,7 +11,7 @@ order: 12
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -62,7 +62,7 @@ chart.render();
 
 `color` 视觉通道影响 `line` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -101,7 +101,7 @@ chart.render();
 
 但是有些特殊情况下也会映射的连续字段上，对不同区间的数值对应的图形使用不同的颜色：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -147,7 +147,7 @@ chart.render();
 
 `series` 视觉通道对数据进行分组，用于绘制系列折线图。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -201,7 +201,7 @@ chart.render();
 | hvh    | 绘制阶梯折线图，竖横竖，中点连接                                     |
 | trail  | 绘制轨迹，类似一个笔迹，当配置了 `size` 通道时，用来绘制粗细变化的线 |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -275,7 +275,7 @@ chart.render();
 
 绑定 `line` 标记的 `size` 属性通道，改变图形标记的大小， 对于折线来说，`size` 视觉通道映射在线的宽度上，一般配合`shape`通道的 `trail` 形状一起使用。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -317,7 +317,7 @@ chart.render();
 
 在**极坐标系**下折线图的表现形式为雷达图，在极坐标下线区域图需要进行闭合。常用来绘制雷达图等。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -375,7 +375,7 @@ chart.render();
 
 在**parallel 坐标系**下折线图常用来绘制平行坐标系。平行坐标系，是一种含有多个垂直平行坐标轴的统计图表。每个垂直坐标轴表示一个字段，每个字段又用刻度来标明范围。这样，一个多维的数据可以很容易的在每一条轴上找到“落点”，从而连接起来，形成一条折线。随着数据增多，折线堆叠，分析者则有可能从中发现特性和规律，比如发现数据之间的聚类关系。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -475,7 +475,55 @@ chart.render();
 
 尝试一下：
 
-<Playground path="style/general/line/demo/line-style.ts" rid="mark-line-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/doughnut-purchases.json',
+    transform: [
+      // Mock missing data.
+      {
+        type: 'map',
+        callback: (d) => ({
+          ...d,
+          count: ['2004'].includes(d.year) ? NaN : d.count,
+        }),
+      },
+    ],
+  },
+  style: {
+    gradient: 'x',
+    gradientColor: 'start',
+    lineJoin: 'round',
+    connect: true,
+    connectStroke: '#aaa',
+    connectLineWidth: 1,
+    connectLineDash: [2, 4],
+    lineWidth: 3,
+    opacity: 0.9,
+    shadowColor: '#d3d3d3',
+    shadowBlur: 10,
+    shadowOffsetX: 10,
+    shadowOffsetY: 10,
+  },
+  encode: { x: 'year', y: 'count', color: 'year', shape: 'smooth' },
+  scale: { y: { zero: true, nice: true } },
+  axis: { y: { labelFormatter: '~s' } },
+  labels: [
+    {
+      text: 'count',
+    },
+  ],
+});
+
+chart.render();
+
+```
 
 ## 示例
 
@@ -483,7 +531,7 @@ chart.render();
 
 配置 `y` 通道的比例尺 `scale`，自定义 y 轴的值域。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

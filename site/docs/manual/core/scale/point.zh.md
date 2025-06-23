@@ -15,7 +15,7 @@ order: 2
 
 ### 映射效果示意图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -92,7 +92,7 @@ paddingOuter: 0.5 // // 内部赋值
 
 ### 散点图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -116,7 +116,7 @@ chart.render();
 
 ### 色块图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -28,7 +28,7 @@ jitter 是一种数据处理或调整方法，主要用于解决数据点重叠�
 
 我们先从简单的例子来，绘制一个散点图，数据点在某些位置重叠：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -58,7 +58,7 @@ chart.render();
 
 下面是一个散点图的复杂例子，使用 `jitter` 来避免数据点重叠：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

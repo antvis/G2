@@ -91,29 +91,29 @@ It can also be configured at the View level. Interactions declared on the view w
 
 ## Configuration Options
 
-| Property | Description                       | Type          | Default            | Required |
-| -------- | --------------------------------- | ------------- | ------------------ | -------- |
-| reverse  | Whether to reverse brush          | boolean       | false              |          |
-| mask     | Style of brush area mask          | [mask](#mask) | See [mask](#mask)  |          |
+| Property | Description              | Type          | Default           | Required |
+| -------- | ------------------------ | ------------- | ----------------- | -------- |
+| reverse  | Whether to reverse brush | boolean       | false             |          |
+| mask     | Style of brush area mask | [mask](#mask) | See [mask](#mask) |          |
 
 ### mask
 
 Configure the style of the brush area mask.
 
-| Property          | Description                                                                                                        | Type            | Default   | Required |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------ | --------------- | --------- | -------- |
-| maskFill          | Mask fill color                                                                                                    | string          | `#777`    |          |
-| maskFillOpacity   | Mask fill opacity                                                                                                  | number          | 0.3       |          |
-| maskStroke        | Mask stroke                                                                                                        | string          | `#fff`    |          |
-| maskStrokeOpacity | Stroke opacity                                                                                                     | number          |           |          |
-| maskLineWidth     | Mask stroke width                                                                                                  | number          |           |          |
+| Property          | Description                                                                                                             | Type            | Default   | Required |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------- | --------- | -------- |
+| maskFill          | Mask fill color                                                                                                         | string          | `#777`    |          |
+| maskFillOpacity   | Mask fill opacity                                                                                                       | number          | 0.3       |          |
+| maskStroke        | Mask stroke                                                                                                             | string          | `#fff`    |          |
+| maskStrokeOpacity | Stroke opacity                                                                                                          | number          |           |          |
+| maskLineWidth     | Mask stroke width                                                                                                       | number          |           |          |
 | maskLineDash      | Stroke dash configuration. First value is dash length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] |           |          |
-| maskOpacity       | Mask overall opacity                                                                                               | number          |           |          |
-| maskShadowColor   | Mask shadow color                                                                                                  | string          |           |          |
-| maskShadowBlur    | Mask shadow Gaussian blur coefficient                                                                              | number          |           |          |
-| maskShadowOffsetX | Set horizontal distance of shadow from mask                                                                        | number          |           |          |
-| maskShadowOffsetY | Set vertical distance of shadow from mask                                                                          | number          |           |          |
-| maskCursor        | Mouse cursor style. Same as CSS cursor style                                                                       | string          | `default` |          |
+| maskOpacity       | Mask overall opacity                                                                                                    | number          |           |          |
+| maskShadowColor   | Mask shadow color                                                                                                       | string          |           |          |
+| maskShadowBlur    | Mask shadow Gaussian blur coefficient                                                                                   | number          |           |          |
+| maskShadowOffsetX | Set horizontal distance of shadow from mask                                                                             | number          |           |          |
+| maskShadowOffsetY | Set vertical distance of shadow from mask                                                                               | number          |           |          |
+| maskCursor        | Mouse cursor style. Same as CSS cursor style                                                                            | string          | `default` |          |
 
 When configuring the mask style of the brush area, it's not configured as an object, but using the `mask` prefix with property names.
 
@@ -174,7 +174,7 @@ chart.emit('brush:filter', {
 
 ## Examples
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

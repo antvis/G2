@@ -27,7 +27,7 @@ The basic principles of fisheye coordinate systems are:
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -84,12 +84,12 @@ Fisheye coordinate systems are particularly suitable for the following scenarios
 
 The configuration options for fisheye coordinate systems are as follows:
 
-| Property    | Description                                     | Type      | Default | Required |
-| ----------- | ----------------------------------------------- | --------- | ------- | -------- |
-| focusX      | X-direction position of fisheye transform center | `number`  | `0`     |          |
-| focusY      | Y-direction position of fisheye transform center | `number`  | `0`     |          |
-| distortionX | X-direction distortion magnitude of fisheye transform | `number` | `2`     |          |
-| distortionY | Y-direction distortion magnitude of fisheye transform | `number` | `2`     |          |
+| Property    | Description                                                   | Type      | Default | Required |
+| ----------- | ------------------------------------------------------------- | --------- | ------- | -------- |
+| focusX      | X-direction position of fisheye transform center              | `number`  | `0`     |          |
+| focusY      | Y-direction position of fisheye transform center              | `number`  | `0`     |          |
+| distortionX | X-direction distortion magnitude of fisheye transform         | `number`  | `2`     |          |
+| distortionY | Y-direction distortion magnitude of fisheye transform         | `number`  | `2`     |          |
 | visual      | Whether focusX and focusY values are visual coordinate points | `boolean` | `false` |          |
 
 ### Parameter Description
@@ -104,7 +104,7 @@ The configuration options for fisheye coordinate systems are as follows:
 
 The simplest usage is to set a fixed fisheye focus, suitable for scenarios that need to highlight specific areas.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 By adding interaction components, you can implement dynamic fisheye effects where the focus changes with mouse movement.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -196,7 +196,7 @@ chart.render();
 
 Here's a complete example that combines fisheye coordinate systems with scatter plots, showing how to use fisheye effects to analyze multi-dimensional data:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -280,7 +280,7 @@ This example demonstrates how to use fisheye coordinate systems to analyze multi
 
 Fisheye coordinate system transformations can be combined with other coordinate system transformations, such as combining with transpose transformation:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

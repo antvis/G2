@@ -60,7 +60,7 @@ similar: ['histogram', 'multi-set-bar', 'stacked-bar', 'radial-bar']
 | Shooter           | 3,500          |
 | Other             | 1,500          |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -109,7 +109,7 @@ chart.render();
 | 河北省           | 71,854,210             |
 | ...              | ...                    |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -195,7 +195,7 @@ chart.render();
 
 使用横向柱状图，文本可以横向排布，便于用户的阅读，效果如下：
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -263,7 +263,7 @@ chart.render();
 
 柱状图使用矩形的长度（宽度）来对比分类数据的大小，非常方便临近的数据进行大小的对比，不适合展示连续数据的趋势。下图本想展示 ACME 这只股票在 2015 年 9 月份整个月的每日的价格走势，但是效果不尽人意。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -329,7 +329,7 @@ chart.render();
 
 随着有序的时间变化的数值趋势，更适合使用[折线图](/charts/line)或者[面积图](/charts/area)。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

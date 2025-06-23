@@ -63,7 +63,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 Each mark can have multiple labels. Here's a simple example:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -112,7 +112,7 @@ chart.render();
 
 `label` text element content configuration
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -170,7 +170,7 @@ For marks that correspond to multiple data items per graphic, we can use `select
 - `last` - Last one
 - `function` - Custom selector
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -251,7 +251,7 @@ Targets chaotic situations caused by crowded overlapping labels, adjusting overl
 
 ##### Problem Case
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -282,7 +282,7 @@ chart.render();
 
 ##### Configure `overlapDodgeY` Label Transformation
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 When some graphic colors are close to label colors, visibility issues occur.
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 Optimizes unclear `label` colors.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -409,7 +409,36 @@ Hides `label` that exceeds corresponding graphics. Note: Some special charts hav
 
 Try this:
 
-<Playground path="style/general/sunburst/demo/sunburst-label.ts" rid="sunburst-label"></playground>
+```js | ob { inject: true }
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
+
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .sunburst()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  })
+  .encode('value', 'sum')
+  .label({
+    text: 'name',
+    transform: [
+      {
+        type: 'overflowHide',
+      },
+    ],
+  });
+
+chart.render();
+
+```
 
 #### overlapHide
 
@@ -419,7 +448,7 @@ Try this:
 
 When some graphic colors are close to label colors, visibility issues occur.
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -452,7 +481,7 @@ chart.render();
 
 Optimizes unclear `label` colors.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -490,7 +519,7 @@ chart.render();
 
 `label` will exceed the chart, and the exceeding part will be cut off.
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -521,7 +550,7 @@ chart.render();
 
 Optimizes direction for `label` that exceeds the view.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -555,7 +584,7 @@ chart.render();
 
 Supports 9 positions: `top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, ChartEvent } = G2;
 const chart = new Chart({
   container: 'container',
@@ -742,7 +771,7 @@ Label **connector line style** configuration, format: `connector${style}`, e.g.,
 | connectorCursor        | Mouse cursor style. Same as CSS cursor style                                                                                       | _string_            | `default`     |          |
 | connectorDistance      | Distance between connector line and text                                                                                           | _number_            | -             |          |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -804,7 +833,7 @@ Label **text background box style** configuration, format: `background${style}`,
 | backgroundRadius        | Background box border radius                                                                                                              | _number_            | -             |          |
 | backgroundPadding       | Background box inner padding                                                                                                              | _number[]_          | -             |          |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

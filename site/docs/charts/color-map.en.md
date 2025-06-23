@@ -24,14 +24,14 @@ It's important to note that when there are too many categories in a color map, i
 
 <img alt="color-map-basic" src="https://os.alipayobjects.com/rmsportal/nbdQjrGfLveruGA.png" width=600 />
 
-| Chart Type | Basic Color Map |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| Suitable Data | Datasets with two categorical dimensions and one numerical dimension |
-| Function | Display relationships between two categorical dimensions and one numerical variable |
+| Chart Type             | Basic Color Map                                                                                                                                                |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Datasets with two categorical dimensions and one numerical dimension                                                                                           |
+| Function               | Display relationships between two categorical dimensions and one numerical variable                                                                            |
 | Data-to-Visual Mapping | Two categorical data dimensions mapped to grid rows and columns<br>Numerical data mapped to color depth<br>Text labels can be added to display specific values |
-| Suitable Data Count | Usually no more than 20 categories per dimension, with total cells recommended not to exceed 400 |
+| Suitable Data Count    | Usually no more than 20 categories per dimension, with total cells recommended not to exceed 400                                                               |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -72,7 +72,7 @@ chart.options({
         x: 'month',
         y: 'product',
         color: 'sales',
-        link: 'sales'
+        link: 'sales',
       },
       style: {
         inset: 1,
@@ -108,14 +108,14 @@ chart.render();
 
 <img alt="color-map-conditional" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dt1gSZ4uiz8AAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| Chart Type | Color Map with Conditional Formatting |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| Suitable Data | Datasets that need to highlight specific thresholds or ranges |
-| Function | Apply different color encodings based on different value ranges, highlighting key data points |
-| Data-to-Visual Mapping | In addition to basic color map mappings, custom color intervals and boundary markers can be added |
-| Usage Suggestions | Add clear legend explanations for different color intervals<br>Use contrasting colors to represent different data states<br>Avoid using too many color intervals which can cause confusion |
+| Chart Type             | Color Map with Conditional Formatting                                                                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Suitable Data          | Datasets that need to highlight specific thresholds or ranges                                                                                                                              |
+| Function               | Apply different color encodings based on different value ranges, highlighting key data points                                                                                              |
+| Data-to-Visual Mapping | In addition to basic color map mappings, custom color intervals and boundary markers can be added                                                                                          |
+| Usage Suggestions      | Add clear legend explanations for different color intervals<br>Use contrasting colors to represent different data states<br>Avoid using too many color intervals which can cause confusion |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,14 +145,19 @@ const data = [
 ];
 
 // Calculate performance status for each cell
-const processedData = data.map(d => ({
+const processedData = data.map((d) => ({
   ...d,
   // Calculate ratio to target
   performance: d.sales / d.target,
   // Add status label
-  status: d.sales < d.target * 0.8 ? 'Below Target' : 
-          d.sales < d.target ? 'Near Target' : 
-          d.sales < d.target * 1.2 ? 'Met Target' : 'Exceeded Target'
+  status:
+    d.sales < d.target * 0.8
+      ? 'Below Target'
+      : d.sales < d.target
+      ? 'Near Target'
+      : d.sales < d.target * 1.2
+      ? 'Met Target'
+      : 'Exceeded Target',
 }));
 
 chart.options({
@@ -175,11 +180,11 @@ chart.options({
       },
       labels: [
         {
-          text: d => `${d.sales}/${d.target}`,
+          text: (d) => `${d.sales}/${d.target}`,
           style: {
             fill: (d) => (d.performance > 0.95 ? '#fff' : '#000'),
             textAlign: 'center',
-            fontSize: 11
+            fontSize: 11,
           },
         },
       ],
@@ -211,13 +216,13 @@ Example 1: **Hangzhou Metro Fare Chart**
 
 The chart below is a simulation of Hangzhou Metro fare chart. This color map shows the fare relationship between different metro stations, with color depth representing different fare levels. You can quickly identify fare zones and the cost of traveling between any two stations.
 
-| from | to | price |
-| ------------- | --------------- | --------------- |
-| Xianghu | Binhe Road | 2 |
-| Xianghu | Xixing | 3 |
-| ... | ... | ... |
+| from    | to         | price |
+| ------- | ---------- | ----- |
+| Xianghu | Binhe Road | 2     |
+| Xianghu | Xixing     | 3     |
+| ...     | ...        | ...   |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -228,11 +233,31 @@ const chart = new Chart({
 
 // Metro stations on Line 1
 const sites = [
-  "Xianghu", "Binkang Road", "Xixing", "Binhe Road", "Jiangling Road", "Jinjiang",
-  "Wujiang Road", "Chengzhan", "Ding'an Road", "Longxiang Bridge", "Fengqi Road", 
-  "Wulin Square", "West Lake Cultural Square", "Datieguan", "East Railway Station", 
-  "Zhalongkou", "Pengbu", "Qibao", "Jiuhe Road", "Jiubao", "Passenger Transport Center", 
-  "Xiaxi West", "Jinsha Lake", "Gaosha Road", "Wenze Road"
+  'Xianghu',
+  'Binkang Road',
+  'Xixing',
+  'Binhe Road',
+  'Jiangling Road',
+  'Jinjiang',
+  'Wujiang Road',
+  'Chengzhan',
+  "Ding'an Road",
+  'Longxiang Bridge',
+  'Fengqi Road',
+  'Wulin Square',
+  'West Lake Cultural Square',
+  'Datieguan',
+  'East Railway Station',
+  'Zhalongkou',
+  'Pengbu',
+  'Qibao',
+  'Jiuhe Road',
+  'Jiubao',
+  'Passenger Transport Center',
+  'Xiaxi West',
+  'Jinsha Lake',
+  'Gaosha Road',
+  'Wenze Road',
 ];
 
 // Generate metro fare data
@@ -302,7 +327,15 @@ chart.options({
   scale: {
     color: {
       domain: [2, 3, 4, 5, 6, 7, 8],
-      range: ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4', '#2c7fb8', '#253494', '#081d58'],
+      range: [
+        '#ffffcc',
+        '#c7e9b4',
+        '#7fcdbb',
+        '#41b6c4',
+        '#2c7fb8',
+        '#253494',
+        '#081d58',
+      ],
     },
     from: {
       values: sites,
@@ -331,6 +364,7 @@ chart.render();
 ```
 
 **Analysis**:
+
 - Station names are mapped to the `x` and `y` axis to determine position
 - Fare prices are mapped to color depth
 - Fare data is simulated and only represents general relationships
@@ -338,7 +372,7 @@ chart.render();
 
 Example 2: **Exam Score Analysis**
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -346,19 +380,35 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const students = ['Alex', 'Ben', 'Charlie', 'David', 'Emma', 'Frank', 'Grace', 'Helen'];
-const subjects = ['Math', 'English', 'Physics', 'Chemistry', 'Biology', 'History'];
+const students = [
+  'Alex',
+  'Ben',
+  'Charlie',
+  'David',
+  'Emma',
+  'Frank',
+  'Grace',
+  'Helen',
+];
+const subjects = [
+  'Math',
+  'English',
+  'Physics',
+  'Chemistry',
+  'Biology',
+  'History',
+];
 
 // Generate score data
 const data = [];
-students.forEach(student => {
-  subjects.forEach(subject => {
+students.forEach((student) => {
+  subjects.forEach((subject) => {
     // Random score between 50-100
     const score = Math.floor(Math.random() * 51) + 50;
     data.push({
       student,
       subject,
-      score
+      score,
     });
   });
 });
@@ -416,7 +466,7 @@ Example 1: **Too Few Data Points**
 
 When a dataset has only a few category intersections, a color map may not be the best choice. In such cases, a simple table or bar chart might be more intuitive.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -459,7 +509,7 @@ chart.render();
 
 In this case, using a bar chart would be more intuitive:
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -474,10 +524,10 @@ chart.options({
     { region: 'East', year: '2022', value: 125 },
     { region: 'West', year: '2022', value: 87 },
   ],
-  encode: { 
-    x: 'region', 
-    y: 'value', 
-    color: 'region' 
+  encode: {
+    x: 'region',
+    y: 'value',
+    color: 'region',
   },
   labels: [
     {
@@ -494,7 +544,7 @@ Example 2: **Need to Show Precise Trend Changes**
 
 When you need to show precise changes in trends over time, a color map is not as intuitive as a line chart. Below is an example of using a color map to show monthly data changes, but this situation is better suited for a line chart.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -502,11 +552,24 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 const data = months.map((month, index) => ({
   month,
   metric: 'Sales',
-  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10
+  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10,
 }));
 
 chart.options({
@@ -526,7 +589,7 @@ chart.options({
       },
       labels: [
         {
-          text: d => d.value.toFixed(0),
+          text: (d) => d.value.toFixed(0),
         },
       ],
     },
@@ -538,7 +601,7 @@ chart.render();
 
 Using a line chart is more suitable for showing trends:
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -546,19 +609,32 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 const data = months.map((month, index) => ({
   month,
-  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10
+  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10,
 }));
 
 chart.options({
   type: 'line',
   autoFit: true,
   data,
-  encode: { 
-    x: 'month', 
-    y: 'value' 
+  encode: {
+    x: 'month',
+    y: 'value',
   },
   style: {
     lineWidth: 2,
@@ -569,7 +645,7 @@ chart.options({
   },
   labels: [
     {
-      text: d => d.value.toFixed(0),
+      text: (d) => d.value.toFixed(0),
       position: 'top',
     },
   ],
@@ -582,23 +658,24 @@ chart.render();
 
 ### Color Maps, [Heat Maps](/en/charts/heatmap), and [Treemaps](/en/charts/treemap)
 
-| Chart Type | Main Features | Suitable Scenarios | Data Requirements |
-|---------|---------|---------|---------|
-| Color Map | Uses a regular grid to show intersections of two categorical dimensions | Comparing relationships between categorical data | Two categorical dimensions and one numerical dimension |
-| Heat Map | Can use continuous scales, showing spatial distribution of data | Displaying spatial density or intensity distribution | Usually requires continuous or near-continuous data |
-| Treemap | Displays hierarchical data through nested rectangles | Representing proportional relationships in hierarchical data | Requires a clear hierarchical structure |
-
+| Chart Type | Main Features                                                           | Suitable Scenarios                                           | Data Requirements                                      |
+| ---------- | ----------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| Color Map  | Uses a regular grid to show intersections of two categorical dimensions | Comparing relationships between categorical data             | Two categorical dimensions and one numerical dimension |
+| Heat Map   | Can use continuous scales, showing spatial distribution of data         | Displaying spatial density or intensity distribution         | Usually requires continuous or near-continuous data    |
+| Treemap    | Displays hierarchical data through nested rectangles                    | Representing proportional relationships in hierarchical data | Requires a clear hierarchical structure                |
 
 ## Best Practices for Color Maps
 
 ### Design Suggestions
 
 1. **Color Selection**
+
    - Use sequential color palettes to represent changes in continuous data magnitude
    - Use diverging color palettes to represent deviation from a center value
    - Add clear legends and explanations for colors
 
 2. **Grid Design**
+
    - Keep grid cell sizes consistent to ensure readability
    - Add value labels in cells to enhance precision
    - Consider adding spaces between cells to improve distinction
@@ -608,7 +685,7 @@ chart.render();
    - Add hover interactions to display detailed information
    - Consider adding sorting functionality for easier data comparison
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -634,7 +711,7 @@ rows.forEach((row) => {
     });
   });
 });
-console.log('data', data)
+console.log('data', data);
 
 chart.options({
   type: 'view',
@@ -683,7 +760,6 @@ chart.options({
 });
 
 chart.render();
-
 ```
 
 ## Similar Charts

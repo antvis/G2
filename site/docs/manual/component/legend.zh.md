@@ -129,7 +129,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 
 图例的位置。默认为 `top`。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -234,7 +234,42 @@ Legend 组件支持调整其在画布中的位置，通过 `layout` 属性来设
 
 尝试一下：
 
-<Playground path="component/legend/demo/position.ts" rid="legend-position"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 50 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      // 图例显示位置 可选 top ｜ bottom | right | left
+      position: 'top',
+      layout: {
+        // 主轴对齐方式 可选 flex-start | flex-end | center
+        justifyContent: 'flex-start',
+        // 交叉轴对齐方式 可选 flex-start | flex-end | center
+        alignItems: 'flex-start',
+        // 主轴方向 可选 row | column
+        flexDirection: 'row',
+      },
+    },
+  },
+});
+
+chart.render();
+```
 
 ### size
 
@@ -326,7 +361,46 @@ Legend 组件在布局的时候的排序。默认为 `1`。G2 内部的组件都
 
 尝试一下:
 
-<Playground path="component/legend/demo/title.ts" rid="legend-title"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 300 });
+
+chart.options({
+  type: 'legends',
+  title: '图例标题',
+  titleSpacing: 0,
+  titleInset: 0,
+  titlePosition: 't',
+  titleFontSize: 16,
+  titleFontFamily: 'sans-serif',
+  titleFontWeight: 500,
+  titleLineHeight: 20,
+  titleTextAlign: 'center',
+  titleTextBaseline: 'middle',
+  titleFill: '#000',
+  titleFillOpacity: 0.9,
+  titleStroke: '#DAF5EC',
+  titleStrokeOpacity: 0.9,
+  titleLineWidth: 2,
+  titleLineDash: [4, 8],
+  titleOpacity: 1,
+  titleShadowColor: '#d3d3d3',
+  titleShadowBlur: 10,
+  titleShadowOffsetX: 10,
+  titleShadowOffsetY: 10,
+  titleCursor: 'pointer',
+  scale: {
+    size: {
+      type: 'linear',
+      domain: [0, 10],
+      range: [0, 100],
+    },
+  },
+});
+
+chart.render();
+```
 
 ### cols
 
@@ -442,7 +516,7 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码
 
 尝试一下：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -712,7 +786,41 @@ chart.render();
 
 接下来，试试结合 `itemMarker`、`itemLabel`、`itemValue`和`itemBackground`的各种属性，来配置一个自定义的图例吧：
 
-<Playground path="component/legend/demo/item-style.ts" rid="legend-item-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+const shapeList = ['bowtie', 'smooth', 'hv', 'rect', 'hollowPoint'];
+const data = [
+  { genre: 'Sports', sold: 50 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      size: 100,
+      itemWidth: 120,
+      // itemMarker
+      itemMarker: (d, index) => shapeList[index],
+      // itemLabel
+      itemLabelFill: 'red',
+      // itemValue
+      itemValueText: (d, index) => data[index]['sold'],
+      // itemBackground
+      itemBackgroundFill: (d) => d.color,
+      itemBackgroundFillOpacity: 0.2,
+    },
+  },
+});
+
+chart.render();
+```
 
 ### itemWidth
 
@@ -840,7 +948,71 @@ chart.render();
 
 尝试一下：
 
-<Playground path="component/legend/demo/nav-style.ts" rid="legend-nav-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', height: 350 });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 50 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      itemWidth: 160,
+      navEffect: 'cubic-bezier',
+      navDuration: 400,
+      navOrientation: 'vertical',
+      navDefaultPage: 2,
+      navLoop: true,
+
+      //配置navPageNum的绘图属性
+      navPageNumFontSize: 16,
+      navPageNumFontFamily: 'sans-serif',
+      navPageNumFontWeight: 500,
+      navPageNumLineHeight: 20,
+      navPageNumTextAlign: 'center',
+      navPageNumTextBaseline: 'middle',
+      navPageNumFill: '#2989FF',
+      navPageNumFillOpacity: 0.9,
+      navPageNumStroke: '#DAF5EC',
+      navPageNumStrokeOpacity: 0.9,
+      navPageNumLineWidth: 2,
+      navPageNumLineDash: [4, 8],
+      navPageNumOpacity: 1,
+      navPageNumShadowColor: '#d3d3d3',
+      navPageNumShadowBlur: 10,
+      navPageNumShadowOffsetX: 10,
+      navPageNumShadowOffsetY: 10,
+      navPageNumCursor: 'pointer',
+
+      // 配置navButton的绘图属性
+      navButtonFill: '#2989FF',
+      navButtonFillOpacity: 0.7,
+      navButtonStroke: '#DAF5EC',
+      navButtonStrokeOpacity: 0.9,
+      navButtonLineWidth: 2,
+      navButtonLineDash: [4, 8],
+      navButtonOpacity: 0.9,
+      navButtonShadowColor: '#d3d3d3',
+      navButtonShadowBlur: 10,
+      navButtonShadowOffsetX: 10,
+      navButtonShadowOffsetY: 10,
+      navButtonCursor: 'pointer',
+
+      navFormatter: (current, total) => `第${current}页/共${total}页`,
+    },
+  },
+});
+
+chart.render();
+```
 
 ### color
 
@@ -1224,7 +1396,7 @@ chart.on('afterrender', () => {
 
 目前暂时还没有内置 API，需要通过手动触发一下 `legendFilter`交互来实现。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart, ChartEvent } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
@@ -1301,7 +1473,7 @@ legend: {
 
 #### 使用图片
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -1476,7 +1648,7 @@ function legendColor(chart) {
 
 绘制完图例项之后我们就应该给每个图例项通过 `item.onclick` 添加交互，收集当前选中的值，并且根据这个值去给图表的声明添加 Filter 转换，最后重新渲染图表。最后完整的实现如下：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 添加图例

@@ -63,7 +63,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 每一个标记都可以有多个标签，下面是一个简单的例子：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -112,7 +112,7 @@ chart.render();
 
 `label` 标签文本元素内容配置
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -170,7 +170,7 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 - `last` - 最后一个
 - `function` - 自定义选择器
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -251,7 +251,7 @@ chart.render();
 
 ##### 问题案例
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -282,7 +282,7 @@ chart.render();
 
 ##### 配置 `overlapDodgeY` 转化标签
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -409,7 +409,36 @@ chart.render();
 
 尝试一下：
 
-<Playground path="style/general/sunburst/demo/sunburst-label.ts" rid="sunburst-label"></playground>
+```js | ob { inject: true }
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
+
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .sunburst()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  })
+  .encode('value', 'sum')
+  .label({
+    text: 'name',
+    transform: [
+      {
+        type: 'overflowHide',
+      },
+    ],
+  });
+
+chart.render();
+
+```
 
 #### overlapHide
 
@@ -419,7 +448,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -452,7 +481,7 @@ chart.render();
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -490,7 +519,7 @@ chart.render();
 
 `label` 标签会超出图表，超出的部分会被截断。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -521,7 +550,7 @@ chart.render();
 
 对超出视图的 `label` 标签进行方向优化。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -555,7 +584,7 @@ chart.render();
 
 支持 9 种位置：`top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, ChartEvent } = G2;
 const chart = new Chart({
   container: 'container',
@@ -742,7 +771,7 @@ chart.render();
 | connectorCursor        | 鼠标样式。同 css 的鼠标样式                                                                                  | _string_            | `default` |      |
 | connectorDistance      | 连接线和文本的距离                                                                                           | _number_            | -         |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -804,7 +833,7 @@ chart.render();
 | backgroundRadius        | 背景框圆角半径                                                                                                   | _number_            | -         |      |
 | backgroundPadding       | 背景框内边距                                                                                                     | _number[]_          | -         |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

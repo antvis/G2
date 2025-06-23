@@ -21,12 +21,12 @@ order: 2
 
 ## Configuration Options
 
-| Property | Description                                          | Type                         | Default |
-| -------- | ---------------------------------------------------- | ---------------------------- | ------- |
+| Property | Description                                                    | Type                         | Default |
+| -------- | -------------------------------------------------------------- | ---------------------------- | ------- |
 | by       | Specify the sorting channel (e.g., 'x', 'color', 'size', etc.) | `string`                     | `'y'`   |
-| reverse  | Whether to reverse the order                         | `boolean`                    | `false` |
-| slice    | Select a slice range (e.g., first N items, interval) | `number \| [number, number]` |         |
-| reducer  | Grouping aggregation method for multi-value comparison | `Reducer`                    | `'max'` |
+| reverse  | Whether to reverse the order                                   | `boolean`                    | `false` |
+| slice    | Select a slice range (e.g., first N items, interval)           | `number \| [number, number]` |         |
+| reducer  | Grouping aggregation method for multi-value comparison         | `Reducer`                    | `'max'` |
 
 ### by
 
@@ -62,7 +62,7 @@ type Reducer =
 
 ### 1. Scatter plot y-axis grouping and sorting
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -90,7 +90,7 @@ chart.render();
 
 ### 2. Show only Top 2 groups (slice)
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

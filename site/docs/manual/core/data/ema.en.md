@@ -31,11 +31,11 @@ Where:
 
 ## Configuration Properties
 
-| Property | Description | Type | Default | Required |
-| -------- | ----------- | ---- | ------- | -------- |
-| field | Name of the field to be smoothed | `string` | `'y'` | ✓ |
-| alpha | Smoothing factor, controls smoothing degree (larger values mean more smoothing) | `number` | `0.6` |  |
-| as | Name of the new field to generate, if not specified will overwrite the original field | `string` | Same as `field` |  |
+| Property | Description                                                                           | Type     | Default         | Required |
+| -------- | ------------------------------------------------------------------------------------- | -------- | --------------- | -------- |
+| field    | Name of the field to be smoothed                                                      | `string` | `'y'`           | ✓        |
+| alpha    | Smoothing factor, controls smoothing degree (larger values mean more smoothing)       | `number` | `0.6`           |          |
+| as       | Name of the new field to generate, if not specified will overwrite the original field | `string` | Same as `field` |          |
 
 > If you need to retain the original field, it's recommended to set the `as` property to output to a new field.
 > This default value is defined internally by the component, not from the theme.
@@ -45,7 +45,7 @@ Where:
 
 ### Base Example: Stock Price Smoothing
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -93,12 +93,12 @@ chart.options({
   ],
 });
 
-chart.render()
+chart.render();
 ```
 
 ### Example 1: Highlighting Trend Changes (Time Series)
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -149,12 +149,12 @@ chart.options({
     },
   ],
 });
-chart.render()
+chart.render();
 ```
 
 ### Example 2: Financial Market Trend Smoothing
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -211,12 +211,12 @@ chart.options({
   ],
 });
 
-chart.render()
+chart.render();
 ```
 
 ### Example 3: Training Process Metric Smoothing
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -265,9 +265,85 @@ chart.options({
     },
   ],
 });
-chart.render()
+chart.render();
 ```
 
 ## Interactive Demo
 
-<Playground path="general/ema/demo/ema-basic.ts" rid="ema-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 300,
+});
+
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      data: {
+        type: 'inline',
+        value: [
+          { x: 0, y: 30 },
+          { x: 1, y: 80 },
+          { x: 2, y: 45 },
+          { x: 3, y: 90 },
+          { x: 4, y: 20 },
+          { x: 5, y: 60 },
+          { x: 6, y: 30 },
+          { x: 7, y: 85 },
+          { x: 8, y: 40 },
+          { x: 9, y: 70 },
+        ],
+        transform: [
+          {
+            type: 'ema',
+            field: 'y',
+            alpha: 0.6,
+            as: 'emaY',
+          },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'emaY',
+      },
+      style: {
+        stroke: '#f90',
+        lineWidth: 2,
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        type: 'inline',
+        value: [
+          { x: 0, y: 30 },
+          { x: 1, y: 80 },
+          { x: 2, y: 45 },
+          { x: 3, y: 90 },
+          { x: 4, y: 20 },
+          { x: 5, y: 60 },
+          { x: 6, y: 30 },
+          { x: 7, y: 85 },
+          { x: 8, y: 40 },
+          { x: 9, y: 70 },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+      },
+      style: {
+        stroke: '#ccc',
+        lineDash: [4, 2],
+      },
+    },
+  ],
+});
+
+chart.render();
+```

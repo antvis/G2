@@ -17,7 +17,7 @@ For detailed information about `Reducer`, please refer to the configuration opti
 
 For example, in corresponding marks, you can use the transform method to apply data transformations. We can use groupY to group and aggregate data. In the example below, we will group the y channel and calculate the minimum and maximum values for each group.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

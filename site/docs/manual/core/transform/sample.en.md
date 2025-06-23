@@ -31,11 +31,11 @@ chart.render();
 
 ## Options
 
-| Property   | Description                                      | Type                   | Default  |
-| ---------- | ------------------------------------------------ | ---------------------- | -------- |
-| groupBy    | Field for data grouping                         | `string` \| `string[]` | `series` |
+| Property   | Description                                          | Type                   | Default  |
+| ---------- | ---------------------------------------------------- | ---------------------- | -------- |
+| groupBy    | Field for data grouping                              | `string` \| `string[]` | `series` |
 | thresholds | Data volume threshold for enabling sampling strategy | `number`               | `2000`   |
-| strategy   | Sampling strategy to use                        | `Strategy`             | `median` |
+| strategy   | Sampling strategy to use                             | `Strategy`             | `median` |
 
 `strategy` has 6 built-in strategies:
 

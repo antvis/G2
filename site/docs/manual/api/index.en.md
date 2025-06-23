@@ -66,7 +66,7 @@ Whether to clip graphics exceeding the drawing area.
 
 With `clip = false`, out-of-bound graphics remain visible:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -103,7 +103,7 @@ chart.render();
 
 Set `clip = true` to enable clipping. Adjust `inset` if points get clipped:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -239,7 +239,7 @@ See [renderer](/manual/extra-topics/plugin/renderer) for renderer details.
 
 Configures chart theme. Register custom themes using `register` :
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Light, register, Chart } from '@antv/g2';
 
 // define theme
@@ -331,7 +331,7 @@ For more information on plugin usage, see [plugin-rough](/manual/extra-topics/pl
 
 G2 provides an imperative Functional API for defining charts. Here's an example of declaring the simplest bar chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Initialize the chart instance

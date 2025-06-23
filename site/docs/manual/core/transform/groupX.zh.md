@@ -17,7 +17,7 @@ order: 2
 
 下面，我们展现个人群的年龄分布情况。我们使用 `groupX` 函数对数据进行分组，并且对 `x` 通道进行聚合，计算出每个 `state` 的 `population` 折线长度和分布情况。注意在对应的 mark 中有 transform 方法可以使用数据的变换。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

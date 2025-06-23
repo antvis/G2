@@ -44,19 +44,19 @@ chart.render();
 
 ## Options
 
-| Property   | Description                               | Type            | Default Value |
-| ---------- | ----------------------------------------- | --------------- | ------------- |
-| layout     | Layout configuration                      | `TreeTransform` | -             |
-| style      | Configure graphics style and label style  | -               | -             |
-| nodeLabels | Custom node data label configuration      | label[]         | []            |
-| linkLabels | Custom link data label configuration      | label[]         | []            |
+| Property   | Description                              | Type            | Default Value |
+| ---------- | ---------------------------------------- | --------------- | ------------- |
+| layout     | Layout configuration                     | `TreeTransform` | -             |
+| style      | Configure graphics style and label style | -               | -             |
+| nodeLabels | Custom node data label configuration     | label[]         | []            |
+| linkLabels | Custom link data label configuration     | label[]         | []            |
 
 ### layout
 
-| Property   | Description              | Type                    | Default Value                            |
-| ---------- | ------------------------ | ----------------------- | ---------------------------------------- |
-| nodeSize   | Node size                | `(node: any) => string` | -                                        |
-| sortBy     | Sort method              | `((a, b) => number)`    | `(a, b) => b.value - a.value`            |
+| Property   | Description                     | Type                    | Default Value                            |
+| ---------- | ------------------------------- | ----------------------- | ---------------------------------------- |
+| nodeSize   | Node size                       | `(node: any) => string` | -                                        |
+| sortBy     | Sort method                     | `((a, b) => number)`    | `(a, b) => b.value - a.value`            |
 | separation | Distance between adjacent nodes | `(a, b) => number`      | `(a, b) => a.parent == b.parent ? 1 : 2` |
 
 ### style

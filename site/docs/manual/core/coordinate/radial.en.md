@@ -27,7 +27,7 @@ This transformation gives data a radial effect that differs from traditional bar
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -100,23 +100,23 @@ Radial coordinate systems are suitable for the following scenarios:
 
 The radial coordinate system is primarily responsible for mapping positional data from data space to canvas space. Other visual attributes, such as color and size, are still mapped through corresponding scales. For detailed information about scales, please refer to the [Scale](/en/manual/core/scale/overview) documentation.
 
-| Parameter   | Description                              | Type   | Default              | Required |
-| ----------- | ---------------------------------------- | ------ | -------------------- | -------- |
-| startAngle  | Starting angle of polar coordinate system| number | `-Math.PI / 2`       |          |
-| endAngle    | Ending angle of polar coordinate system  | number | `(Math.PI * 3) / 2` |          |
-| innerRadius | Inner radius of polar coordinate, range 0-1 | number | `0`               |          |
-| outerRadius | Outer radius of polar coordinate, range 0-1 | number | `1`               |          |
+| Parameter   | Description                                 | Type   | Default             | Required |
+| ----------- | ------------------------------------------- | ------ | ------------------- | -------- |
+| startAngle  | Starting angle of polar coordinate system   | number | `-Math.PI / 2`      |          |
+| endAngle    | Ending angle of polar coordinate system     | number | `(Math.PI * 3) / 2` |          |
+| innerRadius | Inner radius of polar coordinate, range 0-1 | number | `0`                 |          |
+| outerRadius | Outer radius of polar coordinate, range 0-1 | number | `1`                 |          |
 
 ### Angle Unit Description
 
 In the radial coordinate system, angles use radians as the unit, not degrees. Here's a comparison of common angles in radians:
 
-| Degrees | Radians | Position           |
-| ------- | ------- | ------------------ |
-| 0°      | 0       | 3 o'clock direction |
-| 90°     | π/2     | 12 o'clock direction |
-| 180°    | π       | 9 o'clock direction |
-| 270°    | 3π/2    | 6 o'clock direction |
+| Degrees | Radians | Position                          |
+| ------- | ------- | --------------------------------- |
+| 0°      | 0       | 3 o'clock direction               |
+| 90°     | π/2     | 12 o'clock direction              |
+| 180°    | π       | 9 o'clock direction               |
+| 270°    | 3π/2    | 6 o'clock direction               |
 | 360°    | 2π      | 3 o'clock direction (full circle) |
 
 You can use `Math.PI` to represent π, for example `Math.PI / 2` represents 90°.
@@ -127,7 +127,7 @@ You can use `Math.PI` to represent π, for example `Math.PI / 2` represents 90°
 
 Coxcomb charts are one of the most common applications of radial coordinate systems, displaying traditional bar charts in a radial coordinate system to create a radial visual effect.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 By applying stacking transforms in the radial coordinate system, you can create radial stacked bar charts suitable for displaying hierarchical data.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -185,7 +185,7 @@ chart.render();
 
 By setting appropriate inner radius and styles, you can create visualization effects similar to Apple Watch activity rings.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -220,7 +220,7 @@ chart.render();
 
 Here's a complete example that combines radial coordinate system with animations to create an engaging visualization:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -272,4 +272,3 @@ chart
 
 chart.render();
 ```
-

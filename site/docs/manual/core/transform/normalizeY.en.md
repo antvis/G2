@@ -9,7 +9,7 @@ Normalizes y-related channels (such as y, y1, etc.) based on the specified basis
 
 The following example demonstrates how to create a percentage stacked bar chart showing gender proportions across different age groups.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -100,7 +100,7 @@ Specifies the field(s) to group data by. Each group will be normalized independe
 
 The following example shows how to use different basis values for normalization:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -135,7 +135,7 @@ chart.render();
 
 ### Interactive Comparison of Different Basis Effects
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -205,7 +205,7 @@ chart.render();
 
 You can specify how to group data using the groupBy option:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

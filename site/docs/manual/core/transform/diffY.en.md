@@ -18,7 +18,7 @@ Commonly used for marks with y1 such as area charts and bar charts. Visually, th
 
 For example, the following case shows the weather trend comparison between `New York` and `San Francisco`. Using `diffY` highlights which city has higher temperature at the same time x.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -67,9 +67,9 @@ chart.render();
 
 ## Configuration Options
 
-| Property | Description | Type | Default Value |
-| ------- | -------------------- | ---------------------------------- | ------ |
-| groupBy | Which channel to group data by | `ChannelTypes` \| `ChannelTypes[]` | `x` |
+| Property | Description                    | Type                               | Default Value |
+| -------- | ------------------------------ | ---------------------------------- | ------------- |
+| groupBy  | Which channel to group data by | `ChannelTypes` \| `ChannelTypes[]` | `x`           |
 
 ### groupBy
 

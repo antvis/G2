@@ -7,7 +7,7 @@ order: 5
 
 `cell` 是矩形标记（Rect Shape）的一种抽象表示，主要用于表示分面（facet）或者网格中的单元格，是图表中数据映射到视觉元素的最小单元。它一般是在可视化布局中用来表示网格化结构或数据分割的“单元”。具体来说，它是一种对区域的划分，在不同的分面中通常会对应一个独立的绘图区域，常见于矩阵型图表（如日历图、聚合热力图等）中。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -66,7 +66,7 @@ chart.render(); // 渲染图标
 
 通过 `encode` 的 `color` 属性，你可以将数据字段映射到颜色值，从而根据数据的变化自动调整标记的颜色。这对于数据可视化来说非常有用，因为它可以帮助您快速识别数据的模式和趋势。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -198,4 +198,64 @@ type Reducer =
 
 尝试一下：
 
-<Playground path="style/general/cell/demo/cell-heatmap.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://observablehq.com/@mbostock/the-impact-of-vaccines
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 1300,
+  height: 900,
+});
+
+chart
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/vaccines.json',
+  })
+  .axis('y', { labelAutoRotate: false })
+  .axis('x', {
+    tickFilter: (d) => d % 10 === 0,
+    position: 'top',
+  })
+  .scale('color', {
+    palette: 'puRd',
+    relations: [
+      [(d) => d === null, '#eee'],
+      [0, '#fff'],
+    ],
+  });
+
+chart
+  .cell()
+  .encode('x', 'year')
+  .encode('y', 'name')
+  .encode('color', 'value')
+  .style('inset', 0.5)
+  .tooltip({ title: { channel: 'color', valueFormatter: '.2f' } });
+
+chart
+  .lineX()
+  .data([1963])
+  .style('stroke', 'black')
+  .label({
+    text: '1963',
+    position: 'bottom',
+    textBaseline: 'top',
+    fontSize: 10,
+  })
+  .label({
+    text: 'Measles vaccine introduced',
+    position: 'bottom',
+    textBaseline: 'top',
+    fontSize: 10,
+    fontWeight: 'bold',
+    dy: 10,
+  })
+  .tooltip(false);
+
+chart.render();
+
+```

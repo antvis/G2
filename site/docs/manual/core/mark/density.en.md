@@ -9,7 +9,7 @@ order: 7
 
 The core goal of `density` is to extract overall distribution patterns from scatter or point cloud data and map density information to a continuous area chart or gradient effect. This chart type is commonly used to analyze aggregation areas of large amounts of data points, data concentration hotspots, or probability density of data distribution, such as representing population density in geographic visualization, or showing regional trading frequency in analysis.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -63,7 +63,7 @@ For more examples, please check the [Chart Examples - Violin Plot](/en/examples#
 | Cartesian         | `'cartesian'` | Density plot, etc.      |
 | Polar             | `'polar'`     | Polar violin plot, etc. |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -182,4 +182,35 @@ For more `style` configuration, please check the [style](/en/manual/core/style) 
 
 Try it out:
 
-<Playground path="style/general/violin/demo/density.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/species.json',
+  transform: [
+    {
+      type: 'kde',
+      field: 'y',
+      groupBy: ['x'],
+      size: 20,
+    },
+  ],
+});
+
+chart
+  .density()
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .encode('color', 'x')
+  .encode('size', 'size')
+  .tooltip(false);
+
+chart.render();
+
+```

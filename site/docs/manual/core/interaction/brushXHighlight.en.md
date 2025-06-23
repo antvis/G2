@@ -207,7 +207,7 @@ chart.emit('brush:highlight', { data: { selection } });
 
 ### Multi-view Chart Linkage
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

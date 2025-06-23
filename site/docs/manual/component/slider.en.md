@@ -7,7 +7,7 @@ order: 7.4
 
 The **Slider** in G2 can be used to filter data, allowing users to focus on local data at a time when dealing with large datasets. It's an auxiliary component for data visualization. It condenses large amounts of data onto an axis, enabling users to view data at both macro and micro levels, and drag to observe data evolution within a certain range. The slider can be bound to x or y channels to display sliders in different directions. Sliders are disabled by default.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -389,7 +389,7 @@ If you don't want to use G2's default slider, you can customize a drag axis foll
 
 The key to the first step is determining the slider's position and length through the coordinate object obtained via `chart.getCoordinate`. The key to the second step is using the scale obtained through `chart.getScale` to invert the selected range, finally obtaining the selected data range, then updating the scale's domain.
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

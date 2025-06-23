@@ -20,11 +20,11 @@ order: 2
 
 ## Configuration Options
 
-| Property | Description                               | Type      | Default |
-| -------- | ----------------------------------------- | --------- | ------- |
+| Property | Description                                            | Type      | Default |
+| -------- | ------------------------------------------------------ | --------- | ------- |
 | by       | Specify the channel for sorting (e.g., 'y', 'x', etc.) | `string`  | `'y'`   |
-| reverse  | Whether to reverse the order             | `boolean` | `false` |
-| reducer  | Aggregation method for multi-value comparison | `Reducer` | `'max'` |
+| reverse  | Whether to reverse the order                           | `boolean` | `false` |
+| reducer  | Aggregation method for multi-value comparison          | `Reducer` | `'max'` |
 
 ### by
 
@@ -59,7 +59,7 @@ type Reducer =
 
 ### 1. Grouped Bar Chart Sorting Color Groups by y Values (reverse Controls Order)
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -88,7 +88,7 @@ chart.render();
 
 ### 2. Complex Sorting with reducer Configuration
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

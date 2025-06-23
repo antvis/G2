@@ -21,10 +21,10 @@ order: 2
 
 ## Options
 
-| Property | Description                                           | Type                   | Default |
-| -------- | ----------------------------------------------------- | ---------------------- | ------- |
-| groupBy  | Group by specified channels                           | `string` \| `string[]` | `series` |
-| selector | Specify data extraction operation for each group      | [Selector](#selector)  | `first`  |
+| Property | Description                                      | Type                   | Default  |
+| -------- | ------------------------------------------------ | ---------------------- | -------- |
+| groupBy  | Group by specified channels                      | `string` \| `string[]` | `series` |
+| selector | Specify data extraction operation for each group | [Selector](#selector)  | `first`  |
 
 ### selector
 
@@ -43,7 +43,7 @@ type Selector =
 
 As shown below, annotate different data types:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

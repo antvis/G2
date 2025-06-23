@@ -104,9 +104,9 @@ Element highlight interaction configuration has two parts:
 
 ### Interaction Configuration
 
-| Property   | Description                                                                     | Type      | Default |
-| ---------- | ------------------------------------------------------------------------------- | --------- | ------- |
-| background | Whether to highlight background                                                 | `boolean` | false   |
+| Property   | Description                                                                        | Type      | Default |
+| ---------- | ---------------------------------------------------------------------------------- | --------- | ------- |
+| background | Whether to highlight background                                                    | `boolean` | false   |
 | region     | Whether to trigger highlight when mouse moves to empty area of element (see below) | `boolean` | false   |
 
 <img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n9wMQZoN2ssAAAAAAAAAAAAAemJ7AQ/original" style="width: 100%">
@@ -130,7 +130,7 @@ Element highlight style, see example [Custom Highlight](#custom-highlight)
 | backgroundShadowBlur    | Background shadow Gaussian blur coefficient                                                                                        | number \| (datum, index, data) => number                     | -             |          |
 | backgroundShadowOffsetX | Set horizontal distance of shadow from background                                                                                  | number \| (datum, index, data) => number                     | -             |          |
 | backgroundShadowOffsetY | Set vertical distance of shadow from background                                                                                    | number \| (datum, index, data) => number                     | -             |          |
-| backgroundCursor        | Background mouse cursor style. Same as CSS cursor style.                                                                          | string \| (datum, index, data) => string                     | `default`     |          |
+| backgroundCursor        | Background mouse cursor style. Same as CSS cursor style.                                                                           | string \| (datum, index, data) => string                     | `default`     |          |
 
 When configuring background in active elements, it's not configured as an object, but using the `background` prefix with property names.
 
@@ -196,7 +196,7 @@ chart.emit('element:unhighlight', {});
 
 ### Basic Highlight
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -221,7 +221,7 @@ chart.render();
 
 ### Custom Highlight
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

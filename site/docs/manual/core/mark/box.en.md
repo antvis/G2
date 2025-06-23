@@ -51,32 +51,32 @@ p12         p11           p13
 
 ## Configuration
 
-| Property   | Description                                                                                      | Type                      | Default Value          | Required |
-| ---------- | ------------------------------------------------------------------------------------------------ | ------------------------- | ---------------------- | -------- |
-| encode     | Configure visual channels for the `box` mark, including `x`, `y`, `color`, `shape`, etc.        | [encode](#encode)         | -                      | ✓        |
-| coordinate | Configure the coordinate system for the `box` mark, which performs point transformations        | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
-| style      | Configure the graphic style of the `box` mark                                                   | [style](#style)           | -                      |          |
+| Property   | Description                                                                              | Type                      | Default Value          | Required |
+| ---------- | ---------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
+| encode     | Configure visual channels for the `box` mark, including `x`, `y`, `color`, `shape`, etc. | [encode](#encode)         | -                      | ✓        |
+| coordinate | Configure the coordinate system for the `box` mark, which performs point transformations | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
+| style      | Configure the graphic style of the `box` mark                                            | [style](#style)           | -                      |          |
 
 ### encode
 
 Configure visual channels for the `box` mark.
 
-| Property | Description                                                                                                                                                         | Type                          | Default Value | Required |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------- | -------- |
-| x        | Bind the `x` property channel for the `box` mark, usually a categorical field                                                                                       | [encode](/en/manual/core/encode) | -             | ✓        |
-| y        | Bind the `y` property channel for the `box` mark, usually an array containing 5 statistical values in order: minimum, Q1, median, Q3, maximum                    | [encode](/en/manual/core/encode) | -             | ✓        |
-| color    | Bind the `color` property channel for the `box` mark, used to distinguish boxplots of different categories                                                         | [encode](/en/manual/core/encode) | -             |          |
-| shape    | Bind the `shape` property channel for the `box` mark, available values are `box`, `violin`                                                                         | `'box'` \| `'violin'`         | `'box'`       |          |
-| series   | Bind the `series` property channel for the `box` mark, used for grouped display of boxplots                                                                        | [encode](/en/manual/core/encode) | -             |          |
+| Property | Description                                                                                                                                   | Type                             | Default Value | Required |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------- | -------- |
+| x        | Bind the `x` property channel for the `box` mark, usually a categorical field                                                                 | [encode](/en/manual/core/encode) | -             | ✓        |
+| y        | Bind the `y` property channel for the `box` mark, usually an array containing 5 statistical values in order: minimum, Q1, median, Q3, maximum | [encode](/en/manual/core/encode) | -             | ✓        |
+| color    | Bind the `color` property channel for the `box` mark, used to distinguish boxplots of different categories                                    | [encode](/en/manual/core/encode) | -             |          |
+| shape    | Bind the `shape` property channel for the `box` mark, available values are `box`, `violin`                                                    | `'box'` \| `'violin'`            | `'box'`       |          |
+| series   | Bind the `series` property channel for the `box` mark, used for grouped display of boxplots                                                   | [encode](/en/manual/core/encode) | -             |          |
 
 ### coordinate
 
 The display of `box` marks varies under different coordinate systems. Different boxplot forms can be drawn based on coordinate systems or coordinate transformations.
 
-| Coordinate System or Transform | Coordinate Configuration    | Chart                |
-| ------------------------------ | --------------------------- | -------------------- |
-| Cartesian Coordinate System    | `{ type: 'cartesian' }`     | Standard Boxplot     |
-| Polar Coordinate System        | `{ type: 'polar' }`         | Polar Boxplot        |
+| Coordinate System or Transform | Coordinate Configuration | Chart            |
+| ------------------------------ | ------------------------ | ---------------- |
+| Cartesian Coordinate System    | `{ type: 'cartesian' }`  | Standard Boxplot |
+| Polar Coordinate System        | `{ type: 'polar' }`      | Polar Boxplot    |
 
 ### style
 
@@ -103,7 +103,7 @@ Configure the graphic style of the `box` mark. The `box` mark supports two shape
 
 Use the `box` mark to create a basic boxplot with array data containing 5 statistical values.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -144,7 +144,7 @@ chart.render();
 
 Use the `series` channel to create grouped boxplots for comparing different categories of data.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -237,7 +237,7 @@ chart.render();
 
 Create a polar boxplot by configuring a polar coordinate system.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

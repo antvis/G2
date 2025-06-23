@@ -9,7 +9,7 @@ Marks are the most fundamental graphic units in the G2 drawing framework and are
 
 As mentioned above, by adding Point marks for scatter plots and Link marks for connection graphs to a chart, we can obtain a point-line connection graph with annotations.
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,33 +86,33 @@ The representation form of marks is related to the visual channel **color** that
 
 Currently, G2 supports the following built-in marks:
 
-| type      | Description                                               | Properties                               | Examples                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| --------- | --------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| area      | Use area fill to show data trends, suitable for stacking | [area](/en/manual/core/mark/area)        | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WkMRSKoc57UAAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                      |
-| box       | Basic box plot, showing data distribution and outliers   | [box](/en/manual/core/mark/box)          | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fykJSJFMPtQAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| boxplot   | Box plot with aggregation calculation, auto-calculates quartiles | [boxplot](/en/manual/core/mark/boxplot) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PxD1QZ8xRsIAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| cell      | Divides space into blocks for visualization, used for calendar and heatmaps | [cell](/en/manual/core/mark/cell)       | <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*Wk4zR40uQesAAAAAAAAAAAAADmJ7AQ" />                                                                                                                                                                                                                                                                                                                                                               |
-| chord     | Chord diagram showing relationship strength between entities | [chord](/en/manual/core/mark/chord)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwKoTakLlHAAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| density   | Kernel density estimation, commonly used for violin plots | [density](/en/manual/core/mark/density) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-EcIQ7sKufsAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| gauge     | Gauge chart showing progress indicators                   | [gauge](/en/manual/core/mark/gauge)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_tUeQ64QNVEAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| heatmap   | 2D density distribution using color encoding for data density | [heatmap](/en/manual/core/mark/heatmap) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| image     | Renders images at specified positions                     | [image](/en/manual/core/mark/image)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zD2UToZzYloAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| interval  | Basic bar/column chart, can generate pie charts through coordinate transformation | [interval](/en/manual/core/mark/interval) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1yoaSJ0rfrYAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Trl1TqdieqIAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original" /> |
-| line      | Line chart supporting smooth curves and step lines       | [line](/en/manual/core/mark/line)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WV2nRotltk4AAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jjhCTKfZHpgAAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ" />                                                                                                                       |
-| lineX     | Vertical auxiliary line, commonly used for marking specific values | [lineX](/en/manual/core/mark/lineX)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VJVAT7Rkx9MAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| lineY     | Horizontal auxiliary line, commonly used for marking thresholds | [lineY](/en/manual/core/mark/lineY)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BG5UTbE7gycAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| link      | Arrow mark showing relationships between nodes            | [link](/en/manual/core/mark/link)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| liquid    | Liquid chart showing percentage progress                  | [liquid](/en/manual/core/mark/liquid)   | <img src="https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*cHArRaizyBsAAAAAAAAAAAAADo2bAQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| point     | Scatter plot encoding multi-dimensional data through size/color | [point](/en/manual/core/mark/point)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| polygon   | Polygon mark, often used with layout algorithms          | [polygon](/en/manual/core/mark/polygon) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| range     | Rectangle area mark for highlighting specific intervals  | [range](/en/manual/core/mark/range)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w1BBRYvJf_UAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| rangeX    | Vertical direction area mark                             | [rangeX](/en/manual/core/mark/rangeX)   | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| rangeY    | Horizontal direction area mark                           | [rangeY](/en/manual/core/mark/rangeY)   | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| rect      | Basic rectangle mark for histograms/treemaps            | [rect](/en/manual/core/mark/rect)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oyXhQKobcMMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| shape     | Fully customizable graphic mark                         | [shape](/en/manual/core/mark/shape)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LA11Rqfk2Y4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| text      | Data label mark supporting rich text formatting         | [text](/en/manual/core/mark/text)       | <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ" />                                                                                                                                                                                                                                                                                                                                                               |
-| vector    | Vector field mark showing direction/strength dual-dimensional data | [vector](/en/manual/core/mark/vector)   | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1LQ2Sbpwl6YAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
-| wordCloud | Word cloud encoding word frequency through text size    | [wordCloud](/en/manual/core/mark/wordcloud) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0xE1T7W2Oq4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| type      | Description                                                                       | Properties                                  | Examples                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --------- | --------------------------------------------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| area      | Use area fill to show data trends, suitable for stacking                          | [area](/en/manual/core/mark/area)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WkMRSKoc57UAAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                      |
+| box       | Basic box plot, showing data distribution and outliers                            | [box](/en/manual/core/mark/box)             | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fykJSJFMPtQAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| boxplot   | Box plot with aggregation calculation, auto-calculates quartiles                  | [boxplot](/en/manual/core/mark/boxplot)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PxD1QZ8xRsIAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| cell      | Divides space into blocks for visualization, used for calendar and heatmaps       | [cell](/en/manual/core/mark/cell)           | <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*Wk4zR40uQesAAAAAAAAAAAAADmJ7AQ" />                                                                                                                                                                                                                                                                                                                                                               |
+| chord     | Chord diagram showing relationship strength between entities                      | [chord](/en/manual/core/mark/chord)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwKoTakLlHAAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| density   | Kernel density estimation, commonly used for violin plots                         | [density](/en/manual/core/mark/density)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-EcIQ7sKufsAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| gauge     | Gauge chart showing progress indicators                                           | [gauge](/en/manual/core/mark/gauge)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_tUeQ64QNVEAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| heatmap   | 2D density distribution using color encoding for data density                     | [heatmap](/en/manual/core/mark/heatmap)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| image     | Renders images at specified positions                                             | [image](/en/manual/core/mark/image)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zD2UToZzYloAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| interval  | Basic bar/column chart, can generate pie charts through coordinate transformation | [interval](/en/manual/core/mark/interval)   | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1yoaSJ0rfrYAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Trl1TqdieqIAAAAAAAAAAAAADmJ7AQ/original" /> <br /><img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original" /> |
+| line      | Line chart supporting smooth curves and step lines                                | [line](/en/manual/core/mark/line)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WV2nRotltk4AAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jjhCTKfZHpgAAAAAAAAAAAAADmJ7AQ/original" /> <br /> <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ" />                                                                                                                       |
+| lineX     | Vertical auxiliary line, commonly used for marking specific values                | [lineX](/en/manual/core/mark/lineX)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VJVAT7Rkx9MAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| lineY     | Horizontal auxiliary line, commonly used for marking thresholds                   | [lineY](/en/manual/core/mark/lineY)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BG5UTbE7gycAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| link      | Arrow mark showing relationships between nodes                                    | [link](/en/manual/core/mark/link)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| liquid    | Liquid chart showing percentage progress                                          | [liquid](/en/manual/core/mark/liquid)       | <img src="https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*cHArRaizyBsAAAAAAAAAAAAADo2bAQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| point     | Scatter plot encoding multi-dimensional data through size/color                   | [point](/en/manual/core/mark/point)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| polygon   | Polygon mark, often used with layout algorithms                                   | [polygon](/en/manual/core/mark/polygon)     | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| range     | Rectangle area mark for highlighting specific intervals                           | [range](/en/manual/core/mark/range)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w1BBRYvJf_UAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rangeX    | Vertical direction area mark                                                      | [rangeX](/en/manual/core/mark/rangeX)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rangeY    | Horizontal direction area mark                                                    | [rangeY](/en/manual/core/mark/rangeY)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| rect      | Basic rectangle mark for histograms/treemaps                                      | [rect](/en/manual/core/mark/rect)           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oyXhQKobcMMAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| shape     | Fully customizable graphic mark                                                   | [shape](/en/manual/core/mark/shape)         | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LA11Rqfk2Y4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| text      | Data label mark supporting rich text formatting                                   | [text](/en/manual/core/mark/text)           | <img src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ" />                                                                                                                                                                                                                                                                                                                                                               |
+| vector    | Vector field mark showing direction/strength dual-dimensional data                | [vector](/en/manual/core/mark/vector)       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1LQ2Sbpwl6YAAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
+| wordCloud | Word cloud encoding word frequency through text size                              | [wordCloud](/en/manual/core/mark/wordcloud) | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0xE1T7W2Oq4AAAAAAAAAAAAADmJ7AQ/original" />                                                                                                                                                                                                                                                                                                                                                          |
 
 ## Usage
 
@@ -212,7 +212,7 @@ Marks in G2 have many features, including templating, stackability, composabilit
 
 Each built-in mark is a graphic template that generates a series of **data-driven** graphics, where each graphic corresponds to one or more **data items**. For example, in the scatter plot below, there is only one Point mark, and this mark generates multiple circles, each circle corresponding to one data item.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -234,7 +234,7 @@ chart.render();
 
 In the line chart below, one line corresponds to multiple data items.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -262,7 +262,7 @@ G2's marks are stackable, in other words: multiple marks can be added to one vie
 
 The following example adds both line and point marks to the chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -299,7 +299,7 @@ chart.render();
 
 Of course, we can also combine more marks to draw a complex interval curve area chart with graphic meaning.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -350,7 +350,7 @@ chart.render();
 
 Marks in G2 can be composed into one mark through a mechanism and then used, for example, the point line chart above:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Define a composite mark
@@ -392,7 +392,7 @@ chart.render();
 
 The composability feature of marks provides a simple yet powerful way to extend the capabilities of G2. G2 also uses this mechanism to implement some rather complex marks, such as Sankey diagrams: using two Polygon marks for composition.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -434,7 +434,7 @@ G2 marks support multiple [transforms](/en/manual/core/transform/overview), allo
 
 Below is a color-categorized histogram after [binX](/en/manual/core/transform/bin-x) and [stackY](/en/manual/core/transform/stack-y) transforms.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -461,7 +461,7 @@ chart.render();
 
 By configuring multiple transforms, we can obtain complex charts with specific representation forms. Below is an aggregated normalized stacked bar chart obtained after multiple transforms including [normalizeY](/en/manual/core/transform/normalize-y) and [stackY](/en/manual/core/transform/stack-y).
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -503,7 +503,7 @@ Since annotations are also a type of mark, they can also perform transforms. For
 
 The Select mark transform provides the ability to select data from a group of graphics based on specified channels and selectors. For example, in the following example, the country with the largest GDP in each continent is annotated.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -557,7 +557,7 @@ In grammar of graphics, the core of annotations lies in accurate positioning to 
 
 In G2, you can specify data-driven positioning through `data`. For example, in the following example where we want to annotate the safe daily intake of sugar and fat, it can be implemented as follows.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -645,7 +645,7 @@ In addition to data-driven positioning, G2 also provides non-data-driven positio
 
 - **x and y as numbers**: Coordinates in pixel units.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -688,7 +688,7 @@ chart.render();
 
 - **x and y as percentages**: Percentage of content area.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -773,7 +773,7 @@ Finally, using the shape can be done through `mark.encode` or `mark.style`.
 
 Below is a complete example showing how to customize shapes.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { register, Chart } from '@antv/g2';
 
 // Define graphic component

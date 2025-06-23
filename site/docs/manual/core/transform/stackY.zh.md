@@ -125,7 +125,7 @@ chart.render();
 
 它用于展示多个类别的数据随时间或其他连续变量变化的趋势，同时强调各类别在总和中的相对比例，而不是绝对值。比如我们需要归一化堆叠面积图，也就是实现如下的效果。 可以参考对应的示例代码，详细的可以查阅我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#percentage-area)：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -210,7 +210,7 @@ chart.render();
 
 详细的示例可以参考我们线上的[图表示例](https://g2.antv.antgroup.com/examples/general/area/#cascade-area)，以及线上还有其他的堆叠图示例供参考。 最后，是简单的堆叠柱状图，作为调用本函数的最直观展现：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

@@ -40,8 +40,8 @@ After the above example is processed, the data becomes:
 
 ## Options
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| fields | List of fields to be unfolded | `string[]` |  |
-| key | Field name for the enumeration values after unfolding | `string` | `key` |
-| value | Field name for the data values after unfolding | `string` | `value` |
+| Property | Description                                           | Type       | Default |
+| -------- | ----------------------------------------------------- | ---------- | ------- |
+| fields   | List of fields to be unfolded                         | `string[]` |         |
+| key      | Field name for the enumeration values after unfolding | `string`   | `key`   |
+| value    | Field name for the data values after unfolding        | `string`   | `value` |

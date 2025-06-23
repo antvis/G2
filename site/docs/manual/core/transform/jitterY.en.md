@@ -23,7 +23,7 @@ It adds random offsets along the y-axis, visually dispersing data points to avoi
 
 For simple examples, please refer to the [jitter](/en/manual/core/transform/jitter) examples. Below is a demonstration specific to the `jitterY` function use case.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

@@ -19,7 +19,7 @@ Core functional features of `rect`:
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -63,7 +63,7 @@ Configure visual channels for `rect` mark, an important configuration that defin
 
 The color visual channel affects the fill color of `rect` graphic marks (when applying certain hollow shapes, such as hollow, it will change the stroke color of the graphic). When applied to point charts, it generally maps categorical fields and groups the data.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -95,7 +95,7 @@ Through the `shape` property of `encode`, you can specify the geometric shape of
 | rect   | Rectangle        |
 | hollow | Hollow rectangle |
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -161,7 +161,7 @@ Common transformation types include:
 - **bin**: Bin continuous data to generate histogram rectangles
 - **stackY**: Stack rectangles vertically, automatically calculating stacked height for each category
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -217,6 +217,28 @@ For more `transform` configurations, please check the [transform](/en/manual/cor
 
 Try it out
 
-<Playground path="style/analysis/bin/demo/binx-color.ts" rid="area-style"></Playground>
+```js | ob {. inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  })
+  .encode('x', 'weight')
+  .encode('color', 'sex')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY', orderBy: 'series' })
+  .style('inset', 0.5);
+
+chart.render();
+
+```
 
 For more `style` configurations, please check the [style](/en/manual/core/style) introduction page.

@@ -11,7 +11,7 @@ order: 2
 
 面积图也可用于多个系列数据的比较，表达数据的总量和趋势。相较于折线图，面积图不仅可以清晰地反映出数据的趋势变化，也能够强调不同类别的数据间的差距对比。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -79,7 +79,7 @@ chart.render();
 
 `color` 视觉通道影响 `area` 图形标记包围区域的填充颜色。`area` 标记中单个区域仅能使用一种颜色（或者渐变色），但如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个区域：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -124,7 +124,7 @@ chart.render();
 
 配置图形转换`transform`中的 [stackY](/manual/core/transform/stack-y) ，可以对分组的区域进行堆叠，则形成堆叠面积图，避免因为重叠导致的信息模糊：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -191,7 +191,7 @@ chart.render();
 
 在**极坐标系**下面积图需要进行闭合。常用来绘制雷达图等。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -267,7 +267,37 @@ chart.render();
 
 尝试一下：
 
-<Playground path="general/area/demo/missing-data-area.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'area',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    // Mock missing data. Set NaN from Jan. to Mar.
+    y: (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close),
+  },
+  style: {
+    connect: true,
+    // 配置connector样式
+    connectFill: 'grey',
+    connectFillOpacity: 0.15,
+    // 配置area样式
+    fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+    opacity: 0.9,
+    stroke: 'yellow',
+  },
+});
+
+chart.render();
+```
 
 ## 示例
 

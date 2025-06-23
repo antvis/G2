@@ -71,7 +71,42 @@ chart.options({
 
 Try it out
 
-<Playground path="style/component/tooltip/demo/tooltip-series.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  })
+  .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
+  .encode('x', (d) => new Date(d.Date))
+  .encode('y', 'Close')
+  .encode('color', 'Symbol')
+  .axis('y', { title: '↑ Change in price (%)' })
+  .tooltip({
+    title: (d) => new Date(d.Date).toUTCString(),
+    items: [
+      (d, i, data, column) => ({
+        name: 'Close',
+        value: column.y.value[i].toFixed(1),
+      }),
+    ],
+  })
+  .label({
+    text: 'Symbol',
+    selector: 'last',
+    fontSize: 10,
+  });
+
+chart.render();
+
+```
 
 ## Configuration Options
 
@@ -83,23 +118,23 @@ Configuration options are divided into two parts
 
 `tooltip` and `interaction.tooltip` are configurations in two different dimensions, but they can be confusing. Here are their core differences:
 
-| Feature        | tooltip                                       | interaction.tooltip                           |
-| -------------- | --------------------------------------------- | --------------------------------------------- |
-| Responsibility | Define tooltip content, style and basic behavior | Define tooltip behavior in interactive scenarios |
-| Configuration  | Configured through chart.tooltip()          | Enabled or customized through chart.interaction() |
-| Scope          | Global effect, affects the entire chart     | Bound to specific interactive behaviors        |
-| Typical Use    | Set tooltip fields, styles, content, etc.   | Control dynamic display/hide or other interactive logic |
+| Feature        | tooltip                                          | interaction.tooltip                                     |
+| -------------- | ------------------------------------------------ | ------------------------------------------------------- |
+| Responsibility | Define tooltip content, style and basic behavior | Define tooltip behavior in interactive scenarios        |
+| Configuration  | Configured through chart.tooltip()               | Enabled or customized through chart.interaction()       |
+| Scope          | Global effect, affects the entire chart          | Bound to specific interactive behaviors                 |
+| Typical Use    | Set tooltip fields, styles, content, etc.        | Control dynamic display/hide or other interactive logic |
 
 ### tooltip
 
-| Property  | Description                                                                                                              | Type            | Default | Applicable to        |
-| --------- | ------------------------------------------------------------------------------------------------------------------------ | --------------- | ------- | -------------------- |
-| title     | Set tooltip title content: If value is a data field name, it will display the value of that field in the data. If the field doesn't exist in the data, use the value as title. See [title configuration](#title) | [title](#title) |         |                      |
-| nodeTitle | Set node title attribute for composite chart tooltip titles                                                              | [title](#title) |         | Composite charts like Sankey |
-| linkTitle | Set link title attribute for composite chart tooltip titles                                                              | [title](#title) |         | Composite charts like Sankey |
-| items     | Specify fields displayed in tooltip. Different charts have different default field lists. Works better when used with channel configuration. See [items configuration](#items) | [items](#items) |         |                      |
-| nodeItems | Set node items attribute for composite chart tooltip                                                                     | [items](#items) |         | Composite charts like Sankey |
-| linkItems | Set link items attribute for composite chart tooltip                                                                     | [items](#items) |         | Composite charts like Sankey |
+| Property  | Description                                                                                                                                                                                                      | Type            | Default | Applicable to                |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------- | ---------------------------- |
+| title     | Set tooltip title content: If value is a data field name, it will display the value of that field in the data. If the field doesn't exist in the data, use the value as title. See [title configuration](#title) | [title](#title) |         |                              |
+| nodeTitle | Set node title attribute for composite chart tooltip titles                                                                                                                                                      | [title](#title) |         | Composite charts like Sankey |
+| linkTitle | Set link title attribute for composite chart tooltip titles                                                                                                                                                      | [title](#title) |         | Composite charts like Sankey |
+| items     | Specify fields displayed in tooltip. Different charts have different default field lists. Works better when used with channel configuration. See [items configuration](#items)                                   | [items](#items) |         |                              |
+| nodeItems | Set node items attribute for composite chart tooltip                                                                                                                                                             | [items](#items) |         | Composite charts like Sankey |
+| linkItems | Set link items attribute for composite chart tooltip                                                                                                                                                             | [items](#items) |         | Composite charts like Sankey |
 
 #### title
 
@@ -176,7 +211,7 @@ You can specify the display of title value through `title.valueFormatter`. `titl
 ```js
 chart.options({
   tooltip: {
-    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()},
+    title: { field: 'sold', valueFormatter: (sold) => sold.toUpperCase() },
     items: [{ channel: 'y', valueFormatter: '.0%' }],
   },
 });
@@ -191,14 +226,14 @@ chart.options({
   tooltip: {
     title: (datum, index, data, column) => ({
       value: `<span style="color: #00ff00; font-style: italic;">${datum.letter}</span>`,
-      custom: "..."
+      custom: '...',
     }),
     items: [
       (datum, index, data, column) => ({
         color: datum.sold > 150 ? 'red' : 'blue', // Specify item color
         name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // Specify item name
         value: column.y.value[index], // Use y channel value
-        custom: "..."
+        custom: '...',
       }),
     ],
   },
@@ -244,8 +279,8 @@ You can conveniently modify the name of `item` in `tooltip` through `name`, and 
 chart.options({
   tooltip: {
     items: [
-      {name: 'Zhang San', channel: 'y1'},
-      {name: 'Li Si', channel: 'y2'},
+      { name: 'Zhang San', channel: 'y1' },
+      { name: 'Li Si', channel: 'y2' },
     ],
   },
 });
@@ -259,8 +294,8 @@ chart.options({
 chart.options({
   tooltip: {
     items: [
-      {color: 'pink', channel: 'y1'},
-      {color: '#f00', channel: 'y2'},
+      { color: 'pink', channel: 'y1' },
+      { color: '#f00', channel: 'y2' },
     ],
   },
 });
@@ -299,29 +334,29 @@ When configuring `tooltip.items` for composite charts, you need to configure nod
 
 ### interaction.tooltip
 
-| Property      | Description                                                                                                   | Type                                                                                                                   | Default                        | Applicable to            |
-| ------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------------------------ |
-| body          | Whether to show tooltip                                                                                       | `boolean`                                                                                                              | `true`                         |                          |
-| bounding      | Control tooltip display boundary, position will be automatically adjusted when exceeded                       | `{ x: number, y: number, width: number, height: number }`                                                              | Chart area size                |                          |
-| css           | Set tooltip CSS styles                                                                                        | [css](#set-styles)                                                                                                     | -                              |                          |
-| crosshairs    | Configure crosshair style                                                                                     | [crosshairs](#crosshairs)                                                                                              | See [crosshairs](#crosshairs)  |                          |
-| disableNative | Disable native pointerover and pointerout events, needs to be set to true when customizing tooltip interaction | `boolean`                                                                                                              | `false`                        |                          |
-| enterable     | Whether tooltip allows mouse entry                                                                            | `boolean`                                                                                                              | `false`                        |                          |
-| facet         | Whether it's a facet chart tooltip                                                                            | `boolean`                                                                                                              | `false`                        | Facet composite charts   |
-| filter        | Item filter                                                                                                   | `(d: TooltipItemValue) => any`                                                                                         | -                              |                          |
-| groupName     | Whether to use groupName                                                                                      | `boolean`                                                                                                              | `true`                         |                          |
-| leading       | Whether to update tooltip at the beginning of time interval                                                   | `boolean`                                                                                                              | `true`                         |                          |
-| marker        | Configure marker style                                                                                        | [marker](#marker)                                                                                                      | See [marker](#marker)          |                          |
-| markerType    | Controls marker style when showing tooltip, whether it's hollow or solid. Default is solid, set to `'hollow'` for hollow | `'hollow' \| undefined`                                                                                                | `undefined`                    |                          |
-| mount         | Specify tooltip mount node                                                                                    | `string` \| `HTMLElement`                                                                                              | Chart container                |                          |
-| position      | Set fixed display position of tooltip relative to data point                                                  | `'top'` \| `'bottom'` \| `'left'` \| `'right'` \| `'top-left'` \| `'top-right'` \| `'bottom-left'` \| `'bottom-right'` | `'right-bottom'`               |                          |
-| offset        | Offset in position direction                                                                                  | `[number, number]`                                                                                                     | `[10, 10]`                     |                          |
-| render        | [Custom render tooltip content](#custom-render-content)                                                      | `(event, options) => HTMLElement \| string`                                                                            | -                              |                          |
-| series        | Whether it's a series element tooltip                                                                         | `boolean`                                                                                                              | `false`                        | Multi-line, multi-bar charts |
-| shared        | Whether elements with same x share tooltip                                                                    | `boolean`                                                                                                              | `false`                        |                          |
-| sort          | Item sorter                                                                                                   | `(d: TooltipItemValue) => any`                                                                                         | -                              |                          |
-| trailing      | Whether to update tooltip at the end of time interval                                                        | `boolean`                                                                                                              | `false`                        |                          |
-| wait          | Time interval for tooltip update in milliseconds                                                              | `number`                                                                                                               | `50`                           |                          |
+| Property      | Description                                                                                                              | Type                                                                                                                   | Default                       | Applicable to                |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ---------------------------- |
+| body          | Whether to show tooltip                                                                                                  | `boolean`                                                                                                              | `true`                        |                              |
+| bounding      | Control tooltip display boundary, position will be automatically adjusted when exceeded                                  | `{ x: number, y: number, width: number, height: number }`                                                              | Chart area size               |                              |
+| css           | Set tooltip CSS styles                                                                                                   | [css](#set-styles)                                                                                                     | -                             |                              |
+| crosshairs    | Configure crosshair style                                                                                                | [crosshairs](#crosshairs)                                                                                              | See [crosshairs](#crosshairs) |                              |
+| disableNative | Disable native pointerover and pointerout events, needs to be set to true when customizing tooltip interaction           | `boolean`                                                                                                              | `false`                       |                              |
+| enterable     | Whether tooltip allows mouse entry                                                                                       | `boolean`                                                                                                              | `false`                       |                              |
+| facet         | Whether it's a facet chart tooltip                                                                                       | `boolean`                                                                                                              | `false`                       | Facet composite charts       |
+| filter        | Item filter                                                                                                              | `(d: TooltipItemValue) => any`                                                                                         | -                             |                              |
+| groupName     | Whether to use groupName                                                                                                 | `boolean`                                                                                                              | `true`                        |                              |
+| leading       | Whether to update tooltip at the beginning of time interval                                                              | `boolean`                                                                                                              | `true`                        |                              |
+| marker        | Configure marker style                                                                                                   | [marker](#marker)                                                                                                      | See [marker](#marker)         |                              |
+| markerType    | Controls marker style when showing tooltip, whether it's hollow or solid. Default is solid, set to `'hollow'` for hollow | `'hollow' \| undefined`                                                                                                | `undefined`                   |                              |
+| mount         | Specify tooltip mount node                                                                                               | `string` \| `HTMLElement`                                                                                              | Chart container               |                              |
+| position      | Set fixed display position of tooltip relative to data point                                                             | `'top'` \| `'bottom'` \| `'left'` \| `'right'` \| `'top-left'` \| `'top-right'` \| `'bottom-left'` \| `'bottom-right'` | `'right-bottom'`              |                              |
+| offset        | Offset in position direction                                                                                             | `[number, number]`                                                                                                     | `[10, 10]`                    |                              |
+| render        | [Custom render tooltip content](#custom-render-content)                                                                  | `(event, options) => HTMLElement \| string`                                                                            | -                             |                              |
+| series        | Whether it's a series element tooltip                                                                                    | `boolean`                                                                                                              | `false`                       | Multi-line, multi-bar charts |
+| shared        | Whether elements with same x share tooltip                                                                               | `boolean`                                                                                                              | `false`                       |                              |
+| sort          | Item sorter                                                                                                              | `(d: TooltipItemValue) => any`                                                                                         | -                             |                              |
+| trailing      | Whether to update tooltip at the end of time interval                                                                    | `boolean`                                                                                                              | `false`                       |                              |
+| wait          | Time interval for tooltip update in milliseconds                                                                         | `number`                                                                                                               | `50`                          |                              |
 
 #### crosshairs
 
@@ -329,41 +364,41 @@ When configuring `tooltip.items` for composite charts, you need to configure nod
 
 Additionally, styles set through prefixes `crosshairsX` and `crosshairsY` have higher priority than `crosshairs` and will override the latter.
 
-| Property                 | Description                           | Type            | Default   | Required |
-| ------------------------ | ------------------------------------- | --------------- | --------- | -------- |
-| crosshairs               | Whether to show crosshairs            | boolean         | `true`    |          |
-| crosshairsStroke         | Crosshair color                       | string          | -         |          |
-| crosshairsStrokeOpacity  | Crosshair transparency                | number          | -         |          |
-| crosshairsLineWidth      | Crosshair stroke width                | number          | -         |          |
+| Property                 | Description                                                                          | Type            | Default   | Required |
+| ------------------------ | ------------------------------------------------------------------------------------ | --------------- | --------- | -------- |
+| crosshairs               | Whether to show crosshairs                                                           | boolean         | `true`    |          |
+| crosshairsStroke         | Crosshair color                                                                      | string          | -         |          |
+| crosshairsStrokeOpacity  | Crosshair transparency                                                               | number          | -         |          |
+| crosshairsLineWidth      | Crosshair stroke width                                                               | number          | -         |          |
 | crosshairsLineDash       | Crosshair dash configuration, first value is dash segment length, second is interval | [number,number] | -         |          |
-| crosshairsOpacity        | Overall crosshair transparency        | number          | -         |          |
-| crosshairsShadowColor    | Crosshair shadow color                | string          | -         |          |
-| crosshairsShadowBlur     | Crosshair shadow blur coefficient     | number          | -         |          |
-| crosshairsShadowOffsetX  | Crosshair shadow horizontal offset    | number          | -         |          |
-| crosshairsShadowOffsetY  | Crosshair shadow vertical offset      | number          | -         |          |
-| crosshairsCursor         | Crosshair cursor style                | string          | `default` |          |
-| crosshairsX              | Whether to show horizontal crosshair  | boolean         | `false`   |          |
-| crosshairsXStroke        | Horizontal crosshair color            | string          | -         |          |
-| crosshairsXStrokeOpacity | Horizontal crosshair transparency     | number          | -         |          |
-| crosshairsXLineWidth     | Horizontal crosshair stroke width     | number          | -         |          |
-| crosshairsXLineDash      | Horizontal crosshair dash configuration | [number,number] | -         |          |
-| crosshairsXOpacity       | Overall horizontal crosshair transparency | number       | -         |          |
-| crosshairsXShadowColor   | Horizontal crosshair shadow color     | string          | -         |          |
-| crosshairsXShadowBlur    | Horizontal crosshair shadow blur coefficient | number    | -         |          |
-| crosshairsXShadowOffsetX | Horizontal crosshair shadow horizontal offset | number  | -         |          |
-| crosshairsXShadowOffsetY | Horizontal crosshair shadow vertical offset | number    | -         |          |
-| crosshairsXCursor        | Horizontal crosshair cursor style     | string          | `default` |          |
-| crosshairsY              | Whether to show vertical crosshair    | boolean         | `true`    |          |
-| crosshairsYStroke        | Vertical crosshair color              | string          | -         |          |
-| crosshairsYStrokeOpacity | Vertical crosshair transparency       | number          | -         |          |
-| crosshairsYLineWidth     | Vertical crosshair stroke width       | number          | -         |          |
-| crosshairsYLineDash      | Vertical crosshair dash configuration | [number,number] | -         |          |
-| crosshairsYOpacity       | Overall vertical crosshair transparency | number        | -         |          |
-| crosshairsYShadowColor   | Vertical crosshair shadow color       | string          | -         |          |
-| crosshairsYShadowBlur    | Vertical crosshair shadow blur coefficient | number      | -         |          |
-| crosshairsYShadowOffsetX | Vertical crosshair shadow horizontal offset | number    | -         |          |
-| crosshairsYShadowOffsetY | Vertical crosshair shadow vertical offset | number      | -         |          |
-| crosshairsYCursor        | Vertical crosshair cursor style       | string          | `default` |          |
+| crosshairsOpacity        | Overall crosshair transparency                                                       | number          | -         |          |
+| crosshairsShadowColor    | Crosshair shadow color                                                               | string          | -         |          |
+| crosshairsShadowBlur     | Crosshair shadow blur coefficient                                                    | number          | -         |          |
+| crosshairsShadowOffsetX  | Crosshair shadow horizontal offset                                                   | number          | -         |          |
+| crosshairsShadowOffsetY  | Crosshair shadow vertical offset                                                     | number          | -         |          |
+| crosshairsCursor         | Crosshair cursor style                                                               | string          | `default` |          |
+| crosshairsX              | Whether to show horizontal crosshair                                                 | boolean         | `false`   |          |
+| crosshairsXStroke        | Horizontal crosshair color                                                           | string          | -         |          |
+| crosshairsXStrokeOpacity | Horizontal crosshair transparency                                                    | number          | -         |          |
+| crosshairsXLineWidth     | Horizontal crosshair stroke width                                                    | number          | -         |          |
+| crosshairsXLineDash      | Horizontal crosshair dash configuration                                              | [number,number] | -         |          |
+| crosshairsXOpacity       | Overall horizontal crosshair transparency                                            | number          | -         |          |
+| crosshairsXShadowColor   | Horizontal crosshair shadow color                                                    | string          | -         |          |
+| crosshairsXShadowBlur    | Horizontal crosshair shadow blur coefficient                                         | number          | -         |          |
+| crosshairsXShadowOffsetX | Horizontal crosshair shadow horizontal offset                                        | number          | -         |          |
+| crosshairsXShadowOffsetY | Horizontal crosshair shadow vertical offset                                          | number          | -         |          |
+| crosshairsXCursor        | Horizontal crosshair cursor style                                                    | string          | `default` |          |
+| crosshairsY              | Whether to show vertical crosshair                                                   | boolean         | `true`    |          |
+| crosshairsYStroke        | Vertical crosshair color                                                             | string          | -         |          |
+| crosshairsYStrokeOpacity | Vertical crosshair transparency                                                      | number          | -         |          |
+| crosshairsYLineWidth     | Vertical crosshair stroke width                                                      | number          | -         |          |
+| crosshairsYLineDash      | Vertical crosshair dash configuration                                                | [number,number] | -         |          |
+| crosshairsYOpacity       | Overall vertical crosshair transparency                                              | number          | -         |          |
+| crosshairsYShadowColor   | Vertical crosshair shadow color                                                      | string          | -         |          |
+| crosshairsYShadowBlur    | Vertical crosshair shadow blur coefficient                                           | number          | -         |          |
+| crosshairsYShadowOffsetX | Vertical crosshair shadow horizontal offset                                          | number          | -         |          |
+| crosshairsYShadowOffsetY | Vertical crosshair shadow vertical offset                                            | number          | -         |          |
+| crosshairsYCursor        | Vertical crosshair cursor style                                                      | string          | `default` |          |
 
 ```js
 chart.options({
@@ -383,21 +418,21 @@ chart.options({
 
 #### marker
 
-| Property            | Description                           | Type            | Default   | Required |
-| ------------------- | ------------------------------------- | --------------- | --------- | -------- |
-| marker              | Whether to show marker                | boolean         | `true`    |          |
-| markerFill          | Marker fill color                     | string          | -         |          |
-| markerFillOpacity   | Marker fill transparency              | number          | -         |          |
-| markerStroke        | Marker stroke color                   | string          | -         |          |
-| markerStrokeOpacity | Marker stroke transparency            | number          | -         |          |
-| markerLineWidth     | Marker stroke width                   | number          | -         |          |
+| Property            | Description                                                                              | Type            | Default   | Required |
+| ------------------- | ---------------------------------------------------------------------------------------- | --------------- | --------- | -------- |
+| marker              | Whether to show marker                                                                   | boolean         | `true`    |          |
+| markerFill          | Marker fill color                                                                        | string          | -         |          |
+| markerFillOpacity   | Marker fill transparency                                                                 | number          | -         |          |
+| markerStroke        | Marker stroke color                                                                      | string          | -         |          |
+| markerStrokeOpacity | Marker stroke transparency                                                               | number          | -         |          |
+| markerLineWidth     | Marker stroke width                                                                      | number          | -         |          |
 | markerLineDash      | Marker stroke dash configuration, first value is dash segment length, second is interval | [number,number] | -         |          |
-| markerOpacity       | Overall marker transparency           | number          | -         |          |
-| markerShadowColor   | Marker shadow color                   | string          | -         |          |
-| markerShadowBlur    | Marker shadow blur coefficient        | number          | -         |          |
-| markerShadowOffsetX | Marker shadow horizontal offset       | number          | -         |          |
-| markerShadowOffsetY | Marker shadow vertical offset         | number          | -         |          |
-| markerCursor        | Marker cursor style                   | string          | `default` |          |
+| markerOpacity       | Overall marker transparency                                                              | number          | -         |          |
+| markerShadowColor   | Marker shadow color                                                                      | string          | -         |          |
+| markerShadowBlur    | Marker shadow blur coefficient                                                           | number          | -         |          |
+| markerShadowOffsetX | Marker shadow horizontal offset                                                          | number          | -         |          |
+| markerShadowOffsetY | Marker shadow vertical offset                                                            | number          | -         |          |
+| markerCursor        | Marker cursor style                                                                      | string          | `default` |          |
 
 ```js
 chart.options({
@@ -419,7 +454,7 @@ The `tooltip` cssStyle configuration option allows direct customization of toolt
 
 <img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*J1N_RKY7FtkAAAAAAAAAAAAAemJ7AQ/original" />
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -487,7 +522,65 @@ chart.render();
 
 Try it out
 
-<Playground path="style/component/tooltip/demo/tooltip-style.ts" rid="tooltip-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  })
+  .transform({ type: 'sortX', by: 'y', reverse: true, slice: 6 })
+  .transform({ type: 'dodgeX' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .encode('color', 'age')
+  .scale('y', { nice: true })
+  .axis('y', { labelFormatter: '~s' })
+  .interaction('tooltip', {
+    shared: true,
+    css: {
+      '.g2-tooltip': {
+        background: '#eee',
+        'border-radius': ' 0.25em !important',
+      },
+      '.g2-tooltip-title': {
+        'font-size': '20px',
+        'font-weight': 'bold',
+        'padding-bottom': '0.25em',
+      },
+      '.g2-tooltip-list-item': {
+        background: '#ccc',
+        padding: '0.25em',
+        margin: '0.25em',
+        'border-radius': '0.25em',
+      },
+      '.g2-tooltip-list-item-name-label': {
+        'font-weight': 'bold',
+        'font-size': '16px',
+      },
+      'g2-tooltip-list-item-marker': {
+        'border-radius': '0.25em',
+        width: '15px',
+        height: '15px',
+      },
+      '.g2-tooltip-list-item-value': {
+        'font-weight': 'bold',
+        'font-size': '16px',
+      },
+    },
+  });
+
+chart.render();
+
+```
 
 #### Custom Render Content
 
@@ -504,7 +597,7 @@ function render(event, tooltipData) {
 
 Here's a simple example:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -553,7 +646,47 @@ chart.on('tooltip:hide', () => {
 
 Try it out
 
-<Playground path="style/annotation/line/demo/histogram-mean-line.ts" rid="tooltip-custom"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_histogram_global_mean.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  transform: [
+    {
+      type: 'filter',
+      callback: (d) => d['IMDB Rating'] > 0,
+    },
+  ],
+});
+
+chart
+  .rect()
+  .transform({ type: 'binX', y: 'count', thresholds: 9 })
+  .encode('x', 'IMDB Rating')
+  .scale('y', { domainMax: 1000 })
+  .style('inset', 1);
+
+chart
+  .lineX()
+  .transform({ type: 'groupColor', x: 'mean' }) // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
+  .encode('x', 'IMDB Rating')
+  .style('stroke', '#F4664A')
+  .style('strokeOpacity', 1)
+  .style('lineWidth', 2)
+  .style('lineDash', [4, 4]);
+
+chart.render();
+
+```
 
 ## Examples
 
@@ -630,7 +763,7 @@ chart.options({
         name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // Specify item name
         value: column.y.value[index], // Use y channel value
         custom1: 'Custom parameter 1',
-        custom2: 'Custom parameter 2'
+        custom2: 'Custom parameter 2',
       }),
     ],
   },
@@ -638,15 +771,15 @@ chart.options({
     tooltip: {
       // render callback method returns innerHTML or DOM
       render: (event, { title, items }) => {
-        return  `<div>
+        return `<div>
           <h3 style="padding:0;margin:0">${title}</h3>
           <ul>${items.map(
-              ({ color, name, value, custom1, custom2 }) => "..."
+            ({ color, name, value, custom1, custom2 }) => '...',
           )}</ul>
-        </div>`
-      }
-    }
-  }
+        </div>`;
+      },
+    },
+  },
 });
 ```
 

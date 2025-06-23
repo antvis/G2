@@ -49,13 +49,13 @@ When multiple levels of theme configuration exist simultaneously, mark-level con
 
 G2 has multiple built-in themes that can be switched using the `type` property:
 
-| Theme Name    | Description              | Applicable Scenarios                                     |
-| ------------- | ------------------------ | -------------------------------------------------------- |
-| `light`       | Default light theme      | Suitable for application interfaces with light backgrounds |
-| `dark`        | Dark theme               | Suitable for application interfaces with dark backgrounds  |
-| `classic`     | Classic theme            | A variant based on light theme with classic color scheme |
-| `classicDark` | Classic dark theme       | A variant based on dark theme with classic color scheme  |
-| `academy`     | Academic theme           | Suitable for academic papers, reports and other scenarios |
+| Theme Name    | Description         | Applicable Scenarios                                       |
+| ------------- | ------------------- | ---------------------------------------------------------- |
+| `light`       | Default light theme | Suitable for application interfaces with light backgrounds |
+| `dark`        | Dark theme          | Suitable for application interfaces with dark backgrounds  |
+| `classic`     | Classic theme       | A variant based on light theme with classic color scheme   |
+| `classicDark` | Classic dark theme  | A variant based on dark theme with classic color scheme    |
+| `academy`     | Academic theme      | Suitable for academic papers, reports and other scenarios  |
 
 How to use built-in themes:
 
@@ -73,41 +73,41 @@ chart.theme({ type: 'classicDark' });
 
 Theme configuration options can be divided into four parts: basic configuration, view configuration, component configuration, and mark configuration.
 
-| Property   | Description                      | Type                                                                   | Default    | Required |
-| ---------- | -------------------------------- | ---------------------------------------------------------------------- | ---------- | -------- |
-| type       | Specifies the theme type to use | `'light'` \| `'dark'` \| `'classic'` \| `'classicDark'` \| `'academy'` | `'light'`  |          |
-| padding    | Chart inner padding              | `'auto'` \| `number`                                                   | `'auto'`   |          |
-| margin     | Chart outer margin               | `number`                                                               | `16`       |          |
-| inset      | Spacing between chart graphics and axis | `'auto'` \| `number`                                            | `'auto'`   |          |
-| color      | Default color                    | `string`                                                               | Theme dependent |      |
-| size       | Default size                     | `number`                                                               | `1`        |          |
-| category10 | Categorical color scheme (10 colors) | `string` \| `string[]`                                             | Theme dependent |      |
-| category20 | Categorical color scheme (20 colors) | `string` \| `string[]`                                             | Theme dependent |      |
-| view       | View area configuration          | [view](#view)                                                          | -          |          |
-| enter      | Enter animation configuration    | [animation](#animation)                                                | -          |          |
-| update     | Update animation configuration   | [animation](#animation)                                                | -          |          |
-| exit       | Exit animation configuration     | [animation](#animation)                                                | -          |          |
+| Property   | Description                             | Type                                                                   | Default         | Required |
+| ---------- | --------------------------------------- | ---------------------------------------------------------------------- | --------------- | -------- |
+| type       | Specifies the theme type to use         | `'light'` \| `'dark'` \| `'classic'` \| `'classicDark'` \| `'academy'` | `'light'`       |          |
+| padding    | Chart inner padding                     | `'auto'` \| `number`                                                   | `'auto'`        |          |
+| margin     | Chart outer margin                      | `number`                                                               | `16`            |          |
+| inset      | Spacing between chart graphics and axis | `'auto'` \| `number`                                                   | `'auto'`        |          |
+| color      | Default color                           | `string`                                                               | Theme dependent |          |
+| size       | Default size                            | `number`                                                               | `1`             |          |
+| category10 | Categorical color scheme (10 colors)    | `string` \| `string[]`                                                 | Theme dependent |          |
+| category20 | Categorical color scheme (20 colors)    | `string` \| `string[]`                                                 | Theme dependent |          |
+| view       | View area configuration                 | [view](#view)                                                          | -               |          |
+| enter      | Enter animation configuration           | [animation](#animation)                                                | -               |          |
+| update     | Update animation configuration          | [animation](#animation)                                                | -               |          |
+| exit       | Exit animation configuration            | [animation](#animation)                                                | -               |          |
 
 ### view
 
 View area configuration options.
 
-| Property    | Description                     | Type     | Default         | Required |
-| ----------- | ------------------------------- | -------- | --------------- | -------- |
-| viewFill    | Fill color of entire view area  | `string` | `'transparent'` |          |
-| plotFill    | Fill color of plot area         | `string` | `'transparent'` |          |
-| mainFill    | Fill color of main area         | `string` | `'transparent'` |          |
-| contentFill | Fill color of content area      | `string` | `'transparent'` |          |
+| Property    | Description                    | Type     | Default         | Required |
+| ----------- | ------------------------------ | -------- | --------------- | -------- |
+| viewFill    | Fill color of entire view area | `string` | `'transparent'` |          |
+| plotFill    | Fill color of plot area        | `string` | `'transparent'` |          |
+| mainFill    | Fill color of main area        | `string` | `'transparent'` |          |
+| contentFill | Fill color of content area     | `string` | `'transparent'` |          |
 
 ### animation
 
 Animation configuration options.
 
-| Property | Description                          | Type                                                  | Default  | Required |
-| -------- | ------------------------------------ | ----------------------------------------------------- | -------- | -------- |
-| duration | Animation duration (milliseconds)    | `number`                                              | `300`    |          |
-| fill     | Animation fill mode                  | `'none'` \| `'forwards'` \| `'backwards'` \| `'both'` | `'both'` |          |
-| delay    | Animation delay time (milliseconds)  | `number`                                              | `0`      |          |
+| Property | Description                         | Type                                                  | Default  | Required |
+| -------- | ----------------------------------- | ----------------------------------------------------- | -------- | -------- |
+| duration | Animation duration (milliseconds)   | `number`                                              | `300`    |          |
+| fill     | Animation fill mode                 | `'none'` \| `'forwards'` \| `'backwards'` \| `'both'` | `'both'` |          |
+| delay    | Animation delay time (milliseconds) | `number`                                              | `0`      |          |
 
 ## Custom Themes
 
@@ -183,7 +183,7 @@ This approach is suitable for scenarios that require comprehensive control over 
 
 The following example shows how to use the built-in dark theme:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -219,7 +219,7 @@ chart.render();
 
 The following example shows how to customize the default color:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -250,7 +250,7 @@ chart.render();
 
 The following example shows how to customize categorical color schemes:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -295,7 +295,7 @@ chart.render();
 
 The following example shows how to customize view area styles:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

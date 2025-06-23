@@ -20,12 +20,12 @@ Beyond topographic maps, contour lines are widely used in data visualization to 
 
 <img alt="contourline-structure" src="https://t.alipayobjects.com/images/T1IxliXgdaXXXXXXXX.png" width=600/>
 
-| Chart Type           | Contour Line Chart                                                                                                    |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Suitable Data        | Three-dimensional data: two continuous variables (X, Y coordinates) and one numerical variable (Z value)             |
-| Function             | Display distribution patterns and value changes of continuous data on a two-dimensional plane                        |
+| Chart Type             | Contour Line Chart                                                                                                                                                                                        |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Three-dimensional data: two continuous variables (X, Y coordinates) and one numerical variable (Z value)                                                                                                  |
+| Function               | Display distribution patterns and value changes of continuous data on a two-dimensional plane                                                                                                             |
 | Data-to-Visual Mapping | X coordinate maps to horizontal axis position<br>Y coordinate maps to vertical axis position<br>Z value shown through contour line levels and labels<br>Optionally use color to represent value magnitude |
-| Suitable Data Volume | Continuous two-dimensional grid data; more data points result in smoother contour lines                              |
+| Suitable Data Volume   | Continuous two-dimensional grid data; more data points result in smoother contour lines                                                                                                                   |
 
 ## Use Cases of Contour Line Charts
 
@@ -48,7 +48,7 @@ Here is a typical application scenario for contour line charts:
 
 **Terrain Elevation Distribution Map.** The chart below shows the elevation distribution of a mountainous area. Through contour lines, you can intuitively see the distribution of peaks, valleys, and slopes. Dense contour lines indicate steep slopes, while sparse contour lines indicate gentle terrain.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Simulate terrain elevation data
@@ -99,7 +99,11 @@ chart.options({
     items: [
       { field: 'x', name: 'Longitude' },
       { field: 'y', name: 'Latitude' },
-      { field: 'elevation', name: 'Elevation', valueFormatter: (value) => `${Math.round(value)}m` },
+      {
+        field: 'elevation',
+        name: 'Elevation',
+        valueFormatter: (value) => `${Math.round(value)}m`,
+      },
     ],
   },
 });
@@ -121,31 +125,31 @@ This example demonstrates:
 
 Using lines to draw contour outlines, closer to traditional topographic map representation.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Generate contour line data
 const generateContourLines = () => {
   const lines = [];
   const levels = [20, 40, 60, 80, 100]; // Contour line levels
-  
+
   levels.forEach((level, index) => {
     // Generate circular lines for each contour level
     const points = [];
     const centerX = 25;
     const centerY = 25;
     const baseRadius = 5 + index * 4;
-    
+
     for (let angle = 0; angle <= 360; angle += 5) {
       const radian = (angle * Math.PI) / 180;
-      const radius = baseRadius + Math.sin(angle * Math.PI / 45) * 2; // Add some variation
+      const radius = baseRadius + Math.sin((angle * Math.PI) / 45) * 2; // Add some variation
       const x = centerX + radius * Math.cos(radian);
       const y = centerY + radius * Math.sin(radian);
       points.push({ x, y, level, lineId: `line_${level}` });
     }
     lines.push(...points);
   });
-  
+
   return lines;
 };
 
@@ -191,7 +195,11 @@ chart.options({
   tooltip: {
     title: 'Contour Information',
     items: [
-      { field: 'level', name: 'Elevation', valueFormatter: (value) => `${value}m` },
+      {
+        field: 'level',
+        name: 'Elevation',
+        valueFormatter: (value) => `${value}m`,
+      },
     ],
   },
 });

@@ -11,7 +11,7 @@ order: 19
 
 它是数据可视化、图形学和地理信息系统中不可或缺的工具。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -207,7 +207,7 @@ chart.render();
 
 - `color` 颜色通道, 传入 `string` 类型分组
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -242,7 +242,7 @@ chart.render();
 
 - `color` 颜色通道, 传入 `number` 类型分组
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -303,6 +303,3 @@ chart.render();
 | shadowOffsetY | 设置阴影距图形的垂直距离                                                                                      | `number` \| `Function<number>`                    | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | `string` \| `Function<string>`                    | 'default' |      |
 
-尝试一下：
-
-<Playground path="style/general/geo/geo/demo/hexbin-china.ts" rid="polygon-style"></playground>

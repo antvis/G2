@@ -7,7 +7,7 @@ order: 15
 
 The `link` mark is similar to a line chart but specifies `x` and `y` channels as field arrays of length 2. It obtains corresponding positioning points (x, y) by pairing them and connects the corresponding positioning points to draw directional line segments (with arrows).
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -36,23 +36,23 @@ For more examples, please check the [Chart Examples - Link](/en/examples#general
 
 ## Options
 
-| Property | Description                                                                                                                  | Type              | Default | Required |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
+| Property | Description                                                                                                                                                          | Type              | Default | Required |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- | -------- |
 | encode   | Configure the visual channels of the `link` mark, including `x`, `y`, `color`, `shape`, etc., to specify the relationship between visual element properties and data | [encode](#encode) | -       | ✓        |
-| style    | Configure the graphic style of the `link` mark                                                                               | [style](#style)   | -       |          |
+| style    | Configure the graphic style of the `link` mark                                                                                                                       | [style](#style)   | -       |          |
 
 ### encode
 
 Configure the visual channels of the `area` mark.
 
-| Property | Description                                                                                                                                                    | Type                          | Default | Required |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------- | -------- |
-| x        | Bind the `x` property channel of the `link` mark, can be a single string representing the `x` channel, or directly through an array for both `x` and `x1` channels | [encode](/en/manual/core/encode) | -       | ✓        |
-| x1       | Bind the `x1` property channel of the `link` mark, representing the `x` value of the ending direction point.                                                  | [encode](/en/manual/core/encode) | -       | ✓        |
-| y        | Bind the `y` property channel of the `link` mark, can be a single string representing the `y` channel, or directly through an array for both `y` and `y1` channels | [encode](/en/manual/core/encode) | -       | ✓        |
-| y1       | Bind the `y1` property channel of the `link` mark, representing the `y` value of the ending direction point.                                                  | [encode](/en/manual/core/encode) | -       | ✓        |
+| Property | Description                                                                                                                                                                                                                                                     | Type                             | Default | Required |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------- | -------- |
+| x        | Bind the `x` property channel of the `link` mark, can be a single string representing the `x` channel, or directly through an array for both `x` and `x1` channels                                                                                              | [encode](/en/manual/core/encode) | -       | ✓        |
+| x1       | Bind the `x1` property channel of the `link` mark, representing the `x` value of the ending direction point.                                                                                                                                                    | [encode](/en/manual/core/encode) | -       | ✓        |
+| y        | Bind the `y` property channel of the `link` mark, can be a single string representing the `y` channel, or directly through an array for both `y` and `y1` channels                                                                                              | [encode](/en/manual/core/encode) | -       | ✓        |
+| y1       | Bind the `y1` property channel of the `link` mark, representing the `y` value of the ending direction point.                                                                                                                                                    | [encode](/en/manual/core/encode) | -       | ✓        |
 | color    | Bind the `color` property channel of the `link` mark. If a data field is mapped to the color channel, the data will be grouped and split into multiple areas with different colors, which can be used to divide areas or present the values of the current area | [encode](/en/manual/core/encode) | -       |          |
-| shape    | Bind the `shape` property channel of the `link` mark                                                                                                           | [encode](/en/manual/core/encode) | `link`  |          |
+| shape    | Bind the `shape` property channel of the `link` mark                                                                                                                                                                                                            | [encode](/en/manual/core/encode) | `link`  |          |
 
 #### x & y & x1 & y1
 
@@ -86,7 +86,7 @@ The `link` mark's visual channels require values for the four fields `x`, `y`, `
 
 The `color` visual channel affects the `link` mark. A single area in the `link` mark can only use one color (or gradient color), but if a data field is mapped to the color channel, the data will be grouped and split into multiple areas:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -119,31 +119,31 @@ chart.render();
 
 The built-in shapes supported by the `link` mark are as follows:
 
-| Shape  | Description        | Example                                                                                                                      |
-| ------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| Shape  | Description             | Example                                                                                                          |
+| ------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | link   | Connection line\|vector | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tTHNQaV0JaAAAAAAAAAAAAAAemJ7AQ/original"></img> |
-| arc    | Arc line           | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3ya9SI9qVTQAAAAAAAAAAAAAemJ7AQ/original"></img> |
-| smooth | Bezier curve       | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*etcgSbaVmlAAAAAAAAAAAAAAemJ7AQ/original"></img> |
-| vhv    | Right-angle polyline | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*X1oJSaTeNv8AAAAAAAAAAAAAemJ7AQ/original"></img> |
+| arc    | Arc line                | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3ya9SI9qVTQAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| smooth | Bezier curve            | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*etcgSbaVmlAAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| vhv    | Right-angle polyline    | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*X1oJSaTeNv8AAAAAAAAAAAAAemJ7AQ/original"></img> |
 
 ### style
 
-| Property      | Description                                                                                                                                                      | Type                                                | Default   | Required |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------- | -------- |
-| arrow         | Control whether to show arrows. Essentially a line segment, not a graphic, inherits all properties of straight lines.                                           | _boolean_                                           | `false`   |          |
-| arrowSize     | The size of the arrow icon, can specify pixel values or relative values of arrow length. This property is for arrow length, width is configured by 'lineWidth' | _string_ \| _number_                                | `40%`     |          |
-| stroke        | The color of the graphic                                                                                                                                         | _string_ \| _Function\<string\>_                    | -         |          |
-| strokeOpacity | Graphic transparency                                                                                                                                             | _number_ \| _Function\<number\>_                    | -         |          |
-| lineWidth     | The width of the graphic                                                                                                                                         | _number_ \| _Function\<number\>_                    | -         |          |
+| Property      | Description                                                                                                                                                                                                                                                                                               | Type                                                | Default   | Required |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------- | -------- |
+| arrow         | Control whether to show arrows. Essentially a line segment, not a graphic, inherits all properties of straight lines.                                                                                                                                                                                     | _boolean_                                           | `false`   |          |
+| arrowSize     | The size of the arrow icon, can specify pixel values or relative values of arrow length. This property is for arrow length, width is configured by 'lineWidth'                                                                                                                                            | _string_ \| _number_                                | `40%`     |          |
+| stroke        | The color of the graphic                                                                                                                                                                                                                                                                                  | _string_ \| _Function\<string\>_                    | -         |          |
+| strokeOpacity | Graphic transparency                                                                                                                                                                                                                                                                                      | _number_ \| _Function\<number\>_                    | -         |          |
+| lineWidth     | The width of the graphic                                                                                                                                                                                                                                                                                  | _number_ \| _Function\<number\>_                    | -         |          |
 | lineDash      | Dashed line configuration for stroke, the first value is the length of each dash segment, the second value is the distance between segments. Setting lineDash to [0, 0] results in no stroke. Since arrows also inherit line style configuration, it's best not to configure this style when using arrows | _[number,number]_ \| _Function\<[number, number]\>_ | -         |          |
-| opacity       | Overall transparency of the graphic                                                                                                                              | _number_ \| _Function\<number\>_                    | -         |          |
-| shadowColor   | Graphic shadow color                                                                                                                                             | _string_ \| _Function\<string\>_                    | -         |          |
-| shadowBlur    | Gaussian blur coefficient of the graphic shadow                                                                                                                  | _number_ \| _Function\<number\>_                    | -         |          |
-| shadowOffsetX | Set the horizontal distance of the shadow from the graphic                                                                                                       | _number_ \| _Function\<number\>_                    | -         |          |
-| shadowOffsetY | Set the vertical distance of the shadow from the graphic                                                                                                         | _number_ \| _Function\<number\>_                    | -         |          |
-| cursor        | Mouse style. Same as CSS mouse style, default 'default'.                                                                                                        | _string_ \| _Function\<string\>_                    | `default` |          |
+| opacity       | Overall transparency of the graphic                                                                                                                                                                                                                                                                       | _number_ \| _Function\<number\>_                    | -         |          |
+| shadowColor   | Graphic shadow color                                                                                                                                                                                                                                                                                      | _string_ \| _Function\<string\>_                    | -         |          |
+| shadowBlur    | Gaussian blur coefficient of the graphic shadow                                                                                                                                                                                                                                                           | _number_ \| _Function\<number\>_                    | -         |          |
+| shadowOffsetX | Set the horizontal distance of the shadow from the graphic                                                                                                                                                                                                                                                | _number_ \| _Function\<number\>_                    | -         |          |
+| shadowOffsetY | Set the vertical distance of the shadow from the graphic                                                                                                                                                                                                                                                  | _number_ \| _Function\<number\>_                    | -         |          |
+| cursor        | Mouse style. Same as CSS mouse style, default 'default'.                                                                                                                                                                                                                                                  | _string_ \| _Function\<string\>_                    | `default` |          |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

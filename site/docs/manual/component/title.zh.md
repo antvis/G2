@@ -44,7 +44,7 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -121,7 +121,7 @@ chart.render();
 
 尝试一下：
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -243,4 +243,39 @@ chart.render();
 
 尝试一下：
 
-<Playground path="component/title/demo/title-style.ts" rid="title-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.title({
+  align: 'right',
+  title: 'Sold by genre, sorted by sold',
+  titleFontSize: 15,
+  subtitle: 'It shows the sales volume of genre, sored by sold.',
+  subtitleFill: 'red',
+  subtitleFontSize: 12,
+  subtitleShadowColor: 'yellow',
+  subtitleShadowBlur: 5,
+  subtitleFontStyle: 'italic',
+});
+
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 0 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .style('minHeight', 50);
+
+chart.render();
+```

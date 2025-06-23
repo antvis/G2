@@ -49,7 +49,7 @@ order: 2
 
 下面的示例展示了如何创建基本的密度图，展示不同物种的数据分布：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 在极坐标系中使用 KDE 可以创建环形的小提琴图，为数据分布可视化提供新的视角：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -137,7 +137,7 @@ chart.render();
 
 通过调整 KDE 的参数，可以控制密度估计的平滑程度和精度：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

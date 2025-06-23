@@ -13,7 +13,7 @@ Whether used to display trending topics on social media, analyze user comment se
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ Comparison with `padding` configuration in layout
 | archimedean     | Archimedean spiral (default), words arrange from center outward in spiral path, more compact layout.    | General scenarios, pursuing natural compact layout |
 | rectangular     | Rectangular spiral, words arrange in rectangular path, faster computation but relatively sparse layout. | Optimizing performance when data volume is large   |
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -183,7 +183,7 @@ Notes:
 - Image loading: When using image masks, ensure that image resources are fully loaded, otherwise rendering issues may occur.
 - Performance impact: Complex shapes (such as high-resolution images) may affect word cloud construction speed.
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -246,4 +246,27 @@ type TextBaseline = 'top' | 'middle' | 'bottom';
 
 Try it out:
 
-<Playground path="style/general/text/demo/wordCloud.ts" rid="text-wordCloud"></Playground>
+```js | ob {. inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingTop: 40,
+});
+
+chart
+  .wordCloud()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
+  })
+  .layout({
+    spiral: 'rectangular',
+    fontSize: [20, 100],
+  })
+  .encode('color', 'text');
+
+chart.render();
+
+```

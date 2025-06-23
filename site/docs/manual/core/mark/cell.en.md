@@ -7,7 +7,7 @@ order: 5
 
 `cell` is an abstract representation of a rectangular mark (Rect Shape), primarily used to represent cells in facets or grids. It is the smallest unit for mapping data to visual elements in charts. Specifically, it is a type of area division that typically corresponds to an independent drawing area in different facets, commonly seen in matrix-type charts (such as calendar charts, aggregated heatmaps, etc.).
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -66,7 +66,7 @@ For more `encode` configurations, please check the [encode](/manual/core/encode)
 
 Through the `color` property in `encode`, you can map data fields to color values, automatically adjusting mark colors based on data changes. This is very useful for data visualization as it helps you quickly identify data patterns and trends.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

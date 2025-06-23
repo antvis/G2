@@ -124,7 +124,7 @@ Next, let's look at a relatively complex scenario - the normalized stacked area 
 
 It is used to show trends of multiple categories of data changing over time or other continuous variables, while emphasizing the relative proportions of each category in the total, rather than absolute values. For example, if we need a normalized stacked area chart, we can achieve the following effect. You can refer to the corresponding example code, and for details, check our online [chart examples](https://g2.antv.antgroup.com/en/examples/general/area/#percentage-area):
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -209,7 +209,7 @@ chart.render();
 
 For detailed examples, refer to our online [chart examples](https://g2.antv.antgroup.com/en/examples/general/area/#cascade-area), and there are other stacking chart examples available online for reference. Finally, here's a simple stacked bar chart as the most intuitive demonstration of calling this function:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

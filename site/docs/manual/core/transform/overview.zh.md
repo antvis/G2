@@ -23,7 +23,7 @@ order: 1
 
 标记转换会去修改每个通道绑定的数据，从而改变图表的展示形式。比如 StackY 转换堆叠了条形图 y 和 y1 通道绑定的列数据：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -69,7 +69,7 @@ chart.render();
 
 在视图上声明的转换会传递给 `children` 声明的标记。如果该标记没有转换就设置，否则没有影响。比如下面这个带有转换的堆叠面积图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -138,7 +138,7 @@ chart.render();
 
 比如如下的数据绘制的散点图中 x 通道相同的点完全重叠在一起，很难区分。
 
-```js | ob {  pin:false, autoMount: true }
+```js | ob {  pin:false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -167,7 +167,7 @@ chart.render();
 
 可以通过配置 [jitterX](/manual/core/transform/jitter-x) 转换实现在某个区域的 x 方向散开的效果。
 
-```js | ob {  pin:false, autoMount: true }
+```js | ob {  pin:false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -197,7 +197,7 @@ chart.render();
 
 这种情况在柱状图中也很常见，比如如下的数据绘制的柱状图中在 x 通道是分类的情况下，同一个分类下有多条记录是会出现重叠，很难区分。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -233,7 +233,7 @@ chart.render();
 
 这时候可以声明一个 [dodgeX](/manual/core/transform/dodge-x) 去绘制分组柱状图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -270,7 +270,7 @@ chart.render();
 
 或者声明一个 [stackY](/manual/core/transform/stack-y) 去绘制堆叠柱状图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -322,7 +322,7 @@ chart.render();
 
 还有一类标记转换主要是用来做数据聚合：比如 [bin](/manual/core/transform/bin) 和 [group](/manual/core/transform/group)。和传统的数据聚合不同，标记聚合是发生在绘制之中，而不是在绘制之前。这使得我们不需要去操作抽象的原始数据，而是直接操作通道值即可。这大大提高了我们探索数据的效率。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 table({
   url: 'https://assets.antv.antgroup.com/g2/penguins.json',
 });
@@ -332,7 +332,7 @@ table({
 
 首先我们如下绘制一个散点图，展现了企鹅 `culmen_depth_mm` 和 `culmen_length_mm` 的相关性。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 但是散点图无法直观地看出企鹅群体某个数据的分布情况，比如 `culmen_depth_mm` 的具体分布情况，这时候就可以使用 [binX](/manual/core/transform/bin-x) 对数据进行分箱，通过直方图进行进一步的数据分析。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -384,7 +384,7 @@ chart.render();
 
 bin 主要是用来聚合数值类型的数据，group 主要针对离散数据。在上面的例子中，如果想要分析不同岛屿上不同企鹅种类的数量，可以使用 [groupX](/manual/core/transform/group-x)对 x 通道进行分组，并对 y 通道根据 count 方式进行聚合。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -418,7 +418,7 @@ chart.render();
 
 如果我们不关心具体的数量多少，而是想聚焦于不同种类的企鹅的占比，可以使用 [normalizeY](/manual/core/transform/normalize-y) 进行归一化处理。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -484,7 +484,7 @@ chart.render();
 
 groupX 是常用的一种标记转换，基于 **x 通道** 对数据进行分组，并对指定的通道进行聚合处理。具体来说，它将数据按照 **x 通道**的分组维度进行聚合计算，并结合 **y 通道**上的数据进行进一步处理。例如，可以对每组 **y 数据**进行计算并取其平均值（`mean`），作为聚合结果。最终，聚合后的数据会被用于绘制标记（如 lineY），从而生成一条具有统计学意义的平均线。这种方法简化了分组与聚合的流程，使得在图形绘制时就能直接操作聚合后的数据，提升了数据处理效率与可视化表达的精准性。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -528,7 +528,7 @@ chart.render();
 
 同理我们可以用 groupY 转换来绘制直方图的中位线。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -572,7 +572,7 @@ chart.render();
 
 在可视化中，当需要突出显示某些特殊位置（如起点、终点或最大值）时，select 标记转换是一种非常灵活且高效的选择。通过 select 转换，可以基于条件筛选数据并实现对特定位置的标记。以下示例展示了如何使用 selectY 对 **折线图**的数据进行筛选，从而标注图中 **峰值位置**的具体实现：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -658,7 +658,7 @@ chart.render();
 
 我们也可以同时声明多个转换。比如在上面的企鹅的例子中，我们多考虑一个数据维度：企鹅的性别，就可以连续声明 binX 和 stackY 转换。需要注意的一点是，G2 里的转换是按顺序执行的，在下面的例子里交换 binX 和 stackY 的顺序会出错。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

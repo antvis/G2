@@ -106,17 +106,17 @@ It can also be configured at the View level. Interactions declared on the view w
 ## Configuration Options
 
 Interaction configuration
-| Property   | Description                                                                     | Type      | Default |
+| Property | Description | Type | Default |
 | ---------- | ------------------------------------------------------------------------------- | --------- | ------- |
-| background | Whether to highlight background                                                 | `boolean` | false   |
-| region     | Whether to trigger highlight when mouse moves to empty area of element (see below) | `boolean` | false   |
+| background | Whether to highlight background | `boolean` | false |
+| region | Whether to trigger highlight when mouse moves to empty area of element (see below) | `boolean` | false |
 
 Element highlight style configuration
 
-| Property   | Description                                                                                                                                                                  | Type     | Default                                                                                                                                                                |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| offset     | Offset in the main direction                                                                                                                                                 | `number` | 0                                                                                                                                                                      |
-| background | Whether to highlight background                                                                                                                                              | [backgroundStyle](/en/manual/core/interaction/element-highlight#element-highlight-style) | See [backgroundStyle](/en/manual/core/interaction/element-highlight#element-highlight-style) |
+| Property   | Description                     | Type                                                                                     | Default                                                                                      |
+| ---------- | ------------------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| offset     | Offset in the main direction    | `number`                                                                                 | 0                                                                                            |
+| background | Whether to highlight background | [backgroundStyle](/en/manual/core/interaction/element-highlight#element-highlight-style) | See [backgroundStyle](/en/manual/core/interaction/element-highlight#element-highlight-style) |
 
 <img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n9wMQZoN2ssAAAAAAAAAAAAAemJ7AQ/original" width="800">
 
@@ -160,7 +160,7 @@ chart.emit('element:unhighlight', {});
 
 ### Basic Highlight
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -189,7 +189,7 @@ chart.render();
 
 ### Custom Highlight
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -75,8 +75,8 @@ chart.interaction('legendFilter', true);
 
 The current version of the LegendFilter plugin has no configurable parameters. When calling, only the type needs to be specified:
 
-| Property | Description               | Type   | Default | Required |
-| -------- | ------------------------- | ------ | ------- | -------- |
+| Property | Description                 | Type   | Default | Required |
+| -------- | --------------------------- | ------ | ------- | -------- |
 | type     | Interaction type identifier | string | none    | Yes      |
 
 ### Complex Type Description
@@ -130,7 +130,7 @@ chart.emit('legend:reset', {});
 
 Below shows a legendfilter interaction functionality for discrete data.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

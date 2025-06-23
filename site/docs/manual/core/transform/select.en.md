@@ -21,10 +21,10 @@ The `select` mark transform is a very flexible and efficient selection. It group
 
 ## Configuration
 
-| Property | Description                                                    | Type                   | Default  |
-| -------- | -------------------------------------------------------------- | ---------------------- | -------- |
-| groupBy  | Group by specified channels                                    | `string` \| `string[]` | `series` |
-| channel  | For each group, use specified channel for data extraction     | [Channel](#channel)    |          |
+| Property | Description                                                         | Type                   | Default  |
+| -------- | ------------------------------------------------------------------- | ---------------------- | -------- |
+| groupBy  | Group by specified channels                                         | `string` \| `string[]` | `series` |
+| channel  | For each group, use specified channel for data extraction           | [Channel](#channel)    |          |
 | selector | For each group, specify the corresponding data extraction operation | [Selector](#selector)  | `first`  |
 
 ### channel
@@ -79,7 +79,7 @@ type Selector =
 
 As shown below, add value annotations to the top of bar charts:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

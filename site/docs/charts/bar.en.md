@@ -60,7 +60,7 @@ The chart below compares the sales of different game genres.
 | Shooter  | 3,500  |
 | Other    | 1,500  |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -111,7 +111,7 @@ When comparing population sizes across provinces, too many categories can cause 
 | Hebei    | 71,854,210 |
 | ...      | ...        |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -197,7 +197,7 @@ chart.render();
 
 Switching to a horizontal bar chart makes labels easier to read, as shown below:
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -265,7 +265,7 @@ Example 2: **Not Suitable for Trends**
 
 Bar charts use bar length to compare categorical data but are not effective for showing continuous trends.
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -331,7 +331,7 @@ chart.render();
 
 For instance, a bar chart is less ideal for showing daily stock prices for September 2015 compared to a [line chart](/en/charts/line) or [area chart](/en/charts/area).
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

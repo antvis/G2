@@ -74,7 +74,7 @@ G2 中的**数据（Data）** 主要用于指定需要可视化的数据和数�
 
 视图绑定的数据具有传递性：会传递给 `view.children` 里面的标记，如果该标记没有数据，那么就设置其数据，否则没有任何影响。这意味着对于共享数据的标记，可以把数据和视图绑定。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -120,7 +120,7 @@ chart.render();
 
 每一个标记都有自己的数据，这意味着我们可以在一个视图中可视化多份数据，比如下面的区间标注图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -253,7 +253,7 @@ chart.getNodesByType('rect')[0].changeData(data);
 
 以下是一个实时改变数据的折线图的例子。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -165,15 +165,15 @@ Hide axis for each channel:
 
 Each axis consists of title, line, tick, label, and grid.
 
-| Property | Description                     | Type                                               | Default Value                | Required |
-| -------- | ------------------------------- | -------------------------------------------------- | ---------------------------- | -------- |
-| title    | Set axis title text and style   | [title](#title)                                    | -                            |          |
-| line     | Set axis line display and style | [line](#line)                                      | -                            |          |
-| tick     | Set axis tick display and style | [tick](#tick)                                      | -                            |          |
-| label    | Set axis label display and style| [label](#label)                                    | -                            |          |
-| grid     | Set axis grid display and style | [grid](#grid)                                      | -                            |          |
-| animate  | Set axis animation effects      | `boolean` &#124; [animate](#animate)               | -                            |
-| position | Set axis position               | `left` &#124; `right` &#124; `top` &#124; `bottom` | `x: bottom` &#124; `y: left` |          |
+| Property | Description                      | Type                                               | Default Value                | Required |
+| -------- | -------------------------------- | -------------------------------------------------- | ---------------------------- | -------- |
+| title    | Set axis title text and style    | [title](#title)                                    | -                            |          |
+| line     | Set axis line display and style  | [line](#line)                                      | -                            |          |
+| tick     | Set axis tick display and style  | [tick](#tick)                                      | -                            |          |
+| label    | Set axis label display and style | [label](#label)                                    | -                            |          |
+| grid     | Set axis grid display and style  | [grid](#grid)                                      | -                            |          |
+| animate  | Set axis animation effects       | `boolean` &#124; [animate](#animate)               | -                            |
+| position | Set axis position                | `left` &#124; `right` &#124; `top` &#124; `bottom` | `x: bottom` &#124; `y: left` |          |
 
 :::warning{title=Note}
 Title, line, tick, label, and grid configurations are at the same level, not configured as objects, but through prefix + property approach.
@@ -203,31 +203,31 @@ For example, to configure label rotation, it's not configured under a label obje
 
 ### title
 
-| Property           | Description                                                           | Type                                                                                                               | Default Value | Required |
-| ------------------ | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------- | -------- |
-| title              | Turn off title or set title content                                  | `false`&#124;`string` &#124; `number` &#124; [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) | -             |          |
-| titleSpacing       | Distance from title to axis                                           | `number` &#124; `(datum, index, data) => number`                                                                   | 10            |          |
-| titlePosition      | Title position relative to axis, supports abbreviation like 'top' as 't' | `'top'`&#124;`'bottom'`&#124;`'left'`&#124;`'right'`                                                               | `'lb'`        |          |
-| titleFontSize      | Title font size                                                       | `number` &#124; `(datum, index, data) => number`                                                                   | -             |          |
-| titleFontWeight    | Title font weight                                                     | `number` &#124; `(datum, index, data) => number`                                                                   | -             |          |
-| titleFontFamily    | Title font family                                                     | `string` &#124; `(datum, index, data) => string`                                                                   | -             |          |
-| titleLineHeight    | Title line height                                                     | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |          |
-| titleTextAlign     | Title text horizontal alignment                                       | `'center'` &#124; `'end'` &#124; `'left'` &#124; `'right'` &#124; `'start'` &#124; `(datum, index, data) => string` | `'start'`     |          |
-| titleTextBaseline  | Title text vertical baseline                                          | `'top'` &#124; `'middle'` &#124; `'bottom'` &#124; `'alphabetic'` &#124; `'hanging'` &#124; `(datum, index, data) => string` | `'middle'`      |          |
-| titleFill          | Title text fill color                                                 | `string` &#124; `(datum, index, data) => string`                                                                   | -             |          |
-| titleFillOpacity   | Title text fill opacity                                               | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |          |
-| titleStroke        | Title text stroke color                                               | `string` &#124; `(datum, index, data) => string`                                                                   | `transparent` |          |
-| titleStrokeOpacity | Title text stroke opacity                                             | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |          |
-| titleLineWidth     | Title text stroke width                                               | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |          |
-| titleLineDash      | Title text stroke dash configuration                                  | `number[]` &#124; `(datum, index, data) => number[]`                                                               | []            |          |
-| titleOpacity       | Title text overall opacity                                            | `number` &#124; `(datum, index, data) => number`                                                                   | 1             |          |
-| titleShadowColor   | Title text shadow color                                               | `string` &#124; `(datum, index, data) => string`                                                                   | `transparent` |          |
-| titleShadowBlur    | Title text shadow Gaussian blur coefficient                           | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |          |
-| titleShadowOffsetX | Title text shadow horizontal offset                                   | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |          |
-| titleShadowOffsetY | Title text shadow vertical offset                                     | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |          |
-| titleCursor        | Title text cursor style                                               | `string` &#124; `(datum, index, data) => string`                                                                   | `default`     |          |
-| titleDx            | Title text horizontal offset                                          | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |          |
-| titleDy            | Title text vertical offset                                            | `number` &#124; `(datum, index, data) => number`                                                                   | 0             |          |
+| Property           | Description                                                              | Type                                                                                                                         | Default Value | Required |
+| ------------------ | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ------------- | -------- |
+| title              | Turn off title or set title content                                      | `false`&#124;`string` &#124; `number` &#124; [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object)           | -             |          |
+| titleSpacing       | Distance from title to axis                                              | `number` &#124; `(datum, index, data) => number`                                                                             | 10            |          |
+| titlePosition      | Title position relative to axis, supports abbreviation like 'top' as 't' | `'top'`&#124;`'bottom'`&#124;`'left'`&#124;`'right'`                                                                         | `'lb'`        |          |
+| titleFontSize      | Title font size                                                          | `number` &#124; `(datum, index, data) => number`                                                                             | -             |          |
+| titleFontWeight    | Title font weight                                                        | `number` &#124; `(datum, index, data) => number`                                                                             | -             |          |
+| titleFontFamily    | Title font family                                                        | `string` &#124; `(datum, index, data) => string`                                                                             | -             |          |
+| titleLineHeight    | Title line height                                                        | `number` &#124; `(datum, index, data) => number`                                                                             | 1             |          |
+| titleTextAlign     | Title text horizontal alignment                                          | `'center'` &#124; `'end'` &#124; `'left'` &#124; `'right'` &#124; `'start'` &#124; `(datum, index, data) => string`          | `'start'`     |          |
+| titleTextBaseline  | Title text vertical baseline                                             | `'top'` &#124; `'middle'` &#124; `'bottom'` &#124; `'alphabetic'` &#124; `'hanging'` &#124; `(datum, index, data) => string` | `'middle'`    |          |
+| titleFill          | Title text fill color                                                    | `string` &#124; `(datum, index, data) => string`                                                                             | -             |          |
+| titleFillOpacity   | Title text fill opacity                                                  | `number` &#124; `(datum, index, data) => number`                                                                             | 1             |          |
+| titleStroke        | Title text stroke color                                                  | `string` &#124; `(datum, index, data) => string`                                                                             | `transparent` |          |
+| titleStrokeOpacity | Title text stroke opacity                                                | `number` &#124; `(datum, index, data) => number`                                                                             | 1             |          |
+| titleLineWidth     | Title text stroke width                                                  | `number` &#124; `(datum, index, data) => number`                                                                             | 0             |          |
+| titleLineDash      | Title text stroke dash configuration                                     | `number[]` &#124; `(datum, index, data) => number[]`                                                                         | []            |          |
+| titleOpacity       | Title text overall opacity                                               | `number` &#124; `(datum, index, data) => number`                                                                             | 1             |          |
+| titleShadowColor   | Title text shadow color                                                  | `string` &#124; `(datum, index, data) => string`                                                                             | `transparent` |          |
+| titleShadowBlur    | Title text shadow Gaussian blur coefficient                              | `number` &#124; `(datum, index, data) => number`                                                                             | 0             |          |
+| titleShadowOffsetX | Title text shadow horizontal offset                                      | `number` &#124; `(datum, index, data) => number`                                                                             | 0             |          |
+| titleShadowOffsetY | Title text shadow vertical offset                                        | `number` &#124; `(datum, index, data) => number`                                                                             | 0             |          |
+| titleCursor        | Title text cursor style                                                  | `string` &#124; `(datum, index, data) => string`                                                                             | `default`     |          |
+| titleDx            | Title text horizontal offset                                             | `number` &#124; `(datum, index, data) => number`                                                                             | 0             |          |
+| titleDy            | Title text vertical offset                                               | `number` &#124; `(datum, index, data) => number`                                                                             | 0             |          |
 
 > Configuration approach
 
@@ -278,24 +278,24 @@ For example, to configure label rotation, it's not configured under a label obje
 
 ### line
 
-| Property          | Description                                                                                                       | Type                                                                  | Default Value | Required |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------- | -------- |
-| line              | Whether to show axis line                                                                                         | `boolean`                                                             | false         |          |
-| arrow             | Whether to show arrow                                                                                             | `boolean`                                                             | true          |          |
-| lineExtension     | Extension lines on both sides of axis                                                                            | `[number, number]`                                                    | -             |          |
-| lineArrow         | Define axis line arrow shape, defaults to arrow shape                                                            | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) | -             |          |
-| lineArrowOffset   | Arrow offset length                                                                                               | `number`                                                              | 15            |          |
-| lineArrowSize     | Arrow size                                                                                                        | `number`                                                              | -             |          |
-| lineStroke        | Axis line stroke color                                                                                            | `string` &#124; `(datum, index, data) => string`                      | -             |          |
-| lineStrokeOpacity | Axis line stroke opacity                                                                                          | `number` &#124; `(datum, index, data) => number`                      | -             |          |
-| lineLineWidth     | Axis line stroke width                                                                                            | `number` &#124; `(datum, index, data) => number`                      | -             |          |
+| Property          | Description                                                                                                                 | Type                                                                  | Default Value | Required |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------- | -------- |
+| line              | Whether to show axis line                                                                                                   | `boolean`                                                             | false         |          |
+| arrow             | Whether to show arrow                                                                                                       | `boolean`                                                             | true          |          |
+| lineExtension     | Extension lines on both sides of axis                                                                                       | `[number, number]`                                                    | -             |          |
+| lineArrow         | Define axis line arrow shape, defaults to arrow shape                                                                       | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) | -             |          |
+| lineArrowOffset   | Arrow offset length                                                                                                         | `number`                                                              | 15            |          |
+| lineArrowSize     | Arrow size                                                                                                                  | `number`                                                              | -             |          |
+| lineStroke        | Axis line stroke color                                                                                                      | `string` &#124; `(datum, index, data) => string`                      | -             |          |
+| lineStrokeOpacity | Axis line stroke opacity                                                                                                    | `number` &#124; `(datum, index, data) => number`                      | -             |          |
+| lineLineWidth     | Axis line stroke width                                                                                                      | `number` &#124; `(datum, index, data) => number`                      | -             |          |
 | lineLineDash      | Axis line stroke dash configuration, first value is segment length, second is gap distance. Setting [0, 0] means no stroke. | `[number,number]` &#124; `(datum, index, data) => [number,number]`    | -             |          |
-| lineOpacity       | Axis line overall opacity                                                                                         | `number` &#124; `(datum, index, data) => number`                      | 1             |          |
-| lineShadowColor   | Axis line shadow color                                                                                            | `string` &#124; `(datum, index, data) => string`                      | -             |          |
-| lineShadowBlur    | Axis line shadow Gaussian blur coefficient                                                                       | `number` &#124; `(datum, index, data) => number`                      | -             |          |
-| lineShadowOffsetX | Axis line shadow horizontal offset                                                                                | `number` &#124; `(datum, index, data) => number`                      | -             |          |
-| lineShadowOffsetY | Axis line shadow vertical offset                                                                                  | `number` &#124; `(datum, index, data) => number`                      | -             |          |
-| lineCursor        | Axis line cursor style                                                                                            | `string` &#124; `(datum, index, data) => string`                      | `default`     |          |
+| lineOpacity       | Axis line overall opacity                                                                                                   | `number` &#124; `(datum, index, data) => number`                      | 1             |          |
+| lineShadowColor   | Axis line shadow color                                                                                                      | `string` &#124; `(datum, index, data) => string`                      | -             |          |
+| lineShadowBlur    | Axis line shadow Gaussian blur coefficient                                                                                  | `number` &#124; `(datum, index, data) => number`                      | -             |          |
+| lineShadowOffsetX | Axis line shadow horizontal offset                                                                                          | `number` &#124; `(datum, index, data) => number`                      | -             |          |
+| lineShadowOffsetY | Axis line shadow vertical offset                                                                                            | `number` &#124; `(datum, index, data) => number`                      | -             |          |
+| lineCursor        | Axis line cursor style                                                                                                      | `string` &#124; `(datum, index, data) => string`                      | `default`     |          |
 
 > Configuration approach
 
@@ -334,23 +334,23 @@ For example, to configure label rotation, it's not configured under a label obje
 
 ### tick
 
-| Property          | Description                                                                                                       | Type                                                                                                                        | Default Value | Required |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | -------- |
-| tick              | Whether to show ticks                                                                                             | `boolean`                                                                                                                   | true          |          |
-| tickFilter        | Tick filtering                                                                                                    | `(datum, index, data)=>boolean`                                                                                             | -             |          |
-| tickFormatter     | Tick formatting, for custom tick styles, callback returns tick direction                                         | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) &#124; `(datum, index, data, Vector)=> DisplayObject` | -             |          |
-| tickDirection     | Tick direction, `positive` for side axis direction (main axis clockwise 90°), `negative` for negative side axis | `'positive'` &#124; `'negative'`                                                                                            | `positive`    |          |
-| tickLength        | Tick length                                                                                                       | `number`&#124;`(datum, index, data)=>number`                                                                                | 15            |          |
-| tickStroke        | Tick stroke color                                                                                                 | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | -             |          |
-| tickStrokeOpacity | Tick stroke opacity                                                                                               | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
-| tickLineWidth     | Tick stroke width                                                                                                 | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
+| Property          | Description                                                                                                            | Type                                                                                                                        | Default Value | Required |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | -------- |
+| tick              | Whether to show ticks                                                                                                  | `boolean`                                                                                                                   | true          |          |
+| tickFilter        | Tick filtering                                                                                                         | `(datum, index, data)=>boolean`                                                                                             | -             |          |
+| tickFormatter     | Tick formatting, for custom tick styles, callback returns tick direction                                               | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) &#124; `(datum, index, data, Vector)=> DisplayObject` | -             |          |
+| tickDirection     | Tick direction, `positive` for side axis direction (main axis clockwise 90°), `negative` for negative side axis        | `'positive'` &#124; `'negative'`                                                                                            | `positive`    |          |
+| tickLength        | Tick length                                                                                                            | `number`&#124;`(datum, index, data)=>number`                                                                                | 15            |          |
+| tickStroke        | Tick stroke color                                                                                                      | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | -             |          |
+| tickStrokeOpacity | Tick stroke opacity                                                                                                    | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
+| tickLineWidth     | Tick stroke width                                                                                                      | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
 | tickLineDash      | Tick stroke dash configuration, first value is segment length, second is gap distance. Setting [0, 0] means no stroke. | `[number,number]` &#124; `(datum, index, data, Vector)=>[number,number]`                                                    | -             |          |
-| tickOpacity       | Tick overall opacity                                                                                              | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
-| tickShadowColor   | Tick shadow color                                                                                                 | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | -             |          |
-| tickShadowBlur    | Tick shadow Gaussian blur coefficient                                                                             | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
-| tickShadowOffsetX | Tick shadow horizontal offset                                                                                     | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
-| tickShadowOffsetY | Tick shadow vertical offset                                                                                       | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
-| tickCursor        | Tick cursor style                                                                                                 | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | `default`     |          |
+| tickOpacity       | Tick overall opacity                                                                                                   | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
+| tickShadowColor   | Tick shadow color                                                                                                      | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | -             |          |
+| tickShadowBlur    | Tick shadow Gaussian blur coefficient                                                                                  | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
+| tickShadowOffsetX | Tick shadow horizontal offset                                                                                          | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
+| tickShadowOffsetY | Tick shadow vertical offset                                                                                            | `number` &#124; `(datum, index, data, Vector)=>number`                                                                      | -             |          |
+| tickCursor        | Tick cursor style                                                                                                      | `string` &#124; `(datum, index, data, Vector)=>string`                                                                      | `default`     |          |
 
 ```ts
 ({
@@ -387,46 +387,46 @@ For example, to configure label rotation, it's not configured under a label obje
 
 ### label
 
-| Property           | Description                                                                                                               | Type                                                              | Default Value | Required |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------- | -------- |
-| label              | Whether to show tick labels                                                                                               | `boolean`                                                         | -             |          |
-| labelFontSize      | Label font size                                                                                                           | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelFontFamily    | Label font family                                                                                                         | `string` &#124; `(datum, index, data)=>string`                    | -             |          |
-| labelFontWeight    | Label font weight                                                                                                         | `number` &#124;`(datum, index, data)=>number`                     | -             |          |
-| labelLineHeight    | Label line height                                                                                                         | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelTextAlign     | Label text horizontal alignment                                                                                           | `'center'` &#124; `'end'` &#124; `'left'` &#124; `'right'` &#124; `'start'` &#124; `(datum, index, data)=>string`          | `'start'`     |          |
-| labelTextBaseline  | Label text vertical baseline                                                                                              | `'top'` &#124; `'middle'` &#124; `'bottom'` &#124; `'alphabetic'` &#124; `'hanging'` &#124; `(datum, index, data)=>string` | `'bottom'`    |          |
-| labelAlign         | Label alignment<br/>- 'horizontal' always horizontal<br/> - 'parallel' parallel to axis<br/> - 'perpendicular' perpendicular to axis | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`       | `parallel`    |          |
-| labelFilter        | Label filtering                                                                                                           | `(datum, index, data)=> boolean`                                  | -             |          |
-| labelFormatter     | Label formatting, accepts function or [d3-format](https://d3js.org/d3-format) supported string                          | `string` \| `(datum, index, array) => string`                     | -             |          |
-| transform          | Label transform to avoid text overlap. Supports text ellipsis, overlap hiding, auto rotation                            | `Transform[]`                                                     | -             |          |
-| labelTransform     | Label transform shortcuts for local coordinate system transforms including scale, translate, rotate, skew, matrix transforms, see [transform](https://g.antv.antgroup.com/api/basic/display-object#transform) | `string`                                                          | -             |          |
-| labelAutoHide      | Auto hide overlapping labels, effective when size is set                                                                 | `boolean` &#124; `HideOverlapCfg`                                 | -             |          |
-| labelAutoRotate    | Auto rotate labels, effective when size is set                                                                           | `boolean` &#124; `RotateOverlapCfg`                               | -             |          |
-| labelAutoEllipsis  | Auto ellipsis labels, effective when size is set                                                                         | `boolean` &#124; `EllipsisOverlapCfg`                             | -             |          |
-| labelAutoWrap      | Auto wrap labels, effective when size is set                                                                             | `boolean` &#124; `WrapOverlapCfg`                                 | -             |          |
-| labelDirection     | Label position relative to axis line, refer to `tickDirection`                                                           | `'positive'` &#124; `'negative'`                                  | `positive`    |          |
-| labelSpacing       | Spacing between label and its corresponding tick                                                                          | `number`                                                          | 0             |          |
-| labelFill          | Label text fill color                                                                                                     | `string` &#124; `(datum, index, data)=>string`                    | -             |          |
-| labelFillOpacity   | Label text fill opacity                                                                                                   | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelStroke        | Label text stroke color                                                                                                   | `string` &#124; `(datum, index, data)=>string`                    | -             |          |
-| labelStrokeOpacity | Label text stroke opacity                                                                                                 | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelLineWidth     | Label text stroke width                                                                                                   | `number` &#124;`(datum, index, data)=>number`                     | -             |          |
-| labelLineDash      | Label text stroke dash configuration, first value is segment length, second is gap distance. Setting [0, 0] means no stroke. | `[number,number]` &#124; `(datum, index, data)=>[number, number]` | -             |          |
-| labelOpacity       | Label text overall opacity                                                                                                | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelShadowColor   | Label text shadow color                                                                                                   | `string` &#124; `(datum, index, data)=>string`                    | -             |          |
-| labelShadowBlur    | Label text shadow Gaussian blur coefficient                                                                               | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelShadowOffsetX | Label text shadow horizontal offset                                                                                       | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelShadowOffsetY | Label text shadow vertical offset                                                                                         | `number` &#124; `(datum, index, data)=>number`                    | -             |          |
-| labelCursor        | Label text cursor style                                                                                                   | `string` &#124; `(datum, index, data)=>string`                    | `default`     |          |
-| labelDx            | Label text horizontal offset                                                                                              | `number` &#124; `(datum, index, data)=>number`                    | 0             |          |
-| labelDy            | Label text vertical offset                                                                                                | `number` &#124; `(datum, index, data)=>number`                    | 0             |          |
+| Property           | Description                                                                                                                                                                                                   | Type                                                                                                                       | Default Value | Required |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------- | -------- |
+| label              | Whether to show tick labels                                                                                                                                                                                   | `boolean`                                                                                                                  | -             |          |
+| labelFontSize      | Label font size                                                                                                                                                                                               | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelFontFamily    | Label font family                                                                                                                                                                                             | `string` &#124; `(datum, index, data)=>string`                                                                             | -             |          |
+| labelFontWeight    | Label font weight                                                                                                                                                                                             | `number` &#124;`(datum, index, data)=>number`                                                                              | -             |          |
+| labelLineHeight    | Label line height                                                                                                                                                                                             | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelTextAlign     | Label text horizontal alignment                                                                                                                                                                               | `'center'` &#124; `'end'` &#124; `'left'` &#124; `'right'` &#124; `'start'` &#124; `(datum, index, data)=>string`          | `'start'`     |          |
+| labelTextBaseline  | Label text vertical baseline                                                                                                                                                                                  | `'top'` &#124; `'middle'` &#124; `'bottom'` &#124; `'alphabetic'` &#124; `'hanging'` &#124; `(datum, index, data)=>string` | `'bottom'`    |          |
+| labelAlign         | Label alignment<br/>- 'horizontal' always horizontal<br/> - 'parallel' parallel to axis<br/> - 'perpendicular' perpendicular to axis                                                                          | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`                                                                | `parallel`    |          |
+| labelFilter        | Label filtering                                                                                                                                                                                               | `(datum, index, data)=> boolean`                                                                                           | -             |          |
+| labelFormatter     | Label formatting, accepts function or [d3-format](https://d3js.org/d3-format) supported string                                                                                                                | `string` \| `(datum, index, array) => string`                                                                              | -             |          |
+| transform          | Label transform to avoid text overlap. Supports text ellipsis, overlap hiding, auto rotation                                                                                                                  | `Transform[]`                                                                                                              | -             |          |
+| labelTransform     | Label transform shortcuts for local coordinate system transforms including scale, translate, rotate, skew, matrix transforms, see [transform](https://g.antv.antgroup.com/api/basic/display-object#transform) | `string`                                                                                                                   | -             |          |
+| labelAutoHide      | Auto hide overlapping labels, effective when size is set                                                                                                                                                      | `boolean` &#124; `HideOverlapCfg`                                                                                          | -             |          |
+| labelAutoRotate    | Auto rotate labels, effective when size is set                                                                                                                                                                | `boolean` &#124; `RotateOverlapCfg`                                                                                        | -             |          |
+| labelAutoEllipsis  | Auto ellipsis labels, effective when size is set                                                                                                                                                              | `boolean` &#124; `EllipsisOverlapCfg`                                                                                      | -             |          |
+| labelAutoWrap      | Auto wrap labels, effective when size is set                                                                                                                                                                  | `boolean` &#124; `WrapOverlapCfg`                                                                                          | -             |          |
+| labelDirection     | Label position relative to axis line, refer to `tickDirection`                                                                                                                                                | `'positive'` &#124; `'negative'`                                                                                           | `positive`    |          |
+| labelSpacing       | Spacing between label and its corresponding tick                                                                                                                                                              | `number`                                                                                                                   | 0             |          |
+| labelFill          | Label text fill color                                                                                                                                                                                         | `string` &#124; `(datum, index, data)=>string`                                                                             | -             |          |
+| labelFillOpacity   | Label text fill opacity                                                                                                                                                                                       | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelStroke        | Label text stroke color                                                                                                                                                                                       | `string` &#124; `(datum, index, data)=>string`                                                                             | -             |          |
+| labelStrokeOpacity | Label text stroke opacity                                                                                                                                                                                     | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelLineWidth     | Label text stroke width                                                                                                                                                                                       | `number` &#124;`(datum, index, data)=>number`                                                                              | -             |          |
+| labelLineDash      | Label text stroke dash configuration, first value is segment length, second is gap distance. Setting [0, 0] means no stroke.                                                                                  | `[number,number]` &#124; `(datum, index, data)=>[number, number]`                                                          | -             |          |
+| labelOpacity       | Label text overall opacity                                                                                                                                                                                    | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelShadowColor   | Label text shadow color                                                                                                                                                                                       | `string` &#124; `(datum, index, data)=>string`                                                                             | -             |          |
+| labelShadowBlur    | Label text shadow Gaussian blur coefficient                                                                                                                                                                   | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelShadowOffsetX | Label text shadow horizontal offset                                                                                                                                                                           | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelShadowOffsetY | Label text shadow vertical offset                                                                                                                                                                             | `number` &#124; `(datum, index, data)=>number`                                                                             | -             |          |
+| labelCursor        | Label text cursor style                                                                                                                                                                                       | `string` &#124; `(datum, index, data)=>string`                                                                             | `default`     |          |
+| labelDx            | Label text horizontal offset                                                                                                                                                                                  | `number` &#124; `(datum, index, data)=>number`                                                                             | 0             |          |
+| labelDy            | Label text vertical offset                                                                                                                                                                                    | `number` &#124; `(datum, index, data)=>number`                                                                             | 0             |          |
 
 #### labelFormatter
 
 The `labelFormatter` visual channel is used to adjust label formatting.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -491,7 +491,7 @@ Both approaches have identical core functionality, differing only in use cases a
 
 > 1. `transform` array (multi-strategy combination)
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -556,7 +556,7 @@ chart.render();
 
 > 2. Using `labelAutoHide`, `labelAutoRotate`, `labelAutoEllipsis`, `labelAutoWrap` properties (requires `size` setting)
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -659,47 +659,47 @@ export interface WrapOverlapCfg extends Transform {
 
 Grid lines have different styles in different coordinate systems
 
-| Scenario           | Style                                                                                                                                        |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Cartesian`        | <img alt="linear-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i-2xTLMLU3EAAAAAAAAAAAAADmJ7AQ/original" width="200" />  |
-| `Polar`            | <img alt="circle-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gkAKQ4XTErQAAAAAAAAAAAAADmJ7AQ/original" width="100" />  |
-| `Polar`            | <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="100" />   |
-| `Polar` `Radar`    | <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="100" /> |
+| Scenario        | Style                                                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Cartesian`     | <img alt="linear-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i-2xTLMLU3EAAAAAAAAAAAAADmJ7AQ/original" width="200" />  |
+| `Polar`         | <img alt="circle-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gkAKQ4XTErQAAAAAAAAAAAAADmJ7AQ/original" width="100" />  |
+| `Polar`         | <img alt="polar-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Tv3RIrDWvgAAAAAAAAAAAAADmJ7AQ/original" width="100" />   |
+| `Polar` `Radar` | <img alt="polygon-grid" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gZLeRpTXiRAAAAAAAAAAAAAADmJ7AQ/original" width="100" /> |
 
-| Property          | Description                                                                                                       | Type                                                             | Default Value | Required |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------- | -------- |
-| grid              | Whether to show grid lines                                                                                        | `boolean`                                                        | false         |          |
-| gridFilter        | Grid line filtering                                                                                               | `(datum, index, data)=> boolean`                                 | -             |          |
-| gridLength        | Grid line length. Generally, user configuration is not needed.                                                   | `number` &#124; `(datum, index, data)=> number`                  | 0             |          |
-| gridAreaFill      | Grid area fill color                                                                                              | `string` &#124; `string[]`&#124; `(datum, index, data)=> string` | -             |          |
-| gridStroke        | Grid line stroke color                                                                                            | `string` &#124; `(datum, index, data)=> string`                  | -             |          |
-| gridStrokeOpacity | Grid line stroke opacity                                                                                          | `number` &#124; `(datum, index, data)=> number`                  | -             |          |
-| gridLineWidth     | Grid line stroke width                                                                                            | `number` &#124; `(datum, index, data)=> number`                  | -             |          |
+| Property          | Description                                                                                                                 | Type                                                              | Default Value | Required |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------- | -------- |
+| grid              | Whether to show grid lines                                                                                                  | `boolean`                                                         | false         |          |
+| gridFilter        | Grid line filtering                                                                                                         | `(datum, index, data)=> boolean`                                  | -             |          |
+| gridLength        | Grid line length. Generally, user configuration is not needed.                                                              | `number` &#124; `(datum, index, data)=> number`                   | 0             |          |
+| gridAreaFill      | Grid area fill color                                                                                                        | `string` &#124; `string[]`&#124; `(datum, index, data)=> string`  | -             |          |
+| gridStroke        | Grid line stroke color                                                                                                      | `string` &#124; `(datum, index, data)=> string`                   | -             |          |
+| gridStrokeOpacity | Grid line stroke opacity                                                                                                    | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
+| gridLineWidth     | Grid line stroke width                                                                                                      | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
 | gridLineDash      | Grid line stroke dash configuration, first value is segment length, second is gap distance. Setting [0, 0] means no stroke. | `[number,number]` &#124; `(datum, index, data)=> [number,number]` | -             |          |
-| gridOpacity       | Grid line overall opacity                                                                                         | `number` &#124; `(datum, index, data)=> number`                  | -             |          |
-| gridShadowColor   | Grid line shadow color                                                                                            | `string` &#124; `(datum, index, data)=> string`                  | -             |          |
-| gridShadowBlur    | Grid line shadow Gaussian blur coefficient                                                                        | `number` &#124; `(datum, index, data)=> number`                  | -             |          |
-| gridShadowOffsetX | Grid line shadow horizontal offset                                                                                | `number` &#124; `(datum, index, data)=> number`                  | -             |          |
-| gridShadowOffsetY | Grid line shadow vertical offset                                                                                  | `number` &#124; `(datum, index, data)=> number`                  | -             |          |
-| gridCursor        | Grid line cursor style                                                                                            | `string` &#124; `(datum, index, data)=> string`                  | `default`     |          |
+| gridOpacity       | Grid line overall opacity                                                                                                   | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
+| gridShadowColor   | Grid line shadow color                                                                                                      | `string` &#124; `(datum, index, data)=> string`                   | -             |          |
+| gridShadowBlur    | Grid line shadow Gaussian blur coefficient                                                                                  | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
+| gridShadowOffsetX | Grid line shadow horizontal offset                                                                                          | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
+| gridShadowOffsetY | Grid line shadow vertical offset                                                                                            | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
+| gridCursor        | Grid line cursor style                                                                                                      | `string` &#124; `(datum, index, data)=> string`                   | `default`     |          |
 
 ### animate
 
 Supports setting animation effects for updates
 
-| Property | Description        | Type                            | Default Value | Required |
-| -------- | ------------------ | ------------------------------- | ------------- | -------- |
+| Property | Description                 | Type                            | Default Value | Required |
+| -------- | --------------------------- | ------------------------------- | ------------- | -------- |
 | animate  | Whether to enable animation | `boolean` &#124; `EffectTiming` | -             |          |
 
 EffectTiming supports the following configurable properties:
 
-| Property | Description                                    | Type     | Default Value | Required |
-| -------- | ---------------------------------------------- | -------- | ------------- | -------- |
-| delay    | Delay execution time (ms)                      | `number` | -             |          |
-| duration | Animation duration (ms)                        | `number` | -             |          |
-| easing   | Animation easing function                      | `Easing` | -             |          |
-| endDelay | End delay execution time (ms)                  | `number` | -             |          |
-| fill     | Animation display effect when not running      | `Fill`   | -             |          |
+| Property | Description                               | Type     | Default Value | Required |
+| -------- | ----------------------------------------- | -------- | ------------- | -------- |
+| delay    | Delay execution time (ms)                 | `number` | -             |          |
+| duration | Animation duration (ms)                   | `number` | -             |          |
+| easing   | Animation easing function                 | `Easing` | -             |          |
+| endDelay | End delay execution time (ms)             | `number` | -             |          |
+| fill     | Animation display effect when not running | `Fill`   | -             |          |
 
 ## Events
 
@@ -707,7 +707,7 @@ The axis component itself has no specific event types.
 
 ## Examples
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

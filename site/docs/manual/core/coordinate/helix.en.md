@@ -7,7 +7,7 @@ The `helix` coordinate system is a coordinate system that expands two-dimensiona
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -30,7 +30,7 @@ chart.data(data);
 chart.coordinate({
   type: 'helix',
   startAngle: 0.5 * Math.PI, // Starting angle
-  endAngle: 12.5 * Math.PI,  // Ending angle
+  endAngle: 12.5 * Math.PI, // Ending angle
 });
 
 chart
@@ -45,8 +45,8 @@ chart.render();
 
 ## Configuration
 
-| Parameter   | Description                        | Type     | Default       |
-| ----------- | ---------------------------------- | -------- | ------------- |
+| Parameter   | Description                            | Type     | Default       |
+| ----------- | -------------------------------------- | -------- | ------------- |
 | startAngle  | Starting angle of the spiral (radians) | `number` | `0`           |
 | endAngle    | Ending angle of the spiral (radians)   | `number` | `Math.PI * 6` |
 | innerRadius | Inner radius of the spiral (0 to 1)    | `number` | `0`           |

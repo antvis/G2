@@ -9,13 +9,13 @@ The function of `join` is to connect two datasets together, similar to the `JOIN
 
 ## Configuration
 
-| Property | Description | Type | Default | Required |
-| -------- | ----------- | ---- | ------- | -------- |
-| `join` | The data source to be joined | `object[]` | - | Yes |
-| `on` | Fields for connecting the two data sources | `[string \| ((d: any) => string), string \| ((d: any) => string)]` | - | Yes |
-| `select` | Fields to select from the joined data source | `string[]` | `[]` | No |
-| `as` | Rename the fields selected by `select` | `string[]` | No renaming | No |
-| `unknown` | Default value if no matching join data is found | `any` | NaN | No |
+| Property  | Description                                     | Type                                                               | Default     | Required |
+| --------- | ----------------------------------------------- | ------------------------------------------------------------------ | ----------- | -------- |
+| `join`    | The data source to be joined                    | `object[]`                                                         | -           | Yes      |
+| `on`      | Fields for connecting the two data sources      | `[string \| ((d: any) => string), string \| ((d: any) => string)]` | -           | Yes      |
+| `select`  | Fields to select from the joined data source    | `string[]`                                                         | `[]`        | No       |
+| `as`      | Rename the fields selected by `select`          | `string[]`                                                         | No renaming | No       |
+| `unknown` | Default value if no matching join data is found | `any`                                                              | NaN         | No       |
 
 ### Detailed Property Description
 

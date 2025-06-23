@@ -5,7 +5,7 @@ order: 2
 
 G2 的大部分能力通过 `Chart` 对象暴露给用户，比如绘制一个简单的条形图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

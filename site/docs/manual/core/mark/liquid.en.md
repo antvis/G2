@@ -7,7 +7,7 @@ order: 16
 
 The `liquid` mark can be used to draw various types of liquid charts (ripple charts or wave charts), conveying information or enhancing user experience through the visual fluctuation that simulates the dynamic process of ripples spreading on water surfaces. It is commonly used in UI design, data visualization, or animation effects.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -35,8 +35,8 @@ For more examples, you can visit the [Chart Examples - Liquid](/en/examples#gene
 
 ## Configuration
 
-| Property | Description                              | Type            | Default | Required |
-| -------- | ---------------------------------------- | --------------- | ------- | -------- |
+| Property | Description                                  | Type            | Default | Required |
+| -------- | -------------------------------------------- | --------------- | ------- | -------- |
 | style    | Configure the graphic style of `liquid` mark | [style](#style) | -       |          |
 
 ### style
@@ -57,7 +57,7 @@ Configure the style of the `liquid` mark.
 | contentFill     | Text color       | _string_ | -        |          |
 | contentFontSize | Text size        | _string_ | -        |          |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -106,4 +106,42 @@ If you need to customize shapes, you can provide implementation through custom s
 
 Try drawing your own:
 
-<Playground path="style/general/Liquid/demo/liquid-custom-shape.ts" rid="liquid-shape"></Playground>
+```js | ob {. inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .liquid()
+  .data(0.3)
+  .style({
+    shape: (x, y, r) => {
+      const path = [];
+      const w = r * 2;
+
+      for (let i = 0; i < 5; i++) {
+        path.push([
+          i === 0 ? 'M' : 'L',
+          (Math.cos(((18 + i * 72) * Math.PI) / 180) * w) / 2 + x,
+          (-Math.sin(((18 + i * 72) * Math.PI) / 180) * w) / 2 + y,
+        ]);
+        path.push([
+          'L',
+          (Math.cos(((54 + i * 72) * Math.PI) / 180) * w) / 4 + x,
+          (-Math.sin(((54 + i * 72) * Math.PI) / 180) * w) / 4 + y,
+        ]);
+      }
+      path.push(['Z']);
+      return path;
+    },
+    outlineBorder: 4,
+    outlineDistance: 8,
+    waveLength: 128,
+  });
+
+chart.render();
+
+```

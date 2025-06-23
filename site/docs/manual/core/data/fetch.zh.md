@@ -28,7 +28,7 @@ chart.options({
 
 举一个例子如下：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -48,7 +48,7 @@ chart.options({
   },
 });
 
-chart.render()
+chart.render();
 ```
 
 ## 配置项

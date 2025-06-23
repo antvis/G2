@@ -6,7 +6,6 @@ category: ['trend']
 similar: ['line', 'stacked-area']
 ---
 
-
 <img alt="area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZxtyTrhyN4sAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
 ## 面积图的简介
@@ -25,12 +24,12 @@ similar: ['line', 'stacked-area']
 
 <img alt="basic-area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v1VOS7lUmckAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| 图表类型         | 基础面积图                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------- |
+| 图表类型         | 基础面积图                                                                         |
+| ---------------- | ---------------------------------------------------------------------------------- |
 | 适合的数据       | 时间序列数据：一个有序/连续数据字段（通常是时间）、一个连续数据字段                |
 | 功能             | 展示数据随时间或有序维度的变化趋势                                                 |
 | 数据与图形的映射 | 时间字段映射到横轴的位置<br>数值字段映射到纵轴的高度<br>面积填充强调数据变化的程度 |
-| 适合的场景       | 单一数据系列随时间的变化趋势                                                        |
+| 适合的场景       | 单一数据系列随时间的变化趋势                                                       |
 
 ---
 
@@ -38,12 +37,12 @@ similar: ['line', 'stacked-area']
 
 <img alt="stacked-area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| 图表类型         | 堆叠面积图                                                                                |
-| ---------------- | ----------------------------------------------------------------------------------------- |
+| 图表类型         | 堆叠面积图                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------ |
 | 适合的数据       | 多序列时间数据：一个有序/连续数据字段（通常是时间）、一个连续数据字段、一个分类数据字段    |
-| 功能             | 展示多个数据系列随时间变化的趋势及其叠加总量                                              |
+| 功能             | 展示多个数据系列随时间变化的趋势及其叠加总量                                               |
 | 数据与图形的映射 | 时间字段映射到横轴的位置<br>数值字段映射到纵轴的高度<br>分类字段映射到不同的颜色和堆叠区域 |
-| 适合的场景       | 多数据系列及其总量随时间的变化趋势对比                                                    |
+| 适合的场景       | 多数据系列及其总量随时间的变化趋势对比                                                     |
 
 ## 面积图的应用场景
 
@@ -60,7 +59,7 @@ similar: ['line', 'stacked-area']
 | 2015/1/7     | 116.75          |
 | ...          | ...             |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,7 +112,6 @@ chart.options({
 chart.render();
 ```
 
-
 **说明** ：
 
 - `date` 字段，映射到横轴的位置，表示时间的先后顺序
@@ -124,7 +122,7 @@ chart.render();
 
 堆叠面积图可以同时展示多个数据系列随时间的变化，以及它们的总和趋势。下图展示了不同行业失业人数的变化趋势。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -139,14 +137,16 @@ chart.options({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
   },
-  encode: { 
-    x: (d) => new Date(d.date), 
-    y: 'unemployed', 
-    color: 'industry' 
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'unemployed',
+    color: 'industry',
   },
-  transform: [{ 
-    type: 'stackY' 
-  }],
+  transform: [
+    {
+      type: 'stackY',
+    },
+  ],
   axis: {
     x: {
       title: null,
@@ -161,6 +161,7 @@ chart.render();
 ```
 
 **说明**：
+
 - `date` 字段映射到横轴，表示时间维度
 - `unemployed` 字段映射到纵轴，表示失业人数
 - `industry` 字段映射到颜色，区分不同行业
@@ -170,7 +171,7 @@ chart.render();
 
 当需要展示各类别在总体中的占比随时间的变化时，百分比堆叠面积图是非常合适的选择。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -205,18 +206,15 @@ chart.options({
     { country: 'Europe', year: '2050', value: 628 },
   ],
   encode: { x: 'year', y: 'value', color: 'country' },
-  transform: [
-    { type: 'stackY' }, 
-    { type: 'normalizeY' }
-  ],
+  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
   axis: {
-    x: { 
-      title: null 
+    x: {
+      title: null,
     },
-    y: { 
-      title: null, 
-      labelFormatter: '.0%' 
-    }
+    y: {
+      title: null,
+      labelFormatter: '.0%',
+    },
   },
 });
 
@@ -224,6 +222,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 组合使用 `stackY` 和 `normalizeY` 转换，将堆叠数据标准化为百分比
 - 纵轴格式化为百分比显示，更直观地表示各区域的占比变化
 
@@ -243,7 +242,7 @@ chart.render();
 
 区间面积图可以表示数据的上下限范围，通常用于表示数据的不确定性或波动范围。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 /**
  * A recreation of this demo: https://www.anychart.com/zh/products/anychart/gallery/Combined_Charts/Range_Spline-Area,_Spline_and_Marker_Chart.php
  */
@@ -255,14 +254,14 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/range-spline-area.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
     transform: [
       {
-        type: "map",
+        type: 'map',
         callback: ([x, low, high, v2, v3]) => ({
           x,
           low,
@@ -273,32 +272,31 @@ chart.options({
       },
     ],
   },
-  scale: { x: { type: "linear", tickCount: 10 } },
+  scale: { x: { type: 'linear', tickCount: 10 } },
   axis: { y: { title: false } },
   children: [
     {
-      type: "area",
-      encode: { x: "x", y: ["low", "high"], shape: "smooth" },
-      style: { fillOpacity: 0.65, fill: "#64b5f6", lineWidth: 1 },
+      type: 'area',
+      encode: { x: 'x', y: ['low', 'high'], shape: 'smooth' },
+      style: { fillOpacity: 0.65, fill: '#64b5f6', lineWidth: 1 },
     },
     {
-      type: "point",
-      encode: { x: "x", y: "v2", size: 2, shape: "point" },
-      tooltip: { items: ["v2"] },
+      type: 'point',
+      encode: { x: 'x', y: 'v2', size: 2, shape: 'point' },
+      tooltip: { items: ['v2'] },
     },
     {
-      type: "line",
-      encode: { x: "x", y: "v3", color: "#FF6B3B", shape: "smooth" },
+      type: 'line',
+      encode: { x: 'x', y: 'v3', color: '#FF6B3B', shape: 'smooth' },
     },
   ],
 });
 
-
 chart.render();
-
 ```
 
 **说明**：
+
 - 使用 `'y', ['low', 'high']` 指定区间的上下界
 - 数据区间使用透明度较低的填充色，突出显示不确定性范围
 
@@ -306,7 +304,7 @@ chart.render();
 
 差分面积图用于比较两个数据系列，突出它们之间的差异区域。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -333,26 +331,26 @@ chart.options({
   encode: {
     x: (d) => new Date(d.date),
     y: 'temperature',
-    color: 'city'
+    color: 'city',
   },
   scale: {
-    color: { 
-      range: ['#67a9cf', '#ef8a62'] 
-    }
+    color: {
+      range: ['#67a9cf', '#ef8a62'],
+    },
   },
   axis: {
     y: { title: null },
-    x: { title: null }
-  }
+    x: { title: null },
+  },
 });
 
 chart.render();
 ```
 
 **说明**：
+
 - 使用 `transform: [{ type: 'diffY' }]` 实现差分效果
 - 颜色编码区分了两个数据系列，并突出了它们的差异区域
-
 
 ## 面积图与其他图表的对比
 

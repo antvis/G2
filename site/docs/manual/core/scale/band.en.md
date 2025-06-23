@@ -18,18 +18,18 @@ In G2, the band scale is the default x-axis scale for bar charts (interval marks
 
 ## Configuration Options
 
-| Property | Description | Type | Default | Required |
-| -------------| ----------------------------------------------------------- | -----| -------| ------ |
-| domain       | Sets the domain array, i.e., possible values of input data | `number[] \| string[] \| Date[]`              | `[]` |  |
-| range        | Sets the range of data mapping, i.e., the output range                              | `number[]` \| `string[]` | `[0, 1]` |  |
-| unknown      | Return value for `undefined`, `NaN`, `null` empty values               | `any` | `undefined` |  |
-| round        | Whether to round the output values                                          | `boolean` | `false` |  |
-| paddingInner | Sets inner spacing between categories, in range [0, 1], larger values mean larger spacing           | `number` | `0` |  |
-| paddingOuter | Sets outer spacing at both ends, in range [0, 1], larger values mean larger spacing              | `number` | `0` |  |
-| padding      | Shortcut to set both `paddingInner` and `paddingOuter`           | `number` | `0` |  |
-| align        | Alignment, in range [0, 1], 0 means left-aligned, 0.5 means centered, 1 means right-aligned  | `number` | `0.5` |  |
-| compare      | Sorting function for domain mapping                                    | `(a: string or number, b: string or number) => number`| `undefined` |  |
-| flex         | Sets width allocation ratio for each category                                        | `number[]` | `[]`|  |
+| Property     | Description                                                                                 | Type                                                   | Default     | Required |
+| ------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------- | -------- |
+| domain       | Sets the domain array, i.e., possible values of input data                                  | `number[] \| string[] \| Date[]`                       | `[]`        |          |
+| range        | Sets the range of data mapping, i.e., the output range                                      | `number[]` \| `string[]`                               | `[0, 1]`    |          |
+| unknown      | Return value for `undefined`, `NaN`, `null` empty values                                    | `any`                                                  | `undefined` |          |
+| round        | Whether to round the output values                                                          | `boolean`                                              | `false`     |          |
+| paddingInner | Sets inner spacing between categories, in range [0, 1], larger values mean larger spacing   | `number`                                               | `0`         |          |
+| paddingOuter | Sets outer spacing at both ends, in range [0, 1], larger values mean larger spacing         | `number`                                               | `0`         |          |
+| padding      | Shortcut to set both `paddingInner` and `paddingOuter`                                      | `number`                                               | `0`         |          |
+| align        | Alignment, in range [0, 1], 0 means left-aligned, 0.5 means centered, 1 means right-aligned | `number`                                               | `0.5`       |          |
+| compare      | Sorting function for domain mapping                                                         | `(a: string or number, b: string or number) => number` | `undefined` |          |
+| flex         | Sets width allocation ratio for each category                                               | `number[]`                                             | `[]`        |          |
 
 ### Layout Principles of Band Scale
 
@@ -51,8 +51,8 @@ Where:
 - **range**: The entire range of the scale
 - **bandWidth**: The width occupied by each category
 - **step**: The distance between the center points of adjacent categories
-- **step*PI (paddingInner)**: Inner spacing between categories
-- **step*PO (paddingOuter)**: Outer spacing at both ends
+- **step\*PI (paddingInner)**: Inner spacing between categories
+- **step\*PO (paddingOuter)**: Outer spacing at both ends
 
 ## Usage Examples
 
@@ -60,7 +60,7 @@ Where:
 
 The most common application of band scales is in bar charts. By setting `padding`, you can control the spacing between bars:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -80,14 +80,14 @@ chart.options({
   encode: {
     x: 'genre',
     y: 'sold',
-    color: 'genre'
+    color: 'genre',
   },
   scale: {
     x: {
       type: 'band',
-      padding: 0.5  // Set spacing between bars
-    }
-  }
+      padding: 0.5, // Set spacing between bars
+    },
+  },
 });
 
 chart.render();
@@ -97,7 +97,7 @@ chart.render();
 
 In grouped bar charts, band scales work together with dodgeX transform to create grouping effects:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -124,15 +124,15 @@ chart.options({
   encode: {
     x: 'month',
     y: 'value',
-    color: 'type'
+    color: 'type',
   },
   transform: [{ type: 'dodgeX' }],
   scale: {
     x: {
       type: 'band',
-      padding: 0.2  // Set spacing between groups
-    }
-  }
+      padding: 0.2, // Set spacing between groups
+    },
+  },
 });
 
 chart.render();
@@ -142,7 +142,7 @@ chart.render();
 
 Using the `flex` property allows setting different width ratios for different categories:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -162,15 +162,15 @@ chart.options({
   encode: {
     x: 'country',
     y: 'value',
-    color: 'country'
+    color: 'country',
   },
   scale: {
     x: {
       type: 'band',
       padding: 0.4,
-      flex: [2.14, 1.47, 0.5, 0.42, 0.29]  // Set different widths based on GDP
-    }
-  }
+      flex: [2.14, 1.47, 0.5, 0.42, 0.29], // Set different widths based on GDP
+    },
+  },
 });
 
 chart.render();
@@ -180,7 +180,7 @@ chart.render();
 
 By transposing the coordinate system, you can create horizontal bar charts where band scales still apply:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -201,14 +201,14 @@ chart.options({
   encode: {
     x: 'genre',
     y: 'sold',
-    color: 'genre'
+    color: 'genre',
   },
   scale: {
     x: {
       type: 'band',
-      padding: 0.5
-    }
-  }
+      padding: 0.5,
+    },
+  },
 });
 
 chart.render();
@@ -218,7 +218,7 @@ chart.render();
 
 Using `stackY` transform creates stacked bar charts that show cumulative effects of different parts:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -245,15 +245,15 @@ chart.options({
   encode: {
     x: 'quarter',
     y: 'value',
-    color: 'department'
+    color: 'department',
   },
   transform: [{ type: 'stackY' }],
   scale: {
     x: {
       type: 'band',
-      padding: 0.3
-    }
-  }
+      padding: 0.3,
+    },
+  },
 });
 
 chart.render();
@@ -263,7 +263,7 @@ chart.render();
 
 Automatically adjusts bar width based on specified field values, suitable for representing weight or proportional relationships:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -284,15 +284,15 @@ chart.options({
   encode: {
     x: 'region',
     y: 'sales',
-    color: 'region'
+    color: 'region',
   },
-  transform: [{ type: 'flexX', field: 'population' }],  // Adjust bar width based on population data
+  transform: [{ type: 'flexX', field: 'population' }], // Adjust bar width based on population data
   scale: {
     x: {
       type: 'band',
-      padding: 0.2
-    }
-  }
+      padding: 0.2,
+    },
+  },
 });
 
 chart.render();
@@ -302,7 +302,7 @@ chart.render();
 
 When handling time data, band scales can effectively handle the visualization of time intervals:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -324,23 +324,23 @@ chart.options({
     { month: '2024-09', sales: 1450 },
     { month: '2024-10', sales: 1380 },
     { month: '2024-11', sales: 1250 },
-    { month: '2024-12', sales: 1600 }
+    { month: '2024-12', sales: 1600 },
   ],
   encode: {
     x: 'month',
     y: 'sales',
-    color: (d) => d.sales > 1500 ? 'high' : d.sales > 1300 ? 'medium' : 'low'
+    color: (d) => (d.sales > 1500 ? 'high' : d.sales > 1300 ? 'medium' : 'low'),
   },
   scale: {
     x: {
       type: 'band',
-      padding: 0.1
+      padding: 0.1,
     },
     color: {
       domain: ['low', 'medium', 'high'],
-      range: ['#faad14', '#1890ff', '#52c41a']
-    }
-  }
+      range: ['#faad14', '#1890ff', '#52c41a'],
+    },
+  },
 });
 
 chart.render();
@@ -350,7 +350,7 @@ chart.render();
 
 Displaying categorical data with hierarchical structure:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -372,22 +372,22 @@ chart.options({
     { category: 'Electronics-Phones', subcategory: 'Xiaomi', value: 900 },
     { category: 'Electronics-Computers', subcategory: 'Laptops', value: 1500 },
     { category: 'Electronics-Computers', subcategory: 'Desktops', value: 800 },
-    { category: 'Electronics-Computers', subcategory: 'Tablets', value: 600 }
+    { category: 'Electronics-Computers', subcategory: 'Tablets', value: 600 },
   ],
   encode: {
     x: 'category',
     y: 'value',
-    color: 'subcategory'
+    color: 'subcategory',
   },
   transform: [{ type: 'dodgeX' }],
   scale: {
     x: {
       type: 'band',
-      padding: 0.4,  // Larger spacing to distinguish different main categories
-      paddingInner: 0.3,  // Inner spacing
-      paddingOuter: 0.1   // Outer spacing
-    }
-  }
+      padding: 0.4, // Larger spacing to distinguish different main categories
+      paddingInner: 0.3, // Inner spacing
+      paddingOuter: 0.1, // Outer spacing
+    },
+  },
 });
 
 chart.render();
@@ -397,7 +397,7 @@ chart.render();
 
 Using paddingInner and paddingOuter to precisely control spacing, suitable for comparative analysis:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -412,28 +412,28 @@ chart.options({
     { product: 'Product B', current: 280, target: 350 },
     { product: 'Product C', current: 410, target: 450 },
     { product: 'Product D', current: 180, target: 250 },
-    { product: 'Product E', current: 350, target: 380 }
-  ].flatMap(d => [
+    { product: 'Product E', current: 350, target: 380 },
+  ].flatMap((d) => [
     { product: d.product, type: 'Current Sales', value: d.current },
-    { product: d.product, type: 'Target Sales', value: d.target }
+    { product: d.product, type: 'Target Sales', value: d.target },
   ]),
   encode: {
     x: 'product',
     y: 'value',
-    color: 'type'
+    color: 'type',
   },
   transform: [{ type: 'dodgeX' }],
   scale: {
     x: {
       type: 'band',
-      paddingInner: 0.2,  // Smaller spacing within groups
-      paddingOuter: 0.3   // Larger spacing between groups
+      paddingInner: 0.2, // Smaller spacing within groups
+      paddingOuter: 0.3, // Larger spacing between groups
     },
     color: {
       domain: ['Current Sales', 'Target Sales'],
-      range: ['#1890ff', '#52c41a']
-    }
-  }
+      range: ['#1890ff', '#52c41a'],
+    },
+  },
 });
 
 chart.render();
@@ -443,7 +443,7 @@ chart.render();
 
 Combining compare function to sort data with different bar width strategies:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -453,7 +453,7 @@ const data = [
   { brand: 'Xiaomi', market_share: 12.3, revenue: 120 },
   { brand: 'OPPO', market_share: 8.9, revenue: 95 },
   { brand: 'vivo', market_share: 7.2, revenue: 85 },
-  { brand: 'Others', market_share: 12.3, revenue: 150 }
+  { brand: 'Others', market_share: 12.3, revenue: 150 },
 ];
 
 const chart = new Chart({
@@ -467,7 +467,7 @@ chart.options({
   encode: {
     x: 'brand',
     y: 'market_share',
-    color: 'brand'
+    color: 'brand',
   },
   scale: {
     x: {
@@ -475,13 +475,13 @@ chart.options({
       padding: 0.2,
       compare: (a, b) => {
         // Sort by market share in descending order
-        const dataA = data.find(d => d.brand === a);
-        const dataB = data.find(d => d.brand === b);
+        const dataA = data.find((d) => d.brand === a);
+        const dataB = data.find((d) => d.brand === b);
         return (dataB?.market_share || 0) - (dataA?.market_share || 0);
       },
-      flex: [2.34, 2.01, 1.58, 1.23, 0.89, 0.72, 1.23]  // Set width based on market share
-    }
-  }
+      flex: [2.34, 2.01, 1.58, 1.23, 0.89, 0.72, 1.23], // Set width based on market share
+    },
+  },
 });
 
 chart.render();
@@ -493,7 +493,7 @@ chart.render();
 
 Displaying step-by-step cumulative changes in values:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Waterfall chart data processing
@@ -503,7 +503,7 @@ const rawData = [
   { name: 'Cost Expense', value: -200, type: 'negative' },
   { name: 'Tax Expense', value: -150, type: 'negative' },
   { name: 'Other Income', value: 100, type: 'positive' },
-  { name: 'Final Balance', value: 1250, type: 'end' }
+  { name: 'Final Balance', value: 1250, type: 'end' },
 ];
 
 // Calculate cumulative values
@@ -527,24 +527,24 @@ const chart = new Chart({
 
 chart.options({
   type: 'interval',
-  data: data.flatMap(d => [
-    { name: d.name, value: d.end - d.start, position: d.start, type: d.type }
+  data: data.flatMap((d) => [
+    { name: d.name, value: d.end - d.start, position: d.start, type: d.type },
   ]),
   encode: {
     x: 'name',
     y: ['position', (d) => d.position + d.value],
-    color: 'type'
+    color: 'type',
   },
   scale: {
     x: {
       type: 'band',
-      padding: 0.4
+      padding: 0.4,
     },
     color: {
       domain: ['start', 'positive', 'negative', 'end'],
-      range: ['#722ed1', '#52c41a', '#ff4d4f', '#1890ff']
-    }
-  }
+      range: ['#722ed1', '#52c41a', '#ff4d4f', '#1890ff'],
+    },
+  },
 });
 
 chart.render();
@@ -554,7 +554,7 @@ chart.render();
 
 Using band scales with faceted layout to display multi-dimensional data:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -576,23 +576,25 @@ chart.options({
     { region: 'South', quarter: 'Q1', product: 'Product C', sales: 110 },
     { region: 'South', quarter: 'Q2', product: 'Product A', sales: 170 },
     { region: 'South', quarter: 'Q2', product: 'Product B', sales: 140 },
-    { region: 'South', quarter: 'Q2', product: 'Product C', sales: 120 }
+    { region: 'South', quarter: 'Q2', product: 'Product C', sales: 120 },
   ],
   encode: { x: 'region', y: 'quarter' },
-  children: [{
-    type: 'interval',
-    encode: {
-      x: 'product',
-      y: 'sales',
-      color: 'product'
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'product',
+        y: 'sales',
+        color: 'product',
+      },
+      scale: {
+        x: {
+          type: 'band',
+          padding: 0.3,
+        },
+      },
     },
-    scale: {
-      x: {
-        type: 'band',
-        padding: 0.3
-      }
-    }
-  }]
+  ],
 });
 
 chart.render();
@@ -605,14 +607,10 @@ chart.render();
 You can adjust the spacing between bars by setting the `padding` property, which indirectly adjusts the width of the bars. The larger the `padding` value, the narrower the bars; the smaller the value, the wider the bars.
 
 ```js
-chart
-  .interval()
-  .encode('x', 'type')
-  .encode('y', 'sale')
-  .scale('x', {
-    type: 'band',
-    padding: 0.5,  // Value range is [0, 1]
-  });
+chart.interval().encode('x', 'type').encode('y', 'sale').scale('x', {
+  type: 'band',
+  padding: 0.5, // Value range is [0, 1]
+});
 ```
 
 ### What's the difference between band scale and point scale?
@@ -635,7 +633,7 @@ chart
   .encode('y', 'value')
   .scale('x', {
     type: 'band',
-    flex: [2, 1, 3, 1.5]  // Manually set width ratios
+    flex: [2, 1, 3, 1.5], // Manually set width ratios
   });
 
 // Method 2: Using flexX transform
@@ -643,5 +641,5 @@ chart
   .interval()
   .encode('x', 'country')
   .encode('y', 'value')
-  .transform({ type: 'flexX', field: 'gdp' });  // Automatically set width based on gdp field
+  .transform({ type: 'flexX', field: 'gdp' }); // Automatically set width based on gdp field
 ```

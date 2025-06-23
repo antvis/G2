@@ -40,7 +40,7 @@ chart.data([
 
 Here is an example:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -62,15 +62,15 @@ chart.options({
   },
 });
 
-chart.render()
+chart.render();
 ```
 
 ## Configuration
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| value | Specific object array data | object[] | [] |
-| transform | Transform for inline data | [DataTransform](/en/manual/core/data/overview#datatransform) | [] |
+| Property  | Description                | Type                                                         | Default |
+| --------- | -------------------------- | ------------------------------------------------------------ | ------- |
+| value     | Specific object array data | object[]                                                     | []      |
+| transform | Transform for inline data  | [DataTransform](/en/manual/core/data/overview#datatransform) | []      |
 
 This data source is relatively simple, equivalent to the passed-in data being directly used as the data source for transform processing, and then going through the rendering logic.
 

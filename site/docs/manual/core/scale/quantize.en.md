@@ -77,7 +77,7 @@ The quantize scale is primarily responsible for mapping continuous data domains 
 
 Below is an example of creating a heatmap using the quantize scale, dividing salary data into three equal-width intervals based on numerical values and mapping them to different colors:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Create a container element
@@ -147,7 +147,7 @@ In the above example:
 
 The following example shows the difference between quantize and quantile scales when handling skewed data:
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -340,7 +340,7 @@ In the above comparison example:
 
 Below is a more complex example showing how to use the quantize scale to create multiple segments and customize the data domain:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Create a container element

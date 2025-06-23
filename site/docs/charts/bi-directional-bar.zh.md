@@ -40,7 +40,7 @@ similar: ['bar', 'multi-set-bar', 'radial-bar', 'stacked-bar']
 | 部门 0 | 组名 0 | 37       | 9          |
 | ...    | ...    | ...      | ...        |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,7 +145,7 @@ chart.render();
 | Question 1 | 11.7           | 59.9  | 18.5                       | 9.1      | 0.7               |
 | ...        | ...            | ...   | ...                        | ...      | ...               |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

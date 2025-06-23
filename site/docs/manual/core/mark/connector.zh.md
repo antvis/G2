@@ -77,7 +77,7 @@ order: 27
 
 使用 connector 标记可以创建基础连接线，连接两个数据点。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -110,7 +110,7 @@ chart.render();
 
 连接器通常和其他 mark 一起使用：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',

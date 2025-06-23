@@ -21,7 +21,7 @@ The difference from the [quantile](/en/manual/core/scale/quantile) scale is:
 
 - Using `threshold`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -60,7 +60,7 @@ chart.render();
 
 - Without using `threshold`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -99,18 +99,18 @@ chart.render();
 
 ## Configuration
 
-| Property | Description                                                   | Type       | Default Value | Required |
-| -------- | ------------------------------------------------------------- | ---------- | ------------- | -------- |
-| type     | Scale type, must be 'threshold'                               | `string`   | `'threshold'` | ✓        |
-| domain   | Array of threshold values for the domain                      | `number[]` | `[0.5]`       |          |
-| range    | Array of values for the range (one more than domain length)  | `any[]`    | `[0, 1]`      |          |
-| unknown  | Value returned when input is `undefined`, `NaN`, or `null`   | `any`      | `undefined`   |          |
+| Property | Description                                                 | Type       | Default Value | Required |
+| -------- | ----------------------------------------------------------- | ---------- | ------------- | -------- |
+| type     | Scale type, must be 'threshold'                             | `string`   | `'threshold'` | ✓        |
+| domain   | Array of threshold values for the domain                    | `number[]` | `[0.5]`       |          |
+| range    | Array of values for the range (one more than domain length) | `any[]`    | `[0, 1]`      |          |
+| unknown  | Value returned when input is `undefined`, `NaN`, or `null`  | `any`      | `undefined`   |          |
 
 ## Examples
 
 ### Basic Usage
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

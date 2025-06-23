@@ -64,7 +64,7 @@ When configuring mark styles, not only do we support direct configuration like `
 
 - Stacked area chart with varying stroke colors
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -116,7 +116,7 @@ chart.render();
 
 - Multi-line chart with differentiated styles
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -157,7 +157,7 @@ chart.render();
 
 - Multi-shape scatter plot
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -224,7 +224,7 @@ Both issues are caused by the chart area being too small and tooltip taking up t
 
 ## How to Prevent Graphic Marks from Exceeding Maximum or Minimum Scale Values
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -273,7 +273,7 @@ Configure the `nice` property of the scale that needs adjustment to true, extend
 });
 ```
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -325,7 +325,7 @@ In business scenarios, you may need the y-axis domain to display opposite to nor
 
 Here's an example of a top-to-bottom bar chart. The same principle applies when creating left-to-right bar charts. (Note that bar charts are column charts with transposed coordinate axis, where left-right corresponds to the x-axis)
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -352,7 +352,7 @@ chart.render();
 
 - For some marks like area charts, when we use the above method to invert, the filled area will also move to the upper half of the chart, which may not meet expectations in certain business scenarios, such as ranking trend charts. In such cases, more customized handling is needed combining `encode.y`, `axis.y.labelFormatter`, and other properties.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -437,7 +437,7 @@ chart.render();
 
 Below is a simple line chart where you can see the x-axis has obvious `paddingOuter` with a default value of `0.5`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -489,7 +489,7 @@ If you want to customize the `paddingOuter` value, you can achieve this by modif
 
 Through configuration, you can make the spacing at both ends of the line chart equal to `0`.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -529,7 +529,7 @@ chart.render();
 
 There's currently no built-in API for this, so you need to manually trigger legendFilter to achieve it.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart, ChartEvent } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });

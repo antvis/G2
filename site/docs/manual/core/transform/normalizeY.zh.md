@@ -9,7 +9,7 @@ order: 2
 
 下面这个示例展示了如何创建一个百分比堆积柱状图，展示不同年龄段的性别比例。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -100,7 +100,7 @@ chart.render();
 
 下面的例子展示了如何使用不同的 basis 进行归一化：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -135,7 +135,7 @@ chart.render();
 
 ### 交互式对比不同 basis 效果
 
-```js | ob {  autoMount: true, pin: false }
+```js | ob {  inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -205,7 +205,7 @@ chart.render();
 
 可以通过 groupBy 选项指定如何对数据进行分组：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

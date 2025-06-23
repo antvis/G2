@@ -13,7 +13,7 @@ order: 8
 - 系统监控：CPU/内存使用率、磁盘容量预警；
 - 设备仪表：车辆时速表、温度计模拟。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -83,7 +83,7 @@ chart.render();
 
 - 只有`target`或者`percent`，`color`参数`range`可以由两个颜色参数组成，在仪表盘刻度会由这两个颜色将会将仪表盘刻度分成两段
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -109,7 +109,7 @@ chart.render();
 
 - 设置了`thresholds`，`color`参数`range`的颜色与`thresholds`的长度一致，仪表盘刻度会被`thresholds`中的值分段，并填充`scale`参数`color`对应位置的色彩
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -239,7 +239,7 @@ chart.render();
 | textShadowOffsetY | 仪表盘指示文本阴影垂直偏移                                                 | number \| (datum, index, data) => number                     | -         |      |
 | textCursor        | 仪表盘指示文本鼠标样式                                                     | string \| (datum, index, data) => string                     | `default` |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -304,10 +304,97 @@ chart.render();
 
 尝试一下：
 
-<Playground path="style/graphic/demo/gauge.ts" rid="gauge-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+});
+
+chart.options({
+  type: 'gauge',
+  data: {
+    value: { target: 159, total: 400, name: 'score', thresholds: [200, 400] },
+  },
+  scale: {
+    color: { range: ['l(0):0:#37b38e 1:#D9C652', 'l(0):0:#D9C652 1:#f96e3e'] },
+  },
+  style: {
+    textContent: (target, total) => `得分：${target}
+占比：${(target / total) * 100}%`,
+  },
+  legend: false,
+});
+
+chart.render();
+```
 
 ## 示例
 
 ### 自定义仪表盘指针形状
 
-<Playground path="general/gauge/demo/gauge-custom-shape.ts" rid="gauge-custom-shape"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+import { Path } from '@antv/g';
+
+const chart = new Chart({ container: 'container' });
+
+function getOrigin(points) {
+  if (points.length === 1) return points[0];
+  const [[x0, y0, z0 = 0], [x2, y2, z2 = 0]] = points;
+  return [(x0 + x2) / 2, (y0 + y2) / 2, (z0 + z2) / 2];
+}
+// 自定义指针形状
+const customShape = (style) => {
+  return (points, value, coordinate, theme) => {
+    // 获取几何点中心坐标
+    const [x, y] = getOrigin(points);
+    const [cx, cy] = coordinate.getCenter();
+    // 计算指针方向角度
+    const angle = Math.atan2(y - cy, x - cx);
+    const length = 100; // 指针长度
+    const width = 8; // 指针底部宽度
+    // 构造指针三角形路径
+    return new Path({
+      style: {
+        d: [
+          ['M', cx + Math.cos(angle) * length, cy + Math.sin(angle) * length], // 顶点
+          [
+            'L',
+            cx + Math.cos(angle + Math.PI / 2) * width,
+            cy + Math.sin(angle + Math.PI / 2) * width,
+          ], // 底部左点
+          [
+            'L',
+            cx + Math.cos(angle - Math.PI / 2) * width,
+            cy + Math.sin(angle - Math.PI / 2) * width,
+          ], // 底部右点
+          ['Z'], // 闭合路径
+        ],
+        fill: '#30BF78', // 填充色
+      },
+    });
+  };
+};
+
+chart.options({
+  type: 'gauge',
+  data: {
+    value: {
+      target: 159,
+      total: 424,
+      name: 'score',
+    },
+  },
+  style: {
+    pointerShape: customShape,
+    pinShape: false,
+    textContent: (target, total) => {
+      return `得分：${target}\n占比：${(target / total) * 100}%`;
+    },
+  },
+});
+
+chart.render();
+```

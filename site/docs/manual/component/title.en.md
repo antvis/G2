@@ -44,7 +44,7 @@ Titles can also be configured at the View level:
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -136,7 +136,7 @@ Used to configure the horizontal alignment of the chart title. Default is `left`
 
 Try it out:
 
-```js | ob {  autoMount: true }
+```js | ob {  inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -258,4 +258,39 @@ The chart subtitle, which can be customized with the following configurations fo
 
 Try it out:
 
-<Playground path="component/title/demo/title-style.ts" rid="title-style"></Playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.title({
+  align: 'right',
+  title: 'Sold by genre, sorted by sold',
+  titleFontSize: 15,
+  subtitle: 'It shows the sales volume of genre, sored by sold.',
+  subtitleFill: 'red',
+  subtitleFontSize: 12,
+  subtitleShadowColor: 'yellow',
+  subtitleShadowBlur: 5,
+  subtitleFontStyle: 'italic',
+});
+
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 0 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .style('minHeight', 50);
+
+chart.render();
+```

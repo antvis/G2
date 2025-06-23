@@ -22,12 +22,12 @@ Choropleth maps' biggest problem is the asymmetry between data distribution and 
 
 ## Components of a Choropleth Map
 
-| Chart Type           | Choropleth Map                                                                                              |
-| -------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Suitable Data        | One categorical field, one continuous field                                                                 |
-| Function             | Compare numerical values of categorical data                                                                 |
-| Data-to-Visual Mapping | One categorical field maps to geographic locations on the map<br>Another continuous field maps to color   |
-| Suitable Data Volume | Based on actual geographic location information, no limit                                                   |
+| Chart Type             | Choropleth Map                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | One categorical field, one continuous field                                                             |
+| Function               | Compare numerical values of categorical data                                                            |
+| Data-to-Visual Mapping | One categorical field maps to geographic locations on the map<br>Another continuous field maps to color |
+| Suitable Data Volume   | Based on actual geographic location information, no limit                                               |
 
 ## Use Cases of Choropleth Maps
 
@@ -39,18 +39,18 @@ Example 1: **Geographic Regional Data Visualization**
 
 The figure below shows the population distribution of US states. The main population distribution is reflected by the color depth. It is clear that California and Texas have the largest populations. It also shows the global gender ratio distribution in 2015, where the value represents the number of males per 100 females. It can be seen that in European and American countries, women generally slightly outnumber men. This phenomenon is particularly prominent in the former Soviet Union region, while the Middle East has more men than women.
 
-| Data Type     | Region/Country | Value    | Description                     |
-| ------------- | -------------- | -------- | ------------------------------- |
-| Population    | California     | 38802500 | CA                              |
-| Population    | Texas          | 26956958 | TX                              |
-| Population    | Florida        | 19893297 | FL                              |
-| ...           | ...            | ...      | ...                             |
-| Gender Ratio  | Russia         | 86.8     | Males per 100 females           |
-| Gender Ratio  | China          | 106.3    | Males per 100 females           |
-| Gender Ratio  | Japan          | 94.7     | Males per 100 females           |
-| ...           | ...            | ...      | ...                             |
+| Data Type    | Region/Country | Value    | Description           |
+| ------------ | -------------- | -------- | --------------------- |
+| Population   | California     | 38802500 | CA                    |
+| Population   | Texas          | 26956958 | TX                    |
+| Population   | Florida        | 19893297 | FL                    |
+| ...          | ...            | ...      | ...                   |
+| Gender Ratio | Russia         | 86.8     | Males per 100 females |
+| Gender Ratio | China          | 106.3    | Males per 100 females |
+| Gender Ratio | Japan          | 94.7     | Males per 100 females |
+| ...          | ...            | ...      | ...                   |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 import { feature } from 'topojson';
 
@@ -72,8 +72,8 @@ Promise.all([
 
   chart.options({
     type: 'geoPath',
-    coordinate: { 
-      type: 'albersUsa'  // Use US-specific map projection
+    coordinate: {
+      type: 'albersUsa', // Use US-specific map projection
     },
     data: {
       value: counties,
@@ -88,17 +88,17 @@ Promise.all([
     },
     scale: {
       color: {
-        palette: 'ylGnBu',  // Use yellow-to-blue gradient palette
-        unknown: '#fff',    // Display unknown data as white
-      }
+        palette: 'ylGnBu', // Use yellow-to-blue gradient palette
+        unknown: '#fff', // Display unknown data as white
+      },
     },
     encode: {
-      color: 'rate'  // Map unemployment rate to color channel
+      color: 'rate', // Map unemployment rate to color channel
     },
     legend: {
-      color: { 
-        layout: { justifyContent: 'center' }  // Adjust legend layout
-      }
+      color: {
+        layout: { justifyContent: 'center' }, // Adjust legend layout
+      },
     },
     style: {
       stroke: '#666',
@@ -106,9 +106,7 @@ Promise.all([
     },
     tooltip: {
       title: (d) => d.properties.name,
-      items: [
-        { field: 'rate', name: 'Unemployment Rate' },
-      ],
+      items: [{ field: 'rate', name: 'Unemployment Rate' }],
     },
   });
 
@@ -117,6 +115,7 @@ Promise.all([
 ```
 
 **Note**:
+
 - The numeric field is mapped to color, representing the size of the data.
 - The name of the geographic area determines where the area is drawn on the map.
 - For smaller blocks, because the value is also smaller, the rendered color is also lighter, making these blocks difficult to see on the map. This is also a limitation of choropleth maps.

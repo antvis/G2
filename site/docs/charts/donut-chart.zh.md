@@ -23,12 +23,12 @@ similar: ['pie', 'rose', 'radial-bar']
 
 <img alt="donut-structure" src="https://os.alipayobjects.com/rmsportal/mlFSJKDawodypht.png" width=600 />
 
-| 图表类型         | 环图                                                                                                    |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 列表：一个分类数据字段、一个连续数据字段                                                                |
-| 功能             | 对比分类数据的数值大小                                                                                  |
-| 数据与图形的映射 | 分类数据字段映射到环形的颜色<br>连续数据字段映射到环形的角度                                            |
-| 适合的数据条数   | 不超过 9 条数据                                                                                        |
+| 图表类型         | 环图                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| 适合的数据       | 列表：一个分类数据字段、一个连续数据字段                     |
+| 功能             | 对比分类数据的数值大小                                       |
+| 数据与图形的映射 | 分类数据字段映射到环形的颜色<br>连续数据字段映射到环形的角度 |
+| 适合的数据条数   | 不超过 9 条数据                                              |
 
 ## 环图的应用场景
 
@@ -46,7 +46,7 @@ similar: ['pie', 'rose', 'radial-bar']
 | Shooter           | 3,500          |
 | Other             | 1,500          |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -57,7 +57,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
-  transform: [{ type: "stackY" }], // 添加堆叠转换
+  transform: [{ type: 'stackY' }], // 添加堆叠转换
   data: [
     { genre: 'Sports', sold: 27500 },
     { genre: 'Strategy', sold: 11500 },
@@ -67,7 +67,9 @@ chart.options({
   ],
   coordinate: { type: 'theta', innerRadius: 0.5 },
   encode: { y: 'sold', color: 'genre' },
-  legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
   labels: [
     {
       text: 'genre',
@@ -102,7 +104,7 @@ chart.render();
 
 环图的空心区域可以用来显示总数、标题或其他重要信息：
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -121,12 +123,14 @@ const total = data.reduce((acc, curr) => acc + curr.value, 0);
 chart.options({
   type: 'interval',
   autoFit: true,
-  transform: [{ type: "stackY" }], // 添加堆叠转换
+  transform: [{ type: 'stackY' }], // 添加堆叠转换
   data,
   coordinate: { type: 'theta', innerRadius: 0.6 },
   encode: { y: 'value', color: 'type' },
   style: { stroke: '#fff', lineWidth: 2 },
-  legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
   labels: [
     {
       text: (d) => `${d.value}%`,
@@ -147,7 +151,7 @@ chart.render();
 
 下图是各个省的人口的占比情况，因为这张图上包含的分类过多，很难清晰对比各个省份的人口数据占比情况，所以这种情况下，我们推荐使用[柱状图](/charts/bar)。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -158,7 +162,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
-  transform: [{ type: "stackY" }], // 添加堆叠转换
+  transform: [{ type: 'stackY' }], // 添加堆叠转换
   data: [
     { province: '北京市', population: 19612368 },
     { province: '天津市', population: 12938693 },
@@ -205,7 +209,7 @@ chart.render();
 
 下图中游戏公司的不同种类游戏的销售量相近，角度差异很小，不太适合使用环图，此时可以使用[柱状图](/charts/bar)。
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -216,7 +220,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
-  transform: [{ type: "stackY" }], // 添加堆叠转换
+  transform: [{ type: 'stackY' }], // 添加堆叠转换
   data: [
     { genre: 'Sports', sold: 15000 },
     { genre: 'Strategy', sold: 14900 },
@@ -226,7 +230,9 @@ chart.options({
   ],
   coordinate: { type: 'theta', innerRadius: 0.5 },
   encode: { y: 'sold', color: 'genre' },
-  legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
   labels: [
     {
       text: (d, i, data) => {
@@ -250,7 +256,7 @@ chart.render();
 
 ### 分面环图
 
-使用 G2 的分面功能，可以将分组数据绘制成多个环图。下图展示了全球最大1000家银行所在地区在2007年和2011年的利润总额占比情况：
+使用 G2 的分面功能，可以将分组数据绘制成多个环图。下图展示了全球最大 1000 家银行所在地区在 2007 年和 2011 年的利润总额占比情况：
 
 | 年份 | 地区       | 利润总额（亿美金） |
 | ---- | ---------- | ------------------ |
@@ -263,7 +269,7 @@ chart.render();
 | 2011 | 拉丁美洲   | 495.3              |
 | ……   | ……         | ……                 |
 
-```js | ob { autoMount: true  }
+```js | ob { inject true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -292,10 +298,12 @@ chart.options({
   children: [
     {
       type: 'interval',
-      transform: [{ type: "stackY" }], // 添加堆叠转换
+      transform: [{ type: 'stackY' }], // 添加堆叠转换
       coordinate: { type: 'theta', innerRadius: 0.5 },
       encode: { y: 'profit', color: 'area' },
-      legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+      legend: {
+        color: { position: 'bottom', layout: { justifyContent: 'center' } },
+      },
       labels: [
         {
           text: (d, i, data) => {
