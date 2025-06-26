@@ -293,7 +293,6 @@ export function labelExceedAdjustBoundsMain(): G2Spec {
     height: 310,
     type: 'view',
     margin: 20,
-    // marginBottom: 20,
     marginLeft: 10,
     insetLeft: 24,
     insetRight: 24,

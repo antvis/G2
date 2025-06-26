@@ -29,11 +29,9 @@ const adjustPosition = (target: Bounds, edge: Bounds) => {
 };
 
 export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'> & {
-  /** Offset value that applies to both offsetX and offsetY */
-  offset?: number;
-  /** X-axis offset, takes higher priority than offset */
+  /** X-axis offset default is 0 */
   offsetX?: number;
-  /** Y-axis offset, takes higher priority than offset */
+  /** Y-axis offset default is 0 */
   offsetY?: number;
 };
 
@@ -42,11 +40,7 @@ export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'> & {
  */
 export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
   return (labels: DisplayObject[], { canvas, layout }) => {
-    const { bounds = 'view', offset = 0, offsetX, offsetY } = options;
-
-    // Handle offset priority: offsetX/offsetY have higher priority than offset
-    const finalOffsetX = offsetX !== undefined ? offsetX : offset;
-    const finalOffsetY = offsetY !== undefined ? offsetY : offset;
+    const { bounds = 'view', offsetX = 0, offsetY = 0 } = options;
 
     // Calculate boundary area based on bounds option
     const getBoundaryArea = () => {
@@ -69,20 +63,20 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
 
         return [
           [
-            x + marginLeft + paddingLeft + finalOffsetX,
-            y + marginTop + paddingTop + finalOffsetY,
+            x + marginLeft + paddingLeft + offsetX,
+            y + marginTop + paddingTop + offsetY,
           ],
           [
-            x + width - marginRight - paddingRight - finalOffsetX,
-            y + height - marginBottom - paddingBottom - finalOffsetY,
+            x + width - marginRight - paddingRight - offsetX,
+            y + height - marginBottom - paddingBottom - offsetY,
           ],
         ] as Bounds;
       } else {
         // View area (default): entire layout area
         const { x = 0, y = 0, width = 0, height = 0 } = layout;
         return [
-          [x + finalOffsetX, y + finalOffsetY],
-          [x + width - finalOffsetX, y + height - finalOffsetY],
+          [x + offsetX, y + offsetY],
+          [x + width - offsetX, y + height - offsetY],
         ] as Bounds;
       }
     };
