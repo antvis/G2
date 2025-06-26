@@ -77,7 +77,7 @@ quantize 比例尺主要负责将连续的数据域映射到离散的值域。�
 
 下面是一个使用 quantize 比例尺创建热力图的示例，将薪资数据按照数值大小分为三个等宽区间，并映射为不同的颜色：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素
@@ -147,187 +147,187 @@ chart.render();
 
 下面的示例展示了 quantize 和 quantile 比例尺在处理偏斜数据时的区别：
 
-```js | ob
-(() => {
-  // 创建一个偏斜分布的数据集，使用整数值
-  const generateSkewedData = () => {
-    const data = [];
-    // 大部分数据集中在低值区域
-    for (let i = 0; i < 60; i++) {
-      // 使用整数值，避免小数点导致的重叠
-      data.push({
-        value: Math.floor(5 + Math.random() * 25),
-        type: '偏斜数据',
-      });
-    }
-    // 少量数据分布在高值区域，更加分散
-    for (let i = 0; i < 15; i++) {
-      data.push({
-        value: Math.floor(60 + Math.random() * 20),
-        type: '偏斜数据',
-      });
-    }
-    // 添加一些中间值，使分布更加明显
-    for (let i = 0; i < 10; i++) {
-      data.push({
-        value: Math.floor(40 + Math.random() * 15),
-        type: '偏斜数据',
-      });
-    }
-    return data;
-  };
+```js | ob {  inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+// 创建一个偏斜分布的数据集，使用整数值
+const generateSkewedData = () => {
+  const data = [];
+  // 大部分数据集中在低值区域
+  for (let i = 0; i < 60; i++) {
+    // 使用整数值，避免小数点导致的重叠
+    data.push({
+      value: Math.floor(5 + Math.random() * 25),
+      type: '偏斜数据',
+    });
+  }
+  // 少量数据分布在高值区域，更加分散
+  for (let i = 0; i < 15; i++) {
+    data.push({
+      value: Math.floor(60 + Math.random() * 20),
+      type: '偏斜数据',
+    });
+  }
+  // 添加一些中间值，使分布更加明显
+  for (let i = 0; i < 10; i++) {
+    data.push({
+      value: Math.floor(40 + Math.random() * 15),
+      type: '偏斜数据',
+    });
+  }
+  return data;
+};
 
-  const data = generateSkewedData();
+const data = generateSkewedData();
 
-  // 创建两个图表进行对比
-  const container = document.createElement('div');
-  container.style.display = 'flex';
-  container.style.flexDirection = 'column';
-  container.style.gap = '40px'; // 增加间距
-  container.style.width = '100%';
-  container.style.maxWidth = '800px';
-  container.style.margin = '0 auto'; // 居中显示
+// 创建两个图表进行对比
+container.style.display = 'flex';
+container.style.flexDirection = 'column';
+container.style.gap = '40px'; // 增加间距
+container.style.width = '100%';
+container.style.maxWidth = '800px';
+container.style.margin = '0 auto'; // 居中显示
 
-  // 添加标题
-  const title = document.createElement('h3');
-  title.textContent = 'quantize 与 quantile 比例尺对比';
-  title.style.textAlign = 'center';
-  title.style.marginBottom = '10px';
-  container.appendChild(title);
+// 添加标题
+const title = document.createElement('h3');
+title.textContent = 'quantize 与 quantile 比例尺对比';
+title.style.textAlign = 'center';
+title.style.marginBottom = '10px';
+container.appendChild(title);
 
-  // quantize 比例尺图表
-  const chart1Container = document.createElement('div');
-  chart1Container.style.width = '100%';
-  chart1Container.style.height = '220px'; // 增加高度
-  container.appendChild(chart1Container);
+// quantize 比例尺图表
+const chart1Container = document.createElement('div');
+chart1Container.style.width = '100%';
+chart1Container.style.height = '220px'; // 增加高度
+container.appendChild(chart1Container);
 
-  const chart1 = new G2.Chart({
-    container: chart1Container,
-    height: 220,
-    autoFit: true, // 自动适应容器大小
-    padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
-  });
+const chart1 = new G2.Chart({
+  container: chart1Container,
+  height: 220,
+  autoFit: true, // 自动适应容器大小
+  padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
+});
 
-  chart1.options({
-    type: 'point',
-    data,
-    title: {
-      text: 'quantize 比例尺（等宽分段）',
-      style: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
-    scale: {
-      color: {
-        type: 'quantize',
-        range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
-      },
-      value: {
-        nice: true,
-        tickCount: 5, // 减少刻度数量
-        formatter: '.0f', // 使用G2内置的格式化器显示整数
-      },
-    },
-    encode: {
-      x: 'value',
-      y: 'type',
-      color: 'value',
-      shape: 'circle',
-      size: 8,
-    },
+chart1.options({
+  type: 'point',
+  data,
+  title: {
+    text: 'quantize 比例尺（等宽分段）',
     style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+      fontSize: 14,
+      fontWeight: 'bold',
     },
-    legend: {
-      color: {
-        position: 'top',
-        length: 200, // 设置图例长度
-        labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-      },
+  },
+  scale: {
+    color: {
+      type: 'quantize',
+      range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
     },
-    axis: {
-      y: false,
-      x: {
-        labelSpacing: 10, // 增加标签间距
-        labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-        tickCount: 5, // 减少刻度数量
-      },
+    value: {
+      nice: true,
+      tickCount: 5, // 减少刻度数量
+      formatter: '.0f', // 使用G2内置的格式化器显示整数
     },
-  });
+  },
+  encode: {
+    x: 'value',
+    y: 'type',
+    color: 'value',
+    shape: 'circle',
+    size: 8,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      position: 'top',
+      length: 200, // 设置图例长度
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+    },
+  },
+  axis: {
+    y: false,
+    x: {
+      labelSpacing: 10, // 增加标签间距
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+      tickCount: 5, // 减少刻度数量
+    },
+  },
+});
 
-  chart1.render();
+chart1.render();
 
-  // quantile 比例尺图表
-  const chart2Container = document.createElement('div');
-  chart2Container.style.width = '100%';
-  chart2Container.style.height = '220px'; // 增加高度
-  container.appendChild(chart2Container);
+// quantile 比例尺图表
+const chart2Container = document.createElement('div');
+chart2Container.style.width = '100%';
+chart2Container.style.height = '220px'; // 增加高度
+container.appendChild(chart2Container);
 
-  const chart2 = new G2.Chart({
-    container: 'container',
-    container: chart2Container,
-    height: 220,
-    autoFit: true, // 自动适应容器大小
-    padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
-  });
+const chart2 = new G2.Chart({
+  container: 'container',
+  container: chart2Container,
+  height: 220,
+  autoFit: true, // 自动适应容器大小
+  padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
+});
 
-  chart2.options({
-    type: 'point',
-    data,
-    title: {
-      text: 'quantile 比例尺（等频分段）',
-      style: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    },
-    scale: {
-      color: {
-        type: 'quantile',
-        range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
-      },
-      value: {
-        nice: true,
-        tickCount: 5, // 减少刻度数量
-        formatter: '.0f', // 使用G2内置的格式化器显示整数
-      },
-    },
-    encode: {
-      x: 'value',
-      y: 'type',
-      color: 'value',
-      shape: 'circle',
-      size: 8,
-    },
+chart2.options({
+  type: 'point',
+  data,
+  title: {
+    text: 'quantile 比例尺（等频分段）',
     style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      lineWidth: 1,
+      fontSize: 14,
+      fontWeight: 'bold',
     },
-    legend: {
-      color: {
-        position: 'top',
-        length: 200, // 设置图例长度
-        labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-      },
+  },
+  scale: {
+    color: {
+      type: 'quantile',
+      range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
     },
-    axis: {
-      y: false,
-      x: {
-        labelSpacing: 10, // 增加标签间距
-        labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-        tickCount: 5, // 减少刻度数量
-      },
+    value: {
+      nice: true,
+      tickCount: 5, // 减少刻度数量
+      formatter: '.0f', // 使用G2内置的格式化器显示整数
     },
-  });
+  },
+  encode: {
+    x: 'value',
+    y: 'type',
+    color: 'value',
+    shape: 'circle',
+    size: 8,
+  },
+  style: {
+    fillOpacity: 0.8,
+    stroke: '#fff',
+    lineWidth: 1,
+  },
+  legend: {
+    color: {
+      position: 'top',
+      length: 200, // 设置图例长度
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+    },
+  },
+  axis: {
+    y: false,
+    x: {
+      labelSpacing: 10, // 增加标签间距
+      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+      tickCount: 5, // 减少刻度数量
+    },
+  },
+});
 
-  chart2.render();
-
-  return container;
-})();
+chart2.render();
 ```
 
 在上面的对比示例中：
@@ -340,7 +340,7 @@ chart.render();
 
 下面是一个更复杂的示例，展示如何使用 quantize 比例尺创建多个分段，并自定义数据域：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 创建一个容器元素

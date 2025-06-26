@@ -111,7 +111,7 @@ order: 5
 
 下面是一组筹备活动的时间数据：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 table([
   { name: '活动策划', startTime: 1, endTime: 4 },
   { name: '场地物流规划', startTime: 3, endTime: 13 },
@@ -126,7 +126,7 @@ table([
 
 在下面的例子中，我们把数据中 `name` 一列数据和 `x` 通道绑定，`endTime` 列数据减去 `startTime` 列数据的值和 `y` 通道绑定。这种绑定的过程被称为**编码（Encode）**，我们常常说图形的某个视觉属性编码了一列数据，这种数据驱动的属性被称为**通道（Channel）**。比如下面的 interval 标记 的 `x`，`y` 通道都分别编码了对应列的数据，可以清晰地显示不同事项和消耗时间的关系。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ chart.render();
 
 在下面的例子中，我们把数据中 `startTime` 一列数据和 `y` 通道绑定，`endTime` 一列数据和 `y1` 通道绑定（当然，你也可以将`[startTime, endTime]`绑定到 `y` 通道，详见[数组通道](#数组通道)），通过这样的数据编码方式来实现一个甘特图的效果。为了更好的区分不同事项，在 `x` 通道编码了 `name` 列的数据以外，额外把数据中 `name` 一列数据和 `color` 通道也进行绑定，这样通过不同的颜色以及不同的 x 轴位置，我们能够更好地区分不同事项。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -210,7 +210,7 @@ chart.render();
 
 这已经是一个较为完整的甘特图了，如果想强化时间顺序，可以借助 G2 中动画相关的视觉通道来实现时序动画的效果，下面的例子对 `enterDuration` 通道和 `enterDelay` 通道进行了编码，使得不同事项对应的标记的进入动画延迟时间和持续时间跟数据里的开始时间和结束时间相关联。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -299,7 +299,7 @@ chart.encode({ x: 'name', y: 'value' });
 
 通道编码具有传递性，视图的编码会传递给 `children` 指定的标记，如果该标记没有对应通道的编码，那么就设置，否则不做任何事情。比如绘制一个点线图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -423,7 +423,7 @@ chart.render();
 
 还可以通过函数编码的方式在多轴图中生成对应通道的图例。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -478,7 +478,7 @@ chart.render();
 
 通过函数编码还可以在某些时候禁用某些通道。在 G2 中，当未定义 `series` 通道，且 `color` 通道已定义的情况下，会复制一份值到 `series` 通道，以实现分类的效果。 下面的例子中 `color` 通道被映射到连续字段上，此时如果 `series` 再被映射到连续字段上会影响渐变折线的显示，需要通过 `series: () => undefined` 的方式禁用。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -554,7 +554,7 @@ chart.render();
 
 对于一些大数据的场景，使用数组列会更适合，下面是一个简单的例子。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const I = [0, 1, 2, 3, 4];
@@ -588,7 +588,7 @@ chart.render();
 
 当然，对于位置相关的视觉通道来说：例如 x 和 y 通道，往往不只需要一列数据，比如一个瀑布图，这个时候可以通过数组给一个通道指定多个列。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

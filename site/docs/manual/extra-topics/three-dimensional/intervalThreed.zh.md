@@ -14,7 +14,7 @@ order: 3
 
 然后设置 z 通道、scale 和 z 坐标轴，最后在场景中添加光源。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';

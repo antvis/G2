@@ -5,48 +5,48 @@ order: 2
 
 ## Overview
 
-`polar` (Polar Coordinate System) is a non-Cartesian coordinate system that transforms points (x, y) from Cartesian coordinates to polar coordinates (r, θ), where r is the radius and θ is the angle. Polar coordinate systems are commonly used in visualization to display periodic data, relative relationships, or distribution differences.
+`polar` (Polar coordinate system) is a non-Cartesian coordinate system that transforms points (x, y) from the Cartesian coordinate system to points (r, θ) in the polar coordinate system, where r is the radius and θ is the angle. Polar coordinate systems are commonly used in visualization to display cyclical data, relative relationships, or distribution differences.
 
-### Coordinate System Features
+### Coordinate System Characteristics
 
-- The center point serves as the pole (origin), with straight lines radiating outward from the center as polar axes
+- The center serves as the pole (origin), with straight lines radiating outward from the center as polar axis
 
 - Data point positions are determined jointly by the distance to the center (radius r) and the angle with the polar axis (angle θ)
 
-- Suitable for displaying cyclic, periodic, and distribution-type data
+- Suitable for displaying cyclical, periodic, and distribution-type data
 
-### Application Scenarios
+### Use Cases
 
-- Rose charts: displaying numerical differences in categorical data
+- Rose charts: Display numerical differences in categorical data
 
-- Radar charts: multi-dimensional data comparison
+- Radar charts: Multi-dimensional data comparison
 
-- Polar scatter plots: displaying correlation between angle and radius
+- Polar scatter plots: Display correlation between angle and radius
 
-- Various visualizations requiring circular layouts
+- Various visualizations requiring radial layout
 
 ## Configuration
 
-| Property    | Description                                    | Type                    | Default             | Required |
-| ----------- | ---------------------------------------------- | ----------------------- | ------------------- | -------- |
-| type        | Coordinate system type, set to 'polar'        | `string`                | None                | ✓        |
-| startAngle  | Starting angle of polar coordinate system      | `number`                | `-Math.PI / 2`      |          |
-| endAngle    | Ending angle of polar coordinate system        | `number`                | `(Math.PI * 3) / 2` |          |
-| innerRadius | Inner radius of polar coordinates, as percentage of canvas height (0-1) | `number`                | `0`                 |          |
-| outerRadius | Outer radius of polar coordinates, as percentage of canvas height (0-1) | `number`                | `1`                 |          |
-| transform   | Coordinate system transform configuration      | `CoordinateTransform[]` | `undefined`         |          |
+| Property    | Description                                                            | Type                    | Default             | Required |
+| ----------- | ---------------------------------------------------------------------- | ----------------------- | ------------------- | -------- |
+| type        | Coordinate system type, set to 'polar'                                 | `string`                | None                | ✓        |
+| startAngle  | Starting angle of polar coordinate system                              | `number`                | `-Math.PI / 2`      |          |
+| endAngle    | Ending angle of polar coordinate system                                | `number`                | `(Math.PI * 3) / 2` |          |
+| innerRadius | Inner radius of polar coordinate, as percentage of canvas height (0-1) | `number`                | `0`                 |          |
+| outerRadius | Outer radius of polar coordinate, as percentage of canvas height (0-1) | `number`                | `1`                 |          |
+| transform   | Coordinate system transform configuration                              | `CoordinateTransform[]` | `undefined`         |          |
 
 > Complex type descriptions:
 >
 > - `startAngle` and `endAngle` are in radians, with default values of -π/2 and 3π/2 respectively, forming a complete circle (2π).
-> - `innerRadius` and `outerRadius` have a range of [0-1], representing the ratio of inner and outer radii to canvas height respectively.
-> - `transform` is used to configure additional coordinate system transformations.
+> - `innerRadius` and `outerRadius` have a value range of [0-1], representing the inner and outer radius of the polar coordinate relative to the canvas height.
+> - `transform` is used to configure additional coordinate system transforms.
 
 ## Examples
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -84,7 +84,7 @@ chart.render();
 
 ### Radar Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -140,7 +140,7 @@ chart.render();
 
 ### Vector Field Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

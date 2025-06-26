@@ -59,7 +59,7 @@ type Reducer =
 
 ### 1. 分组柱状图按 y 值排序颜色分组（reverse 控制顺序）
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -88,7 +88,7 @@ chart.render();
 
 ### 2. 复杂排序与 reducer 配置
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -17,7 +17,7 @@ Vector 图形标记会将数据通过上述通道映射成向量数据：`[start
 
 <img alt="vector" src="https://gw.alipayobjects.com/zos/antfincdn/c9nPWlX5Au/vector.png" width="300" />
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -119,7 +119,7 @@ chart.render();
 
 有两种指定箭头图标长度的方式，一种是通过填写像素值，比如 `4`，来指定为固定长度；另外一种是通过指定一个百分比，比如 `30%`，来指定参考箭头长度的相对长度。默认值为 `40%`。如下示例：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

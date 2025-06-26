@@ -3,7 +3,7 @@ title: facetCircle
 order: 2
 ---
 
-Partitions data according to fields, uses circular division of space, then performs data visualization for each facet.
+Partition data by fields, use circular space division, then visualize data for each facet.
 
 ## Getting Started
 
@@ -52,30 +52,30 @@ facetCircle
 chart.render();
 ```
 
-For more examples, please visit the [Chart Examples](/examples) page.
+For more examples, visit the [Chart Examples](/en/examples) page.
 
 ## Options
 
-The underlying implementation of facetCircle is consistent with marks, so many configurations are the same.
+The underlying implementation of facetCircle is consistent with mark, so many configuration options are the same.
 
-| Property      | Description                                       | Type     | Default |
-| ------------- | ------------------------------------------------- | -------- | ------- |
-| data          | See [data](/manual/core/data/overview) documentation | `Data`   |         |
-| encode        | Channel settings, see table below                |          |         |
-| padding       | Padding size                                      | `number` | 0       |
-| paddingLeft   |                                                   | `number` | 0       |
-| paddingRight  |                                                   | `number` | 0       |
-| paddingTop    |                                                   | `number` | 0       |
-| paddingBottom |                                                   | `number` | 0       |
-| margin        | Margin                                            | `number` | 0       |
-| marginLeft    |                                                   | `number` | 0       |
-| marginRight   |                                                   | `number` | 0       |
-| marginTop     |                                                   | `number` | 0       |
-| marginBottom  |                                                   | `number` | 0       |
-| title         | See [title](/manual/component/title) documentation |          |         |
-| scale         | See [scale](/manual/core/scale/overview) documentation |          |         |
+| Property      | Description                                                              | Type     | Default |
+| ------------- | ------------------------------------------------------------------------ | -------- | ------- |
+| data          | Refer to [data](/en/manual/core/data/overview) for related information   | `Data`   |         |
+| encode        | Channel settings, see table below                                        |          |         |
+| padding       | Padding size                                                             | `number` | 0       |
+| paddingLeft   |                                                                          | `number` | 0       |
+| paddingRight  |                                                                          | `number` | 0       |
+| paddingTop    |                                                                          | `number` | 0       |
+| paddingBottom |                                                                          | `number` | 0       |
+| margin        | Margin                                                                   | `number` | 0       |
+| marginLeft    |                                                                          | `number` | 0       |
+| marginRight   |                                                                          | `number` | 0       |
+| marginTop     |                                                                          | `number` | 0       |
+| marginBottom  |                                                                          | `number` | 0       |
+| title         | Refer to [title](/en/manual/component/title) for related information     |          |         |
+| scale         | Refer to [scale](/en/manual/core/scale/overview) for related information |          |         |
 
-All configurations for `facetCircle` can be set using the API, for example:
+All configurations corresponding to `facetCircle` can be set using the API, for example:
 
 ```ts
 chart.facetCircle().data([1, 2, 3]).encode('position', 'month');
@@ -83,8 +83,8 @@ chart.facetCircle().data([1, 2, 3]).encode('position', 'month');
 
 ### encode
 
-FacetCircle has its own unique encode channels.
+For facetCircle, there are unique encode channels.
 
-| Channel  | Description                                                       | Type                               | Default |
-| -------- | ----------------------------------------------------------------- | ---------------------------------- | ------- |
-| position | Divide angles in circular space according to the position data   | `string` \| `(d, idx, arr) => any` |         |
+| Channel  | Description                                                   | Type                               | Default |
+| -------- | ------------------------------------------------------------- | ---------------------------------- | ------- |
+| position | Divide the angular space in the circle based on position data | `string` \| `(d, idx, arr) => any` |         |

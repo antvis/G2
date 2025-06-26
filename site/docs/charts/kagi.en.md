@@ -2,7 +2,7 @@
 title: Kagi Chart
 order: 25
 screenshot: 'https://zos.alipayobjects.com/rmsportal/GYxDnAkxCMrLfpB.png'
-category: ['trend','time']
+category: ['trend', 'time']
 similar: ['line', 'area', ' k-chart']
 ---
 
@@ -15,6 +15,7 @@ Kagi charts were invented around the 1870s when the Japanese stock market began 
 A Kagi chart consists of a series of vertical lines connected by short horizontal lines. The horizontal lines serve as connectors, while the thickness and direction of the vertical lines depend on price movements. An upward vertical line indicates a price increase, while a downward vertical line indicates a price decrease. A new vertical line is drawn when the price movement reverses beyond a threshold, connected by a horizontal line at the turning point. Thick lines (Yang lines) are used when the price rises above the previous high, and thin lines (Yin lines) are used when the price falls below the previous low.
 
 **Features of Kagi Charts:**
+
 - Simulates the relationship between supply and demand forces in securities, making it highly suitable for short-term stock operations.
 - Filters out daily price fluctuations through threshold markers, focusing only on significant price changes.
 - Independent of time.
@@ -29,14 +30,15 @@ The lines drawn in a Kagi chart are calculated using the Kagi chart algorithm an
 
 <img alt="kagi-structure" src="https://zos.alipayobjects.com/rmsportal/dIkzWxciUcEiiFn.jpg" width=400/>
 
-| Chart Type       | Kagi Chart                                    |
-| ---------------- | --------------------------------------------- |
-| Suitable Data    | One categorical field, one continuous field  |
-| Function         | Observing data **trends**                    |
-| Data Mapping     | Turning point time categories (auto-calculated) mapped to the x-axis, turning point values mapped to the y-axis |
-| Suitable Data Count | More than 10 data points                  |
+| Chart Type          | Kagi Chart                                                                                                      |
+| ------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Suitable Data       | One categorical field, one continuous field                                                                     |
+| Function            | Observing data **trends**                                                                                       |
+| Data Mapping        | Turning point time categories (auto-calculated) mapped to the x-axis, turning point values mapped to the y-axis |
+| Suitable Data Count | More than 10 data points                                                                                        |
 
 **Key Elements:**
+
 - **Yang Line**: A thick line drawn when the price rises above the previous high.
 - **Yin Line**: A thin line drawn when the price falls below the previous low.
 - **Turning Point**: Key points where the price movement direction reverses.
@@ -53,6 +55,7 @@ Kagi charts are most suitable for analyzing trends in price changes for stocks, 
 **Use Case 2: Technical Analysis and Trend Judgement**
 
 Kagi charts are particularly useful in technical analysis because they:
+
 - Filter market noise, focusing on significant price movements.
 - Clearly display support and resistance levels.
 - Help identify trend continuations and reversal signals.
@@ -73,22 +76,22 @@ The x-axis of Kagi charts is unique (turning point time), making it impossible t
 
 ### Kagi Charts and Candlestick Charts
 
-| Feature       | Kagi Chart                        | Candlestick Chart                     |
-| ------------- | --------------------------------- | ------------------------------------- |
-| Time Dependency | Independent of time, shows trends | Time-dependent, each period corresponds to a candlestick |
-| Data Display  | Filters minor fluctuations, highlights key turning points | Displays open, high, low, and close prices for a specific time period |
-| Analysis Focus | Trend direction and turning points | Price fluctuations and volume within a time period |
-| Suitable Scenarios | Medium- to long-term trend analysis | Short-term trading and time-sensitive analysis |
+| Feature            | Kagi Chart                                                | Candlestick Chart                                                     |
+| ------------------ | --------------------------------------------------------- | --------------------------------------------------------------------- |
+| Time Dependency    | Independent of time, shows trends                         | Time-dependent, each period corresponds to a candlestick              |
+| Data Display       | Filters minor fluctuations, highlights key turning points | Displays open, high, low, and close prices for a specific time period |
+| Analysis Focus     | Trend direction and turning points                        | Price fluctuations and volume within a time period                    |
+| Suitable Scenarios | Medium- to long-term trend analysis                       | Short-term trading and time-sensitive analysis                        |
 
 ### Kagi Charts and Line Charts
 
-| Feature       | Kagi Chart                        | Line Chart                            |
-| ------------- | --------------------------------- | ------------------------------------- |
-| Data Processing | Turning point data calculated by algorithm | Strictly plotted based on original data coordinates |
-| Axes          | X-axis represents calculated turning points | Both axes correspond to original data |
-| Line Meaning  | Color and thickness represent specific meanings (Yang and Yin lines) | Usually only represents data connection relationships |
-| Multi-Series  | Cannot plot multiple data groups  | Can plot multiple data groups for comparison |
-| Noise Filtering | Automatically filters minor fluctuations | Displays all data fluctuations       |
+| Feature         | Kagi Chart                                                           | Line Chart                                            |
+| --------------- | -------------------------------------------------------------------- | ----------------------------------------------------- |
+| Data Processing | Turning point data calculated by algorithm                           | Strictly plotted based on original data coordinates   |
+| Axis            | X-axis represents calculated turning points                          | Both axis correspond to original data                 |
+| Line Meaning    | Color and thickness represent specific meanings (Yang and Yin lines) | Usually only represents data connection relationships |
+| Multi-Series    | Cannot plot multiple data groups                                     | Can plot multiple data groups for comparison          |
+| Noise Filtering | Automatically filters minor fluctuations                             | Displays all data fluctuations                        |
 
 ## Similar Charts
 

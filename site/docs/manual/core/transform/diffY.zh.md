@@ -18,7 +18,7 @@ order: 2
 
 例如下面的的案例是看 `New York` 和 `San Francisco` 两个城市的天气情况的趋势，通过 `diffY` 就可以凸显出在同一个时间 x 下，到底那个城市的温度更高。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

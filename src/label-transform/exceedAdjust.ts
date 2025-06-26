@@ -28,13 +28,61 @@ const adjustPosition = (target: Bounds, edge: Bounds) => {
   return [changeX, changeY];
 };
 
-export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'>;
+export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'> & {
+  /** X-axis offset default is 0 */
+  offsetX?: number;
+  /** Y-axis offset default is 0 */
+  offsetY?: number;
+};
 
 /**
- * adjust the label when exceed the plot
+ * adjust the label when exceed the specific area
  */
-export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
+export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
   return (labels: DisplayObject[], { canvas, layout }) => {
+    const { bounds = 'view', offsetX = 0, offsetY = 0 } = options;
+
+    // Calculate boundary area based on bounds option
+    const getBoundaryArea = () => {
+      if (bounds === 'main') {
+        // Main area: exclude margins and paddings from view area
+        const {
+          x = 0,
+          y = 0,
+          width = 0,
+          height = 0,
+          marginLeft = 0,
+          marginRight = 0,
+          marginTop = 0,
+          marginBottom = 0,
+          paddingLeft = 0,
+          paddingRight = 0,
+          paddingTop = 0,
+          paddingBottom = 0,
+        } = layout;
+
+        return [
+          [
+            x + marginLeft + paddingLeft + offsetX,
+            y + marginTop + paddingTop + offsetY,
+          ],
+          [
+            x + width - marginRight - paddingRight - offsetX,
+            y + height - marginBottom - paddingBottom - offsetY,
+          ],
+        ] as Bounds;
+      } else {
+        // View area (default): entire layout area
+        const { x = 0, y = 0, width = 0, height = 0 } = layout;
+        return [
+          [x + offsetX, y + offsetY],
+          [x + width - offsetX, y + height - offsetY],
+        ] as Bounds;
+      }
+    };
+
+    const boundaryArea = getBoundaryArea();
+
     labels.forEach((l) => {
       show(l);
       const { max, min } = l.getRenderBounds();
@@ -45,11 +93,8 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = () => {
           [xMin, yMin],
           [xMax, yMax],
         ],
-        // Prevent label overlap in multiple charts by calculating layouts separately to avoid collisions.
-        [
-          [layout.x, layout.y],
-          [layout.x + layout.width, layout.y + layout.height],
-        ],
+        // Use the calculated boundary area based on bounds configuration
+        boundaryArea,
       );
       // For label with connectorPoints
       if (l.style.connector && l.style.connectorPoints) {

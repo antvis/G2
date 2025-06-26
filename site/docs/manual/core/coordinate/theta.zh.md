@@ -26,7 +26,7 @@ Theta 坐标系本质上是 Transpose 和 Polar 坐标系的组合。
 
 ### 基础饼图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -53,7 +53,7 @@ chart.render();
 
 ### 基础环图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 ### 自定义起始角度
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -117,7 +117,7 @@ chart.render();
 
 ### 组合式调用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

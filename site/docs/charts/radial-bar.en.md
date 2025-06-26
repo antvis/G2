@@ -22,12 +22,12 @@ Moreover, because our visual system is better at comparing straight lines, the C
 
 <img alt="radial-bar-structure" src="https://os.alipayobjects.com/rmsportal/OOiUjSQkDxkbxQw.png" width=450/>
 
-| Chart Type           | Radial Bar Chart                                                                     |
-| -------------------- | ------------------------------------------------------------------------------------ |
-| Suitable Data        | List: one categorical data field, one continuous data field                         |
-| Function             | Display comparison of categorical data values in an aesthetic way                    |
+| Chart Type           | Radial Bar Chart                                                                                                                  |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data        | List: one categorical data field, one continuous data field                                                                       |
+| Function             | Display comparison of categorical data values in an aesthetic way                                                                 |
 | Data-Visual Mapping  | Category field maps to circular position<br>Value field maps to arc length (angle)<br>Colors can distinguish different categories |
-| Suitable Data Volume | No more than 15 data points                                                         |
+| Suitable Data Volume | No more than 15 data points                                                                                                       |
 
 A complete radial bar chart contains the following elements:
 
@@ -42,18 +42,18 @@ Example 1: **Displaying categorical data comparison (requires sorting)**
 
 The chart below shows the level of American public concern about different areas of US-China issues.
 
-| Issue                                    | Attention Rate |
-| ---------------------------------------- | -------------- |
-| Taiwan Relations                         | 0.21           |
-| China's Growing Military Power           | 0.47           |
-| China's Impact on Global Environment    | 0.49           |
-| US Trade Deficit with China             | 0.52           |
-| China's Human Rights Policy             | 0.53           |
-| Cyber Attacks from China                | 0.54           |
-| China Taking Away American Jobs         | 0.60           |
-| China Holding US Massive Debt           | 0.67           |
+| Issue                                | Attention Rate |
+| ------------------------------------ | -------------- |
+| Taiwan Relations                     | 0.21           |
+| China's Growing Military Power       | 0.47           |
+| China's Impact on Global Environment | 0.49           |
+| US Trade Deficit with China          | 0.52           |
+| China's Human Rights Policy          | 0.53           |
+| Cyber Attacks from China             | 0.54           |
+| China Taking Away American Jobs      | 0.60           |
+| China Holding US Massive Debt        | 0.67           |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -67,37 +67,37 @@ chart.options({
   type: 'interval',
   data: [
     { question: 'Taiwan Relations', percent: 0.21, odd: 0 },
-    { question: 'China\'s Growing Military Power', percent: 0.47, odd: 1 },
-    { question: 'China\'s Impact on Global Environment', percent: 0.49, odd: 0 },
+    { question: "China's Growing Military Power", percent: 0.47, odd: 1 },
+    { question: "China's Impact on Global Environment", percent: 0.49, odd: 0 },
     { question: 'US Trade Deficit with China', percent: 0.52, odd: 1 },
-    { question: 'China\'s Human Rights Policy', percent: 0.53, odd: 0 },
+    { question: "China's Human Rights Policy", percent: 0.53, odd: 0 },
     { question: 'Cyber Attacks from China', percent: 0.54, odd: 1 },
-    { question: 'China Taking Away American Jobs', percent: 0.60, odd: 0 },
-    { question: 'China Holding US Massive Debt', percent: 0.67, odd: 1 }
+    { question: 'China Taking Away American Jobs', percent: 0.6, odd: 0 },
+    { question: 'China Holding US Massive Debt', percent: 0.67, odd: 1 },
   ],
   coordinate: { type: 'radial', innerRadius: 0.2 },
-  encode: { 
-    x: 'question', 
-    y: 'percent', 
-    color: 'odd' 
+  encode: {
+    x: 'question',
+    y: 'percent',
+    color: 'odd',
   },
   scale: {
     color: {
-      range: ['rgb(211,0,57)', 'rgb(224,74,116)']
+      range: ['rgb(211,0,57)', 'rgb(224,74,116)'],
     },
-    y: { domain: [0, 1] }
+    y: { domain: [0, 1] },
   },
   style: {
     radiusTopLeft: 4,
-    radiusTopRight: 4
+    radiusTopRight: 4,
   },
   label: {
     text: 'percent',
     position: 'inside',
     style: {
       fontWeight: 'bold',
-      fill: 'white'
-    }
+      fill: 'white',
+    },
   },
   axis: {
     x: {
@@ -105,14 +105,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 10
-        }
-      }
+          fontSize: 10,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {
@@ -129,7 +129,7 @@ Example 2: **Displaying country data comparison**
 
 The chart below shows the percentage of people in each country who think climate change is a serious problem.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -150,27 +150,27 @@ chart.options({
     { country: 'Canada', percent: 0.51, condition: 'Normal' },
     { country: 'Germany', percent: 0.55, condition: 'Normal' },
     { country: 'Vietnam', percent: 0.69, condition: 'Normal' },
-    { country: 'Brazil', percent: 0.86, condition: 'Normal' }
+    { country: 'Brazil', percent: 0.86, condition: 'Normal' },
   ],
-  coordinate: { 
-    type: 'radial', 
+  coordinate: {
+    type: 'radial',
     innerRadius: 0.3,
     startAngle: -Math.PI,
-    endAngle: -0.25 * Math.PI
+    endAngle: -0.25 * Math.PI,
   },
-  encode: { 
-    x: 'country', 
-    y: 'percent', 
-    color: 'condition' 
+  encode: {
+    x: 'country',
+    y: 'percent',
+    color: 'condition',
   },
   scale: {
     color: {
-      range: ['#2370AE', '#A34265', '#505051']
-    }
+      range: ['#2370AE', '#A34265', '#505051'],
+    },
   },
   style: {
     radiusTopLeft: 2,
-    radiusTopRight: 2
+    radiusTopRight: 2,
   },
   label: {
     text: 'percent',
@@ -178,8 +178,8 @@ chart.options({
     style: {
       fontWeight: 'bold',
       fill: 'white',
-      fontSize: 10
-    }
+      fontSize: 10,
+    },
   },
   axis: {
     x: {
@@ -187,14 +187,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 12
-        }
-      }
+          fontSize: 12,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {
@@ -217,7 +217,7 @@ The following shows a comparison between incorrect and correct usage:
 
 **Incorrect Example (Unsorted):**
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -238,27 +238,27 @@ chart.options({
     { country: 'USA', percent: 0.45, condition: 'Normal' },
     { country: 'UK', percent: 0.41, condition: 'Normal' },
     { country: 'Russia', percent: 0.33, condition: 'Normal' },
-    { country: 'China', percent: 0.18, condition: 'Special' }
+    { country: 'China', percent: 0.18, condition: 'Special' },
   ],
-  coordinate: { 
-    type: 'radial', 
+  coordinate: {
+    type: 'radial',
     innerRadius: 0.2,
     startAngle: -Math.PI,
-    endAngle: -0.25 * Math.PI
+    endAngle: -0.25 * Math.PI,
   },
-  encode: { 
-    x: 'country', 
-    y: 'percent', 
-    color: 'condition' 
+  encode: {
+    x: 'country',
+    y: 'percent',
+    color: 'condition',
   },
   scale: {
     color: {
-      range: ['#2370AE', '#A34265', '#505051']
-    }
+      range: ['#2370AE', '#A34265', '#505051'],
+    },
   },
   style: {
     radiusTopLeft: 2,
-    radiusTopRight: 2
+    radiusTopRight: 2,
   },
   axis: {
     x: {
@@ -266,14 +266,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 10
-        }
-      }
+          fontSize: 10,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {
@@ -294,7 +294,7 @@ In the incorrect example above, due to unsorted data, the outer ring Brazil (0.8
 
 You can use colors or grouping to display multi-dimensional data comparisons:
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -314,25 +314,25 @@ chart.options({
     { category: 'Product E', value: 45, quarter: 'Q1' },
   ],
   coordinate: { type: 'radial', innerRadius: 0.2 },
-  encode: { 
-    x: 'category', 
-    y: 'value', 
-    color: 'category' 
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category',
   },
   scale: {
-    y: { domain: [0, 100] }
+    y: { domain: [0, 100] },
   },
   style: {
     radiusTopLeft: 8,
-    radiusTopRight: 8
+    radiusTopRight: 8,
   },
   label: {
     text: 'value',
     position: 'inside',
     style: {
       fontWeight: 'bold',
-      fill: 'white'
-    }
+      fill: 'white',
+    },
   },
   axis: {
     x: {
@@ -340,14 +340,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 10
-        }
-      }
+          fontSize: 10,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {

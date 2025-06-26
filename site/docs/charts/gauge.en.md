@@ -6,7 +6,6 @@ category: ['interval']
 similar: ['pie']
 ---
 
-
 <img alt="gauge" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
 ## Introduction to Gauge Charts
@@ -25,12 +24,12 @@ In data visualization, gauge charts are commonly used to represent key performan
 
 <img alt="basic-gauge" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| Chart Type      | Basic Gauge Chart                                                                   |
-| --------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data   | Single value data: current value, target/total value, optional thresholds           |
-| Function        | Display data position within a specified range using pointer and scale              |
+| Chart Type             | Basic Gauge Chart                                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Single value data: current value, target/total value, optional thresholds                                              |
+| Function               | Display data position within a specified range using pointer and scale                                                 |
 | Data-to-Visual Mapping | Current value maps to pointer position<br>Total value defines scale range<br>Optional thresholds map to color sections |
-| Suitable Scenarios | Expressing completion degree or status of a single metric within a target range    |
+| Suitable Scenarios     | Expressing completion degree or status of a single metric within a target range                                        |
 
 ## Use Cases of Gauge Charts
 
@@ -40,7 +39,7 @@ Example 1: **Suitable for showing goal completion progress**
 
 The gauge chart below shows the completion status of a scoring metric, with a current score of 120 out of a total of 400.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -57,12 +56,11 @@ chart.options({
       name: 'score',
     },
   },
-  legend: false
+  legend: false,
 });
 
 chart.render();
 ```
-
 
 **Explanation**:
 
@@ -75,7 +73,7 @@ Example 2: **Suitable for multi-threshold status monitoring**
 
 Gauge charts can clearly show which range the data falls into by setting multiple thresholds and different colors, suitable for system status monitoring, performance evaluation, and other scenarios.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -99,15 +97,17 @@ chart.options({
     },
   },
   style: {
-    textContent: (target, total) => `Score: ${target}\nPercentage: ${(target / total * 100).toFixed(0)}%`,
+    textContent: (target, total) =>
+      `Score: ${target}\nPercentage: ${((target / total) * 100).toFixed(0)}%`,
   },
-  legend: false
+  legend: false,
 });
 
 chart.render();
 ```
 
 **Explanation**:
+
 - Three ranges are set using `thresholds`: 0-100, 100-200, and 200-400
 - Different colors map to each range: red for low scores, yellow for medium scores, green for high scores
 - The text content is customized to display both the score and percentage of the total
@@ -117,7 +117,7 @@ Example 3: **Customizing gauge chart styles**
 
 Gauge charts support highly customizable styles that can be adjusted based on business requirements.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -144,15 +144,17 @@ chart.options({
     arcShape: 'round',
     arcLineWidth: 2,
     arcStroke: '#fff',
-    textContent: (target, total) => `Score: ${target}\nPercentage: ${(target / total * 100).toFixed(0)}%`,
+    textContent: (target, total) =>
+      `Score: ${target}\nPercentage: ${((target / total) * 100).toFixed(0)}%`,
   },
-  legend: false
+  legend: false,
 });
 
 chart.render();
 ```
 
 **Explanation**:
+
 - `arcShape: 'round'` sets the arc shape to have rounded corners
 - `arcLineWidth` and `arcStroke` set the line width and border color of the arc
 - The pointer and text position automatically adapt to the gauge layout
@@ -174,13 +176,13 @@ Gauge charts display static data at a specific moment and cannot effectively exp
 
 Gauge charts support customizing the pointer shape, allowing you to adjust the pointer style according to business scenarios, making the chart more personalized.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import { Path } from '@antv/g';
 
-const chart = new Chart({ 
+const chart = new Chart({
   container: 'container',
-  autoFit: true
+  autoFit: true,
 });
 
 function getOrigin(points) {
@@ -234,22 +236,23 @@ chart.options({
     pointerShape: customShape,
     pinShape: false,
     textContent: (target, total) => {
-      return `Score: ${target}\nPercentage: ${(target / total * 100).toFixed(0)}%`;
+      return `Score: ${target}\nPercentage: ${((target / total) * 100).toFixed(
+        0,
+      )}%`;
     },
-  }
+  },
 });
 
 chart.render();
 ```
 
 **Explanation**:
+
 - `pointerShape` customizes the gauge pointer shape as a triangle
 - `pinShape: false` removes the circle at the center of the pointer
 - You can fully control the appearance, color, and size of the pointer according to business requirements
 
-
 ## Comparing Gauge Charts to Other Charts
-
 
 ### Gauge Charts and [Pie Charts](/en/charts/pie)
 
@@ -258,10 +261,10 @@ chart.render();
 - When only concerned with the relationship between a single value and the total, gauge charts provide a more prominent and intuitive representation
 
 ### Gauge Charts, [Bar Charts](/en/charts/bar)
+
 - Gauge charts are suitable for displaying a single data point relative to a fixed range, emphasizing completion degree
 - Bar charts are more suitable for comparing numerical differences between multiple categories
 - For scenarios requiring precise comparison of multiple values, bar charts are usually a better choice
-
 
 ## Similar Charts
 

@@ -6,7 +6,6 @@ category: ['trend', 'time']
 similar: ['area', 'bar', 'scatter', 'stacked-area']
 ---
 
-
 <img alt="line" src="https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg" width=600/>
 
 ## 折线图的简介
@@ -25,12 +24,12 @@ similar: ['area', 'bar', 'scatter', 'stacked-area']
 
 <img alt="basic-line" src="https://t.alipayobjects.com/images/T1c7djXjhXXXXXXXXX.png" width=600 />
 
-| 图表类型         | 基础折线图                                                  |
-| ---------------- | ----------------------------------------------------------- |
-| 适合的数据       | 时间序列数据：一个有序/连续数据字段（通常是时间）、一个连续数据字段 |
-| 功能             | 展示数据随时间或有序维度的变化趋势                         |
+| 图表类型         | 基础折线图                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------ |
+| 适合的数据       | 时间序列数据：一个有序/连续数据字段（通常是时间）、一个连续数据字段                        |
+| 功能             | 展示数据随时间或有序维度的变化趋势                                                         |
 | 数据与图形的映射 | 时间字段映射到横轴的位置<br>数值字段映射到纵轴的高度<br>各数据点通过线条连接，展示变化轨迹 |
-| 适合的场景       | 单一数据系列随时间的变化趋势                               |
+| 适合的场景       | 单一数据系列随时间的变化趋势                                                               |
 
 ---
 
@@ -38,12 +37,12 @@ similar: ['area', 'bar', 'scatter', 'stacked-area']
 
 <img alt="multi-series-line" src="https://os.alipayobjects.com/rmsportal/VVPAIRTNYwbbZut.jpg" width=600/>
 
-| 图表类型         | 多系列折线图                                                |
-| ---------------- | ----------------------------------------------------------- |
+| 图表类型         | 多系列折线图                                                                            |
+| ---------------- | --------------------------------------------------------------------------------------- |
 | 适合的数据       | 多序列时间数据：一个有序/连续数据字段（通常是时间）、一个连续数据字段、一个分类数据字段 |
-| 功能             | 展示多个数据系列随时间变化的趋势，便于比较不同系列间的关系  |
-| 数据与图形的映射 | 时间字段映射到横轴的位置<br>数值字段映射到纵轴的高度<br>分类字段映射到不同颜色的线条 |
-| 适合的场景       | 多数据系列随时间的变化趋势对比                             |
+| 功能             | 展示多个数据系列随时间变化的趋势，便于比较不同系列间的关系                              |
+| 数据与图形的映射 | 时间字段映射到横轴的位置<br>数值字段映射到纵轴的高度<br>分类字段映射到不同颜色的线条    |
+| 适合的场景       | 多数据系列随时间的变化趋势对比                                                          |
 
 ## 折线图的应用场景
 
@@ -60,7 +59,7 @@ similar: ['area', 'bar', 'scatter', 'stacked-area']
 | 2015/1/7     | 116.75          |
 | ...          | ...             |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -102,7 +101,6 @@ chart.options({
 chart.render();
 ```
 
-
 **说明** ：
 
 - `date` 字段，映射到横轴的位置，表示时间的先后顺序
@@ -113,7 +111,7 @@ chart.render();
 
 多系列折线图可以同时展示多个数据系列随时间的变化，便于进行比较分析。下图展示了不同地区失业率的变化趋势。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -126,12 +124,13 @@ chart.options({
   autoFit: true,
   data: {
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv',
   },
-  encode: { 
-    x: 'date', 
-    y: 'unemployment', 
-    color: 'division' 
+  encode: {
+    x: 'date',
+    y: 'unemployment',
+    color: 'division',
   },
   axis: {
     x: {
@@ -147,6 +146,7 @@ chart.render();
 ```
 
 **说明**：
+
 - `date` 字段映射到横轴，表示时间维度
 - `unemployment` 字段映射到纵轴，表示失业率
 - `division` 字段映射到颜色，区分不同地区
@@ -156,7 +156,7 @@ chart.render();
 
 折线图可以清晰地展示数据的细微变化和波动，特别是当数据点较多且变化频繁时。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -195,13 +195,13 @@ chart.options({
   ],
   encode: { x: 'month', y: 'temperature', color: 'city' },
   axis: {
-    y: { 
+    y: {
       title: null,
-      labelFormatter: (d) => d + '°C' 
+      labelFormatter: (d) => d + '°C',
     },
-    x: { 
-      title: null 
-    }
+    x: {
+      title: null,
+    },
   },
   style: {
     lineWidth: 2,
@@ -212,6 +212,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 折线图清晰地展示了东京和伦敦全年温度的变化曲线
 - 通过不同颜色的折线，可以直观地比较两个城市温度的差异和变化模式
 
@@ -225,7 +226,7 @@ chart.render();
 
 **错误的做法**
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -246,12 +247,12 @@ chart.options({
   ],
   encode: { x: 'genre', y: 'sold' },
   axis: {
-    x: { 
-      title: '游戏类型'
+    x: {
+      title: '游戏类型',
     },
-    y: { 
+    y: {
       title: '销售量',
-      labelFormatter: (val) => (val / 1000) + 'k'
+      labelFormatter: (val) => val / 1000 + 'k',
     },
   },
   style: {
@@ -265,7 +266,7 @@ chart.render();
 
 **正确的做法**
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -286,12 +287,12 @@ chart.options({
   ],
   encode: { x: 'genre', y: 'sold', color: 'genre' },
   axis: {
-    x: { 
-      title: '游戏类型'
+    x: {
+      title: '游戏类型',
     },
-    y: { 
+    y: {
       title: '销售量',
-      labelFormatter: (val) => (val / 1000) + 'k'
+      labelFormatter: (val) => val / 1000 + 'k',
     },
   },
 });
@@ -300,6 +301,7 @@ chart.render();
 ```
 
 **问题说明**：
+
 - 游戏类型之间没有自然的顺序或连续性关系
 - 连线暗示了类别间的趋势关系，但实际上不存在这种关系
 - 折线可能误导读者认为从"Sports"到"Strategy"存在某种变化趋势
@@ -309,7 +311,7 @@ chart.render();
 
 当数据点较少或变化不明显时，折线图可能无法充分发挥其展示趋势变化的优势。这种情况下，可以考虑使用柱状图或点图来强调个别数据点的比较。
 
-```js | ob { autoMount: true, pin: false }
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -341,7 +343,8 @@ chart.render();
 ```
 
 **问题说明**：
-- 数据点太少（仅4个），无法形成明显的趋势线
+
+- 数据点太少（仅 4 个），无法形成明显的趋势线
 - 数值变化很小（99-102），折线看起来几乎是平的
 - 难以从中获得有意义的趋势信息
 - 柱状图或点图能更好地强调各个独立数值的比较
@@ -352,7 +355,7 @@ chart.render();
 
 阶梯折线图使用水平和垂直线段连接数据点，形成阶梯状的效果，适合展示在特定时间点发生突变的数据。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -379,12 +382,12 @@ chart.options({
   ],
   encode: { x: 'month', y: 'value', shape: 'hv' },
   axis: {
-    x: { 
-      title: null 
+    x: {
+      title: null,
     },
-    y: { 
-      title: null
-    }
+    y: {
+      title: null,
+    },
   },
   style: {
     lineWidth: 2,
@@ -396,6 +399,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 使用 `encode: { shape: 'hv' }` 指定阶梯状的线条形状
 - 适合展示在特定时间点发生变化且保持稳定直到下一变化点的数据，如电费阶梯价格、库存水平变化等
 
@@ -403,7 +407,7 @@ chart.render();
 
 虚线折线图通过不同的线型来区分不同的数据系列或表示特定含义，如预测值、参考线等。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -459,6 +463,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 使用 `lineDash: (d) => (d[0].type === '预测值' ? [4, 4] : null)` 为预测值设置虚线样式
 - 实线表示已有的历史数据，虚线表示预测或估计的数据，增强了数据的可读性
 

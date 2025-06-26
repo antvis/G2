@@ -130,7 +130,7 @@ chart.emit('legend:reset', {});
 
 下面展示了一个离散型数据的 legendfilter 交互功能。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

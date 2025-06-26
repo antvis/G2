@@ -21,7 +21,7 @@ G2 名字和设计理念都来自于图形语法《[The Grammar of Graphics](htt
 
 你可以一句话绘制一张图表，除了绘制图形本身之外，还会添加坐标轴、图例，甚至交互提示！
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -47,7 +47,7 @@ G2 的简洁性源于其内置的**默认值**：你只需提供标记类型、�
 
 让我们看看下面这个例子，优化坐标轴刻度显示是否能让图表更易读？更换为下面的颜色是否更符合你的喜好？
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -73,7 +73,7 @@ chart.render();
 
 你也许会觉得散点图太简单了，那我们来看看 G2 是如何通过一句话绘制一个桑基图的！
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -111,7 +111,7 @@ chart.render();
 
 G2 可以绘制出丰富的图表类型，除了支持基础的折线图、柱状图、饼图等图表之外，还支持向量场、平行坐标系等稍微复杂一点的图表，比如下面的连接图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -139,7 +139,7 @@ chart.render();
 
 在 G2 中最为美妙的一点在于：你能够通过**组合**不同的图表（更为准确地说是标记）来获取**全新的图表**！例如，我们在一个图表中添加散点图的 Point 标记以及连接图的 Link 标记，便可以得到一个带有标注的点线连接图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -195,7 +195,7 @@ chart.render();
 
 接下来看看在获取到一份原始的运动员体重数据后，应该如何通过数据转换来将运动员的体重分布进行可视化：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -217,7 +217,7 @@ chart.render();
 
 希望对图表根据性别进行拆分？
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -241,7 +241,7 @@ chart.render();
 
 希望通过分面来分别看每个性别的分布？
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -268,7 +268,7 @@ chart.render();
 
 G2 可以绘制数据驱动的动画，从而达到可视化叙事的效果。首先是所有的动画属性（动画类型，延迟和持续时间）可以和数据绑定，比如下面的这个数据驱动的甘特图动画，可以点击左边的运行按钮查看效果。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -300,7 +300,7 @@ chart.render();
 
 同时，可以对动画通道进行转换，从而控制数据元素的出现顺序和时间，比如下面的玫瑰图每一片“花瓣”按照颜色和先后顺序依次出现，这都多亏了 G2 提供的内置转换，具体用法可以查看[stackEnter](/manual/core/transform/stack-enter)。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -329,7 +329,7 @@ chart.render();
 
 除了可以在某个视图内部实现动画效果以外，还可以在不同视图间做连续的形变动画：图形通过数据关联到一起，比如下面散点图和聚合条形图互相转换的过渡动画：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 fetch(
@@ -378,106 +378,104 @@ fetch(
 
 G2 除了提供丰富的内置交互以外，还通过 `chart.on` 和 `chart.emit` 提供了一种联动不同视图的交互的能力，比如下面展示的 "Focus and Context" 的能力：
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
-  const focusContainer = document.createElement('div');
-  const contextContainer = document.createElement('div');
-  container.append(focusContainer);
-  container.append(contextContainer);
+```js | ob {  inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const focusContainer = document.createElement('div');
+const contextContainer = document.createElement('div');
+container.append(focusContainer);
+container.append(contextContainer);
 
-  // 渲染 focus 视图
+// 渲染 focus 视图
 
-  const focus = new G2.Chart({
-    container: 'container',
-    container: focusContainer,
-    height: 360,
-    paddingLeft: 50,
-  });
+const focus = new G2.Chart({
+  container: focusContainer,
+  height: 360,
+  paddingLeft: 50,
+});
 
-  focus
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis('x', { grid: false, title: false, tickCount: 5 })
-    .axis('y', { grid: false, tickCount: 5 })
-    .interaction('tooltip', false)
-    .interaction('brushXFilter', true);
+focus
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis('x', { grid: false, title: false, tickCount: 5 })
+  .axis('y', { grid: false, tickCount: 5 })
+  .interaction('tooltip', false)
+  .interaction('brushXFilter', true);
 
-  focus.render();
+focus.render();
 
-  // 渲染 context 视图
+// 渲染 context 视图
 
-  const context = new G2.Chart({
-    container: 'container',
-    container: contextContainer,
-    paddingLeft: 50,
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: 60,
-  });
+const context = new G2.Chart({
+  container: contextContainer,
+  paddingLeft: 50,
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: 60,
+});
 
-  context
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis(false)
-    .interaction('tooltip', false)
-    .interaction('brushXHighlight', { series: true });
+context
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis(false)
+  .interaction('tooltip', false)
+  .interaction('brushXHighlight', { series: true });
 
-  context.render();
+context.render();
 
-  // 添加事件监听器在不同图表之间交流
-  focus.on('brush:filter', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { selection } = e.data;
-    const { x: scaleX } = focus.getScale();
-    const [[x1, x2]] = selection;
-    const domainX = scaleX.getOptions().domain;
-    if (x1 === domainX[0] && x2 === domainX[1]) {
-      context.emit('brush:remove', {});
-    } else {
-      context.emit('brush:highlight', { data: { selection } });
-    }
-  });
+// 添加事件监听器在不同图表之间交流
+focus.on('brush:filter', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { selection } = e.data;
+  const { x: scaleX } = focus.getScale();
+  const [[x1, x2]] = selection;
+  const domainX = scaleX.getOptions().domain;
+  if (x1 === domainX[0] && x2 === domainX[1]) {
+    context.emit('brush:remove', {});
+  } else {
+    context.emit('brush:highlight', { data: { selection } });
+  }
+});
 
-  context.on('brush:highlight', (e) => {
-    const { nativeEvent, data } = e;
-    if (!nativeEvent) return;
-    const { selection } = data;
-    focus.emit('brush:filter', { data: { selection } });
-  });
+context.on('brush:highlight', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  const { selection } = data;
+  focus.emit('brush:filter', { data: { selection } });
+});
 
-  context.on('brush:remove', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { x: scaleX, y: scaleY } = context.getScale();
-    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
-    focus.emit('brush:filter', { data: { selection } });
-  });
-
-  return container;
-})();
+context.on('brush:remove', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { x: scaleX, y: scaleY } = context.getScale();
+  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+  focus.emit('brush:filter', { data: { selection } });
+});
 ```
 
 ## 两种 API 风格
 
 G2 提供了两种风格的 API：**函数式 API** 和 **选项式 API** 。前者是通过一系列函数链式调用声明图表，后者是通过一个 JavaScript 对象去声明图表。比如在[简洁语法](#简洁的语法)中的散点图如果使用选项式 API 可以如下声明：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -508,41 +506,43 @@ chart.render();
 
 更多内容请阅读 [Spec 和 API](/manual/introduction/experimental-spec-api)。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({ height: 150, padding: 10 });
+```js | ob {  inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+  height: 150,
+  padding: 10,
+});
+const container = chart.getContainer();
 
-  const mock = () => Array.from({ length: 20 }, () => Math.random());
+const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-  // 初始化图表
-  // 使用选项式 API
-  chart.options({
-    type: 'interval',
-    data: mock(),
-    encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
-    axis: false,
-    tooltip: {
-      items: [{ channel: 'y', valueFormatter: '.0%' }],
-    },
-  });
+// 初始化图表
+// 使用选项式 API
+chart.options({
+  type: 'interval',
+  data: mock(),
+  encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
+  axis: false,
+  tooltip: {
+    items: [{ channel: 'y', valueFormatter: '.0%' }],
+  },
+});
 
-  chart.render();
+chart.render();
 
-  // 更新图表
-  // 使用函数式 API
-  const button = document.createElement('button');
-  button.style.display = 'block';
-  button.textContent = '更新数据';
-  button.onclick = () => {
-    const interval = chart.getNodeByType('interval'); // 获得 interval
-    interval.data(mock()); // 更新 interval 的数据
-    chart.render(); // 渲染图表
-  };
+// 更新图表
+// 使用函数式 API
+const button = document.createElement('button');
+button.style.display = 'block';
+button.textContent = '更新数据';
+button.onclick = () => {
+  const interval = chart.getNodeByType('interval'); // 获得 interval
+  interval.data(mock()); // 更新 interval 的数据
+  chart.render(); // 渲染图表
+};
 
-  const node = chart.getContainer();
-  node.insertBefore(button, node.childNodes[0]);
-  return node;
-})();
+container.insertBefore(button, container.childNodes[0]);
 ```
 
 ## 可组合
@@ -551,7 +551,7 @@ G2 提供了一种简单的复合 Mark 的机制，用于增强图表或者自�
 
 更多内容请阅读 [复合](/manual/core/composition/overview)。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 定义复合 mark
@@ -616,7 +616,7 @@ chart.render();
 
 G2 是的架构是由 **运行时（Runtime）** 和一系列 **可视化组件（Component）** 构成的。运行时主要负责完成数据映射、比例尺的创建和推断等等，以及串联可视化组件。不同的可视化组件由不同的功能，比如比例尺（Scale）用来映射数据、形状（Shape）用来绘制映射后的图形。下面展示如何自定义一个三角形的条形图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { register, Chart } from '@antv/g2';
 
 // 自定义一个三角形的 Shape

@@ -9,7 +9,7 @@ order: 16
 
 `sunburst` 通过 `g2ExtensionPlot` 中以 `rect` 为基础实现，内部实现下钻事件、极坐标、数据转化、样式优化等。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { plotlib } from '@antv/g2-extension-plot';
 import { Runtime, corelib, extend } from '@antv/g2';
 
@@ -116,7 +116,7 @@ chart.render();
 
 `color` 视觉通道影响 `sunburst` 图形标记的填充颜色。在区间图上应用时一般映射分类字段，对数据进行分组，默认为内置 `ancestor-node` 路径分组。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { plotlib } from '@antv/g2-extension-plot';
 import { Runtime, corelib, extend } from '@antv/g2';
 
@@ -144,7 +144,7 @@ chart.render();
 
 尝试使用回调进行分组：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
@@ -187,7 +187,7 @@ chart.render();
 
 可外部配置极坐标坐标 `polar` :
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
@@ -216,7 +216,7 @@ chart.render();
 
 还原为直角坐标系 `cartesian` :
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
@@ -243,7 +243,7 @@ chart.render();
 
 `sunburst` 默认配置内置了 `drillDown` 交互事件,
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 
 const Chart = extend(Runtime, { ...corelib(), ...g2ExtensionPlot.plotlib() });
@@ -313,6 +313,36 @@ chart.render();
 
 尝试一下
 
-<Playground path="style/general/sunburst/demo/sunburst-style.ts" rid="sunburst-style"></playground>
+```js | ob { inject: true }
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
+
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .sunburst()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  })
+  .encode('value', 'sum')
+  .style({
+    radius: 8,
+    // 内置透明度 fillOpacity ，根据 0.85 ** depth 层级计算,
+    fillOpacity: (v) => v['fillOpacity'],
+    fill: (v) => {
+      if (v['path'] === '类别 3') return 'red';
+      if (v['name'] === '类别 2.1.1') return 'red';
+    },
+  });
+
+chart.render();
+
+```
 
 更多的`style`配置，可以查看 [style](/manual/core/style) 介绍页面。

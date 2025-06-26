@@ -19,9 +19,9 @@ Simply put: **Using G2, you can not only quickly obtain more professional visual
 
 ## Concise Syntax
 
-You can draw a chart with one sentence. In addition to drawing the graphics themselves, it will also add coordinate axes, legends, and even interactive tooltips!
+You can draw a chart with one sentence. In addition to drawing the graphics themselves, it will also add coordinate axis, legends, and even interactive tooltips!
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -47,7 +47,7 @@ G2's conciseness comes from its built-in **default values**: you only need to pr
 
 Let's see the following example. Does optimizing axis tick display make the chart more readable? Is changing to the following colors more to your liking?
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -73,7 +73,7 @@ chart.render();
 
 You might think scatter plots are too simple, so let's see how G2 draws a Sankey diagram with one sentence!
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -111,7 +111,7 @@ chart.render();
 
 G2 can draw rich chart types. In addition to supporting basic line charts, bar charts, pie charts and other charts, it also supports slightly more complex charts such as vector fields and parallel coordinate systems, such as the link chart below:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -139,7 +139,7 @@ chart.render();
 
 The most wonderful thing about G2 is: you can **combine** different charts (more accurately called marks) to get **brand new charts**! For example, we add both Point marks from scatter plots and Link marks from link charts to a chart, and we can get an annotated point-line connection chart.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -195,7 +195,7 @@ In the data visualization workflow, data processing often takes up a lot of time
 
 Let's see how to visualize the weight distribution of athletes after obtaining raw athlete weight data through data transformation:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -217,7 +217,7 @@ chart.render();
 
 Want to split the chart by gender?
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -241,7 +241,7 @@ chart.render();
 
 Want to see the distribution of each gender separately through faceting?
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -268,7 +268,7 @@ chart.render();
 
 G2 can create data-driven animations to achieve visualization storytelling effects. First, all animation properties (animation type, delay and duration) can be bound to data, such as the data-driven Gantt chart animation below. You can click the run button on the left to see the effect.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -300,7 +300,7 @@ chart.render();
 
 At the same time, animation channels can be transformed to control the appearance order and timing of data elements. For example, in the rose chart below, each "petal" appears in sequence according to color and order, thanks to the built-in transforms provided by G2. For specific usage, see [stackEnter](/en/manual/core/transform/stack-enter).
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -329,7 +329,7 @@ chart.render();
 
 In addition to implementing animation effects within a single view, you can also create continuous morphing animations between different views: graphics are linked together through data association, such as the transition animation between scatter plots and aggregated bar charts below:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 fetch(
@@ -378,106 +378,104 @@ fetch(
 
 In addition to providing rich built-in interactions, G2 also provides the ability to link different views through `chart.on` and `chart.emit`, such as the "Focus and Context" capability shown below:
 
-```js | ob
-(() => {
-  const container = document.createElement('div');
-  const focusContainer = document.createElement('div');
-  const contextContainer = document.createElement('div');
-  container.append(focusContainer);
-  container.append(contextContainer);
+```js | ob {  inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const focusContainer = document.createElement('div');
+const contextContainer = document.createElement('div');
+container.append(focusContainer);
+container.append(contextContainer);
 
-  // Render focus view
+// Render focus view
 
-  const focus = new G2.Chart({
-    container: 'container',
-    container: focusContainer,
-    height: 360,
-    paddingLeft: 50,
-  });
+const focus = new G2.Chart({
+  container: focusContainer,
+  height: 360,
+  paddingLeft: 50,
+});
 
-  focus
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis('x', { grid: false, title: false, tickCount: 5 })
-    .axis('y', { grid: false, tickCount: 5 })
-    .interaction('tooltip', false)
-    .interaction('brushXFilter', true);
+focus
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis('x', { grid: false, title: false, tickCount: 5 })
+  .axis('y', { grid: false, tickCount: 5 })
+  .interaction('tooltip', false)
+  .interaction('brushXFilter', true);
 
-  focus.render();
+focus.render();
 
-  // Render context view
+// Render context view
 
-  const context = new G2.Chart({
-    container: 'container',
-    container: contextContainer,
-    paddingLeft: 50,
-    paddingTop: 0,
-    paddingBottom: 0,
-    height: 60,
-  });
+const context = new G2.Chart({
+  container: contextContainer,
+  paddingLeft: 50,
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: 60,
+});
 
-  context
-    .area()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .animate(false)
-    .axis(false)
-    .interaction('tooltip', false)
-    .interaction('brushXHighlight', { series: true });
+context
+  .area()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  })
+  .encode('x', 'date')
+  .encode('y', 'close')
+  .animate(false)
+  .axis(false)
+  .interaction('tooltip', false)
+  .interaction('brushXHighlight', { series: true });
 
-  context.render();
+context.render();
 
-  // Add event listeners to communicate between different charts
-  focus.on('brush:filter', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { selection } = e.data;
-    const { x: scaleX } = focus.getScale();
-    const [[x1, x2]] = selection;
-    const domainX = scaleX.getOptions().domain;
-    if (x1 === domainX[0] && x2 === domainX[1]) {
-      context.emit('brush:remove', {});
-    } else {
-      context.emit('brush:highlight', { data: { selection } });
-    }
-  });
+// Add event listeners to communicate between different charts
+focus.on('brush:filter', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { selection } = e.data;
+  const { x: scaleX } = focus.getScale();
+  const [[x1, x2]] = selection;
+  const domainX = scaleX.getOptions().domain;
+  if (x1 === domainX[0] && x2 === domainX[1]) {
+    context.emit('brush:remove', {});
+  } else {
+    context.emit('brush:highlight', { data: { selection } });
+  }
+});
 
-  context.on('brush:highlight', (e) => {
-    const { nativeEvent, data } = e;
-    if (!nativeEvent) return;
-    const { selection } = data;
-    focus.emit('brush:filter', { data: { selection } });
-  });
+context.on('brush:highlight', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  const { selection } = data;
+  focus.emit('brush:filter', { data: { selection } });
+});
 
-  context.on('brush:remove', (e) => {
-    const { nativeEvent } = e;
-    if (!nativeEvent) return;
-    const { x: scaleX, y: scaleY } = context.getScale();
-    const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
-    focus.emit('brush:filter', { data: { selection } });
-  });
-
-  return container;
-})();
+context.on('brush:remove', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { x: scaleX, y: scaleY } = context.getScale();
+  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+  focus.emit('brush:filter', { data: { selection } });
+});
 ```
 
 ## Two API Styles
 
 G2 provides two styles of APIs: **Functional API** and **Options API**. The former declares charts through a series of chained function calls, while the latter declares charts through a JavaScript object. For example, the scatter plot in [Concise Syntax](#concise-syntax) can be declared using the Options API as follows:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -508,41 +506,43 @@ The choice between the two is more a matter of style: if you are familiar with D
 
 For more content, please read [Spec and API](/en/manual/introduction/experimental-spec-api).
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({ height: 150, padding: 10 });
+```js | ob {  inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+  height: 150,
+  padding: 10,
+});
+const container = chart.getContainer();
 
-  const mock = () => Array.from({ length: 20 }, () => Math.random());
+const mock = () => Array.from({ length: 20 }, () => Math.random());
 
-  // Initialize chart
-  // Use Options API
-  chart.options({
-    type: 'interval',
-    data: mock(),
-    encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
-    axis: false,
-    tooltip: {
-      items: [{ channel: 'y', valueFormatter: '.0%' }],
-    },
-  });
+// Initialize chart
+// Use Options API
+chart.options({
+  type: 'interval',
+  data: mock(),
+  encode: { x: (_, i) => i, y: (d) => d, key: (_, i) => i },
+  axis: false,
+  tooltip: {
+    items: [{ channel: 'y', valueFormatter: '.0%' }],
+  },
+});
 
-  chart.render();
+chart.render();
 
-  // Update chart
-  // Use Functional API
-  const button = document.createElement('button');
-  button.style.display = 'block';
-  button.textContent = 'Update Data';
-  button.onclick = () => {
-    const interval = chart.getNodeByType('interval'); // Get interval
-    interval.data(mock()); // Update interval data
-    chart.render(); // Render chart
-  };
+// Update chart
+// Use Functional API
+const button = document.createElement('button');
+button.style.display = 'block';
+button.textContent = 'Update Data';
+button.onclick = () => {
+  const interval = chart.getNodeByType('interval'); // Get interval
+  interval.data(mock()); // Update interval data
+  chart.render(); // Render chart
+};
 
-  const node = chart.getContainer();
-  node.insertBefore(button, node.childNodes[0]);
-  return node;
-})();
+container.insertBefore(button, container.childNodes[0]);
 ```
 
 ## Composable
@@ -551,7 +551,7 @@ G2 provides a simple composite mark mechanism for enhancing charts or customizin
 
 For more content, please read [Composition](/en/manual/core/composition/overview).
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Define composite mark
@@ -616,7 +616,7 @@ Composite marks make it easier to add chart capabilities based on G2 and simpler
 
 G2's architecture consists of a **Runtime** and a series of **visualization components**. The runtime is mainly responsible for completing data mapping, scale creation and inference, etc., as well as connecting visualization components. Different visualization components have different functions, such as scales for mapping data and shapes for drawing mapped graphics. The following shows how to customize a triangular bar chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { register, Chart } from '@antv/g2';
 
 // Custom triangle shape

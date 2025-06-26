@@ -121,7 +121,7 @@ chart.on('sliderY:filter', (event) => {
 
 下面的示例展示了如何在折线图上添加基础的 X 轴缩略轴筛选功能：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

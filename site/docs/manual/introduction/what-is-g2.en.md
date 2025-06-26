@@ -17,7 +17,7 @@ This article will briefly introduce the core concepts of G2:
 
 "Talk is cheap, show me the code" - let's see what visualizations G2 can create based on the simple dataset below.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 table({
   url: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
 });
@@ -41,7 +41,7 @@ This is the syntax for G2's specific runtime environment on the official website
 
 **Mark** is the smallest visual unit in G2, and all charts in G2 are composed of different marks.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -65,7 +65,7 @@ chart.render();
 
 **Transform** changes the presentation of data and marks, mainly used for data analysis.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,7 +91,7 @@ chart.render();
 
 **Scale** controls the visual style of marks.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -119,7 +119,7 @@ chart.render();
 
 **Coordinate** changes the display form of charts.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -149,7 +149,7 @@ chart.render();
 
 **Composition** is used to create multi-view charts.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -182,7 +182,7 @@ chart.render();
 
 **Animation** supports group animations and keyframe animations. You can click the run button on the left to see the effect.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -206,7 +206,7 @@ chart
 chart.render();
 ```
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 fetch(
@@ -252,7 +252,7 @@ fetch(
 
 Interaction allows for on-demand data exploration.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

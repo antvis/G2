@@ -55,7 +55,7 @@ type Interpolate = (a: number, b: number) => (t: number) => T;
 
 ### 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

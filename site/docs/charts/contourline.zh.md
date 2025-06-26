@@ -20,12 +20,12 @@ similar: ['heatmap', 'choropleth-map']
 
 <img alt="contourline-structure" src="https://t.alipayobjects.com/images/T1IxliXgdaXXXXXXXX.png" width=600/>
 
-| 图表类型         | 等高线图                                                                                                |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 三维数据：两个连续变量（X、Y坐标）和一个数值变量（Z值）                                                |
-| 功能             | 显示二维平面上连续数据的分布模式和数值变化                                                              |
-| 数据与图形的映射 | X坐标映射到横轴位置<br>Y坐标映射到纵轴位置<br>Z值通过等高线的层次和标注显示<br>可选择性地用颜色表示数值大小 |
-| 适合的数据条数   | 连续的二维网格数据，数据点越多，等高线越平滑                                                            |
+| 图表类型         | 等高线图                                                                                                       |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| 适合的数据       | 三维数据：两个连续变量（X、Y 坐标）和一个数值变量（Z 值）                                                      |
+| 功能             | 显示二维平面上连续数据的分布模式和数值变化                                                                     |
+| 数据与图形的映射 | X 坐标映射到横轴位置<br>Y 坐标映射到纵轴位置<br>Z 值通过等高线的层次和标注显示<br>可选择性地用颜色表示数值大小 |
+| 适合的数据条数   | 连续的二维网格数据，数据点越多，等高线越平滑                                                                   |
 
 ## 等高线图的应用场景
 
@@ -48,7 +48,7 @@ similar: ['heatmap', 'choropleth-map']
 
 **地形海拔分布图。** 下图展示了某山区的海拔高度分布，通过等高线可以直观地看出山峰、山谷和坡度的分布情况。等高线密集的地方表示坡度陡峭，等高线稀疏的地方表示地势平缓。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 模拟地形高程数据
@@ -99,7 +99,11 @@ chart.options({
     items: [
       { field: 'x', name: '经度' },
       { field: 'y', name: '纬度' },
-      { field: 'elevation', name: '海拔', valueFormatter: (value) => `${Math.round(value)}m` },
+      {
+        field: 'elevation',
+        name: '海拔',
+        valueFormatter: (value) => `${Math.round(value)}m`,
+      },
     ],
   },
 });
@@ -112,42 +116,40 @@ chart.render();
 1. 使用网格单元格（cell）模拟等高线效果，显示地形海拔分布
 2. 通过颜色渐变表示不同的海拔高度，形成类似等高线的视觉效果
 3. 提供交互式的悬停提示显示具体位置和海拔信息
-4. 使用合适的色彩映射（viridis色板）来增强视觉效果
+4. 使用合适的色彩映射（viridis 色板）来增强视觉效果
 5. 添加描边来突出网格边界，增强等高线的视觉感知
 
 ## 等高线图的扩展
-
-
 
 ### 等高线轮廓图
 
 使用线条绘制等高线轮廓，更接近传统地形图的表现形式。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 生成等高线数据
 const generateContourLines = () => {
   const lines = [];
   const levels = [20, 40, 60, 80, 100]; // 等高线级别
-  
+
   levels.forEach((level, index) => {
     // 为每个等高线级别生成环形线条
     const points = [];
     const centerX = 25;
     const centerY = 25;
     const baseRadius = 5 + index * 4;
-    
+
     for (let angle = 0; angle <= 360; angle += 5) {
       const radian = (angle * Math.PI) / 180;
-      const radius = baseRadius + Math.sin(angle * Math.PI / 45) * 2; // 添加一些变化
+      const radius = baseRadius + Math.sin((angle * Math.PI) / 45) * 2; // 添加一些变化
       const x = centerX + radius * Math.cos(radian);
       const y = centerY + radius * Math.sin(radian);
       points.push({ x, y, level, lineId: `line_${level}` });
     }
     lines.push(...points);
   });
-  
+
   return lines;
 };
 
@@ -201,7 +203,7 @@ chart.options({
 chart.render();
 ```
 
-- **3D等高线**：结合三维可视化技术，可以创建立体的等高线图，更直观地展示数据的空间分布。
+- **3D 等高线**：结合三维可视化技术，可以创建立体的等高线图，更直观地展示数据的空间分布。
 - **动态等高线**：通过动画展示数据随时间的变化，如气象数据的时间演变。
 - **交互式标注**：允许用户点击等高线查看具体数值，或者动态调整等高线的间隔。
 - **多层叠加**：在同一图表中叠加多个数据层的等高线，如同时显示温度和气压分布。

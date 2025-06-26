@@ -183,7 +183,7 @@ chart.options({
 
 下面的示例展示了如何使用内置的暗色主题：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -219,7 +219,7 @@ chart.render();
 
 下面的示例展示了如何自定义默认颜色：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -250,7 +250,7 @@ chart.render();
 
 下面的示例展示了如何自定义分类颜色方案：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -295,7 +295,7 @@ chart.render();
 
 下面的示例展示了如何自定义视图区域的样式：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

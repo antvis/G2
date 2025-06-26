@@ -5,7 +5,7 @@ order: 4
 
 G2 5.0, like version 4.0, provides a set of imperative Functional APIs to declare charts. For example, the simplest bar chart is declared as follows.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Initialize chart instance
@@ -38,7 +38,7 @@ In addition to this functional style, G2 5.0 also provides a new API: Spec API. 
 
 Currently we declare the visualization through `chart.options(spec)`, the following example can achieve the same effect as above.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Initialize chart instance
@@ -124,7 +124,7 @@ The following uses some cases to show you how to use Spec API.
 
 ### Pie Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Initialize chart instance
@@ -171,7 +171,7 @@ chart.render();
 
 ### Space Composite
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Initialize chart instance

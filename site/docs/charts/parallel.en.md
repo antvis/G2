@@ -10,9 +10,9 @@ similar: ['radar', 'line', 'sankey']
 
 ## Introduction to Parallel Coordinates
 
-Parallel coordinates is a statistical chart with multiple vertical parallel axes. Each vertical axis represents a field, and each field is marked with scales to indicate ranges. Thus, multi-dimensional data can easily find "points" on each axis and connect them to form a polyline. As data increases and lines stack up, analysts may discover characteristics and patterns, such as clustering relationships between data.
+Parallel coordinates is a statistical chart with multiple vertical parallel axis. Each vertical axis represents a field, and each field is marked with scales to indicate ranges. Thus, multi-dimensional data can easily find "points" on each axis and connect them to form a polyline. As data increases and lines stack up, analysts may discover characteristics and patterns, such as clustering relationships between data.
 
-Although it may appear similar to a [line chart](/en/charts/line) on the surface, parallel coordinates do not represent trends, and there is no causal relationship between the axes. Therefore, when using parallel coordinates, how to determine the order of axes can be artificially decided. Generally speaking, the order affects perception and judgment when reading. The closer two axes are, the stronger people perceive the comparison between them. Therefore, to achieve the most appropriate and aesthetically pleasing ordering, it often requires multiple trials and comparisons. Conversely, trying different arrangements may also help to draw more conclusions.
+Although it may appear similar to a [line chart](/en/charts/line) on the surface, parallel coordinates do not represent trends, and there is no causal relationship between the axis. Therefore, when using parallel coordinates, how to determine the order of axis can be artificially decided. Generally speaking, the order affects perception and judgment when reading. The closer two axis are, the stronger people perceive the comparison between them. Therefore, to achieve the most appropriate and aesthetically pleasing ordering, it often requires multiple trials and comparisons. Conversely, trying different arrangements may also help to draw more conclusions.
 
 Additionally, each axis in parallel coordinates may have different data ranges, which can easily cause misunderstanding for readers. When creating charts, it's best to clearly mark the minimum and maximum values on each axis.
 
@@ -24,12 +24,12 @@ Additionally, each axis in parallel coordinates may have different data ranges, 
 
 <img alt="parallel-vertical" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MpzRTpYo3HoAAAAAU7AAAAgAemJ7AQ/original" width=600 />
 
-| Chart Type           | Vertical Parallel Coordinates                                                                     |
-| -------------------- | ------------------------------------------------------------------------------------------------- |
-| Suitable Data        | Table: Multiple continuous data fields, optionally one categorical data field for color encoding |
-| Function             | Analyze relationships between multiple variables, identify data patterns and clusters             |
-| Data-Graphics Mapping| Each data dimension maps to a vertical axis<br>Data records map to lines connecting axes<br>Optional categorical field maps to line colors |
-| Suitable Data Size   | Moderate data volume (recommended not to exceed 1000 records, use transparency or filtering for large datasets) |
+| Chart Type            | Vertical Parallel Coordinates                                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Suitable Data         | Table: Multiple continuous data fields, optionally one categorical data field for color encoding                                           |
+| Function              | Analyze relationships between multiple variables, identify data patterns and clusters                                                      |
+| Data-Graphics Mapping | Each data dimension maps to a vertical axis<br>Data records map to lines connecting axis<br>Optional categorical field maps to line colors |
+| Suitable Data Size    | Moderate data volume (recommended not to exceed 1000 records, use transparency or filtering for large datasets)                            |
 
 ---
 
@@ -37,12 +37,12 @@ Additionally, each axis in parallel coordinates may have different data ranges, 
 
 <img alt="parallel-horizontal" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_bIxS7sAfIIAAAAATVAAAAgAemJ7AQ/original" width=600/>
 
-| Chart Type           | Horizontal Parallel Coordinates                                          |
-| -------------------- | ------------------------------------------------------------------------ |
-| Suitable Data        | Table: Multiple continuous data fields, optionally one categorical data field for color encoding |
-| Function             | Analyze relationships between multiple variables, suitable for longer dimension names            |
-| Data-Graphics Mapping| Each data dimension maps to a horizontal axis<br>Data records map to lines connecting axes      |
-| Suitable Data Size   | Moderate data volume, can accommodate more dimension labels than vertical layout                 |
+| Chart Type            | Horizontal Parallel Coordinates                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------ |
+| Suitable Data         | Table: Multiple continuous data fields, optionally one categorical data field for color encoding |
+| Function              | Analyze relationships between multiple variables, suitable for longer dimension names            |
+| Data-Graphics Mapping | Each data dimension maps to a horizontal axis<br>Data records map to lines connecting axis       |
+| Suitable Data Size    | Moderate data volume, can accommodate more dimension labels than vertical layout                 |
 
 ## Use Cases for Parallel Coordinates
 
@@ -52,7 +52,7 @@ Example 1: **Multi-dimensional Data Relationship Analysis**
 
 The following chart shows the relationships between multiple performance indicators in an automotive dataset, including fuel economy, cylinders, displacement, horsepower, weight, etc.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -139,7 +139,7 @@ Example 2: **Data Clustering Identification**
 
 Parallel coordinates can be used to identify data groups with similar patterns.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -215,7 +215,7 @@ Example 1: **Too Few Dimensions**
 
 When there are only 2-3 dimensions, scatter plots or other chart types would be more intuitive.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 // Not recommended: Using parallel coordinates for only two dimensions
 import { Chart } from '@antv/g2';
 
@@ -254,7 +254,7 @@ chart.render();
 
 For two-dimensional data, scatter plots are more suitable:
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 // Recommended: Using scatter plot for two-dimensional data
 import { Chart } from '@antv/g2';
 
@@ -297,7 +297,7 @@ Example 2: **Too Much Data Causing Visual Clutter**
 
 When there are too many data records, lines will severely overlap, affecting readability.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 // Generate large amounts of data to simulate excessive records
@@ -348,7 +348,7 @@ chart.render();
 
 ### Changing Line Shape
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -426,7 +426,7 @@ chart.render();
 
 Add axis brushing and highlighting functionality to enhance data exploration capabilities:
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const axis = {
@@ -510,7 +510,7 @@ chart.render();
 
 Inspired by [Fathom Information Design](https://benfry.com/fortune500/), this example shows how to use parallel coordinates to analyze large-scale enterprise data over time. By displaying three dimensions - ranking, revenue, and profit - you can observe enterprise performance trajectories and relationships across different years.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 // Using real Fortune 500 data
@@ -992,22 +992,22 @@ realFortuneData().then((fortuneData) => {
 
 ### Parallel Coordinates vs [Line Chart](/en/charts/line)
 
-- Parallel coordinates are used to show relationships between multi-dimensional data, where each axis represents a different dimension, and there are no causal relationships between axes
+- Parallel coordinates are used to show relationships between multi-dimensional data, where each axis represents a different dimension, and there are no causal relationships between axis
 - Line charts are used to show data trends over time or other continuous variables, where the horizontal axis usually represents time series
-- The axes in parallel coordinates can be rearranged in any order, while the horizontal axis order in line charts is usually fixed
+- The axis in parallel coordinates can be rearranged in any order, while the horizontal axis order in line charts is usually fixed
 - Each line in parallel coordinates represents multiple dimension values of one data record, while each line in line charts represents one indicator changing over time
 
 ### Parallel Coordinates vs [Sankey Diagram](/en/charts/sankey)
 
 - Parallel coordinates show relationships between multi-dimensional data, where each line represents multiple dimension values of one data record
 - Sankey diagrams show the distribution and flow of quantities between different nodes, where line width represents flow magnitude
-- Axes in parallel coordinates represent different dimensions without the concept of flow
+- Axis in parallel coordinates represent different dimensions without the concept of flow
 - Nodes in Sankey diagrams have clear flow relationships, typically used to show resource, energy, or other flow processes
 
 ### Parallel Coordinates vs [Radar Chart](/en/charts/radar)
 
-- Parallel coordinates use parallel axes to display multi-dimensional data, suitable for comparing different records
-- Radar charts use radial axes to display multi-dimensional data, suitable for showing multi-dimensional characteristics of a single record
+- Parallel coordinates use parallel axis to display multi-dimensional data, suitable for comparing different records
+- Radar charts use radial axis to display multi-dimensional data, suitable for showing multi-dimensional characteristics of a single record
 
 ## Similar Charts
 
@@ -1015,4 +1015,4 @@ realFortuneData().then((fortuneData) => {
 
 ## Category
 
-<code src="./demos/list-category.tsx"></code> 
+<code src="./demos/list-category.tsx"></code>

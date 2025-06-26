@@ -38,7 +38,7 @@ similar: ['histogram', 'bar', 'scatter']
 - **须线**：从箱体延伸出的线段，通常延伸到 1.5 倍四分位距（IQR）范围内的最远数据点
 - **异常值**：超出须线范围的数据点，以单独的点标记显示
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -78,7 +78,7 @@ chart.render();
 
 箱形图是分析数据分布的理想工具，能够快速识别数据的集中趋势、离散程度和偏态分布。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -119,7 +119,7 @@ chart.render();
 
 通过并排显示多个箱形图，可以有效地比较不同组别间的数据分布差异。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -173,7 +173,7 @@ chart.render();
 
 通过设置不同的颜色和系列，可以在同一图表中比较多个维度的数据分布。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -211,7 +211,7 @@ chart.render();
 
 当分类标签过长时，可以使用横向箱形图来提高可读性。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -250,7 +250,7 @@ chart.render();
 
 在某些场景下，可以隐藏异常点，只关注数据的整体分布。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

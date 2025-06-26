@@ -10,11 +10,11 @@ similar: ['rose', 'radial-bar', 'pie']
 
 ## Introduction to Radar Chart
 
-Radar chart, also known as spider chart or web chart, is traditionally considered a chart for displaying multi-dimensional (4+ dimensions) data. It maps multiple dimensions of data onto coordinate axes that start from the same center point and typically end at the circumference. Connecting points of the same group with lines forms the radar chart. While it can display multi-dimensional data, the relative positions of points and angles between axes carry no informational value. With proper axis settings, the area enclosed by the radar chart can convey some information.
+Radar chart, also known as spider chart or web chart, is traditionally considered a chart for displaying multi-dimensional (4+ dimensions) data. It maps multiple dimensions of data onto coordinate axis that start from the same center point and typically end at the circumference. Connecting points of the same group with lines forms the radar chart. While it can display multi-dimensional data, the relative positions of points and angles between axis carry no informational value. With proper axis settings, the area enclosed by the radar chart can convey some information.
 
-Each dimension's data corresponds to a coordinate axis. These axes share the same center point, are equally spaced radially, and have identical scales. Grid lines connecting the axes serve mainly as auxiliary elements. Connecting data points on each axis forms a polygon. The combination of axes, points, lines, and polygons constitutes a radar chart.
+Each dimension's data corresponds to a coordinate axis. These axis share the same center point, are equally spaced radially, and have identical scales. Grid lines connecting the axis serve mainly as auxiliary elements. Connecting data points on each axis forms a polygon. The combination of axis, points, lines, and polygons constitutes a radar chart.
 
-It's important to emphasize that although each axis represents a different dimension, for easier understanding and uniform comparison, radar charts often artificially unify all axes to a single metric (e.g., scores or percentages). This effectively reduces the chart to two dimensions, and this simplified version is more commonly used in daily life. Additionally, radar charts can effectively display the relative weights of variables in a dataset, making them particularly suitable for performance data visualization.
+It's important to emphasize that although each axis represents a different dimension, for easier understanding and uniform comparison, radar charts often artificially unify all axis to a single metric (e.g., scores or percentages). This effectively reduces the chart to two dimensions, and this simplified version is more commonly used in daily life. Additionally, radar charts can effectively display the relative weights of variables in a dataset, making them particularly suitable for performance data visualization.
 
 Main disadvantages of radar charts:
 
@@ -73,7 +73,7 @@ Below is a radar chart evaluating personal comprehensive abilities.
 | Sports   | 4.5            |
 | Learning | 8.3            |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -142,7 +142,7 @@ This radar chart compares Huawei Mate and ZTE Grand Memo smartphones across five
 | Benchmark   | ZTE Grand Memo | 82              |
 | Battery     | ZTE Grand Memo | 78              |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

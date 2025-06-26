@@ -23,7 +23,7 @@ G2 提供了丰富的比例尺类型，可以根据数据类型和使用场景�
 
 比如下面的散点图的 x 和 y 通道都是使用了 `linear` 比例尺。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -45,7 +45,7 @@ chart.render();
 
 当我们尝试改变 x 通道和 y 通道的比例尺：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 比如下面的条形图的 color 通道就是用了 `ordinal` 比例尺。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -116,7 +116,7 @@ chart.render();
 
 `point` 比例尺
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -142,7 +142,7 @@ chart.render();
 
 `band` 比例尺
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -178,7 +178,7 @@ chart.render();
 
 `quantile` 比例尺
 
-```js | ob { autoMount: true, pin:false  }
+```js | ob { inject: true, pin:false  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -216,7 +216,7 @@ chart.render();
 
 `quantize` 比例尺
 
-```js | ob { autoMount: true, pin:false  }
+```js | ob { inject: true, pin:false  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -438,7 +438,7 @@ chart.scale({
 
 同一个视图中的标记相同通道的比例尺会默认是同步的：会去同步比例尺的类型，定义域和值域以及其他配置。这意味一个视图中所有的标记都会按照一个同样的尺度去绘制。比如下图中的 LineX 标记虽然没有完整的数据，但是也绘制到了准确的位置，就是因为比例尺同步。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -475,7 +475,7 @@ chart.render();
 
 如果希望不同步（比如绘制双轴图的时候），就需要设置 `scale.independent` 为 `true`，设置了该属性的比例尺不会和任何比例尺同步。下面的例子中的 interval 和 line 的 y 通道会使用两个不同的比例尺，从而会生成两个不同的坐标轴。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -522,7 +522,7 @@ chart.render();
 
 如果希望比例尺分组同步，可以声明 `scale.key`，拥有相同 key 的 scale 会同步。比如下面的 Line 和 Point Mark y 通道的比例尺因为 key 都是 line 所以会同步。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -577,7 +577,7 @@ chart.render();
 
 比例尺会可以配置在视图层级，并且会传递给 `children` 指定的标记，如果该标记对应的通道没有设置比例尺，就设置，否则没有影响。在不绘制多轴图的情况下，比例尺是可以设置在视图层级的。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

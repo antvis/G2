@@ -43,10 +43,10 @@ Interaction can also be set at the mark level:
 
 ```js
 // API
-//First method
+// First method
 chart.interval().interaction('tooltip', {}).interaction('brushHighlight', {});
 
-//Second method
+// Second method
 chart.interval().interaction({
   tooltip: {},
   brushHighlight: {},
@@ -82,14 +82,14 @@ This is equivalent to the following situation:
 ```js
 chart.interaction('elementHighlight', { link: false, background: false });
 chart.line();
-chart.area():
+chart.area();
 ```
 
 ## Interaction State
 
 In G2, you can set the interaction state of the mark through `mark.state`, such as setting the select and unselect states as follows. When using elementSelect, these two states will be consumed.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -133,10 +133,11 @@ chart.on('interaction name（eg: brushFilter）', (e) => {});
 
 Take the mouse brushing selection [brushFilter](/en/manual/core/interaction/brush-filter) as an example. When the user makes a mouse brushing selection, the corresponding brushing selection threshold is pushed into brushHistory. When the reset button is clicked, the values are popped up one by one and the brushFilter is actively triggered through `chart.emit()` for brushing selection coverage.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, ChartEvent } = G2;
 
 const chart = new Chart({
+  container: 'container',
   clip: true,
 });
 
@@ -202,7 +203,7 @@ chart.emit('brush:filter', {
 
 If the built-in interaction cannot meet your needs, you can also implement some interactions through custom interaction. Here is a custom highlight interaction.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const { Chart, PLOT_CLASS_NAME, ELEMENT_CLASS_NAME, register } = G2;
 
 register('interaction.customElementHighlight', () => {
@@ -234,7 +235,7 @@ register('interaction.customElementHighlight', () => {
   };
 });
 
-const chart = new Chart();
+const chart = new Chart({ container: 'container' });
 
 chart
   .interval()
@@ -264,7 +265,3 @@ chart
 
 chart.render();
 ```
-
-## Interaction Syntax
-
-> Interaction syntax is still under design...

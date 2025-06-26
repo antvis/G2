@@ -67,12 +67,12 @@ In this example, we map the 'category' field to the color channel and use an ord
 
 The ordinal scale provides the following configuration options:
 
-| Parameter | Description                                                       | Type                                                   | Default Value | Required |
-| --------- | ----------------------------------------------------------------- | ------------------------------------------------------ | ------------- | -------- |
-| domain    | Set the domain range of the data                                 | `any[]`                                                | `[]`          |          |
-| range     | Set the range of data mapping values                             | `any[]`                                                | `[]`          |          |
-| unknown   | Return value for `undefined`, `NaN`, `null` empty values         | `any`                                                  | `undefined`   |          |
-| compare   | Comparator for comparing two values, used for sorting            | `(a: number \| string, b: number \| string) => number` | `undefined`   |          |
+| Parameter | Description                                              | Type                                                   | Default Value | Required |
+| --------- | -------------------------------------------------------- | ------------------------------------------------------ | ------------- | -------- |
+| domain    | Set the domain range of the data                         | `any[]`                                                | `[]`          |          |
+| range     | Set the range of data mapping values                     | `any[]`                                                | `[]`          |          |
+| unknown   | Return value for `undefined`, `NaN`, `null` empty values | `any`                                                  | `undefined`   |          |
+| compare   | Comparator for comparing two values, used for sorting    | `(a: number \| string, b: number \| string) => number` | `undefined`   |          |
 
 ### domain
 
@@ -128,7 +128,7 @@ If no compare function is provided, values in the domain will maintain their ori
 
 Below is a basic example using ordinal scales to map categorical data to colors:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ In this example, we use an ordinal scale to map game genres to different colors.
 
 The following example shows basic categorical data visualization:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Create chart instance
@@ -225,7 +225,7 @@ This ensures categories are arranged alphabetically (A, B, C, D, E) rather than 
 
 Here's a complete example using G2 declarative syntax (G2Spec) to configure ordinal scales:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const spec = {
