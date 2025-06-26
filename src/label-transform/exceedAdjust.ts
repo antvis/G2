@@ -28,14 +28,25 @@ const adjustPosition = (target: Bounds, edge: Bounds) => {
   return [changeX, changeY];
 };
 
-export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'>;
+export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'> & {
+  /** Offset value that applies to both offsetX and offsetY */
+  offset?: number;
+  /** X-axis offset, takes higher priority than offset */
+  offsetX?: number;
+  /** Y-axis offset, takes higher priority than offset */
+  offsetY?: number;
+};
 
 /**
  * adjust the label when exceed the specific area
  */
 export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
   return (labels: DisplayObject[], { canvas, layout }) => {
-    const { bounds = 'view' } = options;
+    const { bounds = 'view', offset = 0, offsetX, offsetY } = options;
+
+    // Handle offset priority: offsetX/offsetY have higher priority than offset
+    const finalOffsetX = offsetX !== undefined ? offsetX : offset;
+    const finalOffsetY = offsetY !== undefined ? offsetY : offset;
 
     // Calculate boundary area based on bounds option
     const getBoundaryArea = () => {
@@ -57,18 +68,21 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
         } = layout;
 
         return [
-          [x + marginLeft + paddingLeft, y + marginTop + paddingTop],
           [
-            x + width - marginRight - paddingRight,
-            y + height - marginBottom - paddingBottom,
+            x + marginLeft + paddingLeft + finalOffsetX,
+            y + marginTop + paddingTop + finalOffsetY,
+          ],
+          [
+            x + width - marginRight - paddingRight - finalOffsetX,
+            y + height - marginBottom - paddingBottom - finalOffsetY,
           ],
         ] as Bounds;
       } else {
         // View area (default): entire layout area
         const { x = 0, y = 0, width = 0, height = 0 } = layout;
         return [
-          [x, y],
-          [x + width, y + height],
+          [x + finalOffsetX, y + finalOffsetY],
+          [x + width - finalOffsetX, y + height - finalOffsetY],
         ] as Bounds;
       }
     };

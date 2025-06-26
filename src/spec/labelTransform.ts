@@ -46,4 +46,16 @@ export type ExceedAdjustLabel = {
    * - 'main': Check against the main area (excluding margins and paddings)
    */
   bounds?: 'view' | 'main';
+  /**
+   * The offset value that applies to both offsetX and offsetY.
+   */
+  offset?: number;
+  /**
+   * The X-axis offset, takes higher priority than offset.
+   */
+  offsetX?: number;
+  /**
+   * The Y-axis offset, takes higher priority than offset.
+   */
+  offsetY?: number;
 };

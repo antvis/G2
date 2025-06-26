@@ -437,7 +437,6 @@ chart
   });
 
 chart.render();
-
 ```
 
 #### overlapHide
@@ -517,12 +516,17 @@ chart.render();
 
 ##### 配置项
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| bounds | 指定检测边界的区域类型,`5.3.4` 开始支持 | `'view' \| 'main'` | `'view'` |
+| 属性    | 说明                                    | 类型               | 默认值   |
+| ------- | --------------------------------------- | ------------------ | -------- |
+| bounds  | 指定检测边界的区域类型,`5.3.4` 开始支持 | `'view' \| 'main'` | `'view'` |
+| offset  | 同时应用于 offsetX 和 offsetY 的偏移值  | `number`           | `0`      |
+| offsetX | X 轴偏移值，优先级高于 offset           | `number`           | -        |
+| offsetY | Y 轴偏移值，优先级高于 offset           | `number`           | -        |
 
 - `'view'`：检测标签是否超出整个视图区域（包含 margin 和 padding）
 - `'main'`：检测标签是否超出主区域（不包含 margin 和 padding）
+- `'offsetX'`：左侧边界向右偏移，右侧边界向左偏移
+- `'offsetY'`：上侧边界向下偏移，下侧边界向上偏移
 
 ##### 问题案例
 
@@ -614,7 +618,12 @@ chart.options({
     color: 'symbol',
   },
   transform: [{ type: 'groupX', y: 'mean' }],
-  labels: [{ text: 'price', transform: [{ type: 'exceedAdjust', bounds: 'main' }] }],
+  labels: [
+    {
+      text: 'price',
+      transform: [{ type: 'exceedAdjust', bounds: 'main', offset: 10 }],
+    },
+  ],
 });
 
 chart.render();

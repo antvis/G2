@@ -517,12 +517,17 @@ chart.render();
 
 ##### Configuration Options
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| bounds | Specifies the boundary area type for overflow detection, supported since version `5.3.4`.   | `'view' \| 'main'` | `'view'` |
+| Property | Description                                                                                                                                      | Type               | Default Value |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------ | ------------- |
+| bounds   | Specifies the boundary area type for overflow detection, supported since version `5.3.4`                                                       | `'view' \| 'main'` | `'view'`      |
+| offset   | Offset value applied to both offsetX and offsetY simultaneously                                                                                 | `number`           | `0`           |
+| offsetX  | X-axis offset value, takes priority over offset                                                                                                  | `number`           | -             |
+| offsetY  | Y-axis offset value, takes priority over offset                                                                                                  | `number`           | -             |
 
 - `'view'`: Check if labels exceed the entire view area (including margins and paddings)
 - `'main'`: Check if labels exceed the main area (excluding margins and paddings)
+- `'offsetX'`: Left boundary shifts right, right boundary shifts left
+- `'offsetY'`: Top boundary shifts down, bottom boundary shifts up
 
 ##### Problem Case
 
@@ -614,7 +619,12 @@ chart.options({
     color: 'symbol',
   },
   transform: [{ type: 'groupX', y: 'mean' }],
-  labels: [{ text: 'price', transform: [{ type: 'exceedAdjust', bounds: 'main' }] }],
+  labels: [
+    {
+      text: 'price',
+      transform: [{ type: 'exceedAdjust', bounds: 'main', offset: 10 }],
+    },
+  ],
 });
 
 chart.render();

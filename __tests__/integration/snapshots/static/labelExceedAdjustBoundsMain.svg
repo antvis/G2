@@ -19,27 +19,21 @@
       <stop offset=".7517" stop-color="#1777FF"/>
       <stop offset="1" stop-color="#1677FF32"/>
     </linearGradient>
-    <filter id="e" data-type="outer" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="0" flood-color="rgba(42,102,187,0.17)" stdDeviation="5.5"/>
-    </filter>
-    <filter id="f" data-type="outer" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="0" flood-color="rgba(42,102,187,0.17)" stdDeviation="5.5"/>
-    </filter>
   </defs>
   <g>
     <g fill="none">
       <g fill="none" class="view">
         <g>
-          <path width="654" height="310" x="0" y="0" fill="rgba(0,0,0,0)" stroke="rgba(255,0,0,1)" d="m0 0 654 0 0 310-654 0z" class="area"/>
+          <path width="654" height="310" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 654 0 0 310-654 0z" class="area"/>
         </g>
         <g>
-          <path width="624" height="270" x="10" y="20" fill="rgba(0,0,0,0)" stroke="rgba(255,255,0,1)" d="m10 20 624 0 0 270-624 0z" class="area"/>
+          <path width="624" height="270" x="10" y="20" fill="rgba(0,0,0,0)" d="m10 20 624 0 0 270-624 0z" class="area"/>
         </g>
         <g>
-          <path width="560.54" height="254" x="73.46" y="20" fill="rgba(0,0,0,0)" stroke="rgba(0,128,0,1)" d="m73.46 20 560.54 0 0 254-560.54 0z" class="area"/>
+          <path width="560.54" height="254" x="73.46" y="20" fill="rgba(0,0,0,0)" d="m73.46 20 560.54 0 0 254-560.54 0z" class="area"/>
         </g>
         <g>
-          <path width="512.54" height="230" x="97.46" y="20" fill="rgba(0,0,0,0)" stroke="rgba(0,0,255,1)" d="m97.46 20 512.54 0 0 230-512.54 0z" class="area"/>
+          <path width="512.54" height="230" x="97.46" y="20" fill="rgba(0,0,0,0)" d="m97.46 20 512.54 0 0 230-512.54 0z" class="area"/>
         </g>
         <g fill="none" class="component">
           <g fill="none" class="axis">
@@ -141,23 +135,23 @@
             </g>
           </g>
           <g fill="none" class="label-layer">
-            <g fill="none" class="label" transform="matrix(1 0 0 1 106.42 32)">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 94.42 1)">
               <g>
-                <path width="169.84" height="61" x="-84.42" y="-10" fill="rgba(255,255,255,1)" d="m-60.42-10 121.84 0a24 24 0 0 1 24 24l0 13a24 24 0 0 1-24 24l-121.84 0a24 24 0 0 1-24-24l0-13a24 24 0 0 1 24-24z" filter="url(#e)" visibility="visible"/>
+                <path width="138.84" height="42" x="-68.42" y="0" fill="none" d="m-68.42 0 138.84 0 0 42-138.84 0z" visibility="visible"/>
               </g>
               <g>
-                <text fill="rgba(0,0,0,1)" dominant-baseline="central" dx=".5" dy="20.5" font-size="22" font-weight="500" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">最低价 ￥600</text>
+                <text fill="rgba(0,0,0,1)" stroke="rgba(255,255,255,1)" stroke-width="2" dominant-baseline="central" dx="1" dy="21" font-size="22" font-weight="500" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">最低价 ￥600</text>
               </g>
               <g>
                 <path fill="none" d="m0 0 0 0" visibility="visible"/>
               </g>
             </g>
-            <g fill="none" class="label" transform="matrix(1 0 0 1 453.67 32)">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 464.67 1)">
               <g>
-                <path width="168.74" height="61" x="-83.87" y="-10" fill="rgba(255,255,255,1)" d="m-59.87-10 120.74 0a24 24 0 0 1 24 24l0 13a24 24 0 0 1-24 24l-120.74 0a24 24 0 0 1-24-24l0-13a24 24 0 0 1 24-24z" filter="url(#f)" visibility="visible"/>
+                <path width="137.74" height="42" x="-67.87" y="0" fill="none" d="m-67.87 0 137.74 0 0 42-137.74 0z" visibility="visible"/>
               </g>
               <g>
-                <text fill="rgba(0,0,0,1)" dominant-baseline="central" dx=".5" dy="20.5" font-size="22" font-weight="500" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">最高价 ￥740</text>
+                <text fill="rgba(0,0,0,1)" stroke="rgba(255,255,255,1)" stroke-width="2" dominant-baseline="central" dx="1" dy="21" font-size="22" font-weight="500" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">最高价 ￥740</text>
               </g>
               <g>
                 <path fill="none" d="m0 0 0 0" visibility="visible"/>

@@ -273,19 +273,16 @@ export function labelExceedAdjustBoundsMain(): G2Spec {
             {
               text: 'tooltip',
               fill: '#000000',
+              stroke: '#fff',
+              lineWidth: 2,
               fillOpacity: 1,
               fontSize: 22,
               fontWeight: 500,
               lineHeight: 30,
               textAlign: 'center',
-              background: true,
-              backgroundFill: '#ffffff',
-              backgroundRadius: 24,
-              backgroundOpacity: 1,
-              backgroundPadding: [10, 16],
-              backgroundShadowColor: 'rgba(42,102,187,0.17)',
-              backgroundShadowBlur: 22,
-              transform: [{ type: 'exceedAdjust', bounds: 'main' }],
+              transform: [
+                { type: 'exceedAdjust', bounds: 'main', offsetX: 25 },
+              ],
             },
           ]
         : [],
@@ -301,6 +298,7 @@ export function labelExceedAdjustBoundsMain(): G2Spec {
     insetLeft: 24,
     insetRight: 24,
     insetBottom: 24,
+    animate: false,
     axis: {
       x: {
         title: '',
@@ -339,13 +337,6 @@ export function labelExceedAdjustBoundsMain(): G2Spec {
         labelFontWeight: 500,
         grid: false,
       },
-    },
-    style: {
-      viewFill: 'rgba(22,119,255,0)',
-      // viewStroke: 'red',
-      // plotStroke: 'yellow',
-      // contentStroke: 'blue',
-      // mainStroke: 'green',
     },
     scale: {
       y: {
