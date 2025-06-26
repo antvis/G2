@@ -241,7 +241,7 @@ chart.render();
 | contrastReverse | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
 | overflowHide    | 对于标签在图形上放置不下的时候，隐藏标签                                         |
 | overlapHide     | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
-| exceedAdjust    | 会自动对标签做溢出检测和矫正，即当标签超出视图区域时，会对标签自动做反方向的位移 |
+| exceedAdjust    | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
 
 不同的转化类型，针对不同的标签问题情况。所以明确每个 `transform` 标签转化的区别十分有必要。
 
@@ -513,7 +513,16 @@ chart.render();
 
 #### exceedAdjust
 
-`exceedAdjust` 会自动对标签做溢出检测和矫正，即当标签超出视图区域时，会对标签自动做反方向的位移。
+`exceedAdjust` 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移。
+
+##### 配置项
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| bounds | 指定检测边界的区域类型,`5.3.4` 开始支持 | `'view' \| 'main'` | `'view'` |
+
+- `'view'`：检测标签是否超出整个视图区域（包含 margin 和 padding）
+- `'main'`：检测标签是否超出主区域（不包含 margin 和 padding）
 
 ##### 问题案例
 
@@ -546,7 +555,7 @@ chart.options({
 chart.render();
 ```
 
-##### 配置 `exceedAdjust` 转化标签
+##### 配置 `exceedAdjust` 转化标签 - 默认 view 边界
 
 对超出视图的 `label` 标签进行方向优化。
 
@@ -573,6 +582,39 @@ chart.options({
   },
   transform: [{ type: 'groupX', y: 'mean' }],
   labels: [{ text: 'price', transform: [{ type: 'exceedAdjust' }] }],
+});
+
+chart.render();
+```
+
+##### 配置 `exceedAdjust` 转化标签 - main 边界
+
+使用 `bounds: 'plot'` 配置，仅在标签超出绘制区域（不包含 margin）时进行调整。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  margin: 60, // 设置较大的 margin 以显示区别
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  height: 300,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  },
+  encode: {
+    x: (d) => new Date(d.date).getFullYear(),
+    y: 'price',
+    color: 'symbol',
+  },
+  transform: [{ type: 'groupX', y: 'mean' }],
+  labels: [{ text: 'price', transform: [{ type: 'exceedAdjust', bounds: 'main' }] }],
 });
 
 chart.render();

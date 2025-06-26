@@ -513,7 +513,16 @@ chart.render();
 
 #### exceedAdjust
 
-`exceedAdjust` automatically detects and corrects label overflow, moving labels in the reverse direction when they exceed the view area.
+`exceedAdjust` automatically detects and corrects label overflow, moving labels in the reverse direction when they exceed the specified area.
+
+##### Configuration Options
+
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| bounds | Specifies the boundary area type for overflow detection, supported since version `5.3.4`.   | `'view' \| 'main'` | `'view'` |
+
+- `'view'`: Check if labels exceed the entire view area (including margins and paddings)
+- `'main'`: Check if labels exceed the main area (excluding margins and paddings)
 
 ##### Problem Case
 
@@ -546,7 +555,7 @@ chart.options({
 chart.render();
 ```
 
-##### Configure `exceedAdjust` Label Transformation
+##### Configure `exceedAdjust` Label Transformation - Default View Boundary
 
 Optimizes direction for `label` that exceeds the view.
 
@@ -573,6 +582,39 @@ chart.options({
   },
   transform: [{ type: 'groupX', y: 'mean' }],
   labels: [{ text: 'price', transform: [{ type: 'exceedAdjust' }] }],
+});
+
+chart.render();
+```
+
+##### Configure `exceedAdjust` Label Transformation - Main Boundary
+
+Using `bounds: 'main'` configuration, only adjusts labels when they exceed the main area (excluding margins and paddings).
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  margin: 60, // Set larger margin to show the difference
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  height: 300,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  },
+  encode: {
+    x: (d) => new Date(d.date).getFullYear(),
+    y: 'price',
+    color: 'symbol',
+  },
+  transform: [{ type: 'groupX', y: 'mean' }],
+  labels: [{ text: 'price', transform: [{ type: 'exceedAdjust', bounds: 'main' }] }],
 });
 
 chart.render();
