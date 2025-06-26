@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="654" height="310" color-interpolation-filters="sRGB" style="background: transparent;">
+  <defs>
+    <linearGradient id="c" x1="24" x2="24" y1="230" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1677FF5B"/>
+      <stop offset="1" stop-color="#1677FF"/>
+    </linearGradient>
+    <linearGradient id="d" x1="536.54" x2="536.54" y1="230" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1677FF5B"/>
+      <stop offset="1" stop-color="#1677FF"/>
+    </linearGradient>
+    <linearGradient id="a" x1="280.27" x2="280.27" y1="690" y2="7.667" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="rgba(255,255,255,0)"/>
+      <stop offset=".5" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="1" stop-color="rgba(105,168,255,0.61)"/>
+    </linearGradient>
+    <linearGradient id="b" x1="24" x2="536.54" y1="118.8335" y2="118.8335" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#91BDFF"/>
+      <stop offset=".2415" stop-color="#1777FF"/>
+      <stop offset=".7517" stop-color="#1777FF"/>
+      <stop offset="1" stop-color="#1677FF32"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
+        <g>
+          <path width="654" height="310" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 654 0 0 310-654 0z" class="area"/>
+        </g>
+        <g>
+          <path width="624" height="270" x="10" y="20" fill="rgba(0,0,0,0)" d="m10 20 624 0 0 270-624 0z" class="area"/>
+        </g>
+        <g>
+          <path width="560.54" height="254" x="73.46" y="20" fill="rgba(0,0,0,0)" d="m73.46 20 560.54 0 0 254-560.54 0z" class="area"/>
+        </g>
+        <g>
+          <path width="512.54" height="230" x="97.46" y="20" fill="rgba(0,0,0,0)" d="m97.46 20 512.54 0 0 230-512.54 0z" class="area"/>
+        </g>
+        <g fill="none" class="component">
+          <g fill="none" class="axis">
+            <g fill="none" class="axis-grid-group"/>
+            <g fill="none" class="axis-main-group">
+              <g fill="none" class="axis-line-group">
+                <g>
+                  <line x1="73.46" x2="634" y1="274" y2="274" fill="none" stroke="rgba(222,227,235,1)" stroke-opacity=".45" stroke-width="1.5" class="axis-line axis-line"/>
+                </g>
+              </g>
+              <g fill="none" class="axis-tick-group"/>
+              <g fill="none" class="axis-label-group">
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 97.46 278)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="20.5" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(0px, 8px);" text-anchor="middle">7月1日</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 610 278)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="20.5" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(0px, 8px);" text-anchor="middle">8月31日</text>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g fill="none" class="axis-title-group"/>
+          </g>
+        </g>
+        <g fill="none" class="component">
+          <g fill="none" class="axis">
+            <g fill="none" class="axis-grid-group"/>
+            <g fill="none" class="axis-main-group">
+              <g fill="none" class="axis-line-group">
+                <g>
+                  <line x1="73.46" x2="73.46" y1="274" y2="20" fill="none" stroke="rgba(222,227,235,1)" stroke-opacity=".45" stroke-width="1.5" class="axis-line axis-line"/>
+                </g>
+              </g>
+              <g fill="none" class="axis-tick-group"/>
+              <g fill="none" class="axis-label-group">
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 250)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="visible">600</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 211.6667)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="hidden">650</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 173.3333)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="visible">700</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 135)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="hidden">750</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 96.6667)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="visible">800</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 58.3333)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="hidden">850</text>
+                  </g>
+                </g>
+                <g fill="none" class="axis-label" transform="matrix(1 0 0 1 69.46 20)">
+                  <g>
+                    <text fill="rgba(84,92,103,1)" stroke-width="1" class="axis-label-item" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="22" font-style="normal" font-variant="normal" font-weight="500" opacity=".45" paint-order="stroke" style="transform:translate(-8px, 0px);" text-anchor="end" visibility="visible">900</text>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g fill="none" class="axis-title-group"/>
+          </g>
+        </g>
+        <g transform="matrix(1 0 0 1 73.46 20)">
+          <path width="560.54" height="254" fill="rgba(0,0,0,0)" d="m0 0 560.54 0 0 254-560.54 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g>
+              <path fill="url(#a)" fill-opacity=".85" stroke="rgba(23,131,255,1)" stroke-width="0" d="M24 230c2.801-11.628 5.602-23.256 8.402-46 2.801-22.744 5.602-89.444 8.403-90.467 2.8-1.022 5.601-.511 8.402-1.533 2.801-1.022 5.601-20.444 8.402-23 2.801-2.556 5.602-3.833 8.402-3.833 2.801 0 5.602 28.366 8.403 28.366 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601-85.866 8.402-85.866 2.801 0 5.601 58.266 8.402 58.266 2.801 0 5.602-58.266 8.403-58.266 2.8 0 5.601 40.889 8.402 53.666 2.801 12.778 5.601 23 8.402 23 2.801 0 5.602-15.333 8.402-15.333 2.801 0 5.602 15.333 8.403 15.333 2.8 0 5.601-53.666 8.402-53.666 2.801 0 5.602 61.333 8.402 61.333 2.801 0 5.602-61.333 8.403-61.333 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 92 8.403 92 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0l0 567.333c-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0-2.801 0-5.601 0-8.402 0-2.801 0-5.602 0-8.402 0-2.801 0-5.602 0-8.403 0-2.8 0-5.601 0-8.402 0Z" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="main-layer">
+            <g>
+              <path fill="none" stroke="url(#b)" stroke-linecap="round" stroke-width="6" d="M24 230c2.801-11.628 5.602-23.256 8.402-46 2.801-22.744 5.602-89.444 8.403-90.467 2.8-1.022 5.601-.511 8.402-1.533 2.801-1.022 5.601-20.444 8.402-23 2.801-2.556 5.602-3.833 8.402-3.833 2.801 0 5.602 28.366 8.403 28.366 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601-85.866 8.402-85.866 2.801 0 5.601 58.266 8.402 58.266 2.801 0 5.602-58.266 8.403-58.266 2.8 0 5.601 40.889 8.402 53.666 2.801 12.778 5.601 23 8.402 23 2.801 0 5.602-15.333 8.402-15.333 2.801 0 5.602 15.333 8.403 15.333 2.8 0 5.601-53.666 8.402-53.666 2.801 0 5.602 61.333 8.402 61.333 2.801 0 5.602-61.333 8.403-61.333 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 92 8.403 92 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0 2.801 0 5.601 0 8.402 0 2.801 0 5.602 0 8.402 0 2.801 0 5.602 0 8.403 0 2.8 0 5.601 0 8.402 0" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="main-layer">
+            <g>
+              <path fill="none" stroke="url(#c)" stroke-dasharray="3,3" stroke-opacity=".45" stroke-width="3" d="m24 230 0-230" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="main-layer">
+            <g>
+              <path fill="none" stroke="url(#d)" stroke-dasharray="3,3" stroke-opacity=".45" stroke-width="3" d="m536.54 230 0-230" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="label-layer">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 94.42 1)">
+              <g>
+                <path width="138.84" height="42" x="-68.42" y="0" fill="none" d="m-68.42 0 138.84 0 0 42-138.84 0z" visibility="visible"/>
+              </g>
+              <g>
+                <text fill="rgba(0,0,0,1)" stroke="rgba(255,255,255,1)" stroke-width="2" dominant-baseline="central" dx="1" dy="21" font-size="22" font-weight="500" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">最低价 ￥600</text>
+              </g>
+              <g>
+                <path fill="none" d="m0 0 0 0" visibility="visible"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 464.67 1)">
+              <g>
+                <path width="137.74" height="42" x="-67.87" y="0" fill="none" d="m-67.87 0 137.74 0 0 42-137.74 0z" visibility="visible"/>
+              </g>
+              <g>
+                <text fill="rgba(0,0,0,1)" stroke="rgba(255,255,255,1)" stroke-width="2" dominant-baseline="central" dx="1" dy="21" font-size="22" font-weight="500" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle" visibility="visible">最高价 ￥740</text>
+              </g>
+              <g>
+                <path fill="none" d="m0 0 0 0" visibility="visible"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
