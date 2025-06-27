@@ -14,70 +14,74 @@ order: 4
 
 然后设置 z 通道、scale 和 z 坐标轴。无需在场景中添加光源。
 
-```js | ob
-(() => {
-  const renderer = new gWebgl.Renderer();
-  renderer.registerPlugin(new gPluginControl.Plugin());
-  renderer.registerPlugin(new gPlugin3d.Plugin());
+```js | ob { inject: true }
+import { Runtime, corelib, extend } from '@antv/g2';
+import { threedlib } from '@antv/g2-extension-3d';
+import { CameraType } from '@antv/g';
+import { Renderer as WebGLRenderer } from '@antv/g-webgl';
+import { Plugin as ThreeDPlugin } from '@antv/g-plugin-3d';
+import { Plugin as ControlPlugin } from '@antv/g-plugin-control';
 
-  const Chart = G2.extend(G2.Runtime, {
-    ...G2.corelib(),
-    ...g2Extension3d.threedlib(),
-  });
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ControlPlugin());
+renderer.registerPlugin(new ThreeDPlugin());
 
-  // 初始化图表实例
-  const chart = new Chart({
-    renderer,
-    width: 500,
-    height: 500,
-    depth: 400,
-  });
+const Chart = extend(Runtime, {
+  ...corelib(),
+  ...threedlib(),
+});
 
-  // We set the width/height to 100;
-  const size = 100;
-  const points = [];
-  for (let i = 0; i <= 2 * size; ++i) {
-    const theta = (Math.PI * (i - size)) / size;
-    for (let j = 0; j <= 2 * size; ++j) {
-      var phi = (Math.PI * (j - size)) / size;
+// 初始化图表实例
+const chart = new Chart({
+  container: 'container',
+  renderer,
+  width: 500,
+  height: 500,
+  depth: 400,
+});
 
-      const x = (10.0 + Math.cos(theta)) * Math.cos(phi);
-      const y = (10.0 + Math.cos(theta)) * Math.sin(phi);
+// We set the width/height to 100;
+const size = 100;
+const points = [];
+for (let i = 0; i <= 2 * size; ++i) {
+  const theta = (Math.PI * (i - size)) / size;
+  for (let j = 0; j <= 2 * size; ++j) {
+    var phi = (Math.PI * (j - size)) / size;
 
-      points.push({
-        x: i,
-        y: j,
-        z: Math.sin(theta) * x * y,
-      });
-    }
+    const x = (10.0 + Math.cos(theta)) * Math.cos(phi);
+    const y = (10.0 + Math.cos(theta)) * Math.sin(phi);
+
+    points.push({
+      x: i,
+      y: j,
+      z: Math.sin(theta) * x * y,
+    });
   }
+}
 
-  chart
-    .surface3D()
-    .data(points)
-    .encode('x', 'x')
-    .encode('y', 'y')
-    .encode('z', 'z')
-    .coordinate({ type: 'cartesian3D' })
-    .scale('x', { nice: true })
-    .scale('y', { nice: true })
-    .scale('z', { nice: true })
-    .legend(false)
-    .axis('x', { gridLineWidth: 1 })
-    .axis('y', { gridLineWidth: 1, titleBillboardRotation: -Math.PI / 2 })
-    .axis('z', { gridLineWidth: 1 });
+chart
+  .surface3D()
+  .data(points)
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .encode('z', 'z')
+  .coordinate({ type: 'cartesian3D' })
+  .scale('x', { nice: true })
+  .scale('y', { nice: true })
+  .scale('z', { nice: true })
+  .legend(false)
+  .axis('x', { gridLineWidth: 1 })
+  .axis('y', { gridLineWidth: 1, titleBillboardRotation: -Math.PI / 2 })
+  .axis('z', { gridLineWidth: 1 });
 
-  chart.render().then(() => {
-    const { canvas } = chart.getContext();
-    const camera = canvas.getCamera();
-    camera.setPerspective(0.1, 2000, 45, 500 / 500);
-    camera.rotate(30, 30, 0);
-    camera.dolly(60);
-    camera.setType(g.CameraType.ORBITING);
-  });
-
-  return chart.getContainer();
-})();
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 2000, 45, 500 / 500);
+  camera.rotate(30, 30, 0);
+  camera.dolly(60);
+  camera.setType(CameraType.ORBITING);
+});
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。

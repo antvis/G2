@@ -5,98 +5,98 @@ order: 16
 
 ## 概述
 
-`liquid` 图形标记可用于绘制各种 水波图（涟漪图或波形图）,通过模拟水面上波纹扩散的动态过程，从视觉上的波动传达信息或增强用户体验。常用于UI设计、数据可视化或动画效果中。
+`liquid` 图形标记可用于绘制各种 水波图（涟漪图或波形图）,通过模拟水面上波纹扩散的动态过程，从视觉上的波动传达信息或增强用户体验。常用于 UI 设计、数据可视化或动画效果中。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  
-  chart.options({
-    height: 300,
-    type: 'liquid',
-    data: 0.3, // [0, 1]
-    // 配置样式
-    style: {
-      outlineBorder: 4, // 外部边宽
-      outlineDistance: 8, // 水波运动时间
-      waveLength: 128, // 水波长度
-    },
-    // 配置坐标系
-    coordinate: {},
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
 
-  return chart.getContainer();
-})();
+chart.options({
+  height: 300,
+  type: 'liquid',
+  data: 0.3, // [0, 1]
+  // 配置样式
+  style: {
+    outlineBorder: 4, // 外部边宽
+    outlineDistance: 8, // 水波运动时间
+    waveLength: 128, // 水波长度
+  },
+  // 配置坐标系
+  coordinate: {},
+});
+
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 水波图](/examples#general-Liquid)页面。
 
 ## 配置项
 
-| 属性       | 描述                                                                                               | 类型                      | 默认值                 | 必选 |
-| ---------- | -------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | ---- |
-| style      | 配置 `liquid` 标记的图形样式                                                                         | [style](#style)           | -                      |      |
+| 属性  | 描述                         | 类型            | 默认值 | 必选 |
+| ----- | ---------------------------- | --------------- | ------ | ---- |
+| style | 配置 `liquid` 标记的图形样式 | [style](#style) | -      |      |
 
 ### style
 
 配置 `liquid` 标记的样式。
 
-| 属性            | 描述     | 类型     | 默认值 | 必选  |
-| --------------- | -------- | -------- | ------ |-------|
-| shape           | 形状     | _number_ | `circle`      |       |
-| stroke          | 边框颜色 | _string_ | -      |       |
-| fill            | 水波颜色 | _string_ | -      |       |
-| outlineBorder   | 边框宽度 | _number_ | `2`      |       |
-| outlineDistance | 内间距   | _number_ | `0`     |       |
-| waveLength      | 波长     | _number_ | `192`    |       |
-| waveCount       | 波数     | _number_ | `3`      |       |
-| backgroundFill  | 背景颜色 | _string_ | -      |       |
-| contentText     | 文本内容 | _string_ | -      |       |
-| contentFill     | 文本颜色 | _string_ | -      |       |
-| contentFontSize | 文本大小 | _string_ | -      |       |
+| 属性            | 描述     | 类型     | 默认值   | 必选 |
+| --------------- | -------- | -------- | -------- | ---- |
+| shape           | 形状     | _number_ | `circle` |      |
+| stroke          | 边框颜色 | _string_ | -        |      |
+| fill            | 水波颜色 | _string_ | -        |      |
+| outlineBorder   | 边框宽度 | _number_ | `2`      |      |
+| outlineDistance | 内间距   | _number_ | `0`      |      |
+| waveLength      | 波长     | _number_ | `192`    |      |
+| waveCount       | 波数     | _number_ | `3`      |      |
+| backgroundFill  | 背景颜色 | _string_ | -        |      |
+| contentText     | 文本内容 | _string_ | -        |      |
+| contentFill     | 文本颜色 | _string_ | -        |      |
+| contentFontSize | 文本大小 | _string_ | -        |      |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'liquid',
-    data: 0.75,
-    style: {
-      fill: 'pink', // 水波颜色
-      stroke: 'red', // 描边颜色
-      backgroundFill: '#f5f5f5', // 背景颜色
-      // outline 为描边样式
-      outlineBorder: 10, // 外部边宽
-      outlineDistance: 10, // 水波运动时间
-      // wave为水波配置
-      waveLength: 188, // 水波长度
-      waveCount: 6, // 波数 会自动 从 1 ~ 0.2 分配透明度
-      // content 为中心文本配置
-      contentText: 'center text',
-      contentFill: '#000',
-      contentStroke: '#fff',
-      contentFontSize: 32,
-      contentLineWidth: 3,
-    },
-    // 配置坐标系
-    coordinate: {},
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'liquid',
+  data: 0.75,
+  style: {
+    fill: 'pink', // 水波颜色
+    stroke: 'red', // 描边颜色
+    backgroundFill: '#f5f5f5', // 背景颜色
+    // outline 为描边样式
+    outlineBorder: 10, // 外部边宽
+    outlineDistance: 10, // 水波运动时间
+    // wave为水波配置
+    waveLength: 188, // 水波长度
+    waveCount: 6, // 波数 会自动 从 1 ~ 0.2 分配透明度
+    // content 为中心文本配置
+    contentText: 'center text',
+    contentFill: '#000',
+    contentStroke: '#fff',
+    contentFontSize: 32,
+    contentLineWidth: 3,
+  },
+  // 配置坐标系
+  coordinate: {},
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 #### shape
 
 `liquid` 标记内置支持的形状如下：
 
-| 形状   | 描述                             | 示例                                                                                                             |
-| ------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 形状     | 描述 | 示例                                                                                                             |
+| -------- | ---- | ---------------------------------------------------------------------------------------------------------------- |
 | rect     | 矩形 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yhm7SorCPUsAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | circle   | 圆形 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kMifQItNCRsAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | pin      | 水滴 | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*bAhUQZX4aYQAAAAAAAAAAAAAemJ7AQ/original"></img> |
@@ -106,4 +106,42 @@ order: 16
 
 尝试自己画一下：
 
-<Playground path="style/general/Liquid/demo/liquid-custom-shape.ts" rid="liquid-shape"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .liquid()
+  .data(0.3)
+  .style({
+    shape: (x, y, r) => {
+      const path = [];
+      const w = r * 2;
+
+      for (let i = 0; i < 5; i++) {
+        path.push([
+          i === 0 ? 'M' : 'L',
+          (Math.cos(((18 + i * 72) * Math.PI) / 180) * w) / 2 + x,
+          (-Math.sin(((18 + i * 72) * Math.PI) / 180) * w) / 2 + y,
+        ]);
+        path.push([
+          'L',
+          (Math.cos(((54 + i * 72) * Math.PI) / 180) * w) / 4 + x,
+          (-Math.sin(((54 + i * 72) * Math.PI) / 180) * w) / 4 + y,
+        ]);
+      }
+      path.push(['Z']);
+      return path;
+    },
+    outlineBorder: 4,
+    outlineDistance: 8,
+    waveLength: 128,
+  });
+
+chart.render();
+
+```

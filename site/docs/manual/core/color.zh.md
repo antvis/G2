@@ -29,109 +29,108 @@ order: 18
 
 当设置颜色比例尺为恒等比例尺（Identity）的时候，color 通道的数据会被作为视觉数据绘制到最后的可视化中，但是不会去生成比例尺。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data([
-      { genre: 'Sports', sold: 275, color: 'red' },
-      { genre: 'Strategy', sold: 115, color: 'blue' },
-      { genre: 'Action', sold: 120, color: 'green' },
-      { genre: 'Shooter', sold: 350, color: 'red' },
-      { genre: 'Other', sold: 150, color: 'black' },
-    ])
-    .encode('x', 'genre')
-    .encode('y', 'sold')
-    .encode('color', 'color')
-    .scale('color', { type: 'identity' }); // 设置该比例尺为恒等映射
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data([
+    { genre: 'Sports', sold: 275, color: 'red' },
+    { genre: 'Strategy', sold: 115, color: 'blue' },
+    { genre: 'Action', sold: 120, color: 'green' },
+    { genre: 'Shooter', sold: 350, color: 'red' },
+    { genre: 'Other', sold: 150, color: 'black' },
+  ])
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'color')
+  .scale('color', { type: 'identity' }); // 设置该比例尺为恒等映射
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### Range
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .encode('color', 'letter')
-    .axis('y', { labelFormatter: '.0%' })
-    .scale('color', {
-      type: 'ordinal',
-      range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
-    });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('color', 'letter')
+  .axis('y', { labelFormatter: '.0%' })
+  .scale('color', {
+    type: 'ordinal',
+    range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
+  });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### Palette
 
 G2 中可以通过设置 `scale.palette` 去指定色板。这个色板可以是离散的：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .encode('color', 'letter')
-    .axis('y', { labelFormatter: '.0%' })
-    .scale('color', { palette: 'tableau10' });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('color', 'letter')
+  .axis('y', { labelFormatter: '.0%' })
+  .scale('color', { palette: 'tableau10' });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 同时也可以是连续的：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart({
-    height: 320,
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .cell()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-    })
-    .transform({ type: 'group', color: 'max' })
-    .encode('x', (d) => new Date(d.date).getUTCDate())
-    .encode('y', (d) => new Date(d.date).getUTCMonth())
-    .encode('color', 'temp_max')
-    .scale('color', { palette: 'rainbow' });
+const chart = new Chart({
+  container: 'container',
+  height: 320,
+});
 
-  chart.render();
+chart
+  .cell()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  })
+  .transform({ type: 'group', color: 'max' })
+  .encode('x', (d) => new Date(d.date).getUTCDate())
+  .encode('y', (d) => new Date(d.date).getUTCMonth())
+  .encode('color', 'temp_max')
+  .scale('color', { palette: 'rainbow' });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 #### 内置色板
@@ -446,32 +445,33 @@ G2 提供了一些内置的色板，可以直接使用，并支持 [d3-scale-chr
 
 如果内置的色板不能满足你的要求，也可以试试自定义色板，以下是一个简单的例子，展示了如何自定义注册色板和使用。
 
-```js | ob
-(() => {
-  G2.register('palette.custom', customPalette);
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { register, Chart } from '@antv/g2';
 
-  function customPalette() {
-    return ['#FFB3BA', '#98FF98', '#89CFF0', '#FFF9B1', '#D1A3FF'];
-  }
+register('palette.custom', customPalette);
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .encode('color', 'letter')
-    .axis('y', { labelFormatter: '.0%' })
-    .scale('color', { palette: 'custom' }); // 指定自定义色板
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+function customPalette() {
+  return ['#FFB3BA', '#98FF98', '#89CFF0', '#FFF9B1', '#D1A3FF'];
+}
 
-  return chart.getContainer();
-})();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .encode('color', 'letter')
+  .axis('y', { labelFormatter: '.0%' })
+  .scale('color', { palette: 'custom' }); // 指定自定义色板
+
+chart.render();
 ```
 
 ### Relations
@@ -491,28 +491,28 @@ chart.interval().scale('color', {
 
 通过 `mark.style` 来设置颜色，这里设置的颜色比 `encode.color` 的优先级更高，同时不会生成图例。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart
-    .interval()
-    .data({
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    })
-    .encode('x', 'letter')
-    .encode('y', 'frequency')
-    .style('fill', (datum, index, data) => {
-      const { frequency } = datum;
-      if (frequency > 0.1) return '#3376cd';
-      if (frequency > 0.05) return '#f4bb51';
-      return '#b43a29';
-    });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  })
+  .encode('x', 'letter')
+  .encode('y', 'frequency')
+  .style('fill', (datum, index, data) => {
+    const { frequency } = datum;
+    if (frequency > 0.1) return '#3376cd';
+    if (frequency > 0.05) return '#f4bb51';
+    return '#b43a29';
+  });
 
-  return chart.getContainer();
-})();
+chart.render();
 ```

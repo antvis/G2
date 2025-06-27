@@ -23,29 +23,29 @@ order: 2
 
 简单的示例可以参考 [jitter](/manual/core/transform/jitter) 的示例，下面针对 `jitterX` 函数的场景使用进行说明和演示。
 
-``` js | ob
-(() => { 
-  const chart = new G2.Chart();
-  chart.options({
-    type: "point",
-    data: {
-      type: "fetch",
-      value:
-        "https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv",
-    },
-    encode: {
-      y: "Horsepower",
-      x: "Cylinders",
-      shape: "hollow",
-      color: "Cylinders",
-    },
-    transform: [{ type: "sortX", channel: "x" }, { type: "jitterX" }],
-    scale: { x: { type: "point" }, color: { type: "ordinal" } },
-  });
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+  },
+  encode: {
+    y: 'Horsepower',
+    x: 'Cylinders',
+    shape: 'hollow',
+    color: 'Cylinders',
+  },
+  transform: [{ type: 'sortX', channel: 'x' }, { type: 'jitterX' }],
+  scale: { x: { type: 'point' }, color: { type: 'ordinal' } },
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 补充说明：和 `jitter` 函数一样，`jitterX` 是一种视觉调整方法，可能会稍微改变数据的精确位置，因此不适合对位置精度要求极高的场景。

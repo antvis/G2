@@ -9,38 +9,38 @@ order: 7
 
 `density` 的核心目标是从散点或点云数据中提取出其整体分布模式，并将其密度信息映射为一个连续的区域图或渐变效果。这种图表通常用于分析大量数据点的聚集区域、数据集中热点或数据分布的概率密度，例如在地理可视化中用于表示人口分布的密集程度，或者在分析中展示交易频率的区域性。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'density', // 设置图表类型为密度图
-    data: {
-      type: 'fetch', // 指定数据类型为通过网络获取
-      value: 'https://assets.antv.antgroup.com/g2/species.json', // 设置数据的 URL 地址
-      transform: [
-        {
-          type: 'kde', // 使用核密度估计（KDE）进行数据转换
-          field: 'y', // 指定 KDE 计算的字段为 'y'
-          groupBy: ['x', 'species'], // 按 'x' 和 'species' 字段对数据进行分组
-        },
-      ],
-    },
-    encode: {
-      x: 'x', // 将 'x' 字段映射到 x 轴
-      y: 'y', // 将 'y' 字段映射到 y 轴
-      color: 'species', // 将 'species' 字段映射到颜色
-      size: 'size', // 将 'size' 字段映射到图形大小
-      series: 'species', // 将 'species' 字段映射到系列
-    },
+const chart = new Chart({
+  container: 'container',
+});
 
-    tooltip: false, // 关闭图表的 tooltip 功能
-  });
+chart.options({
+  type: 'density', // 设置图表类型为密度图
+  data: {
+    type: 'fetch', // 指定数据类型为通过网络获取
+    value: 'https://assets.antv.antgroup.com/g2/species.json', // 设置数据的 URL 地址
+    transform: [
+      {
+        type: 'kde', // 使用核密度估计（KDE）进行数据转换
+        field: 'y', // 指定 KDE 计算的字段为 'y'
+        groupBy: ['x', 'species'], // 按 'x' 和 'species' 字段对数据进行分组
+      },
+    ],
+  },
+  encode: {
+    x: 'x', // 将 'x' 字段映射到 x 轴
+    y: 'y', // 将 'y' 字段映射到 y 轴
+    color: 'species', // 将 'species' 字段映射到颜色
+    size: 'size', // 将 'size' 字段映射到图形大小
+    series: 'species', // 将 'species' 字段映射到系列
+  },
 
-  chart.render();
+  tooltip: false, // 关闭图表的 tooltip 功能
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 小提琴图](/examples#general-violin)页面。
@@ -63,74 +63,72 @@ order: 7
 | 直角坐标系 | `'cartesian'` | 和密度图等       |
 | 极坐标系   | `'polar'`     | 极坐标小提琴图等 |
 
-```js | ob { pin: false }
-(() => {
-  const coordinateMap = [
-    {
-      coordinate: 'cartesian',
-      label: '直角坐标系',
-    },
-    {
-      coordinate: 'polar',
-      label: '极坐标系',
-    },
-  ];
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const coordinateMap = [
+  {
+    coordinate: 'cartesian',
+    label: '直角坐标系',
+  },
+  {
+    coordinate: 'polar',
+    label: '极坐标系',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'density',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+    transform: [
+      {
+        type: 'kde',
+        field: 'y',
+        groupBy: ['x', 'species'],
+      },
+    ],
+  },
+  encode: {
+    x: 'x',
+    y: 'y',
+    color: 'species',
+    size: 'size',
+    series: 'species',
+  },
+  coordinate: { type: coordinateMap[0].coordinate },
+  tooltip: false,
+});
 
-  chart.options({
-    type: 'density',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/species.json',
-      transform: [
-        {
-          type: 'kde',
-          field: 'y',
-          groupBy: ['x', 'species'],
-        },
-      ],
-    },
-    encode: {
-      x: 'x',
-      y: 'y',
-      color: 'species',
-      size: 'size',
-      series: 'species',
-    },
-    coordinate: { type: coordinateMap[0].coordinate },
-    tooltip: false,
+const handleSetCoordinate = (coordinate) => {
+  // 设置选中的坐标系
+  chart.coordinate({
+    type: coordinate,
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetCoordinate = (coordinate) => {
-    // 设置选中的坐标系
-    chart.coordinate({
-      type: coordinate,
-    });
-    chart.render(); // 重新渲染图表
-  };
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择坐标系 ';
+const selector = document.createElement('select');
+selector.innerHTML = coordinateMap.map(
+  (coordinate, index) =>
+    `<option value="${coordinate.coordinate}" ${
+      index === 0 ? 'selected' : ''
+    }>${coordinate.label}</option>`,
+);
+selector.onchange = (e) => {
+  handleSetCoordinate(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择坐标系 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = coordinateMap.map(
-    (coordinate, index) =>
-      `<option value="${coordinate.coordinate}" ${
-        index === 0 ? 'selected' : ''
-      }>${coordinate.label}</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetCoordinate(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 更多的`coordinate`配置，可以查查看 [coordinate](/manual/core/coordinate/overview) 介绍页面。
@@ -153,8 +151,8 @@ order: 7
 
 `scale`用于定义数据如何映射到视觉属性（如颜色、大小、形状等）。在`cell`的使用场景，scale 的常见作用就是为每个视觉通道（如颜色、大小、位置等）提供映射规则，使数据点能够准确地呈现。
 
-| 属性   | 描述                                                                   | 类型                        | 默认值               | 必选 |
-| ------ | ---------------------------------------------------------------------- | --------------------------- | -------------------- | ---- |
+| 属性   | 描述                                                                   | 类型                                 | 默认值               | 必选 |
+| ------ | ---------------------------------------------------------------------- | ------------------------------------ | -------------------- | ---- |
 | x      | 定义数据字段到 X 轴视觉位置的映射规则                                  | [scale](/manual/core/scale/overview) | `{type: 'band'}`     |      |
 | series | 控制分类字段（series 编码）到视觉属性（如颜色、线型、符号）的映射规则  | [scale](/manual/core/scale/overview) | `{type: 'band'}`     |      |
 | size   | 将数据字段映射到视觉元素（如密度曲线宽度、点面积或区域高度）的尺寸属性 | [scale](/manual/core/scale/overview) | `{type: 'identity'}` |      |
@@ -184,4 +182,35 @@ order: 7
 
 尝试一下：
 
-<Playground path="style/general/violin/demo/density.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/species.json',
+  transform: [
+    {
+      type: 'kde',
+      field: 'y',
+      groupBy: ['x'],
+      size: 20,
+    },
+  ],
+});
+
+chart
+  .density()
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .encode('color', 'x')
+  .encode('size', 'size')
+  .tooltip(false);
+
+chart.render();
+
+```

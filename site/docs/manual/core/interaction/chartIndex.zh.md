@@ -139,66 +139,67 @@ chart.render();
 
 ### 指示线和文字
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'line',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/indices.json',
-    },
-    encode: {
-      x: (d) => new Date(d.Date),
-      y: 'Close',
-      color: 'Symbol',
-      key: 'Symbol',
-      title: (d) => d.Date.toLocaleString(),
-    },
-    axis: {
-      y: {
-        title: '↑ Change in price (%)',
-        labelAutoRotate: false,
-      },
-    },
-    scale: {
-      y: {
-        type: 'log',
-      },
-    },
-    label: {
-      text: 'Symbol',
-      selector: 'last',
-      style: {
-        fontSize: 10,
-      },
-    },
-    interaction: {
-      tooltip: {
-        crosshairs: false, // 关闭辅助线
-      },
-      chartIndex: {
-        ruleStroke: 'pink',
-        ruleLineWidth: 8,
-        ruleLineDash: [4, 8],
-        ruleShadowColor: 'green',
-        ruleShadowBlur: 5,
-        ruleShadowOffsetX: 5,
-        ruleShadowOffsetY: 5,
-        ruleOpacity: 0.9,
-        labelDy: 30,
-        labelFontSize: 20,
-        labelTextAlign: 'center',
-        labelFill: 'red',
-        labelStroke: 'yellow',
-        labelLineWidth: 2,
-        labelFormatter: (d) => `${d.toLocaleDateString()}`,
-      },
-    },
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
-  return chart.getContainer();
-})();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  },
+  encode: {
+    x: (d) => new Date(d.Date),
+    y: 'Close',
+    color: 'Symbol',
+    key: 'Symbol',
+    title: (d) => d.Date.toLocaleString(),
+  },
+  axis: {
+    y: {
+      title: '↑ Change in price (%)',
+      labelAutoRotate: false,
+    },
+  },
+  scale: {
+    y: {
+      type: 'log',
+    },
+  },
+  label: {
+    text: 'Symbol',
+    selector: 'last',
+    style: {
+      fontSize: 10,
+    },
+  },
+  interaction: {
+    tooltip: {
+      crosshairs: false, // 关闭辅助线
+    },
+    chartIndex: {
+      ruleStroke: 'pink',
+      ruleLineWidth: 8,
+      ruleLineDash: [4, 8],
+      ruleShadowColor: 'green',
+      ruleShadowBlur: 5,
+      ruleShadowOffsetX: 5,
+      ruleShadowOffsetY: 5,
+      ruleOpacity: 0.9,
+      labelDy: 30,
+      labelFontSize: 20,
+      labelTextAlign: 'center',
+      labelFill: 'red',
+      labelStroke: 'yellow',
+      labelLineWidth: 2,
+      labelFormatter: (d) => `${d.toLocaleDateString()}`,
+    },
+  },
+});
+
+chart.render();
 ```

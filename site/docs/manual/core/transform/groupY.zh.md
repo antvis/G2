@@ -17,53 +17,53 @@ order: 2
 
 例如，在对应的 mark 中有 transform 方法可以使用数据的变换。那么我们可以使用 groupY 来对数据进行分组聚合。下面的示例中，我们将对 y 通道进行分组，并计算每个组的最小值和最大值。
 
-``` js | ob
-(() => { 
-  const chart = new G2.Chart();
-  chart.options({
-    type: "view",
-    height: 180,
-    paddingLeft: 80,
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/penguins.json",
-      transform: [
-        {
-          type: "map",
-          callback: (d) => ({
-            ...d,
-            body_mass_g: +d.body_mass_g,
-          }),
-        },
-      ],
-    },
-    children: [
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'view',
+  height: 180,
+  paddingLeft: 80,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
       {
-        type: "point",
-        encode: { x: "body_mass_g", y: "species" },
-        style: { stroke: "#000" },
-      },
-      {
-        type: "link",
-        encode: { x: "body_mass_g", y: "species" },
-        transform: [{ type: "groupY", x: "min", x1: "max" }],
-        style: { stroke: "#000" },
-      },
-      {
-        type: "point",
-        encode: { y: "species", x: "body_mass_g", shape: "line", size: 12 },
-        transform: [{ type: "groupY", x: "median" }],
-        style: { stroke: "red" },
+        type: 'map',
+        callback: (d) => ({
+          ...d,
+          body_mass_g: +d.body_mass_g,
+        }),
       },
     ],
-  });
+  },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'body_mass_g', y: 'species' },
+      style: { stroke: '#000' },
+    },
+    {
+      type: 'link',
+      encode: { x: 'body_mass_g', y: 'species' },
+      transform: [{ type: 'groupY', x: 'min', x1: 'max' }],
+      style: { stroke: '#000' },
+    },
+    {
+      type: 'point',
+      encode: { y: 'species', x: 'body_mass_g', shape: 'line', size: 12 },
+      transform: [{ type: 'groupY', x: 'median' }],
+      style: { stroke: 'red' },
+    },
+  ],
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
-说明： 
+说明：
 
 1. 在这个示例中，我们首先定义了一组企鹅数据 `data`，包含企鹅的体重和物种;
 2. 在上述代码中，`transform` 方法中使用了 `groupY` 类型的数据转换，按 `y` channel 对数据进行分组;

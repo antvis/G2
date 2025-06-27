@@ -49,34 +49,35 @@ order: 2
 
 下面的示例展示了如何创建基本的密度图，展示不同物种的数据分布：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'density', // 设置图表类型为密度图
-    data: {
-      type: 'fetch', // 指定数据类型为通过网络获取
-      value: 'https://assets.antv.antgroup.com/g2/species.json', // 设置数据的 URL 地址
-      transform: [
-        {
-          type: 'kde', // 使用核密度估计（KDE）进行数据转换
-          field: 'y', // 指定 KDE 计算的字段为 'y'
-          groupBy: ['x', 'species'], // 按 'x' 和 'species' 字段对数据进行分组
-          size: 20, // 生成 20 个数据点表示概率密度函数
-        },
-      ],
-    },
-    encode: {
-      x: 'x', // 将 'x' 字段映射到 x 轴
-      y: 'y', // 将 'y' 字段映射到 y 轴
-      color: 'species', // 将 'species' 字段映射到颜色
-      size: 'size', // 将 'size' 字段映射到图形大小
-    },
-    tooltip: false, // 关闭图表的 tooltip 功能
-  });
-  chart.render();
-  return chart.getContainer();
-})();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'density', // 设置图表类型为密度图
+  data: {
+    type: 'fetch', // 指定数据类型为通过网络获取
+    value: 'https://assets.antv.antgroup.com/g2/species.json', // 设置数据的 URL 地址
+    transform: [
+      {
+        type: 'kde', // 使用核密度估计（KDE）进行数据转换
+        field: 'y', // 指定 KDE 计算的字段为 'y'
+        groupBy: ['x', 'species'], // 按 'x' 和 'species' 字段对数据进行分组
+        size: 20, // 生成 20 个数据点表示概率密度函数
+      },
+    ],
+  },
+  encode: {
+    x: 'x', // 将 'x' 字段映射到 x 轴
+    y: 'y', // 将 'y' 字段映射到 y 轴
+    color: 'species', // 将 'species' 字段映射到颜色
+    size: 'size', // 将 'size' 字段映射到图形大小
+  },
+  tooltip: false, // 关闭图表的 tooltip 功能
+});
+chart.render();
 ```
 
 在这个示例中，我们将 `size` 参数设置为 20，比默认值 10 更大，从而获得更精细的密度曲线。
@@ -85,48 +86,49 @@ order: 2
 
 在极坐标系中使用 KDE 可以创建环形的小提琴图，为数据分布可视化提供新的视角：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/species.json',
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+  },
+  coordinate: { type: 'polar' }, // 设置为极坐标系
+  children: [
+    {
+      type: 'density', // 密度图组件
+      data: {
+        transform: [{ type: 'kde', field: 'y', groupBy: ['x', 'species'] }],
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+        series: 'species',
+        color: 'species',
+        size: 'size',
+      },
+      tooltip: false,
     },
-    coordinate: { type: 'polar' }, // 设置为极坐标系
-    children: [
-      {
-        type: 'density', // 密度图组件
-        data: {
-          transform: [{ type: 'kde', field: 'y', groupBy: ['x', 'species'] }],
-        },
-        encode: {
-          x: 'x',
-          y: 'y',
-          series: 'species',
-          color: 'species',
-          size: 'size',
-        },
-        tooltip: false,
+    {
+      type: 'boxplot', // 箱线图组件，用于显示小提琴图
+      encode: {
+        x: 'x',
+        y: 'y',
+        series: 'species',
+        color: 'species',
+        shape: 'violin', // 设置形状为小提琴
       },
-      {
-        type: 'boxplot', // 箱线图组件，用于显示小提琴图
-        encode: {
-          x: 'x',
-          y: 'y',
-          series: 'species',
-          color: 'species',
-          shape: 'violin', // 设置形状为小提琴
-        },
-        style: { opacity: 0.5, strokeOpacity: 0.5, point: false },
-      },
-    ],
-  });
-  chart.render();
-  return chart.getContainer();
-})();
+      style: { opacity: 0.5, strokeOpacity: 0.5, point: false },
+    },
+  ],
+});
+chart.render();
 ```
 
 这个示例展示了如何将 KDE 与箱线图结合使用，创建小提琴图。在极坐标系中，小提琴图呈环形分布，提供了不同的视角来观察数据分布。
@@ -135,38 +137,39 @@ order: 2
 
 通过调整 KDE 的参数，可以控制密度估计的平滑程度和精度：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'density',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/species.json',
-      transform: [
-        {
-          type: 'kde',
-          field: 'y',
-          groupBy: ['x'],
-          size: 30, // 增加采样点数量，获得更精细的密度曲线
-          width: 3, // 增加带宽，使曲线更平滑
-          min: 0, // 指定处理范围的最小值
-          max: 8, // 指定处理范围的最大值
-          as: ['density_x', 'density_y'], // 自定义输出字段名
-        },
-      ],
-    },
-    encode: {
-      x: 'x',
-      y: 'density_x', // 使用自定义的输出字段
-      color: 'x',
-      size: 'density_y', // 使用自定义的输出字段
-    },
-    tooltip: false,
-  });
-  chart.render();
-  return chart.getContainer();
-})();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'density',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+    transform: [
+      {
+        type: 'kde',
+        field: 'y',
+        groupBy: ['x'],
+        size: 30, // 增加采样点数量，获得更精细的密度曲线
+        width: 3, // 增加带宽，使曲线更平滑
+        min: 0, // 指定处理范围的最小值
+        max: 8, // 指定处理范围的最大值
+        as: ['density_x', 'density_y'], // 自定义输出字段名
+      },
+    ],
+  },
+  encode: {
+    x: 'x',
+    y: 'density_x', // 使用自定义的输出字段
+    color: 'x',
+    size: 'density_y', // 使用自定义的输出字段
+  },
+  tooltip: false,
+});
+chart.render();
 ```
 
 这个示例展示了如何自定义 KDE 的各种参数：

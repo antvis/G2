@@ -5,12 +5,13 @@
     "build": "dumi build",
     "analyze": "ANALYZE=1 dumi build",
     "deploy": "gh-pages -d dist",
-    "preview": "dumi preview"
+    "preview": "dumi preview",
+    "format:md": "prettier --write \"**/*.md\""
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
     "@antv/data-set": "^0.11.8",
-    "@antv/dumi-theme-antv": "^0.7.5",
+    "@antv/dumi-theme-antv": "^0.7.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "@antv/g-lottie-player": "^1.0.32",

@@ -49,7 +49,6 @@ const createResetButton = () => {
 };
 
 chart.on(ChartEvent.AFTER_RENDER, () => {
-  createResetButton();
   const scale = chart.getScale();
   const { x1, y1 } = scale;
   const domainX = x1.options.domain;
@@ -58,3 +57,5 @@ chart.on(ChartEvent.AFTER_RENDER, () => {
 });
 
 chart.render();
+
+createResetButton();

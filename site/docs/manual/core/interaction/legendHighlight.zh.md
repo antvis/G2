@@ -2,6 +2,7 @@
 title: legendHighlight
 order: 18
 ---
+
 ## 开始使用
 
 `legendHighlight` 交互的对象是图表组件 legend 。
@@ -17,17 +18,12 @@ order: 18
 交互内置状态：
 
 ```js
-
 ({
+  // 定义 inactive 状态下的元素透明度为0.5
 
-// 定义 inactive 状态下的元素透明度为0.5
-
-state: { inactive: { opacity:0.5 } },
-
+  state: { inactive: { opacity: 0.5 } },
 });
-
 ```
-
 
 <img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*M4eVSKTMPs4AAAAAAAAAAAAADmJ7AQ/original" width="640">
 
@@ -63,15 +59,11 @@ chart.render();
 传入 `boolean` 设置是否开启交互。
 
 ```js
-
 ({
+  type: 'interval',
 
-type:'interval',
-
-interaction: { legendHighlight:true }, // 采用默认配置
-
+  interaction: { legendHighlight: true }, // 采用默认配置
 });
-
 ```
 
 ## 配置层级
@@ -79,18 +71,18 @@ interaction: { legendHighlight:true }, // 采用默认配置
 图例高亮交互可以配置在 View 层级：
 
 ```js
-      chart.interaction("legendHighlight", true);
+chart.interaction('legendHighlight', true);
 ```
 
 ## 配置项
 
 当前版本的 LegendHighlgiht 交互无可配置参数。
 
-需要设置state的inactive状态，可以参照[元素状态state](https://g6.antv.antgroup.com/manual/element/state)
+需要设置 state 的 inactive 状态，可以参照[元素状态 state](https://g6.antv.antgroup.com/manual/element/state)
 
-### legend组件配置
+### legend 组件配置
 
-具体文档看[图例legend](http://https://g2.antv.antgroup.com/manual/component/legend)
+具体文档看[图例 legend](http://https://g2.antv.antgroup.com/manual/component/legend)
 
 ## 事件
 
@@ -127,38 +119,42 @@ chart.emit('legend:unhighlight', {});
 ```
 
 ## 示例
-下面的示例展示了一个```legendHighlight```的基本交互功能。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+下面的示例展示了一个`legendHighlight`的基本交互功能。
 
-  chart.options({
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
   type: 'interval',
   autoFit: true,
   height: 300,
-  data:  [
-    { name: 'London', month: 'Jan.',value: 18.9 },
-    { name: 'London', month: 'Feb.',value: 28.8 },
-    { name: 'London', month: 'Mar.',value: 39.3 },
-    { name: 'London', month: 'Apr.',value: 81.4 },
+  data: [
+    { name: 'London', month: 'Jan.', value: 18.9 },
+    { name: 'London', month: 'Feb.', value: 28.8 },
+    { name: 'London', month: 'Mar.', value: 39.3 },
+    { name: 'London', month: 'Apr.', value: 81.4 },
     { name: 'London', month: 'May', value: 47 },
-    { name: 'London', month: 'Jun.',value: 20.3 },
-    { name: 'London', month: 'Jul.',value: 24 },
-    { name: 'London', month: 'Aug.',value: 35.6 },
-    { name: 'Berlin', month: 'Jan.',value: 12.4 },
-    { name: 'Berlin', month: 'Feb.',value: 23.2 },
-    { name: 'Berlin', month: 'Mar.',value: 34.5 },
-    { name: 'Berlin', month: 'Apr.',value: 99.7 },
+    { name: 'London', month: 'Jun.', value: 20.3 },
+    { name: 'London', month: 'Jul.', value: 24 },
+    { name: 'London', month: 'Aug.', value: 35.6 },
+    { name: 'Berlin', month: 'Jan.', value: 12.4 },
+    { name: 'Berlin', month: 'Feb.', value: 23.2 },
+    { name: 'Berlin', month: 'Mar.', value: 34.5 },
+    { name: 'Berlin', month: 'Apr.', value: 99.7 },
     { name: 'Berlin', month: 'May', value: 52.6 },
-    { name: 'Berlin', month: 'Jun.',value: 35.5 },
-    { name: 'Berlin', month: 'Jul.',value: 37.4 },
-    { name: 'Berlin', month: 'Aug.',value: 42.4 },
+    { name: 'Berlin', month: 'Jun.', value: 35.5 },
+    { name: 'Berlin', month: 'Jul.', value: 37.4 },
+    { name: 'Berlin', month: 'Aug.', value: 42.4 },
   ],
   encode: {
-    x: "month", 
-    y: "value", 
-    color:"name"
+    x: 'month',
+    y: 'value',
+    color: 'name',
   },
   transform: [
     {
@@ -168,16 +164,13 @@ chart.emit('legend:unhighlight', {});
       padding: 0.1,
     },
   ],
-  interaction:{
-    legendHighlight : {
-    series:true,
+  interaction: {
+    legendHighlight: {
+      series: true,
     },
   },
-  state: { inactive: { opacity:0.5 } },
+  state: { inactive: { opacity: 0.5 } },
 });
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

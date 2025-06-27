@@ -2,6 +2,7 @@
 title: legendFilter
 order: 17
 ---
+
 ## 概述
 
 `legendFilter` 是一种交互功能，允许用户通过点击图例项来过滤图表中显示的数据。筛选功能支持两种类型的图例：
@@ -47,7 +48,7 @@ chart.render();
 });
 ```
 
-也可以在interaction中手动设置是否开启：
+也可以在 interaction 中手动设置是否开启：
 
 ```js
 ({
@@ -56,9 +57,9 @@ chart.render();
     color: {},
     size: {},
   },
-  interaction:{
-    legengFilter: true, // 启用图例筛选交互
-  }
+  interaction: {
+    legendFilter: true, // 启用图例筛选交互
+  },
 });
 ```
 
@@ -67,7 +68,7 @@ chart.render();
 图例筛选交互可以配置在 View 层级：
 
 ```js
-      chart.interaction("legendFilter", true);
+chart.interaction('legendFilter', true);
 ```
 
 ## 配置项
@@ -87,9 +88,9 @@ LegendFilter 插件内部根据图例类型自动判断是否为类目图例或�
 
 插件内部通过图例元素中注入的数据和结构信息来自动识别这些信息，用户无需手动指定。
 
-### legend组件配置
+### legend 组件配置
 
-具体文档看[图例legend](https://g2.antv.antgroup.com/manual/component/legend)
+具体文档看[图例 legend](https://g2.antv.antgroup.com/manual/component/legend)
 
 ## 事件
 
@@ -127,29 +128,29 @@ chart.emit('legend:reset', {});
 
 ## 示例
 
-下面展示了一个离散型数据的legendfilter交互功能。
+下面展示了一个离散型数据的 legendfilter 交互功能。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
   type: 'line',
   autoFit: true,
   height: 300,
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/temperatures1.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/temperatures1.json',
   },
   encode: {
-    x: d => new Date(d.date), 
-    y: "value", 
-    color: "condition"
+    x: (d) => new Date(d.date),
+    y: 'value',
+    color: 'condition',
   },
 });
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

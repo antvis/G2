@@ -12,12 +12,22 @@ export default () => {
   const { id: lang } = useLocale();
   const data = useFullSidebarData();
   const { frontmatter: { similar = [] } = {} } = useRouteMeta();
-  const metaList = React.useMemo(
-    () =>
-      data?.[lang === LANGUAGE_MAP.ZH ? '/charts' : `/${lang}/charts`]?.[0]
-        ?.children || [],
-    [data, lang],
-  );
+  const metaList = React.useMemo(() => {
+    const chartsPath = lang === LANGUAGE_MAP.ZH ? '/charts' : `/${lang}/charts`;
+    const todoPath =
+      lang === LANGUAGE_MAP.ZH ? '/charts/todo' : `/${lang}/charts/todo`;
+
+    const chartsData = data?.[chartsPath]?.[0]?.children || [];
+    const todoData = data?.[todoPath]?.[0]?.children || [];
+
+    // 将todo数据标记为来自todo文件夹
+    const markedTodoData = todoData.map((item) => ({
+      ...item,
+      _isTodo: true,
+    }));
+
+    return [...chartsData, ...markedTodoData];
+  }, [data, lang]);
   const filterList = React.useMemo(
     () =>
       metaList.filter((item) => {
@@ -37,6 +47,7 @@ export default () => {
           } = {},
           link = '',
           title: metaTitle,
+          _isTodo = false,
         } = meta;
         const categoryList = category
           .map((tagId) => GRAPH_USAGES_MAP.get(tagId))
@@ -45,12 +56,13 @@ export default () => {
             lang === LANGUAGE_MAP.ZH ? item.nameZh : item.nameEn,
           );
         return (
-          <Col span={6} key={link}>
+          <Col span={8} key={link}>
             <MemoChartCard
               title={metaTitle || frontmatterTitle || ''}
               screenshot={screenshot}
               link={link}
               categoryList={categoryList}
+              disabled={_isTodo}
             />
           </Col>
         );

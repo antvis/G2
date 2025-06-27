@@ -24,69 +24,68 @@ order: 2
 
 ### 开始使用
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  // 定义维度数组
-  const dimensions = [
-    'Cylinders',
-    'Displacement',
-    'Weight_in_lbs',
-    'Horsepower',
-    'Acceleration',
-    'Miles_per_Gallon',
-    'Year',
-  ];
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'line',
-    width: 720,
-    paddingLeft: 60,
-    coordinate: { type: 'parallel' },
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-      callback: (d) => Object.assign(d, { year: new Date(d.year) }),
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.Horsepower != null && d.Miles_per_Gallon != null,
-        },
-      ],
-    },
-    encode: {
-      position: dimensions,
-      color: 'Origin',
-      size: 1.01,
-    },
-    style: {
-      strokeOpacity: 0.3,
-    },
-    scale: {
-      position: { nice: true },
-      position1: { nice: true },
-      position2: { nice: true },
-      position3: { nice: true },
-      position4: { nice: true },
-      position5: { nice: true },
-    },
-    axis: {
-      position: { zIndex: 1 },
-      position1: { zIndex: 1 },
-      position2: { zIndex: 1 },
-      position3: { zIndex: 1 },
-      position4: { zIndex: 1 },
-      position5: { zIndex: 1 },
-    },
-  });
+// 定义维度数组
+const dimensions = [
+  'Cylinders',
+  'Displacement',
+  'Weight_in_lbs',
+  'Horsepower',
+  'Acceleration',
+  'Miles_per_Gallon',
+  'Year',
+];
 
-  chart.render();
+chart.options({
+  type: 'line',
+  width: 720,
+  paddingLeft: 60,
+  coordinate: { type: 'parallel' },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+    callback: (d) => Object.assign(d, { year: new Date(d.year) }),
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d.Horsepower != null && d.Miles_per_Gallon != null,
+      },
+    ],
+  },
+  encode: {
+    position: dimensions,
+    color: 'Origin',
+    size: 1.01,
+  },
+  style: {
+    strokeOpacity: 0.3,
+  },
+  scale: {
+    position: { nice: true },
+    position1: { nice: true },
+    position2: { nice: true },
+    position3: { nice: true },
+    position4: { nice: true },
+    position5: { nice: true },
+  },
+  axis: {
+    position: { zIndex: 1 },
+    position1: { zIndex: 1 },
+    position2: { zIndex: 1 },
+    position3: { zIndex: 1 },
+    position4: { zIndex: 1 },
+    position5: { zIndex: 1 },
+  },
+});
 
-  return chart.getContainer();
-})();
-
+chart.render();
 ```
 
 ## 使用场景
@@ -108,16 +107,16 @@ order: 2
 
 平行坐标系的配置项相对简单，主要通过 `coordinate` 属性进行设置：
 
-| 属性 | 说明 | 类型 | 默认值 | 必选 |
-| --- | --- | --- | --- | --- |
-| transform | 坐标系变换，可用于实现水平布局 | Transform[] | [] | |
+| 属性      | 说明                           | 类型        | 默认值 | 必选 |
+| --------- | ------------------------------ | ----------- | ------ | ---- |
+| transform | 坐标系变换，可用于实现水平布局 | Transform[] | []     |      |
 
 ### 坐标系变换
 
 平行坐标系支持以下坐标系变换：
 
-| 变换类型 | 说明 | 示例 |
-| --- | --- | --- |
+| 变换类型  | 说明                     | 示例                                     |
+| --------- | ------------------------ | ---------------------------------------- |
 | transpose | 将垂直布局转换为水平布局 | `{ transform: [{ type: 'transpose' }] }` |
 
 ## 常见用例
@@ -126,270 +125,273 @@ order: 2
 
 垂直平行坐标系是最常见的平行坐标系布局，坐标轴垂直排列。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'line',
-    coordinate: { type: 'parallel' },
-    data: [
-      { dim1: 10, dim2: 30, dim3: 20, dim4: 60, category: 'A' },
-      { dim1: 20, dim2: 20, dim3: 30, dim4: 40, category: 'B' },
-      { dim1: 30, dim2: 10, dim3: 40, dim4: 20, category: 'C' },
-    ],
-    encode: {
-      position: ['dim1', 'dim2', 'dim3', 'dim4'],
-      color: 'category',
-    },
-    style: {
-      lineWidth: 2,
-      strokeOpacity: 0.7,
-    },
-    scale: {
-      color: {
-        palette: 'spectral',
-      },
-    },
-    axis: {
-      position: { zIndex: 1 },
-      position1: { zIndex: 1 },
-      position2: { zIndex: 1 },
-      position3: { zIndex: 1 },
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'line',
+  coordinate: { type: 'parallel' },
+  data: [
+    { dim1: 10, dim2: 30, dim3: 20, dim4: 60, category: 'A' },
+    { dim1: 20, dim2: 20, dim3: 30, dim4: 40, category: 'B' },
+    { dim1: 30, dim2: 10, dim3: 40, dim4: 20, category: 'C' },
+  ],
+  encode: {
+    position: ['dim1', 'dim2', 'dim3', 'dim4'],
+    color: 'category',
+  },
+  style: {
+    lineWidth: 2,
+    strokeOpacity: 0.7,
+  },
+  scale: {
+    color: {
+      palette: 'spectral',
+    },
+  },
+  axis: {
+    position: { zIndex: 1 },
+    position1: { zIndex: 1 },
+    position2: { zIndex: 1 },
+    position3: { zIndex: 1 },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 2. 水平平行坐标系
 
 通过添加 transpose 变换，可以将坐标轴水平排列，创建水平平行坐标系。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'line',
-    coordinate: {
-      type: 'parallel',
-      transform: [{ type: 'transpose' }]
-    },
-    data: [
-      { dim1: 10, dim2: 30, dim3: 20, dim4: 60, category: 'A' },
-      { dim1: 20, dim2: 20, dim3: 30, dim4: 40, category: 'B' },
-      { dim1: 30, dim2: 10, dim3: 40, dim4: 20, category: 'C' },
-    ],
-    encode: {
-      position: ['dim1', 'dim2', 'dim3', 'dim4'],
-      color: 'category',
-    },
-    style: {
-      lineWidth: 2,
-      strokeOpacity: 0.7,
-    },
-    scale: {
-      color: {
-        palette: 'spectral',
-      },
-    },
-    axis: {
-      position: { zIndex: 1 },
-      position1: { zIndex: 1 },
-      position2: { zIndex: 1 },
-      position3: { zIndex: 1 },
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'line',
+  coordinate: {
+    type: 'parallel',
+    transform: [{ type: 'transpose' }],
+  },
+  data: [
+    { dim1: 10, dim2: 30, dim3: 20, dim4: 60, category: 'A' },
+    { dim1: 20, dim2: 20, dim3: 30, dim4: 40, category: 'B' },
+    { dim1: 30, dim2: 10, dim3: 40, dim4: 20, category: 'C' },
+  ],
+  encode: {
+    position: ['dim1', 'dim2', 'dim3', 'dim4'],
+    color: 'category',
+  },
+  style: {
+    lineWidth: 2,
+    strokeOpacity: 0.7,
+  },
+  scale: {
+    color: {
+      palette: 'spectral',
+    },
+  },
+  axis: {
+    position: { zIndex: 1 },
+    position1: { zIndex: 1 },
+    position2: { zIndex: 1 },
+    position3: { zIndex: 1 },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 3. 带交互的平行坐标系
 
 平行坐标系通常需要交互来增强分析能力，例如添加轴的高亮和筛选功能。
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
 
-  // 定义维度数组
-  const dimensions = [
-    'economy (mpg)',
-    'cylinders',
-    'displacement (cc)',
-    'power (hp)',
-    'weight (lb)',
-  ];
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'line',
-    coordinate: { type: 'parallel' },
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/cars3.json',
-    },
-    encode: {
-      position: dimensions,
-      color: 'cylinders',
-    },
-    style: {
-      lineWidth: 1.5,
-      strokeOpacity: 0.4,
-    },
-    scale: {
-      color: {
-        palette: 'brBG',
-      },
-    },
-    axis: {
-      position: { zIndex: 1 },
-      position1: { zIndex: 1 },
-      position2: { zIndex: 1 },
-      position3: { zIndex: 1 },
-      position4: { zIndex: 1 },
-    },
-    interaction: {
-      tooltip: { series: false },
-      brushAxisHighlight: true,
-    },
-    state: {
-      active: { lineWidth: 3 },
-      inactive: { stroke: 'grey', opacity: 0.3 },
-    },
-  });
+// 定义维度数组
+const dimensions = [
+  'economy (mpg)',
+  'cylinders',
+  'displacement (cc)',
+  'power (hp)',
+  'weight (lb)',
+];
 
-  chart.render();
+chart.options({
+  type: 'line',
+  coordinate: { type: 'parallel' },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/cars3.json',
+  },
+  encode: {
+    position: dimensions,
+    color: 'cylinders',
+  },
+  style: {
+    lineWidth: 1.5,
+    strokeOpacity: 0.4,
+  },
+  scale: {
+    color: {
+      palette: 'brBG',
+    },
+  },
+  axis: {
+    position: { zIndex: 1 },
+    position1: { zIndex: 1 },
+    position2: { zIndex: 1 },
+    position3: { zIndex: 1 },
+    position4: { zIndex: 1 },
+  },
+  interaction: {
+    tooltip: { series: false },
+    brushAxisHighlight: true,
+  },
+  state: {
+    active: { lineWidth: 3 },
+    inactive: { stroke: 'grey', opacity: 0.3 },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 完整示例
 
 以下是一个完整的平行坐标系示例，展示了如何使用平行坐标系分析多维数据：
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  // 定义维度数组
-  const dimensions = [
-    'Cylinders',
-    'Displacement',
-    'Weight_in_lbs',
-    'Horsepower',
-    'Acceleration',
-    'Miles_per_Gallon',
-    'Year',
-  ];
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'line',
-    width: 800,
-    height: 500,
-    padding: [40, 100, 60, 100], // 增加四周的内边距，给标签留出更多空间
-    coordinate: { type: 'parallel' },
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
-      callback: (d) => Object.assign(d, { year: new Date(d.year) }),
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.Horsepower != null && d.Miles_per_Gallon != null,
-        },
-      ],
-    },
-    encode: {
-      position: dimensions,
-      color: 'Origin',
-      size: 1.01,
-    },
-    style: {
-      strokeOpacity: 0.3,
-    },
-    scale: {
-      // 为所有position设置相同的配置
-      ...Object.fromEntries(
-        dimensions.map((_, i) => [`position${i > 0 ? i : ''}`, { nice: true }])
-      ),
-      // 为年份设置时间格式
-      Year: {
-        type: 'time',
-        tickCount: 6,
-        mask: 'YYYY',
+// 定义维度数组
+const dimensions = [
+  'Cylinders',
+  'Displacement',
+  'Weight_in_lbs',
+  'Horsepower',
+  'Acceleration',
+  'Miles_per_Gallon',
+  'Year',
+];
+
+chart.options({
+  type: 'line',
+  width: 800,
+  height: 500,
+  padding: [40, 100, 60, 100], // 增加四周的内边距，给标签留出更多空间
+  coordinate: { type: 'parallel' },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/96cd81b5-54a4-4fe8-b778-502b2114df58.json',
+    callback: (d) => Object.assign(d, { year: new Date(d.year) }),
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d.Horsepower != null && d.Miles_per_Gallon != null,
       },
+    ],
+  },
+  encode: {
+    position: dimensions,
+    color: 'Origin',
+    size: 1.01,
+  },
+  style: {
+    strokeOpacity: 0.3,
+  },
+  scale: {
+    // 为所有position设置相同的配置
+    ...Object.fromEntries(
+      dimensions.map((_, i) => [`position${i > 0 ? i : ''}`, { nice: true }]),
+    ),
+    // 为年份设置时间格式
+    Year: {
+      type: 'time',
+      tickCount: 6,
+      mask: 'YYYY',
     },
-    axis: {
-      // 定义基础轴配置
-      ...(() => {
-        // 创建基础配置对象
-        const baseAxisConfig = {
-          zIndex: 1,
-          line: true,
-          labelStroke: '#fff',
-          labelLineWidth: 5,
-          labelFontSize: 12,
-          labelStrokeLineJoin: 'round',
-          titleStroke: '#fff',
-          titleFontSize: 14,
-          titleLineWidth: 5,
-          titleStrokeLineJoin: 'round',
-          lineStroke: 'black',
-          tickStroke: 'black',
-          lineLineWidth: 1,
-          grid: null, // 移除网格线
-          tickCount: 5, // 减少刻度数量
-          labelSpacing: 8, // 增加标签与轴的距离
-        };
+  },
+  axis: {
+    // 定义基础轴配置
+    ...(() => {
+      // 创建基础配置对象
+      const baseAxisConfig = {
+        zIndex: 1,
+        line: true,
+        labelStroke: '#fff',
+        labelLineWidth: 5,
+        labelFontSize: 12,
+        labelStrokeLineJoin: 'round',
+        titleStroke: '#fff',
+        titleFontSize: 14,
+        titleLineWidth: 5,
+        titleStrokeLineJoin: 'round',
+        lineStroke: 'black',
+        tickStroke: 'black',
+        lineLineWidth: 1,
+        grid: null, // 移除网格线
+        tickCount: 5, // 减少刻度数量
+        labelSpacing: 8, // 增加标签与轴的距离
+      };
 
-        // 为每个维度创建配置
-        return Object.fromEntries(
-          dimensions.map((dim, i) => {
-            const key = `position${i > 0 ? i : ''}`;
-            // 为最后一个维度（Year）添加特殊配置
-            if (i === dimensions.length - 1) {
-              return [key, {
+      // 为每个维度创建配置
+      return Object.fromEntries(
+        dimensions.map((dim, i) => {
+          const key = `position${i > 0 ? i : ''}`;
+          // 为最后一个维度（Year）添加特殊配置
+          if (i === dimensions.length - 1) {
+            return [
+              key,
+              {
                 ...baseAxisConfig,
                 labelFormatter: (text) => text.slice(0, 4), // 只显示年份
-              }];
-            }
-            return [key, baseAxisConfig];
-          })
-        );
-      })(),
+              },
+            ];
+          }
+          return [key, baseAxisConfig];
+        }),
+      );
+    })(),
+  },
+  legend: {
+    color: {
+      position: 'bottom', // 将图例放在底部
+      layout: 'horizontal',
     },
-    legend: {
-      color: {
-        position: 'bottom', // 将图例放在底部
-        layout: 'horizontal',
-      },
+  },
+  interaction: {
+    tooltip: { series: false },
+    brushAxisHighlight: {
+      maskFill: '#d8d0c0',
+      maskOpacity: 0.3,
     },
-    interaction: {
-      tooltip: { series: false },
-      brushAxisHighlight: {
-        maskFill: '#d8d0c0',
-        maskOpacity: 0.3,
-      },
-    },
-    state: {
-      active: { lineWidth: 3, strokeOpacity: 1 },
-      inactive: { stroke: '#ccc', opacity: 0.3 },
-    },
-  });
+  },
+  state: {
+    active: { lineWidth: 3, strokeOpacity: 1 },
+    inactive: { stroke: '#ccc', opacity: 0.3 },
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 这个示例展示了如何创建一个功能完整的平行坐标系图表，包括以下特性：

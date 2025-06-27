@@ -97,15 +97,15 @@ chart.render();
 
 ## 配置项
 
-| 属性            | 描述                   | 类型                          | 默认值                                                                                          | 必选 |
-| --------------- | ---------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------- | ---- |
-| reverse         | brush 是否反转         | boolean                       | false                                                                                           |      |
-| series          | brush 作用的是否是系列元素，控制高亮选择元素的模式         | boolean                       | false                                                                                           |      |
-| facet           | brush 是否跨分面，控制交互方式             | boolean                       | false                                                                                           |      |
-| selectedHandles | 可以 resize 的手柄方向 | string[]                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |      |
-| brushRegion     | 自定义框选区域，一般不用配置，G2 内部用来配置 brushXHighlight 和 brushYHighlight               | (x, y, x1, y1, extent) => any | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |      |
-| mask            | 框选区域的蒙版样式     | [mask](#mask)                 | 详见 [mask](#mask)                                                                              |      |
-| maskHandle      | 框选区域的手柄样式     | [maskHandle](#maskhandle)     | 详见 [maskHandle](#maskhandle)                                                                  |      |
+| 属性            | 描述                                                                             | 类型                          | 默认值                                                                                          | 必选 |
+| --------------- | -------------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------- | ---- |
+| reverse         | brush 是否反转                                                                   | boolean                       | false                                                                                           |      |
+| series          | brush 作用的是否是系列元素，控制高亮选择元素的模式                               | boolean                       | false                                                                                           |      |
+| facet           | brush 是否跨分面，控制交互方式                                                   | boolean                       | false                                                                                           |      |
+| selectedHandles | 可以 resize 的手柄方向                                                           | string[]                      | `['handle-n','handle-e','handle-s','handle-w','handle-nw','handle-ne','handle-se','handle-sw']` |      |
+| brushRegion     | 自定义框选区域，一般不用配置，G2 内部用来配置 brushXHighlight 和 brushYHighlight | (x, y, x1, y1, extent) => any | `(x, y, x1, y1) => [x, y, x1, y1]`                                                              |      |
+| mask            | 框选区域的蒙版样式                                                               | [mask](#mask)                 | 详见 [mask](#mask)                                                                              |      |
+| maskHandle      | 框选区域的手柄样式                                                               | [maskHandle](#maskhandle)     | 详见 [maskHandle](#maskhandle)                                                                  |      |
 
 ### series
 
@@ -113,66 +113,66 @@ chart.render();
 
 - `series: false`
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
-  const config = {
-    type: 'line',
-    interaction: { brushHighlight: { series: false } },
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    encode: { x: 'year', y: 'value' },
-    scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-    state: { active: { stroke: 'red' } },
-    labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
-  };
-  chart.options(config);
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+const config = {
+  type: 'line',
+  interaction: { brushHighlight: { series: false } },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  state: { active: { stroke: 'red' } },
+  labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
+};
+chart.options(config);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 - `series: true`
 
-```js | ob { pin: false }
-(() => {
-  const chart = new G2.Chart();
-  const config = {
-    type: 'line',
-    interaction: { brushHighlight: { series: true } },
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    encode: { x: 'year', y: 'value' },
-    scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-    state: { active: { stroke: 'red' } },
-    labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
-  };
-  chart.options(config);
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+const config = {
+  type: 'line',
+  interaction: { brushHighlight: { series: true } },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  state: { active: { stroke: 'red' } },
+  labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
+};
+chart.options(config);
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### mask
@@ -440,55 +440,55 @@ chart.options({
 
 有些交互会改变元素状态，我们可以通过配置元素状态的表现来改变交互的效果。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'view',
-    autoFit: true,
-    interaction: { brushHighlight: { series: true } },
-    data: [
-      { year: '1991', value: 3 },
-      { year: '1992', value: 4 },
-      { year: '1993', value: 3.5 },
-      { year: '1994', value: 5 },
-      { year: '1995', value: 4.9 },
-      { year: '1996', value: 6 },
-      { year: '1997', value: 7 },
-      { year: '1998', value: 9 },
-      { year: '1999', value: 13 },
-    ],
-    encode: { x: 'year', y: 'value' },
-    scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-    children: [
-      {
-        type: 'line',
-        labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
-        state: {
-          active: {
-            lineWidth: 4,
-            lineDash: [0, 0],
-          },
-          inactive: {
-            lineDash: [2, 4],
-          },
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'view',
+  autoFit: true,
+  interaction: { brushHighlight: { series: true } },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  children: [
+    {
+      type: 'line',
+      labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
+      state: {
+        active: {
+          lineWidth: 4,
+          lineDash: [0, 0],
+        },
+        inactive: {
+          lineDash: [2, 4],
         },
       },
-      {
-        type: 'point',
-        style: { fill: 'white' },
-        tooltip: false,
-        state: {
-          active: {
-            fill: 'yellow',
-          },
+    },
+    {
+      type: 'point',
+      style: { fill: 'white' },
+      tooltip: false,
+      state: {
+        active: {
+          fill: 'yellow',
         },
       },
-    ],
-  });
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

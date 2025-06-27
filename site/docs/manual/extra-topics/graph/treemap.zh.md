@@ -5,61 +5,61 @@ order: 1
 
 ## 概述
 
-矩阵树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。
+矩形树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。
 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。一个 Tree 状结构转化为平面空间矩形的状态。矩形树图的好处在于，相比起传统的树形结构图，矩形树图能更有效得利用空间，并且拥有展示占比的功能。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'treemap',
-    data: {
-      type: 'custom',
-      callback: (data) => ({
-        name: '图表类型',
-        children: [
-          {
-            name: '基础图表',
-            children: [
-              { name: '条形图', value: 300 },
-              { name: '折线图', value: 600 },
-              { name: '散点图', value: 160 },
-              { name: '面积图', value: 160 },
-              { name: '其他', value: 180 },
-            ],
-          },
-          {
-            name: '数据分析',
-            children: [
-              { name: '分箱', value: 280 },
-              { name: '分组', value: 150 },
-              { name: '回归线', value: 210 },
-              { name: '其他', value: 40 },
-            ],
-          },
-        ],
-      }),
-    },
-    layout: {
-      tile: 'treemapBinary',
-      paddingInner: 1,
-    },
-    encode: { value: 'value' },
-    style: {
-      labelFill: '#000',
-      labelStroke: '#fff',
-      labelLineWidth: 1.5,
-      labelFontSize: 14,
-      labelPosition: 'top-left',
-      labelDx: 5,
-      labelDy: 5,
-    },
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'treemap',
+  data: {
+    type: 'custom',
+    callback: (data) => ({
+      name: '图表类型',
+      children: [
+        {
+          name: '基础图表',
+          children: [
+            { name: '条形图', value: 300 },
+            { name: '折线图', value: 600 },
+            { name: '散点图', value: 160 },
+            { name: '面积图', value: 160 },
+            { name: '其他', value: 180 },
+          ],
+        },
+        {
+          name: '数据分析',
+          children: [
+            { name: '分箱', value: 280 },
+            { name: '分组', value: 150 },
+            { name: '回归线', value: 210 },
+            { name: '其他', value: 40 },
+          ],
+        },
+      ],
+    }),
+  },
+  layout: {
+    tile: 'treemapBinary',
+    paddingInner: 1,
+  },
+  encode: { value: 'value' },
+  style: {
+    labelFill: '#000',
+    labelStroke: '#fff',
+    labelLineWidth: 1.5,
+    labelFontSize: 14,
+    labelPosition: 'top-left',
+    labelDx: 5,
+    labelDy: 5,
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例 - 关系图](/examples/graph/hierarchy#treemap)页面。
@@ -99,26 +99,29 @@ order: 1
 
 - `<label>`: 数据标签的前缀，例如：`labelText` 设置标签的 text 文本。
 
-| 属性               | 描述                                                                                                              | 类型                                                       | 默认值 | 必选 |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------ | ---- |
-| labelFontSize      | 标签文字大小                                                                                                      | `number`                                                   | 10     |      |
-| labelText          | 标签文字内容                                                                                                      | `(d) => last(d.path)`                                      | -      |      |
-| labelFontFamily    | 文字字体                                                                                                          | string                                                     | -      |      |
-| labelFontWeight    | 字体粗细                                                                                                          | number                                                     | -      |      |
-| labelLineHeight    | 文字的行高                                                                                                        | number                                                     | -      |      |
-| labelTextAlign     | 设置文本内容的当前对齐方式                                                                                        | `center` \| `end` \| `left` \| `right` \| `start`          | -      |      |
-| labelTextBaseline  | 设置在绘制文本时使用的当前文本基线                                                                                | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |        |      |
-| labelFill          | 文字的填充色                                                                                                      | string                                                     | -      |      |
-| labelFillOpacity   | 文字的填充透明度                                                                                                  | number                                                     | -      |      |
-| labelStroke        | 文字的描边                                                                                                        | string                                                     | -      |      |
-| labelLineWidth     | 文字描边的宽度                                                                                                    | number                                                     | -      |      |
-| labelLineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。labelLineDash 设为[0,0]的效果为没有描边。 | `[number,number] `                                         | -      |      |
-| labelStrokeOpacity | 描边透明度                                                                                                        | number                                                     | -      |      |
-| labelOpacity       | 文字的整体透明度                                                                                                  | number                                                     | -      |      |
-| labelShadowColor   | 文字阴影颜色                                                                                                      | string                                                     | -      |      |
-| labelShadowBlur    | 文字阴影的高斯模糊系数                                                                                            | number                                                     | -      |      |
-| labelShadowOffsetX | 设置阴影距文字的水平距离                                                                                          | number                                                     | -      |      |
-| labelShadowOffsetY | 设置阴影距文字的垂直距离                                                                                          | number                                                     | -      |      |
+| 属性               | 描述                                                                                                                      | 类型                                                       | 默认值    | 必选 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | --------- | ---- |
+| labelFontSize      | 标签文字大小                                                                                                              | `number`                                                   | 10        |      |
+| labelText          | 标签文字内容                                                                                                              | `(d) => last(d.path)`                                      | -         |      |
+| labelFontFamily    | 标签文字字体                                                                                                              | string                                                     | -         |      |
+| labelFontWeight    | 标签文字粗细                                                                                                              | number                                                     | -         |      |
+| labelLineHeight    | 标签文字的行高                                                                                                            | number                                                     | -         |      |
+| labelTextAlign     | 设置标签文本内容的当前对齐方式                                                                                            | `center` \| `end` \| `left` \| `right` \| `start`          | -         |      |
+| labelTextBaseline  | 设置在绘制标签文本时使用的当前文本基线                                                                                    | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |           |      |
+| labelFill          | 标签文字的填充色                                                                                                          | string                                                     | -         |      |
+| labelFillOpacity   | 标签文字的填充透明度                                                                                                      | number                                                     | -         |      |
+| labelStroke        | 标签文字的描边                                                                                                            | string                                                     | -         |      |
+| labelLineWidth     | 标签文字描边宽度                                                                                                          | number                                                     | -         |      |
+| labelLineDash      | 标签文字描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。labelLineDash 设为[0,0]的效果为没有描边。 | `[number,number] `                                         | -         |      |
+| labelStrokeOpacity | 标签文字描边透明度                                                                                                        | number                                                     | -         |      |
+| labelOpacity       | 标签文字的整体透明度                                                                                                      | number                                                     | -         |      |
+| labelShadowColor   | 标签文字阴影颜色                                                                                                          | string                                                     | -         |      |
+| labelShadowBlur    | 标签文字阴影的高斯模糊系数                                                                                                | number                                                     | -         |      |
+| labelShadowOffsetX | 标签文字阴影水平偏移量                                                                                                    | number                                                     | -         |      |
+| labelShadowOffsetY | 标签文字阴影垂直偏移量                                                                                                    | number                                                     | -         |      |
+| labelCursor        | 标签文字鼠标样式                                                                                                          | string                                                     | `default` |      |
+| labelDx            | 标签文字在水平方向的偏移量                                                                                                | number                                                     | -         |      |
+| labelDy            | 标签文字在垂直方向的偏移量                                                                                                | number                                                     | -         |      |
 
 更多样式可以查看[文档 - 核心概念 - 样式](/manual/core/style)页面。
 
@@ -167,40 +170,36 @@ chart.options({
 
 ## 示例
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'treemap',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/flare-treemap.json',
-    },
-    layout: {
-      path: (d) => d.name.replace(/\./g, '/'),
-      tile: 'treemapBinary',
-      paddingInner: 1,
-    },
-    encode: { value: 'size' },
-    style: {
-      labelText: (d) =>
-        d.data.name
-          .split('.')
-          .pop()
-          .split(/(?=[A-Z][a-z])/g)[0],
-      labelFill: '#000',
-      labelPosition: 'top-left',
-      fillOpacity: 0.5,
-    },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
+chart.options({
+  type: 'treemap',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/flare-treemap.json',
+  },
+  layout: {
+    path: (d) => d.name.replace(/\./g, '/'),
+    tile: 'treemapBinary',
+    paddingInner: 1,
+  },
+  encode: { value: 'size' },
+  style: {
+    labelText: (d) =>
+      d.data.name
+        .split('.')
+        .pop()
+        .split(/(?=[A-Z][a-z])/g)[0],
+    labelFill: '#000',
+    labelPosition: 'top-left',
+    fillOpacity: 0.5,
+  },
+});
 
-  return chart.getContainer();
-})();
-```
-
-```
-
+chart.render();
 ```

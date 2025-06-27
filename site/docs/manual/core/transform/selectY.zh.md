@@ -11,7 +11,7 @@ order: 2
 
 ## 使用场景
 
-- 峰值标注：标记折线图的最高/最低点 
+- 峰值标注：标记折线图的最高/最低点
 
 - 首尾标注： 在时间序列中突出显示起点/终点
 
@@ -21,10 +21,10 @@ order: 2
 
 ## 配置项
 
-| 属性     | 描述                                           | 类型                   | 默认值   |
-| -------- | ---------------------------------------------- | ---------------------- | -------- |
-| groupBy  | 针对指定的通道进行分组                         | `string` \| `string[]` | `series` |
-| selector | 针对每个分组，指定对应的数据抽取操作           | [Selector](#selector)             | `first`  |
+| 属性     | 描述                                 | 类型                   | 默认值   |
+| -------- | ------------------------------------ | ---------------------- | -------- |
+| groupBy  | 针对指定的通道进行分组               | `string` \| `string[]` | `series` |
+| selector | 针对每个分组，指定对应的数据抽取操作 | [Selector](#selector)  | `first`  |
 
 ### selector
 
@@ -43,41 +43,45 @@ type Selector =
 
 如下所示，在图表中标注出每个城市的最高温度：
 
-```js | ob 
-(() => {
-  const data = [
-      { month: 1, city: 'Tokyo', temperature: 7 },
-      { month: 1, city: 'London', temperature: 3.9 },
-      { month: 2, city: 'Tokyo', temperature: 6.9 },
-      { month: 2, city: 'London', temperature: 4.2 },
-      { month: 3, city: 'Tokyo', temperature: 9.5 },
-      { month: 3, city: 'London', temperature: 5.7 },
-      { month: 4, city: 'Tokyo', temperature: 14.5 },
-      { month: 4, city: 'London', temperature: 8.5 },
-      { month: 5, city: 'Tokyo', temperature: 18.4 },
-      { month: 5, city: 'London', temperature: 11.9 },
-      { month: 6, city: 'Tokyo', temperature: 21.5 },
-      { month: 6, city: 'London', temperature: 15.2 },
-      { month: 7, city: 'Tokyo', temperature: 25.2 },
-      { month: 7, city: 'London', temperature: 17 },
-      { month: 8, city: 'Tokyo', temperature: 26.5 },
-      { month: 8, city: 'London', temperature: 16.6 },
-      { month: 9, city: 'Tokyo', temperature: 23.3 },
-      { month: 9, city: 'London', temperature: 14.2 },
-      { month: 10, city: 'Tokyo', temperature: 18.3 },
-      { month: 10, city: 'London', temperature: 10.3 },
-      { month: 11, city: 'Tokyo', temperature: 13.9 },
-      { month: 11, city: 'London', temperature: 6.6 },
-      { month: 12, city: 'Tokyo', temperature: 9.6 },
-      { month: 12, city: 'London', temperature: 4.8 },
-    ];
-  const chart = new G2.Chart();
-  chart.options({
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { month: 1, city: 'Tokyo', temperature: 7 },
+  { month: 1, city: 'London', temperature: 3.9 },
+  { month: 2, city: 'Tokyo', temperature: 6.9 },
+  { month: 2, city: 'London', temperature: 4.2 },
+  { month: 3, city: 'Tokyo', temperature: 9.5 },
+  { month: 3, city: 'London', temperature: 5.7 },
+  { month: 4, city: 'Tokyo', temperature: 14.5 },
+  { month: 4, city: 'London', temperature: 8.5 },
+  { month: 5, city: 'Tokyo', temperature: 18.4 },
+  { month: 5, city: 'London', temperature: 11.9 },
+  { month: 6, city: 'Tokyo', temperature: 21.5 },
+  { month: 6, city: 'London', temperature: 15.2 },
+  { month: 7, city: 'Tokyo', temperature: 25.2 },
+  { month: 7, city: 'London', temperature: 17 },
+  { month: 8, city: 'Tokyo', temperature: 26.5 },
+  { month: 8, city: 'London', temperature: 16.6 },
+  { month: 9, city: 'Tokyo', temperature: 23.3 },
+  { month: 9, city: 'London', temperature: 14.2 },
+  { month: 10, city: 'Tokyo', temperature: 18.3 },
+  { month: 10, city: 'London', temperature: 10.3 },
+  { month: 11, city: 'Tokyo', temperature: 13.9 },
+  { month: 11, city: 'London', temperature: 6.6 },
+  { month: 12, city: 'Tokyo', temperature: 9.6 },
+  { month: 12, city: 'London', temperature: 4.8 },
+];
+
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
   width: 800,
   paddingLeft: 50,
   paddingRight: 100,
   data,
-  children:[
+  children: [
     // 折线图标记配置
     {
       type: 'line',
@@ -101,18 +105,20 @@ type Selector =
         series: 'city',
         text: (d) => `最高温度：${d.temperature}°C`,
       },
-      transform:[{
-        // 使用selectY 转换标记
-        type: 'selectY',
-        // 选择最大值
-        selector: 'max',
-      }],
+      transform: [
+        {
+          // 使用selectY 转换标记
+          type: 'selectY',
+          // 选择最大值
+          selector: 'max',
+        },
+      ],
       style: {
-          // 标注文本沿y轴偏移12个像素
-          dy: -12,
+        // 标注文本沿y轴偏移12个像素
+        dy: -12,
       },
       // 关闭文本标记的tooltip
-      tooltip:false
+      tooltip: false,
     },
     // point点标记配置
     {
@@ -123,22 +129,23 @@ type Selector =
         color: 'city',
         series: 'city',
       },
-      transform:[{
-        // 使用selectY 转换标记
-        type: 'selectY',
-        // 选择最大值
-        selector: 'max',
-      }],
+      transform: [
+        {
+          // 使用selectY 转换标记
+          type: 'selectY',
+          // 选择最大值
+          selector: 'max',
+        },
+      ],
       // 关闭point点标记的tooltip
-      tooltip:false
-    }
-  ]
-  });
+      tooltip: false,
+    },
+  ],
+});
 
-  chart.render();
+chart.render();
+```
 
-  return chart.getContainer();
-})();
 ```
 
 ```

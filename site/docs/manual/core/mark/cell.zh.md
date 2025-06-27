@@ -7,35 +7,35 @@ order: 5
 
 `cell` 是矩形标记（Rect Shape）的一种抽象表示，主要用于表示分面（facet）或者网格中的单元格，是图表中数据映射到视觉元素的最小单元。它一般是在可视化布局中用来表示网格化结构或数据分割的“单元”。具体来说，它是一种对区域的划分，在不同的分面中通常会对应一个独立的绘图区域，常见于矩阵型图表（如日历图、聚合热力图等）中。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'cell',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-    },
-    transform: [{ type: 'group', color: 'max' }], // 对数据进行分组变换，按颜色的最大值进行分组
-    encode: {
-      x: (d) => new Date(d.date).getUTCDate(), // 编码 x 轴，使用数据中的日期字段的 UTC 日期部分
-      y: (d) => new Date(d.date).getUTCMonth(), // 编码 y 轴，使用数据中的日期字段的 UTC 月份部分
-      color: 'temp_max', // 编码颜色，使用数据中的 temp_max 字段
-      shape: 'cell',
-    },
-    style: { inset: 0.5 }, // 设置单元格的内边距为 0.5
-    scale: {
-      color: {
-        type: 'sequential', // 设置颜色比例尺为顺序比例尺
-        palette: 'gnBu', // 设置使用 'gnBu' 调色板
-      },
-    },
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render(); // 渲染图标
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'cell',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  transform: [{ type: 'group', color: 'max' }], // 对数据进行分组变换，按颜色的最大值进行分组
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(), // 编码 x 轴，使用数据中的日期字段的 UTC 日期部分
+    y: (d) => new Date(d.date).getUTCMonth(), // 编码 y 轴，使用数据中的日期字段的 UTC 月份部分
+    color: 'temp_max', // 编码颜色，使用数据中的 temp_max 字段
+    shape: 'cell',
+  },
+  style: { inset: 0.5 }, // 设置单元格的内边距为 0.5
+  scale: {
+    color: {
+      type: 'sequential', // 设置颜色比例尺为顺序比例尺
+      palette: 'gnBu', // 设置使用 'gnBu' 调色板
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render(); // 渲染图标
 ```
 
 更多的案例，可以查看[图表示例](/examples#general-cell)页面。
@@ -46,7 +46,7 @@ order: 5
 | --------- | -------------------------------------------------------------------------------------------------- | ----------------------- | ------ | ---- |
 | encode    | 配置 `cell` 标记的视觉通道，包括`x`、`y`、`color`、`shape`等，用于指定视觉元素属性和数据之间的关系 | [encode](#encode)       | -      | ✓    |
 | scale     | 配置 `cell` 标记的图形缩放，包括`x`、`y`、`color`、`shape`等                                       | [scale](#scale)         | -      |      |
-| style     | 配置 `cell` 图形样式                                                                         | [style](#style)         | -      |      |
+| style     | 配置 `cell` 图形样式                                                                               | [style](#style)         | -      |      |
 | transform | 配置 `cell` 数据转换操作（如分箱、排序、过滤等）。                                                 | [transform](#transform) | -      |      |
 
 ### encode
@@ -66,58 +66,58 @@ order: 5
 
 通过 `encode` 的 `color` 属性，你可以将数据字段映射到颜色值，从而根据数据的变化自动调整标记的颜色。这对于数据可视化来说非常有用，因为它可以帮助您快速识别数据的模式和趋势。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'cell',
-    data: [
-      { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
-      { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
-      { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
-      { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
-      { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
-      { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
-      { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
-      { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
-      { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
-    ],
-    encode: {
-      x: 'x', // 编码 x 轴
-      y: 'y', // 编码 y 轴
-      color: 'data1', // 使用数据中的 data1 字段
-    },
-    style: {
-      inset: 5,
-      lineWidth: 10,
-    },
-  });
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择映射到颜色的字段 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = `
+chart.options({
+  type: 'cell',
+  data: [
+    { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
+    { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
+    { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
+    { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
+    { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
+    { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
+    { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
+    { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
+    { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
+  ],
+  encode: {
+    x: 'x', // 编码 x 轴
+    y: 'y', // 编码 y 轴
+    color: 'data1', // 使用数据中的 data1 字段
+  },
+  style: {
+    inset: 5,
+    lineWidth: 10,
+  },
+});
+
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择映射到颜色的字段 ';
+const selector = document.createElement('select');
+selector.innerHTML = `
     <option value="data1" selected>data1</option>
     <option value="data2">data2</option>
   `;
 
-  selector.onchange = (e) => {
-    chart.options({
-      encode: {
-        color: e.target.value, // 使用选中的字段映射颜色
-      },
-    });
-    chart.render(); // 重新渲染图表
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+selector.onchange = (e) => {
+  chart.options({
+    encode: {
+      color: e.target.value, // 使用选中的字段映射颜色
+    },
+  });
+  chart.render(); // 重新渲染图表
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 #### shape
@@ -133,8 +133,8 @@ order: 5
 
 `scale`用于定义数据如何映射到视觉属性（如颜色、大小、形状等）。在`cell`的使用场景，scale 的常见作用就是为每个视觉通道（如颜色、大小、位置等）提供映射规则，使数据点能够准确地呈现。
 
-| 属性      | 描述                 | 类型                                        | 默认值 |
-| --------- | -------------------- | ------------------------------------------- | ------ |
+| 属性      | 描述                 | 类型                                                 | 默认值 |
+| --------- | -------------------- | ---------------------------------------------------- | ------ |
 | [channel] | 映射到视觉属性的通道 | Record<string, [scale](/manual/core/scale/overview)> | -      |
 
 更多的`scale`配置，可以查查看 [scale](/manual/core/scale/overview) 介绍页面。
@@ -198,4 +198,64 @@ type Reducer =
 
 尝试一下：
 
-<Playground path="style/general/cell/demo/cell-heatmap.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://observablehq.com/@mbostock/the-impact-of-vaccines
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 1300,
+  height: 900,
+});
+
+chart
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/vaccines.json',
+  })
+  .axis('y', { labelAutoRotate: false })
+  .axis('x', {
+    tickFilter: (d) => d % 10 === 0,
+    position: 'top',
+  })
+  .scale('color', {
+    palette: 'puRd',
+    relations: [
+      [(d) => d === null, '#eee'],
+      [0, '#fff'],
+    ],
+  });
+
+chart
+  .cell()
+  .encode('x', 'year')
+  .encode('y', 'name')
+  .encode('color', 'value')
+  .style('inset', 0.5)
+  .tooltip({ title: { channel: 'color', valueFormatter: '.2f' } });
+
+chart
+  .lineX()
+  .data([1963])
+  .style('stroke', 'black')
+  .label({
+    text: '1963',
+    position: 'bottom',
+    textBaseline: 'top',
+    fontSize: 10,
+  })
+  .label({
+    text: 'Measles vaccine introduced',
+    position: 'bottom',
+    textBaseline: 'top',
+    fontSize: 10,
+    fontWeight: 'bold',
+    dy: 10,
+  })
+  .tooltip(false);
+
+chart.render();
+
+```

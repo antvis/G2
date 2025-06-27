@@ -9,7 +9,7 @@ order: 1
 
 下面是一个基本的 G2 图表，图表由 **组件（Component）** 和 **标记（Mark）** 组成。
 
-需要特别注意的是，G2 5.0 中不再需要单独配置标注（Annotation） ，标注也是一种标记，或者说某些标记也也可以用来做标注，比如 Text，Image， Line 等标记。
+需要特别注意的是，G2 5.0 中不再需要单独配置标注（Annotation），标注也是一种标记，或者说某些标记也可以用来做标注，比如 Text，Image， Line 等标记。
 
 <img alt="chart-component" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-8XRSYHZ8S8AAAAAAAAAAAAAemJ7AQ/original" width=900/>
 
@@ -183,11 +183,11 @@ G2 内部对于图表显示区域设置了一个兜底机制，当视图中存�
 | marginTop     | 设置上外边距值                                 | number                  | `16`                         |      |
 | marginRight   | 设置右外边距值                                 | number                  | `16`                         |      |
 | marginBottom  | 设置下外边距值                                 | number                  | `16`                         |      |
-| padding       | 设置内边距四个方向的值，优先级别比分别设置低   | number                  | `auto`                          |      |
-| paddingLeft   | 设置左内边距值                                 | number                  | `auto`                          |      |
-| paddingTop    | 设置上内边距值                                 | number                  | `auto`                          |      |
-| paddingRight  | 设置右内边距值                                 | number                  | `auto`                          |      |
-| paddingBottom | 设置下内边距值                                 | number                  | `auto`                          |      |
+| padding       | 设置内边距四个方向的值，优先级别比分别设置低   | number                  | `auto`                       |      |
+| paddingLeft   | 设置左内边距值                                 | number                  | `auto`                       |      |
+| paddingTop    | 设置上内边距值                                 | number                  | `auto`                       |      |
+| paddingRight  | 设置右内边距值                                 | number                  | `auto`                       |      |
+| paddingBottom | 设置下内边距值                                 | number                  | `auto`                       |      |
 | inset         | 设置呼吸范围四个方向的值，优先级别比分别设置低 | number                  | `0`                          |      |
 | insetLeft     | 设置左呼吸范围宽度                             | number                  | `0`                          |      |
 | insetTop      | 设置上呼吸范围宽度                             | number                  | `0`                          |      |
@@ -196,11 +196,53 @@ G2 内部对于图表显示区域设置了一个兜底机制，当视图中存�
 
 尝试一下：
 
-<Playground path="layout/layout/demo/chart-layout.ts" rid="chart-layout"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'point',
+  height: 600,
+  width: 700,
+  margin: 100,
+  padding: 60,
+  paddingLeft: 100, // 单独设置paddingLeft的优先级比padding高
+  insetLeft: 30,
+  insetRight: 30,
+
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/commits.json',
+  },
+  encode: {
+    x: (d) => new Date(d.time).getUTCHours(),
+    y: (d) => new Date(d.time).getUTCDay(),
+    size: 'count',
+    shape: 'point',
+  },
+  transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
+  scale: { y: { type: 'point' } },
+  style: { shape: 'point', fill: '#76b7b2' },
+  axis: {
+    x: { title: 'time (hours)', tickCount: 24 },
+    y: { title: 'time (day)', grid: true },
+  },
+  legend: false,
+  viewStyle: {
+    viewFill: '#DCEEFE',
+    plotFill: '#A2D4F6',
+    mainFill: '#FFC6A1',
+    contentFill: '#FF8E72',
+  },
+});
+
+chart.render();
+```
 
 #### autoFit
 
-如果希望图表的宽高和容器保持一致，那么可以将 `options.autoFit` 设置为 `true`，其优先级比指定宽高高。
+如果希望图表的宽高和容器保持一致，那么可以将 `options.autoFit` 设置为 `true`，其优先级比指定宽高低。
 
 ```js
 ({ type: 'view', autoFit: true });
@@ -328,4 +370,55 @@ G2 内部对于图表显示区域设置了一个兜底机制，当视图中存�
 
 尝试一下：
 
-<Playground path="layout/style/demo/chart-view-style.ts" rid="chart-view-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  viewStyle: {
+    // 配置图表的视图区域的样式
+    viewFill: '#DCEEFE',
+    viewRadius: 20,
+
+    // 配置图表的绘制区域的样式
+    plotFill: '#fff',
+    plotFillOpacity: 0.45,
+    plotStroke: 'yellow',
+    plotLineWidth: 4,
+
+    // 配置图表的主区域的样式
+    mainFill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+    mainFillOpacity: 0.75,
+
+    // 配置图表的内容区域的样式
+    contentFill: 'l(90) 0:#ffadad 0.5:#ffd6a5 1:#fdffb6',
+    contentShadowColor: '#5d5d5d',
+    contentShadowBlur: 40,
+    contentShadowOffsetX: 5,
+    contentShadowOffsetY: 5,
+  },
+  type: 'area',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'close',
+  },
+  axis: false,
+  style: {
+    fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+    fillOpacity: 0.9,
+  },
+  height: 350,
+  width: 700,
+  margin: 30,
+  padding: 20,
+  inset: 15,
+  legend: false,
+});
+
+chart.render();
+```

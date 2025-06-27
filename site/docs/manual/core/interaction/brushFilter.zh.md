@@ -62,8 +62,8 @@ chart.render();
   type: 'interval',
   interaction: {
     brushFilter: {
-      reverse: false,  // 关闭反向选择
-      maskFill: '#rgba(0,0,0,0.3)',  // 自定义蒙版颜色
+      reverse: false, // 关闭反向选择
+      maskFill: '#rgba(0,0,0,0.3)', // 自定义蒙版颜色
     },
   },
 });
@@ -146,67 +146,74 @@ chart.render();
 
 监听刷选过滤动作：
 
-````js
+```js
 chart.on('brush:filter', (event) => {
-  const { 
-    data,         // 筛选后的数据集合
-    nativeEvent   // 原始 DOM 事件
+  const {
+    data, // 筛选后的数据集合
+    nativeEvent, // 原始 DOM 事件
   } = event;
   console.log('当前选中范围:', data.selection);
 });
-````
+```
 
 ### 触发交互
 
 通过编程方式触发筛选：
 
-
 ```js
 // 设置 x 轴范围 [50,100]，y 轴范围 [20,80]
-chart.emit('brush:filter', { 
-  data: { 
-    selection: [[50, 100], [20, 80]] 
-  } 
+chart.emit('brush:filter', {
+  data: {
+    selection: [
+      [50, 100],
+      [20, 80],
+    ],
+  },
 });
-````
+```
 
 ## 案例
 
-```js | ob 
-(() => {
-  const data = [
-      { letter: 'A', frequency: 0.08167 },
-      { letter: 'B', frequency: 0.01492 },
-      { letter: 'C', frequency: 0.02782 },
-      { letter: 'D', frequency: 0.04253 },
-      { letter: 'E', frequency: 0.12702 },
-      { letter: 'F', frequency: 0.02288 },
-      { letter: 'G', frequency: 0.02015 },
-      { letter: 'H', frequency: 0.06094 },
-      { letter: 'I', frequency: 0.06966 },
-      { letter: 'J', frequency: 0.00153 },
-      { letter: 'K', frequency: 0.00772 },
-      { letter: 'L', frequency: 0.04025 },
-      { letter: 'M', frequency: 0.02406 },
-      { letter: 'N', frequency: 0.06749 },
-      { letter: 'O', frequency: 0.07507 },
-      { letter: 'P', frequency: 0.01929 },
-      { letter: 'Q', frequency: 0.00095 },
-      { letter: 'R', frequency: 0.05987 },
-      { letter: 'S', frequency: 0.06327 },
-      { letter: 'T', frequency: 0.09056 },
-      { letter: 'U', frequency: 0.02758 },
-      { letter: 'V', frequency: 0.00978 },
-      { letter: 'W', frequency: 0.0236 },
-      { letter: 'X', frequency: 0.0015 },
-      { letter: 'Y', frequency: 0.01974 },
-      { letter: 'Z', frequency: 0.00074 },
-    ];
-  const chart = new G2.Chart();
-  chart.options({
-    autoFit: true,
-    interaction: { brushFilter: {
-     maskFill: '#000',
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { letter: 'A', frequency: 0.08167 },
+  { letter: 'B', frequency: 0.01492 },
+  { letter: 'C', frequency: 0.02782 },
+  { letter: 'D', frequency: 0.04253 },
+  { letter: 'E', frequency: 0.12702 },
+  { letter: 'F', frequency: 0.02288 },
+  { letter: 'G', frequency: 0.02015 },
+  { letter: 'H', frequency: 0.06094 },
+  { letter: 'I', frequency: 0.06966 },
+  { letter: 'J', frequency: 0.00153 },
+  { letter: 'K', frequency: 0.00772 },
+  { letter: 'L', frequency: 0.04025 },
+  { letter: 'M', frequency: 0.02406 },
+  { letter: 'N', frequency: 0.06749 },
+  { letter: 'O', frequency: 0.07507 },
+  { letter: 'P', frequency: 0.01929 },
+  { letter: 'Q', frequency: 0.00095 },
+  { letter: 'R', frequency: 0.05987 },
+  { letter: 'S', frequency: 0.06327 },
+  { letter: 'T', frequency: 0.09056 },
+  { letter: 'U', frequency: 0.02758 },
+  { letter: 'V', frequency: 0.00978 },
+  { letter: 'W', frequency: 0.0236 },
+  { letter: 'X', frequency: 0.0015 },
+  { letter: 'Y', frequency: 0.01974 },
+  { letter: 'Z', frequency: 0.00074 },
+];
+
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  autoFit: true,
+  interaction: {
+    brushFilter: {
+      maskFill: '#000',
       maskFillOpacity: 0.2,
       maskStroke: 'red',
       maskStrokeOpacity: 0.9,
@@ -218,13 +225,11 @@ chart.emit('brush:filter', {
       maskShadowOffsetX: 10,
       maskShadowOffsetY: 10,
       maskCursor: 'pointer',
-  } },
-  });
+    },
+  },
+});
 
-  chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
+chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

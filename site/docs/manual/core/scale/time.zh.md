@@ -12,49 +12,55 @@ Time 比例尺属于连续比例尺的一种，主要用于处理时间序列数
 - 自动处理时间数据的格式化和解析
 - 提供灵活的时间刻度生成机制
 
-
 ## 配置项
 
-| 属性 | 描述 | 类型 | 默认值 | 必选 |
-| -------------| ----------------------------------------------------------- | -----| ------- | ---- |
-| domain | 设置数据的定义域范围 | `Date[]` | 输入数据的最大最小值范围 |  |
-| domainMin | 设置数据的定义域最小值 | `Date` | 输入数据的最小值 |  |
-| domainMax | 设置数据的定义域最大值 | `Date` | 输入数据的最大值 |  |
-| range | 设置数据映射的值域范围 | `number[]` \| `string[]` | `[0, 1]` |  |
-| rangeMin | 设置数据映射的值域最小值 | `number`\| `string` | `0` |  |
-| rangeMax | 设置数据映射的值域最大值 | `number`\| `string` | `1` |  |
-| unknown | 对于 `undefined`，`NaN`，`null` 空值，返回的数据 | `any` | `undefined` |  |
-| tickCount | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number` | `5` |  |
-| tickInterval | 设置推荐的 tick 之间的间隔，tickInterval 优先级高于 tickCount | `number` | `undefined` |  |
-| tickMethod | 设置生成 tick 的方法，常用于自定义 tick | `(min: number, max: number, count: number) => number[]` | `d3Time` |  |
-| round | 输出值去四舍五入 | `boolean` | `false` |  |
-| clamp | 将映射值限定在 range 的范围内 | `boolean` | `false` |  |
-| nice | 扩展 domain 范围，让输出的 tick 展示得更加友好 | `boolean` | `false` |  |
-| mask | 设置时间显示的格式，底层使用 [fetcha](https://github.com/taylorhakes/fecha) | `string` | `undefined` |  |
-| utc | 是否使用 UTC 时间 | `boolean` | `false` |  |
-| interpolate | 自定义差值函数 | `(a: number, b: number) => (t: number) => T` | `(a, b) => (t) => a * (1 - t) + b * t` |  |
+| 属性         | 描述                                                                        | 类型                                                    | 默认值                                 | 必选 |
+| ------------ | --------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------- | ---- |
+| domain       | 设置数据的定义域范围                                                        | `Date[]`                                                | 输入数据的最大最小值范围               |      |
+| domainMin    | 设置数据的定义域最小值                                                      | `Date`                                                  | 输入数据的最小值                       |      |
+| domainMax    | 设置数据的定义域最大值                                                      | `Date`                                                  | 输入数据的最大值                       |      |
+| range        | 设置数据映射的值域范围                                                      | `number[]` \| `string[]`                                | `[0, 1]`                               |      |
+| rangeMin     | 设置数据映射的值域最小值                                                    | `number`\| `string`                                     | `0`                                    |      |
+| rangeMax     | 设置数据映射的值域最大值                                                    | `number`\| `string`                                     | `1`                                    |      |
+| unknown      | 对于 `undefined`，`NaN`，`null` 空值，返回的数据                            | `any`                                                   | `undefined`                            |      |
+| tickCount    | 设置推荐的 tick 生成数量，tickCount 只是建议值，不会完全按照这个值产生 tick | `number`                                                | `5`                                    |      |
+| tickInterval | 设置推荐的 tick 之间的间隔，tickInterval 优先级高于 tickCount               | `number`                                                | `undefined`                            |      |
+| tickMethod   | 设置生成 tick 的方法，常用于自定义 tick                                     | `(min: number, max: number, count: number) => number[]` | `d3Time`                               |      |
+| round        | 输出值去四舍五入                                                            | `boolean`                                               | `false`                                |      |
+| clamp        | 将映射值限定在 range 的范围内                                               | `boolean`                                               | `false`                                |      |
+| nice         | 扩展 domain 范围，让输出的 tick 展示得更加友好                              | `boolean`                                               | `false`                                |      |
+| mask         | 设置时间显示的格式，底层使用 [fetcha](https://github.com/taylorhakes/fecha) | `string`                                                | `undefined`                            |      |
+| utc          | 是否使用 UTC 时间                                                           | `boolean`                                               | `false`                                |      |
+| interpolate  | 自定义差值函数                                                              | `(a: number, b: number) => (t: number) => T`            | `(a, b) => (t) => a * (1 - t) + b * t` |      |
 
 ### 复杂类型说明
 
 #### tickMethod
+
 ```ts
 type TickMethod = (min: number, max: number, count: number) => number[];
 ```
+
 用于自定义时间刻度的生成方法，接收最小值、最大值和期望的刻度数量，返回一个时间数组。
 
 #### interpolate
+
 ```ts
 type Interpolate = (a: number, b: number) => (t: number) => T;
 ```
+
 用于自定义两个时间值之间的插值方法，默认使用线性插值。
 
 ## 示例
 
 ### 开始使用
 
-```js | ob
-(() => {
-const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
 
 const data = [
   {
@@ -248,7 +254,6 @@ const data = [
   },
 ];
 
-
 chart
   .data(data)
   .encode('x', 'time')
@@ -298,51 +303,56 @@ chart
   });
 
 chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 示例代码解释
 
-上面的示例展示了一个股票K线图的实现，它充分利用了时间比例尺的特性。以下是关键部分的解释：
+上面的示例展示了一个股票 K 线图的实现，它充分利用了时间比例尺的特性。以下是关键部分的解释：
 
 #### 数据结构
-每个数据点包含多个字段：`time`（日期）、`start`（开盘价）、`max`（最高价）、`min`（最低价）、`end`（收盘价）以及交易量和金额。数据按时间顺序排列，从2015年10月22日到2015年11月19日。
+
+每个数据点包含多个字段：`time`（日期）、`start`（开盘价）、`max`（最高价）、`min`（最低价）、`end`（收盘价）以及交易量和金额。数据按时间顺序排列，从 2015 年 10 月 22 日到 2015 年 11 月 19 日。
 
 #### 时间比例尺配置
+
 ```js
 chart.scale('x', {
   compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
-})
+});
 ```
+
 这段代码的关键在于自定义的比较函数，它将字符串时间转换为时间戳进行比较，确保数据能够正确排序。这是时间比例尺的一个重要应用，使其能够处理字符串形式的日期数据。
 
 #### 颜色编码
+
 ```js
 chart.encode('color', (d) => {
   const trend = Math.sign(d.start - d.end);
   return trend > 0 ? '下跌' : trend === 0 ? '不变' : '上涨';
-})
+});
 ```
+
 这个函数根据开盘价与收盘价的关系来决定每个数据点的颜色：
+
 - 当开盘价大于收盘价时（下跌），使用绿色
 - 当开盘价等于收盘价时（不变），使用灰色
 - 当开盘价小于收盘价时（上涨），使用红色
 
 #### 图形元素
-该示例使用了两个图形元素来构建完整的K线图：
-1. `chart.link()`：绘制从最低价到最高价的线段（K线图的影线部分）
-2. `chart.interval()`：绘制从开盘价到收盘价的矩形（K线图的实体部分）
+
+该示例使用了两个图形元素来构建完整的 K 线图：
+
+1. `chart.link()`：绘制从最低价到最高价的线段（K 线图的影线部分）
+2. `chart.interval()`：绘制从开盘价到收盘价的矩形（K 线图的实体部分）
 
 两个图形元素共享相同的工具提示配置，当鼠标悬停时显示完整的价格信息。
 
 #### 应用场景
+
 这个示例展示了时间比例尺在金融数据可视化中的典型应用：
+
 - 处理时序数据的排序和格式化
 - 处理日期字符串到可视位置的转换
 - 结合多个图形元素展示复杂的时间相关数据
 
 通过这种方式，时间比例尺使得创建股票分析、经济趋势等金融数据可视化变得简单高效。
-
-

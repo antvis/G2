@@ -10,37 +10,37 @@ order: 25
 - 文本可视化
 - 数据的标注和辅助
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view', // 图表类型为 'view'
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view', // 图表类型为 'view'
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  children: [
+    // 配置柱状图
+    {
+      type: 'interval',
+      encode: { x: 'letter', y: 'frequency' },
+      axis: { y: { labelFormatter: '.0%' } },
     },
-    children: [
-      // 配置柱状图
-      {
-        type: 'interval',
-        encode: { x: 'letter', y: 'frequency' },
-        axis: { y: { labelFormatter: '.0%' } },
-      },
-      {
-        type: 'text', // 子视图类型为 'text'，表示文本标签
-        encode: { x: 'letter', y: 'frequency', text: 'frequency' }, // 数据编码配置，x 轴对应 'letter' 字段，y 轴对应 'frequency' 字段，文本内容为 'frequency' 字段的值
-        style: { fill: 'black', textAlign: 'center', dy: -5 }, // 文本样式配置，填充颜色为黑色，文本水平居中，y 方向上偏移 -5 像素
-      },
-    ],
-  });
+    {
+      type: 'text', // 子视图类型为 'text'，表示文本标签
+      encode: { x: 'letter', y: 'frequency', text: 'frequency' }, // 数据编码配置，x 轴对应 'letter' 字段，y 轴对应 'frequency' 字段，文本内容为 'frequency' 字段的值
+      style: { fill: 'black', textAlign: 'center', dy: -5 }, // 文本样式配置，填充颜色为黑色，文本水平居中，y 方向上偏移 -5 像素
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 更多的案例，可以查看[图表示例](/examples)页面。
@@ -79,8 +79,8 @@ order: 25
 
 `scale`用于定义数据如何映射到视觉属性。
 
-| 属性     | 描述                       | 类型                         | 默认值             |
-| -------- | -------------------------- | ---------------------------- | ------------------ |
+| 属性     | 描述                       | 类型                                  | 默认值             |
+| -------- | -------------------------- | ------------------------------------- | ------------------ |
 | text     | 定义文本映射规则           | [scale](/manual/core/scale/overview)> | `{type: identity}` |
 | fontSize | 定义文本字体大小的映射规则 | [scale](/manual/core/scale/overview)> | `{type: identity}` |
 | rotate   | 定义文本旋转的映射规则     | [scale](/manual/core/scale/overview)> | `{type: identity}` |
@@ -112,8 +112,8 @@ order: 25
 | shadowOffsetX    | 设置阴影距图形的水平距离                                                                                                    | `number` \| `Function<number>`                    | -         |
 | shadowOffsetY    | 设置阴影距图形的垂直距离                                                                                                    | `number` \| `Function<number>`                    | -         |
 | cursor           | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                               | `string` \| `Function<string>`                    | 'default' |
-| dx               | 文本在 x 方向上的偏移量                                                                                                     | `number`                                          | -         |
-| dy               | 文本在 y 方向上的偏移量                                                                                                     | `number`                                          | -         |
+| dx               | 文本在水平方向的偏移量                                                                                                      | `number`                                          | -         |
+| dy               | 文本在垂直方向的偏移量                                                                                                      | `number`                                          | -         |
 | text             | 要绘制的文本内容                                                                                                            | `string`                                          | -         |
 | x                | 文本的 x 坐标                                                                                                               | `string`                                          | -         |
 | y                | 文本的 y 坐标                                                                                                               | `string`                                          | -         |
@@ -141,7 +141,60 @@ order: 25
 
 尝试一下：
 
-<Playground path="style/annotation/text/demo/line-text.ts" rid="line-text"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/blockchain.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: ['blockchain', 'nlp'],
+        key: 'type',
+        value: 'value',
+      },
+    ],
+  })
+  .axis('x', { labelAutoHide: 'greedy' });
+
+chart
+  .line()
+  .encode('x', (d) => new Date(d.date))
+  .encode('y', 'value')
+  .encode('color', 'type');
+
+chart
+  .text()
+  .data([new Date('2017-12-17'), 100])
+  .style({
+    text: `2017-12-17, 受比特币影响，blockchain 搜索热度达到峰值：100`,
+    wordWrap: true,
+    wordWrapWidth: 164,
+    dx: -174,
+    dy: 30,
+    fill: '#2C3542',
+    fillOpacity: 0.65,
+    fontSize: 10,
+    background: true,
+    backgroundRadius: 2,
+    connector: true,
+    startMarker: true,
+    startMarkerFill: '#2C3542',
+    startMarkerFillOpacity: 0.65,
+  })
+  .tooltip(false);
+
+chart.render();
+
+```
 
 ## 示例
 
@@ -164,81 +217,81 @@ chart
 
 配置 [selectY](/manual/core/transform/select-y) 数据转换，设置分组 `groupBy: 'color'`表示针对 color 通道进行分组，并且设置最大值选择器 `selector: 'max'`，表示使用 max 选择器进行指定的数据抽取，输出到 y 通道。这样就可以在每条折线的最大值处绘制 text 标记了。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'view',
-    data: [
-      { month: 'Jan', city: 'Tokyo', temperature: 7 },
-      { month: 'Jan', city: 'London', temperature: 3.9 },
-      { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
-      { month: 'Feb', city: 'London', temperature: 4.2 },
-      { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
-      { month: 'Mar', city: 'London', temperature: 5.7 },
-      { month: 'Apr', city: 'Tokyo', temperature: 14.5 },
-      { month: 'Apr', city: 'London', temperature: 8.5 },
-      { month: 'May', city: 'Tokyo', temperature: 18.4 },
-      { month: 'May', city: 'London', temperature: 11.9 },
-      { month: 'Jun', city: 'Tokyo', temperature: 21.5 },
-      { month: 'Jun', city: 'London', temperature: 15.2 },
-      { month: 'Jul', city: 'Tokyo', temperature: 25.2 },
-      { month: 'Jul', city: 'London', temperature: 17 },
-      { month: 'Aug', city: 'Tokyo', temperature: 26.5 },
-      { month: 'Aug', city: 'London', temperature: 16.6 },
-      { month: 'Sep', city: 'Tokyo', temperature: 23.3 },
-      { month: 'Sep', city: 'London', temperature: 14.2 },
-      { month: 'Oct', city: 'Tokyo', temperature: 18.3 },
-      { month: 'Oct', city: 'London', temperature: 10.3 },
-      { month: 'Nov', city: 'Tokyo', temperature: 13.9 },
-      { month: 'Nov', city: 'London', temperature: 6.6 },
-      { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
-      { month: 'Dec', city: 'London', temperature: 4.8 },
-    ],
-    encode: { x: 'month', y: 'temperature', color: 'city' },
-    scale: { x: { range: [0, 1] }, y: { nice: true } },
-    axis: { y: { labelFormatter: (d) => d + '°C' } },
-    children: [
-      { type: 'line', encode: { shape: 'smooth' } },
-      {
-        type: 'text',
-        encode: {
-          x: 'month',
-          y: 'temperature',
-          text: (d) => `峰值：${d.temperature}`,
-        },
-        transform: [
-          {
-            type: 'selectY',
-            groupBy: 'color',
-            selector: 'max',
-          },
-        ],
-        style: {
-          fill: 'orange',
-          fontSize: 16,
-          dy: -15,
-        },
-        tooltip: false,
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: 7 },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+    { month: 'Apr', city: 'Tokyo', temperature: 14.5 },
+    { month: 'Apr', city: 'London', temperature: 8.5 },
+    { month: 'May', city: 'Tokyo', temperature: 18.4 },
+    { month: 'May', city: 'London', temperature: 11.9 },
+    { month: 'Jun', city: 'Tokyo', temperature: 21.5 },
+    { month: 'Jun', city: 'London', temperature: 15.2 },
+    { month: 'Jul', city: 'Tokyo', temperature: 25.2 },
+    { month: 'Jul', city: 'London', temperature: 17 },
+    { month: 'Aug', city: 'Tokyo', temperature: 26.5 },
+    { month: 'Aug', city: 'London', temperature: 16.6 },
+    { month: 'Sep', city: 'Tokyo', temperature: 23.3 },
+    { month: 'Sep', city: 'London', temperature: 14.2 },
+    { month: 'Oct', city: 'Tokyo', temperature: 18.3 },
+    { month: 'Oct', city: 'London', temperature: 10.3 },
+    { month: 'Nov', city: 'Tokyo', temperature: 13.9 },
+    { month: 'Nov', city: 'London', temperature: 6.6 },
+    { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
+    { month: 'Dec', city: 'London', temperature: 4.8 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  scale: { x: { range: [0, 1] }, y: { nice: true } },
+  axis: { y: { labelFormatter: (d) => d + '°C' } },
+  children: [
+    { type: 'line', encode: { shape: 'smooth' } },
+    {
+      type: 'text',
+      encode: {
+        x: 'month',
+        y: 'temperature',
+        text: (d) => `峰值：${d.temperature}`,
       },
-      {
-        type: 'point',
-        encode: { x: 'month', y: 'temperature' },
-        transform: [
-          {
-            type: 'selectY',
-            groupBy: 'color',
-            selector: 'max',
-          },
-        ],
-        tooltip: false,
+      transform: [
+        {
+          type: 'selectY',
+          groupBy: 'color',
+          selector: 'max',
+        },
+      ],
+      style: {
+        fill: 'orange',
+        fontSize: 16,
+        dy: -15,
       },
-    ],
-  });
+      tooltip: false,
+    },
+    {
+      type: 'point',
+      encode: { x: 'month', y: 'temperature' },
+      transform: [
+        {
+          type: 'selectY',
+          groupBy: 'color',
+          selector: 'max',
+        },
+      ],
+      tooltip: false,
+    },
+  ],
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```

@@ -104,9 +104,9 @@ chart.render();
 
 ### 交互配置
 
-| 属性       | 描述             | 类型      | 默认值 |
-| ---------- | ---------------- | --------- | ------ |
-| background | 是否高亮背景     | `boolean` | false  |
+| 属性       | 描述                                             | 类型      | 默认值 |
+| ---------- | ------------------------------------------------ | --------- | ------ |
+| background | 是否高亮背景                                     | `boolean` | false  |
 | region     | 鼠标移动到元素空白区域时是否触发高亮(效果见下图) | `boolean` | false  |
 
 <img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n9wMQZoN2ssAAAAAAAAAAAAAemJ7AQ/original" style="width: 100%">
@@ -115,9 +115,9 @@ chart.render();
 
 元素高亮样式，效果见示例[自定义高亮](#自定义高亮)
 
-| 属性                    | 描述                                                                                                                   | 类型                                                         | 默认值        | 必选 |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
-| offset                  | 主方向上的便偏移量                                                                                                     | number                                                       | `0`           |      |
+| 属性                    | 描述                                                                                                             | 类型                                                         | 默认值        | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | ---- |
+| offset                  | 主方向上的便偏移量                                                                                               | number                                                       | `0`           |      |
 | backgroundRadius        | 背景圆角                                                                                                         | number \| (datum, index, data) => number                     | `0`           |      |
 | backgroundFill          | 背景填充色                                                                                                       | string \| (datum, index, data) => string                     | `transparent` |      |
 | backgroundFillOpacity   | 背景填充透明度                                                                                                   | number \| (datum, index, data) => number                     | -             |      |
@@ -196,72 +196,72 @@ chart.emit('element:unhighlight', {});
 
 ### 基础高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: { x: 'letter', y: 'frequency' },
-    transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 5 }],
-    axis: { y: { labelFormatter: '.0%' } },
-    interaction: { elementHighlight: { background: true, region: true } },
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 5 }],
+  axis: { y: { labelFormatter: '.0%' } },
+  interaction: { elementHighlight: { background: true, region: true } },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 自定义高亮
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  chart.options({
-    type: 'interval',
-    autoFit: true,
-    data: {
-      type: 'fetch',
-      value:
-        'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-    },
-    encode: { x: 'letter', y: 'frequency' },
-    transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 5 }],
-    axis: { y: { labelFormatter: '.0%' } },
-    state: {
-      active: {
-        offset: 10,
-        backgroundRadius: 50,
-        backgroundFill: (d) => (d.frequency > 0.1 ? 'red' : '#000'),
-        backgroundFillOpacity: 0.9,
-        backgroundStroke: '#DAF5EC',
-        backgroundStrokeOpacity: 0.9,
-        backgroundLineWidth: 2,
-        backgroundLineDash: [4, 8],
-        backgroundOpacity: 1,
-        backgroundShadowColor: '#d3d3d3',
-        backgroundShadowBlur: 10,
-        backgroundShadowOffsetX: 10,
-        backgroundShadowOffsetY: 10,
-        backgroundCursor: 'pointer',
-      },
-    },
-    interaction: {
-      elementHighlight: {
-        background: true,
-      },
-    },
-  });
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.render();
+const chart = new Chart({
+  container: 'container',
+});
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 5 }],
+  axis: { y: { labelFormatter: '.0%' } },
+  state: {
+    active: {
+      offset: 10,
+      backgroundRadius: 50,
+      backgroundFill: (d) => (d.frequency > 0.1 ? 'red' : '#000'),
+      backgroundFillOpacity: 0.9,
+      backgroundStroke: '#DAF5EC',
+      backgroundStrokeOpacity: 0.9,
+      backgroundLineWidth: 2,
+      backgroundLineDash: [4, 8],
+      backgroundOpacity: 1,
+      backgroundShadowColor: '#d3d3d3',
+      backgroundShadowBlur: 10,
+      backgroundShadowOffsetX: 10,
+      backgroundShadowOffsetY: 10,
+      backgroundCursor: 'pointer',
+    },
+  },
+  interaction: {
+    elementHighlight: {
+      background: true,
+    },
+  },
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```

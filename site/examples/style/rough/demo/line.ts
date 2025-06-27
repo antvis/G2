@@ -4,7 +4,7 @@ import WebFont from 'webfontloader';
 
 WebFont.load({
   google: {
-    families: ['Gaegu'],
+    families: ['Gaegu', 'Kalam', 'Caveat'],
   },
   active: () => {
     const chart = new Chart({

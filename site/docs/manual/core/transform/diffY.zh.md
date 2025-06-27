@@ -18,59 +18,58 @@ order: 2
 
 例如下面的的案例是看 `New York` 和 `San Francisco` 两个城市的天气情况的趋势，通过 `diffY` 就可以凸显出在同一个时间 x 下，到底那个城市的温度更高。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-  type: "view",
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/temperature-compare.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/temperature-compare.json',
   },
   children: [
     {
-      type: "area",
+      type: 'area',
       data: {
         transform: [
           // 将两个城市的添加 fold 成两个字段：city + temperature。
           {
-            type: "fold",
-            fields: ["New York", "San Francisco"],
-            key: "city",
-            value: "temperature",
+            type: 'fold',
+            fields: ['New York', 'San Francisco'],
+            key: 'city',
+            value: 'temperature',
           },
         ],
       },
       encode: {
         x: (d) => new Date(d.date),
-        y: "temperature",
-        color: "city",
-        shape: "hvh",
+        y: 'temperature',
+        color: 'city',
+        shape: 'hvh',
       },
-      transform: [{ type: "diffY" }], // 在这里对分组的 y 进行差值计算。
+      transform: [{ type: 'diffY' }], // 在这里对分组的 y 进行差值计算。
       style: { opacity: 0.5 },
     },
     {
-      type: "line",
-      encode: { x: (d) => new Date(d.date), y: "San Francisco", shape: "hvh" },
-      style: { stroke: "#000" },
+      type: 'line',
+      encode: { x: (d) => new Date(d.date), y: 'San Francisco', shape: 'hvh' },
+      style: { stroke: '#000' },
     },
   ],
 });
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ## 配置项
 
-| 属性               | 描述                                           | 类型                                | 默认值                 |
-|-------------------|------------------------------------------------|------------------------------------|-----------------------|
-| groupBy           | 按照哪个通道分组数据                              | `ChannelTypes` \| `ChannelTypes[]`  | `x`                   |  
-
+| 属性    | 描述                 | 类型                               | 默认值 |
+| ------- | -------------------- | ---------------------------------- | ------ |
+| groupBy | 按照哪个通道分组数据 | `ChannelTypes` \| `ChannelTypes[]` | `x`    |
 
 ### groupBy
 

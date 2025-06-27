@@ -8,7 +8,6 @@ order: 2
 `sortX` 是 G2 提供的一个常用数据变换（transform），用于对**离散型 x 轴**的定义域进行排序。通过指定排序依据，可以让图表的 x 轴按照某个度量值（如 y、color、size 等）进行升序或降序排列，从而更直观地展示数据的大小关系或分布趋势。  
 `sortX` 支持灵活的排序通道、聚合方式、分片等配置，常用于突出重点、优化可读性、对比分析等场景，**尤其适用于 x 通道为离散型的 mark（如 interval、rect、point 等）**。
 
-
 ---
 
 ## 使用场景
@@ -22,18 +21,17 @@ order: 2
 
 ## 配置项
 
-| 属性    | 描述                                                   | 类型                         | 默认值  |
-| ------- | ------------------------------------------------------ | ---------------------------- | ------- |
-| by      | 指定排序的通道（如 'y'、'color'、'size' 等）           | `string`                     | `'y'`   |
-| reverse | 是否逆序                                               | `boolean`                    | `false` |
-| slice   | 选择一个分片范围（如前 N 项、区间）                    | `number \| [number, number]` |         |
-| reducer | 分组聚合方式，用于多值比较                             | `Reducer`                    | `'max'` |
-| ordinal | 是否按分类型通道处理（连续数据时设为 false）           | `boolean`                    | `true`  |
+| 属性    | 描述                                         | 类型                         | 默认值  |
+| ------- | -------------------------------------------- | ---------------------------- | ------- |
+| by      | 指定排序的通道（如 'y'、'color'、'size' 等） | `string`                     | `'y'`   |
+| reverse | 是否逆序                                     | `boolean`                    | `false` |
+| slice   | 选择一个分片范围（如前 N 项、区间）          | `number \| [number, number]` |         |
+| reducer | 分组聚合方式，用于多值比较                   | `Reducer`                    | `'max'` |
+| ordinal | 是否按分类型通道处理（连续数据时设为 false） | `boolean`                    | `true`  |
 
 ### by
 
 指定排序依据的通道，常用如 `'y'`（按 y 值排序）、`'color'`（按颜色分组排序）、`'size'`（按点大小排序）等。
-
 
 ### reverse
 
@@ -69,104 +67,100 @@ type Reducer =
 
 ### 1. 柱状图按 y 值降序排序
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { 类别: 'A', 数值: 30 },
-      { 类别: 'B', 数值: 50 },
-      { 类别: 'C', 数值: 20 },
-      { 类别: 'D', 数值: 40 },
-    ],
-    encode: { x: '类别', y: '数值' },
-    transform: [
-      { type: 'sortX', by: 'y', reverse: true },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'interval',
+  data: [
+    { 类别: 'A', 数值: 30 },
+    { 类别: 'B', 数值: 50 },
+    { 类别: 'C', 数值: 20 },
+    { 类别: 'D', 数值: 40 },
+  ],
+  encode: { x: '类别', y: '数值' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true }],
+});
+
+chart.render();
 ```
 
 ### 2. 只显示 Top 3 项（slice）
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { 类别: 'A', 数值: 30 },
-      { 类别: 'B', 数值: 50 },
-      { 类别: 'C', 数值: 20 },
-      { 类别: 'D', 数值: 40 },
-    ],
-    encode: { x: '类别', y: '数值' },
-    transform: [
-      { type: 'sortX', by: 'y', reverse: true, slice: 3 },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'interval',
+  data: [
+    { 类别: 'A', 数值: 30 },
+    { 类别: 'B', 数值: 50 },
+    { 类别: 'C', 数值: 20 },
+    { 类别: 'D', 数值: 40 },
+  ],
+  encode: { x: '类别', y: '数值' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 3 }],
+});
+
+chart.render();
 ```
 
 ### 3. 与 dodgeX 联用，分组后排序
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { 州: 'A', 年龄: '青年', 人口: 30 },
-      { 州: 'A', 年龄: '中年', 人口: 40 },
-      { 州: 'A', 年龄: '老年', 人口: 20 },
-      { 州: 'B', 年龄: '青年', 人口: 50 },
-      { 州: 'B', 年龄: '中年', 人口: 60 },
-      { 州: 'B', 年龄: '老年', 人口: 30 },
-    ],
-    encode: { x: '州', y: '人口', color: '年龄' },
-    transform: [
-      { type: 'sortX', by: 'y', reverse: true },
-      { type: 'dodgeX' },
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'interval',
+  data: [
+    { 州: 'A', 年龄: '青年', 人口: 30 },
+    { 州: 'A', 年龄: '中年', 人口: 40 },
+    { 州: 'A', 年龄: '老年', 人口: 20 },
+    { 州: 'B', 年龄: '青年', 人口: 50 },
+    { 州: 'B', 年龄: '中年', 人口: 60 },
+    { 州: 'B', 年龄: '老年', 人口: 30 },
+  ],
+  encode: { x: '州', y: '人口', color: '年龄' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true }, { type: 'dodgeX' }],
+});
+
+chart.render();
 ```
 
 ### 4. 复杂排序与 reducer 配置
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: 'interval',
-    data: [
-      { 类别: 'A', 数值: 30 },
-      { 类别: 'B', 数值: 50 },
-      { 类别: 'C', 数值: 20 },
-      { 类别: 'D', 数值: 40 },
-    ],
-    encode: { x: '类别', y: '数值' },
-    transform: [
-      { type: 'sortX', by: 'y', reducer: 'min' }, // 按最小值排序
-    ],
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.render();
-  return chart.getContainer();
-})();
+chart.options({
+  type: 'interval',
+  data: [
+    { 类别: 'A', 数值: 30 },
+    { 类别: 'B', 数值: 50 },
+    { 类别: 'C', 数值: 20 },
+    { 类别: 'D', 数值: 40 },
+  ],
+  encode: { x: '类别', y: '数值' },
+  transform: [
+    { type: 'sortX', by: 'y', reducer: 'min' }, // 按最小值排序
+  ],
+});
+
+chart.render();
 ```
-

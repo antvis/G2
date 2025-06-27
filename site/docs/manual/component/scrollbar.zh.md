@@ -9,42 +9,42 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 何时使用：内容是否超出显示区域取决于内容的多少以及显示区域的尺寸，当需要显示的内容在纵向方向上超过显示区域的大小时，应当使用垂直滚动条以控制显示的部分，横向滚动条同理。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "interval",
-    autoFit: true,
-    height: 300,
-    data: {
-      type: "fetch",
-      value:
-        "https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv",
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  height: 300,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency', y1: 0.000001 },
+  scale: { y: { type: 'log' } },
+  scrollbar: {
+    x: {
+      ratio: 0.2,
+      trackSize: 14,
+      trackFill: '#000',
+      trackFillOpacity: 1,
     },
-    encode: { x: "letter", y: "frequency", y1: 0.000001 },
-    scale: { y: { type: "log" } },
-    scrollbar: { 
-      x: {
-        ratio: 0.2,
-        trackSize: 14,
-        trackFill: "#000",
-        trackFillOpacity: 1,
-      },
-      y: {
-        ratio: 0.5,
-        trackSize: 12,
-        value: 0.1,
-        trackFill: "#000",
-        trackFillOpacity: 1,
-      },
+    y: {
+      ratio: 0.5,
+      trackSize: 12,
+      value: 0.1,
+      trackFill: '#000',
+      trackFillOpacity: 1,
     },
-  });
+  },
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### 构成元素
@@ -79,80 +79,87 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 ## 配置项
 
-| 属性                       | 描述                   | 类型                   | 默认值 | 必选  |
-| -------------------------- | ---------------------- | ---------------------- | ------ |-------|
-| ratio                      | 滚动条的比例，为单页显示数据在总数据量上单比例             | number               | `0.5`    |       |
-| value                      | 滚动条的起始位置, x轴默认值为 `0`, y轴默认为 `1`     | [0, 1]               |       |       |
-| slidable                   | 是否可以拖动           | boolean              | true   |       |
-| scrollable                 | 是否支持滚轮滚动       | boolean              | true   |       |
-| position                 | 滚动条相对图表方位       | string              | `bottom`   |       |
-| isRound            | 滚动条样式是否为圆角   | boolean              | true  |       |
-| style                 | 滚动条样式配置，样式都可以直接在配置项中配置       | [style](#style)              |    |       |
+| 属性       | 描述                                                       | 类型            | 默认值   | 必选 |
+| ---------- | ---------------------------------------------------------- | --------------- | -------- | ---- |
+| ratio      | 滚动条的比例，为单页显示数据在总数据量上单比例             | number          | `0.5`    |      |
+| value      | 滚动条的起始位置，水平方向默认值为 `0`，垂直方向默认为 `1` | [0, 1]          |          |      |
+| slidable   | 是否可以拖动                                               | boolean         | true     |      |
+| scrollable | 是否支持滚轮滚动                                           | boolean         | true     |      |
+| position   | 滚动条相对图表方位                                         | string          | `bottom` |      |
+| isRound    | 滚动条样式是否为圆角                                       | boolean         | true     |      |
+| style      | 滚动条样式配置，样式都可以直接在配置项中配置               | [style](#style) |          |      |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
-  
-  chart.options({
-    type: "area",
-    autoFit: true,
-    height: 300,
-    data: {
-      type: "fetch",
-      value: "https://assets.antv.antgroup.com/g2/unemployment-by-industry.json",
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  autoFit: true,
+  height: 300,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'unemployed',
+    color: 'industry',
+    shape: 'smooth',
+  },
+  transform: [{ type: 'stackY' }],
+  scrollbar: {
+    x: {
+      // 配置项
+      ratio: 0.2,
+      value: 0.1,
+      scrollable: true,
+      slidable: true,
+      isRound: true,
+      position: 'top',
+
+      // 滚动条滑快样式
+      thumbFillOpacity: 0.2,
+      thumbFill: '#000',
+      thumbStroke: '#000',
+
+      // 滚动条滑轨样式
+      trackFill: '#fa0',
+      trackStroke: '#f00',
+      trackLineWidth: 2,
+      trackFillOpacity: 1,
+      trackSize: 14,
+      trackLength: 300,
     },
-    encode: {
-      x: (d) => new Date(d.date),
-      y: "unemployed",
-      color: "industry",
-      shape: "smooth",
-    },
-    transform: [{ type: "stackY" }],
-    scrollbar: {
-      x: {
-        // 配置项
-        ratio: 0.2,
-        value: 0.1,
-        scrollable: true,
-        slidable: true,
-        isRound: true,
-        position: "top",
+  },
+});
 
-        // 滚动条滑快样式
-        thumbFillOpacity: 0.2,
-        thumbFill: "#000",
-        thumbStroke: "#000",
-
-        // 滚动条滑轨样式
-        trackFill: "#fa0",
-        trackStroke: "#f00",
-        trackLineWidth: 2,
-        trackFillOpacity: 1,
-        trackSize: 14,
-        trackLength: 300,
-      },
-    },
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
 ### style
 
-`style` 滚动条样式配置，内部做了处理，可以直接在配置项配置样式。具体样式配置，可参考 [滚动条滑块(thumb)](#滚动条滑块(thumb))、[滚动条滑轨(track)](#滚动条滑轨(track))。
+`style` 滚动条样式配置，内部做了处理，可以直接在配置项配置样式。具体样式配置，可参考 [滚动条滑块(thumb)](<#滚动条滑块(thumb)>)、[滚动条滑轨(track)](<#滚动条滑轨(track)>)。
 
 #### 滚动条滑块(thumb)
 
-| 属性                       | 描述                   | 类型                   | 默认值 | 必选  |
-| -------------------------- | ---------------------- | ---------------------- | ------ |-------|
-| thumbFill          | 滚动条滑块填充色       | string               | `#000`      |       |
-| thumbFillOpacity   | 滚动条滑块填充色透明度 | number               | `0.15`      |       |
-| thumbStroke        | 滚动条滑块描边色       | string               | –      |       |
-| thumbLineWidth        | 滚动条滑块描边宽度       | number               | –      |       |
-| thumbStrokeOpacity | 滚动条滑块描边色透明度 | number               | –      |       |
+| 属性               | 描述                             | 类型            | 默认值    | 必选 |
+| ------------------ | -------------------------------- | --------------- | --------- | ---- |
+| thumbFill          | 滚动条滑块图形的填充色           | string          | `#000`    |      |
+| thumbFillOpacity   | 滚动条滑块图形的填充透明度       | number          | `0.15`    |      |
+| thumbStroke        | 滚动条滑块图形的描边颜色         | string          | –         |      |
+| thumbLineWidth     | 滚动条滑块图形的描边宽度         | number          | –         |      |
+| thumbStrokeOpacity | 滚动条滑块图形的描边透明度       | number          | –         |      |
+| thumbLineDash      | 滚动条滑块图形的虚线配置         | [number,number] | –         |      |
+| thumbOpacity       | 滚动条滑块图形的整体透明度       | number          | –         |      |
+| thumbShadowColor   | 滚动条滑块图形阴影颜色           | string          | –         |      |
+| thumbShadowBlur    | 滚动条滑块图形阴影的高斯模糊系数 | number          | –         |      |
+| thumbShadowOffsetX | 滚动条滑块阴影距图形的水平距离   | number          | –         |      |
+| thumbShadowOffsetY | 滚动条滑块阴影距图形的垂直距离   | number          | –         |      |
+| thumbCursor        | 滚动条滑块鼠标样式               | string          | `default` |      |
 
 ```js
 ({
@@ -171,15 +178,22 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 #### 滚动条滑轨(track)
 
-| 属性                       | 描述                   | 类型                   | 默认值 | 必选  |
-| -------------------------- | ---------------------- | ---------------------- | ------ |-------|
-| trackSize          | 滚动条的轨道宽度       | number               | `10`     |       |
-| trackLength          | 滚动条的轨道长度       | number               |      |       |
-| trackFill          | 滚动条轨道填充色       | string               | -      |       |
-| trackFillOpacity   | 滚动条轨道填充色透明度 | number               | `0`      |       |
-| trackLineWidth        | 滚动条轨道描边宽度       | number               | –      |       |
-| trackStroke        | 滚动条轨道描边色       | string               | –      |       |
-| trackStrokeOpacity | 滚动条轨道描边色透明度 | number               | –      |       |
+| 属性               | 描述                             | 类型            | 默认值    | 必选 |
+| ------------------ | -------------------------------- | --------------- | --------- | ---- |
+| trackSize          | 滚动条滑轨的轨道宽度             | number          | `10`      |      |
+| trackLength        | 滚动条滑轨的轨道长度             | number          | –         |      |
+| trackFill          | 滚动条滑轨图形的填充色           | string          | –         |      |
+| trackFillOpacity   | 滚动条滑轨图形的填充透明度       | number          | `0`       |      |
+| trackStroke        | 滚动条滑轨图形的描边颜色         | string          | –         |      |
+| trackLineWidth     | 滚动条滑轨图形的描边宽度         | number          | –         |      |
+| trackStrokeOpacity | 滚动条滑轨图形的描边透明度       | number          | –         |      |
+| trackLineDash      | 滚动条滑轨图形的虚线配置         | [number,number] | –         |      |
+| trackOpacity       | 滚动条滑轨图形的整体透明度       | number          | –         |      |
+| trackShadowColor   | 滚动条滑轨图形阴影颜色           | string          | –         |      |
+| trackShadowBlur    | 滚动条滑轨图形阴影的高斯模糊系数 | number          | –         |      |
+| trackShadowOffsetX | 滚动条滑轨阴影距图形的水平距离   | number          | –         |      |
+| trackShadowOffsetY | 滚动条滑轨阴影距图形的垂直距离   | number          | –         |      |
+| trackCursor        | 滚动条滑轨鼠标样式               | string          | `default` |      |
 
 ```js
 ({
@@ -200,40 +214,42 @@ G2 中 **滚动条（Scrollbar）** 可以用于过滤数据，可以和 x 或�
 
 ## 事件
 
-| 属性        | 描述                             | 类型          |
-| ----------- | -------------------------------- | ------------- |
+| 属性        | 描述                             | 类型                                                |
+| ----------- | -------------------------------- | --------------------------------------------------- |
 | valuechange | 发生滚动变化时触发，通过事件监听 | `({detail: { oldValue: any; value: any }}) => void` |
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
 
-  chart.options({
-    type: "interval",
-    autoFit: true,
-    height: 300,
-    data: {
-      type: "fetch",
-      value:
-        "https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv",
-    },
-    encode: { x: "letter", y: "frequency", y1: 0.000001 },
-    scale: { y: { type: "log" } },
-    scrollbar: { x: true },
-  });
+const chart = new Chart({
+  container: 'container',
+});
 
-  // render 渲染图表之后
-  chart.on('afterrender', () => {
-    const { canvas } = chart.getContext();
-    const { document } = canvas;
-    document.querySelector('.g2-scrollbar').addEventListener('valuechange', (evt) => {
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  height: 300,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  encode: { x: 'letter', y: 'frequency', y1: 0.000001 },
+  scale: { y: { type: 'log' } },
+  scrollbar: { x: true },
+});
+
+// render 渲染图表之后
+chart.on('afterrender', () => {
+  const { canvas } = chart.getContext();
+  const { document } = canvas;
+  document
+    .querySelector('.g2-scrollbar')
+    .addEventListener('valuechange', (evt) => {
       console.log(evt.detail.oldValue); // 滑动更新前对应数据
       console.log(evt.detail.value); // 更新后对应数据
     });
-  });
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
