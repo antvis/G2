@@ -87,3 +87,4 @@ export { changeSizePolarCrosshairsXYNoElements } from './change-size-polar-cross
 export { intervalLegendFilterWithText } from './interval-legend-filter-with-text';
 export { multipleInteractionsCoexist } from './multiple-interactions-coexist';
 export { penguinsPointBrushFilterNoMove } from './penguins-point-brush-filter-no-move';
+export { stateAgesSankeyHighlight } from './stateages-sankey-highlight';

@@ -477,3 +477,57 @@ chart.render();
   ],
 });
 ```
+### state
+
+state 配置和 style 类似，使用不同的前缀来区分不同的图形配置，没有前缀的配置两种图形都会生效。
+
+示例:
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  const data = {
+    links: [
+      { source: 'a', target: 'b', value: 100 },
+      { source: 'b', target: 'c', value: 80 },
+      { source: 'b', target: 'd', value: 20 },
+      { source: 'c', target: 'b_1', value: 80 },
+      { source: 'b_1', target: 'c_1', value: 40 },
+      { source: 'b_1', target: 'd_1', value: 40 },
+    ],
+  };
+
+  chart.options({
+    type: 'sankey',
+    width: 900,
+    height: 600,
+    data: {
+      value: data
+    },
+    style: {
+      labelSpacing: 3,
+      labelFontWeight: 'bold',
+      linkFillOpacity: 0.5,
+      nodeFillOpacity: 0.5 //默认透明度都是 0.5
+    },
+    state: {
+      active: {
+        fillOpacity: 0.8, // 鼠标悬浮状态下透明度都是 0.8
+        linkFill: 'red', // link 会变成红色
+        nodeFill: 'blue' // node 会变成蓝色
+      },
+      inactive: {
+        linkFillOpacity: 0.4,
+        nodeFillOpacity: 0.2 // node 颜色比 link 浅
+      }
+    },
+    interaction: {
+      elementHighlight: true
+    },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
+```
