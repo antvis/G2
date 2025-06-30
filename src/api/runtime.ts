@@ -90,6 +90,19 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._create();
   }
 
+  mount(container: string | HTMLElement) {
+    const autoFit = this.options['autoFit'];
+    const chartContainer = this.getContainer();
+    const normalizedContainer = normalizeContainer(container);
+
+    this._container = normalizedContainer;
+    normalizedContainer.appendChild(chartContainer);
+
+    this.forceFit();
+    // restore autoFit
+    this.options['autoFit'] = autoFit;
+  }
+
   render(): Promise<Runtime<Spec>> {
     if (this._rendering) return this._addToTrailing();
     if (!this._context.canvas) this._createCanvas();
