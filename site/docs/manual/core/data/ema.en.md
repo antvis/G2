@@ -6,53 +6,46 @@ order: 2
 
 ## Overview
 
-Exponential Moving Average (EMA) is a widely-used data smoothing algorithm that reduces data volatility by assigning higher weights to recent data points, enabling clearer observation of trend evolution.
+EMA (Exponential Moving Average) is a commonly used data smoothing algorithm that reduces data volatility by assigning higher weights to recent data points, making it clearer to observe trend changes in data.
 
-In G2's implementation, the EMA calculation follows this formula:
+In G2's implementation, EMA is calculated as follows:
 
-![EMA formula visualization](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3EIiS59AD8AAAAAAAAAAAAAAemJ7AQ/original)
+![EMA formula diagram](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3EIiS59AD8AAAAAAAAAAAAAAemJ7AQ/original)
 
 Where:
 
-- P<sub>t</sub>: Raw data value at current time step
-- EMA<sub>t-1</sub>: EMA value from previous time step
-- α: Smoothing factor (0 < α < 1)
+- P<sub>t</sub>: The raw data value at the current time;
+- EMA<sub>t-1</sub>: The EMA value at the previous time;
+- α: The smoothing factor, ranging between (0, 1).
 
-> ⚠️ Implementation Note: G2's EMA implementation reverses the traditional α weighting convention. Therefore:
+> ⚠️ Note: G2's EMA implementation has the α weight position reversed from the traditional definition, therefore:
 >
-> - α closer to 1 produces stronger smoothing
-> - α closer to 0 makes EMA values resemble raw data
+> - The closer `α` is to 1, the more pronounced the smoothing effect;
+> - The closer `α` is to 0, the closer EMA is to the original data.
 
 ## Use Cases
 
-1. **Volatile Time Series Trend Visualization**  
-   Ideal for revealing underlying patterns in noisy sequential data
-2. **Financial Technical Analysis**  
-   Commonly applied to stock prices, market indices, and trading volumes
-3. **Training Metric Smoothing**  
-   Stabilizes fluctuating metrics in machine learning training processes
-4. **Sensor Data Filtering**  
-   Reduces measurement noise in IoT/industrial monitoring systems
+- When data in time series has dramatic fluctuations and you want to highlight trends;
+- Technical analysis of financial data such as stock prices;
+- Smoothing and dynamic tracking of metrics during model training.
 
 ## Configuration Properties
 
-| Property | Description                                            | Type     | Default         | Required |
-| -------- | ------------------------------------------------------ | -------- | --------------- | -------- |
-| field    | Target numerical field for smoothing                   | `string` | `'y'`           | ✓        |
-| alpha    | Smoothing intensity controller (higher = smoother)     | `number` | `0.6`           |          |
-| as       | Output field name (overwrites original if unspecified) | `string` | Same as `field` |          |
+| Property | Description                                                                           | Type     | Default         | Required |
+| -------- | ------------------------------------------------------------------------------------- | -------- | --------------- | -------- |
+| field    | Name of the field to be smoothed                                                      | `string` | `'y'`           | ✓        |
+| alpha    | Smoothing factor, controls smoothing degree (larger values mean more smoothing)       | `number` | `0.6`           |          |
+| as       | Name of the new field to generate, if not specified will overwrite the original field | `string` | Same as `field` |          |
 
-> **Best Practices**
->
-> - Preserve original data by specifying `as` for output field
-> - Default values are component-defined, not theme-based
-> - ⚠️ Input validation: `field` must contain numerical values
+> If you need to retain the original field, it's recommended to set the `as` property to output to a new field.
+> This default value is defined internally by the component, not from the theme.
+> ⚠️ Note: The `field` must be numeric, otherwise it will cause calculation errors.
 
 ## Implementation Examples
 
 ### Base Example: Stock Price Smoothing
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -100,12 +93,12 @@ chart.options({
   ],
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render();
 ```
 
-### Example 1: Time Series Trend Enhancement
+### Example 1: Highlighting Trend Changes (Time Series)
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -156,12 +149,12 @@ chart.options({
     },
   ],
 });
-return chart.render().then((chart) => chart.getContainer());
+chart.render();
 ```
 
-### Example 2: Financial Data Smoothing
+### Example 2: Financial Market Trend Smoothing
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -218,12 +211,12 @@ chart.options({
   ],
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render();
 ```
 
-### Example 3: Training Metric Stabilization
+### Example 3: Training Process Metric Smoothing
 
-```js | ob {  pin:false , autoMount: true }
+```js | ob {  pin:false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -272,9 +265,85 @@ chart.options({
     },
   ],
 });
-return chart.render().then((chart) => chart.getContainer());
+chart.render();
 ```
 
 ## Interactive Demo
 
-<Playground path="general/ema/demo/ema-basic.ts" rid="ema-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 300,
+});
+
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      data: {
+        type: 'inline',
+        value: [
+          { x: 0, y: 30 },
+          { x: 1, y: 80 },
+          { x: 2, y: 45 },
+          { x: 3, y: 90 },
+          { x: 4, y: 20 },
+          { x: 5, y: 60 },
+          { x: 6, y: 30 },
+          { x: 7, y: 85 },
+          { x: 8, y: 40 },
+          { x: 9, y: 70 },
+        ],
+        transform: [
+          {
+            type: 'ema',
+            field: 'y',
+            alpha: 0.6,
+            as: 'emaY',
+          },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'emaY',
+      },
+      style: {
+        stroke: '#f90',
+        lineWidth: 2,
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        type: 'inline',
+        value: [
+          { x: 0, y: 30 },
+          { x: 1, y: 80 },
+          { x: 2, y: 45 },
+          { x: 3, y: 90 },
+          { x: 4, y: 20 },
+          { x: 5, y: 60 },
+          { x: 6, y: 30 },
+          { x: 7, y: 85 },
+          { x: 8, y: 40 },
+          { x: 9, y: 70 },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+      },
+      style: {
+        stroke: '#ccc',
+        lineDash: [4, 2],
+      },
+    },
+  ],
+});
+
+chart.render();
+```

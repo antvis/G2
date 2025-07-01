@@ -7,7 +7,7 @@ order: 5
 
 `cell` 是矩形标记（Rect Shape）的一种抽象表示，主要用于表示分面（facet）或者网格中的单元格，是图表中数据映射到视觉元素的最小单元。它一般是在可视化布局中用来表示网格化结构或数据分割的“单元”。具体来说，它是一种对区域的划分，在不同的分面中通常会对应一个独立的绘图区域，常见于矩阵型图表（如日历图、聚合热力图等）中。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -66,58 +66,58 @@ chart.render(); // 渲染图标
 
 通过 `encode` 的 `color` 属性，你可以将数据字段映射到颜色值，从而根据数据的变化自动调整标记的颜色。这对于数据可视化来说非常有用，因为它可以帮助您快速识别数据的模式和趋势。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-  chart.options({
-    type: 'cell',
-    data: [
-      { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
-      { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
-      { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
-      { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
-      { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
-      { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
-      { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
-      { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
-      { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
-    ],
-    encode: {
-      x: 'x', // 编码 x 轴
-      y: 'y', // 编码 y 轴
-      color: 'data1', // 使用数据中的 data1 字段
-    },
-    style: {
-      inset: 5,
-      lineWidth: 10,
-    },
-  });
+chart.options({
+  type: 'cell',
+  data: [
+    { x: 'x-a', y: 'y-a', data1: 1, data2: 5 },
+    { x: 'x-a', y: 'y-b', data1: 3, data2: 8 },
+    { x: 'x-a', y: 'y-c', data1: 2, data2: 6 },
+    { x: 'x-b', y: 'y-a', data1: 8, data2: 2 },
+    { x: 'x-b', y: 'y-b', data1: 5, data2: 4 },
+    { x: 'x-b', y: 'y-c', data1: 6, data2: 9 },
+    { x: 'x-c', y: 'y-a', data1: 7, data2: 1 },
+    { x: 'x-c', y: 'y-b', data1: 4, data2: 2 },
+    { x: 'x-c', y: 'y-c', data1: 9, data2: 3 },
+  ],
+  encode: {
+    x: 'x', // 编码 x 轴
+    y: 'y', // 编码 y 轴
+    color: 'data1', // 使用数据中的 data1 字段
+  },
+  style: {
+    inset: 5,
+    lineWidth: 10,
+  },
+});
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择映射到颜色的字段 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = `
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择映射到颜色的字段 ';
+const selector = document.createElement('select');
+selector.innerHTML = `
     <option value="data1" selected>data1</option>
     <option value="data2">data2</option>
   `;
 
-  selector.onchange = (e) => {
-    chart.options({
-      encode: {
-        color: e.target.value, // 使用选中的字段映射颜色
-      },
-    });
-    chart.render(); // 重新渲染图表
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
+selector.onchange = (e) => {
+  chart.options({
+    encode: {
+      color: e.target.value, // 使用选中的字段映射颜色
+    },
+  });
+  chart.render(); // 重新渲染图表
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  chart.render();
-  return node;
-})();
+chart.render();
 ```
 
 #### shape
@@ -198,4 +198,64 @@ type Reducer =
 
 尝试一下：
 
-<Playground path="style/general/cell/demo/cell-heatmap.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://observablehq.com/@mbostock/the-impact-of-vaccines
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 1300,
+  height: 900,
+});
+
+chart
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/vaccines.json',
+  })
+  .axis('y', { labelAutoRotate: false })
+  .axis('x', {
+    tickFilter: (d) => d % 10 === 0,
+    position: 'top',
+  })
+  .scale('color', {
+    palette: 'puRd',
+    relations: [
+      [(d) => d === null, '#eee'],
+      [0, '#fff'],
+    ],
+  });
+
+chart
+  .cell()
+  .encode('x', 'year')
+  .encode('y', 'name')
+  .encode('color', 'value')
+  .style('inset', 0.5)
+  .tooltip({ title: { channel: 'color', valueFormatter: '.2f' } });
+
+chart
+  .lineX()
+  .data([1963])
+  .style('stroke', 'black')
+  .label({
+    text: '1963',
+    position: 'bottom',
+    textBaseline: 'top',
+    fontSize: 10,
+  })
+  .label({
+    text: 'Measles vaccine introduced',
+    position: 'bottom',
+    textBaseline: 'top',
+    fontSize: 10,
+    fontWeight: 'bold',
+    dy: 10,
+  })
+  .tooltip(false);
+
+chart.render();
+
+```

@@ -18,7 +18,7 @@ binX 是一个针对 X 通道数据进行分箱处理的重要函数。它主要
 
 希望对 Y 通道进行分箱，使用 binX + transpose 坐标系。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -50,7 +50,7 @@ chart.render();
 
 `binX` 是一种专门用于对 X 轴方向上的连续型数据进行分箱（离散化）的变换操作。通过配置 `thresholdsX`，可以明确指定 X 轴方向上的分箱边界，从而实现对数据的精细化控制。
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -144,7 +144,7 @@ type Channel =
 
 ### 使用 `bin` + `opacity` 渲染出颜色分类直方图
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -171,7 +171,7 @@ chart.render();
 
 ### 泊松分布
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const random = d3Random.randomPoisson(Math.pow(10, 2.6));

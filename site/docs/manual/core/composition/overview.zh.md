@@ -27,7 +27,7 @@ layer.view();
 
 一个比较常见的复合方式是 `composition.spaceLayer`：将多个图表重叠在一起。使用场景是这些视图拥有的不同的坐标系，比如下面的条形图和饼图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -72,7 +72,7 @@ chart.render();
 
 同时也可以使用 `composition.spaceFlex` 去让视图水平或者竖直排列。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -118,7 +118,7 @@ chart.render();
 
 **分面复合（Facet Composition）** 和空间复合的不同在于：它还会对数据划分，每个视图展现原始数据的一个子集。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 **重复复合（Repeat Composition）** 和分面的区别在于：它的每个视图展现的是全量数据，只不过会对编码进行重复，从而绘制出多个视图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -192,44 +192,45 @@ chart.render();
 
 **时间复合**在空间上管理视图，用于做动画。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
-(async () => {
-  const data = await fetch(
-    'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  ).then((res) => res.json());
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
 
+    // 参考 css animation 的描述
+    const keyframe = chart
+      .timingKeyframe() // 创建容器
+      .attr('iterationCount', 2) // 迭代次数
+      .attr('direction', 'alternate') // 方向
+      .attr('duration', 1000); // 持续时间
 
+    keyframe
+      .interval()
+      .transform({ type: 'groupX', y: 'mean' })
+      .data(data)
+      .encode('x', 'gender')
+      .encode('y', 'weight')
+      .encode('color', 'gender')
+      .encode('key', 'gender'); // 指定 key
 
-const chart = new Chart({
-  container: 'container',
-});
+    keyframe
+      .point()
+      .data(data)
+      .encode('x', 'height')
+      .encode('y', 'weight')
+      .encode('color', 'gender')
+      .encode('shape', 'point')
+      .encode('groupKey', 'gender'); // 指定 groupKey
 
-  // 参考 css animation 的描述
-  const keyframe = chart
-    .timingKeyframe() // 创建容器
-    .attr('iterationCount', 2) // 迭代次数
-    .attr('direction', 'alternate') // 方向
-    .attr('duration', 1000); // 持续时间
-
-  keyframe
-    .interval()
-    .transform({ type: 'groupX', y: 'mean' })
-    .data(data)
-    .encode('x', 'gender')
-    .encode('y', 'weight')
-    .encode('color', 'gender')
-    .encode('key', 'gender'); // 指定 key
-
-  keyframe
-    .point()
-    .data(data)
-    .encode('x', 'height')
-    .encode('y', 'weight')
-    .encode('color', 'gender')
-    .encode('shape', 'point')
-    .encode('groupKey', 'gender'); // 指定 groupKey
-
-  chart.render();
+    chart.render();
+  });
 ```

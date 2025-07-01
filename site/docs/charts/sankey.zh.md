@@ -2,7 +2,7 @@
 title: 桑基图
 order: 22
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original'
-category: ['flow','relation']
+category: ['flow', 'relation']
 similar: ['funnel', 'chord']
 ---
 
@@ -10,7 +10,7 @@ similar: ['funnel', 'chord']
 
 ## 桑基图的简介
 
-桑基图 (Sankey Diagram)，是一种特定类型的流图，用于描述一组值到另一组值的流向。上图为1869年，查尔斯米纳德（Charles Minard）绘制的1812年拿破仑征俄图（Map of Napolean's Russian Campaign of 1812），这是一个在地图上覆盖桑基图的流程图。1898年爱尔兰人 Matthew Henry Phineas Riall Sankey 在土木工程师学会会报纪要的一篇关于蒸汽机能源效率的文章中首次推出了第一个能量流动图，此后便以其名字命名为 Sankey 图，中文音译为桑基图。
+桑基图 (Sankey Diagram)，是一种特定类型的流图，用于描述一组值到另一组值的流向。上图为 1869 年，查尔斯米纳德（Charles Minard）绘制的 1812 年拿破仑征俄图（Map of Napolean's Russian Campaign of 1812），这是一个在地图上覆盖桑基图的流程图。1898 年爱尔兰人 Matthew Henry Phineas Riall Sankey 在土木工程师学会会报纪要的一篇关于蒸汽机能源效率的文章中首次推出了第一个能量流动图，此后便以其名字命名为 Sankey 图，中文音译为桑基图。
 
 图中延伸的分支的宽度对应数据流量的大小。桑基图的特点如下：
 
@@ -28,12 +28,12 @@ similar: ['funnel', 'chord']
 
 <img alt="桑基图" src="https://zos.alipayobjects.com/rmsportal/xdfcZJIJNiHPxdLGcRDT.png"  width="600"/>
 
-| 图表类型         | 基础桑基图                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| 适合的数据       | 流向数据：包含源节点（source）、目标节点（target）和流量值（value）的数据          |
-| 功能             | 展示不同节点之间的流向关系和流量大小                                               |
-| 数据与图形的映射 | 源节点映射到左侧位置<br>目标节点映射到右侧位置<br>流量值映射到连接线的宽度          |
-| 适合的场景       | 展示能源流动、资金流向、用户路径等流程分析                                          |
+| 图表类型         | 基础桑基图                                                                 |
+| ---------------- | -------------------------------------------------------------------------- |
+| 适合的数据       | 流向数据：包含源节点（source）、目标节点（target）和流量值（value）的数据  |
+| 功能             | 展示不同节点之间的流向关系和流量大小                                       |
+| 数据与图形的映射 | 源节点映射到左侧位置<br>目标节点映射到右侧位置<br>流量值映射到连接线的宽度 |
+| 适合的场景       | 展示能源流动、资金流向、用户路径等流程分析                                 |
 
 ## 桑基图的应用场景
 
@@ -43,7 +43,7 @@ similar: ['funnel', 'chord']
 
 下图是一个能源流动的桑基图，展示了从原始能源到最终消费的完整流程。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -90,7 +90,7 @@ chart.render();
 
 桑基图可以有效展示用户在网站或应用中的行为路径，帮助分析用户流失点和转化漏斗。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = {
@@ -106,7 +106,7 @@ const data = {
     { source: '结算页', target: '放弃支付', value: 70 },
     { source: '产品详情', target: '购物车', value: 200 },
     { source: '产品详情', target: '返回', value: 200 },
-  ]
+  ],
 };
 
 const chart = new Chart({
@@ -139,6 +139,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 展示了用户从首页到最终转化的完整路径
 - 连接线的宽度表示用户流量的大小
 - 可以清晰识别用户流失的关键节点
@@ -147,7 +148,7 @@ chart.render();
 
 桑基图特别适合展示预算分配、成本分析等财务数据的流向关系。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const budgetData = {
@@ -165,7 +166,7 @@ const budgetData = {
     { source: '产品开发', target: '网页端', value: 1200000 },
     { source: '广告投放', target: '线上广告', value: 1500000 },
     { source: '广告投放', target: '线下推广', value: 500000 },
-  ]
+  ],
 };
 
 const chart = new Chart({
@@ -198,6 +199,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 清晰展示了预算从总体到具体项目的分配路径
 - 通过流量宽度直观表示资金分配的比例
 - 颜色编码帮助区分不同层级的预算项目
@@ -208,7 +210,7 @@ chart.render();
 
 当数据主要用于比较不同类别的数值大小，而非展示流向关系时，桑基图不是最佳选择。这种情况下，柱状图或饼图会更加直观。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 示例：销售额对比数据（不适合用桑基图）
@@ -232,11 +234,11 @@ chart.options({
   encode: {
     x: 'category',
     y: 'value',
-    color: 'category'
+    color: 'category',
   },
   axis: {
     y: { title: '销售额（元）' },
-    x: { title: '产品类别' }
+    x: { title: '产品类别' },
   },
   style: {
     fill: '#1890ff',
@@ -250,9 +252,9 @@ chart.render();
 
 例子 2: **不适合展示过于复杂的网络关系**
 
-当节点数量过多（超过30个）或流向关系过于复杂时，桑基图可能会变得难以阅读。这种情况下，可以考虑使用网络图或层次图。
+当节点数量过多（超过 30 个）或流向关系过于复杂时，桑基图可能会变得难以阅读。这种情况下，可以考虑使用网络图或层次图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 示例：复杂的组织架构关系（不适合用桑基图）
@@ -276,7 +278,7 @@ const complexData = {
     { source: '运营VP', target: '数据团队', value: 1 },
     { source: '运营VP', target: '产品团队', value: 1 },
     { source: '运营VP', target: '用户团队', value: 1 },
-  ]
+  ],
 };
 
 const chart = new Chart({
@@ -311,7 +313,7 @@ chart.render();
 
 可以通过不同的节点对齐方式来优化桑基图的布局效果。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -349,6 +351,7 @@ chart.render();
 ```
 
 **说明**：
+
 - `nodeAlign: 'left'` 将所有节点左对齐
 - `nodePadding` 控制节点之间的间距
 - `nodeWidth` 控制节点的宽度
@@ -357,7 +360,7 @@ chart.render();
 
 可以根据节点类型或流量方向自定义颜色映射。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -404,6 +407,7 @@ chart.render();
 ```
 
 **说明**：
+
 - 通过 `encode.color` 自定义颜色映射函数
 - 可以根据节点属性、流量大小等因素动态分配颜色
 

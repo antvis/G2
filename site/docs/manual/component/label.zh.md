@@ -63,7 +63,7 @@ chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 
 每一个标记都可以有多个标签，下面是一个简单的例子：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -94,13 +94,13 @@ chart.render();
 
 | 属性       | 描述                                                                                                | 类型                             | 默认值                        | 必选 |
 | ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------- | ---- |
-| dx         | `label` 标签 `x` 方向偏移，存在居中默认值 也可通过 style.dx 配置                                    |                                  | -                             |      |
-| dy         | `label` 标签 `y` 方向偏移，也可通过 style.dy 配置                                                   |                                  | -                             |      |
-| offset     | `label` 标签偏移，也可通过 style.offset 配置                                                        |                                  | -                             |      |
-| text       | `label` 数据通道，类似 mark 标记的 `x` 通道，对应到文本元素上，可以用回调自定义 `string` 文本.      |                                  | -                             |      |
-| innerHTML  | 和 `text` 配置类似，同时配置 `text` 会失效，可以用回调自定义 `string` 文本或 `HTMElement` 复杂 html |                                  | -                             |      |
+| dx         | 标签文字在水平方向的偏移量，也可通过 style.dx 配置                                                  | number                           | 0                             |      |
+| dy         | 标签文字在垂直方向的偏移量，也可通过 style.dy 配置                                                  | number                           | 0                             |      |
+| offset     | 标签偏移距离，也可通过 style.offset 配置                                                            | number                           | -                             |      |
+| text       | 标签数据通道，类似 mark 标记的 `x` 通道，对应到文本元素上，可以用回调自定义 `string` 文本.          | string \| Function               | -                             |      |
+| innerHTML  | 和 `text` 配置类似，同时配置 `text` 会失效，可以用回调自定义 `string` 文本或 `HTMElement` 复杂 html | string \| Function               | -                             |      |
 | formatter  | 标签文本格式化                                                                                      | _string_ \| _Function\<string\>_ | -                             |      |
-| render     | 和 `innerHTML` 配置类型一致                                                                         |                                  | -                             |      |
+| render     | 和 `innerHTML` 配置类型一致                                                                         | string \| Function               | -                             |      |
 | selector   | 标签选择器，可以保留或隐藏标签。                                                                    | [selector](#selector)            | `{type: 'cartesian' }`        |      |
 | transform  | 标签转换，用来优化标签的展示，解决标签重叠、颜色不明显的问题                                        | [transform](#transform)          | -                             |      |
 | position   | 标签相对图形位置，并非标签方向。                                                                    | [position](#position)            | -                             |      |
@@ -112,7 +112,7 @@ chart.render();
 
 `label` 标签文本元素内容配置
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -170,7 +170,7 @@ type RenderFunc = (text: string, datum: object, index: number, {channel: Record<
 - `last` - 最后一个
 - `function` - 自定义选择器
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -241,7 +241,7 @@ chart.render();
 | contrastReverse | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
 | overflowHide    | 对于标签在图形上放置不下的时候，隐藏标签                                         |
 | overlapHide     | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
-| exceedAdjust    | 会自动对标签做溢出检测和矫正，即当标签超出视图区域时，会对标签自动做反方向的位移 |
+| exceedAdjust    | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
 
 不同的转化类型，针对不同的标签问题情况。所以明确每个 `transform` 标签转化的区别十分有必要。
 
@@ -251,7 +251,7 @@ chart.render();
 
 ##### 问题案例
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -282,7 +282,7 @@ chart.render();
 
 ##### 配置 `overlapDodgeY` 转化标签
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -357,7 +357,7 @@ chart.render();
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -482,7 +482,7 @@ chart.render();
 
 ##### 问题案例
 
-当一个图有多个小的图形组成，如果每个小图形都映射有一个 `label` 标签都话，就会出现重叠和图表不清的情况。比如旭日图、矩阵树图等。
+当一个图有多个小的图形组成，如果每个小图形都映射有一个 `label` 标签都话，就会出现重叠和图表不清的情况。比如旭日图、矩形树图等。
 
 <img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PTxzSqaZKtwAAAAAAAAAAAAAemJ7AQ/original' width='50%' />
 <img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LeNnSZqTtlYAAAAAAAAAAAAAemJ7AQ/original' width='50%' />
@@ -493,7 +493,35 @@ chart.render();
 
 尝试一下：
 
-<Playground path="style/general/sunburst/demo/sunburst-label.ts" rid="sunburst-label"></playground>
+```js | ob { inject: true }
+import { plotlib } from '@antv/g2-extension-plot';
+import { Runtime, corelib, extend } from '@antv/g2';
+
+const Chart = extend(Runtime, { ...corelib(), ...plotlib() });
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .sunburst()
+  .data({
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+  })
+  .encode('value', 'sum')
+  .label({
+    text: 'name',
+    transform: [
+      {
+        type: 'overflowHide',
+      },
+    ],
+  });
+
+chart.render();
+```
 
 #### overlapHide
 
@@ -503,7 +531,7 @@ chart.render();
 
 当部分图形颜色和标签颜色接近时，会出现看不清的问题。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -536,7 +564,7 @@ chart.render();
 
 对不明显的 `label` 标签 颜色进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -568,13 +596,26 @@ chart.render();
 
 #### exceedAdjust
 
-`exceedAdjust` 会自动对标签做溢出检测和矫正，即当标签超出视图区域时，会对标签自动做反方向的位移。
+`exceedAdjust` 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移。
+
+##### 配置项
+
+| 属性    | 说明                                    | 类型               | 默认值   |
+| ------- | --------------------------------------- | ------------------ | -------- |
+| bounds  | 指定检测边界的区域类型,`5.3.4` 开始支持 | `'view' \| 'main'` | `'view'` |
+| offsetX | 触发自动调整位置，位移时 X 轴偏移附加值 | `number`           | `0`      |
+| offsetY | 触发自动调整位置，位移时 Y 轴偏移附加值 | `number`           | `0`      |
+
+- `'view'`：检测标签是否超出整个视图区域（包含 margin 和 padding）
+- `'main'`：检测标签是否超出主区域（不包含 margin 和 padding）
+- `'offsetX'`：触发自动调整位置，位移时 X 轴偏移附加值，左侧边界向右偏移，右侧边界向左偏移
+- `'offsetY'`：触发自动调整位置，位移时 Y 轴偏移附加值，上侧边界向下偏移，下侧边界向上偏移
 
 ##### 问题案例
 
 `label` 标签会超出图表，超出的部分会被截断。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -601,33 +642,793 @@ chart.options({
 chart.render();
 ```
 
-##### 配置 `exceedAdjust` 转化标签
+##### 配置 `exceedAdjust` 转化标签 - 默认 view 边界
 
-对超出视图的 `label` 标签进行方向优化。
+对超出视图的 `label` 标签进行方向优化，默认边界为视图区域（View Area）。
 
-```js | ob { autoMount: true }
+<img alt="chart-component" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tFaaTbBg-_cAAAAAAAAAAAAAemJ7AQ/original" width=900/>
+
+```js | ob { inject: true, pin: false }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
 });
 
+const data = [
+  {
+    date: '2025-07-01',
+    price: 600,
+    showLabel: 1,
+    tooltip: '最低价 ￥600',
+  },
+  {
+    date: '2025-07-02',
+    price: 660,
+  },
+  {
+    date: '2025-07-03',
+    price: 778,
+  },
+  {
+    date: '2025-07-04',
+    price: 780,
+  },
+  {
+    date: '2025-07-05',
+    price: 810,
+  },
+  {
+    date: '2025-07-06',
+    price: 815,
+  },
+  {
+    date: '2025-07-07',
+    price: 778,
+  },
+  {
+    date: '2025-07-08',
+    price: 778,
+  },
+  {
+    date: '2025-07-09',
+    price: 778,
+  },
+  {
+    date: '2025-07-10',
+    price: 778,
+  },
+  {
+    date: '2025-07-11',
+    price: 890,
+  },
+  {
+    date: '2025-07-12',
+    price: 814,
+  },
+  {
+    date: '2025-07-13',
+    price: 890,
+  },
+  {
+    date: '2025-07-14',
+    price: 820,
+  },
+  {
+    date: '2025-07-15',
+    price: 790,
+  },
+  {
+    date: '2025-07-16',
+    price: 810,
+  },
+  {
+    date: '2025-07-17',
+    price: 790,
+  },
+  {
+    date: '2025-07-18',
+    price: 860,
+  },
+  {
+    date: '2025-07-19',
+    price: 780,
+  },
+  {
+    date: '2025-07-20',
+    price: 860,
+  },
+  {
+    date: '2025-07-21',
+    price: 860,
+  },
+  {
+    date: '2025-07-22',
+    price: 860,
+  },
+  {
+    date: '2025-07-23',
+    price: 860,
+  },
+  {
+    date: '2025-07-24',
+    price: 860,
+  },
+  {
+    date: '2025-07-25',
+    price: 860,
+  },
+  {
+    date: '2025-07-26',
+    price: 860,
+  },
+  {
+    date: '2025-07-27',
+    price: 860,
+  },
+  {
+    date: '2025-07-28',
+    price: 860,
+  },
+  {
+    date: '2025-07-29',
+    price: 860,
+  },
+  {
+    date: '2025-07-30',
+    price: 860,
+  },
+  {
+    date: '2025-07-31',
+    price: 860,
+  },
+  {
+    date: '2025-08-01',
+    price: 860,
+  },
+  {
+    date: '2025-08-02',
+    price: 860,
+  },
+  {
+    date: '2025-08-03',
+    price: 860,
+  },
+  {
+    date: '2025-08-04',
+    price: 860,
+  },
+  {
+    date: '2025-08-05',
+    price: 860,
+  },
+  {
+    date: '2025-08-06',
+    price: 860,
+  },
+  {
+    date: '2025-08-07',
+    price: 860,
+  },
+  {
+    date: '2025-08-08',
+    price: 860,
+  },
+  {
+    date: '2025-08-09',
+    price: 860,
+  },
+  {
+    date: '2025-08-10',
+    price: 860,
+  },
+  {
+    date: '2025-08-11',
+    price: 860,
+  },
+  {
+    date: '2025-08-12',
+    price: 860,
+  },
+  {
+    date: '2025-08-13',
+    price: 860,
+  },
+  {
+    date: '2025-08-14',
+    price: 860,
+  },
+  {
+    date: '2025-08-15',
+    price: 860,
+  },
+  {
+    date: '2025-08-16',
+    price: 740,
+  },
+  {
+    date: '2025-08-17',
+    price: 740,
+  },
+  {
+    date: '2025-08-18',
+    price: 740,
+  },
+  {
+    date: '2025-08-19',
+    price: 740,
+  },
+  {
+    date: '2025-08-20',
+    price: 740,
+  },
+  {
+    date: '2025-08-21',
+    price: 740,
+  },
+  {
+    date: '2025-08-22',
+    price: 740,
+  },
+  {
+    date: '2025-08-23',
+    price: 740,
+  },
+  {
+    date: '2025-08-24',
+    price: 740,
+  },
+  {
+    date: '2025-08-25',
+    price: 740,
+  },
+  {
+    date: '2025-08-26',
+    price: 740,
+  },
+  {
+    date: '2025-08-27',
+    price: 740,
+  },
+  {
+    date: '2025-08-28',
+    price: 740,
+  },
+  {
+    date: '2025-08-29',
+    price: 740,
+  },
+  {
+    date: '2025-08-30',
+    price: 740,
+  },
+  {
+    date: '2025-08-31',
+    price: 740,
+    showLabel: 1,
+    tooltip: '最高价 ￥740',
+  },
+];
+const result = (data.filter((item) => item.showLabel) || []).map((item) => {
+  return {
+    type: 'lineX',
+    data: [item],
+    encode: {
+      x: 'date',
+      y: 'price',
+      color: 'linear-gradient(-90deg, #1677FF5B 0%,#1677FF 100%)',
+    },
+    style: {
+      lineWidth: 3,
+      lineDash: [3, 3],
+    },
+    labels: item.tooltip
+      ? [
+          {
+            text: 'tooltip',
+            fill: '#000000',
+            fillOpacity: 1,
+            fontSize: 22,
+            fontWeight: 500,
+            lineHeight: 30,
+            textAlign: 'center',
+            background: true,
+            backgroundFill: '#ffffff',
+            backgroundRadius: 24,
+            backgroundOpacity: 1,
+            backgroundPadding: [10, 16],
+            backgroundRadius: 10,
+            backgroundShadowColor: 'rgba(42,102,187,0.17)',
+            backgroundShadowBlur: 22,
+            transform: [{ type: 'exceedAdjust' }], // 默认 view 边界
+          },
+        ]
+      : [],
+  };
+});
+
 chart.options({
-  type: 'line',
-  autoFit: true,
-  height: 300,
-  data: {
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+  width: 654,
+  height: 310,
+  type: 'view',
+  margin: 20,
+  marginLeft: 10,
+  insetLeft: 24,
+  insetRight: 24,
+  insetBottom: 24,
+  animate: false,
+  axis: {
+    x: {
+      title: '',
+      size: 16,
+      line: true,
+      lineLineWidth: 1.5,
+      lineStroke: '#DEE3EB',
+      tick: false,
+      labelFontSize: 22,
+      labelFill: '#545C67',
+      labelFontWeight: 500,
+      labelDy: 8,
+      labelFormatter: (str) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(str)) {
+          const [year, month, day] = str.split('-');
+          return `${+month}月${+day}日`;
+        }
+        return str;
+      },
+      tickFilter: (d, index) => {
+        if (data[index]?.showLabel) {
+          return true;
+        }
+        return false;
+      },
+    },
+    y: {
+      title: '',
+      tick: false,
+      line: true,
+      lineStroke: '#DEE3EB',
+      lineLineWidth: 1.5,
+      labelDx: -8,
+      labelFontSize: 22,
+      labelFill: '#545C67',
+      labelFontWeight: 500,
+      grid: false,
+    },
   },
-  encode: {
-    x: (d) => new Date(d.date).getFullYear(),
-    y: 'price',
-    color: 'symbol',
+  scale: {
+    y: {
+      type: 'linear',
+      tickCount: 5,
+      domain: [600, 860],
+      nice: true,
+    },
   },
-  transform: [{ type: 'groupX', y: 'mean' }],
-  labels: [{ text: 'price', transform: [{ type: 'exceedAdjust' }] }],
+  children: [
+    {
+      type: 'area',
+      data: data,
+      encode: {
+        x: 'date',
+        y: 'price',
+        shape: 'smooth',
+      },
+      style: {
+        fill: `linear-gradient(-90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 50%,rgba(105, 168, 255, 0.61) 100%)`,
+      },
+    },
+    {
+      type: 'line',
+      data: data,
+      encode: {
+        x: 'date',
+        y: 'price',
+        shape: 'smooth',
+      },
+      style: {
+        stroke:
+          'linear-gradient(0deg, #91BDFF 0%, #1777FF 24.148%, #1777FF 75.172%,#1677FF32 100%)',
+        lineWidth: 6,
+      },
+    },
+    ...result,
+  ],
+});
+
+chart.render();
+```
+
+可以看出，设置区域为视图区域的时候，依然会遮挡坐标轴刻度值标签，此时需要修改 bounds 参数。
+
+##### 配置 `exceedAdjust` 转化标签 - main 边界
+
+使用 `bounds: 'main'` 配置，在标签超出主区域（不包含 margin 和 padding）时就会进行调整。
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [
+  {
+    date: '2025-07-01',
+    price: 600,
+    showLabel: 1,
+    tooltip: '最低价 ￥600',
+  },
+  {
+    date: '2025-07-02',
+    price: 660,
+  },
+  {
+    date: '2025-07-03',
+    price: 778,
+  },
+  {
+    date: '2025-07-04',
+    price: 780,
+  },
+  {
+    date: '2025-07-05',
+    price: 810,
+  },
+  {
+    date: '2025-07-06',
+    price: 815,
+  },
+  {
+    date: '2025-07-07',
+    price: 778,
+  },
+  {
+    date: '2025-07-08',
+    price: 778,
+  },
+  {
+    date: '2025-07-09',
+    price: 778,
+  },
+  {
+    date: '2025-07-10',
+    price: 778,
+  },
+  {
+    date: '2025-07-11',
+    price: 890,
+  },
+  {
+    date: '2025-07-12',
+    price: 814,
+  },
+  {
+    date: '2025-07-13',
+    price: 890,
+  },
+  {
+    date: '2025-07-14',
+    price: 820,
+  },
+  {
+    date: '2025-07-15',
+    price: 790,
+  },
+  {
+    date: '2025-07-16',
+    price: 810,
+  },
+  {
+    date: '2025-07-17',
+    price: 790,
+  },
+  {
+    date: '2025-07-18',
+    price: 860,
+  },
+  {
+    date: '2025-07-19',
+    price: 780,
+  },
+  {
+    date: '2025-07-20',
+    price: 860,
+  },
+  {
+    date: '2025-07-21',
+    price: 860,
+  },
+  {
+    date: '2025-07-22',
+    price: 860,
+  },
+  {
+    date: '2025-07-23',
+    price: 860,
+  },
+  {
+    date: '2025-07-24',
+    price: 860,
+  },
+  {
+    date: '2025-07-25',
+    price: 860,
+  },
+  {
+    date: '2025-07-26',
+    price: 860,
+  },
+  {
+    date: '2025-07-27',
+    price: 860,
+  },
+  {
+    date: '2025-07-28',
+    price: 860,
+  },
+  {
+    date: '2025-07-29',
+    price: 860,
+  },
+  {
+    date: '2025-07-30',
+    price: 860,
+  },
+  {
+    date: '2025-07-31',
+    price: 860,
+  },
+  {
+    date: '2025-08-01',
+    price: 860,
+  },
+  {
+    date: '2025-08-02',
+    price: 860,
+  },
+  {
+    date: '2025-08-03',
+    price: 860,
+  },
+  {
+    date: '2025-08-04',
+    price: 860,
+  },
+  {
+    date: '2025-08-05',
+    price: 860,
+  },
+  {
+    date: '2025-08-06',
+    price: 860,
+  },
+  {
+    date: '2025-08-07',
+    price: 860,
+  },
+  {
+    date: '2025-08-08',
+    price: 860,
+  },
+  {
+    date: '2025-08-09',
+    price: 860,
+  },
+  {
+    date: '2025-08-10',
+    price: 860,
+  },
+  {
+    date: '2025-08-11',
+    price: 860,
+  },
+  {
+    date: '2025-08-12',
+    price: 860,
+  },
+  {
+    date: '2025-08-13',
+    price: 860,
+  },
+  {
+    date: '2025-08-14',
+    price: 860,
+  },
+  {
+    date: '2025-08-15',
+    price: 860,
+  },
+  {
+    date: '2025-08-16',
+    price: 740,
+  },
+  {
+    date: '2025-08-17',
+    price: 740,
+  },
+  {
+    date: '2025-08-18',
+    price: 740,
+  },
+  {
+    date: '2025-08-19',
+    price: 740,
+  },
+  {
+    date: '2025-08-20',
+    price: 740,
+  },
+  {
+    date: '2025-08-21',
+    price: 740,
+  },
+  {
+    date: '2025-08-22',
+    price: 740,
+  },
+  {
+    date: '2025-08-23',
+    price: 740,
+  },
+  {
+    date: '2025-08-24',
+    price: 740,
+  },
+  {
+    date: '2025-08-25',
+    price: 740,
+  },
+  {
+    date: '2025-08-26',
+    price: 740,
+  },
+  {
+    date: '2025-08-27',
+    price: 740,
+  },
+  {
+    date: '2025-08-28',
+    price: 740,
+  },
+  {
+    date: '2025-08-29',
+    price: 740,
+  },
+  {
+    date: '2025-08-30',
+    price: 740,
+  },
+  {
+    date: '2025-08-31',
+    price: 740,
+    showLabel: 1,
+    tooltip: '最高价 ￥740',
+  },
+];
+const result = (data.filter((item) => item.showLabel) || []).map((item) => {
+  return {
+    type: 'lineX',
+    data: [item],
+    encode: {
+      x: 'date',
+      y: 'price',
+      color: 'linear-gradient(-90deg, #1677FF5B 0%,#1677FF 100%)',
+    },
+    style: {
+      lineWidth: 3,
+      lineDash: [3, 3],
+    },
+    labels: item.tooltip
+      ? [
+          {
+            text: 'tooltip',
+            fill: '#000000',
+            fillOpacity: 1,
+            fontSize: 22,
+            fontWeight: 500,
+            lineHeight: 30,
+            textAlign: 'center',
+            background: true,
+            backgroundFill: '#ffffff',
+            backgroundRadius: 24,
+            backgroundOpacity: 1,
+            backgroundPadding: [10, 16],
+            backgroundRadius: 10,
+            backgroundShadowColor: 'rgba(42,102,187,0.17)',
+            backgroundShadowBlur: 22,
+            transform: [{ type: 'exceedAdjust', bounds: 'main', offsetX: 15 }], // 边界配置为主区域，并且水平方向偏移为 15
+          },
+        ]
+      : [],
+  };
+});
+
+chart.options({
+  width: 654,
+  height: 310,
+  type: 'view',
+  margin: 20,
+  marginLeft: 10,
+  insetLeft: 24,
+  insetRight: 24,
+  insetBottom: 24,
+  animate: false,
+  axis: {
+    x: {
+      title: '',
+      size: 16,
+      line: true,
+      lineLineWidth: 1.5,
+      lineStroke: '#DEE3EB',
+      tick: false,
+      labelFontSize: 22,
+      labelFill: '#545C67',
+      labelFontWeight: 500,
+      labelDy: 8,
+      labelFormatter: (str) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(str)) {
+          const [year, month, day] = str.split('-');
+          return `${+month}月${+day}日`;
+        }
+        return str;
+      },
+      tickFilter: (d, index) => {
+        if (data[index]?.showLabel) {
+          return true;
+        }
+        return false;
+      },
+    },
+    y: {
+      title: '',
+      tick: false,
+      line: true,
+      lineStroke: '#DEE3EB',
+      lineLineWidth: 1.5,
+      labelDx: -8,
+      labelFontSize: 22,
+      labelFill: '#545C67',
+      labelFontWeight: 500,
+      grid: false,
+    },
+  },
+  scale: {
+    y: {
+      type: 'linear',
+      tickCount: 5,
+      domain: [600, 860],
+      nice: true,
+    },
+  },
+  children: [
+    {
+      type: 'area',
+      data: data,
+      encode: {
+        x: 'date',
+        y: 'price',
+        shape: 'smooth',
+      },
+      style: {
+        fill: `linear-gradient(-90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 50%,rgba(105, 168, 255, 0.61) 100%)`,
+      },
+    },
+    {
+      type: 'line',
+      data: data,
+      encode: {
+        x: 'date',
+        y: 'price',
+        shape: 'smooth',
+      },
+      style: {
+        stroke:
+          'linear-gradient(0deg, #91BDFF 0%, #1777FF 24.148%, #1777FF 75.172%,#1677FF32 100%)',
+        lineWidth: 6,
+      },
+    },
+    ...result,
+  ],
 });
 
 chart.render();
@@ -639,83 +1440,82 @@ chart.render();
 
 支持 9 种位置：`top`, `left`, `right`, `bottom`, `top-left`, `top-right`, `bottom-left`, `bottom-right`, `inside`。
 
-```js | ob
-(() => {
-  const chart = new G2.Chart();
+```js | ob { inject: true }
+const { Chart, ChartEvent } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 
-  chart.options({
-    height: 300,
-    type: 'cell',
-    data: [
-      { x: 'x-a', y: 'y-a', data: 1 },
-      { x: 'x-a', y: 'y-b', data: 3 },
-      { x: 'x-a', y: 'y-c', data: 2 },
-      { x: 'x-b', y: 'y-a', data: 8 },
-      { x: 'x-b', y: 'y-b', data: 5 },
-      { x: 'x-b', y: 'y-c', data: 6 },
-      { x: 'x-c', y: 'y-a', data: 7 },
-      { x: 'x-c', y: 'y-b', data: 4 },
-      { x: 'x-c', y: 'y-c', data: 9 },
-    ],
-    legend: false,
-    axis: false,
-    encode: {
-      x: 'x', // 编码 x 轴
-      y: 'y', // 编码 y 轴
-      color: 'data', // 使用数据中的 data1 字段
+chart.options({
+  height: 300,
+  type: 'cell',
+  data: [
+    { x: 'x-a', y: 'y-a', data: 1 },
+    { x: 'x-a', y: 'y-b', data: 3 },
+    { x: 'x-a', y: 'y-c', data: 2 },
+    { x: 'x-b', y: 'y-a', data: 8 },
+    { x: 'x-b', y: 'y-b', data: 5 },
+    { x: 'x-b', y: 'y-c', data: 6 },
+    { x: 'x-c', y: 'y-a', data: 7 },
+    { x: 'x-c', y: 'y-b', data: 4 },
+    { x: 'x-c', y: 'y-c', data: 9 },
+  ],
+  legend: false,
+  axis: false,
+  encode: {
+    x: 'x', // 编码 x 轴
+    y: 'y', // 编码 y 轴
+    color: 'data', // 使用数据中的 data1 字段
+  },
+  labels: [
+    {
+      text: 'data',
+      style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
     },
+  ],
+  style: {
+    inset: 5,
+    lineWidth: 10,
+  },
+});
+
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = 'position: ';
+const selector = document.createElement('select');
+selector.innerHTML = [
+  'top',
+  'left',
+  'right',
+  'bottom',
+  'top-left',
+  'top-right',
+  'bottom-left',
+  'bottom-right',
+  'inside',
+].reduce((v, position) => {
+  return `${v}<option value="${position}" ${
+    position === 'top' ? 'selected' : ''
+  }>${position}</option>`;
+}, '');
+
+selector.onchange = (e) => {
+  chart.options({
     labels: [
       {
         text: 'data',
+        position: e.target.value,
         style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
       },
     ],
-    style: {
-      inset: 5,
-      lineWidth: 10,
-    },
   });
+  chart.render(); // 重新渲染图表
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = 'position: ';
-  const selector = document.createElement('select');
-  selector.innerHTML = [
-    'top',
-    'left',
-    'right',
-    'bottom',
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right',
-    'inside',
-  ].reduce((v, position) => {
-    return `${v}<option value="${position}" ${
-      position === 'top' ? 'selected' : ''
-    }>${position}</option>`;
-  }, '');
-
-  selector.onchange = (e) => {
-    chart.options({
-      labels: [
-        {
-          text: 'data',
-          position: e.target.value,
-          style: { fontSize: 16, stroke: '#fff', lineWidth: 2 },
-        },
-      ],
-    });
-    chart.render(); // 重新渲染图表
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 #### 非笛卡尔坐标系下
@@ -762,24 +1562,26 @@ chart.render();
 
 | 属性          | 描述                                                                                                                        | 类型                                                | 默认值    | 必选 |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------- | ---- |
-| fontSize      | 文字大小                                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
-| fontFamily    | 文字字体                                                                                                                    | _string_ \| _Function<string>_                      | -         |      |
-| fontWeight    | 字体粗细                                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
-| lineHeight    | 文字的行高                                                                                                                  | _number_ \| _Function<number>_                      | -         |      |
-| textAlign     | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`                  | _string_ \| _Function<string>_                      | -         |      |
-| textBaseline  | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom` | _string_ \| _Function<string>_                      | -         |      |
-| fill          | 图形的填充色                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
-| fillOpacity   | 图形的填充透明度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
-| stroke        | 图形的描边                                                                                                                  | _string_ \| _Function<string>_                      | -         |      |
-| strokeOpacity | 描边透明度                                                                                                                  | _number_ \| _Function<number>_                      | -         |      |
-| lineWidth     | 图形描边的宽度                                                                                                              | _number_ \| _Function<number>_                      | -         |      |
-| lineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。               | _\[number,number\]_ \| _Function<[number, number]>_ | -         |      |
-| opacity       | 图形的整体透明度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
-| shadowColor   | 图形阴影颜色                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
-| shadowBlur    | 图形阴影的高斯模糊系数                                                                                                      | _number_ \| _Function<number>_                      | -         |      |
-| shadowOffsetX | 设置阴影距图形的水平距离                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
-| shadowOffsetY | 设置阴影距图形的垂直距离                                                                                                    | _number_ \| _Function<number>_                      | -         |      |
+| fontSize      | 标签文字大小                                                                                                                | _number_ \| _Function<number>_                      | -         |      |
+| fontFamily    | 标签文字字体                                                                                                                | _string_ \| _Function<string>_                      | -         |      |
+| fontWeight    | 标签文字粗细                                                                                                                | _number_ \| _Function<number>_                      | -         |      |
+| lineHeight    | 标签文字的行高                                                                                                              | _number_ \| _Function<number>_                      | -         |      |
+| textAlign     | 设置标签文字内容的水平对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`              | _string_ \| _Function<string>_                      | `start`   |      |
+| textBaseline  | 设置在绘制标签文字时垂直方向的基线, 支持的属性:`top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom` | _string_ \| _Function<string>_                      | `bottom`  |      |
+| fill          | 标签文字的填充色                                                                                                            | _string_ \| _Function<string>_                      | -         |      |
+| fillOpacity   | 标签文字的填充透明度                                                                                                        | _number_ \| _Function<number>_                      | -         |      |
+| stroke        | 标签文字的描边                                                                                                              | _string_ \| _Function<string>_                      | -         |      |
+| strokeOpacity | 标签文字描边透明度                                                                                                          | _number_ \| _Function<number>_                      | -         |      |
+| lineWidth     | 标签文字描边宽度                                                                                                            | _number_ \| _Function<number>_                      | -         |      |
+| lineDash      | 标签文字描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0, 0]的效果为没有描边。       | _\[number,number\]_ \| _Function<[number, number]>_ | -         |      |
+| opacity       | 标签文字的整体透明度                                                                                                        | _number_ \| _Function<number>_                      | -         |      |
+| shadowColor   | 标签文字阴影颜色                                                                                                            | _string_ \| _Function<string>_                      | -         |      |
+| shadowBlur    | 标签文字阴影的高斯模糊系数                                                                                                  | _number_ \| _Function<number>_                      | -         |      |
+| shadowOffsetX | 标签文字阴影水平偏移量                                                                                                      | _number_ \| _Function<number>_                      | -         |      |
+| shadowOffsetY | 标签文字阴影垂直偏移量                                                                                                      | _number_ \| _Function<number>_                      | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                               | _string_ \| _Function<string>_                      | `default` |      |
+| dx            | 标签文字在水平方向的偏移量                                                                                                  | _number_ \| _Function<number>_                      | 0         |      |
+| dy            | 标签文字在垂直方向的偏移量                                                                                                  | _number_ \| _Function<number>_                      | 0         |      |
 
 ```js
 ({
@@ -809,17 +1611,23 @@ chart.render();
 
 ### connector
 
-标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线描边色。 需要 position `spider`、`surround` 才会有 connector 元素。
+标签**连接线样式**配置，格式为: `connector${style}`, 如: `connectorStroke` 代表连接线的颜色。 需要 position `spider`、`surround` 才会有 connector 元素。
 
-| 参数               | 说明                 | 类型                | 默认值 | 必选 |
-| ------------------ | -------------------- | ------------------- | ------ | ---- |
-| connectorStroke    | 连接线描边色         | _string_            | -      |      |
-| connectorLineWidth | 连接线描边线宽       | _number_            | -      |      |
-| connectorLineDash  | 连接线描边的虚线配置 | _\[number,number\]_ | -      |      |
-| connectorOpacity   | 连接线描边透明度     | _number_            | -      |      |
-| connectorDistance  | 连接线和文本的间距   | _number_            | -      |      |
+| 参数                   | 说明                                                                                                         | 类型                | 默认值    | 必选 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------- | --------- | ---- |
+| connectorStroke        | 连接线的颜色                                                                                                 | _string_            | -         |      |
+| connectorStrokeOpacity | 连接线的透明度                                                                                               | _number_            | -         |      |
+| connectorLineWidth     | 连接线描边宽度                                                                                               | _number_            | -         |      |
+| connectorLineDash      | 连接线虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _\[number,number\]_ | -         |      |
+| connectorOpacity       | 连接线的整体透明度                                                                                           | _number_            | -         |      |
+| connectorShadowColor   | 连接线阴影颜色                                                                                               | _string_            | -         |      |
+| connectorShadowBlur    | 连接线阴影的高斯模糊系数                                                                                     | _number_            | -         |      |
+| connectorShadowOffsetX | 连接线阴影水平偏移量                                                                                         | _number_            | -         |      |
+| connectorShadowOffsetY | 连接线阴影垂直偏移量                                                                                         | _number_            | -         |      |
+| connectorCursor        | 鼠标样式。同 css 的鼠标样式                                                                                  | _string_            | `default` |      |
+| connectorDistance      | 连接线和文本的距离                                                                                           | _number_            | -         |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -864,16 +1672,24 @@ chart.render();
 
 标签**文本背景框样式**配置，格式为: `background${style}`, 如: `backgroundFill` 代表背景框填充色。
 
-| 参数                | 说明             | 类型                | 默认值 | 必选 |
-| ------------------- | ---------------- | ------------------- | ------ | ---- |
-| backgroundFill      | 背景框填充色     | _string_            | -      |      |
-| backgroundRadius    | 背景框圆角半径   | _number_            | -      |      |
-| backgroundPadding   | 背景框内间距     | _number[]_          | -      |      |
-| backgroundStroke    | 背景描边颜色     | _string_            | -      |      |
-| backgroundLineDash  | 背景描边虚线配置 | _\[number,number\]_ | -      |      |
-| backgroundLineWidth | 背景描边宽度     | _number_            | -      |      |
+| 参数                    | 说明                                                                                                             | 类型                | 默认值    | 必选 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------- | --------- | ---- |
+| backgroundFill          | 背景框的填充色                                                                                                   | _string_            | -         |      |
+| backgroundFillOpacity   | 背景框的填充透明度                                                                                               | _number_            | -         |      |
+| backgroundStroke        | 背景框的描边                                                                                                     | _string_            | -         |      |
+| backgroundStrokeOpacity | 背景框描边透明度                                                                                                 | _number_            | -         |      |
+| backgroundLineWidth     | 背景框描边宽度                                                                                                   | _number_            | -         |      |
+| backgroundLineDash      | 背景框描边虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 | _\[number,number\]_ | -         |      |
+| backgroundOpacity       | 背景框的整体透明度                                                                                               | _number_            | -         |      |
+| backgroundShadowColor   | 背景框阴影颜色                                                                                                   | _string_            | -         |      |
+| backgroundShadowBlur    | 背景框阴影的高斯模糊系数                                                                                         | _number_            | -         |      |
+| backgroundShadowOffsetX | 背景框阴影水平偏移量                                                                                             | _number_            | -         |      |
+| backgroundShadowOffsetY | 背景框阴影垂直偏移量                                                                                             | _number_            | -         |      |
+| backgroundCursor        | 鼠标样式。同 css 的鼠标样式                                                                                      | _string_            | `default` |      |
+| backgroundRadius        | 背景框圆角半径                                                                                                   | _number_            | -         |      |
+| backgroundPadding       | 背景框内边距                                                                                                     | _number[]_          | -         |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

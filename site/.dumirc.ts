@@ -54,6 +54,9 @@ export default defineConfig({
       show: true, // 开启petercat辅助答疑机器人
       token: '26c62f06-1155-4b2c-8f4b-aa443d4af2c6',
     },
+    showWeavefox: {
+      internal: true,
+    },
     links: true, // 是否显示links研发小蜜
     feedback: true, // 开启文档用户反馈
     versions: {
@@ -70,28 +73,20 @@ export default defineConfig({
     navs: [
       // 头部的菜单列表
       {
+        slug: 'docs/charts/overview',
+        title: {
+          zh: '图表介绍',
+          en: 'Chart Gallery',
+        },
+        order: 1,
+      },
+      {
         slug: 'docs/manual/quick-start',
         title: {
           zh: '文档',
           en: 'Docs',
         },
-        order: 3,
-      },
-      {
-        slug: 'docs/charts/overview',
-        title: {
-          zh: '图表介绍',
-          en: 'Chart Introduction',
-        },
         order: 2,
-      },
-      {
-        slug: 'docs/api/overview',
-        title: {
-          zh: 'API',
-          en: 'API',
-        },
-        order: 1,
       },
       {
         slug: 'examples',
@@ -142,7 +137,7 @@ export default defineConfig({
           zh: '核心概念',
           en: 'Core Concepts',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'manual/core/chart',

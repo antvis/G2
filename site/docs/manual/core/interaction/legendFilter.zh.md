@@ -58,7 +58,7 @@ chart.render();
     size: {},
   },
   interaction: {
-    legengFilter: true, // 启用图例筛选交互
+    legendFilter: true, // 启用图例筛选交互
   },
 });
 ```
@@ -130,7 +130,7 @@ chart.emit('legend:reset', {});
 
 下面展示了一个离散型数据的 legendfilter 交互功能。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -62,7 +62,7 @@ type Reducer =
 
 ### 1. 散点图 y 轴分组排序
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -90,7 +90,7 @@ chart.render();
 
 ### 2. 只显示 Top 2 个分组（slice）
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

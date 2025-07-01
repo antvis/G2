@@ -196,7 +196,7 @@ chart.emit('element:unhighlight', {});
 
 ### 基础高亮
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -221,7 +221,7 @@ chart.render();
 
 ### 自定义高亮
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

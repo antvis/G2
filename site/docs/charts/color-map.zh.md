@@ -24,14 +24,14 @@ similar: ['heatmap', 'treemap']
 
 <img alt="color-map-basic" src="https://os.alipayobjects.com/rmsportal/nbdQjrGfLveruGA.png" width=600 />
 
-| 图表类型         | 基础色块图                                                                                              |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 具有两个分类维度和一个数值维度的数据集                                                                  |
-| 功能             | 展示两个分类维度和一个数值变量之间的关系                                                                |
-| 数据与图形的映射 | 两个分类数据维度映射到网格的行和列<br>数值数据映射到颜色深浅<br>可以添加文本标签显示具体数值             |
-| 适合的数据条数   | 每个维度通常不超过20个分类，总单元格数建议不超过400个                                                   |
+| 图表类型         | 基础色块图                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| 适合的数据       | 具有两个分类维度和一个数值维度的数据集                                                       |
+| 功能             | 展示两个分类维度和一个数值变量之间的关系                                                     |
+| 数据与图形的映射 | 两个分类数据维度映射到网格的行和列<br>数值数据映射到颜色深浅<br>可以添加文本标签显示具体数值 |
+| 适合的数据条数   | 每个维度通常不超过 20 个分类，总单元格数建议不超过 400 个                                    |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -72,7 +72,7 @@ chart.options({
         x: 'month',
         y: 'product',
         color: 'sales',
-        link: 'sales'
+        link: 'sales',
       },
       style: {
         inset: 1,
@@ -108,14 +108,14 @@ chart.render();
 
 <img alt="color-map-conditional" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dt1gSZ4uiz8AAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| 图表类型         | 带条件格式的色块图                                                                                      |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 需要突出显示特定阈值或范围的数据集                                                                      |
-| 功能             | 根据数据值的不同范围应用不同的颜色编码，突出显示关键数据点                                               |
-| 数据与图形的映射 | 除基础色块图的映射外，还可以添加自定义的颜色区间和边界标记                                               |
+| 图表类型         | 带条件格式的色块图                                                                                         |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| 适合的数据       | 需要突出显示特定阈值或范围的数据集                                                                         |
+| 功能             | 根据数据值的不同范围应用不同的颜色编码，突出显示关键数据点                                                 |
+| 数据与图形的映射 | 除基础色块图的映射外，还可以添加自定义的颜色区间和边界标记                                                 |
 | 使用建议         | 为不同颜色区间添加清晰的图例说明<br>使用对比鲜明的颜色表示不同的数据状态<br>避免使用过多的颜色区间造成混淆 |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -145,14 +145,19 @@ const data = [
 ];
 
 // 计算每个单元格的性能状态
-const processedData = data.map(d => ({
+const processedData = data.map((d) => ({
   ...d,
   // 计算与目标的比例
   performance: d.sales / d.target,
   // 添加状态标签
-  status: d.sales < d.target * 0.8 ? '不达标' : 
-          d.sales < d.target ? '接近目标' : 
-          d.sales < d.target * 1.2 ? '达标' : '超额完成'
+  status:
+    d.sales < d.target * 0.8
+      ? '不达标'
+      : d.sales < d.target
+      ? '接近目标'
+      : d.sales < d.target * 1.2
+      ? '达标'
+      : '超额完成',
 }));
 
 chart.options({
@@ -175,11 +180,11 @@ chart.options({
       },
       labels: [
         {
-          text: d => `${d.sales}/${d.target}`,
+          text: (d) => `${d.sales}/${d.target}`,
           style: {
             fill: (d) => (d.performance > 0.95 ? '#fff' : '#000'),
             textAlign: 'center',
-            fontSize: 11
+            fontSize: 11,
           },
         },
       ],
@@ -212,12 +217,12 @@ chart.render();
 下图是模拟的杭州地铁票价图。这个色块图展示了不同地铁站点之间的票价关系，通过颜色深浅表示不同的票价级别。可以快速识别票价区间以及任意两站间的出行成本。
 
 | from（起点） | to（终点） | price（票价） |
-| ------------- | --------------- | --------------- |
-| 湘湖          | 滨和路           | 2             |
-| 湘湖          | 西兴             | 3             |
-| ...           | ...             | ...             |
+| ------------ | ---------- | ------------- |
+| 湘湖         | 滨和路     | 2             |
+| 湘湖         | 西兴       | 3             |
+| ...          | ...        | ...           |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -228,10 +233,31 @@ const chart = new Chart({
 
 // 地铁1号线站点
 const sites = [
-  "湘湖", "滨康路", "西兴", "滨和路", "江陵路", "近江",
-  "婺江路", "城站", "定安路", "龙翔桥", "凤起路", "武林广场", 
-  "西湖文化广场", "打铁关", "火车东站", "闸弄口", "彭埠", "七堡",
-  "九和路", "九堡", "客运中心", "下沙西", "金沙湖", "高沙路", "文泽路"
+  '湘湖',
+  '滨康路',
+  '西兴',
+  '滨和路',
+  '江陵路',
+  '近江',
+  '婺江路',
+  '城站',
+  '定安路',
+  '龙翔桥',
+  '凤起路',
+  '武林广场',
+  '西湖文化广场',
+  '打铁关',
+  '火车东站',
+  '闸弄口',
+  '彭埠',
+  '七堡',
+  '九和路',
+  '九堡',
+  '客运中心',
+  '下沙西',
+  '金沙湖',
+  '高沙路',
+  '文泽路',
 ];
 
 // 生成地铁票价数据
@@ -301,7 +327,15 @@ chart.options({
   scale: {
     color: {
       domain: [2, 3, 4, 5, 6, 7, 8],
-      range: ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4', '#2c7fb8', '#253494', '#081d58'],
+      range: [
+        '#ffffcc',
+        '#c7e9b4',
+        '#7fcdbb',
+        '#41b6c4',
+        '#2c7fb8',
+        '#253494',
+        '#081d58',
+      ],
     },
     from: {
       values: sites,
@@ -324,26 +358,13 @@ chart.options({
       tickLine: false,
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: '杭州地铁1号线票价图（模拟）',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();
 ```
 
 **分析**：
+
 - 站名映射到了 `x`、`y` 轴，以确定位置
 - 票价映射到颜色深浅
 - 票价数据是模拟的，仅表示大概情况
@@ -351,7 +372,7 @@ chart.render();
 
 例子 2: **考试成绩分析**
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -359,19 +380,28 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const students = ['张三', '李四', '王五', '赵六', '钱七', '孙八', '周九', '吴十'];
+const students = [
+  '张三',
+  '李四',
+  '王五',
+  '赵六',
+  '钱七',
+  '孙八',
+  '周九',
+  '吴十',
+];
 const subjects = ['语文', '数学', '英语', '物理', '化学', '生物'];
 
 // 生成成绩数据
 const data = [];
-students.forEach(student => {
-  subjects.forEach(subject => {
+students.forEach((student) => {
+  subjects.forEach((subject) => {
     // 随机生成50-100之间的成绩
     const score = Math.floor(Math.random() * 51) + 50;
     data.push({
       student,
       subject,
-      score
+      score,
     });
   });
 });
@@ -418,20 +448,6 @@ chart.options({
       range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2', '#5B8FF9'],
     },
   },
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: '学生成绩分析',
-        x: '50%',
-        y: '0%',
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        dy: -20
-      }
-    }
-  ]
 });
 
 chart.render();
@@ -443,7 +459,7 @@ chart.render();
 
 当数据集只有少量的分类交叉点时，色块图可能不是最佳选择，这种情况下简单的表格或条形图可能更为直观。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -486,7 +502,7 @@ chart.render();
 
 这种情况下，使用柱状图会更加直观：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -501,10 +517,10 @@ chart.options({
     { region: '东部', year: '2022', value: 125 },
     { region: '西部', year: '2022', value: 87 },
   ],
-  encode: { 
-    x: 'region', 
-    y: 'value', 
-    color: 'region' 
+  encode: {
+    x: 'region',
+    y: 'value',
+    color: 'region',
   },
   labels: [
     {
@@ -521,7 +537,7 @@ chart.render();
 
 当需要展示随时间的精确变化趋势时，色块图不如折线图直观。以下是一个使用色块图展示月度数据变化的例子，但这种情况更适合使用折线图。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -529,11 +545,24 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const months = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+const months = [
+  '一月',
+  '二月',
+  '三月',
+  '四月',
+  '五月',
+  '六月',
+  '七月',
+  '八月',
+  '九月',
+  '十月',
+  '十一月',
+  '十二月',
+];
 const data = months.map((month, index) => ({
   month,
   metric: '销售额',
-  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10
+  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10,
 }));
 
 chart.options({
@@ -553,7 +582,7 @@ chart.options({
       },
       labels: [
         {
-          text: d => d.value.toFixed(0),
+          text: (d) => d.value.toFixed(0),
         },
       ],
     },
@@ -565,7 +594,7 @@ chart.render();
 
 使用折线图更适合展示趋势：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -573,19 +602,32 @@ const chart = new Chart({
   theme: 'classic',
 });
 
-const months = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+const months = [
+  '一月',
+  '二月',
+  '三月',
+  '四月',
+  '五月',
+  '六月',
+  '七月',
+  '八月',
+  '九月',
+  '十月',
+  '十一月',
+  '十二月',
+];
 const data = months.map((month, index) => ({
   month,
-  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10
+  value: 100 + Math.sin(index / 2) * 50 + Math.random() * 10,
 }));
 
 chart.options({
   type: 'line',
   autoFit: true,
   data,
-  encode: { 
-    x: 'month', 
-    y: 'value' 
+  encode: {
+    x: 'month',
+    y: 'value',
   },
   style: {
     lineWidth: 2,
@@ -596,7 +638,7 @@ chart.options({
   },
   labels: [
     {
-      text: d => d.value.toFixed(0),
+      text: (d) => d.value.toFixed(0),
       position: 'top',
     },
   ],
@@ -607,25 +649,26 @@ chart.render();
 
 ## 色块图与其他图表的对比
 
-### 色块图和[热力图](/charts/heatmap)、[矩阵树图](/charts/treemap)
+### 色块图和[热力图](/charts/heatmap)、[矩形树图](/charts/treemap)
 
-| 图表类型 | 主要特点 | 适用场景 | 数据要求 |
-|---------|---------|---------|---------|
-| 色块图 | 使用规则网格展示两个分类维度的交叉 | 分类数据之间的关系对比 | 两个分类维度和一个数值维度 |
-| 热力图 | 可以使用连续尺度，展示数据的空间分布 | 展示空间密度或强度分布 | 通常需要连续的或近似连续的数据 |
-| 矩阵树图 | 通过嵌套矩形展示层次结构数据 | 表示层次数据的比例关系 | 需要有明确的层次结构 |
-
+| 图表类型 | 主要特点                             | 适用场景               | 数据要求                       |
+| -------- | ------------------------------------ | ---------------------- | ------------------------------ |
+| 色块图   | 使用规则网格展示两个分类维度的交叉   | 分类数据之间的关系对比 | 两个分类维度和一个数值维度     |
+| 热力图   | 可以使用连续尺度，展示数据的空间分布 | 展示空间密度或强度分布 | 通常需要连续的或近似连续的数据 |
+| 矩形树图 | 通过嵌套矩形展示层次结构数据         | 表示层次数据的比例关系 | 需要有明确的层次结构           |
 
 ## 色块图最佳实践
 
 ### 设计建议
 
 1. **颜色选择**
+
    - 使用顺序色板表示连续数据的大小变化
    - 使用发散色板表示与中心值的偏离程度
    - 为颜色添加明确的图例和说明
 
 2. **网格设计**
+
    - 保持网格单元大小一致，确保可读性
    - 在单元格中添加数值标签，增强精确度
    - 考虑在单元格之间添加间距，提高辨识度
@@ -635,7 +678,7 @@ chart.render();
    - 添加悬停交互，显示详细信息
    - 考虑添加排序功能，便于数据比较
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -661,7 +704,7 @@ rows.forEach((row) => {
     });
   });
 });
-console.log('data', data)
+console.log('data', data);
 
 chart.options({
   type: 'view',
@@ -711,7 +754,6 @@ chart.options({
 
 chart.render();
 ```
-
 
 ## 色块图的扩展
 

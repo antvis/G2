@@ -7,7 +7,7 @@
     {
       "filename": "density.ts",
       "title": {
-        "zh": "和密度图",
+        "zh": "核密度图",
         "en": "Density with KDE"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-EcIQ7sKufsAAAAAAAAAAAAADmJ7AQ/original"

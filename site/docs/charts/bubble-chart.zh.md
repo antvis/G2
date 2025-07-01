@@ -30,13 +30,13 @@ similar: ['scatter', 'bubble-map']
 
 <img alt="bubble-basic" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z8JFRLxrs_IAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| 图表类型         | 基础气泡图                                                                                      |
-| ---------------- | ----------------------------------------------------------------------------------------------- |
-| 适合的数据       | 多维度数据：至少两个连续型数据字段（X、Y轴）和一个数值型数据字段（气泡大小）                    |
-| 功能             | 展示多个变量之间的关系，发现数据模式和相关性                                                    |
-| 数据与图形的映射 | 两个连续变量映射到XY坐标<br>第三个变量映射到气泡的大小<br>可选的分类型变量映射到气泡的颜色或形状 |
-| 适合的数据条数   | 通常不超过100个数据点，过多会导致图表拥挤                                                       |
-| 视觉设计建议     | 使用半透明气泡避免重叠遮挡<br>气泡大小范围应适中，避免过大或过小<br>添加网格线辅助阅读坐标值      |
+| 图表类型         | 基础气泡图                                                                                         |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| 适合的数据       | 多维度数据：至少两个连续型数据字段（X、Y 轴）和一个数值型数据字段（气泡大小）                      |
+| 功能             | 展示多个变量之间的关系，发现数据模式和相关性                                                       |
+| 数据与图形的映射 | 两个连续变量映射到 XY 坐标<br>第三个变量映射到气泡的大小<br>可选的分类型变量映射到气泡的颜色或形状 |
+| 适合的数据条数   | 通常不超过 100 个数据点，过多会导致图表拥挤                                                        |
+| 视觉设计建议     | 使用半透明气泡避免重叠遮挡<br>气泡大小范围应适中，避免过大或过小<br>添加网格线辅助阅读坐标值       |
 
 ---
 
@@ -44,14 +44,14 @@ similar: ['scatter', 'bubble-map']
 
 <img alt="bubble-log" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mezjR7Iy-TYAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| 图表类型         | 对数气泡图                                                                                           |
-| ---------------- | ---------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 数值范围差异极大的数据集，需要对数变换来展示                                                         |
-| 功能             | 处理数据跨度很大的情况，如人口数据、GDP数据等                                                        |
-| 数据与图形的映射 | 与基础气泡图相同，但采用对数比例尺<br>两个连续变量映射到XY坐标<br>第三个变量通过对数映射到气泡的大小 |
-| 使用场景         | 当数据出现指数增长或数值范围跨越多个数量级时                                                         |
-| 实现方法         | 使用`scale: { size: { type: 'log', range: [4, 20] } }`配置对数比例尺                                |
-| 注意事项         | 应在图例或标签中明确指出使用了对数变换，避免误导读者                                                 |
+| 图表类型         | 对数气泡图                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| 适合的数据       | 数值范围差异极大的数据集，需要对数变换来展示                                                           |
+| 功能             | 处理数据跨度很大的情况，如人口数据、GDP 数据等                                                         |
+| 数据与图形的映射 | 与基础气泡图相同，但采用对数比例尺<br>两个连续变量映射到 XY 坐标<br>第三个变量通过对数映射到气泡的大小 |
+| 使用场景         | 当数据出现指数增长或数值范围跨越多个数量级时                                                           |
+| 实现方法         | 使用`scale: { size: { type: 'log', range: [4, 20] } }`配置对数比例尺                                   |
+| 注意事项         | 应在图例或标签中明确指出使用了对数变换，避免误导读者                                                   |
 
 ## 气泡图的应用场景
 
@@ -66,18 +66,18 @@ similar: ['scatter', 'bubble-map']
 
 #### 示例 1: **经济与人口健康指标分析**
 
-下图展示了不同国家人均GDP、预期寿命与人口数量的关系，同时用颜色区分了不同大洲，有效地在一个图表中展现了四个维度的数据。
+下图展示了不同国家人均 GDP、预期寿命与人口数量的关系，同时用颜色区分了不同大洲，有效地在一个图表中展现了四个维度的数据。
 
-| country（国家） | GDP（人均GDP） | lifeExpectancy（预期寿命） | population（人口） | continent（大洲） |
-| --------------- | -------------- | -------------------------- | ------------------ | ----------------- |
-| China           | 12547          | 76.9                       | 1403500365         | Asia              |
-| United States   | 59532          | 78.5                       | 321773631          | Americas          |
-| India           | 6427           | 68.3                       | 1324517249         | Asia              |
-| Japan           | 38428          | 83.9                       | 127141000          | Asia              |
-| Germany         | 46136          | 81.0                       | 82695000           | Europe            |
-| ...             | ...            | ...                        | ...                | ...               |
+| country（国家） | GDP（人均 GDP） | lifeExpectancy（预期寿命） | population（人口） | continent（大洲） |
+| --------------- | --------------- | -------------------------- | ------------------ | ----------------- |
+| China           | 12547           | 76.9                       | 1403500365         | Asia              |
+| United States   | 59532           | 78.5                       | 321773631          | Americas          |
+| India           | 6427            | 68.3                       | 1324517249         | Asia              |
+| Japan           | 38428           | 83.9                       | 127141000          | Asia              |
+| Germany         | 46136           | 81.0                       | 82695000           | Europe            |
+| ...             | ...             | ...                        | ...                | ...               |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -97,18 +97,18 @@ chart.options({
     y: 'LifeExpectancy',
     size: 'Population',
     color: 'continent',
-    shape: 'point'
+    shape: 'point',
   },
-  scale: { 
-    size: { type: 'log', range: [4, 20] } 
+  scale: {
+    size: { type: 'log', range: [4, 20] },
   },
-  style: { 
-    fillOpacity: 0.3, 
-    lineWidth: 1 
+  style: {
+    fillOpacity: 0.3,
+    lineWidth: 1,
   },
   legend: {
-    size: false
-  }
+    size: false,
+  },
 });
 
 chart.render();
@@ -116,12 +116,13 @@ chart.render();
 
 **分析** ：
 
-- `GDP` 字段映射到 X 轴，表示国家人均GDP，可以看出发达国家集中在右侧
-- `LifeExpectancy` 字段映射到 Y 轴，表示国民预期寿命，能够观察到人均GDP与预期寿命有正相关性
+- `GDP` 字段映射到 X 轴，表示国家人均 GDP，可以看出发达国家集中在右侧
+- `LifeExpectancy` 字段映射到 Y 轴，表示国民预期寿命，能够观察到人均 GDP 与预期寿命有正相关性
 - `Population` 字段映射到气泡大小，通过对数比例尺处理，使得中国、印度等人口大国清晰可见
 - `continent` 字段映射到颜色，可以看出不同大洲国家的聚类分布
 
 **洞察**：通过此图，我们可以直观地观察到:
+
 1. 经济水平与健康水平的正相关关系
 2. 人口规模与经济发展之间并无必然联系
 3. 不同大洲国家的发展模式存在差异
@@ -130,11 +131,11 @@ chart.render();
 
 例子 1: **数据点过多或气泡重叠过度**
 
-当数据点超过100个或气泡严重重叠时，气泡图可能变得混乱难以阅读。在这种情况下，可以考虑使用热力图或分面图表。
+当数据点超过 100 个或气泡严重重叠时，气泡图可能变得混乱难以阅读。在这种情况下，可以考虑使用热力图或分面图表。
 
 以下是一个包含大量数据点的气泡图示例，可以看到随着数据点的增加，气泡之间的重叠让图表变得难以解读：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -147,7 +148,7 @@ const data = Array.from({ length: 200 }, () => ({
   x: Math.random() * 100,
   y: Math.random() * 100,
   size: Math.random() * 20 + 5,
-  category: ['A', 'B', 'C', 'D'][Math.floor(Math.random() * 4)]
+  category: ['A', 'B', 'C', 'D'][Math.floor(Math.random() * 4)],
 }));
 
 chart.options({
@@ -158,11 +159,11 @@ chart.options({
     x: 'x',
     y: 'y',
     size: 'size',
-    color: 'category'
+    color: 'category',
   },
-  style: { 
-    fillOpacity: 0.3, 
-    lineWidth: 1 
+  style: {
+    fillOpacity: 0.3,
+    lineWidth: 1,
   },
 });
 
@@ -179,7 +180,7 @@ chart.render();
 
 下面是一个不使用气泡图而使用折线图展示时序数据的例子：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -223,7 +224,7 @@ chart.render();
 
 如果确实需要在时序数据中加入第三个维度的信息，可以使用带有大小编码的时间序列气泡图：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -243,39 +244,23 @@ chart.options({
     { day: '2015/9/25', share: 45, volume: 3800 },
     { day: '2015/9/30', share: 40, volume: 2700 },
   ],
-  encode: { 
-    x: 'day', 
+  encode: {
+    x: 'day',
     y: 'share',
-    size: 'volume'
+    size: 'volume',
   },
   scale: {
-    size: { range: [10, 40] }
+    size: { range: [10, 40] },
   },
-  style: { 
-    fillOpacity: 0.6, 
+  style: {
+    fillOpacity: 0.6,
     stroke: '#1890ff',
-    fill: '#1890ff'
+    fill: '#1890ff',
   },
   axis: {
     y: { title: '股价' },
-    x: { title: '日期' }
+    x: { title: '日期' },
   },
-  annotations: [
-    {
-      type: 'line',
-      data: [
-        { day: '2015/9/1', share: 10 },
-        { day: '2015/9/5', share: 20 },
-        { day: '2015/9/10', share: 32 },
-        { day: '2015/9/15', share: 45 },
-        { day: '2015/9/20', share: 51 },
-        { day: '2015/9/25', share: 45 },
-        { day: '2015/9/30', share: 40 },
-      ],
-      encode: { x: 'day', y: 'share' },
-      style: { stroke: '#1890ff', lineWidth: 2 }
-    }
-  ]
 });
 
 chart.render();
@@ -285,29 +270,31 @@ chart.render();
 
 ### 气泡图和[散点图](/charts/scatter)、[热力图](/charts/heatmap)
 
-| 图表类型 | 主要特点 | 适用场景 | 数据维度 |
-|---------|---------|---------|---------|
-| 气泡图 | 通过点的大小编码额外维度 | 多变量关系分析 | 3-4个变量(X、Y、大小、颜色) |
-| 散点图 | 仅展示点的位置 | 二维相关性分析 | 2-3个变量(X、Y、颜色) |
-| 热力图 | 通过颜色深浅展示密度或量值 | 展示分布密度 | 3个变量(X、Y、颜色强度) |
+| 图表类型 | 主要特点                   | 适用场景       | 数据维度                     |
+| -------- | -------------------------- | -------------- | ---------------------------- |
+| 气泡图   | 通过点的大小编码额外维度   | 多变量关系分析 | 3-4 个变量(X、Y、大小、颜色) |
+| 散点图   | 仅展示点的位置             | 二维相关性分析 | 2-3 个变量(X、Y、颜色)       |
+| 热力图   | 通过颜色深浅展示密度或量值 | 展示分布密度   | 3 个变量(X、Y、颜色强度)     |
 
 ### 气泡图和[散点地图](/charts/scatter-map)、[气泡地图](/charts/bubble-map)
 
-| 图表类型 | 坐标系统 | 数据约束 | 应用场景 |
-|---------|---------|---------|---------|
-| 气泡图 | 抽象坐标系 | 可使用任意数值作为XY坐标 | 多维数据关系可视化 |
-| 气泡地图 | 地理坐标系 | 点位置受地理坐标约束 | 地理数据中多变量分析 |
-| 散点地图 | 地理坐标系 | 点位置受地理坐标约束 | 地理位置的简单分布 |
+| 图表类型 | 坐标系统   | 数据约束                   | 应用场景             |
+| -------- | ---------- | -------------------------- | -------------------- |
+| 气泡图   | 抽象坐标系 | 可使用任意数值作为 XY 坐标 | 多维数据关系可视化   |
+| 气泡地图 | 地理坐标系 | 点位置受地理坐标约束       | 地理数据中多变量分析 |
+| 散点地图 | 地理坐标系 | 点位置受地理坐标约束       | 地理位置的简单分布   |
 
 ## 气泡图最佳实践
 
 ### 设计建议
 
 1. **气泡大小选择**
+
    - 设置合适的气泡大小范围，避免过大导致重叠，或过小导致难以辨认
    - 使用半透明填充色，降低重叠区域的视觉干扰
 
 2. **数据处理**
+
    - 当气泡大小差异过大时，考虑使用对数比例尺
    - 适当筛选数据，避免图表过于拥挤
 
@@ -317,7 +304,7 @@ chart.render();
 
 ### 代码示例：添加悬停交互的气泡图
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -340,11 +327,11 @@ chart.options({
     y: 'y',
     size: 'size',
     color: 'category',
-    shape: 'point'
+    shape: 'point',
   },
-  style: { 
-    fillOpacity: 0.6, 
-    lineWidth: 1 
+  style: {
+    fillOpacity: 0.6,
+    lineWidth: 1,
   },
   tooltip: {
     items: [
@@ -352,12 +339,9 @@ chart.options({
       { field: 'x', name: 'X值' },
       { field: 'y', name: 'Y值' },
       { field: 'size', name: '大小' },
-    ]
+    ],
   },
-  interaction: [
-    { type: 'tooltip' },
-    { type: 'elementHighlight' }
-  ]
+  interaction: [{ type: 'tooltip' }, { type: 'elementHighlight' }],
 });
 
 chart.render();

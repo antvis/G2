@@ -13,7 +13,7 @@ order: 27
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,62 +115,60 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 | archimedean | 阿基米德螺旋线（默认值），词语从中心向外按螺旋路径排列，布局较紧凑。 | 通用场景，追求自然紧凑的布局 |
 | rectangular | 矩形螺旋，词语按矩形路径排列，计算速度更快，但布局相对松散。         | 数据量大时优化性能           |
 
-```js | ob {  pin: false }
-(() => {
-  const spiralMap = [
-    {
-      label: '阿基米德螺旋',
-      spiral: 'archimedean',
-    },
-    {
-      label: '矩形螺旋',
-      spiral: 'rectangular',
-    },
-  ];
+```js | ob {  inject: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const spiralMap = [
+  {
+    label: '阿基米德螺旋',
+    spiral: 'archimedean',
+  },
+  {
+    label: '矩形螺旋',
+    spiral: 'rectangular',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'wordCloud',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
+  },
+  layout: {
+    spiral: 'rectangular',
+  },
+  encode: { color: 'text' },
+});
 
+const handleSetSpiral = (spiral) => {
+  // 设置选中的坐标系
   chart.options({
-    type: 'wordCloud',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
-    },
-    layout: {
-      spiral: 'rectangular',
-    },
-    encode: { color: 'text' },
+    layout: { spiral },
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetSpiral = (spiral) => {
-    // 设置选中的坐标系
-    chart.options({
-      layout: { spiral },
-    });
-    chart.render(); // 重新渲染图表
-  };
+// layout-spiral 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择spiral ';
+const selector = document.createElement('select');
+selector.innerHTML = spiralMap.map(
+  (spiral, index) =>
+    `<option value="${spiral.spiral}" ${index === 0 ? 'selected' : ''}>${
+      spiral.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetSpiral(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // layout-spiral 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择spiral ';
-  const selector = document.createElement('select');
-  selector.innerHTML = spiralMap.map(
-    (spiral, index) =>
-      `<option value="${spiral.spiral}" ${index === 0 ? 'selected' : ''}>${
-        spiral.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetSpiral(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 **imageMask**
@@ -185,7 +183,7 @@ type Position = 'Top' | 'Bottom' | 'left' | 'right';
 - 图像加载：在使用图片遮罩时，确保图像资源已经完全加载，否则可能会出现渲染问题。
 - 性能影响：复杂形状（例如高分辨率图片）可能会影响词云的构造速度。
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -248,4 +246,27 @@ type TextBaseline = 'top' | 'middle' | 'bottom';
 
 尝试一下：
 
-<Playground path="style/general/text/demo/wordCloud.ts" rid="text-wordCloud"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingTop: 40,
+});
+
+chart
+  .wordCloud()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
+  })
+  .layout({
+    spiral: 'rectangular',
+    fontSize: [20, 100],
+  })
+  .encode('color', 'text');
+
+chart.render();
+
+```

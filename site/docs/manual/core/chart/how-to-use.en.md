@@ -5,7 +5,7 @@ order: 2
 
 Most of G2's capabilities are exposed to users through the `Chart` object. Here's an example of creating a simple bar chart:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

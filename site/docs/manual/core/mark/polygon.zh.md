@@ -5,94 +5,182 @@ order: 19
 
 ## 概述
 
-`polygon` 图形标记（多边形），利用一组 (x, y) 数据点，来连接形成一个闭合的图形，一般都是结合社区上的可视化布局算法计算之后的数据进行可视化展示。在数据可视化、计算机图形学和地理信息系统等领域中具有重要作用，常用于 矩阵树图或地图上的区块映射。
+`polygon` 图形标记（多边形），利用一组 (x, y) 数据点，来连接形成一个闭合的图形，一般都是结合社区上的可视化布局算法计算之后的数据进行可视化展示。在数据可视化、计算机图形学和地理信息系统等领域中具有重要作用，常用于 矩形树图或地图上的区块映射。
 
 例如在战争沙盘中，可以在地图上分割出多个不规则的图形，来 显示和区分 占领和未占领、己方和敌方、河流和陆地的区域，使得更加直观的感受战场上的态势。
 
 它是数据可视化、图形学和地理信息系统中不可或缺的工具。
 
-<!-- ```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
-
-
 
 const chart = new Chart({
   container: 'container',
 });
 
-  chart.options({
-    type: "polygon",
-    height: 300,
-    paddingTop: 0,
-    paddingLeft: 0,
-    paddingBottom: 0,
-    paddingRight: 0,
-    data: {
-      type: "fetch",
-      value:
-        "https://raw.githubusercontent.com/python-visualization/folium/main/examples/data/us-states.json",
-      transform: [
-        {
-          type: "custom",
-          callback: (data) => {
-            return data.features.map(({ id, geometry }) => {
-              var _geometry$coordinates;
-              const arr =
-                (geometry === null ||
-                geometry === void 0 ||
-                (_geometry$coordinates = geometry.coordinates) === null ||
-                _geometry$coordinates === void 0
-                  ? void 0
-                  : _geometry$coordinates[0]) || [];
-              const value = {
-                x: [],
-                y: [],
-                value: Math.random() * 100,
-                id,
-              };
-              if (arr !== null && arr !== void 0 && arr.length) {
-                arr.forEach((v) => {
-                  v.forEach((i, index) => {
-                    if (index % 2) {
-                      value.y.push(i);
-                    } else {
-                      value.x.push(i);
-                    }
-                  });
-                });
-              }
-              return value;
-            });
-          },
-        },
-      ],
-    },
-    /**
-     * 传入的数据类型 为
-     *  [
-     *   {
-     *    x:[x1,x2,...], x 通道数据，按照顺序和 y 通道对应
-     *    y:[y1,y2,...], y 通道数据，按照顺序和 x 通道对应
-     *    value, 数值 可传入 color 通道， 用颜色区分，可用于 平均温度、人口数量等数据
-     *   },
-     *   ...
-     * ]
-     */
-    //
-    encode: {
-      x: "x",
-      y: "y",
-      color: (d) => d.value,
-    },
-    scale: { x: { domain: [-130, -60] }, y: { domain: [25, 55] } },
-    style: { stroke: "red", fillOpacity: 0.65 },
-    axis: false,
-  });
+// 生成正多边形的坐标点
+function generatePolygon(sides, centerX, centerY, radius, rotation = 0) {
+  const points = [];
+  for (let i = 0; i < sides; i++) {
+    const angle = (2 * Math.PI * i) / sides + rotation;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    points.push([x, y]);
+  }
+  return points;
+}
 
-  chart.render();
-``` -->
+// 创建多种正多边形数据
+const polygonData = [
+  {
+    name: '三角形',
+    sides: 3,
+    color: '#FF6B6B',
+    position: [2, 4],
+    size: 0.8,
+    rotation: Math.PI / 6,
+  },
+  {
+    name: '四边形',
+    sides: 4,
+    color: '#4ECDC4',
+    position: [4, 4],
+    size: 0.7,
+    rotation: Math.PI / 4,
+  },
+  {
+    name: '五边形',
+    sides: 5,
+    color: '#45B7D1',
+    position: [6, 4],
+    size: 0.8,
+    rotation: 0,
+  },
+  {
+    name: '六边形',
+    sides: 6,
+    color: '#96CEB4',
+    position: [8, 4],
+    size: 0.8,
+    rotation: 0,
+  },
+  {
+    name: '八边形',
+    sides: 8,
+    color: '#FFEAA7',
+    position: [2, 2],
+    size: 0.8,
+    rotation: Math.PI / 8,
+  },
+  {
+    name: '十边形',
+    sides: 10,
+    color: '#DDA0DD',
+    position: [4, 2],
+    size: 0.8,
+    rotation: 0,
+  },
+  {
+    name: '十二边形',
+    sides: 12,
+    color: '#98D8C8',
+    position: [6, 2],
+    size: 0.8,
+    rotation: 0,
+  },
+  {
+    name: '星形',
+    sides: 5,
+    color: '#F7DC6F',
+    position: [8, 2],
+    size: 0.9,
+    rotation: 0,
+    star: true,
+  },
+];
 
-更多的案例，可以查看[图表示例 - 地图](/examples#geo-geo)页面。
+// 转换为 G2 需要的数据格式
+const data = polygonData.map((poly) => {
+  let coordinates;
+
+  if (poly.star) {
+    // 生成五角星
+    const outerPoints = generatePolygon(
+      5,
+      poly.position[0],
+      poly.position[1],
+      poly.size,
+      poly.rotation,
+    );
+    const innerPoints = generatePolygon(
+      5,
+      poly.position[0],
+      poly.position[1],
+      poly.size * 0.4,
+      poly.rotation + Math.PI / 5,
+    );
+    coordinates = [];
+    for (let i = 0; i < 5; i++) {
+      coordinates.push(outerPoints[i]);
+      coordinates.push(innerPoints[i]);
+    }
+  } else {
+    coordinates = generatePolygon(
+      poly.sides,
+      poly.position[0],
+      poly.position[1],
+      poly.size,
+      poly.rotation,
+    );
+  }
+
+  return {
+    x: coordinates.map((point) => point[0]),
+    y: coordinates.map((point) => point[1]),
+    name: poly.name,
+    color: poly.color,
+    sides: poly.sides,
+  };
+});
+
+chart.options({
+  type: 'polygon',
+  data: data,
+  encode: {
+    x: 'x',
+    y: 'y',
+    color: 'color',
+    series: 'name',
+  },
+  scale: {
+    x: { domain: [0, 10] },
+    y: { domain: [0, 6] },
+    color: { type: 'identity' },
+  },
+  style: {
+    stroke: '#fff',
+    lineWidth: 2,
+    fillOpacity: 0.8,
+  },
+  labels: [
+    {
+      text: 'name',
+      position: 'inside',
+      style: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        fill: '#333',
+        textAlign: 'center',
+      },
+    },
+  ],
+  tooltip: false,
+});
+
+chart.render();
+```
+
+更多的案例，可以查看[图表示例 - 多边形](/examples#general-polygon)页面。
 
 ## 配置项
 
@@ -119,7 +207,7 @@ const chart = new Chart({
 
 - `color` 颜色通道, 传入 `string` 类型分组
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +242,7 @@ chart.render();
 
 - `color` 颜色通道, 传入 `number` 类型分组
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -215,6 +303,3 @@ chart.render();
 | shadowOffsetY | 设置阴影距图形的垂直距离                                                                                      | `number` \| `Function<number>`                    | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                 | `string` \| `Function<string>`                    | 'default' |      |
 
-尝试一下：
-
-<Playground path="style/general/geo/geo/demo/hexbin-china.ts" rid="polygon-style"></playground>

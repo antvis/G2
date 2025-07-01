@@ -7,7 +7,7 @@ order: 15
 
 `link` 图形标记 虽然类似折线图 通过指定 `x`，`y` 通道为长度为 2 的字段数组。获取两两对应的 (x,y) 的定位点，并连接对应的定位点，绘制带方向的线段(添加箭头)。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 `color` 视觉通道影响 `link` 图形标记。`link` 标记中单个区域仅能使用一种颜色（或者渐变色），但如果将数据字段映射到颜色通道，会对数据进行分组，将数据拆分成多个区域：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -143,7 +143,7 @@ chart.render();
 | shadowOffsetY | 设置阴影距图形的垂直距离                                                                                                                                                         | _number_ \| _Function\<number\>_                    | -         |      |
 | cursor        | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                                                                                    | _string_ \| _Function\<string\>_                    | `default` |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

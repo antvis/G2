@@ -157,7 +157,7 @@ If you need to use expressions in other APIs, please submit an issue for feedbac
 
 Here is a complete example demonstrating the powerful capabilities of expressions in practical applications:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

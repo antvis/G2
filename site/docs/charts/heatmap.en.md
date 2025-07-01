@@ -10,7 +10,7 @@ similar: ['histogram', 'contourline', 'scatter', 'bubble']
 
 ## Introduction to Heatmaps
 
-A heatmap is a visualization technique that uses color intensity to map the density or magnitude of two-dimensional data, excelling at revealing distribution patterns, clusters, and anomalies. Heatmaps map two categorical or continuous fields (such as x, y) to coordinate axes and a third numerical field (such as value) to a color gradient, forming a grid-like matrix of colored cells. Typically, cool colors (like blue) represent low values and warm colors (like red) represent high values.
+A heatmap is a visualization technique that uses color intensity to map the density or magnitude of two-dimensional data, excelling at revealing distribution patterns, clusters, and anomalies. Heatmaps map two categorical or continuous fields (such as x, y) to coordinate axis and a third numerical field (such as value) to a color gradient, forming a grid-like matrix of colored cells. Typically, cool colors (like blue) represent low values and warm colors (like red) represent high values.
 
 Heatmaps are particularly suitable for displaying the distribution characteristics of large amounts of data points. Through color variations, they intuitively reflect density or intensity changes in a dataset, helping to identify patterns and relationships. When displaying multi-dimensional data, heatmaps are more intuitive than bar charts or scatter plots, clearly showing areas of data concentration and sparsity at a glance.
 
@@ -24,12 +24,12 @@ Heatmaps are widely used in geographic spatial analysis, website user behavior r
 
 <img alt="basic-heatmap" src="https://os.alipayobjects.com/rmsportal/dbxsqRSCIYXcEeW.png" width=600 />
 
-| Chart Type       | Heatmap with Unsmoothed Boundaries                                               |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data    | Three continuous fields                                                            |
-| Function         | Observe data distribution patterns                                                 |
+| Chart Type             | Heatmap with Unsmoothed Boundaries                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Three continuous fields                                                                                 |
+| Function               | Observe data distribution patterns                                                                      |
 | Data-to-Visual Mapping | Two continuous fields mapped to x-axis and y-axis respectively. One continuous metadata mapped to color |
-| Suitable Data Volume | More than 30 data points                                                        |
+| Suitable Data Volume   | More than 30 data points                                                                                |
 
 ---
 
@@ -37,12 +37,12 @@ Heatmaps are widely used in geographic spatial analysis, website user behavior r
 
 <img alt="density-heatmap" src="https://os.alipayobjects.com/rmsportal/XKeijYcqHgbSLHN.png" width=600/>
 
-| Chart Type       | Heatmap with Smoothed Boundaries                                                 |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data    | Three continuous fields                                                            |
-| Function         | Display data distribution patterns, with statistical algorithms to predict data in unknown areas |
+| Chart Type             | Heatmap with Smoothed Boundaries                                                                        |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Three continuous fields                                                                                 |
+| Function               | Display data distribution patterns, with statistical algorithms to predict data in unknown areas        |
 | Data-to-Visual Mapping | Two continuous fields mapped to x-axis and y-axis respectively. One continuous metadata mapped to color |
-| Suitable Data Volume | More than 30 data points                                                        |
+| Suitable Data Volume   | More than 30 data points                                                                                |
 
 ## Use Cases of Heatmaps
 
@@ -52,7 +52,7 @@ Example 1: **Suitable for displaying two-dimensional data distribution density**
 
 The heatmap below shows the temperature distribution in a two-dimensional space. Through color variations, you can intuitively see temperature differences across different areas.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -74,7 +74,7 @@ chart.options({
         width: '100%',
         height: '100%',
       },
-      tooltip: false
+      tooltip: false,
     },
     {
       type: 'heatmap',
@@ -82,23 +82,24 @@ chart.options({
         type: 'fetch',
         value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
       },
-      encode: { 
-        x: 'g', 
-        y: 'l', 
-        color: 'tmp' 
+      encode: {
+        x: 'g',
+        y: 'l',
+        color: 'tmp',
       },
-      style: { 
-        opacity: 0 
+      style: {
+        opacity: 0,
       },
-      tooltip: false
-    }
-  ]
+      tooltip: false,
+    },
+  ],
 });
 
 chart.render();
 ```
 
 **Notes**:
+
 - The `g` field is mapped to the x-axis and the `l` field to the y-axis, representing positions in two-dimensional space
 - The `tmp` field is mapped to color, representing the temperature value at each position
 - Background image and heat overlay provide an intuitive display of temperature distribution
@@ -107,7 +108,7 @@ Example 2: **Suitable for displaying density distribution of scatter data**
 
 Density heatmaps can show concentration areas of scatter data. The example below shows the relationship between carat and price in a diamond dataset.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
@@ -177,13 +178,14 @@ chart.render();
 ```
 
 **Notes**:
+
 - The `carat` field and `price` field are mapped to the x-axis and y-axis respectively
 - Kernel density estimation is used to calculate the density distribution of scatter points
 - Density values are mapped to colors, creating a heat effect
 - Original scatter data is overlaid, allowing simultaneous observation of data points and density distribution
 
-
 **Notes**:
+
 - Simulates user mouse position coordinates `x` and `y` data
 - Uses `binX` and `binY` transforms to group and count continuous position data
 - Heat effect intuitively reveals dense areas of mouse activity through color intensity
@@ -205,7 +207,7 @@ When there are few data points, the density distribution advantage of heatmaps i
 
 Threshold heatmaps divide continuous data into discrete color intervals based on preset threshold ranges, suitable for emphasizing data within specific ranges.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -237,6 +239,7 @@ chart.render();
 ```
 
 **Notes**:
+
 - Uses threshold scale to divide continuous data into discrete intervals
 - Sets three thresholds at 7000, 10000, and 20000, dividing the data into four intervals
 - Each interval is represented by a different color, making it easy to distinguish different salary levels

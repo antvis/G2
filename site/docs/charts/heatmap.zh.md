@@ -24,12 +24,12 @@ similar: ['histogram', 'contourline', 'scatter', 'bubble']
 
 <img alt="basic-heatmap" src="https://os.alipayobjects.com/rmsportal/dbxsqRSCIYXcEeW.png" width=600 />
 
-| 图表类型         | 边界未经平滑处理的热力图                                                            |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| 适合的数据       | 三个连续字段                                                                       |
-| 功能             | 观察数据的分布情况                                                                 |
-| 数据与图形的映射 | 两个连续字段分别映射到x轴、y轴。一个连续元数据映射到颜色                            |
-| 适合的数据条数   | 超过30条数据                                                                       |
+| 图表类型         | 边界未经平滑处理的热力图                                    |
+| ---------------- | ----------------------------------------------------------- |
+| 适合的数据       | 三个连续字段                                                |
+| 功能             | 观察数据的分布情况                                          |
+| 数据与图形的映射 | 两个连续字段分别映射到 x 轴、y 轴。一个连续元数据映射到颜色 |
+| 适合的数据条数   | 超过 30 条数据                                              |
 
 ---
 
@@ -37,12 +37,12 @@ similar: ['histogram', 'contourline', 'scatter', 'bubble']
 
 <img alt="density-heatmap" src="https://os.alipayobjects.com/rmsportal/XKeijYcqHgbSLHN.png" width=600/>
 
-| 图表类型         | 边界经平滑处理的热力图                                                             |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| 适合的数据       | 三个连续字段                                                                       |
-| 功能             | 展示数据的分布情况，加上统计算法可预测未知区域数据                                   |
-| 数据与图形的映射 | 两个连续字段分别映射到x轴、y轴。一个连续元数据映射到颜色                            |
-| 适合的数据条数   | 超过30条数据                                                                       |
+| 图表类型         | 边界经平滑处理的热力图                                      |
+| ---------------- | ----------------------------------------------------------- |
+| 适合的数据       | 三个连续字段                                                |
+| 功能             | 展示数据的分布情况，加上统计算法可预测未知区域数据          |
+| 数据与图形的映射 | 两个连续字段分别映射到 x 轴、y 轴。一个连续元数据映射到颜色 |
+| 适合的数据条数   | 超过 30 条数据                                              |
 
 ## 热力图的应用场景
 
@@ -52,7 +52,7 @@ similar: ['histogram', 'contourline', 'scatter', 'bubble']
 
 下面这张热力图展示了二维空间上的温度分布情况。通过颜色的变化可以直观地看出不同区域的温度差异。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -74,7 +74,7 @@ chart.options({
         width: '100%',
         height: '100%',
       },
-      tooltip: false
+      tooltip: false,
     },
     {
       type: 'heatmap',
@@ -82,23 +82,24 @@ chart.options({
         type: 'fetch',
         value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
       },
-      encode: { 
-        x: 'g', 
-        y: 'l', 
-        color: 'tmp' 
+      encode: {
+        x: 'g',
+        y: 'l',
+        color: 'tmp',
       },
-      style: { 
-        opacity: 0 
+      style: {
+        opacity: 0,
       },
-      tooltip: false
-    }
-  ]
+      tooltip: false,
+    },
+  ],
 });
 
 chart.render();
 ```
 
 **说明**：
+
 - `g` 字段映射到 x 轴，`l` 字段映射到 y 轴，表示二维空间中的位置
 - `tmp` 字段映射到颜色，表示每个位置点的温度值
 - 背景图像和热力叠加，直观展示温度分布情况
@@ -107,7 +108,7 @@ chart.render();
 
 密度热力图可以展示散点数据的集中区域，下面的例子展示了钻石数据集中克拉数和价格的分布关系。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import DataSet from '@antv/data-set';
 
@@ -177,11 +178,11 @@ chart.render();
 ```
 
 **说明**：
+
 - `carat` 字段和 `price` 字段分别映射到 x 轴和 y 轴
 - 使用核密度估计（kernel density estimation）计算散点的密度分布
 - 密度值映射到颜色，形成热力效果
 - 叠加原始散点数据，可以同时观察数据点和密度分布
-
 
 ### 不适合的场景
 
@@ -199,7 +200,7 @@ chart.render();
 
 阈值热力图根据预设的阈值区间，将连续数据划分为离散的颜色区间，适合强调特定范围内的数据。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +215,7 @@ for (let i = 0; i < 10; i++) {
     data.push({
       x: i,
       y: j,
-      value: Math.floor(Math.random() * 100)
+      value: Math.floor(Math.random() * 100),
     });
   }
 }
@@ -251,7 +252,8 @@ chart.render();
 ```
 
 **说明**：
-- 生成10x10的网格数据，模拟二维热力图数据结构
+
+- 生成 10x10 的网格数据，模拟二维热力图数据结构
 - 使用阈值（threshold）比例尺将连续数据划分为离散区间
 - 设置了 25、50、75 三个阈值，将数据分为四个区间
 - 每个区间使用不同的颜色表示，便于区分不同数值级别的分布

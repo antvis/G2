@@ -1,6 +1,6 @@
 ---
 title: '图表 API'
-order: 4
+order: 3
 ---
 
 <style>
@@ -65,7 +65,7 @@ return chart.getContainer();
 
 `clip = false` 时，不会对超出绘制区域的图形进行截断。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -108,7 +108,7 @@ chart.render();
 
 如果不希望绘制超出绘制区域的图形，需要配置`clip = true`，此时 类似于 `point` 标记的图形可能被截断，可以通过调整 `inset` 大小来解决。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -246,7 +246,7 @@ const chart = new Chart({
 
 配置图表主题，目前 g2 内置有三种主题模式，如需要自定义配置，可以先通过 `register` 注册主题，再设置主题 key。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Light, register, Chart } from '@antv/g2';
 
 // 定义主题
@@ -340,7 +340,7 @@ const chart = new Chart({
 
 G2 提供了一套命令式的 Functional API 去声明图表，比如如下声明一个最简单的条形图。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 初始化图表实例
@@ -1497,7 +1497,7 @@ chart
     { x: 'Other Income', value: 750000, start: 1484500, end: 2234500 },
     { x: 'Extraordinary Gain', value: -230050, start: 2234500, end: 2004450 },
     { x: 'Interest Expense', value: -500000, start: 2004450, end: 1504450 },
-    { x: 'Taxes', value: 490000, start: 1504450, end: 1994450 },
+    { x: 'Taxis', value: 490000, start: 1504450, end: 1994450 },
     { x: 'Net Income', isTotal: true, value: 1994450, start: 0, end: 1994450 },
   ])
   .axis('x', { title: false, labelTransform: 'rotate(-90)' })
@@ -1621,7 +1621,7 @@ chart.render();
 
 ### view.treemap()
 
-添加 [treemap](/manual/extra-topics/graph/treemap) 图形。矩阵树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。
+添加 [treemap](/manual/extra-topics/graph/treemap) 图形。矩形树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。
 
 <img alt="treemap" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*BD2zQIr7D5MAAAAAAAAAAAAADmJ7AQ/original
 " width="600" />

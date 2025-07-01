@@ -27,7 +27,7 @@ order: 2
 
 ### 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -104,7 +104,7 @@ chart.render();
 
 最简单的用法是设置一个固定的鱼眼焦点，适用于需要突出显示特定区域的场景。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -154,7 +154,7 @@ chart.render();
 
 通过添加交互组件，可以实现动态的鱼眼效果，焦点随鼠标移动而变化。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -196,7 +196,7 @@ chart.render();
 
 以下是一个结合了鱼眼坐标系和散点图的完整示例，展示了如何使用鱼眼效果来分析多维数据：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -291,7 +291,7 @@ chart.render();
 
 鱼眼坐标系变换可以与其他坐标系变换组合使用，例如与 transpose 变换组合：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -24,12 +24,12 @@ When you need to display data from multiple series simultaneously, you can use s
 
 <img alt="basic-area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v1VOS7lUmckAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| Chart Type      | Basic Area Chart                                                                    |
-| --------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data   | Time series data: one ordered/continuous data field (usually time), one continuous data field |
-| Function        | Display data trends over time or ordered dimensions                                |
+| Chart Type             | Basic Area Chart                                                                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Time series data: one ordered/continuous data field (usually time), one continuous data field                                                 |
+| Function               | Display data trends over time or ordered dimensions                                                                                           |
 | Data-to-Visual Mapping | Time field mapped to horizontal axis position<br>Value field mapped to vertical axis height<br>Area fill emphasizes the degree of data change |
-| Suitable Scenarios | Trend changes of a single data series over time                                    |
+| Suitable Scenarios     | Trend changes of a single data series over time                                                                                               |
 
 ---
 
@@ -37,12 +37,12 @@ When you need to display data from multiple series simultaneously, you can use s
 
 <img alt="stacked-area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| Chart Type      | Stacked Area Chart                                                                 |
-| --------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data   | Multi-series time data: one ordered/continuous data field (usually time), one continuous data field, one categorical data field |
-| Function        | Display trends of multiple data series over time and their stacked total             |
+| Chart Type             | Stacked Area Chart                                                                                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Multi-series time data: one ordered/continuous data field (usually time), one continuous data field, one categorical data field                            |
+| Function               | Display trends of multiple data series over time and their stacked total                                                                                   |
 | Data-to-Visual Mapping | Time field mapped to horizontal axis position<br>Value field mapped to vertical axis height<br>Category field mapped to different colors and stacked areas |
-| Suitable Scenarios | Comparison of multiple data series and their total over time                       |
+| Suitable Scenarios     | Comparison of multiple data series and their total over time                                                                                               |
 
 ## Use Cases of Area Charts
 
@@ -52,14 +52,14 @@ Example 1: **Suitable for displaying trends in continuous time series**
 
 The chart below is an area chart of stock price trends, showing how a company's stock price changes over time.
 
-| date | close |
-| ---- | ----- |
+| date     | close  |
+| -------- | ------ |
 | 2015/1/5 | 121.73 |
 | 2015/1/6 | 115.07 |
 | 2015/1/7 | 116.75 |
-| ... | ... |
+| ...      | ...    |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,6 +113,7 @@ chart.render();
 ```
 
 **Notes**:
+
 - The `date` field is mapped to the horizontal axis position, indicating the chronological order
 - The `close` field is mapped to the vertical axis height and filled area, showing price trends over time
 - Both area fill and line are used to enhance the visual effect, making it easier to observe trend changes
@@ -121,7 +122,7 @@ Example 2: **Suitable for displaying stacked trends of multiple data series**
 
 Stacked area charts can show changes in multiple data series over time, as well as their sum trend. The chart below shows trends in unemployment numbers across different industries.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -136,14 +137,16 @@ chart.options({
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
   },
-  encode: { 
-    x: (d) => new Date(d.date), 
-    y: 'unemployed', 
-    color: 'industry' 
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'unemployed',
+    color: 'industry',
   },
-  transform: [{ 
-    type: 'stackY' 
-  }],
+  transform: [
+    {
+      type: 'stackY',
+    },
+  ],
   axis: {
     x: {
       title: null,
@@ -158,6 +161,7 @@ chart.render();
 ```
 
 **Notes**:
+
 - The `date` field is mapped to the horizontal axis, representing the time dimension
 - The `unemployed` field is mapped to the vertical axis, representing the number of unemployed people
 - The `industry` field is mapped to color, distinguishing different industries
@@ -167,7 +171,7 @@ Example 3: **Percentage stacked area chart for displaying proportion changes**
 
 When you need to display how each category's proportion of the total changes over time, percentage stacked area charts are a very suitable choice.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -202,18 +206,15 @@ chart.options({
     { country: 'Europe', year: '2050', value: 628 },
   ],
   encode: { x: 'year', y: 'value', color: 'country' },
-  transform: [
-    { type: 'stackY' }, 
-    { type: 'normalizeY' }
-  ],
+  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
   axis: {
-    x: { 
-      title: null 
+    x: {
+      title: null,
     },
-    y: { 
-      title: null, 
-      labelFormatter: '.0%' 
-    }
+    y: {
+      title: null,
+      labelFormatter: '.0%',
+    },
   },
 });
 
@@ -221,6 +222,7 @@ chart.render();
 ```
 
 **Notes**:
+
 - Combining `stackY` and `normalizeY` transformations to standardize stacked data as percentages
 - The vertical axis is formatted to display percentages, more intuitively showing proportion changes in each region
 
@@ -240,7 +242,7 @@ When multiple data series fluctuate dramatically and intersect frequently, using
 
 Range area charts can represent upper and lower limits of data, commonly used to show data uncertainty or fluctuation ranges.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 /**
  * A recreation of this demo: https://www.anychart.com/zh/products/anychart/gallery/Combined_Charts/Range_Spline-Area,_Spline_and_Marker_Chart.php
  */
@@ -252,14 +254,14 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: "view",
+  type: 'view',
   autoFit: true,
   data: {
-    type: "fetch",
-    value: "https://assets.antv.antgroup.com/g2/range-spline-area.json",
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
     transform: [
       {
-        type: "map",
+        type: 'map',
         callback: ([x, low, high, v2, v3]) => ({
           x,
           low,
@@ -270,32 +272,31 @@ chart.options({
       },
     ],
   },
-  scale: { x: { type: "linear", tickCount: 10 } },
+  scale: { x: { type: 'linear', tickCount: 10 } },
   axis: { y: { title: false } },
   children: [
     {
-      type: "area",
-      encode: { x: "x", y: ["low", "high"], shape: "smooth" },
-      style: { fillOpacity: 0.65, fill: "#64b5f6", lineWidth: 1 },
+      type: 'area',
+      encode: { x: 'x', y: ['low', 'high'], shape: 'smooth' },
+      style: { fillOpacity: 0.65, fill: '#64b5f6', lineWidth: 1 },
     },
     {
-      type: "point",
-      encode: { x: "x", y: "v2", size: 2, shape: "point" },
-      tooltip: { items: ["v2"] },
+      type: 'point',
+      encode: { x: 'x', y: 'v2', size: 2, shape: 'point' },
+      tooltip: { items: ['v2'] },
     },
     {
-      type: "line",
-      encode: { x: "x", y: "v3", color: "#FF6B3B", shape: "smooth" },
+      type: 'line',
+      encode: { x: 'x', y: 'v3', color: '#FF6B3B', shape: 'smooth' },
     },
   ],
 });
 
-
 chart.render();
-
 ```
 
 **Notes**:
+
 - Using `y: ['low', 'high']` to specify the upper and lower bounds of the range
 - The data range uses fill color with lower opacity to highlight the uncertainty range
 
@@ -303,7 +304,7 @@ chart.render();
 
 Difference area charts are used to compare two data series, highlighting the difference areas between them.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -330,23 +331,24 @@ chart.options({
   encode: {
     x: (d) => new Date(d.date),
     y: 'temperature',
-    color: 'city'
+    color: 'city',
   },
   scale: {
-    color: { 
-      range: ['#67a9cf', '#ef8a62'] 
-    }
+    color: {
+      range: ['#67a9cf', '#ef8a62'],
+    },
   },
   axis: {
     y: { title: null },
-    x: { title: null }
-  }
+    x: { title: null },
+  },
 });
 
 chart.render();
 ```
 
 **Notes**:
+
 - Using `transform: [{ type: 'diffY' }]` to achieve the difference effect
 - Color encoding distinguishes between the two data series and highlights the difference area between them
 
@@ -363,7 +365,6 @@ chart.render();
 
 - Basic area charts are suitable for trend display of a single data series
 - Stacked area charts are suitable for displaying multiple data series and their sum
-
 
 ## Similar Charts
 

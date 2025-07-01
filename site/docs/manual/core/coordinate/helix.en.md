@@ -3,11 +3,11 @@ title: helix
 order: 10
 ---
 
-The `helix` coordinate system is a coordinate system that unfolds two-dimensional data along a spiral line. It is commonly used to visualize time series data or gene expression data, showing data periodicity or trends through spiral extension.
+The `helix` coordinate system is a coordinate system that expands two-dimensional data along a spiral line. It is commonly used for visualizing time series data or gene expression data, showing the cyclical nature or trends of data through spiral extension.
 
 ## Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -16,7 +16,7 @@ const chart = new Chart({
   height: 500,
 });
 
-// Sample data
+// Mock data
 const data = [];
 for (let i = 0; i < 372; i++) {
   const time = new Date(Date.now() + i * 1000 * 3600 * 24)
@@ -29,8 +29,8 @@ chart.data(data);
 
 chart.coordinate({
   type: 'helix',
-  startAngle: 0.5 * Math.PI, // Start angle
-  endAngle: 12.5 * Math.PI, // End angle
+  startAngle: 0.5 * Math.PI, // Starting angle
+  endAngle: 12.5 * Math.PI, // Ending angle
 });
 
 chart
@@ -43,9 +43,11 @@ chart
 chart.render();
 ```
 
-| Parameter   | Description                         | Type     | Default       |
-| ----------- | ----------------------------------- | -------- | ------------- |
-| startAngle  | Start angle of the spiral (radians) | `number` | `0`           |
-| endAngle    | End angle of the spiral (radians)   | `number` | `Math.PI * 6` |
-| innerRadius | Inner radius of the spiral (0 to 1) | `number` | `0`           |
-| outerRadius | Outer radius of the spiral (0 to 1) | `number` | `1`           |
+## Configuration
+
+| Parameter   | Description                            | Type     | Default       |
+| ----------- | -------------------------------------- | -------- | ------------- |
+| startAngle  | Starting angle of the spiral (radians) | `number` | `0`           |
+| endAngle    | Ending angle of the spiral (radians)   | `number` | `Math.PI * 6` |
+| innerRadius | Inner radius of the spiral (0 to 1)    | `number` | `0`           |
+| outerRadius | Outer radius of the spiral (0 to 1)    | `number` | `1`           |

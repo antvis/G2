@@ -71,7 +71,42 @@ chart.options({
 
 尝试一下
 
-<Playground path="style/component/tooltip/demo/tooltip-series.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .line()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/indices.json',
+  })
+  .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
+  .encode('x', (d) => new Date(d.Date))
+  .encode('y', 'Close')
+  .encode('color', 'Symbol')
+  .axis('y', { title: '↑ Change in price (%)' })
+  .tooltip({
+    title: (d) => new Date(d.Date).toUTCString(),
+    items: [
+      (d, i, data, column) => ({
+        name: 'Close',
+        value: column.y.value[i].toFixed(1),
+      }),
+    ],
+  })
+  .label({
+    text: 'Symbol',
+    selector: 'last',
+    fontSize: 10,
+  });
+
+chart.render();
+
+```
 
 ## 配置项
 
@@ -176,7 +211,7 @@ chart.options({
 ```js
 chart.options({
   tooltip: {
-    title: {field: 'sold', valueFormatter: (sold) => sold.toUpperCase()}
+    title: { field: 'sold', valueFormatter: (sold) => sold.toUpperCase() },
     items: [{ channel: 'y', valueFormatter: '.0%' }],
   },
 });
@@ -190,15 +225,15 @@ chart.options({
 chart.options({
   tooltip: {
     title: (datum, index, data, column) => ({
-      value: `<span style="color: #00ff00; font-style: italic;">${d.letter}</span>`,
-      custom: ...
+      value: `<span style="color: #00ff00; font-style: italic;">${datum.letter}</span>`,
+      custom: '...',
     }),
     items: [
       (datum, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
-        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // 指定 item 的名字
-        value: column.y.value[index], // 使用 y 通道的值、
-        custom: ...
+        color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
+        name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
+        value: column.y.value[index], // 使用 y 通道的值
+        custom: '...',
       }),
     ],
   },
@@ -244,8 +279,8 @@ items 返回值可用作 `interaction.tooltip.render` 的入参，您可以设�
 chart.options({
   tooltip: {
     items: [
-      {name： '张三', channel: 'y1'},
-      {name： '李四', channel: 'y2'},
+      { name: '张三', channel: 'y1' },
+      { name: '李四', channel: 'y2' },
     ],
   },
 });
@@ -259,8 +294,8 @@ chart.options({
 chart.options({
   tooltip: {
     items: [
-      {color： 'pink', channel: 'y1'},
-      {color： '#f00', channel: 'y2'},
+      { color: 'pink', channel: 'y1' },
+      { color: '#f00', channel: 'y2' },
     ],
   },
 });
@@ -329,23 +364,41 @@ chart.options({
 
 另外，通过前缀`crosshairsX` 和 `crosshairsY` 设置样式的优先级比 `crosshairs`高，会覆盖后者。
 
-| 属性                     | 描述                   | 类型            | 默认值  | 必选 |
-| ------------------------ | ---------------------- | --------------- | ------- | ---- |
-| crosshairs               | 是否显示十字辅助线     | boolean         | `true`  |      |
-| crosshairsStroke         | 十字辅助线描边颜色     | string          | -       |      |
-| crosshairsStrokeOpacity  | 十字辅助线透明度       | number          | -       |      |
-| crosshairsLineWidth      | 十字辅助线宽度         | number          | -       |      |
-| crosshairsLineDash       | 十字辅助线虚线         | [number,number] | -       |      |
-| crosshairsX              | 是否显示水平方向辅助线 | boolean         | `false` |      |
-| crosshairsXStroke        | 水平方向辅助线描边颜色 | string          | -       |      |
-| crosshairsXStrokeOpacity | 水平方向辅助线透明度   | number          | -       |      |
-| crosshairsXLineWidth     | 水平方向辅助线宽度     | number          | -       |      |
-| crosshairsXLineDash      | 水平方向辅助线虚线     | [number,number] | -       |      |
-| crosshairsY              | 是否显示垂直方向辅助线 | boolean         | `true`  |      |
-| crosshairsYStroke        | 垂直方向辅助线描边颜色 | string          | -       |      |
-| crosshairsYStrokeOpacity | 垂直方向辅助线透明度   | number          | -       |      |
-| crosshairsYLineWidth     | 垂直方向辅助线宽度     | number          | -       |      |
-| crosshairsYLineDash      | 垂直方向辅助线虚线     | [number,number] | -       |      |
+| 属性                     | 描述                                                                         | 类型            | 默认值    | 必选 |
+| ------------------------ | ---------------------------------------------------------------------------- | --------------- | --------- | ---- |
+| crosshairs               | 是否显示十字辅助线                                                           | boolean         | `true`    |      |
+| crosshairsStroke         | 十字辅助线的颜色                                                             | string          | -         |      |
+| crosshairsStrokeOpacity  | 十字辅助线的透明度                                                           | number          | -         |      |
+| crosshairsLineWidth      | 十字辅助线的描边宽度                                                         | number          | -         |      |
+| crosshairsLineDash       | 十字辅助线的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | [number,number] | -         |      |
+| crosshairsOpacity        | 十字辅助线的整体透明度                                                       | number          | -         |      |
+| crosshairsShadowColor    | 十字辅助线的阴影颜色                                                         | string          | -         |      |
+| crosshairsShadowBlur     | 十字辅助线的阴影高斯模糊系数                                                 | number          | -         |      |
+| crosshairsShadowOffsetX  | 十字辅助线阴影的水平方向偏移量                                               | number          | -         |      |
+| crosshairsShadowOffsetY  | 十字辅助线阴影的垂直方向偏移量                                               | number          | -         |      |
+| crosshairsCursor         | 十字辅助线的鼠标样式                                                         | string          | `default` |      |
+| crosshairsX              | 是否显示水平方向辅助线                                                       | boolean         | `false`   |      |
+| crosshairsXStroke        | 水平方向辅助线的颜色                                                         | string          | -         |      |
+| crosshairsXStrokeOpacity | 水平方向辅助线的透明度                                                       | number          | -         |      |
+| crosshairsXLineWidth     | 水平方向辅助线的描边宽度                                                     | number          | -         |      |
+| crosshairsXLineDash      | 水平方向辅助线的虚线配置                                                     | [number,number] | -         |      |
+| crosshairsXOpacity       | 水平方向辅助线的整体透明度                                                   | number          | -         |      |
+| crosshairsXShadowColor   | 水平方向辅助线的阴影颜色                                                     | string          | -         |      |
+| crosshairsXShadowBlur    | 水平方向辅助线的阴影高斯模糊系数                                             | number          | -         |      |
+| crosshairsXShadowOffsetX | 水平方向辅助线阴影的水平方向偏移量                                           | number          | -         |      |
+| crosshairsXShadowOffsetY | 水平方向辅助线阴影的垂直方向偏移量                                           | number          | -         |      |
+| crosshairsXCursor        | 水平方向辅助线的鼠标样式                                                     | string          | `default` |      |
+| crosshairsY              | 是否显示垂直方向辅助线                                                       | boolean         | `true`    |      |
+| crosshairsYStroke        | 垂直方向辅助线的颜色                                                         | string          | -         |      |
+| crosshairsYStrokeOpacity | 垂直方向辅助线的透明度                                                       | number          | -         |      |
+| crosshairsYLineWidth     | 垂直方向辅助线的描边宽度                                                     | number          | -         |      |
+| crosshairsYLineDash      | 垂直方向辅助线的虚线配置                                                     | [number,number] | -         |      |
+| crosshairsYOpacity       | 垂直方向辅助线的整体透明度                                                   | number          | -         |      |
+| crosshairsYShadowColor   | 垂直方向辅助线的阴影颜色                                                     | string          | -         |      |
+| crosshairsYShadowBlur    | 垂直方向辅助线的阴影高斯模糊系数                                             | number          | -         |      |
+| crosshairsYShadowOffsetX | 垂直方向辅助线阴影的水平方向偏移量                                           | number          | -         |      |
+| crosshairsYShadowOffsetY | 垂直方向辅助线阴影的垂直方向偏移量                                           | number          | -         |      |
+| crosshairsYCursor        | 垂直方向辅助线的鼠标样式                                                     | string          | `default` |      |
 
 ```js
 chart.options({
@@ -365,20 +418,21 @@ chart.options({
 
 #### marker
 
-| 属性                | 描述               | 类型            | 默认值    | 必选 |
-| ------------------- | ------------------ | --------------- | --------- | ---- |
-| marker              | 是否展示标记点     | boolean         | `true`    |      |
-| markerFill          | 标记点填充颜色     | string          | -         |      |
-| markerFillOpacity   | 标记点填充透明度   | number          | -         |      |
-| markerStroke        | 标记点描边颜色     | string          | -         |      |
-| markerStrokeOpacity | 标记点描边透明度   | number          | -         |      |
-| markerLineWidth     | 标记点描边宽度     | number          | -         |      |
-| markerLineDash      | 标记点虚线配置     | [number,number] | -         |      |
-| markerOpacity       | 标记点整体透明度   | number          | -         |      |
-| markerShadowColor   | 标记点阴影颜色     | string          | -         |      |
-| markerShadowBlur    | 标记点阴影模糊系数 | number          | -         |      |
-| markerShadowOffsetX | 标记点阴影水平偏移 | number          | -         |      |
-| markerCursor        | 标记点鼠标样式     | string          | `default` |      |
+| 属性                | 描述                                                                         | 类型            | 默认值    | 必选 |
+| ------------------- | ---------------------------------------------------------------------------- | --------------- | --------- | ---- |
+| marker              | 是否展示标记点                                                               | boolean         | `true`    |      |
+| markerFill          | 标记点的填充色                                                               | string          | -         |      |
+| markerFillOpacity   | 标记点的填充透明度                                                           | number          | -         |      |
+| markerStroke        | 标记点的描边颜色                                                             | string          | -         |      |
+| markerStrokeOpacity | 标记点的描边透明度                                                           | number          | -         |      |
+| markerLineWidth     | 标记点的描边宽度                                                             | number          | -         |      |
+| markerLineDash      | 标记点的描边虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离 | [number,number] | -         |      |
+| markerOpacity       | 标记点的整体透明度                                                           | number          | -         |      |
+| markerShadowColor   | 标记点的阴影颜色                                                             | string          | -         |      |
+| markerShadowBlur    | 标记点的阴影高斯模糊系数                                                     | number          | -         |      |
+| markerShadowOffsetX | 标记点阴影的水平方向偏移量                                                   | number          | -         |      |
+| markerShadowOffsetY | 标记点阴影的垂直方向偏移量                                                   | number          | -         |      |
+| markerCursor        | 标记点的鼠标样式                                                             | string          | `default` |      |
 
 ```js
 chart.options({
@@ -400,7 +454,7 @@ chart.options({
 
 <img alt="tooltip" width=900 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*J1N_RKY7FtkAAAAAAAAAAAAAemJ7AQ/original" />
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -468,7 +522,65 @@ chart.render();
 
 尝试一下
 
-<Playground path="style/component/tooltip/demo/tooltip-style.ts" rid="tooltip-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart
+  .interval()
+  .data({
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  })
+  .transform({ type: 'sortX', by: 'y', reverse: true, slice: 6 })
+  .transform({ type: 'dodgeX' })
+  .encode('x', 'state')
+  .encode('y', 'population')
+  .encode('color', 'age')
+  .scale('y', { nice: true })
+  .axis('y', { labelFormatter: '~s' })
+  .interaction('tooltip', {
+    shared: true,
+    css: {
+      '.g2-tooltip': {
+        background: '#eee',
+        'border-radius': ' 0.25em !important',
+      },
+      '.g2-tooltip-title': {
+        'font-size': '20px',
+        'font-weight': 'bold',
+        'padding-bottom': '0.25em',
+      },
+      '.g2-tooltip-list-item': {
+        background: '#ccc',
+        padding: '0.25em',
+        margin: '0.25em',
+        'border-radius': '0.25em',
+      },
+      '.g2-tooltip-list-item-name-label': {
+        'font-weight': 'bold',
+        'font-size': '16px',
+      },
+      'g2-tooltip-list-item-marker': {
+        'border-radius': '0.25em',
+        width: '15px',
+        height: '15px',
+      },
+      '.g2-tooltip-list-item-value': {
+        'font-weight': 'bold',
+        'font-size': '16px',
+      },
+    },
+  });
+
+chart.render();
+
+```
 
 #### 自定义渲染内容
 
@@ -485,7 +597,7 @@ function render(event, tooltipData) {
 
 下面是一个简单的例子：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -534,7 +646,47 @@ chart.on('tooltip:hide', () => {
 
 尝试一下
 
-<Playground path="style/annotation/line/demo/histogram-mean-line.ts" rid="tooltip-custom"></playground>
+```js | ob { inject: true }
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_histogram_global_mean.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/movies.json',
+  transform: [
+    {
+      type: 'filter',
+      callback: (d) => d['IMDB Rating'] > 0,
+    },
+  ],
+});
+
+chart
+  .rect()
+  .transform({ type: 'binX', y: 'count', thresholds: 9 })
+  .encode('x', 'IMDB Rating')
+  .scale('y', { domainMax: 1000 })
+  .style('inset', 1);
+
+chart
+  .lineX()
+  .transform({ type: 'groupColor', x: 'mean' }) // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
+  .encode('x', 'IMDB Rating')
+  .style('stroke', '#F4664A')
+  .style('strokeOpacity', 1)
+  .style('lineWidth', 2)
+  .style('lineDash', [4, 4]);
+
+chart.render();
+
+```
 
 ## 示例
 
@@ -607,11 +759,11 @@ chart.options({
   tooltip: {
     items: [
       (datum, index, data, column) => ({
-        color: d.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
-        name: index === 0 ? d.genre : `${d.genre} ${data[index].genre}`, // 指定 item 的名字
-        value: column.y.value[index], // 使用 y 通道的值、
-        custom1: '自定义参数1'，
-        custom2: '自定义参数2'
+        color: datum.sold > 150 ? 'red' : 'blue', // 指定 item 的颜色
+        name: index === 0 ? datum.genre : `${datum.genre} ${data[index].genre}`, // 指定 item 的名字
+        value: column.y.value[index], // 使用 y 通道的值
+        custom1: '自定义参数1',
+        custom2: '自定义参数2',
       }),
     ],
   },
@@ -619,15 +771,15 @@ chart.options({
     tooltip: {
       // render 回调方法返回一个innerHTML 或者 DOM
       render: (event, { title, items }) => {
-        return  `<div>
+        return `<div>
           <h3 style="padding:0;margin:0">${title}</h3>
           <ul>${items.map(
-              ({ color, name, value, custom1, custom2 }) => ...
+            ({ color, name, value, custom1, custom2 }) => '...',
           )}</ul>
-        </div>`,
-      }
-    }
-  }
+        </div>`;
+      },
+    },
+  },
 });
 ```
 

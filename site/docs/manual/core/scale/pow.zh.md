@@ -18,8 +18,8 @@ order: 12
 ## 配置项
 
 | 属性        | 描述                             | 类型                                                                                      | 默认值                       | 必选 |
-| ----------- | -------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------- | ---- | --- |
-| type        | 比例尺类型，需为'pow'            | string                                                                                    | 无                           | ✓    |     |
+| ----------- | -------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------- | ---- |
+| type        | 比例尺类型，需为'pow'            | string                                                                                    | 无                           | ✓    |
 | domain      | 定义域，表示输入数据的原始范围   | (number &#124; string)[]                                                                  | [0, 1]                       |      |
 | range       | 值域，表示映射后的视觉范围       | number[]                                                                                  | [0, 1]                       |      |
 | exponent    | 指数值，决定指数变换的强度       | number                                                                                    | 2                            |      |
@@ -28,7 +28,7 @@ order: 12
 | round       | 是否对输出值进行四舍五入         | boolean                                                                                   | false                        |      |
 | tickMethod  | 计算刻度方法                     | (min: number, max: number, count: number) => number[]                                     | d3Ticks                      |      |
 | tickCount   | 刻度数量                         | number                                                                                    | 5                            |      |
-| interpolate | 自定义插值器，支持数字和颜色值   | (a: number &#124; string, b: number &#124; string) => (t: number) => number &#124; string | 数字:线性插值;颜色:RGBA 插值 |
+| interpolate | 自定义插值器，支持数字和颜色值   | (a: number &#124; string, b: number &#124; string) => (t: number) => number &#124; string | 数字:线性插值;颜色:RGBA 插值 |      |
 
 ## 注意事项
 
@@ -45,7 +45,7 @@ order: 12
 
 当 `exponent=1` 时，`pow` 比例尺等同于线性比例尺。此时数据映射是线性的，适合展示均匀分布的数据。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -79,7 +79,7 @@ chart.render();
 
 当数据范围很大时，可以使用 `exponent < 1` 的 `pow` 比例尺压缩数据差异。平方根比例尺适合展示数据范围大但希望更均匀分布的情况。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ chart.render();
 
 当需要强调小值间的差异时，可以使用 `exponent > 1` 的 `pow` 比例尺。指数比例尺会放大小值间的差异，适合展示细微但重要的变化。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -147,7 +147,7 @@ chart.render();
 
 ### 自定义插值函数
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

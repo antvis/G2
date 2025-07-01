@@ -207,10 +207,12 @@ chart.emit('brush:highlight', { data: { selection } });
 
 ### 多视图图表联动
 
-```js | ob { autoMount: true }
-import { Chart } from '@antv/g2';
-
-const container = document.createElement('div');
+```js | ob {  inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
 const focusContainer = document.createElement('div');
 const contextContainer = document.createElement('div');
 container.append(focusContainer);
@@ -233,8 +235,7 @@ function createPathRender(compute) {
 
 // 渲染 focus 视图
 
-const focus = new Chart({
-  container: 'container',
+const focus = new G2.Chart({
   container: focusContainer,
   height: 360,
   paddingLeft: 50,
@@ -259,7 +260,7 @@ focus.render();
 
 // 渲染 context 视图
 
-const context = new Chart({
+const context = new G2.Chart({
   container: 'container',
   container: contextContainer,
   paddingLeft: 50,
@@ -327,6 +328,4 @@ context.on('brush:remove', (e) => {
   const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
   focus.emit('brush:filter', { data: { selection } });
 });
-
-return container;
 ```

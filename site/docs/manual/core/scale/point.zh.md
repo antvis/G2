@@ -15,7 +15,7 @@ order: 2
 
 ### 映射效果示意图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -53,19 +53,30 @@ chart.render();
 | align   | 对齐方式，在 [0, 1] 范围内                   | `number`                                               | `0.5`       |      |
 | compare | 对定义域进行排序                             | `(a: string \| number, b: string \| number) => number` | `undefined` |      |
 
-> 复杂类型说明：
->
-> - `domain`：为类别数组，可以是字符串、数字或日期类型。
-> - `range`：为映射的连续区间，通常为 `[0, 1]` 或像素区间。
-> - `compare`：自定义排序函数，决定 domain 的顺序。
->
-> 注意：point 比例尺是 bandWidth 恒为 0 的 band 比例尺，内部固定了以下属性且不可修改：
->
-> ```js
-> padding: 0,
-> paddingInner: 1,
-> paddingOuter: 0
-> ```
+**复杂类型说明：**
+
+- `domain`：为类别数组，可以是字符串、数字或日期类型。
+- `range`：为映射的连续区间，通常为 `[0, 1]` 或像素区间。
+- `compare`：自定义排序函数，决定 domain 的顺序。
+
+**注意：** point 比例尺是 bandWidth 恒为 0 的 band 比例尺，内部固定了以下属性：
+
+```js
+padding: 0.5, // 内部赋值
+paddingInner: 1, // 不可修改
+paddingOuter: 0.5 // // 内部赋值
+```
+
+如果想自定义 `paddingOuter` 的值，可以通过修改 `padding` 实现。例如：
+
+```js
+(scale: {
+  x: {
+    type: 'point',
+    padding: 0, // 只会对 paddingOuter 生效，paddingInner 恒为 1
+  },
+});
+```
 
 ```plan
 |<------------------------------------------- range ------------------------------------------->|
@@ -81,7 +92,7 @@ chart.render();
 
 ### 散点图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -105,7 +116,7 @@ chart.render();
 
 ### 色块图
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

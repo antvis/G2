@@ -1,9 +1,9 @@
 ---
-title: event
+title: Events
 order: 17
 ---
 
-G2 exposes some events to get the chart life cycle and interaction information. G2 exports a `ChartEvent` type, used to define the type of event.
+G2 exposes various events to capture chart lifecycle and interaction information. G2 exports a `ChartEvent` type that defines the event types.
 
 <img alt="click event" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z61ZQ5DM5IUAAAAAAAAAAAAADmJ7AQ/original" width="800" />
 
@@ -41,9 +41,9 @@ chart.on('element:click', (e) => {
 chart.render();
 ```
 
-## Life cycle events
+## Lifecycle Events
 
-If you want to get the life cycle information of the chart, you can do the following:
+To capture chart lifecycle information, you can use the following approach:
 
 ```js
 chart.on(ChartEvent.AFTER_RENDER, (ev) => {
@@ -53,33 +53,33 @@ chart.on(ChartEvent.AFTER_RENDER, (ev) => {
 
 G2 currently provides the following lifecycle events:
 
-| Event name                      | Explanation                  |
-| ------------------------------- | ---------------------------- |
-| `ChartEvent.`BEFORE_RENDER      | Before rendering             |
-| `ChartEvent.`BEFORE_PAINT       | Before drawing               |
-| `ChartEvent.`AFTER_PAINT        | After drawing                |
-| `ChartEvent.`AFTER_RENDER       | After rendering              |
-| `ChartEvent.`BEFORE_CHANGE_DATA | Before changing data         |
-| `ChartEvent.`AFTER_CHANGE_DATA  | After changing data          |
-| `ChartEvent.`BEFORE_CLEAR       | Before cleaning the canvas   |
-| `ChartEvent.`AFTER_CLEAR        | After cleaning the canvas    |
-| `ChartEvent.`BEFORE_DESTROY     | Before destroying the canvas |
-| `ChartEvent.`AFTER_DESTROY      | After destroying the canvas  |
-| `ChartEvent.`BEFORE_CHANGE_SIZE | Before changing canvas size  |
-| `ChartEvent.`AFTER_CHANGE_SIZE  | After changing canvas size   |
+| Event Name                      | Description                 |
+| ------------------------------- | --------------------------- |
+| `ChartEvent.`BEFORE_RENDER      | Before rendering            |
+| `ChartEvent.`BEFORE_PAINT       | Before painting             |
+| `ChartEvent.`AFTER_PAINT        | After painting              |
+| `ChartEvent.`AFTER_RENDER       | After rendering             |
+| `ChartEvent.`BEFORE_CHANGE_DATA | Before data change          |
+| `ChartEvent.`AFTER_CHANGE_DATA  | After data change           |
+| `ChartEvent.`BEFORE_CLEAR       | Before clearing canvas      |
+| `ChartEvent.`AFTER_CLEAR        | After clearing canvas       |
+| `ChartEvent.`BEFORE_DESTROY     | Before destroying canvas    |
+| `ChartEvent.`AFTER_DESTROY      | After destroying canvas     |
+| `ChartEvent.`BEFORE_CHANGE_SIZE | Before changing canvas size |
+| `ChartEvent.`AFTER_CHANGE_SIZE  | After changing canvas size  |
 
-- **Before rendering**: Refers to G2 starting to process data, perform layout, drawing graphics and other operations.
-- **Before drawing**: Refers to the completion of data processing, layout, graphics drawing and other operations, but has not yet been drawn.
-- **After drawing**: Refers to G2 completing all drawing operations, but animation may exist. After the animation ends, the chart is truly rendered.
-- **After rendering**: Refers to G2 completing all drawing operations, including animation.
-- **After cleaning the canvas**: The chart in the container has been cleaned up, but the G2 instance still exists and can continue to be used.
-- **After destroying the canvas**: The G2 instance has been destroyed and can no longer be used.
+- **Before rendering**: When G2 starts processing data, performing layout, and drawing graphics.
+- **Before painting**: When data processing, layout, and graphics operations are complete but painting hasn't started.
+- **After painting**: When G2 completes all painting operations, but animations may still be running. The chart is fully rendered when animations finish.
+- **After rendering**: When G2 completes all painting operations, including animations.
+- **After clearing canvas**: The chart in the container has been cleared, but the G2 instance still exists and can be reused.
+- **After destroying canvas**: The G2 instance has been destroyed and cannot be used anymore.
 
-## Interaction events
+## Interaction Events
 
-If you want to get the interactive information of the chart, you can do the following:
+To capture chart interaction information, you can use the following approaches:
 
-- Monitor the global `element` event
+- Listen to global `element` events
 
 ```js
 chart.on(`element:${ChartEvent.EventType}`, (ev) => {
@@ -87,14 +87,14 @@ chart.on(`element:${ChartEvent.EventType}`, (ev) => {
 });
 ```
 
-- Monitor specified `element` event
+- Listen to specific `element` events
 
 ```js
 chart.on(`${markType}:${ChartEvent.EventType}`, (ev) => {
   console.log(ev);
 });
 
-// For example, listen to the click event of the bar in the bar chart
+// For example, listen to click events on bars in a bar chart
 chart.on(`interval:${ChartEvent.CLICK}`, (ev) => {
   console.log(ev);
 });
@@ -118,45 +118,45 @@ chart.on('component:click', (event) => console.log(event));
 chart.on('label:click', (event) => console.log(event));
 ```
 
-### Click event
+### Click Events
 
-| Event name            | Explanation  | Callback parameters |
+| Event Name            | Description  | Callback Parameters |
 | --------------------- | ------------ | ------------------- |
 | `ChartEvent.`CLICK    | Click        | `Event`             |
 | `ChartEvent.`DBLCLICK | Double click | `Event`             |
 
-### Pointer event
+### Pointer Events
 
-| Event name                     | Explanation                                                      | Callback parameters |
-| ------------------------------ | ---------------------------------------------------------------- | ------------------- |
-| `ChartEvent.`POINTER_TAP       |                                                                  | `Event`             |
-| `ChartEvent.`POINTER_DOWN      | When the pointer is pressed                                      | `Event`             |
-| `ChartEvent.`POINTER_UP        | When the pointer is released                                     | `Event`             |
-| `ChartEvent.`POINTER_OVER      | When the pointer enters the target element                       | `Event`             |
-| `ChartEvent.`POINTER_OUT       | When the pointer leaves the target element                       | `Event`             |
-| `ChartEvent.`POINTER_MOVE      | When the pointer changes coordinates                             | `Event`             |
-| `ChartEvent.`POINTER_ENTER     | When the pointer enters the target element or its child elements | `Event`             |
-| `ChartEvent.`POINTER_LEAVE     | When the pointer leaves the target element or its child elements | `Event`             |
-| `ChartEvent.`POINTER_UPOUTSIDE |                                                                  | `Event`             |
+| Event Name                     | Description                                               | Callback Parameters |
+| ------------------------------ | --------------------------------------------------------- | ------------------- |
+| `ChartEvent.`POINTER_TAP       |                                                           | `Event`             |
+| `ChartEvent.`POINTER_DOWN      | When pointer is pressed down                              | `Event`             |
+| `ChartEvent.`POINTER_UP        | When pointer is released                                  | `Event`             |
+| `ChartEvent.`POINTER_OVER      | When pointer enters the target element                    | `Event`             |
+| `ChartEvent.`POINTER_OUT       | When pointer leaves the target element                    | `Event`             |
+| `ChartEvent.`POINTER_MOVE      | When pointer coordinates change                           | `Event`             |
+| `ChartEvent.`POINTER_ENTER     | When pointer enters the target element or its descendants | `Event`             |
+| `ChartEvent.`POINTER_LEAVE     | When pointer leaves the target element or its descendants | `Event`             |
+| `ChartEvent.`POINTER_UPOUTSIDE |                                                           | `Event`             |
 
-### Drag event
+### Drag Events
 
-If you want to listen to drag events, you need to set the draggable and droppable properties.
+To listen to drag events, you need to set the draggable and droppable properties:
 
 ```js
 chart.interval().style('draggable', true).style('droppable', true);
 ```
 
-| Event name              | Explanation                                                       | Callback parameters |
-| ----------------------- | ----------------------------------------------------------------- | ------------------- |
-| `ChartEvent.`DRAG_START | When starting to drag                                             | `Event`             |
-| `ChartEvent.`DRAG       | During dragging                                                   | `Event`             |
-| `ChartEvent.`DRAG_END   | When dragging is complete                                         | `Event`             |
-| `ChartEvent.`DRAG_ENTER | When the element is dragged into the target element               | `Event`             |
-| `ChartEvent.`DRAG_LEAVE | When the element is dragged away from the target element          | `Event`             |
-| `ChartEvent.`DRAG_OVER  | When the element is dragged and hovered within the target element | `Event`             |
-| `ChartEvent.`DROP       | When the element is placed inside the target element              | `Event`             |
+| Event Name              | Description                                              | Callback Parameters |
+| ----------------------- | -------------------------------------------------------- | ------------------- |
+| `ChartEvent.`DRAG_START | When dragging starts                                     | `Event`             |
+| `ChartEvent.`DRAG       | During dragging                                          | `Event`             |
+| `ChartEvent.`DRAG_END   | When dragging ends                                       | `Event`             |
+| `ChartEvent.`DRAG_ENTER | When element is dragged into the target element          | `Event`             |
+| `ChartEvent.`DRAG_LEAVE | When element is dragged away from the target element     | `Event`             |
+| `ChartEvent.`DRAG_OVER  | When element is dragged and hovering over target element | `Event`             |
+| `ChartEvent.`DROP       | When element is dropped into the target element          | `Event`             |
 
-## Typical cases
+## Examples
 
-For details, see Interaction - Events [Examples](/en/examples#interaction-event)
+For detailed examples, see Interaction - Events [Examples](/en/examples#interaction-event)

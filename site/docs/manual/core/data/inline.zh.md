@@ -40,7 +40,7 @@ chart.data([
 
 举一个例子如下：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -62,7 +62,7 @@ chart.options({
   },
 });
 
-return chart.render().then((chart) => chart.getContainer());
+chart.render();
 ```
 
 ## 配置项
