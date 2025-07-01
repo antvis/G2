@@ -1,12 +1,12 @@
 ---
 title: Pie Chart
 order: 5
-screenshot: 'https://t.alipayobjects.com/images/T11ydjXg8jXXXXXXXX.png'
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original'
 category: ['proportion']
 similar: ['donut-chart', 'rose']
 ---
 
-<img alt="pie" src="https://t.alipayobjects.com/images/T11ydjXg8jXXXXXXXX.png" width=600/>
+<img alt="pie" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
 ## Introduction to Pie Charts
 
