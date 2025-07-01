@@ -7,39 +7,167 @@ A tree chart (`Tree`) can decompose things or phenomena into a tree-like structu
 
 ## Getting Started
 
-<img alt="tree" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*srsgT7Tb6jQAAAAAAAAAAAAADmJ7AQ/original
-" width="600" />
-
-```js
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({
-  container: 'container',
-  height: 1500,
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'tree',
   width: 800,
+  height: 1500,
+  layout: { sortBy: (a, b) => a.value - b.value },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/flare.json',
+  },
+  coordinate: { transform: [{ type: 'transpose' }] },
+  style: {
+    nodeFill: (d) => (d.height === 0 ? '#999' : '#000'),
+    linkStroke: '#999',
+    labelText: (d) => d.data.name || '-',
+    labelFontSize: (d) => (d.height === 0 ? 7 : 12),
+    labelTextAlign: (d) => (d.height === 0 ? 'start' : 'end'),
+    labelPosition: (d) => (d.height !== 0 ? 'left' : 'right'),
+    labelDx: (d) => (d.height === 0 ? 5 : -5),
+    labelBackground: true,
+    labelBackgroundFill: '#fff',
+  },
 });
+
+chart.render();
+```
+
+## Data Format
+
+Tree chart supports multiple data configuration methods:
+
+### 1. Remote Data (fetch)
+
+Use `type: 'fetch'` to fetch data from remote sources, supporting JSON, CSV and other formats:
+
+```js
+chart.tree().data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/flare.json',
+});
+```
+
+### 2. Inline Data (inline)
+
+#### Explicitly specify inline type
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'tree',
+  data: {
+    type: 'inline',
+    value: {
+      name: 'root',
+      children: [
+        {
+          name: 'branch1',
+          value: 100,
+          children: [
+            { name: 'leaf1', value: 50 },
+            { name: 'leaf2', value: 30 },
+          ],
+        },
+        {
+          name: 'branch2',
+          value: 80,
+          children: [
+            { name: 'leaf3', value: 40 },
+            { name: 'leaf4', value: 40 },
+          ],
+        },
+      ],
+    },
+  },
+});
+
+chart.render();
+```
+
+#### Shorthand form (Recommended)
+
+Since G2's default data type is `inline`, you can pass data directly:
+
+```js
+// Pass hierarchical data object directly
+chart.tree().data({
+  value: {
+    name: 'root',
+    children: [
+      {
+        name: 'branch1',
+        value: 100,
+        children: [
+          { name: 'leaf1', value: 50 },
+          { name: 'leaf2', value: 30 },
+        ],
+      },
+    ],
+  },
+});
+
+// Or pass flat data array (requires layout.path configuration)
+const flatData = [
+  { name: 'root', value: 180 },
+  { name: 'root/branch1', value: 100 },
+  { name: 'root/branch1/leaf1', value: 50 },
+  { name: 'root/branch1/leaf2', value: 30 },
+  { name: 'root/branch2', value: 80 },
+  { name: 'root/branch2/leaf3', value: 40 },
+  { name: 'root/branch2/leaf4', value: 40 },
+];
 
 chart
   .tree()
-  .coordinate({ transform: [{ type: 'transpose' }] })
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/flare.json',
-  })
+  .data({ value: flatData })
   .layout({
-    sortBy: (a, b) => a.value - b.value,
-  })
-  .style('nodeFill', (d) => (d.height === 0 ? '#999' : '#000'))
-  .style('linkStroke', '#999')
-  .style('labelText', (d) => d.data.name || '-')
-  .style('labelFontSize', (d) => (d.height === 0 ? 7 : 12))
-  .style('labelTextAlign', (d) => (d.height === 0 ? 'start' : 'end'))
-  .style('labelPosition', (d) => (d.height !== 0 ? 'left' : 'right'))
-  .style('labelDx', (d) => (d.height === 0 ? 5 : -5))
-  .style('labelBackground', true)
-  .style('labelBackgroundFill', '#fff');
+    path: (d) => d.name, // Specify path field
+  });
+```
 
-chart.render();
+### Data Structure Description
+
+Tree chart supports two data structures:
+
+1. **Hierarchical Data**: JSON objects already in tree structure, each node contains a `children` array
+2. **Flat Data**: Arrays containing path information, requiring `layout.path` configuration to build hierarchy
+
+Hierarchical data example:
+
+```json
+{
+  "name": "root",
+  "value": 180,
+  "children": [
+    {
+      "name": "branch1",
+      "value": 100,
+      "children": [
+        { "name": "leaf1", "value": 50 },
+        { "name": "leaf2", "value": 30 }
+      ]
+    }
+  ]
+}
+```
+
+Flat data example:
+
+```json
+[
+  { "name": "root", "value": 180 },
+  { "name": "root/branch1", "value": 100 },
+  { "name": "root/branch1/leaf1", "value": 50 }
+]
 ```
 
 ## Options
@@ -53,21 +181,53 @@ chart.render();
 
 ### layout
 
-| Property   | Description                     | Type                    | Default Value                            |
-| ---------- | ------------------------------- | ----------------------- | ---------------------------------------- |
-| nodeSize   | Node size                       | `(node: any) => string` | -                                        |
-| sortBy     | Sort method                     | `((a, b) => number)`    | `(a, b) => b.value - a.value`            |
-| separation | Distance between adjacent nodes | `(a, b) => number`      | `(a, b) => a.parent == b.parent ? 1 : 2` |
+| Property   | Description              | Type                    | Default Value                            |
+| ---------- | ------------------------ | ----------------------- | ---------------------------------------- |
+| nodeSize   | Node size                | `(node: any) => string` | -                                        |
+| sortBy     | Sort method              | `((a, b) => number)`    | `(a, b) => b.value - a.value`            |
+| separation | Distance between nodes   | `(a, b) => number`      | `(a, b) => a.parent == b.parent ? 1 : 2` |
+| path       | Path field configuration | `(d: any) => string`    | -                                        |
+
+**Note**: When using flat data, you must configure `layout.path` to specify how to extract hierarchical path information from the data.
 
 ### style
 
-Composite graphic marks need to be distinguished by different prefixes for graphic configuration.
+Composite mark components require different prefixes to distinguish graphic configurations.
 
-- `<label>`: Data label prefix, for example: `labelText` sets the text of the label.
-- `<node>`: Node configuration prefix, for example: `nodeFill` sets the fill color of the node.
-- `<link>`: Link configuration prefix, for example: `linkStrokeWidth` sets the width of the link.
+- `<label>`: Prefix for data labels, e.g., `labelText` sets the label text.
+- `<node>`: Prefix for node configurations, e.g., `nodeFill` sets the node fill color.
+- `<link>`: Prefix for link configurations, e.g., `linkStrokeWidth` sets the link width.
 
 ## FAQ
 
 - How to draw a circular tree chart?
-  You need to specify `coordinate: 'polar'`
+  You need to specify `coordinate: { type: 'polar' }`
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'tree',
+  layout: { sortBy: (a, b) => a.value - b.value },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/flare.json',
+  },
+  coordinate: { type: 'polar' },
+  style: {
+    nodeFill: (d) => (d.height === 0 ? '#999' : '#000'),
+    linkStroke: '#999',
+    labelText: (d) => d.data.name || '-',
+    labelFontSize: (d) => (d.height === 0 ? 7 : 12),
+    labelTextAlign: (d) => (d.height === 0 ? 'start' : 'end'),
+    labelPosition: (d) => (d.height !== 0 ? 'left' : 'right'),
+    labelDx: (d) => (d.height === 0 ? 5 : -5),
+    labelBackground: true,
+    labelBackgroundFill: '#fff',
+  },
+});
+
+chart.render();
+```
