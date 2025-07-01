@@ -32,6 +32,19 @@ export async function unemploymentChoropleth(): Promise<G2Spec> {
     encode: {
       color: 'rate',
     },
+    tooltip: {
+      title: (record) => {
+        return record.id;
+      },
+      items: [
+        (record) => {
+          return {
+            name: 'rate',
+            value: record.rate,
+          };
+        },
+      ],
+    },
   };
 }
 
