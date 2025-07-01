@@ -32,10 +32,6 @@ export type ContrastReverseLabelTransform = {
    * The optional color palette, default is [#000, #fff].
    */
   palette?: string[];
-  /**
-   * Auto add stroke to make overflowing text more visible.
-   */
-  autoStroke?: boolean | { lineWidth: number };
 };
 
 export type OverflowHideLabelTransform = {

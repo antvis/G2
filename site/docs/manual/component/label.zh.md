@@ -389,6 +389,90 @@ chart.render();
 | threshold | 标签和背景图形的颜色对比度阈值，超过阈值才会推荐颜色提升对比度 | `Type` | `4.5`              |      |
 | palette   | 对比度提升算法中，备选的颜色色板                               | `Type` | `['#000', '#fff']` |      |
 
+#### contrastReverseStroke
+
+`contrastReverseStroke` 从指定色板选择一个与标签颜色相比对比度最优的颜色进行描边。类似字幕黑底白字原理，针对 `label` 溢出元素后，标签颜色与背景融合显示不明显的问题。
+
+##### 问题案例
+
+label 颜色与背景接近，我们使用 contrastReverse 进行反转，但反转后溢出部分可读性又会非常差。
+
+```js | ob {  pin: false, autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  // theme: 'classicDark',
+  type: 'interval',
+  scale: {
+    color: { range: ['#444'] },
+  },
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+    { letter: 'D', frequency: 0.04253 },
+    { letter: 'E', frequency: 0.12702 },
+    { letter: 'F', frequency: 0.02288 },
+    { letter: 'H', frequency: 0.06094 },
+    { letter: 'I', frequency: 0.02288 },
+  ],
+  encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
+  labels: [
+    {
+      text: 'frequency',
+      transform: [
+        {
+          type: 'contrastReverse',
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+##### 配置 `contrastReverse` 转化标签
+
+对不明显的 `label` 标签 颜色进行优化
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  height: 300,
+  data: [
+    { genre: 'Sports', sold: 40 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  scale: {
+    color: { range: ['#ff0000', '#f0d2fc', '#2b00ff', '#ff8000', '#064501'] },
+  },
+  labels: [{ text: 'genre', transform: [{ type: 'contrastReverse' }] }],
+});
+
+chart.render();
+```
+
+| 属性      | 描述                                                           | 类型   | 默认值             | 必选 |
+| --------- | -------------------------------------------------------------- | ------ | ------------------ | ---- |
+| threshold | 标签和背景图形的颜色对比度阈值，超过阈值才会推荐颜色提升对比度 | `Type` | `4.5`              |      |
+| palette   | 对比度提升算法中，备选的颜色色板                               | `Type` | `['#000', '#fff']` |      |
+
 #### overflowHide
 
 `overflowHide` 对于标签在图形上放置不下的时候，隐藏标签。和 `overlapDodgeY` 的区别在于：
