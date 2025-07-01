@@ -47,9 +47,9 @@ chart.options({
         {
           type: 'contrastReverse',
         },
-        // {
-        //   type: 'contrastReverseStroke',
-        // },
+        {
+          type: 'contrastReverseStroke',
+        },
       ],
     },
   ],

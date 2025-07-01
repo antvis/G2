@@ -29,10 +29,9 @@ export function alphabetIntervalLabelContrastReverseOverflow(): G2Spec {
         transform: [
           {
             type: 'contrastReverse',
-            threshold: 2,
-            autoStroke: {
-              lineWidth: 2,
-            },
+          },
+          {
+            type: 'contrastReverseStroke',
           },
         ],
       },

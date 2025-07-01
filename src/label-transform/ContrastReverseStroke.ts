@@ -45,7 +45,7 @@ function getBoundsWithAnimation(element: DisplayObject) {
 }
 
 /**
- * Reverse the label stroke.
+ * Reverse label stroke against label color.
  * More about contract, see https://webaim.org/resources/contrastchecker/
  */
 export const ContrastReverseStroke: LLC<ContrastReverseStrokeOptions> = (
@@ -55,7 +55,7 @@ export const ContrastReverseStroke: LLC<ContrastReverseStrokeOptions> = (
     onlyOverlap = {
       threshold: 2,
     },
-    lineWidth = 1,
+    lineWidth = 1.2,
     palette = ['#000', '#fff'],
   } = options;
 

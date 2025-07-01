@@ -235,13 +235,14 @@ chart.render();
 
 当前支持的标签转化如下：
 
-| type            | 描述                                                                             |
-| --------------- | -------------------------------------------------------------------------------- |
-| overlapDodgeY   | 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠                                |
-| contrastReverse | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
-| overflowHide    | 对于标签在图形上放置不下的时候，隐藏标签                                         |
-| overlapHide     | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
-| exceedAdjust    | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
+| type                  | 描述                                                                             |
+| --------------------- | -------------------------------------------------------------------------------- |
+| overlapDodgeY         | 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠                                |
+| contrastReverse       | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
+| contrastReverseStroke | 标签颜色在背景对比度低的情况下，从指定色板选择一个对比度最优的颜色进行描边       |
+| overflowHide          | 对于标签在图形上放置不下的时候，隐藏标签                                         |
+| overlapHide           | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
+| exceedAdjust          | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
 
 不同的转化类型，针对不同的标签问题情况。所以明确每个 `transform` 标签转化的区别十分有必要。
 
@@ -391,13 +392,13 @@ chart.render();
 
 #### contrastReverseStroke
 
-`contrastReverseStroke` 从指定色板选择一个与标签颜色相比对比度最优的颜色进行描边。类似字幕黑底白字原理，针对 `label` 溢出元素后，标签颜色与背景融合显示不明显的问题。
+`contrastReverseStroke` 从指定色板选择一个与标签颜色相比对比度最优的颜色进行描边。类似字幕黑底白字原理，针对 `label` 溢出元素后，标签颜色与背景融合显示不明显问题。
 
 ##### 问题案例
 
-label 颜色与背景接近，我们使用 contrastReverse 进行反转，但反转后溢出部分可读性又会非常差。
+下面示例中 label 颜色与背景图形有较大对比度了，但溢出部分可读性又会非常差。
 
-```js | ob {  pin: false, autoMount: true }
+```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -405,21 +406,20 @@ const chart = new Chart({
 });
 
 chart.options({
-  // theme: 'classicDark',
+  width: 200,
   type: 'interval',
   scale: {
     color: { range: ['#444'] },
   },
   autoFit: true,
   data: [
-    { letter: 'A', frequency: 0.08167 },
-    { letter: 'B', frequency: 0.01492 },
-    { letter: 'C', frequency: 0.02782 },
-    { letter: 'D', frequency: 0.04253 },
-    { letter: 'E', frequency: 0.12702 },
-    { letter: 'F', frequency: 0.02288 },
-    { letter: 'H', frequency: 0.06094 },
-    { letter: 'I', frequency: 0.02288 },
+    { letter: 'A', frequency: 8167 },
+    { letter: 'B', frequency: 1492 },
+    { letter: 'C', frequency: 2782 },
+    { letter: 'D', frequency: 4253 },
+    { letter: 'E', frequency: 2702 },
+    { letter: 'H', frequency: 6094 },
+    { letter: 'I', frequency: 2288 },
   ],
   encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
   labels: [
@@ -437,11 +437,11 @@ chart.options({
 chart.render();
 ```
 
-##### 配置 `contrastReverse` 转化标签
+##### 配置 `contrastReverseStroke` 转化描边
 
-对不明显的 `label` 标签 颜色进行优化
+对不明显的 `label` 描边进行优化
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -449,29 +449,44 @@ const chart = new Chart({
 });
 
 chart.options({
+  width: 200,
   type: 'interval',
-  height: 300,
-  data: [
-    { genre: 'Sports', sold: 40 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ],
-  encode: { x: 'genre', y: 'sold', color: 'genre' },
   scale: {
-    color: { range: ['#ff0000', '#f0d2fc', '#2b00ff', '#ff8000', '#064501'] },
+    color: { range: ['#444'] },
   },
-  labels: [{ text: 'genre', transform: [{ type: 'contrastReverse' }] }],
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 8167 },
+    { letter: 'B', frequency: 1492 },
+    { letter: 'C', frequency: 2782 },
+    { letter: 'D', frequency: 4253 },
+    { letter: 'E', frequency: 2702 },
+    { letter: 'H', frequency: 6094 },
+    { letter: 'I', frequency: 2288 },
+  ],
+  encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
+  labels: [
+    {
+      text: 'frequency',
+      transform: [
+        {
+          type: 'contrastReverse',
+        },
+        {
+          type: 'contrastReverseStroke',
+        },
+      ],
+    },
+  ],
 });
 
 chart.render();
 ```
 
-| 属性      | 描述                                                           | 类型   | 默认值             | 必选 |
-| --------- | -------------------------------------------------------------- | ------ | ------------------ | ---- |
-| threshold | 标签和背景图形的颜色对比度阈值，超过阈值才会推荐颜色提升对比度 | `Type` | `4.5`              |      |
-| palette   | 对比度提升算法中，备选的颜色色板                               | `Type` | `['#000', '#fff']` |      |
+| 属性        | 描述                                                 | 类型                               | 默认值             | 必选 |
+| ----------- | ---------------------------------------------------- | ---------------------------------- | ------------------ | ---- |
+| onlyOverlap | 是否仅在标签溢出时才描边，threshold 为超出部分的阈值 | `{ threshold: number } \| boolean` | `false`            |      |
+| palette     | 对比度提升算法中，备选的颜色色板                     | `[]string`                         | `['#000', '#fff']` |      |
 
 #### overflowHide
 
