@@ -70,6 +70,7 @@ bandWidth = step * (1 - paddingInner)
 ```
 
 其中：
+
 - `rangeLength`: 值域的长度（range[1] - range[0]）
 - `domain.length`: 定义域中类别的数量
 - `paddingInner`: 内部间距比例 [0, 1]
@@ -105,7 +106,7 @@ charts.forEach((config, index) => {
   container.style.display = 'inline-block';
   container.style.margin = '10px';
   document.getElementById('container').appendChild(container);
-  
+
   const chart = new Chart({
     container,
     autoFit: true,
@@ -163,7 +164,7 @@ charts.forEach((config, index) => {
   container.style.display = 'inline-block';
   container.style.margin = '10px';
   document.getElementById('container').appendChild(container);
-  
+
   const chart = new Chart({
     container,
     autoFit: true,
@@ -202,29 +203,32 @@ charts.forEach((config, index) => {
 import { Chart } from '@antv/g2';
 
 const datasets = [
-  { 
-    data: [{ category: 'A', value: 100 }, { category: 'B', value: 80 }], 
-    title: '2个类别' 
-  },
-  { 
+  {
     data: [
-      { category: 'A', value: 100 }, 
-      { category: 'B', value: 80 }, 
-      { category: 'C', value: 120 }, 
-      { category: 'D', value: 90 }
-    ], 
-    title: '4个类别' 
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+    ],
+    title: '2个类别',
   },
-  { 
+  {
     data: [
-      { category: 'A', value: 100 }, 
-      { category: 'B', value: 80 }, 
-      { category: 'C', value: 120 }, 
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+      { category: 'C', value: 120 },
       { category: 'D', value: 90 },
-      { category: 'E', value: 110 }, 
-      { category: 'F', value: 95 }
-    ], 
-    title: '6个类别' 
+    ],
+    title: '4个类别',
+  },
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+      { category: 'C', value: 120 },
+      { category: 'D', value: 90 },
+      { category: 'E', value: 110 },
+      { category: 'F', value: 95 },
+    ],
+    title: '6个类别',
   },
 ];
 
@@ -235,7 +239,7 @@ datasets.forEach((dataset, index) => {
   container.style.display = 'inline-block';
   container.style.margin = '10px';
   document.getElementById('container').appendChild(container);
-  
+
   const chart = new Chart({
     container,
     autoFit: true,
@@ -301,15 +305,15 @@ chart.options({
 chart.render().then(() => {
   // 获取 x 轴的比例尺
   const xScale = chart.getScale().x;
-  
+
   // 获取带宽值 - 使用无参数调用
   const bandWidth = xScale.getBandWidth?.() ?? 0;
   console.log('当前带宽值:', bandWidth);
-  
+
   // 也可以获取特定类别的带宽（如果需要）
   const categoryABandWidth = xScale.getBandWidth?.(xScale.invert('A')) ?? 0;
   console.log('类别A的带宽值:', categoryABandWidth);
-  
+
   // 计算步长值（相邻类别中心点的距离）
   const domain = xScale.getOptions()?.domain || [];
   const range = xScale.getOptions()?.range || [0, 1];
@@ -318,7 +322,7 @@ chart.render().then(() => {
   const paddingOuter = xScale.getOptions()?.paddingOuter || 0;
   const step = rangeLength / (domain.length - paddingInner + paddingOuter * 2);
   console.log('当前步长值:', step);
-  
+
   // 在图表上显示带宽信息
   const container = chart.getContainer();
   const info = document.createElement('div');
@@ -457,9 +461,9 @@ chart.render();
 
 #### 1. 根据数据量调整间距
 
-- **少量数据（< 5个类别）**：可以使用较小的 padding（0.1-0.3），让柱子更宽更突出
-- **中等数据（5-10个类别）**：建议使用中等 padding（0.3-0.5），平衡可读性和视觉效果
-- **大量数据（> 10个类别）**：可以使用较大的 padding（0.5-0.8），或考虑分页展示
+- **少量数据（< 5 个类别）**：可以使用较小的 padding（0.1-0.3），让柱子更宽更突出
+- **中等数据（5-10 个类别）**：建议使用中等 padding（0.3-0.5），平衡可读性和视觉效果
+- **大量数据（> 10 个类别）**：可以使用较大的 padding（0.5-0.8），或考虑分页展示
 
 #### 2. 考虑图表容器大小
 
@@ -481,7 +485,7 @@ widths.forEach((width, index) => {
   container.style.margin = '10px';
   container.style.border = '1px solid #ccc';
   document.getElementById('container').appendChild(container);
-  
+
   const chart = new Chart({
     container,
     width,
@@ -520,7 +524,7 @@ widths.forEach((width, index) => {
 // 根据容器宽度动态调整 padding
 function getResponsivePadding(containerWidth, dataLength) {
   const baseWidth = containerWidth / dataLength;
-  
+
   if (baseWidth > 100) {
     return 0.6; // 容器很宽时，增加间距
   } else if (baseWidth > 50) {
