@@ -234,7 +234,113 @@ chart.options({
 chart.render();
 ```
 
+### 调整箱体宽度
+
+通过设置 x 轴的 scale 参数可以调整箱体宽度和间距。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'boxplot',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/morley.json',
+  },
+  encode: {
+    x: 'Expt',
+    y: 'Speed',
+  },
+  scale: {
+    x: {
+      paddingInner: 0.1, // 较小的间距，箱体更宽
+      paddingOuter: 0.05,
+    },
+  },
+  style: {
+    boxFill: '#4e79a7',
+    boxStroke: '#2f4b7c',
+    pointFill: '#e15759',
+    pointStroke: '#c42e32',
+  },
+});
+
+chart.render();
+```
+
 ## 常见问题
+
+### 如何设置箱体宽度？
+
+`boxplot` 标记的箱体宽度由 x 轴的 band scale 控制。可以通过设置 `scale.x` 的 `paddingInner`、`paddingOuter` 或 `padding` 参数来调整箱体宽度：
+
+- **paddingInner**：控制相邻箱体之间的间距，值越大箱体越窄
+- **paddingOuter**：控制两端的间距，值越大整体布局越紧凑
+- **padding**：同时设置 `paddingInner` 和 `paddingOuter` 的快捷方式
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+// 调整箱体宽度示例
+chart.options({
+  type: 'boxplot',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/morley.json',
+  },
+  encode: {
+    x: 'Expt',
+    y: 'Speed',
+  },
+  scale: {
+    x: {
+      paddingInner: 0.3, // 箱体间距，值越大箱体越窄
+      paddingOuter: 0.1, // 两端间距
+    },
+    // 或者使用 padding 同时设置
+    // x: { padding: 0.2 }
+  },
+});
+
+chart.render();
+```
+
+对于分组箱线图，还可以通过 `series` 通道的 scale 参数来控制组内箱体的间距：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'boxplot',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+  },
+  encode: {
+    x: 'species',
+    y: 'flipper_length_mm',
+    color: 'sex',
+    series: 'sex',
+  },
+  scale: {
+    x: { paddingInner: 0.2, paddingOuter: 0.1 }, // 控制组间间距
+    series: { paddingInner: 0.1, paddingOuter: 0.05 }, // 控制组内间距
+  },
+});
+
+chart.render();
+```
 
 ### 数据量很大，如何绘制箱线图？
 
