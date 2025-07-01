@@ -8,8 +8,18 @@ export type GeoPathOptions = Omit<GeoPathComposition, 'type'>;
  */
 export const GeoPath: CC<GeoPathOptions> = () => {
   return (options) => {
-    const { type, data, scale, encode, style, animate, key, state, ...rest } =
-      options;
+    const {
+      type,
+      data,
+      scale,
+      encode,
+      style,
+      animate,
+      key,
+      state,
+      tooltip,
+      ...rest
+    } = options;
     return [
       {
         type: 'geoView',
@@ -26,6 +36,7 @@ export const GeoPath: CC<GeoPathOptions> = () => {
             style,
             animate,
             state,
+            tooltip,
           },
         ],
       },
