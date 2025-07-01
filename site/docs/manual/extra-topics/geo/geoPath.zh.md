@@ -63,20 +63,51 @@ Promise.all([
 
 ### 如何绘制一个中国地图？
 
-地图最终是由 geojson 数据决定，所以需要找到一个中国行政地图的 geojson，并将此数据应用于当前的示例 DEMO 中。
+地图最终是由地理数据决定，所以需要在互联网上找到一个中国行政地图的 geoJson 或 topoJson 数据，并将此数据应用于当前的示例 DEMO 中。
+
+#### topoJson
 
 ```ts
-chart
-  .geoPath()
-  .data(geojson)
-  .encode('latitude', 'latitude')
-  .encode('longitude', 'longitude')
-  .encode('color', 'rate');
-  .scale('color', {
-    type: 'sequential',
-    palette: 'ylGnBu',
-    unknown: '#fff',
-  });
+import { Chart } from '@antv/g2';
+import { feature } from 'topojson';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+fetch('xxx/china.topo.json').then(async (res) => {
+  const data = await res.json();
+  const features = feature(data, data.objects.default).features;
+
+  chart
+    .geoPath()
+    .coordinate({ type: 'mercator' })
+    .data(features)
+    .style('stroke', 'white');
 
   chart.render();
+});
+```
+
+#### geoJson
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+fetch('xxx/china.json').then(async (res) => {
+  const data = await res.json();
+  const features = data.features;
+
+  chart
+    .geoPath()
+    .coordinate({ type: 'mercator' })
+    .data(features)
+    .style('stroke', 'white');
+
+  chart.render();
+});
 ```

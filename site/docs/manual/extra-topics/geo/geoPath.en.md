@@ -63,20 +63,51 @@ Currently, in addition to the same API and configuration options as common marks
 
 ### How to draw a map of China?
 
-The map is ultimately determined by geojson data, so you need to find a geojson of China's administrative map and apply this data to the current example demo.
+The map is ultimately determined by geographic data, so you need to find a geoJson or topoJson data for a Chinese administrative map on the Internet and apply this data to the current sample DEMO.
+
+#### topoJson
 
 ```ts
-chart
-  .geoPath()
-  .data(geojson)
-  .encode('latitude', 'latitude')
-  .encode('longitude', 'longitude')
-  .encode('color', 'rate');
-  .scale('color', {
-    type: 'sequential',
-    palette: 'ylGnBu',
-    unknown: '#fff',
-  });
+import { Chart } from '@antv/g2';
+import { feature } from 'topojson';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+fetch('xxx/china.topo.json').then(async (res) => {
+  const data = await res.json();
+  const features = feature(data, data.objects.default).features;
+
+  chart
+    .geoPath()
+    .coordinate({ type: 'mercator' })
+    .data(features)
+    .style('stroke', 'white');
 
   chart.render();
+});
+```
+
+#### geoJson
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+fetch('xxx/china.json').then(async (res) => {
+  const data = await res.json();
+  const features = data.features;
+
+  chart
+    .geoPath()
+    .coordinate({ type: 'mercator' })
+    .data(features)
+    .style('stroke', 'white');
+
+  chart.render();
+});
 ```
