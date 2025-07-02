@@ -2,8 +2,8 @@
 title: Spiral
 order: 18
 screenshot: /screenshots/spiral.webp
-category: ['radial', 'time']
-similar: ['polar', 'line', 'area']
+category: ['comparison', 'time']
+similar: ['rose']
 ---
 
 ## Introduction

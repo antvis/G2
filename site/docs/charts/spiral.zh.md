@@ -2,8 +2,8 @@
 title: 螺旋图
 order: 18
 screenshot: /screenshots/spiral.webp
-category: ['radial', 'time']
-similar: ['polar', 'line', 'area']
+category: ['comparison', 'time']
+similar: ['rose']
 ---
 
 ## 螺旋图的简介
