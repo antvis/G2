@@ -1,10 +1,12 @@
 ---
 title: Word Cloud
 order: 19
-screenshot: /screenshots/wordcloud.webp
-category: ['text', 'distribution']
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AubySIbXrHMAAAAAAAAAAAAAemJ7AQ/original'
+category: ['distribution']
 similar: ['treemap', 'bubble', 'pack']
 ---
+
+<img alt="wordcloud" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AubySIbXrHMAAAAAAAAAAAAAemJ7AQ/original" width=600/>
 
 ## Introduction to Word Clouds
 
@@ -14,14 +16,20 @@ Word clouds are particularly suitable for analyzing large amounts of text data, 
 
 Word clouds not only possess practical analytical value but also have strong artistic appeal and visual impact, making them commonly used in presentations, report covers, and data visualization displays.
 
-**Chinese Name**: 词云图
+**Other Names**: Tag Cloud, Text Cloud
 
 ## Components of a Word Cloud
 
-### Basic Word Cloud
+<img alt="wordcloud-components" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AubySIbXrHMAAAAAAAAAAAAAemJ7AQ/original" width=600 />
 
-A word cloud primarily consists of the following components:
+| Chart Type           | Word Cloud                                                                                                       |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Suitable Data        | List: Text field, frequency or weight field                                                                     |
+| Function             | Display frequency distribution and importance of text data                                                       |
+| Data-Graphics Mapping| Text field mapped to word content<br>Frequency field mapped to font size<br>Optional category field mapped to color |
+| Suitable Data Volume | 20-200 words, too many will cause layout congestion                                                             |
 
+**Components:**
 1. **Words**: Key vocabulary from the text, which are the core elements of the word cloud
 2. **Font Size**: Usually proportional to word frequency or importance
 3. **Color Encoding**: Can be used to distinguish different categories or emphasize importance levels
@@ -29,11 +37,15 @@ A word cloud primarily consists of the following components:
 5. **Shape Container**: The overall outline of the word cloud, which can be rectangular, circular, or custom shapes
 
 ```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
+import { Chart } from '@antv/g2';
 
-  // Simulated word frequency data
-  const data = [
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'wordCloud',
+  data: [
     { text: 'JavaScript', value: 120, category: 'Programming Language' },
     { text: 'Python', value: 100, category: 'Programming Language' },
     { text: 'React', value: 90, category: 'Frontend Framework' },
@@ -49,47 +61,234 @@ A word cloud primarily consists of the following components:
     { text: 'Git', value: 40, category: 'Version Control' },
     { text: 'Docker', value: 35, category: 'Container Technology' },
     { text: 'AWS', value: 30, category: 'Cloud Service' }
-  ];
-
-  chart.options({
-    type: 'wordCloud',
-    data,
-    layout: {
-      spiral: 'rectangular',
-      fontSize: [12, 60],
-      padding: 3
-    },
-    encode: {
-      color: 'category'
-    },
-    scale: {
-      color: {
-        palette: ['#1890ff', '#52c41a', '#fa8c16', '#722ed1', '#eb2f96', '#13c2c2']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: 'bold'
-    },
-    legend: {
-      color: { title: 'Technology Category' }
+  ],
+  layout: {
+    spiral: 'rectangular',
+    fontSize: [12, 60],
+    padding: 3
+  },
+  encode: {
+    color: 'category'
+  },
+  scale: {
+    color: {
+      palette: ['#1890ff', '#52c41a', '#fa8c16', '#722ed1', '#eb2f96', '#13c2c2']
     }
-  });
+  },
+  style: {
+    fontFamily: 'Arial, sans-serif',
+    fontWeight: 'bold'
+  },
+  legend: {
+    color: { title: 'Technology Category' }
+  }
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
-### Custom Shape Word Cloud
+## Use Cases of Word Clouds
+
+### Suitable Use Cases
+
+#### 1. Text Content Analysis
+
+Word clouds are excellent for analyzing text content and quickly identifying keywords and themes:
 
 ```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
+import { Chart } from '@antv/g2';
 
-  // Simulated brand keyword data
-  const data = [
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'wordCloud',
+  data: [
+    { text: 'User Experience', value: 95 },
+    { text: 'Product Design', value: 88 },
+    { text: 'Interface Optimization', value: 82 },
+    { text: 'Feature Enhancement', value: 78 },
+    { text: 'Performance Improvement', value: 75 },
+    { text: 'Easy Operation', value: 70 },
+    { text: 'Visual Effects', value: 65 },
+    { text: 'Response Speed', value: 60 },
+    { text: 'Compatibility', value: 55 },
+    { text: 'Stability', value: 50 }
+  ],
+  layout: {
+    spiral: 'archimedean',
+    fontSize: [16, 48],
+    padding: 5
+  },
+  encode: {
+    size: 'value',
+    color: 'value'
+  },
+  scale: {
+    color: {
+      palette: ['#91d5ff', '#40a9ff', '#1890ff', '#096dd9', '#0050b3']
+    }
+  },
+  style: {
+    fontFamily: 'Arial, sans-serif'
+  }
+});
+
+chart.render();
+```
+
+#### 2. Social Media Trending Analysis
+
+Analyzing trending topics and keywords on social media:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'wordCloud',
+  data: [
+    { text: 'Artificial Intelligence', value: 120 },
+    { text: 'Machine Learning', value: 100 },
+    { text: 'Deep Learning', value: 90 },
+    { text: 'Big Data', value: 85 },
+    { text: 'Cloud Computing', value: 80 },
+    { text: 'Blockchain', value: 75 },
+    { text: 'Internet of Things', value: 70 },
+    { text: '5G', value: 65 },
+    { text: 'Virtual Reality', value: 60 },
+    { text: 'Augmented Reality', value: 55 }
+  ],
+  layout: {
+    spiral: 'rectangular',
+    fontSize: [14, 56],
+    padding: 4
+  },
+  encode: {
+    color: 'text'
+  },
+  scale: {
+    color: {
+      palette: ['#ff7875', '#ff9c6e', '#ffc069', '#fff566', '#95de64', '#5cdbd3', '#69c0ff', '#85a5ff', '#b37feb', '#ff85c0']
+    }
+  }
+});
+
+chart.render();
+```
+
+### Unsuitable Use Cases
+
+#### Too Many Words Causing Layout Chaos
+
+When there are too many words, word clouds become crowded and difficult to read:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+// Generate large amount of word data
+const data = Array.from({ length: 100 }, (_, i) => ({
+  text: `Word${i + 1}`,
+  value: Math.random() * 50 + 10
+}));
+
+chart.options({
+  type: 'wordCloud',
+  data,
+  layout: {
+    spiral: 'rectangular',
+    fontSize: [8, 24],
+    padding: 1
+  },
+  encode: {
+    size: 'value'
+  },
+  style: {
+    fill: '#1890ff'
+  }
+});
+
+chart.render();
+```
+
+**Solution: Data Filtering and Grouping**
+
+Filter data to show only the most important words:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+// Show only top 20 most important words
+const filteredData = Array.from({ length: 20 }, (_, i) => ({
+  text: `Important Word ${i + 1}`,
+  value: 100 - i * 3
+}));
+
+chart.options({
+  type: 'wordCloud',
+  data: filteredData,
+  layout: {
+    spiral: 'archimedean',
+    fontSize: [16, 48],
+    padding: 5
+  },
+  encode: {
+    size: 'value',
+    color: 'value'
+  },
+  scale: {
+    color: {
+      palette: ['#52c41a', '#1890ff', '#722ed1']
+    }
+  }
+});
+
+chart.render();
+```
+
+## Comparing Word Clouds to Other Charts
+
+### Word Clouds and [Treemaps](/en/charts/treemap)
+
+- **Word Clouds**: Suitable for displaying text data frequency distribution with artistic appeal
+- **Treemaps**: Suitable for displaying hierarchical data with high space utilization
+
+### Word Clouds and [Bubble Charts](/en/charts/bubble)
+
+- **Word Clouds**: Specifically for text data, using font size to represent importance
+- **Bubble Charts**: For numerical data, using bubble size to represent values
+
+### Word Clouds and [Bar Charts](/en/charts/bar)
+
+- **Word Clouds**: Strong visual impact, suitable for overview display
+- **Bar Charts**: Precise value comparison, suitable for detailed analysis
+
+## Extensions
+
+### Shaped Word Clouds
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'wordCloud',
+  data: [
     { text: 'Innovation', value: 95 },
     { text: 'Quality', value: 88 },
     { text: 'Service', value: 82 },
@@ -99,455 +298,81 @@ A word cloud primarily consists of the following components:
     { text: 'Team', value: 65 },
     { text: 'Experience', value: 60 },
     { text: 'Technology', value: 58 },
-    { text: 'Solution', value: 55 },
-    { text: 'Cooperation', value: 52 },
-    { text: 'Value', value: 50 },
-    { text: 'Leading', value: 48 },
-    { text: 'Premium', value: 45 },
-    { text: 'Custom', value: 42 },
-    { text: 'Support', value: 40 },
-    { text: 'Fast', value: 38 },
-    { text: 'Secure', value: 35 },
-    { text: 'Stable', value: 32 },
-    { text: 'Flexible', value: 30 }
-  ];
-
-  chart.options({
-    type: 'wordCloud',
-    data,
-    layout: {
-      spiral: 'archimedean',
-      fontSize: [16, 48],
-      padding: 5,
-      rotate: [-45, 45]
-    },
-    encode: {
-      size: 'value',
-      color: 'value'
-    },
-    scale: {
-      color: {
-        palette: ['#f7fbff', '#deebf7', '#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#084594']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, Helvetica',
-      fontWeight: (d) => d.value > 60 ? 'bold' : 'normal'
-    },
-    legend: {
-      color: { title: 'Importance Level' }
+    { text: 'Solutions', value: 55 }
+  ],
+  layout: {
+    spiral: 'archimedean',
+    fontSize: [16, 48],
+    padding: 5,
+    rotate: [-45, 45]
+  },
+  encode: {
+    size: 'value',
+    color: 'value'
+  },
+  scale: {
+    color: {
+      palette: ['#ff7875', '#ffc069', '#95de64', '#5cdbd3', '#69c0ff']
     }
-  });
+  },
+  style: {
+    fontFamily: 'Arial, sans-serif',
+    fontWeight: 'bold'
+  }
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
 
-## Use Cases of Word Clouds
-
-### Suitable Scenarios
-
-Example 1: **Text Mining and Keyword Analysis**
-
-Word clouds play an important role in text mining, allowing quick identification of high-frequency words in documents or corpora:
+### Multi-Color Word Clouds
 
 ```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
+import { Chart } from '@antv/g2';
 
-  // Simulated user comment keyword data
-  const data = [
-    { text: 'Easy to use', value: 145, sentiment: 'positive' },
-    { text: 'Convenient', value: 132, sentiment: 'positive' },
-    { text: 'Fast', value: 128, sentiment: 'positive' },
-    { text: 'Interface', value: 115, sentiment: 'neutral' },
-    { text: 'Function', value: 108, sentiment: 'neutral' },
-    { text: 'Experience', value: 95, sentiment: 'positive' },
-    { text: 'Stable', value: 88, sentiment: 'positive' },
-    { text: 'Lag', value: 75, sentiment: 'negative' },
-    { text: 'Support', value: 68, sentiment: 'neutral' },
-    { text: 'Price', value: 62, sentiment: 'neutral' },
-    { text: 'Recommend', value: 58, sentiment: 'positive' },
-    { text: 'Problem', value: 55, sentiment: 'negative' },
-    { text: 'Update', value: 52, sentiment: 'neutral' },
-    { text: 'Optimize', value: 48, sentiment: 'positive' },
-    { text: 'Simple', value: 45, sentiment: 'positive' },
-    { text: 'Complex', value: 38, sentiment: 'negative' },
-    { text: 'Satisfied', value: 35, sentiment: 'positive' },
-    { text: 'Improve', value: 32, sentiment: 'neutral' },
-    { text: 'Clear', value: 28, sentiment: 'positive' },
-    { text: 'Difficult', value: 25, sentiment: 'negative' }
-  ];
+const chart = new Chart({
+  container: 'container',
+});
 
-  chart.options({
-    type: 'wordCloud',
-    data,
-    layout: {
-      spiral: 'rectangular',
-      fontSize: [14, 50],
-      padding: 4
-    },
-    encode: {
-      size: 'value',
-      color: 'sentiment'
-    },
-    scale: {
-      color: {
-        domain: ['positive', 'neutral', 'negative'],
-        palette: ['#52c41a', '#1890ff', '#ff4d4f']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: (d) => d.value > 100 ? 'bold' : 'normal'
-    },
-    legend: {
-      color: { 
-        title: 'Sentiment',
-        itemName: {
-          formatter: (d) => {
-            const map = { positive: 'Positive', neutral: 'Neutral', negative: 'Negative' };
-            return map[d] || d;
-          }
-        }
-      }
-    },
-    title: 'User Feedback Sentiment Analysis'
-  });
+chart.options({
+  type: 'wordCloud',
+  data: [
+    { text: 'Data Visualization', value: 100, category: 'Technology' },
+    { text: 'User Interface', value: 90, category: 'Design' },
+    { text: 'User Experience', value: 85, category: 'Experience' },
+    { text: 'Responsive Design', value: 80, category: 'Design' },
+    { text: 'Frontend Development', value: 75, category: 'Technology' },
+    { text: 'User Research', value: 70, category: 'Experience' },
+    { text: 'Prototype Design', value: 65, category: 'Design' },
+    { text: 'Performance Optimization', value: 60, category: 'Technology' },
+    { text: 'Usability Testing', value: 55, category: 'Experience' },
+    { text: 'Visual Design', value: 50, category: 'Design' }
+  ],
+  layout: {
+    spiral: 'rectangular',
+    fontSize: [14, 42],
+    padding: 4
+  },
+  encode: {
+    size: 'value',
+    color: 'category'
+  },
+  scale: {
+    color: {
+      palette: ['#1890ff', '#52c41a', '#fa8c16']
+    }
+  },
+  legend: {
+    color: { title: 'Category' }
+  }
+});
 
-  chart.render();
-
-  return chart.getContainer();
-})();
+chart.render();
 ```
-
-Example 2: **Brand Analysis and Market Research**
-
-Word clouds can help companies understand brand perception and market positioning:
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // Simulated brand association data
-  const data = [
-    { text: 'Trustworthy', value: 125, category: 'Brand Image' },
-    { text: 'Innovative', value: 118, category: 'Brand Image' },
-    { text: 'High Quality', value: 110, category: 'Product Feature' },
-    { text: 'Expensive', value: 95, category: 'Price Perception' },
-    { text: 'Professional', value: 88, category: 'Service Quality' },
-    { text: 'Premium', value: 82, category: 'Brand Position' },
-    { text: 'Reliable', value: 78, category: 'Brand Image' },
-    { text: 'Customer Service', value: 72, category: 'Service Quality' },
-    { text: 'Technology', value: 68, category: 'Product Feature' },
-    { text: 'Market Leader', value: 65, category: 'Brand Position' },
-    { text: 'User-friendly', value: 62, category: 'Product Feature' },
-    { text: 'Global', value: 58, category: 'Brand Position' },
-    { text: 'Sustainable', value: 55, category: 'Brand Value' },
-    { text: 'Efficient', value: 52, category: 'Product Feature' },
-    { text: 'Responsive', value: 48, category: 'Service Quality' },
-    { text: 'Modern', value: 45, category: 'Brand Image' },
-    { text: 'Competitive', value: 42, category: 'Market Position' },
-    { text: 'Customizable', value: 38, category: 'Product Feature' },
-    { text: 'Scalable', value: 35, category: 'Product Feature' },
-    { text: 'Award-winning', value: 32, category: 'Recognition' }
-  ];
-
-  chart.options({
-    type: 'wordCloud',
-    data,
-    layout: {
-      spiral: 'archimedean',
-      fontSize: [12, 48],
-      padding: 4
-    },
-    encode: {
-      size: 'value',
-      color: 'category'
-    },
-    scale: {
-      color: {
-        palette: ['#1890ff', '#52c41a', '#fa8c16', '#722ed1', '#eb2f96', '#13c2c2', '#fadb14']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: 'normal'
-    },
-    legend: {
-      color: { title: 'Attribute Category' }
-    },
-    title: 'Brand Perception Analysis'
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-Example 3: **Social Media Trend Analysis**
-
-Word clouds effectively display trending topics and discussions on social media platforms:
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // Simulated social media trending data
-  const data = [
-    { text: 'AI', value: 165, trend: 'rising' },
-    { text: 'Climate Change', value: 142, trend: 'stable' },
-    { text: 'Remote Work', value: 128, trend: 'declining' },
-    { text: 'Sustainability', value: 115, trend: 'rising' },
-    { text: 'Digital Transformation', value: 105, trend: 'stable' },
-    { text: 'Mental Health', value: 98, trend: 'rising' },
-    { text: 'Cryptocurrency', value: 85, trend: 'declining' },
-    { text: 'Education Technology', value: 78, trend: 'stable' },
-    { text: 'Healthcare Innovation', value: 72, trend: 'rising' },
-    { text: 'Space Exploration', value: 68, trend: 'stable' },
-    { text: 'Renewable Energy', value: 65, trend: 'rising' },
-    { text: 'Virtual Reality', value: 58, trend: 'declining' },
-    { text: 'Food Security', value: 55, trend: 'stable' },
-    { text: 'Cybersecurity', value: 52, trend: 'rising' },
-    { text: 'Electric Vehicles', value: 48, trend: 'stable' },
-    { text: 'Gene Therapy', value: 45, trend: 'rising' },
-    { text: 'Smart Cities', value: 42, trend: 'stable' },
-    { text: 'Quantum Computing', value: 38, trend: 'rising' },
-    { text: 'Social Commerce', value: 35, trend: 'declining' },
-    { text: 'Blockchain', value: 32, trend: 'declining' }
-  ];
-
-  chart.options({
-    type: 'wordCloud',
-    data,
-    layout: {
-      spiral: 'rectangular',
-      fontSize: [14, 52],
-      padding: 5
-    },
-    encode: {
-      size: 'value',
-      color: 'trend'
-    },
-    scale: {
-      color: {
-        domain: ['rising', 'stable', 'declining'],
-        palette: ['#52c41a', '#1890ff', '#ff4d4f']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: (d) => d.trend === 'rising' ? 'bold' : 'normal'
-    },
-    legend: {
-      color: { 
-        title: 'Trend Direction',
-        itemName: {
-          formatter: (d) => {
-            const map = { rising: 'Rising ↗', stable: 'Stable →', declining: 'Declining ↘' };
-            return map[d] || d;
-          }
-        }
-      }
-    },
-    title: 'Social Media Trending Topics'
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-## Extensions of Word Clouds
-
-### Layered Word Cloud
-
-Display keywords in hierarchical layers to show different levels of importance:
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // Simulated layered keyword data
-  const data = [
-    { text: 'Product Strategy', value: 120, layer: 'core', importance: 'high' },
-    { text: 'User Experience', value: 110, layer: 'core', importance: 'high' },
-    { text: 'Market Analysis', value: 105, layer: 'core', importance: 'high' },
-    { text: 'Data Analytics', value: 95, layer: 'important', importance: 'medium' },
-    { text: 'Design System', value: 88, layer: 'important', importance: 'medium' },
-    { text: 'Technology Stack', value: 82, layer: 'important', importance: 'medium' },
-    { text: 'Performance', value: 78, layer: 'important', importance: 'medium' },
-    { text: 'Security', value: 72, layer: 'important', importance: 'medium' },
-    { text: 'Scalability', value: 68, layer: 'important', importance: 'medium' },
-    { text: 'Quality Assurance', value: 65, layer: 'important', importance: 'medium' },
-    { text: 'Documentation', value: 58, layer: 'support', importance: 'low' },
-    { text: 'Testing', value: 55, layer: 'support', importance: 'low' },
-    { text: 'Deployment', value: 52, layer: 'support', importance: 'low' },
-    { text: 'Team', value: 48, layer: 'support', importance: 'low' },
-    { text: 'Process', value: 45, layer: 'support', importance: 'low' },
-    { text: 'Budget', value: 42, layer: 'support', importance: 'low' },
-    { text: 'Timeline', value: 40, layer: 'support', importance: 'low' },
-    { text: 'Resources', value: 38, layer: 'support', importance: 'low' },
-    { text: 'Solutions', value: 35, layer: 'support', importance: 'low' },
-    { text: 'Standards', value: 32, layer: 'support', importance: 'low' }
-  ];
-
-  chart.options({
-    type: 'wordCloud',
-    data,
-    layout: {
-      spiral: 'archimedean',
-      fontSize: [14, 48],
-      padding: 4
-    },
-    encode: {
-      size: 'value',
-      color: 'layer'
-    },
-    scale: {
-      color: {
-        domain: ['core', 'important', 'support'],
-        palette: ['#ff4d4f', '#faad14', '#1890ff']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: (d) => d.importance === 'high' ? 'bold' : 'normal',
-      opacity: (d) => {
-        const opacityMap = { high: 1, medium: 0.8, low: 0.6 };
-        return opacityMap[d.importance];
-      }
-    },
-    legend: {
-      color: { 
-        title: 'Keyword Layer',
-        itemName: {
-          formatter: (d) => {
-            const map = { core: 'Core Layer', important: 'Important Layer', support: 'Support Layer' };
-            return map[d] || d;
-          }
-        }
-      }
-    },
-    title: 'Product Keyword Layered Word Cloud'
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-### Time Evolution Word Cloud
-
-Show how keywords change over time:
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // Simulated time evolution data (showing current time point)
-  const timeData = {
-    '2020': [
-      { text: 'Pandemic', value: 150 },
-      { text: 'Remote Work', value: 120 },
-      { text: 'Online Education', value: 100 },
-      { text: 'Health Code', value: 80 },
-      { text: 'Face Mask', value: 75 }
-    ],
-    '2021': [
-      { text: 'Vaccine', value: 140 },
-      { text: 'Metaverse', value: 110 },
-      { text: 'Carbon Neutral', value: 95 },
-      { text: 'Chip Shortage', value: 85 },
-      { text: 'Clean Energy', value: 70 }
-    ],
-    '2022': [
-      { text: 'ChatGPT', value: 180 },
-      { text: 'AI Art', value: 130 },
-      { text: 'NFT', value: 90 },
-      { text: 'COVID Treatment', value: 75 },
-      { text: 'World Cup', value: 65 }
-    ]
-  };
-
-  // Currently displaying 2022 data
-  const currentData = timeData['2022'].map(item => ({
-    ...item,
-    year: '2022',
-    category: item.value > 100 ? 'hot' : item.value > 80 ? 'warm' : 'normal'
-  }));
-
-  chart.options({
-    type: 'wordCloud',
-    data: currentData,
-    layout: {
-      spiral: 'rectangular',
-      fontSize: [16, 60],
-      padding: 5
-    },
-    encode: {
-      size: 'value',
-      color: 'category'
-    },
-    scale: {
-      color: {
-        domain: ['hot', 'warm', 'normal'],
-        palette: ['#ff4d4f', '#faad14', '#1890ff']
-      }
-    },
-    style: {
-      fontFamily: 'Arial, Helvetica',
-      fontWeight: 'bold'
-    },
-    legend: {
-      color: { 
-        title: 'Popularity Level',
-        itemName: {
-          formatter: (d) => {
-            const map = { hot: 'Hot', warm: 'Warm', normal: 'Normal' };
-            return map[d] || d;
-          }
-        }
-      }
-    },
-    title: '2022 Annual Trending Words'
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-## Comparing Word Clouds to Other Charts
-
-### Word Cloud and [Treemap](/en/charts/treemap)
-
-- Word clouds represent data size through font size, while treemaps use rectangle area
-- Word clouds are better suited for text data display, treemaps for hierarchical data
-- Word clouds have stronger artistic appeal, treemaps provide more accurate numerical expression
-
-### Word Cloud and [Bubble Chart](/en/charts/bubble)
-
-- Word clouds use text as data carriers, bubble charts use circles
-- Word clouds focus on keyword identification, bubble charts focus on numerical relationships
-- Word clouds have more flexible and diverse layouts, bubble charts have more precise positional encoding
-
-### Word Cloud and [Bar Chart](/en/charts/bar)
-
-- Word clouds convey information through visual impact, bar charts through precise comparison
-- Word clouds are suitable for overview and trend identification, bar charts for specific numerical analysis
-- Word clouds are more decorative, bar charts more analytical
 
 ## Similar Charts
 
-<code src="./demos/list-card.tsx"></code>
+<code src="./demos/list-category.tsx"></code>
 
-## Category
+## Categories
 
 <code src="./demos/list-category.tsx"></code>
