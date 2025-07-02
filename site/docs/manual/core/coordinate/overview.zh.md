@@ -66,7 +66,7 @@ chart.area():
 
 这个特性有利于封装和坐标系相关的复合标记，比如饼图：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 function Pie({ encode = {}, ...rest } = {}) {
@@ -126,7 +126,7 @@ chart.render();
 
 笛卡尔坐标系，G2 中默认的坐标系。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -159,7 +159,7 @@ chart.render();
 - 半径扩展：r = r0 + kθ（r0 为起始半径，k 为螺旋间距系数，θ 为旋转角度）
 - 角度映射：θ 由数据值线性转换而来，范围通过 startAngle 和 endAngle 定义
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +214,7 @@ chart.render();
 
 平行坐标系是一种用于可视化多维数据的坐标系，它将多个变量映射到平行的坐标轴上，每条数据记录表示为连接各个坐标轴上对应值的折线。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const baseAxis = {
@@ -287,7 +287,7 @@ chart.render();
 - 极坐标系将笛卡尔坐标系中的点 (x, y) 转换为极坐标系下的点 (r, θ)。
 - 其中 r 表示到原点的距离（半径），θ 表示与 x 轴的夹角（弧度）。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -315,7 +315,7 @@ chart.render();
 
 雷达坐标系是极坐标系的特化形式，结合平行坐标系，通过等角分布的 N 个独立维度轴构建星形网格，专为多维数据对比分析设计。每个轴代表一个独立度量维度，数据点通过封闭多边形呈现多维度特征。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -391,7 +391,7 @@ chart.render();
 
 径向坐标系是极坐标系的扩展实现，通过环形空间布局增强数据层次表现力。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -426,7 +426,7 @@ chart.render();
 
 Theta 坐标系是极坐标系的特化形式，通过固定半径维度、强化角度维度分析能力，专为环形数据可视化设计。在 G2 中主要应用于饼图等角度主导型图表。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -477,7 +477,7 @@ chart.render();
 
 比较常用的一种变换是转置变换，主要用来改变图表的方向。比如绘制水平的条形图。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -504,7 +504,7 @@ chart.render();
 
 鱼眼坐标系是一种特殊的坐标系变换，它对输入的维度应用笛卡尔鱼眼效果，使得焦点区域被放大，而远离焦点的区域则被压缩。这种变换类似于鱼眼镜头的视觉效果，能够在保持全局视图的同时突出显示局部细节。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -592,7 +592,7 @@ chart.render();
 
 目前我们仅支持 `cartesian3D` 坐标系，cartesian3D 在 2D 笛卡尔坐标系基础上，通过增加 Z 轴扩展而来。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';

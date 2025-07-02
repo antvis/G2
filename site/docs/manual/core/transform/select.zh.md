@@ -79,7 +79,7 @@ type Selector =
 
 如下所示，对柱形图顶部进行数值标注：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [

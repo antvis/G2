@@ -19,7 +19,7 @@ order: 23
 
 ## 开始使用
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -63,7 +63,7 @@ chart.render(); // 渲染图标
 
 color 视觉通道影响 `rect` 图形标记的填充颜色（在应用某些空心形状的时候，例如 hollow ，则会改变图形的 描边颜色）。在点图上应用时一般映射分类字段，对数据进行分组。
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -95,61 +95,59 @@ chart.render(); // 渲染图标
 | rect   | 矩形     |
 | hollow | 空心矩形 |
 
-```js | ob {  pin: false }
-(() => {
-  const shapeMap = [
-    {
-      shape: 'rect',
-      label: '矩形',
-    },
-    {
-      shape: 'hollow',
-      label: '空心矩形',
-    },
-  ];
+```js | ob {  inject: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const shapeMap = [
+  {
+    shape: 'rect',
+    label: '矩形',
+  },
+  {
+    shape: 'hollow',
+    label: '空心矩形',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  style: { inset: 0.5 },
+});
 
+const handleSetShape = (shape) => {
+  // 设置选中的坐标系
   chart.options({
-    type: 'rect',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-    },
-    encode: { shape: 'rect', x: 'weight', y: 'height', color: 'sex' },
-    transform: [{ type: 'bin', opacity: 'count' }],
-    style: { inset: 0.5 },
+    encode: { shape },
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetShape = (shape) => {
-    // 设置选中的坐标系
-    chart.options({
-      encode: { shape },
-    });
-    chart.render(); // 重新渲染图表
-  };
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择形状 ';
+const selector = document.createElement('select');
+selector.innerHTML = shapeMap.map(
+  (shape, index) =>
+    `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
+      shape.label
+    }</option>`,
+);
+selector.onchange = (e) => {
+  handleSetShape(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择形状 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = shapeMap.map(
-    (shape, index) =>
-      `<option value="${shape.shape}" ${index === 0 ? 'selected' : ''}>${
-        shape.label
-      }</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetShape(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 更多的`encode`配置，可以查查看 [encode](/manual/core/encode) 介绍页面。
@@ -163,7 +161,7 @@ chart.render(); // 渲染图标
 - **bin**: 将连续数据分箱，生成直方图矩形
 - **stackY**: 垂直方向堆叠矩形，自动计算每个分类的堆叠高度
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -219,6 +217,28 @@ chart.render();
 
 尝试一下
 
-<Playground path="style/analysis/bin/demo/binx-color.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .rect()
+  .data({
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  })
+  .encode('x', 'weight')
+  .encode('color', 'sex')
+  .transform({ type: 'binX', y: 'count' })
+  .transform({ type: 'stackY', orderBy: 'series' })
+  .style('inset', 0.5);
+
+chart.render();
+
+```
 
 更多的`style`配置，可以查看 [style](/manual/core/style) 介绍页面。

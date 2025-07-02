@@ -64,7 +64,7 @@ When configuring mark styles, not only do we support direct configuration like `
 
 - Stacked area chart with varying stroke colors
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -116,7 +116,7 @@ chart.render();
 
 - Multi-line chart with differentiated styles
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -157,7 +157,7 @@ chart.render();
 
 - Multi-shape scatter plot
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -224,7 +224,7 @@ Both issues are caused by the chart area being too small and tooltip taking up t
 
 ## How to Prevent Graphic Marks from Exceeding Maximum or Minimum Scale Values
 
-```js | ob { pin: false, autoMount: true }
+```js | ob { pin: false, inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -273,7 +273,7 @@ Configure the `nice` property of the scale that needs adjustment to true, extend
 });
 ```
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -317,15 +317,15 @@ chart.render();
 
 **Problem Description**
 
-In business scenarios, you may need the y-axis domain to display opposite to normal coordinate axes, making values increase from top to bottom. In other words, smaller y channel values should appear higher in the chart, suitable for scenarios where smaller numbers represent greater weight, such as rankings.
+In business scenarios, you may need the y-axis domain to display opposite to normal coordinate axis, making values increase from top to bottom. In other words, smaller y channel values should appear higher in the chart, suitable for scenarios where smaller numbers represent greater weight, such as rankings.
 
 **Solution**
 
 - Adjust the y channel scale range, which defaults to `[1,0]`. If inversion is needed, adjust to `[0,1]`. For better appearance, you can also adjust the x-axis position accordingly.
 
-Here's an example of a top-to-bottom bar chart. The same principle applies when creating left-to-right bar charts. (Note that bar charts are column charts with transposed coordinate axes, where left-right corresponds to the x-axis)
+Here's an example of a top-to-bottom bar chart. The same principle applies when creating left-to-right bar charts. (Note that bar charts are column charts with transposed coordinate axis, where left-right corresponds to the x-axis)
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -352,7 +352,7 @@ chart.render();
 
 - For some marks like area charts, when we use the above method to invert, the filled area will also move to the upper half of the chart, which may not meet expectations in certain business scenarios, such as ranking trend charts. In such cases, more customized handling is needed combining `encode.y`, `axis.y.labelFormatter`, and other properties.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -432,3 +432,127 @@ chart.options({
 
 chart.render();
 ```
+
+## How to Adjust Spacing at Both Ends of Line Charts
+
+Below is a simple line chart where you can see the x-axis has obvious `paddingOuter` with a default value of `0.5`.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  viewStyle: {
+    contentFill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+  },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
+  encode: { x: 'year', y: 'value' },
+  scale: { y: { domainMin: 0, nice: true } },
+});
+
+chart.render();
+```
+
+Point scale is a band scale with constant bandWidth of 0, internally fixing the following properties:
+
+```js
+padding: 0.5, // Internal assignment
+paddingInner: 1, // Cannot be modified
+paddingOuter: 0.5 // Internal assignment
+```
+
+If you want to customize the `paddingOuter` value, you can achieve this by modifying `padding`. For example:
+
+```js
+(scale: {
+  x: {
+    type: 'point',
+    padding: 0, // Only affects paddingOuter, paddingInner is always 1
+  },
+});
+```
+
+Through configuration, you can make the spacing at both ends of the line chart equal to `0`.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  viewStyle: {
+    contentFill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
+  },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  labels: [{ text: 'value', style: { dx: -10, dy: -12 } }],
+  encode: { x: 'year', y: 'value' },
+  scale: {
+    y: { domainMin: 0, nice: true },
+    x: {
+      padding: 0,
+    },
+  },
+});
+
+chart.render();
+```
+
+## Default Display of Only Partial Legends on First Chart Render
+
+There's currently no built-in API for this, so you need to manually trigger legendFilter to achieve it.
+
+```js | ob { inject: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
+
+chart.render();
+
+chart.on(ChartEvent.AFTER_RENDER, () => {
+  chart.emit('legend:filter', {
+    data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
+  });
+});
+```
+
+You can set `animate: false` to avoid triggering update animations, but there will still be flickering. This will be handled internally through configuration options in the future to achieve better filtering effects.

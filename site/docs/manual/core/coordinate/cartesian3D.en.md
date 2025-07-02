@@ -3,7 +3,7 @@ title: cartesian3D
 order: 5
 ---
 
-Extended from the 2D Cartesian coordinate system by adding the Z-axis. [Example](/en/manual/extra-topics/three-dimensional/draw-threed-chart)
+Extended from the 2D Cartesian coordinate system by adding a Z-axis. [Example](/en/manual/extra-topics/three-dimensional/draw-threed-chart)
 
 ## Getting Started
 

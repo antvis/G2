@@ -95,7 +95,7 @@ chart
 
 ## 示例
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -7,39 +7,167 @@ order: 1
 
 ## 开始使用
 
-<img alt="tree" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*srsgT7Tb6jQAAAAAAAAAAAAADmJ7AQ/original
-" width="600" />
-
-```js
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
-const chart = new Chart({
-  container: 'container',
-  height: 1500,
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'tree',
   width: 800,
+  height: 1500,
+  layout: { sortBy: (a, b) => a.value - b.value },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/flare.json',
+  },
+  coordinate: { transform: [{ type: 'transpose' }] },
+  style: {
+    nodeFill: (d) => (d.height === 0 ? '#999' : '#000'),
+    linkStroke: '#999',
+    labelText: (d) => d.data.name || '-',
+    labelFontSize: (d) => (d.height === 0 ? 7 : 12),
+    labelTextAlign: (d) => (d.height === 0 ? 'start' : 'end'),
+    labelPosition: (d) => (d.height !== 0 ? 'left' : 'right'),
+    labelDx: (d) => (d.height === 0 ? 5 : -5),
+    labelBackground: true,
+    labelBackgroundFill: '#fff',
+  },
 });
+
+chart.render();
+```
+
+## 数据格式
+
+树图支持多种数据配置方式：
+
+### 1. 远程数据 (fetch)
+
+通过 `type: 'fetch'` 从远程获取数据，支持 JSON、CSV 等格式：
+
+```js
+chart.tree().data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/flare.json',
+});
+```
+
+### 2. 内联数据 (inline)
+
+#### 显式指定 inline 类型
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'tree',
+  data: {
+    type: 'inline',
+    value: {
+      name: 'root',
+      children: [
+        {
+          name: 'branch1',
+          value: 100,
+          children: [
+            { name: 'leaf1', value: 50 },
+            { name: 'leaf2', value: 30 },
+          ],
+        },
+        {
+          name: 'branch2',
+          value: 80,
+          children: [
+            { name: 'leaf3', value: 40 },
+            { name: 'leaf4', value: 40 },
+          ],
+        },
+      ],
+    },
+  },
+});
+
+chart.render();
+```
+
+#### 简写形式（推荐）
+
+由于 G2 默认数据类型是 `inline`，可以直接传入数据：
+
+```js
+// 直接传入层级数据对象
+chart.tree().data({
+  value: {
+    name: 'root',
+    children: [
+      {
+        name: 'branch1',
+        value: 100,
+        children: [
+          { name: 'leaf1', value: 50 },
+          { name: 'leaf2', value: 30 },
+        ],
+      },
+    ],
+  },
+});
+
+// 或者传入扁平数据数组（需要配置 layout.path）
+const flatData = [
+  { name: 'root', value: 180 },
+  { name: 'root/branch1', value: 100 },
+  { name: 'root/branch1/leaf1', value: 50 },
+  { name: 'root/branch1/leaf2', value: 30 },
+  { name: 'root/branch2', value: 80 },
+  { name: 'root/branch2/leaf3', value: 40 },
+  { name: 'root/branch2/leaf4', value: 40 },
+];
 
 chart
   .tree()
-  .coordinate({ transform: [{ type: 'transpose' }] })
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/flare.json',
-  })
+  .data({ value: flatData })
   .layout({
-    sortBy: (a, b) => a.value - b.value,
-  })
-  .style('nodeFill', (d) => (d.height === 0 ? '#999' : '#000'))
-  .style('linkStroke', '#999')
-  .style('labelText', (d) => d.data.name || '-')
-  .style('labelFontSize', (d) => (d.height === 0 ? 7 : 12))
-  .style('labelTextAlign', (d) => (d.height === 0 ? 'start' : 'end'))
-  .style('labelPosition', (d) => (d.height !== 0 ? 'left' : 'right'))
-  .style('labelDx', (d) => (d.height === 0 ? 5 : -5))
-  .style('labelBackground', true)
-  .style('labelBackgroundFill', '#fff');
+    path: (d) => d.name, // 指定路径字段
+  });
+```
 
-chart.render();
+### 数据格式说明
+
+树图支持两种数据结构：
+
+1. **层级结构数据**：已经是树形结构的 JSON 对象，每个节点包含 `children` 数组
+2. **扁平数据**：包含路径信息的数组，需要通过 `layout.path` 配置来构建层级关系
+
+层级结构数据示例：
+
+```json
+{
+  "name": "root",
+  "value": 180,
+  "children": [
+    {
+      "name": "branch1",
+      "value": 100,
+      "children": [
+        { "name": "leaf1", "value": 50 },
+        { "name": "leaf2", "value": 30 }
+      ]
+    }
+  ]
+}
+```
+
+扁平数据示例：
+
+```json
+[
+  { "name": "root", "value": 180 },
+  { "name": "root/branch1", "value": 100 },
+  { "name": "root/branch1/leaf1", "value": 50 }
+]
 ```
 
 ## 选项
@@ -58,6 +186,9 @@ chart.render();
 | nodeSize   | 节点大小     | `(node: any) => string` | -                                        |
 | sortBy     | 排序方式     | `((a, b) => number)`    | `(a, b) => b.value - a.value`            |
 | separation | 相邻节点间距 | `(a, b) => number`      | `(a, b) => a.parent == b.parent ? 1 : 2` |
+| path       | 路径字段配置 | `(d: any) => string`    | -                                        |
+
+**注意**：当使用扁平数据时，必须配置 `layout.path` 来指定如何从数据中提取层级路径信息。
 
 ### style
 
@@ -70,4 +201,33 @@ chart.render();
 ## FAQ
 
 - 如何绘制圆形树图？
-  需要指定 `coordinate: 'polar'`
+  需要指定 `coordinate: { type: 'polar' }`
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'tree',
+  layout: { sortBy: (a, b) => a.value - b.value },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/flare.json',
+  },
+  coordinate: { type: 'polar' },
+  style: {
+    nodeFill: (d) => (d.height === 0 ? '#999' : '#000'),
+    linkStroke: '#999',
+    labelText: (d) => d.data.name || '-',
+    labelFontSize: (d) => (d.height === 0 ? 7 : 12),
+    labelTextAlign: (d) => (d.height === 0 ? 'start' : 'end'),
+    labelPosition: (d) => (d.height !== 0 ? 'left' : 'right'),
+    labelDx: (d) => (d.height === 0 ? 5 : -5),
+    labelBackground: true,
+    labelBackgroundFill: '#fff',
+  },
+});
+
+chart.render();
+```

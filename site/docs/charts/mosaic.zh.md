@@ -22,12 +22,12 @@ similar: ['heatmap', 'treemap']
 
 <img alt="mosaic-uneven" src="https://os.alipayobjects.com/rmsportal/RKlgDYrPsNzxKHt.png" width=600/>
 
-| 图表类型         | 非均匀坐标轴马赛克图                                                                                              |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 多维分类数据                                                                                              |
-| 功能             | 显示多维分类数据的分布                                                                                  |
-| 数据与图形的映射 | 分类数据字段映射到非均匀的坐标轴<br>面积和颜色表示数据的比例和分类                                       |
-| 适合的数据条数   | 数据维度较多时效果更佳                                                                                  |
+| 图表类型         | 非均匀坐标轴马赛克图                                               |
+| ---------------- | ------------------------------------------------------------------ |
+| 适合的数据       | 多维分类数据                                                       |
+| 功能             | 显示多维分类数据的分布                                             |
+| 数据与图形的映射 | 分类数据字段映射到非均匀的坐标轴<br>面积和颜色表示数据的比例和分类 |
+| 适合的数据条数   | 数据维度较多时效果更佳                                             |
 
 ---
 
@@ -35,12 +35,12 @@ similar: ['heatmap', 'treemap']
 
 <img alt="mosaic-even" src="https://os.alipayobjects.com/rmsportal/VwBbTVppnBdxlhk.png" width=600/>
 
-| 图表类型         | 均匀坐标轴马赛克图                                                                                              |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 二维分类数据                                                                                              |
-| 功能             | 显示二维分类数据的分布                                                                                  |
-| 数据与图形的映射 | 分类数据字段映射到均匀的坐标轴<br>颜色表示数据的分类                                                     |
-| 适合的数据条数   | 数据维度较少时效果更佳                                                                                  |
+| 图表类型         | 均匀坐标轴马赛克图                                   |
+| ---------------- | ---------------------------------------------------- |
+| 适合的数据       | 二维分类数据                                         |
+| 功能             | 显示二维分类数据的分布                               |
+| 数据与图形的映射 | 分类数据字段映射到均匀的坐标轴<br>颜色表示数据的分类 |
+| 适合的数据条数   | 数据维度较少时效果更佳                               |
 
 ## 马赛克图的应用场景
 
@@ -52,7 +52,7 @@ similar: ['heatmap', 'treemap']
 
 例子 2: **适合应用到二维分类数据分析**
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 const chart = new G2.Chart({
   container: 'container',
   autoFit: true,
@@ -131,7 +131,7 @@ chart.render();
 
 这个例子展示了如何使用非均匀马赛克图来展示不同市场细分的分布情况，其中矩形的宽度表示市场规模，高度表示各细分市场的占比。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -152,18 +152,18 @@ chart.options({
   transform: [
     { type: 'flexX', reducer: 'sum' }, // 灵活X轴宽度
     { type: 'stackY' }, // Y轴堆叠
-    { type: 'normalizeY' } // Y轴归一化
+    { type: 'normalizeY' }, // Y轴归一化
   ],
   encode: {
     x: 'market',
     y: 'value',
-    color: 'segment'
+    color: 'segment',
   },
   axis: {
-    y: false
+    y: false,
   },
   scale: {
-    x: { paddingOuter: 0, paddingInner: 0.01 }
+    x: { paddingOuter: 0, paddingInner: 0.01 },
   },
   tooltip: 'value',
   label: [
@@ -184,8 +184,8 @@ chart.options({
       dy: 15,
       fontSize: 10,
       fill: '#fff',
-    }
-  ]
+    },
+  ],
 });
 
 chart.render();
@@ -193,9 +193,9 @@ chart.render();
 
 例子 4: **电影评分分布分析（密度马赛克图）**
 
-这个例子展示了如何使用密度马赛克图来分析IMDB和烂番茄评分的关系分布，颜色深浅表示电影数量的多少。
+这个例子展示了如何使用密度马赛克图来分析 IMDB 和烂番茄评分的关系分布，颜色深浅表示电影数量的多少。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -211,11 +211,13 @@ chart.options({
   },
   encode: {
     x: 'IMDB Rating',
-    y: 'Rotten Tomatoes Rating'
+    y: 'Rotten Tomatoes Rating',
   },
-  transform: [{ type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 }],
+  transform: [
+    { type: 'bin', color: 'count', thresholdsX: 30, thresholdsY: 20 },
+  ],
   scale: {
-    color: { palette: 'ylGnBu' }
+    color: { palette: 'ylGnBu' },
   },
   tooltip: {
     title: { channel: 'color' },
@@ -230,7 +232,7 @@ chart.options({
       }),
     ],
     render: () => '1',
-  }
+  },
 });
 
 chart.render();
@@ -240,7 +242,7 @@ chart.render();
 
 这个例子展示了如何使用马赛克图按性别分组展示运动员身高和体重的分布情况，不透明度表示数据点的密度。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -257,14 +259,14 @@ chart.options({
   encode: {
     x: 'weight',
     y: 'height',
-    color: 'sex'
+    color: 'sex',
   },
   transform: [{ type: 'bin', opacity: 'count' }],
   legend: {
-    opacity: false
+    opacity: false,
   },
   style: {
-    inset: 0.5
+    inset: 0.5,
   },
   tooltip: {
     title: { channel: 'opacity' },
@@ -278,7 +280,7 @@ chart.options({
         value: `${column.y.value[i]}, ${column.y1.value[i]}`,
       }),
     ],
-  }
+  },
 });
 
 chart.render();
@@ -313,7 +315,7 @@ chart.render();
 <code src="./demos/list-card.tsx"></code>
 
 ---
+
 ## 分类
 
 <code src="./demos/list-category.tsx"></code>
-

@@ -8,7 +8,7 @@ order: 1
 矩形树图根据每个节点的关联值递归地将空间划分为矩形，适用于展示带权的树形数据。
 矩形树图适合展现具有层级关系的数据，能够直观体现同级之间的比较。一个 Tree 状结构转化为平面空间矩形的状态。矩形树图的好处在于，相比起传统的树形结构图，矩形树图能更有效得利用空间，并且拥有展示占比的功能。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -64,6 +64,59 @@ chart.render();
 
 更多的案例，可以查看[图表示例 - 关系图](/examples/graph/hierarchy#treemap)页面。
 
+## 数据格式
+
+treemap 支持两种数据格式：
+
+### 1. 层级结构数据（JSON）
+
+对于已经是层级结构的数据，可以直接使用，无需配置 `path`：
+
+```javascript
+{
+  name: '根节点',
+  children: [
+    {
+      name: '子节点1',
+      children: [
+        { name: '叶子节点1', value: 100 },
+        { name: '叶子节点2', value: 200 }
+      ]
+    },
+    { name: '子节点2', value: 300 }
+  ]
+}
+```
+
+### 2. 扁平化数据（CSV）
+
+对于使用路径字符串表示层级关系的扁平化数据，**必须配置 `path` 函数**：
+
+```csv
+name,size
+flare,
+flare.analytics,
+flare.analytics.cluster,
+flare.analytics.cluster.AgglomerativeCluster,3938
+```
+
+对于这种数据格式，必须使用 `path` 配置：
+
+```javascript
+layout: {
+  path: (d) => d.name.replace(/\./g, '/'), // 将点分隔转换为斜杠分隔
+}
+```
+
+**重要说明**：如果使用扁平化数据但没有配置 `path`，会导致 "multiple roots" 错误。这是因为：
+
+1. D3 的 stratify 默认期望数据有 `id` 和 `parentId` 字段来建立层级关系
+2. 扁平化数据通常只有路径字符串（如 `flare.analytics.cluster`），没有明确的父子关系字段
+3. 没有 `path` 配置时，D3 无法识别层级结构，将所有记录都视为根节点
+4. 当存在多个根节点时，D3 抛出 "multiple roots" 错误
+
+`path` 配置的作用是告诉 D3 如何从路径字符串中解析出层级结构，自动推断父子关系。
+
 ## 配置项
 
 | 属性        | 描述                                                                                                  | 类型              | 默认值 | 必选 |
@@ -82,7 +135,7 @@ chart.render();
 | padding | 外间距，另外还有 `paddingInner \| paddingOuter \| paddingTop \| paddingBottom \| paddingRight \| paddingLeft` | `number`                                                                                                               | 0                             |      |
 | sort    | 排序规则                                                                                                      | `(a: any, b: any): number`                                                                                             | `(a, b) => b.value - a.value` |      |
 | layer   | 渲染层级                                                                                                      | `number \| (d) => number`                                                                                              | 0                             |      |
-| path    | 渲染层级                                                                                                      | `(d) => d.name`                                                                                                        | 0                             |      |
+| path    | 路径转换函数，用于从扁平化数据中解析层级结构。对于使用路径字符串的扁平化数据，此配置是必需的                                                                                                      | `(d) => string`                                                                                                        | `undefined`                             |      |
 
 ### encode
 
@@ -99,26 +152,29 @@ chart.render();
 
 - `<label>`: 数据标签的前缀，例如：`labelText` 设置标签的 text 文本。
 
-| 属性               | 描述                                                                                                              | 类型                                                       | 默认值 | 必选 |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------ | ---- |
-| labelFontSize      | 标签文字大小                                                                                                      | `number`                                                   | 10     |      |
-| labelText          | 标签文字内容                                                                                                      | `(d) => last(d.path)`                                      | -      |      |
-| labelFontFamily    | 文字字体                                                                                                          | string                                                     | -      |      |
-| labelFontWeight    | 字体粗细                                                                                                          | number                                                     | -      |      |
-| labelLineHeight    | 文字的行高                                                                                                        | number                                                     | -      |      |
-| labelTextAlign     | 设置文本内容的当前对齐方式                                                                                        | `center` \| `end` \| `left` \| `right` \| `start`          | -      |      |
-| labelTextBaseline  | 设置在绘制文本时使用的当前文本基线                                                                                | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |        |      |
-| labelFill          | 文字的填充色                                                                                                      | string                                                     | -      |      |
-| labelFillOpacity   | 文字的填充透明度                                                                                                  | number                                                     | -      |      |
-| labelStroke        | 文字的描边                                                                                                        | string                                                     | -      |      |
-| labelLineWidth     | 文字描边的宽度                                                                                                    | number                                                     | -      |      |
-| labelLineDash      | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。labelLineDash 设为[0,0]的效果为没有描边。 | `[number,number] `                                         | -      |      |
-| labelStrokeOpacity | 描边透明度                                                                                                        | number                                                     | -      |      |
-| labelOpacity       | 文字的整体透明度                                                                                                  | number                                                     | -      |      |
-| labelShadowColor   | 文字阴影颜色                                                                                                      | string                                                     | -      |      |
-| labelShadowBlur    | 文字阴影的高斯模糊系数                                                                                            | number                                                     | -      |      |
-| labelShadowOffsetX | 设置阴影距文字的水平距离                                                                                          | number                                                     | -      |      |
-| labelShadowOffsetY | 设置阴影距文字的垂直距离                                                                                          | number                                                     | -      |      |
+| 属性               | 描述                                                                                                                      | 类型                                                       | 默认值    | 必选 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | --------- | ---- |
+| labelFontSize      | 标签文字大小                                                                                                              | `number`                                                   | 10        |      |
+| labelText          | 标签文字内容                                                                                                              | `(d) => last(d.path)`                                      | -         |      |
+| labelFontFamily    | 标签文字字体                                                                                                              | string                                                     | -         |      |
+| labelFontWeight    | 标签文字粗细                                                                                                              | number                                                     | -         |      |
+| labelLineHeight    | 标签文字的行高                                                                                                            | number                                                     | -         |      |
+| labelTextAlign     | 设置标签文本内容的当前对齐方式                                                                                            | `center` \| `end` \| `left` \| `right` \| `start`          | -         |      |
+| labelTextBaseline  | 设置在绘制标签文本时使用的当前文本基线                                                                                    | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |           |      |
+| labelFill          | 标签文字的填充色                                                                                                          | string                                                     | -         |      |
+| labelFillOpacity   | 标签文字的填充透明度                                                                                                      | number                                                     | -         |      |
+| labelStroke        | 标签文字的描边                                                                                                            | string                                                     | -         |      |
+| labelLineWidth     | 标签文字描边宽度                                                                                                          | number                                                     | -         |      |
+| labelLineDash      | 标签文字描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。labelLineDash 设为[0,0]的效果为没有描边。 | `[number,number] `                                         | -         |      |
+| labelStrokeOpacity | 标签文字描边透明度                                                                                                        | number                                                     | -         |      |
+| labelOpacity       | 标签文字的整体透明度                                                                                                      | number                                                     | -         |      |
+| labelShadowColor   | 标签文字阴影颜色                                                                                                          | string                                                     | -         |      |
+| labelShadowBlur    | 标签文字阴影的高斯模糊系数                                                                                                | number                                                     | -         |      |
+| labelShadowOffsetX | 标签文字阴影水平偏移量                                                                                                    | number                                                     | -         |      |
+| labelShadowOffsetY | 标签文字阴影垂直偏移量                                                                                                    | number                                                     | -         |      |
+| labelCursor        | 标签文字鼠标样式                                                                                                          | string                                                     | `default` |      |
+| labelDx            | 标签文字在水平方向的偏移量                                                                                                | number                                                     | -         |      |
+| labelDy            | 标签文字在垂直方向的偏移量                                                                                                | number                                                     | -         |      |
 
 更多样式可以查看[文档 - 核心概念 - 样式](/manual/core/style)页面。
 
@@ -167,7 +223,7 @@ chart.options({
 
 ## 示例
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

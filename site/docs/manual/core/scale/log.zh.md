@@ -17,7 +17,7 @@ G2 中 **对数比例尺（log scale）** 是使用对数函数进行数据映�
 
 ## 使用方式
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,7 +113,7 @@ chart.render(); // 渲染图标
 
 ### 格式化转化为 `linear`
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

@@ -6,7 +6,6 @@ category: ['comparison', 'distribution']
 similar: ['bar', 'boxplot', 'line', 'area']
 ---
 
-
 <img alt="histogram" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WJFaSp1JLHQAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
 ## 直方图的简介
@@ -14,11 +13,13 @@ similar: ['bar', 'boxplot', 'line', 'area']
 直方图，形状类似[柱状图](/charts/bar)却有着与柱状图完全不同的含义。直方图牵涉统计学的概念，首先要对数据进行分组，然后统计每个分组内数据元的数量。在平面直角坐标系中，横轴标出每个组的端点，纵轴表示频数，每个矩形的高代表对应的频数，称这样的统计图为频数分布直方图。频数分布直方图需要经过频数乘以组距的计算过程才能得出每个分组的数量，同一个直方图的组距是一个固定不变的值，所以如果直接用纵轴表示数量，每个矩形的高代表对应的数据元数量，既能保持分布状态不变，又能直观的看出每个分组的数量。本文的例子全部使用纵轴表示数量的非标准直方图绘制。
 
 **相关概念**：
+
 - 组数：在统计数据时，我们把数据按照不同的范围分成几个组，分成的组的个数称为组数
 - 组距：每一组两个端点的差
 - 频数：分组内的数据元的数量除以组距
 
 **直方图的作用**：
+
 - 能够显示各组频数或数量分布的情况
 - 易于显示各组之间频数或数量的差别
 
@@ -32,12 +33,12 @@ similar: ['bar', 'boxplot', 'line', 'area']
 
 <img alt="basic-histogram" src="https://os.alipayobjects.com/rmsportal/rDGZziKoqcGqXaj.png" width=600 />
 
-| 图表类型         | 频数分布直方图                                                                        |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| 适合的数据       | 列表：一个连续数据字段、一个分类字段（可选）                                          |
-| 功能             | 展示数据在不同区间内的分布情况                                                       |
+| 图表类型         | 频数分布直方图                                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 适合的数据       | 列表：一个连续数据字段、一个分类字段（可选）                                                                             |
+| 功能             | 展示数据在不同区间内的分布情况                                                                                           |
 | 数据与图形的映射 | 分组数据字段（统计结果）映射到横轴的位置<br>频数字段（统计结果）映射到矩形的高度<br>分类数据可以设置颜色增强分类的区分度 |
-| 适合的数据条数   | 不低于 50 条数据                                                                     |
+| 适合的数据条数   | 不低于 50 条数据                                                                                                         |
 
 ---
 
@@ -45,12 +46,12 @@ similar: ['bar', 'boxplot', 'line', 'area']
 
 <img alt="density-histogram" src="https://os.alipayobjects.com/rmsportal/ZmewPQkvLvoHAzq.png" width=600/>
 
-| 图表类型         | 非标准的直方图                                                                         |
-| ---------------- | -------------------------------------------------------------------------------------- |
-| 适合的数据       | 列表：一个连续数据字段、一个分类字段（可选）                                           |
-| 功能             | 展示数据在不同区间内的分布情况                                                         |
+| 图表类型         | 非标准的直方图                                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 适合的数据       | 列表：一个连续数据字段、一个分类字段（可选）                                                                             |
+| 功能             | 展示数据在不同区间内的分布情况                                                                                           |
 | 数据与图形的映射 | 分组数据字段（统计结果）映射到横轴的位置<br>数量字段（统计结果）映射到矩形的高度<br>分类数据可以设置颜色增强分类的区分度 |
-| 适合的数据条数   | 不低于 50 条数据                                                                       |
+| 适合的数据条数   | 不低于 50 条数据                                                                                                         |
 
 ## 直方图的应用场景
 
@@ -60,7 +61,7 @@ similar: ['bar', 'boxplot', 'line', 'area']
 
 下图是一个钻石重量分布的直方图，展示了钻石重量在不同区间的分布情况。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -82,7 +83,7 @@ chart
     y: 'count',
   })
   .scale({
-    y: { nice: true }
+    y: { nice: true },
   })
   .axis({
     x: { title: '钻石重量（克拉）' },
@@ -97,7 +98,6 @@ chart
 chart.render();
 ```
 
-
 **说明**：
 
 - `carat` 字段，映射到横轴，表示钻石重量的数值范围
@@ -108,7 +108,7 @@ chart.render();
 
 直方图的关键是如何划分数据区间（即"分箱"），不同的分箱方式会影响对数据分布的理解。下图使用了自定义的分箱数量。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -131,7 +131,7 @@ chart
     thresholds: 30, // 指定分箱数量
   })
   .scale({
-    y: { nice: true }
+    y: { nice: true },
   })
   .axis({
     x: { title: '钻石重量（克拉）' },
@@ -147,7 +147,8 @@ chart.render();
 ```
 
 **说明**：
-- 使用 `transform: { type: 'binX', thresholds: 30 }` 指定分箱数量为30
+
+- 使用 `transform: { type: 'binX', thresholds: 30 }` 指定分箱数量为 30
 - 分箱数量的选择会影响分布的细节展示，较多的箱数可以显示更细致的分布情况
 - 较少的箱数则可以突出主要分布趋势
 
@@ -155,7 +156,7 @@ chart.render();
 
 密度直方图将频数标准化，更适合比较不同规模数据集的分布。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -172,19 +173,22 @@ chart
   })
   .encode('x', 'carat')
   .encode('y', 'density')
-  .transform({
-    type: 'binX',
-    y: 'count',
-    thresholds: 20,
-  }, {
-    type: 'normalizeY'
-  })
+  .transform(
+    {
+      type: 'binX',
+      y: 'count',
+      thresholds: 20,
+    },
+    {
+      type: 'normalizeY',
+    },
+  )
   .axis({
     x: { title: '钻石重量（克拉）' },
-    y: { 
+    y: {
       title: '密度',
-      labelFormatter: '.0%'
-    }
+      labelFormatter: '.0%',
+    },
   })
   .style({
     fill: '#2FC25B',
@@ -196,9 +200,10 @@ chart.render();
 ```
 
 **说明**：
+
 - 结合使用 `binX` 和 `normalizeY` 转换，将频数转换为密度
 - 纵轴格式化为百分比显示，更直观地表示数据分布的概率密度
-- 密度直方图面积总和为1，更适合进行概率分布分析
+- 密度直方图面积总和为 1，更适合进行概率分布分析
 
 ### 不适合的场景
 
@@ -216,7 +221,7 @@ chart.render();
 
 多分布直方图可以在同一坐标系中展示多个数据集的分布情况，便于比较不同数据集的分布特征。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -251,16 +256,16 @@ chart
   })
   .scale({
     y: { nice: true },
-    color: { range: ['#1890FF', '#FF6B3B'] }
+    color: { range: ['#1890FF', '#FF6B3B'] },
   })
   .axis({
     x: { title: '价格（美元）' },
-    y: { title: '频数' }
+    y: { title: '频数' },
   })
   .style({
     fillOpacity: 0.7,
     stroke: '#FFF',
-    lineWidth: 1
+    lineWidth: 1,
   })
   .legend(true);
 
@@ -268,10 +273,9 @@ chart.render();
 ```
 
 **说明**：
+
 - 通过 `color: 'group'` 和 `groupBy: ['group']` 实现多分布的对比
 - 使用不同颜色和透明度，便于观察不同组别的数据分布差异
-
-
 
 ## 直方图与其他图表的对比
 

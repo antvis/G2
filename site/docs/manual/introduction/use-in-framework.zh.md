@@ -147,7 +147,7 @@ function updateBarChart(chart) {
   onMounted(() => {
     chart = renderBarChart(container.value);
   });
-  
+
   onUnmounted(() => {
     chart.destroy();
     chart = null;
@@ -205,7 +205,7 @@ export default function G2Demo() {
     if (!chart.current) {
       chart.current = renderBarChart(container.current);
     }
-    
+
     return () => {
       chart.current.destroy();
       chart.current = null;

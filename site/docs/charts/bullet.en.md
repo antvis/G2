@@ -24,12 +24,12 @@ The design philosophy of bullet charts is to maximize the data-ink ratio, displa
 
 <img alt="bullet-anatomy" src="https://zos.alipayobjects.com/rmsportal/DkOloAVoymGGRJgmezOc.png" width=600 />
 
-| Chart Type       | Bullet Chart                                                                                                                                                               |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Suitable Data    | One categorical data field, one continuous data field (actual value), one target value, optional performance ranges                                                       |
-| Functionality    | Display comparison between actual and target values, evaluate performance levels                                                                                           |
-| Data Mapping     | Categorical data field maps to vertical axis position<br>Continuous data field maps to bar length<br>Target value maps to marker line<br>Performance ranges map to background color bands |
-| Data Size Limit  | Single or multiple indicators, recommended not to exceed 10                                                                                                               |
+| Chart Type      | Bullet Chart                                                                                                                                                                              |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data   | One categorical data field, one continuous data field (actual value), one target value, optional performance ranges                                                                       |
+| Functionality   | Display comparison between actual and target values, evaluate performance levels                                                                                                          |
+| Data Mapping    | Categorical data field maps to vertical axis position<br>Continuous data field maps to bar length<br>Target value maps to marker line<br>Performance ranges map to background color bands |
+| Data Size Limit | Single or multiple indicators, recommended not to exceed 10                                                                                                                               |
 
 The main components of a bullet chart include:
 
@@ -38,7 +38,7 @@ The main components of a bullet chart include:
 - **Performance Ranges**: Background uses color bands of different shades, typically divided into poor, good, and excellent ranges
 - **Scale Axis**: Provides numerical reference to help readers understand specific numerical values
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,10 +91,22 @@ chart.options({
     {
       type: 'point',
       data,
-      encode: { x: 'title', y: 'target', shape: 'line', color: '#3D76DD', size: 8 },
+      encode: {
+        x: 'title',
+        y: 'target',
+        shape: 'line',
+        color: '#3D76DD',
+        size: 8,
+      },
       tooltip: {
         title: false,
-        items: [{ channel: 'y', name: 'Target Value', valueFormatter: (d) => `${d}%` }],
+        items: [
+          {
+            channel: 'y',
+            name: 'Target Value',
+            valueFormatter: (d) => `${d}%`,
+          },
+        ],
       },
     },
   ],
@@ -113,7 +125,7 @@ chart.render();
 
 Bullet charts are ideal tools for displaying performance indicator completion status, clearly comparing actual performance with target requirements.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -135,56 +147,59 @@ const transformedData = [
 ];
 
 chart.options({
-  type: "view",
-  coordinate: { transform: [{ type: "transpose" }] },
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
   children: [
     {
-      type: "interval",
+      type: 'interval',
       data: transformedData,
-      encode: { x: "title", y: "value", color: "level" },
-      transform: [{ type: "stackY" }],
+      encode: { x: 'title', y: 'value', color: 'level' },
+      transform: [{ type: 'stackY' }],
       scale: {
         color: {
-          domain: ["Poor", "Good", "Excellent"],
+          domain: ['Poor', 'Good', 'Excellent'],
           range: colors.ranges,
         },
       },
       style: { maxWidth: 30 },
     },
     {
-      type: "interval",
+      type: 'interval',
       data: {
         value: [
-          { title: "Project Progress", value: 60, type: "Actual Progress" },
-          { title: "Project Progress", value: 80, type: "Target Progress" },
+          { title: 'Project Progress', value: 60, type: 'Actual Progress' },
+          { title: 'Project Progress', value: 80, type: 'Target Progress' },
         ],
-        transform: [{ type: "filter", callback: (d) => d.type === "Actual Progress" }],
+        transform: [
+          { type: 'filter', callback: (d) => d.type === 'Actual Progress' },
+        ],
       },
-      encode: { x: "title", y: "value", color: colors.measures },
+      encode: { x: 'title', y: 'value', color: colors.measures },
       style: { maxWidth: 16 },
     },
     {
-      type: "point",
+      type: 'point',
       data: {
         value: [
-          { title: "Project Progress", value: 60, type: "Actual Progress" },
-          { title: "Project Progress", value: 80, type: "Target Progress" },
+          { title: 'Project Progress', value: 60, type: 'Actual Progress' },
+          { title: 'Project Progress', value: 80, type: 'Target Progress' },
         ],
-        transform: [{ type: "filter", callback: (d) => d.type === "Target Progress" }],
+        transform: [
+          { type: 'filter', callback: (d) => d.type === 'Target Progress' },
+        ],
       },
       encode: {
-        x: "title",
-        y: "value",
-        shape: "line",
+        x: 'title',
+        y: 'value',
+        shape: 'line',
         color: colors.target,
         size: 8,
       },
-      axis: { y: { grid: true, title: "Progress (%)" }, x: { title: false } },
+      axis: { y: { grid: true, title: 'Progress (%)' }, x: { title: false } },
     },
   ],
 });
 chart.render();
-
 ```
 
 **Scenario 2: Budget Execution Tracking**
@@ -195,7 +210,7 @@ Bullet charts can effectively display budget execution status, including actual 
 
 Through bullet charts, you can intuitively understand the usage of various resources and identify overused or underutilized resources.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -246,7 +261,7 @@ chart.options({
       encode: {
         x: 'resource',
         y: 'measures',
-        color: (d) => d.measures > d.target ? '#ff7875' : '#52c41a'
+        color: (d) => (d.measures > d.target ? '#ff7875' : '#52c41a'),
       },
       style: { maxWidth: 20 },
       label: {
@@ -260,7 +275,13 @@ chart.options({
     {
       type: 'point',
       data: resourceData,
-      encode: { x: 'resource', y: 'target', shape: 'line', color: '#1890ff', size: 6 },
+      encode: {
+        x: 'resource',
+        y: 'target',
+        shape: 'line',
+        color: '#1890ff',
+        size: 6,
+      },
       axis: {
         y: {
           grid: true,
@@ -297,7 +318,7 @@ When displaying a large number of indicators, bullet charts can cause visual con
 
 Display the performance of multiple related indicators through grouping, facilitating horizontal comparison.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -361,7 +382,13 @@ chart.options({
     {
       type: 'point',
       data: multiData,
-      encode: { x: 'indicator', y: 'target', shape: 'line', color: '#666', size: 6 },
+      encode: {
+        x: 'indicator',
+        y: 'target',
+        shape: 'line',
+        color: '#666',
+        size: 6,
+      },
       axis: {
         y: {
           grid: true,
@@ -382,7 +409,7 @@ chart.render();
 
 Provide more detailed performance evaluation criteria through background ranges of different color shades.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -427,7 +454,9 @@ chart.options({
           { title: 'Project Progress', value: 60, type: 'Actual Progress' },
           { title: 'Project Progress', value: 80, type: 'Target Progress' },
         ],
-        transform: [{ type: 'filter', callback: (d) => d.type === 'Actual Progress' }],
+        transform: [
+          { type: 'filter', callback: (d) => d.type === 'Actual Progress' },
+        ],
       },
       encode: { x: 'title', y: 'value', color: colors.measures },
       style: { maxWidth: 16 },
@@ -439,7 +468,9 @@ chart.options({
           { title: 'Project Progress', value: 60, type: 'Actual Progress' },
           { title: 'Project Progress', value: 80, type: 'Target Progress' },
         ],
-        transform: [{ type: 'filter', callback: (d) => d.type === 'Target Progress' }],
+        transform: [
+          { type: 'filter', callback: (d) => d.type === 'Target Progress' },
+        ],
       },
       encode: {
         x: 'title',
@@ -459,7 +490,7 @@ chart.render();
 
 When space is limited or special layouts are needed, vertical bullet charts can be used.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -512,7 +543,13 @@ chart.options({
     {
       type: 'point',
       data: verticalData,
-      encode: { x: 'metric', y: 'target', shape: 'line', color: '#ff4d4f', size: 6 },
+      encode: {
+        x: 'metric',
+        y: 'target',
+        shape: 'line',
+        color: '#ff4d4f',
+        size: 6,
+      },
       axis: {
         y: {
           grid: true,

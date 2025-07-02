@@ -5,29 +5,29 @@ order: 2
 
 ## Overview
 
-The Fisheye coordinate system is a special coordinate transformation that applies a Cartesian fisheye effect to input dimensions, magnifying the focus area while compressing areas away from the focus. This transformation is similar to the visual effect of a fisheye lens, allowing you to highlight local details while maintaining a global view.
+Fisheye coordinate system (Fisheye) is a special coordinate system transform that applies Cartesian fisheye effects to input dimensions, magnifying focus areas while compressing regions far from the focus. This transform is similar to the visual effect of a fisheye lens, capable of highlighting local details while maintaining a global view.
 
-Fisheye coordinate system transformations are mainly used in the following scenarios:
+Fisheye coordinate system transforms are mainly used in the following scenarios:
 
 1. **Data exploration**: When you need to focus on both overall data distribution and local details simultaneously
-2. **Dense data visualization**: When data points are too dense to distinguish individual items
-3. **Interactive data analysis**: Combined with mouse interaction, dynamically adjust focus position to achieve dynamic zooming in and out of data
+2. **Dense data visualization**: When data points are too dense to distinguish individuals
+3. **Interactive data analysis**: Combined with mouse interaction, dynamically adjusting focus position to achieve dynamic magnification and reduction of data
 
-In G2, the fisheye coordinate system can be implemented through coordinate system transformations, or applied dynamically through interactive components.
+In G2, fisheye coordinate systems can be implemented through coordinate system transforms or applied dynamically through interaction components.
 
 ### Coordinate System Principles
 
-The basic principles of the fisheye coordinate system are:
+The basic principles of fisheye coordinate systems are:
 
 1. Define a focus position (focusX, focusY)
 2. Set distortion levels (distortionX, distortionY)
-3. Apply non-linear transformations based on distance from points to the focus
+3. Apply non-linear transforms based on distance from points to focus
 4. Points closer to the focus have larger spacing after transformation (magnification effect)
 5. Points farther from the focus have smaller spacing after transformation (compression effect)
 
 ### Getting Started
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -71,32 +71,32 @@ Fisheye coordinate systems are particularly suitable for the following scenarios
 
 1. **Dense data visualization**: When data points are too dense, fisheye effects can help users focus on specific areas while maintaining perception of overall data
 2. **Network graph analysis**: In large network graphs, fisheye effects can magnify nodes and connections of interest while maintaining the overall network structure
-3. **Map navigation**: In map visualizations, fisheye effects can magnify specific areas while maintaining awareness of surrounding environments
-4. **Interactive data exploration**: Combined with mouse interaction, users can dynamically adjust focus positions to achieve dynamic data zooming
+3. **Map navigation**: In map visualizations, fisheye effects can magnify specific areas while maintaining awareness of the surrounding environment
+4. **Interactive data exploration**: Combined with mouse interaction, users can dynamically adjust focus positions to achieve dynamic magnification and reduction of data
 
 ### Notes
 
-1. **Distortion level**: Setting distortion levels (distortionX/distortionY) too high will cause severe visual distortion; it's recommended to adjust based on actual data distribution
-2. **Focus position**: Focus position (focusX/focusY) should be set based on data distribution and user attention points
-3. **Interactive experience**: In interactive applications, fisheye effect changes should be smooth, avoiding sudden changes that cause visual discomfort
+1. **Distortion level**: Setting distortion levels (distortionX/distortionY) too high will cause severe visual distortion. It's recommended to adjust based on actual data distribution
+2. **Focus position**: Focus position (focusX/focusY) should be set according to data distribution and user focus points
+3. **Interactive experience**: In interactive applications, changes in fisheye effects should be smooth, avoiding sudden changes that cause visual discomfort
 
 ## Configuration
 
 The configuration options for fisheye coordinate systems are as follows:
 
-| Property    | Description                                         | Type      | Default | Required |
-| ----------- | --------------------------------------------------- | --------- | ------- | -------- |
-| focusX      | X-direction position of fisheye transform center   | `number`  | `0`     |          |
-| focusY      | Y-direction position of fisheye transform center   | `number`  | `0`     |          |
-| distortionX | X-direction distortion magnitude of fisheye transform | `number`  | `2`     |          |
-| distortionY | Y-direction distortion magnitude of fisheye transform | `number`  | `2`     |          |
+| Property    | Description                                                   | Type      | Default | Required |
+| ----------- | ------------------------------------------------------------- | --------- | ------- | -------- |
+| focusX      | X-direction position of fisheye transform center              | `number`  | `0`     |          |
+| focusY      | Y-direction position of fisheye transform center              | `number`  | `0`     |          |
+| distortionX | X-direction distortion magnitude of fisheye transform         | `number`  | `2`     |          |
+| distortionY | Y-direction distortion magnitude of fisheye transform         | `number`  | `2`     |          |
 | visual      | Whether focusX and focusY values are visual coordinate points | `boolean` | `false` |          |
 
 ### Parameter Description
 
-- **focusX/focusY**: Define the focus position of the fisheye effect. When `visual=false`, the value range is [0, 1], representing normalized coordinates; when `visual=true`, it represents actual visual coordinate points.
-- **distortionX/distortionY**: Control the distortion level of the fisheye effect; larger values mean more obvious distortion effects.
-- **visual**: Determines the coordinate system for focusX and focusY. When set to true, uses visual coordinate system; when set to false, uses normalized coordinate system.
+- **focusX/focusY**: Define the focus position of fisheye effects. When `visual=false`, the value range is [0, 1], representing normalized coordinates; when `visual=true`, it represents actual visual coordinate points.
+- **distortionX/distortionY**: Control the distortion level of fisheye effects. The larger the value, the more obvious the distortion effect.
+- **visual**: Determines the coordinate system for focusX and focusY. When set to true, use visual coordinate system; when set to false, use normalized coordinate system.
 
 ## Common Use Cases
 
@@ -104,7 +104,7 @@ The configuration options for fisheye coordinate systems are as follows:
 
 The simplest usage is to set a fixed fisheye focus, suitable for scenarios that need to highlight specific areas.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -152,9 +152,9 @@ chart.render();
 
 ### 2. Interactive Fisheye Effect
 
-By adding interactive components, you can achieve dynamic fisheye effects where the focus changes with mouse movement.
+By adding interaction components, you can implement dynamic fisheye effects where the focus changes with mouse movement.
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -194,25 +194,23 @@ chart.render();
 
 ## Complete Example
 
-Here's a complete example that combines fisheye coordinate systems with scatter plots, demonstrating how to use fisheye effects to analyze multi-dimensional data:
+Here's a complete example that combines fisheye coordinate systems with scatter plots, showing how to use fisheye effects to analyze multi-dimensional data:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
+  autoFit: true,
 });
 
 chart.options({
-  width: 800,
-  height: 500,
-  padding: [40, 60, 60, 80],
   coordinate: {
     transform: [
       {
         type: 'fisheye',
-        focusX: 0.6,
-        focusY: 0.4,
+        focusX: 0.4,
+        focusY: 0.6,
         distortionX: 2.5,
         distortionY: 2.5,
       },
@@ -233,45 +231,42 @@ chart.options({
   scale: {
     size: {
       type: 'log',
-      range: [4, 20],
+      range: [6, 30],
     },
-    x: {
-      nice: true,
-    },
-    y: {
-      nice: true,
+    color: {
+      palette: 'category10',
     },
   },
   style: {
     fillOpacity: 0.6,
+    stroke: 'white',
     lineWidth: 1,
-    stroke: '#fff',
-  },
-  legend: {
-    color: {
-      position: 'bottom',
-      layout: 'horizontal',
-    },
-    size: false,
   },
   axis: {
     x: {
-      title: 'GDP',
-      titleFill: '#333',
-      labelFontSize: 12,
+      title: { text: 'GDP per Capita' },
+      labelFormatter: '~s',
     },
     y: {
-      title: 'Life Expectancy',
-      titleFill: '#333',
-      labelFontSize: 12,
+      title: { text: 'Life Expectancy' },
+    },
+  },
+  legend: {
+    color: {
+      position: 'right',
+      title: { text: 'Continent' },
+    },
+    size: {
+      position: 'bottom',
+      title: { text: 'Population' },
     },
   },
   tooltip: {
-    title: (d) => d.country,
     items: [
-      (d) => ({ name: 'GDP', value: d.GDP }),
-      (d) => ({ name: 'Life Expectancy', value: d.LifeExpectancy }),
-      (d) => ({ name: 'Population', value: d.Population }),
+      { channel: 'x', name: 'GDP', valueFormatter: '~s' },
+      { channel: 'y', name: 'Life Expectancy' },
+      { channel: 'size', name: 'Population', valueFormatter: '~s' },
+      { channel: 'color', name: 'Continent' },
     ],
   },
 });
@@ -279,19 +274,13 @@ chart.options({
 chart.render();
 ```
 
-This example demonstrates how to create a fully functional fisheye coordinate system scatter plot, including the following features:
-
-1. Setting appropriate fisheye focus and distortion levels to highlight key areas
-2. Using multiple data dimensions (GDP, life expectancy, population) to create scatter plots
-3. Setting point colors by continent and point sizes by population
-4. Customizing axis and legend styles to improve readability
-5. Adding interactive tooltip information to display detailed data
+This example demonstrates how to use fisheye coordinate systems to analyze multi-dimensional bubble chart data, highlighting specific areas through fisheye effects while maintaining overall data perception. The fisheye effect magnifies data points around the focus (GDP: ~$20,000, Life Expectancy: ~75 years), making it easier to observe detailed patterns in this region.
 
 ## Combining with Other Coordinate Systems
 
 Fisheye coordinate system transformations can be combined with other coordinate system transformations, such as combining with transpose transformation:
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

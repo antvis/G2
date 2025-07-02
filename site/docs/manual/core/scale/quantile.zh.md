@@ -9,7 +9,7 @@ order: 2
 
 ### 映射效果举例
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -72,7 +72,7 @@ chart.render();
 
 以下示例展示如何用 quantile 比例尺将薪资数据分为三组并映射为不同颜色：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

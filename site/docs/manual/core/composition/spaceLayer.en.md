@@ -3,11 +3,11 @@ title: spaceLayer
 order: 2
 ---
 
-Does not partition space, multiple views use the same spatial area, commonly used for view layering.
+Does not divide space in any way, multiple views use the same spatial area, commonly used for view layering.
 
 ## Getting Started
 
-Create a common bar-pie combination chart.
+Draw a common combined bar and pie chart.
 
 <img alt="spaceLayer" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qPbkQb8c6F4AAAAAAAAAAAAADmJ7AQ/original" width="600" />
 
@@ -48,7 +48,7 @@ layer
 chart.render();
 ```
 
-For more examples, please visit the [Chart Examples](/examples) page.
+For more examples, visit the [Chart Examples](/en/examples) page.
 
 ## Options
 

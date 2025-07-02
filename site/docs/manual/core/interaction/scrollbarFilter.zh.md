@@ -196,7 +196,7 @@ chart.emit('scrollbarY:filter', {
 
 下面的示例展示了如何在柱状图上添加基础的 X 轴滚动条筛选功能：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -224,7 +224,7 @@ chart.render();
 
 这个示例展示了如何监听滚动条的 valuechange 事件，获取滚动条滑动前后的值：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -264,7 +264,7 @@ chart.render();
 
 这个示例展示了如何设置滚动条的初始数据域范围，使图表初始显示指定的数据区间：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

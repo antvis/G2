@@ -20,12 +20,12 @@ similar: ['chord', 'sankey', 'network']
 
 <img alt="linear-arcdiagram" src="https://zos.alipayobjects.com/rmsportal/lYLyWWbCOIoiHaLlpFbF.png" width=600 />
 
-| 图表类型         | 线性弧长连接图                                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------------------------- |
-| 适合的数据       | 列表：一组节点数据（包含节点 id 字段）、一组链接数据（包含源节点字段和目标节点字段）                    |
-| 功能             | 表示数据之间的链接关系                                                                                  |
+| 图表类型         | 线性弧长连接图                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 适合的数据       | 列表：一组节点数据（包含节点 id 字段）、一组链接数据（包含源节点字段和目标节点字段）                                                                 |
+| 功能             | 表示数据之间的链接关系                                                                                                                               |
 | 数据与图形的映射 | 节点的坐标（自动计算）字段映射到节点的坐标轴的位置<br>链接的坐标（自动计算）映射到半圆弧的顶点坐标轴位置<br>节点中的分类数据也可以设置颜色增强区分度 |
-| 适合的数据条数   | 不少于 2 条数据                                                                                         |
+| 适合的数据条数   | 不少于 2 条数据                                                                                                                                      |
 
 ---
 
@@ -33,12 +33,12 @@ similar: ['chord', 'sankey', 'network']
 
 <img alt="circular-arcdiagram" src="https://zos.alipayobjects.com/rmsportal/JJcPwdlgIdiaEXsAKYYr.png" width=600/>
 
-| 图表类型         | 环形弧长连接图                                                   |
-| ---------------- | ------------------------------------------------------------ |
-| 适合的数据       | 列表：一组节点数据（包含节点 id 字段）、一组链接数据（包含源节点字段和目标节点字段） |
-| 功能             | 表示数据之间的链接关系                                       |
+| 图表类型         | 环形弧长连接图                                                                                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 适合的数据       | 列表：一组节点数据（包含节点 id 字段）、一组链接数据（包含源节点字段和目标节点字段）                                                                                     |
+| 功能             | 表示数据之间的链接关系                                                                                                                                                   |
 | 数据与图形的映射 | 节点的坐标（自动计算）字段映射到节点的坐标轴的位置<br>链接的坐标（自动计算）映射到以圆心为控制点的贝塞尔曲线的顶点坐标轴位置<br>节点中的分类数据也可以设置颜色增强区分度 |
-| 适合的数据条数   | 不少于 5 条节点数据                                             |
+| 适合的数据条数   | 不少于 5 条节点数据                                                                                                                                                      |
 
 ## 弧长连接图的应用场景
 
@@ -50,10 +50,10 @@ similar: ['chord', 'sankey', 'network']
 
 **节点数据**：
 
-| name   | group | id |
-| ------ | ----- | -- |
-| Myriel | 1     | 0  |
-| ...    | ...   | ...|
+| name   | group | id  |
+| ------ | ----- | --- |
+| Myriel | 1     | 0   |
+| ...    | ...   | ... |
 
 **链接数据**：
 
@@ -62,7 +62,7 @@ similar: ['chord', 'sankey', 'network']
 | 1      | 0      | 1     |
 | ...    | ...    | ...   |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -75,70 +75,71 @@ chart.options({
   autoFit: true,
   data: {
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/relationship.json',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/relationship.json',
     transform: [
       {
         type: 'custom',
         callback: (data) => {
           const { nodes, links } = data;
-          
+
           const arcData = [];
-          links.forEach(link => {
+          links.forEach((link) => {
             const sourceId = parseInt(link.source);
             const targetId = parseInt(link.target);
-            
-            const sourceIndex = nodes.findIndex(n => n.id === sourceId);
-            const targetIndex = nodes.findIndex(n => n.id === targetId);
-            
+
+            const sourceIndex = nodes.findIndex((n) => n.id === sourceId);
+            const targetIndex = nodes.findIndex((n) => n.id === targetId);
+
             if (sourceIndex !== -1 && targetIndex !== -1) {
               const sourceX = sourceIndex * 15 + 50;
               const targetX = targetIndex * 15 + 50;
               const distance = Math.abs(targetX - sourceX);
-              const arcHeight = Math.min(150, distance * 0.1); 
-              
+              const arcHeight = Math.min(150, distance * 0.1);
+
               for (let i = 0; i <= 15; i++) {
                 const t = i / 15;
                 const x = sourceX + (targetX - sourceX) * t;
                 const y = 600 - arcHeight * Math.sin(Math.PI * t);
-                
+
                 arcData.push({
                   x: x,
                   y: y,
                   linkId: `${sourceId}-${targetId}`,
                   sourceName: nodes[sourceIndex].label,
                   targetName: nodes[targetIndex].label,
-                  type: 'link'
+                  type: 'link',
                 });
               }
             }
           });
-          
+
           const nodeData = nodes.map((node, i) => ({
             name: node.label,
             group: node.modularity_class,
-            size: node.size, 
+            size: node.size,
             displaySize: Math.sqrt(node.size) * 4,
             x: i * 15 + 50,
             y: 600,
-            type: 'node'
+            type: 'node',
           }));
-          
+
           return [...arcData, ...nodeData];
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 });
 
 chart
   .line()
   .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'link' }] })
   .encode('x', 'x')
-  .encode('y', 'y') 
+  .encode('y', 'y')
   .encode('series', 'linkId')
   .style('stroke', '#1890ff')
   .style('strokeWidth', 0.8)
-  .style('strokeOpacity', 0.4)
+  .style('strokeOpacity', 0.4);
 
 chart
   .point()
@@ -148,15 +149,35 @@ chart
   .encode('color', 'group')
   .scale('color', {
     type: 'ordinal',
-    range: ['#ff7875', '#ffa940', '#fadb14', '#73d13d', '#40a9ff', '#b37feb', '#ff85c0', '#ffc069', '#95de64']
+    range: [
+      '#ff7875',
+      '#ffa940',
+      '#fadb14',
+      '#73d13d',
+      '#40a9ff',
+      '#b37feb',
+      '#ff85c0',
+      '#ffc069',
+      '#95de64',
+    ],
   })
   .style('r', 4)
   .style('fill', (d) => {
-    const colors = ['#ff7875', '#ffa940', '#fadb14', '#73d13d', '#40a9ff', '#b37feb', '#ff85c0', '#ffc069', '#95de64'];
+    const colors = [
+      '#ff7875',
+      '#ffa940',
+      '#fadb14',
+      '#73d13d',
+      '#40a9ff',
+      '#b37feb',
+      '#ff85c0',
+      '#ffc069',
+      '#95de64',
+    ];
     return colors[parseInt(d.group)] || '#40a9ff';
   })
   .style('stroke', 'none')
-  .style('fillOpacity', 0.8)
+  .style('fillOpacity', 0.8);
 
 chart.render();
 ```
@@ -168,16 +189,16 @@ chart.render();
 
 例子 2: **环形布局展示复杂关系网络**
 
-使用极坐标系可以将例1的数据绘制成环形弧长连接图，更适合展示具有大量节点和复杂关系的网络数据。
+使用极坐标系可以将例 1 的数据绘制成环形弧长连接图，更适合展示具有大量节点和复杂关系的网络数据。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
   width: 600,
-  height: 600
+  height: 600,
 });
 
 chart.options({
@@ -185,20 +206,21 @@ chart.options({
   autoFit: true,
   data: {
     type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/relationship.json',
+    value:
+      'https://gw.alipayobjects.com/os/antvdemo/assets/data/relationship.json',
     transform: [
       {
         type: 'custom',
         callback: (data) => {
           const { nodes, links } = data;
-          
+
           const centerX = 300;
           const centerY = 300;
           const radius = 200;
           const nodeCount = nodes.length;
-          
+
           const nodePositions = nodes.map((node, i) => {
-            const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2; 
+            const angle = (i / nodeCount) * 2 * Math.PI - Math.PI / 2;
             const x = centerX + radius * Math.cos(angle);
             const y = centerY + radius * Math.sin(angle);
             return {
@@ -206,64 +228,66 @@ chart.options({
               x: x,
               y: y,
               angle: angle,
-              index: i
+              index: i,
             };
           });
-          
+
           const arcData = [];
-          links.forEach(link => {
+          links.forEach((link) => {
             const sourceId = parseInt(link.source);
             const targetId = parseInt(link.target);
-            
-            const sourceNode = nodePositions.find(n => n.id === sourceId);
-            const targetNode = nodePositions.find(n => n.id === targetId);
-            
+
+            const sourceNode = nodePositions.find((n) => n.id === sourceId);
+            const targetNode = nodePositions.find((n) => n.id === targetId);
+
             if (sourceNode && targetNode) {
               const steps = 20;
               for (let i = 0; i <= steps; i++) {
                 const t = i / steps;
-                
-                const x = Math.pow(1-t, 2) * sourceNode.x + 
-                         2 * (1-t) * t * centerX + 
-                         Math.pow(t, 2) * targetNode.x;
-                const y = Math.pow(1-t, 2) * sourceNode.y + 
-                         2 * (1-t) * t * centerY + 
-                         Math.pow(t, 2) * targetNode.y;
-                
+
+                const x =
+                  Math.pow(1 - t, 2) * sourceNode.x +
+                  2 * (1 - t) * t * centerX +
+                  Math.pow(t, 2) * targetNode.x;
+                const y =
+                  Math.pow(1 - t, 2) * sourceNode.y +
+                  2 * (1 - t) * t * centerY +
+                  Math.pow(t, 2) * targetNode.y;
+
                 arcData.push({
                   x: x,
                   y: y,
                   linkId: `${sourceId}-${targetId}`,
                   sourceName: sourceNode.label,
                   targetName: targetNode.label,
-                  type: 'link'
+                  type: 'link',
                 });
               }
             }
           });
-          
-          const nodeData = nodePositions.map(node => ({
+
+          const nodeData = nodePositions.map((node) => ({
             name: node.label,
             group: node.modularity_class,
             size: node.size,
             displaySize: Math.sqrt(node.size) * 4,
             x: node.x,
             y: node.y,
-            type: 'node'
+            type: 'node',
           }));
-          
+
           return [...arcData, ...nodeData];
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 });
 
 chart
   .line()
   .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'link' }] })
   .encode('x', 'x')
-  .encode('y', 'y') 
+  .encode('y', 'y')
   .encode('series', 'linkId')
   .style('stroke', '#1890ff')
   .style('strokeWidth', 1.2)
@@ -278,11 +302,31 @@ chart
   .encode('color', 'group')
   .scale('color', {
     type: 'ordinal',
-    range: ['#ff7875', '#ffa940', '#fadb14', '#73d13d', '#40a9ff', '#b37feb', '#ff85c0', '#ffc069', '#95de64']
+    range: [
+      '#ff7875',
+      '#ffa940',
+      '#fadb14',
+      '#73d13d',
+      '#40a9ff',
+      '#b37feb',
+      '#ff85c0',
+      '#ffc069',
+      '#95de64',
+    ],
   })
   .style('r', 6)
   .style('fill', (d) => {
-    const colors = ['#ff7875', '#ffa940', '#fadb14', '#73d13d', '#40a9ff', '#b37feb', '#ff85c0', '#ffc069', '#95de64'];
+    const colors = [
+      '#ff7875',
+      '#ffa940',
+      '#fadb14',
+      '#73d13d',
+      '#40a9ff',
+      '#b37feb',
+      '#ff85c0',
+      '#ffc069',
+      '#95de64',
+    ];
     return colors[parseInt(d.group)] || '#40a9ff';
   })
   .style('stroke', '#fff')
@@ -345,4 +389,4 @@ chart.render();
 
 ## 分类
 
-<code src="./demos/list-category.tsx"></code> 
+<code src="./demos/list-category.tsx"></code>

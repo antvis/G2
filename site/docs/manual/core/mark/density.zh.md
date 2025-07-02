@@ -9,7 +9,7 @@ order: 7
 
 `density` 的核心目标是从散点或点云数据中提取出其整体分布模式，并将其密度信息映射为一个连续的区域图或渐变效果。这种图表通常用于分析大量数据点的聚集区域、数据集中热点或数据分布的概率密度，例如在地理可视化中用于表示人口分布的密集程度，或者在分析中展示交易频率的区域性。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -63,74 +63,72 @@ chart.render();
 | 直角坐标系 | `'cartesian'` | 和密度图等       |
 | 极坐标系   | `'polar'`     | 极坐标小提琴图等 |
 
-```js | ob {  pin: false }
-(() => {
-  const coordinateMap = [
-    {
-      coordinate: 'cartesian',
-      label: '直角坐标系',
-    },
-    {
-      coordinate: 'polar',
-      label: '极坐标系',
-    },
-  ];
+```js | ob { inject: true }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+const container = chart.getContainer();
+const coordinateMap = [
+  {
+    coordinate: 'cartesian',
+    label: '直角坐标系',
+  },
+  {
+    coordinate: 'polar',
+    label: '极坐标系',
+  },
+];
 
-  const chart = new G2.Chart();
+chart.options({
+  type: 'density',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+    transform: [
+      {
+        type: 'kde',
+        field: 'y',
+        groupBy: ['x', 'species'],
+      },
+    ],
+  },
+  encode: {
+    x: 'x',
+    y: 'y',
+    color: 'species',
+    size: 'size',
+    series: 'species',
+  },
+  coordinate: { type: coordinateMap[0].coordinate },
+  tooltip: false,
+});
 
-  chart.options({
-    type: 'density',
-    data: {
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/species.json',
-      transform: [
-        {
-          type: 'kde',
-          field: 'y',
-          groupBy: ['x', 'species'],
-        },
-      ],
-    },
-    encode: {
-      x: 'x',
-      y: 'y',
-      color: 'species',
-      size: 'size',
-      series: 'species',
-    },
-    coordinate: { type: coordinateMap[0].coordinate },
-    tooltip: false,
+const handleSetCoordinate = (coordinate) => {
+  // 设置选中的坐标系
+  chart.coordinate({
+    type: coordinate,
   });
+  chart.render(); // 重新渲染图表
+};
 
-  const handleSetCoordinate = (coordinate) => {
-    // 设置选中的坐标系
-    chart.coordinate({
-      type: coordinate,
-    });
-    chart.render(); // 重新渲染图表
-  };
+// 插入Encode-Color 选择器
+const selectorContainer = document.createElement('div');
+selectorContainer.textContent = '选择坐标系 ';
+const selector = document.createElement('select');
+selector.innerHTML = coordinateMap.map(
+  (coordinate, index) =>
+    `<option value="${coordinate.coordinate}" ${
+      index === 0 ? 'selected' : ''
+    }>${coordinate.label}</option>`,
+);
+selector.onchange = (e) => {
+  handleSetCoordinate(e.target.value);
+};
+selectorContainer.appendChild(selector);
+container.insertBefore(selectorContainer, container.childNodes[0]);
 
-  // 插入Encode-Color 选择器
-  const selectorContainer = document.createElement('div');
-  selectorContainer.textContent = '选择坐标系 ';
-  const selector = document.createElement('select');
-  selector.innerHTML = coordinateMap.map(
-    (coordinate, index) =>
-      `<option value="${coordinate.coordinate}" ${
-        index === 0 ? 'selected' : ''
-      }>${coordinate.label}</option>`,
-  );
-  selector.onchange = (e) => {
-    handleSetCoordinate(e.target.value);
-  };
-  selectorContainer.appendChild(selector);
-  const node = chart.getContainer();
-  node.insertBefore(selectorContainer, node.childNodes[0]);
-
-  chart.render();
-
-  return node;
-})();
+chart.render();
 ```
 
 更多的`coordinate`配置，可以查查看 [coordinate](/manual/core/coordinate/overview) 介绍页面。
@@ -184,4 +182,35 @@ chart.render();
 
 尝试一下：
 
-<Playground path="style/general/violin/demo/density.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data({
+  type: 'fetch',
+  value: 'https://assets.antv.antgroup.com/g2/species.json',
+  transform: [
+    {
+      type: 'kde',
+      field: 'y',
+      groupBy: ['x'],
+      size: 20,
+    },
+  ],
+});
+
+chart
+  .density()
+  .encode('x', 'x')
+  .encode('y', 'y')
+  .encode('color', 'x')
+  .encode('size', 'size')
+  .tooltip(false);
+
+chart.render();
+
+```

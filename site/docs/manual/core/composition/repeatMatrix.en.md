@@ -3,7 +3,7 @@ title: repeatMatrix
 order: 2
 ---
 
-Divides space according to the number of fields, then visualizes data in these subspaces.
+Divide space according to the number of fields, then use data to visualize in these subspaces.
 
 ## Getting Started
 
@@ -47,30 +47,30 @@ repeatMatrix
 chart.render();
 ```
 
-For more examples, please visit the [Chart Examples](/examples) page.
+For more examples, visit the [Chart Examples](/en/examples) page.
 
 ## Options
 
-The underlying implementation of repeatMatrix is consistent with marks, so many configurations are the same.
+The underlying implementation of repeatMatrix is consistent with mark, so many configuration options are the same.
 
-| Property      | Description                                       | Type     | Default |
-| ------------- | ------------------------------------------------- | -------- | ------- |
-| data          | See [data](/manual/core/data/overview) documentation | `Data`   |         |
-| encode        | Channel settings, see table below                |          |         |
-| padding       | Padding size                                      | `number` | 0       |
-| paddingLeft   |                                                   | `number` | 0       |
-| paddingRight  |                                                   | `number` | 0       |
-| paddingTop    |                                                   | `number` | 0       |
-| paddingBottom |                                                   | `number` | 0       |
-| margin        | Margin                                            | `number` | 0       |
-| marginLeft    |                                                   | `number` | 0       |
-| marginRight   |                                                   | `number` | 0       |
-| marginTop     |                                                   | `number` | 0       |
-| marginBottom  |                                                   | `number` | 0       |
-| title         | See [title](/manual/component/title) documentation |          |         |
-| scale         | See [scale](/manual/core/scale/overview) documentation |          |         |
+| Property      | Description                                                              | Type     | Default |
+| ------------- | ------------------------------------------------------------------------ | -------- | ------- |
+| data          | Refer to [data](/en/manual/core/data/overview) for related information   | `Data`   |         |
+| encode        | Channel settings, see table below                                        |          |         |
+| padding       | Padding size                                                             | `number` | 0       |
+| paddingLeft   |                                                                          | `number` | 0       |
+| paddingRight  |                                                                          | `number` | 0       |
+| paddingTop    |                                                                          | `number` | 0       |
+| paddingBottom |                                                                          | `number` | 0       |
+| margin        | Margin                                                                   | `number` | 0       |
+| marginLeft    |                                                                          | `number` | 0       |
+| marginRight   |                                                                          | `number` | 0       |
+| marginTop     |                                                                          | `number` | 0       |
+| marginBottom  |                                                                          | `number` | 0       |
+| title         | Refer to [title](/en/manual/component/title) for related information     |          |         |
+| scale         | Refer to [scale](/en/manual/core/scale/overview) for related information |          |         |
 
-All configurations for `repeatMatrix` can be set using the API, for example:
+All configurations corresponding to `repeatMatrix` can be set using the API, for example:
 
 ```ts
 chart.repeatMatrix().data([1, 2, 3]).encode('x', ['f1', 'f2', 'f3']);
@@ -78,9 +78,9 @@ chart.repeatMatrix().data([1, 2, 3]).encode('x', ['f1', 'f2', 'f3']);
 
 ### encode
 
-RepeatMatrix has its own unique encode channels.
+For repeatMatrix, there are unique encode channels.
 
-| Channel | Description                                               | Type       | Default |
-| ------- | --------------------------------------------------------- | ---------- | ------- |
-| x       | Specify field list in x direction for spatial partitioning | `string[]` |         |
-| y       | Specify field list in y direction for spatial partitioning | `string[]` |         |
+| Channel | Description                                                    | Type       | Default |
+| ------- | -------------------------------------------------------------- | ---------- | ------- |
+| x       | Specify the field list in the x direction for x-axis splitting | `string[]` |         |
+| y       | Specify the field list in the y direction for y-axis splitting | `string[]` |         |

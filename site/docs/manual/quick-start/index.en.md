@@ -42,14 +42,14 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-//Initialize chart instance
+// Initialize chart instance
 const chart = new Chart({
   container: 'container',
 });
 
 // Declare visualization
 chart
-  .interval() // Create an Interval tag
+  .interval() // Create an Interval mark
   .data(data) // Bind data
   .encode('x', 'genre') // Encode x channel
   .encode('y', 'sold'); // Encode y channel
@@ -60,7 +60,7 @@ chart.render();
 
 ## CDN
 
-G2 also provides a UMD version, which can be loaded directly through CDN and used directly. At this time `Chart` object can be accessed through namespaces `G2`.
+G2 also provides a UMD version, which can be loaded directly through CDN and used directly. At this time, the `Chart` object can be accessed through the namespace `G2`.
 
 ```html
 <script src="https://unpkg.com/@antv/g2/dist/g2.min.js"></script>
@@ -74,14 +74,14 @@ G2 also provides a UMD version, which can be loaded directly through CDN and use
     { genre: 'Other', sold: 150 },
   ];
 
-  //Initialize chart instance
+  // Initialize chart instance
   const chart = new G2.Chart({
     container: 'container',
   });
 
   // Declare visualization
   chart
-    .interval() // Create an Interval tag
+    .interval() // Create an Interval mark
     .data(data) // Bind data
     .encode('x', 'genre') // Encode x channel
     .encode('y', 'sold'); // Encode y channel
@@ -95,10 +95,10 @@ G2 also provides a UMD version, which can be loaded directly through CDN and use
 
 No matter which method you use, if you draw a bar chart like the following, it means that everything is going well and the journey of exploring visualization and G2 has officially begun.
 
-```js | ob { pin:false, autoMount: true }
+```js | ob { pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
-// Initializing chart instance
+// Initialize chart instance
 
 const chart = new Chart({
   container: 'container',
@@ -118,3 +118,16 @@ chart
 
 chart.render();
 ```
+
+If you are using frameworks like React or Vue, you can check out:
+
+- [Using G2 in React](/en/manual/introduction/use-in-framework#react)
+- [Using G2 in Vue](/en/manual/introduction/use-in-framework#vue)
+
+## Online Experience with G2
+
+Visit [Chart Examples](/en/examples) to experience G2 online without any environment configuration.
+
+## FAQ
+
+Visit [FAQ](/en/manual/faq) to view frequently asked questions.

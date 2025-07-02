@@ -3,7 +3,7 @@ title: Chord Diagram
 order: 38
 screenshot: 'https://zos.alipayobjects.com/rmsportal/wqqqDPsmjjToaWvrNFMY.png'
 category: ['relation']
-similar: ["radar-chart", "radial-bar", "sankey", "arcdiagram"]
+similar: ['radar-chart', 'radial-bar', 'sankey', 'arcdiagram']
 ---
 
 <img alt="chord" src="https://zos.alipayobjects.com/rmsportal/wqqqDPsmjjToaWvrNFMY.png" width=600/>
@@ -20,12 +20,12 @@ Chord diagrams can intuitively display complex relationship networks between mul
 
 <img alt="chord-structure" src="https://zos.alipayobjects.com/rmsportal/djkdEIgCQjeCCqCNwuct.png" width=600 />
 
-| Chart Type         | Chord Diagram                                                                                    |
-| ------------------ | ------------------------------------------------------------------------------------------------ |
-| Suitable Data      | Node dataset (optional), edge dataset: source node, target node, flow value                     |
-| Function           | Observe node relationships, display bidirectional flow relationships between multiple entities   |
+| Chart Type             | Chord Diagram                                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data          | Node dataset (optional), edge dataset: source node, target node, flow value                                                              |
+| Function               | Observe node relationships, display bidirectional flow relationships between multiple entities                                           |
 | Data-to-Visual Mapping | Weight mapped to node and edge width<br>Source and target nodes mapped to arc positions on circle<br>Nodes can be distinguished by color |
-| Suitable Data Volume | Two or more node groups, optimal with 5-15 nodes                                              |
+| Suitable Data Volume   | Two or more node groups, optimal with 5-15 nodes                                                                                         |
 
 ### Components of a Chord Diagram
 
@@ -50,7 +50,7 @@ The following chart shows population flow between different cities, clearly disp
 | Shanghai             | Guangzhou            | 90,000                  |
 | Guangzhou            | Shenzhen             | 120,000                 |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -113,7 +113,7 @@ Example 2: **Displaying software dependencies**
 
 The following chart shows dependency relationships between software packages. Each node represents an independent package, and each edge shows the dependency relationship between packages. The thickness of edges indicates the strength of dependencies.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -173,6 +173,7 @@ chart.render();
 ```
 
 **Description**:
+
 - Nodes represent different software package modules
 - Edge thickness indicates the strength of dependency relationships
 - Colors distinguish different packages, making it easier to identify circular dependencies
@@ -183,7 +184,7 @@ Example 1: **Too many nodes leading to poor readability**
 
 When the number of nodes exceeds 15, chord diagrams become crowded and difficult to read, with severely overlapping connection lines.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -192,8 +193,28 @@ const chart = new Chart({
 });
 
 // Simulate data for 20 provinces, too many nodes leading to poor readability
-const provinces = ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Hangzhou', 'Nanjing', 'Wuhan', 'Chengdu', 'Xian', 'Chongqing', 
-                 'Tianjin', 'Suzhou', 'Qingdao', 'Dalian', 'Xiamen', 'Ningbo', 'Changsha', 'Zhengzhou', 'Jinan', 'Fuzhou'];
+const provinces = [
+  'Beijing',
+  'Shanghai',
+  'Guangzhou',
+  'Shenzhen',
+  'Hangzhou',
+  'Nanjing',
+  'Wuhan',
+  'Chengdu',
+  'Xian',
+  'Chongqing',
+  'Tianjin',
+  'Suzhou',
+  'Qingdao',
+  'Dalian',
+  'Xiamen',
+  'Ningbo',
+  'Changsha',
+  'Zhengzhou',
+  'Jinan',
+  'Fuzhou',
+];
 
 const data = [];
 provinces.forEach((source, i) => {
@@ -202,7 +223,7 @@ provinces.forEach((source, i) => {
       data.push({
         source,
         target,
-        value: Math.floor(Math.random() * 50) + 10
+        value: Math.floor(Math.random() * 50) + 10,
       });
     }
   });

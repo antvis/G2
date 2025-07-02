@@ -7,7 +7,7 @@ order: 16
 
 `liquid` 图形标记可用于绘制各种 水波图（涟漪图或波形图）,通过模拟水面上波纹扩散的动态过程，从视觉上的波动传达信息或增强用户体验。常用于 UI 设计、数据可视化或动画效果中。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -57,7 +57,7 @@ chart.render();
 | contentFill     | 文本颜色 | _string_ | -        |      |
 | contentFontSize | 文本大小 | _string_ | -        |      |
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -106,4 +106,42 @@ chart.render();
 
 尝试自己画一下：
 
-<Playground path="style/general/Liquid/demo/liquid-custom-shape.ts" rid="liquid-shape"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart
+  .liquid()
+  .data(0.3)
+  .style({
+    shape: (x, y, r) => {
+      const path = [];
+      const w = r * 2;
+
+      for (let i = 0; i < 5; i++) {
+        path.push([
+          i === 0 ? 'M' : 'L',
+          (Math.cos(((18 + i * 72) * Math.PI) / 180) * w) / 2 + x,
+          (-Math.sin(((18 + i * 72) * Math.PI) / 180) * w) / 2 + y,
+        ]);
+        path.push([
+          'L',
+          (Math.cos(((54 + i * 72) * Math.PI) / 180) * w) / 4 + x,
+          (-Math.sin(((54 + i * 72) * Math.PI) / 180) * w) / 4 + y,
+        ]);
+      }
+      path.push(['Z']);
+      return path;
+    },
+    outlineBorder: 4,
+    outlineDistance: 8,
+    waveLength: 128,
+  });
+
+chart.render();
+
+```

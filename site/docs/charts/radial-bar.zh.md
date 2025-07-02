@@ -22,12 +22,12 @@ similar: ['bar', 'multi-set-bar', 'stacked-bar']
 
 <img alt="radial-bar-structure" src="https://os.alipayobjects.com/rmsportal/OOiUjSQkDxkbxQw.png" width=450/>
 
-| 图表类型         | 玉珏图                                                                                |
-| ---------------- | ------------------------------------------------------------------------------------ |
-| 适合的数据       | 列表：一个分类数据字段、一个连续数据字段                                             |
-| 功能             | 以审美的方式展示分类数据的数值大小对比                                               |
+| 图表类型         | 玉珏图                                                                                 |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| 适合的数据       | 列表：一个分类数据字段、一个连续数据字段                                               |
+| 功能             | 以审美的方式展示分类数据的数值大小对比                                                 |
 | 数据与图形的映射 | 分类数据字段映射到环形位置<br>连续数据字段映射到弧长（角度）<br>可以用颜色区分不同分类 |
-| 适合的数据条数   | 不超过 15 条数据                                                                     |
+| 适合的数据条数   | 不超过 15 条数据                                                                       |
 
 一个完整的玉珏图包含以下构成元素：
 
@@ -42,18 +42,18 @@ similar: ['bar', 'multi-set-bar', 'stacked-bar']
 
 下图反映了美国民众对不同领域中的中美问题关注程度。
 
-| 问题                       | 关注人数比例 |
-| -------------------------- | ------------ |
-| 台海关系                   | 0.21         |
-| 中国持续增长的军事力量     | 0.47         |
-| 中国对全球环境的影响       | 0.49         |
-| 美国对中国的贸易逆差       | 0.52         |
-| 中国的人权政策             | 0.53         |
-| 来自中国的网络攻击         | 0.54         |
-| 中国带走了美国的就业岗位   | 0.60         |
-| 中国持有美国巨额国债       | 0.67         |
+| 问题                     | 关注人数比例 |
+| ------------------------ | ------------ |
+| 台海关系                 | 0.21         |
+| 中国持续增长的军事力量   | 0.47         |
+| 中国对全球环境的影响     | 0.49         |
+| 美国对中国的贸易逆差     | 0.52         |
+| 中国的人权政策           | 0.53         |
+| 来自中国的网络攻击       | 0.54         |
+| 中国带走了美国的就业岗位 | 0.60         |
+| 中国持有美国巨额国债     | 0.67         |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -72,32 +72,32 @@ chart.options({
     { question: '美国对中国的贸易逆差', percent: 0.52, odd: 1 },
     { question: '中国的人权政策', percent: 0.53, odd: 0 },
     { question: '来自中国的网络攻击', percent: 0.54, odd: 1 },
-    { question: '中国带走了美国的就业岗位', percent: 0.60, odd: 0 },
-    { question: '中国持有美国巨额国债', percent: 0.67, odd: 1 }
+    { question: '中国带走了美国的就业岗位', percent: 0.6, odd: 0 },
+    { question: '中国持有美国巨额国债', percent: 0.67, odd: 1 },
   ],
   coordinate: { type: 'radial', innerRadius: 0.2 },
-  encode: { 
-    x: 'question', 
-    y: 'percent', 
-    color: 'odd' 
+  encode: {
+    x: 'question',
+    y: 'percent',
+    color: 'odd',
   },
   scale: {
     color: {
-      range: ['rgb(211,0,57)', 'rgb(224,74,116)']
+      range: ['rgb(211,0,57)', 'rgb(224,74,116)'],
     },
-    y: { domain: [0, 1] }
+    y: { domain: [0, 1] },
   },
   style: {
     radiusTopLeft: 4,
-    radiusTopRight: 4
+    radiusTopRight: 4,
   },
   label: {
     text: 'percent',
     position: 'inside',
     style: {
       fontWeight: 'bold',
-      fill: 'white'
-    }
+      fill: 'white',
+    },
   },
   axis: {
     x: {
@@ -105,14 +105,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 10
-        }
-      }
+          fontSize: 10,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {
@@ -129,7 +129,7 @@ chart.render();
 
 下图反映了各国人民认为气候变化是严重问题的比例。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -150,27 +150,27 @@ chart.options({
     { country: '加拿大', percent: 0.51, condition: '一般' },
     { country: '德国', percent: 0.55, condition: '一般' },
     { country: '越南', percent: 0.69, condition: '一般' },
-    { country: '巴西', percent: 0.86, condition: '一般' }
+    { country: '巴西', percent: 0.86, condition: '一般' },
   ],
-  coordinate: { 
-    type: 'radial', 
+  coordinate: {
+    type: 'radial',
     innerRadius: 0.3,
     startAngle: -Math.PI,
-    endAngle: -0.25 * Math.PI
+    endAngle: -0.25 * Math.PI,
   },
-  encode: { 
-    x: 'country', 
-    y: 'percent', 
-    color: 'condition' 
+  encode: {
+    x: 'country',
+    y: 'percent',
+    color: 'condition',
   },
   scale: {
     color: {
-      range: ['#2370AE', '#A34265', '#505051']
-    }
+      range: ['#2370AE', '#A34265', '#505051'],
+    },
   },
   style: {
     radiusTopLeft: 2,
-    radiusTopRight: 2
+    radiusTopRight: 2,
   },
   label: {
     text: 'percent',
@@ -178,8 +178,8 @@ chart.options({
     style: {
       fontWeight: 'bold',
       fill: 'white',
-      fontSize: 10
-    }
+      fontSize: 10,
+    },
   },
   axis: {
     x: {
@@ -187,14 +187,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 12
-        }
-      }
+          fontSize: 12,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {
@@ -217,7 +217,7 @@ chart.render();
 
 **错误示例（未排序）：**
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -238,27 +238,27 @@ chart.options({
     { country: '美国', percent: 0.45, condition: '一般' },
     { country: '英国', percent: 0.41, condition: '一般' },
     { country: '俄罗斯', percent: 0.33, condition: '一般' },
-    { country: '中国', percent: 0.18, condition: '特殊' }
+    { country: '中国', percent: 0.18, condition: '特殊' },
   ],
-  coordinate: { 
-    type: 'radial', 
+  coordinate: {
+    type: 'radial',
     innerRadius: 0.2,
     startAngle: -Math.PI,
-    endAngle: -0.25 * Math.PI
+    endAngle: -0.25 * Math.PI,
   },
-  encode: { 
-    x: 'country', 
-    y: 'percent', 
-    color: 'condition' 
+  encode: {
+    x: 'country',
+    y: 'percent',
+    color: 'condition',
   },
   scale: {
     color: {
-      range: ['#2370AE', '#A34265', '#505051']
-    }
+      range: ['#2370AE', '#A34265', '#505051'],
+    },
   },
   style: {
     radiusTopLeft: 2,
-    radiusTopRight: 2
+    radiusTopRight: 2,
   },
   axis: {
     x: {
@@ -266,14 +266,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 10
-        }
-      }
+          fontSize: 10,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {
@@ -294,7 +294,7 @@ chart.render();
 
 可以通过颜色或分组来展示多维度的数据对比：
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -314,25 +314,25 @@ chart.options({
     { category: 'E类产品', value: 45, quarter: 'Q1' },
   ],
   coordinate: { type: 'radial', innerRadius: 0.2 },
-  encode: { 
-    x: 'category', 
-    y: 'value', 
-    color: 'category' 
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category',
   },
   scale: {
-    y: { domain: [0, 100] }
+    y: { domain: [0, 100] },
   },
   style: {
     radiusTopLeft: 8,
-    radiusTopRight: 8
+    radiusTopRight: 8,
   },
   label: {
     text: 'value',
     position: 'inside',
     style: {
       fontWeight: 'bold',
-      fill: 'white'
-    }
+      fill: 'white',
+    },
   },
   axis: {
     x: {
@@ -340,14 +340,14 @@ chart.options({
         autoRotate: true,
         autoEllipsis: true,
         style: {
-          fontSize: 10
-        }
-      }
+          fontSize: 10,
+        },
+      },
     },
-    y: { 
+    y: {
       label: false,
-      grid: false
-    }
+      grid: false,
+    },
   },
   interaction: [
     {

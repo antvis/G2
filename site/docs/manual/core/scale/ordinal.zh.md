@@ -128,7 +128,7 @@ chart.scale('color', {
 
 下面是一个使用 ordinal 比例尺将分类数据映射到颜色的基础示例：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -168,7 +168,7 @@ chart.render();
 
 下面的示例展示了一个基本的分类数据可视化：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // 创建图表实例
@@ -225,7 +225,7 @@ scale: {
 
 以下是一个使用 G2 声明式语法（G2Spec）配置 ordinal 比例尺的完整示例：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const spec = {

@@ -40,4 +40,18 @@ export type OverflowHideLabelTransform = {
 
 export type ExceedAdjustLabel = {
   type: 'exceedAdjust';
+  /**
+   * The boundary area to check for label overflow.
+   * - 'view': Check against the entire view area (default)
+   * - 'main': Check against the main area (excluding margins and paddings)
+   */
+  bounds?: 'view' | 'main';
+  /**
+   * The X-axis offset, default is 0
+   */
+  offsetX?: number;
+  /**
+   * The Y-axis offset, default is 0
+   */
+  offsetY?: number;
 };

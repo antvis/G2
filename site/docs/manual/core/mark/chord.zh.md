@@ -5,7 +5,7 @@ order: 6
 
 `chord`是一种用于可视化矩阵关系数据的环形图表，通过围绕圆周排列的节点弧及相互连接的带状曲线，直观展示不同类别间的双向流量或关联强度。在`chord`中，数据点（节点）通常沿着圆环排列，通过弦（曲线）来连接节点之间的关系或流动。每条弦不仅可以体现两个节点之间的连接，还可以通过视觉通道（如颜色、宽度、透明度等）来表示关系的权重或强度。弦图广泛应用于社交网络、系统调用关系、流量分布和交易流分析等场景，通过清晰地展现节点之间的复杂连接，可以帮助用户快速理解数据中的结构和模式。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -79,7 +79,7 @@ chart.render();
 
 `source`、`target` 视觉通道影响 chord 图形标记连接弦的起点和终点的重要属性。`source` 映射到数据中表示连接关系的起始节点字段，而 `target` 则映射到连接关系的终止节点字段。这两个属性共同构建了弦图中节点之间的关系逻辑，通过直观的连接弦表现节点之间的交互或依赖。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -118,7 +118,7 @@ chart.render();
 
 `source`、`target`等 encode 属性也支持动态获取数据中的值，可以传入一个方法，chart 在执行时会调用这个方法计算出需要的结果
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -213,4 +213,96 @@ scale 属性用于定义数据字段如何映射到图形的视觉属性（如�
 
 尝试一下：
 
-<Playground path="style/graph/network/demo/chord.ts" rid="area-style"></playground>
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+import { schemeTableau10 } from 'd3-scale-chromatic';
+
+const chart = new Chart({
+  container: 'container',
+  width: 900,
+  height: 600,
+});
+
+const data = [
+  {
+    source: '北京',
+    target: '天津',
+    value: 30,
+  },
+  {
+    source: '北京',
+    target: '上海',
+    value: 80,
+  },
+  {
+    source: '北京',
+    target: '河北',
+    value: 46,
+  },
+  {
+    source: '北京',
+    target: '辽宁',
+    value: 49,
+  },
+  {
+    source: '北京',
+    target: '黑龙江',
+    value: 69,
+  },
+  {
+    source: '北京',
+    target: '吉林',
+    value: 19,
+  },
+  {
+    source: '天津',
+    target: '河北',
+    value: 62,
+  },
+  {
+    source: '天津',
+    target: '辽宁',
+    value: 82,
+  },
+  {
+    source: '天津',
+    target: '上海',
+    value: 16,
+  },
+  {
+    source: '上海',
+    target: '黑龙江',
+    value: 16,
+  },
+  {
+    source: '河北',
+    target: '黑龙江',
+    value: 76,
+  },
+  {
+    source: '河北',
+    target: '内蒙古',
+    value: 24,
+  },
+  {
+    source: '内蒙古',
+    target: '北京',
+    value: 32,
+  },
+];
+
+chart
+  .chord()
+  .data({
+    value: { links: data },
+  })
+  .layout({
+    nodeWidthRatio: 0.05,
+  })
+  .scale('color', { range: schemeTableau10 })
+  .style('labelFontSize', 15)
+  .style('linkFillOpacity', 0.6);
+
+chart.render();
+
+```

@@ -14,7 +14,7 @@ flexX 是一个用于调整柱形图宽度的转换方法。它允许根据数�
 
 通过 flexX 转换，我们可以在传统柱状图的基础上增加一个额外的数据维度，使图表更加信息丰富。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -56,7 +56,7 @@ chart.render();
    <br/>
    使用国家 GDP 总量作为柱形宽度，人均 GDP 作为柱形高度：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -112,7 +112,7 @@ type Reducer = 'sum' | ((I: number[], V: Primitive[]) => Primitive);
 
 结合 stackY 和 normalizeY 转换创建市场分析图：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -150,7 +150,7 @@ chart.render();
 
 展示每月销售数据，使用交易量作为宽度，价格变化率作为高度：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

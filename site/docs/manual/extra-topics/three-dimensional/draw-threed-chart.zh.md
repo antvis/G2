@@ -100,7 +100,7 @@ chart.render().then(() => {
 
 效果如下：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -170,7 +170,7 @@ chart.render().then(() => {
 camera.rotate(-20, -20, 0);
 ```
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -253,7 +253,7 @@ canvas.appendChild(light);
 
 我们可以通过 `intensity` 增大光源的强度：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { Runtime, corelib, extend } from '@antv/g2';
 import { threedlib } from '@antv/g2-extension-3d';
 import { CameraType } from '@antv/g';
@@ -327,7 +327,7 @@ chart.legend(false);
 
 这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/component/legend#自定义图例legend)，我们可以使用 HTML 自定义图例：
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';
@@ -476,7 +476,7 @@ button.onclick = () => {
 };
 ```
 
-```js | ob {  pin: false , autoMount: true }
+```js | ob {  pin: false , inject: true }
 import { CameraType } from '@antv/g';
 import { Renderer as WebGLRenderer } from '@antv/g-webgl';
 import { Plugin as ThreeDPlugin, DirectionalLight } from '@antv/g-plugin-3d';

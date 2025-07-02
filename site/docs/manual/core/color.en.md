@@ -29,7 +29,7 @@ Using `mark.encode` to set data-driven colors is the most common approach, confi
 
 When the color scale is set to identity scale, the data from the color channel will be used as visual data and rendered in the final visualization without generating a scale.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -55,7 +55,7 @@ chart.render();
 
 ### Range
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -85,7 +85,7 @@ chart.render();
 
 In G2, you can specify a color palette by setting `scale.palette`. This palette can be discrete:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -110,7 +110,7 @@ chart.render();
 
 It can also be continuous:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -299,7 +299,7 @@ G2 provides several built-in palettes that can be used directly, and supports pa
 
 If the built-in palettes don't meet your requirements, you can also try custom palettes. Here's a simple example showing how to register and use a custom palette.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { register, Chart } from '@antv/g2';
 
 register('palette.custom', customPalette);
@@ -345,7 +345,7 @@ chart.interval().scale('color', {
 
 Colors can be set through `mark.style`. Colors set here have higher priority than `encode.color` and will not generate legends.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

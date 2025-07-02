@@ -33,6 +33,8 @@ chart.options({
     contentShadowOffsetX: 10,
     contentShadowOffsetY: 10,
     contentCursor: 'pointer',
+    contentDx: 10,
+    contentDy: 10,
   },
 });
 

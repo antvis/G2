@@ -6,7 +6,6 @@ category: ['interval']
 similar: ['pie']
 ---
 
-
 <img alt="gauge" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
 ## 仪表盘的简介
@@ -25,12 +24,12 @@ similar: ['pie']
 
 <img alt="basic-gauge" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| 图表类型         | 基础仪表盘                                                                          |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| 适合的数据       | 单一数值数据：当前值、目标值或总值、可选的阈值                                      |
-| 功能             | 展示数据在指定范围内的位置，通过指针和刻度表示数值                                 |
-| 数据与图形的映射 | 当前值映射到指针位置<br>总值定义刻度范围<br>可选的阈值映射为颜色分区               |
-| 适合的场景       | 表达单一指标在目标值范围内的完成度或状态                                            |
+| 图表类型         | 基础仪表盘                                                           |
+| ---------------- | -------------------------------------------------------------------- |
+| 适合的数据       | 单一数值数据：当前值、目标值或总值、可选的阈值                       |
+| 功能             | 展示数据在指定范围内的位置，通过指针和刻度表示数值                   |
+| 数据与图形的映射 | 当前值映射到指针位置<br>总值定义刻度范围<br>可选的阈值映射为颜色分区 |
+| 适合的场景       | 表达单一指标在目标值范围内的完成度或状态                             |
 
 ## 仪表盘的应用场景
 
@@ -38,9 +37,9 @@ similar: ['pie']
 
 例子 1: **适合展示目标完成进度**
 
-下面的仪表盘展示了一个评分指标的完成情况，当前得分为120，总分为400。
+下面的仪表盘展示了一个评分指标的完成情况，当前得分为 120，总分为 400。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -57,12 +56,11 @@ chart.options({
       name: 'score',
     },
   },
-  legend: false
+  legend: false,
 });
 
 chart.render();
 ```
-
 
 **说明** ：
 
@@ -75,7 +73,7 @@ chart.render();
 
 仪表盘可以通过设置多个阈值和不同颜色，清晰地展示数据落在哪个区间，适用于系统状态监控、性能评估等场景。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -99,16 +97,18 @@ chart.options({
     },
   },
   style: {
-    textContent: (target, total) => `得分：${target}\n占比：${(target / total * 100).toFixed(0)}%`,
+    textContent: (target, total) =>
+      `得分：${target}\n占比：${((target / total) * 100).toFixed(0)}%`,
   },
-  legend: false
+  legend: false,
 });
 
 chart.render();
 ```
 
 **说明**：
-- 通过 `thresholds` 设置了三个区间：0-100、100-200和200-400
+
+- 通过 `thresholds` 设置了三个区间：0-100、100-200 和 200-400
 - 使用不同的颜色映射了各个区间：红色表示低分区间，黄色表示中等区间，绿色表示高分区间
 - 自定义了文本内容，同时显示得分和占总分的百分比
 - 颜色的变化直观地反映了数据所处的状态区间
@@ -117,7 +117,7 @@ chart.render();
 
 仪表盘支持高度的样式自定义，可以根据业务需求调整外观和交互方式。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -144,15 +144,17 @@ chart.options({
     arcShape: 'round',
     arcLineWidth: 2,
     arcStroke: '#fff',
-    textContent: (target, total) => `得分：${target}\n占比：${(target / total * 100).toFixed(0)}%`,
+    textContent: (target, total) =>
+      `得分：${target}\n占比：${((target / total) * 100).toFixed(0)}%`,
   },
-  legend: false
+  legend: false,
 });
 
 chart.render();
 ```
 
 **说明**：
+
 - 使用 `arcShape: 'round'` 设置了圆弧的形状为圆角
 - 通过 `arcLineWidth` 和 `arcStroke` 设置了圆弧的线宽和边框颜色
 - 指针和文本的位置自动适应仪表盘的布局
@@ -174,13 +176,13 @@ chart.render();
 
 仪表盘支持自定义指针的形状，可以根据业务场景调整指针的样式，使图表更具个性化。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 import { Path } from '@antv/g';
 
-const chart = new Chart({ 
+const chart = new Chart({
   container: 'container',
-  autoFit: true
+  autoFit: true,
 });
 
 function getOrigin(points) {
@@ -234,22 +236,21 @@ chart.options({
     pointerShape: customShape,
     pinShape: false,
     textContent: (target, total) => {
-      return `得分：${target}\n占比：${(target / total * 100).toFixed(0)}%`;
+      return `得分：${target}\n占比：${((target / total) * 100).toFixed(0)}%`;
     },
-  }
+  },
 });
 
 chart.render();
 ```
 
 **说明**：
+
 - 使用 `pointerShape` 自定义了仪表盘的指针形状为三角形
 - 通过 `pinShape: false` 移除了指针中心的圆点
 - 可以根据业务需求完全控制指针的外观、颜色和尺寸
 
-
 ## 仪表盘与其他图表的对比
-
 
 ### 仪表盘和[饼图](/charts/pie)
 

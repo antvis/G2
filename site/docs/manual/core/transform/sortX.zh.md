@@ -67,7 +67,7 @@ type Reducer =
 
 ### 1. 柱状图按 y 值降序排序
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -91,7 +91,7 @@ chart.render();
 
 ### 2. 只显示 Top 3 项（slice）
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,7 +115,7 @@ chart.render();
 
 ### 3. 与 dodgeX 联用，分组后排序
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -141,7 +141,7 @@ chart.render();
 
 ### 4. 复杂排序与 reducer 配置
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

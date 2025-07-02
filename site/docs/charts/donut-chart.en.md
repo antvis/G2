@@ -23,10 +23,10 @@ While donut charts and pie charts are similar in terms of data representation, d
 
 <img alt="donut-structure" src="https://os.alipayobjects.com/rmsportal/mlFSJKDawodypht.png" width=600 />
 
-| Chart Type      | Donut Chart                                                                                                               |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Suitable Data   | A dataset containing one categorical field and one numerical field                                                        |
-| Functionality   | Compare the size of numerical values across categories                                                                    |
+| Chart Type      | Donut Chart                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Suitable Data   | A dataset containing one categorical field and one numerical field                                                       |
+| Functionality   | Compare the size of numerical values across categories                                                                   |
 | Data Mapping    | Categorical data maps to arc colors<br>Numerical data maps to arc angles<br>Proportional relationships shown by arc size |
 | Data Size Limit | Recommended for no more than 9 data points                                                                               |
 
@@ -46,7 +46,7 @@ This usage is similar to pie charts. The chart below shows sales data from a gam
 | Shooter  | 3,500  |
 | Other    | 1,500  |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -57,7 +57,7 @@ const chart = new Chart({
 chart.options({
   type: 'interval',
   autoFit: true,
-  transform: [{ type: "stackY" }], // Add stackY transform
+  transform: [{ type: 'stackY' }], // Add stackY transform
   data: [
     { genre: 'Sports', sold: 27500 },
     { genre: 'Strategy', sold: 11500 },
@@ -67,7 +67,9 @@ chart.options({
   ],
   coordinate: { type: 'theta', innerRadius: 0.5 },
   encode: { y: 'sold', color: 'genre' },
-  legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
   labels: [
     {
       text: 'genre',
@@ -102,7 +104,7 @@ Example 2: **Displaying Additional Information in the Center**
 
 The hollow center area of donut charts can be used to display totals, titles, or other important information:
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -125,27 +127,15 @@ chart.options({
   coordinate: { type: 'theta', innerRadius: 0.6 },
   encode: { y: 'value', color: 'type' },
   style: { stroke: '#fff', lineWidth: 2 },
-  legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
   labels: [
     {
       text: (d) => `${d.value}%`,
       style: {
         fontWeight: 'bold',
         fontSize: 12,
-      },
-    },
-  ],
-  annotations: [
-    {
-      type: 'text',
-      style: {
-        text: `Total\n${total.toFixed(1)}%`,
-        x: '50%',
-        y: '50%',
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: 'bold',
-        fill: '#8c8c8c',
       },
     },
   ],
@@ -160,7 +150,7 @@ Example 1: **Too Many Categories**
 
 The chart below shows population proportions by province. Due to the excessive number of categories, it's difficult to clearly compare population data across provinces. In such cases, we recommend using [bar charts](/en/charts/bar).
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -217,7 +207,7 @@ Example 2: **Similar Proportions Among Categories**
 
 In the chart below, different game genres have similar sales volumes with very small angular differences, making donut charts unsuitable. In this case, [bar charts](/en/charts/bar) would be more appropriate.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -237,7 +227,9 @@ chart.options({
   ],
   coordinate: { type: 'theta', innerRadius: 0.5 },
   encode: { y: 'sold', color: 'genre' },
-  legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
   labels: [
     {
       text: (d, i, data) => {
@@ -263,18 +255,18 @@ chart.render();
 
 Using G2's faceting functionality, grouped data can be rendered as multiple donut charts. The chart below shows the profit proportions of the world's largest 1000 banks by region in 2007 and 2011:
 
-| Year | Region                 | Profit (Billion USD) |
-| ---- | ---------------------- | -------------------- |
-| 2007 | Asia Pacific           | 1485.54              |
-| 2007 | Africa & Middle East   | 330.12               |
-| 2007 | Latin America          | 196.5                |
-| ...  | ...                    | ...                  |
-| 2011 | Asia Pacific           | 4107.18              |
-| 2011 | Africa & Middle East   | 495.3                |
-| 2011 | Latin America          | 495.3                |
-| ...  | ...                    | ...                  |
+| Year | Region               | Profit (Billion USD) |
+| ---- | -------------------- | -------------------- |
+| 2007 | Asia Pacific         | 1485.54              |
+| 2007 | Africa & Middle East | 330.12               |
+| 2007 | Latin America        | 196.5                |
+| ...  | ...                  | ...                  |
+| 2011 | Asia Pacific         | 4107.18              |
+| 2011 | Africa & Middle East | 495.3                |
+| 2011 | Latin America        | 495.3                |
+| ...  | ...                  | ...                  |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -303,10 +295,12 @@ chart.options({
   children: [
     {
       type: 'interval',
-      transform: [{ type: "stackY" }], // Add stackY transform
+      transform: [{ type: 'stackY' }], // Add stackY transform
       coordinate: { type: 'theta', innerRadius: 0.5 },
       encode: { y: 'profit', color: 'area' },
-      legend: { color: { position: 'bottom', layout: { justifyContent: 'center' } } },
+      legend: {
+        color: { position: 'bottom', layout: { justifyContent: 'center' } },
+      },
       labels: [
         {
           text: (d, i, data) => {

@@ -2,7 +2,7 @@
 title: Sankey Diagram
 order: 22
 screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original'
-category: ['flow','relation']
+category: ['flow', 'relation']
 similar: ['funnel', 'chord']
 ---
 
@@ -28,12 +28,12 @@ Sankey diagrams are commonly used for visualizing data in energy, material compo
 
 <img alt="桑基图" src="https://zos.alipayobjects.com/rmsportal/xdfcZJIJNiHPxdLGcRDT.png"  width="600"/>
 
-| Chart Type           | Basic Sankey Diagram                                                                |
-| -------------------- | ----------------------------------------------------------------------------------- |
-| Suitable Data        | Flow data: containing source nodes, target nodes, and flow values                  |
-| Function             | Display flow relationships and quantities between different nodes                   |
-| Data-Visual Mapping  | Source nodes mapped to left positions<br>Target nodes mapped to right positions<br>Flow values mapped to link widths |
-| Suitable Scenarios   | Energy flow analysis, fund flow tracking, user path analysis                       |
+| Chart Type          | Basic Sankey Diagram                                                                                                 |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data       | Flow data: containing source nodes, target nodes, and flow values                                                    |
+| Function            | Display flow relationships and quantities between different nodes                                                    |
+| Data-Visual Mapping | Source nodes mapped to left positions<br>Target nodes mapped to right positions<br>Flow values mapped to link widths |
+| Suitable Scenarios  | Energy flow analysis, fund flow tracking, user path analysis                                                         |
 
 ## Use Cases for Sankey Diagrams
 
@@ -43,7 +43,7 @@ Example 1: **Energy Flow Analysis**
 
 The following diagram shows an energy flow Sankey chart, displaying the complete process from primary energy sources to final consumption.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -90,7 +90,7 @@ Example 2: **User Path Analysis**
 
 Sankey diagrams can effectively show user behavior paths within websites or applications, helping analyze user drop-off points and conversion funnels.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = {
@@ -106,7 +106,7 @@ const data = {
     { source: 'Checkout', target: 'Abandon Payment', value: 70 },
     { source: 'Product Details', target: 'Shopping Cart', value: 200 },
     { source: 'Product Details', target: 'Go Back', value: 200 },
-  ]
+  ],
 };
 
 const chart = new Chart({
@@ -139,6 +139,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - Shows the complete user journey from homepage to final conversion
 - Link width represents user flow volume
 - Clearly identifies key user drop-off points
@@ -147,7 +148,7 @@ Example 3: **Budget Flow Analysis**
 
 Sankey diagrams are particularly suitable for displaying budget allocation, cost analysis, and other financial flow relationships.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const budgetData = {
@@ -158,14 +159,22 @@ const budgetData = {
     { source: 'R&D Department', target: 'Product Development', value: 3000000 },
     { source: 'R&D Department', target: 'Technology Research', value: 2000000 },
     { source: 'Marketing Department', target: 'Advertising', value: 2000000 },
-    { source: 'Marketing Department', target: 'Brand Building', value: 1000000 },
-    { source: 'Operations Department', target: 'Personnel Costs', value: 1200000 },
+    {
+      source: 'Marketing Department',
+      target: 'Brand Building',
+      value: 1000000,
+    },
+    {
+      source: 'Operations Department',
+      target: 'Personnel Costs',
+      value: 1200000,
+    },
     { source: 'Operations Department', target: 'Office Costs', value: 800000 },
     { source: 'Product Development', target: 'Mobile App', value: 1800000 },
     { source: 'Product Development', target: 'Web Platform', value: 1200000 },
     { source: 'Advertising', target: 'Online Ads', value: 1500000 },
     { source: 'Advertising', target: 'Offline Promotion', value: 500000 },
-  ]
+  ],
 };
 
 const chart = new Chart({
@@ -198,6 +207,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - Clearly shows budget allocation paths from overall to specific projects
 - Flow width intuitively represents fund allocation proportions
 - Color coding helps distinguish different budget category levels
@@ -208,7 +218,7 @@ Example 1: **Not suitable for simple categorical comparisons**
 
 When data is primarily used for comparing values across different categories rather than showing flow relationships, Sankey diagrams are not the best choice. In such cases, bar charts or pie charts would be more intuitive.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Example: Sales comparison data (not suitable for Sankey diagrams)
@@ -232,11 +242,11 @@ chart.options({
   encode: {
     x: 'category',
     y: 'value',
-    color: 'category'
+    color: 'category',
   },
   axis: {
     y: { title: 'Sales Amount ($)' },
-    x: { title: 'Product Category' }
+    x: { title: 'Product Category' },
   },
   style: {
     fill: '#1890ff',
@@ -252,7 +262,7 @@ Example 2: **Not suitable for overly complex network relationships**
 
 When there are too many nodes (over 30) or overly complex flow relationships, Sankey diagrams may become difficult to read. In such cases, consider using network graphs or hierarchical diagrams.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 // Example: Complex organizational structure (not suitable for Sankey diagrams)
@@ -276,7 +286,7 @@ const complexData = {
     { source: 'Operations VP', target: 'Data Team', value: 1 },
     { source: 'Operations VP', target: 'Product Team', value: 1 },
     { source: 'Operations VP', target: 'User Experience', value: 1 },
-  ]
+  ],
 };
 
 const chart = new Chart({
@@ -311,7 +321,7 @@ chart.render();
 
 Different node alignment methods can be used to optimize the layout of Sankey diagrams.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -349,6 +359,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - `nodeAlign: 'left'` aligns all nodes to the left
 - `nodePadding` controls spacing between nodes
 - `nodeWidth` controls the width of nodes
@@ -357,7 +368,7 @@ chart.render();
 
 Colors can be customized based on node type or flow direction.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -404,6 +415,7 @@ chart.render();
 ```
 
 **Explanation**:
+
 - Use `encode.color` to define custom color mapping functions
 - Colors can be dynamically assigned based on node properties, flow size, and other factors
 

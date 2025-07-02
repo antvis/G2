@@ -2,7 +2,7 @@ import { deepMix } from '@antv/util';
 import { CompositeMarkComponent as CC } from '../runtime';
 import { SankeyMark } from '../spec';
 import { Sankey as SankeyTransform } from '../data/sankey';
-import { subObject } from '../utils/helper';
+import { omitPrefixObject, subObject } from '../utils/helper';
 import { subTooltip, maybeAnimation } from '../utils/mark';
 import { field, initializeData } from './utils';
 
@@ -69,6 +69,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
     animate = {},
     tooltip = {},
     interaction,
+    state = {},
   } = options;
 
   // Initialize data, generating nodes by link if is not specified.
@@ -111,7 +112,18 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       (d) => ({ name: 'target', value: key1(d.target) }),
     ],
   });
-
+  // Extract node and link state.
+  const [nodeState, linkState] = Object.entries(state).reduce(
+    (acc, [stateName, styleObj]) => {
+      const commonState = omitPrefixObject(styleObj, 'node', 'link');
+      const nodeState = subObject(styleObj, 'node');
+      acc[0][stateName] = { ...commonState, ...nodeState };
+      const linkState = subObject(styleObj, 'link');
+      acc[1][stateName] = { ...commonState, ...linkState };
+      return acc;
+    },
+    [{}, {}],
+  );
   return [
     deepMix({}, DEFAULT_NODE_OPTIONS, {
       data: nodeData,
@@ -131,6 +143,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       animate: maybeAnimation(animate, 'node'),
       axis: false,
       interaction,
+      state: nodeState,
     }),
     deepMix({}, DEFAULT_LINK_OPTIONS, {
       data: linkData,
@@ -144,6 +157,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       tooltip: linkTooltip,
       animate: maybeAnimation(animate, 'link'),
       interaction,
+      state: linkState,
     }),
   ];
 };

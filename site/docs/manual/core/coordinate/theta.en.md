@@ -5,28 +5,28 @@ order: 2
 
 ## Overview
 
-Theta is a special polar coordinate system that combines the features of Transpose and Polar coordinate systems. It maps data to angles at a fixed radius, commonly used for transforming bar charts into pie charts/donut charts/fan charts.
+Theta is a special polar coordinate system that combines the characteristics of Transpose and Polar coordinate systems. It maps data to angles on a fixed radius, commonly used for transforming column charts to pie charts/donut charts/sector charts.
 
-The Theta coordinate system is essentially a combination of Transpose and Polar coordinate systems.
+Theta coordinate system is essentially a combination of Transpose and Polar coordinate systems:
 
-1. First, it swaps the x/y axes through Transpose
-2. Then, it converts Cartesian coordinates to polar coordinates through Polar
-3. Finally, it achieves data encoding on angles at a fixed radius
+1. First, exchange x/y axis through Transpose
+2. Then, convert Cartesian coordinates to polar coordinates through Polar
+3. Finally, achieve angle encoding of data on a fixed radius
 
-## Configuration Options
+## Configuration
 
-| Property    | Description                                                                                                                                                                                                                                                                                            | Type     | Default Value       | Required |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------------- | -------- |
-| startAngle  | Starting angle in radians, controls the starting angular position of pie/donut charts                                                                                                                                                                                                                 | `number` | `-Math.PI / 2`      |          |
-| endAngle    | Ending angle in radians, controls the ending angular position of pie/donut charts                                                                                                                                                                                                                     | `number` | `(Math.PI * 3) / 2` |          |
-| innerRadius | Inner radius (ratio 0-1), controls the inner circle radius of donut charts. 0 represents a solid pie chart, greater than 0 represents a donut chart. Generally, this value should be smaller than outerRadius. If it exceeds, it can still be displayed but may affect label presentation        | `number` | `0`                 |          |
-| outerRadius | Outer radius (ratio 0-1), controls the outer circle radius of pie/donut charts. 1 represents filling the entire drawing area. Values greater than 1 will exceed the container (the excess part will be clipped)                                                                                    | `number` | `1`                 |          |
+| Property    | Description                                                                                                                                                                                                                                                                        | Type     | Default             | Required |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------- | -------- |
+| startAngle  | Starting angle (in radians), controls the starting angle position of pie/donut charts                                                                                                                                                                                              | `number` | `-Math.PI / 2`      |          |
+| endAngle    | Ending angle (in radians), controls the ending angle position of pie/donut charts                                                                                                                                                                                                  | `number` | `(Math.PI * 3) / 2` |          |
+| innerRadius | Inner radius (ratio 0-1), controls the inner circle radius size of donut charts. 0 represents solid pie chart, greater than 0 represents donut chart. Generally we keep this value smaller than outerRadius. If it exceeds, it can still be displayed but may affect label display | `number` | `0`                 |          |
+| outerRadius | Outer radius (ratio 0-1), controls the outer circle radius size of pie/donut charts. 1 represents filling the entire drawing area. Values greater than 1 will exceed the container (excess parts will be clipped)                                                                  | `number` | `1`                 |          |
 
 ## Examples
 
 ### Basic Pie Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -53,7 +53,7 @@ chart.render();
 
 ### Basic Donut Chart
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -86,7 +86,7 @@ chart.render();
 
 ### Custom Starting Angle
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -115,9 +115,9 @@ chart.options({
 chart.render();
 ```
 
-### Compositional Approach
+### Compositional API Usage
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -151,4 +151,3 @@ chart
 
 chart.render();
 ```
-

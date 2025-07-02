@@ -22,12 +22,12 @@ State style properties are consistent with the style properties supported by [@a
 
 G2 supports configuring styles for different states at the mark level through the `state` field. Common states include:
 
-| State Name | Description                   | Typical Scenario               |
-| ---------- | ----------------------------- | ------------------------------ |
-| active     | Style when highlighted        | Mouse hover                    |
-| inactive   | Style when not highlighted    | Other non-highlighted elements |
-| selected   | Style when selected           | Mouse click                    |
-| unselected | Style when not selected       | Other non-selected elements    |
+| State Name | Description                | Typical Scenario               |
+| ---------- | -------------------------- | ------------------------------ |
+| active     | Style when highlighted     | Mouse hover                    |
+| inactive   | Style when not highlighted | Other non-highlighted elements |
+| selected   | Style when selected        | Mouse click                    |
+| unselected | Style when not selected    | Other non-selected elements    |
 
 ---
 
@@ -35,7 +35,7 @@ G2 supports configuring styles for different states at the mark level through th
 
 #### 1. Declarative Approach (Recommended)
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -68,7 +68,7 @@ chart.render();
 
 State style properties support functions that dynamically return styles based on data:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -114,7 +114,7 @@ default:    1
 - `active`/`inactive` have secondary priority, commonly used for hover highlighting
 - `default` is the default style
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -147,19 +147,19 @@ chart.render();
 
 G2 provides rich interactions that, combined with state styles, can achieve various interactive effects:
 
-| Name                    | Description         | Typical States      |
-| ----------------------- | ------------------- | ------------------- |
-| brushAxisHighlight      | Axis brush highlight| active/inactive     |
-| brushHighlight          | Area brush highlight| active/inactive     |
-| brushXHighlight         | X-axis brush highlight| active/inactive   |
-| brushYHighlight         | Y-axis brush highlight| active/inactive   |
-| elementHighlight        | Hover highlight     | active/inactive     |
-| elementHighlightByColor | Highlight by color  | active/inactive     |
-| elementHighlightByX     | Highlight by X      | active/inactive     |
-| legendHighlight         | Legend highlight    | active/inactive     |
-| elementSelect           | Click selection     | selected/unselected |
-| elementSelectByColor    | Select by color     | selected/unselected |
-| elementSelectByX        | Select by X         | selected/unselected |
+| Name                    | Description            | Typical States      |
+| ----------------------- | ---------------------- | ------------------- |
+| brushAxisHighlight      | Axis brush highlight   | active/inactive     |
+| brushHighlight          | Area brush highlight   | active/inactive     |
+| brushXHighlight         | X-axis brush highlight | active/inactive     |
+| brushYHighlight         | Y-axis brush highlight | active/inactive     |
+| elementHighlight        | Hover highlight        | active/inactive     |
+| elementHighlightByColor | Highlight by color     | active/inactive     |
+| elementHighlightByX     | Highlight by X         | active/inactive     |
+| legendHighlight         | Legend highlight       | active/inactive     |
+| elementSelect           | Click selection        | selected/unselected |
+| elementSelectByColor    | Select by color        | selected/unselected |
+| elementSelectByX        | Select by X            | selected/unselected |
 
 ---
 
@@ -169,7 +169,7 @@ G2 provides rich interactions that, combined with state styles, can achieve vari
 
 Using the `elementHighlight` interaction plugin with `active` and `inactive` state styles to achieve mouse hover highlighting:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -204,7 +204,7 @@ chart.render();
 
 Using the `elementSelect` interaction plugin with `selected` and `unselected` state styles to achieve click selection:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -237,7 +237,7 @@ chart.render();
 
 Supports simultaneous highlighting and selection, commonly used in dashboards and BI reports:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({

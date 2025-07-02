@@ -11,7 +11,7 @@ For example, in war sandbox scenarios, multiple irregular shapes can be divided 
 
 It is an indispensable tool in data visualization, graphics, and geographic information systems.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -184,22 +184,22 @@ For more examples, please check the [Chart Examples - Polygon](/en/examples#gene
 
 ## Configuration Options
 
-| Property   | Description                                                                                                                                                         | Type                      | Default Value          | Required |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
+| Property   | Description                                                                                                                                                   | Type                      | Default Value          | Required |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ---------------------- | -------- |
 | encode     | Configure visual channels for `polygon` mark, including `x`, `y`, `color`, `shape`, etc., to specify relationships between visual element properties and data | [encode](#encode)         | -                      | ✓        |
 | coordinate | Configure coordinate system for `polygon` mark, which performs a series of point transformations to change the spatial display form of the mark               | [coordinate](#coordinate) | `{type: 'cartesian' }` |          |
-| style      | Configure graphic styles for `polygon` mark                                                                                                                        | [style](#style)           | -                      |          |
+| style      | Configure graphic styles for `polygon` mark                                                                                                                   | [style](#style)           | -                      |          |
 
 ### encode
 
 Configure visual channels for `polygon` mark.
 
-| Property | Description                                                                                                                                                                                       | Type                             | Default Value | Required |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------- | -------- |
-| x        | Bind the `x` property channel of `polygon` mark, generally a time or ordered categorical field in `data`                                                                                         | [encode](/en/manual/core/encode) | -             | ✓        |
-| y        | Bind the `y` property channel of `polygon` mark, generally a numeric or array field in `data`                                                                                                    | [encode](/en/manual/core/encode) | -             | ✓        |
+| Property | Description                                                                                                                                                                                           | Type                             | Default Value | Required |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------- | -------- |
+| x        | Bind the `x` property channel of `polygon` mark, generally a time or ordered categorical field in `data`                                                                                              | [encode](/en/manual/core/encode) | -             | ✓        |
+| y        | Bind the `y` property channel of `polygon` mark, generally a numeric or array field in `data`                                                                                                         | [encode](/en/manual/core/encode) | -             | ✓        |
 | color    | Bind the `color` property channel of `polygon` mark. If data fields are mapped to color channels, each `polygon` area will be color-differentiated, can be numeric types like temperature or grouping | [encode](/en/manual/core/encode) | -             |          |
-| shape    | Bind the `shape` property channel of `polygon` mark, changes the drawing shape of the graphic mark. Supported properties: `polygon` \| `ribbon`                                                  | _string_                         | `polygon`     |          |
+| shape    | Bind the `shape` property channel of `polygon` mark, changes the drawing shape of the graphic mark. Supported properties: `polygon` \| `ribbon`                                                       | _string_                         | `polygon`     |          |
 
 #### color
 
@@ -207,7 +207,7 @@ The `color` visual channel affects the fill color of `polygon` mark areas. A sin
 
 - `color` channel with `string` type grouping
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -242,7 +242,7 @@ chart.render();
 
 - `color` channel with `number` type grouping
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -279,30 +279,26 @@ chart.render();
 
 Currently, `polygon` has 2 built-in shape graphics, with `polygon` as the default.
 
-| Shape   | Description                                                                                           | Example                                                                                                             |
-| ------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| polygon | Draws a closed polygon                                                                                | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2h-nRohPRJwAAAAAAAAAAAAAemJ7AQ/original"></img> |
+| Shape   | Description                                                                                              | Example                                                                                                          |
+| ------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| polygon | Draws a closed polygon                                                                                   | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2h-nRohPRJwAAAAAAAAAAAAAemJ7AQ/original"></img> |
 | ribbon  | Draws a ribbon, requiring four points p0, p1, p2, p3, where p0 p1 are start points, p2 p3 are end points | <img src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vhqnToccotoAAAAAAAAAAAAAemJ7AQ/original"></img> |
 
 For `ribbon` implementation examples, you can check chord diagrams and sankey diagrams in the [Chart Examples - Network](/en/examples#graph-network) page.
 
 ### style
 
-| Property      | Description                                                                                                                                     | Type                                              | Default Value |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------- |
-| fill          | Fill color of the graphic                                                                                                                       | `string` \| `Function<string>`                    | -             |
-| fillOpacity   | Fill opacity of the graphic                                                                                                                     | `number` \| `Function<number>`                    | -             |
-| stroke        | Stroke of the graphic                                                                                                                           | `string` \| `Function<string>`                    | -             |
-| strokeOpacity | Stroke opacity                                                                                                                                  | `number` \| `Function<number>`                    | -             |
-| lineWidth     | Width of the graphic stroke                                                                                                                     | `number` \| `Function<number>`                    | -             |
+| Property      | Description                                                                                                                                                                                   | Type                                              | Default Value |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------- |
+| fill          | Fill color of the graphic                                                                                                                                                                     | `string` \| `Function<string>`                    | -             |
+| fillOpacity   | Fill opacity of the graphic                                                                                                                                                                   | `number` \| `Function<number>`                    | -             |
+| stroke        | Stroke of the graphic                                                                                                                                                                         | `string` \| `Function<string>`                    | -             |
+| strokeOpacity | Stroke opacity                                                                                                                                                                                | `number` \| `Function<number>`                    | -             |
+| lineWidth     | Width of the graphic stroke                                                                                                                                                                   | `number` \| `Function<number>`                    | -             |
 | lineDash      | Dashed line configuration for stroke. First value is the length of each dash segment, second value is the spacing distance between segments. Setting lineDash to [0, 0] results in no stroke. | `[number,number]` \| `Function<[number, number]>` | -             |
-| opacity       | Overall opacity of the graphic                                                                                                                  | `number` \| `Function<number>`                    | -             |
-| shadowColor   | Shadow color of the graphic                                                                                                                     | `string` \| `Function<string>`                    | -             |
-| shadowBlur    | Gaussian blur coefficient for graphic shadow                                                                                                    | `number` \| `Function<number>`                    | -             |
-| shadowOffsetX | Sets the horizontal distance of shadow from the graphic                                                                                         | `number` \| `Function<number>`                    | -             |
-| shadowOffsetY | Sets the vertical distance of shadow from the graphic                                                                                           | `number` \| `Function<number>`                    | -             |
-| cursor        | Mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                                                           | `string` \| `Function<string>`                    | 'default'     |
-
-Try it out:
-
-<Playground path="style/general/geo/geo/demo/hexbin-china.ts" rid="polygon-style"></Playground>
+| opacity       | Overall opacity of the graphic                                                                                                                                                                | `number` \| `Function<number>`                    | -             |
+| shadowColor   | Shadow color of the graphic                                                                                                                                                                   | `string` \| `Function<string>`                    | -             |
+| shadowBlur    | Gaussian blur coefficient for graphic shadow                                                                                                                                                  | `number` \| `Function<number>`                    | -             |
+| shadowOffsetX | Sets the horizontal distance of shadow from the graphic                                                                                                                                       | `number` \| `Function<number>`                    | -             |
+| shadowOffsetY | Sets the vertical distance of shadow from the graphic                                                                                                                                         | `number` \| `Function<number>`                    | -             |
+| cursor        | Mouse cursor style. Same as CSS cursor style, defaults to 'default'.                                                                                                                          | `string` \| `Function<string>`                    | 'default'     |
