@@ -179,7 +179,7 @@ import {
   OverlapHide,
   OverlapDodgeY,
   ExceedAdjust,
-  ContrastReverseStroke,
+  OverflowStroke,
 } from '../../../src/label-transform';
 
 describe('stdlib', () => {
@@ -352,7 +352,7 @@ describe('stdlib', () => {
       'labelTransform.exceedAdjust': ExceedAdjust,
       'labelTransform.overflowHide': OverflowHide,
       'labelTransform.contrastReverse': ContrastReverse,
-      'labelTransform.contrastReverseStroke': ContrastReverseStroke,
+      'labelTransform.overflowStroke': OverflowStroke,
       'composition.geoView': GeoView,
       'composition.geoPath': GeoPath,
     });

@@ -6,13 +6,7 @@ import { isOverflow, parseAABB } from '../utils/bounds';
 import { bboxOf } from '../interaction/utils';
 import { mostContrast } from './utils';
 
-export type ContrastReverseStrokeOptions = Omit<
-  ContrastReverseLabelTransform,
-  'type'
-> & {
-  onlyOverlap?: boolean;
-  lineWidth?: number;
-};
+export type OverflowStrokeOptions = Omit<ContrastReverseLabelTransform, 'type'>;
 
 /**
  * Get bounds of element considering animation state.
@@ -48,16 +42,8 @@ function getBoundsWithAnimation(element: DisplayObject) {
  * Reverse label stroke against label color.
  * More about contract, see https://webaim.org/resources/contrastchecker/
  */
-export const ContrastReverseStroke: LLC<ContrastReverseStrokeOptions> = (
-  options,
-) => {
-  const {
-    onlyOverlap = {
-      threshold: 2,
-    },
-    lineWidth = 1.2,
-    palette = ['#000', '#fff'],
-  } = options;
+export const OverflowStroke: LLC<OverflowStrokeOptions> = (options) => {
+  const { palette = ['#000', '#fff'], threshold = 2 } = options;
 
   return (labels: DisplayObject[]) => {
     labels.forEach((l) => {
@@ -67,25 +53,15 @@ export const ContrastReverseStroke: LLC<ContrastReverseStrokeOptions> = (
       const textBounds = parseAABB(getBoundsWithAnimation(l));
       const elementBounds = parseAABB(getBoundsWithAnimation(dependentElement));
 
-      if (
-        (onlyOverlap &&
-          isOverflow(
-            textBounds,
-            elementBounds,
-            (onlyOverlap as { threshold: number })?.threshold ?? 2,
-          )) ||
-        !onlyOverlap
-      ) {
+      if (isOverflow(textBounds, elementBounds, threshold)) {
         // Add stroke to make overflowing text more visible.
         // Use the opposite color from palette for stroke.
         const strokeColor = mostContrast(parseToRGB(labelFill), palette);
 
         l.attr('stroke', strokeColor);
-        l.attr('lineWidth', lineWidth);
       } else {
         // Undefined can't set to attrs, have to remove.
         l.removeAttribute('stroke');
-        l.removeAttribute('lineWidth');
       }
     });
     return labels;

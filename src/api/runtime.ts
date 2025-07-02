@@ -96,6 +96,16 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
     this._bindAutoFit();
     this._rendering = true;
 
+    // Reset transform before re-render to prevent animation artifacts
+    const { canvas } = this._context;
+    if (canvas) {
+      const elements =
+        canvas.document.getElementsByClassName(ELEMENT_CLASS_NAME);
+      for (const element of elements) {
+        element.style.transform = '';
+      }
+    }
+
     // @fixme The cancel render is not marked, which will cause additional rendered event.
     // @ref src/runtime/render.ts
     const finished = new Promise<Runtime<Spec>>((resolve, reject) =>

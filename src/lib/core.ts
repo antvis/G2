@@ -164,7 +164,7 @@ import {
   ContrastReverse,
   OverlapHide,
   ExceedAdjust,
-  ContrastReverseStroke,
+  OverflowStroke,
 } from '../label-transform';
 
 export function corelib() {
@@ -323,7 +323,7 @@ export function corelib() {
     'labelTransform.overlapDodgeY': OverlapDodgeY,
     'labelTransform.overflowHide': OverflowHide,
     'labelTransform.contrastReverse': ContrastReverse,
-    'labelTransform.contrastReverseStroke': ContrastReverseStroke,
+    'labelTransform.overflowStroke': OverflowStroke,
     'labelTransform.exceedAdjust': ExceedAdjust,
   } as const;
 }

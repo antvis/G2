@@ -31,7 +31,7 @@ export function alphabetIntervalLabelContrastReverseOverflow(): G2Spec {
             type: 'contrastReverse',
           },
           {
-            type: 'contrastReverseStroke',
+            type: 'overflowStroke',
           },
         ],
       },

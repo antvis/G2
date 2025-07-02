@@ -47,7 +47,15 @@ export const Slider: GCC<SliderOptions> = (options) => {
       theme,
       coordinate,
     } = context;
-    const { bbox } = value;
+    const { bbox, canvas } = value;
+
+    // Reset transform state before creating slider
+    if (canvas?.document) {
+      const elements = canvas.document.getElementsByClassName('slider');
+      for (const element of elements) {
+        element.style.transform = '';
+      }
+    }
 
     const { width, height } = bbox;
     const { slider: sliderTheme = {} } = theme;

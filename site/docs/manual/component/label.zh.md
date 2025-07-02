@@ -239,7 +239,7 @@ chart.render();
 | --------------------- | -------------------------------------------------------------------------------- |
 | overlapDodgeY         | 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠                                |
 | contrastReverse       | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
-| contrastReverseStroke | 标签颜色在背景对比度低的情况下，从指定色板选择一个对比度最优的颜色进行描边       |
+| overflowStroke | 标签在溢出情况下，从指定色板选择一个对比度最优的颜色进行描边       |
 | overflowHide          | 对于标签在图形上放置不下的时候，隐藏标签                                         |
 | overlapHide           | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
 | exceedAdjust          | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
@@ -390,13 +390,13 @@ chart.render();
 | threshold | 标签和背景图形的颜色对比度阈值，超过阈值才会推荐颜色提升对比度 | `Type` | `4.5`              |      |
 | palette   | 对比度提升算法中，备选的颜色色板                               | `Type` | `['#000', '#fff']` |      |
 
-#### contrastReverseStroke
+#### overflowStroke
 
-`contrastReverseStroke` 从指定色板选择一个与标签颜色相比对比度最优的颜色进行描边。类似字幕黑底白字原理，针对 `label` 溢出元素后，标签颜色与背景融合显示不明显问题。
+`overflowStroke` 从指定色板选择一个与标签颜色相比，对比度最优的颜色进行描边。类似字幕黑底白字原理，针对 `label` 溢出元素后可读性变差问题。
 
 ##### 问题案例
 
-下面示例中 label 颜色与背景图形有较大对比度了，但溢出部分可读性又会非常差。
+下面示例中 label 颜色与背景元素区分明显，但溢出部分可读性又非常差。
 
 ```js | ob {  pin: false, inject: true }
 import { Chart } from '@antv/g2';
@@ -409,7 +409,7 @@ chart.options({
   width: 200,
   type: 'interval',
   scale: {
-    color: { range: ['#444'] },
+    color: { range: ['#222'] },
   },
   autoFit: true,
   data: [
@@ -437,10 +437,7 @@ chart.options({
 chart.render();
 ```
 
-##### 配置 `contrastReverseStroke` 转化描边
-
-对不明显的 `label` 描边进行优化
-
+##### 配置 `overflowStroke` 优化溢出标签的描边
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
 
@@ -452,7 +449,7 @@ chart.options({
   width: 200,
   type: 'interval',
   scale: {
-    color: { range: ['#444'] },
+    color: { range: ['#222'] },
   },
   autoFit: true,
   data: [
@@ -473,7 +470,7 @@ chart.options({
           type: 'contrastReverse',
         },
         {
-          type: 'contrastReverseStroke',
+          type: 'overflowStroke',
         },
       ],
     },
@@ -485,8 +482,8 @@ chart.render();
 
 | 属性        | 描述                                                 | 类型                               | 默认值             | 必选 |
 | ----------- | ---------------------------------------------------- | ---------------------------------- | ------------------ | ---- |
-| onlyOverlap | 是否仅在标签溢出时才描边，threshold 为超出部分的阈值 | `{ threshold: number } \| boolean` | `false`            |      |
-| palette     | 对比度提升算法中，备选的颜色色板                     | `[]string`                         | `['#000', '#fff']` |      |
+| threshold | 溢出阈值，越大越不越容易触发 | `number`           |   2   |
+| palette     | 对比度提升算法中，备选的颜色色板                     | `string[]`                         | `['#000', '#fff']` |      |
 
 #### overflowHide
 
