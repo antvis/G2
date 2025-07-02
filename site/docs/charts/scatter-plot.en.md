@@ -2,8 +2,8 @@
 title: Scatter Plot
 order: 11
 screenshot: "https://os.alipayobjects.com/rmsportal/EFRpgfUCANawLBP.jpg"
-category: ['relation', 'trend',]
-similar: ['bubble', 'line', 'area']
+category: ['distribution']
+similar: ['bubble']
 ---
 
 <img alt="scatter" src="https://os.alipayobjects.com/rmsportal/EFRpgfUCANawLBP.jpg" width=600/>
@@ -87,124 +87,158 @@ By observing the distribution of data points on a scatter plot, we can infer cor
 
 ### Suitable Use Cases
 
-Example 1: **Suitable for Correlation Analysis**
+Scatter plots are particularly suitable for displaying data distribution and correlations between variables. The following four progressive examples demonstrate different applications of scatter plots:
 
-The following chart shows the relationship between advertising spend and sales revenue, clearly demonstrating a positive correlation between the two variables.
+#### 1. Basic Scatter Plot - Displaying Data Distribution
 
-| adSpend (Advertising in 10k) | revenue (Sales Revenue in 10k) |
-| ----------------------------- | ------------------------------- |
-| 10                           | 120                             |
-| 15                           | 180                             |
-| 20                           | 220                             |
-| ...                          | ...                             |
+The most basic scatter plot is used to show the distribution relationship between two continuous variables:
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
 chart.options({
-  type: "view",
-  autoFit: true,
-  data: [
-    { adSpend: 10, revenue: 120 },
-    { adSpend: 15, revenue: 180 },
-    { adSpend: 20, revenue: 220 },
-    { adSpend: 25, revenue: 280 },
-    { adSpend: 30, revenue: 320 },
-    { adSpend: 35, revenue: 380 },
-    { adSpend: 40, revenue: 420 },
-    { adSpend: 45, revenue: 480 },
-    { adSpend: 50, revenue: 520 },
-    { adSpend: 55, revenue: 580 },
-    { adSpend: 60, revenue: 620 },
-    { adSpend: 65, revenue: 680 }
-  ],
-  encode: { x: "adSpend", y: "revenue" },
-  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    { 
-      type: "point", 
-      style: { 
-        fill: "#52c41a", 
-        fillOpacity: 0.8,
-        stroke: "#52c41a",
-        strokeWidth: 2,
-        r: 8
-      }
-    }
-  ],
-  axis: {
-    x: { title: "Advertising Spend (10k)" },
-    y: { title: "Sales Revenue (10k)" }
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
   },
-  title: "Advertising Spend vs Sales Revenue Analysis"
+  encode: {
+    x: 'height',
+    y: 'weight',
+  },
 });
 
 chart.render();
 ```
 
-**Explanation**:
-- `adSpend` field mapped to X-axis position, representing advertising investment
-- `revenue` field mapped to Y-axis position, representing sales revenue
-- Data points show a clear positive correlation trend
+#### 2. Adding Reference Lines - Enhancing Readability
 
-Example 2: **Suitable for Data Distribution Exploration**
-
-Scatter plots can be used to observe data distribution patterns, clustering, and outliers. The following chart shows the distribution of student scores across different classes:
+Adding reference lines to help users better understand the data:
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
 chart.options({
-  type: "view",
-  autoFit: true,
-  data: [
-    { math: 85, english: 78, category: 'Science Class' },
-    { math: 92, english: 75, category: 'Science Class' },
-    { math: 88, english: 82, category: 'Science Class' },
-    { math: 95, english: 79, category: 'Science Class' },
-    { math: 89, english: 85, category: 'Science Class' },
-    { math: 76, english: 88, category: 'Liberal Arts Class' },
-    { math: 72, english: 92, category: 'Liberal Arts Class' },
-    { math: 78, english: 85, category: 'Liberal Arts Class' },
-    { math: 74, english: 89, category: 'Liberal Arts Class' },
-    { math: 80, english: 91, category: 'Liberal Arts Class' },
-    { math: 82, english: 83, category: 'General Class' },
-    { math: 86, english: 84, category: 'General Class' },
-    { math: 84, english: 86, category: 'General Class' },
-    { math: 87, english: 81, category: 'General Class' }
-  ],
-  encode: { x: "math", y: "english", color: "category" },
-  scale: { 
-    x: { range: [0, 1] }, 
-    y: { domainMin: 0, nice: true },
-    color: { palette: ['#1890ff', '#52c41a', '#fa8c16'] }
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
   },
   children: [
-    { 
-      type: "point", 
-      style: { 
-        fillOpacity: 0.8,
+    {
+      type: 'point',
+      encode: {
+        x: 'height',
+        y: 'weight',
+      },
+    },
+    {
+      type: 'lineX',
+      data: [175],
+      style: {
+        stroke: '#ff4d4f',
         strokeWidth: 2,
-        r: 8
-      }
-    }
+        strokeDasharray: [4, 4],
+      },
+    },
+    {
+      type: 'lineY', 
+      data: [70],
+      style: {
+        stroke: '#ff4d4f',
+        strokeWidth: 2,
+        strokeDasharray: [4, 4],
+      },
+    },
   ],
-  axis: {
-    x: { title: "Math Score" },
-    y: { title: "English Score" }
+});
+
+chart.render();
+```
+
+#### 3. Using Color Channel - Displaying Categorical Information
+
+Using color channel to distinguish different categories of data:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
   },
-  legend: {
-    color: { title: "Class Type" }
+  encode: {
+    x: 'height',
+    y: 'weight',
+    color: 'gender',
   },
-  title: "Student Score Distribution by Class Type"
+});
+
+chart.render();
+```
+
+#### 4. Adding Regression Line - Showing Trend Relationships
+
+Finally, adding a regression line to show trend relationships between variables:
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
+  },
+  children: [
+    {
+      type: 'point',
+      encode: {
+        x: 'height',
+        y: 'weight',
+        color: 'gender',
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        transform: [
+          {
+            type: 'regression',
+            method: 'linear',
+            x: 'height',
+            y: 'weight',
+          },
+        ],
+      },
+      encode: {
+        x: 'height',
+        y: 'weight',
+      },
+      style: {
+        stroke: '#000',
+        strokeWidth: 2,
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -212,88 +246,54 @@ chart.render();
 
 ### Unsuitable Use Cases
 
-Example 1: **Too Many Data Points Causing Overlap**
+#### Severe Data Point Overlap
 
-When there are too many data points, scatter plots suffer from serious overlap issues, affecting data readability. The following chart shows a scatter plot with 1000 data points:
+When data points are heavily overlapped at certain positions, regular scatter plots cannot clearly show the true distribution of data. For example, the following chart shows a scatter plot with serious overlap issues:
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
-// Generate 1000 random data points
-const data = Array.from({ length: 1000 }, (_, i) => ({
-  x: Math.random() * 100,
-  y: Math.random() * 100 + Math.random() * 20,
-  id: i
-}));
-
 chart.options({
-  type: "view",
-  autoFit: true,
-  data,
-  encode: { x: "x", y: "y" },
-  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    { 
-      type: "point", 
-      style: { 
-        fill: "#1890ff", 
-        fillOpacity: 0.6,
-        stroke: "#1890ff",
-        strokeWidth: 1,
-        r: 4
-      }
-    }
-  ],
-  axis: {
-    x: { title: "X Variable" },
-    y: { title: "Y Variable" }
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
   },
-  title: "Scatter Plot with Too Many Data Points (Severe Overlap)"
+  encode: {
+    x: 'clarity',
+    y: 'price',
+  },
 });
 
 chart.render();
 ```
 
-For large datasets, **density plots** or **heatmaps** are more suitable:
+**Solution: Using Jitter Transform**
+
+Adding random offset to avoid overlap and make data distribution clearer:
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
-// Use the same data but with density representation
 chart.options({
-  type: "view",
-  autoFit: true,
-  data: Array.from({ length: 1000 }, (_, i) => ({
-    x: Math.random() * 100,
-    y: Math.random() * 100 + Math.random() * 20,
-    id: i
-  })),
-  encode: { x: "x", y: "y" },
-  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    { 
-      type: "point", 
-      style: { 
-        fill: "#1890ff", 
-        fillOpacity: 0.1,
-        stroke: "none",
-        r: 2
-      }
-    }
-  ],
-  axis: {
-    x: { title: "X Variable" },
-    y: { title: "Y Variable" }
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
   },
-  title: "Optimized Scatter Plot (Reduced Opacity and Point Size)"
+  transform: [{ type: 'jitterX' }],
+  encode: {
+    x: 'clarity',
+    y: 'price',
+  },
 });
 
 chart.render();

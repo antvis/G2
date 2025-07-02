@@ -2,8 +2,8 @@
 title: 散点图
 order: 11
 screenshot: "https://os.alipayobjects.com/rmsportal/EFRpgfUCANawLBP.jpg"
-category: ['relation', 'trend',]
-similar: ['bubble', 'line', 'area']
+category: ['distribution']
+similar: ['bubble']
 ---
 
 <img alt="scatter" src="https://os.alipayobjects.com/rmsportal/EFRpgfUCANawLBP.jpg" width=600/>
@@ -88,124 +88,158 @@ similar: ['bubble', 'line', 'area']
 
 ### 适合的场景
 
-例子 1: **适合应用到相关性分析**
+散点图特别适合展示数据分布和变量间的相关性。以下通过四个渐进的例子来展示散点图的不同应用：
 
-下图展示了广告投入与销售收入的关系，通过散点图可以清晰地看出两者之间的正相关关系。
+#### 1. 基础散点图 - 展示数据分布
 
-| adSpend（广告投入万元） | revenue（销售收入万元） |
-| ----------------------- | ----------------------- |
-| 10                      | 120                     |
-| 15                      | 180                     |
-| 20                      | 220                     |
-| ...                     | ...                     |
+最基础的散点图用于展示两个连续变量的分布关系：
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
 chart.options({
-  type: "view",
-  autoFit: true,
-  data: [
-    { adSpend: 10, revenue: 120 },
-    { adSpend: 15, revenue: 180 },
-    { adSpend: 20, revenue: 220 },
-    { adSpend: 25, revenue: 280 },
-    { adSpend: 30, revenue: 320 },
-    { adSpend: 35, revenue: 380 },
-    { adSpend: 40, revenue: 420 },
-    { adSpend: 45, revenue: 480 },
-    { adSpend: 50, revenue: 520 },
-    { adSpend: 55, revenue: 580 },
-    { adSpend: 60, revenue: 620 },
-    { adSpend: 65, revenue: 680 }
-  ],
-  encode: { x: "adSpend", y: "revenue" },
-  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    { 
-      type: "point", 
-      style: { 
-        fill: "#52c41a", 
-        fillOpacity: 0.8,
-        stroke: "#52c41a",
-        strokeWidth: 2,
-        r: 8
-      }
-    }
-  ],
-  axis: {
-    x: { title: "广告投入 (万元)" },
-    y: { title: "销售收入 (万元)" }
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
   },
-  title: "广告投入与销售收入关系分析"
+  encode: {
+    x: 'height',
+    y: 'weight',
+  },
 });
 
 chart.render();
 ```
 
-**说明**：
-- `adSpend` 字段映射到 X 轴位置，表示广告投入金额
-- `revenue` 字段映射到 Y 轴位置，表示销售收入
-- 数据点分布呈现明显的正相关趋势
+#### 2. 添加辅助线 - 增强可读性
 
-例子 2: **适合应用到数据分布探索**
-
-通过散点图可以观察数据的分布模式、聚类和异常值，下图展示了不同班级学生成绩的分布：
+通过添加辅助线来帮助用户更好地理解数据：
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
 chart.options({
-  type: "view",
-  autoFit: true,
-  data: [
-    { math: 85, english: 78, category: '理科班' },
-    { math: 92, english: 75, category: '理科班' },
-    { math: 88, english: 82, category: '理科班' },
-    { math: 95, english: 79, category: '理科班' },
-    { math: 89, english: 85, category: '理科班' },
-    { math: 76, english: 88, category: '文科班' },
-    { math: 72, english: 92, category: '文科班' },
-    { math: 78, english: 85, category: '文科班' },
-    { math: 74, english: 89, category: '文科班' },
-    { math: 80, english: 91, category: '文科班' },
-    { math: 82, english: 83, category: '综合班' },
-    { math: 86, english: 84, category: '综合班' },
-    { math: 84, english: 86, category: '综合班' },
-    { math: 87, english: 81, category: '综合班' }
-  ],
-  encode: { x: "math", y: "english", color: "category" },
-  scale: { 
-    x: { range: [0, 1] }, 
-    y: { domainMin: 0, nice: true },
-    color: { palette: ['#1890ff', '#52c41a', '#fa8c16'] }
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
   },
   children: [
-    { 
-      type: "point", 
-      style: { 
-        fillOpacity: 0.8,
+    {
+      type: 'point',
+      encode: {
+        x: 'height',
+        y: 'weight',
+      },
+    },
+    {
+      type: 'lineX',
+      data: [175],
+      style: {
+        stroke: '#ff4d4f',
         strokeWidth: 2,
-        r: 8
-      }
-    }
+        strokeDasharray: [4, 4],
+      },
+    },
+    {
+      type: 'lineY', 
+      data: [70],
+      style: {
+        stroke: '#ff4d4f',
+        strokeWidth: 2,
+        strokeDasharray: [4, 4],
+      },
+    },
   ],
-  axis: {
-    x: { title: "数学成绩" },
-    y: { title: "英语成绩" }
+});
+
+chart.render();
+```
+
+#### 3. 使用颜色通道 - 展示分类信息
+
+通过颜色通道来区分不同类别的数据：
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
   },
-  legend: {
-    color: { title: "班级类型" }
+  encode: {
+    x: 'height',
+    y: 'weight',
+    color: 'gender',
   },
-  title: "不同班级学生成绩分布"
+});
+
+chart.render();
+```
+
+#### 4. 添加回归线 - 显示趋势关系
+
+最后添加回归线来显示变量间的趋势关系：
+
+```js | ob { autoMount: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e824.csv',
+  },
+  children: [
+    {
+      type: 'point',
+      encode: {
+        x: 'height',
+        y: 'weight',
+        color: 'gender',
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        transform: [
+          {
+            type: 'regression',
+            method: 'linear',
+            x: 'height',
+            y: 'weight',
+          },
+        ],
+      },
+      encode: {
+        x: 'height',
+        y: 'weight',
+      },
+      style: {
+        stroke: '#000',
+        strokeWidth: 2,
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -213,88 +247,54 @@ chart.render();
 
 ### 不适合的场景
 
-例子 1: **数据点过多导致重叠**
+#### 数据点重叠严重的情况
 
-当数据点过多时，散点图会出现严重的重叠问题，影响数据的可读性。如下图所示的 1000 个数据点的散点图：
+当数据在某些位置高度重叠时，普通散点图无法清晰展示数据的真实分布。例如下图展示了一个存在严重重叠问题的散点图：
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
-// 生成 1000 个随机数据点
-const data = Array.from({ length: 1000 }, (_, i) => ({
-  x: Math.random() * 100,
-  y: Math.random() * 100 + Math.random() * 20,
-  id: i
-}));
-
 chart.options({
-  type: "view",
-  autoFit: true,
-  data,
-  encode: { x: "x", y: "y" },
-  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    { 
-      type: "point", 
-      style: { 
-        fill: "#1890ff", 
-        fillOpacity: 0.6,
-        stroke: "#1890ff",
-        strokeWidth: 1,
-        r: 4
-      }
-    }
-  ],
-  axis: {
-    x: { title: "X 变量" },
-    y: { title: "Y 变量" }
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
   },
-  title: "数据点过多的散点图（重叠严重）"
+  encode: {
+    x: 'clarity',
+    y: 'price',
+  },
 });
 
 chart.render();
 ```
 
-对于大量数据点，更适合使用**密度图**或**热力图**：
+**解决方案：使用抖动变换（Jitter）**
+
+通过添加随机偏移来避免重叠，使数据分布更加清晰：
 
 ```js | ob { autoMount: true }
-import { Chart } from "@antv/g2";
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({
-  container: "container",
+  container: 'container',
 });
 
-// 使用相同的数据，但采用密度图表示
 chart.options({
-  type: "view",
-  autoFit: true,
-  data: Array.from({ length: 1000 }, (_, i) => ({
-    x: Math.random() * 100,
-    y: Math.random() * 100 + Math.random() * 20,
-    id: i
-  })),
-  encode: { x: "x", y: "y" },
-  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    { 
-      type: "point", 
-      style: { 
-        fill: "#1890ff", 
-        fillOpacity: 0.1,
-        stroke: "none",
-        r: 2
-      }
-    }
-  ],
-  axis: {
-    x: { title: "X 变量" },
-    y: { title: "Y 变量" }
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
   },
-  title: "优化后的散点图（降低透明度和点大小）"
+  transform: [{ type: 'jitterX' }],
+  encode: {
+    x: 'clarity',
+    y: 'price',
+  },
 });
 
 chart.render();
