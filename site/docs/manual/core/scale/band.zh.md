@@ -54,6 +54,489 @@ band 比例尺将连续的值域范围（range）划分为等宽的区间，每�
 - **step\*PI (paddingInner)**: 类别之间的内部间距
 - **step\*PO (paddingOuter)**: 两端的外部间距
 
+## 带宽概念详解
+
+### 什么是带宽(bandWidth)
+
+带宽(bandWidth)是 band 比例尺中每个类别实际占据的宽度，它决定了柱状图中每个柱子的宽度、条形图中每个条的高度等。带宽是 band 比例尺区别于其他比例尺的核心概念。
+
+### 带宽的计算公式
+
+带宽的计算涉及多个参数，具体公式如下：
+
+```plain
+step = rangeLength / (domain.length - paddingInner + paddingOuter * 2)
+bandWidth = step * (1 - paddingInner)
+```
+
+其中：
+
+- `rangeLength`: 值域的长度（range[1] - range[0]）
+- `domain.length`: 定义域中类别的数量
+- `paddingInner`: 内部间距比例 [0, 1]
+- `paddingOuter`: 外部间距比例 [0, 1]
+
+### 参数对带宽的影响
+
+#### 1. paddingInner 的影响
+
+`paddingInner` 控制类别之间的间距，直接影响带宽大小：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { category: 'A', value: 100 },
+  { category: 'B', value: 80 },
+  { category: 'C', value: 120 },
+  { category: 'D', value: 90 },
+];
+
+// 创建三个图表展示不同 paddingInner 的效果
+const charts = [
+  { paddingInner: 0, title: 'paddingInner: 0 (带宽最大)' },
+  { paddingInner: 0.3, title: 'paddingInner: 0.3 (中等带宽)' },
+  { paddingInner: 0.8, title: 'paddingInner: 0.8 (带宽最小)' },
+];
+
+charts.forEach((config, index) => {
+  const container = document.createElement('div');
+  container.style.width = '300px';
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        paddingInner: config.paddingInner,
+        paddingOuter: 0.1,
+      },
+    },
+    axis: {
+      x: { title: config.title },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+#### 2. paddingOuter 的影响
+
+`paddingOuter` 控制两端的间距，间接影响带宽：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { category: 'A', value: 100 },
+  { category: 'B', value: 80 },
+  { category: 'C', value: 120 },
+  { category: 'D', value: 90 },
+];
+
+const charts = [
+  { paddingOuter: 0, title: 'paddingOuter: 0' },
+  { paddingOuter: 0.3, title: 'paddingOuter: 0.3' },
+  { paddingOuter: 0.6, title: 'paddingOuter: 0.6' },
+];
+
+charts.forEach((config, index) => {
+  const container = document.createElement('div');
+  container.style.width = '300px';
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        paddingInner: 0.2,
+        paddingOuter: config.paddingOuter,
+      },
+    },
+    axis: {
+      x: { title: config.title },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+#### 3. 类别数量的影响
+
+类别数量越多，每个类别的带宽越小：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const datasets = [
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+    ],
+    title: '2个类别',
+  },
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+      { category: 'C', value: 120 },
+      { category: 'D', value: 90 },
+    ],
+    title: '4个类别',
+  },
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+      { category: 'C', value: 120 },
+      { category: 'D', value: 90 },
+      { category: 'E', value: 110 },
+      { category: 'F', value: 95 },
+    ],
+    title: '6个类别',
+  },
+];
+
+datasets.forEach((dataset, index) => {
+  const container = document.createElement('div');
+  container.style.width = '300px';
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: 'interval',
+    data: dataset.data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        padding: 0.3, // 固定间距比例
+      },
+    },
+    axis: {
+      x: { title: dataset.title },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+### 如何获取带宽值
+
+在实际开发中，有时需要获取计算后的带宽值，可以通过以下方式：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'A', value: 100 },
+    { category: 'B', value: 80 },
+    { category: 'C', value: 120 },
+    { category: 'D', value: 90 },
+  ],
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category',
+  },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.3,
+    },
+  },
+});
+
+chart.render().then(() => {
+  // 获取 x 轴的比例尺
+  const xScale = chart.getScale().x;
+
+  // 获取带宽值 - 使用无参数调用
+  const bandWidth = xScale.getBandWidth?.() ?? 0;
+  console.log('当前带宽值:', bandWidth);
+
+  // 也可以获取特定类别的带宽（如果需要）
+  const categoryABandWidth = xScale.getBandWidth?.(xScale.invert('A')) ?? 0;
+  console.log('类别A的带宽值:', categoryABandWidth);
+
+  // 计算步长值（相邻类别中心点的距离）
+  const domain = xScale.getOptions()?.domain || [];
+  const range = xScale.getOptions()?.range || [0, 1];
+  const rangeLength = range[1] - range[0];
+  const paddingInner = xScale.getOptions()?.paddingInner || 0;
+  const paddingOuter = xScale.getOptions()?.paddingOuter || 0;
+  const step = rangeLength / (domain.length - paddingInner + paddingOuter * 2);
+  console.log('当前步长值:', step);
+
+  // 在图表上显示带宽信息
+  const container = chart.getContainer();
+  const info = document.createElement('div');
+  info.style.position = 'absolute';
+  info.style.top = '10px';
+  info.style.left = '10px';
+  info.style.background = 'rgba(0,0,0,0.8)';
+  info.style.color = 'white';
+  info.style.padding = '5px 10px';
+  info.style.borderRadius = '4px';
+  info.style.fontSize = '12px';
+  info.innerHTML = `带宽: ${bandWidth.toFixed(2)}<br>步长: ${step.toFixed(2)}`;
+  container.appendChild(info);
+});
+```
+
+### 带宽在不同图表类型中的应用
+
+#### 1. 柱状图中的带宽
+
+在柱状图中，带宽直接决定柱子的宽度：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { month: '1月', sales: 1200 },
+    { month: '2月', sales: 1100 },
+    { month: '3月', sales: 1350 },
+    { month: '4月', sales: 1280 },
+  ],
+  encode: {
+    x: 'month',
+    y: 'sales',
+    color: 'month',
+  },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.2, // 较小的间距，柱子较宽
+    },
+  },
+  style: {
+    stroke: '#fff',
+    strokeWidth: 2,
+  },
+});
+
+chart.render();
+```
+
+#### 2. 条形图中的带宽
+
+在条形图中，带宽决定条的高度：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: [
+    { department: '销售部', count: 45 },
+    { department: '市场部', count: 32 },
+    { department: '技术部', count: 28 },
+    { department: '人事部', count: 15 },
+  ],
+  encode: {
+    x: 'department',
+    y: 'count',
+    color: 'department',
+  },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.4, // 条之间有较大间距
+    },
+  },
+});
+
+chart.render();
+```
+
+#### 3. 分组柱状图中的带宽
+
+在分组柱状图中，整体的带宽会被子组的数量平分：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { quarter: 'Q1', type: '实际', value: 120 },
+    { quarter: 'Q1', type: '预算', value: 100 },
+    { quarter: 'Q2', type: '实际', value: 140 },
+    { quarter: 'Q2', type: '预算', value: 130 },
+    { quarter: 'Q3', type: '实际', value: 160 },
+    { quarter: 'Q3', type: '预算', value: 150 },
+  ],
+  encode: {
+    x: 'quarter',
+    y: 'value',
+    color: 'type',
+  },
+  transform: [{ type: 'dodgeX' }],
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.3, // 每个季度的整体带宽
+    },
+  },
+});
+
+chart.render();
+```
+
+### 带宽优化建议
+
+#### 1. 根据数据量调整间距
+
+- **少量数据（< 5 个类别）**：可以使用较小的 padding（0.1-0.3），让柱子更宽更突出
+- **中等数据（5-10 个类别）**：建议使用中等 padding（0.3-0.5），平衡可读性和视觉效果
+- **大量数据（> 10 个类别）**：可以使用较大的 padding（0.5-0.8），或考虑分页展示
+
+#### 2. 考虑图表容器大小
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+// 模拟不同容器宽度下的带宽效果
+const widths = [300, 600, 900];
+const data = Array.from({ length: 8 }, (_, i) => ({
+  category: `类别${String.fromCharCode(65 + i)}`,
+  value: Math.random() * 100 + 50,
+}));
+
+widths.forEach((width, index) => {
+  const container = document.createElement('div');
+  container.style.width = `${width}px`;
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  container.style.border = '1px solid #ccc';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    width,
+    height: 200,
+  });
+
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        padding: 0.2, // 固定间距比例
+      },
+    },
+    axis: {
+      x: { title: `容器宽度: ${width}px` },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+#### 3. 响应式带宽设计
+
+对于需要适配不同屏幕尺寸的图表，可以动态调整 padding：
+
+```js
+// 根据容器宽度动态调整 padding
+function getResponsivePadding(containerWidth, dataLength) {
+  const baseWidth = containerWidth / dataLength;
+
+  if (baseWidth > 100) {
+    return 0.6; // 容器很宽时，增加间距
+  } else if (baseWidth > 50) {
+    return 0.4; // 中等宽度
+  } else {
+    return 0.2; // 容器较窄时，减少间距
+  }
+}
+```
+
+通过深入理解带宽概念，你可以更好地控制图表的视觉效果，创建出既美观又实用的数据可视化作品。
+
 ## 使用示例
 
 ### 基础柱状图

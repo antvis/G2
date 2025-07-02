@@ -337,6 +337,8 @@ chart.options({
 | 属性              | 描述                                                                                                              | 类型                                                                                                                        | 默认值     | 必须 |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------- | ---- |
 | tick              | 是否显示刻度                                                                                                      | `boolean`                                                                                                                   | true       |      |
+| tickCount         | 设置推荐生成的刻度数量；tickCount 只是一个建议值                                                                  | `number`                                                                                                                    | -          |      |
+| tickMethod        | 自定义刻度生成方法                                                                                               | `(start: number \| Date, end: number \| Date, tickCount: number) => number[]`                                              | -          |      |
 | tickFilter        | 刻度线过滤                                                                                                        | `(datum, index, data)=>boolean`                                                                                             | -          |      |
 | tickFormatter     | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                              | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) &#124; `(datum, index, data, Vector)=> DisplayObject` | -          |      |
 | tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向          | `'positive'` &#124; `'negative'`                                                                                            | `positive` |
@@ -357,6 +359,7 @@ chart.options({
   // 配置坐标轴
   axis: {
     y: {
+      tickCount: 10, // 设置推荐生成的刻度数量
       tickLength: 20, // 设置 y 轴刻度线的长度
       tickFilter: (_, i) => i % 3 !== 0, // 过滤 y 轴刻度线，只显示每隔 3 个刻度线
       tick: true, // 是否显示刻度
@@ -374,10 +377,16 @@ chart.options({
     },
     x: {
       tick: true, // 是否显示刻度
-      tickLength: 15, // 刻度线长度
-      tickDirection: 'negative', // 刻度朝向
-      tickStroke: '#666', // 刻度线描边颜色
-      tickLineWidth: 1, // 刻度线描边宽度
+      tickCount: 8, // 设置推荐生成的刻度数量
+      tickMethod: (start, end, count) => {
+        // 自定义刻度生成方法
+        const step = (end - start) / (count - 1);
+        return Array.from({ length: count }, (_, i) => start + i * step);
+      },
+      tickLength: 10, // 刻度线长度
+      tickDirection: 'positive', // 刻度朝向
+      tickStroke: '#3366ff', // 刻度线描边颜色
+      tickLineWidth: 5, // 刻度线描边宽度
       tickOpacity: 0.9, // 刻度线整体透明度
       tickFilter: (_, i) => i % 2 === 0, // 过滤刻度线，只显示偶数索引的刻度
     },
@@ -776,6 +785,7 @@ chart.options({
 
       // 这部分是轴刻度的配置
       tick: true, // 是否显示刻度
+      tickCount: 8, // 设置推荐生成的刻度数量
       tickLineWidth: 5, // 刻度线描边宽度
       tickLength: 10, // 刻度线长度
       tickStroke: '#3366ff', // 刻度线描边颜色
@@ -831,6 +841,7 @@ chart.options({
 
       // 这部分是轴刻度的配置
       tick: true, // 是否显示刻度
+      tickCount: 8, // 设置推荐生成的刻度数量
       tickLineWidth: 5, // 刻度线描边宽度
       tickLength: 10, // 刻度线长度
       tickStroke: '#3366ff', // 刻度线描边颜色

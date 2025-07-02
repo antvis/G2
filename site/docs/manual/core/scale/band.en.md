@@ -54,6 +54,489 @@ Where:
 - **step\*PI (paddingInner)**: Inner spacing between categories
 - **step\*PO (paddingOuter)**: Outer spacing at both ends
 
+## Bandwidth Concept Explained
+
+### What is Bandwidth
+
+Bandwidth is the actual width occupied by each category in a band scale. It determines the width of bars in bar charts, the height of bars in horizontal bar charts, etc. Bandwidth is the core concept that distinguishes band scales from other scales.
+
+### Bandwidth Calculation Formula
+
+The bandwidth calculation involves multiple parameters, with the specific formula as follows:
+
+```plain
+step = rangeLength / (domain.length - paddingInner + paddingOuter * 2)
+bandWidth = step * (1 - paddingInner)
+```
+
+Where:
+
+- `rangeLength`: The length of the range (range[1] - range[0])
+- `domain.length`: The number of categories in the domain
+- `paddingInner`: Inner spacing ratio [0, 1]
+- `paddingOuter`: Outer spacing ratio [0, 1]
+
+### Impact of Parameters on Bandwidth
+
+#### 1. Impact of paddingInner
+
+`paddingInner` controls the spacing between categories and directly affects bandwidth size:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { category: 'A', value: 100 },
+  { category: 'B', value: 80 },
+  { category: 'C', value: 120 },
+  { category: 'D', value: 90 },
+];
+
+// Create three charts showing different paddingInner effects
+const charts = [
+  { paddingInner: 0, title: 'paddingInner: 0 (Maximum bandwidth)' },
+  { paddingInner: 0.3, title: 'paddingInner: 0.3 (Medium bandwidth)' },
+  { paddingInner: 0.8, title: 'paddingInner: 0.8 (Minimum bandwidth)' },
+];
+
+charts.forEach((config, index) => {
+  const container = document.createElement('div');
+  container.style.width = '300px';
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        paddingInner: config.paddingInner,
+        paddingOuter: 0.1,
+      },
+    },
+    axis: {
+      x: { title: config.title },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+#### 2. Impact of paddingOuter
+
+`paddingOuter` controls the spacing at both ends and indirectly affects bandwidth:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const data = [
+  { category: 'A', value: 100 },
+  { category: 'B', value: 80 },
+  { category: 'C', value: 120 },
+  { category: 'D', value: 90 },
+];
+
+const charts = [
+  { paddingOuter: 0, title: 'paddingOuter: 0' },
+  { paddingOuter: 0.3, title: 'paddingOuter: 0.3' },
+  { paddingOuter: 0.6, title: 'paddingOuter: 0.6' },
+];
+
+charts.forEach((config, index) => {
+  const container = document.createElement('div');
+  container.style.width = '300px';
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        paddingInner: 0.2,
+        paddingOuter: config.paddingOuter,
+      },
+    },
+    axis: {
+      x: { title: config.title },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+#### 3. Impact of Category Count
+
+The more categories there are, the smaller the bandwidth for each category:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const datasets = [
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+    ],
+    title: '2 Categories',
+  },
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+      { category: 'C', value: 120 },
+      { category: 'D', value: 90 },
+    ],
+    title: '4 Categories',
+  },
+  {
+    data: [
+      { category: 'A', value: 100 },
+      { category: 'B', value: 80 },
+      { category: 'C', value: 120 },
+      { category: 'D', value: 90 },
+      { category: 'E', value: 110 },
+      { category: 'F', value: 95 },
+    ],
+    title: '6 Categories',
+  },
+];
+
+datasets.forEach((dataset, index) => {
+  const container = document.createElement('div');
+  container.style.width = '300px';
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: 'interval',
+    data: dataset.data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        padding: 0.3, // Fixed spacing ratio
+      },
+    },
+    axis: {
+      x: { title: dataset.title },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+### How to Get Bandwidth Value
+
+In actual development, sometimes you need to get the calculated bandwidth value, which can be done in the following way:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'A', value: 100 },
+    { category: 'B', value: 80 },
+    { category: 'C', value: 120 },
+    { category: 'D', value: 90 },
+  ],
+  encode: {
+    x: 'category',
+    y: 'value',
+    color: 'category',
+  },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.3,
+    },
+  },
+});
+
+chart.render().then(() => {
+  // Get x-axis scale
+  const xScale = chart.getScale().x;
+
+  // Get bandwidth value - use no-parameter call
+  const bandWidth = xScale.getBandWidth?.() ?? 0;
+  console.log('Current bandwidth value:', bandWidth);
+
+  // You can also get bandwidth for specific category (if needed)
+  const categoryABandWidth = xScale.getBandWidth?.(xScale.invert('A')) ?? 0;
+  console.log('Category A bandwidth value:', categoryABandWidth);
+
+  // Calculate step value (distance between adjacent category centers)
+  const domain = xScale.getOptions()?.domain || [];
+  const range = xScale.getOptions()?.range || [0, 1];
+  const rangeLength = range[1] - range[0];
+  const paddingInner = xScale.getOptions()?.paddingInner || 0;
+  const paddingOuter = xScale.getOptions()?.paddingOuter || 0;
+  const step = rangeLength / (domain.length - paddingInner + paddingOuter * 2);
+  console.log('Current step value:', step);
+
+  // Display bandwidth information on the chart
+  const container = chart.getContainer();
+  const info = document.createElement('div');
+  info.style.position = 'absolute';
+  info.style.top = '10px';
+  info.style.left = '10px';
+  info.style.background = 'rgba(0,0,0,0.8)';
+  info.style.color = 'white';
+  info.style.padding = '5px 10px';
+  info.style.borderRadius = '4px';
+  info.style.fontSize = '12px';
+  info.innerHTML = `Bandwidth: ${bandWidth.toFixed(2)}<br>Step: ${step.toFixed(2)}`;
+  container.appendChild(info);
+});
+```
+
+### Bandwidth Applications in Different Chart Types
+
+#### 1. Bandwidth in Bar Charts
+
+In bar charts, bandwidth directly determines the width of bars:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { month: 'Jan', sales: 1200 },
+    { month: 'Feb', sales: 1100 },
+    { month: 'Mar', sales: 1350 },
+    { month: 'Apr', sales: 1280 },
+  ],
+  encode: {
+    x: 'month',
+    y: 'sales',
+    color: 'month',
+  },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.2, // Smaller spacing, wider bars
+    },
+  },
+  style: {
+    stroke: '#fff',
+    strokeWidth: 2,
+  },
+});
+
+chart.render();
+```
+
+#### 2. Bandwidth in Horizontal Bar Charts
+
+In horizontal bar charts, bandwidth determines the height of bars:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: [
+    { department: 'Sales', count: 45 },
+    { department: 'Marketing', count: 32 },
+    { department: 'Technology', count: 28 },
+    { department: 'HR', count: 15 },
+  ],
+  encode: {
+    x: 'department',
+    y: 'count',
+    color: 'department',
+  },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.4, // Larger spacing between bars
+    },
+  },
+});
+
+chart.render();
+```
+
+#### 3. Bandwidth in Grouped Bar Charts
+
+In grouped bar charts, the overall bandwidth is divided equally among the sub-groups:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { quarter: 'Q1', type: 'Actual', value: 120 },
+    { quarter: 'Q1', type: 'Budget', value: 100 },
+    { quarter: 'Q2', type: 'Actual', value: 140 },
+    { quarter: 'Q2', type: 'Budget', value: 130 },
+    { quarter: 'Q3', type: 'Actual', value: 160 },
+    { quarter: 'Q3', type: 'Budget', value: 150 },
+  ],
+  encode: {
+    x: 'quarter',
+    y: 'value',
+    color: 'type',
+  },
+  transform: [{ type: 'dodgeX' }],
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.3, // Overall bandwidth for each quarter
+    },
+  },
+});
+
+chart.render();
+```
+
+### Bandwidth Optimization Recommendations
+
+#### 1. Adjust Spacing Based on Data Volume
+
+- **Small data (< 5 categories)**: Use smaller padding (0.1-0.3) to make bars wider and more prominent
+- **Medium data (5-10 categories)**: Use medium padding (0.3-0.5) to balance readability and visual effect
+- **Large data (> 10 categories)**: Use larger padding (0.5-0.8) or consider paginated display
+
+#### 2. Consider Chart Container Size
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+// Simulate bandwidth effects under different container widths
+const widths = [300, 600, 900];
+const data = Array.from({ length: 8 }, (_, i) => ({
+  category: `Category ${String.fromCharCode(65 + i)}`,
+  value: Math.random() * 100 + 50,
+}));
+
+widths.forEach((width, index) => {
+  const container = document.createElement('div');
+  container.style.width = `${width}px`;
+  container.style.height = '200px';
+  container.style.display = 'inline-block';
+  container.style.margin = '10px';
+  container.style.border = '1px solid #ccc';
+  document.getElementById('container').appendChild(container);
+
+  const chart = new Chart({
+    container,
+    width,
+    height: 200,
+  });
+
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'category',
+      y: 'value',
+      color: 'category',
+    },
+    scale: {
+      x: {
+        type: 'band',
+        padding: 0.2, // Fixed spacing ratio
+      },
+    },
+    axis: {
+      x: { title: `Container width: ${width}px` },
+      y: { title: null },
+    },
+  });
+
+  chart.render();
+});
+```
+
+#### 3. Responsive Bandwidth Design
+
+For charts that need to adapt to different screen sizes, you can dynamically adjust padding:
+
+```js
+// Dynamically adjust padding based on container width
+function getResponsivePadding(containerWidth, dataLength) {
+  const baseWidth = containerWidth / dataLength;
+
+  if (baseWidth > 100) {
+    return 0.6; // Increase spacing when container is very wide
+  } else if (baseWidth > 50) {
+    return 0.4; // Medium width
+  } else {
+    return 0.2; // Reduce spacing when container is narrow
+  }
+}
+```
+
+By deeply understanding the bandwidth concept, you can better control the visual effects of charts and create both beautiful and practical data visualizations.
+
 ## Usage Examples
 
 ### Basic Bar Chart
@@ -216,7 +699,7 @@ chart.render();
 
 ### Stacked Bar Chart
 
-Using `stackY` transform creates stacked bar charts that show cumulative effects of different parts:
+Using `stackY` transform can create stacked bar charts showing cumulative effects of each part:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -231,16 +714,16 @@ chart.options({
   data: [
     { quarter: 'Q1', department: 'Sales', value: 120 },
     { quarter: 'Q1', department: 'Marketing', value: 100 },
-    { quarter: 'Q1', department: 'Engineering', value: 80 },
+    { quarter: 'Q1', department: 'Technology', value: 80 },
     { quarter: 'Q2', department: 'Sales', value: 140 },
     { quarter: 'Q2', department: 'Marketing', value: 110 },
-    { quarter: 'Q2', department: 'Engineering', value: 90 },
+    { quarter: 'Q2', department: 'Technology', value: 90 },
     { quarter: 'Q3', department: 'Sales', value: 160 },
     { quarter: 'Q3', department: 'Marketing', value: 95 },
-    { quarter: 'Q3', department: 'Engineering', value: 120 },
+    { quarter: 'Q3', department: 'Technology', value: 120 },
     { quarter: 'Q4', department: 'Sales', value: 180 },
     { quarter: 'Q4', department: 'Marketing', value: 100 },
-    { quarter: 'Q4', department: 'Engineering', value: 130 },
+    { quarter: 'Q4', department: 'Technology', value: 130 },
   ],
   encode: {
     x: 'quarter',
@@ -261,7 +744,7 @@ chart.render();
 
 ### Variable-Width Bar Chart (Using flexX Transform)
 
-Automatically adjusts bar width based on specified field values, suitable for representing weight or proportional relationships:
+Automatically adjust bar width based on specified field values, suitable for representing weight or proportional relationships:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -300,7 +783,7 @@ chart.render();
 
 ### Time Series Bar Chart
 
-When handling time data, band scales can effectively handle the visualization of time intervals:
+When handling time data, band scales can well handle the visualization of time intervals:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -426,8 +909,8 @@ chart.options({
   scale: {
     x: {
       type: 'band',
-      paddingInner: 0.2, // Smaller spacing within groups
-      paddingOuter: 0.3, // Larger spacing between groups
+      paddingInner: 0.2, // Smaller intra-group spacing
+      paddingOuter: 0.3, // Larger inter-group spacing
     },
     color: {
       domain: ['Current Sales', 'Target Sales'],
@@ -441,7 +924,7 @@ chart.render();
 
 ### Dynamic Bar Width Chart
 
-Combining compare function to sort data with different bar width strategies:
+Combine compare function to sort data and use different bar width strategies:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';

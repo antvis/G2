@@ -234,7 +234,113 @@ chart.options({
 chart.render();
 ```
 
+### Adjusting Box Width
+
+You can adjust box width and spacing by setting the scale parameters for the x-axis.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'boxplot',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/morley.json',
+  },
+  encode: {
+    x: 'Expt',
+    y: 'Speed',
+  },
+  scale: {
+    x: {
+      paddingInner: 0.1, // Smaller spacing, wider boxes
+      paddingOuter: 0.05,
+    },
+  },
+  style: {
+    boxFill: '#4e79a7',
+    boxStroke: '#2f4b7c',
+    pointFill: '#e15759',
+    pointStroke: '#c42e32',
+  },
+});
+
+chart.render();
+```
+
 ## FAQ
+
+### How to Set Box Width?
+
+The box width of the `boxplot` mark is controlled by the band scale of the x-axis. You can adjust the box width by setting the `paddingInner`, `paddingOuter`, or `padding` parameters of `scale.x`:
+
+- **paddingInner**: Controls the spacing between adjacent boxes; larger values make boxes narrower
+- **paddingOuter**: Controls the spacing at both ends; larger values make the overall layout more compact
+- **padding**: A shortcut to set both `paddingInner` and `paddingOuter` simultaneously
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+// Example of adjusting box width
+chart.options({
+  type: 'boxplot',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/morley.json',
+  },
+  encode: {
+    x: 'Expt',
+    y: 'Speed',
+  },
+  scale: {
+    x: {
+      paddingInner: 0.3, // Box spacing; larger values make boxes narrower
+      paddingOuter: 0.1, // End spacing
+    },
+    // Or use padding to set both at once
+    // x: { padding: 0.2 }
+  },
+});
+
+chart.render();
+```
+
+For grouped boxplots, you can also control the spacing between boxes within groups through the scale parameters of the `series` channel:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'boxplot',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+  },
+  encode: {
+    x: 'species',
+    y: 'flipper_length_mm',
+    color: 'sex',
+    series: 'sex',
+  },
+  scale: {
+    x: { paddingInner: 0.2, paddingOuter: 0.1 }, // Control inter-group spacing
+    series: { paddingInner: 0.1, paddingOuter: 0.05 }, // Control intra-group spacing
+  },
+});
+
+chart.render();
+```
 
 ### How to draw boxplots with large datasets?
 

@@ -64,6 +64,59 @@ chart.render();
 
 更多的案例，可以查看[图表示例 - 关系图](/examples/graph/hierarchy#treemap)页面。
 
+## 数据格式
+
+treemap 支持两种数据格式：
+
+### 1. 层级结构数据（JSON）
+
+对于已经是层级结构的数据，可以直接使用，无需配置 `path`：
+
+```javascript
+{
+  name: '根节点',
+  children: [
+    {
+      name: '子节点1',
+      children: [
+        { name: '叶子节点1', value: 100 },
+        { name: '叶子节点2', value: 200 }
+      ]
+    },
+    { name: '子节点2', value: 300 }
+  ]
+}
+```
+
+### 2. 扁平化数据（CSV）
+
+对于使用路径字符串表示层级关系的扁平化数据，**必须配置 `path` 函数**：
+
+```csv
+name,size
+flare,
+flare.analytics,
+flare.analytics.cluster,
+flare.analytics.cluster.AgglomerativeCluster,3938
+```
+
+对于这种数据格式，必须使用 `path` 配置：
+
+```javascript
+layout: {
+  path: (d) => d.name.replace(/\./g, '/'), // 将点分隔转换为斜杠分隔
+}
+```
+
+**重要说明**：如果使用扁平化数据但没有配置 `path`，会导致 "multiple roots" 错误。这是因为：
+
+1. D3 的 stratify 默认期望数据有 `id` 和 `parentId` 字段来建立层级关系
+2. 扁平化数据通常只有路径字符串（如 `flare.analytics.cluster`），没有明确的父子关系字段
+3. 没有 `path` 配置时，D3 无法识别层级结构，将所有记录都视为根节点
+4. 当存在多个根节点时，D3 抛出 "multiple roots" 错误
+
+`path` 配置的作用是告诉 D3 如何从路径字符串中解析出层级结构，自动推断父子关系。
+
 ## 配置项
 
 | 属性        | 描述                                                                                                  | 类型              | 默认值 | 必选 |
@@ -82,7 +135,7 @@ chart.render();
 | padding | 外间距，另外还有 `paddingInner \| paddingOuter \| paddingTop \| paddingBottom \| paddingRight \| paddingLeft` | `number`                                                                                                               | 0                             |      |
 | sort    | 排序规则                                                                                                      | `(a: any, b: any): number`                                                                                             | `(a, b) => b.value - a.value` |      |
 | layer   | 渲染层级                                                                                                      | `number \| (d) => number`                                                                                              | 0                             |      |
-| path    | 渲染层级                                                                                                      | `(d) => d.name`                                                                                                        | 0                             |      |
+| path    | 路径转换函数，用于从扁平化数据中解析层级结构。对于使用路径字符串的扁平化数据，此配置是必需的                                                                                                      | `(d) => string`                                                                                                        | `undefined`                             |      |
 
 ### encode
 

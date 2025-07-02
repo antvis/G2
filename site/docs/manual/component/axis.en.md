@@ -337,6 +337,8 @@ For example, to configure label rotation, it's not configured under a label obje
 | Property          | Description                                                                                                            | Type                                                                                                                        | Default Value | Required |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------- | -------- |
 | tick              | Whether to show ticks                                                                                                  | `boolean`                                                                                                                   | true          |          |
+| tickCount         | Set recommended number of ticks to generate; tickCount is only a suggestion                                           | `number`                                                                                                                    | -             |          |
+| tickMethod        | Custom tick generation method                                                                                          | `(start: number \| Date, end: number \| Date, tickCount: number) => number[]`                                              | -             |          |
 | tickFilter        | Tick filtering                                                                                                         | `(datum, index, data)=>boolean`                                                                                             | -             |          |
 | tickFormatter     | Tick formatting, for custom tick styles, callback returns tick direction                                               | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) &#124; `(datum, index, data, Vector)=> DisplayObject` | -             |          |
 | tickDirection     | Tick direction, `positive` for side axis direction (main axis clockwise 90°), `negative` for negative side axis        | `'positive'` &#124; `'negative'`                                                                                            | `positive`    |          |
@@ -357,6 +359,7 @@ For example, to configure label rotation, it's not configured under a label obje
   // Configure axis
   axis: {
     y: {
+      tickCount: 10, // Set recommended number of ticks to generate
       tickLength: 20, // Set y-axis tick length
       tickFilter: (_, i) => i % 3 !== 0, // Filter y-axis ticks, show every 3rd tick
       tick: true, // Whether to show ticks
@@ -374,10 +377,16 @@ For example, to configure label rotation, it's not configured under a label obje
     },
     x: {
       tick: true, // Whether to show ticks
-      tickLength: 15, // Tick length
-      tickDirection: 'negative', // Tick direction
-      tickStroke: '#666', // Tick stroke color
-      tickLineWidth: 1, // Tick stroke width
+      tickCount: 8, // Set recommended number of ticks to generate
+      tickMethod: (start, end, count) => {
+        // Custom tick generation method
+        const step = (end - start) / (count - 1);
+        return Array.from({ length: count }, (_, i) => start + i * step);
+      },
+      tickLength: 10, // Tick length
+      tickDirection: 'positive', // Tick direction
+      tickStroke: '#3366ff', // Tick stroke color
+      tickLineWidth: 5, // Tick stroke width
       tickOpacity: 0.9, // Tick overall opacity
       tickFilter: (_, i) => i % 2 === 0, // Filter ticks, show only even index ticks
     },
@@ -759,11 +768,12 @@ chart.options({
 
       // Axis tick configuration
       tick: true, // Whether to show ticks
+      tickCount: 8, // Set recommended number of ticks to generate
       tickLineWidth: 5, // Tick stroke width
       tickLength: 10, // Tick length
       tickStroke: '#3366ff', // Tick stroke color
       tickDirection: 'positive', // Tick direction
-      tickOpacity: 0.9, // Tick overall opacity
+      tickStrokeOpacity: 0.8, // Tick stroke opacity
 
       // Axis label configuration
       label: true, // Whether to show tick labels
@@ -814,6 +824,7 @@ chart.options({
 
       // Axis tick configuration
       tick: true, // Whether to show ticks
+      tickCount: 8, // Set recommended number of ticks to generate
       tickLineWidth: 5, // Tick stroke width
       tickLength: 10, // Tick length
       tickStroke: '#3366ff', // Tick stroke color

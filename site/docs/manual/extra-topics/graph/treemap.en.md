@@ -64,6 +64,59 @@ chart.render();
 
 For more examples, you can check the [Chart Examples - Graph](/en/examples/graph/hierarchy#treemap) page.
 
+## Data Format
+
+Treemap supports two data formats:
+
+### 1. Hierarchical Structure Data (JSON)
+
+For data that is already in hierarchical structure, it can be used directly without configuring `path`:
+
+```javascript
+{
+  name: 'Root Node',
+  children: [
+    {
+      name: 'Child Node 1',
+      children: [
+        { name: 'Leaf Node 1', value: 100 },
+        { name: 'Leaf Node 2', value: 200 }
+      ]
+    },
+    { name: 'Child Node 2', value: 300 }
+  ]
+}
+```
+
+### 2. Flattened Data (CSV)
+
+For flattened data that uses path strings to represent hierarchical relationships, **you must configure the `path` function**:
+
+```csv
+name,size
+flare,
+flare.analytics,
+flare.analytics.cluster,
+flare.analytics.cluster.AgglomerativeCluster,3938
+```
+
+For this data format, you must use the `path` configuration:
+
+```javascript
+layout: {
+  path: (d) => d.name.replace(/\./g, '/'), // Convert dot separation to slash separation
+}
+```
+
+**Important Note**: Using flattened data without configuring `path` will result in a "multiple roots" error. This is because:
+
+1. D3's stratify expects data to have `id` and `parentId` fields by default to establish hierarchical relationships
+2. Flattened data typically only has path strings (like `flare.analytics.cluster`) without explicit parent-child relationship fields
+3. Without `path` configuration, D3 cannot recognize the hierarchical structure and treats all records as root nodes
+4. When multiple root nodes exist, D3 throws a "multiple roots" error
+
+The role of the `path` configuration is to tell D3 how to parse hierarchical structure from path strings and automatically infer parent-child relationships.
+
 ## Options
 
 | Property    | Description                                                                                                                                                      | Type              | Default | Required |
@@ -76,13 +129,13 @@ For more examples, you can check the [Chart Examples - Graph](/en/examples/graph
 
 ### layout
 
-| Property | Description                                                                                                              | Type                                                                                                                   | Default                       | Required |
-| -------- | ------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------- | -------- |
-| tile     | Layout method                                                                                                            | `'treemapBinary' \| 'treemapDice' \| 'treemapSlice' \| 'treemapSliceDice' \| 'treemapSquarify' \| 'treemapResquarify'` | `'treemapSquarify'`           |          |
-| padding  | Outer margin, also includes `paddingInner \| paddingOuter \| paddingTop \| paddingBottom \| paddingRight \| paddingLeft` | `number`                                                                                                               | 0                             |          |
-| sort     | Sorting rule                                                                                                             | `(a: any, b: any): number`                                                                                             | `(a, b) => b.value - a.value` |          |
-| layer    | Render level                                                                                                             | `number \| (d) => number`                                                                                              | 0                             |          |
-| path     | Render level                                                                                                             | `(d) => d.name`                                                                                                        | 0                             |          |
+| Property | Description                                                                                                                                                                        | Type                                                                                                                   | Default                       | Required |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------- | -------- |
+| tile     | Layout method                                                                                                                                                                      | `'treemapBinary' \| 'treemapDice' \| 'treemapSlice' \| 'treemapSliceDice' \| 'treemapSquarify' \| 'treemapResquarify'` | `'treemapSquarify'`           |          |
+| padding  | Outer margin, also includes `paddingInner \| paddingOuter \| paddingTop \| paddingBottom \| paddingRight \| paddingLeft`                                                        | `number`                                                                                                               | 0                             |          |
+| sort     | Sorting rule                                                                                                                                                                       | `(a: any, b: any): number`                                                                                             | `(a, b) => b.value - a.value` |          |
+| layer    | Render level                                                                                                                                                                       | `number \| (d) => number`                                                                                              | 0                             |          |
+| path     | Path conversion function, used to parse hierarchical structure from flattened data. This configuration is required for flattened data using path strings                        | `(d) => string`                                                                                                        | `undefined`                   |          |
 
 ### encode
 
@@ -99,26 +152,29 @@ Composite graphic marks need to distinguish graphic configurations through diffe
 
 - `<label>`: Data label prefix, for example: `labelText` sets the text content of the label.
 
-| Property           | Description                                                                                                                                                                    | Type                                                       | Default | Required |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | ------- | -------- |
-| labelFontSize      | Label text size                                                                                                                                                                | `number`                                                   | 10      |          |
-| labelText          | Label text content                                                                                                                                                             | `(d) => last(d.path)`                                      | -       |          |
-| labelFontFamily    | Text font                                                                                                                                                                      | string                                                     | -       |          |
-| labelFontWeight    | Font weight                                                                                                                                                                    | number                                                     | -       |          |
-| labelLineHeight    | Text line height                                                                                                                                                               | number                                                     | -       |          |
-| labelTextAlign     | Set the current alignment of text content                                                                                                                                      | `center` \| `end` \| `left` \| `right` \| `start`          | -       |          |
-| labelTextBaseline  | Set the current text baseline used when drawing text                                                                                                                           | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |         |          |
-| labelFill          | Text fill color                                                                                                                                                                | string                                                     | -       |          |
-| labelFillOpacity   | Text fill opacity                                                                                                                                                              | number                                                     | -       |          |
-| labelStroke        | Text stroke                                                                                                                                                                    | string                                                     | -       |          |
-| labelLineWidth     | Text stroke width                                                                                                                                                              | number                                                     | -       |          |
-| labelLineDash      | Stroke dash configuration, first value is the length of each dash segment, second value is the distance between segments. Setting labelLineDash to [0,0] has no stroke effect. | `[number,number] `                                         | -       |          |
-| labelStrokeOpacity | Stroke opacity                                                                                                                                                                 | number                                                     | -       |          |
-| labelOpacity       | Overall text opacity                                                                                                                                                           | number                                                     | -       |          |
-| labelShadowColor   | Text shadow color                                                                                                                                                              | string                                                     | -       |          |
-| labelShadowBlur    | Text shadow Gaussian blur coefficient                                                                                                                                          | number                                                     | -       |          |
-| labelShadowOffsetX | Set the horizontal distance of shadow from text                                                                                                                                | number                                                     | -       |          |
-| labelShadowOffsetY | Set the vertical distance of shadow from text                                                                                                                                  | number                                                     | -       |          |
+| Property           | Description                                                                                                                                                                    | Type                                                       | Default   | Required |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- | --------- | -------- |
+| labelFontSize      | Label text size                                                                                                                                                                | `number`                                                   | 10        |          |
+| labelText          | Label text content                                                                                                                                                             | `(d) => last(d.path)`                                      | -         |          |
+| labelFontFamily    | Label text font                                                                                                                                                                | string                                                     | -         |          |
+| labelFontWeight    | Label text weight                                                                                                                                                              | number                                                     | -         |          |
+| labelLineHeight    | Label text line height                                                                                                                                                         | number                                                     | -         |          |
+| labelTextAlign     | Set the current alignment of label text content                                                                                                                                | `center` \| `end` \| `left` \| `right` \| `start`          | -         |          |
+| labelTextBaseline  | Set the current text baseline used when drawing label text                                                                                                                     | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging` |           |          |
+| labelFill          | Label text fill color                                                                                                                                                          | string                                                     | -         |          |
+| labelFillOpacity   | Label text fill opacity                                                                                                                                                        | number                                                     | -         |          |
+| labelStroke        | Label text stroke                                                                                                                                                              | string                                                     | -         |          |
+| labelLineWidth     | Label text stroke width                                                                                                                                                        | number                                                     | -         |          |
+| labelLineDash      | Label text stroke dash configuration, first value is the length of each dash segment, second value is the distance between segments. Setting labelLineDash to [0,0] has no stroke effect. | `[number,number] `                                         | -         |          |
+| labelStrokeOpacity | Label text stroke opacity                                                                                                                                                      | number                                                     | -         |          |
+| labelOpacity       | Label text overall opacity                                                                                                                                                     | number                                                     | -         |          |
+| labelShadowColor   | Label text shadow color                                                                                                                                                        | string                                                     | -         |          |
+| labelShadowBlur    | Label text shadow Gaussian blur coefficient                                                                                                                                    | number                                                     | -         |          |
+| labelShadowOffsetX | Label text shadow horizontal offset                                                                                                                                            | number                                                     | -         |          |
+| labelShadowOffsetY | Label text shadow vertical offset                                                                                                                                              | number                                                     | -         |          |
+| labelCursor        | Label text cursor style                                                                                                                                                        | string                                                     | `default` |          |
+| labelDx            | Label text horizontal offset                                                                                                                                                   | number                                                     | -         |          |
+| labelDy            | Label text vertical offset                                                                                                                                                     | number                                                     | -         |          |
 
 For more styles, please check the [Manual - Core Concepts - Style](/en/manual/core/style) page.
 

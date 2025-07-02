@@ -118,3 +118,16 @@ chart
 
 chart.render();
 ```
+
+如果你使用 React、Vue 等框架，可以查看：
+
+- [在 React 中使用 G2](/manual/introduction/use-in-framework#react)
+- [在 Vue 中使用 G2](/manual/introduction/use-in-framework#vue)
+
+## 在线体验 G2
+
+访问 [图表示例](/examples) 无需任何环境配置即可在线体验 G2。
+
+## 常见问题 FAQ
+
+访问 [常见问题 FAQ](/manual/faq) 查看常见问题。
