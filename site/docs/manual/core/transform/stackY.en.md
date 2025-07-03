@@ -20,6 +20,63 @@ stackY is commonly used for the following chart types:
 - Stacked area charts
 - Other visualization forms requiring data stacking
 
+**Before using `stackY` transform**: Data will overlap without clear comparison between categories.
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    format: 'csv',
+    transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
+  },
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  transform: [{ type: 'groupX', y: 'sum' }],
+  // Note: stackY transform is not used here
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  style: { fillOpacity: 0.7 },
+  axis: { y: { labelFormatter: '~s' } },
+  tooltip: { items: [{ channel: 'y', valueFormatter: '~s' }] },
+});
+
+chart.render();
+```
+
+**After using `stackY` transform**: Through `stackY` transform, different categories are displayed in stacked manner, allowing you to see both totals and category comparisons.
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    format: 'csv',
+    transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
+  },
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  transform: [{ type: 'groupX', y: 'sum' }, { type: 'stackY' }], // Apply stackY transform to achieve stacking effect
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  style: { fillOpacity: 0.7 },
+  axis: { y: { labelFormatter: '~s' } },
+  tooltip: { items: [{ channel: 'y', valueFormatter: '~s' }] },
+});
+
+chart.render();
+```
+
 ## Configuration Options
 
 | Property | Description                       | Type                 | Default |

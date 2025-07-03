@@ -15,7 +15,9 @@ order: 2
 
 `dodgeX` 转换主要用于将同组数据按系列在坐标系上错开排列的场景，以突显各系列之间的数据差异和分布特征。
 
-例如下面的案例展示了美国各州不同年龄段人口的分布情况，通过 `dodgeX` 转换让不同年龄段的数据在同一州内并排展示，便于直观比较。
+例如下面的案例展示了美国各州不同年龄段人口的分布情况。
+
+**未使用 `dodgeX` 转换前**：数据会堆叠在一起，无法清晰看到各年龄段的对比
 
 ```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
@@ -37,7 +39,36 @@ chart.options({
   encode: { x: 'state', y: 'population', color: 'age' },
   transform: [
     { type: 'sortX', by: 'y', reverse: true, slice: 6 },
-    { type: 'dodgeX' },
+    // 注意：这里没有使用 dodgeX 转换
+  ],
+});
+
+chart.render();
+```
+
+**使用 `dodgeX` 转换后**：通过 `dodgeX` 转换让不同年龄段的数据在同一州内并排展示，便于直观比较。
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  axis: { y: { labelFormatter: '~s' } },
+  encode: { x: 'state', y: 'population', color: 'age' },
+  transform: [
+    { type: 'sortX', by: 'y', reverse: true, slice: 6 },
+    { type: 'dodgeX' }, // 应用 dodgeX 转换，实现分组并排效果
   ],
 });
 
@@ -84,7 +115,48 @@ type TransformOrder =
 
 ## 示例
 
-以下示例展示了 `dodgeX` 转换各配置项的功能：
+以下示例展示了 `dodgeX` 转换各配置项的功能。我们通过对比来查看转换前后的差异：
+
+**转换前**：不同部门的数据会堆叠显示，难以进行横向对比
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [
+  { 季度: 'Q1', 部门: '销售部', 业绩: 90, 年份: '2024' },
+  { 季度: 'Q1', 部门: '市场部', 业绩: 80, 年份: '2024' },
+  { 季度: 'Q1', 部门: '研发部', 业绩: 70, 年份: '2024' },
+  { 季度: 'Q2', 部门: '销售部', 业绩: 90, 年份: '2024' },
+  { 季度: 'Q2', 部门: '市场部', 业绩: 70, 年份: '2024' },
+  { 季度: 'Q2', 部门: '研发部', 业绩: 80, 年份: '2024' },
+  { 季度: 'Q3', 部门: '销售部', 业绩: 70, 年份: '2024' },
+  { 季度: 'Q3', 部门: '市场部', 业绩: 80, 年份: '2024' },
+  { 季度: 'Q3', 部门: '研发部', 业绩: 90, 年份: '2024' },
+  { 季度: 'Q4', 部门: '销售部', 业绩: 80, 年份: '2024' },
+  { 季度: 'Q4', 部门: '市场部', 业绩: 70, 年份: '2024' },
+  { 季度: 'Q4', 部门: '研发部', 业绩: 90, 年份: '2024' },
+];
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data,
+  encode: {
+    x: '季度',
+    y: '业绩',
+    color: '部门',
+  },
+  // 注意：这里没有使用任何转换
+});
+
+chart.render();
+```
+
+**转换后**：应用 `dodgeX` 转换后的效果，展示了各配置项的功能：
 
 - **groupBy**: 按 `x` 通道（季度）分组显示各部门数据
 - **orderBy**: 设置为 `value`，按业绩值排序组内元素
@@ -124,7 +196,7 @@ chart.options({
   },
   transform: [
     {
-      type: 'dodgeX',
+      type: 'dodgeX', // 应用 dodgeX 转换
       groupBy: 'x',
       orderBy: 'value',
       reverse: true,
