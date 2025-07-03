@@ -313,11 +313,11 @@ chart.options({
 chart.render();
 ```
 
-| Property      | Description                                                                       | Type     | Default | Required |
-| ------------- | --------------------------------------------------------------------------------- | -------- | ------- | -------- |
-| maxIterations | Maximum number of iterations for position adjustment                              | _number_ | `10`    |          |
-| padding       | Expected spacing between labels after adjustment                                  | _number_ | `1`     |          |
-| maxError      | Maximum error, the difference between actual spacing and expected spacing padding | _number_ | `0.1`   |          |
+| Property      | Description                                                                                      | Type     | Default | Required |
+| ------------- | ------------------------------------------------------------------------------------------------ | -------- | ------- | -------- |
+| maxIterations | Maximum number of iterations for position adjustment                                              | _number_ | `10`    |          |
+| padding       | Expected spacing between labels after adjustment                                                  | _number_ | `1`     |          |
+| maxError      | Maximum error, the difference between actual spacing and expected spacing padding                 | _number_ | `0.1`   |          |
 
 #### contrastReverse
 
@@ -620,6 +620,11 @@ chart.render();
 | bounds   | Specify boundary region type for detection, supported from `5.3.4`   | `'view' \| 'main'` | `'view'` |
 | offsetX  | Additional X-axis offset when auto-adjusting position                | `number`           | `0`     |
 | offsetY  | Additional Y-axis offset when auto-adjusting position                | `number`           | `0`     |
+
+- `'view'`: Detects if labels exceed the entire view area (including margin and padding)
+- `'main'`: Detects if labels exceed the main area (excluding margin and padding)
+- `'offsetX'`: Additional X-axis offset when triggering auto-adjustment, left boundary shifts right, right boundary shifts left
+- `'offsetY'`: Additional Y-axis offset when triggering auto-adjustment, top boundary shifts down, bottom boundary shifts up
 
 ##### Problem Case
 
