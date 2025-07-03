@@ -83,10 +83,9 @@ export const Treemap: CC<TreemapOptions> = (options, context) => {
     ...resOptions
   } = options;
 
-  const treemapDrillDown = get(markOptions, [
-    'interaction',
-    'treemapDrillDown',
-  ]);
+  const treemapDrillDown =
+    get(markOptions, ['interaction', 'treemapDrillDown']) ||
+    get(markOptions, ['marks', 0, 'interaction', 'treemapDrillDown']);
 
   // Layout
   const layoutOptions = deepMix(
