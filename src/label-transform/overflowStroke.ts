@@ -1,15 +1,12 @@
 import { DisplayObject } from '@antv/g';
-import { ContrastReverseLabelTransform } from '../spec';
+import { OverflowStrokeTransform } from '../spec';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { parseToRGB } from '../utils/color';
 import { isOverflow, parseAABB } from '../utils/bounds';
 import { bboxOf } from '../interaction/utils';
 import { mostContrast } from './utils';
 
-export type OverflowStrokeOptions = {
-  palette?: string[];
-  threshold?: number;
-};
+export type OverflowStrokeOptions = Omit<OverflowStrokeTransform, 'type'>;
 
 /**
  * Get bounds of element considering animation state.

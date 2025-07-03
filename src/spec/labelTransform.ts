@@ -34,6 +34,19 @@ export type ContrastReverseLabelTransform = {
   palette?: string[];
 };
 
+export type OverflowStrokeTransform = {
+  type?: 'overlapStroke';
+  /**
+   * Stroke when label overflow more than threshold.
+   * Default is `2`.
+   */
+  threshold?: number;
+  /**
+   * The optional color palette, default is [#000, #fff].
+   */
+  palette?: string[];
+};
+
 export type OverflowHideLabelTransform = {
   type: 'overflowHide';
 };
