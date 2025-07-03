@@ -4,6 +4,7 @@ export type LabelTransform =
   | OverlapHideLabelTransform
   | OverlapDodgeYLabelTransform
   | ContrastReverseLabelTransform
+  | OverflowStrokeTransform
   | OverflowHideLabelTransform;
 
 export type OverlapHideLabelTransform = {
