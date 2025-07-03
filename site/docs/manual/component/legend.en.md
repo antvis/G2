@@ -91,8 +91,8 @@ Some configuration options are scoped to categorical legends and continuous lege
 | orientation                                                     | Legend orientation, which is the scroll direction for categorical legends             | `horizontal` \| `vertical`                                         | `horizontal`                          |          |
 | position                                                        | Position of the legend                                                                | `top` \| `right` \| `left` \| `bottom`                             | `top`                                 |          |
 | layout                                                          | Adjust the flex layout of the legend                                                  | [layout](#layout)                                                  | See [layout](#layout)                 |          |
-| size                                                            | Size of the legend                                                                    | number                                                             | -                                     |          |
-| width                                                           | Width of the legend                                                                   | number                                                             | -                                     |          |
+| size                                                            | Size of the legend component                                                          | number                                                             | -                                     |          |
+| length                                                          | Length of the legend component                                                        | number                                                             | -                                     |          |
 | crossPadding                                                    | Distance from legend to chart area                                                    | number                                                             | `12`                                  |          |
 | order                                                           | Order of legend in layout                                                             | number                                                             | `1`                                   |          |
 | title                                                           | Configure legend title                                                                | [title](#title)                                                    | See [title](#title)                   |          |
@@ -129,7 +129,7 @@ Legend orientation, which is the scroll direction for categorical legends. Defau
 
 Position of the legend. Default is `top`.
 
-```js | ob { inject: true }
+```js | ob { inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -146,24 +146,24 @@ const positionMap = positionList.map((p) => {
 chart.options({
   type: 'interval',
   data: [
-    { name: 'London', month: 'Jan.', rainfall: 18.9 },
-    { name: 'London', month: 'Feb.', rainfall: 28.8 },
-    { name: 'London', month: 'Mar.', rainfall: 39.3 },
-    { name: 'London', month: 'Apr.', rainfall: 81.4 },
-    { name: 'London', month: 'May', rainfall: 47 },
-    { name: 'London', month: 'Jun.', rainfall: 20.3 },
-    { name: 'London', month: 'Jul.', rainfall: 24 },
-    { name: 'London', month: 'Aug.', rainfall: 35.6 },
-    { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
-    { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
-    { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
-    { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
-    { name: 'Berlin', month: 'May', rainfall: 52.6 },
-    { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
-    { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
-    { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+    { name: 'London', month: 'Jan.', avgRainfall: 18.9 },
+    { name: 'London', month: 'Feb.', avgRainfall: 28.8 },
+    { name: 'London', month: 'Mar.', avgRainfall: 39.3 },
+    { name: 'London', month: 'Apr.', avgRainfall: 81.4 },
+    { name: 'London', month: 'May', avgRainfall: 47 },
+    { name: 'London', month: 'Jun.', avgRainfall: 20.3 },
+    { name: 'London', month: 'Jul.', avgRainfall: 24 },
+    { name: 'London', month: 'Aug.', avgRainfall: 35.6 },
+    { name: 'Berlin', month: 'Jan.', avgRainfall: 12.4 },
+    { name: 'Berlin', month: 'Feb.', avgRainfall: 23.2 },
+    { name: 'Berlin', month: 'Mar.', avgRainfall: 34.5 },
+    { name: 'Berlin', month: 'Apr.', avgRainfall: 99.7 },
+    { name: 'Berlin', month: 'May', avgRainfall: 52.6 },
+    { name: 'Berlin', month: 'Jun.', avgRainfall: 35.5 },
+    { name: 'Berlin', month: 'Jul.', avgRainfall: 37.4 },
+    { name: 'Berlin', month: 'Aug.', avgRainfall: 42.4 },
   ],
-  encode: { x: 'month', y: 'rainfall', color: 'name' },
+  encode: { x: 'month', y: 'avgRainfall', color: 'name' },
   transform: [{ type: 'dodgeX' }],
 });
 
@@ -201,87 +201,362 @@ chart.render();
 
 <description> _LegendLayoutCfg_ **optional** </description>
 
-The Legend component supports adjusting its position in the canvas through the `layout` property.
-Currently supports basic Flex layout, with supported properties including: `justifyContent`, `alignItems`, `flexDirection`. _LegendLayoutCfg_ configuration is as follows:
+Legend component supports adjusting its position on the canvas through the `layout` property. Legend layout uses the **Flexbox layout model**, where `position` determines the legend's basic position on the canvas, and `layout` further controls the precise alignment within the legend.
 
-| Property       | Description          | Type                                   | Default Value                                                  | Required |
-| -------------- | -------------------- | -------------------------------------- | -------------------------------------------------------------- | -------- |
-| justifyContent | Main axis alignment  | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                   |          |
-| alignItems     | Cross axis alignment | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                   |          |
-| flexDirection  | Main axis direction  | `row` \| `column`                      | `row` when position is `top` and `bottom`, `column` for others |          |
+#### Concept of Layout Axes
 
-By configuring the legend's `position` and `layout`, we can flexibly change the legend's position.
+The key to understanding legend layout is mastering the concepts of **main axis** and **cross axis**:
+
+| **position** | **Default flexDirection** | **Main Axis Direction** | **Cross Axis Direction** | **Main Axis Meaning**   | **Cross Axis Meaning** |
+| ------------ | ------------------------- | ----------------------- | ------------------------ | ----------------------- | ---------------------- |
+| `top`        | `row`                     | Horizontal →            | Vertical ↓               | Legend items left-right | Legend area top-bottom |
+| `bottom`     | `row`                     | Horizontal →            | Vertical ↑               | Legend items left-right | Legend area top-bottom |
+| `left`       | `column`                  | Vertical ↓              | Horizontal →             | Legend items top-bottom | Legend area left-right |
+| `right`      | `column`                  | Vertical ↓              | Horizontal ←             | Legend items top-bottom | Legend area left-right |
+
+#### Configuration Properties
+
+_LegendLayoutCfg_ configuration:
+
+| Property       | Description         | Type                                   | Default Value                                                 | Affects | Required |
+| -------------- | ------------------- | -------------------------------------- | ------------------------------------------------------------- | ------- | -------- |
+| justifyContent | Main axis align     | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                  | Main    |          |
+| alignItems     | Cross axis align    | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                  | Cross   |          |
+| flexDirection  | Main axis direction | `row` \| `column`                      | `row` when position is `top` and `bottom`, `column` otherwise | -       |          |
+
+#### position + layout Combination Configuration
+
+Through the combination of `position` and `layout`, precise positioning of legends can be achieved:
 
 ```js
-// Configure a right-side vertically centered legend
+// 1. Top center legend
+({
+  legend: {
+    color: {
+      position: 'top', // Legend at top
+      layout: {
+        justifyContent: 'center', // Main axis (horizontal) center
+      },
+    },
+  },
+});
 
-// Step 1: Set position to right
+// 2. Right vertical center legend
+({
+  legend: {
+    color: {
+      position: 'right', // Legend at right
+      layout: {
+        justifyContent: 'center', // Main axis (vertical) center
+      },
+    },
+  },
+});
 
-// Step 2: When position is right, the main axis direction flexDirection defaults to column
+// 3. Bottom right-aligned legend
+({
+  legend: {
+    color: {
+      position: 'bottom', // Legend at bottom
+      layout: {
+        justifyContent: 'flex-end', // Main axis (horizontal) right-align
+      },
+    },
+  },
+});
 
-// Step 3: To achieve vertical centering, we need center alignment in the column direction. Since column is the main axis, configure justifyContent to center
+// 4. Left bottom-aligned legend
+({
+  legend: {
+    color: {
+      position: 'left', // Legend at left
+      layout: {
+        justifyContent: 'flex-end', // Main axis (vertical) bottom-align
+      },
+    },
+  },
+});
+```
+
+#### Interactive Example
+
+Through the interactive example below, you can intuitively see the effects of different `position` and `layout` combinations:
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 400,
+  width: 600,
+});
+const container = chart.getContainer();
+
+const data = [
+  { genre: 'Sports', sold: 50 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      position: 'top',
+      layout: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+      },
+    },
+  },
+});
+
+const positionOptions = [
+  { value: 'top', label: 'Top (top)' },
+  { value: 'bottom', label: 'Bottom (bottom)' },
+  { value: 'left', label: 'Left (left)' },
+  { value: 'right', label: 'Right (right)' },
+];
+
+const justifyOptions = [
+  { value: 'flex-start', label: 'Start align (flex-start)' },
+  { value: 'center', label: 'Center align (center)' },
+  { value: 'flex-end', label: 'End align (flex-end)' },
+];
+
+const alignOptions = [
+  { value: 'flex-start', label: 'Start align (flex-start)' },
+  { value: 'center', label: 'Center align (center)' },
+  { value: 'flex-end', label: 'End align (flex-end)' },
+];
+
+// Create control panel
+const controlPanel = document.createElement('div');
+controlPanel.style.cssText = `
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+`;
+
+// Position selector
+const positionContainer = document.createElement('div');
+positionContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    Legend Position (position):
+  </label>
+`;
+const positionSelect = document.createElement('select');
+positionSelect.style.cssText = 'width: 100%; padding: 4px;';
+positionSelect.innerHTML = positionOptions
+  .map(
+    (option, index) =>
+      `<option value="${option.value}" ${index === 0 ? 'selected' : ''}>${
+        option.label
+      }</option>`,
+  )
+  .join('');
+positionContainer.appendChild(positionSelect);
+
+// JustifyContent selector
+const justifyContainer = document.createElement('div');
+justifyContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    Main Axis Align (justifyContent):
+  </label>
+`;
+const justifySelect = document.createElement('select');
+justifySelect.style.cssText = 'width: 100%; padding: 4px;';
+justifySelect.innerHTML = justifyOptions
+  .map(
+    (option, index) =>
+      `<option value="${option.value}" ${index === 0 ? 'selected' : ''}>${
+        option.label
+      }</option>`,
+  )
+  .join('');
+justifyContainer.appendChild(justifySelect);
+
+// AlignItems selector
+const alignContainer = document.createElement('div');
+alignContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    Cross Axis Align (alignItems):
+  </label>
+`;
+const alignSelect = document.createElement('select');
+alignSelect.style.cssText = 'width: 100%; padding: 4px;';
+alignSelect.innerHTML = alignOptions
+  .map(
+    (option, index) =>
+      `<option value="${option.value}" ${index === 0 ? 'selected' : ''}>${
+        option.label
+      }</option>`,
+  )
+  .join('');
+alignContainer.appendChild(alignSelect);
+
+controlPanel.appendChild(positionContainer);
+controlPanel.appendChild(justifyContainer);
+controlPanel.appendChild(alignContainer);
+
+// Status display
+const statusDiv = document.createElement('div');
+statusDiv.style.cssText = `
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+`;
+
+const updateChart = () => {
+  const position = positionSelect.value;
+  const justifyContent = justifySelect.value;
+  const alignItems = alignSelect.value;
+
+  chart.options({
+    legend: {
+      color: {
+        position,
+        layout: {
+          justifyContent,
+          alignItems,
+        },
+      },
+    },
+  });
+  chart.render();
+
+  // Update status display
+  const isHorizontal = position === 'top' || position === 'bottom';
+  const mainAxis = isHorizontal ? 'Horizontal' : 'Vertical';
+  const crossAxis = isHorizontal ? 'Vertical' : 'Horizontal';
+
+  statusDiv.innerHTML = `
+Current Config: position: "${position}", justifyContent: "${justifyContent}", alignItems: "${alignItems}"<br>
+Main Axis Direction: ${mainAxis} | Cross Axis Direction: ${crossAxis}<br>
+Main Axis Align: ${justifyContent} | Cross Axis Align: ${alignItems}
+  `;
+};
+
+// Bind events
+positionSelect.addEventListener('change', updateChart);
+justifySelect.addEventListener('change', updateChart);
+alignSelect.addEventListener('change', updateChart);
+
+// Insert control panel
+container.insertBefore(controlPanel, container.firstChild);
+container.insertBefore(statusDiv, container.lastChild);
+
+// Initial render
+updateChart();
+```
+
+#### Common Layout Scenarios
+
+Here are some common legend layout requirements and their configuration methods:
+
+```js
+// 🎯 Scenario 1: Top center display, suitable for dashboards
+({
+  legend: {
+    color: {
+      position: 'top',
+      layout: {
+        justifyContent: 'center', // Horizontal center
+      },
+    },
+  },
+});
+
+// 🎯 Scenario 2: Right vertical center, suitable for detailed charts
 ({
   legend: {
     color: {
       position: 'right',
       layout: {
-        justifyContent: 'center',
+        justifyContent: 'center', // Vertical center
       },
     },
   },
 });
-```
 
-Try it out:
-
-```js | ob { inject: true }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  height: 350,
-});
-
-chart.options({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 50 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ],
-  encode: { x: 'genre', y: 'sold', color: 'genre' },
+// 🎯 Scenario 3: Bottom left-aligned, space-saving
+({
   legend: {
     color: {
-      // 图例显示位置 可选 top ｜ bottom | right | left
-      position: 'top',
+      position: 'bottom',
       layout: {
-        // 主轴对齐方式 可选 flex-start | flex-end | center
-        justifyContent: 'flex-start',
-        // 交叉轴对齐方式 可选 flex-start | flex-end | center
-        alignItems: 'flex-start',
-        // 主轴方向 可选 row | column
-        flexDirection: 'row',
+        justifyContent: 'flex-start', // Left-aligned
       },
     },
   },
 });
 
-chart.render();
+// 🎯 Scenario 4: Right top-aligned, compact layout
+({
+  legend: {
+    color: {
+      position: 'right',
+      layout: {
+        justifyContent: 'flex-start', // Top-aligned
+      },
+    },
+  },
+});
+
+// 🎯 Scenario 5: Left bottom-aligned, aligned with chart bottom
+({
+  legend: {
+    color: {
+      position: 'left',
+      layout: {
+        justifyContent: 'flex-end', // Bottom-aligned
+      },
+    },
+  },
+});
 ```
+
+💡 **Layout Tips**
+
+- **Horizontal center**: `position: 'top'` + `justifyContent: 'center'`
+- **Vertical center**: `position: 'right'` + `justifyContent: 'center'`
+- **Compact layout**: Use `flex-start` to keep legend close to chart
 
 ### size
 
 <description> _number_ **optional** </description>
 
-Size of the Legend component. Affects the component's size on the cross axis, e.g., for horizontally positioned legends, it affects the overall height. Manual configuration will cause G2's internal calculation logic to fail, requiring you to configure margin, padding, inset, etc. yourself. See [Chart Layout](/en/manual/core/chart/chart-component#chart-layout). Not recommended unless customization is needed.
+Size of the Legend component, used for G2 internal layout calculation and space allocation. Affects the component size on the **cross axis**:
 
-### width
+- For horizontal layout legends (`position: 'top'` or `'bottom'`), controls the legend height
+- For vertical layout legends (`position: 'left'` or `'right'`), controls the legend width
+
+Manual configuration will cause G2's internal calculation logic to fail, requiring you to configure margin, padding, inset, etc. yourself. See [Chart Layout](/en/manual/core/chart/chart-component#chart-layout). Not recommended for configuration unless customization scenarios are needed.
+
+### length
 
 <description> _number_ **optional** </description>
 
-Width of the Legend component.
+Length of the Legend component, used for G2 internal layout calculation and space allocation. Affects the component size on the **main axis**:
+
+- For horizontal layout legends (`position: 'top'` or `'bottom'`), controls the legend width
+- For vertical layout legends (`position: 'left'` or `'right'`), controls the legend height
+
+<img alt="legend-overview" width=600 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KIXzR7Mwb1cAAAAARbAAAAgAemJ7AQ/original"/>
+
+<img alt="legend-overview" width=600 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZpfMQpeB4jUAAAAARpAAAAgAemJ7AQ/original"/>
 
 ### crossPadding
 
@@ -293,40 +568,40 @@ Distance between the Legend component and the chart. Default is `12`.
 
 <description> _number_ **optional** </description>
 
-Sort order of the Legend component during layout. Default is `1`. G2's internal components all have default sort sizes. Smaller values are closer to the chart area. For example, the Title component's default sort is `2`, which is further from the chart area than the Legend component's default sort of `1`.
+Sort order of the Legend component during layout. Default is `1`. All components in G2 have default sort sizes, with smaller values closer to the chart area. For example, the Title component has a default sort of `2`, which is farther from the chart area than the Legend component with default sort of `1`.
 
 ### title
 
 <description> _LegendTitleCfg_ **optional** </description>
 
-Legend title configuration. _LegendTitleCfg_ configuration is as follows:
+Legend title configuration. _LegendTitleCfg_ configuration:
 
-| Property           | Description                                                                                                      | Type                                                                                                       | Default Value                                            | Required |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | -------- |
-| title              | Turn off title or set title content                                                                              | false \| string                                                                                            | true for continuous legend, false for categorical legend |          |
-| titleSpacing       | Spacing from title to content area                                                                               | number \| number[]                                                                                         | `4`                                                      |          |
-| titleInset         | Title text padding                                                                                               | number \| number[]                                                                                         | `0`                                                      |          |
-| titlePosition      | Title position. Can use abbreviations, e.g., `i` for `inner`, `lt` for `left-top`                                | `top` \| `bottom` \|`left` \|`right` \|`left-top` \|`left-bottom` \|`right-top` \|`right-bottom` \|`inner` | -                                                        |          |
-| titleFontSize      | Title text size                                                                                                  | number \| (datum, index, data) => number                                                                   | `12`                                                     |          |
-| titleFontFamily    | Title text font                                                                                                  | string \| (datum, index, data) => string                                                                   | -                                                        |          |
-| titleFontWeight    | Title font weight                                                                                                | number \| (datum, index, data) => number                                                                   | `normal`                                                 |          |
-| titleLineHeight    | Title text line height                                                                                           | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleTextAlign     | Set title text content alignment                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`                                                          | `start`                                                  |          |
-| titleTextBaseline  | Set text baseline used when drawing title text                                                                   | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`                                                 | `bottom`                                                 |          |
-| titleFill          | Title font color                                                                                                 | string \| (datum, index, data) => string                                                                   | `#1D2129`                                                |          |
-| titleFillOpacity   | Title font color opacity                                                                                         | number \| (datum, index, data) => number                                                                   | `0.65`                                                   |          |
-| titleStroke        | Title font stroke color                                                                                          | string \| (datum, index, data) => string                                                                   | -                                                        |          |
-| titleStrokeOpacity | Title font stroke color opacity                                                                                  | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleLineWidth     | Title font stroke width                                                                                          | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleLineDash      | Title font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number]                                               | -                                                        |          |
-| titleOpacity       | Title text overall opacity                                                                                       | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleShadowColor   | Title text shadow color                                                                                          | string \| (datum, index, data) => string                                                                   | -                                                        |          |
-| titleShadowBlur    | Title text shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleShadowOffsetX | Set horizontal distance from shadow to title text                                                                | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleShadowOffsetY | Set vertical distance from shadow to title text                                                                  | number \| (datum, index, data) => number                                                                   | -                                                        |          |
-| titleCursor        | Title mouse style. Same as CSS mouse styles                                                                      | string \| (datum, index, data) => string                                                                   | `default`                                                |          |
+| Property           | Description                                                                                                                                | Type                                                                                                       | Default Value                                     | Required |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | -------- |
+| title              | Close title or set title content                                                                                                           | false \| string                                                                                            | true for continuous legend, false for categorical |          |
+| titleSpacing       | Spacing from title to content area                                                                                                         | number \| number[]                                                                                         | `4`                                               |          |
+| titleInset         | Title text inner padding                                                                                                                   | number \| number[]                                                                                         | `0`                                               |          |
+| titlePosition      | Title position. Can use abbreviated form, e.g., `i` for `inner`, `lt` for `left-top`                                                       | `top` \| `bottom` \|`left` \|`right` \|`left-top` \|`left-bottom` \|`right-top` \|`right-bottom` \|`inner` | -                                                 |          |
+| titleFontSize      | Title text size                                                                                                                            | number \| (datum, index, data) => number                                                                   | `12`                                              |          |
+| titleFontFamily    | Title text font                                                                                                                            | string \| (datum, index, data) => string                                                                   | -                                                 |          |
+| titleFontWeight    | Title font weight                                                                                                                          | number \| (datum, index, data) => number                                                                   | `normal`                                          |          |
+| titleLineHeight    | Title text line height                                                                                                                     | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleTextAlign     | Set current text alignment for title content                                                                                               | `center` \| `end` \| `left` \| `right` \| `start`                                                          | `start`                                           |          |
+| titleTextBaseline  | Set current text baseline used when drawing title text                                                                                     | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`                                                 | `bottom`                                          |          |
+| titleFill          | Title text color                                                                                                                           | string \| (datum, index, data) => string                                                                   | `#1D2129`                                         |          |
+| titleFillOpacity   | Title text color opacity                                                                                                                   | number \| (datum, index, data) => number                                                                   | `0.65`                                            |          |
+| titleStroke        | Title text stroke color                                                                                                                    | string \| (datum, index, data) => string                                                                   | -                                                 |          |
+| titleStrokeOpacity | Title text stroke color opacity                                                                                                            | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleLineWidth     | Title stroke width                                                                                                                         | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleLineDash      | Title text stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number]                                               | -                                                 |          |
+| titleOpacity       | Title text overall opacity                                                                                                                 | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleShadowColor   | Title text shadow color                                                                                                                    | string \| (datum, index, data) => string                                                                   | -                                                 |          |
+| titleShadowBlur    | Title text shadow Gaussian blur coefficient                                                                                                | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleShadowOffsetX | Title shadow horizontal offset                                                                                                             | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleShadowOffsetY | Title shadow vertical offset                                                                                                               | number \| (datum, index, data) => number                                                                   | -                                                 |          |
+| titleCursor        | Title cursor style. Same as CSS cursor style.                                                                                              | string \| (datum, index, data) => string                                                                   | `default`                                         |          |
 
-When configuring title in the Legend component, it's not configured as an object, but with `title` prefix plus property.
+In the Legend component, when configuring the title, it's not configured as an object, but with the `title` prefix plus property:
 
 ```js
 ({
@@ -359,7 +634,7 @@ When configuring title in the Legend component, it's not configured as an object
 });
 ```
 
-Try it out:
+Try it:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -368,7 +643,7 @@ const chart = new Chart({ container: 'container', height: 300 });
 
 chart.options({
   type: 'legends',
-  title: '图例标题',
+  title: 'Legend Title',
   titleSpacing: 0,
   titleInset: 0,
   titlePosition: 't',
@@ -406,7 +681,7 @@ chart.render();
 
 <description> _number_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Specify the number of legend items displayed per row; empty means no limit on columns.
+Applicable to <Badge type="success">Categorical Legend</Badge>. Specifies the number of legend items displayed per row. When empty, it means the number of columns is unlimited.
 
 Legend layout uses **flow layout** by default.
 
@@ -422,99 +697,97 @@ When `cols` is specified, **grid layout** is used.
 
 <description> _number_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Specify horizontal spacing between legend items. Default is `12`.
+Applicable to <Badge type="success">Categorical Legend</Badge>. Specifies horizontal spacing between legend items. Default is `12`.
 
 ### rowPadding
 
 <description> _number_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Specify vertical spacing between legend items. Default is `8`.
+Applicable to <Badge type="success">Categorical Legend</Badge>. Specifies vertical spacing between legend items. Default is `8`.
 
 ### maxRows
 
 <description> _number_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Specify maximum number of rows for legend. Default is `3`.
+Applicable to <Badge type="success">Categorical Legend</Badge>. Specifies maximum number of rows for legend. Default is `3`.
+
+⚠️ **Note**: This configuration only takes effect in **horizontal layout** (`position: 'top'` or `'bottom'`). When legend position is `'left'` or `'right'`, G2 automatically calculates the number of rows based on container height, and `maxRows` configuration will be ignored.
 
 ### maxCols
 
 <description> _number_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Specify maximum number of columns for legend. Default is `3`.
+Applicable to <Badge type="success">Categorical Legend</Badge>. Specifies maximum number of columns for legend. Default is `3`.
+
+⚠️ **Note**: This configuration only takes effect in **vertical layout** (`position: 'left'` or `'right'`). When legend position is `'top'` or `'bottom'`, G2 automatically calculates the number of columns based on container width, and `maxCols` configuration will be ignored.
 
 💡 **How do maxRows and maxCols affect legend layout?**
 
-maxRows and maxCols are used to limit the maximum number of rows and columns in legend layout. In the code, this is implemented through `getRows = (rows) => Math.min(rows, maxRows)` and `getCols = (cols) => Math.min(cols, maxCols)`.
+maxRows and maxCols are used to limit the maximum number of rows and columns in legend layout, but they have different effects under different layout directions:
 
-| **Parameter** | **Vertical Layout**                          | **Horizontal Layout**                                    |
-| ------------- | -------------------------------------------- | -------------------------------------------------------- |
-| **maxCols**   | Limits columns, controls legend width        | No direct effect (columns specified by `cols` parameter) |
-| **maxRows**   | No direct effect (rows calculated by height) | Limits rows, controls legend height                      |
+| **Parameter** | **Horizontal Layout (top/bottom)**              | **Vertical Layout (left/right)**                 |
+| ------------- | ----------------------------------------------- | ------------------------------------------------ |
+| **maxRows**   | ✅ Limits rows, controls legend height          | ❌ **No effect**, rows auto-calculated by height |
+| **maxCols**   | ❌ **No effect**, rows auto-calculated by width | ✅ Limits columns, controls legend width         |
 
-**Potential Issues**
-
-- **Vertical Layout**: If `maxCols` is too small, it may cause single column rows to exceed `maxHeight`, causing overflow.
-
-- **Horizontal Layout**: If `maxRows` is too small, some items may be truncated.
-
-In this case, you need to appropriately adjust the chart's `margin` and `padding` to ensure the legend has enough space to display.
+⚠️ **Note**: When using `maxRows` and `maxCols`, avoid manually configuring legend container's `size` and `length`.
 
 ### itemMarker
 
 <description> _LegendItemMarkerCfg_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item marker. _LegendItemMarkerCfg_ configuration is as follows:
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item markers. _LegendItemMarkerCfg_ configuration:
 
-| Property                | Description                                                                                                              | Type                                                         | Default Value             | Required |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------- | -------- |
-| itemMarker              | Legend item marker                                                                                                       | _Symbols_ \|(datum, index, data)=>_Symbols_                  | `circle`                  |          |
-| itemMarkerSize          | Legend item marker size                                                                                                  | number \| (datum, index, data) => number                     | `8`                       |          |
-| itemMarkerFill          | Legend item marker fill color                                                                                            | string \| (datum, index, data) => string                     | -                         |          |
-| itemMarkerFillOpacity   | Legend item marker fill opacity                                                                                          | number \| (datum, index, data) => number                     | `1`                       |          |
-| itemMarkerStroke        | Legend item marker stroke                                                                                                | string \| (datum, index, data) => string                     | -                         |          |
-| itemMarkerStrokeOpacity | Legend item marker stroke opacity                                                                                        | number \| (datum, index, data) => number                     | -                         |          |
-| itemMarkerLineWidth     | Legend item marker stroke width                                                                                          | number \| (datum, index, data) => number                     | `4` for line-based shapes |          |
-| itemMarkerLineDash      | Legend item marker stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -                         |          |
-| itemMarkerOpacity       | Legend item marker overall opacity                                                                                       | number \| (datum, index, data) => number                     | -                         |          |
-| itemMarkerShadowColor   | Legend item marker shadow color                                                                                          | string \| (datum, index, data) => string                     | -                         |          |
-| itemMarkerShadowBlur    | Legend item marker shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -                         |          |
-| itemMarkerShadowOffsetX | Set horizontal distance from shadow to legend item marker                                                                | number \| (datum, index, data) => number                     | -                         |          |
-| itemMarkerShadowOffsetY | Set vertical distance from shadow to legend item marker                                                                  | number \| (datum, index, data) => number                     | -                         |          |
-| itemMarkerCursor        | Legend item marker mouse style. Same as CSS mouse styles.                                                                | string \| (datum, index, data) => string                     | `default`                 |          |
+| Property                    | Description                                                                                                                              | Type                                                         | Default Value    | Required |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------- | -------- |
+| itemMarker                  | Legend item marker                                                                                                                       | _Symbols_ \|(datum, index, data)=>_Symbols_                  | `circle`         |          |
+| itemMarkerSize              | Legend item marker size                                                                                                                  | number \| (datum, index, data) => number                     | `8`              |          |
+| itemMarkerFill              | Legend item marker fill color                                                                                                            | string \| (datum, index, data) => string                     | -                |          |
+| itemMarkerFillOpacity       | Legend item marker fill opacity                                                                                                          | number \| (datum, index, data) => number                     | `1`              |          |
+| itemMarkerStroke            | Legend item marker stroke                                                                                                                | string \| (datum, index, data) => string                     | -                |          |
+| itemMarkerStrokeOpacity     | Legend item marker stroke opacity                                                                                                        | number \| (datum, index, data) => number                     | -                |          |
+| itemMarkerLineWidth         | Legend item marker stroke width                                                                                                          | number \| (datum, index, data) => number                     | `4` for line markers |       |
+| itemMarkerLineDash          | Legend item marker stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -                |          |
+| itemMarkerOpacity           | Legend item marker overall opacity                                                                                                       | number \| (datum, index, data) => number                     | -                |          |
+| itemMarkerShadowColor       | Legend item marker shadow color                                                                                                          | string \| (datum, index, data) => string                     | -                |          |
+| itemMarkerShadowBlur        | Legend item marker shadow Gaussian blur coefficient                                                                                      | number \| (datum, index, data) => number                     | -                |          |
+| itemMarkerShadowOffsetX     | Set horizontal distance of shadow from legend item marker                                                                               | number \| (datum, index, data) => number                     | -                |          |
+| itemMarkerShadowOffsetY     | Set vertical distance of shadow from legend item marker                                                                                 | number \| (datum, index, data) => number                     | -                |          |
+| itemMarkerCursor            | Legend item marker cursor style. Same as CSS cursor style.                                                                              | string \| (datum, index, data) => string                     | `default`        |          |
 
-#### Available Symbols Types
+#### Available Symbol Types
 
-| Property           | Description                          |
-| ------------------ | ------------------------------------ |
-| bowtie             | Shape type: bowtie                   |
-| cross              | Shape type: cross                    |
-| dash               | Shape type: dash                     |
-| diamond            | Shape type: diamond                  |
-| dot                | Shape type: dot                      |
-| hexagon            | Shape type: hexagon                  |
-| hollowBowtie       | Shape type: hollow bowtie            |
-| hollowDiamond      | Shape type: hollow diamond           |
-| hollowHexagon      | Shape type: hollow hexagon           |
-| hollowPoint        | Shape type: hollow point             |
-| hollowSquare       | Shape type: hollow square            |
-| hollowTriangle     | Shape type: hollow triangle          |
-| hollowTriangleDown | Shape type: inverted hollow triangle |
-| hv                 | Style type: HV path                  |
-| hvh                | Style type: HVH path                 |
-| hyphen             | Shape type: hyphen                   |
-| line               | Shape type: line                     |
-| plus               | Shape type: plus                     |
-| point              | Shape type: solid point              |
-| rect               | Shape type: rectangle                |
-| smooth             | Style type: smooth curve             |
-| square             | Shape type: square                   |
-| tick               | Shape type: tick                     |
-| triangleDown       | Shape type: inverted triangle        |
-| triangle           | Shape type: triangle                 |
-| vh                 | Style type: VH path                  |
-| vhv                | Style type: VHV path                 |
+| Property           | Description                   |
+| ------------------ | ----------------------------- |
+| bowtie             | Shape type: Bowtie            |
+| cross              | Shape type: Cross             |
+| dash               | Shape type: Dash              |
+| diamond            | Shape type: Diamond           |
+| dot                | Shape type: Dot               |
+| hexagon            | Shape type: Hexagon           |
+| hollowBowtie       | Shape type: Hollow Bowtie     |
+| hollowDiamond      | Shape type: Hollow Diamond    |
+| hollowHexagon      | Shape type: Hollow Hexagon    |
+| hollowPoint        | Shape type: Hollow Point      |
+| hollowSquare       | Shape type: Hollow Square     |
+| hollowTriangle     | Shape type: Hollow Triangle   |
+| hollowTriangleDown | Shape type: Hollow Triangle Down |
+| hv                 | Style type: HV Path           |
+| hvh                | Style type: HVH Path          |
+| hyphen             | Shape type: Hyphen            |
+| line               | Shape type: Line              |
+| plus               | Shape type: Plus              |
+| point              | Shape type: Solid Point       |
+| rect               | Shape type: Rectangle         |
+| smooth             | Style type: Smooth Curve      |
+| square             | Shape type: Square            |
+| tick               | Shape type: Tick              |
+| triangleDown       | Shape type: Triangle Down     |
+| triangle           | Shape type: Triangle          |
+| vh                 | Style type: VH Path           |
+| vhv                | Style type: VHV Path          |
 
-Try it out:
+Try it:
 
 ```js | ob { inject: true }
 const { Chart } = G2;
@@ -597,7 +870,7 @@ container.insertBefore(selectorContainer, container.childNodes[0]);
 chart.render();
 ```
 
-When configuring legend item markers in the Legend component, it's not configured as an object, but with `itemMarker` prefix plus property.
+In the Legend component, when configuring legend item markers, it's not configured as an object, but with the `itemMarker` prefix plus property:
 
 ```js
 ({
@@ -626,31 +899,31 @@ When configuring legend item markers in the Legend component, it's not configure
 
 <description> _LegendItemLabelCfg_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item label. _LegendItemLabelCfg_ configuration is as follows:
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item labels. _LegendItemLabelCfg_ configuration:
 
-| Property               | Description                                                                                                                  | Type                                                         | Default Value | Required |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| itemLabelText          | Legend item label content                                                                                                    | string \| (datum, index, data) => string                     | -             |          |
-| itemLabelFontSize      | Legend item label text size                                                                                                  | number \| (datum, index, data) => number                     | `12`          |          |
-| itemLabelFontFamily    | Legend item label text font                                                                                                  | string \| (datum, index, data) => string                     | -             |          |
-| itemLabelFontWeight    | Legend item label font weight                                                                                                | number \| (datum, index, data) => number                     | `normal`      |          |
-| itemLabelLineHeight    | Legend item label text line height                                                                                           | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelTextAlign     | Set legend item label text content alignment                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`            | `start`       |          |
-| itemLabelTextBaseline  | Set text baseline used when drawing legend item label text                                                                   | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`      |          |
-| itemLabelFill          | Legend item label font color                                                                                                 | string \| (datum, index, data) => string                     | `#1D2129`     |          |
-| itemLabelFillOpacity   | Legend item label font color opacity                                                                                         | number \| (datum, index, data) => number                     | `0.9`         |          |
-| itemLabelStroke        | Legend item label font stroke color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| itemLabelStrokeOpacity | Legend item label font stroke color opacity                                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelLineWidth     | Legend item label font stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelLineDash      | Legend item label font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| itemLabelOpacity       | Legend item label text overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelShadowColor   | Legend item label text shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| itemLabelShadowBlur    | Legend item label text shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelShadowOffsetX | Set horizontal distance from shadow to legend item label text                                                                | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelShadowOffsetY | Set vertical distance from shadow to legend item label text                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| itemLabelCursor        | Legend item label mouse style. Same as CSS mouse styles                                                                      | string \| (datum, index, data) => string                     | `default`     |          |
+| Property                   | Description                                                                                                                              | Type                                                           | Default Value | Required |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------- | -------- |
+| itemLabelText              | Legend item label content                                                                                                                | string \| (datum, index, data) => string                       | -             |          |
+| itemLabelFontSize          | Legend item label text size                                                                                                              | number \| (datum, index, data) => number                       | `12`          |          |
+| itemLabelFontFamily        | Legend item label text font                                                                                                              | string \| (datum, index, data) => string                       | -             |          |
+| itemLabelFontWeight        | Legend item label font weight                                                                                                            | number \| (datum, index, data) => number                       | `normal`      |          |
+| itemLabelLineHeight        | Legend item label text line height                                                                                                       | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelTextAlign         | Set current text alignment for legend item label content                                                                                | `center` \| `end` \| `left` \| `right` \| `start`              | `start`       |          |
+| itemLabelTextBaseline      | Set current text baseline used when drawing legend item label text                                                                      | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`     | `bottom`      |          |
+| itemLabelFill              | Legend item label text color                                                                                                             | string \| (datum, index, data) => string                       | `#1D2129`     |          |
+| itemLabelFillOpacity       | Legend item label text color opacity                                                                                                     | number \| (datum, index, data) => number                       | `0.9`         |          |
+| itemLabelStroke            | Legend item label text stroke color                                                                                                      | string \| (datum, index, data) => string                       | -             |          |
+| itemLabelStrokeOpacity     | Legend item label text stroke color opacity                                                                                              | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelLineWidth         | Legend item label text stroke width                                                                                                      | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelLineDash          | Legend item label text stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (da tu m, index, data) => [number , number] | -             |          |
+| itemLabelOpacity           | Legend item label text overall opacity                                                                                                   | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelShadowColor       | Legend item label text shadow color                                                                                                      | string \| (datum, index, data) => string                       | -             |          |
+| itemLabelShadowBlur        | Legend item label text shadow Gaussian blur coefficient                                                                                  | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelShadowOffsetX     | Set horizontal distance of shadow from legend item label text                                                                           | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelShadowOffsetY     | Set vertical distance of shadow from legend item label text                                                                             | number \| (datum, index, data) => number                       | -             |          |
+| itemLabelCursor            | Legend item label cursor style. Same as CSS cursor style.                                                                               | string \| (datum, index, data) => string                       | `default`     |          |
 
-When configuring legend item labels in the Legend component, it's not configured as an object, but with `itemLabel` prefix plus property.
+In the Legend component, when configuring legend item labels, it's not configured as an object, but with the `itemLabel` prefix plus property:
 
 ```js
 ({
@@ -684,31 +957,31 @@ When configuring legend item labels in the Legend component, it's not configured
 
 <description> _LegendItemValueCfg_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item value. _LegendItemValueCfg_ configuration is as follows:
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item values. _LegendItemValueCfg_ configuration:
 
-| Property               | Description                                                                                                                  | Type                                                         | Default Value | Required |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| itemValueText          | Legend item value content                                                                                                    | string \| (datum, index, data) => string                     | -             |          |
-| itemValueFontSize      | Legend item value text size                                                                                                  | number \| (datum, index, data) => number                     | `12`          |          |
-| itemValueFontFamily    | Legend item value text font                                                                                                  | string \| (datum, index, data) => string                     | -             |          |
-| itemValueFontWeight    | Legend item value font weight                                                                                                | number \| (datum, index, data) => number                     | `normal`      |          |
-| itemValueLineHeight    | Legend item value text line height                                                                                           | number \| (datum, index, data) => number                     | -             |          |
-| itemValueTextAlign     | Set legend item value text content alignment                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`            | `start`       |          |
-| itemValueTextBaseline  | Set text baseline used when drawing legend item value text                                                                   | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`      |          |
-| itemValueFill          | Legend item value font color                                                                                                 | string \| (datum, index, data) => string                     | `#1D2129`     |          |
-| itemValueFillOpacity   | Legend item value font color opacity                                                                                         | number \| (datum, index, data) => number                     | `0.65`        |          |
-| itemValueStroke        | Legend item value font stroke color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| itemValueStrokeOpacity | Legend item value font stroke color opacity                                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| itemValueLineWidth     | Legend item value font stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| itemValueLineDash      | Legend item value font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| itemValueOpacity       | Legend item value text overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| itemValueShadowColor   | Legend item value text shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| itemValueShadowBlur    | Legend item value text shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| itemValueShadowOffsetX | Set horizontal distance from shadow to legend item value text                                                                | number \| (datum, index, data) => number                     | -             |          |
-| itemValueShadowOffsetY | Set vertical distance from shadow to legend item value text                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| itemValueCursor        | Legend item value mouse style. Same as CSS mouse styles                                                                      | string \| (datum, index, data) => string                     | `default`     |          |
+| Property                   | Description                                                                                                                              | Type                                                         | Default Value | Required |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
+| itemValueText              | Legend item value content                                                                                                                | string \| (datum, index, data) => string                     | -             |          |
+| itemValueFontSize          | Legend item value text size                                                                                                              | number \| (datum, index, data) => number                     | `12`          |          |
+| itemValueFontFamily        | Legend item value text font                                                                                                              | string \| (datum, index, data) => string                     | -             |          |
+| itemValueFontWeight        | Legend item value font weight                                                                                                            | number \| (datum, index, data) => number                     | `normal`      |          |
+| itemValueLineHeight        | Legend item value text line height                                                                                                       | number \| (datum, index, data) => number                     | -             |          |
+| itemValueTextAlign         | Set current text alignment for legend item value content                                                                                | `center` \| `end` \| `left` \| `right` \| `start`            | `start`       |          |
+| itemValueTextBaseline      | Set current text baseline used when drawing legend item value text                                                                      | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`      |          |
+| itemValueFill              | Legend item value text color                                                                                                             | string \| (datum, index, data) => string                     | `#1D2129`     |          |
+| itemValueFillOpacity       | Legend item value text color opacity                                                                                                     | number \| (datum, index, data) => number                     | `0.65`        |          |
+| itemValueStroke            | Legend item value text stroke color                                                                                                      | string \| (datum, index, data) => string                     | -             |          |
+| itemValueStrokeOpacity     | Legend item value text stroke color opacity                                                                                              | number \| (datum, index, data) => number                     | -             |          |
+| itemValueLineWidth         | Legend item value text stroke width                                                                                                      | number \| (datum, index, data) => number                     | -             |          |
+| itemValueLineDash          | Legend item value text stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
+| itemValueOpacity           | Legend item value text overall opacity                                                                                                   | number \| (datum, index, data) => number                     | -             |          |
+| itemValueShadowColor       | Legend item value text shadow color                                                                                                      | string \| (datum, index, data) => string                     | -             |          |
+| itemValueShadowBlur        | Legend item value text shadow Gaussian blur coefficient                                                                                  | number \| (datum, index, data) => number                     | -             |          |
+| itemValueShadowOffsetX     | Set horizontal distance of shadow from legend item value text                                                                           | number \| (datum, index, data) => number                     | -             |          |
+| itemValueShadowOffsetY     | Set vertical distance of shadow from legend item value text                                                                             | number \| (datum, index, data) => number                     | -             |          |
+| itemValueCursor            | Legend item value cursor style. Same as CSS cursor style.                                                                               | string \| (datum, index, data) => string                     | `default`     |          |
 
-When configuring legend item values in the Legend component, it's not configured as an object, but with `itemValue` prefix plus property.
+In the Legend component, when configuring legend item values, it's not configured as an object, but with the `itemValue` prefix plus property:
 
 ```js
 ({
@@ -742,25 +1015,25 @@ When configuring legend item values in the Legend component, it's not configured
 
 <description> _LegendItemBackgroundCfg_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item background. _LegendItemBackgroundCfg_ configuration is as follows:
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item backgrounds. _LegendItemBackgroundCfg_ configuration:
 
-| Property                    | Description                                                                                                                  | Type                                                         | Default Value | Required |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| itemBackgroundRadius        | Legend item background border radius                                                                                         | number \| (datum, index, data) => number                     | `0`           |          |
-| itemBackgroundFill          | Legend item background fill color                                                                                            | string \| (datum, index, data) => string                     | `transparent` |          |
-| itemBackgroundFillOpacity   | Legend item background fill opacity                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundStroke        | Legend item background stroke                                                                                                | string \| (datum, index, data) => string                     | -             |          |
-| itemBackgroundStrokeOpacity | Legend item background stroke opacity                                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundLineWidth     | Legend item background stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundLineDash      | Legend item background stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| itemBackgroundOpacity       | Legend item background overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundShadowColor   | Legend item background shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| itemBackgroundShadowBlur    | Legend item background shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundShadowOffsetX | Set horizontal distance from shadow to legend item background                                                                | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundShadowOffsetY | Set vertical distance from shadow to legend item background                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| itemBackgroundCursor        | Legend item background mouse style. Same as CSS mouse styles.                                                                | string \| (datum, index, data) => string                     | `default`     |          |
+| Property                        | Description                                                                                                                              | Type                                                         | Default Value | Required |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
+| itemBackgroundRadius            | Legend item background border radius                                                                                                     | number \| (datum, index, data) => number                     | `0`           |          |
+| itemBackgroundFill              | Legend item background fill color                                                                                                        | string \| (datum, index, data) => string                     | `transparent` |          |
+| itemBackgroundFillOpacity       | Legend item background fill opacity                                                                                                      | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundStroke            | Legend item background stroke                                                                                                            | string \| (datum, index, data) => string                     | -             |          |
+| itemBackgroundStrokeOpacity     | Legend item background stroke opacity                                                                                                    | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundLineWidth         | Legend item background stroke width                                                                                                      | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundLineDash          | Legend item background stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
+| itemBackgroundOpacity           | Legend item background overall opacity                                                                                                   | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundShadowColor       | Legend item background shadow color                                                                                                      | string \| (datum, index, data) => string                     | -             |          |
+| itemBackgroundShadowBlur        | Legend item background shadow Gaussian blur coefficient                                                                                  | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundShadowOffsetX     | Set horizontal distance of shadow from legend item background                                                                           | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundShadowOffsetY     | Set vertical distance of shadow from legend item background                                                                             | number \| (datum, index, data) => number                     | -             |          |
+| itemBackgroundCursor            | Legend item background cursor style. Same as CSS cursor style.                                                                          | string \| (datum, index, data) => string                     | `default`     |          |
 
-When configuring legend item background in the Legend component, it's not configured as an object, but with `itemBackground` prefix plus property.
+In the Legend component, when configuring legend item backgrounds, it's not configured as an object, but with the `itemBackground` prefix plus property:
 
 ```js
 ({
@@ -784,7 +1057,7 @@ When configuring legend item background in the Legend component, it's not config
 });
 ```
 
-Next, let's try combining various properties of `itemMarker`, `itemLabel`, `itemValue`, and `itemBackground` to configure a custom legend:
+Next, try combining various properties of `itemMarker`, `itemLabel`, `itemValue`, and `itemBackground` to configure a custom legend:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -844,55 +1117,74 @@ Applicable to <Badge type="success">Categorical Legend</Badge>. Configure spacin
 
 <description> _LegendNavCfg_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend navigator. In grid layout, page capacity = `gridRow` × `gridCol`. If the number of categorical items exceeds this capacity, pagination occurs. In flex layout, page capacity is dynamically calculated and limited by container width and height. When categorical items exceed container height or width, pagination occurs and the navigator component is displayed. _LegendNavCfg_ configuration is as follows:
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend navigator. In grid layout, page capacity = `gridRow` × `gridCol`. If the number of categorical items exceeds this capacity, pagination occurs. In flex layout, page capacity is calculated dynamically, limited by container width and height. When categorical items exceed container height or width, pagination occurs and the navigator component is shown.
+
+💡 **Vertical Layout Legend Pagination Configuration**
+
+For vertical layout legends (`position: 'right'` or `'left'`), since `maxRows` doesn't take effect, it's recommended to enable pagination through the following methods:
+
+```js
+legend: {
+  color: {
+    position: 'right',
+    size: 100,               // Limit legend width, trigger pagination
+    length: 200,             // Limit legend height, trigger pagination
+    navOrientation: 'vertical', // Vertical navigator
+    navDefaultPage: 0,       // Default to first page
+    navLoop: true,           // Enable loop pagination
+  }
+}
+```
+
+_LegendNavCfg_ configuration:
 
 <img alt="legend-nav" width=300 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QkXFSoUuqGYAAAAAAAAAAAAAemJ7AQ/original"/>
 
-| Property                | Description                                                                                                                      | Type                                                                      | Default Value | Required |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------- | -------- |
-| navEffect               | Page transition effect                                                                                                           | See [Web Animations API](https://g.antv.antgroup.com/api/animation/waapi) | `linear`      |          |
-| navDuration             | Single page transition animation duration                                                                                        | number                                                                    | `200`         |          |
-| navOrientation          | Page scroll direction<br>- Horizontal `horizontal`<br>- Vertical `vertical`                                                      | `horizontal` \|`vertical`                                                 | `horizontal`  |          |
-| navDefaultPage          | Default page number to display                                                                                                   | number                                                                    | `0`           |          |
-| navLoop                 | Whether to enable loop pagination                                                                                                | boolean                                                                   | false         |          |
-| navPageWidth            | Navigator page width                                                                                                             | number                                                                    | -             |          |
-| navPageHeight           | Navigator page height                                                                                                            | number                                                                    | -             |          |
-| navControllerPadding    | Spacing between navigator buttons and page numbers                                                                               | number \| number[]                                                        | `5`           |          |
-| navControllerSpacing    | Spacing between navigator buttons and page, can be used to configure spacing between navigator and legend                        | number \| number[]                                                        | `5`           |          |
-| navPageNumFontSize      | Navigator page number text size                                                                                                  | number \| (datum, index, data) => number                                  | `12`          |          |
-| navPageNumFontFamily    | Navigator page number text font                                                                                                  | string \| (datum, index, data) => string                                  | -             |          |
-| navPageNumFontWeight    | Navigator page number font weight                                                                                                | number \| (datum, index, data) => number                                  | `normal`      |          |
-| navPageNumLineHeight    | Navigator page number text line height                                                                                           | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumTextAlign     | Set navigator page number text content alignment                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`                         | `start`       |          |
-| navPageNumTextBaseline  | Set text baseline used when drawing navigator page number text                                                                   | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`                | `bottom`      |          |
-| navPageNumFill          | Navigator page number font color                                                                                                 | string \| (datum, index, data) => string                                  | `#1D2129`     |          |
-| navPageNumFillOpacity   | Navigator page number font color opacity                                                                                         | number \| (datum, index, data) => number                                  | `0.45`        |          |
-| navPageNumStroke        | Navigator page number font stroke color                                                                                          | string \| (datum, index, data) => string                                  | -             |          |
-| navPageNumStrokeOpacity | Navigator page number font stroke color opacity                                                                                  | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumLineWidth     | Navigator page number font stroke width                                                                                          | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumLineDash      | Navigator page number font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number]              | -             |          |
-| navPageNumOpacity       | Navigator page number text overall opacity                                                                                       | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumShadowColor   | Navigator page number text shadow color                                                                                          | string \| (datum, index, data) => string                                  | -             |          |
-| navPageNumShadowBlur    | Navigator page number text shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumShadowOffsetX | Set horizontal distance from shadow to navigator page number text                                                                | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumShadowOffsetY | Set vertical distance from shadow to navigator page number text                                                                  | number \| (datum, index, data) => number                                  | -             |          |
-| navPageNumCursor        | Navigator page number mouse style. Same as CSS mouse styles                                                                      | string \| (datum, index, data) => string                                  | `default`     |          |
-| navButtonSize           | Navigator button size                                                                                                            | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonFill           | Navigator button fill color                                                                                                      | string \| (datum, index, data) => string                                  | `#1D2129`     |          |
-| navButtonFillOpacity    | Navigator button fill opacity                                                                                                    | number \| (datum, index, data) => number                                  | `0.65`        |          |
-| navButtonStroke         | Navigator button stroke                                                                                                          | string \| (datum, index, data) => string                                  | -             |          |
-| navButtonStrokeOpacity  | Navigator button stroke opacity                                                                                                  | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonLineWidth      | Navigator button stroke width                                                                                                    | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonLineDash       | Navigator button stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke.           | [number,number] \| (datum, index, data) => [number , number]              | -             |          |
-| navButtonOpacity        | Navigator button overall opacity                                                                                                 | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonShadowColor    | Navigator button shadow color                                                                                                    | string \| (datum, index, data) => string                                  | -             |          |
-| navButtonShadowBlur     | Navigator button shadow Gaussian blur coefficient                                                                                | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonShadowOffsetX  | Set horizontal distance from shadow to navigator button                                                                          | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonShadowOffsetY  | Set vertical distance from shadow to navigator button                                                                            | number \| (datum, index, data) => number                                  | -             |          |
-| navButtonCursor         | Navigator button mouse style. Same as CSS mouse styles.                                                                          | string \| (datum, index, data) => string                                  | `default`     |          |
-| navFormatter            | Page number text formatter                                                                                                       | (current: number, total: number) => string                                | -             |          |
+| Property                    | Description                                                                                                                              | Type                                                                       | Default Value | Required |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------- | -------- |
+| navEffect                   | Page transition effect                                                                                                                   | See [Web Animations API](https://g.antv.antgroup.com/api/animation/waapi) | `linear`      |          |
+| navDuration                 | Single page transition animation duration                                                                                                | number                                                                     | `200`         |          |
+| navOrientation              | Pagination scroll direction<br>- Horizontal `horizontal`<br>- Vertical `vertical`                                                      | `horizontal` \|`vertical`                                                  | `horizontal`  |          |
+| navDefaultPage              | Default page number to display                                                                                                           | number                                                                     | `0`           |          |
+| navLoop                     | Whether to enable loop pagination                                                                                                        | boolean                                                                    | false         |          |
+| navPageWidth                | Navigator page width                                                                                                                     | number                                                                     | -             |          |
+| navPageHeight               | Navigator page height                                                                                                                    | number                                                                     | -             |          |
+| navControllerPadding        | Spacing between navigator buttons and page numbers                                                                                       | number \| number[]                                                         | `5`           |          |
+| navControllerSpacing        | Spacing between navigator buttons and pages, can configure spacing between navigator and legend                                         | number \| number[]                                                         | `5`           |          |
+| navPageNumFontSize          | Navigator page number text size                                                                                                          | number \| (datum, index, data) => number                                   | `12`          |          |
+| navPageNumFontFamily        | Navigator page number text font                                                                                                          | string \| (datum, index, data) => string                                   | -             |          |
+| navPageNumFontWeight        | Navigator page number font weight                                                                                                        | number \| (datum, index, data) => number                                   | `normal`      |          |
+| navPageNumLineHeight        | Navigator page number text line height                                                                                                   | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumTextAlign         | Set current text alignment for navigator page number content                                                                            | `center` \| `end` \| `left` \| `right` \| `start`                          | `start`       |          |
+| navPageNumTextBaseline      | Set current text baseline used when drawing navigator page number text                                                                  | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`                 | `bottom`      |          |
+| navPageNumFill              | Navigator page number text color                                                                                                         | string \| (datum, index, data) => string                                   | `#1D2129`     |          |
+| navPageNumFillOpacity       | Navigator page number text color opacity                                                                                                 | number \| (datum, index, data) => number                                   | `0.45`        |          |
+| navPageNumStroke            | Navigator page number text stroke color                                                                                                  | string \| (datum, index, data) => string                                   | -             |          |
+| navPageNumStrokeOpacity     | Navigator page number text stroke color opacity                                                                                          | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumLineWidth         | Navigator page number text stroke width                                                                                                  | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumLineDash          | Navigator page number text stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number]               | -             |          |
+| navPageNumOpacity           | Navigator page number text overall opacity                                                                                               | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumShadowColor       | Navigator page number text shadow color                                                                                                  | string \| (datum, index, data) => string                                   | -             |          |
+| navPageNumShadowBlur        | Navigator page number text shadow Gaussian blur coefficient                                                                              | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumShadowOffsetX     | Set horizontal distance of shadow from navigator page number text                                                                       | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumShadowOffsetY     | Set vertical distance of shadow from navigator page number text                                                                         | number \| (datum, index, data) => number                                   | -             |          |
+| navPageNumCursor            | Navigator page number cursor style. Same as CSS cursor style.                                                                           | string \| (datum, index, data) => string                                   | `default`     |          |
+| navButtonSize               | Navigator button size                                                                                                                    | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonFill               | Navigator button fill color                                                                                                              | string \| (datum, index, data) => string                                   | `#1D2129`     |          |
+| navButtonFillOpacity        | Navigator button fill opacity                                                                                                            | number \| (datum, index, data) => number                                   | `0.65`        |          |
+| navButtonStroke             | Navigator button stroke                                                                                                                  | string \| (datum, index, data) => string                                   | -             |          |
+| navButtonStrokeOpacity      | Navigator button stroke opacity                                                                                                          | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonLineWidth          | Navigator button stroke width                                                                                                            | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonLineDash           | Navigator button stroke dash configuration. First value is dash segment length, second is gap length. Setting lineDash to [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number]               | -             |          |
+| navButtonOpacity            | Navigator button overall opacity                                                                                                         | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonShadowColor        | Navigator button shadow color                                                                                                            | string \| (datum, index, data) => string                                   | -             |          |
+| navButtonShadowBlur         | Navigator button shadow Gaussian blur coefficient                                                                                        | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonShadowOffsetX      | Set horizontal distance of shadow from navigator button                                                                                 | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonShadowOffsetY      | Set vertical distance of shadow from navigator button                                                                                   | number \| (datum, index, data) => number                                   | -             |          |
+| navButtonCursor             | Navigator button cursor style. Same as CSS cursor style.                                                                                | string \| (datum, index, data) => string                                   | `default`     |          |
+| navFormatter                | Page number text formatter                                                                                                               | (current: number, total: number) => string                                 | -             |          |
 
-When configuring navigator properties in the Legend component, it's not configured as an object, but with `nav` prefix plus property.
+In the Legend component, when configuring navigator properties, it's not configured as an object, but with the `nav` prefix plus property:
 
 ```js
 ({
@@ -946,7 +1238,7 @@ When configuring navigator properties in the Legend component, it's not configur
 });
 ```
 
-Try it out:
+Try it:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -972,7 +1264,7 @@ chart.options({
       navDefaultPage: 2,
       navLoop: true,
 
-      //配置navPageNum的绘图属性
+      // Configure navPageNum drawing properties
       navPageNumFontSize: 16,
       navPageNumFontFamily: 'sans-serif',
       navPageNumFontWeight: 500,
@@ -992,7 +1284,7 @@ chart.options({
       navPageNumShadowOffsetY: 10,
       navPageNumCursor: 'pointer',
 
-      // 配置navButton的绘图属性
+      // Configure navButton drawing properties
       navButtonFill: '#2989FF',
       navButtonFillOpacity: 0.7,
       navButtonStroke: '#DAF5EC',
@@ -1006,7 +1298,7 @@ chart.options({
       navButtonShadowOffsetY: 10,
       navButtonCursor: 'pointer',
 
-      navFormatter: (current, total) => `第${current}页/共${total}页`,
+      navFormatter: (current, total) => `Page ${current}/Total ${total}`,
     },
   },
 });
@@ -1018,7 +1310,7 @@ chart.render();
 
 <description> _string[] | [d3-interpolate](https://github.com/d3/d3-interpolate)_ **optional** </description>
 
-Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure color band colors for continuous legend. When it's an array, colors are taken in order.
+Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure color band colors for continuous legend. When it's an array, colors are taken sequentially.
 
 ### block
 
@@ -1032,9 +1324,9 @@ Applicable to <Badge type="warning">Continuous Legend</Badge>. Whether continuou
 
 Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure type of continuous legend. Default is `color`.
 
-Combining `block` and `type` properties allows you to configure different styles of continuous legends. Continuous data legends have 4 styles:
+Combining `block` and `type` properties can configure different styles of continuous legends. Continuous data legends have 4 styles:
 
-- Continuous representation `default`
+- Continuous representation `Default`
 
   <img alt="ribbon-color" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ds9pTqbi4OAAAAAAAAAAAAAADmJ7AQ/original" width="300" />
 
@@ -1050,335 +1342,19 @@ Combining `block` and `type` properties allows you to configure different styles
 
   <img alt="ribbon-color" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MahwS6sQocoAAAAAAAAAAAAADmJ7AQ/original" width="300" />
 
-### ribbon
-
-<description> _LegendRibbonCfg_ **optional** </description>
-
-Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure color band of continuous legend. _LegendRibbonCfg_ configuration is as follows:
-
-| Property            | Description                                                                                                      | Type                                                         | Default Value | Required |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| ribbonSize          | Color band size                                                                                                  | number \| (datum, index, data) => number                     | `12`          |          |
-| ribbonFill          | Color band fill color                                                                                            | string \| (datum, index, data) => string                     | `#aaa`        |          |
-| ribbonFillOpacity   | Color band fill opacity                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| ribbonStroke        | Color band stroke                                                                                                | string \| (datum, index, data) => string                     | -             |          |
-| ribbonStrokeOpacity | Color band stroke opacity                                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| ribbonLineWidth     | Color band stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| ribbonLineDash      | Color band stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| ribbonOpacity       | Color band overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| ribbonShadowColor   | Color band shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| ribbonShadowBlur    | Color band shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| ribbonShadowOffsetX | Set horizontal distance from shadow to color band                                                                | number \| (datum, index, data) => number                     | -             |          |
-| ribbonShadowOffsetY | Set vertical distance from shadow to color band                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| ribbonCursor        | Color band mouse style. Same as CSS mouse styles.                                                                | string \| (datum, index, data) => string                     | `default`     |          |
-
-When configuring color band in the Legend component, it's not configured as an object, but with `ribbon` prefix plus property.
-
-```js
-({
-  legend: {
-    color: {
-      ribbonSize: 20,
-      ribbonFill: '#000',
-      ribbonFillOpacity: 0.9,
-      ribbonStroke: '#DAF5EC',
-      ribbonStrokeOpacity: 0.9,
-      ribbonLineWidth: 2,
-      ribbonLineDash: [4, 8],
-      ribbonOpacity: 1,
-      ribbonShadowColor: '#d3d3d3',
-      ribbonShadowBlur: 10,
-      ribbonShadowOffsetX: 10,
-      ribbonShadowOffsetY: 10,
-      ribbonCursor: 'pointer',
-    },
-  },
-});
-```
-
-### handle
-
-<description> _LegendHandleCfg_ **optional** </description>
-
-The slider window marks the current value selection range. Through interaction with the slider window, you can select the value range in the view.
-
- <img alt="slider-window" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*eAnbT6OFQlwAAAAAAAAAAAAADmJ7AQ/original" width="300" />
-
-Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure slider handle of continuous legend. _LegendHandleCfg_ configuration is as follows:
-
-| Property                 | Description                                                                                                             | Type                                                         | Default Value | Required |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| handle                   | Whether to display slider handle                                                                                        | boolean                                                      | true          |          |
-| handleLabel              | Whether to display slider handle labels                                                                                 | boolean                                                      | false         |          |
-| slidable                 | Whether window is slidable                                                                                              | boolean                                                      | true          |          |
-| range                    | Default selection range for slider window                                                                               | [number, number]                                             | `[min, max]`  |          |
-| step                     | Single slide step size                                                                                                  | number                                                       | `1`           |          |
-| handleLabelFontSize      | Handle label text size                                                                                                  | number \| (datum, index, data) => number                     | `12`          |          |
-| handleLabelFontFamily    | Handle label text font                                                                                                  | string \| (datum, index, data) => string                     | -             |          |
-| handleLabelFontWeight    | Handle label font weight                                                                                                | number \| (datum, index, data) => number                     | `normal`      |          |
-| handleLabelLineHeight    | Handle label text line height                                                                                           | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelTextAlign     | Set handle label text content alignment                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`            | `start`       |          |
-| handleLabelTextBaseline  | Set text baseline used when drawing handle label text                                                                   | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`      |          |
-| handleLabelFill          | Handle label font color                                                                                                 | string \| (datum, index, data) => string                     | `#1D2129`     |          |
-| handleLabelFillOpacity   | Handle label font color opacity                                                                                         | number \| (datum, index, data) => number                     | `0.45`        |          |
-| handleLabelStroke        | Handle label font stroke color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| handleLabelStrokeOpacity | Handle label font stroke color opacity                                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelLineWidth     | Handle label font stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelLineDash      | Handle label font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| handleLabelOpacity       | Handle label text overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelShadowColor   | Handle label text shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| handleLabelShadowBlur    | Handle label text shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelShadowOffsetX | Set horizontal distance from shadow to handle label text                                                                | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelShadowOffsetY | Set vertical distance from shadow to handle label text                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| handleLabelCursor        | Handle label mouse style. Same as CSS mouse styles                                                                      | string \| (datum, index, data) => string                     | `default`     |          |
-| handleIconSize           | Handle icon size                                                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| handleIconFill           | Handle icon fill color                                                                                                  | string \| (datum, index, data) => string                     | `#1D2129`     |          |
-| handleIconFillOpacity    | Handle icon fill opacity                                                                                                | number \| (datum, index, data) => number                     | `0.65`        |          |
-| handleIconStroke         | Handle icon stroke                                                                                                      | string \| (datum, index, data) => string                     | -             |          |
-| handleIconStrokeOpacity  | Handle icon stroke opacity                                                                                              | number \| (datum, index, data) => number                     | -             |          |
-| handleIconLineWidth      | Handle icon stroke width                                                                                                | number \| (datum, index, data) => number                     | -             |          |
-| handleIconLineDash       | Handle icon stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke.       | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| handleIconOpacity        | Handle icon overall opacity                                                                                             | number \| (datum, index, data) => number                     | -             |          |
-| handleIconShadowColor    | Handle icon shadow color                                                                                                | string \| (datum, index, data) => string                     | -             |          |
-| handleIconShadowBlur     | Handle icon shadow Gaussian blur coefficient                                                                            | number \| (datum, index, data) => number                     | -             |          |
-| handleIconShadowOffsetX  | Set horizontal distance from shadow to handle icon                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| handleIconShadowOffsetY  | Set vertical distance from shadow to handle icon                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| handleIconCursor         | Handle icon mouse style. Same as CSS mouse styles.                                                                      | string \| (datum, index, data) => string                     | `default`     |          |
-
-When configuring continuous legend slider handle properties in the Legend component, it's not configured as an object, but with `handle` prefix plus property.
-
-```js
-({
-  legend: {
-    color: {
-      handle: true,
-      handleLabel: true,
-      slidable: true,
-      range: [0, 1],
-      step: 1,
-      // Configure handleLabel drawing properties
-      handleLabelFontSize: 16,
-      handleLabelFontFamily: 'sans-serif',
-      handleLabelFontWeight: 500,
-      handleLabelLineHeight: 20,
-      handleLabelTextAlign: 'center',
-      handleLabelTextBaseline: 'middle',
-      handleLabelFill: '#000',
-      handleLabelFillOpacity: 0.9,
-      handleLabelStroke: '#DAF5EC',
-      handleLabelStrokeOpacity: 0.9,
-      handleLabelLineWidth: 2,
-      handleLabelLineDash: [4, 8],
-      handleLabelOpacity: 1,
-      handleLabelShadowColor: '#d3d3d3',
-      handleLabelShadowBlur: 10,
-      handleLabelShadowOffsetX: 10,
-      handleLabelShadowOffsetY: 10,
-      handleLabelCursor: 'pointer',
-
-      handleIconSize: 50,
-      // Configure handleIcon drawing properties
-      handleIconFill: '#000',
-      handleIconFillOpacity: 0.9,
-      handleIconStroke: '#DAF5EC',
-      handleIconStrokeOpacity: 0.9,
-      handleIconLineWidth: 2,
-      handleIconLineDash: [4, 8],
-      handleIconOpacity: 1,
-      handleIconShadowColor: '#d3d3d3',
-      handleIconShadowBlur: 10,
-      handleIconShadowOffsetX: 10,
-      handleIconShadowOffsetY: 10,
-      handleIconCursor: 'pointer',
-    },
-  },
-});
-```
-
-### label
-
-<description> _LegendLabelCfg_ **optional** </description>
-
-Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure labels/tick values of continuous legend. _LegendLabelCfg_ configuration is as follows:
-
-| Property           | Description                                                                                                                             | Type                                                         | Default Value | Required |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| label              | Whether to display continuous legend tick values                                                                                        | boolean                                                      | true          |          |
-| labelFormatter     | Continuous legend tick value formatter                                                                                                  | (datum, index, data)=>string                                 | -             |          |
-| labelFilter        | Continuous legend tick value filter                                                                                                     | (datum, index, data)=>boolean                                | -             |          |
-| labelDirection     | Position of continuous legend tick values relative to color band, refer to `axis direction`                                             | `positive` \| `negative`                                     | `positive`    |          |
-| labelSpacing       | Spacing from continuous legend tick values to color band                                                                                | number                                                       | `3`           |          |
-| labelAlign         | Continuous legend tick value alignment<br/> - `'value'` align to tick<br/>- `'range'` align to range                                    | `value` \| `range`                                           | `value`       |          |
-| labelFontSize      | Continuous legend tick value text size                                                                                                  | number \| (datum, index, data) => number                     | `12`          |          |
-| labelFontFamily    | Continuous legend tick value text font                                                                                                  | string \| (datum, index, data) => string                     | -             |          |
-| labelFontWeight    | Continuous legend tick value font weight                                                                                                | number \| (datum, index, data) => number                     | `normal`      |          |
-| labelLineHeight    | Continuous legend tick value text line height                                                                                           | number \| (datum, index, data) => number                     | -             |          |
-| labelTextAlign     | Set continuous legend tick value text content alignment                                                                                 | `center` \| `end` \| `left` \| `right` \| `start`            | `start`       |          |
-| labelTextBaseline  | Set text baseline used when drawing continuous legend tick value text                                                                   | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`      |          |
-| labelFill          | Continuous legend tick value font color                                                                                                 | string \| (datum, index, data) => string                     | `#1D2129`     |          |
-| labelFillOpacity   | Continuous legend tick value font color opacity                                                                                         | number \| (datum, index, data) => number                     | `0.45`        |          |
-| labelStroke        | Continuous legend tick value font stroke color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| labelStrokeOpacity | Continuous legend tick value font stroke color opacity                                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| labelLineWidth     | Continuous legend tick value font stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| labelLineDash      | Continuous legend tick value font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| labelOpacity       | Continuous legend tick value text overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| labelShadowColor   | Continuous legend tick value text shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| labelShadowBlur    | Continuous legend tick value text shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| labelShadowOffsetX | Set horizontal distance from shadow to continuous legend tick value text                                                                | number \| (datum, index, data) => number                     | -             |          |
-| labelShadowOffsetY | Set vertical distance from shadow to continuous legend tick value text                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| labelCursor        | Handle label mouse style. Same as CSS mouse styles                                                                                      | string \| (datum, index, data) => string                     | `default`     |          |
-
-**Tick value alignment methods**
-
-- Align to tick
-
- <img alt="align-tick" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vN1uQqWZ3K4AAAAAAAAAAAAADmJ7AQ/original" width="300" />
-
-- Align to range
-
- <img alt="align-range" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*R_C4QJ5JxgMAAAAAAAAAAAAADmJ7AQ/original" width="300" />
-
-When configuring continuous legend labels/tick values properties in the Legend component, it's not configured as an object, but with `label` prefix plus property.
-
-```js
-({
-  legend: {
-    color: {
-      label: true,
-      labelFormatter: (d) => {},
-      labelFilter: (datum, index, data) => {},
-      labelDirection: 'positive',
-      labelSpacing: 5,
-      labelAlign: 'range',
-      // Configure continuous legend tick value label drawing properties
-      labelFontSize: 16,
-      labelFontFamily: 'sans-serif',
-      labelFontWeight: 500,
-      labelLineHeight: 20,
-      labelTextAlign: 'center',
-      labelTextBaseline: 'middle',
-      labelFill: '#000',
-      labelFillOpacity: 0.9,
-      labelStroke: '#DAF5EC',
-      labelStrokeOpacity: 0.9,
-      labelLineWidth: 2,
-      labelLineDash: [4, 8],
-      labelOpacity: 1,
-      labelShadowColor: '#d3d3d3',
-      labelShadowBlur: 10,
-      labelShadowOffsetX: 10,
-      labelShadowOffsetY: 10,
-      labelCursor: 'pointer',
-    },
-  },
-});
-```
-
-### indicator
-
-<description> _LegendIndicatorCfg_ **optional** </description>
-
-Applicable to <Badge type="warning">Continuous Legend</Badge>. Configure indicator of continuous legend. The indicator is a tooltip component that indicates the value at the current position during interaction with the continuous legend.
-
-<img alt="indicator" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NiI8Ta84y_MAAAAAAAAAAAAADmJ7AQ/original" height="50" />
-
-_LegendIndicatorCfg_ configuration is as follows:
-
-| Property                         | Description                                                                                                                      | Type                                                         | Default Value | Required |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------- | -------- |
-| indicator                        | Whether to display continuous legend value indicator                                                                             | boolean                                                      | false         |          |
-| indicatorFormatter               | Value indicator formatter                                                                                                        | (datum, index, data)=>string                                 | -             |          |
-| indicatorLabelFontSize           | Value indicator text size                                                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelFontFamily         | Value indicator text font                                                                                                        | string \| (datum, index, data) => string                     | -             |          |
-| indicatorLabelFontWeight         | Value indicator font weight                                                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelLineHeight         | Value indicator text line height                                                                                                 | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelTextAlign          | Set value indicator text content alignment                                                                                       | `center` \| `end` \| `left` \| `right` \| `start`            | `start`       |          |
-| indicatorLabelTextBaseline       | Set text baseline used when drawing value indicator text                                                                         | `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`   | `bottom`      |          |
-| indicatorLabelFill               | Value indicator font color                                                                                                       | string \| (datum, index, data) => string                     | -             |          |
-| indicatorLabelFillOpacity        | Value indicator font color opacity                                                                                               | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelStroke             | Value indicator font stroke color                                                                                                | string \| (datum, index, data) => string                     | -             |          |
-| indicatorLabelStrokeOpacity      | Value indicator font stroke color opacity                                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelLineWidth          | Value indicator font stroke width                                                                                                | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelLineDash           | Value indicator font stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke.       | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| indicatorLabelOpacity            | Value indicator text overall opacity                                                                                             | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelShadowColor        | Value indicator text shadow color                                                                                                | string \| (datum, index, data) => string                     | -             |          |
-| indicatorLabelShadowBlur         | Value indicator text shadow Gaussian blur coefficient                                                                            | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelShadowOffsetX      | Set horizontal distance from shadow to value indicator text                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelShadowOffsetY      | Set vertical distance from shadow to value indicator text                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| indicatorLabelCursor             | Value indicator mouse style. Same as CSS mouse styles                                                                            | string \| (datum, index, data) => string                     | `default`     |          |
-| indicatorBackgroundFill          | Value indicator background fill color                                                                                            | string \| (datum, index, data) => string                     | -             |          |
-| indicatorBackgroundFillOpacity   | Value indicator background fill opacity                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundStroke        | Value indicator background stroke                                                                                                | string \| (datum, index, data) => string                     | -             |          |
-| indicatorBackgroundStrokeOpacity | Value indicator background stroke opacity                                                                                        | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundLineWidth     | Value indicator background stroke width                                                                                          | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundLineDash      | Value indicator background stroke dash configuration. First value is dash length, second is gap distance. [0,0] means no stroke. | [number,number] \| (datum, index, data) => [number , number] | -             |          |
-| indicatorBackgroundOpacity       | Value indicator background overall opacity                                                                                       | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundShadowColor   | Value indicator background shadow color                                                                                          | string \| (datum, index, data) => string                     | -             |          |
-| indicatorBackgroundShadowBlur    | Value indicator background shadow Gaussian blur coefficient                                                                      | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundShadowOffsetX | Set horizontal distance from shadow to value indicator background                                                                | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundShadowOffsetY | Set vertical distance from shadow to value indicator background                                                                  | number \| (datum, index, data) => number                     | -             |          |
-| indicatorBackgroundCursor        | Value indicator background mouse style. Same as CSS mouse styles.                                                                | string \| (datum, index, data) => string                     | `default`     |          |
-
-When configuring value indicator properties in the Legend component, it's not configured as an object, but with `indicator` prefix plus property.
-
-```js
-({
-  legend: {
-    color: {
-      indicator: 'true',
-      indicatorFormatter: (d) => {},
-
-      // Configure indicatorLabel drawing properties
-      indicatorLabelFontSize: 16,
-      indicatorLabelFontFamily: 'sans-serif',
-      indicatorLabelFontWeight: 500,
-      indicatorLabelLineHeight: 20,
-      indicatorLabelTextAlign: 'center',
-      indicatorLabelTextBaseline: 'middle',
-      indicatorLabelFill: '#000',
-      indicatorLabelFillOpacity: 0.9,
-      indicatorLabelStroke: '#DAF5EC',
-      indicatorLabelStrokeOpacity: 0.9,
-      indicatorLabelLineWidth: 2,
-      indicatorLabelLineDash: [4, 8],
-      indicatorLabelOpacity: 1,
-      indicatorLabelShadowColor: '#d3d3d3',
-      indicatorLabelShadowBlur: 10,
-      indicatorLabelShadowOffsetX: 10,
-      indicatorLabelShadowOffsetY: 10,
-      indicatorLabelCursor: 'pointer',
-
-      // Configure indicatorBackground drawing properties
-      indicatorBackgroundFill: '#000',
-      indicatorBackgroundFillOpacity: 0.9,
-      indicatorBackgroundStroke: '#DAF5EC',
-      indicatorBackgroundStrokeOpacity: 0.9,
-      indicatorBackgroundLineWidth: 2,
-      indicatorBackgroundLineDash: [4, 8],
-      indicatorBackgroundOpacity: 1,
-      indicatorBackgroundShadowColor: '#d3d3d3',
-      indicatorBackgroundShadowBlur: 10,
-      indicatorBackgroundShadowOffsetX: 10,
-      indicatorBackgroundShadowOffsetY: 10,
-      indicatorBackgroundCursor: 'pointer',
-    },
-  },
-});
-```
-
 ## Events
 
-The Legend component exposes some special events for getting component interaction information.
+Legend component exposes some special events to get component interaction information.
 
-| Event Type                                                  | Description                                          | Type                                             |
-| ----------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------ |
-| click <Badge type="success">Categorical Legend</Badge>      | Triggered when clicking legend item                  | `(item:Selection)=>void`                         |
-| mouseenter <Badge type="success">Categorical Legend</Badge> | Triggered when mouse enters legend item              | `(item: Selection)=>void`                        |
-| mouseleave <Badge type="success">Categorical Legend</Badge> | Triggered when mouse leaves legend item              | `(item:Selection)=>void`                         |
-| valuechange <Badge type="warning">Continuous Legend</Badge> | Triggered when slider window selection range changes | `(range: [number, number])=>void`                |
-| indicate <Badge type="warning">Continuous Legend</Badge>    | Triggered when indicator value changes               | `(value: number, range: [number, number])=>void` |
+| Event Type                                            | Description                                          | Type                                             |
+| ----------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------ |
+| click <Badge type="success">Categorical Legend</Badge>       | Triggered when clicking legend item                 | `(item:Selection)=>void`                         |
+| mouseenter <Badge type="success">Categorical Legend</Badge>  | Triggered when mouse enters legend item             | `(item: Selection)=>void`                        |
+| mouseleave <Badge type="success">Categorical Legend</Badge>  | Triggered when mouse leaves legend item             | `(item:Selection)=>void`                         |
+| valuechange <Badge type="warning">Continuous Legend</Badge> | Triggered when sliding window range changes         | `(range: [number, number])=>void`                |
+| indicate <Badge type="warning">Continuous Legend</Badge>    | Triggered when indicator value changes              | `(value: number, range: [number, number])=>void` |
 
-Components appear after chart rendering, so component events should be mounted after `afterrender`. Here's an example:
+Component appears only after chart rendering, so component events should be mounted after `afterrender`. Here's an example:
 
 ```js
 chart.on('afterrender', () => {
@@ -1392,9 +1368,9 @@ chart.on('afterrender', () => {
 
 ## Examples
 
-### Default Display of Only Partial Legends on First Chart Render
+### Default Display of Partial Legend Items on First Render
 
-There's currently no built-in API for this, so you need to manually trigger legendFilter to achieve it.
+Currently there's no built-in API, you need to manually trigger the `legendFilter` interaction to achieve this.
 
 ```js | ob { inject: true }
 import { Chart, ChartEvent } from '@antv/g2';
@@ -1420,6 +1396,59 @@ chart.on(ChartEvent.AFTER_RENDER, () => {
     data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
   });
 });
+```
+
+You can set `animate: false` to avoid triggering update animations, but there will still be flickering. This will be handled internally through configuration options in the future to achieve better filtering effects.
+
+### Vertical Layout Legend Pagination
+
+When legend position is `right` or `left`, since `maxRows` doesn't take effect, you need to control legend height through the `length` property to achieve pagination.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+  width: 600,
+});
+
+// Create data with multiple legend items
+const data = [
+  { category: 'Category A', value: 40 },
+  { category: 'Category B', value: 35 },
+  { category: 'Category C', value: 30 },
+  { category: 'Category D', value: 25 },
+  { category: 'Category E', value: 20 },
+  { category: 'Category F', value: 18 },
+  { category: 'Category G', value: 15 },
+  { category: 'Category H', value: 12 },
+  { category: 'Category I', value: 10 },
+  { category: 'Category J', value: 8 },
+  { category: 'Category K', value: 6 },
+  { category: 'Category L', value: 4 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'category', y: 'value', color: 'category' },
+  legend: {
+    color: {
+      position: 'right',
+      length: 150, // Limit legend height to trigger pagination
+      size: 120, // Control legend width
+      navOrientation: 'vertical', // Vertical pagination
+      navDefaultPage: 0, // Default to first page
+      navLoop: true, // Enable loop navigation
+      navButtonFill: '#1890ff', // Pagination button color
+      navPageNumFill: '#1890ff', // Page number color
+      navFormatter: (current, total) => `${current + 1}/${total}`, // Page number format
+    },
+  },
+});
+
+chart.render();
 ```
 
 ### Custom Legend Item Marker (itemMarker)

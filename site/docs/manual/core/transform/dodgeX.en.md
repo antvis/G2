@@ -15,7 +15,9 @@ order: 2
 
 The `dodgeX` transform is primarily used for scenarios where data within the same group needs to be arranged side by side by series on the coordinate system, to highlight data differences and distribution characteristics between different series.
 
-For example, the following case shows the population distribution of different age groups across US states. Through the `dodgeX` transform, data from different age groups are displayed side by side within each state, making it easy to visually compare them.
+For example, the following case shows the population distribution of different age groups across US states.
+
+**Before using the `dodgeX` transform**: Data will be stacked together, making it difficult to clearly see comparisons between age groups.
 
 ```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
@@ -37,7 +39,36 @@ chart.options({
   encode: { x: 'state', y: 'population', color: 'age' },
   transform: [
     { type: 'sortX', by: 'y', reverse: true, slice: 6 },
-    { type: 'dodgeX' },
+    // Note: No dodgeX transform is used here
+  ],
+});
+
+chart.render();
+```
+
+**After using the `dodgeX` transform**: Through the `dodgeX` transform, data from different age groups are displayed side by side within each state, making it easy to visually compare them.
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
+    format: 'csv',
+  },
+  axis: { y: { labelFormatter: '~s' } },
+  encode: { x: 'state', y: 'population', color: 'age' },
+  transform: [
+    { type: 'sortX', by: 'y', reverse: true, slice: 6 },
+    { type: 'dodgeX' }, // Apply dodgeX transform to achieve side-by-side grouping effect
   ],
 });
 
@@ -84,9 +115,50 @@ type TransformOrder =
 
 ## Examples
 
-The following example demonstrates the functionality of various configuration options for the `dodgeX` transform:
+The following examples demonstrate the functionality of various configuration options for the `dodgeX` transform. We can see the differences by comparing before and after the transformation:
 
-- **groupBy**: Group and display department data by `x` channel (quarter)
+**Before transformation**: Data from different departments will be stacked, making horizontal comparison difficult.
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [
+  { Quarter: 'Q1', Department: 'Sales', Performance: 90, Year: '2024' },
+  { Quarter: 'Q1', Department: 'Marketing', Performance: 80, Year: '2024' },
+  { Quarter: 'Q1', Department: 'R&D', Performance: 70, Year: '2024' },
+  { Quarter: 'Q2', Department: 'Sales', Performance: 90, Year: '2024' },
+  { Quarter: 'Q2', Department: 'Marketing', Performance: 70, Year: '2024' },
+  { Quarter: 'Q2', Department: 'R&D', Performance: 80, Year: '2024' },
+  { Quarter: 'Q3', Department: 'Sales', Performance: 70, Year: '2024' },
+  { Quarter: 'Q3', Department: 'Marketing', Performance: 80, Year: '2024' },
+  { Quarter: 'Q3', Department: 'R&D', Performance: 90, Year: '2024' },
+  { Quarter: 'Q4', Department: 'Sales', Performance: 80, Year: '2024' },
+  { Quarter: 'Q4', Department: 'Marketing', Performance: 70, Year: '2024' },
+  { Quarter: 'Q4', Department: 'R&D', Performance: 90, Year: '2024' },
+];
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data,
+  encode: {
+    x: 'Quarter',
+    y: 'Performance',
+    color: 'Department',
+  },
+  // Note: No transform is used here
+});
+
+chart.render();
+```
+
+**After transformation**: The effect after applying the `dodgeX` transform, demonstrating the functionality of various configuration options:
+
+- **groupBy**: Group and display department data by `x` channel (Quarter)
 - **orderBy**: Set to `value` to sort elements within groups by performance value
 - **reverse**: Set to true to arrange elements within groups from high to low performance values
 - **padding**: Set spacing between elements within groups to 0.1
@@ -124,7 +196,7 @@ chart.options({
   },
   transform: [
     {
-      type: 'dodgeX',
+      type: 'dodgeX', // Apply dodgeX transform
       groupBy: 'x',
       orderBy: 'value',
       reverse: true,

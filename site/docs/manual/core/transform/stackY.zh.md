@@ -20,6 +20,63 @@ stackY 通常用于以下图表类型：
 - 堆叠面积图、
 - 等等其他需要数据堆叠的可视化形式。
 
+**未使用 `stackY` 转换前**：数据会堆叠在一起，无法清晰看到各类别的对比。
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    format: 'csv',
+    transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
+  },
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  transform: [{ type: 'groupX', y: 'sum' }],
+  // 注意：这里没有使用 stackY 转换
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  style: { fillOpacity: 0.7 },
+  axis: { y: { labelFormatter: '~s' } },
+  tooltip: { items: [{ channel: 'y', valueFormatter: '~s' }] },
+});
+
+chart.render();
+```
+
+**使用 `stackY` 转换后**：通过 `stackY` 转换让不同类别的数据堆叠展示，既能看到总数，又能对比分类大小。
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    format: 'csv',
+    transform: [{ type: 'filter', callback: (d) => d.year === 2000 }],
+  },
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  transform: [{ type: 'groupX', y: 'sum' }, { type: 'stackY' }], // 应用 stackY 转换，实现堆叠效果
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  style: { fillOpacity: 0.7 },
+  axis: { y: { labelFormatter: '~s' } },
+  tooltip: { items: [{ channel: 'y', valueFormatter: '~s' }] },
+});
+
+chart.render();
+```
+
 ## 配置项
 
 | 属性    | 描述                      | 类型                 | 默认值 |

@@ -338,7 +338,7 @@ chart.options({
 | ----------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---------- | ---- |
 | tick              | 是否显示刻度                                                                                                      | `boolean`                                                                                                                   | true       |      |
 | tickCount         | 设置推荐生成的刻度数量；tickCount 只是一个建议值                                                                  | `number`                                                                                                                    | -          |      |
-| tickMethod        | 自定义刻度生成方法                                                                                               | `(start: number \| Date, end: number \| Date, tickCount: number) => number[]`                                              | -          |      |
+| tickMethod        | 自定义刻度生成方法                                                                                                | `(start: number \| Date, end: number \| Date, tickCount: number) => number[]`                                               | -          |      |
 | tickFilter        | 刻度线过滤                                                                                                        | `(datum, index, data)=>boolean`                                                                                             | -          |      |
 | tickFormatter     | 刻度线格式化，可用于自定义刻度样式，回调函数中会额外返回该刻度的方向                                              | [DisplayObject](https://g.antv.antgroup.com/api/basic/display-object) &#124; `(datum, index, data, Vector)=> DisplayObject` | -          |      |
 | tickDirection     | 刻度朝向，为 `positive` 时，位于侧轴方向（即主轴顺时针 90 度方向）, 为 `negative` 时，刻度位于侧轴负方向          | `'positive'` &#124; `'negative'`                                                                                            | `positive` |
@@ -435,6 +435,8 @@ chart.options({
 
 `labelFormatter` 视觉通道用于调整标签的格式。
 
+##### 基本用法
+
 ```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
@@ -467,6 +469,92 @@ chart.options({
   },
 });
 chart.render();
+```
+
+##### D3 Format 格式化字符串
+
+G2 支持使用 [d3-format](https://d3js.org/d3-format) 兼容的格式化字符串，这是一套强大且标准化的数值格式化规范。
+
+##### 格式化语法
+
+D3 format 的基本语法：`[[fill]align][sign][symbol][0][width][,][.precision][~][type]`
+
+- **fill**: 填充字符，默认是空格
+- **align**: 对齐方式（`<` 左对齐，`^` 居中，`>` 右对齐，`=` 数字右对齐）
+- **sign**: 符号显示（`+` 总是显示符号，`-` 只显示负号，`(` 负数用括号）
+- **symbol**: 前缀符号（`#` 进制前缀，`$` 货币符号）
+- **0**: 零填充
+- **width**: 最小宽度
+- **,**: 千分位分隔符
+- **precision**: 精度
+- **~**: 去除尾随零
+- **type**: 格式类型
+
+##### 常用格式化类型
+
+| 类型 | 描述       | 示例          |
+| ---- | ---------- | ------------- |
+| `d`  | 整数       | `42`          |
+| `f`  | 固定小数位 | `42.00`       |
+| `e`  | 科学计数法 | `4.2e+1`      |
+| `s`  | SI 前缀    | `42k`, `1.5M` |
+| `%`  | 百分比     | `42%`         |
+| `$`  | 货币格式   | `$42.00`      |
+| `r`  | 有效数字   | `42.0`        |
+| `g`  | 通用格式   | `42`          |
+
+##### 格式化示例
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { 类型: '收入', 值: 1234567.89 },
+    { 类型: '支出', 值: -987654.32 },
+    { 类型: '利润', 值: 246913.57 },
+    { 类型: '投资', 值: 5000000 },
+  ],
+  encode: { x: '类型', y: '值', color: '类型' },
+  axis: {
+    y: {
+      title: '金额（元）',
+      // 使用 d3-format 格式化字符串
+      labelFormatter: ',.2s', // 千分位 + 两位有效数字 + SI前缀
+    },
+    x: {
+      title: '业务类型',
+    },
+  },
+});
+chart.render();
+```
+
+##### 自定义格式化函数
+
+除了使用 d3-format 字符串，你也可以传入自定义函数：
+
+```js
+axis: {
+  y: {
+    labelFormatter: (value, index, data) => {
+      // 自定义逻辑
+      if (value >= 1000000) {
+        return (value / 1000000).toFixed(1) + 'M';
+      } else if (value >= 1000) {
+        return (value / 1000).toFixed(1) + 'K';
+      }
+      return value.toString();
+    },
+  },
+}
 ```
 
 #### labelTransform
@@ -708,6 +796,174 @@ export interface WrapOverlapCfg extends Transform {
 | gridShadowOffsetX | 网格线阴影水平偏移量                                                                                              | `number` &#124; `(datum, index, data)=> number`                   | -         |      |
 | gridShadowOffsetY | 网格线阴影垂直偏移量                                                                                              | `number` &#124; `(datum, index, data)=> number`                   | -         |      |
 | gridCursor        | 网格线鼠标样式                                                                                                    | `string` &#124; `(datum, index, data)=> string`                   | `default` |      |
+
+#### 网格线配置示例
+
+##### 基础网格线
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { 月份: '1月', 销售额: 2000 },
+    { 月份: '2月', 销售额: 1500 },
+    { 月份: '3月', 销售额: 3000 },
+    { 月份: '4月', 销售额: 2500 },
+    { 月份: '5月', 销售额: 4000 },
+    { 月份: '6月', 销售额: 3500 },
+  ],
+  encode: { x: '月份', y: '销售额', color: '月份' },
+  axis: {
+    y: {
+      title: '销售额（万元）',
+      // 显示基础网格线
+      grid: true,
+      gridStroke: '#e6e6e6', // 网格线颜色
+      gridLineWidth: 2, // 网格线宽度
+      gridStrokeOpacity: 0.7, // 网格线透明度
+      gridLineDash: [0, 0],
+    },
+    x: {
+      title: '月份',
+      // x 轴通常不需要网格线
+      grid: false,
+    },
+  },
+});
+chart.render();
+```
+
+##### 虚线网格线
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 600,
+  height: 400,
+  data: [
+    { 时间: '9:00', 温度: 18 },
+    { 时间: '12:00', 温度: 24 },
+    { 时间: '15:00', 温度: 28 },
+    { 时间: '18:00', 温度: 22 },
+    { 时间: '21:00', 温度: 20 },
+  ],
+  encode: { x: '时间', y: '温度' },
+  style: { stroke: '#5B8FF9', lineWidth: 2 },
+  axis: {
+    y: {
+      title: '温度（°C）',
+      grid: true,
+      gridStroke: '#d9d9d9',
+      gridLineDash: [4, 4], // 虚线配置：4px 实线，4px 空白
+      gridStrokeOpacity: 0.8,
+    },
+    x: {
+      title: '时间',
+      grid: true,
+      gridStroke: '#f0f0f0',
+      gridLineDash: [2, 2], // 更细的虚线
+      gridStrokeOpacity: 0.6,
+    },
+  },
+});
+chart.render();
+```
+
+##### 带背景填充的网格线
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { 产品: 'A产品', 销量: 120 },
+    { 产品: 'B产品', 销量: 200 },
+    { 产品: 'C产品', 销量: 150 },
+    { 产品: 'D产品', 销量: 300 },
+    { 产品: 'E产品', 销量: 250 },
+  ],
+  encode: { x: '产品', y: '销量', color: '产品' },
+  axis: {
+    y: {
+      title: '销量（件）',
+      grid: true,
+      gridStroke: '#e8e8e8',
+      gridLineWidth: 1,
+      gridAreaFill: ['#fafafa', '#ffffff'], // 交替填充颜色
+      gridOpacity: 0.9,
+    },
+    x: {
+      title: '产品类型',
+      grid: false,
+    },
+  },
+});
+chart.render();
+```
+
+##### 自定义网格线过滤
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  width: 600,
+  height: 400,
+  data: [
+    { 季度: 'Q1', 收入: 100, 支出: 80 },
+    { 季度: 'Q2', 收入: 120, 支出: 90 },
+    { 季度: 'Q3', 收入: 150, 支出: 110 },
+    { 季度: 'Q4', 收入: 180, 支出: 140 },
+  ],
+  encode: { x: '季度', y: '收入' },
+  style: { fillOpacity: 0.6 },
+  axis: {
+    y: {
+      title: '金额（万元）',
+      grid: true,
+      gridStroke: '#cccccc',
+      gridLineWidth: 1,
+      // 只显示偶数索引的网格线
+      gridFilter: (datum, index) => index % 2 === 0,
+      gridStrokeOpacity: 0.8,
+    },
+    x: {
+      title: '季度',
+      grid: true,
+      gridStroke: '#e6e6e6',
+      gridLineDash: [3, 3],
+      gridStrokeOpacity: 0.5,
+    },
+  },
+});
+chart.render();
+```
 
 ### animate
 
