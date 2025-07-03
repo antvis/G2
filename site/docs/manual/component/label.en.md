@@ -615,16 +615,11 @@ chart.render();
 
 ##### Configuration Options
 
-| Property | Description                                                        | Type               | Default  |
-| -------- | ------------------------------------------------------------------ | ------------------ | -------- |
-| bounds   | Specify boundary region type for detection, supported from `5.3.4` | `'view' \| 'main'` | `'view'` |
-| offsetX  | Additional X-axis offset when auto-adjusting position              | `number`           | `0`      |
-| offsetY  | Additional Y-axis offset when auto-adjusting position              | `number`           | `0`      |
-
-- `'view'`: Detects if labels exceed the entire view area (including margin and padding)
-- `'main'`: Detects if labels exceed the main area (excluding margin and padding)
-- `'offsetX'`: Additional X-axis offset when triggering auto-adjustment, left boundary shifts right, right boundary shifts left
-- `'offsetY'`: Additional Y-axis offset when triggering auto-adjustment, top boundary shifts down, bottom boundary shifts up
+| Property | Description                                                          | Type               | Default |
+| -------- | -------------------------------------------------------------------- | ------------------ | ------- |
+| bounds   | Specify boundary region type for detection, supported from `5.3.4`   | `'view' \| 'main'` | `'view'` |
+| offsetX  | Additional X-axis offset when auto-adjusting position                | `number`           | `0`     |
+| offsetY  | Additional Y-axis offset when auto-adjusting position                | `number`           | `0`     |
 
 ##### Problem Case
 
@@ -1537,15 +1532,15 @@ chart.render();
 
 Supports `outside`, `inside` two types. See [Pie Chart/Donut Chart](/en/examples/general/pie/#donut-base).
 
-| position   | Usage                                                                                                | Before Usage                                                                                                        | After Usage                                                                                                 |
-| ---------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `spider`   | Adjusts labels to align along coordinate axis edges, for polar coordinate system                     | ![without-spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zadTTJI2nOEAAAAAAAAAAAAADmJ7AQ/original)   | ![spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original)   |
+| position   | Usage                                                                 | Before Usage                                                                                                        | After Usage                                                                                                 |
+| ---------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `spider`   | Adjusts labels to align along coordinate axis edges, for polar coordinate system | ![without-spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zadTTJI2nOEAAAAAAAAAAAAADmJ7AQ/original)   | ![spider](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gC20SLxWVicAAAAAAAAAAAAADmJ7AQ/original)   |
 | `surround` | Adjusts labels to surround coordinate system in a circle, for rose charts in polar coordinate system | ![without-surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cx8zT7vT5bUAAAAAAAAAAAAADmJ7AQ/original) | ![surround](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lRJqTLldgRYAAAAAAAAAAAAADmJ7AQ/original) |
 
 Additionally, provides special `area` for area charts, see [Area Chart Special Labels](/en/examples/general/area/#label). For radial type charts, adds `spider` and `surround` types.
 
-| position | Usage                                                                          | Before Usage                                                                                                 | After Usage                                                                                             |
-| -------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| position | Usage                                                                           | Before Usage                                                                                                 | After Usage                                                                                         |
+| -------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
 | `area`   | Displays area chart labels in the center of area regions with certain rotation | <img src='https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Gs-7SIFA2YIAAAAAAAAAAAAAemJ7AQ/original' /> | ![area](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZIamS4KwErEAAAAAAAAAAAAADmJ7AQ/original) |
 
 ### style
@@ -1575,28 +1570,28 @@ Additionally, provides special `area` for area charts, see [Area Chart Special L
 
 Label **text style** configuration, inherits from `G` engine's `Text`, all styles are applicable.
 
-| Property      | Description                                                                                                                                              | Type                                                | Default   | Required |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------- | -------- |
-| fontSize      | Label text size                                                                                                                                          | _number_ \| _Function<number>_                      | -         |          |
-| fontFamily    | Label text font family                                                                                                                                   | _string_ \| _Function<string>_                      | -         |          |
-| fontWeight    | Label text weight                                                                                                                                        | _number_ \| _Function<number>_                      | -         |          |
-| lineHeight    | Label text line height                                                                                                                                   | _number_ \| _Function<number>_                      | -         |          |
-| textAlign     | Sets horizontal alignment of label text content, supported properties: `center` \| `end` \| `left` \| `right` \| `start`, default is `start`             | _string_ \| _Function<string>_                      | `start`   |          |
-| textBaseline  | Sets vertical baseline when drawing label text, supported properties: `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`. Default is `bottom`    | _string_ \| _Function<string>_                      | `bottom`  |          |
-| fill          | Label text fill color                                                                                                                                    | _string_ \| _Function<string>_                      | -         |          |
-| fillOpacity   | Label text fill opacity                                                                                                                                  | _number_ \| _Function<number>_                      | -         |          |
-| stroke        | Label text stroke                                                                                                                                        | _string_ \| _Function<string>_                      | -         |          |
-| strokeOpacity | Label text stroke opacity                                                                                                                                | _number_ \| _Function<number>_                      | -         |          |
-| lineWidth     | Label text stroke width                                                                                                                                  | _number_ \| _Function<number>_                      | -         |          |
-| lineDash      | Label text stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0, 0] results in no stroke. | _\[number,number\]_ \| _Function<[number, number]>_ | -         |          |
-| opacity       | Label text overall opacity                                                                                                                               | _number_ \| _Function<number>_                      | -         |          |
-| shadowColor   | Label text shadow color                                                                                                                                  | _string_ \| _Function<string>_                      | -         |          |
-| shadowBlur    | Label text shadow Gaussian blur coefficient                                                                                                              | _number_ \| _Function<number>_                      | -         |          |
-| shadowOffsetX | Label text shadow horizontal offset                                                                                                                      | _number_ \| _Function<number>_                      | -         |          |
-| shadowOffsetY | Label text shadow vertical offset                                                                                                                        | _number_ \| _Function<number>_                      | -         |          |
-| cursor        | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                                         | _string_ \| _Function<string>_                      | `default` |          |
-| dx            | Label text horizontal offset                                                                                                                             | _number_ \| _Function<number>_                      | 0         |          |
-| dy            | Label text vertical offset                                                                                                                               | _number_ \| _Function<number>_                      | 0         |          |
+| Property      | Description                                                                                                                                                           | Type                                                | Default   | Required |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------- | -------- |
+| fontSize      | Label text size                                                                                                                                                       | _number_ \| _Function<number>_                      | -         |          |
+| fontFamily    | Label text font family                                                                                                                                                | _string_ \| _Function<string>_                      | -         |          |
+| fontWeight    | Label text weight                                                                                                                                                     | _number_ \| _Function<number>_                      | -         |          |
+| lineHeight    | Label text line height                                                                                                                                                | _number_ \| _Function<number>_                      | -         |          |
+| textAlign     | Sets horizontal alignment of label text content, supported properties: `center` \| `end` \| `left` \| `right` \| `start`, default is `start`                       | _string_ \| _Function<string>_                      | `start`   |          |
+| textBaseline  | Sets vertical baseline when drawing label text, supported properties: `top` \| `middle` \| `bottom` \| `alphabetic` \| `hanging`. Default is `bottom`               | _string_ \| _Function<string>_                      | `bottom`  |          |
+| fill          | Label text fill color                                                                                                                                                 | _string_ \| _Function<string>_                      | -         |          |
+| fillOpacity   | Label text fill opacity                                                                                                                                               | _number_ \| _Function<number>_                      | -         |          |
+| stroke        | Label text stroke                                                                                                                                                     | _string_ \| _Function<string>_                      | -         |          |
+| strokeOpacity | Label text stroke opacity                                                                                                                                             | _number_ \| _Function<number>_                      | -         |          |
+| lineWidth     | Label text stroke width                                                                                                                                               | _number_ \| _Function<number>_                      | -         |          |
+| lineDash      | Label text stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0, 0] results in no stroke.          | _\[number,number\]_ \| _Function<[number, number]>_ | -         |          |
+| opacity       | Label text overall opacity                                                                                                                                            | _number_ \| _Function<number>_                      | -         |          |
+| shadowColor   | Label text shadow color                                                                                                                                               | _string_ \| _Function<string>_                      | -         |          |
+| shadowBlur    | Label text shadow Gaussian blur coefficient                                                                                                                           | _number_ \| _Function<number>_                      | -         |          |
+| shadowOffsetX | Label text shadow horizontal offset                                                                                                                                   | _number_ \| _Function<number>_                      | -         |          |
+| shadowOffsetY | Label text shadow vertical offset                                                                                                                                     | _number_ \| _Function<number>_                      | -         |          |
+| cursor        | Mouse cursor style. Same as CSS cursor style, default 'default'.                                                                                                     | _string_ \| _Function<string>_                      | `default` |          |
+| dx            | Label text horizontal offset                                                                                                                                          | _number_ \| _Function<number>_                      | 0         |          |
+| dy            | Label text vertical offset                                                                                                                                            | _number_ \| _Function<number>_                      | 0         |          |
 
 ```js
 ({
@@ -1628,19 +1623,19 @@ Label **text style** configuration, inherits from `G` engine's `Text`, all style
 
 Label **connector line style** configuration, format: `connector${style}`, e.g.: `connectorStroke` represents connector line color. Requires position `spider`, `surround` to have connector elements.
 
-| Parameter              | Description                                                                                                                                          | Type                | Default   | Required |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | --------- | -------- |
-| connectorStroke        | Connector line color                                                                                                                                 | _string_            | -         |          |
-| connectorStrokeOpacity | Connector line opacity                                                                                                                               | _number_            | -         |          |
-| connectorLineWidth     | Connector line stroke width                                                                                                                          | _number_            | -         |          |
-| connectorLineDash      | Connector line dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke. | _\[number,number\]_ | -         |          |
-| connectorOpacity       | Connector line overall opacity                                                                                                                       | _number_            | -         |          |
-| connectorShadowColor   | Connector line shadow color                                                                                                                          | _string_            | -         |          |
-| connectorShadowBlur    | Connector line shadow Gaussian blur coefficient                                                                                                      | _number_            | -         |          |
-| connectorShadowOffsetX | Connector line shadow horizontal offset                                                                                                              | _number_            | -         |          |
-| connectorShadowOffsetY | Connector line shadow vertical offset                                                                                                                | _number_            | -         |          |
-| connectorCursor        | Mouse cursor style. Same as CSS cursor style                                                                                                         | _string_            | `default` |          |
-| connectorDistance      | Distance between connector line and text                                                                                                             | _number_            | -         |          |
+| Parameter              | Description                                                                                                                                                    | Type                | Default   | Required |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | --------- | -------- |
+| connectorStroke        | Connector line color                                                                                                                                           | _string_            | -         |          |
+| connectorStrokeOpacity | Connector line opacity                                                                                                                                         | _number_            | -         |          |
+| connectorLineWidth     | Connector line stroke width                                                                                                                                    | _number_            | -         |          |
+| connectorLineDash      | Connector line dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke.        | _\[number,number\]_ | -         |          |
+| connectorOpacity       | Connector line overall opacity                                                                                                                                 | _number_            | -         |          |
+| connectorShadowColor   | Connector line shadow color                                                                                                                                    | _string_            | -         |          |
+| connectorShadowBlur    | Connector line shadow Gaussian blur coefficient                                                                                                                | _number_            | -         |          |
+| connectorShadowOffsetX | Connector line shadow horizontal offset                                                                                                                        | _number_            | -         |          |
+| connectorShadowOffsetY | Connector line shadow vertical offset                                                                                                                          | _number_            | -         |          |
+| connectorCursor        | Mouse cursor style. Same as CSS cursor style                                                                                                                   | _string_            | `default` |          |
+| connectorDistance      | Distance between connector line and text                                                                                                                       | _number_            | -         |          |
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -1687,22 +1682,22 @@ chart.render();
 
 Label **text background box style** configuration, format: `background${style}`, e.g.: `backgroundFill` represents background box fill color.
 
-| Parameter               | Description                                                                                                                                                 | Type                | Default   | Required |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | --------- | -------- |
-| backgroundFill          | Background box fill color                                                                                                                                   | _string_            | -         |          |
-| backgroundFillOpacity   | Background box fill opacity                                                                                                                                 | _number_            | -         |          |
-| backgroundStroke        | Background box stroke                                                                                                                                       | _string_            | -         |          |
-| backgroundStrokeOpacity | Background box stroke opacity                                                                                                                               | _number_            | -         |          |
-| backgroundLineWidth     | Background box stroke width                                                                                                                                 | _number_            | -         |          |
-| backgroundLineDash      | Background box stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke. | _\[number,number\]_ | -         |          |
-| backgroundOpacity       | Background box overall opacity                                                                                                                              | _number_            | -         |          |
-| backgroundShadowColor   | Background box shadow color                                                                                                                                 | _string_            | -         |          |
-| backgroundShadowBlur    | Background box shadow Gaussian blur coefficient                                                                                                             | _number_            | -         |          |
-| backgroundShadowOffsetX | Background box shadow horizontal offset                                                                                                                     | _number_            | -         |          |
-| backgroundShadowOffsetY | Background box shadow vertical offset                                                                                                                       | _number_            | -         |          |
-| backgroundCursor        | Mouse cursor style. Same as CSS cursor style                                                                                                                | _string_            | `default` |          |
-| backgroundRadius        | Background box border radius                                                                                                                                | _number_            | -         |          |
-| backgroundPadding       | Background box padding                                                                                                                                      | _number[]_          | -         |          |
+| Parameter               | Description                                                                                                                                                     | Type                | Default   | Required |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | --------- | -------- |
+| backgroundFill          | Background box fill color                                                                                                                                       | _string_            | -         |          |
+| backgroundFillOpacity   | Background box fill opacity                                                                                                                                     | _number_            | -         |          |
+| backgroundStroke        | Background box stroke                                                                                                                                           | _string_            | -         |          |
+| backgroundStrokeOpacity | Background box stroke opacity                                                                                                                                   | _number_            | -         |          |
+| backgroundLineWidth     | Background box stroke width                                                                                                                                     | _number_            | -         |          |
+| backgroundLineDash      | Background box stroke dash configuration, first value is dash segment length, second value is gap distance. Setting lineDash to [0,0] results in no stroke.  | _\[number,number\]_ | -         |          |
+| backgroundOpacity       | Background box overall opacity                                                                                                                                  | _number_            | -         |          |
+| backgroundShadowColor   | Background box shadow color                                                                                                                                     | _string_            | -         |          |
+| backgroundShadowBlur    | Background box shadow Gaussian blur coefficient                                                                                                                 | _number_            | -         |          |
+| backgroundShadowOffsetX | Background box shadow horizontal offset                                                                                                                         | _number_            | -         |          |
+| backgroundShadowOffsetY | Background box shadow vertical offset                                                                                                                           | _number_            | -         |          |
+| backgroundCursor        | Mouse cursor style. Same as CSS cursor style                                                                                                                   | _string_            | `default` |          |
+| backgroundRadius        | Background box border radius                                                                                                                                     | _number_            | -         |          |
+| backgroundPadding       | Background box padding                                                                                                                                          | _number[]_          | -         |          |
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';

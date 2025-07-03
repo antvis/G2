@@ -6,7 +6,10 @@ import { isOverflow, parseAABB } from '../utils/bounds';
 import { bboxOf } from '../interaction/utils';
 import { mostContrast } from './utils';
 
-export type OverflowStrokeOptions = Omit<ContrastReverseLabelTransform, 'type'>;
+export type OverflowStrokeOptions = {
+  palette?: string[];
+  threshold?: number;
+};
 
 /**
  * Get bounds of element considering animation state.

@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function alphabetIntervalLabelContrastReverseOverflow(): G2Spec {
+export function alphabetIntervalLabelOverflowStroke(): G2Spec {
   return {
     width: 400,
     type: 'interval',
