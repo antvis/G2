@@ -435,6 +435,8 @@ For example, to configure label rotation, it's not configured under a label obje
 
 The `labelFormatter` visual channel is used to adjust label formatting.
 
+##### Basic Usage
+
 ```js | ob {  pin: false , inject: true }
 import { Chart } from '@antv/g2';
 
@@ -467,6 +469,92 @@ chart.options({
   },
 });
 chart.render();
+```
+
+##### D3 Format Strings
+
+G2 supports using [d3-format](https://d3js.org/d3-format) compatible format strings, which is a powerful and standardized numerical formatting specification.
+
+##### Format Syntax
+
+Basic syntax of D3 format: `[[fill]align][sign][symbol][0][width][,][.precision][~][type]`
+
+- **fill**: Fill character, default is space
+- **align**: Alignment (`<` left align, `^` center, `>` right align, `=` number right align)
+- **sign**: Sign display (`+` always show sign, `-` only show negative sign, `(` negative numbers in parentheses)
+- **symbol**: Prefix symbol (`#` base prefix, `$` currency symbol)
+- **0**: Zero padding
+- **width**: Minimum width
+- **,**: Thousands separator
+- **precision**: Precision
+- **~**: Remove trailing zeros
+- **type**: Format type
+
+##### Common Format Types
+
+| Type | Description      | Example       |
+| ---- | ---------------- | ------------- |
+| `d`  | Integer          | `42`          |
+| `f`  | Fixed decimals   | `42.00`       |
+| `e`  | Scientific       | `4.2e+1`      |
+| `s`  | SI prefix        | `42k`, `1.5M` |
+| `%`  | Percentage       | `42%`         |
+| `$`  | Currency format  | `$42.00`      |
+| `r`  | Significant digits | `42.0`        |
+| `g`  | General format   | `42`          |
+
+##### Format Examples
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { type: 'Revenue', value: 1234567.89 },
+    { type: 'Expense', value: -987654.32 },
+    { type: 'Profit', value: 246913.57 },
+    { type: 'Investment', value: 5000000 },
+  ],
+  encode: { x: 'type', y: 'value', color: 'type' },
+  axis: {
+    y: {
+      title: 'Amount (USD)',
+      // Using d3-format string
+      labelFormatter: ',.2s', // Thousands separator + 2 significant digits + SI prefix
+    },
+    x: {
+      title: 'Business Type',
+    },
+  },
+});
+chart.render();
+```
+
+##### Custom Formatting Functions
+
+Besides using d3-format strings, you can also pass custom functions:
+
+```js
+axis: {
+  y: {
+    labelFormatter: (value, index, data) => {
+      // Custom logic
+      if (value >= 1000000) {
+        return (value / 1000000).toFixed(1) + 'M';
+      } else if (value >= 1000) {
+        return (value / 1000).toFixed(1) + 'K';
+      }
+      return value.toString();
+    },
+  },
+}
 ```
 
 #### labelTransform
@@ -691,6 +779,174 @@ Grid lines have different styles in different coordinate systems
 | gridShadowOffsetX | Grid line shadow horizontal offset                                                                                          | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
 | gridShadowOffsetY | Grid line shadow vertical offset                                                                                            | `number` &#124; `(datum, index, data)=> number`                   | -             |          |
 | gridCursor        | Grid line cursor style                                                                                                      | `string` &#124; `(datum, index, data)=> string`                   | `default`     |          |
+
+#### Grid Configuration Examples
+
+##### Basic Grid Lines
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { month: 'Jan', sales: 2000 },
+    { month: 'Feb', sales: 1500 },
+    { month: 'Mar', sales: 3000 },
+    { month: 'Apr', sales: 2500 },
+    { month: 'May', sales: 4000 },
+    { month: 'Jun', sales: 3500 },
+  ],
+  encode: { x: 'month', y: 'sales', color: 'month' },
+  axis: {
+    y: {
+      title: 'Sales (10k)',
+      // Show basic grid lines
+      grid: true,
+      gridStroke: '#e6e6e6', // Grid line color
+      gridLineWidth: 2, // Grid line width
+      gridStrokeOpacity: 0.7, // Grid line opacity
+      gridLineDash: [0, 0],
+    },
+    x: {
+      title: 'Month',
+      // X-axis usually doesn't need grid lines
+      grid: false,
+    },
+  },
+});
+chart.render();
+```
+
+##### Dashed Grid Lines
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 600,
+  height: 400,
+  data: [
+    { time: '9:00', temperature: 18 },
+    { time: '12:00', temperature: 24 },
+    { time: '15:00', temperature: 28 },
+    { time: '18:00', temperature: 22 },
+    { time: '21:00', temperature: 20 },
+  ],
+  encode: { x: 'time', y: 'temperature' },
+  style: { stroke: '#5B8FF9', lineWidth: 2 },
+  axis: {
+    y: {
+      title: 'Temperature (°C)',
+      grid: true,
+      gridStroke: '#d9d9d9',
+      gridLineDash: [4, 4], // Dash configuration: 4px solid, 4px gap
+      gridStrokeOpacity: 0.8,
+    },
+    x: {
+      title: 'Time',
+      grid: true,
+      gridStroke: '#f0f0f0',
+      gridLineDash: [2, 2], // Finer dashes
+      gridStrokeOpacity: 0.6,
+    },
+  },
+});
+chart.render();
+```
+
+##### Grid Lines with Background Fill
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { product: 'Product A', sales: 120 },
+    { product: 'Product B', sales: 200 },
+    { product: 'Product C', sales: 150 },
+    { product: 'Product D', sales: 300 },
+    { product: 'Product E', sales: 250 },
+  ],
+  encode: { x: 'product', y: 'sales', color: 'product' },
+  axis: {
+    y: {
+      title: 'Sales (units)',
+      grid: true,
+      gridStroke: '#e8e8e8',
+      gridLineWidth: 1,
+      gridAreaFill: ['#fafafa', '#ffffff'], // Alternating fill colors
+      gridOpacity: 0.9,
+    },
+    x: {
+      title: 'Product Type',
+      grid: false,
+    },
+  },
+});
+chart.render();
+```
+
+##### Custom Grid Line Filtering
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  width: 600,
+  height: 400,
+  data: [
+    { quarter: 'Q1', revenue: 100, expense: 80 },
+    { quarter: 'Q2', revenue: 120, expense: 90 },
+    { quarter: 'Q3', revenue: 150, expense: 110 },
+    { quarter: 'Q4', revenue: 180, expense: 140 },
+  ],
+  encode: { x: 'quarter', y: 'revenue' },
+  style: { fillOpacity: 0.6 },
+  axis: {
+    y: {
+      title: 'Amount (10k)',
+      grid: true,
+      gridStroke: '#cccccc',
+      gridLineWidth: 1,
+      // Show only even-indexed grid lines
+      gridFilter: (datum, index) => index % 2 === 0,
+      gridStrokeOpacity: 0.8,
+    },
+    x: {
+      title: 'Quarter',
+      grid: true,
+      gridStroke: '#e6e6e6',
+      gridLineDash: [3, 3],
+      gridStrokeOpacity: 0.5,
+    },
+  },
+});
+chart.render();
+```
 
 ### animate
 
