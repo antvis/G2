@@ -172,8 +172,8 @@ export async function toMatchDOMSnapshot(
         // Add difference details to message.
         result.differences.forEach((diff, index) => {
           diffMessage += `\nDifference ${index + 1} at line ${diff.line}:\n`;
-          diffMessage += `  Expected: ${diff.expected}\n`;
-          diffMessage += `  ❌Actual: ${diff.actual}`;
+          diffMessage += ` Expected✅: ${diff.expected}\n`;
+          diffMessage += `   Actual❌: ${diff.actual}`;
         });
       }
 

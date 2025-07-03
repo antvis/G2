@@ -239,6 +239,7 @@ Currently supported label transformations:
 | --------------- | ---------------------------------------------------------------------------------------------------------------- |
 | overlapDodgeY   | Adjusts overlapping labels in the y direction to prevent label overlap                                           |
 | contrastReverse | When label color has low contrast on graphic background, selects optimal contrast color from specified palette   |
+| overflowStroke  | In case of overflow, select a color with the best contrast from the specified color palette to stroke            |
 | overflowHide    | Hides labels when they don't fit on the graphic                                                                  |
 | overlapHide     | Hides overlapping labels, by default keeps the first one and hides subsequent ones                               |
 | exceedAdjust    | Automatically detects and corrects label overflow, moving labels in reverse direction when they exceed view area |
@@ -384,10 +385,108 @@ chart.options({
 chart.render();
 ```
 
-| Property  | Description                                                                              | Type     | Default           | Required |
-| --------- | ---------------------------------------------------------------------------------------- | -------- | ----------------- | -------- |
-| threshold | Color contrast threshold between label and background graphic, colors recommended above threshold | `number` | `4.5`             |          |
-| palette   | Alternative color palette for contrast improvement algorithm                             | `string[]` | `['#000', '#fff']` |          |
+| Property  | Description                                                                                       | Type       | Default            | Required |
+| --------- | ------------------------------------------------------------------------------------------------- | ---------- | ------------------ | -------- |
+| threshold | Color contrast threshold between label and background graphic, colors recommended above threshold | `number`   | `4.5`              |          |
+| palette   | Alternative color palette for contrast improvement algorithm                                      | `string[]` | `['#000', '#fff']` |          |
+
+#### overflowStroke
+
+`overflowStroke` selects an optimal contrast color from a specified palette to add stroke to the label. Similar to the principle of white text with black border, it addresses the issue where label color blends with the background when labels overflow elements, making them hard to read.
+
+##### Problem Case
+
+In the following example, the label color has good contrast with the graphic background, but readability becomes very poor when overflowing.
+
+```js | ob {  pin: false, inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  width: 200,
+  type: 'interval',
+  scale: {
+    color: { range: ['#222'] },
+  },
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 8167 },
+    { letter: 'B', frequency: 1492 },
+    { letter: 'C', frequency: 2782 },
+    { letter: 'D', frequency: 4253 },
+    { letter: 'E', frequency: 2702 },
+    { letter: 'H', frequency: 6094 },
+    { letter: 'I', frequency: 2288 },
+  ],
+  encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
+  labels: [
+    {
+      text: 'frequency',
+      transform: [
+        {
+          type: 'contrastReverse',
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+##### Configuring `overflowStroke` for Stroke Optimization
+
+Optimizes stroke for unclear `label` text.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  width: 200,
+  type: 'interval',
+  scale: {
+    color: { range: ['#222'] },
+  },
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 8167 },
+    { letter: 'B', frequency: 1492 },
+    { letter: 'C', frequency: 2782 },
+    { letter: 'D', frequency: 4253 },
+    { letter: 'E', frequency: 2702 },
+    { letter: 'H', frequency: 6094 },
+    { letter: 'I', frequency: 2288 },
+  ],
+  encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
+  labels: [
+    {
+      text: 'frequency',
+      transform: [
+        {
+          type: 'contrastReverse',
+        },
+        {
+          type: 'overflowStroke',
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+| Property  | Description                                                                    | Type       | Default            | Required |
+| --------- | ------------------------------------------------------------------------------ | ---------- | ------------------ | -------- |
+| threshold | Overflow threshold, the larger the threshold, the less likely it is to trigger | `number`   | 2                  |          |
+| palette   | Alternative color palette for contrast improvement algorithm                   | `string[]` | `['#000', '#fff']` |          |
 
 #### overflowHide
 

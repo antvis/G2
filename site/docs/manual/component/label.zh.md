@@ -235,13 +235,14 @@ chart.render();
 
 当前支持的标签转化如下：
 
-| type            | 描述                                                                             |
-| --------------- | -------------------------------------------------------------------------------- |
-| overlapDodgeY   | 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠                                |
-| contrastReverse | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
-| overflowHide    | 对于标签在图形上放置不下的时候，隐藏标签                                         |
-| overlapHide     | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
-| exceedAdjust    | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
+| type                  | 描述                                                                             |
+| --------------------- | -------------------------------------------------------------------------------- |
+| overlapDodgeY         | 对位置碰撞的标签在 y 方向上进行调整，防止标签重叠                                |
+| contrastReverse       | 标签颜色在图形背景上对比度低的情况下，从指定色板选择一个对比度最优的颜色         |
+| overflowStroke | 标签在溢出情况下，从指定色板选择一个对比度最优的颜色进行描边       |
+| overflowHide          | 对于标签在图形上放置不下的时候，隐藏标签                                         |
+| overlapHide           | 对位置碰撞的标签进行隐藏，默认保留前一个，隐藏后一个                             |
+| exceedAdjust          | 会自动对标签做溢出检测和矫正，即当标签超出指定区域时，会对标签自动做反方向的位移 |
 
 不同的转化类型，针对不同的标签问题情况。所以明确每个 `transform` 标签转化的区别十分有必要。
 
@@ -388,6 +389,101 @@ chart.render();
 | --------- | -------------------------------------------------------------- | ------ | ------------------ | ---- |
 | threshold | 标签和背景图形的颜色对比度阈值，超过阈值才会推荐颜色提升对比度 | `Type` | `4.5`              |      |
 | palette   | 对比度提升算法中，备选的颜色色板                               | `Type` | `['#000', '#fff']` |      |
+
+#### overflowStroke
+
+`overflowStroke` 从指定色板选择一个与标签颜色相比，对比度最优的颜色进行描边。类似字幕黑底白字原理，针对 `label` 溢出元素后可读性变差问题。
+
+##### 问题案例
+
+下面示例中 label 颜色与背景柱形区分明显，但溢出部分可读性又非常差。
+
+```js | ob {  pin: false, inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  width: 200,
+  type: 'interval',
+  scale: {
+    color: { range: ['#222'] },
+  },
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 8167 },
+    { letter: 'B', frequency: 1492 },
+    { letter: 'C', frequency: 2782 },
+    { letter: 'D', frequency: 4253 },
+    { letter: 'E', frequency: 2702 },
+    { letter: 'H', frequency: 6094 },
+    { letter: 'I', frequency: 2288 },
+  ],
+  encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
+  labels: [
+    {
+      text: 'frequency',
+      transform: [
+        {
+          type: 'contrastReverse',
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+##### 配置 `overflowStroke` 优化溢出标签的描边
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  width: 200,
+  type: 'interval',
+  scale: {
+    color: { range: ['#222'] },
+  },
+  autoFit: true,
+  data: [
+    { letter: 'A', frequency: 8167 },
+    { letter: 'B', frequency: 1492 },
+    { letter: 'C', frequency: 2782 },
+    { letter: 'D', frequency: 4253 },
+    { letter: 'E', frequency: 2702 },
+    { letter: 'H', frequency: 6094 },
+    { letter: 'I', frequency: 2288 },
+  ],
+  encode: { x: 'letter', y: 'frequency', color: () => 'bar' },
+  labels: [
+    {
+      text: 'frequency',
+      transform: [
+        {
+          type: 'contrastReverse',
+        },
+        {
+          type: 'overflowStroke',
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+| 属性        | 描述                                                 | 类型                               | 默认值             | 必选 |
+| ----------- | ---------------------------------------------------- | ---------------------------------- | ------------------ | ---- |
+| threshold | 溢出阈值，越大越不越容易触发描边 | `number`           |   2   |
+| palette     | 描边备选的颜色色板，会自动选择与标签颜色对比度最大的颜色                     | `string[]`                         | `['#000', '#fff']` |      |
 
 #### overflowHide
 

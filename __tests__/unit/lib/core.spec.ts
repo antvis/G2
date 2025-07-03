@@ -162,6 +162,7 @@ import {
 import {
   OverflowHide,
   ContrastReverse,
+  OverflowStroke,
   OverlapHide,
   OverlapDodgeY,
   ExceedAdjust,
@@ -325,6 +326,7 @@ describe('corelib', () => {
       'labelTransform.overlapDodgeY': OverlapDodgeY,
       'labelTransform.overflowHide': OverflowHide,
       'labelTransform.contrastReverse': ContrastReverse,
+      'labelTransform.overflowStroke': OverflowStroke,
     });
   });
 });

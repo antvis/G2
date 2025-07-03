@@ -4,6 +4,7 @@ export type LabelTransform =
   | OverlapHideLabelTransform
   | OverlapDodgeYLabelTransform
   | ContrastReverseLabelTransform
+  | OverflowStrokeTransform
   | OverflowHideLabelTransform;
 
 export type OverlapHideLabelTransform = {
@@ -26,6 +27,19 @@ export type ContrastReverseLabelTransform = {
   /**
    * Transform when the contrast ratio < threshold.
    * Default is `4.5`.
+   */
+  threshold?: number;
+  /**
+   * The optional color palette, default is [#000, #fff].
+   */
+  palette?: string[];
+};
+
+export type OverflowStrokeTransform = {
+  type?: 'overlapStroke';
+  /**
+   * Stroke when label overflow more than threshold.
+   * Default is `2`.
    */
   threshold?: number;
   /**
