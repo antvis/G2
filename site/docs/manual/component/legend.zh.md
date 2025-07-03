@@ -91,8 +91,8 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | orientation                                           | 图例朝向，对于分类图例来说即滚动方向             | `horizontal` \| `vertical`                                         | `horizontal`                          |      |
 | position                                              | 图例的位置                                       | `top` \| `right` \| `left` \| `bottom`                             | `top`                                 |      |
 | layout                                                | 调整图例的 flex 布局方式                         | [layout](#layout)                                                  | 详见[layout](#layout)                 |
-| size                                                  | 图例的尺寸                                       | number                                                             | -                                     |
-| width                                                 | 图例的宽度                                       | number                                                             | -                                     |
+| size                                                  | 图例容器的尺寸                                       | number                                                             | -                                     |
+| length                                                | 图例容器的长度                                       | number                                                             | -                                     |
 | crossPadding                                          | 图例到图表区域的距离                             | number                                                             | `12`                                  |
 | order                                                 | 图例在布局的时候的排序                           | number                                                             | `1`                                   |
 | title                                                 | 配置图例的标题                                   | [title](#title)                                                    | 详见[title](#title)                   |
@@ -129,7 +129,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 
 图例的位置。默认为 `top`。
 
-```js | ob { inject: true }
+```js | ob { inject: true, pin: false }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -201,87 +201,362 @@ chart.render();
 
 <description> _LegendLayoutCfg_ **optional** </description>
 
-Legend 组件支持调整其在画布中的位置，通过 `layout` 属性来设置。
-目前支持基本的 Flex 布局方式，支持的属性包括: `justifyContent`, `alignItems`, `flexDirection`。_LegendLayoutCfg_ 配置如下：
+Legend 组件支持调整其在画布中的位置，通过 `layout` 属性来设置。图例布局采用 **Flexbox 布局模型**，`position` 决定图例在画布中的基础位置，而 `layout` 进一步控制图例内部的精确对齐方式。
 
-| 属性           | 描述         | 类型                                   | 默认值                                                      | 必选 |
-| -------------- | ------------ | -------------------------------------- | ----------------------------------------------------------- | ---- |
-| justifyContent | 主轴对齐方式 | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                |      |
-| alignItems     | 交叉轴对齐   | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                |      |
-| flexDirection  | 主轴方向     | `row` \| `column`                      | position 为`top`和`bottom`的时候为`row`，其他时候为`column` |      |
+#### 布局轴的概念
 
-通过配置图例的 `position` 和 `layout` ，我们可以很灵活地改变图例的位置。
+理解图例布局的关键是掌握**主轴**和**交叉轴**的概念：
+
+| **position** | **默认 flexDirection** | **主轴方向** | **交叉轴方向** | **主轴含义**   | **交叉轴含义**   |
+| ------------ | ---------------------- | ------------ | -------------- | -------------- | ---------------- |
+| `top`        | `row`                  | 水平 →       | 垂直 ↓         | 图例项左右排列 | 图例区域上下对齐 |
+| `bottom`     | `row`                  | 水平 →       | 垂直 ↑         | 图例项左右排列 | 图例区域上下对齐 |
+| `left`       | `column`               | 垂直 ↓       | 水平 →         | 图例项上下排列 | 图例区域左右对齐 |
+| `right`      | `column`               | 垂直 ↓       | 水平 ←         | 图例项上下排列 | 图例区域左右对齐 |
+
+#### 配置属性
+
+_LegendLayoutCfg_ 配置如下：
+
+| 属性           | 描述         | 类型                                   | 默认值                                                      | 作用轴 | 必选 |
+| -------------- | ------------ | -------------------------------------- | ----------------------------------------------------------- | ------ | ---- |
+| justifyContent | 主轴对齐方式 | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                | 主轴   |      |
+| alignItems     | 交叉轴对齐   | `flex-start` \| `flex-end` \| `center` | `flex-start`                                                | 交叉轴 |      |
+| flexDirection  | 主轴方向     | `row` \| `column`                      | position 为`top`和`bottom`的时候为`row`，其他时候为`column` | -      |      |
+
+#### position + layout 组合配置
+
+通过 `position` 和 `layout` 的组合，可以实现图例的精确定位：
 
 ```js
-// 配置一个右侧垂直居中的图例
+// 1. 顶部居中图例
+({
+  legend: {
+    color: {
+      position: 'top', // 图例位于顶部
+      layout: {
+        justifyContent: 'center', // 主轴（水平）居中
+      },
+    },
+  },
+});
 
-// 第一步，配置position为right
+// 2. 右侧垂直居中图例
+({
+  legend: {
+    color: {
+      position: 'right', // 图例位于右侧
+      layout: {
+        justifyContent: 'center', // 主轴（垂直）居中
+      },
+    },
+  },
+});
 
-// 第二步，position为right的时候主轴方向flexDirection默认为column
+// 3. 底部右对齐图例
+({
+  legend: {
+    color: {
+      position: 'bottom', // 图例位于底部
+      layout: {
+        justifyContent: 'flex-end', // 主轴（水平）右对齐
+      },
+    },
+  },
+});
 
-// 第三步，要实现垂直居中，需要在column方向上对齐方式为center，因为column此时为主轴，所以配置justifyContent为center
+// 4. 左侧底部对齐图例
+({
+  legend: {
+    color: {
+      position: 'left', // 图例位于左侧
+      layout: {
+        justifyContent: 'flex-end', // 主轴（垂直）底部对齐
+      },
+    },
+  },
+});
+```
+
+#### 交互式示例
+
+通过下面的交互示例，你可以直观地看到不同 `position` 和 `layout` 组合的效果：
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 400,
+  width: 600,
+});
+const container = chart.getContainer();
+
+const data = [
+  { genre: 'Sports', sold: 50 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      position: 'top',
+      layout: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+      },
+    },
+  },
+});
+
+const positionOptions = [
+  { value: 'top', label: '顶部 (top)' },
+  { value: 'bottom', label: '底部 (bottom)' },
+  { value: 'left', label: '左侧 (left)' },
+  { value: 'right', label: '右侧 (right)' },
+];
+
+const justifyOptions = [
+  { value: 'flex-start', label: '起始对齐 (flex-start)' },
+  { value: 'center', label: '居中对齐 (center)' },
+  { value: 'flex-end', label: '末尾对齐 (flex-end)' },
+];
+
+const alignOptions = [
+  { value: 'flex-start', label: '起始对齐 (flex-start)' },
+  { value: 'center', label: '居中对齐 (center)' },
+  { value: 'flex-end', label: '末尾对齐 (flex-end)' },
+];
+
+// 创建控制面板
+const controlPanel = document.createElement('div');
+controlPanel.style.cssText = `
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+`;
+
+// Position 选择器
+const positionContainer = document.createElement('div');
+positionContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    图例位置 (position):
+  </label>
+`;
+const positionSelect = document.createElement('select');
+positionSelect.style.cssText = 'width: 100%; padding: 4px;';
+positionSelect.innerHTML = positionOptions
+  .map(
+    (option, index) =>
+      `<option value="${option.value}" ${index === 0 ? 'selected' : ''}>${
+        option.label
+      }</option>`,
+  )
+  .join('');
+positionContainer.appendChild(positionSelect);
+
+// JustifyContent 选择器
+const justifyContainer = document.createElement('div');
+justifyContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    主轴对齐 (justifyContent):
+  </label>
+`;
+const justifySelect = document.createElement('select');
+justifySelect.style.cssText = 'width: 100%; padding: 4px;';
+justifySelect.innerHTML = justifyOptions
+  .map(
+    (option, index) =>
+      `<option value="${option.value}" ${index === 0 ? 'selected' : ''}>${
+        option.label
+      }</option>`,
+  )
+  .join('');
+justifyContainer.appendChild(justifySelect);
+
+// AlignItems 选择器
+const alignContainer = document.createElement('div');
+alignContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    交叉轴对齐 (alignItems):
+  </label>
+`;
+const alignSelect = document.createElement('select');
+alignSelect.style.cssText = 'width: 100%; padding: 4px;';
+alignSelect.innerHTML = alignOptions
+  .map(
+    (option, index) =>
+      `<option value="${option.value}" ${index === 0 ? 'selected' : ''}>${
+        option.label
+      }</option>`,
+  )
+  .join('');
+alignContainer.appendChild(alignSelect);
+
+controlPanel.appendChild(positionContainer);
+controlPanel.appendChild(justifyContainer);
+controlPanel.appendChild(alignContainer);
+
+// 状态显示
+const statusDiv = document.createElement('div');
+statusDiv.style.cssText = `
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+`;
+
+const updateChart = () => {
+  const position = positionSelect.value;
+  const justifyContent = justifySelect.value;
+  const alignItems = alignSelect.value;
+
+  chart.options({
+    legend: {
+      color: {
+        position,
+        layout: {
+          justifyContent,
+          alignItems,
+        },
+      },
+    },
+  });
+  chart.render();
+
+  // 更新状态显示
+  const isHorizontal = position === 'top' || position === 'bottom';
+  const mainAxis = isHorizontal ? '水平' : '垂直';
+  const crossAxis = isHorizontal ? '垂直' : '水平';
+
+  statusDiv.innerHTML = `
+当前配置：position: "${position}", justifyContent: "${justifyContent}", alignItems: "${alignItems}"<br>
+主轴方向：${mainAxis} | 交叉轴方向：${crossAxis}<br>
+主轴对齐：${justifyContent} | 交叉轴对齐：${alignItems}
+  `;
+};
+
+// 绑定事件
+positionSelect.addEventListener('change', updateChart);
+justifySelect.addEventListener('change', updateChart);
+alignSelect.addEventListener('change', updateChart);
+
+// 插入控制面板
+container.insertBefore(controlPanel, container.firstChild);
+container.insertBefore(statusDiv, container.lastChild);
+
+// 初始渲染
+updateChart();
+```
+
+#### 常见布局场景
+
+以下是一些常见的图例布局需求及其配置方式：
+
+```js
+// 🎯 场景1：顶部居中显示，适合仪表板
+({
+  legend: {
+    color: {
+      position: 'top',
+      layout: {
+        justifyContent: 'center', // 水平居中
+      },
+    },
+  },
+});
+
+// 🎯 场景2：右侧垂直居中，适合详细图表
 ({
   legend: {
     color: {
       position: 'right',
       layout: {
-        justifyContent: 'center',
+        justifyContent: 'center', // 垂直居中
       },
     },
   },
 });
-```
 
-尝试一下：
-
-```js | ob { inject: true }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  height: 350,
-});
-
-chart.options({
-  type: 'interval',
-  data: [
-    { genre: 'Sports', sold: 50 },
-    { genre: 'Strategy', sold: 115 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Other', sold: 150 },
-  ],
-  encode: { x: 'genre', y: 'sold', color: 'genre' },
+// 🎯 场景3：底部左对齐，节省空间
+({
   legend: {
     color: {
-      // 图例显示位置 可选 top ｜ bottom | right | left
-      position: 'top',
+      position: 'bottom',
       layout: {
-        // 主轴对齐方式 可选 flex-start | flex-end | center
-        justifyContent: 'flex-start',
-        // 交叉轴对齐方式 可选 flex-start | flex-end | center
-        alignItems: 'flex-start',
-        // 主轴方向 可选 row | column
-        flexDirection: 'row',
+        justifyContent: 'flex-start', // 左对齐
       },
     },
   },
 });
 
-chart.render();
+// 🎯 场景4：右侧顶部对齐，紧凑布局
+({
+  legend: {
+    color: {
+      position: 'right',
+      layout: {
+        justifyContent: 'flex-start', // 顶部对齐
+      },
+    },
+  },
+});
+
+// 🎯 场景5：左侧底部对齐，与图表底部对齐
+({
+  legend: {
+    color: {
+      position: 'left',
+      layout: {
+        justifyContent: 'flex-end', // 底部对齐
+      },
+    },
+  },
+});
 ```
+
+💡 **布局技巧**
+
+- **水平居中**：`position: 'top'` + `justifyContent: 'center'`
+- **垂直居中**：`position: 'right'` + `justifyContent: 'center'`
+- **紧凑布局**：使用 `flex-start` 让图例紧贴图表
 
 ### size
 
 <description> _number_ **optional** </description>
 
-Legend 组件的尺寸。影响组件在交叉轴上的大小，例如水平位置的图例，影响整体高度。手动配置会导致 G2 内部计算逻辑失效，需要自己配置 margin、padding、inset 等大小，详见[图表布局](/manual/core/chart/chart-component#图表布局)。除非需要定制化的场景，否则不建议配置。
+Legend 组件的尺寸，用于 G2 内部布局计算和空间分配。影响组件在**交叉轴**上的大小：
 
-### width
+- 对于水平布局图例（`position: 'top'` 或 `'bottom'`），控制图例的高度
+- 对于垂直布局图例（`position: 'left'` 或 `'right'`），控制图例的宽度
+
+手动配置会导致 G2 内部计算逻辑失效，需要自己配置 margin、padding、inset 等大小，详见[图表布局](/manual/core/chart/chart-component#图表布局)。除非需要定制化的场景，否则不建议配置。
+
+### length
 
 <description> _number_ **optional** </description>
 
-Legend 组件的宽度。
+Legend 组件的长度，用于 G2 内部布局计算和空间分配。影响组件在**主轴**上的大小：
+
+- 对于水平布局图例（`position: 'top'` 或 `'bottom'`），控制图例的宽度
+- 对于垂直布局图例（`position: 'left'` 或 `'right'`），控制图例的高度
+
+<img alt="legend-overview" width=600 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*KIXzR7Mwb1cAAAAARbAAAAgAemJ7AQ/original"/>
+
+<img alt="legend-overview" width=600 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZpfMQpeB4jUAAAAARpAAAAgAemJ7AQ/original"/>
 
 ### crossPadding
 
@@ -436,28 +711,26 @@ chart.render();
 
 适用于 <Badge type="success">分类图例</Badge> 。指定图例最大行数。默认为 `3`。
 
+⚠️ **注意**：此配置仅在**水平布局**（`position: 'top'` 或 `'bottom'`）时生效。当图例位置为 `'left'` 或 `'right'` 时，G2 会根据容器高度自动计算行数，`maxRows` 配置将被忽略。
+
 ### maxCols
 
 <description> _number_ **optional** </description>
 
 适用于 <Badge type="success">分类图例</Badge> 。指定图例最大列数。默认为 `3`。
 
+⚠️ **注意**：此配置仅在**垂直布局**（`position: 'left'` 或 `'right'`）时生效。当图例位置为 `'top'` 或 `'bottom'` 时，G2 会根据容器宽度自动计算列数，`maxCols` 配置将被忽略。
+
 💡 **maxRows 和 maxCols 是怎么作用于图例布局的？**
 
-maxRows 和 maxCols 用于限制图例布局的最大行数和列数。在代码中通过 `getRows = (rows) => Math.min(rows, maxRows)`和 `getCols = (cols) => Math.min(cols, maxCols)`实现行列数限制。
+maxRows 和 maxCols 用于限制图例布局的最大行数和列数，但它们在不同布局方向下的作用效果不同：
 
-| **参数**    | **垂直布局**                     | **水平布局**                         |
-| ----------- | -------------------------------- | ------------------------------------ |
-| **maxCols** | 限制列数，控制图例宽度           | 无直接影响（列数由 `cols` 参数指定） |
-| **maxRows** | 无直接影响（行数由高度自动计算） | 限制行数，控制图例高度               |
+| **参数**    | **水平布局（top/bottom）**            | **垂直布局（left/right）**            |
+| ----------- | ------------------------------------- | ------------------------------------- |
+| **maxRows** | ✅ 限制行数，控制图例高度             | ❌ **不生效**，行数由容器高度自动计算 |
+| **maxCols** | ❌ **不生效**，行数由容器宽度自动计算 | ✅ 限制列数，控制图例宽度             |
 
-**潜在问题**
-
-- **垂直布局**：若 `maxCols` 过小，可能导致单列行数超过 `maxHeight`，引发溢出。
-
-- **水平布局**：若 `maxRows` 过小，部分项可能被截断。
-
-此时需要适当调整图表的 `margin` 和 `padding`，保证图例有足够的空间展示。
+⚠️ **注意**：当使用`maxRows` 和 `maxCols` 的时候，避免手动配置图例容器的 `size` 和 `length`。
 
 ### itemMarker
 
@@ -844,7 +1117,26 @@ chart.render();
 
 <description> _LegendNavCfg_ **optional** </description>
 
-适用于 <Badge type="success">分类图例</Badge> 。配置图例的分页器。在网格布局下，页面容量 = `gridRow` × `gridCol`，如果分类项数量超出此容量，则分页。在弹性布局下，页面容量动态计算，受容器宽度和高度限制。当分类项超过容器高度或宽度时，进行分页，展示分页器组件。_LegendNavCfg_ 配置如下：
+适用于 <Badge type="success">分类图例</Badge> 。配置图例的分页器。在网格布局下，页面容量 = `gridRow` × `gridCol`，如果分类项数量超出此容量，则分页。在弹性布局下，页面容量动态计算，受容器宽度和高度限制。当分类项超过容器高度或宽度时，进行分页，展示分页器组件。
+
+💡 **垂直布局图例分页配置**
+
+对于垂直布局的图例（`position: 'right'` 或 `'left'`），由于 `maxRows` 不生效，建议通过以下方式启用分页：
+
+```js
+legend: {
+  color: {
+    position: 'right',
+    size:100, // 限制图例宽度，触发分页
+    length: 200,           // 限制图例高度，触发分页
+    navOrientation: 'vertical', // 垂直方向分页器
+    navDefaultPage: 0,     // 默认显示第一页
+    navLoop: true,         // 启用循环翻页
+  }
+}
+```
+
+_LegendNavCfg_ 配置如下：
 
 <img alt="legend-nav" width=300 src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QkXFSoUuqGYAAAAAAAAAAAAAemJ7AQ/original"/>
 
@@ -1423,6 +1715,57 @@ chart.on(ChartEvent.AFTER_RENDER, () => {
 ```
 
 可以通过设置 `animate: false` 避免触发更新动画，但还是会有闪动，后续会通过配置项在内部处理，实现更好的筛选效果。
+
+### 垂直布局图例分页
+
+当图例位置为 `right` 或 `left` 时，由于 `maxRows` 不生效，需要通过 `length` 属性控制图例高度来实现分页效果。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 350,
+  width: 600,
+});
+
+// 创建多个图例项的数据
+const data = [
+  { category: 'Category A', value: 40 },
+  { category: 'Category B', value: 35 },
+  { category: 'Category C', value: 30 },
+  { category: 'Category D', value: 25 },
+  { category: 'Category E', value: 20 },
+  { category: 'Category F', value: 18 },
+  { category: 'Category G', value: 15 },
+  { category: 'Category H', value: 12 },
+  { category: 'Category I', value: 10 },
+  { category: 'Category J', value: 8 },
+  { category: 'Category K', value: 6 },
+  { category: 'Category L', value: 4 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'category', y: 'value', color: 'category' },
+  legend: {
+    color: {
+      position: 'right',
+      length: 150, // 限制图例高度，触发分页
+      size: 120, // 控制图例宽度
+      navOrientation: 'vertical', // 垂直方向分页器
+      navDefaultPage: 0, // 默认显示第一页
+      navLoop: true, // 启用循环翻页
+      navButtonFill: '#1890ff', // 分页按钮颜色
+      navPageNumFill: '#1890ff', // 页码颜色
+      navFormatter: (current, total) => `${current + 1}/${total}`, // 页码格式
+    },
+  },
+});
+
+chart.render();
+```
 
 ### 自定义图例项图标（itemMarker）
 
