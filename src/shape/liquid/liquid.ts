@@ -41,6 +41,12 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       ? liquidShape
       : getLiquidShape(liquidShape);
     const shapePath = buildPath(centerX, centerY, radius, ...size);
+    const shapeClipPath = buildPath(
+      centerX,
+      centerY,
+      radius + border / 2,
+      ...size,
+    );
 
     // 2、Background create.
     if (Object.keys(backgroundStyle).length) {
@@ -60,7 +66,7 @@ export const Liquid: SC<LiquidOptions> = (options, context) => {
       // 3. Clip create.
       const clipShape = document.createElement('path', {
         style: {
-          d: shapePath,
+          d: shapeClipPath,
         },
       });
 

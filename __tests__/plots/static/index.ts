@@ -304,6 +304,7 @@ export { liquidDefault } from './liquid-default';
 export { liquidPin } from './liquid-pin';
 export { liquidRect } from './liquid-rect';
 export { liquidCircle } from './liquid-circle';
+export { liquidCircleBorder } from './liquid-circle-border';
 export { liquidDiamond } from './liquid-diamond';
 export { liquidContent } from './liquid-content';
 export { liquidTriangle } from './liquid-triangle';
