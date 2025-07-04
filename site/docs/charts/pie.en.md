@@ -50,7 +50,7 @@ The following chart shows the market share proportions of different browsers, cl
 | Samsung Internet | 2.98 |
 | Opera | 3.15 |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -96,7 +96,7 @@ Example 2: **Display budget allocation**
 
 Pie charts are very suitable for displaying budget, expenditure, and other resource allocation situations, allowing people to see the resource proportion of each project at a glance.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -155,7 +155,7 @@ Example 1: **Not suitable when there are too many categories**
 
 When the number of categories exceeds 7, pie charts become difficult to read and compare. The chart below shows the population proportion of various provinces. Due to the excessive number of categories, it's difficult to clearly compare the population data proportions of each province.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -214,7 +214,7 @@ Example 2: **Not suitable when category proportions are similar**
 
 In the chart below, different game genres have similar sales volumes with very small angular differences, making it difficult to visually distinguish size relationships quickly.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -270,7 +270,7 @@ chart.render();
 
 Rose charts use the radius rather than the angle of sectors to represent values, suitable for displaying categorical data with large value differences.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -326,7 +326,7 @@ chart.render();
 
 Radial jitter scatter plots map traditional pie chart data to points in a polar coordinate system, adding radial jitter to avoid overlapping, suitable for displaying the distribution of categorical data.
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from "@antv/g2";
 
 const chart = new Chart({ container: "container" });

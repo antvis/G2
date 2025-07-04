@@ -50,7 +50,7 @@ similar: ['donut-chart', 'rose']
 | Samsung Internet  | 2.98              |
 | Opera             | 3.15              |
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -96,7 +96,7 @@ chart.render();
 
 饼图非常适合展示预算、支出等资源分配情况，让人一目了然地看到各项目的资源占比。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -155,7 +155,7 @@ chart.render();
 
 当类别数量超过7个时，饼图会变得难以阅读和比较。下图展示了各个省份的人口占比情况，由于包含的分类过多，很难清晰对比各个省份的人口数据占比情况。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -215,7 +215,7 @@ chart.render();
 
 下图中游戏公司的不同种类游戏的销售量相近，角度差异很小，难以通过视觉快速区分大小关系。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
 
 const chart = new Chart({
@@ -271,7 +271,7 @@ chart.render();
 
 径向扰动散点图将传统的饼图数据映射到极坐标系中的散点，通过添加径向扰动来避免重叠，适合展示分类数据的分布情况。
 
-```js | ob { autoMount: true  }
+```js | ob { inject: true  }
 import { Chart } from "@antv/g2";
 
 const chart = new Chart({ container: "container" });
