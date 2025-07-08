@@ -235,7 +235,9 @@ function groupItems(
   ).filter(defined);
   const newItems = data
     .flatMap((datum, i) => {
-      const element = elements[i];
+      // Fix: Get the corresponding element from datum instead of using index i
+      // When data and elements don't correspond one-to-one, using index will cause color errors
+      const element = datum.element || elements[i];
       const { items = [], title } = datum;
       const definedItems = items.filter(defined);
 
