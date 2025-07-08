@@ -1,3 +1,25 @@
+## [5.3.4](https://github.com/antvis/g2/compare/5.3.3...5.3.4) (2025-07-08)
+
+
+### Bug Fixes
+
+* chart.clear block trailing render ([#6897](https://github.com/antvis/g2/issues/6897)) ([4817dcf](https://github.com/antvis/g2/commit/4817dcf207e1e83d013e3c4c3746e71e9f4c9594))
+* Custom tooltip not working after using geoPath ([#7010](https://github.com/antvis/g2/issues/7010)) ([1207def](https://github.com/antvis/g2/commit/1207def359d839329c538303d96fbaa7defb7505))
+* document example exception ([#6980](https://github.com/antvis/g2/issues/6980)) ([7a6f5eb](https://github.com/antvis/g2/commit/7a6f5ebb5b5f9abd396261bfc81695c326552b23))
+* fix band docs ([#6973](https://github.com/antvis/g2/issues/6973)) ([5b29c6f](https://github.com/antvis/g2/commit/5b29c6f6fd334ca3ae639944087fd9a98f25ccfb))
+* sankey mark state not work ([#6918](https://github.com/antvis/g2/issues/6918)) ([a4e38c7](https://github.com/antvis/g2/commit/a4e38c7064b4271c505c0a049b123abeb3cdfd81))
+* treemap drilldown interaction is ineffecttive in view mode ([#6997](https://github.com/antvis/g2/issues/6997)) ([df043ea](https://github.com/antvis/g2/commit/df043ea0014b92aeabfd519a25e37d6246c2737e))
+
+
+### Features
+
+* 设置线型图例描边宽度默认值为4，优化展示效果 ([#6988](https://github.com/antvis/g2/issues/6988)) ([49d7e34](https://github.com/antvis/g2/commit/49d7e3418e035196c75d7e8538218ef407ed82f4))
+* add angle calculation for circular gauges ([#6999](https://github.com/antvis/g2/issues/6999)) ([6f68c9f](https://github.com/antvis/g2/commit/6f68c9fbf5eb3056bf35b80a0828957208e30700))
+* add label transform `overflowStroke` ([#7004](https://github.com/antvis/g2/issues/7004)) ([7c88d56](https://github.com/antvis/g2/commit/7c88d56a3a7628f3073fb1e4c00199fba01eccbd))
+* exceedAdjust新增bounds参数，支持自定义边界区域，默认为view ([#7005](https://github.com/antvis/g2/issues/7005)) ([890d610](https://github.com/antvis/g2/commit/890d610a4f2149854806f8f3b6dddaa6e02e08f0))
+
+
+
 ## [5.3.3](https://github.com/antvis/g2/compare/5.3.2...5.3.3) (2025-05-20)
 
 
