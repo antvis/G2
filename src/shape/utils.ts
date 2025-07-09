@@ -193,9 +193,10 @@ export function getArcObject(
   // 2. |a1 - a2| = Math.PI * 2
   // Distinguish them by y and y1:
   const a3 = a2 === a1 && y !== y1 ? a2 + Math.PI * 2 : a2;
+  const epsilon = 1e-4;
   return {
-    startAngle: a1,
-    endAngle: a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3,
+    startAngle: a1 + epsilon,
+    endAngle: (a3 - a1 >= 0 ? a3 : Math.PI * 2 + a3) - epsilon,
     innerRadius: dist(p3, center),
     outerRadius: dist(p0, center),
   };
