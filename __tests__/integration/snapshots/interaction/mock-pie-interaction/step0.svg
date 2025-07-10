@@ -138,16 +138,16 @@
           <path width="608" height="413" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 413-608 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,201,201,1)" stroke-width="0" d="M0-206.5a206.5 206.5 0 0 1 171.852 92.004l-171.852 114.496Z" class="element"/>
+              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,201,201,1)" stroke-width="0" d="M.021-206.5a206.5 206.5 0 0 1 171.819 91.987l-171.84 114.513Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(240,136,77,1)" stroke-width="0" d="M171.852-114.496a206.5 206.5 0 0 1 15.145 202.1l-186.997-87.604Z" class="element"/>
+              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(240,136,77,1)" stroke-width="0" d="M171.863-114.479a206.5 206.5 0 0 1 15.143 202.064l-187.006-87.585Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(213,128,255,1)" stroke-width="0" d="M186.997 87.604a206.5 206.5 0 0 1-384.962-146.359l197.965 58.755Z" class="element"/>
+              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(213,128,255,1)" stroke-width="0" d="M186.988 87.623a206.5 206.5 0 0 1-384.959-146.358l197.971 58.735Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(120,99,255,1)" stroke-width="0" d="M-197.965-58.755a206.5 206.5 0 0 1 197.965-147.745l0 206.5Z" class="element"/>
+              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(120,99,255,1)" stroke-width="0" d="M-197.959-58.775a206.5 206.5 0 0 1 197.938-147.725l.021 206.5Z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>
