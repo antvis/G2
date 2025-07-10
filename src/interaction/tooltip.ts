@@ -1,8 +1,7 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
-import { deepMix, lowerFirst, throttle } from '@antv/util';
+import { deepMix, lowerFirst, set, throttle } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
-import { G2Element } from 'utils/selection';
 import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub, dist } from '../utils/vector';
@@ -192,8 +191,38 @@ function showUndefined(item) {
   return { ...item, value: value === undefined ? 'undefined' : value };
 }
 
+function isHeatmap(element) {
+  const { markType, nodeName } = element;
+  return markType === 'heatmap' && nodeName === 'image';
+}
+
+function heatmapItem(element) {
+  const datum = element.__data__;
+  const normalizedX = datum?.normalized?.x ?? 0;
+
+  const originalDatum = element.parentNode?.__data__;
+  const encode = originalDatum?.encode ?? {};
+  const { x = {}, y = {}, color = {} } = encode;
+  const { value: vx = [] } = x;
+  const { value: vy = [] } = y;
+  const { value: vc = [] } = color;
+  const index = Math.min(Math.round(vx.length * normalizedX), vx.length - 1);
+
+  return {
+    title: vy[index],
+    items: [
+      {
+        name: color.field ?? 'value',
+        value: vc[index],
+        color: element.style?.fill || element.getAttribute?.('color') || '#000',
+      },
+    ],
+  };
+}
+
 function singleItem(element) {
   const { __data__: datum } = element;
+  if (isHeatmap(element)) return heatmapItem(element);
   const { title, items = [] } = datum;
   const newItems = items
     .filter(defined)
@@ -524,6 +553,23 @@ function hasSeries(markState): boolean {
   );
 }
 
+function normalizedPosition(coordinate, position) {
+  const {
+    innerWidth,
+    innerHeight,
+    marginLeft,
+    paddingLeft,
+    insetLeft,
+    marginTop,
+    paddingTop,
+    insetTop,
+  } = coordinate.getOptions();
+  return {
+    x: (position.x - marginLeft - paddingLeft - insetLeft) / innerWidth,
+    y: (position.y - marginTop - paddingTop - insetTop) / innerHeight,
+  };
+}
+
 /**
  * Finds a single element based on the mouse event in a non-series context (e.g., single item tooltip).
  * @param root - The root display object of the chart.
@@ -568,6 +614,13 @@ export function findSingleElement({
     const { target } = event;
     return maybeRoot(target, (node) => {
       if (!node.classList) return false;
+      if (isHeatmap(node)) {
+        set(
+          node,
+          '__data__.normalized',
+          normalizedPosition(coordinate, { x: event.x, y: event.y }),
+        );
+      }
       return node.classList.includes('element');
     });
   };
