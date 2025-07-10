@@ -1,8 +1,14 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
-import { deepMix, lowerFirst, set, throttle } from '@antv/util';
+import { deepMix, lowerFirst, set, throttle, last } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
-import { defined, groupNameOf, subObject, dataOf } from '../utils/helper';
+import {
+  defined,
+  groupNameOf,
+  subObject,
+  dataOf,
+  isHeatmap,
+} from '../utils/helper';
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
@@ -189,11 +195,6 @@ function destroyTooltip({ root, single }) {
 function showUndefined(item) {
   const { value } = item;
   return { ...item, value: value === undefined ? 'undefined' : value };
-}
-
-function isHeatmap(element) {
-  const { markType, nodeName } = element;
-  return markType === 'heatmap' && nodeName === 'image';
 }
 
 function heatmapItem(element) {
@@ -587,7 +588,7 @@ function normalizedPosition(coordinate, position) {
 export function findSingleElement({
   root,
   event,
-  elements,
+  elements = [],
   coordinate,
   scale,
   shared,
@@ -611,14 +612,17 @@ export function findSingleElement({
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
   const findElementByTarget = (event) => {
-    const { target } = event;
+    const { target = last(elements) } = event;
     return maybeRoot(target, (node) => {
       if (!node.classList) return false;
       if (isHeatmap(node)) {
         set(
           node,
           '__data__.normalized',
-          normalizedPosition(coordinate, { x: event.x, y: event.y }),
+          normalizedPosition(coordinate, {
+            x: event.offsetX,
+            y: event.offsetY,
+          }),
         );
       }
       return node.classList.includes('element');
