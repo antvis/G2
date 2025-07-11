@@ -210,7 +210,7 @@ function heatmapItem(element) {
   const index = Math.min(Math.round(vx.length * normalizedX), vx.length - 1);
 
   return {
-    title: vy[index],
+    title: `${vx[index]}, ${vy[index]}`,
     items: [
       {
         name: color.field ?? 'value',
