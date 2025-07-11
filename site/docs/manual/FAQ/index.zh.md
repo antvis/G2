@@ -7,9 +7,61 @@ order: 7
 
 **问题描述**
 
-在使用 AntV G2 绘制图表时，手动设置 `padding` 可能会导致图表标题无法正常显示或完全消失。
+在使用 AntV G2 绘制图表时，手动设置 `padding` 可能会导致图表标题或者其他图表组件无法正常显示或完全消失。
 
 相关问题：[设置完 title 不显示](https://github.com/antvis/G2/issues/6549)
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  padding: 20,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
 
 **原因分析**
 
@@ -21,27 +73,122 @@ G2 默认会动态计算所有组件所需的间距，但一旦指定了固定�
 
 1. **使用默认布局（推荐）**
 
-让 G2 自动计算最佳间距，确保所有组件正常显示：
+不手动设置 `padding`，让 G2 自动计算最佳间距，确保所有组件正常显示：
 
-```javascript
-chart
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
 ```
 
 2. 正确设置 Padding
 
 如果确实需要手动设置 `padding`，请确保为动态生成的组件预留足够空间：
 
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  paddingTop: 100,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
+
+也可以在创建 `Chart` 实例的时候传入 `paddingTop`，效果完全一样。
+
 ```javascript
-chart
-  .padding(50)
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+const chart = new Chart({
+  container: 'container',
+  paddingTop: 100,
+});
 ```
 
 **注意事项**
@@ -49,6 +196,8 @@ chart
 - 手动设置 `padding` 时，建议通过调试确定合适的数值
 - 需要考虑标题、图例等组件的空间需求
 - 在不需要特定布局时，优先使用 G2 的自动布局功能
+
+查看[图表布局](/manual/core/chart/chart-component#图表布局)的详细文档。
 
 ## 怎么配置堆叠面积图的描边为不同的颜色
 

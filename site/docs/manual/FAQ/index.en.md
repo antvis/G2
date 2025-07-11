@@ -7,9 +7,61 @@ order: 7
 
 **Problem Description**
 
-When using AntV G2 to draw charts, manually setting `padding` may cause the chart title to not display properly or disappear completely.
+When using AntV G2 to draw charts, manually setting `padding` may cause the chart title or other chart components to not display properly or disappear completely.
 
 Related issue: [Title not displayed after setting](https://github.com/antvis/G2/issues/6549)
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  padding: 20,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
 
 **Cause Analysis**
 
@@ -21,27 +73,122 @@ There are two ways to solve this problem:
 
 1. **Use Default Layout (Recommended)**
 
-Let G2 automatically calculate the optimal spacing to ensure all components display properly:
+Don't manually set `padding`, let G2 automatically calculate the optimal spacing to ensure all components display properly:
 
-```javascript
-chart
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
 ```
 
 2. Set Padding Correctly
 
 If you really need to manually set `padding`, please ensure sufficient space is reserved for dynamically generated components:
 
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  paddingTop: 100,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
+
+You can also pass `paddingTop` when creating the `Chart` instance, which works exactly the same:
+
 ```javascript
-chart
-  .padding(50)
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+const chart = new Chart({
+  container: 'container',
+  paddingTop: 100,
+});
 ```
 
 **Notes**
@@ -49,6 +196,8 @@ chart
 - When manually setting `padding`, it's recommended to determine appropriate values through debugging
 - Consider the space requirements of components like titles and legends
 - When specific layout is not required, prioritize using G2's automatic layout functionality
+
+See the detailed documentation on [Chart Layout](/en/manual/core/chart/chart-component#chart-layout).
 
 ## How to Configure Different Stroke Colors for Stacked Area Charts
 
