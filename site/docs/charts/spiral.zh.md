@@ -42,7 +42,7 @@ similar: ['rose']
 例子 1: **展示大量数据的变化趋势**
 
 用大量数据来形成完整的螺旋形状
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 const chart = new Chart({ container: "container" });
@@ -450,7 +450,7 @@ chart.render();
 
 螺旋图需要足够的数据点（通常100条以上）来形成完整的螺旋形状，如果数据量太少，螺旋效果不明显，此时使用普通的折线图或散点图会更合适。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 const chart = new Chart({ container: "container" });
@@ -484,7 +484,7 @@ chart.render();
 ```
 **更适合的折线图示例：**
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // 同样的5天数据，使用折线图展示
@@ -549,7 +549,7 @@ chart.render();
 
 由于螺旋图的非线性特性，不便于精确比较具体数值或变化率。
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // 需要精确对比的数据示例
@@ -609,7 +609,7 @@ chart.render();
 
 展示多个相关数据系列的螺旋对比：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // 生成多层螺旋数据
@@ -688,7 +688,7 @@ chart.render();
 
 基因螺旋图是螺旋图在生物信息学领域的特殊应用，常用于展示基因表达数据随时间的变化模式。通过螺旋坐标系，可以清晰地观察基因在不同条件下（如野生型WT和敲除型KO）的表达差异：
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // 模拟基因表达数据

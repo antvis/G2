@@ -40,7 +40,7 @@ Example 1: **Displaying Trends in Large Datasets**
 
 Due to the nonlinear nature of the spiral graph, it is not easy to accurately compare specific values ​​or rates of change.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // 需要精确对比的数据示例
@@ -103,7 +103,7 @@ While spiral charts have many advantages, they also have some limitations:
 Spiral charts require sufficient data points (usually 100+ records) to form a complete spiral shape. If there's too little data, the spiral effect is not obvious, and regular line charts or scatter plots would be more appropriate.
 
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 const chart = new Chart({ container: "container" });
@@ -138,7 +138,7 @@ chart.render();
 
 **Better Line Chart Example:**
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // Same 5-day data displayed as a line chart
@@ -203,7 +203,7 @@ chart.render();
 
 Due to the non-linear nature of spiral charts, they are not convenient for precise comparison of specific values or rates of change. In such cases, charts in a Cartesian coordinate system are more suitable.
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // Data requiring precise comparison
@@ -263,7 +263,7 @@ chart.render();
 
 Displaying spiral comparisons of multiple related data series:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // Generate multi-layer spiral data
@@ -342,7 +342,7 @@ chart.render();
 
 Gene spiral charts are a specialized application of spiral charts in bioinformatics, commonly used to display patterns of gene expression data over time. Through the helical coordinate system, differences in gene expression under different conditions (such as wild-type WT and knockout KO) can be clearly observed:
 
-```js | ob { autoMount: true }
+```js | ob { inject: true }
 import { Chart } from "@antv/g2";
 
 // Simulate gene expression data
