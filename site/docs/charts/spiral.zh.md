@@ -1,528 +1,783 @@
 ---
 title: 螺旋图
 order: 18
-screenshot: /screenshots/spiral.webp
+screenshot: 'https://zos.alipayobjects.com/rmsportal/TpVCbyphCQAQPSV.png'
 category: ['comparison', 'time']
 similar: ['rose']
 ---
+<img src="https://zos.alipayobjects.com/rmsportal/TpVCbyphCQAQPSV.png" alt="螺旋图示例" width="600">
 
 ## 螺旋图的简介
 
-螺旋图是一种以螺旋形式展示时间序列数据的特殊可视化图表。它将时间数据从中心点开始，按照螺旋的方式向外扩展，既保持了时间的连续性，又通过螺旋的形式实现了空间的紧凑利用。螺旋图特别适合展示具有周期性模式的长时间序列数据，如一年中的每日温度变化、网站访问量的周期性波动等。
 
-螺旋图通过将线性时间轴转换为极坐标系下的螺旋形状，不仅能够清晰地展示数据的时间趋势，还能够突出显示数据中的周期性规律和异常值。这种表现形式在处理大量时间序列数据时具有独特的视觉优势。
+螺旋图，基于阿基米德螺旋坐标系，常用于绘制随时间变化的数据，从螺旋的中心开始向外绘制。
 
-**英文名**：Spiral Chart, Spiral Plot
+螺旋图有两大好处：
+- **绘制大量数据**：螺旋图节省空间，可用于显示大时间段数据的变化趋势
+- **绘制周期性数据**：螺旋图每一圈的刻度差相同，当每一圈的刻度差是数据周期的倍数时，能够直观的表达数据的周期性
+
+螺旋图通过将线性时间轴转换为极坐标系下的螺旋形状，从中心点开始向外延伸，既保持了时间的连续性，又实现了空间的紧凑利用。这种表现形式在处理大量时间序列数据时具有独特的视觉优势，特别适合观察数据的**周期**和变化**趋势**。
+
+**英文名**：Spiral Chart
 
 ## 螺旋图的构成
 
-### 基础螺旋图
 
 螺旋图主要由以下几个部分构成：
+<img src="https://zos.alipayobjects.com/rmsportal/qyGdUeuTzufNebS.jpg" alt="螺旋图结构" width="600">
 
-1. **中心点（Center Point）**：螺旋的起始位置，通常代表时间序列的起点
-2. **螺旋轨迹（Spiral Path）**：从中心向外扩展的螺旋路径，表示时间的流逝
-3. **数据点（Data Points）**：沿螺旋轨迹分布的点，表示各时间点的数值
-4. **角度编码（Angular Encoding）**：角度位置通常对应时间的周期性（如一天中的小时、一年中的月份）
-5. **径向编码（Radial Encoding）**：距离中心的远近通常对应时间的推进或数值的大小
+| 图表类型 | 螺旋图 |
+|---------|--------|
+| 适合的数据 | 一个时间数据字段，一个连续字段 |
+| 功能 | 观察数据**周期**和变化**趋势** |
+| 数据与图形的映射 | 时间数据字段映射到旋转角度θ轴，连续字段映射到线圈间距radius轴 |
+| 适合的数据条数 | 100条以上 |
 
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
 
-  // 生成螺旋形的时间序列数据
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    const angle = (i / 100) * 8 * Math.PI; // 8圈螺旋
-    const radius = i * 2; // 径向距离随时间增加
-    const value = 50 + 30 * Math.sin(angle * 2) + Math.random() * 10; // 模拟数据波动
-    data.push({
-      time: i,
-      angle: angle,
-      radius: radius,
-      value: value,
-      x: radius * Math.cos(angle),
-      y: radius * Math.sin(angle)
-    });
-  }
-
-  chart.options({
-    type: 'point',
-    data,
-    coordinate: { type: 'cartesian' },
-    encode: {
-      x: 'x',
-      y: 'y',
-      size: 'value',
-      color: 'time'
-    },
-    scale: {
-      size: { range: [2, 8] },
-      color: { palette: 'spectral' }
-    },
-    style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      strokeWidth: 1
-    },
-    axis: false,
-    legend: {
-      size: { title: '数值大小' },
-      color: { title: '时间进程' }
-    }
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-### 极坐标螺旋图
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // 生成极坐标螺旋数据
-  const data = [];
-  for (let i = 0; i < 365; i++) {
-    const dayOfYear = i;
-    const angle = (dayOfYear / 365) * 2 * Math.PI; // 一年为一圈
-    const radius = 50 + dayOfYear * 0.2; // 螺旋向外扩展
-    const temperature = 20 + 15 * Math.sin((dayOfYear / 365) * 2 * Math.PI - Math.PI/2) + Math.random() * 5;
-    
-    data.push({
-      day: dayOfYear,
-      angle: angle * 180 / Math.PI, // 转换为度数
-      radius: radius,
-      temperature: temperature,
-      month: Math.floor(dayOfYear / 30) + 1
-    });
-  }
-
-  chart.options({
-    type: 'point',
-    data,
-    coordinate: { type: 'polar' },
-    encode: {
-      x: 'angle',
-      y: 'radius',
-      color: 'temperature',
-      size: 4
-    },
-    scale: {
-      color: { 
-        palette: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffcc', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
-      },
-      x: { type: 'linear' },
-      y: { type: 'linear' }
-    },
-    style: {
-      fillOpacity: 0.8,
-      stroke: '#fff',
-      strokeWidth: 0.5
-    },
-    axis: {
-      x: { title: '角度 (度)' },
-      y: { title: '时间进程' }
-    },
-    legend: {
-      color: { title: '温度 (°C)' }
-    }
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
 
 ## 螺旋图的应用场景
 
 ### 适合的场景
 
-例子 1: **展示周期性时间序列数据**
+例子 1: **展示大量数据的变化趋势**
 
-螺旋图特别适合展示具有明显周期性的时间序列数据，如年度温度变化：
-
+用大量数据来形成完整的螺旋形状
 ```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
+import { Chart } from "@antv/g2";
 
-  // 模拟一年365天的温度数据
-  const data = [];
-  for (let day = 0; day < 365; day++) {
-    const angle = (day / 365) * 2 * Math.PI;
-    const radius = 50 + day * 0.3;
-    // 模拟季节性温度变化
-    const baseTemp = 15 + 20 * Math.sin(angle - Math.PI/2);
-    const dailyVariation = 5 * Math.sin(day * 0.1) + Math.random() * 3;
-    const temperature = baseTemp + dailyVariation;
-    
-    data.push({
-      day: day + 1,
-      angle: angle * 180 / Math.PI,
-      radius: radius,
-      temperature: temperature,
-      season: day < 90 ? '春季' : day < 180 ? '夏季' : day < 270 ? '秋季' : '冬季'
-    });
-  }
+const chart = new Chart({ container: "container" });
 
-  chart.options({
-    type: 'line',
-    data,
-    coordinate: { type: 'polar' },
-    encode: {
-      x: 'angle',
-      y: 'radius',
-      color: 'temperature'
-    },
-    scale: {
-      color: { 
-        palette: ['#0571b0', '#92c5de', '#f7f7f7', '#f4a582', '#ca0020']
-      },
-      x: { type: 'linear', range: [0, 1] },
-      y: { type: 'linear' }
-    },
-    style: {
-      strokeWidth: 2,
-      strokeOpacity: 0.8
-    },
-    axis: {
-      x: { 
-        title: null,
-        tick: false,
-        label: false
-      },
-      y: { 
-        title: '天数进程',
-        grid: true
-      }
-    },
-    legend: {
-      color: { title: '温度 (°C)' }
-    },
-    title: '年度温度变化螺旋图'
-  });
+chart.options({
+  type: "interval",
+  autoFit: true,
+  height: 500,
+  data: {
+    value: [
+      { time: "2025.07.11", value: 35 },
+      { time: "2025.07.12", value: 30 },
+      { time: "2025.07.13", value: 55 },
+      { time: "2025.07.14", value: 86 },
+      { time: "2025.07.15", value: 100 },
+      { time: "2025.07.16", value: 60 },
+      { time: "2025.07.17", value: 79 },
+      { time: "2025.07.18", value: 15 },
+      { time: "2025.07.19", value: 10 },
+      { time: "2025.07.20", value: 10 },
+      { time: "2025.07.21", value: 10 },
+      { time: "2025.07.22", value: 55 },
+      { time: "2025.07.23", value: 25 },
+      { time: "2025.07.24", value: 35 },
+      { time: "2025.07.25", value: 35 },
+      { time: "2025.07.26", value: 20 },
+      { time: "2025.07.27", value: 40 },
+      { time: "2025.07.28", value: 20 },
+      { time: "2025.07.29", value: 45 },
+      { time: "2025.07.30", value: 45 },
+      { time: "2025.07.31", value: 10 },
+      { time: "2025.08.01", value: 30 },
+      { time: "2025.08.02", value: 45 },
+      { time: "2025.08.03", value: 40 },
+      { time: "2025.08.04", value: 40 },
+      { time: "2025.08.05", value: 20 },
+      { time: "2025.08.06", value: 40 },
+      { time: "2025.08.07", value: 20 },
+      { time: "2025.08.08", value: 50 },
+      { time: "2025.08.09", value: 15 },
+      { time: "2025.08.10", value: 35 },
+      { time: "2025.08.11", value: 40 },
+      { time: "2025.08.12", value: 30 },
+      { time: "2025.08.13", value: 35 },
+      { time: "2025.08.14", value: 30 },
+      { time: "2025.08.15", value: 76 },
+      { time: "2025.08.16", value: 108 },
+      { time: "2025.08.17", value: 44 },
+      { time: "2025.08.18", value: 55 },
+      { time: "2025.08.19", value: 30 },
+      { time: "2025.08.20", value: 35 },
+      { time: "2025.08.21", value: 40 },
+      { time: "2025.08.22", value: 30 },
+      { time: "2025.08.23", value: 15 },
+      { time: "2025.08.24", value: 55 },
+      { time: "2025.08.25", value: 55 },
+      { time: "2025.08.26", value: 30 },
+      { time: "2025.08.27", value: 55 },
+      { time: "2025.08.28", value: 10 },
+      { time: "2025.08.29", value: 35 },
+      { time: "2025.08.30", value: 10 },
+      { time: "2025.08.31", value: 25 },
+      { time: "2025.09.01", value: 25 },
+      { time: "2025.09.02", value: 25 },
+      { time: "2025.09.03", value: 25 },
+      { time: "2025.09.04", value: 25 },
+      { time: "2025.09.05", value: 50 },
+      { time: "2025.09.06", value: 20 },
+      { time: "2025.09.07", value: 35 },
+      { time: "2025.09.08", value: 35 },
+      { time: "2025.09.09", value: 20 },
+      { time: "2025.09.10", value: 30 },
+      { time: "2025.09.11", value: 30 },
+      { time: "2025.09.12", value: 10 },
+      { time: "2025.09.13", value: 25 },
+      { time: "2025.09.14", value: 51 },
+      { time: "2025.09.15", value: 108 },
+      { time: "2025.09.16", value: 116 },
+      { time: "2025.09.17", value: 65 },
+      { time: "2025.09.18", value: 10 },
+      { time: "2025.09.19", value: 20 },
+      { time: "2025.09.20", value: 40 },
+      { time: "2025.09.21", value: 20 },
+      { time: "2025.09.22", value: 45 },
+      { time: "2025.09.23", value: 10 },
+      { time: "2025.09.24", value: 35 },
+      { time: "2025.09.25", value: 20 },
+      { time: "2025.09.26", value: 30 },
+      { time: "2025.09.27", value: 55 },
+      { time: "2025.09.28", value: 30 },
+      { time: "2025.09.29", value: 20 },
+      { time: "2025.09.30", value: 40 },
+      { time: "2025.10.01", value: 50 },
+      { time: "2025.10.02", value: 55 },
+      { time: "2025.10.03", value: 15 },
+      { time: "2025.10.04", value: 25 },
+      { time: "2025.10.05", value: 30 },
+      { time: "2025.10.06", value: 15 },
+      { time: "2025.10.07", value: 10 },
+      { time: "2025.10.08", value: 35 },
+      { time: "2025.10.09", value: 30 },
+      { time: "2025.10.10", value: 10 },
+      { time: "2025.10.11", value: 45 },
+      { time: "2025.10.12", value: 35 },
+      { time: "2025.10.13", value: 30 },
+      { time: "2025.10.14", value: 25 },
+      { time: "2025.10.15", value: 51 },
+      { time: "2025.10.16", value: 100 },
+      { time: "2025.10.17", value: 108 },
+      { time: "2025.10.18", value: 37 },
+      { time: "2025.10.19", value: 10 },
+      { time: "2025.10.20", value: 45 },
+      { time: "2025.10.21", value: 15 },
+      { time: "2025.10.22", value: 10 },
+      { time: "2025.10.23", value: 25 },
+      { time: "2025.10.24", value: 55 },
+      { time: "2025.10.25", value: 10 },
+      { time: "2025.10.26", value: 10 },
+      { time: "2025.10.27", value: 20 },
+      { time: "2025.10.28", value: 20 },
+      { time: "2025.10.29", value: 20 },
+      { time: "2025.10.30", value: 10 },
+      { time: "2025.10.31", value: 15 },
+      { time: "2025.11.01", value: 55 },
+      { time: "2025.11.02", value: 15 },
+      { time: "2025.11.03", value: 55 },
+      { time: "2025.11.04", value: 15 },
+      { time: "2025.11.05", value: 50 },
+      { time: "2025.11.06", value: 20 },
+      { time: "2025.11.07", value: 30 },
+      { time: "2025.11.08", value: 10 },
+      { time: "2025.11.09", value: 25 },
+      { time: "2025.11.10", value: 15 },
+      { time: "2025.11.11", value: 25 },
+      { time: "2025.11.12", value: 50 },
+      { time: "2025.11.13", value: 35 },
+      { time: "2025.11.14", value: 35 },
+      { time: "2025.11.15", value: 72 },
+      { time: "2025.11.16", value: 124 },
+      { time: "2025.11.17", value: 116 },
+      { time: "2025.11.18", value: 37 },
+      { time: "2025.11.19", value: 10 },
+      { time: "2025.11.20", value: 15 },
+      { time: "2025.11.21", value: 55 },
+      { time: "2025.11.22", value: 30 },
+      { time: "2025.11.23", value: 30 },
+      { time: "2025.11.24", value: 20 },
+      { time: "2025.11.25", value: 50 },
+      { time: "2025.11.26", value: 45 },
+      { time: "2025.11.27", value: 50 },
+      { time: "2025.11.28", value: 25 },
+      { time: "2025.11.29", value: 20 },
+      { time: "2025.11.30", value: 50 },
+      { time: "2025.12.01", value: 15 },
+      { time: "2025.12.02", value: 20 },
+      { time: "2025.12.03", value: 15 },
+      { time: "2025.12.04", value: 30 },
+      { time: "2025.12.05", value: 40 },
+      { time: "2025.12.06", value: 40 },
+      { time: "2025.12.07", value: 45 },
+      { time: "2025.12.08", value: 50 },
+      { time: "2025.12.09", value: 25 },
+      { time: "2025.12.10", value: 15 },
+      { time: "2025.12.11", value: 35 },
+      { time: "2025.12.12", value: 35 },
+      { time: "2025.12.13", value: 50 },
+      { time: "2025.12.14", value: 25 },
+      { time: "2025.12.15", value: 30 },
+      { time: "2025.12.16", value: 93 },
+      { time: "2025.12.17", value: 92 },
+      { time: "2025.12.18", value: 132 },
+      { time: "2025.12.19", value: 51 },
+      { time: "2025.12.20", value: 30 },
+      { time: "2025.12.21", value: 35 },
+      { time: "2025.12.22", value: 25 },
+      { time: "2025.12.23", value: 20 },
+      { time: "2025.12.24", value: 45 },
+      { time: "2025.12.25", value: 40 },
+      { time: "2025.12.26", value: 15 },
+      { time: "2025.12.27", value: 40 },
+      { time: "2025.12.28", value: 40 },
+      { time: "2025.12.29", value: 15 },
+      { time: "2025.12.30", value: 55 },
+      { time: "2025.12.31", value: 45 },
+      { time: "2026.01.01", value: 25 },
+      { time: "2026.01.02", value: 45 },
+      { time: "2026.01.03", value: 45 },
+      { time: "2026.01.04", value: 50 },
+      { time: "2026.01.05", value: 45 },
+      { time: "2026.01.06", value: 30 },
+      { time: "2026.01.07", value: 30 },
+      { time: "2026.01.08", value: 55 },
+      { time: "2026.01.09", value: 55 },
+      { time: "2026.01.10", value: 10 },
+      { time: "2026.01.11", value: 20 },
+      { time: "2026.01.12", value: 10 },
+      { time: "2026.01.13", value: 15 },
+      { time: "2026.01.14", value: 50 },
+      { time: "2026.01.15", value: 10 },
+      { time: "2026.01.16", value: 86 },
+      { time: "2026.01.17", value: 68 },
+      { time: "2026.01.18", value: 116 },
+      { time: "2026.01.19", value: 58 },
+      { time: "2026.01.20", value: 10 },
+      { time: "2026.01.21", value: 15 },
+      { time: "2026.01.22", value: 55 },
+      { time: "2026.01.23", value: 15 },
+      { time: "2026.01.24", value: 50 },
+      { time: "2026.01.25", value: 50 },
+      { time: "2026.01.26", value: 55 },
+      { time: "2026.01.27", value: 50 },
+      { time: "2026.01.28", value: 55 },
+      { time: "2026.01.29", value: 50 },
+      { time: "2026.01.30", value: 45 },
+      { time: "2026.01.31", value: 15 },
+      { time: "2026.02.01", value: 15 },
+      { time: "2026.02.02", value: 25 },
+      { time: "2026.02.03", value: 25 },
+      { time: "2026.02.04", value: 40 },
+      { time: "2026.02.05", value: 45 },
+      { time: "2026.02.06", value: 15 },
+      { time: "2026.02.07", value: 45 },
+      { time: "2026.02.08", value: 20 },
+      { time: "2026.02.09", value: 25 },
+      { time: "2026.02.10", value: 55 },
+      { time: "2026.02.11", value: 50 },
+      { time: "2026.02.12", value: 50 },
+      { time: "2026.02.13", value: 55 },
+      { time: "2026.02.14", value: 40 },
+      { time: "2026.02.15", value: 10 },
+      { time: "2026.02.16", value: 58 },
+      { time: "2026.02.17", value: 92 },
+      { time: "2026.02.18", value: 84 },
+      { time: "2026.02.19", value: 44 },
+      { time: "2026.02.20", value: 55 },
+      { time: "2026.02.21", value: 45 },
+      { time: "2026.02.22", value: 40 },
+      { time: "2026.02.23", value: 20 },
+      { time: "2026.02.24", value: 50 },
+      { time: "2026.02.25", value: 10 },
+      { time: "2026.02.26", value: 10 },
+      { time: "2026.02.27", value: 50 },
+      { time: "2026.02.28", value: 15 },
+      { time: "2026.03.01", value: 40 },
+      { time: "2026.03.02", value: 45 },
+      { time: "2026.03.03", value: 45 },
+      { time: "2026.03.04", value: 30 },
+      { time: "2026.03.05", value: 30 },
+      { time: "2026.03.06", value: 50 },
+      { time: "2026.03.07", value: 25 },
+      { time: "2026.03.08", value: 10 },
+      { time: "2026.03.09", value: 40 },
+      { time: "2026.03.10", value: 10 },
+      { time: "2026.03.11", value: 15 },
+      { time: "2026.03.12", value: 30 },
+      { time: "2026.03.13", value: 25 },
+      { time: "2026.03.14", value: 20 },
+      { time: "2026.03.15", value: 50 },
+      { time: "2026.03.16", value: 25 },
+      { time: "2026.03.17", value: 50 },
+      { time: "2026.03.18", value: 20 },
+      { time: "2026.03.19", value: 30 },
+      { time: "2026.03.20", value: 60 },
+      { time: "2026.03.21", value: 68 },
+      { time: "2026.03.22", value: 72 },
+      { time: "2026.03.23", value: 20 },
+      { time: "2026.03.24", value: 20 },
+      { time: "2026.03.25", value: 50 },
+      { time: "2026.03.26", value: 15 },
+      { time: "2026.03.27", value: 25 },
+      { time: "2026.03.28", value: 25 },
+      { time: "2026.03.29", value: 35 },
+      { time: "2026.03.30", value: 45 },
+      { time: "2026.03.31", value: 45 },
+      { time: "2026.04.01", value: 10 },
+      { time: "2026.04.02", value: 45 },
+      { time: "2026.04.03", value: 15 },
+      { time: "2026.04.04", value: 10 },
+      { time: "2026.04.05", value: 45 },
+      { time: "2026.04.06", value: 20 },
+      { time: "2026.04.07", value: 50 },
+      { time: "2026.04.08", value: 30 },
+      { time: "2026.04.09", value: 20 },
+      { time: "2026.04.10", value: 50 },
+      { time: "2026.04.11", value: 35 },
+      { time: "2026.04.12", value: 35 },
+      { time: "2026.04.13", value: 40 },
+      { time: "2026.04.14", value: 25 },
+      { time: "2026.04.15", value: 15 },
+      { time: "2026.04.16", value: 15 },
+      { time: "2026.04.17", value: 55 },
+      { time: "2026.04.18", value: 45 },
+      { time: "2026.04.19", value: 65 },
+      { time: "2026.04.20", value: 76 },
+      { time: "2026.04.21", value: 68 },
+      { time: "2026.04.22", value: 72 },
+      { time: "2026.04.23", value: 45 },
+      { time: "2026.04.24", value: 10 },
+      { time: "2026.04.25", value: 40 },
+      { time: "2026.04.26", value: 25 },
+      { time: "2026.04.27", value: 15 },
+      { time: "2026.04.28", value: 35 },
+      { time: "2026.04.29", value: 30 },
+      { time: "2026.04.30", value: 10 },
+      { time: "2026.05.01", value: 25 },
+      { time: "2026.05.02", value: 40 },
+      { time: "2026.05.03", value: 35 },
+      { time: "2026.05.04", value: 55 },
+      { time: "2026.05.05", value: 35 },
+      { time: "2026.05.06", value: 10 },
+      { time: "2026.05.07", value: 35 },
+      { time: "2026.05.08", value: 30 },
+      { time: "2026.05.09", value: 55 },
+      { time: "2026.05.10", value: 30 },
+      { time: "2026.05.11", value: 20 },
+      { time: "2026.05.12", value: 35 },
+      { time: "2026.05.13", value: 55 },
+      { time: "2026.05.14", value: 45 },
+      { time: "2026.05.15", value: 45 },
+      { time: "2026.05.16", value: 35 },
+      { time: "2026.05.17", value: 55 },
+      { time: "2026.05.18", value: 25 },
+      { time: "2026.05.19", value: 40 },
+      { time: "2026.05.20", value: 93 },
+      { time: "2026.05.21", value: 92 },
+      { time: "2026.05.22", value: 108 },
+      { time: "2026.05.23", value: 93 },
+      { time: "2026.05.24", value: 55 },
+      { time: "2026.05.25", value: 20 },
+      { time: "2026.05.26", value: 40 },
+      { time: "2026.05.27", value: 20 },
+      { time: "2026.05.28", value: 45 },
+      { time: "2026.05.29", value: 50 },
+      { time: "2026.05.30", value: 45 },
+      { time: "2026.05.31", value: 45 },
+      { time: "2026.06.01", value: 40 },
+      { time: "2026.06.02", value: 20 },
+      { time: "2026.06.03", value: 35 },
+      { time: "2026.06.04", value: 35 },
+      { time: "2026.06.05", value: 15 },
+      { time: "2026.06.06", value: 10 },
+      { time: "2026.06.07", value: 55 },
+      { time: "2026.06.08", value: 40 },
+      { time: "2026.06.09", value: 25 },
+      { time: "2026.06.10", value: 20 },
+      { time: "2026.06.11", value: 40 },
+      { time: "2026.06.12", value: 20 },
+      { time: "2026.06.13", value: 25 },
+      { time: "2026.06.14", value: 25 },
+      { time: "2026.06.15", value: 55 },
+      { time: "2026.06.16", value: 35 },
+      { time: "2026.06.17", value: 35 },
+      { time: "2026.06.18", value: 25 },
+      { time: "2026.06.19", value: 25 },
+      { time: "2026.06.20", value: 65 },
+      { time: "2026.06.21", value: 68 },
+      { time: "2026.06.22", value: 68 },
+      { time: "2026.06.23", value: 30 },
+      { time: "2026.06.24", value: 30 },
+      { time: "2026.06.25", value: 10 },
+      { time: "2026.06.26", value: 15 },
+      { time: "2026.06.27", value: 15 },
+      { time: "2026.06.28", value: 40 },
+      { time: "2026.06.29", value: 55 },
+      { time: "2026.06.30", value: 10 },
+      { time: "2026.07.01", value: 15 },
+      { time: "2026.07.02", value: 30 },
+      { time: "2026.07.03", value: 45 },
+      { time: "2026.07.04", value: 35 },
+      { time: "2026.07.05", value: 45 },
+      { time: "2026.07.06", value: 20 },
+      { time: "2026.07.07", value: 30 },
+      { time: "2026.07.08", value: 30 },
+      { time: "2026.07.09", value: 40 },
+      { time: "2026.07.10", value: 45 },
+      { time: "2026.07.11", value: 55 },
+      { time: "2026.07.12", value: 55 },
+      { time: "2026.07.13", value: 55 },
+      { time: "2026.07.14", value: 50 },
+      { time: "2026.07.15", value: 10 },
+      { time: "2026.07.16", value: 55 },
+      { time: "2026.07.17", value: 15 },
+    ],
+  },
+  encode: { x: "time", y: "value", color: "value" },
+  scale: { color: { type: "linear", range: ["#ffffff", "#1890FF"] } },
+  coordinate: {
+    type: "helix",
+    startAngle: 1.5707963267948966,
+    endAngle: 39.269908169872416,
+  },
+  animate: { enter: { type: "fadeIn" } },
+  tooltip: { title: "time" },
+});
 
-  chart.render();
+chart.render();
 
-  return chart.getContainer();
-})();
-```
-
-例子 2: **展示长期趋势中的周期模式**
-
-螺旋图能够在展示长期趋势的同时突出周期性模式：
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // 模拟股票价格的螺旋展示（每个点代表一周）
-  const data = [];
-  let basePrice = 100;
-  
-  for (let week = 0; week < 104; week++) { // 2年的数据
-    const angle = (week / 52) * 2 * Math.PI; // 一年为一圈
-    const radius = 30 + week * 1.5; // 螺旋向外扩展
-    
-    // 模拟价格变化：长期上升趋势 + 季节性波动 + 随机变化
-    const trendGrowth = week * 0.5;
-    const seasonalEffect = 10 * Math.sin(angle * 2);
-    const randomChange = (Math.random() - 0.5) * 5;
-    
-    basePrice += trendGrowth + seasonalEffect + randomChange;
-    const weeklyReturn = randomChange / basePrice * 100;
-    
-    data.push({
-      week: week + 1,
-      angle: angle * 180 / Math.PI,
-      radius: radius,
-      price: basePrice,
-      return: weeklyReturn,
-      year: Math.floor(week / 52) + 1
-    });
-  }
-
-  chart.options({
-    type: 'point',
-    data,
-    coordinate: { type: 'polar' },
-    encode: {
-      x: 'angle',
-      y: 'radius',
-      color: 'return',
-      size: 'price'
-    },
-    scale: {
-      color: { 
-        palette: ['#d73027', '#f46d43', '#fdae61', '#ffffbf', '#abd9e9', '#74add1', '#4575b4']
-      },
-      size: { range: [3, 12] },
-      x: { type: 'linear' },
-      y: { type: 'linear' }
-    },
-    style: {
-      fillOpacity: 0.7,
-      stroke: '#fff',
-      strokeWidth: 1
-    },
-    axis: {
-      x: { title: '年度周期' },
-      y: { title: '时间进程 (周)' }
-    },
-    legend: {
-      color: { title: '周收益率 (%)' },
-      size: { title: '股价' }
-    },
-    title: '股票价格螺旋趋势图'
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
-```
-
-例子 3: **多维数据的螺旋展示**
-
-螺旋图可以同时展示多个维度的信息：
-
-```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
-
-  // 模拟网站访问数据的螺旋展示
-  const data = [];
-  for (let hour = 0; hour < 24 * 30; hour++) { // 30天的小时数据
-    const dayHour = hour % 24;
-    const day = Math.floor(hour / 24);
-    const angle = (dayHour / 24) * 360; // 24小时为一圈
-    const radius = 20 + day * 2; // 每天向外扩展
-    
-    // 模拟访问量：工作时间高，夜间低，周末不同
-    let baseVisits = 100;
-    if (dayHour >= 9 && dayHour <= 18) {
-      baseVisits = 300; // 工作时间
-    } else if (dayHour >= 19 && dayHour <= 22) {
-      baseVisits = 200; // 晚间
-    }
-    
-    const weekday = day % 7;
-    if (weekday === 0 || weekday === 6) {
-      baseVisits *= 0.7; // 周末降低
-    }
-    
-    const visits = baseVisits + Math.random() * 50;
-    const conversionRate = 2 + 3 * Math.random();
-    
-    data.push({
-      hour: hour,
-      dayHour: dayHour,
-      day: day + 1,
-      angle: angle,
-      radius: radius,
-      visits: visits,
-      conversion: conversionRate,
-      period: dayHour < 6 ? '深夜' : dayHour < 12 ? '上午' : dayHour < 18 ? '下午' : '晚间'
-    });
-  }
-
-  chart.options({
-    type: 'point',
-    data,
-    coordinate: { type: 'polar' },
-    encode: {
-      x: 'angle',
-      y: 'radius',
-      size: 'visits',
-      color: 'conversion'
-    },
-    scale: {
-      color: { 
-        palette: ['#ffffcc', '#c7e9b4', '#7fcdbb', '#41b6c4', '#2c7fb8', '#253494']
-      },
-      size: { range: [1, 8] },
-      x: { type: 'linear', domain: [0, 360] },
-      y: { type: 'linear' }
-    },
-    style: {
-      fillOpacity: 0.6,
-      stroke: '#fff',
-      strokeWidth: 0.5
-    },
-    axis: {
-      x: { 
-        title: '小时 (24小时制)',
-        tickCount: 8
-      },
-      y: { title: '天数进程' }
-    },
-    legend: {
-      color: { title: '转化率 (%)' },
-      size: { title: '访问量' }
-    },
-    title: '网站访问量螺旋分析'
-  });
-
-  chart.render();
-
-  return chart.getContainer();
-})();
 ```
 
 ### 不适合的场景
 
-例子 1: **数据量过少的场景**
+螺旋图虽然有很多优势，但也存在一些局限性：
 
-螺旋图需要足够的数据点来形成完整的螺旋形状，如果数据量太少，螺旋效果不明显，此时使用普通的折线图或散点图会更合适。
+**1. 数据量过少的场景**
 
-例子 2: **没有明显周期性的数据**
-
-如果时间序列数据没有明显的周期性特征，螺旋图的优势无法体现，反而可能增加理解难度。
-
-## 螺旋图的扩展
-
-### 3D螺旋图
-
-通过添加第三个维度来增强螺旋图的表现力：
+螺旋图需要足够的数据点（通常100条以上）来形成完整的螺旋形状，如果数据量太少，螺旋效果不明显，此时使用普通的折线图或散点图会更合适。
 
 ```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
+import { Chart } from "@antv/g2";
 
-  // 生成3D效果的螺旋数据
-  const data = [];
-  for (let i = 0; i < 200; i++) {
-    const t = i / 20; // 时间参数
-    const angle = t * 2 * Math.PI;
-    const radius = 20 + t * 3;
-    const height = Math.sin(t) * 30; // 高度变化
-    
-    // 投影到2D平面，通过透视效果模拟3D
-    const perspective = 0.8 + 0.2 * Math.sin(angle);
-    const x = radius * Math.cos(angle) * perspective;
-    const y = radius * Math.sin(angle) * 0.6 + height * 0.4;
-    
+const chart = new Chart({ container: "container" });
+
+chart.options({
+  type: "interval",
+  autoFit: true,
+  height: 500,
+  data: {
+    value: [
+      { time: "2025.07.11", value: 15 },
+      { time: "2025.07.12", value: 50 },
+      { time: "2025.07.13", value: 50 },
+      { time: "2025.07.14", value: 86 },
+      { time: "2025.07.15", value: 60 },
+    ],
+  },
+  encode: { x: "time", y: "value", color: "value" },
+  scale: { color: { type: "linear", range: ["#ffffff", "#1890FF"] } },
+  coordinate: {
+    type: "helix",
+    startAngle: 1.5707963267948966,
+    endAngle: 39.269908169872416,
+  },
+  animate: { enter: { type: "fadeIn" } },
+  tooltip: { title: "time" },
+});
+
+chart.render();
+
+```
+**更适合的折线图示例：**
+
+```js | ob { autoMount: true }
+import { Chart } from "@antv/g2";
+
+// 同样的5天数据，使用折线图展示
+const data = [];
+const dates = ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05'];
+const values = [45, 68, 52, 71, 59]; // 模拟5天的销售数据
+
+dates.forEach((date, index) => {
+  data.push({
+    time: date,
+    value: values[index]
+  });
+});
+
+const chart = new Chart({ 
+  container: "container",
+  autoFit: true,
+  height: 400,
+  padding: [50, 50, 50, 50]
+});
+
+chart.options({
+  type: 'line',
+  data,
+  encode: {
+    x: 'time',
+    y: 'value'
+  },
+  scale: {
+    time: {
+      type: 'time',
+      mask: 'yyyy.mm.dd'
+    }
+  },
+  style: {
+    stroke: '#1890ff',
+    strokeWidth: 3,
+    lineJoin: 'round'
+  },
+  point: {
+    style: {
+      fill: '#1890ff',
+      stroke: '#ffffff',
+      strokeWidth: 2,
+      r: 6
+    }
+  },
+  axis: {
+    x: { 
+      title: '时间',
+      labelAutoRotate: false
+    },
+    y: { title: '销售额' }
+  },
+  title: '推荐方案：少量数据使用折线图更清晰（5天数据）'
+});
+
+chart.render();
+```
+
+**2. 需要精确比较数值的场景**
+
+由于螺旋图的非线性特性，不便于精确比较具体数值或变化率。
+
+```js | ob { autoMount: true }
+import { Chart } from "@antv/g2";
+
+// 需要精确对比的数据示例
+const data = [];
+const categories = ['产品A', '产品B', '产品C', '产品D'];
+categories.forEach((category, index) => {
+  for (let month = 1; month <= 12; month++) {
     data.push({
-      time: i,
-      x: x,
-      y: y,
-      radius: radius,
-      height: height + 50, // 偏移以便显示
-      depth: perspective
+      time: `2023-${month.toString().padStart(2, '0')}`,
+      category: category,
+      sales: 80 + index * 5 + Math.random() * 10 // 接近的数值，需要精确比较
     });
   }
+});
 
-  chart.options({
-    type: 'line',
-    data,
-    encode: {
-      x: 'x',
-      y: 'y',
-      color: 'height',
-      size: 'depth'
-    },
-    scale: {
-      color: { 
-        palette: ['#440154', '#31688e', '#35b779', '#fde725']
-      },
-      size: { range: [1, 4] }
-    },
-    style: {
-      strokeOpacity: 0.8
-    },
-    axis: false,
-    legend: {
-      color: { title: '高度维度' },
-      size: { title: '深度透视' }
-    },
-    title: '3D效果螺旋图'
-  });
+const chart = new Chart({ 
+  container: "container",
+  autoFit: true,
+  height: 400,
+  padding: [50, 50, 50, 50]
+});
 
-  chart.render();
+chart.options({
+  type: 'interval',
+  data,
+  coordinate: {
+    type: 'helix',
+    startAngle: 1 * Math.PI,
+    endAngle: 5 * Math.PI
+  },
+  encode: {
+    x: 'time',
+    y: 'sales',
+    color: 'category'
+  },
+  scale: {
+    color: { 
+      palette: ['#1890ff', '#52c41a', '#fa8c16', '#f5222d']
+    },
+    time: {
+      type: 'time',
+      mask: 'yyyy.mm'
+    }
+  },
+  style: {
+    fillOpacity: 0.8
+  },
 
-  return chart.getContainer();
-})();
+});
+
+chart.render();
 ```
+
+## 螺旋图的扩展
 
 ### 多层螺旋图
 
 展示多个相关数据系列的螺旋对比：
 
 ```js | ob { autoMount: true }
-(() => {
-  const chart = new G2.Chart();
+import { Chart } from "@antv/g2";
 
-  // 生成多层螺旋数据
-  const data = [];
-  const series = ['系列A', '系列B', '系列C'];
-  
-  series.forEach((seriesName, seriesIndex) => {
-    for (let i = 0; i < 120; i++) {
-      const angle = (i / 120) * 4 * Math.PI;
-      const baseRadius = 30 + seriesIndex * 15; // 不同系列不同半径
-      const radius = baseRadius + i * 0.8;
-      
-      // 不同系列有不同的数据模式
-      let value;
-      if (seriesIndex === 0) {
-        value = 50 + 20 * Math.sin(angle);
-      } else if (seriesIndex === 1) {
-        value = 45 + 25 * Math.cos(angle * 0.5);
-      } else {
-        value = 55 + 15 * Math.sin(angle * 2);
-      }
-      
-      value += Math.random() * 10;
-      
-      data.push({
-        time: i,
-        angle: angle * 180 / Math.PI,
-        radius: radius,
-        value: value,
-        series: seriesName
-      });
+// 生成多层螺旋数据
+const data = [];
+const series = ['系列A', '系列B', '系列C'];
+
+series.forEach((seriesName, seriesIndex) => {
+  for (let i = 0; i < 120; i++) {
+    const angle = (i / 120) * 4 * Math.PI;
+    const baseRadius = 30 + seriesIndex * 15; // 不同系列不同半径
+    const radius = baseRadius + i * 0.8;
+    
+    // 不同系列有不同的数据模式
+    let value;
+    if (seriesIndex === 0) {
+      value = 50 + 20 * Math.sin(angle);
+    } else if (seriesIndex === 1) {
+      value = 45 + 25 * Math.cos(angle * 0.5);
+    } else {
+      value = 55 + 15 * Math.sin(angle * 2);
     }
-  });
+    
+    value += Math.random() * 10;
+    
+    data.push({
+      time: i,
+      angle: angle * 180 / Math.PI,
+      radius: radius,
+      value: value,
+      series: seriesName
+    });
+  }
+});
 
-  chart.options({
-    type: 'line',
-    data,
-    coordinate: { type: 'polar' },
-    encode: {
-      x: 'angle',
-      y: 'radius',
-      color: 'series'
-    },
-    scale: {
-      color: { 
-        palette: ['#1890ff', '#52c41a', '#fa8c16']
-      },
-      x: { type: 'linear' },
-      y: { type: 'linear' }
-    },
-    style: {
-      strokeWidth: 2,
-      strokeOpacity: 0.8
-    },
-    axis: {
-      x: { title: null },
-      y: { title: '螺旋进程' }
-    },
-    legend: {
-      color: { title: '数据系列' }
-    },
-    title: '多层螺旋对比图'
-  });
+const chart = new Chart({ 
+  container: "container",
+  autoFit: true,
+  height: 600,
+  padding: [50, 50, 50, 50]
+});
 
-  chart.render();
+chart.options({
+  type: 'line',
+  data,
+  coordinate: { type: 'polar' },
+  encode: {
+    x: 'angle',
+    y: 'radius',
+    color: 'series'
+  },
+  scale: {
+    color: { 
+      palette: ['#1890ff', '#52c41a', '#fa8c16']
+    },
+    x: { type: 'linear' },
+    y: { type: 'linear' }
+  },
+  style: {
+    strokeWidth: 2,
+    strokeOpacity: 0.8
+  },
+  axis: {
+    x: { title: null },
+    y: { title: '螺旋进程' }
+  },
+  legend: {
+    color: { title: '数据系列' }
+  },
+  title: '多层螺旋对比图'
+});
 
-  return chart.getContainer();
-})();
+chart.render();
 ```
+
+### 基因螺旋图
+
+基因螺旋图是螺旋图在生物信息学领域的特殊应用，常用于展示基因表达数据随时间的变化模式。通过螺旋坐标系，可以清晰地观察基因在不同条件下（如野生型WT和敲除型KO）的表达差异：
+
+```js | ob { autoMount: true }
+import { Chart } from "@antv/g2";
+
+// 模拟基因表达数据
+const data = [];
+const groups = ['WT', 'KO']; // 野生型和敲除型
+const hours = 72; // 72小时时间序列
+const baseValues = {
+  WT: 2.0,   // 野生型基础表达水平
+  KO: 2.3,   // 敲除型基础表达水平
+};
+
+for (let i = 0; i < hours; i++) {
+  const time = `${i}h`;
+  groups.forEach((group) => {
+    // 模拟基因表达的周期性变化和随机波动
+    const cyclicPattern = Math.sin(i / 10) * 0.3; // 周期性模式
+    const randomNoise = Math.random() * 0.4 - 0.2; // 随机噪声
+    const trendFactor = group === 'KO' ? 0.1 : 0; // 敲除型可能有轻微上升趋势
+    
+    data.push({
+      time,
+      group,
+      logFPKM: baseValues[group] + cyclicPattern + randomNoise + (i * trendFactor / 100)
+    });
+  });
+}
+
+const chart = new Chart({ 
+  container: "container",
+  autoFit: true,
+  height: 600,
+  padding: [50, 50, 50, 50]
+});
+
+chart.options({
+  type: 'interval',
+  data,
+  coordinate: {
+    type: 'helix',
+    startAngle: 0.2 * Math.PI,
+    endAngle: 6.5 * Math.PI,
+    innerRadius: 0.1,
+  },
+  encode: {
+    x: 'time',
+    y: 'group',
+    color: 'logFPKM'
+  },
+  scale: {
+    color: {
+      type: 'linear',
+      range: ['#fff', '#ec4839']
+    }
+  },
+  style: {
+    fillOpacity: 0.8
+  },
+  tooltip: {
+    title: 'time',
+    items: [
+      { field: 'group', name: '组别' },
+      {
+        field: 'logFPKM',
+        name: 'log(FPKM)',
+        valueFormatter: (value) => value.toFixed(2),
+      },
+    ],
+  },
+  animate: {
+    enter: { type: 'fadeIn', duration: 1000 }
+  },
+  axis: {
+    x: { title: '时间进程' },
+    y: { title: '基因组别' }
+  },
+  legend: {
+    color: { title: '基因表达水平 log(FPKM)' }
+  },
+  title: '基因表达螺旋图：WT vs KO (72小时)'
+});
+
+chart.render();
+```
+
+这种可视化方式特别适合：
+- **时间序列基因表达数据**：展示基因在长时间序列中的表达变化
+- **多组别比较**：同时比较不同基因型或处理条件下的表达差异  
+- **周期性模式识别**：识别基因表达的昼夜节律或其他周期性规律
+- **表达热图展示**：通过颜色编码直观展示表达强度差异
 
 ## 螺旋图与其他图表的对比
 
@@ -531,12 +786,6 @@ similar: ['rose']
 - 螺旋图通过螺旋形式节省空间，适合展示长时间序列数据
 - 折线图在直线坐标系中展示，更直观地显示数据变化趋势
 - 螺旋图更能突出周期性模式，折线图更适合分析精确的时间趋势
-
-### 螺旋图和[极坐标图](/charts/polar)
-
-- 螺旋图是极坐标图的特殊形式，强调时间的螺旋进展
-- 极坐标图通常用于展示角度和半径的关系
-- 螺旋图更适合时间序列，极坐标图更适合方向性数据
 
 ### 螺旋图和[热力图](/charts/heatmap)
 
