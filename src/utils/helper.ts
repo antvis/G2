@@ -18,6 +18,16 @@ export function getViewFromElement(element: G2Element) {
 }
 
 /**
+ * @description Check if the element is a heatmap.
+ * @param element G2 element.
+ * @returns True if the element is a heatmap, otherwise false.
+ */
+export function isHeatmap(element) {
+  const { markType, nodeName } = element;
+  return markType === 'heatmap' && nodeName === 'image';
+}
+
+/**
  * @description Get element's original data.
  * @param elemenet G2 element.
  * @param elemenet View data, if not provided, will get from element's ancestor view.
@@ -26,7 +36,7 @@ export function getViewFromElement(element: G2Element) {
 export function dataOf(element: G2Element, viewData?: any) {
   const view = viewData ?? getViewFromElement(element).__data__;
   const datum = element.__data__;
-  const { markKey, index, seriesIndex } = datum;
+  const { markKey, index, seriesIndex, normalized = { x: 0 } } = datum;
   const { markState } = view;
   const selectedMark: any = Array.from(markState.keys()).find(
     (mark) => (mark as any).key === markKey,
@@ -35,7 +45,9 @@ export function dataOf(element: G2Element, viewData?: any) {
   if (seriesIndex) {
     return seriesIndex.map((i) => selectedMark.data[i]);
   }
-  return selectedMark.data[index];
+  return isHeatmap(element)
+    ? selectedMark.data[Math.round(selectedMark.data.length * normalized.x)]
+    : selectedMark.data[index];
 }
 
 /**
