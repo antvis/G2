@@ -503,6 +503,36 @@ D3 format 的基本语法：`[[fill]align][sign][symbol][0][width][,][.precision
 | `r`  | 有效数字   | `42.0`        |
 | `g`  | 通用格式   | `42`          |
 
+##### D3-format 完整格式化参考
+
+```js
+// 常用数值格式
+'.2f'; // 固定2位小数：23.45
+'.0f'; // 整数：23
+'.1%'; // 百分比：23.4%
+',.0f'; // 千分位：1,234,567
+
+// SI前缀格式（推荐用于大数值）
+'s'; // SI前缀：1.2M, 3.4k
+'.1s'; // 1位小数SI：1.2M, 3.4k
+'~s'; // 去尾随零SI：1.2M, 3k
+'.0s'; // 整数SI：1M, 3k
+
+// 货币格式
+'$,.2f'; // 美元：$1,234.56
+'$.2s'; // 美元SI：$1.23M
+
+// 科学计数法
+'.2e'; // 科学计数：1.23e+6
+'.2g'; // 通用格式：1.2e+6 或 1234
+
+// 进制格式
+'d'; // 十进制整数：1234
+'x'; // 十六进制：4d2
+'o'; // 八进制：2322
+'b'; // 二进制：10011010010
+```
+
 ##### 格式化示例
 
 ```js | ob {  pin: false , inject: true }
@@ -617,6 +647,7 @@ chart.options({
       title: 'x 轴标题',
       labelFontSize: 12,
       labelFormatter: (d) => `2025-${d}`,
+      size: 100,
       transform: [
         // 缩略
         {
@@ -1124,3 +1155,531 @@ chart.render();
 ```
 
 更多的案例，可以查看 [图表示例 - 坐标轴](/examples/component/axis/#axis-x) 页面。
+
+## 刻度值格式化示例
+
+### 示例 1：金融股票图表格式化
+
+金融数据需要精确的价格显示和简洁的时间轴，常用于股票价格、基金净值等场景：
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 600,
+  height: 400,
+  data: [
+    { date: '2024-01-01', price: 23.45, volume: 120000 },
+    { date: '2024-01-02', price: 24.12, volume: 150000 },
+    { date: '2024-01-03', price: 23.89, volume: 98000 },
+    { date: '2024-01-04', price: 25.3, volume: 200000 },
+    { date: '2024-01-05', price: 24.78, volume: 175000 },
+    { date: '2024-01-08', price: 26.15, volume: 220000 },
+  ],
+  encode: { x: 'date', y: 'price' },
+  style: { stroke: '#ff6b35', lineWidth: 2 },
+  axis: {
+    x: {
+      title: '交易日期',
+      // 时间格式化需要自定义函数
+      labelFormatter: (d) => {
+        const date = new Date(d);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${month}-${day}`;
+      },
+      labelFontSize: 11,
+    },
+    y: {
+      title: '股价（¥）',
+      // 使用 d3-format：固定2位小数
+      labelFormatter: '.2f', // 相当于 d.toFixed(2)
+      grid: true,
+      gridStroke: '#f5f5f5',
+      tickCount: 6,
+    },
+  },
+});
+chart.render();
+```
+
+**D3-format vs 自定义函数对比：**
+
+```js
+// ✅ D3-format（推荐用于标准数值格式）
+labelFormatter: '.2f'; // 固定2位小数：23.45
+labelFormatter: '.1%'; // 百分比：23.4%
+labelFormatter: '$,.2f'; // 货币格式：$1,234.56
+
+// ✅ 自定义函数（复杂逻辑、特殊需求）
+labelFormatter: (d) => `¥${d.toFixed(2)}`; // 人民币符号
+labelFormatter: (d) => {
+  /* 复杂业务逻辑 */
+};
+```
+
+### 示例 2：电商销售数据智能单位转换
+
+销售数据通常涉及大金额，需要自动转换为合适的单位显示。对比 d3-format 和自定义函数的应用场景：
+
+#### 使用 D3-format（国际化标准格式）
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { category: '电子产品', sales: 8500000 },
+    { category: '服装鞋帽', sales: 12300000 },
+    { category: '家居用品', sales: 6800000 },
+    { category: '美妆护肤', sales: 15600000 },
+    { category: '食品饮料', sales: 9200000 },
+  ],
+  encode: { x: 'category', y: 'sales', color: 'category' },
+  axis: {
+    x: {
+      title: '商品类别',
+      labelFontSize: 12,
+    },
+    y: {
+      title: '销售额',
+      // 使用 d3-format：SI前缀格式，自动K/M单位
+      labelFormatter: '~s', // 8.5M, 12.3M, 6.8M, 15.6M, 9.2M
+      grid: true,
+      gridStroke: '#e8e8e8',
+      tickCount: 5,
+    },
+  },
+});
+chart.render();
+```
+
+#### 使用自定义函数（中文格式）
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart2 = new Chart({
+  container: 'container',
+});
+
+chart2.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { category: '电子产品', sales: 8500000 },
+    { category: '服装鞋帽', sales: 12300000 },
+    { category: '家居用品', sales: 6800000 },
+    { category: '美妆护肤', sales: 15600000 },
+    { category: '食品饮料', sales: 9200000 },
+  ],
+  encode: { x: 'category', y: 'sales', color: 'category' },
+  axis: {
+    x: {
+      title: '商品类别',
+      labelFontSize: 12,
+    },
+    y: {
+      title: '销售额',
+      // 自定义中文单位格式
+      labelFormatter: (value) => {
+        if (value >= 100000000) {
+          return `${(value / 100000000).toFixed(1)}亿`;
+        } else if (value >= 10000) {
+          return `${(value / 10000).toFixed(0)}万`;
+        } else {
+          return value.toString();
+        }
+      },
+      grid: true,
+      gridStroke: '#e8e8e8',
+      tickCount: 5,
+    },
+  },
+});
+chart2.render();
+```
+
+### 示例 3：用户增长数据国际化格式
+
+用户数据通常使用国际标准的 K、M 单位，D3-format 提供了简洁的实现方式：
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  width: 600,
+  height: 400,
+  data: [
+    { quarter: '2023 Q1', users: 125000 },
+    { quarter: '2023 Q2', users: 158000 },
+    { quarter: '2023 Q3', users: 234000 },
+    { quarter: '2023 Q4', users: 312000 },
+    { quarter: '2024 Q1', users: 425000 },
+    { quarter: '2024 Q2', users: 586000 },
+  ],
+  encode: { x: 'quarter', y: 'users' },
+  style: {
+    fill: 'linear-gradient(270deg, #667eea 0%, #764ba2 100%)',
+    fillOpacity: 0.6,
+  },
+  axis: {
+    x: {
+      title: '季度',
+      // 时间字符串处理需要自定义函数
+      labelFormatter: (d) => {
+        return d.replace('2023 ', '').replace('2024 ', '24');
+      },
+      labelFontSize: 11,
+    },
+    y: {
+      title: '用户数量',
+      // 使用 d3-format：国际标准K/M格式
+      labelFormatter: '.0s', // 125k, 158k, 234k, 312k, 425k, 586k
+      grid: true,
+      gridStroke: '#f0f0f0',
+      gridLineDash: [3, 3],
+      tickCount: 6,
+    },
+  },
+});
+chart.render();
+```
+
+## 长刻度值标签处理方案详解
+
+在实际业务场景中，经常会遇到坐标轴刻度值过长导致重叠、超出显示范围的问题。G2 提供了四种核心解决方案，各有其最佳适用场景：
+
+### 方案选择指南
+
+| 方案               | 适用场景                                       | 优点                   | 缺点                           | 推荐业务场景                 |
+| ------------------ | ---------------------------------------------- | ---------------------- | ------------------------------ | ---------------------------- |
+| **缩略(ellipsis)** | 文本长度差异大、用户可通过其他方式获取完整信息 | 保持整洁、不改变布局   | 信息丢失                       | 产品名称、用户 ID、文件名    |
+| **旋转(rotate)**   | 文本长度相近、空间充足                         | 保留完整信息、视觉清晰 | 需要更多垂直空间、阅读体验稍差 | 日期时间、地区名称、分类标签 |
+| **换行(wrap)**     | 中等长度文本、有充足垂直空间                   | 保留完整信息、易阅读   | 占用更多垂直空间               | 产品描述、部门名称           |
+| **隐藏(hide)**     | 标签密度过高、主要关注趋势                     | 解决重叠、保持关键节点 | 信息缺失                       | 时间序列、大数据量可视化     |
+
+### 示例 1：电商产品销量排行榜（缩略方案）
+
+电商平台需要展示热销产品排行，产品名称长短不一，从"iPhone"到"Apple iPhone 15 Pro Max 1TB 深空黑色"
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 650, // 适当减小宽度以触发缩略
+  data: [
+    { product: 'iPhone 15 Pro Max', sales: 2500 },
+    { product: 'Samsung Galaxy S24 Ultra 512GB 幻夜黑色版本', sales: 1800 },
+    {
+      product: 'Apple MacBook Pro 16英寸 M3 Max芯片 1TB 深空灰色',
+      sales: 1200,
+    },
+    { product: 'Sony WH-1000XM5 无线降噪头戴式耳机 午夜黑色', sales: 3200 },
+    { product: '小米14 Ultra 摄影套装版 16GB+1TB 白色限量版', sales: 2100 },
+    { product: 'iPad Pro 12.9英寸 M2芯片 1TB WiFi版 深空灰色', sales: 1600 },
+    { product: 'MacBook Air 15英寸 M2芯片 512GB 星光色', sales: 1400 },
+    { product: 'AirPods Pro 第二代 主动降噪无线耳机', sales: 2800 },
+  ],
+  encode: { x: 'product', y: 'sales', color: 'product' },
+  axis: {
+    x: {
+      title: '热销产品',
+      labelFontSize: 11,
+      // 缩略方案：适合产品名称场景
+      size: 100,
+      transform: [
+        {
+          type: 'ellipsis',
+          suffix: '...', // 缩略符号
+        },
+      ],
+    },
+    y: {
+      title: '销量（台）',
+      labelFormatter: ',.0f', // 千分位格式
+      grid: true,
+      gridStroke: '#f0f0f0',
+    },
+  },
+  tooltip: {
+    // 悬浮时显示完整产品名称
+    title: (d) => d.product,
+    items: [{ field: 'sales', name: '销量', formatter: ',.0f' }],
+  },
+});
+chart.render();
+```
+
+**特点**
+
+- 保持图表整洁，避免产品名称重叠
+- 用户可通过 tooltip 查看完整产品名称
+- 适合产品名称长短差异很大的场景
+
+### 示例 2：用户活跃度时间分析（旋转方案）
+
+需要展示每小时用户活跃度，时间标签需要显示"YYYY-MM-DD HH:mm"格式
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 600, // 减小宽度以触发旋转
+  marginBottom: 30, // 预留旋转的空间
+  data: [
+    { time: '2024-01-15 08:00', activeUsers: 1200 },
+    { time: '2024-01-15 09:00', activeUsers: 1800 },
+    { time: '2024-01-15 10:00', activeUsers: 2800 },
+    { time: '2024-01-15 11:00', activeUsers: 3200 },
+    { time: '2024-01-15 12:00', activeUsers: 4500 },
+    { time: '2024-01-15 13:00', activeUsers: 4200 },
+    { time: '2024-01-15 14:00', activeUsers: 3200 },
+    { time: '2024-01-15 15:00', activeUsers: 3600 },
+    { time: '2024-01-15 16:00', activeUsers: 3800 },
+    { time: '2024-01-15 17:00', activeUsers: 4800 },
+    { time: '2024-01-15 18:00', activeUsers: 5200 },
+    { time: '2024-01-15 19:00', activeUsers: 4800 },
+    { time: '2024-01-15 20:00', activeUsers: 4100 },
+    { time: '2024-01-15 21:00', activeUsers: 3500 },
+    { time: '2024-01-15 22:00', activeUsers: 2600 },
+    { time: '2024-01-15 23:00', activeUsers: 1900 },
+  ],
+  encode: { x: 'time', y: 'activeUsers' },
+  style: { stroke: '#5B8FF9', lineWidth: 2 },
+  axis: {
+    x: {
+      title: '时间',
+      labelFontSize: 10,
+      // 旋转方案：适合时间标签
+      size: 100,
+      transform: [
+        {
+          type: 'rotate',
+          optionalAngles: [0, 30, 45, 60, 90], // 尝试多个角度
+          recoverWhenFailed: true, // 失败时恢复默认角度
+        },
+      ],
+    },
+    y: {
+      title: '活跃用户数',
+      labelFormatter: ',.0f',
+      grid: true,
+      gridStroke: '#e6e6e6',
+      gridLineDash: [3, 3],
+    },
+  },
+});
+chart.render();
+```
+
+**特点**
+
+- 保留完整时间信息，便于精确分析
+- 自动选择最佳旋转角度避免重叠
+- 适合时间序列、地区名称等固定格式标签
+
+### 示例 3：部门绩效评估（换行方案）
+
+展示各部门季度绩效，部门名称中等长度，需要完整显示
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 800,
+  data: [
+    { department: '市场营销部门', score: 85 },
+    { department: '产品研发中心', score: 92 },
+    { department: '客户服务部', score: 78 },
+    { department: '人力资源管理部', score: 81 },
+    { department: '财务审计部门', score: 89 },
+    { department: '战略规划中心', score: 87 },
+  ],
+  encode: { x: 'department', y: 'score', color: 'department' },
+  axis: {
+    x: {
+      title: '部门',
+      labelFontSize: 12,
+      // 换行方案：适合部门名称
+      size: 100,
+      transform: [
+        {
+          type: 'wrap',
+          wordWrapWidth: 60, // 单行最大60像素
+          maxLines: 2, // 最多显示2行
+          recoverWhenFailed: true, // 换行失败时恢复默认布局
+        },
+      ],
+    },
+    y: {
+      title: '绩效得分',
+      grid: true,
+      gridStroke: '#f5f5f5',
+      domain: [0, 100],
+    },
+  },
+});
+chart.render();
+```
+
+**特点**
+
+- 保留完整部门名称，便于准确识别
+- 换行布局保持良好的可读性
+- 适合中等长度的标签文本
+
+### 示例 4：股票价格大数据趋势（隐藏方案）
+
+展示连续交易日股价趋势，数据点密集，重点关注趋势而非具体日期
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+// 生成模拟股价数据
+const generateStockData = () => {
+  const data = [];
+  let price = 100;
+  const startDate = new Date('2024-01-01');
+
+  for (let i = 0; i < 90; i++) {
+    // 增加到90个数据点
+    const currentDate = new Date(startDate);
+    currentDate.setDate(startDate.getDate() + i);
+
+    // 随机价格波动
+    price += (Math.random() - 0.5) * 4;
+    price = Math.max(80, Math.min(120, price)); // 限制在80-120范围
+
+    data.push({
+      date: currentDate.toISOString().split('T')[0],
+      price: Math.round(price * 100) / 100,
+    });
+  }
+  return data;
+};
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 700, // 减小宽度增加密度
+  marginRight: 30, // 预留右侧保留最后一个刻度值的宽度
+  data: generateStockData(),
+  encode: { x: 'date', y: 'price' },
+  style: { stroke: '#722ed1', lineWidth: 1.5 },
+  axis: {
+    x: {
+      title: '交易日期',
+      labelFontSize: 9,
+      // 隐藏方案：适合密集数据
+      size: 100,
+      transform: [
+        {
+          type: 'hide',
+          keepHeader: true, // 保留第一个日期
+          keepTail: true, // 保留最后一个日期
+        },
+      ],
+    },
+    y: {
+      title: '股价（元）',
+      labelFormatter: '.2f',
+      grid: true,
+      gridStroke: '#f0f0f0',
+      gridLineDash: [2, 2],
+    },
+  },
+});
+chart.render();
+```
+
+**特点**
+
+- 解决密集数据点的标签重叠问题
+- 保留首尾关键时间节点
+- 重点突出数据趋势而非具体数值
+
+### 示例 5 快捷配置（ 推荐 ）
+
+对于简单场景，推荐使用 `labelAutoXXX` 系列属性：
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 650, // 减小宽度以触发变换效果
+  marginBottom: 50, // 为多重变换预留空间
+  marginRight: 100,
+  data: [
+    { region: '北京市朝阳区CBD核心商务区金融中心', revenue: 8500 },
+    { region: '上海市浦东新区陆家嘴金融贸易区总部基地', revenue: 9200 },
+    { region: '深圳市南山区高新技术产业园区', revenue: 7800 },
+    { region: '广州市天河区珠江新城国际商务中心', revenue: 6900 },
+    { region: '杭州市西湖区互联网创新产业园区', revenue: 5600 },
+    { region: '成都市高新区软件产业园科技创新区', revenue: 4800 },
+    { region: '苏州市工业园区生物纳米科技园', revenue: 5200 },
+    { region: '南京市江宁区未来科技城创新基地', revenue: 4500 },
+  ],
+  encode: { x: 'region', y: 'revenue', color: 'region' },
+  axis: {
+    x: {
+      title: '业务区域',
+      labelFontSize: 10,
+      size: 100,
+      // 快捷配置，等价于 transform 数组
+      labelAutoEllipsis: true, // 启用自动缩略
+      labelAutoRotate: true, // 启用自动旋转
+      labelAutoHide: true, // 启用自动隐藏
+      labelAutoWrap: true, // 启用自动换行
+    },
+    y: {
+      title: '营收（万元）',
+      labelFormatter: ',.0f',
+      grid: true,
+      gridStroke: '#e8e8e8',
+    },
+  },
+});
+chart.render();
+```
