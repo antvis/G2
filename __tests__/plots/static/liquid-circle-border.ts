@@ -1,13 +1,13 @@
 import { G2Spec } from '../../../src';
 
-export function liquidCircle(): G2Spec {
+export function liquidCircleBorder(): G2Spec {
   return {
     type: 'liquid',
-    data: 0.3,
+    data: 0,
     style: {
       shape: 'circle',
       outlineBorder: 4,
     },
   };
 }
-liquidCircle.skip = true;
+liquidCircleBorder.skip = true;

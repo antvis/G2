@@ -25,6 +25,7 @@ import {
   maybeValue,
   findSeriesElement,
 } from '../interaction/tooltip';
+import { isHeatmap, dataOf } from '../utils/helper';
 import { selectPlotArea } from '../interaction/utils';
 import {
   normalizeContainer,
@@ -319,6 +320,7 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
         scale,
         shared,
       });
+      if (isHeatmap(element)) return dataOf(element, dataMap.get(key));
       const k = groupKey(element);
       const groupElements = keyGroup.get(k) as G2Element[];
       return groupElements ? getElementsData(groupElements) : [];
