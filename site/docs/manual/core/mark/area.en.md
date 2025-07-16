@@ -240,7 +240,7 @@ Configure styles for `area` marks.
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------- | -------- |
 | connect              | Whether to connect null values with `connector` graphics                                                                                                  | boolean                                                         | `false`                                                    |          |
 | defined              | Determines if data is a null value                                                                                                                        | (d) => boolean                                                  | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |          |
-| connectFill          | `connector` graphic fill color                                                                                                                            | string \| (d, index, data, column) => string                    | -                                                          |          |
+| connectFill          | `connector` graphic fill color, will be overridden by the overall `area` mark fill color `fill`                                                          | string \| (d, index, data, column) => string                    | -                                                          |          |
 | connectFillOpacity   | `connector` graphic fill opacity                                                                                                                          | number \| (d, index, data, column) => number                    | -                                                          |          |
 | connectStroke        | `connector` graphic stroke                                                                                                                                | string \| (d, index, data, column) => string                    | -                                                          |          |
 | connectStrokeOpacity | `connector` graphic stroke opacity                                                                                                                        | number \| (d, index, data, column) => number                    | -                                                          |          |
@@ -286,10 +286,10 @@ chart.options({
   },
   style: {
     connect: true,
-    // 配置connector样式
-    connectFill: 'grey',
+    // Configure connector styles
+    connectFill: 'grey', // Overridden by fill color
     connectFillOpacity: 0.15,
-    // 配置area样式
+    // Configure area styles
     fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',
     opacity: 0.9,
     stroke: 'yellow',

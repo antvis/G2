@@ -142,7 +142,7 @@ export default defineConfig({
       {
         slug: 'manual/core/chart',
         title: {
-          zh: '图表（Chart）',
+          zh: '图表组成和使用（Chart）',
           en: 'Chart',
         },
         order: 1,
@@ -158,7 +158,7 @@ export default defineConfig({
       {
         slug: 'manual/core/data',
         title: {
-          zh: '数据（Data）',
+          zh: '数据配置和数据转换（Data）',
           en: 'Data',
         },
         order: 4,
@@ -174,7 +174,7 @@ export default defineConfig({
       {
         slug: 'manual/core/transform',
         title: {
-          zh: '转换（Transform）',
+          zh: '标记转换（Transform）',
           en: 'Transform',
         },
         order: 7,
@@ -182,7 +182,7 @@ export default defineConfig({
       {
         slug: 'manual/core/coordinate',
         title: {
-          zh: '坐标系（Coordinate）',
+          zh: '坐标系及其转换（Coordinate）',
           en: 'Coordinate',
         },
         order: 8,
@@ -206,7 +206,7 @@ export default defineConfig({
       {
         slug: 'manual/core/composition',
         title: {
-          zh: '复合（Composition）',
+          zh: '复合视图（Composition）',
           en: 'Composition',
         },
         order: 14,

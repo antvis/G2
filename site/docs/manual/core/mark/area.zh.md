@@ -240,7 +240,7 @@ chart.render();
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- | ---- |
 | connect              | 是否用 `connector` 图形连接空值                                                                                              | boolean                                                          | `false`                                                    |      |
 | defined              | 决定数据是否为空值                                                                                                           | (d) => boolean                                                   | `(d) => !Number.isNaN(d) && d !== undefined && d !== null` |      |
-| connectFill          | `connector` 图形填充色                                                                                                       | string \| (d, index, data, column) => string                     | -                                                          |      |
+| connectFill          | `connector` 图形填充色，会被 `area`标记整体填充色 `fill` 覆盖                                                                | string \| (d, index, data, column) => string                     | -                                                          |      |
 | connectFillOpacity   | `connector` 图形填充透明度                                                                                                   | number \| (d, index, data, column) => number                     | -                                                          |      |
 | connectStroke        | `connector` 图形的描边                                                                                                       | string \| (d, index, data, column) => string                     | -                                                          |      |
 | connectStrokeOpacity | `connector` 图形描边透明度                                                                                                   | number \| (d, index, data, column) => number                     | -                                                          |      |
@@ -287,7 +287,7 @@ chart.options({
   style: {
     connect: true,
     // 配置connector样式
-    connectFill: 'grey',
+    connectFill: 'grey', // 被fill的颜色覆盖
     connectFillOpacity: 0.15,
     // 配置area样式
     fill: 'l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff',

@@ -7,9 +7,61 @@ order: 7
 
 **问题描述**
 
-在使用 AntV G2 绘制图表时，手动设置 `padding` 可能会导致图表标题无法正常显示或完全消失。
+在使用 AntV G2 绘制图表时，手动设置 `padding` 可能会导致图表标题或者其他图表组件无法正常显示或完全消失。
 
 相关问题：[设置完 title 不显示](https://github.com/antvis/G2/issues/6549)
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  padding: 20,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
 
 **原因分析**
 
@@ -21,27 +73,122 @@ G2 默认会动态计算所有组件所需的间距，但一旦指定了固定�
 
 1. **使用默认布局（推荐）**
 
-让 G2 自动计算最佳间距，确保所有组件正常显示：
+不手动设置 `padding`，让 G2 自动计算最佳间距，确保所有组件正常显示：
 
-```javascript
-chart
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
 ```
 
 2. 正确设置 Padding
 
 如果确实需要手动设置 `padding`，请确保为动态生成的组件预留足够空间：
 
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  paddingTop: 100,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
+
+也可以在创建 `Chart` 实例的时候传入 `paddingTop`，效果完全一样。
+
 ```javascript
-chart
-  .padding(50)
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+const chart = new Chart({
+  container: 'container',
+  paddingTop: 100,
+});
 ```
 
 **注意事项**
@@ -49,6 +196,8 @@ chart
 - 手动设置 `padding` 时，建议通过调试确定合适的数值
 - 需要考虑标题、图例等组件的空间需求
 - 在不需要特定布局时，优先使用 G2 的自动布局功能
+
+查看[图表布局](/manual/core/chart/chart-component#图表布局)的详细文档。
 
 ## 怎么配置堆叠面积图的描边为不同的颜色
 
@@ -557,3 +706,772 @@ chart.on(ChartEvent.AFTER_RENDER, () => {
 ```
 
 可以通过设置 `animate: false` 避免触发更新动画，但还是会有闪动，后续会通过配置项在内部处理，实现更好的筛选效果。
+
+## 怎么判断鼠标有没有移出图表容器
+
+**问题描述**
+
+在某些交互场景中，需要监听鼠标是否移出了图表容器的边界，以便执行相应的业务逻辑，比如隐藏提示框、重置高亮状态等。
+
+**解决方案**
+
+可以通过监听图表容器的 DOM 事件来判断鼠标的进入和离开状态。
+
+```js | ob { inject: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', autoFit: true });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  viewStyle: {
+    viewFill: 'blue',
+    viewFillOpacity: 0.3,
+  },
+});
+
+chart.render();
+
+let containerMouseEntered = false;
+
+chart.on('afterrender', () => {
+  // 获取图表容器DOM元素
+  const container = chart.getContainer();
+
+  // 创建状态显示面板
+  const statusPanel = document.createElement('div');
+  statusPanel.id = 'mouse-status-panel';
+  statusPanel.style.cssText = `
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    z-index: 1000;
+    min-width: 220px;
+  `;
+
+  // 更新状态显示
+  const updateStatus = (isInside, eventInfo = {}) => {
+    const status = isInside ? '✅ 鼠标在容器内' : '❌ 鼠标在容器外';
+    const containerRect = container.getBoundingClientRect();
+
+    statusPanel.innerHTML = `
+      <div style="font-weight: bold; margin-bottom: 8px;">${status}</div>
+      <div>容器尺寸: ${container.offsetWidth} × ${container.offsetHeight}</div>
+      <div>容器位置: (${Math.round(containerRect.left)}, ${Math.round(
+      containerRect.top,
+    )})</div>
+      ${
+        eventInfo.clientX !== undefined
+          ? `<div>鼠标坐标: (${eventInfo.clientX}, ${eventInfo.clientY})</div>`
+          : ''
+      }
+      ${eventInfo.type ? `<div>事件类型: ${eventInfo.type}</div>` : ''}
+      <div style="margin-top: 8px; font-size: 11px; opacity: 0.8;">
+        移动鼠标到图表上试试看！
+      </div>
+    `;
+  };
+
+  if (container) {
+    // 将状态面板添加到容器的父元素
+    container.parentElement.style.position = 'relative';
+    container.parentElement.appendChild(statusPanel);
+
+    // 初始化显示
+    updateStatus(false);
+
+    // 监听鼠标进入容器
+    container.addEventListener('mouseenter', (e) => {
+      containerMouseEntered = true;
+      updateStatus(true, {
+        type: e.type,
+        clientX: e.clientX,
+        clientY: e.clientY,
+      });
+    });
+
+    // 监听鼠标在容器内移动
+    container.addEventListener('mousemove', (e) => {
+      if (containerMouseEntered) {
+        updateStatus(true, {
+          type: e.type,
+          clientX: e.clientX,
+          clientY: e.clientY,
+        });
+      }
+    });
+
+    // 监听鼠标离开容器
+    container.addEventListener('mouseleave', (e) => {
+      if (containerMouseEntered) {
+        containerMouseEntered = false;
+        updateStatus(false, {
+          type: e.type,
+          clientX: e.clientX,
+          clientY: e.clientY,
+        });
+      }
+    });
+  }
+});
+```
+
+**完整示例**
+
+下面是一个完整的示例，展示了如何通过事件触发控制 tooltip 的显示和隐藏，当点击 element 的时候显示 tooltip，当点击空白区域或者当鼠标离开容器时手动触发 tooltip 隐藏事件。
+
+```js | ob { inject: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', autoFit: true });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  viewStyle: {
+    viewFill: 'blue',
+    viewFillOpacity: 0.3,
+  },
+  interaction: {
+    tooltip: {
+      disableNative: true, // Disable pointerover and pointerout events.
+    },
+  },
+});
+
+chart.render();
+
+let containerMouseEntered = false;
+
+chart.on('afterrender', () => {
+  // 获取图表容器DOM元素
+  const container = chart.getContainer();
+
+  if (container) {
+    // 监听鼠标进入容器
+    container.addEventListener('mouseenter', (e) => {
+      containerMouseEntered = true;
+    });
+
+    // 监听鼠标离开容器
+    container.addEventListener('mouseleave', (e) => {
+      if (containerMouseEntered) {
+        containerMouseEntered = false;
+        chart.emit('tooltip:hide');
+      }
+    });
+  }
+});
+
+chart.on('element:click', ({ data }) => chart.emit('tooltip:show', { data }));
+chart.on('plot:click', () => chart.emit('tooltip:hide'));
+```
+
+## 怎么调整图例组件整体的大小和布局
+
+**问题描述**
+
+在使用 G2 绘制图表时，默认的图例位置和大小可能无法满足业务需求，需要对图例的位置、对齐方式、尺寸以及与图表的间距进行精确控制。
+
+**解决方案**
+
+G2 提供了多个配置项来精确控制图例的大小和布局：
+
+**基础位置配置**
+
+使用 `position` 设置图例的基础位置：
+
+```js
+legend: {
+  color: {
+    position: 'top', // 'top' | 'right' | 'left' | 'bottom'
+  }
+}
+```
+
+**精确对齐配置**
+
+使用 `layout` 配置图例的精确对齐方式，采用 Flexbox 布局模型：
+
+```js
+legend: {
+  color: {
+    position: 'top',
+    layout: {
+      justifyContent: 'center',    // 主轴对齐: 'flex-start' | 'center' | 'flex-end'
+      alignItems: 'flex-start',    // 交叉轴对齐: 'flex-start' | 'center' | 'flex-end'
+      flexDirection: 'row',        // 主轴方向: 'row' | 'column'
+    }
+  }
+}
+```
+
+**尺寸控制配置**
+
+- **size**: 控制图例在交叉轴上的尺寸（水平布局时控制高度，垂直布局时控制宽度）
+- **length**: 控制图例在主轴上的尺寸（水平布局时控制宽度，垂直布局时控制高度）
+- **crossPadding**: 控制图例与图表区域的距离
+
+```js
+legend: {
+  color: {
+    size: 80,         // 图例交叉轴尺寸
+    length: 300,      // 图例主轴长度
+    crossPadding: 20, // 与图表的距离
+  }
+}
+```
+
+**完整示例**
+
+以下是几种常见的图例布局场景：
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 400,
+  width: 600,
+});
+const container = chart.getContainer();
+
+const data = [
+  { genre: 'Sports', sold: 50 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      position: 'top',
+      layout: {
+        justifyContent: 'center', // 水平居中
+        alignItems: 'flex-start',
+      },
+      size: 60, // 控制图例交叉轴尺寸
+      length: 250, // 控制图例主轴长度
+      crossPadding: 20, // 与图表的距离
+    },
+  },
+});
+
+// 创建布局选择器
+const controlPanel = document.createElement('div');
+controlPanel.style.cssText = `
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+`;
+
+// 布局场景选择器
+const sceneContainer = document.createElement('div');
+sceneContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    选择布局场景:
+  </label>
+`;
+
+const sceneSelect = document.createElement('select');
+sceneSelect.style.cssText = 'width: 100%; padding: 4px;';
+const scenes = [
+  { label: '顶部居中（仪表板风格）', value: 'top-center' },
+  { label: '右侧垂直居中（详细图表）', value: 'right-center' },
+  { label: '底部左对齐（节省空间）', value: 'bottom-start' },
+  { label: '左侧底部对齐', value: 'left-end' },
+  { label: '右侧顶部对齐（紧凑）', value: 'right-start' },
+];
+
+sceneSelect.innerHTML = scenes
+  .map(
+    (scene, index) =>
+      `<option value="${scene.value}" ${index === 0 ? 'selected' : ''}>${
+        scene.label
+      }</option>`,
+  )
+  .join('');
+
+sceneContainer.appendChild(sceneSelect);
+
+// 尺寸控制
+const sizeContainer = document.createElement('div');
+sizeContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    图例尺寸控制:
+  </label>
+  <div style="margin-bottom: 8px;">
+    <label>crossPadding (与图表距离): </label>
+    <input type="range" id="crossPadding" min="5" max="50" value="20" style="width: 100%;">
+    <span id="crossPaddingValue">20</span>
+  </div>
+  <div style="margin-bottom: 8px;">
+    <label>size (交叉轴尺寸): </label>
+    <input type="range" id="size" min="40" max="200" value="60" style="width: 100%;">
+    <span id="sizeValue">60</span>
+  </div>
+  <div>
+    <label>length (主轴长度): </label>
+    <input type="range" id="length" min="40" max="400" value="250" style="width: 100%;">
+    <span id="lengthValue">250</span>
+  </div>
+`;
+
+controlPanel.appendChild(sceneContainer);
+controlPanel.appendChild(sizeContainer);
+
+const updateChart = () => {
+  const selectedScene = sceneSelect.value;
+  const crossPadding = parseInt(document.getElementById('crossPadding').value);
+  const size = parseInt(document.getElementById('size').value);
+  const length = parseInt(document.getElementById('length').value);
+
+  let position, justifyContent;
+
+  switch (selectedScene) {
+    case 'top-center':
+      position = 'top';
+      justifyContent = 'center';
+      break;
+    case 'right-center':
+      position = 'right';
+      justifyContent = 'center';
+      break;
+    case 'bottom-start':
+      position = 'bottom';
+      justifyContent = 'flex-start';
+      break;
+    case 'left-end':
+      position = 'left';
+      justifyContent = 'flex-end';
+      break;
+    case 'right-start':
+      position = 'right';
+      justifyContent = 'flex-start';
+      break;
+  }
+
+  chart.options({
+    legend: {
+      color: {
+        position,
+        layout: {
+          justifyContent,
+          alignItems: 'flex-start',
+        },
+        size,
+        length,
+        crossPadding,
+      },
+    },
+  });
+  chart.render();
+};
+
+// 绑定事件
+sceneSelect.addEventListener('change', updateChart);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const crossPaddingSlider = document.getElementById('crossPadding');
+  const crossPaddingValue = document.getElementById('crossPaddingValue');
+  const sizeSlider = document.getElementById('size');
+  const sizeValue = document.getElementById('sizeValue');
+  const lengthSlider = document.getElementById('length');
+  const lengthValue = document.getElementById('lengthValue');
+
+  if (crossPaddingSlider && crossPaddingValue) {
+    crossPaddingSlider.addEventListener('input', (e) => {
+      crossPaddingValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (sizeSlider && sizeValue) {
+    sizeSlider.addEventListener('input', (e) => {
+      sizeValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (lengthSlider && lengthValue) {
+    lengthSlider.addEventListener('input', (e) => {
+      lengthValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+});
+
+// 插入控制面板
+container.insertBefore(controlPanel, container.firstChild);
+
+// 初始渲染
+chart.render();
+
+// 确保滑块事件正确绑定
+setTimeout(() => {
+  const crossPaddingSlider = document.getElementById('crossPadding');
+  const crossPaddingValue = document.getElementById('crossPaddingValue');
+  const sizeSlider = document.getElementById('size');
+  const sizeValue = document.getElementById('sizeValue');
+  const lengthSlider = document.getElementById('length');
+  const lengthValue = document.getElementById('lengthValue');
+
+  if (crossPaddingSlider && crossPaddingValue) {
+    crossPaddingSlider.addEventListener('input', (e) => {
+      crossPaddingValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (sizeSlider && sizeValue) {
+    sizeSlider.addEventListener('input', (e) => {
+      sizeValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (lengthSlider && lengthValue) {
+    lengthSlider.addEventListener('input', (e) => {
+      lengthValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+}, 100);
+```
+
+查看[图例组件](/manual/component/legend)的完整文档了解更多配置选项。
+
+## 怎么实现一个有预测数据的折线图
+
+**问题描述**
+
+在数据可视化中，经常需要绘制包含实际值和预测值的折线图，其中实际值部分用实线表示，预测值部分用虚线表示，以便用户清晰地区分历史数据和预测数据。
+
+**解决方案**
+
+G2 中一条线对应一个图形（Mark），无法在同一条线内设置不同的样式。要实现实线和虚线的混合效果，需要：
+
+**核心思路**：将数据按照类型（实际/预测）进行分组，使用 `series` 编码创建多条线段，然后通过 `style` 回调函数为不同类型的线段设置不同的样式。
+
+**关键配置**：
+
+1. **数据分组**：确保连接点处的数据在两个分组中都存在，保证线段的连续性
+2. **encode 配置**：
+   - `color`：用于图例分组，不同分组显示不同颜色
+   - `series`：用于创建多条线段，相同 series 值的数据点会连成一条线
+3. **样式回调**：通过 `style.lineDash` 回调函数根据数据类型设置实线或虚线
+
+**示例代码**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    // 产品A的实际数据
+    {
+      year: '2018',
+      value: 80,
+      product: '产品A',
+      type: '实际',
+      series: '产品A-实际',
+    },
+    {
+      year: '2019',
+      value: 95,
+      product: '产品A',
+      type: '实际',
+      series: '产品A-实际',
+    },
+    {
+      year: '2020',
+      value: 100,
+      product: '产品A',
+      type: '实际',
+      series: '产品A-实际',
+    },
+    {
+      year: '2021',
+      value: 120,
+      product: '产品A',
+      type: '实际',
+      series: '产品A-实际',
+    },
+    {
+      year: '2022',
+      value: 110,
+      product: '产品A',
+      type: '实际',
+      series: '产品A-实际',
+    },
+    // 产品A的预测数据（注意2022年的连接点重复）
+    {
+      year: '2022',
+      value: 110,
+      product: '产品A',
+      type: '预测',
+      series: '产品A-预测',
+    },
+    {
+      year: '2023',
+      value: 125,
+      product: '产品A',
+      type: '预测',
+      series: '产品A-预测',
+    },
+    {
+      year: '2024',
+      value: 140,
+      product: '产品A',
+      type: '预测',
+      series: '产品A-预测',
+    },
+    {
+      year: '2025',
+      value: 160,
+      product: '产品A',
+      type: '预测',
+      series: '产品A-预测',
+    },
+    {
+      year: '2026',
+      value: 180,
+      product: '产品A',
+      type: '预测',
+      series: '产品A-预测',
+    },
+
+    // 产品B的实际数据
+    {
+      year: '2018',
+      value: 60,
+      product: '产品B',
+      type: '实际',
+      series: '产品B-实际',
+    },
+    {
+      year: '2019',
+      value: 70,
+      product: '产品B',
+      type: '实际',
+      series: '产品B-实际',
+    },
+    {
+      year: '2020',
+      value: 80,
+      product: '产品B',
+      type: '实际',
+      series: '产品B-实际',
+    },
+    {
+      year: '2021',
+      value: 90,
+      product: '产品B',
+      type: '实际',
+      series: '产品B-实际',
+    },
+    {
+      year: '2022',
+      value: 95,
+      product: '产品B',
+      type: '实际',
+      series: '产品B-实际',
+    },
+    // 产品B的预测数据
+    {
+      year: '2022',
+      value: 95,
+      product: '产品B',
+      type: '预测',
+      series: '产品B-预测',
+    },
+    {
+      year: '2023',
+      value: 100,
+      product: '产品B',
+      type: '预测',
+      series: '产品B-预测',
+    },
+    {
+      year: '2024',
+      value: 110,
+      product: '产品B',
+      type: '预测',
+      series: '产品B-预测',
+    },
+    {
+      year: '2025',
+      value: 125,
+      product: '产品B',
+      type: '预测',
+      series: '产品B-预测',
+    },
+    {
+      year: '2026',
+      value: 145,
+      product: '产品B',
+      type: '预测',
+      series: '产品B-预测',
+    },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'product', // 用于图例分组（产品维度）
+    series: 'series', // 用于创建线段（product-type 组合）
+  },
+  scale: {
+    x: { range: [0, 1] },
+    y: { nice: true },
+  },
+  axis: {
+    x: { title: '年份' },
+    y: { title: '销售额（万元）' },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      style: {
+        lineWidth: 2,
+        lineDash: (d) => {
+          // 根据数据类型设置线型：预测数据用虚线，实际数据用实线
+          return d[0].type === '预测' ? [4, 4] : null;
+        },
+      },
+    },
+    {
+      type: 'point',
+      encode: { shape: 'circle' },
+      style: { size: 3 },
+    },
+  ],
+});
+
+chart.render();
+```
+
+**关键要点**
+
+1. **数据结构设计**：每条数据包含 `product`（产品）、`type`（实际/预测）、`series`（线段标识）字段
+
+2. **连接点处理**：2022 年的数据在实际和预测两个分组中都存在，确保线段连续
+
+3. **编码配置**：
+
+   - `color: 'product'`：按产品分组，生成图例
+   - `series: 'series'`：按组合字段分组，创建独立线段
+
+4. **样式回调**：
+   ```js
+   style: {
+     lineDash: (d) => (d[0].type === '预测' ? [4, 4] : null);
+   }
+   ```
+
+**注意事项**
+
+- `series` 编码决定了哪些数据点会连成一条线
+- `color` 编码影响图例显示和颜色映射
+- 样式回调函数中的 `d[0]` 表示当前线段对应的第一个数据点
+- 连接点（如示例中的 2022 年）必须在两个分组中都存在
+
+## 怎么实现按颜色分组的条形图
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [
+  { category: '前端开发', type: 'HTML结构', score: 3.48 },
+  { category: '前端开发', type: 'CSS样式', score: 3.52 },
+  { category: '前端开发', type: 'JavaScript编程', score: 3.31 },
+  { category: '前端开发', type: 'React框架', score: 3.28 },
+  { category: '后端开发', type: 'Java编程', score: 3.35 },
+  { category: '后端开发', type: '数据库设计', score: 3.58 },
+  { category: '后端开发', type: 'API开发', score: 3.12 },
+  { category: '后端开发', type: '微服务架构', score: 3.45 },
+  { category: '数据分析', type: 'Python数据处理', score: 3.42 },
+  { category: '数据分析', type: 'SQL查询优化', score: 3.33 },
+  { category: '数据分析', type: '机器学习建模', score: 3.56 },
+  { category: '数据分析', type: '数据可视化', score: 3.39 },
+  { category: '产品设计', type: '用户体验设计', score: 3.47 },
+  { category: '产品设计', type: '交互原型制作', score: 3.24 },
+  { category: '产品设计', type: '需求分析梳理', score: 3.51 },
+  { category: '产品设计', type: '竞品调研分析', score: 3.38 },
+  { category: '测试质量', type: '自动化测试脚本', score: 3.44 },
+  { category: '测试质量', type: '性能测试评估', score: 3.29 },
+  { category: '测试质量', type: '安全漏洞扫描', score: 3.36 },
+  { category: '测试质量', type: '兼容性验证', score: 3.18 },
+  { category: '运维部署', type: 'Docker容器化', score: 3.41 },
+  { category: '运维部署', type: 'Kubernetes编排', score: 3.33 },
+  { category: '运维部署', type: '监控告警配置', score: 3.27 },
+  { category: '运维部署', type: '持续集成部署', score: 3.49 },
+];
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data,
+  encode: {
+    x: 'type',
+    y: 'score',
+    color: (d) => d.category,
+  },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  axis: {
+    x: { title: false }, // 隐藏x轴标题
+  },
+  scale: {
+    color: {
+      range: ['#BAE7FF', '#80C9FE', '#70E3E3', '#ABF5F5', '#FFB3BA', '#FFDFBA'], // 在这里自定义颜色
+    },
+  },
+});
+
+chart.render();
+```

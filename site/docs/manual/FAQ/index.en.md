@@ -7,9 +7,61 @@ order: 7
 
 **Problem Description**
 
-When using AntV G2 to draw charts, manually setting `padding` may cause the chart title to not display properly or disappear completely.
+When using AntV G2 to draw charts, manually setting `padding` may cause the chart title or other chart components to not display properly or disappear completely.
 
 Related issue: [Title not displayed after setting](https://github.com/antvis/G2/issues/6549)
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  padding: 20,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
 
 **Cause Analysis**
 
@@ -21,27 +73,122 @@ There are two ways to solve this problem:
 
 1. **Use Default Layout (Recommended)**
 
-Let G2 automatically calculate the optimal spacing to ensure all components display properly:
+Don't manually set `padding`, let G2 automatically calculate the optimal spacing to ensure all components display properly:
 
-```javascript
-chart
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
 ```
 
 2. Set Padding Correctly
 
 If you really need to manually set `padding`, please ensure sufficient space is reserved for dynamically generated components:
 
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  paddingTop: 100,
+  title: {
+    align: 'center',
+    title: 'This is a chart title.',
+    subtitle: 'Displayed are sampled values.',
+  },
+  data: [
+    { country: 'Asia', year: '1750', value: 502 },
+    { country: 'Asia', year: '1800', value: 635 },
+    { country: 'Asia', year: '1850', value: 809 },
+    { country: 'Asia', year: '1900', value: 947 },
+    { country: 'Asia', year: '1950', value: 1402 },
+    { country: 'Asia', year: '1999', value: 3634 },
+    { country: 'Asia', year: '2050', value: 5268 },
+    { country: 'Africa', year: '1750', value: 106 },
+    { country: 'Africa', year: '1800', value: 107 },
+    { country: 'Africa', year: '1850', value: 111 },
+    { country: 'Africa', year: '1900', value: 133 },
+    { country: 'Africa', year: '1950', value: 221 },
+    { country: 'Africa', year: '1999', value: 767 },
+    { country: 'Africa', year: '2050', value: 1766 },
+    { country: 'Europe', year: '1750', value: 163 },
+    { country: 'Europe', year: '1800', value: 203 },
+    { country: 'Europe', year: '1850', value: 276 },
+    { country: 'Europe', year: '1900', value: 408 },
+    { country: 'Europe', year: '1950', value: 547 },
+    { country: 'Europe', year: '1999', value: 729 },
+    { country: 'Europe', year: '2050', value: 628 },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  transform: [{ type: 'stackY' }],
+  style: {
+    fillOpacity: 0.3,
+  },
+});
+
+chart.render();
+```
+
+You can also pass `paddingTop` when creating the `Chart` instance, which works exactly the same:
+
 ```javascript
-chart
-  .padding(50)
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type');
+const chart = new Chart({
+  container: 'container',
+  paddingTop: 100,
+});
 ```
 
 **Notes**
@@ -49,6 +196,8 @@ chart
 - When manually setting `padding`, it's recommended to determine appropriate values through debugging
 - Consider the space requirements of components like titles and legends
 - When specific layout is not required, prioritize using G2's automatic layout functionality
+
+See the detailed documentation on [Chart Layout](/en/manual/core/chart/chart-component#chart-layout).
 
 ## How to Configure Different Stroke Colors for Stacked Area Charts
 
@@ -556,3 +705,772 @@ chart.on(ChartEvent.AFTER_RENDER, () => {
 ```
 
 You can set `animate: false` to avoid triggering update animations, but there will still be flickering. This will be handled internally through configuration options in the future to achieve better filtering effects.
+
+## How to Detect If Mouse Has Left Chart Container
+
+**Problem Description**
+
+In certain interactive scenarios, you need to listen for whether the mouse has moved outside the chart container boundaries to execute corresponding business logic, such as hiding tooltips, resetting highlight states, etc.
+
+**Solution**
+
+You can detect mouse enter and leave states by listening to DOM events on the chart container.
+
+```js | ob { inject: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', autoFit: true });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  viewStyle: {
+    viewFill: 'blue',
+    viewFillOpacity: 0.3,
+  },
+});
+
+chart.render();
+
+let containerMouseEntered = false;
+
+chart.on('afterrender', () => {
+  // Get chart container DOM element
+  const container = chart.getContainer();
+
+  // Create status display panel
+  const statusPanel = document.createElement('div');
+  statusPanel.id = 'mouse-status-panel';
+  statusPanel.style.cssText = `
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    z-index: 1000;
+    min-width: 220px;
+  `;
+
+  // Update status display
+  const updateStatus = (isInside, eventInfo = {}) => {
+    const status = isInside ? '✅ Mouse inside container' : '❌ Mouse outside container';
+    const containerRect = container.getBoundingClientRect();
+
+    statusPanel.innerHTML = `
+      <div style="font-weight: bold; margin-bottom: 8px;">${status}</div>
+      <div>Container size: ${container.offsetWidth} × ${container.offsetHeight}</div>
+      <div>Container position: (${Math.round(containerRect.left)}, ${Math.round(
+      containerRect.top,
+    )})</div>
+      ${
+        eventInfo.clientX !== undefined
+          ? `<div>Mouse coordinates: (${eventInfo.clientX}, ${eventInfo.clientY})</div>`
+          : ''
+      }
+      ${eventInfo.type ? `<div>Event type: ${eventInfo.type}</div>` : ''}
+      <div style="margin-top: 8px; font-size: 11px; opacity: 0.8;">
+        Move mouse over the chart to try!
+      </div>
+    `;
+  };
+
+  if (container) {
+    // Add status panel to container's parent element
+    container.parentElement.style.position = 'relative';
+    container.parentElement.appendChild(statusPanel);
+
+    // Initialize display
+    updateStatus(false);
+
+    // Listen for mouse entering container
+    container.addEventListener('mouseenter', (e) => {
+      containerMouseEntered = true;
+      updateStatus(true, {
+        type: e.type,
+        clientX: e.clientX,
+        clientY: e.clientY,
+      });
+    });
+
+    // Listen for mouse moving within container
+    container.addEventListener('mousemove', (e) => {
+      if (containerMouseEntered) {
+        updateStatus(true, {
+          type: e.type,
+          clientX: e.clientX,
+          clientY: e.clientY,
+        });
+      }
+    });
+
+    // Listen for mouse leaving container
+    container.addEventListener('mouseleave', (e) => {
+      if (containerMouseEntered) {
+        containerMouseEntered = false;
+        updateStatus(false, {
+          type: e.type,
+          clientX: e.clientX,
+          clientY: e.clientY,
+        });
+      }
+    });
+  }
+});
+```
+
+**Complete Example**
+
+Here's a complete example showing how to control tooltip display and hiding through event triggers. When clicking on an element, the tooltip shows; when clicking on empty area or when the mouse leaves the container, the tooltip hide event is manually triggered.
+
+```js | ob { inject: true }
+import { Chart, ChartEvent } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', autoFit: true });
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 100 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  viewStyle: {
+    viewFill: 'blue',
+    viewFillOpacity: 0.3,
+  },
+  interaction: {
+    tooltip: {
+      disableNative: true, // Disable pointerover and pointerout events.
+    },
+  },
+});
+
+chart.render();
+
+let containerMouseEntered = false;
+
+chart.on('afterrender', () => {
+  // Get chart container DOM element
+  const container = chart.getContainer();
+
+  if (container) {
+    // Listen for mouse entering container
+    container.addEventListener('mouseenter', (e) => {
+      containerMouseEntered = true;
+    });
+
+    // Listen for mouse leaving container
+    container.addEventListener('mouseleave', (e) => {
+      if (containerMouseEntered) {
+        containerMouseEntered = false;
+        chart.emit('tooltip:hide');
+      }
+    });
+  }
+});
+
+chart.on('element:click', ({ data }) => chart.emit('tooltip:show', { data }));
+chart.on('plot:click', () => chart.emit('tooltip:hide'));
+```
+
+## How to Adjust Legend Component Size and Layout
+
+**Problem Description**
+
+When using G2 to draw charts, the default legend position and size may not meet business requirements. You need precise control over the legend's position, alignment, dimensions, and spacing from the chart.
+
+**Solution**
+
+G2 provides multiple configuration options to precisely control legend size and layout:
+
+**Basic Position Configuration**
+
+Use `position` to set the legend's basic position:
+
+```js
+legend: {
+  color: {
+    position: 'top', // 'top' | 'right' | 'left' | 'bottom'
+  }
+}
+```
+
+**Precise Alignment Configuration**
+
+Use `layout` to configure the legend's precise alignment using Flexbox layout model:
+
+```js
+legend: {
+  color: {
+    position: 'top',
+    layout: {
+      justifyContent: 'center',    // Main axis alignment: 'flex-start' | 'center' | 'flex-end'
+      alignItems: 'flex-start',    // Cross axis alignment: 'flex-start' | 'center' | 'flex-end'
+      flexDirection: 'row',        // Main axis direction: 'row' | 'column'
+    }
+  }
+}
+```
+
+**Size Control Configuration**
+
+- **size**: Controls legend size on the cross axis (height for horizontal layout, width for vertical layout)
+- **length**: Controls legend size on the main axis (width for horizontal layout, height for vertical layout)
+- **crossPadding**: Controls distance between legend and chart area
+
+```js
+legend: {
+  color: {
+    size: 80,         // Legend cross axis size
+    length: 300,      // Legend main axis length
+    crossPadding: 20, // Distance from chart
+  }
+}
+```
+
+**Complete Example**
+
+Here are several common legend layout scenarios:
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 400,
+  width: 600,
+});
+const container = chart.getContainer();
+
+const data = [
+  { genre: 'Sports', sold: 50 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      position: 'top',
+      layout: {
+        justifyContent: 'center', // Horizontal center
+        alignItems: 'flex-start',
+      },
+      size: 60, // Control legend cross axis size
+      length: 250, // Control legend main axis length
+      crossPadding: 20, // Distance from chart
+    },
+  },
+});
+
+// Create layout selector
+const controlPanel = document.createElement('div');
+controlPanel.style.cssText = `
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+`;
+
+// Layout scenario selector
+const sceneContainer = document.createElement('div');
+sceneContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    Select layout scenario:
+  </label>
+`;
+
+const sceneSelect = document.createElement('select');
+sceneSelect.style.cssText = 'width: 100%; padding: 4px;';
+const scenes = [
+  { label: 'Top center (Dashboard style)', value: 'top-center' },
+  { label: 'Right vertical center (Detailed chart)', value: 'right-center' },
+  { label: 'Bottom left aligned (Space saving)', value: 'bottom-start' },
+  { label: 'Left bottom aligned', value: 'left-end' },
+  { label: 'Right top aligned (Compact)', value: 'right-start' },
+];
+
+sceneSelect.innerHTML = scenes
+  .map(
+    (scene, index) =>
+      `<option value="${scene.value}" ${index === 0 ? 'selected' : ''}>${
+        scene.label
+      }</option>`,
+  )
+  .join('');
+
+sceneContainer.appendChild(sceneSelect);
+
+// Size control
+const sizeContainer = document.createElement('div');
+sizeContainer.innerHTML = `
+  <label style="display: block; margin-bottom: 8px; font-weight: bold;">
+    Legend size control:
+  </label>
+  <div style="margin-bottom: 8px;">
+    <label>crossPadding (Distance from chart): </label>
+    <input type="range" id="crossPadding" min="5" max="50" value="20" style="width: 100%;">
+    <span id="crossPaddingValue">20</span>
+  </div>
+  <div style="margin-bottom: 8px;">
+    <label>size (Cross axis size): </label>
+    <input type="range" id="size" min="40" max="200" value="60" style="width: 100%;">
+    <span id="sizeValue">60</span>
+  </div>
+  <div>
+    <label>length (Main axis length): </label>
+    <input type="range" id="length" min="40" max="400" value="250" style="width: 100%;">
+    <span id="lengthValue">250</span>
+  </div>
+`;
+
+controlPanel.appendChild(sceneContainer);
+controlPanel.appendChild(sizeContainer);
+
+const updateChart = () => {
+  const selectedScene = sceneSelect.value;
+  const crossPadding = parseInt(document.getElementById('crossPadding').value);
+  const size = parseInt(document.getElementById('size').value);
+  const length = parseInt(document.getElementById('length').value);
+
+  let position, justifyContent;
+
+  switch (selectedScene) {
+    case 'top-center':
+      position = 'top';
+      justifyContent = 'center';
+      break;
+    case 'right-center':
+      position = 'right';
+      justifyContent = 'center';
+      break;
+    case 'bottom-start':
+      position = 'bottom';
+      justifyContent = 'flex-start';
+      break;
+    case 'left-end':
+      position = 'left';
+      justifyContent = 'flex-end';
+      break;
+    case 'right-start':
+      position = 'right';
+      justifyContent = 'flex-start';
+      break;
+  }
+
+  chart.options({
+    legend: {
+      color: {
+        position,
+        layout: {
+          justifyContent,
+          alignItems: 'flex-start',
+        },
+        size,
+        length,
+        crossPadding,
+      },
+    },
+  });
+  chart.render();
+};
+
+// Bind events
+sceneSelect.addEventListener('change', updateChart);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const crossPaddingSlider = document.getElementById('crossPadding');
+  const crossPaddingValue = document.getElementById('crossPaddingValue');
+  const sizeSlider = document.getElementById('size');
+  const sizeValue = document.getElementById('sizeValue');
+  const lengthSlider = document.getElementById('length');
+  const lengthValue = document.getElementById('lengthValue');
+
+  if (crossPaddingSlider && crossPaddingValue) {
+    crossPaddingSlider.addEventListener('input', (e) => {
+      crossPaddingValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (sizeSlider && sizeValue) {
+    sizeSlider.addEventListener('input', (e) => {
+      sizeValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (lengthSlider && lengthValue) {
+    lengthSlider.addEventListener('input', (e) => {
+      lengthValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+});
+
+// Insert control panel
+container.insertBefore(controlPanel, container.firstChild);
+
+// Initial render
+chart.render();
+
+// Ensure slider events are properly bound
+setTimeout(() => {
+  const crossPaddingSlider = document.getElementById('crossPadding');
+  const crossPaddingValue = document.getElementById('crossPaddingValue');
+  const sizeSlider = document.getElementById('size');
+  const sizeValue = document.getElementById('sizeValue');
+  const lengthSlider = document.getElementById('length');
+  const lengthValue = document.getElementById('lengthValue');
+
+  if (crossPaddingSlider && crossPaddingValue) {
+    crossPaddingSlider.addEventListener('input', (e) => {
+      crossPaddingValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (sizeSlider && sizeValue) {
+    sizeSlider.addEventListener('input', (e) => {
+      sizeValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+
+  if (lengthSlider && lengthValue) {
+    lengthSlider.addEventListener('input', (e) => {
+      lengthValue.textContent = e.target.value;
+      updateChart();
+    });
+  }
+}, 100);
+```
+
+See the complete documentation on [Legend Component](/en/manual/component/legend) for more configuration options.
+
+## How to Implement a Line Chart with Prediction Data
+
+**Problem Description**
+
+In data visualization, it's often necessary to draw line charts containing both actual values and predicted values, where the actual value portion is represented by solid lines and the predicted value portion by dashed lines, so users can clearly distinguish between historical data and prediction data.
+
+**Solution**
+
+In G2, one line corresponds to one Mark, and you cannot set different styles within the same line. To achieve mixed solid and dashed line effects, you need to:
+
+**Core Approach**: Group data by type (actual/predicted), use `series` encoding to create multiple line segments, then set different styles for different types of line segments through `style` callback functions.
+
+**Key Configuration**:
+
+1. **Data Grouping**: Ensure connection point data exists in both groups to maintain line continuity
+2. **encode Configuration**:
+   - `color`: Used for legend grouping, different groups show different colors
+   - `series`: Used to create multiple line segments, data points with the same series value will be connected as one line
+3. **Style Callback**: Set solid or dashed lines based on data type through `style.lineDash` callback function
+
+**Example Code**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: [
+    // Product A actual data
+    {
+      year: '2018',
+      value: 80,
+      product: 'Product A',
+      type: 'Actual',
+      series: 'Product A-Actual',
+    },
+    {
+      year: '2019',
+      value: 95,
+      product: 'Product A',
+      type: 'Actual',
+      series: 'Product A-Actual',
+    },
+    {
+      year: '2020',
+      value: 100,
+      product: 'Product A',
+      type: 'Actual',
+      series: 'Product A-Actual',
+    },
+    {
+      year: '2021',
+      value: 120,
+      product: 'Product A',
+      type: 'Actual',
+      series: 'Product A-Actual',
+    },
+    {
+      year: '2022',
+      value: 110,
+      product: 'Product A',
+      type: 'Actual',
+      series: 'Product A-Actual',
+    },
+    // Product A prediction data (note 2022 connection point duplication)
+    {
+      year: '2022',
+      value: 110,
+      product: 'Product A',
+      type: 'Prediction',
+      series: 'Product A-Prediction',
+    },
+    {
+      year: '2023',
+      value: 125,
+      product: 'Product A',
+      type: 'Prediction',
+      series: 'Product A-Prediction',
+    },
+    {
+      year: '2024',
+      value: 140,
+      product: 'Product A',
+      type: 'Prediction',
+      series: 'Product A-Prediction',
+    },
+    {
+      year: '2025',
+      value: 160,
+      product: 'Product A',
+      type: 'Prediction',
+      series: 'Product A-Prediction',
+    },
+    {
+      year: '2026',
+      value: 180,
+      product: 'Product A',
+      type: 'Prediction',
+      series: 'Product A-Prediction',
+    },
+
+    // Product B actual data
+    {
+      year: '2018',
+      value: 60,
+      product: 'Product B',
+      type: 'Actual',
+      series: 'Product B-Actual',
+    },
+    {
+      year: '2019',
+      value: 70,
+      product: 'Product B',
+      type: 'Actual',
+      series: 'Product B-Actual',
+    },
+    {
+      year: '2020',
+      value: 80,
+      product: 'Product B',
+      type: 'Actual',
+      series: 'Product B-Actual',
+    },
+    {
+      year: '2021',
+      value: 90,
+      product: 'Product B',
+      type: 'Actual',
+      series: 'Product B-Actual',
+    },
+    {
+      year: '2022',
+      value: 95,
+      product: 'Product B',
+      type: 'Actual',
+      series: 'Product B-Actual',
+    },
+    // Product B prediction data
+    {
+      year: '2022',
+      value: 95,
+      product: 'Product B',
+      type: 'Prediction',
+      series: 'Product B-Prediction',
+    },
+    {
+      year: '2023',
+      value: 100,
+      product: 'Product B',
+      type: 'Prediction',
+      series: 'Product B-Prediction',
+    },
+    {
+      year: '2024',
+      value: 110,
+      product: 'Product B',
+      type: 'Prediction',
+      series: 'Product B-Prediction',
+    },
+    {
+      year: '2025',
+      value: 125,
+      product: 'Product B',
+      type: 'Prediction',
+      series: 'Product B-Prediction',
+    },
+    {
+      year: '2026',
+      value: 145,
+      product: 'Product B',
+      type: 'Prediction',
+      series: 'Product B-Prediction',
+    },
+  ],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'product', // Used for legend grouping (product dimension)
+    series: 'series', // Used to create line segments (product-type combination)
+  },
+  scale: {
+    x: { range: [0, 1] },
+    y: { nice: true },
+  },
+  axis: {
+    x: { title: 'Year' },
+    y: { title: 'Sales (10k yuan)' },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      style: {
+        lineWidth: 2,
+        lineDash: (d) => {
+          // Set line type based on data type: prediction data uses dashed line, actual data uses solid line
+          return d[0].type === 'Prediction' ? [4, 4] : null;
+        },
+      },
+    },
+    {
+      type: 'point',
+      encode: { shape: 'circle' },
+      style: { size: 3 },
+    },
+  ],
+});
+
+chart.render();
+```
+
+**Key Points**
+
+1. **Data Structure Design**: Each data item includes `product` (product), `type` (actual/prediction), `series` (line segment identifier) fields
+
+2. **Connection Point Handling**: 2022 data exists in both actual and prediction groups to ensure line continuity
+
+3. **Encoding Configuration**:
+
+   - `color: 'product'`: Group by product, generate legend
+   - `series: 'series'`: Group by combination field, create independent line segments
+
+4. **Style Callback**:
+   ```js
+   style: {
+     lineDash: (d) => (d[0].type === 'Prediction' ? [4, 4] : null);
+   }
+   ```
+
+**Notes**
+
+- `series` encoding determines which data points will be connected as one line
+- `color` encoding affects legend display and color mapping
+- `d[0]` in style callback function represents the first data point corresponding to the current line segment
+- Connection points (such as 2022 in the example) must exist in both groups
+
+## How to Implement Color-Grouped Bar Charts
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [
+  { category: 'Frontend Development', type: 'HTML Structure', score: 3.48 },
+  { category: 'Frontend Development', type: 'CSS Styling', score: 3.52 },
+  { category: 'Frontend Development', type: 'JavaScript Programming', score: 3.31 },
+  { category: 'Frontend Development', type: 'React Framework', score: 3.28 },
+  { category: 'Backend Development', type: 'Java Programming', score: 3.35 },
+  { category: 'Backend Development', type: 'Database Design', score: 3.58 },
+  { category: 'Backend Development', type: 'API Development', score: 3.12 },
+  { category: 'Backend Development', type: 'Microservice Architecture', score: 3.45 },
+  { category: 'Data Analysis', type: 'Python Data Processing', score: 3.42 },
+  { category: 'Data Analysis', type: 'SQL Query Optimization', score: 3.33 },
+  { category: 'Data Analysis', type: 'Machine Learning Modeling', score: 3.56 },
+  { category: 'Data Analysis', type: 'Data Visualization', score: 3.39 },
+  { category: 'Product Design', type: 'User Experience Design', score: 3.47 },
+  { category: 'Product Design', type: 'Interactive Prototyping', score: 3.24 },
+  { category: 'Product Design', type: 'Requirements Analysis', score: 3.51 },
+  { category: 'Product Design', type: 'Competitive Analysis', score: 3.38 },
+  { category: 'Testing Quality', type: 'Automated Test Scripts', score: 3.44 },
+  { category: 'Testing Quality', type: 'Performance Testing', score: 3.29 },
+  { category: 'Testing Quality', type: 'Security Vulnerability Scanning', score: 3.36 },
+  { category: 'Testing Quality', type: 'Compatibility Verification', score: 3.18 },
+  { category: 'DevOps Deployment', type: 'Docker Containerization', score: 3.41 },
+  { category: 'DevOps Deployment', type: 'Kubernetes Orchestration', score: 3.33 },
+  { category: 'DevOps Deployment', type: 'Monitoring and Alerting', score: 3.27 },
+  { category: 'DevOps Deployment', type: 'CI/CD Pipeline', score: 3.49 },
+];
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data,
+  encode: {
+    x: 'type',
+    y: 'score',
+    color: (d) => d.category,
+  },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  axis: {
+    x: { title: false }, // Hide x-axis title
+  },
+  scale: {
+    color: {
+      range: ['#BAE7FF', '#80C9FE', '#70E3E3', '#ABF5F5', '#FFB3BA', '#FFDFBA'], // Customize colors here
+    },
+  },
+});
+
+chart.render();
+```

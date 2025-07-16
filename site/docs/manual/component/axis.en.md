@@ -188,6 +188,7 @@ For example, to configure label rotation, it's not configured under a label obje
       title: 'X Axis Title',
       labelFontSize: 12,
       labelFormatter: (d) => `2025-${d}`,
+      size: 100,
       transform: [
         // Rotation
         {
@@ -502,6 +503,36 @@ Basic syntax of D3 format: `[[fill]align][sign][symbol][0][width][,][.precision]
 | `$`  | Currency format  | `$42.00`      |
 | `r`  | Significant digits | `42.0`        |
 | `g`  | General format   | `42`          |
+
+##### Complete D3-format Reference
+
+```js
+// Common numeric formats
+'.2f'; // Fixed 2 decimals: 23.45
+'.0f'; // Integer: 23
+'.1%'; // Percentage: 23.4%
+',.0f'; // Thousands separator: 1,234,567
+
+// SI prefix format (recommended for large numbers)
+'s'; // SI prefix: 1.2M, 3.4k
+'.1s'; // 1 decimal SI: 1.2M, 3.4k
+'~s'; // Trim trailing zeros SI: 1.2M, 3k
+'.0s'; // Integer SI: 1M, 3k
+
+// Currency format
+'$,.2f'; // USD: $1,234.56
+'$.2s'; // USD SI: $1.23M
+
+// Scientific notation
+'.2e'; // Scientific: 1.23e+6
+'.2g'; // General format: 1.2e+6 or 1234
+
+// Base formats
+'d'; // Decimal integer: 1234
+'x'; // Hexadecimal: 4d2
+'o'; // Octal: 2322
+'b'; // Binary: 10011010010
+```
 
 ##### Format Examples
 
@@ -1107,3 +1138,531 @@ chart.render();
 ```
 
 For more examples, please visit the [Chart Examples - Axis](/en/examples/component/axis/#axis-x) page.
+
+## Label Formatting Examples
+
+### Example 1: Financial Stock Chart Formatting
+
+Financial data requires precise price display and concise time axis, commonly used for stock prices, fund values, and other scenarios:
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 600,
+  height: 400,
+  data: [
+    { date: '2024-01-01', price: 23.45, volume: 120000 },
+    { date: '2024-01-02', price: 24.12, volume: 150000 },
+    { date: '2024-01-03', price: 23.89, volume: 98000 },
+    { date: '2024-01-04', price: 25.3, volume: 200000 },
+    { date: '2024-01-05', price: 24.78, volume: 175000 },
+    { date: '2024-01-08', price: 26.15, volume: 220000 },
+  ],
+  encode: { x: 'date', y: 'price' },
+  style: { stroke: '#ff6b35', lineWidth: 2 },
+  axis: {
+    x: {
+      title: 'Trading Date',
+      // Time formatting requires custom function
+      labelFormatter: (d) => {
+        const date = new Date(d);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${month}-${day}`;
+      },
+      labelFontSize: 11,
+    },
+    y: {
+      title: 'Stock Price ($)',
+      // Using d3-format: fixed 2 decimals
+      labelFormatter: '.2f', // Equivalent to d.toFixed(2)
+      grid: true,
+      gridStroke: '#f5f5f5',
+      tickCount: 6,
+    },
+  },
+});
+chart.render();
+```
+
+**D3-format vs Custom Function Comparison:**
+
+```js
+// ✅ D3-format (recommended for standard number formats)
+labelFormatter: '.2f'; // Fixed 2 decimals: 23.45
+labelFormatter: '.1%'; // Percentage: 23.4%
+labelFormatter: '$,.2f'; // Currency format: $1,234.56
+
+// ✅ Custom function (complex logic, special requirements)
+labelFormatter: (d) => `$${d.toFixed(2)}`; // Dollar symbol
+labelFormatter: (d) => {
+  /* Complex business logic */
+};
+```
+
+### Example 2: E-commerce Sales Data Smart Unit Conversion
+
+Sales data usually involves large amounts, requiring automatic conversion to appropriate units for display. Compare d3-format and custom function applications:
+
+#### Using D3-format (International Standard Format)
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { category: 'Electronics', sales: 8500000 },
+    { category: 'Clothing', sales: 12300000 },
+    { category: 'Home & Garden', sales: 6800000 },
+    { category: 'Beauty', sales: 15600000 },
+    { category: 'Food & Beverage', sales: 9200000 },
+  ],
+  encode: { x: 'category', y: 'sales', color: 'category' },
+  axis: {
+    x: {
+      title: 'Product Category',
+      labelFontSize: 12,
+    },
+    y: {
+      title: 'Sales',
+      // Using d3-format: SI prefix format, automatic K/M units
+      labelFormatter: '~s', // 8.5M, 12.3M, 6.8M, 15.6M, 9.2M
+      grid: true,
+      gridStroke: '#e8e8e8',
+      tickCount: 5,
+    },
+  },
+});
+chart.render();
+```
+
+#### Using Custom Function (Localized Format)
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart2 = new Chart({
+  container: 'container',
+});
+
+chart2.options({
+  type: 'interval',
+  width: 600,
+  height: 400,
+  data: [
+    { category: 'Electronics', sales: 8500000 },
+    { category: 'Clothing', sales: 12300000 },
+    { category: 'Home & Garden', sales: 6800000 },
+    { category: 'Beauty', sales: 15600000 },
+    { category: 'Food & Beverage', sales: 9200000 },
+  ],
+  encode: { x: 'category', y: 'sales', color: 'category' },
+  axis: {
+    x: {
+      title: 'Product Category',
+      labelFontSize: 12,
+    },
+    y: {
+      title: 'Sales',
+      // Custom localized unit format
+      labelFormatter: (value) => {
+        if (value >= 1000000) {
+          return `${(value / 1000000).toFixed(1)}M`;
+        } else if (value >= 1000) {
+          return `${(value / 1000).toFixed(0)}K`;
+        } else {
+          return value.toString();
+        }
+      },
+      grid: true,
+      gridStroke: '#e8e8e8',
+      tickCount: 5,
+    },
+  },
+});
+chart2.render();
+```
+
+### Example 3: User Growth Data International Format
+
+User data typically uses international standard K, M units, D3-format provides a concise implementation:
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  width: 600,
+  height: 400,
+  data: [
+    { quarter: '2023 Q1', users: 125000 },
+    { quarter: '2023 Q2', users: 158000 },
+    { quarter: '2023 Q3', users: 234000 },
+    { quarter: '2023 Q4', users: 312000 },
+    { quarter: '2024 Q1', users: 425000 },
+    { quarter: '2024 Q2', users: 586000 },
+  ],
+  encode: { x: 'quarter', y: 'users' },
+  style: {
+    fill: 'linear-gradient(270deg, #667eea 0%, #764ba2 100%)',
+    fillOpacity: 0.6,
+  },
+  axis: {
+    x: {
+      title: 'Quarter',
+      // Time string processing requires custom function
+      labelFormatter: (d) => {
+        return d.replace('2023 ', '').replace('2024 ', '24');
+      },
+      labelFontSize: 11,
+    },
+    y: {
+      title: 'User Count',
+      // Using d3-format: International standard K/M format
+      labelFormatter: '.0s', // 125k, 158k, 234k, 312k, 425k, 586k
+      grid: true,
+      gridStroke: '#f0f0f0',
+      gridLineDash: [3, 3],
+      tickCount: 6,
+    },
+  },
+});
+chart.render();
+```
+
+## Long Label Text Handling Solutions
+
+In real business scenarios, you often encounter problems with axis labels being too long, causing overlap or exceeding display bounds. G2 provides four core solutions, each with its optimal use cases:
+
+### Solution Selection Guide
+
+| Solution             | Use Case                                              | Advantages                      | Disadvantages                    | Recommended Business Scenarios         |
+| -------------------- | ----------------------------------------------------- | ------------------------------- | -------------------------------- | -------------------------------------- |
+| **Ellipsis**         | Varying text lengths, users can get full info elsewhere | Maintains tidiness, stable layout | Information loss                 | Product names, user IDs, filenames    |
+| **Rotation**         | Similar text lengths, sufficient space               | Preserves complete info, clear visual | Needs more vertical space, slightly worse readability | Dates/times, region names, category labels |
+| **Wrap**             | Medium-length text, sufficient vertical space        | Preserves complete info, easy to read | Takes more vertical space        | Product descriptions, department names |
+| **Hide**             | High label density, focus on trends                  | Resolves overlap, keeps key points | Information missing              | Time series, big data visualization   |
+
+### Example 1: E-commerce Product Sales Ranking (Ellipsis Solution)
+
+E-commerce platforms need to display bestselling products, with product names varying from "iPhone" to "Apple iPhone 15 Pro Max 1TB Space Black":
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 650, // Reduce width to trigger ellipsis
+  data: [
+    { product: 'iPhone 15 Pro Max', sales: 2500 },
+    { product: 'Samsung Galaxy S24 Ultra 512GB Phantom Black Edition', sales: 1800 },
+    {
+      product: 'Apple MacBook Pro 16-inch M3 Max chip 1TB Space Gray',
+      sales: 1200,
+    },
+    { product: 'Sony WH-1000XM5 Wireless Noise Canceling Headphones Midnight Black', sales: 3200 },
+    { product: 'Xiaomi 14 Ultra Photography Kit 16GB+1TB White Limited Edition', sales: 2100 },
+    { product: 'iPad Pro 12.9-inch M2 chip 1TB WiFi Space Gray', sales: 1600 },
+    { product: 'MacBook Air 15-inch M2 chip 512GB Starlight', sales: 1400 },
+    { product: 'AirPods Pro 2nd Generation Active Noise Cancellation Wireless Earbuds', sales: 2800 },
+  ],
+  encode: { x: 'product', y: 'sales', color: 'product' },
+  axis: {
+    x: {
+      title: 'Bestselling Products',
+      labelFontSize: 11,
+      // Ellipsis solution: suitable for product name scenarios
+      size: 100,
+      transform: [
+        {
+          type: 'ellipsis',
+          suffix: '...', // Ellipsis symbol
+        },
+      ],
+    },
+    y: {
+      title: 'Sales (Units)',
+      labelFormatter: ',.0f', // Thousands separator format
+      grid: true,
+      gridStroke: '#f0f0f0',
+    },
+  },
+  tooltip: {
+    // Show full product name on hover
+    title: (d) => d.product,
+    items: [{ field: 'sales', name: 'Sales', formatter: ',.0f' }],
+  },
+});
+chart.render();
+```
+
+**Features**
+
+- Maintains chart tidiness, avoids product name overlap
+- Users can view full product names through tooltip
+- Suitable for scenarios with greatly varying product name lengths
+
+### Example 2: User Activity Time Analysis (Rotation Solution)
+
+Need to display hourly user activity, time labels need to show "YYYY-MM-DD HH:mm" format:
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 600, // Reduce width to trigger rotation
+  marginBottom: 30, // Reserve space for rotation
+  data: [
+    { time: '2024-01-15 08:00', activeUsers: 1200 },
+    { time: '2024-01-15 09:00', activeUsers: 1800 },
+    { time: '2024-01-15 10:00', activeUsers: 2800 },
+    { time: '2024-01-15 11:00', activeUsers: 3200 },
+    { time: '2024-01-15 12:00', activeUsers: 4500 },
+    { time: '2024-01-15 13:00', activeUsers: 4200 },
+    { time: '2024-01-15 14:00', activeUsers: 3200 },
+    { time: '2024-01-15 15:00', activeUsers: 3600 },
+    { time: '2024-01-15 16:00', activeUsers: 3800 },
+    { time: '2024-01-15 17:00', activeUsers: 4800 },
+    { time: '2024-01-15 18:00', activeUsers: 5200 },
+    { time: '2024-01-15 19:00', activeUsers: 4800 },
+    { time: '2024-01-15 20:00', activeUsers: 4100 },
+    { time: '2024-01-15 21:00', activeUsers: 3500 },
+    { time: '2024-01-15 22:00', activeUsers: 2600 },
+    { time: '2024-01-15 23:00', activeUsers: 1900 },
+  ],
+  encode: { x: 'time', y: 'activeUsers' },
+  style: { stroke: '#5B8FF9', lineWidth: 2 },
+  axis: {
+    x: {
+      title: 'Time',
+      labelFontSize: 10,
+      // Rotation solution: suitable for time labels
+      size: 100,
+      transform: [
+        {
+          type: 'rotate',
+          optionalAngles: [0, 30, 45, 60, 90], // Try multiple angles
+          recoverWhenFailed: true, // Recover to default angle when failed
+        },
+      ],
+    },
+    y: {
+      title: 'Active Users',
+      labelFormatter: ',.0f',
+      grid: true,
+      gridStroke: '#e6e6e6',
+      gridLineDash: [3, 3],
+    },
+  },
+});
+chart.render();
+```
+
+**Features**
+
+- Preserves complete time information for precise analysis
+- Automatically selects best rotation angle to avoid overlap
+- Suitable for time series, region names, and other fixed format labels
+
+### Example 3: Department Performance Evaluation (Wrap Solution)
+
+Display quarterly performance by department, department names are medium length and need to be shown completely:
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 800,
+  data: [
+    { department: 'Marketing Department', score: 85 },
+    { department: 'Product Development Center', score: 92 },
+    { department: 'Customer Service Department', score: 78 },
+    { department: 'Human Resources Management', score: 81 },
+    { department: 'Finance and Audit Department', score: 89 },
+    { department: 'Strategic Planning Center', score: 87 },
+  ],
+  encode: { x: 'department', y: 'score', color: 'department' },
+  axis: {
+    x: {
+      title: 'Department',
+      labelFontSize: 12,
+      // Wrap solution: suitable for department names
+      size: 100,
+      transform: [
+        {
+          type: 'wrap',
+          wordWrapWidth: 80, // Maximum 80 pixels per line
+          maxLines: 2, // Maximum 2 lines
+          recoverWhenFailed: true, // Recover to default layout when wrap fails
+        },
+      ],
+    },
+    y: {
+      title: 'Performance Score',
+      grid: true,
+      gridStroke: '#f5f5f5',
+      domain: [0, 100],
+    },
+  },
+});
+chart.render();
+```
+
+**Features**
+
+- Preserves complete department names for accurate identification
+- Wrap layout maintains good readability
+- Suitable for medium-length label text
+
+### Example 4: Stock Price Big Data Trend (Hide Solution)
+
+Display continuous trading day stock price trends, dense data points, focus on trends rather than specific dates:
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+// Generate mock stock data
+const generateStockData = () => {
+  const data = [];
+  let price = 100;
+  const startDate = new Date('2024-01-01');
+
+  for (let i = 0; i < 90; i++) {
+    // Increase to 90 data points
+    const currentDate = new Date(startDate);
+    currentDate.setDate(startDate.getDate() + i);
+
+    // Random price fluctuation
+    price += (Math.random() - 0.5) * 4;
+    price = Math.max(80, Math.min(120, price)); // Limit to 80-120 range
+
+    data.push({
+      date: currentDate.toISOString().split('T')[0],
+      price: Math.round(price * 100) / 100,
+    });
+  }
+  return data;
+};
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  width: 700, // Reduce width to increase density
+  marginRight: 30, // Reserve space for keeping the last tick value
+  data: generateStockData(),
+  encode: { x: 'date', y: 'price' },
+  style: { stroke: '#722ed1', lineWidth: 1.5 },
+  axis: {
+    x: {
+      title: 'Trading Date',
+      labelFontSize: 9,
+      // Hide solution: suitable for dense data
+      size: 100,
+      transform: [
+        {
+          type: 'hide',
+          keepHeader: true, // Keep first date
+          keepTail: true, // Keep last date
+        },
+      ],
+    },
+    y: {
+      title: 'Stock Price ($)',
+      labelFormatter: '.2f',
+      grid: true,
+      gridStroke: '#f0f0f0',
+      gridLineDash: [2, 2],
+    },
+  },
+});
+chart.render();
+```
+
+**Features**
+
+- Solves label overlap problem with dense data points
+- Preserves key time nodes at beginning and end
+- Emphasizes data trends rather than specific values
+
+### Example 5: Quick Configuration (Recommended)
+
+For simple scenarios, it's recommended to use `labelAutoXXX` series properties:
+
+```js | ob {  pin: false , inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  width: 650, // Reduce width to trigger transformation effects
+  marginBottom: 50, // Reserve space for multiple transformations
+  marginRight: 100,
+  data: [
+    { region: 'Beijing Chaoyang CBD Core Financial Center', revenue: 8500 },
+    { region: 'Shanghai Pudong Lujiazui Financial Trade Zone HQ Base', revenue: 9200 },
+    { region: 'Shenzhen Nanshan High-tech Industrial Park', revenue: 7800 },
+    { region: 'Guangzhou Tianhe Zhujiang New Town International Business Center', revenue: 6900 },
+    { region: 'Hangzhou Xihu Internet Innovation Industrial Park', revenue: 5600 },
+    { region: 'Chengdu High-tech Software Industrial Park Tech Innovation Zone', revenue: 4800 },
+    { region: 'Suzhou Industrial Park Bio-Nano Science Park', revenue: 5200 },
+    { region: 'Nanjing Jiangning Future Tech City Innovation Base', revenue: 4500 },
+  ],
+  encode: { x: 'region', y: 'revenue', color: 'region' },
+  axis: {
+    x: {
+      title: 'Business Region',
+      labelFontSize: 10,
+      size: 100,
+      // Quick configuration, equivalent to transform array
+      labelAutoEllipsis: true, // Enable auto ellipsis
+      labelAutoRotate: true, // Enable auto rotation
+      labelAutoHide: true, // Enable auto hide
+      labelAutoWrap: true, // Enable auto wrap
+    },
+    y: {
+      title: 'Revenue (10K)',
+      labelFormatter: ',.0f',
+      grid: true,
+      gridStroke: '#e8e8e8',
+    },
+  },
+});
+chart.render();
+```
