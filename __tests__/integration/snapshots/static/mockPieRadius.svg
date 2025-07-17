@@ -34,7 +34,7 @@
                           <g fill="none" class="items-item">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="55.16" height="23" fill="rgba(0,0,0,0)" d="m0 0 55.16 0 0 23-55.16 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="41" height="23" fill="rgba(0,0,0,0)" d="m0 0 41 0 0 23-41 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
@@ -44,15 +44,15 @@
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Sports</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">微博</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 67.16 0)">
+                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 53 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="66.32" height="23" fill="rgba(0,0,0,0)" d="m0 0 66.32 0 0 23-66.32 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="41" height="23" fill="rgba(0,0,0,0)" d="m0 0 41 0 0 23-41 0z" class="legend-category-item-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 11.5)">
@@ -62,7 +62,7 @@
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Strategy</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">其他</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
@@ -72,7 +72,7 @@
                     </g>
                     <g fill="none" class="navigator-controller"/>
                     <g>
-                      <path id="a" width="133.48" height="23" fill="none" d="m0 0 133.48 0 0 23-133.48 0z" class="navigator-clip-path"/>
+                      <path id="a" width="94" height="23" fill="none" d="m0 0 94 0 0 23-94 0z" class="navigator-clip-path"/>
                     </g>
                   </g>
                 </g>
@@ -83,11 +83,11 @@
         <g transform="matrix(1 0 0 1 16 51)">
           <path width="608" height="413" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 413-608 0z" class="plot"/>
           <g fill="none" class="main-layer">
-            <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M304.021 0a206.5 206.5 0 1 1-198.362 263.972l198.341-57.472Z" class="element"/>
+            <g transform="matrix(1 0 0 1 304 206.5)">
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M3.445-196.215a10 10 0 0 1 10.682-9.801 206.5 206.5 0 0 1 0 412.032 10 10 0 0 1-10.682-9.801l-3.445-196.215Z" class="element"/>
             </g>
-            <g>
-              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,201,201,1)" stroke-width="0" d="M105.647 263.932a206.5 206.5 0 0 1 198.332-263.932l.021 206.5Z" class="element"/>
+            <g transform="matrix(1 0 0 1 304 206.5)">
+              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,201,201,1)" stroke-width="0" d="M-3.445 196.215a10 10 0 0 1-10.682 9.801 206.5 206.5 0 0 1 0-412.032 10 10 0 0 1 10.682 9.801l3.445 196.215Z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>

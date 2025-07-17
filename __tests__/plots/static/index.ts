@@ -347,6 +347,7 @@ export { githubStarIntervalDarkThemeTransparent } from './github-star-interval-d
 export { diamondIntervalGroupX } from './diamond-interval-group-x';
 export { mockIntervalSeriesOrder } from './mock-interval-series-order';
 export { mockPieSpider } from './mock-pie-spider';
+export { mockPieRadius } from './mock-pie-radius';
 export { mockPieSpiderRight } from './mock-pie-spider-right';
 export { mockPieSpiderMany } from './mock-pie-spider-many';
 export { mockPieSpiderHide } from './mock-pie-spider-hide';

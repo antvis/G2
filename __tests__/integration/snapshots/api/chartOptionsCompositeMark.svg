@@ -138,19 +138,19 @@
           <path width="608" height="413" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 413-608 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M0-206.5a206.5 206.5 0 0 1 204.48 235.31l-204.48-28.81Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M.021-206.5a206.5 206.5 0 0 1 204.462 235.289l-204.483-28.789Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,201,201,1)" stroke-width="0" d="M204.48 28.81a206.5 206.5 0 0 1-69.031 127.061l-135.449-155.871Z" class="element"/>
+              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,201,201,1)" stroke-width="0" d="M204.478 28.83a206.5 206.5 0 0 1-69.013 127.027l-135.465-155.857Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(240,136,77,1)" stroke-width="0" d="M135.449 155.871a206.5 206.5 0 0 1-141.871 50.529l6.422-206.4Z" class="element"/>
+              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(240,136,77,1)" stroke-width="0" d="M135.434 155.884a206.5 206.5 0 0 1-141.835 50.517l6.401-206.401Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(213,128,255,1)" stroke-width="0" d="M-6.422 206.4a206.5 206.5 0 0 1-159.5-329.331l165.922 122.931Z" class="element"/>
+              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(213,128,255,1)" stroke-width="0" d="M-6.443 206.399a206.5 206.5 0 0 1-159.491-329.314l165.934 122.915Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(120,99,255,1)" stroke-width="0" d="M-165.922-122.931a206.5 206.5 0 0 1 165.922-83.569l0 206.5Z" class="element"/>
+              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(120,99,255,1)" stroke-width="0" d="M-165.91-122.948a206.5 206.5 0 0 1 165.889-83.552l.021 206.5Z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>

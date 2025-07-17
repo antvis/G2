@@ -18,49 +18,49 @@
           <path width="368" height="368" fill="rgba(0,0,0,0)" d="m0 0 368 0 0 368-368 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M225.661 185.301a41.681 41.681 0 0 1-1.993 11.497l-39.668-12.798Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M225.661 185.305a41.681 41.681 0 0 1-1.992 11.489l-39.669-12.794Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M230.028 200.452a48.88 48.88 0 0 1-6.364 12.114l-39.664-28.566Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M230.027 200.457a48.88 48.88 0 0 1-6.36 12.105l-39.667-28.562Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M229.877 219.266a57.865 57.865 0 0 1-11.573 11.335l-34.304-46.601Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M229.873 219.27a57.865 57.865 0 0 1-11.565 11.327l-34.308-46.597Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M221.464 238.368a66.026 66.026 0 0 1-16.539 8.255l-20.925-62.623Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M221.458 238.372a66.026 66.026 0 0 1-16.527 8.249l-20.931-62.621Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M207.381 261.988a81.417 81.417 0 0 1-22.534 3.425l-.847-81.413Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M207.373 261.99a81.417 81.417 0 0 1-22.518 3.423l-.855-81.413Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M182.137 273.527a89.547 89.547 0 0 1-24.743-4.024l26.606-85.503Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M182.128 273.527a89.547 89.547 0 0 1-24.726-4.022l26.598-85.505Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M152.631 274.727a95.997 95.997 0 0 1-23.919-12.251l55.288-78.476Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M152.622 274.724a95.997 95.997 0 0 1-23.903-12.242l55.281-78.482Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M122.021 266.387a103.097 103.097 0 0 1-20.408-20.408l82.387-61.979Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M122.013 266.381a103.097 103.097 0 0 1-20.394-20.394l82.381-61.987Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M96.545 245.614a106.979 106.979 0 0 1-13.652-26.656l101.107-34.958Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M96.539 245.605a106.979 106.979 0 0 1-13.642-26.637l101.103-34.968Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M74.721 218.005a114.448 114.448 0 0 1-5.144-31.624l114.423-2.381Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M74.717 217.994a114.448 114.448 0 0 1-5.14-31.602l114.423-2.392Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M59.168 182.701a124.839 124.839 0 0 1 5.251-34.551l119.581 35.85Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M59.168 182.689a124.839 124.839 0 0 1 5.248-34.527l119.584 35.838Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M57.92 141.871a132.932 132.932 0 0 1 16.619-33.297l109.461 75.426Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M57.925 141.858a132.932 132.932 0 0 1 16.606-33.273l109.469 75.415Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M70.873 100.724a140.473 140.473 0 0 1 27.516-28.094l85.611 111.37Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M70.881 100.713a140.473 140.473 0 0 1 27.497-28.075l85.622 111.362Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M98.178 64.836a146.852 146.852 0 0 1 36.394-19.119l49.428 138.283Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M98.19 64.828a146.852 146.852 0 0 1 36.368-19.106l49.442 138.278Z" class="element"/>
             </g>
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M135.979 35.155a156.4 156.4 0 0 1 43.141-7.479l4.88 156.324Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M135.994 35.15a156.4 156.4 0 0 1 43.11-7.473l4.896 156.323Z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>

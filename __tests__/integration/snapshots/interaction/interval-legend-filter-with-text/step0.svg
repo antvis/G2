@@ -138,16 +138,16 @@
           <path width="608" height="413" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 413-608 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M0-165.2a165.2 165.2 0 1 1-6.568 330.269l2.463-61.901a103.25 103.25 0 1 0 4.105-206.418Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="M.017-165.2a165.2 165.2 0 1 1-6.568 330.27l2.456-61.901a103.25 103.25 0 1 0 4.105-206.419Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(240,136,77,1)" stroke-width="0" d="M-6.568 165.069a165.2 165.2 0 0 1-155.994-135.664l60.961-11.027a103.25 103.25 0 0 0 97.496 84.79Z" class="element"/>
+              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(240,136,77,1)" stroke-width="0" d="M-6.584 165.069a165.2 165.2 0 0 1-155.975-135.647l60.96-11.034a103.25 103.25 0 0 0 97.484 84.78Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(213,128,255,1)" stroke-width="0" d="M-162.562 29.405a165.2 165.2 0 0 1 54.154-154.059l40.653 46.745a103.25 103.25 0 0 0-33.846 96.287Z" class="element"/>
+              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(213,128,255,1)" stroke-width="0" d="M-162.565 29.389a165.2 165.2 0 0 1 54.144-154.032l40.658 46.741a103.25 103.25 0 0 0-33.84 96.27Z" class="element"/>
             </g>
             <g transform="matrix(1 0 0 1 304 206.5)">
-              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(120,99,255,1)" stroke-width="0" d="M-108.408-124.654a165.2 165.2 0 0 1 108.408-40.546l0 61.95a103.25 103.25 0 0 0-67.755 25.341Z" class="element"/>
+              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(120,99,255,1)" stroke-width="0" d="M-108.396-124.665a165.2 165.2 0 0 1 108.379-40.535l.007 61.95a103.25 103.25 0 0 0-67.738 25.334Z" class="element"/>
             </g>
           </g>
           <g fill="none" class="main-layer">
