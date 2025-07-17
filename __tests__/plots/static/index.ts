@@ -145,6 +145,7 @@ export { browserLineAreaTrending } from './browser-line-area-trending';
 export { population2015IntervalSpiderLabel } from './population2015-interval-spider-label';
 export { populationIntervalRoseSurroundLabel } from './population-interval-rose-surround-label';
 export { countries50mWorldMap } from './countries-50m-world-map';
+export { countries50mWorldMapPoint } from './countries-50m-world-map-point';
 export { londonTubeLineGeo } from './london-tube-lines-geo';
 export { countries50mProjectionComparison } from './countries-50m-projection-comparison';
 export { flareTreemapDefault } from './flare-treemap-default';
