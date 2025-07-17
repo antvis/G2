@@ -150,7 +150,7 @@ export default defineConfig({
       {
         slug: 'manual/core/mark',
         title: {
-          zh: '标记（Mark）',
+          zh: '图形标记（Mark）',
           en: 'Mark',
         },
         order: 2,

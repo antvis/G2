@@ -1,5 +1,5 @@
 ---
-title: How to Use Charts
+title: Chart Lifecycle
 order: 2
 ---
 
