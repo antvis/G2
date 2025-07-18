@@ -21,7 +21,6 @@ export function ScrollbarFilter(options: any = {}) {
     scaleY.update({ domain: scaleY.getOptions().expectedDomain });
 
     const interaction = SliderFilter({
-      ...options,
       initDomain,
       className: SCROLLBAR_CLASS_NAME,
       prefix: 'scrollbar',
@@ -31,6 +30,7 @@ export function ScrollbarFilter(options: any = {}) {
         const values = scrollbar.slider.attributes.values;
         if (values[0] !== 0) return values;
       },
+      ...options,
     });
     return interaction(context, _, emitter);
   };
