@@ -36,7 +36,7 @@ export type ContrastReverseLabelTransform = {
 };
 
 export type OverflowStrokeTransform = {
-  type?: 'overlapStroke';
+  type?: 'overflowStroke';
   /**
    * Stroke when label overflow more than threshold.
    * Default is `2`.
