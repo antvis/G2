@@ -14,12 +14,12 @@ export async function countries50mWorldMapPoint(): Promise<G2Spec> {
           callback(data) {
             const features = feature(data, data.objects.states).features;
             console.log({ features });
-            return features.map((feature) => {
+            return features.map((feature, index) => {
               return {
                 ...feature,
                 x: feature.geometry.coordinates[0][0][0][0],
                 y: feature.geometry.coordinates[0][0][0][1],
-                size: Math.random(),
+                size: index,
               };
             });
           },
