@@ -82,7 +82,7 @@ export function SliderFilter({
   return (context, _, emitter) => {
     const { container, view, update, setState } = context;
     const sliders = container.getElementsByClassName(className);
-    if (!sliders.length) return () => { };
+    if (!sliders.length) return () => {};
 
     let filtering = false;
     const { scale, coordinate, layout } = view;
@@ -146,13 +146,18 @@ export function SliderFilter({
 
           // The ordinal domain for each channel.
           const scaleXOptions = scaleX.getOptions();
-          if (get(scaleXOptions, 'domain.length') !== get(scaleXOptions, 'expectedDomain.length')) {
-
+          if (
+            get(scaleXOptions, 'domain.length') !==
+            get(scaleXOptions, 'expectedDomain.length')
+          ) {
             scaleX.update({ domain: scaleXOptions.expectedDomain });
           }
 
           const scaleYOptions = scaleY.getOptions();
-          if (get(scaleYOptions, 'domain.length') !== get(scaleYOptions, 'expectedDomain.length')) {
+          if (
+            get(scaleYOptions, 'domain.length') !==
+            get(scaleYOptions, 'expectedDomain.length')
+          ) {
             scaleY.update({ domain: scaleYOptions.expectedDomain });
           }
 
