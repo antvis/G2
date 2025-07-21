@@ -1474,3 +1474,302 @@ chart.options({
 
 chart.render();
 ```
+
+## Why State Configuration Doesn't Take Effect
+
+**Problem Description**
+
+When using G2's state management (State) configuration, the configured `active`, `selected`, and other state styles don't take effect, and the chart's interactive effects don't meet expectations.
+
+**Cause Analysis**
+
+State configuration not taking effect usually has the following reasons:
+
+1. **Incorrect configuration hierarchy**: State configuration propagation mechanism has limitations, especially with multiple Marks
+2. **Missing interaction plugins**: State needs to work with corresponding interaction plugins to take effect
+3. **Improper configuration position**: State configured at wrong hierarchy level
+
+**Solutions**
+
+1. **Check configuration hierarchy (most common cause)**
+
+With multiple Marks, you must configure State at each Mark level separately:
+
+```js
+// ❌ Wrong: With multiple marks, state at view level won't propagate
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // This configuration won't propagate to child marks
+  children: [{ type: 'line' }, { type: 'point' }],
+});
+
+// ✅ Correct: Configure state at each mark level separately
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      state: { active: { stroke: 'red', strokeWidth: 2 } },
+    },
+    {
+      type: 'point',
+      state: { active: { fill: 'red', r: 6 } },
+    },
+  ],
+});
+```
+
+With single Mark, you can configure at view level:
+
+```js
+// ✅ With single mark, state configuration at view level takes effect
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // Will propagate to child mark
+  children: [
+    { type: 'line' }, // Will inherit state configuration from view
+  ],
+});
+```
+
+Configure directly at Mark level:
+
+```js
+// ✅ Configure directly at mark level
+chart.options({
+  type: 'line',
+  state: { active: { stroke: 'red', strokeWidth: 2 } },
+});
+```
+
+2. **Ensure correct interaction configuration**
+
+State needs to work with interactions to take effect:
+
+```js
+chart.options({
+  type: 'interval',
+  state: {
+    active: { fill: 'red' },
+    inactive: { fill: '#aaa' },
+    selected: { fill: 'orange' },
+    unselected: { fill: '#eee' },
+  },
+  // Must configure corresponding interactions
+  interaction: {
+    elementHighlight: true, // Enable hover highlight
+    elementSelect: true, // Enable click selection
+  },
+});
+```
+
+Common interactions and corresponding states:
+
+| Interaction             | Corresponding State     | Description        |
+| ----------------------- | ----------------------- | ------------------ |
+| elementHighlight        | active/inactive         | Hover highlight    |
+| elementSelect           | selected/unselected     | Click selection    |
+| brushHighlight          | active/inactive         | Area brush highlight |
+| legendHighlight         | active/inactive         | Legend highlight   |
+| elementHighlightByColor | active/inactive         | Highlight by color |
+| elementSelectByColor    | selected/unselected     | Select by color    |
+
+3. **Complete configuration example**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  state: {
+    // On hover: green fill + black stroke
+    active: { fill: 'green', stroke: 'black', strokeWidth: 1 },
+    // On selection: red fill (overrides active fill) + keeps active stroke
+    selected: { fill: 'red' },
+  },
+  interaction: { elementHighlight: true, elementSelect: true },
+});
+
+chart.render();
+```
+
+## How to Handle Style Conflicts When Multiple States Take Effect Simultaneously
+
+**Problem Description**
+
+When using G2's state management with both `elementHighlight` and `elementSelect` interactions enabled, multiple states (like `active` and `selected`) may take effect simultaneously, but the style behavior doesn't meet expectations.
+
+**Cause Analysis**
+
+G2 supports multiple states taking effect simultaneously. When the same property is configured by multiple states, the final effective style is selected based on priority. Different states have the following priorities:
+
+```
+selected:   3 (highest)
+unselected: 3
+active:     2
+inactive:   2
+default:    1 (lowest)
+```
+
+**Solutions**
+
+1. **Understand state priority mechanism**
+
+Higher priority states will override properties of the same name in lower priority states:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  state: {
+    // On hover: green fill + black stroke
+    active: { fill: 'green', stroke: 'black', strokeWidth: 1 },
+    // On selection: red fill (overrides active fill) + keeps active stroke
+    selected: { fill: 'red' },
+  },
+  interaction: { elementHighlight: true, elementSelect: true },
+});
+
+chart.render();
+```
+
+**Effect explanation**:
+
+- Hover only: Shows green fill + black stroke
+- Selection only: Shows red fill
+- Hover over selected element: Red fill (selected has higher priority) + black stroke (provided by active)
+
+2. **Properly configure styles for different priorities**
+
+Avoid configuring the same style properties in different priority states, or ensure high priority states provide complete style configuration:
+
+```js
+chart.options({
+  state: {
+    active: {
+      stroke: 'blue',
+      strokeWidth: 2,
+      opacity: 0.8,
+    },
+    selected: {
+      fill: 'orange',
+      stroke: 'black',
+      strokeWidth: 3,
+      // Don't configure opacity, will keep active's opacity effect
+    },
+  },
+});
+```
+
+3. **Use dynamic styles for complex scenarios**
+
+For complex state combinations, you can use functions to dynamically calculate styles:
+
+```js
+chart.options({
+  state: {
+    active: {
+      fill: (d) => (d.frequency > 0.05 ? 'lightblue' : 'lightgreen'),
+    },
+    selected: {
+      fill: (d) => (d.frequency > 0.05 ? 'darkblue' : 'darkgreen'),
+      strokeWidth: 3,
+    },
+  },
+});
+```
+
+## How to Prevent Null Values from Showing in Tooltip
+
+**Problem Description**
+
+When using G2 to draw charts in specific business scenarios, data often contains invalid values like `null`, `undefined`, or empty strings. By default, these null values are also displayed in the tooltip, affecting user experience and data readability.
+
+**Solution**
+
+You can use `interaction.tooltip.filter` configuration to filter out these invalid data items, preventing null values from showing in the tooltip.
+
+1. **Basic filter configuration**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: null },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 8 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  // Filter null and undefined values
+  interaction: {
+    tooltip: {
+      filter: (d) => d.value !== null && d.value !== undefined,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      tooltip: {
+        items: [{ channel: 'y' }],
+      },
+    },
+    { type: 'point', encode: { shape: 'point' }, tooltip: false },
+  ],
+});
+
+chart.render();
+```
+
+2. **Filtering for specific value ranges**
+
+Besides filtering null values, you can also filter data in specific value ranges:
+
+```js
+// Filter negative values and null values
+interaction: {
+  tooltip: {
+    filter: (d) => d.value !== null && d.value !== undefined && d.value >= 0,
+  },
+}
+
+// Filter outliers (data outside reasonable range)
+interaction: {
+  tooltip: {
+    filter: (d) => {
+      if (d.value === null || d.value === undefined) return false;
+      return d.value >= 0 && d.value <= 1000; // Only show values in 0-1000 range
+    },
+  },
+}
+```

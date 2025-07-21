@@ -105,7 +105,6 @@ chart
   });
 
 chart.render();
-
 ```
 
 ## 配置项
@@ -579,7 +578,6 @@ chart
   });
 
 chart.render();
-
 ```
 
 #### 自定义渲染内容
@@ -685,7 +683,6 @@ chart
   .style('lineDash', [4, 4]);
 
 chart.render();
-
 ```
 
 ## 示例
@@ -748,6 +745,66 @@ mark.tooltip({
   title: 'a',
   items: [{ channel: 'x' }, { channel: 'y' }],
 });
+```
+
+### 过滤空值数据
+
+当数据中存在 null 或 undefined 值时，可以通过 `interaction.tooltip.filter` 来过滤掉这些无效数据，避免在 tooltip 中显示。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: null },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 8 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  // 添加interaction配置来过滤null值
+  interaction: {
+    tooltip: {
+      filter: (d) => d.value !== null && d.value !== undefined,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      tooltip: {
+        items: [{ channel: 'y' }],
+      },
+    },
+    { type: 'point', encode: { shape: 'point' }, tooltip: false },
+  ],
+});
+
+chart.render();
+```
+
+更多过滤选项：
+
+```js
+// 只过滤null值
+filter: (d) => d.value !== null;
+
+// 过滤null、undefined和空字符串
+filter: (d) => d.value !== null && d.value !== undefined && d.value !== '';
+
+// 过滤所有"假值"（null, undefined, 0, false, ''等）
+filter: (d) => Boolean(d.value);
+
+// 按name过滤特定字段（比如只过滤temperature字段的null值）
+filter: (d) =>
+  d.name !== 'temperature' || (d.value !== null && d.value !== undefined);
 ```
 
 ### 怎么将 data 中额外的数据作为自定义 render 函数的参数
