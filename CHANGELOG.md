@@ -1,3 +1,18 @@
+## [5.3.5](https://github.com/antvis/g2/compare/5.3.4...5.3.5) (2025-07-21)
+
+
+### Bug Fixes
+
+* 多轴图使用滚动条后会导致折线点位错乱 ([#7038](https://github.com/antvis/g2/issues/7038)) ([8048812](https://github.com/antvis/g2/commit/80488126a0bb9e01b18d841074acd651a4d8b119))
+* corner radius abnormal of the pie chart ([#7023](https://github.com/antvis/g2/issues/7023)) ([810d298](https://github.com/antvis/g2/commit/810d2984d641645eedc5ed9146f98f4887964758))
+* incorrect parameter passing in SliderFilter ([#7034](https://github.com/antvis/g2/issues/7034)) ([5f0cb2f](https://github.com/antvis/g2/commit/5f0cb2f009af3103a0082eaa119d6aea41146ba8))
+* memory abnormal caused by tooltip emitter ([#7041](https://github.com/antvis/g2/issues/7041)) ([3d12604](https://github.com/antvis/g2/commit/3d1260491d71a35ad9ee34af84aa4a4bb054adc6))
+* the abnormal lineWidth of the liquid shape ([#7018](https://github.com/antvis/g2/issues/7018)) ([1173b56](https://github.com/antvis/g2/commit/1173b56322e7367758449c37323d5d340f63048e))
+* the tooltip of the Heatmap is abnormal ([#7024](https://github.com/antvis/g2/issues/7024)) ([e28591e](https://github.com/antvis/g2/commit/e28591e37e2c4af7b72c6945a268fcf4bb446681))
+* tooltip pick logic ([#7021](https://github.com/antvis/g2/issues/7021)) ([337604a](https://github.com/antvis/g2/commit/337604a7a484cab3c40e99fa66520e0a10f21b05))
+
+
+
 ## [5.3.4](https://github.com/antvis/g2/compare/5.3.3...5.3.4) (2025-07-08)
 
 
