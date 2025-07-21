@@ -1286,6 +1286,8 @@ export function tooltip(
     removeEventListeners();
     emitter.off('tooltip:show', onTooltipShow);
     emitter.off('tooltip:hide', onTooltipHide);
+    emitter.off('tooltip:enable', onTooltipEnable);
+    emitter.off('tooltip:disable', onTooltipDisable);
     if (preserve) {
       hideTooltip({ root, single, emitter, nativeEvent: false });
     } else {
