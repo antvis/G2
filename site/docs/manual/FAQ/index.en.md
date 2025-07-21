@@ -1483,11 +1483,10 @@ When using G2's state management (State) configuration, the configured `active`,
 
 **Cause Analysis**
 
-State configuration not taking effect usually has the following reasons:
+When the syntax is correct, State configuration not taking effect usually has the following reasons:
 
 1. **Incorrect configuration hierarchy**: State configuration propagation mechanism has limitations, especially with multiple Marks
 2. **Missing interaction plugins**: State needs to work with corresponding interaction plugins to take effect
-3. **Improper configuration position**: State configured at wrong hierarchy level
 
 **Solutions**
 
