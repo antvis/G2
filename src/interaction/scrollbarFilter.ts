@@ -16,10 +16,6 @@ export function ScrollbarFilter(options: any = {}) {
       y: [...scaleY.getOptions().domain],
     };
 
-    // The ordinal domain for each channel.
-    scaleX.update({ domain: scaleX.getOptions().expectedDomain });
-    scaleY.update({ domain: scaleY.getOptions().expectedDomain });
-
     const interaction = SliderFilter({
       initDomain,
       className: SCROLLBAR_CLASS_NAME,
