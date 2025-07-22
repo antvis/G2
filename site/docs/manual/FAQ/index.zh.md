@@ -1475,3 +1475,301 @@ chart.options({
 
 chart.render();
 ```
+
+## 为什么配置了 State 不生效
+
+**问题描述**
+
+在使用 G2 配置状态管理（State）时，发现配置的 `active`、`selected` 等状态样式没有生效，图表的交互效果不符合预期。
+
+**原因分析**
+
+在语法正确的情况下，State 配置不生效通常有以下几种原因：
+
+1. **配置层级错误**：State 配置的传播机制存在限制，特别是在多个 Mark 的情况下
+2. **缺少交互插件**：State 需要配合相应的交互插件才能生效
+
+**解决方案**
+
+1. **检查配置层级（最常见原因）**
+
+多个 Mark 时必须在每个 Mark 层级单独配置：
+
+```js
+// ❌ 错误：多个 mark 时，view 层级的 state 不会传播
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // 这个配置不会传播到子 mark
+  children: [{ type: 'line' }, { type: 'point' }],
+});
+
+// ✅ 正确：在每个 mark 层级单独配置 state
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      state: { active: { stroke: 'red', strokeWidth: 2 } },
+    },
+    {
+      type: 'point',
+      state: { active: { fill: 'red', r: 6 } },
+    },
+  ],
+});
+```
+
+单个 Mark 时可以在 view 层级配置：
+
+```js
+// ✅ 单个 mark 时，view 层级的 state 配置会生效
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // 会传播到子 mark
+  children: [
+    { type: 'line' }, // 会继承 view 的 state 配置
+  ],
+});
+```
+
+直接在 Mark 层级配置：
+
+```js
+// ✅ 直接在 mark 层级配置
+chart.options({
+  type: 'line',
+  state: { active: { stroke: 'red', strokeWidth: 2 } },
+});
+```
+
+2. **确保配置了正确的交互**
+
+State 需要配合交互才能生效：
+
+```js
+chart.options({
+  type: 'interval',
+  state: {
+    active: { fill: 'red' },
+    inactive: { fill: '#aaa' },
+    selected: { fill: 'orange' },
+    unselected: { fill: '#eee' },
+  },
+  // 必须配置相应的交互
+  interaction: {
+    elementHighlight: true, // 启用悬停高亮
+    elementSelect: true, // 启用点击选中
+  },
+});
+```
+
+常用的交互与对应状态：
+
+| 交互                    | 对应状态            | 说明         |
+| ----------------------- | ------------------- | ------------ |
+| elementHighlight        | active/inactive     | 悬停高亮     |
+| elementSelect           | selected/unselected | 点击选中     |
+| brushHighlight          | active/inactive     | 区域刷选高亮 |
+| legendHighlight         | active/inactive     | 图例高亮     |
+| elementHighlightByColor | active/inactive     | 按颜色高亮   |
+| elementSelectByColor    | selected/unselected | 按颜色选中   |
+
+3. **完整的配置示例**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  state: {
+    // 悬停时：绿色填充 + 黑色描边
+    active: { fill: 'green', stroke: 'black', strokeWidth: 1 },
+    // 选中时：红色填充（会覆盖 active 的 fill）+ 保留 active 的描边
+    selected: { fill: 'red' },
+  },
+  interaction: { elementHighlight: true, elementSelect: true },
+});
+
+chart.render();
+```
+
+## 多个状态同时生效时样式冲突怎么办
+
+**问题描述**
+
+在使用 G2 的状态管理时，当同时启用了 `elementHighlight` 和 `elementSelect` 交互，发现多个状态（如 `active` 和 `selected`）可能会同时生效，但样式表现不符合预期。
+
+**原因分析**
+
+G2 支持多个状态同时生效，当同一属性被多个状态配置时，会按照优先级选择最终生效的样式。不同状态的优先级如下：
+
+```
+selected:   3 (最高)
+unselected: 3
+active:     2
+inactive:   2
+default:    1 (最低)
+```
+
+**解决方案**
+
+1. **理解状态优先级机制**
+
+高优先级的状态会覆盖低优先级状态的同名属性：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  state: {
+    // 悬停时：绿色填充 + 黑色描边
+    active: { fill: 'green', stroke: 'black', strokeWidth: 1 },
+    // 选中时：红色填充（会覆盖 active 的 fill）+ 保留 active 的描边
+    selected: { fill: 'red' },
+  },
+  interaction: { elementHighlight: true, elementSelect: true },
+});
+
+chart.render();
+```
+
+**效果说明**：
+
+- 仅悬停：显示绿色填充 + 黑色描边
+- 仅选中：显示红色填充
+- 悬停已选中的元素：红色填充（selected 优先级高）+ 黑色描边（active 提供）
+
+2. **合理配置不同优先级的样式**
+
+避免在不同优先级状态下配置相同的样式属性，或确保高优先级状态提供完整的样式配置：
+
+```js
+chart.options({
+  state: {
+    active: {
+      stroke: 'blue',
+      strokeWidth: 2,
+      opacity: 0.8,
+    },
+    selected: {
+      fill: 'orange',
+      stroke: 'black',
+      strokeWidth: 3,
+      // 不配置 opacity，会保留 active 的 opacity 效果
+    },
+  },
+});
+```
+
+3. **使用动态样式处理复杂场景**
+
+对于复杂的状态组合，可以使用函数动态计算样式：
+
+```js
+chart.options({
+  state: {
+    active: {
+      fill: (d) => (d.frequency > 0.05 ? 'lightblue' : 'lightgreen'),
+    },
+    selected: {
+      fill: (d) => (d.frequency > 0.05 ? 'darkblue' : 'darkgreen'),
+      strokeWidth: 3,
+    },
+  },
+});
+```
+
+## 怎么让空值在 Tooltip 中不显示
+
+**问题描述**
+
+在具体业务场景中使用 G2 绘制图表时，数据中经常包含 `null`、`undefined` 或空字符串等无效值。默认情况下，这些空值也会在 tooltip 中显示，影响用户体验和数据的可读性。
+
+**解决方案**
+
+可以通过 `interaction.tooltip.filter` 配置来过滤掉这些无效数据，避免在 tooltip 中显示空值。
+
+1. **基础过滤配置**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: null },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 8 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  // 过滤 null 和 undefined 值
+  interaction: {
+    tooltip: {
+      filter: (d) => d.value !== null && d.value !== undefined,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      tooltip: {
+        items: [{ channel: 'y' }],
+      },
+    },
+    { type: 'point', encode: { shape: 'point' }, tooltip: false },
+  ],
+});
+
+chart.render();
+```
+
+2. **针对特定数值范围的过滤**
+
+除了过滤空值，还可以过滤特定数值范围的数据：
+
+```js
+// 过滤负值和空值
+interaction: {
+  tooltip: {
+    filter: (d) => d.value !== null && d.value !== undefined && d.value >= 0,
+  },
+}
+
+// 过滤异常值（如超出合理范围的数据）
+interaction: {
+  tooltip: {
+    filter: (d) => {
+      if (d.value === null || d.value === undefined) return false;
+      return d.value >= 0 && d.value <= 1000; // 只显示 0-1000 范围内的值
+    },
+  },
+}
+```
