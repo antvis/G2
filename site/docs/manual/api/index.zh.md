@@ -696,7 +696,7 @@ chart.render();
 
 ### chart.geoView()
 
-添加 [geoView](/manual/extra-topics/geo/geo-view) 复合容器。`geoView` 是绘制地图的容器，用于多 geoPath 图层叠加。
+添加 [geoView](/manual/extra-topics/geo/geo-view) 复合容器。`geoView` 是绘制地图的容器，用于多 geoPath 图层叠加。和普通`view`相同，它的子 mark 同样也会继承父级的 data。
 
 <img alt="geoView" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CQ4iT4UbQmAAAAAAAAAAAAAADmJ7AQ/original" width="600" />
 
