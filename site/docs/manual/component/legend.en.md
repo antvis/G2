@@ -109,6 +109,7 @@ Some configuration options are scoped to categorical legends and continuous lege
 | itemSpan <Badge type="success">Categorical Legend</Badge>       | Configure space allocation for legend item marker, label, and value                   | number \| number[]                                                 | `[1, 1, 1]`                           |          |
 | itemSpacing <Badge type="success">Categorical Legend</Badge>    | Configure spacing between legend item marker, label, and value                        | number \| number[]                                                 | `[8, 8]`                              |          |
 | nav <Badge type="success">Categorical Legend</Badge>            | Configure legend navigator                                                            | [nav](#nav)                                                        | See [nav](#nav)                       |          |
+| poptip <Badge type="success">Categorical Legend</Badge>            | Legend item poptip                                 | [poptip](#poptip)                                                        | See [poptip](#poptip)                       |
 | color <Badge type="warning">Continuous Legend</Badge>           | Configure color band colors for continuous legend                                     | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |          |
 | block <Badge type="warning">Continuous Legend</Badge>           | Whether continuous legend displays by intervals                                       | boolean                                                            | false                                 |          |
 | type <Badge type="warning">Continuous Legend</Badge>            | Configure type of continuous legend                                                   | `size` \|`color`                                                   | `color`                               |          |
@@ -1304,6 +1305,42 @@ chart.options({
 });
 
 chart.render();
+```
+
+### poptip
+
+<description> _LegendPoptipCfg_ **optional** </description>
+
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure the tooltip information for legend items, which is generally used when the legend is too long to be fully displayed.
+
+| Property | Description | Type  | Default Value | Required |
+| -------------- | -------------- | -------------- | -------------- | -------------- |
+| render                   | Custom rendering content is available, and HTML characters are supported.      |   `string` \| `() => string`   | - | - |
+| position                 | The position of the Poptip box can be overridden through CSS styles.   | `top left right bottom top-left top-right bottom-left bottom-right left-top left-bottom right-top right-bottom` | -        |   -   |
+| offset                   | Offset    | [number, number] | [0, 20]         |   -   |
+| follow                   | Whether to follow the mouse. When set to true, the position setting will be ignored. | boolean |   -      |   -   |
+| domStyles                | Container Styles   | object |   -      |   -   |
+
+The default configuration of domStyles is as follows:
+
+```ts
+{
+  domStyles: {
+    '.component-poptip': {
+      opacity: '1',
+      padding: '8px 12px',
+      background: '#fff',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+    },
+    '.component-poptip-arrow': {
+      display: 'none',
+    },
+    '.component-poptip-text': {
+      color: '#000',
+      lineHeight: '20px',
+    },
+  },
+}
 ```
 
 ### color
