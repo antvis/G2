@@ -68,7 +68,7 @@ order: 20
 | prefix        | 事件前缀，用于定义触发的事件名称                 | string                                       | 'scrollbar'                                          | 否   |
 | hasState      | 是否启用状态管理，控制滚动条筛选时的状态变化     | boolean                                      | true                                                 | 否   |
 | setValue      | 自定义设置滚动条值的函数                         | (component, values) => void                  | (component, values) => component.setValue(values[0]) | 否   |
-| getInitValues | 自定义获取滚动条初始值的函数                     | (scrollbar) => any                           | 内部默认实现                                         | 否   |
+| getInitValues | 自定义获取滚动条初始值的函数                     | (scrollbar) => [number, number]                | 内部默认实现                                         | 否   |
 
 ### 复杂类型说明
 
@@ -123,7 +123,7 @@ order: 20
 
 `getInitValues` 是一个函数，用于获取滚动条的初始值。默认实现会检查滚动条的值是否为 0，如果不是 0 则返回该值。
 
-您可以自定义这个函数来控制滚动条的初始位置：
+您可以自定义这个函数来控制滚动条的初始位置，返回值是一个 0-1 的数组，代表滚动条的起止位置：
 
 ```javascript
 ({
@@ -133,7 +133,7 @@ order: 20
         // 自定义获取初始值的逻辑
         const values = scrollbar.slider.attributes.values;
         // 例如，总是从中间位置开始
-        return [values.length / 2];
+        return [values.length / 2, 1];
       },
     },
   },
