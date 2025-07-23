@@ -323,7 +323,7 @@ export function appendMarkScaleKey(
     scale: {
       series: {
         key: `DEFAULT_${mark.type}_SERIES_KEY`,
-        ...mark?.scale?.series,
+        ...(mark?.scale?.series ?? {}),
       },
     },
   });
