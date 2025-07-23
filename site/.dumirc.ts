@@ -145,7 +145,7 @@ export default defineConfig({
           zh: '图表组成和使用（Chart）',
           en: 'Chart',
         },
-        order: 1,
+        order: 1.1,
       },
       {
         slug: 'manual/core/mark',

@@ -1799,3 +1799,65 @@ chart.options({
 
 chart.render().then(legendColor);
 ```
+
+### How to Display Full Content on Hover for Long Legend Text
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 300,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: 'This is a very long category name A that exceeds the display range', value: 40 },
+    { category: 'This is a very long category name B that exceeds the display range', value: 32 },
+    { category: 'This is a very long category name C that exceeds the display range', value: 28 },
+  ],
+  encode: { x: 'category', y: 'value', color: 'category' },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  legend: {
+    color: {
+      itemWidth: 120, // Limit width to trigger poptip
+      poptip: {
+        render: (item) => `Full name: ${item.label}
+        `,
+        position: 'top',
+        offset: [0, 20],
+        domStyles: {
+          '.component-poptip': {
+            background: 'rgb(114, 128, 191) ',
+            color: '#fff',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            backdropFilter: 'blur(10px)',
+            fontSize: '14px',
+            lineHeight: '1.5',
+            maxWidth: '280px',
+            zIndex: '1000',
+          },
+          '.component-poptip-arrow': {
+            display: 'block',
+            borderTopColor: '#667eea',
+          },
+          '.component-poptip-text': {
+            color: '#fff',
+            lineHeight: '1.5',
+          },
+        },
+      },
+    },
+  },
+});
+
+chart.render();
+```

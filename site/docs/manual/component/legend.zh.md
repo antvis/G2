@@ -2115,3 +2115,65 @@ chart.options({
 
 chart.render().then(legendColor);
 ```
+
+### 超长图例如何省略后悬浮显示全部内容
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 300,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: '这是一个非常长的类别名称A，超出显示范围', value: 40 },
+    { category: '这是一个非常长的类别名称B，超出显示范围', value: 32 },
+    { category: '这是一个非常长的类别名称C，超出显示范围', value: 28 },
+  ],
+  encode: { x: 'category', y: 'value', color: 'category' },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  legend: {
+    color: {
+      itemWidth: 120, // 限制宽度以触发poptip
+      poptip: {
+        render: (item) => `完整名称：${item.label}
+        `,
+        position: 'top',
+        offset: [0, 20],
+        domStyles: {
+          '.component-poptip': {
+            background: 'rgb(114, 128, 191) ',
+            color: '#fff',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            backdropFilter: 'blur(10px)',
+            fontSize: '14px',
+            lineHeight: '1.5',
+            maxWidth: '280px',
+            zIndex: '1000',
+          },
+          '.component-poptip-arrow': {
+            display: 'block',
+            borderTopColor: '#667eea',
+          },
+          '.component-poptip-text': {
+            color: '#fff',
+            lineHeight: '1.5',
+          },
+        },
+      },
+    },
+  },
+});
+
+chart.render();
+```
