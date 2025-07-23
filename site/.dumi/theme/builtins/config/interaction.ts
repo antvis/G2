@@ -456,7 +456,7 @@ export const interactionConfig: TreeNode[] = [
             optional: true,
           },
           {
-            id: 'mark.interaction.tooltip.crosshairs',
+            id: 'mark.interaction.tooltip.crosshairsStyles',
             label: 'crosshairs*',
             type: 'any',
             description:
@@ -464,7 +464,7 @@ export const interactionConfig: TreeNode[] = [
             optional: true,
           },
           {
-            id: 'mark.interaction.tooltip.marker',
+            id: 'mark.interaction.tooltip.markerStyles',
             label: 'marker*',
             type: 'any',
             description:
