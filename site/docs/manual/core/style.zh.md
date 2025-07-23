@@ -3,7 +3,7 @@ title: 样式（Style）
 order: 9
 ---
 
-G2 中**样式（Style）** 主要用来控制标记和视图的视觉样式。
+G2 中**样式（Style）** 主要用来控制标记、视图和组件的视觉样式。
 
 ## 配置方式
 
@@ -72,12 +72,86 @@ chart.style({
 });
 ```
 
-### 标记样式
+所有的图表组件也可以设置样式，例如图例：
+
+```ts
+({
+  type: 'interval',
+  legend: {
+    color: {
+      // 图例项图标样式（分类图例）
+      itemMarkerFill: '#5B8FF9',
+      itemMarkerStroke: '#333',
+      itemMarkerStrokeOpacity: 0.8,
+      
+      // 图例项标签样式（分类图例）
+      itemLabelFontSize: 12,
+      itemLabelFill: '#666',
+      itemLabelFontFamily: 'sans-serif',
+    },
+  },
+});
+```
+
+## 标记样式
 
 标记的视觉属性除了可以通过 `mark.encode` 去设置之外，还可以通过 `mark.style` 去设置。两者的区别主要有两点：
 
 - `mark.encode` 设置的通道会特殊一点，要么是该标记独有的，比如 image 的 src 通道；要么就是有一些特殊逻辑，比如 x 通道会影响 x 方向坐标轴的生成。
 - `mark.encode` 更倾向于去设置和数据有关的通道，但是 `mark.style` 更倾向于去设置和数据无关的通道。虽然 `mark.style` 也同样支持回调去设置数据驱动的通道。
+
+### 标记的不同形状
+
+对于 `shape` 属性，可以通过 `encode.shape` 或 `style.shape` 两种方式进行配置，它们的区别在于：
+
+**通过 `encode.shape` 配置（推荐）**：
+
+- 支持数据驱动，可以根据数据动态选择不同的形状
+- 会参与比例尺的创建，可以通过图例进行交互
+- 优先级更高，会覆盖 `style.shape` 的设置
+
+**通过 `style.shape` 配置**：
+
+- 支持静态值或回调函数，可以实现数据驱动
+- 不参与比例尺创建，不会生成图例
+- 当没有设置 `encode.shape` 时生效
+
+### 常见形状配置示例
+
+**配置空心柱状图**：
+
+```js
+// 方式一：通过 encode.shape
+chart.options({
+  type: 'interval',
+  encode: {
+    x: 'category',
+    y: 'value',
+    shape: 'hollow', // 配置为空心矩形
+  },
+});
+
+// 方式二：通过 style.shape
+chart.options({
+  type: 'interval',
+  encode: {
+    x: 'category',
+    y: 'value',
+  },
+  style: {
+    shape: 'hollow', // 配置为空心矩形
+  },
+});
+```
+
+不同标记支持的形状类型：
+
+- **interval**：`rect`（实心矩形）、`hollow`（空心矩形）、`funnel`（漏斗形）、`pyramid`（金字塔形）
+- **point**：`hollow`（空心圆）、`point`（实心圆）、`hollowSquare`（空心方形）等
+- **rect**：`rect`（实心矩形）、`hollow`（空心矩形）
+- **line**：`line`（直线）、`smooth`（平滑曲线）、`vh`（阶梯折线，先竖线后横线连接）等
+
+下面是一个完整的空心柱状图示例：
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -86,24 +160,62 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .style('fill', 'steelblue') // 设置和数据无关的通道
-  .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // 设置和数据有关的通道
-  .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
-  .axis('y', { labelFormatter: '.0%' });
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    shape: 'hollow', // 配置为空心矩形
+  },
+  style: {
+    stroke: '#1890ff', // 设置描边颜色
+    strokeWidth: 2, // 设置描边宽度
+  },
+});
 
 chart.render();
 ```
 
-### 视图样式
+还可以通过 `style.shape` 配置实现同样的效果：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+  },
+  style: {
+    shape: 'hollow', // 通过 style 配置为空心矩形
+    stroke: '#52c41a', // 设置描边颜色
+    strokeWidth: 2, // 设置描边宽度
+  },
+});
+
+chart.render();
+```
+
+## 视图样式
 
 而各个区域的样式可以通过 `${name}${Style}` 的形式去设置，其中 `Style` 是 G 的矩形支持的所有样式，比如 `fill`，`stroke` 等，注意首字母要大写，变成驼峰形式。
 
@@ -163,6 +275,218 @@ chart.options({
 
 chart.render();
 ```
+
+## 组件样式
+
+组件样式是指图表中各种组件（如坐标轴、图例、标签、标题等）的视觉样式配置。每个组件都提供了丰富的样式配置选项，支持对组件的各个子元素进行精细化的样式控制。
+
+### 坐标轴样式
+
+坐标轴由标题、轴线、刻度、刻度值标签和网格线等多个元素组成，每个元素都可以单独配置样式：
+
+```js
+({
+  type: 'interval',
+  axis: {
+    x: {
+      // 标题样式
+      title: 'X轴标题',
+      titleFontSize: 16,
+      titleFontFamily: 'Arial',
+      titleFontWeight: 'bold',
+      titleFill: '#333',
+      
+      // 轴线样式
+      line: true,
+      lineStroke: '#666',
+      lineLineWidth: 2,
+      
+      // 刻度样式
+      tick: true,
+      tickStroke: '#999',
+      tickLineWidth: 1,
+      
+      // 刻度值标签样式
+      labelFontSize: 12,
+      labelFill: '#666',
+      labelFontFamily: 'sans-serif',
+      
+      // 网格线样式
+      grid: true,
+      gridStroke: '#e6e6e6',
+      gridStrokeOpacity: 0.7,
+    },
+    y: {
+      // Y轴样式配置类似...
+    },
+  },
+});
+```
+
+更多有关坐标轴样式的配置见[坐标轴](/manual/component/axis)。
+
+### 图例样式
+
+图例支持分类图例和连续图例两种类型，都可以配置丰富的样式属性：
+
+```js
+({
+  type: 'interval',
+  legend: {
+    color: {
+      // 标题样式
+      title: '图例标题',
+      titleFontSize: 14,
+      titleFontFamily: 'Arial',
+      titleFill: '#333',
+      titleFontWeight: 'bold',
+      
+      // 图例项图标样式（分类图例）
+      itemMarkerFill: '#5B8FF9',
+      itemMarkerStroke: '#333',
+      itemMarkerStrokeOpacity: 0.8,
+      
+      // 图例项标签样式（分类图例）
+      itemLabelFontSize: 12,
+      itemLabelFill: '#666',
+      itemLabelFontFamily: 'sans-serif',
+      
+      // 连续图例样式
+      ribbon: {
+        fill: '#5B8FF9',
+        stroke: '#333',
+      },
+    },
+  },
+});
+```
+
+更多有关图例样式的配置见[图例](/manual/component/legend)。
+
+### 数据标签样式
+
+数据标签支持丰富的文字样式配置：
+
+```js
+({
+  type: 'interval',
+  labels: [
+    {
+      text: 'value',
+      style: {
+        fontSize: 12,
+        fontFamily: 'Arial',
+        fontWeight: 'normal',
+        fill: '#333',
+        stroke: '#fff',
+        strokeOpacity: 0.8,
+        textAlign: 'center',
+        textBaseline: 'middle',
+        shadowColor: 'rgba(0,0,0,0.3)',
+        shadowBlur: 3,
+        dx: 0,
+        dy: -10,
+      },
+    },
+  ],
+});
+```
+
+更多有关数据标签样式的配置见[数据标签](/manual/component/label)。
+
+### 标题样式
+
+图表标题包括主标题和副标题，都支持详细的样式配置：
+
+```js
+({
+  type: 'interval',
+  title: {
+    // 主标题
+    title: '图表主标题',
+    titleFontSize: 20,
+    titleFontFamily: 'Arial',
+    titleFontWeight: 'bold',
+    titleFill: '#333',
+    titleStroke: '#000',
+    titleLineWidth: 1,
+    
+    // 副标题
+    subtitle: '图表副标题',
+    subtitleFontSize: 14,
+    subtitleFontFamily: 'Arial',
+    subtitleFontWeight: 'normal',
+    subtitleFill: '#666',
+    
+    // 布局配置
+    align: 'center',
+    spacing: 8,
+  },
+});
+```
+
+更多有关标题样式的配置见[标题](/manual/component/title)。
+
+### 提示信息样式
+
+提示信息的样式主要通过交互配置来定制，支持CSS样式、标记点样式和辅助线样式：
+
+```js
+({
+  type: 'interval',
+  tooltip: {
+    title: 'name',
+    items: ['value'],
+  },
+  interaction: {
+    tooltip: {
+      // CSS样式配置
+      css: {
+        '.g2-tooltip': {
+          background: 'rgba(0,0,0,0.8)',
+          color: '#fff',
+          'font-size': '12px',
+          padding: '8px 12px',
+          'border-radius': '4px',
+          border: '1px solid #ccc',
+        },
+        '.g2-tooltip-title': {
+          'font-weight': 'bold',
+          'font-size': '14px',
+        },
+        '.g2-tooltip-list-item-value': {
+          'font-weight': 'normal',
+        },
+      },
+      
+      // 标记点样式
+      marker: true,
+      markerFill: '#5B8FF9',
+      markerStroke: '#fff',
+      markerLineWidth: 2,
+      
+      // 辅助线样式
+      crosshairs: true,
+      crosshairsStroke: '#999',
+      crosshairsLineDash: [4, 4],
+    },
+  },
+});
+```
+
+更多有关提示信息样式的配置见[提示信息](/manual/component/tooltip)。
+
+### 样式配置的统一性
+
+所有组件的样式配置都遵循相同的命名规范：
+
+- **文字样式**：`fontSize`、`fontFamily`、`fontWeight`、`fill`、`stroke` 等
+- **阴影样式**：`shadowColor`、`shadowBlur`、`shadowOffsetX`、`shadowOffsetY`
+- **透明度**：`opacity`、`fillOpacity`、`strokeOpacity`
+- **位置偏移**：`dx`、`dy`
+- **鼠标交互**：`cursor`
+
+这种统一的命名规范使得在不同组件之间配置样式时保持一致的体验。
 
 ## 绘图属性
 
