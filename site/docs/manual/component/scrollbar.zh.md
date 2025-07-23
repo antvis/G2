@@ -84,7 +84,6 @@ chart.render();
 | ratio      | 滚动条的比例，为单页显示数据在总数据量上单比例             | number          | `0.5`    |      |
 | value      | 滚动条的起始位置，水平方向默认值为 `0`，垂直方向默认为 `1` | [0, 1]          |          |      |
 | slidable   | 是否可以拖动                                               | boolean         | true     |      |
-| scrollable | 是否支持滚轮滚动                                           | boolean         | true     |      |
 | position   | 滚动条相对图表方位                                         | string          | `bottom` |      |
 | isRound    | 滚动条样式是否为圆角                                       | boolean         | true     |      |
 | style      | 滚动条样式配置，样式都可以直接在配置项中配置               | [style](#style) |          |      |
@@ -116,7 +115,6 @@ chart.options({
       // 配置项
       ratio: 0.2,
       value: 0.1,
-      scrollable: true,
       slidable: true,
       isRound: true,
       position: 'top',
