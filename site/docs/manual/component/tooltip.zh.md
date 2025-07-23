@@ -912,7 +912,7 @@ chart.emit('tooltip:enable'); // 启用交互
 
 ### 设置十字辅助线
 
-默认情况下，`crossharisY`是开启的，`crosshairsX`是关闭的，所以如果要开启十字辅助线，有以下两种方式。
+默认情况下，`crosshairsY`是开启的，`crosshairsX`是关闭的，所以如果要开启十字辅助线，有以下两种方式。
 
 1. 设置`crosshairs`为`true`。
 
