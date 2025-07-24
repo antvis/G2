@@ -314,6 +314,23 @@ export function maybeNonAnimate(
   return [I, mark];
 }
 
+export function appendMarkScaleKey(
+  I: number[],
+  mark: G2Mark,
+  context: G2Context,
+): [number[], G2Mark] {
+  deepMix(mark, {
+    scale: {
+      series: {
+        key: `DEFAULT_${mark.type}_SERIES_KEY`,
+        ...(mark?.scale?.series ?? {}),
+      },
+    },
+  });
+
+  return [I, mark];
+}
+
 function isTypedChannel(channel): boolean {
   if (
     typeof channel !== 'object' ||

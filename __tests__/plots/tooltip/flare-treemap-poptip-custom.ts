@@ -59,7 +59,12 @@ flareTreemapPoptipCustom.steps = ({ canvas }) => {
   return [
     {
       changeState: async () => {
-        rectangle?.dispatchEvent(new CustomEvent('pointerover'));
+        rectangle?.dispatchEvent(
+          new CustomEvent('pointerover', {
+            offsetX: 10,
+            offsetY: 10,
+          }),
+        );
       },
     },
   ];
