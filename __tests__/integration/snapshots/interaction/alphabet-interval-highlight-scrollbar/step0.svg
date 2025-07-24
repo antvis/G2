@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" color-interpolation-filters="sRGB" style="background: transparent;">
+  <defs>
+    <clipPath id="b" transform="matrix(1 0 0 1 -16 -16)">
+      <use href="#a"/>
+    </clipPath>
+    <path id="a" width="608" height="430" x="16" y="16" fill="none" d="m16 16 608 0 0 430-608 0z"/>
+  </defs>
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
+        <g>
+          <path width="640" height="480" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 640 0 0 480-640 0z" class="area"/>
+        </g>
+        <g>
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
+        </g>
+        <g>
+          <path width="608" height="430" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 430-608 0z" class="area"/>
+        </g>
+        <g>
+          <path width="608" height="430" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 430-608 0z" class="area"/>
+        </g>
+        <g fill="none" class="component">
+          <g fill="none" class="g2-scrollbar">
+            <g fill="none" class="scrollbar">
+              <g>
+                <path width="608" height="6" x="16" y="458" fill="rgba(229,229,229,1)" fill-opacity="0" d="m19 458 602 0a3 3 0 0 1 3 3l0 0a3 3 0 0 1-3 3l-602 0a3 3 0 0 1-3-3l0 0a3 3 0 0 1 3-3z" class="slider-track" opacity=".05"/>
+              </g>
+              <g fill="none" class="slider-sparkline-group">
+                <g fill="none" class="slider-sparkline">
+                  <g>
+                    <path fill="none" class="container"/>
+                  </g>
+                  <g fill="none" class="spark sparkline" transform="matrix(1 0 0 1 16 458)">
+                    <g fill="none"/>
+                    <g fill="none"/>
+                  </g>
+                </g>
+              </g>
+              <g>
+                <path width="608" height="6" x="16" y="458" fill="rgba(0,0,0,0)" d="m16 458 608 0 0 6-608 0z" class="slider-brush-area"/>
+              </g>
+              <g fill="none" class="slider-foreground">
+                <g transform="matrix(1 0 0 1 16 458)">
+                  <path height="6" fill="rgba(0,0,0,1)" fill-opacity=".15" class="slider-selection" visibility="hidden"/>
+                </g>
+                <g transform="matrix(1 0 0 1 16 458)">
+                  <path width="304" height="6" fill="rgba(0,0,0,1)" fill-opacity=".15" d="m3 0 298 0a3 3 0 0 1 3 3l0 0a3 3 0 0 1-3 3l-298 0a3 3 0 0 1-3-3l0 0a3 3 0 0 1 3-3z" class="slider-selection" visibility="visible"/>
+                </g>
+                <g transform="matrix(1 0 0 1 16 458)">
+                  <path width="304" height="6" x="304" fill="rgba(0,0,0,1)" fill-opacity=".15" d="m307 0 298 0a3 3 0 0 1 3 3l0 0a3 3 0 0 1-3 3l-298 0a3 3 0 0 1-3-3l0 0a3 3 0 0 1 3-3z" class="slider-selection" visibility="hidden"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g clip-path="url(#b)" transform="matrix(1 0 0 1 16 16)">
+          <path width="608" height="430" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 430-608 0z" class="plot"/>
+          <g>
+            <path width="195.9329" height="430" x="402.1626" y="0" fill="rgba(204,214,236,1)" fill-opacity=".3" stroke-width="0" d="m402.1626 0 195.9329 0 0 430-195.933 0z" class="element-background"/>
+          </g>
+          <g fill="none" class="main-layer">
+            <g>
+              <path width="176.5161" height="276.4769" x="411.871" y="153.5231" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m411.871 153.523 176.5161 0 0 276.477-176.5161 0z" class="element"/>
+            </g>
+            <g>
+              <path width="176.5161" height="430" x="19.6129" y="0" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m19.6129 0 176.5161 0 0 430-176.5161 0z" class="element"/>
+            </g>
+            <g>
+              <path width="176.5161" height="306.5722" x="215.7419" y="123.4278" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m215.742 123.4278 176.516 0 0 306.5722-176.516 0z" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="label-layer"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
