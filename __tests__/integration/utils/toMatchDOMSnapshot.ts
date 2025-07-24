@@ -83,14 +83,6 @@ interface SVGDifferenceResult {
   differences: SVGDifference[];
 }
 
-const WHITE_LIST = [
-  (actual, expected) =>
-    expected ===
-      '<foreignObject xmlns="http://www.w3.org/2000/svg" class="poptip">' &&
-    actual ===
-      '<foreignObject xmlns="http://www.w3.org/2000/svg" x="NaN" y="NaN" class="poptip">',
-];
-
 function findSVGDifferences(
   actual: string,
   expected: string,
@@ -106,10 +98,7 @@ function findSVGDifferences(
 
   const maxLines = Math.max(actualLines.length, expectedLines.length);
   for (let i = 0; i < maxLines; i++) {
-    if (
-      actualLines[i] !== expectedLines[i] &&
-      !WHITE_LIST.some((fn) => fn(actualLines[i], expectedLines[i]))
-    ) {
+    if (actualLines[i] !== expectedLines[i]) {
       differences.push({
         line: i + 1,
         actual: actualLines[i] || '(missing)',
@@ -174,12 +163,6 @@ export async function toMatchDOMSnapshot(
       const result = findSVGDifferences(actual, expected);
       const totalDifferences = result.differences.length;
       let diffMessage = `mismatch ${namePath}`;
-
-      if (result.differences.length === 0)
-        return {
-          message: () => `⚠️ hit some whitelists, match ${namePath}`,
-          pass: true,
-        };
 
       if (totalDifferences > 0) {
         if (totalDifferences >= MAX_DIFFERENCES_TO_SHOW) {
