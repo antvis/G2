@@ -84,7 +84,6 @@ Scrollbars can also be configured at the View level. Scrollbars have inheritance
 | ratio      | Scrollbar ratio, the proportion of single page data in total data               | number          | `0.5`         |          |
 | value      | Starting position of scrollbar, default is `0` for horizontal, `1` for vertical | [0, 1]          |               |          |
 | slidable   | Whether it can be dragged                                                       | boolean         | true          |          |
-| scrollable | Whether it supports mouse wheel scrolling                                       | boolean         | true          |          |
 | position   | Scrollbar position relative to chart                                            | string          | `bottom`      |          |
 | isRound    | Whether scrollbar style is rounded                                              | boolean         | true          |          |
 | style      | Scrollbar style configuration, all styles can be configured directly            | [style](#style) |               |          |
@@ -116,7 +115,6 @@ chart.options({
       // Configuration options
       ratio: 0.2,
       value: 0.1,
-      scrollable: true,
       slidable: true,
       isRound: true,
       position: 'top',

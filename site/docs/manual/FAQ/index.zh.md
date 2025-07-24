@@ -1773,3 +1773,84 @@ interaction: {
   },
 }
 ```
+
+## 图例文本过长如何显示省略号并支持悬浮显示完整内容
+
+**问题描述**
+
+在使用 G2 绘制图表时，图例项的文本内容可能很长，受限于布局空间无法完全显示。需要实现文本超长时显示省略号，同时支持鼠标悬浮显示完整内容的交互效果。
+
+**解决方案**
+
+G2 提供了 `poptip` 配置项来解决图例文本过长的问题。通过配置 `poptip`，可以在图例文本被截断时，鼠标悬浮显示完整的提示信息。
+
+**关键配置**
+
+- `itemWidth`: 限制图例项宽度，触发文本截断
+- `poptip.render`: 自定义提示内容，支持字符串或者 `html`
+- `poptip.domStyles`: 自定义提示框样式
+- `poptip.position`: 设置提示框位置
+- `poptip.offset`: 设置提示框偏移量，建议设置为[0, 正数]，避免触发 `poptip` 的时候闪烁
+
+**完整示例**
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 300,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: '这是一个非常长的类别名称A，超出显示范围', value: 40 },
+    { category: '这是一个非常长的类别名称B，超出显示范围', value: 32 },
+    { category: '这是一个非常长的类别名称C，超出显示范围', value: 28 },
+  ],
+  encode: { x: 'category', y: 'value', color: 'category' },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  legend: {
+    color: {
+      itemWidth: 120, // 限制宽度以触发poptip
+      poptip: {
+        render: (item) => `完整名称：${item.label}`,
+        position: 'top',
+        offset: [0, 20],
+        domStyles: {
+          '.component-poptip': {
+            background: 'rgb(114, 128, 191)',
+            color: '#fff',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            backdropFilter: 'blur(10px)',
+            fontSize: '14px',
+            lineHeight: '1.5',
+            maxWidth: '280px',
+            zIndex: '1000',
+          },
+          '.component-poptip-arrow': {
+            display: 'block',
+            borderTopColor: '#667eea',
+          },
+          '.component-poptip-text': {
+            color: '#fff',
+            lineHeight: '1.5',
+          },
+        },
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+查看[图例组件](/manual/component/legend#poptip)的详细文档了解更多配置选项。

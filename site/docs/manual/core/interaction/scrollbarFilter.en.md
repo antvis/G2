@@ -68,7 +68,7 @@ Scrollbar filtering interaction supports the following configuration options:
 | prefix        | Event prefix, used to define triggered event names                                    | string                                       | 'scrollbar'                                          | No       |
 | hasState      | Whether to enable state management, controls state changes during scrollbar filtering | boolean                                      | true                                                 | No       |
 | setValue      | Custom function to set scrollbar value                                                | (component, values) => void                  | (component, values) => component.setValue(values[0]) | No       |
-| getInitValues | Custom function to get scrollbar initial values                                       | (scrollbar) => any                           | Internal default implementation                      | No       |
+| getInitValues | Custom function to get scrollbar initial values                                       | (scrollbar) => [number, number]              | Internal default implementation                      | No       |
 
 ### Complex Type Description
 
@@ -123,7 +123,7 @@ If you need to customize the scrollbar's value setting logic, you can provide yo
 
 `getInitValues` is a function used to get the initial values of the scrollbar. The default implementation checks if the scrollbar value is 0, and returns that value if it's not 0.
 
-You can customize this function to control the initial position of the scrollbar:
+You can customize this function to control the initial position of the scrollbar, the return values should be an array of number between 0 and 1, means the positon of start and end.
 
 ```javascript
 ({
