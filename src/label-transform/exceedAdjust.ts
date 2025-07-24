@@ -1,4 +1,4 @@
-import { DisplayObject } from '@antv/g';
+import { AABB, DisplayObject } from '@antv/g';
 import { LabelTransformComponent as LLC } from '../runtime';
 import { ExceedAdjustLabel } from '../spec';
 import { Bounds } from '../utils/bounds';
@@ -26,6 +26,13 @@ const adjustPosition = (target: Bounds, edge: Bounds) => {
   }
 
   return [changeX, changeY];
+};
+
+const union = (a: AABB, b: AABB) => {
+  return {
+    min: [Math.min(a.min[0], b.min[0]), Math.min(a.min[1], b.min[1])],
+    max: [Math.max(a.max[0], b.max[0]), Math.max(a.max[1], b.max[1])],
+  };
 };
 
 export type ExceedAdjustOptions = Omit<ExceedAdjustLabel, 'type'> & {
@@ -85,7 +92,7 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
 
     labels.forEach((l) => {
       show(l);
-      const { max, min } = l.getRenderBounds();
+      const { max, min } = union(l.getRenderBounds(), l.getBounds());
       const [xMax, yMax] = max,
         [xMin, yMin] = min;
       const changeValue = adjustPosition(
