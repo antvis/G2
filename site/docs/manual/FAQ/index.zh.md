@@ -1854,3 +1854,164 @@ chart.render();
 ```
 
 查看[图例组件](/manual/component/legend#poptip)的详细文档了解更多配置选项。
+
+## 自定义渲染提示信息，会有逗号分隔是什么原因？
+
+**问题描述**
+
+在使用 G2 绘制图表时，当使用 `interaction.tooltip.render` 自定义 tooltip 渲染内容的时候，明明没有加入逗号，最终渲染出的 tooltip 却被逗号分隔开了。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  interaction: {
+    tooltip: {
+      shared: true,
+      render: (event, { title, items }) => `<div>
+    <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+    <div>${items.map(
+      (d) => `
+    <div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>
+    `,
+    )}</div>
+    </div>
+    `,
+    },
+  },
+});
+
+chart.render();
+```
+
+**原因分析**
+
+这个问题的根本原因在于 JavaScript 数组的 `toString()` 方法行为。当使用 `items.map()` 返回一个字符串数组时，在模板字符串的 `${}` 中，JavaScript 会自动调用数组的 `toString()` 方法进行类型转换。而数组的 `toString()` 方法会使用逗号来连接所有数组元素，这就是逗号出现的原因。
+
+例如：
+
+```js
+const array = ['<div>item1</div>', '<div>item2</div>', '<div>item3</div>'];
+console.log(`${array}`); // 输出：<div>item1</div>,<div>item2</div>,<div>item3</div>
+```
+
+**解决方案**
+
+使用 `.join('')` 方法将数组元素连接成字符串，而不是依赖 JavaScript 的自动类型转换：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  interaction: {
+    tooltip: {
+      shared: true,
+      render: (event, { title, items }) => `<div>
+    <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+    <div>${items
+      .map(
+        (d) => `
+    <div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>
+    `,
+      )
+      .join('')}</div>
+    </div>
+    `,
+    },
+  },
+});
+
+chart.render();
+```
+
+**关键修改**：
+
+```js
+// ❌ 错误：会产生逗号分隔
+${items.map((d) => `<div>...</div>`)}
+
+// ✅ 正确：使用 join('') 避免逗号
+${items.map((d) => `<div>...</div>`).join('')}
+```
+
+**其他解决方案**
+
+1. **使用 forEach + 字符串拼接**：
+
+```js
+render: (event, { title, items }) => {
+  let content = `<h3 style="padding: 0; margin: 0; color: red;">${title}</h3>`;
+  items.forEach((d) => {
+    content += `<div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>`;
+  });
+  return `<div>${content}</div>`;
+};
+```
+
+2. **使用 reduce 方法**：
+
+```js
+render: (event, { title, items }) => `<div>
+  <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+  <div>${items.reduce(
+    (acc, d) =>
+      acc +
+      `<div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>`,
+    '',
+  )}</div>
+</div>`;
+```
+
+**注意事项**
+
+- 在任何需要将数组转换为字符串并嵌入模板字符串的场景中，都要注意使用 `.join('')`
+- 如果需要特定的分隔符（如换行符），可以使用 `.join('\n')` 或其他分隔符
+- 这个问题在 React JSX、Vue 模板等其他框架中也可能遇到类似情况

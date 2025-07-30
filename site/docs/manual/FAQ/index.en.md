@@ -1853,3 +1853,160 @@ chart.render();
 ```
 
 See the [Legend Component](/en/manual/component/legend#poptip) documentation for more configuration options.
+
+## Why Are Commas Appearing in Custom Rendered Tooltips?
+
+**Problem Description**
+
+When using G2 to create charts, when using `interaction.tooltip.render` to customize tooltip rendering content, even though no commas were added, the final rendered tooltip is separated by commas.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { name: 'London', month: 'Jan.', rainfall: 18.9 },
+    { name: 'London', month: 'Feb.', rainfall: 28.8 },
+    { name: 'London', month: 'Mar.', rainfall: 39.3 },
+    { name: 'London', month: 'Apr.', rainfall: 81.4 },
+    { name: 'London', month: 'May', rainfall: 47 },
+    { name: 'London', month: 'Jun.', rainfall: 20.3 },
+    { name: 'London', month: 'Jul.', rainfall: 24 },
+    { name: 'London', month: 'Aug.', rainfall: 35.6 },
+    { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { name: 'Berlin', month: 'May', rainfall: 52.6 },
+    { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  interaction: {
+    tooltip: {
+      shared: true,
+      render: (event, { title, items }) => `<div>
+    <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+    <div>${items.map(
+      (d) => `
+    <div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>
+    `,
+    )}</div>
+    </div>
+    `,
+    },
+  },
+});
+
+chart.render();
+```
+
+**Cause Analysis**
+
+The root cause of this problem lies in the behavior of JavaScript's array `toString()` method. When using `items.map()` to return a string array, within the `${}` of template literals, JavaScript automatically calls the array's `toString()` method for type conversion. The array's `toString()` method uses commas to connect all array elements, which is why commas appear.
+
+For example:
+```js
+const array = ['<div>item1</div>', '<div>item2</div>', '<div>item3</div>'];
+console.log(`${array}`); // Output: <div>item1</div>,<div>item2</div>,<div>item3</div>
+```
+
+**Solution**
+
+Use the `.join('')` method to connect array elements into a string, rather than relying on JavaScript's automatic type conversion:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { name: 'London', month: 'Jan.', rainfall: 18.9 },
+    { name: 'London', month: 'Feb.', rainfall: 28.8 },
+    { name: 'London', month: 'Mar.', rainfall: 39.3 },
+    { name: 'London', month: 'Apr.', rainfall: 81.4 },
+    { name: 'London', month: 'May', rainfall: 47 },
+    { name: 'London', month: 'Jun.', rainfall: 20.3 },
+    { name: 'London', month: 'Jul.', rainfall: 24 },
+    { name: 'London', month: 'Aug.', rainfall: 35.6 },
+    { name: 'Berlin', month: 'Jan.', rainfall: 12.4 },
+    { name: 'Berlin', month: 'Feb.', rainfall: 23.2 },
+    { name: 'Berlin', month: 'Mar.', rainfall: 34.5 },
+    { name: 'Berlin', month: 'Apr.', rainfall: 99.7 },
+    { name: 'Berlin', month: 'May', rainfall: 52.6 },
+    { name: 'Berlin', month: 'Jun.', rainfall: 35.5 },
+    { name: 'Berlin', month: 'Jul.', rainfall: 37.4 },
+    { name: 'Berlin', month: 'Aug.', rainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'rainfall', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  interaction: {
+    tooltip: {
+      shared: true,
+      render: (event, { title, items }) => `<div>
+    <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+    <div>${items
+      .map(
+        (d) => `
+    <div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>
+    `,
+      )
+      .join('')}</div>
+    </div>
+    `,
+    },
+  },
+});
+
+chart.render();
+```
+
+**Key Changes**:
+```js
+// ❌ Wrong: Will produce comma separation
+${items.map((d) => `<div>...</div>`)}
+
+// ✅ Correct: Use join('') to avoid commas
+${items.map((d) => `<div>...</div>`).join('')}
+```
+
+**Alternative Solutions**
+
+1. **Using forEach + string concatenation**:
+```js
+render: (event, { title, items }) => {
+  let content = `<h3 style="padding: 0; margin: 0; color: red;">${title}</h3>`;
+  items.forEach((d) => {
+    content += `<div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>`;
+  });
+  return `<div>${content}</div>`;
+};
+```
+
+2. **Using reduce method**:
+```js
+render: (event, { title, items }) => `<div>
+  <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+  <div>${items.reduce(
+    (acc, d) =>
+      acc +
+      `<div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>`,
+    '',
+  )}</div>
+</div>`;
+```
+
+**Important Notes**
+
+- Always use `.join('')` when converting arrays to strings for embedding in template literals
+- If you need specific separators (like line breaks), you can use `.join('\n')` or other separators
+- This issue may occur in similar scenarios in other frameworks like React JSX, Vue templates, etc.
