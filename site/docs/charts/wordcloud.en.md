@@ -263,12 +263,10 @@ chart.render();
 - **Word Cloud**: Strong visual impact, suitable for overview display
 - **Bar Chart**: Precise numerical comparison, suitable for detailed analysis
 
-## Extensions of Word Cloud
-
 ## Similar Charts
 
 <code src="./demos/list-card.tsx"></code>
 
-## Category
+## Categories
 
 <code src="./demos/list-category.tsx"></code>
