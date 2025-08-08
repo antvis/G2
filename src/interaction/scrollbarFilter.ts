@@ -16,6 +16,23 @@ export function ScrollbarFilter(options: any = {}) {
       y: [...scaleY.getOptions().domain],
     };
 
+    // The ordinal domain for each channel.
+    const scaleXOptions = scaleX.getOptions();
+    if (
+      get(scaleXOptions, 'domain.length') ===
+      get(scaleXOptions, 'expectedDomain.length')
+    ) {
+      scaleX.update({ domain: scaleXOptions.expectedDomain });
+    }
+
+    const scaleYOptions = scaleY.getOptions();
+    if (
+      get(scaleYOptions, 'domain.length') ===
+      get(scaleYOptions, 'expectedDomain.length')
+    ) {
+      scaleY.update({ domain: scaleYOptions.expectedDomain });
+    }
+
     const interaction = SliderFilter({
       initDomain,
       className: SCROLLBAR_CLASS_NAME,
