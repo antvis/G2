@@ -1,7 +1,7 @@
 import { deepMix, throttle, upperFirst, get } from '@antv/util';
 import { CustomEvent } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
-import { invert, domainOf, abstractOf } from '../utils/scale';
+import { invert, domainOf, abstractOf, updateScaleDomain } from '../utils/scale';
 
 export const SLIDER_CLASS_NAME = 'slider';
 
@@ -145,21 +145,8 @@ export function SliderFilter({
           const { nativeEvent = true } = event;
 
           // The ordinal domain for each channel.
-          const scaleXOptions = scaleX.getOptions();
-          if (
-            get(scaleXOptions, 'domain.length') !==
-            get(scaleXOptions, 'expectedDomain.length')
-          ) {
-            scaleX.update({ domain: scaleXOptions.expectedDomain });
-          }
-
-          const scaleYOptions = scaleY.getOptions();
-          if (
-            get(scaleYOptions, 'domain.length') !==
-            get(scaleYOptions, 'expectedDomain.length')
-          ) {
-            scaleY.update({ domain: scaleYOptions.expectedDomain });
-          }
+          updateScaleDomain(scaleX)
+          updateScaleDomain(scaleY)
 
           // Get and update domain.
           const [domain0, domain1] = domainsOf(event);

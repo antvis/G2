@@ -75,3 +75,13 @@ export function pixelsOf(selection, scale, coordinate) {
   const [x1, y1] = coordinate.map(p1);
   return [x, y, x1, y1];
 }
+
+export const updateScaleDomain = (scale) => {
+  const scaleOptions = scale.getOptions();
+  if (
+    get(scaleOptions, 'domain.length') ===
+    get(scaleOptions, 'expectedDomain.length')
+  ) {
+    scale.update({ domain: scaleOptions.expectedDomain });
+  }
+};

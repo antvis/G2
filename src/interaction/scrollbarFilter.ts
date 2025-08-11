@@ -1,4 +1,5 @@
 import { SliderFilter } from './sliderFilter';
+import { updateScaleDomain } from '../utils/scale';
 
 export const SCROLLBAR_CLASS_NAME = 'g2-scrollbar';
 
@@ -17,21 +18,8 @@ export function ScrollbarFilter(options: any = {}) {
     };
 
     // The ordinal domain for each channel.
-    const scaleXOptions = scaleX.getOptions();
-    if (
-      get(scaleXOptions, 'domain.length') ===
-      get(scaleXOptions, 'expectedDomain.length')
-    ) {
-      scaleX.update({ domain: scaleXOptions.expectedDomain });
-    }
-
-    const scaleYOptions = scaleY.getOptions();
-    if (
-      get(scaleYOptions, 'domain.length') ===
-      get(scaleYOptions, 'expectedDomain.length')
-    ) {
-      scaleY.update({ domain: scaleYOptions.expectedDomain });
-    }
+    updateScaleDomain(scaleX)
+    updateScaleDomain(scaleY)
 
     const interaction = SliderFilter({
       initDomain,
