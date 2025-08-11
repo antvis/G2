@@ -238,22 +238,28 @@ chart.options({
   encode: { x: 'letter', y: 'frequency' },
   transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 5 }],
   axis: { y: { labelFormatter: '.0%' } },
+  scale: {
+    y: {
+      nice: true,
+    },
+  },
   state: {
     active: {
-      offset: 10,
-      backgroundRadius: 50,
-      backgroundFill: (d) => (d.frequency > 0.1 ? 'red' : '#000'),
-      backgroundFillOpacity: 0.9,
-      backgroundStroke: '#DAF5EC',
-      backgroundStrokeOpacity: 0.9,
+      offset: 1,
+      backgroundRadius: 8,
+      backgroundFill: (d) => (d.frequency > 0.1 ? '#EF4444' : '#3B82F6'),
+      backgroundFillOpacity: 0.15,
+      backgroundStroke: (d) => (d.frequency > 0.1 ? '#EF4444' : '#3B82F6'),
+      backgroundStrokeOpacity: 0.8,
       backgroundLineWidth: 2,
-      backgroundLineDash: [4, 8],
-      backgroundOpacity: 1,
-      backgroundShadowColor: '#d3d3d3',
-      backgroundShadowBlur: 10,
-      backgroundShadowOffsetX: 10,
-      backgroundShadowOffsetY: 10,
+      backgroundShadowColor: (d) => (d.frequency > 0.1 ? '#EF4444' : '#3B82F6'),
+      backgroundShadowBlur: 8,
+      backgroundShadowOffsetX: 0,
+      backgroundShadowOffsetY: 2,
       backgroundCursor: 'pointer',
+      fill: '#FFFFFF',
+      stroke: (d) => (d.frequency > 0.1 ? '#EF4444' : '#3B82F6'),
+      strokeWidth: 2,
     },
   },
   interaction: {
@@ -261,6 +267,115 @@ chart.options({
       background: true,
     },
   },
+});
+
+chart.render();
+```
+
+### 折线图配置背景高亮
+
+**Line Mark 的特点**：
+
+- 每条线对应一个图形元素（Path），包含多个数据点
+- 线的 `__data__` 包含所有点的聚合数据，其中 x / y 值通常是第一个数据点的坐标
+- 当渲染背景高亮时，`renderBackground` 函数基于第一个数据点的位置计算背景矩形
+- 如果 x 轴是序数比例尺（band scale），背景矩形只覆盖第一个数据点对应的带宽范围
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  state: {
+    active: {
+      backgroundFill: 'red',
+    },
+  },
+  interaction: {
+    elementHighlight: {
+      background: true,
+    },
+  },
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+});
+
+chart.render();
+```
+
+从上面的示例里我们可以看出，背景高亮只显示在线条的起点位置，看起来效果不完整，对于 Line Mark，推荐使用 `stroke`、`strokeWidth` 等样式属性进行高亮，但如果想要实现背景高亮也不是没有办法，这需要结合 G2 中的其他标记，例如 `point`标记。
+
+**Point Mark 的特点**：
+
+- 每个数据点对应一个独立的图形元素（如 Circle）
+- 每个点都有自己独立的 `__data__`，包含该点的完整坐标信息
+- 背景高亮为每个点单独计算和渲染背景矩形
+- 每个点的背景矩形完整覆盖其对应的带宽范围
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
+  children: [
+    {
+      type: 'line',
+      interaction: {
+        elementHighlight: false, // 不开启高亮交互
+      },
+    },
+    {
+      type: 'point',
+      style: { fill: 'white', stroke: '#1890ff', strokeWidth: 2 },
+      // Point 使用背景高亮效果更佳
+      state: {
+        active: {
+          backgroundFill: 'red',
+          backgroundFillOpacity: 0.3,
+          fill: 'red',
+          r: 6,
+        },
+      },
+      interaction: {
+        elementHighlight: { background: true, region: true },
+      },
+      tooltip: false, //关闭 point 的tooltip，避免重复显示
+    },
+  ],
 });
 
 chart.render();

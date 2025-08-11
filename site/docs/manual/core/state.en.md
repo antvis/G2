@@ -7,8 +7,6 @@ In data visualization, **State** is the core mechanism for implementing interact
 
 State style properties are consistent with the style properties supported by [@antv/g](https://github.com/antvis/g), commonly including `fill` (fill color), `stroke` (stroke color), `strokeWidth` (stroke width), `opacity` (transparency), etc. For details, see [Style](/en/manual/core/style).
 
----
-
 ## Use Cases
 
 - Mouse hover highlighting data
@@ -16,7 +14,66 @@ State style properties are consistent with the style properties supported by [@a
 - Multi-dimensional interactive feedback (e.g., hover + select overlay)
 - Dynamic effects with animations for state transitions
 
----
+## Configuration Levels
+
+**Important Note: State Configuration Propagation Mechanism**
+
+In G2, state configuration propagation follows these rules:
+
+### Single Mark Scenario
+
+When there is only one mark under a view, configuring state at the view level **will take effect**, and the state will automatically propagate to the child mark:
+
+```js
+// ✅ With a single mark, view-level state configuration will take effect
+chart.options({
+  type: 'view',
+  state: { active: { backgroundFill: 'red', backgroundOpacity: 0.5 } }, // Will propagate to child mark
+  children: [
+    { type: 'line' }, // Will inherit the view's state configuration
+  ],
+});
+```
+
+### Multiple Marks Scenario
+
+When there are multiple marks under a view, view-level state **will not take effect**, and each mark needs to be configured individually:
+
+```js
+// ❌ With multiple marks, view-level state will not propagate
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // This configuration will not propagate to child marks
+  children: [{ type: 'line' }, { type: 'point' }],
+});
+
+// ✅ Correct: Configure state at each mark level individually
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      state: { active: { stroke: 'red', strokeWidth: 2 } },
+    },
+    {
+      type: 'point',
+      state: { active: { fill: 'red', r: 6 } },
+    },
+  ],
+});
+```
+
+### Direct Mark-Level Configuration
+
+When using mark APIs directly (such as `chart.line()`), state configuration takes effect at the mark level:
+
+```js
+// ✅ Direct mark-level configuration
+chart.options({
+  type: 'line',
+  state: { active: { stroke: 'red', strokeWidth: 2 } },
+});
+```
 
 ## Configuration Options
 
@@ -28,8 +85,6 @@ G2 supports configuring styles for different states at the mark level through th
 | inactive   | Style when not highlighted | Other non-highlighted elements |
 | selected   | Style when selected        | Mouse click                    |
 | unselected | Style when not selected    | Other non-selected elements    |
-
----
 
 ### Configuration Methods
 
@@ -94,8 +149,6 @@ chart.options({
 chart.render();
 ```
 
----
-
 ## State Interactions and Priority Mechanism
 
 G2 supports **multiple states being active simultaneously**. When the same property is configured by multiple states, the final effective style is chosen based on priority.
@@ -141,8 +194,6 @@ chart.render();
 - When hovering, the `active` state takes effect, showing green color and black stroke
 - When clicked, both `selected` and `active` states are active, but `selected` has higher priority, so the final fill color is red
 
----
-
 ## Common Interactions and State Integration
 
 G2 provides rich interactions that, combined with state styles, can achieve various interactive effects:
@@ -160,8 +211,6 @@ G2 provides rich interactions that, combined with state styles, can achieve vari
 | elementSelect           | Click selection        | selected/unselected |
 | elementSelectByColor    | Select by color        | selected/unselected |
 | elementSelectByX        | Select by X            | selected/unselected |
-
----
 
 ## Typical Scenario Examples
 
@@ -198,8 +247,6 @@ chart.render();
 
 - When hovering over a bar, it applies the `active` style, while other bars apply the `inactive` style.
 
----
-
 ### 2. Selection Interaction (elementSelect)
 
 Using the `elementSelect` interaction plugin with `selected` and `unselected` state styles to achieve click selection:
@@ -230,8 +277,6 @@ chart.render();
 **Effect Description**:
 
 - When clicking a bar, it applies the `selected` style, while other bars apply the `unselected` style.
-
----
 
 ### 3. Multiple State Overlay (Highlight + Selection)
 
@@ -264,8 +309,6 @@ chart.options({
 chart.render();
 ```
 
----
-
 ### 4. State and Animation Integration
 
 State transitions can be combined with animations (such as fade in/out, scaling, etc.) to enhance the interactive experience. For details, see [Animation System](/en/manual/core/animate/overview).
@@ -282,8 +325,6 @@ chart.options({
   // Other configurations...
 });
 ```
-
----
 
 ## Advanced Usage
 
@@ -303,8 +344,6 @@ chart.options({
 });
 ```
 
----
-
 ## Common Issues
 
 - **State styles not taking effect?**  
@@ -314,5 +353,3 @@ chart.options({
   Make good use of the priority mechanism to avoid repeatedly configuring the same property in multiple high-priority states.
 - **State styles conflicting with animations?**  
   Pay attention to animation configuration during state transitions to avoid visual anomalies caused by overlapping styles and animations.
-
----

@@ -105,7 +105,6 @@ chart
   });
 
 chart.render();
-
 ```
 
 ## Configuration Options
@@ -579,7 +578,6 @@ chart
   });
 
 chart.render();
-
 ```
 
 #### Custom Render Content
@@ -685,7 +683,6 @@ chart
   .style('lineDash', [4, 4]);
 
 chart.render();
-
 ```
 
 ## Examples
@@ -748,6 +745,65 @@ mark.tooltip({
   title: 'a',
   items: [{ channel: 'x' }, { channel: 'y' }],
 });
+```
+
+### Filter Null Data
+
+When data contains null or undefined values, you can use `interaction.tooltip.filter` to filter out these invalid data points to avoid displaying them in the tooltip.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: null },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 8 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  // Add interaction configuration to filter null values
+  interaction: {
+    tooltip: {
+      filter: (d) => d.value !== null && d.value !== undefined,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      tooltip: {
+        items: [{ channel: 'y' }],
+      },
+    },
+    { type: 'point', encode: { shape: 'point' }, tooltip: false },
+  ],
+});
+chart.render();
+```
+
+More filtering options:
+
+```js
+// Filter only null values
+filter: (d) => d.value !== null;
+
+// Filter null, undefined and empty strings
+filter: (d) => d.value !== null && d.value !== undefined && d.value !== '';
+
+// Filter all "falsy" values (null, undefined, 0, false, '', etc.)
+filter: (d) => Boolean(d.value);
+
+// Filter by name for specific fields (e.g., filter null values only for temperature field)
+filter: (d) =>
+  d.name !== 'temperature' || (d.value !== null && d.value !== undefined);
 ```
 
 ### How to use additional data from data as parameters for custom render function

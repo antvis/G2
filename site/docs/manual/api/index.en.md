@@ -689,7 +689,7 @@ chart.render();
 
 ### chart.geoView()
 
-Add a [geoView](/manual/extra-topics/geo/geo-view) composite container.`geoView` serves as a container for map rendering, allowing the overlay of multiple geoPath layers.
+Add a [geoView](/manual/extra-topics/geo/geo-view) composite container.`geoView` serves as a container for map rendering, allowing the overlay of multiple geoPath layers. Like the normal `view`, its child mark will also inherit the parent's data.
 
 <img alt="geoView" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CQ4iT4UbQmAAAAAAAAAAAAAADmJ7AQ/original" width="600" />
 

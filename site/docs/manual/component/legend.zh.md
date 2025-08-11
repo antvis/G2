@@ -109,6 +109,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | itemSpan <Badge type="success">分类图例</Badge>       | 配置图例项图标、标签和值的空间划分               | number \| number[]                                                 | `[1, 1, 1]`                           |
 | itemSpacing <Badge type="success">分类图例</Badge>    | 配置图例项图标、标签和值之间的间距               | number \| number[]                                                 | `[8, 8]`                              |
 | nav <Badge type="success">分类图例</Badge>            | 配置图例的分页器                                 | [nav](#nav)                                                        | 详见[nav](#nav)                       |
+| poptip <Badge type="success">分类图例</Badge>            | 图例项提示                                 | [poptip](#poptip)                                                        | 详见[poptip](#poptip)                       |
 | color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
 | block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | false                                 |
 | type <Badge type="warning">连续图例</Badge>           | 配置连续图例的类型                               | `size` \|`color`                                                   | `color`                               |
@@ -1306,6 +1307,42 @@ chart.options({
 chart.render();
 ```
 
+### poptip
+
+<description> _LegendPoptipCfg_ **optional** </description>
+
+适用于 <Badge type="success">分类图例</Badge> 。配置图例项的提示信息，一般用于图例过长，无法完全展示时。
+
+| 属性 | 描述 | 类型  | 默认值 | 必选 |
+| -------------- | -------------- | -------------- | -------------- | -------------- |
+| render                   | 可自定义渲染内容，支持 HTML 字符      |   `string` \| `() => string`   | - | - |
+| position                 | 气泡框位置，可通过 css 样式强制覆盖   | `top left right bottom top-left top-right bottom-left bottom-right left-top left-bottom right-top right-bottom` | -        |   -   |
+| offset                   | 偏移量    | [number, number] | [0, 20]         |   -   |
+| follow                   | 是否跟随鼠标。当设置为 true 时，会忽略 position 的设置  | boolean |   -      |   -   |
+| domStyles                | 容器样式   | object |   -      |   -   |
+
+domStyles 默认配置如下：
+
+```ts
+{
+  domStyles: {
+    '.component-poptip': {
+      opacity: '1',
+      padding: '8px 12px',
+      background: '#fff',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+    },
+    '.component-poptip-arrow': {
+      display: 'none',
+    },
+    '.component-poptip-text': {
+      color: '#000',
+      lineHeight: '20px',
+    },
+  },
+}
+```
+
 ### color
 
 <description> _string[] | [d3-interpolate](https://github.com/d3/d3-interpolate)_ **optional** </description>
@@ -2077,4 +2114,66 @@ chart.options({
 });
 
 chart.render().then(legendColor);
+```
+
+### 超长图例如何省略后悬浮显示全部内容
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 300,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: '这是一个非常长的类别名称A，超出显示范围', value: 40 },
+    { category: '这是一个非常长的类别名称B，超出显示范围', value: 32 },
+    { category: '这是一个非常长的类别名称C，超出显示范围', value: 28 },
+  ],
+  encode: { x: 'category', y: 'value', color: 'category' },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  legend: {
+    color: {
+      itemWidth: 120, // 限制宽度以触发poptip
+      poptip: {
+        render: (item) => `完整名称：${item.label}
+        `,
+        position: 'top',
+        offset: [0, 20],
+        domStyles: {
+          '.component-poptip': {
+            background: 'rgb(114, 128, 191) ',
+            color: '#fff',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            backdropFilter: 'blur(10px)',
+            fontSize: '14px',
+            lineHeight: '1.5',
+            maxWidth: '280px',
+            zIndex: '1000',
+          },
+          '.component-poptip-arrow': {
+            display: 'block',
+            borderTopColor: '#667eea',
+          },
+          '.component-poptip-text': {
+            color: '#fff',
+            lineHeight: '1.5',
+          },
+        },
+      },
+    },
+  },
+});
+
+chart.render();
 ```

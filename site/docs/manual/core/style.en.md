@@ -3,7 +3,7 @@ title: Style
 order: 9
 ---
 
-**Style** in G2 is primarily used to control the visual styling of marks and views.
+**Style** in G2 is primarily used to control the visual styling of marks, views, and components.
 
 ## Configuration Methods
 
@@ -72,12 +72,86 @@ chart.style({
 });
 ```
 
-### Mark Styles
+All chart components can also set styles, for example legends:
+
+```ts
+({
+  type: 'interval',
+  legend: {
+    color: {
+      // Legend item marker styles (categorical legend)
+      itemMarkerFill: '#5B8FF9',
+      itemMarkerStroke: '#333',
+      itemMarkerStrokeOpacity: 0.8,
+      
+      // Legend item label styles (categorical legend)
+      itemLabelFontSize: 12,
+      itemLabelFill: '#666',
+      itemLabelFontFamily: 'sans-serif',
+    },
+  },
+});
+```
+
+## Mark Styles
 
 In addition to setting visual properties through `mark.encode`, they can also be set through `mark.style`. The main differences between the two are:
 
 - Channels set by `mark.encode` are special - either unique to the mark (like the `src` channel for images) or have special logic (like the `x` channel affecting x-axis generation).
 - `mark.encode` tends to set data-related channels, while `mark.style` tends to set data-independent channels. However, `mark.style` also supports callbacks for data-driven channels.
+
+### Different Shapes for Marks
+
+For the `shape` property, it can be configured through either `encode.shape` or `style.shape`. The difference is:
+
+**Configure through `encode.shape` (Recommended)**:
+
+- Supports data-driven configuration, allowing dynamic selection of different shapes based on data
+- Participates in scale creation and can interact through legends
+- Has higher priority and will override `style.shape` settings
+
+**Configure through `style.shape`**:
+
+- Supports static values or callback functions for data-driven implementation
+- Does not participate in scale creation and will not generate legends
+- Takes effect when `encode.shape` is not set
+
+### Common Shape Configuration Examples
+
+**Configure hollow bar chart**:
+
+```js
+// Method 1: Through encode.shape
+chart.options({
+  type: 'interval',
+  encode: {
+    x: 'category',
+    y: 'value',
+    shape: 'hollow', // Configure as hollow rectangle
+  },
+});
+
+// Method 2: Through style.shape
+chart.options({
+  type: 'interval',
+  encode: {
+    x: 'category',
+    y: 'value',
+  },
+  style: {
+    shape: 'hollow', // Configure as hollow rectangle
+  },
+});
+```
+
+Shape types supported by different marks:
+
+- **interval**: `rect` (solid rectangle), `hollow` (hollow rectangle), `funnel` (funnel shape), `pyramid` (pyramid shape)
+- **point**: `hollow` (hollow circle), `point` (solid circle), `hollowSquare` (hollow square), etc.
+- **rect**: `rect` (solid rectangle), `hollow` (hollow rectangle)
+- **line**: `line` (straight line), `smooth` (smooth curve), `vh` (step line, vertical then horizontal connection), etc.
+
+Here's a complete example of a hollow bar chart:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -86,24 +160,62 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .style('fill', 'steelblue') // Set data-independent channels
-  .style('strokeWidth', (d) => (d.frequency > 0.1 ? 2 : 1)) // Set data-related channels
-  .style('stroke', (d) => (d.frequency > 0.1 ? 'red' : 'black'))
-  .axis('y', { labelFormatter: '.0%' });
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    shape: 'hollow', // Configure as hollow rectangle
+  },
+  style: {
+    stroke: '#1890ff', // Set stroke color
+    strokeWidth: 2, // Set stroke width
+  },
+});
 
 chart.render();
 ```
 
-### View Styles
+You can also achieve the same effect through `style.shape` configuration:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+  },
+  style: {
+    shape: 'hollow', // Configure as hollow rectangle through style
+    stroke: '#52c41a', // Set stroke color
+    strokeWidth: 2, // Set stroke width
+  },
+});
+
+chart.render();
+```
+
+## View Styles
 
 Styles for different areas can be set using the `${name}${Style}` format, where `Style` represents all styles supported by G's rectangle, such as `fill`, `stroke`, etc. Note that the first letter should be capitalized to form camelCase.
 
@@ -163,6 +275,218 @@ chart.options({
 
 chart.render();
 ```
+
+## Component Styles
+
+Component styles refer to the visual styling configurations for various chart components such as axes, legends, labels, titles, etc. Each component provides rich styling configuration options, supporting fine-grained style control over component sub-elements.
+
+### Axis Styles
+
+Axes consist of multiple elements including title, axis line, ticks, tick labels, and grid lines, each of which can be styled independently:
+
+```js
+({
+  type: 'interval',
+  axis: {
+    x: {
+      // Title styles
+      title: 'X Axis Title',
+      titleFontSize: 16,
+      titleFontFamily: 'Arial',
+      titleFontWeight: 'bold',
+      titleFill: '#333',
+      
+      // Axis line styles
+      line: true,
+      lineStroke: '#666',
+      lineLineWidth: 2,
+      
+      // Tick styles
+      tick: true,
+      tickStroke: '#999',
+      tickLineWidth: 1,
+      
+      // Tick label styles
+      labelFontSize: 12,
+      labelFill: '#666',
+      labelFontFamily: 'sans-serif',
+      
+      // Grid line styles
+      grid: true,
+      gridStroke: '#e6e6e6',
+      gridStrokeOpacity: 0.7,
+    },
+    y: {
+      // Y-axis style configuration similar...
+    },
+  },
+});
+```
+
+For more configuration on axis styles, see [Axis](/en/manual/component/axis).
+
+### Legend Styles
+
+Legends support both categorical and continuous legend types, both offering rich styling properties:
+
+```js
+({
+  type: 'interval',
+  legend: {
+    color: {
+      // Title styles
+      title: 'Legend Title',
+      titleFontSize: 14,
+      titleFontFamily: 'Arial',
+      titleFill: '#333',
+      titleFontWeight: 'bold',
+      
+      // Legend item marker styles (categorical legend)
+      itemMarkerFill: '#5B8FF9',
+      itemMarkerStroke: '#333',
+      itemMarkerStrokeOpacity: 0.8,
+      
+      // Legend item label styles (categorical legend)
+      itemLabelFontSize: 12,
+      itemLabelFill: '#666',
+      itemLabelFontFamily: 'sans-serif',
+      
+      // Continuous legend styles
+      ribbon: {
+        fill: '#5B8FF9',
+        stroke: '#333',
+      },
+    },
+  },
+});
+```
+
+For more configuration on legend styles, see [Legend](/en/manual/component/legend).
+
+### Label Styles
+
+Data labels support rich text styling configurations:
+
+```js
+({
+  type: 'interval',
+  labels: [
+    {
+      text: 'value',
+      style: {
+        fontSize: 12,
+        fontFamily: 'Arial',
+        fontWeight: 'normal',
+        fill: '#333',
+        stroke: '#fff',
+        strokeOpacity: 0.8,
+        textAlign: 'center',
+        textBaseline: 'middle',
+        shadowColor: 'rgba(0,0,0,0.3)',
+        shadowBlur: 3,
+        dx: 0,
+        dy: -10,
+      },
+    },
+  ],
+});
+```
+
+For more configuration on label styles, see [Label](/en/manual/component/label).
+
+### Title Styles
+
+Chart titles include both main title and subtitle, both supporting detailed style configuration:
+
+```js
+({
+  type: 'interval',
+  title: {
+    // Main title
+    title: 'Chart Main Title',
+    titleFontSize: 20,
+    titleFontFamily: 'Arial',
+    titleFontWeight: 'bold',
+    titleFill: '#333',
+    titleStroke: '#000',
+    titleLineWidth: 1,
+    
+    // Subtitle
+    subtitle: 'Chart Subtitle',
+    subtitleFontSize: 14,
+    subtitleFontFamily: 'Arial',
+    subtitleFontWeight: 'normal',
+    subtitleFill: '#666',
+    
+    // Layout configuration
+    align: 'center',
+    spacing: 8,
+  },
+});
+```
+
+For more configuration on title styles, see [Title](/en/manual/component/title).
+
+### Tooltip Styles
+
+Tooltip styles are mainly customized through interaction configuration, supporting CSS styles, marker styles, and crosshair styles:
+
+```js
+({
+  type: 'interval',
+  tooltip: {
+    title: 'name',
+    items: ['value'],
+  },
+  interaction: {
+    tooltip: {
+      // CSS style configuration
+      css: {
+        '.g2-tooltip': {
+          background: 'rgba(0,0,0,0.8)',
+          color: '#fff',
+          'font-size': '12px',
+          padding: '8px 12px',
+          'border-radius': '4px',
+          border: '1px solid #ccc',
+        },
+        '.g2-tooltip-title': {
+          'font-weight': 'bold',
+          'font-size': '14px',
+        },
+        '.g2-tooltip-list-item-value': {
+          'font-weight': 'normal',
+        },
+      },
+      
+      // Marker styles
+      marker: true,
+      markerFill: '#5B8FF9',
+      markerStroke: '#fff',
+      markerLineWidth: 2,
+      
+      // Crosshair styles
+      crosshairs: true,
+      crosshairsStroke: '#999',
+      crosshairsLineDash: [4, 4],
+    },
+  },
+});
+```
+
+For more configuration on tooltip styles, see [Tooltip](/en/manual/component/tooltip).
+
+### Style Configuration Consistency
+
+All component style configurations follow the same naming conventions:
+
+- **Text styles**: `fontSize`, `fontFamily`, `fontWeight`, `fill`, `stroke`, etc.
+- **Shadow styles**: `shadowColor`, `shadowBlur`, `shadowOffsetX`, `shadowOffsetY`
+- **Opacity**: `opacity`, `fillOpacity`, `strokeOpacity`
+- **Position offset**: `dx`, `dy`
+- **Mouse interaction**: `cursor`
+
+This unified naming convention provides a consistent experience when configuring styles across different components.
 
 ## Drawing Properties
 
@@ -359,7 +683,7 @@ chart.options({
     contentText: 'center text',
     outlineBorder: 4,
     outlineDistance: 8,
-    // 绘图属性
+    // Drawing properties
     contentFontSize: 30,
     contentFontFamily: 'sans-serif',
     contentFontWeight: 500,
@@ -412,7 +736,7 @@ chart.options({
   scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
   title: {
     size: 30,
-    title: "我是一个标题 I'am a title",
+    title: "I am a title",
     align: 'center',
     spacing: 4,
 
@@ -509,8 +833,8 @@ chart.options({
     color: { range: ['l(0):0:#37b38e 1:#D9C652', 'l(0):0:#D9C652 1:#f96e3e'] },
   },
   style: {
-    textContent: (target, total) => `得分：${target}
-占比：${(target / total) * 100}%`,
+    textContent: (target, total) => `Score: ${target}
+Ratio: ${(target / total) * 100}%`,
   },
   legend: false,
 });

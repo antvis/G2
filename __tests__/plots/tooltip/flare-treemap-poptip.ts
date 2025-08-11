@@ -59,12 +59,22 @@ flareTreemapPoptip.steps = ({ canvas }) => {
   return [
     {
       changeState: async () => {
-        node?.dispatchEvent(new CustomEvent('pointerover'));
+        node?.dispatchEvent(
+          new CustomEvent('pointerover', {
+            offsetX: 10,
+            offsetY: 10,
+          }),
+        );
       },
     },
     {
       changeState: async () => {
-        rectangle?.dispatchEvent(new CustomEvent('pointerover'));
+        rectangle?.dispatchEvent(
+          new CustomEvent('pointerover', {
+            offsetX: 10,
+            offsetY: 10,
+          }),
+        );
       },
     },
     {
@@ -75,7 +85,12 @@ flareTreemapPoptip.steps = ({ canvas }) => {
     },
     {
       changeState: async () => {
-        spring?.dispatchEvent(new CustomEvent('pointerover'));
+        spring?.dispatchEvent(
+          new CustomEvent('pointerover', {
+            offsetX: 10,
+            offsetY: 10,
+          }),
+        );
       },
     },
   ];

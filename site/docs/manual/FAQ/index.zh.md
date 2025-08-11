@@ -1475,3 +1475,543 @@ chart.options({
 
 chart.render();
 ```
+
+## 为什么配置了 State 不生效
+
+**问题描述**
+
+在使用 G2 配置状态管理（State）时，发现配置的 `active`、`selected` 等状态样式没有生效，图表的交互效果不符合预期。
+
+**原因分析**
+
+在语法正确的情况下，State 配置不生效通常有以下几种原因：
+
+1. **配置层级错误**：State 配置的传播机制存在限制，特别是在多个 Mark 的情况下
+2. **缺少交互插件**：State 需要配合相应的交互插件才能生效
+
+**解决方案**
+
+1. **检查配置层级（最常见原因）**
+
+多个 Mark 时必须在每个 Mark 层级单独配置：
+
+```js
+// ❌ 错误：多个 mark 时，view 层级的 state 不会传播
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // 这个配置不会传播到子 mark
+  children: [{ type: 'line' }, { type: 'point' }],
+});
+
+// ✅ 正确：在每个 mark 层级单独配置 state
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      state: { active: { stroke: 'red', strokeWidth: 2 } },
+    },
+    {
+      type: 'point',
+      state: { active: { fill: 'red', r: 6 } },
+    },
+  ],
+});
+```
+
+单个 Mark 时可以在 view 层级配置：
+
+```js
+// ✅ 单个 mark 时，view 层级的 state 配置会生效
+chart.options({
+  type: 'view',
+  state: { active: { fill: 'red' } }, // 会传播到子 mark
+  children: [
+    { type: 'line' }, // 会继承 view 的 state 配置
+  ],
+});
+```
+
+直接在 Mark 层级配置：
+
+```js
+// ✅ 直接在 mark 层级配置
+chart.options({
+  type: 'line',
+  state: { active: { stroke: 'red', strokeWidth: 2 } },
+});
+```
+
+2. **确保配置了正确的交互**
+
+State 需要配合交互才能生效：
+
+```js
+chart.options({
+  type: 'interval',
+  state: {
+    active: { fill: 'red' },
+    inactive: { fill: '#aaa' },
+    selected: { fill: 'orange' },
+    unselected: { fill: '#eee' },
+  },
+  // 必须配置相应的交互
+  interaction: {
+    elementHighlight: true, // 启用悬停高亮
+    elementSelect: true, // 启用点击选中
+  },
+});
+```
+
+常用的交互与对应状态：
+
+| 交互                    | 对应状态            | 说明         |
+| ----------------------- | ------------------- | ------------ |
+| elementHighlight        | active/inactive     | 悬停高亮     |
+| elementSelect           | selected/unselected | 点击选中     |
+| brushHighlight          | active/inactive     | 区域刷选高亮 |
+| legendHighlight         | active/inactive     | 图例高亮     |
+| elementHighlightByColor | active/inactive     | 按颜色高亮   |
+| elementSelectByColor    | selected/unselected | 按颜色选中   |
+
+3. **完整的配置示例**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  state: {
+    // 悬停时：绿色填充 + 黑色描边
+    active: { fill: 'green', stroke: 'black', strokeWidth: 1 },
+    // 选中时：红色填充（会覆盖 active 的 fill）+ 保留 active 的描边
+    selected: { fill: 'red' },
+  },
+  interaction: { elementHighlight: true, elementSelect: true },
+});
+
+chart.render();
+```
+
+## 多个状态同时生效时样式冲突怎么办
+
+**问题描述**
+
+在使用 G2 的状态管理时，当同时启用了 `elementHighlight` 和 `elementSelect` 交互，发现多个状态（如 `active` 和 `selected`）可能会同时生效，但样式表现不符合预期。
+
+**原因分析**
+
+G2 支持多个状态同时生效，当同一属性被多个状态配置时，会按照优先级选择最终生效的样式。不同状态的优先级如下：
+
+```
+selected:   3 (最高)
+unselected: 3
+active:     2
+inactive:   2
+default:    1 (最低)
+```
+
+**解决方案**
+
+1. **理解状态优先级机制**
+
+高优先级的状态会覆盖低优先级状态的同名属性：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { letter: 'A', frequency: 0.08167 },
+    { letter: 'B', frequency: 0.01492 },
+    { letter: 'C', frequency: 0.02782 },
+  ],
+  encode: { x: 'letter', y: 'frequency' },
+  state: {
+    // 悬停时：绿色填充 + 黑色描边
+    active: { fill: 'green', stroke: 'black', strokeWidth: 1 },
+    // 选中时：红色填充（会覆盖 active 的 fill）+ 保留 active 的描边
+    selected: { fill: 'red' },
+  },
+  interaction: { elementHighlight: true, elementSelect: true },
+});
+
+chart.render();
+```
+
+**效果说明**：
+
+- 仅悬停：显示绿色填充 + 黑色描边
+- 仅选中：显示红色填充
+- 悬停已选中的元素：红色填充（selected 优先级高）+ 黑色描边（active 提供）
+
+2. **合理配置不同优先级的样式**
+
+避免在不同优先级状态下配置相同的样式属性，或确保高优先级状态提供完整的样式配置：
+
+```js
+chart.options({
+  state: {
+    active: {
+      stroke: 'blue',
+      strokeWidth: 2,
+      opacity: 0.8,
+    },
+    selected: {
+      fill: 'orange',
+      stroke: 'black',
+      strokeWidth: 3,
+      // 不配置 opacity，会保留 active 的 opacity 效果
+    },
+  },
+});
+```
+
+3. **使用动态样式处理复杂场景**
+
+对于复杂的状态组合，可以使用函数动态计算样式：
+
+```js
+chart.options({
+  state: {
+    active: {
+      fill: (d) => (d.frequency > 0.05 ? 'lightblue' : 'lightgreen'),
+    },
+    selected: {
+      fill: (d) => (d.frequency > 0.05 ? 'darkblue' : 'darkgreen'),
+      strokeWidth: 3,
+    },
+  },
+});
+```
+
+## 怎么让空值在 Tooltip 中不显示
+
+**问题描述**
+
+在具体业务场景中使用 G2 绘制图表时，数据中经常包含 `null`、`undefined` 或空字符串等无效值。默认情况下，这些空值也会在 tooltip 中显示，影响用户体验和数据的可读性。
+
+**解决方案**
+
+可以通过 `interaction.tooltip.filter` 配置来过滤掉这些无效数据，避免在 tooltip 中显示空值。
+
+1. **基础过滤配置**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', city: 'Tokyo', temperature: null },
+    { month: 'Jan', city: 'London', temperature: 3.9 },
+    { month: 'Feb', city: 'Tokyo', temperature: 8 },
+    { month: 'Feb', city: 'London', temperature: 4.2 },
+    { month: 'Mar', city: 'Tokyo', temperature: 9.5 },
+    { month: 'Mar', city: 'London', temperature: 5.7 },
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  // 过滤 null 和 undefined 值
+  interaction: {
+    tooltip: {
+      filter: (d) => d.value !== null && d.value !== undefined,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: { shape: 'smooth' },
+      tooltip: {
+        items: [{ channel: 'y' }],
+      },
+    },
+    { type: 'point', encode: { shape: 'point' }, tooltip: false },
+  ],
+});
+
+chart.render();
+```
+
+2. **针对特定数值范围的过滤**
+
+除了过滤空值，还可以过滤特定数值范围的数据：
+
+```js
+// 过滤负值和空值
+interaction: {
+  tooltip: {
+    filter: (d) => d.value !== null && d.value !== undefined && d.value >= 0,
+  },
+}
+
+// 过滤异常值（如超出合理范围的数据）
+interaction: {
+  tooltip: {
+    filter: (d) => {
+      if (d.value === null || d.value === undefined) return false;
+      return d.value >= 0 && d.value <= 1000; // 只显示 0-1000 范围内的值
+    },
+  },
+}
+```
+
+## 图例文本过长如何显示省略号并支持悬浮显示完整内容
+
+**问题描述**
+
+在使用 G2 绘制图表时，图例项的文本内容可能很长，受限于布局空间无法完全显示。需要实现文本超长时显示省略号，同时支持鼠标悬浮显示完整内容的交互效果。
+
+**解决方案**
+
+G2 提供了 `poptip` 配置项来解决图例文本过长的问题。通过配置 `poptip`，可以在图例文本被截断时，鼠标悬浮显示完整的提示信息。
+
+**关键配置**
+
+- `itemWidth`: 限制图例项宽度，触发文本截断
+- `poptip.render`: 自定义提示内容，支持字符串或者 `html`
+- `poptip.domStyles`: 自定义提示框样式
+- `poptip.position`: 设置提示框位置
+- `poptip.offset`: 设置提示框偏移量，建议设置为[0, 正数]，避免触发 `poptip` 的时候闪烁
+
+**完整示例**
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 300,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { category: '这是一个非常长的类别名称A，超出显示范围', value: 40 },
+    { category: '这是一个非常长的类别名称B，超出显示范围', value: 32 },
+    { category: '这是一个非常长的类别名称C，超出显示范围', value: 28 },
+  ],
+  encode: { x: 'category', y: 'value', color: 'category' },
+  coordinate: {
+    transform: [
+      {
+        type: 'transpose',
+      },
+    ],
+  },
+  legend: {
+    color: {
+      itemWidth: 120, // 限制宽度以触发poptip
+      poptip: {
+        render: (item) => `完整名称：${item.label}`,
+        position: 'top',
+        offset: [0, 20],
+        domStyles: {
+          '.component-poptip': {
+            background: 'rgb(114, 128, 191)',
+            color: '#fff',
+            padding: '12px 16px',
+            borderRadius: '8px',
+            backdropFilter: 'blur(10px)',
+            fontSize: '14px',
+            lineHeight: '1.5',
+            maxWidth: '280px',
+            zIndex: '1000',
+          },
+          '.component-poptip-arrow': {
+            display: 'block',
+            borderTopColor: '#667eea',
+          },
+          '.component-poptip-text': {
+            color: '#fff',
+            lineHeight: '1.5',
+          },
+        },
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+查看[图例组件](/manual/component/legend#poptip)的详细文档了解更多配置选项。
+
+## 自定义渲染提示信息，会有逗号分隔是什么原因？
+
+**问题描述**
+
+在使用 G2 绘制图表时，当使用 `interaction.tooltip.render` 自定义 tooltip 渲染内容的时候，明明没有加入逗号，最终渲染出的 tooltip 却被逗号分隔开了。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  interaction: {
+    tooltip: {
+      shared: true,
+      render: (event, { title, items }) => `<div>
+    <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+    <div>${items.map(
+      (d) => `
+    <div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>
+    `,
+    )}</div>
+    </div>
+    `,
+    },
+  },
+});
+
+chart.render();
+```
+
+**原因分析**
+
+这个问题的根本原因在于 JavaScript 数组的 `toString()` 方法行为。当使用 `items.map()` 返回一个字符串数组时，在模板字符串的 `${}` 中，JavaScript 会自动调用数组的 `toString()` 方法进行类型转换。而数组的 `toString()` 方法会使用逗号来连接所有数组元素，这就是逗号出现的原因。
+
+例如：
+
+```js
+const array = ['<div>item1</div>', '<div>item2</div>', '<div>item3</div>'];
+console.log(`${array}`); // 输出：<div>item1</div>,<div>item2</div>,<div>item3</div>
+```
+
+**解决方案**
+
+使用 `.join('')` 方法将数组元素连接成字符串，而不是依赖 JavaScript 的自动类型转换：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  autoFit: true,
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  interaction: {
+    tooltip: {
+      shared: true,
+      render: (event, { title, items }) => `<div>
+    <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+    <div>${items
+      .map(
+        (d) => `
+    <div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>
+    `,
+      )
+      .join('')}</div>
+    </div>
+    `,
+    },
+  },
+});
+
+chart.render();
+```
+
+**关键修改**：
+
+```js
+// ❌ 错误：会产生逗号分隔
+${items.map((d) => `<div>...</div>`)}
+
+// ✅ 正确：使用 join('') 避免逗号
+${items.map((d) => `<div>...</div>`).join('')}
+```
+
+**其他解决方案**
+
+1. **使用 forEach + 字符串拼接**：
+
+```js
+render: (event, { title, items }) => {
+  let content = `<h3 style="padding: 0; margin: 0; color: red;">${title}</h3>`;
+  items.forEach((d) => {
+    content += `<div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>`;
+  });
+  return `<div>${content}</div>`;
+};
+```
+
+2. **使用 reduce 方法**：
+
+```js
+render: (event, { title, items }) => `<div>
+  <h3 style="padding: 0; margin: 0; color: red;">${title}</h3>
+  <div>${items.reduce(
+    (acc, d) =>
+      acc +
+      `<div><span style="color: ${d.color}">${d.name}</span> ${d.value}</div>`,
+    '',
+  )}</div>
+</div>`;
+```
+
+**注意事项**
+
+- 在任何需要将数组转换为字符串并嵌入模板字符串的场景中，都要注意使用 `.join('')`
+- 如果需要特定的分隔符（如换行符），可以使用 `.join('\n')` 或其他分隔符
+- 这个问题在 React JSX、Vue 模板等其他框架中也可能遇到类似情况

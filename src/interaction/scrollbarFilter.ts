@@ -29,7 +29,7 @@ export function ScrollbarFilter(options: any = {}) {
       setValue: (component, values) => component.setValue(values[0]),
       getInitValues: (scrollbar) => {
         const values = scrollbar.slider.attributes.values;
-        if (values[0] !== 0) return values;
+        if (values[0] !== 0 || values[1] !== 1) return values;
       },
       ...options,
     });

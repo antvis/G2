@@ -24,6 +24,7 @@ import {
   maybeNonAnimate,
   normalizeTooltip,
   extractTooltip,
+  appendMarkScaleKey,
 } from './transform';
 
 export async function initializeMark(
@@ -159,6 +160,7 @@ async function applyMarkTransform(
     maybeNonAnimate,
     addGuideToScale,
     normalizeTooltip,
+    appendMarkScaleKey,
     ...preInference.map(useTransform),
     ...transform.map(useTransform),
     ...postInference.map(useTransform),

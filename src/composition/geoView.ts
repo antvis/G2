@@ -6,6 +6,7 @@ import { CompositionComponent as CC } from '../runtime';
 import { GeoViewComposition } from '../spec';
 
 import * as d3Projection from './d3Projection';
+import { mergeData } from './utils';
 
 /**
  * Get projection factory from d3-projection.
@@ -154,7 +155,11 @@ export const GeoView: CC<GeoViewOptions> = () => {
     // Get projection factory.
     const { type = 'equalEarth', ...projectionOptions } = projection;
     const createProjection = normalizeProjection(type);
-    const nodes = children.map(normalizeDataSource);
+    const nodes = children
+      .map((c) => {
+        return { ...c, data: mergeData(c.data, options.data) };
+      })
+      .map(normalizeDataSource);
 
     // Set path generator lazily.
     let path;

@@ -137,9 +137,10 @@ chart.render();
 
 ### Basic Knowledge
 
-<Card title="G2 Chart Composition" description="To better use G2 for data visualization, we need to understand the composition of G2 charts and related concepts, as well as chart layout knowledge" href="/en/manual/core/chart/chart-component" width="30%"></Card>
-<Card title="Chart Lifecycle" description="Basic usage and lifecycle management of Chart objects, including creating chart instances, configuring global options, mounting charts, rendering charts, updating charts, and chart cleanup and destruction" href="/en/manual/core/chart/chart-lifecycle" width="30%"></Card>
-<Card title="Chart API" description="Complete API reference documentation to easily create visualizations, render charts, get instances, trigger events and more. You can also configure charts through chained API calls" href="/en/manual/api" width="30%"></Card>
+<Card title="G2 Configuration Overview" description="Detailed display of G2's complete configuration system, covering chart initialization configuration, API chained calls, options method configuration and all available configuration options and hierarchical relationships" href="/en/manual/core/configuration" width="45%"></Card>
+<Card title="G2 Chart Composition" description="To better use G2 for data visualization, we need to understand the composition of G2 charts and related concepts, as well as chart layout knowledge" href="/en/manual/core/chart/chart-component" width="45%"></Card>
+<Card title="Chart Lifecycle" description="Basic usage and lifecycle management of Chart objects, including creating chart instances, configuring global options, mounting charts, rendering charts, updating charts, and chart cleanup and destruction" href="/en/manual/core/chart/chart-lifecycle" width="45%"></Card>
+<Card title="Chart API" description="Complete API reference documentation to easily create visualizations, render charts, get instances, trigger events and more. You can also configure charts through chained API calls" href="/en/manual/api" width="45%"></Card>
 
 ### Drawing Graphics
 

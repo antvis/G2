@@ -137,9 +137,10 @@ chart.render();
 
 ### 基础知识
 
-<Card title="G2 图表组成" description="为了更好地使用 G2 进行数据可视化，我们需要了解 G2 图表的组成以及相关概念，以及图表布局的知识" href="/manual/core/chart/chart-component" width="30%"></Card>
-<Card title="图表生命周期" description="Chart 对象的基础使用和生命周期管理，包括创建图表实例、配置全局选项、挂载图表、渲染图表、更新图表以及图表的清空和销毁 " href="/manual/core/chart/chart-lifecycle" width="30%"   ></Card>
-<Card title="图表 API" description="完整的 API 参考文档，轻松完成创建可视化、渲染图表、获取实例、触发事件等操作，还可以通过链式调用 API 来配置图表" href="/manual/api" width="30%"></Card>
+<Card title="G2 配置项总览" description="详细展示 G2 的完整配置体系，涵盖图表初始化配置、API 链式调用、options 方法配置等所有可用的配置选项和层级关系" href="/manual/core/configuration" width="45%"></Card>
+<Card title="G2 图表组成" description="为了更好地使用 G2 进行数据可视化，我们需要了解 G2 图表的组成以及相关概念，以及图表布局的知识" href="/manual/core/chart/chart-component" width="45%"></Card>
+<Card title="图表生命周期" description="Chart 对象的基础使用和生命周期管理，包括创建图表实例、配置全局选项、挂载图表、渲染图表、更新图表以及图表的清空和销毁 " href="/manual/core/chart/chart-lifecycle" width="45%"   ></Card>
+<Card title="图表 API" description="完整的 API 参考文档，轻松完成创建可视化、渲染图表、获取实例、触发事件等操作，还可以通过链式调用 API 来配置图表" href="/manual/api" width="45%"></Card>
 
 ### 绘制图形
 
