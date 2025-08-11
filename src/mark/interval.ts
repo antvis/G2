@@ -38,7 +38,9 @@ export type IntervalOptions = Omit<IntervalMark, 'type'>;
  */
 export const Interval: MC<IntervalOptions> = () => {
   return (index, scale, value, coordinate) => {
-    const { x: X, y: Y, y1: Y1, series: S, size: SZ } = value;
+    const { x: X, y1: Y1, series: S, size: SZ } = value;
+    let { y: Y } = value;
+    Y = Y.map((d) => (d !== undefined ? d : 1));
 
     // Calc width for each interval.
     // The scales for x and series channels must be band scale.
