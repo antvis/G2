@@ -10,31 +10,34 @@ describe('chart.emit tooltip show', () => {
   const canvas = createNodeGCanvas(800, 500);
 
   it('chart.on("tooltip:show") should receive expected data.', async () => {
-    const { chart, finished } = render({
+    const { chart, finished, clear } = render({
       canvas,
       container: document.createElement('div'),
     });
     await finished;
     await sleep(20);
 
-    // chart.emit('element:select', options) should trigger slider.
     chart.emit('tooltip:show', {
       data: {
         data: { name: 'London', 月份: 'Jan.', 月均降雨量: null },
       },
     });
     await sleep(20);
-    await expect(canvas).toMatchDOMSnapshot(dir, 'step0');
-
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
+      fileFormat: 'html',
+      selector: '.g2-tooltip',
+    });
+    clear();
     chart.emit('tooltip:show', {
       data: {
         data: { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
       },
     });
     await sleep(20);
-    await expect(canvas).toMatchDOMSnapshot(dir, 'step1');
-
-    chart.off();
+    await expect(canvas).toMatchDOMSnapshot(dir, 'step1', {
+      fileFormat: 'html',
+      selector: '.g2-tooltip',
+    });
   });
 
   afterAll(() => {

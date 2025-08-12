@@ -60,6 +60,7 @@ export function chartEmitShowTooltipWithNull(context) {
       data: {
         data: { name: 'London', 月份: 'Jan.', 月均降雨量: null },
       },
+      offsetY: 160,
     });
   });
 
@@ -67,5 +68,11 @@ export function chartEmitShowTooltipWithNull(context) {
     p.innerText = JSON.stringify(data);
   });
 
-  return { chart, finished };
+  return {
+    chart,
+    finished,
+    clear: () => {
+      chart.emit('tooltip:hide', () => void 0);
+    },
+  };
 }
