@@ -1091,7 +1091,10 @@ export function seriesTooltip(
       root.removeEventListener('pointerdown', update);
       root.removeEventListener('pointerenter', update);
       root.removeEventListener('pointermove', update);
-      root.removeEventListener('pointerleave', hide);
+      root.removeEventListener('pointerleave', (e) => {
+        if (mousePosition(root, e)) return;
+        hide(e);
+      });
       root.removeEventListener('pointerup', hide);
     }
   };
