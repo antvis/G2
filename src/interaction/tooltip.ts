@@ -1,6 +1,6 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
-import { deepMix, lowerFirst, set, throttle, last } from '@antv/util';
+import { deepMix, lowerFirst, set, throttle, last, isNumber } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import {
   defined,
@@ -14,6 +14,7 @@ import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
 import { BBox } from '../runtime';
 import { CALLBACK_ITEM_SYMBOL } from '../runtime/transform';
+import type { G2ScaleOptions } from '../runtime/types/options';
 import {
   selectG2Elements,
   createXKey,
@@ -572,6 +573,36 @@ function normalizedPosition(coordinate, position) {
 }
 
 /**
+ * Determine whether the band widths occupied by different categories are the same.
+ */
+function equalBandWidth(scale: G2ScaleOptions) {
+  const { valueBandWidth } = scale.x;
+  if (isNumber(valueBandWidth)) return true;
+  return new Set(valueBandWidth.values()).size === 1;
+}
+
+/**
+ * Get the index of the element closest to the abstractX
+ */
+function findNearestElementIndex(
+  scale: G2ScaleOptions,
+  abstractX: number,
+): number {
+  const { adjustedRange, valueBandWidth, valueStep } = scale;
+  const values: number[] = Array.from(valueBandWidth.values());
+  const steps: number[] = Array.from(valueStep.values());
+  const ranges = adjustedRange.map((v, i) => {
+    const halfStep = (steps[i] - values[i]) / 2;
+    return [v - halfStep, v + values[i] + halfStep];
+  });
+  const index = ranges.findIndex(
+    ([start, end]) => start <= abstractX && abstractX <= end,
+  );
+  if (index !== -1) return index;
+  return abstractX > 0.5 ? adjustedRange.length - 1 : 0;
+}
+
+/**
  * Finds a single element based on the mouse event in a non-series context (e.g., single item tooltip).
  * @param root - The root display object of the chart.
  * @param event - The mouse event object (e.g., pointermove, pointerdown).
@@ -596,6 +627,7 @@ export function findSingleElement({
   const inInterval = (d) => d.markType === 'interval';
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
   const scaleX = scale.x;
+  const isEqualWidth = equalBandWidth(scale);
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
   const xof = scaleSeries
@@ -635,7 +667,9 @@ export function findSingleElement({
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
         const search = bisector(xof).center;
-        const i = search(elements, abstractX);
+        const i = isEqualWidth
+          ? search(elements, abstractX)
+          : findNearestElementIndex(scaleX, abstractX);
         const target = elements[i];
 
         if (!shared) {
