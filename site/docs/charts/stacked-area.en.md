@@ -16,8 +16,6 @@ The overall area (top boundary) represents the total amount of all data. The sta
 
 Based on stacked area charts, if you normalize the total at each position to 100%, you get a percentage stacked area chart. While it does not reflect changes in the absolute total, it clearly shows how each category’s share changes over time or across ordered dimensions—very useful when analyzing large, time-varying, or ordered datasets.
 
-**Other Names**: Stacked Area Chart
-
 ## Components of a Stacked Area Chart
 
 <img class="constitute-img" src="https://t.alipayobjects.com/images/T1g54jXlXhXXXXXXXX.png" />

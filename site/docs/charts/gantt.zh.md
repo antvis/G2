@@ -197,7 +197,6 @@ chart.options({
     y: 'startTime',
     y1: 'endTime',
     color: 'project',
-    series: 'task',
   },
   coordinate: {
     transform: [{ type: 'transpose' }],

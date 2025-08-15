@@ -16,20 +16,18 @@ Venn diagrams are particularly suitable for showing relationships between differ
 
 When you need to analyze commonalities and differences between multiple groups or categories, Venn diagrams are a very effective visualization tool. They can help users quickly understand inclusion, intersection, and independent relationships between data.
 
-**Chinese Name**: 韦恩图
-
 ## Components of Venn Diagram
 
 ### Basic Venn Diagram
 
 <img alt="basic-venn" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uJF2T7anbQUAAAAAAAAAAAAADmJ7AQ/original" width=600 />
 
-| Chart Type | Basic Venn Diagram |
-| ---------------- | ---------------------------------------------------------------------------- |
-| Suitable Data | Set data: data containing set names, set sizes, and intersection relationships |
-| Function | Display intersection, union, and independent relationships between different sets |
+| Chart Type               | Basic Venn Diagram                                                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Suitable Data            | Set data: data containing set names, set sizes, and intersection relationships                                                       |
+| Function                 | Display intersection, union, and independent relationships between different sets                                                    |
 | Data to Graphics Mapping | Set names map to circular areas<br>Set sizes map to circular area<br>Intersection relationships are represented by overlapping areas |
-| Suitable Scenarios | Relationship analysis of 2-4 sets, user group analysis, product feature comparison |
+| Suitable Scenarios       | Relationship analysis of 2-4 sets, user group analysis, product feature comparison                                                   |
 
 ---
 
@@ -37,12 +35,12 @@ When you need to analyze commonalities and differences between multiple groups o
 
 <img alt="hollow-venn" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lAPPSaOWGXYAAAAAAAAAAAAADmJ7AQ/original" width=600/>
 
-| Chart Type | Hollow Venn Diagram |
-| ---------------- | ------------------------------------------------------------------------ |
-| Suitable Data | Set data: data containing set names, set sizes, and intersection relationships |
-| Function | Highlight boundary lines, reduce color interference, more clearly display set boundaries |
+| Chart Type               | Hollow Venn Diagram                                                                                                         |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Suitable Data            | Set data: data containing set names, set sizes, and intersection relationships                                              |
+| Function                 | Highlight boundary lines, reduce color interference, more clearly display set boundaries                                    |
 | Data to Graphics Mapping | Set names map to circular boundaries<br>Set sizes map to circular area<br>Hollow design highlights structural relationships |
-| Suitable Scenarios | Scenarios requiring emphasis on set boundaries, black-and-white print-friendly displays |
+| Suitable Scenarios       | Scenarios requiring emphasis on set boundaries, black-and-white print-friendly displays                                     |
 
 ## Application Scenarios of Venn Diagram
 
@@ -52,15 +50,15 @@ Example 1: **User Group Overlap Analysis**
 
 The following chart shows the overlapping relationships between user groups on different platforms, helping understand user distribution across multiple platforms.
 
-| Description | Sets | Users |
-| ------------- | ------------------------ | ------ |
-| WeChat only | ['WeChat'] | 1200 |
-| Weibo only | ['Weibo'] | 800 |
-| TikTok only | ['TikTok'] | 1000 |
-| WeChat+Weibo users | ['WeChat', 'Weibo'] | 300 |
-| WeChat+TikTok users | ['WeChat', 'TikTok'] | 400 |
-| Weibo+TikTok users | ['Weibo', 'TikTok'] | 200 |
-| All three platforms | ['WeChat', 'Weibo', 'TikTok'] | 150 |
+| Description         | Sets                          | Users |
+| ------------------- | ----------------------------- | ----- |
+| WeChat only         | ['WeChat']                    | 1200  |
+| Weibo only          | ['Weibo']                     | 800   |
+| TikTok only         | ['TikTok']                    | 1000  |
+| WeChat+Weibo users  | ['WeChat', 'Weibo']           | 300   |
+| WeChat+TikTok users | ['WeChat', 'TikTok']          | 400   |
+| Weibo+TikTok users  | ['Weibo', 'TikTok']           | 200   |
+| All three platforms | ['WeChat', 'Weibo', 'TikTok'] | 150   |
 
 ```js | ob { inject: true  }
 import { Chart } from '@antv/g2';
@@ -223,7 +221,11 @@ chart.options({
       { sets: ['Frontend', 'Backend'], size: 5, label: 'Full Stack' },
       { sets: ['Frontend', 'Design'], size: 3, label: 'Frontend+Design' },
       { sets: ['Backend', 'Design'], size: 2, label: 'Backend+Design' },
-      { sets: ['Frontend', 'Backend', 'Design'], size: 1, label: 'Full Talent' },
+      {
+        sets: ['Frontend', 'Backend', 'Design'],
+        size: 1,
+        label: 'Full Talent',
+      },
     ],
     transform: [
       {
@@ -545,4 +547,4 @@ chart.render();
 
 ## Category
 
-<code src="./demos/list-category.tsx"></code> 
+<code src="./demos/list-category.tsx"></code>

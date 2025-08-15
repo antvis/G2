@@ -16,7 +16,7 @@ Stacked bar charts are particularly suitable for comparing the compositional str
 
 When you need to display both totals and composition simultaneously, stacked bar charts are an excellent choice. They can be further extended to percentage stacked bar charts to show the relative proportions of each part.
 
-**Other Names**: Stacked Bar Chart, Stacked Column Chart
+**Other Names**: Stacked Column Chart
 
 ## Components of Stacked Bar Charts
 
