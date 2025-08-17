@@ -1,6 +1,6 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
-import { deepMix, upperFirst, isArray } from '@antv/util';
+import { deepMix, upperFirst, isArray, get } from '@antv/util';
 import { group, groups } from '@antv/vendor/d3-array';
 import { format } from '@antv/vendor/d3-format';
 import { mapObject } from '../utils/array';
@@ -32,6 +32,7 @@ import {
   MAIN_LAYER_CLASS_NAME,
   PLOT_CLASS_NAME,
   VIEW_CLASS_NAME,
+  BREAK_CLASS_NAME,
 } from './constant';
 import { coordinate2Transform, createCoordinate } from './coordinate';
 import {
@@ -1155,6 +1156,7 @@ async function plotView(
 
   // Plot label for this view.
   plotLabel(view, selection, transitions, library, context);
+  plotBreak(view, selection, library, context);
 }
 
 /**
@@ -1284,6 +1286,68 @@ function getLabels(
     dependentElement: element,
   }));
   return selector ? selector(F) : F;
+}
+
+/**
+ * Plot break shapes.
+ */
+function plotBreak(
+  view: G2ViewDescriptor,
+  selection: Selection,
+  library: G2Library,
+  context: G2Context,
+) {
+  const scale = view.scale;
+  const breaks = get(scale, 'y.options.breaks', []);
+
+  if (!breaks.length) {
+    const { document } = context.canvas;
+    document.getElementsByClassName(BREAK_CLASS_NAME).forEach((d) => {
+      d.remove();
+    });
+    return;
+  }
+  const breakLayer = selection.select(className(PLOT_CLASS_NAME)).node();
+  const [useShape] = useLibrary<G2ShapeOptions, ShapeComponent, Shape>(
+    'shape',
+    library,
+  );
+  const breaksShapeFunction = new Map();
+  breaks.forEach((breakConfig, index) => {
+    breaksShapeFunction.set(
+      breakConfig,
+      useShape(
+        {
+          type: 'break',
+          index,
+        },
+        {
+          canvas: context.canvas,
+          scale,
+          layer: breakLayer,
+        },
+      ),
+    );
+  });
+
+  // Render all breaks.
+  select(breakLayer)
+    .selectAll(className(BREAK_CLASS_NAME))
+    .data(breaks, (d) => d.key)
+    .join(
+      (enter) =>
+        enter
+          .append((d, index) => breaksShapeFunction.get(d)(d, index))
+          .attr('className', BREAK_CLASS_NAME),
+      (update) =>
+        update.each(function (d, i, element) {
+          const shapeFunction = breaksShapeFunction.get(d);
+          const node = shapeFunction(d, i);
+          copyAttributes(element, node);
+        }),
+      (exit) => exit.remove(),
+    )
+    .nodes();
 }
 
 function filterValid([I, P, S]: [number[], Vector2[][], number[][]?]): [

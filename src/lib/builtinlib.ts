@@ -7,7 +7,7 @@ import {
   LegendContinuousSize,
 } from '../component';
 import { Mark, View } from '../composition';
-import { LabelShape } from '../shape';
+import { LabelShape, BreakShape } from '../shape';
 import { Event } from '../interaction/event';
 
 // Some private visual components, they are not public to
@@ -24,5 +24,6 @@ export function builtinlib() {
     'composition.mark': Mark,
     'composition.view': View,
     'shape.label.label': LabelShape,
+    'shape.break': BreakShape,
   } as const;
 }

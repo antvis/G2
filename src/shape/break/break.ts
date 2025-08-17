@@ -1,0 +1,163 @@
+import { Path } from '@antv/g';
+import { get } from '@antv/util';
+import type { PathStyleProps } from '@antv/g';
+import { BREAK_GROUP_CLASS_NAME } from '../../runtime/constant';
+
+export type BreakOptions = {
+  /** Start position of the break. */
+  start: number;
+  /** End position of the break. */
+  end: number;
+  /** Gap ratio of the break, default is 0.1. */
+  gap?: number;
+  /** Number of wave vertices, default is 50. */
+  vertices?: number;
+  /** Offset of each vertex, default is 3. */
+  verticeOffset?: number;
+  /** Custom styles of the break. */
+  [key: string]: any;
+};
+
+const DEFAULT_STYLE = {
+  fill: '#fff',
+  stroke: '#aaa',
+  lineDash: '4 3',
+  lineWidth: 0.5,
+  fillOpacity: 1,
+  strokeOpacity: 1,
+  pointerEvents: 'none',
+};
+
+const PADDING = 0;
+
+/**
+ * Create path points and corresponding clip paths.
+ * @param y baseline Y coordinate
+ * @param width total width of the path
+ * @param offset vertical offset of wave
+ * @param vertices number of generated points
+ * @param isLowerBoundary whether it is the lower boundary
+ * @param lineWidth line width of path
+ * @returns tuple of [pathPoints, clipPoints]
+ */
+const createPathPoints = (
+  y: number,
+  width: number,
+  offset: number,
+  vertices: number,
+  isLowerBoundary: boolean,
+  lineWidth: number,
+) => {
+  const pathPoints: string[] = [];
+  const clipPoints: string[] = [];
+  const segments = vertices - 1;
+
+  for (let i = 1; i < segments; i++) {
+    const x = (i / segments) * width;
+    const offsetY = y + (i % 2 === 0 ? offset : -offset);
+
+    pathPoints.push(`${x},${offsetY}`);
+    clipPoints.push(
+      `${x},${isLowerBoundary ? offsetY - lineWidth : offsetY + lineWidth}`,
+    );
+  }
+
+  // Ensure last point reaches width
+  pathPoints.push(`${width},${y}`);
+  clipPoints.push(`${width + lineWidth},${y}`);
+
+  return [pathPoints, clipPoints] as const;
+};
+
+export const Break = (options, context) => {
+  const { index } = options;
+  const { canvas, scale, layer } = context;
+  const { document } = canvas;
+
+  return (option: BreakOptions) => {
+    const {
+      key,
+      start,
+      end,
+      gap = 0.1,
+      vertices = 50,
+      lineWidth = 0.5,
+      verticeOffset = 3,
+      ...style
+    } = option;
+
+    // Remove old group if exists
+    document.getElementById(`break-group-${key}`)?.remove();
+
+    const g = document.createElement('g', {
+      id: `break-group-${key}`,
+      className: BREAK_GROUP_CLASS_NAME,
+    });
+
+    const xDomain = get(scale, 'x.sortedDomain', []);
+    const yScale = scale['y'].getOptions();
+    const { range } = yScale;
+    const isRangeReversed = range[0] < range[1];
+    const sortedRange = isRangeReversed ? [...range].reverse() : range;
+    const { width: plotWidth, height: plotHeight } = layer.getBBox();
+
+    const breakRange = sortedRange.slice(index * 2 + 1, index * 2 + 3);
+    if (!breakRange || breakRange.length < 2 || !xDomain.length) return g;
+
+    const lowerY = breakRange[0] * plotHeight;
+    const upperY = breakRange[1] * plotHeight;
+
+    let linePath = '';
+    let clipPath = '';
+
+    for (const [boundaryIndex, { y, isLower }] of [
+      { y: upperY, isLower: false },
+      { y: lowerY, isLower: true },
+    ].entries()) {
+      const [pathPoints, clipPoints] = createPathPoints(
+        y,
+        plotWidth - PADDING,
+        verticeOffset,
+        vertices,
+        isLower,
+        lineWidth,
+      );
+
+      if (boundaryIndex === 0) {
+        // start point + Top boundary path
+        linePath = `M ${PADDING},${y} L ${pathPoints.join(' L ')} `;
+        clipPath = `M ${PADDING - lineWidth},${
+          y + lineWidth
+        } L ${clipPoints.join(' L ')} `;
+      } else {
+        // Bottom boundary path + close point
+        linePath += `L ${plotWidth - PADDING},${y} L ${[...pathPoints]
+          .reverse()
+          .join(' L ')} L ${PADDING},${y} Z`;
+        clipPath += `L ${plotWidth - PADDING + lineWidth},${y - lineWidth} L ${[
+          ...clipPoints,
+        ]
+          .reverse()
+          .join(' L ')} L ${PADDING - lineWidth},${y - lineWidth} Z`;
+      }
+    }
+
+    const pathAttrs = { ...DEFAULT_STYLE, ...style } as PathStyleProps;
+
+    try {
+      const path1 = new Path({ style: { ...pathAttrs, d: linePath } });
+      const path2 = new Path({
+        style: { ...pathAttrs, d: clipPath, lineWidth: 0 },
+      });
+      g.appendChild(path1);
+      g.appendChild(path2);
+      layer.appendChild(g);
+    } catch (e) {
+      console.error('Failed to create break path:', e);
+    }
+
+    return g;
+  };
+};
+
+Break.props = {};
