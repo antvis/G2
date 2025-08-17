@@ -6,7 +6,7 @@ import { Path as D3Path } from '@antv/vendor/d3-path';
 import { Primitive, Vector2, Vector3 } from '../runtime';
 import { indexOf } from '../utils/array';
 import { isPolar, isTranspose } from '../utils/coordinate';
-import { G2Element, Selection } from '../utils/selection';
+import { Selection } from '../utils/selection';
 import { angle, angleWithQuadrant, dist, sub } from '../utils/vector';
 
 export function applyStyle(
@@ -289,18 +289,12 @@ export function identifyVertices(points: Vector2[]) {
   });
 
   const sortedPoints = {
-    topLeft:
-      identifiedPoints.find((p) => p.position === 'topLeft')?.point ||
-      points[0],
-    topRight:
-      identifiedPoints.find((p) => p.position === 'topRight')?.point ||
-      points[1],
-    bottomRight:
-      identifiedPoints.find((p) => p.position === 'bottomRight')?.point ||
-      points[2],
-    bottomLeft:
-      identifiedPoints.find((p) => p.position === 'bottomLeft')?.point ||
-      points[3],
+    topLeft: identifiedPoints.find((p) => p.position === 'topLeft')?.point,
+    topRight: identifiedPoints.find((p) => p.position === 'topRight')?.point,
+    bottomRight: identifiedPoints.find((p) => p.position === 'bottomRight')
+      ?.point,
+    bottomLeft: identifiedPoints.find((p) => p.position === 'bottomLeft')
+      ?.point,
   };
 
   return {
@@ -403,7 +397,16 @@ export function createEdgeBasedRoundedPath(
     if (typeof borderRadius === 'number') {
       return borderRadius;
     }
-    return (borderRadius as any)?.[corner] || 0;
+    return (
+      (
+        borderRadius as {
+          topLeft?: number;
+          topRight?: number;
+          bottomLeft?: number;
+          bottomRight?: number;
+        }
+      )?.[corner] || 0
+    );
   };
 
   const radii = {
@@ -427,8 +430,13 @@ export function createEdgeBasedRoundedPath(
     createEdge(vertices.bottomLeft, vertices.topLeft), // 左边
   ];
 
-  const edgeNames = ['top', 'right', 'bottom', 'left'];
-  const cornerNames = ['topLeft', 'topRight', 'bottomRight', 'bottomLeft'];
+  const edgeNames = ['top', 'right', 'bottom', 'left'] as const;
+  const cornerNames = [
+    'topLeft',
+    'topRight',
+    'bottomRight',
+    'bottomLeft',
+  ] as const;
 
   // 5. 计算每条边上的圆角点
   const edgeCorners = edges.map((edge, edgeIndex) => {
