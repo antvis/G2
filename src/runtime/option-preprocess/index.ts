@@ -1,7 +1,7 @@
 import { G2ViewTree } from '../types/options';
 import { flow } from '../../utils/flow';
 import { columnWidthRatio } from './style';
-import { breaks } from './breaks';
+import { axisBreaks } from './axis-breaks';
 
 export function preprocessOption<T extends G2ViewTree = G2ViewTree>(
   options: T,
@@ -20,5 +20,5 @@ export function preprocessOption<T extends G2ViewTree = G2ViewTree>(
 // Entry point for all syntactic sugar functions.
 function adapter<T extends G2ViewTree = G2ViewTree>(options: T): T {
   //@todo define a type for params of flow
-  return flow(columnWidthRatio, breaks)(options);
+  return flow(columnWidthRatio, axisBreaks)(options);
 }

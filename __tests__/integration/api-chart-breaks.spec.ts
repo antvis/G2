@@ -1,4 +1,4 @@
-import { chartBreaks as render } from '../plots/api/chart-breaks';
+import { chartAxisBreaks as render } from '../plots/api/chart-axis-breaks';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 import { kebabCase } from './utils/kebabCase';
 import { sleep } from './utils/sleep';
@@ -25,7 +25,7 @@ describe('chart.options.axis.y.breaks', () => {
         values: ['Sports', 'Strategy', 'Shooter', 'Other'],
       },
     });
-    await sleep(1000);
+    await sleep(500);
     expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
@@ -36,7 +36,7 @@ describe('chart.options.axis.y.breaks', () => {
         values: ['Sports', 'Strategy', 'Shooter'],
       },
     });
-    await sleep(1000);
+    await sleep(500);
     expect(canvas).toMatchDOMSnapshot(dir, 'step2');
   });
 
@@ -47,7 +47,7 @@ describe('chart.options.axis.y.breaks', () => {
         values: ['Sports', 'Strategy'],
       },
     });
-    await sleep(1000);
+    await sleep(500);
     expect(canvas).toMatchDOMSnapshot(dir, 'step3');
   });
 

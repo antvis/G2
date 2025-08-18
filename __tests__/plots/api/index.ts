@@ -58,4 +58,4 @@ export { chartMultipleMarkSelectRegion } from './chart-multiple-mark-select-regi
 export { chartElementHighlightRegion } from './chart-element-highlight-region';
 export { chartGetDataByXY } from './chart-get-data-by-xy';
 export { chartEmitHeatmapTooltip } from './chart-emit-heatmap-tooltip';
-export { chartBreaks } from './chart-breaks';
+export { chartAxisBreaks } from './chart-axis-breaks';

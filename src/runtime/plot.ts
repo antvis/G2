@@ -873,6 +873,7 @@ function initializeState(
     style: framedStyle,
     components,
     data: dataMap,
+    options: options,
     labelTransform: compose(labelTransform.map(useLabelTransform)),
   };
 
@@ -1156,7 +1157,7 @@ async function plotView(
 
   // Plot label for this view.
   plotLabel(view, selection, transitions, library, context);
-  plotBreak(view, selection, library, context);
+  plotBreak(view, selection, transitions, library, context);
 }
 
 /**
@@ -1294,6 +1295,7 @@ function getLabels(
 function plotBreak(
   view: G2ViewDescriptor,
   selection: Selection,
+  transitions: GAnimation[],
   library: G2Library,
   context: G2Context,
 ) {
@@ -1319,12 +1321,13 @@ function plotBreak(
       useShape(
         {
           type: 'break',
-          index,
         },
         {
-          canvas: context.canvas,
-          scale,
-          layer: breakLayer,
+          view,
+          selection,
+          transitions,
+          context,
+          update: plotView,
         },
       ),
     );

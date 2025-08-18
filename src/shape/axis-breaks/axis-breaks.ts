@@ -1,7 +1,11 @@
 import { Path } from '@antv/g';
-import { get } from '@antv/util';
+import { get, set } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
-import { BREAK_GROUP_CLASS_NAME } from '../../runtime/constant';
+import { transformDomain } from '../../scale/linear';
+import {
+  BREAK_GROUP_CLASS_NAME,
+  PLOT_CLASS_NAME,
+} from '../../runtime/constant';
 
 export type BreakOptions = {
   /** Start position of the break. */
@@ -25,7 +29,6 @@ const DEFAULT_STYLE = {
   lineWidth: 0.5,
   fillOpacity: 1,
   strokeOpacity: 1,
-  pointerEvents: 'none',
 };
 
 const PADDING = 0;
@@ -69,17 +72,42 @@ const createPathPoints = (
   return [pathPoints, clipPoints] as const;
 };
 
-export const Break = (options, context) => {
-  const { index } = options;
-  const { canvas, scale, layer } = context;
-  const { document } = canvas;
+const updateScale = (view, breakValues) => {
+  const scale = get(view, 'scale.y');
+  const scaleOptions = get(scale, 'options', {});
+  const { domain, breaks, range, tickCount } = scaleOptions;
+  const filterBreaks = breaks.filter(
+    (b) => b.start !== breakValues[0] && b.end !== breakValues[1],
+  );
+  const { breaksDomain, breaksRange } = transformDomain({
+    domain,
+    range,
+    breaks: filterBreaks,
+    tickCount,
+  });
+  const newOptions = {
+    ...scaleOptions,
+    breaks: filterBreaks,
+    domain: breaksDomain,
+    range: breaksRange,
+    tickMethod: () => breaksDomain,
+  };
 
+  scale.update(newOptions);
+  set(view, 'scale.y.options', newOptions);
+};
+
+export const AxisBreaks = (options, params) => {
+  const { context, selection, view, transitions, update } = params;
+  const layer = selection.select(`.${PLOT_CLASS_NAME}`).node();
+  const { document } = context.canvas;
+  const { scale } = view;
   return (option: BreakOptions) => {
     const {
       key,
       start,
       end,
-      gap = 0.1,
+      gap = 0.05,
       vertices = 50,
       lineWidth = 0.5,
       verticeOffset = 3,
@@ -96,16 +124,14 @@ export const Break = (options, context) => {
 
     const xDomain = get(scale, 'x.sortedDomain', []);
     const yScale = scale['y'].getOptions();
-    const { range } = yScale;
-    const isRangeReversed = range[0] < range[1];
-    const sortedRange = isRangeReversed ? [...range].reverse() : range;
+    const { range, domain } = yScale;
+    const startIndex = domain.indexOf(start);
+    const endIndex = domain.indexOf(end);
     const { width: plotWidth, height: plotHeight } = layer.getBBox();
+    if (startIndex === -1 || endIndex === -1 || !xDomain.length) return g;
 
-    const breakRange = sortedRange.slice(index * 2 + 1, index * 2 + 3);
-    if (!breakRange || breakRange.length < 2 || !xDomain.length) return g;
-
-    const lowerY = breakRange[0] * plotHeight;
-    const upperY = breakRange[1] * plotHeight;
+    const lowerY = range[startIndex] * plotHeight;
+    const upperY = range[endIndex] * plotHeight;
 
     let linePath = '';
     let clipPath = '';
@@ -149,6 +175,15 @@ export const Break = (options, context) => {
       const path2 = new Path({
         style: { ...pathAttrs, d: clipPath, lineWidth: 0 },
       });
+      path2.addEventListener('click', (e) => {
+        // dbclick to remove break
+        if (e.detail === 2) {
+          updateScale(view, [start, end]);
+          // animate #TODO: add transition
+          document.getElementById(`break-group-${key}`)?.remove();
+          update(view, selection, transitions, context);
+        }
+      });
       g.appendChild(path1);
       g.appendChild(path2);
       layer.appendChild(g);
@@ -160,4 +195,4 @@ export const Break = (options, context) => {
   };
 };
 
-Break.props = {};
+AxisBreaks.props = {};

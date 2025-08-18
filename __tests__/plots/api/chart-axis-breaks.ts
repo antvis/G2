@@ -1,6 +1,6 @@
 import { Chart } from '../../../src';
 
-export function chartBreaks(context) {
+export function chartAxisBreaks(context) {
   const { container, canvas } = context;
 
   // wrapperDiv
@@ -18,8 +18,8 @@ export function chartBreaks(context) {
   const data = [
     { genre: 'Sports', sold: 200 },
     { genre: 'Strategy', sold: 400 },
-    { genre: 'Action', sold: 950 },
-    { genre: 'Shooter', sold: 510 },
+    { genre: 'Action', sold: 980 },
+    { genre: 'Shooter', sold: 600 },
     { genre: 'Other', sold: 850 },
   ];
 
@@ -43,7 +43,7 @@ export function chartBreaks(context) {
       labelAutoHide: false,
       breaks: [
         {
-          start: 200,
+          start: 300,
           end: 500,
         },
         {

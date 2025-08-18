@@ -1,7 +1,7 @@
 import { get, set } from '@antv/util';
 import { G2ViewTree } from '../types/options';
 
-export function breaks<T extends G2ViewTree = G2ViewTree>(options: T): T {
+export function axisBreaks<T extends G2ViewTree = G2ViewTree>(options: T): T {
   const { axis } = options;
   const breaks = get(axis, 'y.breaks');
 
@@ -10,7 +10,7 @@ export function breaks<T extends G2ViewTree = G2ViewTree>(options: T): T {
       options,
       'scale.y.breaks',
       breaks.map((item) => ({
-        key: Math.random().toString(36).substring(2, 15),
+        key: `break-${item.start}-${item.end}`,
         ...item,
       })),
     );
