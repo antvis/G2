@@ -755,6 +755,8 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数，但它们
 | itemMarkerShadowOffsetX | 设置阴影距图例项图标的水平距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
 | itemMarkerShadowOffsetY | 设置阴影距图例项图标的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
 | itemMarkerCursor        | 图例项图标鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default`     |      |
+| focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
+| focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
 
 #### Symbols 可选类型
 

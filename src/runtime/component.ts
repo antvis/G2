@@ -846,7 +846,9 @@ function computeCategoryLegendSize(
   };
 
   const {
+    focus,
     itemSpacing,
+    focusMarkerSize,
     itemMarkerSize,
     titleSpacing,
     rowPadding,
@@ -877,7 +879,11 @@ function computeCategoryLegendSize(
 
   const height = Math.max(labelBBoxes[0].height, itemMarkerSize) + rowPadding;
   const widthOf = (w, padding = 0) =>
-    itemMarkerSize + w + itemSpacing[0] + padding;
+    itemMarkerSize +
+    w +
+    itemSpacing[0] +
+    padding +
+    (focus ? focusMarkerSize + itemSpacing[2] : 0);
 
   // Only support grid layout for vertical area.
   const computeVerticalSize = () => {

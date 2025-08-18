@@ -13,12 +13,18 @@ export const LEGEND_MAKER_CLASS_NAME = 'legend-category-item-marker';
 
 export const LEGEND_LABEL_CLASS_NAME = 'legend-category-item-label';
 
+export const LEGEND_FOCUS_ICON_CLASS_NAME = 'legend-category-item-focus-group';
+
 export function markerOf(item) {
   return item.getElementsByClassName(LEGEND_MAKER_CLASS_NAME)[0];
 }
 
 export function labelOf(item) {
   return item.getElementsByClassName(LEGEND_LABEL_CLASS_NAME)[0];
+}
+
+export function focusIconOf(item) {
+  return item.getElementsByClassName(LEGEND_FOCUS_ICON_CLASS_NAME)[0];
 }
 
 export function itemsOf(root) {
@@ -75,6 +81,7 @@ function legendFilterOrdinal(
   const itemClick = new Map();
   const itemPointerenter = new Map();
   const itemPointerout = new Map();
+  const focusIconClick = new Map();
 
   const {
     unselected = {
@@ -153,6 +160,53 @@ function legendFilterOrdinal(
     itemClick.set(item, click);
     itemPointerenter.set(item, pointerenter);
     itemPointerout.set(item, pointerout);
+
+    // Handle focus icon if exists.
+    const focusIcon = focusIconOf(item);
+    if (focusIcon) {
+      const focusClick = async (event) => {
+        event.stopPropagation();
+
+        const value = datum(item);
+        const index = selectedValues.indexOf(value);
+
+        // Only current legend select, reset legends.
+        if (index !== -1 && selectedValues.length === 1) {
+          selectedValues = items.map(datum);
+          await filter(selectedValues);
+          updateLegendState();
+
+          const { nativeEvent = true } = event;
+          if (!nativeEvent) return;
+
+          emitter.emit('legend:reset', { nativeEvent });
+          return;
+        }
+
+        // Otherwise, focus function is performed: only the currently selected items are displayed.
+        selectedValues = [value];
+        await filter(selectedValues);
+        updateLegendState();
+
+        const { nativeEvent = true } = event;
+        if (!nativeEvent) return;
+
+        // Emit focus event.
+        emitter.emit('legend:focus', {
+          ...event,
+          nativeEvent,
+          data: {
+            channel,
+            value: value,
+            values: selectedValues,
+          },
+        });
+      };
+
+      // Bind focus icon handlers.
+      focusIcon.addEventListener('click', focusClick);
+      focusIconClick.set(item, focusClick);
+    }
   }
 
   const onFilter = async (event) => {
@@ -182,6 +236,11 @@ function legendFilterOrdinal(
       item.removeEventListener('click', itemClick.get(item));
       item.removeEventListener('pointerenter', itemPointerenter.get(item));
       item.removeEventListener('pointerout', itemPointerout.get(item));
+      const focusIcon = focusIconOf(item);
+      if (focusIcon) {
+        focusIcon.removeEventListener('click', focusIconClick.get(item));
+      }
+
       emitter.off('legend:filter', onFilter);
       emitter.off('legend:reset', onEnd);
     }

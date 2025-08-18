@@ -755,6 +755,8 @@ Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend
 | itemMarkerShadowOffsetX     | Set horizontal distance of shadow from legend item marker                                                                               | number \| (datum, index, data) => number                     | -                |          |
 | itemMarkerShadowOffsetY     | Set vertical distance of shadow from legend item marker                                                                                 | number \| (datum, index, data) => number                     | -                |          |
 | itemMarkerCursor            | Legend item marker cursor style. Same as CSS cursor style.                                                                              | string \| (datum, index, data) => string                     | `default`        |          |
+| focus | Whether to enable legend focus | boolean | false | |
+| focusMarkerSize | Legend Focus Icon Size | number | 12 | |
 
 #### Available Symbol Types
 
