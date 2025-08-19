@@ -14,7 +14,6 @@ import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
 import { BBox } from '../runtime';
 import { CALLBACK_ITEM_SYMBOL } from '../runtime/transform';
-import type { G2ScaleOptions } from '../runtime/types/options';
 import {
   selectG2Elements,
   createXKey,
@@ -575,7 +574,7 @@ function normalizedPosition(coordinate, position) {
 /**
  * Determine whether the band widths occupied by different categories are the same.
  */
-function equalBandWidth(scale: G2ScaleOptions) {
+function equalBandWidth(scale) {
   const { valueBandWidth } = scale.x;
   if (isNumber(valueBandWidth)) return true;
   return new Set(valueBandWidth.values()).size === 1;
@@ -584,10 +583,7 @@ function equalBandWidth(scale: G2ScaleOptions) {
 /**
  * Get the index of the element closest to the abstractX
  */
-function findNearestElementIndex(
-  scale: G2ScaleOptions,
-  abstractX: number,
-): number {
+function findNearestElementIndex(scale, abstractX): number {
   const { adjustedRange, valueBandWidth, valueStep } = scale;
   const values: number[] = Array.from(valueBandWidth.values());
   const steps: number[] = Array.from(valueStep.values());
