@@ -69,7 +69,7 @@
                 </g>
                 <g fill="none" class="handle-label-group">
                   <g>
-                    <text x="-26.9" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">1992</text>
+                    <text x="-27.02" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">1993</text>
                   </g>
                 </g>
               </g>
@@ -89,7 +89,7 @@
                 </g>
                 <g fill="none" class="handle-label-group">
                   <g>
-                    <text x="27.08" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">1996</text>
+                    <text x="26.66" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">1997</text>
                   </g>
                 </g>
               </g>
@@ -100,23 +100,13 @@
           <path width="608" height="412" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 412-608 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g>
-              <path fill="rgba(23,131,255,1)" fill-opacity=".4" stroke="rgba(23,131,255,1)" stroke-width="0" d="m0 212.403 152 2.48 152-18.708 152 5.071 152-174.257 0 385.011-152 0-152 0-152 0-152 0Z" class="element"/>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".4" stroke="rgba(23,131,255,1)" stroke-width="0" d="m0 214.883 152-18.708 152 5.071 152-174.257 152-11.48 0 396.491-152 0-152 0-152 0-152 0Z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer">
             <g fill="none" class="label"/>
-            <g fill="none" class="label" transform="matrix(1 0 0 1 0 212.4032)">
-              <g>
-                <path width="35.68" height="23" x="0" y="-11.5" fill="none" d="m0-11.5 35.68 0 0 23-35.68 0z"/>
-              </g>
-              <g>
-                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);">16100</text>
-              </g>
-              <g>
-                <path fill="none" d="m0 0 0 0"/>
-              </g>
-            </g>
-            <g fill="none" class="label" transform="matrix(1 0 0 1 152 214.8827)">
+            <g fill="none" class="label"/>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 0 214.8827)">
               <g>
                 <path width="37.48" height="23" x="0" y="-11.5" fill="none" d="m0-11.5 37.48 0 0 23-37.48 0z"/>
               </g>
@@ -127,7 +117,7 @@
                 <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g fill="none" class="label" transform="matrix(1 0 0 1 304 196.1751)">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 152 196.1751)">
               <g>
                 <path width="37.12" height="23" x="0" y="-11.5" fill="none" d="m0-11.5 37.12 0 0 23-37.12 0z"/>
               </g>
@@ -138,7 +128,7 @@
                 <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g fill="none" class="label" transform="matrix(1 0 0 1 456 201.2456)">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 304 201.2456)">
               <g>
                 <path width="36.76" height="23" x="0" y="-11.5" fill="none" d="m0-11.5 36.76 0 0 23-36.76 0z"/>
               </g>
@@ -149,7 +139,7 @@
                 <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g fill="none" class="label" transform="matrix(1 0 0 1 608 26.989)">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 456 26.989)">
               <g>
                 <path width="37.48" height="23" x="0" y="-11.5" fill="none" d="m0-11.5 37.48 0 0 23-37.48 0z"/>
               </g>
@@ -160,7 +150,17 @@
                 <path fill="none" d="m0 0 0 0"/>
               </g>
             </g>
-            <g fill="none" class="label"/>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 608 15.509)">
+              <g>
+                <path width="37.48" height="23" x="0" y="-11.5" fill="none" d="m0-11.5 37.48 0 0 23-37.48 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);">31982</text>
+              </g>
+              <g>
+                <path fill="none" d="m0 0 0 0"/>
+              </g>
+            </g>
             <g fill="none" class="label"/>
             <g fill="none" class="label"/>
           </g>

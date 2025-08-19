@@ -171,10 +171,6 @@ export function SliderFilter({
               channel0,
               channel1,
             ),
-            paddingLeft,
-            paddingTop,
-            paddingBottom,
-            paddingRight,
           }));
 
           await update();

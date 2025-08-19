@@ -64,6 +64,81 @@ G2 中**布局（Layout）** 用于指定一些有特定布局函数标记的布
 chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 ```
 
+## 数据更新
+
+桑基图支持动态更新数据，使用 G2 内置的 API `changeData()` 更新数据：
+
+```js
+const newData = {
+  links: [
+    { source: 'A', target: 'B', value: 10 },
+    { source: 'A', target: 'C', value: 15 },
+    { source: 'B', target: 'D', value: 8 },
+    { source: 'C', target: 'D', value: 12 },
+  ],
+};
+chart.changeData({ type: 'inline', value: newData });
+```
+
+**语法糖（推荐）**
+
+同时 G2 也提供了便捷的语法糖，你可以像配置其他图表一样，直接传递数组数据：
+
+```js
+const newData = [
+  { source: 'A', target: 'X', value: 10 },
+  { source: 'A', target: 'Y', value: 15 },
+  { source: 'B', target: 'X', value: 20 },
+  { source: 'B', target: 'Y', value: 25 },
+];
+
+// 直接传递数组
+chart.changeData(newData);
+```
+
+### 空数据处理
+
+当传入空数组时或者不传入 `links`，图表将显示为空白状态：
+
+```js
+// 清空图表 - 图表将显示为空白状态
+chart.changeData([]);
+// 或者
+chart.changeData({ links: [] });
+```
+
+### 桑基图数据更新示例
+
+```js | ob {inject: true}
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+const initialData = [
+  { source: 'A', target: 'X', value: 10 },
+  { source: 'A', target: 'Y', value: 15 },
+  { source: 'B', target: 'X', value: 20 },
+];
+
+chart.sankey().data({
+  type: 'inline',
+  value: initialData,
+});
+
+chart.render();
+
+// 点击事件：随机更新数据
+chart.on('element:click', () => {
+  const randomData = initialData.map((d) => ({
+    ...d,
+    value: Math.random() * 30 + 5,
+  }));
+
+  // 使用简化语法更新数据
+  chart.changeData(randomData);
+});
+```
+
 ## 选项
 
 | 属性       | 描述                                                            | 类型      | 默认值                        |
@@ -477,11 +552,13 @@ chart.render();
   ],
 });
 ```
+
 ### state
 
 state 配置和 style 类似，使用不同的前缀来区分不同的图形配置，没有前缀的配置两种图形都会生效。
 
 示例:
+
 ```js | ob
 (() => {
   const chart = new G2.Chart();
@@ -502,27 +579,27 @@ state 配置和 style 类似，使用不同的前缀来区分不同的图形配�
     width: 900,
     height: 600,
     data: {
-      value: data
+      value: data,
     },
     style: {
       labelSpacing: 3,
       labelFontWeight: 'bold',
       linkFillOpacity: 0.5,
-      nodeFillOpacity: 0.5 //默认透明度都是 0.5
+      nodeFillOpacity: 0.5, //默认透明度都是 0.5
     },
     state: {
       active: {
         fillOpacity: 0.8, // 鼠标悬浮状态下透明度都是 0.8
         linkFill: 'red', // link 会变成红色
-        nodeFill: 'blue' // node 会变成蓝色
+        nodeFill: 'blue', // node 会变成蓝色
       },
       inactive: {
         linkFillOpacity: 0.4,
-        nodeFillOpacity: 0.2 // node 颜色比 link 浅
-      }
+        nodeFillOpacity: 0.2, // node 颜色比 link 浅
+      },
     },
     interaction: {
-      elementHighlight: true
+      elementHighlight: true,
     },
   });
 

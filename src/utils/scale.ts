@@ -11,6 +11,9 @@ export function isOrdinalScale(scale) {
 export function invert(scale, x, start) {
   if (!isOrdinalScale(scale)) return scale.invert(x);
   const { adjustedRange } = scale;
+  if (adjustedRange.includes(x)) {
+    return scale.invert(x);
+  }
   const { domain } = scale.getOptions();
   const offset = start ? -1 : 0;
   const step = scale.getStep();

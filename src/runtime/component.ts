@@ -724,7 +724,18 @@ function computeAxisSize(
   // Compute Labels.
   const scale = createScale(component, library);
   const labelBBoxes = computeLabelsBBox(rest, scale);
-  const paddingTick = tickLength + labelSpacing;
+
+  // Compute dynamic tickLength if it's a function
+  let maxTickLength = tickLength;
+  if (typeof component.tickLength === 'function') {
+    const ticks = scale.getTicks?.() || scale.getOptions().domain;
+    const tickLengths = ticks.map((d, i, array) =>
+      component.tickLength(d, i, array),
+    );
+    maxTickLength = Math.max(...tickLengths, 0);
+  }
+
+  const paddingTick = maxTickLength + labelSpacing;
   if (labelBBoxes && labelBBoxes.length) {
     const maxLabelWidth = max(labelBBoxes, (d) => d.width);
     const maxLabelHeight = max(labelBBoxes, (d) => d.height);
@@ -748,7 +759,7 @@ function computeAxisSize(
       }
     }
   } else {
-    component.size = tickLength;
+    component.size = maxTickLength;
   }
 
   // Compute title.

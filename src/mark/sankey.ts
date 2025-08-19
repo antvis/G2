@@ -75,6 +75,36 @@ export const Sankey: CC<SankeyOptions> = (options) => {
   // Initialize data, generating nodes by link if is not specified.
   const { links, nodes } = initializeData(data, encode);
 
+  // Early check for empty data - return empty marks instead of processing
+  if (!links || links.length === 0) {
+    return [
+      // Empty node mark
+      deepMix({}, DEFAULT_NODE_OPTIONS, {
+        data: [],
+        encode: {},
+        scale,
+        style: subObject(style, 'node'),
+        labels: [],
+        tooltip: false,
+        animate: false,
+        axis: false,
+        interaction,
+        state: {},
+      }),
+      // Empty link mark
+      deepMix({}, DEFAULT_LINK_OPTIONS, {
+        data: [],
+        encode: {},
+        labels: [],
+        style: subObject(style, 'link'),
+        tooltip: false,
+        animate: false,
+        interaction,
+        state: {},
+      }),
+    ];
+  }
+
   // Extract encode for node and link.
   const nodeEncode = subObject(encode, 'node');
   const linkEncode = subObject(encode, 'link');

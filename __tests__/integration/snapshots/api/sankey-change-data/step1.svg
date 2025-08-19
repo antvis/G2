@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" color-interpolation-filters="sRGB" style="background: transparent;">
+  <g>
+    <g fill="none">
+      <g fill="none" class="view">
+        <g>
+          <path width="640" height="480" x="0" y="0" fill="rgba(0,0,0,0)" d="m0 0 640 0 0 480-640 0z" class="area"/>
+        </g>
+        <g>
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
+        </g>
+        <g>
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
+        </g>
+        <g>
+          <path width="608" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 608 0 0 448-608 0z" class="area"/>
+        </g>
+        <g transform="matrix(1 0 0 1 16 16)">
+          <path width="608" height="448" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 448-608 0z" class="plot"/>
+          <g fill="none" class="main-layer">
+            <g>
+              <path fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(0,0,0,1)" stroke-width="1" d="m0 24.8987 12.16 0 0 403.2-12.16 0Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(0,201,201,1)" fill-opacity=".95" stroke="rgba(0,0,0,1)" stroke-width="1" d="m198.6133 0 12.16 0 0 179.2-12.16 0Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(240,136,77,1)" fill-opacity=".95" stroke="rgba(0,0,0,1)" stroke-width="1" d="m198.6133 224 12.16 0 0 224-12.16 0Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(213,128,255,1)" fill-opacity=".95" stroke="rgba(0,0,0,1)" stroke-width="1" d="m397.2267 34.5491 12.16 0 0 358.4-12.16 0Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(120,99,255,1)" fill-opacity=".95" stroke="rgba(0,0,0,1)" stroke-width="1" d="m595.84 34.6 12.16 0 0 268.8-12.16 0Z" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="main-layer">
+            <g>
+              <path fill="rgba(170,170,170,1)" fill-opacity=".6" stroke="rgba(23,131,255,1)" stroke-width="0" d="M12.16 204.0987c93.2267 0 93.2267-24.8987 186.4533-24.8987l0-179.2c-93.2266 0-93.2266 24.8987-186.4533 24.8987l0 179.2Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(170,170,170,1)" fill-opacity=".6" stroke="rgba(23,131,255,1)" stroke-width="0" d="M12.16 428.0987c93.2267 0 93.2267 19.9013 186.4533 19.9013l0-224c-93.2266 0-93.2266-19.9013-186.4533-19.9013l0 224Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(170,170,170,1)" fill-opacity=".6" stroke="rgba(23,131,255,1)" stroke-width="0" d="M210.7733 161.28c93.2267 0 93.2267 34.5491 186.4534 34.5491l0-161.28c-93.2267 0-93.2267-34.5491-186.4534-34.5491l0 161.28Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(170,170,170,1)" fill-opacity=".6" stroke="rgba(23,131,255,1)" stroke-width="0" d="M210.7733 421.12c93.2267 0 93.2267-28.1709 186.4534-28.1709l0-197.12c-93.2267 0-93.2267 28.1709-186.4534 28.1709l0 197.12Z" class="element"/>
+            </g>
+            <g>
+              <path fill="rgba(170,170,170,1)" fill-opacity=".6" stroke="rgba(23,131,255,1)" stroke-width="0" d="M409.3867 303.3491c93.2266 0 93.2266.051 186.4533.051l0-268.8c-93.2267 0-93.2267-.051-186.4533-.051l0 268.8Z" class="element"/>
+            </g>
+          </g>
+          <g fill="none" class="label-layer">
+            <g fill="none" class="label" transform="matrix(1 0 0 1 12.16 226.4987)">
+              <g>
+                <path width="7.9" height="19" x="3" y="-9.5" fill="none" d="m3-9.5 7.9 0 0 19-7.9 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(3px, 0px);" text-anchor="left">X</text>
+              </g>
+              <g>
+                <path fill="none" d="m3 0-3 0"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 210.7733 89.6)">
+              <g>
+                <path width="7.7" height="19" x="3" y="-9.5" fill="none" d="m3-9.5 7.7 0 0 19-7.7 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(3px, 0px);" text-anchor="left">Y</text>
+              </g>
+              <g>
+                <path fill="none" d="m3 0-3 0"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 210.7733 336)">
+              <g>
+                <path width="7.7" height="19" x="3" y="-9.5" fill="none" d="m3-9.5 7.7 0 0 19-7.7 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(3px, 0px);" text-anchor="left">Z</text>
+              </g>
+              <g>
+                <path fill="none" d="m3 0-3 0"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 397.2267 213.7491)">
+              <g>
+                <path width="10.8" height="19" x="-12.8" y="-9.5" fill="none" d="m-12.8-9.5 10.8 0 0 19-10.8 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(-3px, 0px);" text-anchor="end">W</text>
+              </g>
+              <g>
+                <path fill="none" d="m-2 0 2 0"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 595.84 169)">
+              <g>
+                <path width="7.9" height="19" x="-9.9" y="-9.5" fill="none" d="m-9.9-9.5 7.9 0 0 19-7.9 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="10" font-weight="bold" paint-order="stroke" style="transform:translate(-3px, 0px);" text-anchor="end">V</text>
+              </g>
+              <g>
+                <path fill="none" d="m-2 0 2 0"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

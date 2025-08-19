@@ -1,6 +1,6 @@
 import { Circle, DisplayObject, IElement, Line } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
-import { deepMix, lowerFirst, set, throttle, last } from '@antv/util';
+import { deepMix, lowerFirst, set, throttle, last, isNumber } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
 import {
   defined,
@@ -572,6 +572,35 @@ function normalizedPosition(coordinate, position) {
 }
 
 /**
+ * Determine whether the band widths occupied by different categories are the same.
+ */
+function equalBandWidth(scale) {
+  const { x } = scale;
+  if (!x || !x.valueBandWidth) return true;
+  const { valueBandWidth } = x;
+  if (isNumber(valueBandWidth)) return true;
+  return new Set(valueBandWidth.values()).size === 1;
+}
+
+/**
+ * Get the index of the element closest to the abstractX
+ */
+function findNearestElementIndex(scale, abstractX): number {
+  const { adjustedRange, valueBandWidth, valueStep } = scale;
+  const values: number[] = Array.from(valueBandWidth.values());
+  const steps: number[] = Array.from(valueStep.values());
+  const ranges = adjustedRange.map((v, i) => {
+    const halfStep = (steps[i] - values[i]) / 2;
+    return [v - halfStep, v + values[i] + halfStep];
+  });
+  const index = ranges.findIndex(
+    ([start, end]) => start <= abstractX && abstractX <= end,
+  );
+  if (index !== -1) return index;
+  return abstractX > 0.5 ? adjustedRange.length - 1 : 0;
+}
+
+/**
  * Finds a single element based on the mouse event in a non-series context (e.g., single item tooltip).
  * @param root - The root display object of the chart.
  * @param event - The mouse event object (e.g., pointermove, pointerdown).
@@ -596,18 +625,20 @@ export function findSingleElement({
   const inInterval = (d) => d.markType === 'interval';
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
   const scaleX = scale.x;
+  const isEqualWidth = equalBandWidth(scale);
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
-  const xof = scaleSeries
-    ? (d) => {
-        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
-        return (
-          d.__data__.x +
-          d.__data__.series * bandWidth +
-          bandWidth / (seriesCount * 2)
-        );
-      }
-    : (d) => d.__data__.x + bandWidth / 2;
+  const xof =
+    scaleSeries && scaleSeries.valueBandWidth
+      ? (d) => {
+          const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+          return (
+            d.__data__.x +
+            d.__data__.series * bandWidth +
+            bandWidth / (seriesCount * 2)
+          );
+        }
+      : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
@@ -635,7 +666,9 @@ export function findSingleElement({
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
         const search = bisector(xof).center;
-        const i = search(elements, abstractX);
+        const i = isEqualWidth
+          ? search(elements, abstractX)
+          : findNearestElementIndex(scaleX, abstractX);
         const target = elements[i];
 
         if (!shared) {
@@ -643,7 +676,7 @@ export function findSingleElement({
           const isGrouped = elements.find(
             (d) => d !== target && xof(d) === xof(target),
           );
-          if (isGrouped) return findElementByTarget(event);
+          if (isGrouped) return findElementByTarget(event) || isGrouped;
         }
         return target;
       }
@@ -1068,6 +1101,11 @@ export function seriesTooltip(
     destroy();
   };
 
+  const pointerleave = (e) => {
+    if (mousePosition(root, e)) return;
+    hide(e);
+  };
+
   const onTooltipEnable = () => {
     addEventListeners();
   };
@@ -1078,10 +1116,7 @@ export function seriesTooltip(
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
       // Only emit pointerleave event when the pointer is not in the root area.
-      root.addEventListener('pointerleave', (e) => {
-        if (mousePosition(root, e)) return;
-        hide(e);
-      });
+      root.addEventListener('pointerleave', pointerleave);
       root.addEventListener('pointerup', hide);
     }
   };
@@ -1091,7 +1126,7 @@ export function seriesTooltip(
       root.removeEventListener('pointerdown', update);
       root.removeEventListener('pointerenter', update);
       root.removeEventListener('pointermove', update);
-      root.removeEventListener('pointerleave', hide);
+      root.removeEventListener('pointerleave', pointerleave);
       root.removeEventListener('pointerup', hide);
     }
   };
