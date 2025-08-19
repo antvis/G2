@@ -1,7 +1,6 @@
 import { Path } from '@antv/g';
-import { get, set } from '@antv/util';
+import { get } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
-import { transformDomain } from '../../scale/linear';
 import {
   BREAK_GROUP_CLASS_NAME,
   PLOT_CLASS_NAME,
@@ -75,26 +74,14 @@ const createPathPoints = (
 const updateScale = (view, breakValues) => {
   const scale = get(view, 'scale.y');
   const scaleOptions = get(scale, 'options', {});
-  const { domain, breaks, range, tickCount } = scaleOptions;
+  const { breaks } = scaleOptions;
   const filterBreaks = breaks.filter(
     (b) => b.start !== breakValues[0] && b.end !== breakValues[1],
   );
-  const { breaksDomain, breaksRange } = transformDomain({
-    domain,
-    range,
-    breaks: filterBreaks,
-    tickCount,
-  });
-  const newOptions = {
+  scale.update({
     ...scaleOptions,
     breaks: filterBreaks,
-    domain: breaksDomain,
-    range: breaksRange,
-    tickMethod: () => breaksDomain,
-  };
-
-  scale.update(newOptions);
-  set(view, 'scale.y.options', newOptions);
+  });
 };
 
 export const AxisBreaks = (options, params) => {
