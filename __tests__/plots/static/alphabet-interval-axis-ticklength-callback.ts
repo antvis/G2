@@ -33,11 +33,10 @@ export function alphabetIntervalAxisTickLengthCallback(): G2Spec {
         title: 'Letter',
 
         // Use callback function to set different tick lengths based on data values
-        tickLength: (datum, index, array) => {
-          // Ensure datum is string type, set tick length based on letter position
-          const letter = String(datum);
-          const position = letter.charCodeAt(0) - 65; // A=0, B=1, etc.
-          return position < 10 ? 10 : 20; // Short ticks for first 10 letters, long ticks for the rest
+        tickLength: (datum) => {
+          const { label } = datum;
+          const position = label?.charCodeAt(0) - 'A'.charCodeAt(0); // A=0, B=1, etc.
+          return position === 9 ? 20 : 10; // Long ticks for J, short ticks for the rest
         },
 
         labelFontSize: 12,
