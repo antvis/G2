@@ -166,6 +166,9 @@
             <g>
               <path width="56.3" height="20" x="0" y="181" fill="rgba(91,143,249,1)" fill-opacity=".95" stroke="rgba(91,143,249,1)" stroke-width="0" d="m0 181 56.3 0 0 20-56.3 0z" class="element"/>
             </g>
+            <g>
+              <path width="0" height="20" x="0" y="181" fill="rgba(91,143,249,1)" fill-opacity=".95" stroke="rgba(91,143,249,1)" stroke-width="0" d="m0 181 0 0 0 20 0 0z" class="element"/>
+            </g>
           </g>
           <g fill="none" class="main-layer">
             <g>
@@ -190,6 +193,17 @@
               </g>
               <g>
                 <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(5px, 0px);" text-anchor="left">10</text>
+              </g>
+              <g>
+                <path fill="none" d="m5 0-5 0"/>
+              </g>
+            </g>
+            <g fill="none" class="label" transform="matrix(1 0 0 1 0 191)">
+              <g>
+                <path width="57.04" height="23" x="5" y="-11.5" fill="none" d="m5-11.5 57.04 0 0 23-57.04 0z"/>
+              </g>
+              <g>
+                <text fill="rgba(29,33,41,1)" fill-opacity=".65" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(5px, 0px);" text-anchor="left">measures</text>
               </g>
               <g>
                 <path fill="none" d="m5 0-5 0"/>

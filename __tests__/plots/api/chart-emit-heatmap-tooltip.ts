@@ -2550,7 +2550,6 @@ export function chartEmitHeatmapTooltip(context) {
   const finished = chart.render();
 
   finished.then((chart) => {
-    console.log(chart.getDataByXY({ x: 400, y: 200 }));
     chart.emit('tooltip:show', {
       data: {
         data: {

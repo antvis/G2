@@ -643,7 +643,7 @@ export function findSingleElement({
           const isGrouped = elements.find(
             (d) => d !== target && xof(d) === xof(target),
           );
-          if (isGrouped) return findElementByTarget(event);
+          if (isGrouped) return findElementByTarget(event) || isGrouped;
         }
         return target;
       }
