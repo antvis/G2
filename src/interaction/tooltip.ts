@@ -1068,6 +1068,11 @@ export function seriesTooltip(
     destroy();
   };
 
+  const pointerleave = (e) => {
+    if (mousePosition(root, e)) return;
+    hide(e);
+  };
+
   const onTooltipEnable = () => {
     addEventListeners();
   };
@@ -1078,10 +1083,7 @@ export function seriesTooltip(
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
       // Only emit pointerleave event when the pointer is not in the root area.
-      root.addEventListener('pointerleave', (e) => {
-        if (mousePosition(root, e)) return;
-        hide(e);
-      });
+      root.addEventListener('pointerleave', pointerleave);
       root.addEventListener('pointerup', hide);
     }
   };
@@ -1091,7 +1093,7 @@ export function seriesTooltip(
       root.removeEventListener('pointerdown', update);
       root.removeEventListener('pointerenter', update);
       root.removeEventListener('pointermove', update);
-      root.removeEventListener('pointerleave', hide);
+      root.removeEventListener('pointerleave', pointerleave);
       root.removeEventListener('pointerup', hide);
     }
   };

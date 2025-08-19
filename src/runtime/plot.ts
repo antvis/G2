@@ -1027,11 +1027,12 @@ async function plotView(
       (update) =>
         update
           .call(updateLayers, Array.from(markState.keys()))
-          .call((selection) => {
-            return animationExtent
-              ? animateBBox(selection, animationExtent)
-              : updateBBox(selection);
-          })
+          .call(updateBBox)
+          // .call((selection) => {
+          //   return animationExtent
+          //     ? animateBBox(selection, animationExtent)
+          //     : updateBBox(selection);
+          // })
           .call(applyClip, clip),
     )
     .transitions();
