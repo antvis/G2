@@ -2816,6 +2816,33 @@ chart.on('afterrender', () => {
 });
 ```
 
+### chart.getDataByXY(point, options)
+
+Return the tooltip data corresponding to the coordinate point.
+
+Usage example:
+
+```js
+chart.getDataByXY({x: 200, y: 100}, { shared: true })
+```
+
+configuration:
+
+```ts
+type Point = {
+  x: number;
+  y: number;
+}
+
+type Options = {
+  /** 
+   * Whether elements with the same x share the tooltip
+   * @default false
+  */
+  shared?: boolean;
+}
+```
+
 ### chart.getView()
 
 Returns the view instance used during chart rendering.

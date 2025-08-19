@@ -2788,6 +2788,33 @@ chart.on('afterrender', () => {
 });
 ```
 
+### chart.getDataByXY(point, options)
+
+返回对应坐标点的 tooltip 数据。
+
+使用示例：
+
+```js
+chart.getDataByXY({x: 200, y: 100}, { shared: true })
+```
+
+参数配置：
+
+```ts
+type Point = {
+  x: number;
+  y: number;
+}
+
+type Options = {
+  /** 
+   * 相同 x 的元素是否共享 tooltip
+   * @default false
+  */
+  shared?: boolean;
+}
+```
+
 ### chart.getView()
 
 返回 chart 渲染时的 view 实例。
