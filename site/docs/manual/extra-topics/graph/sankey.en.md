@@ -65,6 +65,82 @@ In G2, **Layout** is used to specify parameters for layout methods of marks with
 chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
 ```
 
+## Data Update
+
+Sankey diagrams support dynamic data updates using G2's built-in API `changeData()`:
+
+```js
+const newData = {
+  links: [
+    { source: 'A', target: 'B', value: 10 },
+    { source: 'A', target: 'C', value: 15 },
+    { source: 'B', target: 'D', value: 8 },
+    { source: 'C', target: 'D', value: 12 },
+  ],
+};
+chart.changeData({ type: 'inline', value: newData });
+```
+
+**Syntactic Sugar (Recommended)**
+
+G2 also provides convenient syntactic sugar, allowing you to pass array data directly like configuring other charts:
+
+```js
+const newData = [
+  { source: 'A', target: 'X', value: 10 },
+  { source: 'A', target: 'Y', value: 15 },
+  { source: 'B', target: 'X', value: 20 },
+  { source: 'B', target: 'Y', value: 25 },
+];
+
+// Pass array directly
+chart.changeData(newData);
+```
+
+### Empty Data Handling
+
+When passing an empty array or not providing `links`, the chart will display as blank:
+
+```js
+// Clear chart - chart will display as blank
+chart.changeData([]);
+// or
+chart.changeData({ links: [] });
+```
+
+### Sankey Diagram Data Update Example
+
+```js | ob {inject: true}
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+const initialData = [
+  { source: 'A', target: 'X', value: 10 },
+  { source: 'A', target: 'Y', value: 15 },
+  { source: 'B', target: 'X', value: 20 },
+];
+
+chart.sankey().data({
+  type: 'inline',
+  value: initialData,
+  transform: [{ type: 'custom', callback: (data) => ({ links: data }) }],
+});
+
+chart.render();
+
+// Click event: randomly update data
+chart.on('element:click', () => {
+  const randomData = initialData.map((d) => ({
+    ...d,
+    value: Math.random() * 30 + 5,
+  }));
+
+  // Use simplified syntax to update data
+  chart.changeData(randomData);
+});
+```
+
 ## Options
 
 | Property   | Description                                                                        | Type      | Default                               |
@@ -477,4 +553,60 @@ Links don't have built-in data labels, but you can customize link data label con
     },
   ],
 });
+```
+
+### state
+
+State configuration is similar to style, using different prefixes to distinguish different graphic configurations. Configurations without prefixes will apply to both graphics.
+
+Example:
+
+```js | ob
+(() => {
+  const chart = new G2.Chart();
+
+  const data = {
+    links: [
+      { source: 'a', target: 'b', value: 100 },
+      { source: 'b', target: 'c', value: 80 },
+      { source: 'b', target: 'd', value: 20 },
+      { source: 'c', target: 'b_1', value: 80 },
+      { source: 'b_1', target: 'c_1', value: 40 },
+      { source: 'b_1', target: 'd_1', value: 40 },
+    ],
+  };
+
+  chart.options({
+    type: 'sankey',
+    width: 900,
+    height: 600,
+    data: {
+      value: data,
+    },
+    style: {
+      labelSpacing: 3,
+      labelFontWeight: 'bold',
+      linkFillOpacity: 0.5,
+      nodeFillOpacity: 0.5, // Default opacity is 0.5
+    },
+    state: {
+      active: {
+        fillOpacity: 0.8, // Opacity is 0.8 on hover
+        linkFill: 'red', // Links turn red
+        nodeFill: 'blue', // Nodes turn blue
+      },
+      inactive: {
+        linkFillOpacity: 0.4,
+        nodeFillOpacity: 0.2, // Nodes are lighter than links
+      },
+    },
+    interaction: {
+      elementHighlight: true,
+    },
+  });
+
+  chart.render();
+
+  return chart.getContainer();
+})();
 ```
