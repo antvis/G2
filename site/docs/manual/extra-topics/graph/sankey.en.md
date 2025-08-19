@@ -124,7 +124,6 @@ const initialData = [
 chart.sankey().data({
   type: 'inline',
   value: initialData,
-  transform: [{ type: 'custom', callback: (data) => ({ links: data }) }],
 });
 
 chart.render();
