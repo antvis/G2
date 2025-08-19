@@ -59,3 +59,4 @@ export { chartElementHighlightRegion } from './chart-element-highlight-region';
 export { chartGetDataByXY } from './chart-get-data-by-xy';
 export { chartEmitHeatmapTooltip } from './chart-emit-heatmap-tooltip';
 export { chartEmitShowTooltipWithResize } from './chart-emit-show-tooltip-with-resize';
+export { chartEmitShowTooltipWithNull } from './chart-emit-show-tooltip-with-null';

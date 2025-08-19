@@ -269,3 +269,11 @@ chart.render();
 2. **布局优化**：根据词汇数量选择合适的 `spiral` 类型
 3. **性能考虑**：大量词汇时建议限制显示数量
 4. **交互体验**：合理使用高亮和提示功能增强可读性
+
+## 相似图表
+
+<code src="./demos/list-card.tsx"></code>
+
+## 分类
+
+<code src="./demos/list-category.tsx"></code>
