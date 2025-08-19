@@ -50,6 +50,7 @@ export type AxisOptions = {
     tickCount: number,
   ) => number[];
   tickCount?: number;
+  tickLength?: number | ((datum: any, index: number, array: any[]) => number);
   grid: any;
   // options won't be overridden
   important: Record<string, any>;
@@ -424,6 +425,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
     tickFilter,
     tickCount,
     tickMethod,
+    tickLength,
     important = {},
     style = {},
     indexBBox,
@@ -475,6 +477,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
         data: labels,
         titleText: titleContent(title),
         grid,
+        ...(tickLength !== undefined ? { tickLength } : null),
         ...rest,
         ...important,
       }),
@@ -553,6 +556,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
     tickCount,
     tickFilter,
     tickMethod,
+    tickLength,
     transform,
     indexBBox,
     ...userDefinitions
@@ -625,6 +629,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       // Always showLine, make title could align the end of axis.
       line: true,
       indexBBox,
+      ...(tickLength !== undefined ? { tickLength } : null),
       ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,
       ...threeDOverrideStyle,
