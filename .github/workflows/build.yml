@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
@@ -21,8 +21,9 @@ jobs:
 
       - name: Run CI
         run: |
-          npm install
-          npm run ci
+          npm install -g pnpm
+          pnpm install
+          pnpm run ci
 
       - name: Update coverall
         if: ${{ success() }}

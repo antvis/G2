@@ -15,7 +15,7 @@
           <path width="368" height="448" x="16" y="16" fill="rgba(0,0,0,0)" d="m16 16 368 0 0 448-368 0z" class="area"/>
         </g>
         <g transform="matrix(1 0 0 1 16 16)">
-          <path width="501.6" height="448" fill="rgba(0,0,0,0)" d="m0 0 501.6 0 0 448-501.6 0z" class="plot"/>
+          <path width="368" height="448" fill="rgba(0,0,0,0)" d="m0 0 368 0 0 448-368 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g fill="none" class="element" transform="matrix(1.27273 0 0 1 .4376 0)">
               <g>
