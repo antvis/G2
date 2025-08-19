@@ -61,3 +61,4 @@ export { chartEmitHeatmapTooltip } from './chart-emit-heatmap-tooltip';
 export { chartEmitItemTooltipWithFlex } from './chart-emit-item-tooltip-with-flex';
 export { chartEmitShowTooltipWithResize } from './chart-emit-show-tooltip-with-resize';
 export { chartEmitShowTooltipWithNull } from './chart-emit-show-tooltip-with-null';
+export { chartEmitTooltipShow } from './chart-emit-tooltip-show';
