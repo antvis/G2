@@ -575,7 +575,9 @@ function normalizedPosition(coordinate, position) {
  * Determine whether the band widths occupied by different categories are the same.
  */
 function equalBandWidth(scale) {
-  const { valueBandWidth } = scale.x;
+  const { x } = scale;
+  if (!x || !x.valueBandWidth) return true;
+  const { valueBandWidth } = x;
   if (isNumber(valueBandWidth)) return true;
   return new Set(valueBandWidth.values()).size === 1;
 }
@@ -626,16 +628,17 @@ export function findSingleElement({
   const isEqualWidth = equalBandWidth(scale);
   const scaleSeries = scale.series;
   const bandWidth = scaleX?.getBandWidth?.() ?? 0;
-  const xof = scaleSeries
-    ? (d) => {
-        const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
-        return (
-          d.__data__.x +
-          d.__data__.series * bandWidth +
-          bandWidth / (seriesCount * 2)
-        );
-      }
-    : (d) => d.__data__.x + bandWidth / 2;
+  const xof =
+    scaleSeries && scaleSeries.valueBandWidth
+      ? (d) => {
+          const seriesCount = Math.round(1 / scaleSeries.valueBandWidth);
+          return (
+            d.__data__.x +
+            d.__data__.series * bandWidth +
+            bandWidth / (seriesCount * 2)
+          );
+        }
+      : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
   if (isBar) elements.sort((a, b) => xof(a) - xof(b));
