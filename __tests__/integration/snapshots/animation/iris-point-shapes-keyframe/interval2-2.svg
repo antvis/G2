@@ -99,7 +99,7 @@
           </g>
         </g>
         <g transform="matrix(1 0 0 1 16 51)">
-          <path width="634.8" height="413" fill="rgba(0,0,0,0)" d="m0 0 634.8 0 0 413-634.8 0z" class="plot"/>
+          <path width="568" height="413" fill="rgba(0,0,0,0)" d="m0 0 568 0 0 413-568 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g>
               <path fill="rgba(23,131,255,1)" fill-opacity=".3173" stroke="rgba(23,131,255,1)" stroke-opacity=".334" stroke-width="0" d="M165.6667 154.875a5 5 0 1 0 10 0 5 5 0 1 0-10 0Z" class="element" opacity=".334"/>

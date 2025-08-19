@@ -15,14 +15,14 @@ describe('chart.emit tooltip show', () => {
       container: document.createElement('div'),
     });
     await finished;
-    await sleep(20);
+    await sleep(100);
 
     chart.emit('tooltip:show', {
       data: {
         data: { name: 'London', 月份: 'Jan.', 月均降雨量: null },
       },
     });
-    await sleep(20);
+    await sleep(100);
     await expect(canvas).toMatchDOMSnapshot(dir, 'step0', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
@@ -33,7 +33,7 @@ describe('chart.emit tooltip show', () => {
         data: { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
       },
     });
-    await sleep(20);
+    await sleep(100);
     await expect(canvas).toMatchDOMSnapshot(dir, 'step1', {
       fileFormat: 'html',
       selector: '.g2-tooltip',
