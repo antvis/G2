@@ -1,17 +1,17 @@
 import { Vector2 } from '@antv/coord';
 import { DisplayObject, IAnimation as GAnimation, Rect } from '@antv/g';
-import { deepMix, upperFirst, isArray } from '@antv/util';
+import { deepMix, isArray, upperFirst } from '@antv/util';
 import { group, groups } from '@antv/vendor/d3-array';
 import { format } from '@antv/vendor/d3-format';
 import { mapObject } from '../utils/array';
 import { ChartEvent } from '../utils/event';
 import {
-  isStrictObject,
   appendTransform,
   compose,
   copyAttributes,
   defined,
   error,
+  isStrictObject,
   maybeSubObject,
   subObject,
   useMemo,
@@ -46,10 +46,10 @@ import {
   applyScale,
   assignScale,
   collectScales,
+  groupTransform,
   inferScale,
   syncFacetsScales,
   useRelationScale,
-  groupTransform,
 } from './scale';
 import { applyDataTransform } from './transform';
 import {
@@ -1698,10 +1698,75 @@ function createExitFunction(
   return createAnimationFunction('exit', mark, state, view, library);
 }
 
+// function inferTheme(theme: G2ThemeOptions = {}): G2ThemeOptions {
+//   if (typeof theme === 'string') return { type: theme };
+//   const { type = 'light', ...rest } = theme;
+//   return { ...rest, type };
+// }
+
+// 主题推断函数，设置fillOpacity默认值
 function inferTheme(theme: G2ThemeOptions = {}): G2ThemeOptions {
-  if (typeof theme === 'string') return { type: theme };
-  const { type = 'light', ...rest } = theme;
-  return { ...rest, type };
+  // 处理字符串类型的主题
+  if (typeof theme === 'string') {
+    return { type: theme };
+  }
+
+  // 深拷贝原始主题对象
+  const newTheme = deepMix({}, theme);
+
+  // 确保主题类型存在
+  newTheme.type = newTheme.type !== undefined ? newTheme.type : 'light';
+
+  // 特别处理label的默认样式
+  if (!newTheme.label) {
+    newTheme.label = {};
+  }
+
+  // 确保label的fillOpacity为1（如果未设置）
+  if (newTheme.label.fillOpacity === undefined) {
+    newTheme.label.fillOpacity = 1;
+  }
+
+  // 处理每个markType下的label默认值
+  const markTypes = [
+    'interval',
+    'rect',
+    'line',
+    'point',
+    'text',
+    'cell',
+    'area',
+    'link',
+    'image',
+    'polygon',
+    'box',
+    'vector',
+    'edge',
+    'node',
+    'lineX',
+    'lineY',
+    'range',
+    'rangeX',
+    'rangeY',
+    'connector',
+  ];
+
+  markTypes.forEach((markType) => {
+    if (!newTheme[markType]) {
+      newTheme[markType] = {};
+    }
+
+    if (!newTheme[markType].label) {
+      newTheme[markType].label = {};
+    }
+
+    // 确保mark特定的label fillOpacity为1（如果未设置）
+    if (newTheme[markType].label.fillOpacity === undefined) {
+      newTheme[markType].label.fillOpacity = 1;
+    }
+  });
+
+  return newTheme;
 }
 
 /**
