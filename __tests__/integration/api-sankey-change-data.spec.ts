@@ -7,7 +7,7 @@ import './utils/useSnapshotMatchers';
 describe('sankey.changeData', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
   const canvas = createNodeGCanvas(800, 600);
-  const { finished, button1, button3 } = render({
+  const { finished, button1, button3, switchToDataB, switchToDataC } = render({
     canvas,
     container: document.createElement('div'),
   });
@@ -19,9 +19,15 @@ describe('sankey.changeData', () => {
   });
 
   it('should switch to data B (array format) correctly', async () => {
-    button1.click();
-    await sleep(100);
+    await switchToDataB();
+    await sleep(20);
     expect(canvas).toMatchDOMSnapshot(dir, 'step1');
+  });
+
+  it('should handle empty data (data C) gracefully', async () => {
+    await switchToDataC();
+    await sleep(20);
+    expect(canvas).toMatchDOMSnapshot(dir, 'step2');
   });
 
   afterAll(() => {

@@ -62,55 +62,64 @@ export function sankeyChangeData(context) {
       labelFontWeight: 'bold',
       nodeLineWidth: 1,
       linkFillOpacity: 0.6,
-    });
-  // .interaction('tooltip', false);
+    })
+    .interaction('tooltip', false);
 
   const finished = chart.render();
 
   let currentData = 'A';
 
-  button1.onclick = () => {
+  const updateButtonStyles = (activeButton: HTMLButtonElement) => {
+    const buttons = [button1, button2, button3];
+    buttons.forEach((button) => {
+      if (button === activeButton) {
+        button.style.backgroundColor = '#007bff';
+        button.style.color = 'white';
+      } else {
+        button.style.backgroundColor = '';
+        button.style.color = '';
+      }
+    });
+  };
+
+  const switchToDataB = async () => {
     if (currentData !== 'B') {
-      chart.changeData(dataB);
+      await chart.changeData(dataB);
       currentData = 'B';
-      button1.style.backgroundColor = '#007bff';
-      button1.style.color = 'white';
-      button2.style.backgroundColor = '';
-      button2.style.color = '';
-      button3.style.backgroundColor = '';
-      button3.style.color = '';
+      updateButtonStyles(button1);
     }
+  };
+
+  const switchToDataA = async () => {
+    if (currentData !== 'A') {
+      await chart.changeData({ type: 'inline', value: dataA });
+      currentData = 'A';
+      updateButtonStyles(button2);
+    }
+  };
+
+  const switchToDataC = async () => {
+    if (currentData !== 'C') {
+      await chart.changeData(dataC);
+      currentData = 'C';
+      updateButtonStyles(button3);
+    }
+  };
+
+  button1.onclick = () => {
+    switchToDataB();
   };
 
   button2.onclick = () => {
-    if (currentData !== 'A') {
-      chart.changeData({ type: 'inline', value: dataA });
-      currentData = 'A';
-      button2.style.backgroundColor = '#007bff';
-      button2.style.color = 'white';
-      button1.style.backgroundColor = '';
-      button1.style.color = '';
-      button3.style.backgroundColor = '';
-      button3.style.color = '';
-    }
+    switchToDataA();
   };
 
   button3.onclick = () => {
-    if (currentData !== 'C') {
-      chart.changeData(dataC);
-      currentData = 'C';
-      button3.style.backgroundColor = '#007bff';
-      button3.style.color = 'white';
-      button1.style.backgroundColor = '';
-      button1.style.color = '';
-      button2.style.backgroundColor = '';
-      button2.style.color = '';
-    }
+    switchToDataC();
   };
 
   // Initial state: Data A is active
-  button2.style.backgroundColor = '#007bff';
-  button2.style.color = 'white';
+  updateButtonStyles(button2);
 
   return {
     chart,
@@ -118,6 +127,9 @@ export function sankeyChangeData(context) {
     button1,
     button2,
     button3,
+    switchToDataB,
+    switchToDataA,
+    switchToDataC,
     canvas: chart.getContext().canvas,
   };
 }
