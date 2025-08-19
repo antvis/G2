@@ -33,6 +33,7 @@ import {
   PLOT_CLASS_NAME,
   VIEW_CLASS_NAME,
   BREAK_CLASS_NAME,
+  BREAK_GROUP_CLASS_NAME,
 } from './constant';
 import { coordinate2Transform, createCoordinate } from './coordinate';
 import {
@@ -1301,12 +1302,13 @@ function plotBreak(
 ) {
   const scale = view.scale;
   const breaks = get(scale, 'y.options.breaks', []);
-
-  if (!breaks.length) {
-    const { document } = context.canvas;
-    document.getElementsByClassName(BREAK_CLASS_NAME).forEach((d) => {
-      d.remove();
+  const { document } = context.canvas;
+  [BREAK_CLASS_NAME, BREAK_GROUP_CLASS_NAME].forEach((d) => {
+    document.getElementsByClassName(d).forEach((e) => {
+      e.remove();
     });
+  });
+  if (!breaks.length) {
     return;
   }
   const breakLayer = selection.select(className(PLOT_CLASS_NAME)).node();

@@ -6,6 +6,8 @@ import {
   PLOT_CLASS_NAME,
 } from '../../runtime/constant';
 
+export const BREAKS_GAP = 0.05; // Default gap ratio for axis breaks
+
 export type BreakOptions = {
   /** Start position of the break. */
   start: number;
@@ -94,15 +96,12 @@ export const AxisBreaks = (options, params) => {
       key,
       start,
       end,
-      gap = 0.05,
+      gap = BREAKS_GAP,
       vertices = 50,
       lineWidth = 0.5,
       verticeOffset = 3,
       ...style
     } = option;
-
-    // Remove old group if exists
-    document.getElementById(`break-group-${key}`)?.remove();
 
     const g = document.createElement('g', {
       id: `break-group-${key}`,
@@ -162,12 +161,26 @@ export const AxisBreaks = (options, params) => {
       const path2 = new Path({
         style: { ...pathAttrs, d: clipPath, lineWidth: 0 },
       });
-      path2.addEventListener('click', (e) => {
-        // dbclick to remove break
+      path2.addEventListener('click', async (e) => {
+        // double click to remove break
         if (e.detail === 2) {
           updateScale(view, [start, end]);
-          // animate #TODO: add transition
-          document.getElementById(`break-group-${key}`)?.remove();
+          path2.setAttribute('fill', 'transparent');
+          const animate = path1.animate(
+            [
+              { d: linePath },
+              {
+                d: `M ${plotWidth / 2},${(upperY + lowerY) / 2} L${
+                  plotWidth / 2
+                },${(upperY + lowerY) / 2}`,
+              },
+            ],
+            {
+              duration: 300,
+              easing: 'linear',
+            },
+          );
+          await animate.finished;
           update(view, selection, transitions, context);
         }
       });

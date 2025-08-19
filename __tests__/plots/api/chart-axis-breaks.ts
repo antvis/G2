@@ -45,6 +45,7 @@ export function chartAxisBreaks(context) {
         {
           start: 300,
           end: 500,
+          gap: '5%',
         },
         {
           start: 600,
