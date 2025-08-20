@@ -1100,6 +1100,11 @@ async function plotView(
                 }
                 return animation;
               })
+              .each(function (d, i, element) {
+                if (element.__removed__) {
+                  element.__removed__ = false;
+                }
+              })
               .attr('markType', type)
               .attr('className', ELEMENT_CLASS_NAME);
           }),

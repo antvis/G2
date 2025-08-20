@@ -43,6 +43,31 @@ export function attributeOf(
   return attribute;
 }
 
+export function deepEqual(a: any, b: any, seen = new WeakMap()): boolean {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (typeof a !== 'object' || typeof b !== 'object') return false;
+
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+
+  if (a instanceof RegExp && b instanceof RegExp) {
+    return a.toString() === b.toString();
+  }
+
+  if (seen.has(a)) return seen.get(a) === b;
+  seen.set(a, b);
+
+  const keysA = Reflect.ownKeys(a);
+  const keysB = Reflect.ownKeys(b);
+  if (keysA.length !== keysB.length) return false;
+
+  return keysA.every((key) => deepEqual(a[key], b[key], seen));
+}
+
 export const attributeKeys = [
   'fill',
   'stroke',

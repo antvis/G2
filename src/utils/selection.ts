@@ -344,15 +344,20 @@ export class Selection<T = any> {
     // otherwise wait until transition finished.
     for (let i = 0; i < this._elements.length; i++) {
       const transition = this._transitions[i];
+      this._elements[i].__removed__ = true;
       if (transition) {
         const T = Array.isArray(transition) ? transition : [transition];
         Promise.all(T.map((d) => d.finished)).then(() => {
           const element = this._elements[i];
-          element.remove();
+          if (element.__removed__) {
+            element.remove();
+          }
         });
       } else {
         const element = this._elements[i];
-        element.remove();
+        if (element.__removed__) {
+          element.remove();
+        }
       }
     }
     return new Selection<T>(
