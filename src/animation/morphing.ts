@@ -5,7 +5,7 @@ import {
   Path,
   Shape,
 } from '@antv/g';
-import { get } from '@antv/util';
+import { get, isEqual } from '@antv/util';
 import { AnimationComponent as AC } from '../runtime';
 import { copyAttributes } from '../utils/helper';
 import { Animation } from './types';
@@ -182,6 +182,16 @@ function oneToOne(
   const { nodeName: toName } = to;
   const fromPath = shape2path(from);
   const toPath = shape2path(to);
+  const {
+    opacity: fromOpacity = 1,
+    strokeOpacity: fromStrokeOpacity = 1,
+    fillOpacity: fromFillOpacity = 1,
+  } = from.style;
+  const {
+    opacity: toOpacity = 1,
+    strokeOpacity: toStrokeOpacity = 1,
+    fillOpacity: toFillOpacity = 1,
+  } = to.style;
   const isSameNodes = fromName === toName && fromName !== 'path';
   const hasNonPathNode = fromPath === undefined || toPath === undefined;
   // Path with mark can not use animate like ordinary path.
@@ -191,14 +201,22 @@ function oneToOne(
   const pathShape = maybePath(shape, fromPath);
   // Convert Path will take transform, anchor, etc into account,
   // so there is no need to specify these attributes in keyframes.
-  const keyframes: Keyframe[] = [
-    {
-      ...attributeOf(from, attributeKeys),
-    },
-    {
-      ...attributeOf(to, attributeKeys),
-    },
-  ];
+  const fromKeyframes = {
+    ...attributeOf(from, attributeKeys),
+    opacity: fromOpacity,
+    strokeOpacity: fromStrokeOpacity,
+    fillOpacity: fromFillOpacity,
+  };
+
+  const toKeyframes = {
+    ...attributeOf(to, attributeKeys),
+    opacity: toOpacity,
+    strokeOpacity: toStrokeOpacity,
+    fillOpacity: toFillOpacity,
+  };
+
+  const keyframes: Keyframe[] = [fromKeyframes, toKeyframes];
+
   if (fromPath !== toPath) {
     keyframes[0].d = fromPath;
     keyframes[1].d = toPath;
@@ -217,7 +235,12 @@ function oneToOne(
     return animation;
   }
 
-  // No need to apply animation since fromPath equals toPath.
+  // If fromKeyframes and toKeyframes are not equal, apply animation.
+  if (!isEqual(fromKeyframes, toKeyframes)) {
+    return pathShape.animate(keyframes, timeEffect);
+  }
+
+  // No need to apply animation since fromKeyframes equals toKeyframes.
   return null;
 }
 

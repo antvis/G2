@@ -86,6 +86,7 @@ export { mockPieLegendFilter } from './mock-pie-legend-filter';
 export { commitIntervalFixedCornerFilterNoElement } from './commit-interval-fixed-corner-filter-no-element';
 export { changeSizePolarCrosshairsXYNoElements } from './change-size-polar-crosshairsXY-no-elements';
 export { intervalLegendFilterWithText } from './interval-legend-filter-with-text';
+export { issue6093 } from './issue-6093';
 export { multipleInteractionsCoexist } from './multiple-interactions-coexist';
 export { penguinsPointBrushFilterNoMove } from './penguins-point-brush-filter-no-move';
 export { stateAgesSankeyHighlight } from './stateages-sankey-highlight';
