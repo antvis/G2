@@ -80,7 +80,12 @@ export const sliderAbstractOf = (domain, scale) => {
     return [scale.map(d0), scale.map(d1)];
   }
 
-  return [index0 / (scaleDomain.length - 1), index1 / (scaleDomain.length - 1)];
+  const count = scaleDomain.length;
+  if (count <= 1) {
+    return [0, 1];
+  }
+
+  return [index0 / (count - 1), index1 / (count - 1)];
 };
 
 export function pixelsOf(selection, scale, coordinate) {
