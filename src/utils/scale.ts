@@ -67,6 +67,22 @@ export function abstractOf(domain, scale) {
   return [scale.map(d0), scale.map(d1) + maybeStep(scale)];
 }
 
+// For slider display, use direct index-based mapping instead of scale.map()
+// to avoid inaccuracies caused by padding, band width, etc.
+export const sliderAbstractOf = (domain, scale) => {
+  const [d0, d1] = domain;
+  const scaleDomain = scale.getOptions?.()?.domain || [];
+
+  const index0 = scaleDomain.indexOf(d0);
+  const index1 = scaleDomain.indexOf(d1);
+
+  if (index0 === -1 || index1 === -1) {
+    return [scale.map(d0), scale.map(d1)];
+  }
+
+  return [index0 / (scaleDomain.length - 1), index1 / (scaleDomain.length - 1)];
+};
+
 export function pixelsOf(selection, scale, coordinate) {
   const { x: scaleX, y: scaleY } = scale;
   const [X, Y] = selection;

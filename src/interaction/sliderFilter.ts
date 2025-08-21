@@ -1,7 +1,7 @@
 import { deepMix, throttle, upperFirst } from '@antv/util';
 import { CustomEvent } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
-import { invert, domainOf, abstractOf } from '../utils/scale';
+import { invert, domainOf, sliderAbstractOf } from '../utils/scale';
 
 export const SLIDER_CLASS_NAME = 'slider';
 
@@ -197,7 +197,12 @@ export function SliderFilter({
         );
 
         // Update slider.
-        const V = isX ? abstractOf(X, scaleX) : abstractOf(Y, scaleY);
+        // For slider display, use direct index-based mapping instead of scale.map()
+        // to avoid inaccuracies caused by padding, band width, etc.
+
+        const V = isX
+          ? sliderAbstractOf(X, scaleX)
+          : sliderAbstractOf(Y, scaleY);
         setValue(slider, V);
       };
 
