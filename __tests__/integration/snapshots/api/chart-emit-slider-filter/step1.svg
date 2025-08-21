@@ -42,15 +42,15 @@
             </g>
             <g fill="none" class="slider-foreground">
               <g transform="matrix(1 0 0 1 119.28 440)">
-                <path width="2.511" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 2.511 0 0 16-2.511 0z" class="slider-selection" visibility="hidden"/>
+                <path height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" class="slider-selection" visibility="hidden"/>
               </g>
               <g transform="matrix(1 0 0 1 119.28 440)">
-                <path width="75.3168" height="16" x="2.511" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m2.511 0 75.3168 0 0 16-75.3168 0z" class="slider-selection" visibility="visible"/>
+                <path width="53.147" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 53.147 0 0 16-53.147 0z" class="slider-selection" visibility="visible"/>
               </g>
               <g transform="matrix(1 0 0 1 119.28 440)">
-                <path width="426.8922" height="16" x="77.8278" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m77.8278 0 426.8922 0 0 16-426.8922 0z" class="slider-selection" visibility="hidden"/>
+                <path width="451.573" height="16" x="53.147" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m53.147 0 451.573 0 0 16-451.573 0z" class="slider-selection" visibility="hidden"/>
               </g>
-              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 121.791 448)">
+              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 119.28 448)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g>
@@ -70,7 +70,7 @@
                   </g>
                 </g>
               </g>
-              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 197.1078 448)">
+              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 172.427 448)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g>
