@@ -7,3 +7,5 @@ export const COMPONENT_CLASS_NAME = 'component';
 export const LABEL_CLASS_NAME = 'label';
 export const AREA_CLASS_NAME = 'area';
 export const MASK_CLASS_NAME = 'mask';
+export const BREAK_CLASS_NAME = 'axis-breaks';
+export const BREAK_GROUP_CLASS_NAME = 'axis-breaks-group';
