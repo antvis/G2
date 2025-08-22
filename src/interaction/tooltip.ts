@@ -201,12 +201,8 @@ function heatmapItem(element) {
   const { __data__: datum } = element;
   const { title, items = [] } = datum;
 
-  // Check if there are user-defined items (containing custom properties other than name, value, color)
-  const hasCustomItems = items.some((item) => {
-    if (!item || typeof item !== 'object') return false;
-    const keys = Object.keys(item);
-    return keys.some((key) => !['name', 'value', 'color'].includes(key));
-  });
+  // Check if there are user-defined items using the existing CALLBACK_ITEM_SYMBOL
+  const hasCustomItems = items.some((item) => CALLBACK_ITEM_SYMBOL in item);
 
   if (hasCustomItems) {
     // User has defined custom items, pass them through as is
