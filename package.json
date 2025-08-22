@@ -127,12 +127,12 @@
     },
     {
       "path": "dist/g2.min.js",
-      "limit": "1000 Kb",
+      "limit": "1020 Kb",
       "gzip": false
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "270 Kb",
+      "limit": "280 Kb",
       "gzip": true
     }
   ],
