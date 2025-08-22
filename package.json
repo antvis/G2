@@ -60,7 +60,7 @@
     "@antv/g": "^6.1.24",
     "@antv/g-canvas": "^2.0.43",
     "@antv/g-plugin-dragndrop": "^2.0.35",
-    "@antv/scale": "^0.4.16",
+    "@antv/scale": "^0.5.0",
     "@antv/util": "^3.3.10",
     "@antv/vendor": "^1.0.11",
     "flru": "^1.0.2",
@@ -127,12 +127,12 @@
     },
     {
       "path": "dist/g2.min.js",
-      "limit": "1000 Kb",
+      "limit": "1020 Kb",
       "gzip": false
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "270 Kb",
+      "limit": "280 Kb",
       "gzip": true
     }
   ],

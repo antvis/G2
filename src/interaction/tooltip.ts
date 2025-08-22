@@ -198,9 +198,29 @@ function showUndefined(item) {
 }
 
 function heatmapItem(element) {
-  const datum = element.__data__;
-  const normalizedX = datum?.normalized?.x ?? 0;
+  const { __data__: datum } = element;
+  const { title, items = [] } = datum;
 
+  // Check if there are user-defined items using the existing CALLBACK_ITEM_SYMBOL
+  const hasCustomItems = items.some((item) => CALLBACK_ITEM_SYMBOL in item);
+
+  if (hasCustomItems) {
+    // User has defined custom items, pass them through as is
+    const newItems = items
+      .filter(defined)
+      .map(({ color = itemColorOf(element), ...item }) => ({
+        ...item,
+        color,
+      }))
+      .map(showUndefined);
+    return {
+      ...(title && { title }),
+      items: newItems,
+    };
+  }
+
+  // No user-defined items, use special logic for heatmap
+  const normalizedX = datum?.normalized?.x ?? 0;
   const originalDatum = element.parentNode?.__data__;
   const encode = originalDatum?.encode ?? {};
   const { x = {}, y = {}, color = {} } = encode;
