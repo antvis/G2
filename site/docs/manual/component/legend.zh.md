@@ -107,7 +107,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | itemBackground <Badge type="success">分类图例</Badge> | 配置图例项的背景                                 | [itemBackground](#itembackground)                                  | 详见[itemBackground](#itembackground) |
 | itemWidth <Badge type="success">分类图例</Badge>      | 配置图例项的宽度                                 | number                                                             | -                                     |
 | itemSpan <Badge type="success">分类图例</Badge>       | 配置图例项图标、标签和值的空间划分               | number \| number[]                                                 | `[1, 1, 1]`                           |
-| itemSpacing <Badge type="success">分类图例</Badge>    | 配置图例项图标、标签和值之间的间距               | number \| number[]                                                 | `[8, 8]`                              |
+| itemSpacing <Badge type="success">分类图例</Badge>    | 配置图例项图标、标签、值、聚焦图标之间的间距               | number \| number[]                                                 | `[8, 8, 4]`                              |
 | nav <Badge type="success">分类图例</Badge>            | 配置图例的分页器                                 | [nav](#nav)                                                        | 详见[nav](#nav)                       |
 | poptip <Badge type="success">分类图例</Badge>            | 图例项提示                                 | [poptip](#poptip)                                                        | 详见[poptip](#poptip)                       |
 | color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
@@ -117,6 +117,8 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | handle <Badge type="warning">连续图例</Badge>         | 配置连续图例的滑动手柄                           | [handle](#handle)                                                  | 详见[handle](#handle)                 |
 | label <Badge type="warning">连续图例</Badge>          | 配置连续图例的标签/刻度值                        | [label](#label)                                                    | 详见[label](#label)                   |
 | indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
+| focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
+| focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
 
 ### orientation
 
@@ -755,8 +757,6 @@ maxRows 和 maxCols 用于限制图例布局的最大行数和列数，但它们
 | itemMarkerShadowOffsetX | 设置阴影距图例项图标的水平距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
 | itemMarkerShadowOffsetY | 设置阴影距图例项图标的垂直距离                                                                                         | number \| (datum, index, data) => number                     | -             |      |
 | itemMarkerCursor        | 图例项图标鼠标样式。同 css 的鼠标样式。                                                                                | string \| (datum, index, data) => string                     | `default`     |      |
-| focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
-| focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
 
 #### Symbols 可选类型
 
@@ -1114,7 +1114,7 @@ chart.render();
 
 <description> _number|number[]_ **optional** </description>
 
-适用于 <Badge type="success">分类图例</Badge> 。配置图例项图标、标签和值之间的间距。默认为`[8, 8]`。
+适用于 <Badge type="success">分类图例</Badge> 。配置图例项图标、标签、值和聚焦图例之间的间距。默认为`[8, 8, 4]`。
 
 ### nav
 
