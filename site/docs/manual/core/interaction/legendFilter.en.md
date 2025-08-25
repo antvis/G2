@@ -116,11 +116,16 @@ chart.on('legend:reset', (e) => {
 ### Triggering Interaction
 
 - legend:filter - Trigger legend filtering
+- legend:focus - Trigger legend focus
 - legend:reset - Reset filter state
 
 ```js
 chart.emit('legend:filter', {
   data: { channel: 'color', values: ['Sports', 'Strategy'] },
+});
+
+chart.emit('legend:focus', {
+  data: { channel: 'color', value: 'Sports' },
 });
 
 chart.emit('legend:reset', {});

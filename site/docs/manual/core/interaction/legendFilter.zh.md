@@ -98,6 +98,7 @@ LegendFilter 插件内部根据图例类型自动判断是否为类目图例或�
 
 - legend:filter - 当用户通过图例进行筛选时触发
 - legend:reset - 当所有图例项都被选中时触发（重置状态）
+- legend:focus - 当图例被聚焦时触发
 
 ```js
 chart.on('legend:filter', (e) => {
@@ -111,16 +112,27 @@ chart.on('legend:reset', (e) => {
   if (!nativeEvent) return;
   console.log('end');
 });
+
+chart.on('legend:focus', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  console.log(data);
+});
 ```
 
 ### 触发交互
 
 - legend:filter - 触发图例筛选
+- legend:focus - 触发图例聚焦
 - legend:reset - 重置筛选状态
 
 ```js
 chart.emit('legend:filter', {
   data: { channel: 'color', values: ['Sports', 'Strategy'] },
+});
+
+chart.emit('legend:focus', {
+  data: { channel: 'color', value: 'Sports' },
 });
 
 chart.emit('legend:reset', {});

@@ -161,46 +161,37 @@ function legendFilterOrdinal(
     itemPointerenter.set(item, pointerenter);
     itemPointerout.set(item, pointerout);
 
-    // Handle focus icon if exists.
     const focusIcon = focusIconOf(item);
     if (focusIcon) {
       const focusClick = async (event) => {
         event.stopPropagation();
-
         const value = datum(item);
         const index = selectedValues.indexOf(value);
+        const { nativeEvent = true } = event;
 
-        // Only current legend select, reset legends.
         if (index !== -1 && selectedValues.length === 1) {
+          if (!nativeEvent) return;
+          // If the item is already focused, reset to show all items.
           selectedValues = items.map(datum);
           await filter(selectedValues);
           updateLegendState();
-
-          const { nativeEvent = true } = event;
-          if (!nativeEvent) return;
-
           emitter.emit('legend:reset', { nativeEvent });
-          return;
+        } else {
+          // Otherwise, focus on the clicked item.
+          selectedValues = [value];
+          await filter(selectedValues);
+          updateLegendState();
+
+          if (!nativeEvent) return;
+          emitter.emit('legend:focus', {
+            ...event,
+            nativeEvent,
+            data: {
+              channel,
+              value,
+            },
+          });
         }
-
-        // Otherwise, focus function is performed: only the currently selected items are displayed.
-        selectedValues = [value];
-        await filter(selectedValues);
-        updateLegendState();
-
-        const { nativeEvent = true } = event;
-        if (!nativeEvent) return;
-
-        // Emit focus event.
-        emitter.emit('legend:focus', {
-          ...event,
-          nativeEvent,
-          data: {
-            channel,
-            value: value,
-            values: selectedValues,
-          },
-        });
       };
 
       // Bind focus icon handlers.
@@ -208,6 +199,20 @@ function legendFilterOrdinal(
       focusIconClick.set(item, focusClick);
     }
   }
+
+  const onFocus = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+
+    const { data } = event;
+    const { channel: specifiedChannel, value } = data;
+    if (specifiedChannel !== channel) return;
+
+    selectedValues = [value];
+
+    await filter(selectedValues);
+    updateLegendState();
+  };
 
   const onFilter = async (event) => {
     const { nativeEvent } = event;
@@ -229,6 +234,7 @@ function legendFilterOrdinal(
   };
 
   emitter.on('legend:filter', onFilter);
+  emitter.on('legend:focus', onFocus);
   emitter.on('legend:reset', onEnd);
 
   return () => {

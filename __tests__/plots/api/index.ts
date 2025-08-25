@@ -11,6 +11,7 @@ export { chartHOMMark } from './chart-hom-mark';
 export { chartOptions } from './chart-options';
 export { viewFacetCircle } from './view-facetCircle';
 export { chartEmitLegendFilter } from './chart-emit-legend-filter';
+export { chartEmitLegendFocus } from './chart-emit-legend-focus';
 export { chartChangeSizePolar } from './chart-change-size-polar';
 export { chartChangeDataFacet } from './chart-change-data-facet';
 export { chartRenderClearAnimation } from './chart-render-clear-animation';
