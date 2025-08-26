@@ -107,7 +107,7 @@ Some configuration options are scoped to categorical legends and continuous lege
 | itemBackground <Badge type="success">Categorical Legend</Badge> | Configure legend item background                                                      | [itemBackground](#itembackground)                                  | See [itemBackground](#itembackground) |          |
 | itemWidth <Badge type="success">Categorical Legend</Badge>      | Configure legend item width                                                           | number                                                             | -                                     |          |
 | itemSpan <Badge type="success">Categorical Legend</Badge>       | Configure space allocation for legend item marker, label, and value                   | number \| number[]                                                 | `[1, 1, 1]`                           |          |
-| itemSpacing <Badge type="success">Categorical Legend</Badge>    | Configure spacing between legend item marker, label, and value                        | number \| number[]                                                 | `[8, 8]`                              |          |
+| itemSpacing <Badge type="success">Categorical Legend</Badge>    | Configure spacing between legend item marker, label, value and focus icon                        | number \| number[]                                                 | `[8, 8, 4]`                              |          |
 | nav <Badge type="success">Categorical Legend</Badge>            | Configure legend navigator                                                            | [nav](#nav)                                                        | See [nav](#nav)                       |          |
 | poptip <Badge type="success">Categorical Legend</Badge>            | Legend item poptip                                 | [poptip](#poptip)                                                        | See [poptip](#poptip)                       |
 | color <Badge type="warning">Continuous Legend</Badge>           | Configure color band colors for continuous legend                                     | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |          |
@@ -117,6 +117,8 @@ Some configuration options are scoped to categorical legends and continuous lege
 | handle <Badge type="warning">Continuous Legend</Badge>          | Configure slider handle of continuous legend                                          | [handle](#handle)                                                  | See [handle](#handle)                 |          |
 | label <Badge type="warning">Continuous Legend</Badge>           | Configure labels/tick values of continuous legend                                     | [label](#label)                                                    | See [label](#label)                   |          |
 | indicator <Badge type="warning">Continuous Legend</Badge>       | Configure indicator of continuous legend                                              | [indicator](#indicator)                                            | See [indicator](#indicator)           |          |
+| focus | Whether to enable legend focus | boolean | false | |
+| focusMarkerSize | Legend Focus Icon Size | number | 12 | |
 
 ### orientation
 
@@ -1112,7 +1114,7 @@ Applicable to <Badge type="success">Categorical Legend</Badge>. Configure space 
 
 <description> _number|number[]_ **optional** </description>
 
-Applicable to <Badge type="success">Categorical Legend</Badge>. Configure spacing between legend item marker, label, and value. Default is `[8, 8]`.
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure spacing between legend item marker, label, value and focus icon. Default is `[8, 8, 4]`.
 
 ### nav
 
