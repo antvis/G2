@@ -1,12 +1,12 @@
 import { Path } from '@antv/g';
-import { get } from '@antv/util';
+import { get, set, deepMix } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
 import {
   BREAK_GROUP_CLASS_NAME,
   PLOT_CLASS_NAME,
 } from '../../runtime/constant';
 
-export const BREAKS_GAP = 0.05; // Default gap ratio for axis breaks
+export const BREAKS_GAP = 0.03; // Default gap ratio for axis breaks
 
 export type BreakOptions = {
   /** Start position of the break. */
@@ -87,9 +87,10 @@ const updateScale = (view, breakValues) => {
 };
 
 export const AxisBreaks = (options, params) => {
-  const { context, selection, view, transitions, update } = params;
+  const { context, selection, view } = params;
   const layer = selection.select(`.${PLOT_CLASS_NAME}`).node();
   const { document } = context.canvas;
+  const { externals } = context;
   const { scale } = view;
   return (option: BreakOptions) => {
     const {
@@ -115,7 +116,7 @@ export const AxisBreaks = (options, params) => {
     const endIndex = domain.indexOf(end);
     const { width: plotWidth, height: plotHeight } = layer.getBBox();
     if (startIndex === -1 || endIndex === -1 || !xDomain.length) return g;
-
+    const reverse = range[0] > range[1];
     const lowerY = range[startIndex] * plotHeight;
     const upperY = range[endIndex] * plotHeight;
 
@@ -126,31 +127,31 @@ export const AxisBreaks = (options, params) => {
       { y: upperY, isLower: false },
       { y: lowerY, isLower: true },
     ].entries()) {
+      const clipOffset = reverse ? lineWidth : -lineWidth;
       const [pathPoints, clipPoints] = createPathPoints(
         y,
         plotWidth - PADDING,
         verticeOffset,
         vertices,
         isLower,
-        lineWidth,
+        clipOffset,
       );
-
       if (boundaryIndex === 0) {
         // start point + Top boundary path
         linePath = `M ${PADDING},${y} L ${pathPoints.join(' L ')} `;
         clipPath = `M ${PADDING - lineWidth},${
-          y + lineWidth
+          y + clipOffset
         } L ${clipPoints.join(' L ')} `;
       } else {
         // Bottom boundary path + close point
         linePath += `L ${plotWidth - PADDING},${y} L ${[...pathPoints]
           .reverse()
           .join(' L ')} L ${PADDING},${y} Z`;
-        clipPath += `L ${plotWidth - PADDING + lineWidth},${y - lineWidth} L ${[
-          ...clipPoints,
-        ]
-          .reverse()
-          .join(' L ')} L ${PADDING - lineWidth},${y - lineWidth} Z`;
+        clipPath += `L ${plotWidth - PADDING + lineWidth + 2},${
+          y - clipOffset
+        } L ${[...clipPoints].reverse().join(' L ')} L ${PADDING - lineWidth},${
+          y - clipOffset
+        } Z`;
       }
     }
 
@@ -165,23 +166,27 @@ export const AxisBreaks = (options, params) => {
         // double click to remove break
         if (e.detail === 2) {
           updateScale(view, [start, end]);
-          path2.setAttribute('fill', 'transparent');
-          const animate = path1.animate(
-            [
-              { d: linePath },
-              {
-                d: `M ${plotWidth / 2},${(upperY + lowerY) / 2} L${
-                  plotWidth / 2
-                },${(upperY + lowerY) / 2}`,
-              },
-            ],
-            {
-              duration: 300,
-              easing: 'linear',
-            },
-          );
-          await animate.finished;
-          update(view, selection, transitions, context);
+          const { update, setState } = context.externals;
+          setState('options', (prev) => {
+            console.log(prev);
+            const { marks } = prev;
+            if (!marks || !marks.length) return prev;
+            const newMarks = marks.map((mark) => {
+              const breaks = get(mark, 'scale.y.breaks', []);
+              const newBreaks = breaks.filter(
+                (b) => b.start !== start && b.end !== end && !b.used,
+              );
+              // add used: true flag to the corresponding breaks
+              breaks.forEach((b) => {
+                if (b.start === start && b.end === end) {
+                  b.used = true;
+                }
+              });
+              return deepMix({}, mark, { scale: { y: { breaks: newBreaks } } });
+            });
+            return { ...prev, marks: newMarks };
+          });
+          await update();
         }
       });
       g.appendChild(path1);

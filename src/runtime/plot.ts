@@ -265,7 +265,7 @@ export async function plot<T extends G2ViewTree>(
       const setState = (key, reducer = (x) => x) => store.set(key, reducer);
       const options = viewNode.get(view);
       const update = createUpdateView(select(container), options, context);
-      return {
+      const target = {
         view,
         container,
         options,
@@ -281,6 +281,9 @@ export async function plot<T extends G2ViewTree>(
           });
         },
       };
+      context.externals.update = target.update;
+      context.externals.setState = setState;
+      return target;
     });
   };
 
@@ -1164,7 +1167,7 @@ async function plotView(
 
   // Plot label for this view.
   plotLabel(view, selection, transitions, library, context);
-  plotBreak(view, selection, transitions, library, context);
+  plotBreak(view, selection, library, context);
 }
 
 /**
@@ -1302,7 +1305,6 @@ function getLabels(
 function plotBreak(
   view: G2ViewDescriptor,
   selection: Selection,
-  transitions: GAnimation[],
   library: G2Library,
   context: G2Context,
 ) {
@@ -1333,9 +1335,7 @@ function plotBreak(
         {
           view,
           selection,
-          transitions,
           context,
-          update: plotView,
         },
       ),
     );
