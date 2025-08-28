@@ -15,36 +15,18 @@ export function chartAxisBreaks(context) {
     canvas,
   });
 
+  const axisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const data1 = [1500, 2032, 2001, 3154, 2190, 4330, 6410];
   const data2 = [1200, 1320, 1010, 1340, 900, 2300, 2100];
   const data3 = [3106212, 3102118, 3102643, 3104631, 3106679, 3102300, 3104000];
   const data4 = [103200, 100320, 103010, 102340, 103900, 103300, 103200];
-  const axisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const data: any[] = [];
-  axisData.map((d, i) => {
-    data.push(
-      {
-        name: d,
-        value: data1[i],
-        type: 'Sports',
-      },
-      {
-        name: d,
-        value: data2[i],
-        type: 'Strategy',
-      },
-      {
-        name: d,
-        value: data3[i],
-        type: 'Shooter',
-      },
-      {
-        name: d,
-        value: data4[i],
-        type: 'Other',
-      },
-    );
-  });
+
+  const data = axisData.flatMap((name, i) => [
+    { name, value: data1[i], type: 'Sports' },
+    { name, value: data2[i], type: 'Strategy' },
+    { name, value: data3[i], type: 'Shooter' },
+    { name, value: data4[i], type: 'Other' },
+  ]);
 
   chart.data(data);
 
