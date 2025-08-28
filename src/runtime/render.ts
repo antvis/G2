@@ -84,6 +84,7 @@ export function render<T extends G2ViewTree = G2ViewTree>(
 
   context.canvas = canvas;
   context.emitter = emitter;
+  context.externals = {};
 
   const { width: prevWidth, height: prevHeight } = canvas.getConfig();
   if (prevWidth !== width || prevHeight !== height) {
