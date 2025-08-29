@@ -1015,12 +1015,12 @@ chart.render();
 | ------- | ------- | ------- | ------- | ------- |
 | start | 断轴开始值 | `number`  | -          |      |
 | end | 断轴结束值 | `number`  | -          |      |
-| gap | 断轴主轴方向区间占比，支持 0 ~ 1 和百分比了两种类型 | `number` \| string  | -   |      |
+| gap | 断轴主轴方向区间占比，支持 0 ~ 1 和百分比两种类型 | `number` \| string  | -   |      |
 | vertices | 断轴起伏顶点数 |  `number`  | 50          |      |
 | verticeOffset | 断轴振幅 | `number`  | 3         |      |
 | compress | 断轴压缩方式，`middle`: 居中压缩，`start`: 起始值附近压缩，`end`：结束值附近压缩 | `middle` \| `start` \| `end` |  middle |    |
 | stroke | 断轴描边色 | `string`  | `#fff`      |      |
-| fill | 断轴填充色| `string`  |  `#aaa`       |      |
+| fill | 断轴填充色 | `string`  |  `#aaa`       |      |
 | lineDash | 断轴描边虚线样式 | `string`  | `2 2`      |      |
 
 更多配置参考 canvas 基本绘图属性。
