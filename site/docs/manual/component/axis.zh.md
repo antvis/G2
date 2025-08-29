@@ -163,7 +163,7 @@ chart.options({
 
 ## 配置项
 
-每个坐标轴由 标题（title）、轴线（line）、刻度（tick）、刻度值（label）以及网格线（grid）组成。
+每个坐标轴由 标题（title）、轴线（line）、刻度（tick）、刻度值（label）、网格线（grid）以及断轴（breaks）组成。
 
 | 属性     | 描述                           | 类型                                               | 默认值                       | 必选 |
 | -------- | ------------------------------ | -------------------------------------------------- | ---------------------------- | ---- |
@@ -172,6 +172,7 @@ chart.options({
 | tick     | 设置坐标轴刻度线的显示及其样式 | [tick](#tick)                                      | -                            |      |
 | label    | 设置坐标轴刻度值的显示及其样式 | [label](#label)                                    | -                            |      |
 | grid     | 设置坐标轴网格线的显示及其样式 | [grid](#grid)                                      | -                            |      |
+| breaks     | 设置坐标轴断轴的显示及其样式 | [breaks](#breaks)   | -   |      |
 | animate  | 设置坐标轴动画效果             | `boolean` &#124; [animate](#animate)               | -                            |
 | position | 设置坐标轴的位置               | `left` &#124; `right` &#124; `top` &#124; `bottom` | `x: bottom` &#124; `y: left` |      |
 
@@ -995,6 +996,34 @@ chart.options({
 });
 chart.render();
 ```
+
+### breaks
+
+```ts
+{
+  breaks: [
+    {
+      start: 5000,
+      end: 50000,
+      gap: '3%',
+    }
+  ]
+}
+```
+
+| 属性  | 描述 | 类型  | 默认值 | 必须 |
+| ------- | ------- | ------- | ------- | ------- |
+| start | 断轴开始值 | `number`  | -          |      |
+| end | 断轴结束值 | `number`  | -          |      |
+| gap | 断轴主轴方向区间占比，支持 0 ~ 1 和百分比两种类型 | `number` \| string  | -   |      |
+| vertices | 断轴起伏顶点数 |  `number`  | 50          |      |
+| verticeOffset | 断轴振幅 | `number`  | 3         |      |
+| compress | 断轴压缩方式，`middle`: 居中压缩，`start`: 起始值附近压缩，`end`：结束值附近压缩 | `middle` \| `start` \| `end` |  middle |    |
+| stroke | 断轴描边色 | `string`  | `#fff`      |      |
+| fill | 断轴填充色 | `string`  |  `#aaa`       |      |
+| lineDash | 断轴描边虚线样式 | `string`  | `2 2`      |      |
+
+更多配置参考 canvas 基本绘图属性。
 
 ### animate
 

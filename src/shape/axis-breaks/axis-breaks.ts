@@ -1,5 +1,5 @@
 import { Path } from '@antv/g';
-import { get, set, deepMix } from '@antv/util';
+import { get, deepMix } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
 import {
   BREAK_GROUP_CLASS_NAME,
@@ -168,7 +168,6 @@ export const AxisBreaks = (options, params) => {
           updateScale(view, [start, end]);
           const { update, setState } = context.externals;
           setState('options', (prev) => {
-            console.log(prev);
             const { marks } = prev;
             if (!marks || !marks.length) return prev;
             const newMarks = marks.map((mark) => {

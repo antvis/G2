@@ -187,6 +187,14 @@
         "en": "Rounded Diverging Stacked Bar Chart"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DVqDQaFExcAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+     {
+      "filename": "bar-axis-breaks.ts",
+      "title": {
+        "zh": "坐标轴断轴条形图",
+        "en": "Bar Chart with Axis Breaks"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*edprTKp5WFMAAAAAR3AAAAgAemJ7AQ/fmt.webp"
     }
   ]
 }
