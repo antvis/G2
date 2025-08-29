@@ -19,6 +19,8 @@ export type BreakOptions = {
   vertices?: number;
   /** Offset of each vertex, default is 3. */
   verticeOffset?: number;
+  /** Compression type of the break, default is 'middle'. */
+  compress?: 'start' | 'end' | 'middle';
   /** Custom styles of the break. */
   [key: string]: any;
 };
