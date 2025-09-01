@@ -119,6 +119,7 @@ Some configuration options are scoped to categorical legends and continuous lege
 | indicator <Badge type="warning">Continuous Legend</Badge>       | Configure indicator of continuous legend                                              | [indicator](#indicator)                                            | See [indicator](#indicator)           |          |
 | focus | Whether to enable legend focus | boolean | false | |
 | focusMarkerSize | Legend Focus Icon Size | number | 12 | |
+| defaultSelect | Default selected legend items | string[] | - | |
 
 ### orientation
 

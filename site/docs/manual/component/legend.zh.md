@@ -119,6 +119,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
 | focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
 | focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
+| defaultSelect | 默认选中的图例项 | string[] | - | |
 
 ### orientation
 
