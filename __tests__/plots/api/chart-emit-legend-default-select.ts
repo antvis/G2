@@ -36,13 +36,11 @@ export function chartEmitLegendDefaultSelect(context) {
   chart.on('legend:filter', (e) => {
     const { nativeEvent, data } = e;
     if (!nativeEvent) return;
-    console.log(data);
   });
 
   chart.on('legend:reset', (e) => {
     const { nativeEvent } = e;
     if (!nativeEvent) return;
-    console.log('end');
   });
 
   return { chart, finished };
