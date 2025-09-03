@@ -65,3 +65,4 @@ export { chartEmitShowTooltipWithResize } from './chart-emit-show-tooltip-with-r
 export { chartEmitShowTooltipWithNull } from './chart-emit-show-tooltip-with-null';
 export { chartEmitTooltipShow } from './chart-emit-tooltip-show';
 export { sankeyChangeData } from './sankey-change-data';
+export { chartSliderBrushHighlight } from './chart-slider-brush-highlight';
