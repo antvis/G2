@@ -145,36 +145,6 @@ export function chartSliderBrushHighlight(context) {
 
   const finished = chart.render();
 
-  // Track slider filter events
-  let sliderXFiltered = false;
-  let sliderYFiltered = false;
-
-  chart.on('sliderX:filter', (event) => {
-    const { nativeEvent } = event;
-    if (nativeEvent) {
-      sliderXFiltered = true;
-      console.log('SliderX filtered:', event.data.selection);
-    }
-  });
-
-  chart.on('sliderY:filter', (event) => {
-    const { nativeEvent } = event;
-    if (nativeEvent) {
-      sliderYFiltered = true;
-      console.log('SliderY filtered:', event.data.selection);
-    }
-  });
-
-  // Track brush events
-  let brushSelection = null;
-  chart.on('brush:end', (event) => {
-    const { nativeEvent } = event;
-    if (nativeEvent) {
-      brushSelection = event.data.selection;
-      console.log('Brush selection:', brushSelection);
-    }
-  });
-
   // Promises for async control
   let resolveSliderX;
   const sliderXComplete = new Promise((r) => (resolveSliderX = r));
@@ -221,8 +191,5 @@ export function chartSliderBrushHighlight(context) {
     sliderXComplete,
     sliderYComplete,
     brushComplete,
-    getBrushSelection: () => brushSelection,
-    isSliderXFiltered: () => sliderXFiltered,
-    isSliderYFiltered: () => sliderYFiltered,
   };
 }
