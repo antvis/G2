@@ -72,6 +72,7 @@ function legendFilterOrdinal(
     label: labelOf, // given the legend returns the label
     datum, // given the legend returns the value
     filter, // invoke when dispatch filter event,
+    defaultSelect,
     emitter,
     channel,
     state = {} as Record<string, any>, // state options
@@ -237,6 +238,12 @@ function legendFilterOrdinal(
   emitter.on('legend:focus', onFocus);
   emitter.on('legend:reset', onEnd);
 
+  if (defaultSelect) {
+    emitter.emit('legend:filter', {
+      data: { channel, values: defaultSelect },
+    });
+  }
+
   return () => {
     for (const item of items) {
       item.removeEventListener('click', itemClick.get(item));
@@ -375,6 +382,7 @@ export function LegendFilter() {
             else filter(context, options);
           },
           state: legend.attributes.state,
+          defaultSelect: legend.attributes.defaultSelect,
           channel,
           emitter,
         });

@@ -119,6 +119,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
 | focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
 | focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
+| defaultSelect | 默认选中的图例项 | string[] | - | |
 
 ### orientation
 
@@ -1725,10 +1726,10 @@ chart.on('afterrender', () => {
 
 ### 首次渲染图表时默认只显示部分图例
 
-目前暂时还没有内置 API，需要通过手动触发一下 `legendFilter`交互来实现。
+通过 `defaultSelect` 选项，您可以指定在首次渲染图表时默认选中的图例项：
 
 ```js | ob { inject: true }
-import { Chart, ChartEvent } from '@antv/g2';
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
@@ -1742,18 +1743,24 @@ chart.options({
     { genre: 'Other', sold: 150 },
   ],
   encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      defaultSelect: ['Sports', 'Strategy', 'Action'],
+    },
+  },
 });
 
 chart.render();
+```
 
+你也可以在合适的时间，手动触发 `legend:filter` 来实现这个效果：
+```js
 chart.on(ChartEvent.AFTER_RENDER, () => {
   chart.emit('legend:filter', {
     data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
   });
 });
 ```
-
-可以通过设置 `animate: false` 避免触发更新动画，但还是会有闪动，后续会通过配置项在内部处理，实现更好的筛选效果。
 
 ### 垂直布局图例分页
 

@@ -119,6 +119,7 @@ Some configuration options are scoped to categorical legends and continuous lege
 | indicator <Badge type="warning">Continuous Legend</Badge>       | Configure indicator of continuous legend                                              | [indicator](#indicator)                                            | See [indicator](#indicator)           |          |
 | focus | Whether to enable legend focus | boolean | false | |
 | focusMarkerSize | Legend Focus Icon Size | number | 12 | |
+| defaultSelect | Default selected legend items | string[] | - | |
 
 ### orientation
 
@@ -1409,10 +1410,10 @@ chart.on('afterrender', () => {
 
 ### Default Display of Partial Legend Items on First Render
 
-Currently there's no built-in API, you need to manually trigger the `legendFilter` interaction to achieve this.
+With the `defaultSelect` option, you can specify which legend items should be selected by default when the chart is first rendered:
 
 ```js | ob { inject: true }
-import { Chart, ChartEvent } from '@antv/g2';
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
@@ -1426,18 +1427,24 @@ chart.options({
     { genre: 'Other', sold: 150 },
   ],
   encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      defaultSelect: ['Sports', 'Strategy', 'Action'],
+    },
+  },
 });
 
 chart.render();
+```
 
+You can also manually trigger the `legend:filter` at the right time to achieve this effect:
+```js
 chart.on(ChartEvent.AFTER_RENDER, () => {
   chart.emit('legend:filter', {
     data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
   });
 });
 ```
-
-You can set `animate: false` to avoid triggering update animations, but there will still be flickering. This will be handled internally through configuration options in the future to achieve better filtering effects.
 
 ### Vertical Layout Legend Pagination
 
