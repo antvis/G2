@@ -775,3 +775,8 @@ export function BrushHighlight({ facet, brushKey, ...rest }) {
     return () => brush.destroy();
   };
 }
+
+// Ensure BrushHighlight gets reapplied when view updates (e.g., after slider filter)
+BrushHighlight.props = {
+  reapplyWhenUpdate: true,
+};
