@@ -1348,6 +1348,59 @@ The default configuration of domStyles is as follows:
 }
 ```
 
+
+### focus
+
+<description> **optional** _boolean_ </description>
+
+Applicable to <Badge type="success">Categorical Legend</Badge>. Whether to enable legend focus functionality. Default is `false`.
+
+When set to `true`, the legend item will display the focus icon. Users can display only the corresponding chart elements by clicking the focus icon to better highlight the data they are concerned about.
+
+```js | ob { inject: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { name: 'London', month: 'Jan.', avgRainfall: 18.9 },
+    { name: 'London', month: 'Feb.', avgRainfall: 28.8 },
+    { name: 'London', month: 'Mar.', avgRainfall: 39.3 },
+    { name: 'London', month: 'Apr.', avgRainfall: 81.4 },
+    { name: 'London', month: 'May', avgRainfall: 47 },
+    { name: 'London', month: 'Jun.', avgRainfall: 20.3 },
+    { name: 'London', month: 'Jul.', avgRainfall: 24 },
+    { name: 'London', month: 'Aug.', avgRainfall: 35.6 },
+    { name: 'Berlin', month: 'Jan.', avgRainfall: 12.4 },
+    { name: 'Berlin', month: 'Feb.', avgRainfall: 23.2 },
+    { name: 'Berlin', month: 'Mar.', avgRainfall: 34.5 },
+    { name: 'Berlin', month: 'Apr.', avgRainfall: 99.7 },
+    { name: 'Berlin', month: 'May', avgRainfall: 52.6 },
+    { name: 'Berlin', month: 'Jun.', avgRainfall: 35.5 },
+    { name: 'Berlin', month: 'Jul.', avgRainfall: 37.4 },
+    { name: 'Berlin', month: 'Aug.', avgRainfall: 42.4 },
+  ],
+  encode: { x: 'month', y: 'avgRainfall', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  legend: {
+    color: {
+      focus: true,
+      focusMarkerSize: 12
+    },
+  },
+});
+
+chart.render();
+```
+
+### focusMarkerSize
+
+<description> **optional** _number_ </description>
+Applicable to <Badge type="success">Categorical Legend</Badge>. Configure the size of legend item focus icon.
+
 ### color
 
 <description> _string[] | [d3-interpolate](https://github.com/d3/d3-interpolate)_ **optional** </description>
