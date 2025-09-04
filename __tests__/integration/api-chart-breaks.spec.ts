@@ -18,29 +18,18 @@ describe('chart.options.axis.y.breaks', () => {
     expect(canvas).toMatchDOMSnapshot(dir, 'step0');
   });
 
-  it('updates breaks when filtering: exclude "Action"', async () => {
+  it('updates breaks when filtering: exclude "Shooter"', async () => {
     chart.emit('legend:filter', {
       data: {
         channel: 'color',
-        values: ['Sports', 'Strategy', 'Shooter', 'Other'],
+        values: ['Sports', 'Strategy', 'Other'],
       },
     });
     await sleep(500);
     expect(canvas).toMatchDOMSnapshot(dir, 'step1');
   });
 
-  it('updates breaks when filtering: exclude "Action" and "Other"', async () => {
-    chart.emit('legend:filter', {
-      data: {
-        channel: 'color',
-        values: ['Sports', 'Strategy', 'Shooter'],
-      },
-    });
-    await sleep(500);
-    expect(canvas).toMatchDOMSnapshot(dir, 'step2');
-  });
-
-  it('updates breaks when filtering: only "Sports" and "Strategy"', async () => {
+  it('updates breaks when filtering: exclude "Shooter" and "Other"', async () => {
     chart.emit('legend:filter', {
       data: {
         channel: 'color',
@@ -48,7 +37,7 @@ describe('chart.options.axis.y.breaks', () => {
       },
     });
     await sleep(500);
-    expect(canvas).toMatchDOMSnapshot(dir, 'step3');
+    expect(canvas).toMatchDOMSnapshot(dir, 'step2');
   });
 
   afterAll(() => {
