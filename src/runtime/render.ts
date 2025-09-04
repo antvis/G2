@@ -149,6 +149,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   context.emitter = emitter;
   context.canvas =
     context.canvas || (group?.ownerDocument?.defaultView as GCanvas);
+  context.externals = {};
 
   emitter.emit(ChartEvent.BEFORE_RENDER);
   // Plot the chart and mutate context.
