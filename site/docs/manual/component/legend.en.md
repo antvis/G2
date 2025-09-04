@@ -112,6 +112,7 @@ Some configuration options are scoped to categorical legends and continuous lege
 | poptip <Badge type="success">Categorical Legend</Badge>            | Legend item poptip                                 | [poptip](#poptip)                                                        | See [poptip](#poptip)                       |
 | focus <Badge type="success">Categorical Legend</Badge> | Whether to enable legend focus | boolean | false | |
 | focusMarkerSize <Badge type="success">Categorical Legend</Badge> | Legend Focus Icon Size | number | 12 | |
+| defaultSelect <Badge type="success">Categorical Legend</Badge> | Default selected legend items | string[] | - | |
 | color <Badge type="warning">Continuous Legend</Badge>           | Configure color band colors for continuous legend                                     | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |          |
 | block <Badge type="warning">Continuous Legend</Badge>           | Whether continuous legend displays by intervals                                       | boolean                                                            | false                                 |          |
 | type <Badge type="warning">Continuous Legend</Badge>            | Configure type of continuous legend                                                   | `size` \|`color`                                                   | `color`                               |          |
@@ -119,9 +120,6 @@ Some configuration options are scoped to categorical legends and continuous lege
 | handle <Badge type="warning">Continuous Legend</Badge>          | Configure slider handle of continuous legend                                          | [handle](#handle)                                                  | See [handle](#handle)                 |          |
 | label <Badge type="warning">Continuous Legend</Badge>           | Configure labels/tick values of continuous legend                                     | [label](#label)                                                    | See [label](#label)                   |          |
 | indicator <Badge type="warning">Continuous Legend</Badge>       | Configure indicator of continuous legend                                              | [indicator](#indicator)                                            | See [indicator](#indicator)           |          |
-| focus | Whether to enable legend focus | boolean | false | |
-| focusMarkerSize | Legend Focus Icon Size | number | 12 | |
-| defaultSelect | Default selected legend items | string[] | - | |
 
 ### orientation
 

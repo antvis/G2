@@ -112,6 +112,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | poptip <Badge type="success">分类图例</Badge>            | 图例项提示                                 | [poptip](#poptip)                                                        | 详见[poptip](#poptip)                       |
 | focus    <Badge type="success">分类图例</Badge>    |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
 | focusMarkerSize     <Badge type="success">分类图例</Badge>   | 图例聚焦图标大小                                                                                | number                    | 12     |      |
+| defaultSelect  <Badge type="success">分类图例</Badge>| 默认选中的图例项 | string[] | - | |
 | color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
 | block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | false                                 |
 | type <Badge type="warning">连续图例</Badge>           | 配置连续图例的类型                               | `size` \|`color`                                                   | `color`                               |
@@ -119,9 +120,6 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | handle <Badge type="warning">连续图例</Badge>         | 配置连续图例的滑动手柄                           | [handle](#handle)                                                  | 详见[handle](#handle)                 |
 | label <Badge type="warning">连续图例</Badge>          | 配置连续图例的标签/刻度值                        | [label](#label)                                                    | 详见[label](#label)                   |
 | indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
-| focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
-| focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
-| defaultSelect | 默认选中的图例项 | string[] | - | |
 
 ### orientation
 
