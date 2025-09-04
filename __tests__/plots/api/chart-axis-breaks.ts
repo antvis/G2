@@ -37,6 +37,7 @@ export function chartAxisBreaks(context) {
     .transform({ type: 'dodgeX' })
     .encode('color', 'type')
     .interaction('tooltip', { shared: true })
+    .scale('y', { nice: true })
     .axis('x', { title: false })
     .axis('y', {
       title: false,

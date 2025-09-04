@@ -1,5 +1,5 @@
 import { Path } from '@antv/g';
-import { get, deepMix } from '@antv/util';
+import { get, deepMix, set } from '@antv/util';
 import type { PathStyleProps } from '@antv/g';
 import {
   BREAK_GROUP_CLASS_NAME,
@@ -75,25 +75,67 @@ const createPathPoints = (
   return [pathPoints, clipPoints] as const;
 };
 
-const updateScale = (view, breakValues) => {
-  const scale = get(view, 'scale.y');
-  const scaleOptions = get(scale, 'options', {});
-  const { breaks } = scaleOptions;
-  const filterBreaks = breaks.filter(
-    (b) => b.start !== breakValues[0] && b.end !== breakValues[1],
-  );
-  scale.update({
-    ...scaleOptions,
-    breaks: filterBreaks,
-  });
-};
-
-export const AxisBreaks = (options, params) => {
+export const AxisBreaks = (_, params) => {
   const { context, selection, view } = params;
   const layer = selection.select(`.${PLOT_CLASS_NAME}`).node();
   const { document } = context.canvas;
-  const { externals } = context;
   const { scale } = view;
+
+  const collapsed = new Map<string, BreakOptions>();
+
+  const handleCollapseToggle = async (
+    key: string,
+    start: number,
+    end: number,
+  ) => {
+    const { update, setState } = context.externals;
+    setState('options', (prev) => {
+      const { marks } = prev;
+      if (!marks || !marks.length) return prev;
+      const newMarks = marks.map((mark) => {
+        const breaks = get(mark, 'scale.y.breaks', []);
+
+        const newBreaks = breaks.filter(
+          (b) => b.start !== start && b.end !== end && !b.collapsed,
+        );
+        // add collapsed: true flag to the corresponding breaks
+        breaks.forEach((b) => {
+          if (b.start === start && b.end === end) {
+            b.collapsed = true;
+          }
+        });
+        console.log('breaks group:', breaks, newBreaks);
+        return deepMix({}, mark, { scale: { y: { breaks: newBreaks } } });
+      });
+      collapsed.set(key, { start, end });
+      return { ...prev, marks: newMarks };
+    });
+    await update();
+  };
+
+  const resetCollapsed = async () => {
+    if (!collapsed.size) return;
+    const { update, setState } = context.externals;
+    setState('options', (prev) => {
+      const { marks } = prev;
+      const newMarks = marks.map((mark) => {
+        const breaks = get(mark, 'scale.y.breaks', []);
+        set(
+          mark,
+          'scale.y.breaks',
+          breaks.map((b) => ({
+            ...b,
+            collapsed: false,
+          })),
+        );
+        return mark;
+      });
+      collapsed.clear();
+      return { ...prev, marks: newMarks };
+    });
+    await update();
+  };
+
   return (option: BreakOptions) => {
     const {
       key,
@@ -162,36 +204,25 @@ export const AxisBreaks = (options, params) => {
     try {
       const path1 = new Path({ style: { ...pathAttrs, d: linePath } });
       const path2 = new Path({
-        style: { ...pathAttrs, d: clipPath, lineWidth: 0 },
+        style: { ...pathAttrs, d: clipPath, lineWidth: 0, cursor: 'pointer' },
       });
+      // double click to remove break
       path2.addEventListener('click', async (e) => {
-        // double click to remove break
+        e.stopPropagation();
         if (e.detail === 2) {
-          updateScale(view, [start, end]);
-          const { update, setState } = context.externals;
-          setState('options', (prev) => {
-            const { marks } = prev;
-            if (!marks || !marks.length) return prev;
-            const newMarks = marks.map((mark) => {
-              const breaks = get(mark, 'scale.y.breaks', []);
-              const newBreaks = breaks.filter(
-                (b) => b.start !== start && b.end !== end && !b.used,
-              );
-              // add used: true flag to the corresponding breaks
-              breaks.forEach((b) => {
-                if (b.start === start && b.end === end) {
-                  b.used = true;
-                }
-              });
-              return deepMix({}, mark, { scale: { y: { breaks: newBreaks } } });
-            });
-            return { ...prev, marks: newMarks };
-          });
-          await update();
+          await handleCollapseToggle(key, start, end);
         }
       });
       g.appendChild(path1);
       g.appendChild(path2);
+
+      // reset collapsed breaks on double click the plot background
+      layer.addEventListener('click', async (e) => {
+        if (e.detail === 2) {
+          await resetCollapsed();
+        }
+      });
+
       layer.appendChild(g);
     } catch (e) {
       console.error('Failed to create break path:', e);
