@@ -188,7 +188,15 @@
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DVqDQaFExcAAAAAAAAAAAAAADmJ7AQ/original"
     },
-     {
+    {
+      "filename": "bar-basic-grouped-focus.ts",
+      "title": {
+        "zh": "图例聚焦条形图",
+        "en": "Legend Focus Bar Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jEH-RbOEVS0AAAAAQEAAAAgAemJ7AQ/original"
+    },
+    {
       "filename": "bar-axis-breaks.ts",
       "title": {
         "zh": "坐标轴断轴条形图",
