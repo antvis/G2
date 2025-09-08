@@ -711,11 +711,14 @@ export function createFindElementByEvent({
  */
 export function calculateSensitivityMultiplier(range: number): number {
   // Base sensitivity factor (adjust this to tune overall responsiveness)
-  const baseFactor = 0.01;
+  const BASE_FACTOR = 0.01;
+  const MIN_RANGE_FOR_SENSITIVITY = 0.0001;
+  const MIN_MULTIPLIER = 0.1;
+  const MAX_MULTIPLIER = 100;
 
   // Simple inverse relationship with reasonable bounds
-  const multiplier = baseFactor / Math.max(range, 0.0001);
+  const multiplier = BASE_FACTOR / Math.max(range, MIN_RANGE_FOR_SENSITIVITY);
 
   // Clamp to reasonable range: 0.1x to 100x
-  return Math.max(0.1, Math.min(100, multiplier));
+  return Math.max(MIN_MULTIPLIER, Math.min(MAX_MULTIPLIER, multiplier));
 }
