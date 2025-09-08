@@ -62,11 +62,29 @@ export function seriesOf(elemenet: G2Element): string {
 }
 
 /**
+ * Get series scale by markerKey
+ */
+function getSeriesByMarkerKey(scale: Record<string, Base<any>>, datum) {
+  // For path mark, markerKey is in datum.element?.__data__?.markKey.
+  const markerKey = datum.markKey ?? datum.element?.__data__?.markKey;
+
+  const seriesKey = Object.keys(scale).find((channel) => {
+    if (channel.startsWith('series')) {
+      const options = scale[channel].getOptions();
+      return options.name === 'series' && options.markerKey === markerKey;
+    }
+  });
+  return scale[seriesKey] ?? scale.series;
+}
+
+/**
  * Get group name with view's scale and element's datum.
  */
 export function groupNameOf(scale: Record<string, Base<any>>, datum) {
-  const { color: scaleColor, series: scaleSeries, facet = false } = scale;
+  const { color: scaleColor, facet = false } = scale;
   const { color, series } = datum;
+  const scaleSeries = getSeriesByMarkerKey(scale, datum);
+
   const invertAble = (scale) => {
     return (
       scale &&
