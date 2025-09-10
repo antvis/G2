@@ -1,4 +1,4 @@
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 import { G2Spec } from '../../../src';
 
 export async function countries50mWorldMapPoint(): Promise<G2Spec> {

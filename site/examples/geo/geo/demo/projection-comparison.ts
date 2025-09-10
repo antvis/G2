@@ -2,7 +2,7 @@
  * A recreation of this demo: https://observablehq.com/@d3/projection-comparison
  */
 import { Chart, register } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 import { geoPolyconic, geoRectangularPolyconic } from 'd3-geo-projection';
 
 register('data.feature', ({ name }) => {

@@ -11,7 +11,7 @@ order: 1
 
 ```ts
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/us-10m.json').then((res) =>
@@ -30,7 +30,7 @@ Promise.all([
 
   chart
     .geoPath()
-    .projection({ type: 'albersUsa' })
+    .coordinate({ type: 'albersUsa' })
     .data({
       value: counties,
       transform: [
@@ -69,7 +69,7 @@ Promise.all([
 
 ```ts
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 const chart = new Chart({
   container: 'container',

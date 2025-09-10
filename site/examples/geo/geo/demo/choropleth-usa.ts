@@ -2,7 +2,7 @@
  * A recreation of this demo: https://vega.github.io/vega-lite/examples/geo_choropleth.html
  */
 import { Chart, register } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 register('data.feature', ({ name }) => {
   return (data) => feature(data, data.objects[name]).features;
