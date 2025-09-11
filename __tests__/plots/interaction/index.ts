@@ -90,3 +90,6 @@ export { issue6093 } from './issue-6093';
 export { multipleInteractionsCoexist } from './multiple-interactions-coexist';
 export { penguinsPointBrushFilterNoMove } from './penguins-point-brush-filter-no-move';
 export { stateAgesSankeyHighlight } from './stateages-sankey-highlight';
+export { stocksLineSliderWheel } from './stocks-line-slider-wheel';
+export { aaplLineSliderWheel } from './aapl-line-slider-wheel';
+export { intervalSliderWheelTranspose } from './interval-slider-wheel-transpose';

@@ -699,3 +699,26 @@ export function createFindElementByEvent({
     });
   };
 }
+
+/**
+ * Calculate adaptive sensitivity multiplier (inversely proportional to range).
+ *
+ * - Smaller range → higher sensitivity
+ * - Larger range → lower sensitivity
+ *
+ * @param range Current range (0-1)
+ * @returns Sensitivity multiplier (0.1x ~ 100x)
+ */
+export function calculateSensitivityMultiplier(range: number): number {
+  // Base sensitivity factor (adjust this to tune overall responsiveness)
+  const BASE_FACTOR = 0.01;
+  const MIN_RANGE_FOR_SENSITIVITY = 0.0001;
+  const MIN_MULTIPLIER = 0.1;
+  const MAX_MULTIPLIER = 100;
+
+  // Simple inverse relationship with reasonable bounds
+  const multiplier = BASE_FACTOR / Math.max(range, MIN_RANGE_FOR_SENSITIVITY);
+
+  // Clamp to reasonable range: 0.1x to 100x
+  return Math.max(MIN_MULTIPLIER, Math.min(MAX_MULTIPLIER, multiplier));
+}
