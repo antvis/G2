@@ -43,6 +43,14 @@
         "en": "Axis"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NEbsT6qCFSEAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "render.ts",
+      "title": {
+        "zh": "坐标轴标签自定义渲染",
+        "en": "Axis Label Custom Render"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HF0HT55uskMAAAAAQgAAAAgAemJ7AQ/fmt.avif"
     }
   ]
 }

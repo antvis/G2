@@ -67,3 +67,4 @@ export { chartEmitTooltipShow } from './chart-emit-tooltip-show';
 export { chartEmitLegendDefaultSelect } from './chart-emit-legend-default-select';
 export { sankeyChangeData } from './sankey-change-data';
 export { chartSliderBrushHighlight } from './chart-slider-brush-highlight';
+export { chartAxisLabelRender } from './chart-axis-label-render';

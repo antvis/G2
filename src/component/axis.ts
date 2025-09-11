@@ -37,6 +37,11 @@ export type AxisOptions = {
   direction?: 'left' | 'center' | 'right';
   labelFormatter?: (datum: any, index: number, array: any[]) => string;
   labelFilter?: (datum: any, index: number, array: any[]) => boolean;
+  labelRender?: (
+    datum: any,
+    index: number,
+    array: any[],
+  ) => string | DisplayObject;
   tickFormatter?: (
     datum: any,
     index: number,
