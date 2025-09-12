@@ -10,8 +10,8 @@ const { QueryAntVDocumentTool, ExtractAntVTopicTool }=  require('@antv/mcp-serve
  */
 module.exports = async ({ github, core, context, issue }) => {
   try {
-    core.info('开始处理 issue...');
-    const library = `${context.repo.repo}`
+    core.info('开始处理 issue...', context.repo.repo);
+    const library = `g2`;
     if (!issue) {
       core.setFailed('找不到 issue 信息');
       return;
@@ -103,6 +103,7 @@ async function getAIResponse(core, userQuestion) {
     });
 
     core.info('成功获取 AI 响应');
+    core.info(JSON.stringify(response));
     return response.choices[0].message.content;
 
   } catch (error) {

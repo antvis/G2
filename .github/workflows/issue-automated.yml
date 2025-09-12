@@ -1,4 +1,4 @@
-name: issue-bot
+name: Issue Automated Processing
 
 on:
   issues:
