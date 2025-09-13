@@ -13,6 +13,22 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*F8DLSYJAyKQAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "cell-calendar.ts",
+      "title": {
+        "zh": "日历色块图",
+        "en": "Calendar heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*-2ggQ6U5_dIAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "cell-calendar-horizontal.ts",
+      "title": {
+        "zh": "水平日历色块图",
+        "en": "Calendar heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_GtkQo1vCHcAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "cell-heatmap.ts",
       "title": {
         "zh": "热力图",
