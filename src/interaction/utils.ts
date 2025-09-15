@@ -724,8 +724,8 @@ export function calculateSensitivityMultiplier(range: number): number {
 }
 
 /**
- * Extract x and y channel values from all marks in the view
- * Simplified version - just merge all data without complex analysis
+ * Extract channel values from all marks in a view.
+ * Supports multi-mark scenarios and array-encoded Y values (e.g., area charts with [low, high]).
  *
  * @param view The view object containing markState
  * @returns Object with xChannelValues and yChannelValues arrays
@@ -752,14 +752,24 @@ export function extractChannelValues(view: any): {
             ) {
               allXChannelValues.push(channel.values[0].value);
             }
-          } else if (channel && channel.name === 'y') {
-            if (
-              channel.values &&
-              channel.values.length > 0 &&
-              channel.values[0] &&
-              channel.values[0].value
-            ) {
-              allYChannelValues.push(channel.values[0].value);
+          } else if (
+            channel &&
+            (channel.name === 'y' || channel.name === 'y1')
+          ) {
+            // Handle both 'y' and 'y1' channels for multi-Y marks like area charts
+            if (channel.values && channel.values.length > 0) {
+              // Process multiple values (area charts may have multiple Y values)
+              for (const valueItem of channel.values) {
+                if (valueItem && valueItem.value) {
+                  const values = valueItem.value;
+                  // Handle array-encoded Y values (e.g., area chart's [low, high])
+                  if (Array.isArray(values)) {
+                    allYChannelValues.push(values.flat());
+                  } else {
+                    allYChannelValues.push(values);
+                  }
+                }
+              }
             }
           }
         }
@@ -767,7 +777,7 @@ export function extractChannelValues(view: any): {
     }
   }
 
-  // Simple merge: concatenate all values
+  // Merge all collected values
   const xChannelValues = allXChannelValues.flat();
   const yChannelValues = allYChannelValues.flat();
 
