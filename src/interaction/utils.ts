@@ -722,3 +722,54 @@ export function calculateSensitivityMultiplier(range: number): number {
   // Clamp to reasonable range: 0.1x to 100x
   return Math.max(MIN_MULTIPLIER, Math.min(MAX_MULTIPLIER, multiplier));
 }
+
+/**
+ * Extract x and y channel values from all marks in the view
+ * Simplified version - just merge all data without complex analysis
+ *
+ * @param view The view object containing markState
+ * @returns Object with xChannelValues and yChannelValues arrays
+ */
+export function extractChannelValues(view: any): {
+  xChannelValues: any[];
+  yChannelValues: any[];
+} {
+  const allXChannelValues: any[][] = [];
+  const allYChannelValues: any[][] = [];
+  const marks = view.markState;
+
+  // Collect data from all marks
+  if (marks) {
+    for (const [mark, state] of marks.entries()) {
+      if (state && state.channels) {
+        for (const channel of state.channels) {
+          if (channel && channel.name === 'x') {
+            if (
+              channel.values &&
+              channel.values.length > 0 &&
+              channel.values[0] &&
+              channel.values[0].value
+            ) {
+              allXChannelValues.push(channel.values[0].value);
+            }
+          } else if (channel && channel.name === 'y') {
+            if (
+              channel.values &&
+              channel.values.length > 0 &&
+              channel.values[0] &&
+              channel.values[0].value
+            ) {
+              allYChannelValues.push(channel.values[0].value);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Simple merge: concatenate all values
+  const xChannelValues = allXChannelValues.flat();
+  const yChannelValues = allYChannelValues.flat();
+
+  return { xChannelValues, yChannelValues };
+}
