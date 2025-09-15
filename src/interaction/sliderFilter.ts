@@ -108,64 +108,58 @@ function calculateFilteredDomain({
 }
 
 /**
- * Enhanced multi-mark filtering for calculating filtered domain
- * considering data from multiple marks in the same view
+ * Enhanced multi-mark filtering using proper X-Y relationships
+ * Process each mark's data separately to maintain correct X-Y pairing
  */
-
-function filterValuesByDiscreteDomain(
+/**
+ * Enhanced multi-mark filtering using proper X-Y relationships
+ * Process each mark's data separately to maintain correct X-Y pairing
+ */
+function filterMarkDataByDomain(
+  markDataPairs: Array<{ xValues: any[]; yValues: any[]; markKey: string }>,
   domain: any[],
-  sourceValues: number[],
-  targetValues: number[],
+  isSourceDiscrete: boolean,
   isTargetDiscrete: boolean,
   shouldPreserveZeroBaseline: boolean,
 ): any[] {
-  const filteredValues: number[] = [];
+  const allFilteredYValues: number[] = [];
 
-  // Discrete scale processing logic
-  for (let i = 0; i < sourceValues.length; i++) {
-    const value = sourceValues[i];
-    // Check if value is in domain array
-    if (domain.includes(value) && i < targetValues.length) {
-      filteredValues.push(targetValues[i]);
+  for (const markData of markDataPairs) {
+    const { xValues, yValues } = markData;
+    const minLength = Math.min(xValues.length, yValues.length);
+
+    // Filter Y values based on corresponding X values for this mark
+    for (let i = 0; i < minLength; i++) {
+      const xValue = xValues[i];
+      const yValue = yValues[i];
+
+      let shouldInclude = false;
+
+      if (isSourceDiscrete) {
+        // Discrete scale: check if X value is in domain array
+        shouldInclude = domain.includes(xValue);
+      } else {
+        // Continuous scale: check if X value is within domain range
+        const [min, max] = [Math.min(...domain), Math.max(...domain)];
+        shouldInclude = xValue >= min && xValue <= max;
+      }
+
+      if (shouldInclude) {
+        // Handle both single values and arrays (for area charts)
+        if (Array.isArray(yValue)) {
+          allFilteredYValues.push(...yValue);
+        } else {
+          allFilteredYValues.push(yValue);
+        }
+      }
     }
   }
 
-  // Calculate filtered domain for discrete scale
-  if (filteredValues.length > 0) {
+  // Calculate filtered domain based on all collected Y values
+  if (allFilteredYValues.length > 0) {
     return calculateFilteredDomain({
       isTargetDiscrete,
-      filteredValues,
-      shouldPreserveZeroBaseline,
-    });
-  }
-
-  return [];
-}
-
-function filterValuesByContinuousDomain(
-  domain: any[],
-  sourceValues: number[],
-  targetValues: number[],
-  isTargetDiscrete: boolean,
-  shouldPreserveZeroBaseline: boolean,
-): any[] {
-  const filteredValues: number[] = [];
-  const [min, max] = [Math.min(...domain), Math.max(...domain)];
-
-  // Continuous scale processing logic
-  for (let i = 0; i < sourceValues.length; i++) {
-    const value = sourceValues[i];
-    // Use value range comparison
-    if (value >= min && value <= max && i < targetValues.length) {
-      filteredValues.push(targetValues[i]);
-    }
-  }
-
-  // Calculate filtered domain for continuous scale
-  if (filteredValues.length > 0) {
-    return calculateFilteredDomain({
-      isTargetDiscrete,
-      filteredValues,
+      filteredValues: allFilteredYValues,
       shouldPreserveZeroBaseline,
     });
   }
@@ -277,18 +271,15 @@ export function SliderFilter({
 
           const { nativeEvent = true } = event;
 
-          // Extract x and y channel data from marks (now supports multi-mark)
-          const { xChannelValues, yChannelValues } = extractChannelValues(view);
+          // Extract x and y channel data from marks with preserved relationships
+          const { xChannelValues, yChannelValues, markDataPairs } =
+            extractChannelValues(view);
 
           // Get and update domain.
           const [domain0, domain1] = domainsOf(event);
 
           let filteredDomain = domain1;
-          if (
-            enableAdaptiveFiltering &&
-            xChannelValues.length > 0 &&
-            yChannelValues.length > 0
-          ) {
+          if (enableAdaptiveFiltering && markDataPairs.length > 0) {
             // When only X slider exists, filter Y domain based on X domain
             // When only Y slider exists, filter X domain based on Y domain
             if ((hasOnlyXSlider && isX) || (hasOnlyYSlider && !isX)) {
@@ -296,13 +287,6 @@ export function SliderFilter({
               const shouldFilterXAxis = hasOnlyYSlider && !isX;
               const domain = domain0 || [];
               if (domain.length > 0) {
-                const sourceValues = shouldFilterXAxis
-                  ? yChannelValues
-                  : xChannelValues;
-                const targetValues = shouldFilterXAxis
-                  ? xChannelValues
-                  : yChannelValues;
-
                 // Get current scale to determine if it's a discrete scale
                 const currentScale = shouldFilterXAxis ? scaleY : scaleX;
                 const targetScale = shouldFilterXAxis ? scaleX : scaleY;
@@ -317,24 +301,14 @@ export function SliderFilter({
                   targetOriginalDomain.length >= 2 &&
                   targetOriginalDomain[0] === 0;
 
-                // Simplified multi-mark filtering logic
-                if (isSourceDiscrete) {
-                  filteredDomain = filterValuesByDiscreteDomain(
-                    domain,
-                    sourceValues,
-                    targetValues,
-                    isTargetDiscrete,
-                    shouldPreserveZeroBaseline,
-                  );
-                } else {
-                  filteredDomain = filterValuesByContinuousDomain(
-                    domain,
-                    sourceValues,
-                    targetValues,
-                    isTargetDiscrete,
-                    shouldPreserveZeroBaseline,
-                  );
-                }
+                // Use improved filtering with proper X-Y relationships
+                filteredDomain = filterMarkDataByDomain(
+                  markDataPairs,
+                  domain,
+                  isSourceDiscrete,
+                  isTargetDiscrete,
+                  shouldPreserveZeroBaseline,
+                );
 
                 if (filteredDomain.length > 0) {
                   channelDomain[shouldFilterXAxis ? 'x' : 'y'] = filteredDomain;
