@@ -167,9 +167,16 @@ export type ChartIndexInteraction = {
 
 export type SliderFilterInteraction = {
   type?: 'sliderFilter';
+  initDomain?: Record<string, any>;
+  className?: string;
+  prefix?: string;
+  setValue?: (component: any, values: any) => void;
+  hasState?: boolean;
   wait?: number;
   leading?: boolean;
   trailing?: boolean;
+  enableAdaptive?: boolean;
+  getInitValues?: (slider: any) => any;
 };
 
 export type TooltipInteraction = {
