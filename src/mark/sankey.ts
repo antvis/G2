@@ -70,6 +70,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
     tooltip = {},
     interaction,
     state = {},
+    viewStyle = {},
   } = options;
 
   // Initialize data, generating nodes by link if is not specified.
@@ -84,6 +85,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
         encode: {},
         scale,
         style: subObject(style, 'node'),
+        viewStyle,
         labels: [],
         tooltip: false,
         animate: false,
@@ -160,6 +162,7 @@ export const Sankey: CC<SankeyOptions> = (options) => {
       encode: { ...nodeEncode, color },
       scale,
       style: subObject(style, 'node'),
+      viewStyle,
       labels: [
         {
           ...DEFAULT_LABEL_OPTIONS,
