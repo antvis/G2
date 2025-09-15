@@ -725,7 +725,7 @@ export function calculateSensitivityMultiplier(range: number): number {
 
 /**
  * Extract channel values from all marks in a view.
- * Supports multi-mark scenarios and array-encoded Y values (e.g., area charts with [low, high]).
+ * Supports multi-mark scenarios, bin transforms, and array-encoded Y values.
  *
  * @param view The view object containing markState
  * @returns Object with xChannelValues and yChannelValues arrays
@@ -744,13 +744,13 @@ export function extractChannelValues(view: any): {
       if (state && state.channels) {
         for (const channel of state.channels) {
           if (channel && channel.name === 'x') {
-            if (
-              channel.values &&
-              channel.values.length > 0 &&
-              channel.values[0] &&
-              channel.values[0].value
-            ) {
-              allXChannelValues.push(channel.values[0].value);
+            // Collect all X values (supports bin transforms with multiple values)
+            if (channel.values && channel.values.length > 0) {
+              for (const valueItem of channel.values) {
+                if (valueItem && valueItem.value) {
+                  allXChannelValues.push(valueItem.value);
+                }
+              }
             }
           } else if (
             channel &&
@@ -758,7 +758,6 @@ export function extractChannelValues(view: any): {
           ) {
             // Handle both 'y' and 'y1' channels for multi-Y marks like area charts
             if (channel.values && channel.values.length > 0) {
-              // Process multiple values (area charts may have multiple Y values)
               for (const valueItem of channel.values) {
                 if (valueItem && valueItem.value) {
                   const values = valueItem.value;
@@ -777,9 +776,9 @@ export function extractChannelValues(view: any): {
     }
   }
 
-  // Merge all collected values
-  const xChannelValues = allXChannelValues.flat();
-  const yChannelValues = allYChannelValues.flat();
-
-  return { xChannelValues, yChannelValues };
+  // Flatten all collected values
+  return {
+    xChannelValues: allXChannelValues.flat(),
+    yChannelValues: allYChannelValues.flat(),
+  };
 }
