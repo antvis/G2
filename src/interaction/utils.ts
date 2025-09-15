@@ -724,61 +724,80 @@ export function calculateSensitivityMultiplier(range: number): number {
 }
 
 /**
- * Extract channel values from all marks in a view.
+ * Extract channel data with preserved X-Y relationships from all marks in a view.
  * Supports multi-mark scenarios, bin transforms, and array-encoded Y values.
  *
  * @param view The view object containing markState
- * @returns Object with xChannelValues and yChannelValues arrays
+ * @returns Object containing flattened values for backward compatibility and structured mark data
  */
 export function extractChannelValues(view: any): {
   xChannelValues: any[];
   yChannelValues: any[];
+  markDataPairs: Array<{ xValues: any[]; yValues: any[]; markKey: string }>;
 } {
   const allXChannelValues: any[][] = [];
   const allYChannelValues: any[][] = [];
+  const markDataPairs: Array<{
+    xValues: any[];
+    yValues: any[];
+    markKey: string;
+  }> = [];
   const marks = view.markState;
 
-  // Collect data from all marks
   if (marks) {
     for (const [mark, state] of marks.entries()) {
-      if (state && state.channels) {
+      if (state?.channels) {
+        let markXValues: any[] = [];
+        let markYValues: any[] = [];
+
+        // Process each channel for the current mark
         for (const channel of state.channels) {
-          if (channel && channel.name === 'x') {
-            // Collect all X values (supports bin transforms with multiple values)
-            if (channel.values && channel.values.length > 0) {
-              for (const valueItem of channel.values) {
-                if (valueItem && valueItem.value) {
-                  allXChannelValues.push(valueItem.value);
-                }
+          if (channel?.name === 'x' && channel.values?.length > 0) {
+            // Collect X values (supports bin transforms with multiple values)
+            for (const valueItem of channel.values) {
+              if (valueItem?.value) {
+                markXValues = markXValues.concat(valueItem.value);
+                allXChannelValues.push(valueItem.value);
               }
             }
           } else if (
             channel &&
-            (channel.name === 'y' || channel.name === 'y1')
+            (channel.name === 'y' || channel.name === 'y1') &&
+            channel.values?.length > 0
           ) {
-            // Handle both 'y' and 'y1' channels for multi-Y marks like area charts
-            if (channel.values && channel.values.length > 0) {
-              for (const valueItem of channel.values) {
-                if (valueItem && valueItem.value) {
-                  const values = valueItem.value;
-                  // Handle array-encoded Y values (e.g., area chart's [low, high])
-                  if (Array.isArray(values)) {
-                    allYChannelValues.push(values.flat());
-                  } else {
-                    allYChannelValues.push(values);
-                  }
+            // Handle Y and Y1 channels for multi-Y marks (e.g., area charts)
+            for (const valueItem of channel.values) {
+              if (valueItem?.value) {
+                const values = valueItem.value;
+                // Handle array-encoded Y values (e.g., area chart's [low, high])
+                if (Array.isArray(values)) {
+                  const flatValues = values.flat();
+                  markYValues = markYValues.concat(flatValues);
+                  allYChannelValues.push(flatValues);
+                } else {
+                  markYValues = markYValues.concat(values);
+                  allYChannelValues.push(values);
                 }
               }
             }
           }
         }
+
+        // Store mark data with preserved X-Y relationships
+        if (markXValues.length > 0 && markYValues.length > 0) {
+          markDataPairs.push({
+            xValues: markXValues,
+            yValues: markYValues,
+            markKey: mark.key || `mark_${markDataPairs.length}`,
+          });
+        }
       }
     }
   }
 
-  // Flatten all collected values
   return {
     xChannelValues: allXChannelValues.flat(),
     yChannelValues: allYChannelValues.flat(),
+    markDataPairs,
   };
 }
