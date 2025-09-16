@@ -365,3 +365,4 @@ export { helixGene } from './helix-gene';
 export { expr } from './expr';
 export { labelExceedAdjustBoundsMain } from './label-exceed-adjust-bounds-main';
 export { alphabetIntervalAxisTickLengthCallback } from './alphabet-interval-axis-ticklength-callback';
+export { alphabetSwarm } from './alphabet-swarm';
