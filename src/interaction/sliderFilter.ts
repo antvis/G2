@@ -1,14 +1,42 @@
 import { deepMix, throttle, upperFirst } from '@antv/util';
 import { CustomEvent } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
-import { invert, domainOf, sliderAbstractOf } from '../utils/scale';
+import {
+  invert,
+  domainOf,
+  sliderAbstractOf,
+  isOrdinalScale,
+} from '../utils/scale';
+import { SliderFilterInteraction } from '../spec/interaction';
+import { extractChannelValues, isFalsyValue } from './utils';
+
+// Adaptive filter mode types
+export type AdaptiveFilterMode =
+  | 'filter' // Filter data outside window, affects other axis
+  | false // Disable adaptive filtering
+  | null; // Disable adaptive filtering
 
 export const SLIDER_CLASS_NAME = 'slider';
 
+interface FilterDataByDomainOptions {
+  marks: any[];
+  [key: string]: any;
+}
+
+interface ScaleOptions {
+  [key: string]: any;
+}
+
+interface CalculateFilteredDomainOptions {
+  isTargetDiscrete: boolean;
+  filteredValues: number[];
+  shouldPreserveZeroBaseline: boolean;
+}
+
 function filterDataByDomain(
-  options,
-  scaleOptions,
-  prefix,
+  options: FilterDataByDomainOptions,
+  scaleOptions: ScaleOptions,
+  prefix: string,
   hasState = false,
   channel0 = 'x',
   channel1 = 'y',
@@ -50,16 +78,100 @@ function filterDataByDomain(
   };
 }
 
-function abstractValue(values, scale, reverse) {
+function abstractValue(values: [number, number], scale: any, reverse: boolean) {
   const [x, x1] = values;
-  const v = reverse ? (d) => 1 - d : (d) => d;
+  const v = reverse ? (d: number) => 1 - d : (d: number) => d;
   const d0 = invert(scale, v(x), true);
   const d1 = invert(scale, v(x1), false);
   return domainOf(scale, [d0, d1]);
 }
 
-function extentOf(domain) {
+function extentOf(domain: any[]) {
   return [domain[0], domain[domain.length - 1]];
+}
+
+function getUniqueSortedValues(values: number[]): any[] {
+  // Use Set to remove duplicates, then sort
+  const uniqueValues = Array.from(new Set(values));
+  return uniqueValues.sort((a, b) => a - b);
+}
+
+function calculateFilteredDomain({
+  isTargetDiscrete,
+  filteredValues,
+  shouldPreserveZeroBaseline,
+}: CalculateFilteredDomainOptions): any[] {
+  if (isTargetDiscrete) {
+    // Target is discrete scale: use unique filtered values as domain
+    return getUniqueSortedValues(filteredValues);
+  } else {
+    // Target is continuous scale: use value range
+    const min = Math.min(...filteredValues);
+    const max = Math.max(...filteredValues);
+    // If the original domain starts from 0, keep 0 as the lower limit
+    return shouldPreserveZeroBaseline ? [0, max] : [min, max];
+  }
+}
+
+/**
+ * Enhanced multi-mark filtering for adaptive modes
+ * Supports data filtering based on domain constraints
+ */
+function filterMarkDataByDomain(
+  markDataPairs: Array<{ xValues: any[]; yValues: any[]; markKey: string }>,
+  domain: any[],
+  isSourceDiscrete: boolean,
+  isTargetDiscrete: boolean,
+  shouldPreserveZeroBaseline: boolean,
+  adaptiveMode: AdaptiveFilterMode = 'filter',
+): any[] {
+  if (isFalsyValue(adaptiveMode)) {
+    return []; // No adaptive filtering
+  }
+
+  const allFilteredYValues: number[] = [];
+
+  for (const markData of markDataPairs) {
+    const { xValues, yValues } = markData;
+    const minLength = Math.min(xValues.length, yValues.length);
+
+    // Filter Y values based on corresponding X values for this mark
+    for (let i = 0; i < minLength; i++) {
+      const xValue = xValues[i];
+      const yValue = yValues[i];
+
+      let shouldInclude = false;
+
+      if (isSourceDiscrete) {
+        // Discrete scale: check if X value is in domain array
+        shouldInclude = domain.includes(xValue);
+      } else {
+        // Continuous scale: check if X value is within domain range
+        const [min, max] = [Math.min(...domain), Math.max(...domain)];
+        shouldInclude = xValue >= min && xValue <= max;
+      }
+
+      // Apply filter mode: include data only if X value is within domain
+      if (adaptiveMode === 'filter' && shouldInclude) {
+        if (Array.isArray(yValue)) {
+          allFilteredYValues.push(...yValue);
+        } else {
+          allFilteredYValues.push(yValue);
+        }
+      }
+    }
+  }
+
+  // Calculate filtered domain based on all collected Y values
+  if (allFilteredYValues.length > 0) {
+    return calculateFilteredDomain({
+      isTargetDiscrete,
+      filteredValues: allFilteredYValues,
+      shouldPreserveZeroBaseline,
+    });
+  }
+
+  return [];
 }
 
 /**
@@ -74,12 +186,13 @@ export function SliderFilter({
   wait = 50,
   leading = true,
   trailing = false,
+  adaptiveMode = 'filter',
   getInitValues = (slider) => {
     const values = slider?.attributes?.values;
     if (values[0] !== 0 || values[1] !== 1) return values;
   },
-}: any) {
-  return (context, _, emitter) => {
+}: SliderFilterInteraction) {
+  return (context: any, _: any, emitter: any) => {
     const { container, view, update, setState } = context;
     const sliders = container.getElementsByClassName(className);
     if (!sliders.length) return () => {};
@@ -90,7 +203,7 @@ export function SliderFilter({
     const { x: scaleX, y: scaleY } = scale;
     const transposed = isTranspose(coordinate);
 
-    const channelOf = (orientation) => {
+    const channelOf = (orientation: string) => {
       const channel0 = orientation === 'vertical' ? 'y' : 'x';
       const channel1 = orientation === 'vertical' ? 'x' : 'y';
       if (transposed) return [channel1, channel0];
@@ -106,6 +219,27 @@ export function SliderFilter({
       y: initDomain.y || scaleY.getOptions().domain,
     };
 
+    // Slider configuration detection: Determine the current existing slider types
+    // 1. Only X slider: Adaptively adjust Y-axis range when filtering on X-axis
+    // 2. Only Y slider: Adaptively adjust X-axis range when filtering on Y-axis
+    // 3. Both sliders exist: Work independently without adaptive adjustment
+
+    const sliderArray = Array.from(sliders);
+
+    const hasSliderOfType = (type: string) =>
+      sliderArray.some((slider: any) => {
+        const { orientation } = slider.attributes;
+        const [channel0] = channelOf(orientation);
+        return channel0 === type;
+      });
+
+    const hasOnlyXSlider = hasSliderOfType('x') && !hasSliderOfType('y');
+    const hasOnlyYSlider = hasSliderOfType('y') && !hasSliderOfType('x');
+
+    // Determine whether to enable adaptive filtering based on adaptiveMode and slider types
+    const enableAdaptiveFiltering =
+      !isFalsyValue(adaptiveMode) && (hasOnlyXSlider || hasOnlyYSlider);
+
     for (const slider of sliders) {
       const { orientation } = slider.attributes;
       const [channel0, channel1] = channelOf(orientation);
@@ -113,7 +247,7 @@ export function SliderFilter({
       const isX = channel0 === 'x';
       const { ratio: ratioX } = scaleX.getOptions();
       const { ratio: ratioY } = scaleY.getOptions();
-      const domainsOf = (event) => {
+      const domainsOf = (event: any) => {
         // From abstract values.
         if (event.data) {
           const { selection } = event.data;
@@ -137,17 +271,59 @@ export function SliderFilter({
       };
 
       const onValueChange = throttle(
-        async (event) => {
+        async (event: any) => {
           const { initValue = false } = event;
           if (filtering && !initValue) return;
           filtering = true;
 
           const { nativeEvent = true } = event;
 
+          // Extract x and y channel data from marks with preserved relationships
+          const { xChannelValues, yChannelValues, markDataPairs } =
+            extractChannelValues(view);
+
           // Get and update domain.
           const [domain0, domain1] = domainsOf(event);
-          channelDomain[channel0] = domain0;
-          channelDomain[channel1] = domain1;
+
+          let filteredDomain = domain1;
+          if (enableAdaptiveFiltering && markDataPairs.length > 0) {
+            // When only X slider exists, filter Y domain based on X domain
+            // When only Y slider exists, filter X domain based on Y domain
+            if ((hasOnlyXSlider && isX) || (hasOnlyYSlider && !isX)) {
+              // Determine which axis we should filter
+              const shouldFilterXAxis = hasOnlyYSlider && !isX;
+              const domain = domain0 || [];
+              if (domain.length > 0) {
+                // Get current scale to determine if it's a discrete scale
+                const currentScale = shouldFilterXAxis ? scaleY : scaleX;
+                const targetScale = shouldFilterXAxis ? scaleX : scaleY;
+                const isSourceDiscrete = isOrdinalScale(currentScale);
+                const isTargetDiscrete = isOrdinalScale(targetScale);
+
+                // Check if the target scale's original domain starts from 0, used to preserve 0 baseline
+                const targetOriginalDomain = targetScale.getOptions().domain;
+                const shouldPreserveZeroBaseline =
+                  !isTargetDiscrete &&
+                  targetOriginalDomain &&
+                  targetOriginalDomain.length >= 2 &&
+                  targetOriginalDomain[0] === 0;
+
+                // Use improved filtering with proper X-Y relationships
+                filteredDomain = filterMarkDataByDomain(
+                  markDataPairs,
+                  domain,
+                  isSourceDiscrete,
+                  isTargetDiscrete,
+                  shouldPreserveZeroBaseline,
+                  adaptiveMode,
+                );
+
+                if (filteredDomain.length > 0) {
+                  channelDomain[shouldFilterXAxis ? 'x' : 'y'] = filteredDomain;
+                }
+              }
+            }
+          }
 
           if (nativeEvent) {
             // Emit events.
@@ -159,13 +335,24 @@ export function SliderFilter({
               data: { selection: [extentOf(X), extentOf(Y)] },
             });
           }
-
-          setState(slider, (options) => ({
+          // Update the current slider
+          setState(slider, (options: any) => ({
             ...filterDataByDomain(
               options,
               // Set nice to false to avoid modify domain.
               // Only update domain of current slider / scrollbar.
-              { [channel0]: { domain: domain0, nice: false } },
+              {
+                [channel0]: { domain: domain0, nice: false },
+                // Only apply adaptive filtering when there's only one slider
+                ...(enableAdaptiveFiltering
+                  ? {
+                      [channel1]: {
+                        domain: filteredDomain,
+                        nice: false,
+                      },
+                    }
+                  : {}),
+              },
               prefix,
               hasState,
               channel0,
@@ -180,7 +367,7 @@ export function SliderFilter({
         { leading, trailing },
       );
 
-      const emitHandler = (event) => {
+      const emitHandler = (event: any) => {
         const { nativeEvent } = event;
         if (nativeEvent) return;
 

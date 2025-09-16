@@ -722,3 +722,93 @@ export function calculateSensitivityMultiplier(range: number): number {
   // Clamp to reasonable range: 0.1x to 100x
   return Math.max(MIN_MULTIPLIER, Math.min(MAX_MULTIPLIER, multiplier));
 }
+
+/**
+ * Check if a value is considered "falsy" for configuration purposes.
+ * Returns true for false, null, or undefined values.
+ *
+ * @param value The value to check
+ * @returns true if the value is falsy (false, null, undefined)
+ */
+export function isFalsyValue(value: any): boolean {
+  return value === false || value === null || value === undefined;
+}
+
+/**
+ * Extract channel data with preserved X-Y relationships from all marks in a view.
+ * Supports multi-mark scenarios, bin transforms, and array-encoded Y values.
+ *
+ * @param view The view object containing markState
+ * @returns Object containing flattened values for backward compatibility and structured mark data
+ */
+export function extractChannelValues(view: any): {
+  xChannelValues: any[];
+  yChannelValues: any[];
+  markDataPairs: Array<{ xValues: any[]; yValues: any[]; markKey: string }>;
+} {
+  const allXChannelValues: any[][] = [];
+  const allYChannelValues: any[][] = [];
+  const markDataPairs: Array<{
+    xValues: any[];
+    yValues: any[];
+    markKey: string;
+  }> = [];
+  const marks = view.markState;
+
+  if (marks) {
+    for (const [mark, state] of marks.entries()) {
+      if (state?.channels) {
+        let markXValues: any[] = [];
+        let markYValues: any[] = [];
+
+        // Process each channel for the current mark
+        for (const channel of state.channels) {
+          if (channel?.name === 'x' && channel.values?.length > 0) {
+            // Collect X values (supports bin transforms with multiple values)
+            for (const valueItem of channel.values) {
+              if (valueItem?.value) {
+                markXValues = markXValues.concat(valueItem.value);
+                allXChannelValues.push(valueItem.value);
+              }
+            }
+          } else if (
+            channel &&
+            (channel.name === 'y' || channel.name === 'y1') &&
+            channel.values?.length > 0
+          ) {
+            // Handle Y and Y1 channels for multi-Y marks (e.g., area charts)
+            for (const valueItem of channel.values) {
+              if (valueItem?.value) {
+                const values = valueItem.value;
+                // Handle array-encoded Y values (e.g., area chart's [low, high])
+                if (Array.isArray(values)) {
+                  const flatValues = values.flat();
+                  markYValues = markYValues.concat(flatValues);
+                  allYChannelValues.push(flatValues);
+                } else {
+                  markYValues = markYValues.concat(values);
+                  allYChannelValues.push(values);
+                }
+              }
+            }
+          }
+        }
+
+        // Store mark data with preserved X-Y relationships
+        if (markXValues.length > 0 && markYValues.length > 0) {
+          markDataPairs.push({
+            xValues: markXValues,
+            yValues: markYValues,
+            markKey: mark.key || `mark_${markDataPairs.length}`,
+          });
+        }
+      }
+    }
+  }
+
+  return {
+    xChannelValues: allXChannelValues.flat(),
+    yChannelValues: allYChannelValues.flat(),
+    markDataPairs,
+  };
+}
