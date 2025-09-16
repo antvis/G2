@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function alphabetSwarm(): G2Spec {
+export function alphabetBeeswarm(): G2Spec {
   const data = Array.from({ length: 300 }, (_, i) => {
     return {
       x: `G${(i % 6) + 1}`,
@@ -10,7 +10,7 @@ export function alphabetSwarm(): G2Spec {
   });
 
   return {
-    type: 'swarm',
+    type: 'beeswarm',
     data,
     encode: {
       x: 'x',

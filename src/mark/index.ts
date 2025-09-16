@@ -30,7 +30,7 @@ export { Gauge } from './gauge';
 export { Density } from './density';
 export { Heatmap } from './heatmap';
 export { Liquid } from './liquid';
-export { Swarm } from './swarm';
+export { Beeswarm } from './beeswarm';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';
@@ -62,4 +62,4 @@ export type { GaugeOptions } from './gauge';
 export type { DensityOptions } from './density';
 export type { HeatmapOptions } from './heatmap';
 export type { LiquidOptions } from './liquid';
-export type { SwarmOptions } from './swarm';
+export type { BeeswarmOptions } from './beeswarm';

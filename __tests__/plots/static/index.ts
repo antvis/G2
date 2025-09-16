@@ -365,4 +365,6 @@ export { helixGene } from './helix-gene';
 export { expr } from './expr';
 export { labelExceedAdjustBoundsMain } from './label-exceed-adjust-bounds-main';
 export { alphabetIntervalAxisTickLengthCallback } from './alphabet-interval-axis-ticklength-callback';
-export { alphabetSwarm } from './alphabet-swarm';
+export { alphabetBeeswarm } from './alphabet-beeswarm';
+export { alphaBeeswarmTranspose } from './alphabet-beeswarm-transpose';
+export { alphaBeeswarmShape } from './alphabet-beeswarm-shape';

@@ -6,7 +6,29 @@ import {
 } from '@antv/vendor/d3-force';
 import { MarkComponent as MC, Vector2 } from '../runtime';
 import { PointMark } from '../spec';
-import { PointShape, PointCircle } from '../shape';
+import {
+  PointBowtie,
+  PointCross,
+  PointDiamond,
+  PointHexagon,
+  PointHollowBowtie,
+  PointHollowDiamond,
+  PointHollowHexagon,
+  PointHollow,
+  PointHollowSquare,
+  PointHollowTriangle,
+  PointHollowTriangleDown,
+  PointHyphen,
+  PointLine,
+  PointTriangleDown,
+  PointPlus,
+  PointSquare,
+  PointShape,
+  PointTick,
+  PointTriangle,
+  PointCircle,
+  PointHollowCircle,
+} from '../shape';
 import { MaybeZeroX, MaybeZeroY, MaybeSize } from '../transform';
 import {
   baseGeometryChannels,
@@ -17,19 +39,38 @@ import {
 } from './utils';
 
 const shape = {
+  hollow: PointHollow,
+  hollowDiamond: PointHollowDiamond,
+  hollowHexagon: PointHollowHexagon,
+  hollowSquare: PointHollowSquare,
+  hollowTriangleDown: PointHollowTriangleDown,
+  hollowTriangle: PointHollowTriangle,
+  hollowBowtie: PointHollowBowtie,
+  hollowCircle: PointHollowCircle,
   point: PointShape,
+  plus: PointPlus,
+  diamond: PointDiamond,
+  square: PointSquare,
+  triangle: PointTriangle,
+  hexagon: PointHexagon,
+  cross: PointCross,
+  bowtie: PointBowtie,
+  hyphen: PointHyphen,
+  line: PointLine,
+  tick: PointTick,
+  triangleDown: PointTriangleDown,
   circle: PointCircle,
 };
 
-export type SwarmOptions = Omit<PointMark, 'type'>;
+export type BeeswarmOptions = Omit<PointMark, 'type'>;
 
 const DEFAULT_RADIUS = 4;
 const ITERATIONS = 200;
 
 /**
- * 蜂群图 (Swarm / Beeswarm)
+ * 蜂群图 (Beeswarm)
  */
-export const Swarm: MC<SwarmOptions> = (options) => {
+export const Beeswarm: MC<BeeswarmOptions> = (options) => {
   return (index, scale, value, coordinate) => {
     const { x: X, y: Y, size: S } = value;
 
@@ -88,7 +129,7 @@ export const Swarm: MC<SwarmOptions> = (options) => {
   };
 };
 
-Swarm.props = {
+Beeswarm.props = {
   defaultShape: 'point',
   defaultLabelShape: 'label',
   composite: false,

@@ -34,7 +34,7 @@ import {
   Density,
   Heatmap,
   WordCloud as WordCloudGeometry,
-  Swarm,
+  Beeswarm,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
 import {
@@ -248,7 +248,7 @@ export function corelib() {
     'mark.density': Density,
     'mark.heatmap': Heatmap,
     'mark.wordCloud': WordCloudGeometry,
-    'mark.swarm': Swarm,
+    'mark.beeswarm': Beeswarm,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': ScaleLinear,
