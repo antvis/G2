@@ -186,7 +186,7 @@ export function SliderFilter({
   wait = 50,
   leading = true,
   trailing = false,
-  adaptiveMode = false,
+  adaptiveMode = 'filter',
   getInitValues = (slider) => {
     const values = slider?.attributes?.values;
     if (values[0] !== 0 || values[1] !== 1) return values;
