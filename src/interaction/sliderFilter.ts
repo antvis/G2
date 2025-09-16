@@ -8,7 +8,13 @@ import {
   isOrdinalScale,
 } from '../utils/scale';
 import { SliderFilterInteraction } from '../spec/interaction';
-import { extractChannelValues } from './utils';
+import { extractChannelValues, isFalsyValue } from './utils';
+
+// Adaptive filter mode types
+export type AdaptiveFilterMode =
+  | 'filter' // Filter data outside window, affects other axis
+  | false // Disable adaptive filtering
+  | null; // Disable adaptive filtering
 
 export const SLIDER_CLASS_NAME = 'slider';
 
@@ -108,12 +114,8 @@ function calculateFilteredDomain({
 }
 
 /**
- * Enhanced multi-mark filtering using proper X-Y relationships
- * Process each mark's data separately to maintain correct X-Y pairing
- */
-/**
- * Enhanced multi-mark filtering using proper X-Y relationships
- * Process each mark's data separately to maintain correct X-Y pairing
+ * Enhanced multi-mark filtering for adaptive modes
+ * Supports data filtering based on domain constraints
  */
 function filterMarkDataByDomain(
   markDataPairs: Array<{ xValues: any[]; yValues: any[]; markKey: string }>,
@@ -121,7 +123,12 @@ function filterMarkDataByDomain(
   isSourceDiscrete: boolean,
   isTargetDiscrete: boolean,
   shouldPreserveZeroBaseline: boolean,
+  adaptiveMode: AdaptiveFilterMode = 'filter',
 ): any[] {
+  if (isFalsyValue(adaptiveMode)) {
+    return []; // No adaptive filtering
+  }
+
   const allFilteredYValues: number[] = [];
 
   for (const markData of markDataPairs) {
@@ -144,8 +151,8 @@ function filterMarkDataByDomain(
         shouldInclude = xValue >= min && xValue <= max;
       }
 
-      if (shouldInclude) {
-        // Handle both single values and arrays (for area charts)
+      // Apply filter mode: include data only if X value is within domain
+      if (adaptiveMode === 'filter' && shouldInclude) {
         if (Array.isArray(yValue)) {
           allFilteredYValues.push(...yValue);
         } else {
@@ -179,7 +186,7 @@ export function SliderFilter({
   wait = 50,
   leading = true,
   trailing = false,
-  enableAdaptive = false,
+  adaptiveMode = false,
   getInitValues = (slider) => {
     const values = slider?.attributes?.values;
     if (values[0] !== 0 || values[1] !== 1) return values;
@@ -229,9 +236,9 @@ export function SliderFilter({
     const hasOnlyXSlider = hasSliderOfType('x') && !hasSliderOfType('y');
     const hasOnlyYSlider = hasSliderOfType('y') && !hasSliderOfType('x');
 
-    // Determine whether to enable adaptive filtering based on enableAdaptive parameter and slider types
+    // Determine whether to enable adaptive filtering based on adaptiveMode and slider types
     const enableAdaptiveFiltering =
-      enableAdaptive && (hasOnlyXSlider || hasOnlyYSlider);
+      !isFalsyValue(adaptiveMode) && (hasOnlyXSlider || hasOnlyYSlider);
 
     for (const slider of sliders) {
       const { orientation } = slider.attributes;
@@ -308,6 +315,7 @@ export function SliderFilter({
                   isSourceDiscrete,
                   isTargetDiscrete,
                   shouldPreserveZeroBaseline,
+                  adaptiveMode,
                 );
 
                 if (filteredDomain.length > 0) {

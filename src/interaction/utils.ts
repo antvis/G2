@@ -724,6 +724,17 @@ export function calculateSensitivityMultiplier(range: number): number {
 }
 
 /**
+ * Check if a value is considered "falsy" for configuration purposes.
+ * Returns true for false, null, or undefined values.
+ *
+ * @param value The value to check
+ * @returns true if the value is falsy (false, null, undefined)
+ */
+export function isFalsyValue(value: any): boolean {
+  return value === false || value === null || value === undefined;
+}
+
+/**
  * Extract channel data with preserved X-Y relationships from all marks in a view.
  * Supports multi-mark scenarios, bin transforms, and array-encoded Y values.
  *

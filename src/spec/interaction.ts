@@ -175,7 +175,7 @@ export type SliderFilterInteraction = {
   wait?: number;
   leading?: boolean;
   trailing?: boolean;
-  enableAdaptive?: boolean;
+  adaptiveMode?: 'filter' | false | null;
   getInitValues?: (slider: any) => any;
 };
 
