@@ -191,7 +191,7 @@ export function getElementsByState(view: View, stateName: string): Element[] {
   // 存在子视图
   if (view.views && view.views.length) {
     each(view.views, (subView: View) => {
-      rst = rst.concat(getElementsByState(subView, stateName));
+      rst.push(...getElementsByState(subView, stateName));
     });
   }
   return rst;
