@@ -1,3 +1,15 @@
+#### 4.0.13 (2025-09-18)
+
+##### Bug Fixes
+
+- 修复 interaction 内存在子视图时图元的获取 ([#7134](https://github.com/antvis/g2/pull/7134)) ([f7d9e1f2](https://github.com/antvis/g2/commit/f7d9e1f2b1702d6534fe592c298bebb14f8b5ac5))
+- undefined tooltip element ([#5835](https://github.com/antvis/g2/pull/5835)) ([#5836](https://github.com/antvis/g2/pull/5836)) ([52a59556](https://github.com/antvis/g2/commit/52a595569e82021ac01d3ac714b0791cecedb32d))
+- 修复[#2279](https://github.com/antvis/g2/pull/2279) canvas resize 之后 tooltip 越界的问题 ([#2615](https://github.com/antvis/g2/pull/2615)) ([31bd0d01](https://github.com/antvis/g2/commit/31bd0d0121ededffcff9cef1dee4d1c57ab8ec65))
+
+##### Refactors
+
+- 删除不必要的代码 ([#2607](https://github.com/antvis/g2/pull/2607)) ([61153676](https://github.com/antvis/g2/commit/6115367677297415755512e2c4bec649988fab40))
+
 #### 4.0.12 (2020-06-24)
 
 ##### Chores
@@ -185,7 +197,6 @@
 
 | ![2020-03-22 18-17-49.2020-03-22 18_20_32.gif](https://user-images.githubusercontent.com/6628666/77248451-62558780-6c74-11ea-951e-02d5ed652edf.gif) | ![image.png](https://user-images.githubusercontent.com/6628666/77175281-55faee80-6afd-11ea-9703-4f501aec74dc.png) |
 | --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-
 
 ##### Documentation Changes
 
