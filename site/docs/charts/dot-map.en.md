@@ -49,7 +49,7 @@ Based on real US map data and airport location data, showing the geographic dist
  * Airport Distribution Dot Map Based on Real US Map Data
  */
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/us-10m.json').then((res) =>
@@ -125,7 +125,7 @@ Example 2: **US Ethnic Distribution Dot Map**
  * Note: This example uses fictional ethnic distribution data for demonstration
  */
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/us-10m.json').then((res) =>

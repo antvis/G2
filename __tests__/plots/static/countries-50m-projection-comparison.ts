@@ -1,4 +1,4 @@
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 import {
   geoPolyconic,
   geoRectangularPolyconic,

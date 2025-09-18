@@ -52,7 +52,7 @@ The figure below shows the population distribution of US states. The main popula
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 // Load map and data
 Promise.all([

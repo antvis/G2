@@ -2,7 +2,7 @@
  * A recreation of this demo: https://vega.github.io/vega-lite/examples/geo_rule.html
  */
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/us-10m.json').then((res) =>

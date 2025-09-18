@@ -12,8 +12,6 @@
     "@ant-design/icons": "^4.8.3",
     "@antv/data-set": "^0.11.8",
     "@antv/dumi-theme-antv": "^0.7.7",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
     "@antv/g-lottie-player": "^1.0.32",
     "@antv/g-pattern": "^2.0.32",
     "@antv/g-plugin-3d": "^2.0.41",
@@ -26,6 +24,8 @@
     "@antv/g2-extension-ava": "^0.2.0",
     "@antv/g2-extension-plot": "^0.2.1",
     "@antv/s2": "^1.56.2",
+    "@mapbox/geojson-rewind": "^0.5.2",
+    "@types/topojson-client": "^3.1.5",
     "antd": "^5.24.5",
     "d3-array": "^3.2.4",
     "d3-geo-projection": "^4.0.0",
@@ -39,13 +39,13 @@
     "dirichlet": "^1.0.1",
     "dumi": "2.4.17",
     "fecha": "^4.2.3",
-    "fmin": "0.0.2",
     "lodash": "^4.17.21",
+    "react": "^19.1.0",
     "react-color": "^2.19.3",
-    "topojson": "^3.0.2",
-    "@mapbox/geojson-rewind": "^0.5.2",
-    "webfontloader": "1.6.28",
-    "styled-components": "^6.1.15"
+    "react-dom": "^19.1.0",
+    "styled-components": "^6.1.15",
+    "topojson-client": "^3.1.0",
+    "webfontloader": "1.6.28"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"

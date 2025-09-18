@@ -49,7 +49,7 @@ similar: ['bubble-map', 'choropleth-map', 'scatter']
  * 基于真实美国地图数据的机场分布点描法地图
  */
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/us-10m.json').then((res) =>
@@ -125,7 +125,7 @@ Promise.all([
  * 注意：本示例使用虚构的人种分布数据用于演示
  */
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/us-10m.json').then((res) =>
