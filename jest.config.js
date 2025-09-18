@@ -21,4 +21,10 @@ module.exports = {
   transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
   collectCoverageFrom: ['src/**/*.{ts,js}', '!**/node_modules/**', '!**/vendor/**'],
   moduleFileExtensions: ['ts', 'js', 'json'],
+  moduleNameMapper: {
+    'd3-color': 'd3-color/dist/d3-color.min.js',
+    'd3-interpolate': 'd3-interpolate/dist/d3-interpolate.min.js',
+    'd3-geo': 'd3-geo/build/d3-geo.min.js',
+    'd3-path': 'd3-path/dist/d3-path.min.js',
+  },
 };

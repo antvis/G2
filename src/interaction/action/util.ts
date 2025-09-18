@@ -299,6 +299,12 @@ export function getElementsByState(view: View, stateName: string): Element[] {
     const elements = geom.getElementsBy((el) => el.hasState(stateName));
     rst = rst.concat(elements);
   });
+  // 存在子视图
+  if (view.views && view.views.length) {
+    each(view.views, (subView: View) => {
+      rst.push(...getElementsByState(subView, stateName));
+    });
+  }
   return rst;
 }
 
