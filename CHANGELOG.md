@@ -1,3 +1,9 @@
+#### 4.2.12 (2025-09-18)
+
+##### Bug Fixes
+
+*  修复存在子视图时图元的获取 ([#7136](https://github.com/antvis/g2/pull/7136)) ([53f06fef](https://github.com/antvis/g2/commit/53f06fef3ba9c79f5eb8378aad90c5f694684c9d))
+
 #### 4.2.11 (2024-03-06)
 
 ##### Chores
