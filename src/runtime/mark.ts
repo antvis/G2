@@ -39,7 +39,7 @@ export async function initializeMark(
     context,
   );
 
-  const { encode, scale, data, tooltip } = transformedMark;
+  const { encode, scale, data, tooltip, key: markerKey } = transformedMark;
 
   // Skip mark with non-tabular data. Do not skip empty
   // data, they are useful for facet to display axes.
@@ -107,6 +107,7 @@ export async function initializeMark(
           scaleKey: independent || isConstant ? Symbol('independent') : key,
           scale: {
             type,
+            markerKey,
             range: finalRange,
             ...scaleOptions,
             quantitative,
