@@ -45,7 +45,7 @@ export const View: CC<ViewOptions> = () => {
         ...rest,
       }),
     );
-    return [{ ...rest, marks, type: 'standardView' }];
+    return [{ ...rest, marks, type: 'standardView', slider: viewSlider }];
   };
 };
 
