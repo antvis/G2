@@ -189,6 +189,7 @@ function filterDataByDomain(
       },
     ),
   );
+
   return {
     ...options,
     marks: newMarks,
@@ -390,11 +391,15 @@ export function SliderFilter({
         return [domain0, domain1];
       };
 
-      // Create value change handler with improved separation of concerns
-      let isFiltering = filtering; // Local state management
+      // Create value change handler with independent filtering state
+      // Each slider maintains its own filtering state to prevent mutual interference in dual-axis scenarios
+      let isFiltering = false;
       const setFiltering = (value: boolean) => {
         isFiltering = value;
-        filtering = value;
+        // Only reset global state when all sliders are not filtering
+        if (!value) {
+          filtering = false;
+        }
       };
 
       const onValueChange = createValueChangeHandler({
@@ -751,7 +756,9 @@ function createValueChangeHandler({
   return throttle(
     async (event: any) => {
       const { initValue = false } = event;
-      if (filtering && !initValue) return;
+      if (filtering && !initValue) {
+        return;
+      }
       setFiltering(true);
 
       const { nativeEvent = true } = event;
