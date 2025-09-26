@@ -783,23 +783,22 @@ export function extractChannelValues(view: G2ViewDescriptor): {
             channel.values?.length > 0
           ) {
             const channelName = channel.name;
-            let channelValues: unknown[] = [];
+            const channelValues: unknown[] = [];
 
-            // Handle Y and Y1+ channels for multi-Y marks (e.g., area charts)
+            // Handle Y and Y1+ channels for multi-Y marks (e.g., area charts, candlestick charts)
             for (const valueItem of channel.values) {
               if (valueItem?.value) {
                 const values = valueItem.value;
-                // Handle array-encoded Y values (e.g., area chart's [low, high])
-                if (Array.isArray(values)) {
-                  const flatValues = values.flat();
-                  channelValues = channelValues.concat(flatValues);
-                  if (channelName === 'y' || channelName === 'y1') {
-                    allYChannelValues.push(flatValues);
-                  }
-                } else {
-                  channelValues = channelValues.concat(values);
-                  if (channelName === 'y' || channelName === 'y1') {
-                    allYChannelValues.push(values);
+                // Preserve G2's internal structure for array-encoded data
+                // Area charts: [[low1,low2,low3], [high1,high2,high3]]
+                // Line charts: [[value1,value2,value3]]
+                channelValues.push(values);
+                if (channelName === 'y' || channelName === 'y1') {
+                  // For global domain calculation, flatten only for allYChannelValues
+                  if (Array.isArray(values)) {
+                    allYChannelValues.push(values.flat());
+                  } else {
+                    allYChannelValues.push([values]);
                   }
                 }
               }
@@ -813,6 +812,7 @@ export function extractChannelValues(view: G2ViewDescriptor): {
         // Store mark data with preserved X-Y relationships
         const xValues = channelData['x'] || [];
         const yValues = channelData['y'] || [];
+
         if (xValues.length > 0 && yValues.length > 0) {
           markDataPairs.push({
             markKey: mark.key || `mark_${markDataPairs.length}`,

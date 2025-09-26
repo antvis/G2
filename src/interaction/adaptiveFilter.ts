@@ -222,6 +222,20 @@ function calculateFilteredDomain({
 }
 
 /**
+ * Converts various value types to numeric for comparison.
+ * Handles Date objects, strings, and numbers.
+ */
+function convertToNumeric(value: unknown): number {
+  if (value instanceof Date) {
+    return value.getTime();
+  }
+  if (typeof value === 'string') {
+    return parseFloat(value);
+  }
+  return Number(value);
+}
+
+/**
  * Filters mark data based on domain constraints with bidirectional support.
  * Supports both discrete and continuous scales with proper domain calculation.
  *
@@ -249,41 +263,61 @@ export function filterMarkDataByDomain(
 
   const sourceChannel = shouldFilterXAxis ? 'y' : 'x';
   const targetChannel = shouldFilterXAxis ? 'x' : 'y';
-
   const allFilteredTargetValues: number[] = [];
 
   for (const markData of markDataPairs) {
     const { channelData } = markData;
     const sourceValues = channelData[sourceChannel] || [];
     const targetValues = channelData[targetChannel] || [];
-    const minLength = Math.min(sourceValues.length, targetValues.length);
 
-    for (let i = 0; i < minLength; i++) {
-      const sourceValue = sourceValues[i];
-      const targetValue = targetValues[i];
+    // Handle G2 internal structure:
+    // sourceValues: [x1, x2, x3, x4, x5]
+    // targetValues: [[channel1_values], [channel2_values], ...]
+    // For area charts: [[low1,low2,low3], [high1,high2,high3]]
+    // For line charts: [[value1,value2,value3]]
 
-      let shouldInclude = false;
+    if (targetValues.length > 0 && Array.isArray(targetValues[0])) {
+      const numDataPoints = sourceValues.length;
+      const firstChannelLength = targetValues[0].length;
+      const numChannels = targetValues.length;
+      const safeLength = Math.min(numDataPoints, firstChannelLength);
 
-      if (isSourceDiscrete) {
-        shouldInclude = domain.includes(sourceValue);
-      } else {
-        const numericDomain = domain.filter(
-          (d): d is number => typeof d === 'number',
-        );
-        if (numericDomain.length >= 2 && typeof sourceValue === 'number') {
-          const [min, max] = [
-            Math.min(...numericDomain),
-            Math.max(...numericDomain),
-          ];
-          shouldInclude = sourceValue >= min && sourceValue <= max;
-        }
-      }
+      for (let i = 0; i < safeLength; i++) {
+        const sourceValue = sourceValues[i];
+        let shouldInclude = false;
 
-      if (adaptiveMode === 'filter' && shouldInclude) {
-        if (Array.isArray(targetValue)) {
-          allFilteredTargetValues.push(...targetValue);
+        if (isSourceDiscrete) {
+          shouldInclude = domain.includes(sourceValue);
         } else {
-          allFilteredTargetValues.push(Number(targetValue));
+          // Handle both numeric and Date domains
+          if (domain.length >= 2) {
+            const sourceTime = convertToNumeric(sourceValue);
+            const domainStartTime = convertToNumeric(domain[0]);
+            const domainEndTime = convertToNumeric(domain[domain.length - 1]);
+
+            if (
+              !isNaN(sourceTime) &&
+              !isNaN(domainStartTime) &&
+              !isNaN(domainEndTime)
+            ) {
+              shouldInclude =
+                sourceTime >= domainStartTime && sourceTime <= domainEndTime;
+            }
+          }
+        }
+
+        if (adaptiveMode === 'filter' && shouldInclude) {
+          // Collect all Y values for this data point across all channels
+          for (let channelIdx = 0; channelIdx < numChannels; channelIdx++) {
+            const channelData = targetValues[channelIdx];
+            if (Array.isArray(channelData) && i < channelData.length) {
+              const yValue = channelData[i];
+              const numericValue = convertToNumeric(yValue);
+              if (!isNaN(numericValue)) {
+                allFilteredTargetValues.push(numericValue);
+              }
+            }
+          }
         }
       }
     }
