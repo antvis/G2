@@ -93,7 +93,7 @@ interface CalculateFilteredDomainOptions {
 /**
  * Extracts scale information for single-axis adaptive filtering.
  *
- * @param shouldFilterXAxis - Whether X-axis should be filtered (true) or Y-axis (false)
+ * @param shouldFilterXAxis - Whether to adapt X-axis (true) or Y-axis (false)
  * @param scaleX - X-axis scale instance
  * @param scaleY - Y-axis scale instance
  * @returns Scale information required for single-axis filtering
@@ -128,7 +128,7 @@ export function extractSingleAxisScaleInfo(
  * Extracts scale information for multi-axis adaptive filtering.
  * Handles scenarios where multiple independent scales exist (x1, x2, y1, y2, etc.).
  *
- * @param shouldFilterXAxis - Whether X-axis should be filtered (true) or Y-axis (false)
+ * @param shouldFilterXAxis - Whether to adapt X-axis (true) or Y-axis (false)
  * @param scale - Record of all available scale instances
  * @param scaleX - Primary X-axis scale instance
  * @param scaleY - Primary Y-axis scale instance
@@ -245,7 +245,7 @@ function convertToNumeric(value: unknown): number {
  * @param isTargetDiscrete - Whether the target scale is discrete
  * @param shouldPreserveZeroBaseline - Whether to preserve zero baseline for continuous scales
  * @param adaptiveMode - Adaptive filtering mode configuration
- * @param shouldFilterXAxis - Whether filtering X-axis (true) or Y-axis (false)
+ * @param shouldFilterXAxis - Whether to adapt X-axis (true) or Y-axis (false)
  * @returns Filtered domain array
  */
 export function filterMarkDataByDomain(
@@ -270,52 +270,68 @@ export function filterMarkDataByDomain(
     const sourceValues = channelData[sourceChannel] || [];
     const targetValues = channelData[targetChannel] || [];
 
-    // Handle G2 internal structure:
-    // sourceValues: [x1, x2, x3, x4, x5]
-    // targetValues: [[channel1_values], [channel2_values], ...]
-    // For area charts: [[low1,low2,low3], [high1,high2,high3]]
-    // For line charts: [[value1,value2,value3]]
+    // Handle different data structures based on channel type:
+    // X channel: one-dimensional array [x1, x2, x3, ...]
+    // Y channel: two-dimensional array [[y1, y2, y3, ...]]
 
-    if (targetValues.length > 0 && Array.isArray(targetValues[0])) {
-      const numDataPoints = sourceValues.length;
-      const firstChannelLength = targetValues[0].length;
-      const numChannels = targetValues.length;
-      const safeLength = Math.min(numDataPoints, firstChannelLength);
+    // Normalize source values to one-dimensional array
+    const normalizedSourceValues = Array.isArray(sourceValues[0])
+      ? sourceValues[0] // If it's 2D array (Y channel), take first sub-array
+      : sourceValues; // If it's 1D array (X channel), use as is
 
-      for (let i = 0; i < safeLength; i++) {
-        const sourceValue = sourceValues[i];
-        let shouldInclude = false;
+    // Handle target values based on their structure
+    const isTargetArray2D = Array.isArray(targetValues[0]);
 
-        if (isSourceDiscrete) {
-          shouldInclude = domain.includes(sourceValue);
-        } else {
-          // Handle both numeric and Date domains
-          if (domain.length >= 2) {
-            const sourceTime = convertToNumeric(sourceValue);
-            const domainStartTime = convertToNumeric(domain[0]);
-            const domainEndTime = convertToNumeric(domain[domain.length - 1]);
+    if (normalizedSourceValues.length === 0) continue;
 
-            if (
-              !isNaN(sourceTime) &&
-              !isNaN(domainStartTime) &&
-              !isNaN(domainEndTime)
-            ) {
-              shouldInclude =
-                sourceTime >= domainStartTime && sourceTime <= domainEndTime;
-            }
+    const dataLength = normalizedSourceValues.length;
+
+    for (let i = 0; i < dataLength; i++) {
+      const sourceValue = normalizedSourceValues[i];
+      let shouldInclude = false;
+
+      if (isSourceDiscrete) {
+        shouldInclude = domain.includes(sourceValue);
+      } else {
+        // Handle both numeric and Date domains
+        if (domain.length >= 2) {
+          const sourceTime = convertToNumeric(sourceValue);
+          const domainStartTime = convertToNumeric(domain[0]);
+          const domainEndTime = convertToNumeric(domain[domain.length - 1]);
+
+          if (
+            !isNaN(sourceTime) &&
+            !isNaN(domainStartTime) &&
+            !isNaN(domainEndTime)
+          ) {
+            shouldInclude =
+              sourceTime >= domainStartTime && sourceTime <= domainEndTime;
           }
         }
+      }
 
-        if (adaptiveMode === 'filter' && shouldInclude) {
-          // Collect all Y values for this data point across all channels
+      if (adaptiveMode === 'filter' && shouldInclude) {
+        // Collect target channel values for this data point
+        if (isTargetArray2D) {
+          // Target is 2D array (Y channel)
+          const numChannels = targetValues.length;
           for (let channelIdx = 0; channelIdx < numChannels; channelIdx++) {
             const channelData = targetValues[channelIdx];
             if (Array.isArray(channelData) && i < channelData.length) {
-              const yValue = channelData[i];
-              const numericValue = convertToNumeric(yValue);
+              const targetValue = channelData[i];
+              const numericValue = convertToNumeric(targetValue);
               if (!isNaN(numericValue)) {
                 allFilteredTargetValues.push(numericValue);
               }
+            }
+          }
+        } else {
+          // Target is 1D array (X channel)
+          if (i < targetValues.length) {
+            const targetValue = targetValues[i];
+            const numericValue = convertToNumeric(targetValue);
+            if (!isNaN(numericValue)) {
+              allFilteredTargetValues.push(numericValue);
             }
           }
         }
@@ -421,7 +437,7 @@ export function processMultiAxisViewFiltering({
  * @param targetMarkKey - Key of the target mark to filter
  * @param targetScaleKey - Key of the target scale to update
  * @param adaptiveMode - Adaptive filtering mode
- * @param shouldFilterXAxis - Whether filtering X-axis (true) or Y-axis (false)
+ * @param shouldFilterXAxis - Whether to adapt X-axis (true) or Y-axis (false)
  * @param markToScaleMap - Map from mark keys to scale keys to identify shared axes
  * @returns Map of scale keys to filtered domain arrays
  */
