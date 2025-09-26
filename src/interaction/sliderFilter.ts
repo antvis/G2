@@ -192,7 +192,7 @@ function filterDataByDomain(
   return {
     ...options,
     marks: newMarks,
-    // clip: true,
+    clip: true,
     animate: false,
   };
 }
@@ -264,7 +264,7 @@ function filterDataByDomainMultiAxis(
   return {
     ...options,
     marks: newMarks,
-    // clip: true,
+    clip: true,
     animate: false,
   };
 }
