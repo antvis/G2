@@ -5,7 +5,7 @@ order: 21
 
 ## Overview
 
-The `sliderFilter` interaction targets the data domain, filtering the displayed data range through slider controls. It allows users to dynamically adjust the data range displayed in visualization charts by dragging sliders, thus achieving interactive data filtering.
+The `sliderFilter` interaction targets the data domain, filtering the displayed data range through slider controls. It allows users to dynamically adjust the data range displayed in visualization charts by dragging sliders, thus enabling interactive data filtering.
 
 - Trigger: Drag slider component
 - End: Release slider
@@ -15,8 +15,8 @@ The `sliderFilter` interaction targets the data domain, filtering the displayed 
 
 ## Usage
 
-There are two ways to configure `sliderFilter` interaction:
-First, automatically enable slider axis filtering interaction by configuring the slider component:
+There are two ways to configure the `sliderFilter` interaction:
+First, automatically enable slider filtering interaction by configuring the slider component:
 
 ```js
 ({
@@ -27,7 +27,7 @@ First, automatically enable slider axis filtering interaction by configuring the
 });
 ```
 
-Second, configure directly in interaction:
+Second, configure directly in the interaction:
 
 ```js
 ({
@@ -42,7 +42,7 @@ Second, configure directly in interaction:
 
 ## Configuration Level
 
-Interaction can be configured at the View level:
+The interaction can be configured at the View level:
 
 ```js
 ({
@@ -64,25 +64,53 @@ Interaction can be configured at the View level:
 | wait          | Throttle wait time (milliseconds)                                 | number                                       | 50                                                 |          |
 | leading       | Whether to execute at the beginning during throttling             | boolean                                      | true                                               |          |
 | trailing      | Whether to execute at the end during throttling                   | boolean                                      | false                                              |          |
-| getInitValues | Function to get initial slider values                             | (slider) => [number, number]                 | undefined                                          |          |
+| adaptiveMode  | Adaptive filtering mode                                           | 'filter' \| false \| null                    | 'filter'                                           |          |
+| getInitValues | Function to get initial slider values                             | (slider) => [number, number]                 | undefined                                          |
 
 ### slider Component Configuration
 
-In addition to the configuration for sliderFilter interaction, the slider component itself has some important configuration options that affect the behavior of slider axis filtering:
+In addition to the configuration for sliderFilter interaction, the slider component itself has some important configuration options that affect the behavior of slider filtering:
 
 | Property | Description                                                | Type               | Default | Required |
 | -------- | ---------------------------------------------------------- | ------------------ | ------- | -------- |
-| padding  | Slider axis inner padding                                  | number \| number[] | -       |          |
-| values   | Initial selection range of slider axis, in 0 ～ 1 interval | [number, number]   | -       |          |
+| padding  | Slider inner padding                                       | number \| number[] | -       |          |
+| values   | Initial selection range of slider, in 0 ~ 1 interval      | [number, number]   | -       |          |
 | slidable | Whether to allow dragging selection and handles            | boolean            | true    |          |
 
 For detailed documentation see [Slider Component](/en/manual/component/slider)
+
+### Adaptive Filtering Mode
+
+The `adaptiveMode` configuration option controls the adaptive filtering behavior of the slider:
+
+- `'filter'`: Enable adaptive filtering, dynamically adjust other a xi s' domain values based on selected data range (**default value**)
+- `false` or `null`: Disable adaptive filtering
+
+**How Adaptive Filtering Works:**
+
+- **Single-axis Adaptive**: When only X-axis or only Y-axis has a slider configured, dragging the slider will automatically adjust the display range of the other axis based on the currently selected data range
+- **Multi-axis Adaptive**: When there are independent coordinate axis in the chart, the system will adopt different adaptive strategies based on the configuration level of the slider
+- **Bidirectional Mutual Exclusion**: If both X-axis and Y-axis have sliders configured, the adaptive function will not take effect
+
+```js
+({
+  slider: {
+    x: { values: [0.1, 0.8] }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // Enable adaptive filtering (default value)
+      // adaptiveMode: false   // Disable adaptive filtering
+    }
+  }
+})
+```
 
 ## Events
 
 ### Triggering Events
 
-Slider axis filtering interaction supports the following events:
+Slider filtering interaction supports the following events:
 
 - `sliderX:filter` - Trigger X axis filtering
 - `sliderY:filter` - Trigger Y axis filtering
@@ -116,9 +144,9 @@ chart.on('sliderY:filter', (event) => {
 
 ## Examples
 
-### Basic Slider Axis Filtering
+### Basic Slider Filtering
 
-The following example shows how to add basic X-axis slider axis filtering functionality to a line chart:
+The following example shows how to add basic X-axis slider filtering functionality to a line chart:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -145,6 +173,133 @@ chart.options({
       tariling: true,
     },
   },
+});
+
+chart.render();
+```
+
+### Adaptive Filtering Examples
+
+#### Single-axis Adaptive Filtering
+
+When only X-axis slider is configured, dragging the X-axis slider will automatically adjust the Y-axis display range:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// Generate interesting data with some outliers
+const data = [];
+for (let i = 0; i < 50; i++) {
+  const baseValue = Math.sin(i / 8) * 30 + 50;
+  // Add outliers in specific range
+  const anomaly = (i >= 20 && i <= 25) ? Math.random() * 150 : 0;
+  data.push({
+    time: i,
+    value: baseValue + anomaly + Math.random() * 10,
+    category: i % 3 === 0 ? 'A' : i % 3 === 1 ? 'B' : 'C'
+  });
+}
+
+chart.options({
+  type: 'point',
+  data,
+  encode: { x: 'time', y: 'value', color: 'category' },
+  slider: {
+    x: {
+      values: [0.2, 0.8],
+      labelFormatter: (d) => `Time: ${Math.round(d)}`
+    }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // Enable adaptive filtering
+    }
+  },
+  style: {
+    fillOpacity: 0.8
+  }
+});
+
+chart.render();
+```
+
+#### Y-axis Adaptive Filtering
+
+When only Y-axis slider is configured, dragging the Y-axis slider will automatically adjust the X-axis display range:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv'
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    y: {
+      values: [0.1, 0.9],
+      labelFormatter: (d) => `Price: ${Math.round(d)}`
+    }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // Enable adaptive filtering
+    }
+  }
+});
+
+chart.render();
+```
+
+#### Disable Adaptive Filtering
+
+If adaptive functionality is not needed, you can explicitly disable it:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    x: i,
+    y: Math.sin(i / 10) * 50 + 100 + Math.random() * 20
+  });
+}
+
+chart.options({
+  type: 'line',
+  data,
+  encode: { x: 'x', y: 'y' },
+  slider: {
+    x: {
+      values: [0.3, 0.7]
+    }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: false  // Disable adaptive filtering
+    }
+  },
+  scale: {
+    y: { domain: [0, 200] }  // Fixed Y-axis range
+  }
 });
 
 chart.render();
