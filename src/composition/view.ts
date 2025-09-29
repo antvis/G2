@@ -21,6 +21,7 @@ export const View: CC<ViewOptions> = () => {
       legend: viewLegend = {},
       encode: viewEncode = {},
       transform: viewTransform = [],
+      slider: viewSlider = {},
       ...rest
     } = restOptions;
     const marks = children.map(
@@ -31,6 +32,7 @@ export const View: CC<ViewOptions> = () => {
         legend = {},
         encode = {},
         transform = [],
+        slider = {},
         ...rest
       }) => ({
         data: mergeData(data, viewData),
@@ -39,10 +41,11 @@ export const View: CC<ViewOptions> = () => {
         transform: [...viewTransform, ...transform],
         axis: axis && viewAxis ? deepMix({}, viewAxis, axis) : false,
         legend: legend && viewLegend ? deepMix({}, viewLegend, legend) : false,
+        slider: deepMix({}, viewSlider, slider),
         ...rest,
       }),
     );
-    return [{ ...rest, marks, type: 'standardView' }];
+    return [{ ...rest, marks, type: 'standardView', slider: viewSlider }];
   };
 };
 

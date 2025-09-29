@@ -64,8 +64,8 @@ order: 21
 | wait          | 节流等待时间(毫秒)               | number                                       | 50                                                 |      |
 | leading       | 节流时是否在开始前执行           | boolean                                      | true                                               |      |
 | trailing      | 节流时是否在结束后执行           | boolean                                      | false                                              |      |
+| adaptiveMode  | 自适应过滤模式                   | 'filter' \| false \| null                    | 'filter'                                           |      |
 | getInitValues | 获取滑块初始值的函数             | (slider) => [number, number]                 | undefined                                          |
-|               |
 
 ### slider 组件配置
 
@@ -78,6 +78,33 @@ order: 21
 | slidable | 是否允许拖动选取和手柄               | boolean            | true   |      |
 
 具体文档看[缩略轴 Slider](https://g2.antv.antgroup.com/manual/component/slider)
+
+### 自适应过滤模式
+
+`adaptiveMode` 配置项控制缩略轴的自适应过滤行为：
+
+- `'filter'`：启用自适应过滤，根据选定数据范围动态调整其他轴的域值（**默认值**）
+- `false` 或 `null`：禁用自适应过滤
+
+**自适应过滤的工作原理：**
+
+- **单轴自适应**：当只有 X 轴或只有 Y 轴配置了缩略轴时，拖拽缩略轴会根据当前选择的数据范围自动调整另一个轴的显示范围
+- **多轴自适应**：当图表中存在独立的坐标轴时，系统会根据缩略轴的配置层级采用不同的自适应策略
+- **双向互斥**：如果 X 轴与 Y 轴都配置了缩略轴，自适应功能将不会生效
+
+```js
+({
+  slider: {
+    x: { values: [0.1, 0.8] }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // 启用自适应过滤（默认值）
+      // adaptiveMode: false   // 禁用自适应过滤
+    }
+  }
+})
+```
 
 ## 事件
 
@@ -146,6 +173,133 @@ chart.options({
       tariling: true,
     },
   },
+});
+
+chart.render();
+```
+
+### 自适应过滤示例
+
+#### 单轴自适应过滤
+
+当只配置 X 轴缩略轴时，拖拽 X 轴缩略轴会自动调整 Y 轴的显示范围：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// 生成有趣的数据，包含一些异常值
+const data = [];
+for (let i = 0; i < 50; i++) {
+  const baseValue = Math.sin(i / 8) * 30 + 50;
+  // 在特定区间添加异常高值
+  const anomaly = (i >= 20 && i <= 25) ? Math.random() * 150 : 0;
+  data.push({
+    time: i,
+    value: baseValue + anomaly + Math.random() * 10,
+    category: i % 3 === 0 ? 'A' : i % 3 === 1 ? 'B' : 'C'
+  });
+}
+
+chart.options({
+  type: 'point',
+  data,
+  encode: { x: 'time', y: 'value', color: 'category' },
+  slider: {
+    x: {
+      values: [0.2, 0.8],
+      labelFormatter: (d) => `时间: ${Math.round(d)}`
+    }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // 启用自适应过滤
+    }
+  },
+  style: {
+    fillOpacity: 0.8
+  }
+});
+
+chart.render();
+```
+
+#### Y 轴自适应过滤
+
+当只配置 Y 轴缩略轴时，拖拽 Y 轴缩略轴会自动调整 X 轴的显示范围：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv'
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    y: {
+      values: [0.1, 0.9],
+      labelFormatter: (d) => `价格: ${Math.round(d)}`
+    }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // 启用自适应过滤
+    }
+  }
+});
+
+chart.render();
+```
+
+#### 禁用自适应过滤
+
+如果不需要自适应功能，可以显式关闭：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    x: i,
+    y: Math.sin(i / 10) * 50 + 100 + Math.random() * 20
+  });
+}
+
+chart.options({
+  type: 'line',
+  data,
+  encode: { x: 'x', y: 'y' },
+  slider: {
+    x: {
+      values: [0.3, 0.7]
+    }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: false  // 禁用自适应过滤
+    }
+  },
+  scale: {
+    y: { domain: [0, 200] }  // 固定 Y 轴范围
+  }
 });
 
 chart.render();
