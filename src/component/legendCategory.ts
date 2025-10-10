@@ -1,4 +1,5 @@
 import type { DisplayObject } from '@antv/g';
+import { HTML } from '@antv/g';
 import { Category } from '@antv/component';
 import { last } from '@antv/util';
 import { format } from '@antv/vendor/d3-format';
@@ -24,6 +25,12 @@ import {
   titleContent,
 } from './utils';
 
+class HtmlLegend extends HTML {
+  update(options: any) {
+    this.attr(options);
+  }
+}
+
 export type LegendCategoryOptions = {
   dx?: number;
   dy?: number;
@@ -32,6 +39,12 @@ export type LegendCategoryOptions = {
   orientation?: GCO;
   position?: GCP;
   title?: string | string[];
+  render?: (
+    items: Array<{ id: string; label: string; color: string }>,
+    filter?: (values: any[]) => void,
+    channel?: string,
+  ) => HTMLElement | string;
+  filter?: (values: any[], channel?: string) => void;
   [key: string]: any;
 };
 
@@ -240,6 +253,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     title,
     cols,
     itemMarker,
+    render,
     ...style
   } = options;
 
@@ -264,6 +278,26 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       titleText: titleContent(title),
       ...inferCategoryStyle(options, context),
     };
+
+    // 如果使用render函数，使用HTML渲染
+    if (render) {
+      const items = legendStyle.data || [];
+      const htmlContent = render(items);
+
+      const htmlElement = new HtmlLegend({
+        className: 'legend-category-html',
+        style: {
+          innerHTML: htmlContent,
+          x: bbox.x,
+          y: bbox.y,
+          width: bbox.width,
+          height: bbox.height,
+          pointerEvents: 'auto',
+        },
+      });
+
+      return htmlElement as unknown as DisplayObject;
+    }
 
     const { legendCategory: legendTheme = {} } = theme;
 
