@@ -24,29 +24,45 @@ import {
 export const SLIDER_CLASS_NAME = 'slider';
 
 /**
- * Calculates extra inset needed for point marks based on size scale range
+ * Calculates extra inset needed for point marks based on size scale range or values
  *
  * @param view - View descriptor containing markState
- * @returns Calculated inset value from size scale range
+ * @returns Calculated inset value from size scale range or values
  */
 function calculatePointInset(view: G2ViewDescriptor): number {
-  if (!view?.markState) {
-    return 0;
-  }
+  if (!view?.markState) return 0;
 
   let maxSize = 0;
 
   for (const [mark, state] of view.markState.entries()) {
-    if (mark.type === 'point' && state?.channels) {
-      // Find size channel and get scale range
-      const sizeChannel = state.channels?.find((ch) => ch.name === 'size');
-      if (sizeChannel?.scale && Array.isArray(sizeChannel.scale.range)) {
-        // Get the maximum value from scale range
-        const range = sizeChannel.scale.range;
-        const rangeMax = Math.max(
-          ...range.filter((val) => typeof val === 'number'),
+    if (mark.type !== 'point' || !state?.channels) continue;
+
+    const sizeChannel = state.channels?.find((ch) => ch.name === 'size');
+    if (!sizeChannel) continue;
+
+    // Priority 1: Use scale range if available
+    if (sizeChannel.scale?.range?.length > 0) {
+      const rangeMax = Math.max(
+        ...sizeChannel.scale.range.filter((val) => typeof val === 'number'),
+      );
+      maxSize = Math.max(maxSize, rangeMax);
+      continue;
+    }
+
+    // Priority 2: Fallback to values maximum
+    if (sizeChannel.values?.length > 0) {
+      const sizes = sizeChannel.values
+        .filter((item) => item.value !== undefined)
+        .flatMap((item) =>
+          Array.isArray(item.value) ? item.value : [item.value],
+        )
+        .filter(
+          (value): value is number =>
+            typeof value === 'number' && !isNaN(value),
         );
-        maxSize = Math.max(maxSize, rangeMax);
+
+      if (sizes.length > 0) {
+        maxSize = Math.max(maxSize, ...sizes);
       }
     }
   }
