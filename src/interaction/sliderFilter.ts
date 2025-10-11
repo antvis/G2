@@ -5,7 +5,6 @@ import { invert, domainOf, sliderAbstractOf } from '../utils/scale';
 import { SliderFilterInteraction } from '../spec/interaction';
 import { Mark } from '../spec';
 import { G2ViewDescriptor, G2MarkState } from '../runtime/types/common';
-import { G2Mark } from '../runtime/types/options';
 import {
   extractChannelValues,
   isFalsyValue,
@@ -25,36 +24,10 @@ import {
 export const SLIDER_CLASS_NAME = 'slider';
 
 /**
- * Extracts size value from various mark configurations
- *
- * @param mark - Mark configuration object
- * @param state - Mark state with channel data
- * @returns Maximum size value found in the mark
- */
-function extractMarkSize(mark: G2Mark, state: G2MarkState): number {
-  let maxSize = 0;
-
-  // Extract from size channel values
-  const sizeChannel = state.channels?.find((ch) => ch.name === 'size');
-  if (sizeChannel?.values) {
-    const sizes = sizeChannel.values
-      .flatMap((item) =>
-        Array.isArray(item.value) ? item.value : [item.value],
-      )
-      .filter((value): value is number => typeof value === 'number');
-
-    if (sizes.length > 0) {
-      maxSize = Math.max(maxSize, ...sizes);
-    }
-  }
-  return maxSize;
-}
-
-/**
- * Calculates extra inset needed for point marks based on actual size values from markState
+ * Calculates extra inset needed for point marks based on size scale range
  *
  * @param view - View descriptor containing markState
- * @returns Calculated inset value with padding
+ * @returns Calculated inset value from size scale range
  */
 function calculatePointInset(view: G2ViewDescriptor): number {
   if (!view?.markState) {
@@ -65,8 +38,16 @@ function calculatePointInset(view: G2ViewDescriptor): number {
 
   for (const [mark, state] of view.markState.entries()) {
     if (mark.type === 'point' && state?.channels) {
-      const markSize = extractMarkSize(mark, state);
-      maxSize = Math.max(maxSize, markSize);
+      // Find size channel and get scale range
+      const sizeChannel = state.channels?.find((ch) => ch.name === 'size');
+      if (sizeChannel?.scale && Array.isArray(sizeChannel.scale.range)) {
+        // Get the maximum value from scale range
+        const range = sizeChannel.scale.range;
+        const rangeMax = Math.max(
+          ...range.filter((val) => typeof val === 'number'),
+        );
+        maxSize = Math.max(maxSize, rangeMax);
+      }
     }
   }
 
