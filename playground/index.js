@@ -22,6 +22,9 @@ const options = {
 
         items.forEach((item) => {
           const itemDom = document.createElement('div');
+          itemDom.setAttribute('role', 'legend-item');
+          itemDom.setAttribute('value', item.id);
+
           itemDom.style =
             'display: inline-flex; align-items: center; margin: 5px;';
           itemDom.innerHTML = `
@@ -34,10 +37,6 @@ const options = {
               "></div>
               <span style="font-size: 14px; font-weight: 500;">${item.label}</span>
             `;
-          itemDom.addEventListener('click', () => {
-            console.log(item.id);
-          });
-          console.log({ itemDom });
           contaienr.appendChild(itemDom);
         });
 
@@ -51,14 +50,14 @@ chart.options(options);
 
 chart.render();
 
-setTimeout(() => {
-  chart.options({
-    data: [
-      { genre: 'Sports', sold: 275 },
-      { genre: 'Strategy', sold: 115 },
-      { genre: 'Action', sold: 120 },
-      { genre: 'Shooter', sold: 350 },
-    ],
-  });
-  chart.render();
-}, 2000);
+// setTimeout(() => {
+//   chart.options({
+//     data: [
+//       { genre: 'Sports', sold: 275 },
+//       { genre: 'Strategy', sold: 115 },
+//       { genre: 'Action', sold: 120 },
+//       { genre: 'Shooter', sold: 350 },
+//     ],
+//   });
+//   chart.render();
+// }, 2000);

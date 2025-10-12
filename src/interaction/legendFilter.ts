@@ -4,6 +4,7 @@ import { subObject } from '../utils/helper';
 import { useState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
+export const CATEGORY_LEGEND_CLASS_NAME_HTML = 'legend-category-html';
 
 export const CONTINUOUS_LEGEND_CLASS_NAME = 'legend-continuous';
 
@@ -33,6 +34,9 @@ export function itemsOf(root) {
 
 export function legendsOf(root) {
   return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME);
+}
+export function legendsHtmlOf(root) {
+  return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME_HTML);
 }
 
 export function legendsContinuousOf(root) {
@@ -261,6 +265,211 @@ function legendFilterOrdinal(
   };
 }
 
+function legendFilterOrdinalHtml(
+  root: DisplayObject,
+  {
+    domain, // 图例数据域
+    filter, // 过滤函数
+    defaultSelect,
+    emitter,
+    channel,
+  },
+) {
+  // HTML DOM event handlers
+  const htmlItemClick = new Map();
+  const htmlItemPointerenter = new Map();
+  const htmlItemPointerout = new Map();
+
+  let selectedValues = [...domain]; // 初始化为所有值都选中
+
+  // Helper function to get chart container element
+  const getChartContainer = () => {
+    // Use the same approach as tooltip.ts to get container
+    const view = root.ownerDocument?.defaultView;
+    if (!view) return document.body;
+
+    const canvas: any = view.getContextService().getDomElement();
+    return (canvas.parentElement as unknown as HTMLElement) || document.body;
+  };
+
+  // Helper function to bind HTML DOM events
+  const bindHtmlDomEvents = () => {
+    const chartContainer = getChartContainer();
+
+    // Find HTML legend items only within this chart's container
+    const htmlLegendItems = chartContainer.querySelectorAll(
+      '[role="legend-item"]',
+    );
+
+    htmlLegendItems.forEach((htmlItem) => {
+      const value = htmlItem.getAttribute('value');
+      if (!value) return;
+
+      // Create event handlers for HTML DOM elements
+      const htmlPointerenter = () => {
+        setCursor(root, 'pointer');
+        // Add visual feedback for HTML element
+        (htmlItem as HTMLElement).style.opacity = '0.8';
+      };
+
+      const htmlPointerout = () => {
+        restoreCursor(root);
+        // Remove visual feedback for HTML element
+        (htmlItem as HTMLElement).style.opacity = '1';
+      };
+
+      const htmlClick = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const index = selectedValues.indexOf(value);
+        if (index === -1) selectedValues.push(value);
+        else selectedValues.splice(index, 1);
+
+        await filter(selectedValues);
+        updateHtmlLegendState();
+
+        if (selectedValues.length === domain.length) {
+          emitter.emit('legend:reset', { nativeEvent: true });
+        } else {
+          emitter.emit('legend:filter', {
+            nativeEvent: true,
+            data: {
+              channel,
+              values: selectedValues,
+            },
+          });
+        }
+      };
+
+      // Bind HTML DOM events
+      htmlItem.addEventListener('click', htmlClick);
+      htmlItem.addEventListener('pointerenter', htmlPointerenter);
+      htmlItem.addEventListener('pointerout', htmlPointerout);
+
+      // Store handlers for cleanup
+      htmlItemClick.set(htmlItem, htmlClick);
+      htmlItemPointerenter.set(htmlItem, htmlPointerenter);
+      htmlItemPointerout.set(htmlItem, htmlPointerout);
+    });
+  };
+
+  // Helper function to update HTML legend visual state
+  const updateHtmlLegendState = () => {
+    const chartContainer = getChartContainer();
+    const htmlLegendItems = chartContainer.querySelectorAll(
+      '[role="legend-item"]',
+    );
+
+    htmlLegendItems.forEach((htmlItem) => {
+      const value = htmlItem.getAttribute('value');
+      if (!value) return;
+
+      // Check if this value exists in the domain (belongs to this chart instance)
+      if (!domain.includes(value)) return;
+
+      const isSelected = selectedValues.includes(value);
+      const htmlElement = htmlItem as HTMLElement;
+
+      if (!isSelected) {
+        // Apply unselected style
+        htmlElement.style.opacity = '0.4';
+        htmlElement.style.filter = 'grayscale(1)';
+      } else {
+        // Apply selected style
+        htmlElement.style.opacity = '1';
+        htmlElement.style.filter = 'none';
+      }
+    });
+  };
+
+  // Bind HTML DOM events
+  bindHtmlDomEvents();
+
+  const onFocus = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+
+    const { data } = event;
+    const { channel: specifiedChannel, value } = data;
+    if (specifiedChannel !== channel) return;
+
+    selectedValues = [value];
+
+    await filter(selectedValues);
+    updateHtmlLegendState();
+  };
+
+  const onFilter = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    const { data } = event;
+    const { channel: specifiedChannel, values } = data;
+    if (specifiedChannel !== channel) return;
+    selectedValues = values;
+    await filter(selectedValues);
+    updateHtmlLegendState();
+  };
+
+  const onEnd = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    selectedValues = [...domain];
+    await filter(selectedValues);
+    updateHtmlLegendState();
+  };
+
+  emitter.on('legend:filter', onFilter);
+  emitter.on('legend:focus', onFocus);
+  emitter.on('legend:reset', onEnd);
+
+  if (defaultSelect) {
+    emitter.emit('legend:filter', {
+      data: { channel, values: defaultSelect },
+    });
+  }
+
+  return () => {
+    // Clean up HTML DOM event listeners
+    const chartContainer = getChartContainer();
+    const htmlLegendItems = chartContainer.querySelectorAll(
+      '[role="legend-item"]',
+    );
+
+    htmlLegendItems.forEach((htmlItem) => {
+      const value = htmlItem.getAttribute('value');
+      if (!value) return;
+
+      // Only clean up items that belong to this chart instance
+      if (!domain.includes(value)) return;
+
+      const clickHandler = htmlItemClick.get(htmlItem);
+      const pointerenterHandler = htmlItemPointerenter.get(htmlItem);
+      const pointeroutHandler = htmlItemPointerout.get(htmlItem);
+
+      if (clickHandler) {
+        htmlItem.removeEventListener('click', clickHandler);
+      }
+      if (pointerenterHandler) {
+        htmlItem.removeEventListener('pointerenter', pointerenterHandler);
+      }
+      if (pointeroutHandler) {
+        htmlItem.removeEventListener('pointerout', pointeroutHandler);
+      }
+    });
+
+    // Clear HTML DOM handler maps
+    htmlItemClick.clear();
+    htmlItemPointerenter.clear();
+    htmlItemPointerout.clear();
+
+    // Clean up emitter listeners
+    emitter.off('legend:filter', onFilter);
+    emitter.off('legend:focus', onFocus);
+    emitter.off('legend:reset', onEnd);
+  };
+}
+
 function legendFilterContinuous(_, { legend, filter, emitter, channel }) {
   const onValueChange = ({ detail: { value } }) => {
     filter(value);
@@ -349,6 +558,7 @@ export function LegendFilter() {
     };
     const legends = [
       ...legendsOf(container),
+      ...legendsHtmlOf(container),
       ...legendsContinuousOf(container),
     ];
     const allChannels = legends.flatMap(channelsOf);
@@ -366,7 +576,9 @@ export function LegendFilter() {
         channels,
         allChannels,
       };
+
       if (legend.className === CATEGORY_LEGEND_CLASS_NAME) {
+        // 处理普通图例，使用 legendFilterOrdinal
         return legendFilterOrdinal(container, {
           legends: itemsOf,
           marker: markerOf,
@@ -386,7 +598,21 @@ export function LegendFilter() {
           channel,
           emitter,
         });
+      } else if (legend.className === CATEGORY_LEGEND_CLASS_NAME_HTML) {
+        // 处理 HTML 图例，使用 legendFilterOrdinalHtml
+        return legendFilterOrdinalHtml(container, {
+          domain,
+          filter: (value) => {
+            const options = { ...common, value, ordinal: true };
+            if (isFacet) filter(facets, options);
+            else filter(context, options);
+          },
+          defaultSelect: legend.attributes.defaultSelect,
+          channel,
+          emitter,
+        });
       } else {
+        // 处理连续图例
         return legendFilterContinuous(container, {
           legend,
           filter: (value) => {
