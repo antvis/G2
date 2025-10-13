@@ -387,6 +387,92 @@ chart.on('afterrender', () => {
 chart.render();
 ```
 
+## 常用交互
+
+### 滚轮缩放（sliderWheel）
+
+`sliderWheel` 交互允许用户通过鼠标滚轮或触控板手势来控制缩略轴的选择范围，实现数据范围的快速缩放操作。
+
+- **触发方式**：在图表区域内使用鼠标滚轮或触控板滚动
+- **交互效果**：放大缩小选区范围，保持选区中心位置不变
+- **使用场景**：适合需要频繁调整数据查看范围的场景
+
+#### 配置方式
+
+```js
+({
+  slider: {
+    x: {}, // 启用 X 轴缩略轴
+  },
+  interaction: {
+    sliderWheel: true, // 启用滚轮缩放交互
+  },
+});
+```
+
+也可以传入配置项进行自定义：
+
+```js
+({
+  slider: {
+    x: {},
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.1, // 滚轮灵敏度
+      minRange: 0.05,        // 最小缩放范围
+      x: true,               // X 轴响应模式
+      y: 'shift',            // Y 轴仅在按住 Shift 键时响应
+    },
+  },
+});
+```
+
+#### 主要配置项
+
+| 属性             | 描述                     | 类型    | 默认值 |
+| :--------------- | :----------------------- | :------ | :----- |
+| minRange         | 最小缩放范围             | number  | 0.01   |
+| wheelSensitivity | 滚轮缩放灵敏度           | number  | 0.05   |
+| x                | X 轴滚轮交互响应模式     | boolean | true   |
+| y                | Y 轴滚轮交互响应模式     | boolean | true   |
+
+#### 示例
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => {
+        return new Date(d).toLocaleDateString();
+      },
+    },
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.08,
+      minRange: 0.02,
+    },
+  },
+});
+
+chart.render();
+```
+
 ## 自适应过滤
 
 缩略轴不仅可以用于数据过滤，还支持自适应过滤功能。当拖拽缩略轴时，根据当前选择的数据范围自动调整其他轴的显示范围，提供更好的数据探索体验。
