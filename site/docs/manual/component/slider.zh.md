@@ -434,8 +434,8 @@ chart.render();
 | :--------------- | :----------------------- | :------ | :----- |
 | minRange         | 最小缩放范围             | number  | 0.01   |
 | wheelSensitivity | 滚轮缩放灵敏度           | number  | 0.05   |
-| x                | X 轴滚轮交互响应模式     | boolean | true   |
-| y                | Y 轴滚轮交互响应模式     | boolean | true   |
+| x                | X 轴滚轮交互响应模式     | boolean \| string | true   |
+| y                | Y 轴滚轮交互响应模式     | boolean \| string | true   |
 
 #### 示例
 
