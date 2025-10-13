@@ -30,6 +30,12 @@ export function SliderWheel({
     const { container, view } = context;
     const { coordinate } = view;
     const transposed = isTranspose(coordinate);
+
+    // Get the real DOM canvas element to attach wheel listener
+    const canvas = container.ownerDocument?.defaultView;
+    const canvasDOM = canvas
+      ? (canvas as any).getContextService().getDomElement()
+      : null;
     const safeMinRange = Math.max(0.000001, Math.min(1, minRange));
 
     const sliders = container.getElementsByClassName(className);
@@ -64,8 +70,17 @@ export function SliderWheel({
     };
 
     const handleWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
+      // Early return if canvas DOM is not available
+      if (!canvasDOM) return;
+
+      // Check if the event target is within our canvas container
+      const target = event.target as HTMLElement;
+      if (!canvasDOM.contains(target)) {
+        return;
+      }
+
+      // Find all sliders that should respond to this event
+      const activeSliders: any[] = [];
 
       for (const slider of sliders) {
         const { values, orientation } = (slider as any).attributes;
@@ -81,8 +96,23 @@ export function SliderWheel({
           : 'y';
         const axisConfig = actualAxis === 'x' ? x : y;
 
-        if (!isModifierKeyActive(axisConfig, event)) continue;
+        if (isModifierKeyActive(axisConfig, event)) {
+          activeSliders.push({ slider, axisConfig });
+        }
+      }
 
+      // If no slider should handle this event, let it propagate
+      if (activeSliders.length === 0) {
+        return;
+      }
+
+      // Prevent page scroll since we have active sliders
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Process all active sliders
+      for (const { slider } of activeSliders) {
+        const { values } = (slider as any).attributes;
         const [v0, v1] = values;
         const range = v1 - v0;
         const center = (v0 + v1) / 2;
@@ -112,10 +142,20 @@ export function SliderWheel({
       }
     };
 
-    container.addEventListener('wheel', handleWheel, { passive: false });
+    // Listen on the real DOM canvas element with passive: false AND capture: true
+    // Capture phase ensures we intercept BEFORE @antv/g-canvas's passive listener
+    // This is the only way to preventDefault() before the passive listener receives it
+    if (canvasDOM) {
+      canvasDOM.addEventListener('wheel', handleWheel, {
+        passive: false,
+        capture: true,
+      });
+    }
 
     return () => {
-      container.removeEventListener('wheel', handleWheel);
+      if (canvasDOM) {
+        canvasDOM.removeEventListener('wheel', handleWheel, { capture: true });
+      }
     };
   };
 }
