@@ -4,6 +4,7 @@ import { isTranspose } from '../utils/coordinate';
 import { invert, domainOf, sliderAbstractOf } from '../utils/scale';
 import { SliderFilterInteraction } from '../spec/interaction';
 import { Mark } from '../spec';
+import { G2ViewDescriptor, G2MarkState } from '../runtime/types/common';
 import {
   extractChannelValues,
   isFalsyValue,
@@ -21,6 +22,53 @@ import {
 } from './adaptiveFilter';
 
 export const SLIDER_CLASS_NAME = 'slider';
+
+/**
+ * Calculates extra inset needed for point marks based on size scale range or values
+ *
+ * @param view - View descriptor containing markState
+ * @returns Calculated inset value from size scale range or values
+ */
+function calculatePointInset(view: G2ViewDescriptor): number {
+  if (!view?.markState) return 0;
+
+  let maxSize = 0;
+
+  for (const [mark, state] of view.markState.entries()) {
+    if (mark.type !== 'point' || !state?.channels) continue;
+
+    const sizeChannel = state.channels?.find((ch) => ch.name === 'size');
+    if (!sizeChannel) continue;
+
+    // Priority 1: Use scale range if available
+    if (sizeChannel.scale?.range?.length > 0) {
+      const rangeMax = Math.max(
+        ...sizeChannel.scale.range.filter((val) => typeof val === 'number'),
+      );
+      maxSize = Math.max(maxSize, rangeMax);
+      continue;
+    }
+
+    // Priority 2: Fallback to values maximum
+    if (sizeChannel.values?.length > 0) {
+      const sizes = sizeChannel.values
+        .filter((item) => item.value !== undefined)
+        .flatMap((item) =>
+          Array.isArray(item.value) ? item.value : [item.value],
+        )
+        .filter(
+          (value): value is number =>
+            typeof value === 'number' && !isNaN(value),
+        );
+
+      if (sizes.length > 0) {
+        maxSize = Math.max(maxSize, ...sizes);
+      }
+    }
+  }
+
+  return maxSize;
+}
 
 /**
  * Options for filtering data by domain.
@@ -81,6 +129,7 @@ function emitFilterEvent(
 function updateSliderState(
   setState: (slider: unknown, fn: (options: unknown) => unknown) => void,
   slider: unknown,
+  view: G2ViewDescriptor,
   params: {
     domain0: unknown[];
     filteredDomain: unknown[] | Map<string, unknown[]>;
@@ -109,6 +158,7 @@ function updateSliderState(
     setState(slider, (options: FilterDataByDomainOptions) => ({
       ...filterDataByDomainMultiAxis(
         options,
+        view,
         {
           [channel0]: { domain: domain0, nice: false },
         },
@@ -124,6 +174,7 @@ function updateSliderState(
     setState(slider, (options: FilterDataByDomainOptions) => ({
       ...filterDataByDomain(
         options,
+        view,
         {
           [channel0]: { domain: domain0, nice: false },
           ...(enableAdaptiveFiltering && Array.isArray(filteredDomain)
@@ -158,6 +209,7 @@ function updateSliderState(
  */
 function filterDataByDomain(
   options: FilterDataByDomainOptions,
+  view: G2ViewDescriptor,
   scaleOptions: ScaleOptions,
   prefix: string,
   hasState = false,
@@ -165,6 +217,8 @@ function filterDataByDomain(
   channel1 = 'y',
 ) {
   const { marks } = options;
+  const extraInset = calculatePointInset(view);
+
   const newMarks = marks.map((mark) =>
     deepMix(
       {
@@ -193,6 +247,11 @@ function filterDataByDomain(
   return {
     ...options,
     marks: newMarks,
+    // Add adaptive inset based on actual point sizes from markState
+    insetLeft: extraInset,
+    insetRight: extraInset,
+    insetTop: extraInset,
+    insetBottom: extraInset,
     clip: true,
     animate: false,
   };
@@ -214,6 +273,7 @@ function filterDataByDomain(
  */
 function filterDataByDomainMultiAxis(
   options: FilterDataByDomainOptions,
+  view: G2ViewDescriptor,
   scaleOptions: ScaleOptions,
   prefix: string,
   hasState = false,
@@ -223,6 +283,8 @@ function filterDataByDomainMultiAxis(
   filteredDomainList = new Map<string, unknown[]>(),
 ) {
   const { marks } = options;
+  const extraInset = calculatePointInset(view);
+
   const newMarks = marks.map((mark: Record<string, unknown>) => {
     const markKey =
       typeof mark?.key === 'string' ? mark.key : String(mark?.key || '');
@@ -265,6 +327,11 @@ function filterDataByDomainMultiAxis(
   return {
     ...options,
     marks: newMarks,
+    // Add adaptive inset based on actual point sizes from markState
+    insetLeft: extraInset,
+    insetRight: extraInset,
+    insetTop: extraInset,
+    insetBottom: extraInset,
     clip: true,
     animate: false,
   };
@@ -796,7 +863,7 @@ function createValueChangeHandler({
           isX,
           nativeEvent,
         );
-        updateSliderState(setState, slider, {
+        updateSliderState(setState, slider, view, {
           domain0,
           filteredDomain,
           channel0,
@@ -835,7 +902,7 @@ function createValueChangeHandler({
           isX,
           nativeEvent,
         );
-        updateSliderState(setState, slider, {
+        updateSliderState(setState, slider, view, {
           domain0,
           filteredDomain,
           channel0,
