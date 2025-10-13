@@ -425,8 +425,8 @@ You can also pass configuration options for customization:
 | :--------------- | :------------------------------ | :------ | :------ |
 | minRange         | Minimum zoom range              | number  | 0.01    |
 | wheelSensitivity | Wheel zoom sensitivity          | number  | 0.05    |
-| x                | X-axis wheel interaction mode   | boolean | true    |
-| y                | Y-axis wheel interaction mode   | boolean | true    |
+| x                | X-axis wheel interaction mode   | boolean \| string | true    |
+| y                | Y-axis wheel interaction mode   | boolean \| string | true    |
 
 #### Example
 
