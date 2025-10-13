@@ -279,6 +279,13 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       ...inferCategoryStyle(options, context),
     };
 
+    const { legendCategory: legendTheme = {} } = theme;
+
+    // Filter out the data items with empty string IDs in the wordCloud's data before generating the legend.
+    const categoryStyle = adaptor(
+      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
+    );
+
     // 如果使用render函数，使用HTML渲染
     if (render) {
       const items = legendStyle.data || [];
@@ -287,6 +294,8 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       const htmlElement = new HtmlLegend({
         className: 'legend-category-html',
         style: {
+          // @ts-ignore
+          defaultSelect: categoryStyle.defaultSelect,
           innerHTML: htmlContent,
           x: bbox.x,
           y: bbox.y,
@@ -298,13 +307,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
       return htmlElement as unknown as DisplayObject;
     }
-
-    const { legendCategory: legendTheme = {} } = theme;
-
-    // Filter out the data items with empty string IDs in the wordCloud's data before generating the legend.
-    const categoryStyle = adaptor(
-      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
-    );
 
     const layoutWrapper = new LegendCategoryLayout({
       style: {

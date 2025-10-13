@@ -280,7 +280,7 @@ function legendFilterOrdinalHtml(
   const htmlItemPointerenter = new Map();
   const htmlItemPointerout = new Map();
 
-  let selectedValues = [...domain]; // 初始化为所有值都选中
+  let selectedValues = [...domain];
 
   // Helper function to get chart container element
   const getChartContainer = () => {
@@ -304,19 +304,6 @@ function legendFilterOrdinalHtml(
     htmlLegendItems.forEach((htmlItem) => {
       const value = htmlItem.getAttribute('value');
       if (!value) return;
-
-      // Create event handlers for HTML DOM elements
-      const htmlPointerenter = () => {
-        setCursor(root, 'pointer');
-        // Add visual feedback for HTML element
-        (htmlItem as HTMLElement).style.opacity = '0.8';
-      };
-
-      const htmlPointerout = () => {
-        restoreCursor(root);
-        // Remove visual feedback for HTML element
-        (htmlItem as HTMLElement).style.opacity = '1';
-      };
 
       const htmlClick = async (event) => {
         event.preventDefault();
@@ -342,19 +329,15 @@ function legendFilterOrdinalHtml(
         }
       };
 
-      // Bind HTML DOM events
+      // Bind HTML DOM events.
       htmlItem.addEventListener('click', htmlClick);
-      htmlItem.addEventListener('pointerenter', htmlPointerenter);
-      htmlItem.addEventListener('pointerout', htmlPointerout);
 
-      // Store handlers for cleanup
+      // Store handlers for cleanup.
       htmlItemClick.set(htmlItem, htmlClick);
-      htmlItemPointerenter.set(htmlItem, htmlPointerenter);
-      htmlItemPointerout.set(htmlItem, htmlPointerout);
     });
   };
 
-  // Helper function to update HTML legend visual state
+  // Helper function to update HTML legend visual state.
   const updateHtmlLegendState = () => {
     const chartContainer = getChartContainer();
     const htmlLegendItems = chartContainer.querySelectorAll(
@@ -365,7 +348,7 @@ function legendFilterOrdinalHtml(
       const value = htmlItem.getAttribute('value');
       if (!value) return;
 
-      // Check if this value exists in the domain (belongs to this chart instance)
+      // Check if this value exists in the domain (belongs to this chart instance).
       if (!domain.includes(value)) return;
 
       const isSelected = selectedValues.includes(value);
@@ -374,11 +357,11 @@ function legendFilterOrdinalHtml(
       if (!isSelected) {
         // Apply unselected style
         htmlElement.style.opacity = '0.4';
-        htmlElement.style.filter = 'grayscale(1)';
+        // htmlElement.style.filter = 'grayscale(1)';
       } else {
         // Apply selected style
         htmlElement.style.opacity = '1';
-        htmlElement.style.filter = 'none';
+        // htmlElement.style.filter = 'none';
       }
     });
   };
