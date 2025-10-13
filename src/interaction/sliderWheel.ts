@@ -1,4 +1,4 @@
-import { CustomEvent } from '@antv/g';
+import { CustomEvent, DisplayObject } from '@antv/g';
 import { isTranspose } from '../utils/coordinate';
 import { SLIDER_CLASS_NAME } from './sliderFilter';
 import { calculateSensitivityMultiplier } from './utils';
@@ -6,6 +6,23 @@ import { calculateSensitivityMultiplier } from './utils';
 /**
  * SliderWheel interaction for mouse wheel/touchpad gestures on charts.
  */
+
+/**
+ * Get the real DOM canvas element from G2 container.
+ * This helper function provides better type safety than using 'as any' directly.
+ */
+function getCanvasDOM(container: any): HTMLElement | null {
+  try {
+    const canvas = container.ownerDocument?.defaultView;
+    if (!canvas || typeof canvas.getContextService !== 'function') {
+      return null;
+    }
+    const dom = canvas.getContextService().getDomElement();
+    return dom instanceof HTMLElement ? dom : null;
+  } catch {
+    return null;
+  }
+}
 
 type SliderDirection = true | false | 'shift' | 'ctrl' | 'alt';
 
@@ -32,10 +49,7 @@ export function SliderWheel({
     const transposed = isTranspose(coordinate);
 
     // Get the real DOM canvas element to attach wheel listener
-    const canvas = container.ownerDocument?.defaultView;
-    const canvasDOM = canvas
-      ? (canvas as any).getContextService().getDomElement()
-      : null;
+    const canvasDOM = getCanvasDOM(container);
     const safeMinRange = Math.max(0.000001, Math.min(1, minRange));
 
     const sliders = container.getElementsByClassName(className);
@@ -80,7 +94,7 @@ export function SliderWheel({
       }
 
       // Find all sliders that should respond to this event
-      const activeSliders: any[] = [];
+      const activeSliders: DisplayObject[] = [];
 
       for (const slider of sliders) {
         const { values, orientation } = (slider as any).attributes;
@@ -97,7 +111,7 @@ export function SliderWheel({
         const axisConfig = actualAxis === 'x' ? x : y;
 
         if (isModifierKeyActive(axisConfig, event)) {
-          activeSliders.push({ slider, axisConfig });
+          activeSliders.push(slider);
         }
       }
 
@@ -111,7 +125,7 @@ export function SliderWheel({
       event.stopPropagation();
 
       // Process all active sliders
-      for (const { slider } of activeSliders) {
+      for (const slider of activeSliders) {
         const { values } = (slider as any).attributes;
         const [v0, v1] = values;
         const range = v1 - v0;
