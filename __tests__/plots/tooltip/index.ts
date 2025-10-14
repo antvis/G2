@@ -83,3 +83,4 @@ export { temperatureLineMarker } from './temperatures-line-marker';
 export { itemsCallback } from './items-callback';
 export { reverseScaleRange } from './reverse-scale-range';
 export { multipleSeries } from './multiple-series';
+export { aaplLineClickLock } from './aapl-line-click-lock';
