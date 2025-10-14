@@ -378,6 +378,92 @@ chart.on('afterrender', () => {
 chart.render();
 ```
 
+## Common Interactions
+
+### Wheel Zooming (sliderWheel)
+
+The `sliderWheel` interaction allows users to control the slider's selection range through mouse wheel or trackpad gestures, enabling quick data range zooming operations.
+
+- **Trigger**: Use mouse wheel or trackpad scrolling within the chart area
+- **Effect**: Zoom in/out selection range while maintaining the center position of the selection
+- **Use Cases**: Suitable for scenarios requiring frequent adjustment of data viewing range
+
+#### Configuration
+
+```js
+({
+  slider: {
+    x: {}, // Enable X-axis slider
+  },
+  interaction: {
+    sliderWheel: true, // Enable wheel zooming interaction
+  },
+});
+```
+
+You can also pass configuration options for customization:
+
+```js
+({
+  slider: {
+    x: {},
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.1, // Wheel sensitivity
+      minRange: 0.05,        // Minimum zoom range
+      x: true,               // X-axis response mode
+      y: 'shift',            // Y-axis responds only when Shift key is pressed
+    },
+  },
+});
+```
+
+#### Main Configuration Options
+
+| Property         | Description                     | Type    | Default |
+| :--------------- | :------------------------------ | :------ | :------ |
+| minRange         | Minimum zoom range              | number  | 0.01    |
+| wheelSensitivity | Wheel zoom sensitivity          | number  | 0.05    |
+| x                | X-axis wheel interaction mode   | boolean \| string | true    |
+| y                | Y-axis wheel interaction mode   | boolean \| string | true    |
+
+#### Example
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => {
+        return new Date(d).toLocaleDateString();
+      },
+    },
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.08,
+      minRange: 0.02,
+    },
+  },
+});
+
+chart.render();
+```
+
 ## Adaptive Filtering
 
 Sliders can not only be used for data filtering but also support adaptive filtering functionality. When dragging the slider, it automatically adjusts the display range of other axis based on the currently selected data range, providing a better data exploration experience.
