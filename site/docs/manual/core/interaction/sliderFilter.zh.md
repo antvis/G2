@@ -5,10 +5,10 @@ order: 21
 
 ## 概述
 
-`sliderFilter`交互的对象是数据域，通过滑块控件过滤显示的数据范围。它允许用户通过拖拽滑块来动态调整可视化图表中显示的数据范围，从而实现数据的交互式筛选。
+`sliderFilter`交互的对象是数据域，通过缩略轴过滤显示的数据范围。它允许用户通过拖拽缩略轴手柄或者选区来动态调整可视化图表中显示的数据范围，从而实现数据的交互式筛选。
 
-- 触发：拖动滑块组件
-- 结束：释放滑块
+- 触发：拖动缩略轴手柄、选区
+- 结束：释放手柄、选区
 - 影响：更新图表显示的数据范围
 
 <img alt="example" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nNa7R6quqkwAAAAAAAAAAAAADmJ7AQ/original" width="640">
@@ -57,15 +57,13 @@ order: 21
 | 属性          | 描述                             | 类型                                         | 默认值                                             | 必选 |
 | :------------ | :------------------------------- | :------------------------------------------- | :------------------------------------------------- | :--- |
 | initDomain    | 初始化坐标轴范围                 | { x: [number, number], y: [number, number] } | {}                                                 |      |
-| className     | 滑块组件的 CSS 类名              | string                                       | 'slider'                                           |      |
-| prefix        | 滑块组件前缀，用于标识和事件命名 | string                                       | 'slider'                                           |      |
-| setValue      | 设置滑块值的自定义函数           | (component, values) => void                  | (component, values) => component.setValues(values) |      |
-| hasState      | 是否保存滑块比例状态             | boolean                                      | false                                              |      |
+| setValue      | 设置缩略轴值的自定义函数           | (component, values) => void                  | (component, values) => component.setValues(values) |      |
+| hasState      | 是否保存缩略轴比例状态             | boolean                                      | false                                              |      |
 | wait          | 节流等待时间(毫秒)               | number                                       | 50                                                 |      |
 | leading       | 节流时是否在开始前执行           | boolean                                      | true                                               |      |
 | trailing      | 节流时是否在结束后执行           | boolean                                      | false                                              |      |
 | adaptiveMode  | 自适应过滤模式                   | 'filter' \| false \| null                    | 'filter'                                           |      |
-| getInitValues | 获取滑块初始值的函数             | (slider) => [number, number]                 | undefined                                          |
+| getInitValues | 获取缩略轴初始值的函数             | (slider) => [number, number]                 | undefined                                          |
 
 ### slider 组件配置
 
@@ -127,8 +125,8 @@ chart.emit('sliderY:filter', {
 
 ### 监听数据
 
-- `sliderX:filter` - X 轴滑块过滤事件
-- `sliderY:filter` - Y 轴滑块过滤事件
+- `sliderX:filter` - X 轴缩略轴过滤事件
+- `sliderY:filter` - Y 轴缩略轴过滤事件
 
 ```js
 chart.on('sliderX:filter', (event) => {
