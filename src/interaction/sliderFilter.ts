@@ -470,7 +470,7 @@ export function SliderFilter({
       };
 
       const onValueChange = createValueChangeHandler({
-        filtering: isFiltering,
+        getFiltering: () => isFiltering,
         setFiltering,
         domainsOf,
         view,
@@ -766,7 +766,7 @@ function processSingleAxisFilteringWithDomainUpdate({
  * @returns Throttled value change handler
  */
 function createValueChangeHandler({
-  filtering,
+  getFiltering,
   setFiltering,
   domainsOf,
   view,
@@ -793,7 +793,7 @@ function createValueChangeHandler({
   leading,
   trailing,
 }: {
-  filtering: boolean;
+  getFiltering: () => boolean;
   setFiltering: (value: boolean) => void;
   domainsOf: (event: any) => [unknown[], unknown[]];
   view: any;
@@ -823,7 +823,7 @@ function createValueChangeHandler({
   return throttle(
     async (event: any) => {
       const { initValue = false } = event;
-      if (filtering && !initValue) {
+      if (getFiltering() && !initValue) {
         return;
       }
       setFiltering(true);
@@ -853,6 +853,9 @@ function createValueChangeHandler({
           independentScaleInfo,
           channel0,
         });
+
+        // Update channelDomain to reflect the current filter state
+        channelDomain[channel0] = domain0;
 
         emitFilterEvent(
           emitter,
@@ -892,6 +895,9 @@ function createValueChangeHandler({
           hasOnlyYSlider,
           isX,
         });
+
+        // Update channelDomain to reflect the current filter state
+        channelDomain[channel0] = domain0;
 
         emitFilterEvent(
           emitter,
