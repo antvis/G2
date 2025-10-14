@@ -52,3 +52,38 @@ export function disableDelay(options): G2Spec {
     interactions: newInteractions,
   };
 }
+
+export function dispatchSliderZoom(
+  slider: any,
+  zoomFactor: number,
+  center = 0.5,
+) {
+  const { values } = slider.attributes;
+  const [v0, v1] = values;
+  const range = v1 - v0;
+  const newRange = Math.max(0.001, Math.min(1, range * zoomFactor));
+
+  // Calculate new range boundaries based on center position
+  const leftRatio = (center - v0) / range;
+  const rightRatio = (v1 - center) / range;
+
+  let newV0 = center - newRange * leftRatio;
+  let newV1 = center + newRange * rightRatio;
+
+  // Handle boundary conditions
+  if (newV0 < 0) {
+    newV0 = 0;
+    newV1 = Math.min(1, newRange);
+  } else if (newV1 > 1) {
+    newV1 = 1;
+    newV0 = Math.max(0, 1 - newRange);
+  }
+
+  slider.update({ values: [newV0, newV1] });
+  slider.dispatchEvent(
+    new CustomEvent('valuechange', {
+      detail: { value: [newV0, newV1] },
+      nativeEvent: true,
+    }),
+  );
+}
