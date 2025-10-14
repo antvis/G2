@@ -13,13 +13,18 @@ export function chartSliderMultiAxisAdaptive(context) {
     inset: 3,
   });
 
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  };
+
   const data: any[] = [];
   for (let i = 0; i < 60; i++) {
     data.push({
       date: `Day-${i + 1}`,
-      sales: Math.sin(i / 10) * 300 + 800 + Math.random() * 200,
-      profit: Math.cos(i / 8) * 50 + 75 + Math.random() * 25,
-      revenue: Math.sin(i / 12) * 800 + 1500 + Math.random() * 300,
+      sales: Math.sin(i / 10) * 300 + 800 + seededRandom(i * 3) * 200,
+      profit: Math.cos(i / 8) * 50 + 75 + seededRandom(i * 3 + 1) * 25,
+      revenue: Math.sin(i / 12) * 800 + 1500 + seededRandom(i * 3 + 2) * 300,
     });
   }
 

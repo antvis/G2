@@ -1,11 +1,16 @@
 import { G2Spec } from '../../../src';
 
 export function alphaBeeswarmShape(): G2Spec {
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  };
+
   const data = Array.from({ length: 400 }, (_, i) => {
     return {
       x: `G${(i % 6) + 1}`,
-      y: 40 + Math.random() * 600,
-      radius: Math.random(),
+      y: 40 + seededRandom(i * 2) * 600,
+      radius: seededRandom(i * 2 + 1),
     };
   });
 

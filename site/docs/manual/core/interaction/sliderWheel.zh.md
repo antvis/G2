@@ -282,4 +282,84 @@ chart.options({
 chart.render();
 ```
 
+### 密集气泡图缩放
 
+这个示例展示了如何在包含大量数据点的气泡图中使用双轴滚轮缩放，通过滚轮可以精确探索数据的不同区域：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+// 生成密集气泡数据（模拟 3 个系列，每个系列 500 个数据点）
+const random = (max) => +(Math.random() * max).toFixed(3);
+const data = [];
+
+for (let i = 0; i < 500; i++) {
+  data.push({
+    x: random(15),
+    y: random(10),
+    size: random(1),
+    category: 'scatter1',
+  });
+  data.push({
+    x: random(10),
+    y: random(10),
+    size: random(1),
+    category: 'scatter2',
+  });
+  data.push({
+    x: random(15),
+    y: random(10),
+    size: random(1),
+    category: 'scatter3',
+  });
+}
+
+chart.options({
+  type: 'point',
+  autoFit: true,
+  data,
+  encode: {
+    x: 'x',
+    y: 'y',
+    size: 'size',
+    color: 'category',
+    shape: 'point',
+  },
+  scale: {
+    size: { range: [4, 40] },
+  },
+  style: {
+    fillOpacity: 0.8,
+  },
+  legend: {
+    color: {
+      position: 'top',
+    },
+    size: false,
+  },
+  slider: {
+    x: {},
+    y: {},
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter', // 启用自适应过滤
+    },
+    sliderWheel: {
+      x: true, // X 轴：直接滚动
+      y: 'shift', // Y 轴：按住 Shift 键滚动
+      wheelSensitivity: 0.08,
+      minRange: 0.001,
+    },
+    tooltip: {
+      body: false, // 数据量大时简化 tooltip
+    },
+  },
+});
+
+chart.render();
+```
