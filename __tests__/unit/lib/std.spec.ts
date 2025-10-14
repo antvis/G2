@@ -44,6 +44,7 @@ import {
   Heatmap,
   Liquid,
   Chord,
+  Beeswarm,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -114,6 +115,7 @@ import {
   LegendHighlight,
   Poptip,
   TreemapDrillDown,
+  SliderWheel,
 } from '../../../src/interaction';
 import {
   SpaceLayer,
@@ -270,6 +272,7 @@ describe('stdlib', () => {
       'mark.forceGraph': ForceGraph,
       'mark.tree': TreeGeometry,
       'mark.wordCloud': WordCloudGeometry,
+      'mark.beeswarm': Beeswarm,
       'mark.density': DensityGeometry,
       'mark.gauge': Gauge,
       'mark.liquid': Liquid,
@@ -338,6 +341,7 @@ describe('stdlib', () => {
       'interaction.brushXFilter': BrushXFilter,
       'interaction.brushFilter': BrushFilter,
       'interaction.sliderFilter': SliderFilter,
+      'interaction.sliderWheel': SliderWheel,
       'interaction.scrollbarFilter': ScrollbarFilter,
       'interaction.poptip': Poptip,
       'interaction.treemapDrillDown': TreemapDrillDown,
