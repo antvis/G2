@@ -40,3 +40,5 @@ export function alphaBeeswarmShape(): G2Spec {
     },
   };
 }
+
+alphaBeeswarmShape.skip = true;

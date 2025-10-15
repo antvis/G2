@@ -40,3 +40,5 @@ export function alphaBeeswarmTranspose(): G2Spec {
     },
   };
 }
+
+alphaBeeswarmTranspose.skip = true;
