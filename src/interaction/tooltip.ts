@@ -144,7 +144,10 @@ function showTooltip({
   tooltipElement.update({
     x,
     y,
-    data: items,
+    data: items.map((item) => ({
+      ...item,
+      value: !item.value && item.value !== 0 ? '' : item.value,
+    })),
     title,
     position,
     enterable,
