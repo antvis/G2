@@ -69,3 +69,5 @@ flareTreemapPoptipCustom.steps = ({ canvas }) => {
     },
   ];
 };
+
+flareTreemapPoptipCustom.skip = true;

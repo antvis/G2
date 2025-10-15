@@ -12,10 +12,15 @@ export function chartSliderSingleAxisAdaptive(context) {
     canvas,
   });
 
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  };
+
   const data: Array<{ x: number; y: number; category: string }> = [];
   for (let i = 0; i < 150; i++) {
     const x = i;
-    const y = Math.sin(i / 15) * 60 + 80 + Math.random() * 25;
+    const y = Math.sin(i / 15) * 60 + 80 + seededRandom(i) * 25;
     data.push({
       x,
       y,

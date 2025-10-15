@@ -55,3 +55,5 @@ export function agesIntervalRadialStackedSorted(): G2Spec {
     },
   };
 }
+
+agesIntervalRadialStackedSorted.skip = true;

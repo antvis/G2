@@ -32,15 +32,15 @@
             </g>
             <g fill="none" class="slider-foreground">
               <g transform="matrix(1 0 0 1 68 16)">
-                <path width="16" height="131.84" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 16 0 0 131.84-16 0z" class="slider-selection" visibility="hidden"/>
+                <path width="16" height="82.4" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 16 0 0 82.4-16 0z" class="slider-selection" visibility="hidden"/>
               </g>
               <g transform="matrix(1 0 0 1 68 16)">
-                <path width="16" height="148.32" y="131.84" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 131.84 16 0 0 148.32-16 0z" class="slider-selection" visibility="visible"/>
+                <path width="16" height="247.2" y="82.4" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 82.4 16 0 0 247.2-16 0z" class="slider-selection" visibility="visible"/>
               </g>
               <g transform="matrix(1 0 0 1 68 16)">
-                <path width="16" height="131.84" y="280.16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 280.16 16 0 0 131.84-16 0z" class="slider-selection" visibility="hidden"/>
+                <path width="16" height="82.4" y="329.6" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 329.6 16 0 0 82.4-16 0z" class="slider-selection" visibility="hidden"/>
               </g>
-              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 76 147.84)">
+              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 76 98.4)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g transform="matrix(0 1 -1 0 0 0)">
@@ -55,12 +55,12 @@
                   </g>
                 </g>
                 <g fill="none" class="handle-label-group">
-                  <g transform="matrix(0 1 -1 0 -33.4 -33.4)">
-                    <text x="0" y="-33.4" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">Apr</text>
+                  <g transform="matrix(0 1 -1 0 -35.08 -35.08)">
+                    <text x="0" y="-35.08" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">Mar</text>
                   </g>
                 </g>
               </g>
-              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 76 296.16)">
+              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 76 345.6)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g transform="matrix(0 1 -1 0 0 0)">
@@ -75,8 +75,8 @@
                   </g>
                 </g>
                 <g fill="none" class="handle-label-group">
-                  <g transform="matrix(0 1 -1 0 36.2 34.2)">
-                    <text x="0" y="35.2" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end">Sep</text>
+                  <g transform="matrix(0 1 -1 0 34.76 32.76)">
+                    <text x="0" y="33.76" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end">Oct</text>
                   </g>
                 </g>
               </g>
@@ -108,15 +108,15 @@
             </g>
             <g fill="none" class="slider-foreground">
               <g transform="matrix(1 0 0 1 96 440)">
-                <path width="168.96" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 168.96 0 0 16-168.96 0z" class="slider-selection" visibility="hidden"/>
+                <path width="105.6" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 105.6 0 0 16-105.6 0z" class="slider-selection" visibility="hidden"/>
               </g>
               <g transform="matrix(1 0 0 1 96 440)">
-                <path width="190.08" height="16" x="168.96" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m168.96 0 190.08 0 0 16-190.08 0z" class="slider-selection" visibility="visible"/>
+                <path width="264" height="16" x="105.6" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m105.6 0 264 0 0 16-264 0z" class="slider-selection" visibility="visible"/>
               </g>
               <g transform="matrix(1 0 0 1 96 440)">
-                <path width="168.96" height="16" x="359.04" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m359.04 0 168.96 0 0 16-168.96 0z" class="slider-selection" visibility="hidden"/>
+                <path width="158.4" height="16" x="369.6" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m369.6 0 158.4 0 0 16-158.4 0z" class="slider-selection" visibility="hidden"/>
               </g>
-              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 264.96 448)">
+              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 201.6 448)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g>
@@ -132,11 +132,11 @@
                 </g>
                 <g fill="none" class="handle-label-group">
                   <g>
-                    <text x="-20.24" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">80</text>
+                    <text x="-20.12" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">50</text>
                   </g>
                 </g>
               </g>
-              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 455.04 448)">
+              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 465.6 448)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g>
@@ -152,7 +152,7 @@
                 </g>
                 <g fill="none" class="handle-label-group">
                   <g>
-                    <text x="22.7" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">170</text>
+                    <text x="22.64" y="0" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="middle">175</text>
                   </g>
                 </g>
               </g>
@@ -163,22 +163,28 @@
           <path width="528" height="412" fill="rgba(0,0,0,0)" d="m0 0 528 0 0 412-528 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g>
-              <path width="704" height="60.7869" x="-469.3333" y="6.7541" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-469.3333 6.7541 704 0 0 60.7869-704 0z" class="element"/>
+              <path width="844.8" height="45.7778" x="-211.2" y="5.0864" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 5.0864 844.8 0 0 45.7778-844.8 0z" class="element"/>
             </g>
             <g>
-              <path width="1056" height="60.7869" x="-469.3333" y="74.2951" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-469.3333 74.295 1056 0 0 60.787-1056 0z" class="element"/>
+              <path width="506.88" height="45.7778" x="-211.2" y="55.9506" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 55.9506 506.88 0 0 45.7778-506.88 0z" class="element"/>
             </g>
             <g>
-              <path width="1290.6667" height="60.7869" x="-469.3333" y="141.8361" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-469.3333 141.836 1290.6666 0 0 60.787-1290.6666 0z" class="element"/>
+              <path width="760.32" height="45.7778" x="-211.2" y="106.8148" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 106.8148 760.32 0 0 45.7778-760.32 0z" class="element"/>
             </g>
             <g>
-              <path width="1114.6667" height="60.7869" x="-469.3333" y="209.377" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-469.3333 209.377 1114.6666 0 0 60.787-1114.6666 0z" class="element"/>
+              <path width="929.28" height="45.7778" x="-211.2" y="157.679" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 157.679 929.28 0 0 45.7778-929.28 0z" class="element"/>
             </g>
             <g>
-              <path width="938.6667" height="60.7869" x="-469.3333" y="276.918" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-469.3333 276.918 938.6666 0 0 60.787-938.6666 0z" class="element"/>
+              <path width="802.56" height="45.7778" x="-211.2" y="208.5432" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 208.5432 802.56 0 0 45.7778-802.56 0z" class="element"/>
             </g>
             <g>
-              <path width="1232" height="60.7869" x="-469.3333" y="344.459" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-469.3333 344.459 1232 0 0 60.7869-1232 0z" class="element"/>
+              <path width="675.84" height="45.7778" x="-211.2" y="259.4074" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 259.4074 675.84 0 0 45.7778-675.84 0z" class="element"/>
+            </g>
+            <g>
+              <path width="887.04" height="45.7778" x="-211.2" y="310.2716" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 310.2716 887.04 0 0 45.7778-887.04 0z" class="element"/>
+            </g>
+            <g>
+              <path width="1013.76" height="45.7778" x="-211.2" y="361.1358" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m-211.2 361.1358 1013.76 0 0 45.7778-1013.76 0z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>

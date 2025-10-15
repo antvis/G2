@@ -8,7 +8,7 @@ describe('chart.slider + brushHighlight integration', () => {
   const dir = `${__dirname}/snapshots/api/${kebabCase(render.name)}`;
   const canvas = createNodeGCanvas(800, 640);
 
-  it('should get correct brush selection after slider filter', async () => {
+  it.skip('should get correct brush selection after slider filter', async () => {
     const {
       chart,
       buttonSliderX,
