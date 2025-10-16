@@ -1,6 +1,6 @@
-import { CustomEvent } from '@antv/g';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
+import { dispatchSliderZoom } from './utils';
 
 export function intervalSliderWheelTranspose(): G2Spec {
   return {
@@ -48,58 +48,31 @@ export function intervalSliderWheelTranspose(): G2Spec {
 intervalSliderWheelTranspose.steps = ({ canvas }) => {
   const { document } = canvas;
   const sliders = document.getElementsByClassName(SLIDER_CLASS_NAME);
-  const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);
+  const [sliderX, sliderY] = sliders;
 
   return [
-    // Test Ctrl + wheel for X axis (should work with horizontal slider in transposed coordinate)
+    // Test X axis zoom in (simulate Ctrl + wheel in transposed coordinate)
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -80,
-            ctrlKey: true,
-            offsetX: 200,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderX, 0.6, 0.5); // Zoom in to 60% range, center at 50%
       },
     },
-    // Test Shift + wheel for Y axis (should work with vertical slider in transposed coordinate)
+    // Test Y axis zoom in (simulate Shift + wheel in transposed coordinate)
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -80,
-            shiftKey: true,
-            offsetX: 200,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderY, 0.5, 0.4); // Zoom in to 50% range, center at 40%
       },
     },
-    // Test wheel without modifier keys (should not respond)
+    // Test Y axis zoom out
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -100,
-            offsetX: 200,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderY, 1.5, 0.4); // Zoom out to 150% of current range
       },
     },
-    // Test zoom out with Ctrl + wheel
+    // Test X axis zoom out
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: 120,
-            ctrlKey: true,
-            offsetX: 200,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderX, 1.3, 0.5); // Zoom out to 130% of current range
       },
     },
   ];

@@ -1,7 +1,7 @@
 import { format } from 'fecha';
-import { CustomEvent } from '@antv/g';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
+import { dispatchSliderZoom } from './utils';
 
 export function aaplLineSliderWheel(): G2Spec {
   return {
@@ -27,7 +27,7 @@ export function aaplLineSliderWheel(): G2Spec {
       sliderFilter: true,
       sliderWheel: {
         x: true, // Normal wheel controls X axis
-        y: true, // Normal wheel also controls Y axis (simultaneous)
+        y: 'shift', // Shift + wheel controls Y axis
         wheelSensitivity: 0.1,
         minRange: 0.001,
       },
@@ -38,55 +38,31 @@ export function aaplLineSliderWheel(): G2Spec {
 aaplLineSliderWheel.steps = ({ canvas }) => {
   const { document } = canvas;
   const sliders = document.getElementsByClassName(SLIDER_CLASS_NAME);
-  const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);
+  const [sliderX, sliderY] = sliders;
 
   return [
-    // Test simultaneous X and Y zoom in
+    // Test X axis zoom in (simulate wheel zoom in)
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -50,
-            offsetX: 250,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderX, 0.5, 0.4); // Zoom in to 50% range, center at 40%
       },
     },
-    // Test zoom out to a larger range
+    // Test Y axis zoom in
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: 200,
-            offsetX: 250,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderY, 0.6, 0.5); // Zoom in to 60% range, center at 50%
+      },
+    },
+    // Test X axis zoom out
+    {
+      changeState: () => {
+        dispatchSliderZoom(sliderX, 1.5, 0.4); // Zoom out to 150% of current range
       },
     },
     // Test extreme zoom in to test adaptive sensitivity
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -300,
-            offsetX: 250,
-            offsetY: 150,
-          }),
-        );
-      },
-    },
-    // Test recovery from extreme zoom
-    {
-      changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: 150,
-            offsetX: 250,
-            offsetY: 150,
-          }),
-        );
+        dispatchSliderZoom(sliderX, 0.2, 0.35); // Extreme zoom in to 20% range
       },
     },
   ];

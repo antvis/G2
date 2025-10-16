@@ -26,6 +26,8 @@ import {
   maybeRoot,
 } from './utils';
 
+const LOCKED_SYMBOL = 'tooltipLocked';
+
 function getContainer(
   group: IElement,
   mount?: string | HTMLElement,
@@ -942,6 +944,7 @@ export function seriesTooltip(
     preserve = false,
     style: _style = {},
     css = {},
+    clickLock = false,
     ...rest
   }: Record<string, any>,
 ) {
@@ -959,6 +962,7 @@ export function seriesTooltip(
   } = coordinate.getOptions();
   const update = throttle(
     (event) => {
+      if (clickLock && root.getAttribute(LOCKED_SYMBOL)) return;
       const mouse = mousePosition(root, event);
       if (!mouse) return;
       const bbox = bboxOf(root);
@@ -1088,6 +1092,7 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = (event: MouseEvent) => {
+    if (clickLock && root.getAttribute(LOCKED_SYMBOL)) return;
     hideTooltip({ root, single, emitter, event });
   };
 
@@ -1130,9 +1135,16 @@ export function seriesTooltip(
     addEventListeners();
   };
 
+  const pointerdown = (e) => {
+    if (clickLock) {
+      root.setAttribute(LOCKED_SYMBOL, !root.getAttribute(LOCKED_SYMBOL));
+    }
+    update(e);
+  };
+
   const addEventListeners = () => {
     if (!disableNative) {
-      root.addEventListener('pointerdown', update);
+      root.addEventListener('pointerdown', pointerdown);
       root.addEventListener('pointerenter', update);
       root.addEventListener('pointermove', update);
       // Only emit pointerleave event when the pointer is not in the root area.
@@ -1143,7 +1155,7 @@ export function seriesTooltip(
 
   const removeEventListeners = () => {
     if (!disableNative) {
-      root.removeEventListener('pointerdown', update);
+      root.removeEventListener('pointerdown', pointerdown);
       root.removeEventListener('pointerenter', update);
       root.removeEventListener('pointermove', update);
       root.removeEventListener('pointerleave', pointerleave);
@@ -1204,12 +1216,14 @@ export function tooltip(
     disableNative = false,
     preserve = false,
     css = {},
+    clickLock = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
   const keyGroup = group(elements, groupKey);
   const pointermove = throttle(
     (event) => {
+      if (clickLock && root.getAttribute(LOCKED_SYMBOL)) return;
       const element = findSingleElement({
         root,
         event,
@@ -1281,9 +1295,16 @@ export function tooltip(
     hideTooltip({ root, single, emitter, event });
   };
 
+  const pointerdown = (e) => {
+    if (clickLock) {
+      root.setAttribute(LOCKED_SYMBOL, !root.getAttribute(LOCKED_SYMBOL));
+    }
+    pointermove(e);
+  };
+
   const addEventListeners = () => {
     if (!disableNative) {
-      root.addEventListener('pointerdown', pointermove);
+      root.addEventListener('pointerdown', pointerdown);
       root.addEventListener('pointermove', pointermove);
       // Only emit pointerleave event when the pointer is not in the root area.
       // !!!DO NOT USE pointerout event, it will emit when the pointer is in the child area.
@@ -1294,7 +1315,7 @@ export function tooltip(
 
   const removeEventListeners = () => {
     if (!disableNative) {
-      root.removeEventListener('pointerdown', pointermove);
+      root.removeEventListener('pointerdown', pointerdown);
       root.removeEventListener('pointermove', pointermove);
       root.removeEventListener('pointerleave', pointerleave);
       root.removeEventListener('pointerup', pointerleave);
@@ -1373,7 +1394,7 @@ export function Tooltip(options) {
     const plotArea = selectPlotArea(container);
     const isSeries = maybeValue(series, defaultSeries);
     const crosshairsSetting = maybeValue(crosshairs, defaultShowCrosshairs);
-
+    if (rest.clickLock && !facet) plotArea.setAttribute(LOCKED_SYMBOL, false);
     // For non-facet and series tooltip.
     if (isSeries && hasSeries(markState) && !facet) {
       return seriesTooltip(plotArea, {
@@ -1406,11 +1427,12 @@ export function Tooltip(options) {
       const startX = bbox.min[0];
       const startY = bbox.min[1];
       Object.assign(scale, { facet: true });
-
+      const root = plotArea.parentNode.parentNode as DisplayObject;
+      if (rest.clickLock) root.setAttribute(LOCKED_SYMBOL, false);
       // @todo Nested structure rather than flat structure for facet?
       // Add listener to the root area.
       // @ts-ignore
-      return seriesTooltip(plotArea.parentNode.parentNode, {
+      return seriesTooltip(root, {
         ...rest,
         theme,
         elements: () => elements,

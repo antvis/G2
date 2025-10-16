@@ -147,6 +147,7 @@ export function renderToMountedElement<T extends G2ViewTree = G2ViewTree>(
   const selection = select(group);
   context.group = group;
   context.emitter = emitter;
+  context.externals = {};
   context.canvas =
     context.canvas || (group?.ownerDocument?.defaultView as GCanvas);
 

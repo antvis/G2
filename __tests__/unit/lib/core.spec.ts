@@ -35,6 +35,7 @@ import {
   Density,
   Heatmap,
   WordCloud as WordCloudGeometry,
+  Beeswarm,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -105,6 +106,7 @@ import {
   LegendHighlight,
   Poptip,
   TreemapDrillDown,
+  SliderWheel,
 } from '../../../src/interaction';
 import {
   SpaceLayer,
@@ -248,6 +250,7 @@ describe('corelib', () => {
       'mark.density': Density,
       'mark.heatmap': Heatmap,
       'mark.wordCloud': WordCloudGeometry,
+      'mark.beeswarm': Beeswarm,
       'palette.category10': Category10,
       'palette.category20': Category20,
       'scale.linear': Linear,
@@ -312,6 +315,7 @@ describe('corelib', () => {
       'interaction.brushXFilter': BrushXFilter,
       'interaction.brushFilter': BrushFilter,
       'interaction.sliderFilter': SliderFilter,
+      'interaction.sliderWheel': SliderWheel,
       'interaction.scrollbarFilter': ScrollbarFilter,
       'interaction.poptip': Poptip,
       'interaction.treemapDrillDown': TreemapDrillDown,

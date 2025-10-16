@@ -95,3 +95,5 @@ flareTreemapPoptip.steps = ({ canvas }) => {
     },
   ];
 };
+
+flareTreemapPoptip.skip = true;

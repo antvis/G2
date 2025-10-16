@@ -61,15 +61,15 @@
             </g>
             <g fill="none" class="slider-foreground">
               <g transform="matrix(1 0 0 1 96 440)">
-                <path width="198" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 198 0 0 16-198 0z" class="slider-selection" visibility="hidden"/>
+                <path width="105.6" height="16" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 105.6 0 0 16-105.6 0z" class="slider-selection" visibility="hidden"/>
               </g>
               <g transform="matrix(1 0 0 1 96 440)">
-                <path width="132" height="16" x="198" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m198 0 132 0 0 16-132 0z" class="slider-selection" visibility="visible"/>
+                <path width="316.8" height="16" x="105.6" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m105.6 0 316.8 0 0 16-316.8 0z" class="slider-selection" visibility="visible"/>
               </g>
               <g transform="matrix(1 0 0 1 96 440)">
-                <path width="198" height="16" x="330" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m330 0 198 0 0 16-198 0z" class="slider-selection" visibility="hidden"/>
+                <path width="105.6" height="16" x="422.4" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m422.4 0 105.6 0 0 16-105.6 0z" class="slider-selection" visibility="hidden"/>
               </g>
-              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 294 448)">
+              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 201.6 448)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g>
@@ -89,7 +89,7 @@
                   </g>
                 </g>
               </g>
-              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 426 448)">
+              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 518.4 448)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g>
@@ -123,15 +123,15 @@
             </g>
             <g fill="none" class="slider-foreground">
               <g transform="matrix(1 0 0 1 68 51)">
-                <path width="16" height="94.25" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 16 0 0 94.25-16 0z" class="slider-selection" visibility="hidden"/>
+                <path width="16" height="75.4" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 0 16 0 0 75.4-16 0z" class="slider-selection" visibility="hidden"/>
               </g>
               <g transform="matrix(1 0 0 1 68 51)">
-                <path width="16" height="188.5" y="94.25" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 94.25 16 0 0 188.5-16 0z" class="slider-selection" visibility="visible"/>
+                <path width="16" height="188.5" y="75.4" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 75.4 16 0 0 188.5-16 0z" class="slider-selection" visibility="visible"/>
               </g>
               <g transform="matrix(1 0 0 1 68 51)">
-                <path width="16" height="94.25" y="282.75" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 282.75 16 0 0 94.25-16 0z" class="slider-selection" visibility="hidden"/>
+                <path width="16" height="113.1" y="263.9" fill="rgba(23,131,255,1)" fill-opacity=".15" d="m0 263.9 16 0 0 113.1-16 0z" class="slider-selection" visibility="hidden"/>
               </g>
-              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 76 145.25)">
+              <g fill="none" class="slider-handle start-handle" transform="matrix(1 0 0 1 76 126.4)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g transform="matrix(0 1 -1 0 0 0)">
@@ -146,12 +146,12 @@
                   </g>
                 </g>
                 <g fill="none" class="handle-label-group">
-                  <g transform="matrix(0 1 -1 0 -60.04 -60.04)">
-                    <text x="0" y="-60.04" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">531.742</text>
+                  <g transform="matrix(0 1 -1 0 -62.56 -62.56)">
+                    <text x="0" y="-62.56" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">566.794</text>
                   </g>
                 </g>
               </g>
-              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 76 333.75)">
+              <g fill="none" class="slider-handle end-handle" transform="matrix(1 0 0 1 76 314.9)">
                 <g fill="none" class="handle-icon-group">
                   <g fill="none" class="handle-icon">
                     <g transform="matrix(0 1 -1 0 0 0)">
@@ -166,8 +166,8 @@
                   </g>
                 </g>
                 <g fill="none" class="handle-label-group">
-                  <g transform="matrix(0 1 -1 0 58.88 56.88)">
-                    <text x="0" y="57.88" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end">181.227</text>
+                  <g transform="matrix(0 1 -1 0 60.92 58.92)">
+                    <text x="0" y="59.92" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end">216.279</text>
                   </g>
                 </g>
               </g>
@@ -293,19 +293,19 @@
           <path width="528" height="377" fill="rgba(0,0,0,0)" d="m0 0 528 0 0 377-528 0z" class="plot"/>
           <g fill="none" class="main-layer">
             <g>
-              <path fill="none" stroke="rgba(23,131,255,1)" stroke-linecap="round" stroke-width="1" d="m8.25 368.675 16.5.188 16.5-.731 16.5-.124 16.5.495 16.5.705 16.5-.533 16.5-.043 16.5-1.027 16.5.032 16.5.49 16.5-.156 16.5-.14 16.5-.85 16.5.043 16.5.221 16.5.516 16.5.489 16.5-.559 16.5-.29 16.5.478 16.5-.382 16.5-.919 16.5.817 16.5.016 16.5-1.027 16.5.764 16.5-.995 16.5.592 16.5-.173 16.5 1.538 16.5.705" class="element"/>
+              <path fill="none" stroke="rgba(23,131,255,1)" stroke-linecap="round" stroke-width="1" d="m3.568 581.743 7.135 2.355 7.135-.86 7.135 3.517 7.135.591 7.135-1.656 7.135 2.936 7.136-.484 7.135 2.345 7.135-4.259 7.135-1.84 7.135 2.614 7.135 1.85 7.135-.032 7.135-.452 7.136-1.194 7.135.839 7.135-.903 7.135-.678 7.135-.097 7.135-1.118 7.135 1.333 7.136.377 7.135-1.463 7.135-.247 7.135.989 7.135 1.409 7.135-1.065 7.135-.086 7.135-2.054 7.136.064 7.135.979 7.135-.312 7.135-.279 7.135-1.7 7.135.086 7.135.441 7.136 1.033 7.135.979 7.135-1.119 7.135-.581 7.135.957 7.135-.763 7.135-1.839 7.136 1.634 7.135.033 7.135-2.055 7.135 1.528 7.135-1.99 7.135 1.183 7.135-.344 7.135 3.076 7.136 1.409 7.135-.656 7.135-.764 7.135-1.742 7.135-1.667 7.135-1.377 7.135-.753 7.136-.505 7.135-1.011 7.135 2.624 7.135.301 7.135-2.097 7.135-.871 7.135 1.247 7.135.484 7.136.172 7.135-.753 7.135-7.518 7.135 3.162 7.135-2.054 7.135 3.087 7.135 5.442" class="element"/>
             </g>
             <g>
-              <path fill="none" stroke="rgba(0,201,201,1)" stroke-linecap="round" stroke-width="1" d="m8.25 350.939 16.5.248 16.5.726 16.5 1.193 16.5 3.975 16.5-.146 16.5-.172 16.5-2.635 16.5-3.173 16.5 8.325 16.5.42 16.5-1.463 16.5 3.619 16.5-2.985 16.5-2.479 16.5.576 16.5 4.323 16.5.49 16.5 1.027 16.5-1.694 16.5 1.301 16.5-6.485 16.5 1.317 16.5-1.398 16.5 2.926 16.5-4.625 16.5.704 16.5 1.253 16.5 3.969 16.5.489 16.5.71 16.5.323" class="element"/>
+              <path fill="none" stroke="rgba(0,201,201,1)" stroke-linecap="round" stroke-width="1" d="m3.568 594.359 7.135.097 7.135-.215 7.135-2.571 7.135-1.656 7.135 2.129 7.135 1.936 7.136-.527 7.135-1.065 7.135-3.689 7.135-4.291 7.135 4.797 7.135-3.184 7.135-.172 7.135-4.324 7.136-2.861 7.135-7.744 7.135-.462 7.135-5.722 7.135-5.034 7.135-2.269 7.135-6.454 7.136.495 7.135 1.452 7.135 2.388 7.135 7.948 7.135-.29 7.135-.344 7.135-5.271 7.135-6.345 7.136 16.649 7.135.839 7.135-2.925 7.135 7.238 7.135-5.969 7.135-4.958 7.135 1.15 7.136 8.648 7.135.979 7.135 2.054 7.135-3.388 7.135 2.603 7.135-12.971 7.135 2.635 7.136-2.797 7.135 5.851 7.135-9.25 7.135 1.409 7.135 2.506 7.135 7.938 7.135.979 7.135 1.42 7.136.645 7.135-4.378 7.135 12.681 7.135-4.237 7.135-1.388 7.135-6.421 7.135-2.42 7.136.946 7.135 1.926 7.135-1.581 7.135-.699 7.135-23.168 7.135-8.4 7.135.785 7.135-10.895 7.136-1.474 7.135-14.24 7.135 4.302 7.135-1.517 7.135-2.237 7.135 16.069 7.135 14.23" class="element"/>
             </g>
             <g>
-              <path fill="none" stroke="rgba(240,136,77,1)" stroke-linecap="round" stroke-width="1" d="m8.25 336.134 16.5-.602 16.5-1.06 16.5-3.232 16.5 1.269 16.5 2.308 16.5 1.812 16.5-.296 16.5.215 16.5.538 16.5 1.086 16.5-.516 16.5-1.995 16.5-2.318 16.5-2.156 16.5 2.565 16.5.328 16.5.602 16.5 7.47 16.5.317 16.5.672 16.5-4.625 16.5 1.323 16.5.199 16.5-.833 16.5-3.619 16.5 3.361 16.5.451 16.5.431 16.5-1.119 16.5.065 16.5 1.081" class="element"/>
+              <path fill="none" stroke="rgba(240,136,77,1)" stroke-linecap="round" stroke-width="1" d="m3.568 504.711 7.135 9.379 7.135-5.733 7.135 19.715 7.135 3.065 7.135 8.239 7.135 1.56 7.136-5.012 7.135 16.682 7.135-20.167 7.135-7.959 7.135 9.228 7.135-.688 7.135.096 7.135-.473 7.136-6.346 7.135-3.237 7.135 5.442 7.135 1.226 7.135-.903 7.135-6.227 7.135-1.13 7.136-1.204 7.135-2.119 7.135-6.464 7.135 2.538 7.135 4.614 7.135 3.625 7.135-.592 7.135.43 7.136 1.076 7.135 2.173 7.135-1.033 7.135-3.99 7.135-4.636 7.135-4.313 7.135 5.13 7.136.657 7.135 1.204 7.135 14.94 7.135.634 7.135 1.345 7.135-9.25 7.135 2.646 7.136.398 7.135-1.667 7.135-7.239 7.135 6.722 7.135.904 7.135.86 7.135-2.237 7.135.129 7.136 2.162 7.135 3.108 7.135-.591 7.135-3.926 7.135-.979 7.135-10.54 7.135.118 7.136-5.324 7.135-2.033 7.135 6.034 7.135-1.355 7.135-8.11 7.135-4.904 7.135 1.387 7.135-5.539 7.136-6.604 7.135-1.14 7.135 1.721 7.135 10.863 7.135-3.012 7.135 1.022 7.135-7.41" class="element"/>
             </g>
             <g>
-              <path fill="none" stroke="rgba(213,128,255,1)" stroke-linecap="round" stroke-width="1" d="m173.25 325.158 16.5-14.644 16.5-32.826 16.5 4.657 16.5-5.813 16.5-1.522 16.5 4.103 16.5 4.023 16.5-21.237 16.5-30.799 16.5-9.077 16.5 3.436 16.5.946 16.5-16.38 16.5-29.944 16.5-17.623 16.5-5.351 16.5-9.572 16.5 37.666 16.5-14.725 16.5-15.025 16.5 24.802" class="element"/>
+              <path fill="none" stroke="rgba(213,128,255,1)" stroke-linecap="round" stroke-width="1" d="m224.757 499.516 7.135-29.288 7.135-65.652 7.135 9.315 7.135-11.627 7.135-3.044 7.136 8.207 7.135 8.045 7.135-42.474 7.135-61.597 7.135-18.156 7.135 6.873 7.135 1.893 7.136-32.762 7.135-59.887 7.135-35.246 7.135-10.702 7.135-19.145 7.135 75.332 7.135-29.448 7.135-30.052 7.136 49.605 7.135-51.1 7.135 35.204 7.135 8.679 7.135-25.136 7.135-80.118 7.135-9.056 7.136 26.168 7.135-44.119 7.135 55.983 7.135-9.369 7.135-14.218 7.135-28.535 7.135-26.663 7.135 13.659 7.136-5.646 7.135-55.951 7.135-150.288 7.135 15.058 7.135 1.635 7.135 136.789 7.135 100.157" class="element"/>
             </g>
             <g>
-              <path fill="none" stroke="rgba(120,99,255,1)" stroke-linecap="round" stroke-width="1" d="m8.25 374.058 16.5.533 16.5-.129 16.5-.318 16.5-.365 16.5-.839 16.5.339 16.5-.614 16.5-1.204 16.5.054 16.5-.581 16.5-1.146 16.5-3.667 16.5-3.942 16.5.715 16.5-3.361 16.5-3.447 16.5 1.715 16.5 3.017 16.5-1.99 16.5 1.587 16.5-3.141 16.5-2.28 16.5-3.614 16.5-2.14 16.5-5.502 16.5-2.188 16.5-1.947 16.5 3.775 16.5 3.103 16.5-4.125 16.5 5.711" class="element"/>
+              <path fill="none" stroke="rgba(120,99,255,1)" stroke-linecap="round" stroke-width="1" d="m3.568 596.327 7.135 1.624 7.135-1.065 7.135-.322 7.135.527 7.135 3.001 7.135 1.323 7.136.268 7.135.14 7.135-.839 7.135.302 7.135.634 7.135-.021 7.135-.355 7.135.473 7.136-.043 7.135-2.011 7.135-.592 7.135-1.086 7.135-.828 7.135 1.021 7.135-1.161 7.136 1.064 7.135-.258 7.135-.634 7.135-.732 7.135-1.677 7.135.677 7.135-1.226 7.135-2.409 7.136.107 7.135-1.161 7.135-2.291 7.135-7.336 7.135-7.883 7.135 1.43 7.135-6.722 7.136-6.895 7.135 3.431 7.135 6.034 7.135-3.979 7.135 3.173 7.135-6.282 7.135-4.56 7.136-7.228 7.135-4.28 7.135-11.003 7.135-4.378 7.135-3.893 7.135 7.55 7.135 6.206 7.135-8.25 7.136 11.423 7.135 2.689 7.135-11.498 7.135.118 7.135-9.82 7.135-4.409 7.135-11.38 7.136 7.336 7.135-.958 7.135 1.205 7.135-8.927 7.135-7.411 7.135-23.006 7.135-.914 7.135-10.455 7.136-7.227 7.135-16.123 7.135-39.237 7.135 8.315 7.135-17.059 7.135 67.459 7.135 11.122" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>

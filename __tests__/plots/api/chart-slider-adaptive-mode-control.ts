@@ -12,11 +12,16 @@ export function chartSliderAdaptiveModeControl(context) {
     canvas,
   });
 
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  };
+
   const data: any[] = [];
   for (let i = 0; i < 100; i++) {
     data.push({
       x: i,
-      y: Math.sin(i / 10) * 50 + 100 + Math.random() * 20,
+      y: Math.sin(i / 10) * 50 + 100 + seededRandom(i) * 20,
       category: i % 2 === 0 ? 'A' : 'B',
     });
   }

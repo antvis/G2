@@ -39,12 +39,6 @@ export type LegendCategoryOptions = {
   orientation?: GCO;
   position?: GCP;
   title?: string | string[];
-  render?: (
-    items: Array<{ id: string; label: string; color: string }>,
-    filter?: (values: any[]) => void,
-    channel?: string,
-  ) => HTMLElement | string;
-  filter?: (values: any[], channel?: string) => void;
   [key: string]: any;
 };
 
@@ -286,7 +280,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
     );
 
-    // If render is provided, use HTML to render
+    // If render is provided, use HTML to render.
     if (render) {
       const items = legendStyle.data || [];
       const htmlContent = render(items);

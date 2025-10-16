@@ -267,24 +267,18 @@ function legendFilterOrdinal(
 
 function legendFilterOrdinalHtml(
   root: DisplayObject,
-  {
-    domain, // 图例数据域
-    filter, // 过滤函数
-    defaultSelect,
-    emitter,
-    channel,
-  },
+  { domain, filter, defaultSelect, emitter, channel },
 ) {
-  // HTML DOM event handlers
+  // HTML DOM event handlers.
   const htmlItemClick = new Map();
   const htmlItemPointerenter = new Map();
   const htmlItemPointerout = new Map();
 
   let selectedValues = [...domain];
 
-  // Helper function to get chart container element
+  // Helper function to get chart container element.
   const getChartContainer = () => {
-    // Use the same approach as tooltip.ts to get container
+    // Use the same approach as tooltip.ts to get container.
     const view = root.ownerDocument?.defaultView;
     if (!view) return document.body;
 
@@ -292,11 +286,11 @@ function legendFilterOrdinalHtml(
     return (canvas.parentElement as unknown as HTMLElement) || document.body;
   };
 
-  // Helper function to bind HTML DOM events
+  // Helper function to bind HTML DOM events.
   const bindHtmlDomEvents = () => {
     const chartContainer = getChartContainer();
 
-    // Find HTML legend items only within this chart's container
+    // Find HTML legend items only within this chart's container.
     const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
 
     htmlLegendItems.forEach((htmlItem) => {
@@ -351,20 +345,19 @@ function legendFilterOrdinalHtml(
       const htmlElement = htmlItem as HTMLElement;
 
       if (!isSelected) {
-        // Apply unselected style
+        // Apply unselected style.
+        // User can override style via CSS.
         htmlElement.style.opacity = '0.4';
         htmlElement.classList.add('legend-item-unselect');
-        // htmlElement.style.filter = 'grayscale(1)';
       } else {
-        // Apply selected style
+        // Apply selected style.
         htmlElement.style.opacity = '1';
         htmlElement.classList.remove('legend-item-select');
-        // htmlElement.style.filter = 'none';
       }
     });
   };
 
-  // Bind HTML DOM events
+  // Bind HTML DOM events.
   bindHtmlDomEvents();
 
   const onFocus = async (event) => {
@@ -411,7 +404,7 @@ function legendFilterOrdinalHtml(
   }
 
   return () => {
-    // Clean up HTML DOM event listeners
+    // Clean up HTML DOM event listeners.
     const chartContainer = getChartContainer();
     const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
 
@@ -419,7 +412,7 @@ function legendFilterOrdinalHtml(
       const value = htmlItem.getAttribute('value');
       if (!value) return;
 
-      // Only clean up items that belong to this chart instance
+      // Only clean up items that belong to this chart instance.
       if (!domain.includes(value)) return;
 
       const clickHandler = htmlItemClick.get(htmlItem);
@@ -437,12 +430,12 @@ function legendFilterOrdinalHtml(
       }
     });
 
-    // Clear HTML DOM handler maps
+    // Clear HTML DOM handler maps.
     htmlItemClick.clear();
     htmlItemPointerenter.clear();
     htmlItemPointerout.clear();
 
-    // Clean up emitter listeners
+    // Clean up emitter listeners.
     emitter.off('legend:filter', onFilter);
     emitter.off('legend:focus', onFocus);
     emitter.off('legend:reset', onEnd);
@@ -557,7 +550,6 @@ export function LegendFilter() {
       };
 
       if (legend.className === CATEGORY_LEGEND_CLASS_NAME) {
-        // 处理普通图例，使用 legendFilterOrdinal
         return legendFilterOrdinal(container, {
           legends: itemsOf,
           marker: markerOf,
@@ -578,7 +570,6 @@ export function LegendFilter() {
           emitter,
         });
       } else if (legend.className === CATEGORY_LEGEND_CLASS_NAME_HTML) {
-        // 处理 HTML 图例，使用 legendFilterOrdinalHtml
         return legendFilterOrdinalHtml(container, {
           domain,
           filter: (value) => {
@@ -591,7 +582,6 @@ export function LegendFilter() {
           emitter,
         });
       } else {
-        // 处理连续图例
         return legendFilterContinuous(container, {
           legend,
           filter: (value) => {
