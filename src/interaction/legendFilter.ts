@@ -297,12 +297,10 @@ function legendFilterOrdinalHtml(
     const chartContainer = getChartContainer();
 
     // Find HTML legend items only within this chart's container
-    const htmlLegendItems = chartContainer.querySelectorAll(
-      '[role="legend-item"]',
-    );
+    const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
 
     htmlLegendItems.forEach((htmlItem) => {
-      const value = htmlItem.getAttribute('value');
+      const value = htmlItem.getAttribute('legend-value');
       if (!value) return;
 
       const htmlClick = async (event) => {
@@ -340,12 +338,10 @@ function legendFilterOrdinalHtml(
   // Helper function to update HTML legend visual state.
   const updateHtmlLegendState = () => {
     const chartContainer = getChartContainer();
-    const htmlLegendItems = chartContainer.querySelectorAll(
-      '[role="legend-item"]',
-    );
+    const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
 
     htmlLegendItems.forEach((htmlItem) => {
-      const value = htmlItem.getAttribute('value');
+      const value = htmlItem.getAttribute('legend-value');
       if (!value) return;
 
       // Check if this value exists in the domain (belongs to this chart instance).
@@ -357,10 +353,12 @@ function legendFilterOrdinalHtml(
       if (!isSelected) {
         // Apply unselected style
         htmlElement.style.opacity = '0.4';
+        htmlElement.classList.add('legend-item-unselect');
         // htmlElement.style.filter = 'grayscale(1)';
       } else {
         // Apply selected style
         htmlElement.style.opacity = '1';
+        htmlElement.classList.remove('legend-item-select');
         // htmlElement.style.filter = 'none';
       }
     });
@@ -415,9 +413,7 @@ function legendFilterOrdinalHtml(
   return () => {
     // Clean up HTML DOM event listeners
     const chartContainer = getChartContainer();
-    const htmlLegendItems = chartContainer.querySelectorAll(
-      '[role="legend-item"]',
-    );
+    const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
 
     htmlLegendItems.forEach((htmlItem) => {
       const value = htmlItem.getAttribute('value');

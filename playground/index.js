@@ -23,20 +23,12 @@ const options = {
 
         items.forEach((item) => {
           const itemDom = document.createElement('div');
-          itemDom.setAttribute('role', 'legend-item');
-          itemDom.setAttribute('value', item.id);
+          itemDom.setAttribute('legend-value', item.id);
 
           itemDom.style =
             'display: inline-flex; align-items: center; margin: 5px;';
           itemDom.innerHTML = `
-              <div style="
-                width: 8px;
-                height: 8px;
-                background-color: ${item.color};
-                margin-right: 8px;
-                border-radius: 2px;
-              "></div>
-              <span style="font-size: 12px;">${item.label}</span>
+              <span style="font-size: 12px; color: ${item.color};">${item.label}</span>
             `;
           contaienr.appendChild(itemDom);
         });

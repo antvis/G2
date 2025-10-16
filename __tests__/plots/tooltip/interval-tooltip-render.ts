@@ -58,7 +58,7 @@ intervalTooltipRender.steps = ({ canvas }) => {
   const { document } = canvas;
   const legend = document
     .getElementsByClassName('legend-category-html')[0]
-    .attributes.innerHTML.querySelector('[role=legend-item]');
+    .attributes.innerHTML.querySelector('[legend-value]');
 
   return [
     {

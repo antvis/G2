@@ -286,7 +286,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
     );
 
-    // 如果使用render函数，使用HTML渲染
+    // If render is provided, use HTML to render
     if (render) {
       const items = legendStyle.data || [];
       const htmlContent = render(items);
