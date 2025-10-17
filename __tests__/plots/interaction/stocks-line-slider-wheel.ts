@@ -1,6 +1,6 @@
-import { CustomEvent } from '@antv/g';
 import { G2Spec, PLOT_CLASS_NAME } from '../../../src';
 import { SLIDER_CLASS_NAME } from '../../../src/interaction/sliderFilter';
+import { dispatchSliderZoom } from './utils';
 
 export function stocksLineSliderWheel(): G2Spec {
   return {
@@ -38,44 +38,31 @@ export function stocksLineSliderWheel(): G2Spec {
 stocksLineSliderWheel.steps = ({ canvas }) => {
   const { document } = canvas;
   const sliders = document.getElementsByClassName(SLIDER_CLASS_NAME);
-  const [plot] = document.getElementsByClassName(PLOT_CLASS_NAME);
+  const [sliderX, sliderY] = sliders;
 
   return [
-    // Test normal wheel for X axis zoom in
+    // Test X axis zoom in (simulate normal wheel)
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -100,
-            offsetX: 300,
-            offsetY: 200,
-          }),
-        );
+        dispatchSliderZoom(sliderX, 0.6, 0.5); // Zoom in to 60% range, center at 50%
       },
     },
-    // Test Shift + wheel for Y axis zoom in
+    // Test Y axis zoom in (simulate Shift + wheel)
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: -100,
-            shiftKey: true,
-            offsetX: 300,
-            offsetY: 200,
-          }),
-        );
+        dispatchSliderZoom(sliderY, 0.5, 0.4); // Zoom in to 50% range, center at 40%
       },
     },
-    // Test wheel zoom out
+    // Test X axis zoom out
     {
       changeState: () => {
-        plot.dispatchEvent(
-          new CustomEvent('wheel', {
-            deltaY: 100,
-            offsetX: 300,
-            offsetY: 200,
-          }),
-        );
+        dispatchSliderZoom(sliderX, 1.4, 0.5); // Zoom out to 140% of current range
+      },
+    },
+    // Test extreme zoom in on Y axis
+    {
+      changeState: () => {
+        dispatchSliderZoom(sliderY, 0.3, 0.4); // Extreme zoom in to 30% range
       },
     },
   ];

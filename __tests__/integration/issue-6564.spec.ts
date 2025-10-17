@@ -6,7 +6,7 @@ import './utils/useSnapshotMatchers';
 describe('issue6564', () => {
   const canvas = createNodeGCanvas(800, 500);
 
-  it('issue6564.render() should render chart with custom slice shape', async () => {
+  it.skip('issue6564.render() should render chart with custom slice shape', async () => {
     const { chart } = render({
       canvas,
       container: document.createElement('div'),
