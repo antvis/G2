@@ -87,7 +87,6 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       emitter: this._emitter,
       canvas,
       createCanvas,
-      chart: this,
     };
     this._create();
   }

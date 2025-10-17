@@ -29,8 +29,7 @@ export function intervalTooltipRender(): G2Spec {
               const itemEl = document.createElement('div');
               itemEl.style.cssText =
                 'display: flex; align-items: center; gap: 5px; cursor: pointer;';
-              itemEl.setAttribute('role', 'legend-item');
-              itemEl.setAttribute('value', item.id);
+              itemEl.setAttribute('legend-value', item.id);
 
               const colorBox = document.createElement('div');
               colorBox.style.cssText = `width: 12px; height: 12px; background-color: ${item.color}; border-radius: 2px;`;

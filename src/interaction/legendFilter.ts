@@ -348,11 +348,11 @@ function legendFilterOrdinalHtml(
         // Apply unselected style.
         // User can override style via CSS.
         htmlElement.style.opacity = '0.4';
-        htmlElement.classList.add('legend-item-unselect');
+        htmlElement.classList.add('legend-item-inactive');
       } else {
         // Apply selected style.
         htmlElement.style.opacity = '1';
-        htmlElement.classList.remove('legend-item-select');
+        htmlElement.classList.remove('legend-item-inactive');
       }
     });
   };
@@ -409,7 +409,7 @@ function legendFilterOrdinalHtml(
     const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
 
     htmlLegendItems.forEach((htmlItem) => {
-      const value = htmlItem.getAttribute('value');
+      const value = htmlItem.getAttribute('legend-value');
       if (!value) return;
 
       // Only clean up items that belong to this chart instance.
