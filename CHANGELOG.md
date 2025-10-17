@@ -1,3 +1,52 @@
+## [5.4.2](https://github.com/antvis/g2/compare/5.3.5...5.4.2) (2025-10-17)
+
+
+### Bug Fixes
+
+* brushHighlight return incorrect selection after sliderFilter ([#7109](https://github.com/antvis/g2/issues/7109)) ([a46208f](https://github.com/antvis/g2/commit/a46208fbf327d9206b2dfb024c02df86d07f38b2))
+* correct spacing issue when scrollbar is enabled ([#7072](https://github.com/antvis/g2/issues/7072)) ([7cbdb7e](https://github.com/antvis/g2/commit/7cbdb7e2c541064e539ce867ea9f71416630cef1))
+* emit slider filter should show correct label ([#7092](https://github.com/antvis/g2/issues/7092)) ([b971f58](https://github.com/antvis/g2/commit/b971f58075993f8d6d10ea23c29afaafb679840d))
+* fix scrollbar init ([#7051](https://github.com/antvis/g2/issues/7051)) ([1056b59](https://github.com/antvis/g2/commit/1056b5987a5be7af8f56469a7515326db8952f57))
+* heatmap自定义的tooltip items被覆盖，无法在render中自定义 ([#7095](https://github.com/antvis/g2/issues/7095)) ([1fda5c6](https://github.com/antvis/g2/commit/1fda5c6364f5466a30f58ae566f4bab5e2e06326))
+* **interaction:** prevent conflicts between page scrolling and event bubbling to enhance the interactive experience ([#7144](https://github.com/antvis/g2/issues/7144)) ([df6f321](https://github.com/antvis/g2/commit/df6f321eabaae5c580137b121e76e0fd5e6d3716))
+* lineY filtered by legend ([#7154](https://github.com/antvis/g2/issues/7154)) ([453707a](https://github.com/antvis/g2/commit/453707a4398fdef81540996449c5b34336228717))
+* render error when double click legend ([#6767](https://github.com/antvis/g2/issues/6767)) ([da354e4](https://github.com/antvis/g2/commit/da354e42e292cdef79eef11c07d43f3916c5c551))
+* sankey change data ([#7086](https://github.com/antvis/g2/issues/7086)) ([84fd54a](https://github.com/antvis/g2/commit/84fd54a1238699565b3a7a0c77b7274b19ba300a))
+* sankey view style configuration is invalid ([#7131](https://github.com/antvis/g2/issues/7131)) ([714b698](https://github.com/antvis/g2/commit/714b6982bacdfa6d60144503cc103e38fe6c70c1))
+* snapshots ([#7090](https://github.com/antvis/g2/issues/7090)) ([713d531](https://github.com/antvis/g2/commit/713d531f9e18a7009c6c1b383ea3ceffe03310c9))
+* the exceedAdjust is not working when using the slider ([#7047](https://github.com/antvis/g2/issues/7047)) ([22bd63c](https://github.com/antvis/g2/commit/22bd63cf2b91846b3138658b5718f0d85d50cf63))
+* tooltip data x error ([#7076](https://github.com/antvis/g2/issues/7076)) ([707a768](https://github.com/antvis/g2/commit/707a768fc10b2a6e72e6eb53f0d6cb10c3e97a8f))
+* tooltip display is abnormal ([#7149](https://github.com/antvis/g2/issues/7149)) ([f27557b](https://github.com/antvis/g2/commit/f27557b5a1a616ea27c698859ba9ab939531da2c))
+* tooltip fails caused by resize ([#7074](https://github.com/antvis/g2/issues/7074)) ([8bb82d7](https://github.com/antvis/g2/commit/8bb82d7ff0a091d07c0a70b4bd0130e6cf6e70d3))
+* tooltip picking error when band width are not equal ([#7075](https://github.com/antvis/g2/issues/7075)) ([7c2b94e](https://github.com/antvis/g2/commit/7c2b94e40e7508af316ed7da2f48a33df9f24f1a))
+
+
+### Features
+
+* add a null tooltip for Mark interval ([#7071](https://github.com/antvis/g2/issues/7071)) ([5f34027](https://github.com/antvis/g2/commit/5f340277187f9cd1ae50b0a41d2309abda60950c))
+* add bee swarm mark ([#7133](https://github.com/antvis/g2/issues/7133)) ([ca1f727](https://github.com/antvis/g2/commit/ca1f72713308a504fb04de16c4db62ca9b9891cb))
+* add broken axisY function ([#7079](https://github.com/antvis/g2/issues/7079)) ([2ec4cd3](https://github.com/antvis/g2/commit/2ec4cd3cf638af0070a1ee84f9eec2ebfc9e043f))
+* add double-click to close function & limit breaks range ([#7102](https://github.com/antvis/g2/issues/7102)) ([7f00a36](https://github.com/antvis/g2/commit/7f00a36797449a59e57f0eb557d31c99e004abe8))
+* add interaction sliderWheel ([#7113](https://github.com/antvis/g2/issues/7113)) ([4fca700](https://github.com/antvis/g2/commit/4fca7007ce9bbefc22876cbcc766ee981da9f2ce))
+* axis label adapts automatically ([#7151](https://github.com/antvis/g2/issues/7151)) ([cfb0119](https://github.com/antvis/g2/commit/cfb0119719b094ecac8dcabcce9426d6aaad5299))
+* axis label supports the render configuration ([#7119](https://github.com/antvis/g2/issues/7119)) ([6ddef49](https://github.com/antvis/g2/commit/6ddef498dc54a03e1980ceb73178576d3ee6feec))
+* focus icon bind click events ([#7091](https://github.com/antvis/g2/issues/7091)) ([c0fa7d8](https://github.com/antvis/g2/commit/c0fa7d8d2e340e334b61a346df0e1b79db9b62f3))
+* geoView's children inherit data ([#7037](https://github.com/antvis/g2/issues/7037)) ([70a23b3](https://github.com/antvis/g2/commit/70a23b3503de447b9ef59f787cffcc6a190fe4ad))
+* legend default select ([#7106](https://github.com/antvis/g2/issues/7106)) ([da455e8](https://github.com/antvis/g2/commit/da455e8ea621b75145cf44325f486c302310ab7d))
+* make mark series scale independent ([#7046](https://github.com/antvis/g2/issues/7046)) ([3d6c55a](https://github.com/antvis/g2/commit/3d6c55a9e9ca5a725405b88dc12cdf87d6cf2464))
+* make tooltip series scale independent ([#7115](https://github.com/antvis/g2/issues/7115)) ([604c1e9](https://github.com/antvis/g2/commit/604c1e9184afcf3477cc39f3de2f6980a969e995))
+* slider scale sync ([#7132](https://github.com/antvis/g2/issues/7132)) ([73b5603](https://github.com/antvis/g2/commit/73b56036baa4bfee3fec927618b8395afcb4caf7))
+* sparkLine support interval mark ([#7142](https://github.com/antvis/g2/issues/7142)) ([2e801ae](https://github.com/antvis/g2/commit/2e801aeaf48a4e64979c1ab36d97e45d85fe04ae))
+* tickLength支持回调函数配置，添加单测 ([#7089](https://github.com/antvis/g2/issues/7089)) ([4ce8da4](https://github.com/antvis/g2/commit/4ce8da4306ceea318432a99ddfd2ec4f1e4f6d0a))
+* tooltip supports click to lock ([#7147](https://github.com/antvis/g2/issues/7147)) ([7a9b6ab](https://github.com/antvis/g2/commit/7a9b6ab46bd136e5be4705bb7af0b61730ea54d6))
+
+
+### Reverts
+
+* Revert "fix: 多轴图使用滚动条后会导致折线点位错乱 (#7038)" (#7048) ([c94a331](https://github.com/antvis/g2/commit/c94a331c6000025f2519cb709cd383bab1668e84)), closes [#7038](https://github.com/antvis/g2/issues/7038) [#7048](https://github.com/antvis/g2/issues/7048)
+
+
+
 ## [5.4.1](https://github.com/antvis/g2/compare/5.3.5...5.4.1) (2025-09-23)
 
 
