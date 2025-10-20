@@ -74,6 +74,8 @@ function getFormatter(max: number) {
   return (value: number) => ({
     value: value / max,
     label: String(value),
+    // Reference of input original domain value.
+    domainValue: value,
   });
 }
 
@@ -101,6 +103,8 @@ function getThresholdConfig(
   const thresholds = (colorScale as any).thresholds as number[];
   const data = [-Infinity, ...thresholds, Infinity].map((value, index) => ({
     value: index,
+    // Reference of input original domain value.
+    domainValue: value,
     label: value,
   }));
   return {
