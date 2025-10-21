@@ -255,7 +255,7 @@ function legendFilterOrdinal(
         focusIcon.removeEventListener('click', focusIconClick.get(item));
       }
 
-      emitter.on('legend:focus', onFocus);
+      emitter.off('legend:focus', onFocus);
       emitter.off('legend:filter', onFilter);
       emitter.off('legend:reset', onEnd);
     }
