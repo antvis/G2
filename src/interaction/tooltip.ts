@@ -633,6 +633,7 @@ function findNearestElementIndex(scale, abstractX): number {
  * @param coordinate - The coordinate system of the chart (e.g., Cartesian, polar).
  * @param scale - The scale configurations (e.g., x, series scales).
  * @param shared - Whether the tooltip is shared among multiple elements (e.g., grouped bars).
+ * @param trigger - Trigger mode: 'plot' (default) for auto-finding nearest element, 'columns' for only triggering on element hover.
  * @returns The matched display object or `undefined` if no element is found.
  * @description
  * - Handles bar charts by sorting elements and using bisector search for efficient lookup.
@@ -646,6 +647,7 @@ export function findSingleElement({
   coordinate,
   scale,
   shared,
+  trigger = 'plot',
 }): DisplayObject | undefined {
   const inInterval = (d) => d.markType === 'interval';
   const isBar = elements.every(inInterval) && !isPolar(coordinate);
@@ -687,6 +689,7 @@ export function findSingleElement({
 
   const element = isBar
     ? (event) => {
+        if (trigger === 'columns') return findElementByTarget(event);
         const mouse = mousePosition(root, event);
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);
@@ -1220,6 +1223,7 @@ export function tooltip(
     preserve = false,
     css = {},
     clickLock = false,
+    trigger = 'plot',
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -1234,6 +1238,7 @@ export function tooltip(
         coordinate,
         scale,
         shared,
+        trigger,
       });
       if (!element) {
         hideTooltip({ root, single, emitter, event });
@@ -1385,6 +1390,7 @@ export function Tooltip(options) {
     name,
     item = () => ({}),
     facet = false,
+    trigger = 'plot',
     ...rest
   } = options;
 
@@ -1465,6 +1471,7 @@ export function Tooltip(options) {
       view,
       theme,
       shared,
+      trigger,
     });
   };
 }
