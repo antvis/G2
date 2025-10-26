@@ -356,7 +356,8 @@ chart.options({
 | sort          | item 排序器                                                                                                       | `(d: TooltipItemValue) => any`                                                                                         | -                              |                      |
 | trailing      | 是否在时间间隔结束的时候更新提示信息                                                                              | `boolean`                                                                                                              | `false`                        |                      |
 | wait          | 提示信息更新的时间间隔，单位为毫秒                                                                                | `number`                                                                                                               | `50`                           |                      |
-| clickLock          | 鼠标点击后锁定 tooltip   | `boolean`          | `false`|    |
+| clickLock     | 鼠标点击后锁定 tooltip                                                                                          | `boolean`                                                                                                              | `false`                        |                      |
+| trigger       | 提示信息激活模式                                                                            | `'plot'` \| `'columns'`                                                                                                | `'plot'`                       | 柱状图                |
 
 #### crosshairs
 
