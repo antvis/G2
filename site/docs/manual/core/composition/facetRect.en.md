@@ -38,6 +38,54 @@ facetRect
 chart.render();
 ```
 
+## Stacked Bar Chart Facet
+
+The following example demonstrates how to use stacked bar charts in facetRect and add a legend to distinguish different data series.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'facetRect',
+  margin: 60,
+  data: [
+    { region: 'East', quarter: 'Q1', category: 'Furniture', sales: 120 },
+    { region: 'East', quarter: 'Q1', category: 'Office Supplies', sales: 80 },
+    { region: 'East', quarter: 'Q1', category: 'Technology', sales: 150 },
+    { region: 'East', quarter: 'Q2', category: 'Furniture', sales: 150 },
+    { region: 'East', quarter: 'Q2', category: 'Office Supplies', sales: 90 },
+    { region: 'East', quarter: 'Q2', category: 'Technology', sales: 180 },
+    { region: 'South', quarter: 'Q1', category: 'Furniture', sales: 100 },
+    { region: 'South', quarter: 'Q1', category: 'Office Supplies', sales: 70 },
+    { region: 'South', quarter: 'Q1', category: 'Technology', sales: 130 },
+    { region: 'South', quarter: 'Q2', category: 'Furniture', sales: 130 },
+    { region: 'South', quarter: 'Q2', category: 'Office Supplies', sales: 85 },
+    { region: 'South', quarter: 'Q2', category: 'Technology', sales: 160 },
+    { region: 'North', quarter: 'Q1', category: 'Furniture', sales: 110 },
+    { region: 'North', quarter: 'Q1', category: 'Office Supplies', sales: 75 },
+    { region: 'North', quarter: 'Q1', category: 'Technology', sales: 140 },
+    { region: 'North', quarter: 'Q2', category: 'Furniture', sales: 140 },
+    { region: 'North', quarter: 'Q2', category: 'Office Supplies', sales: 95 },
+    { region: 'North', quarter: 'Q2', category: 'Technology', sales: 170 },
+  ],
+  encode: { x: 'region' },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'quarter', y: 'sales', color: 'category' },
+      transform: [{ type: 'stackY' }],
+      legend: {
+        color: { position: 'top', layout: { justifyContent: 'center' } },
+      },
+    },
+  ],
+});
+
+chart.render();
+```
+
 For more examples, visit the [Chart Examples](/en/examples) page.
 
 ## Options
