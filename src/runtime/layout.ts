@@ -7,7 +7,8 @@ import {
   min,
   sum,
 } from '@antv/vendor/d3-array';
-import { deepMix } from '@antv/util';
+import { measureTextWidth } from '@antv/component';
+import { deepMix, head, last, get } from '@antv/util';
 import { isParallel, isPolar, isRadar, radiusOf } from '../utils/coordinate';
 import { capitalizeFirst, defined } from '../utils/helper';
 import { divide } from '../utils/array';
@@ -34,6 +35,8 @@ import {
   isPolar as isPolarOptions,
   isRadial as isRadarOptions,
 } from './coordinate';
+
+const DEFAULT_MARGIN = 16;
 
 export function processAxisZ(components: G2GuideComponentOptions[]) {
   const axisX = components.find(({ type }) => type === 'axisX');
@@ -104,6 +107,16 @@ export function computeLayout(
     paddingTop = padding,
   } = computeInset(components, options, theme, library);
 
+  const isDefaultLayoutLeft =
+    marginLeft === DEFAULT_MARGIN && paddingLeft === 'auto';
+  const isDefaultLayoutRight =
+    marginRight === DEFAULT_MARGIN && paddingRight === 'auto';
+  const isTranspose = get(options, 'coordinates', []).some(
+    (t) => t.type === 'transpose',
+  );
+  const axisX = components.find(({ type }) => type === 'axisX');
+  const { size, labelTransform } = axisX || {};
+
   const MIN_CONTENT_RATIO = 1 / 4;
 
   const maybeClamp = (viewWidth, paddingLeft, paddingRight, pl0, pr0) => {
@@ -140,8 +153,8 @@ export function computeLayout(
   );
   const { paddingLeft: pl0, paddingRight: pr0 } = horizontalPadding;
   const viewWidth = width - marginLeft - marginRight;
-  const [pl, pr] = maybeClamp(viewWidth, paddingLeft, paddingRight, pl0, pr0);
-  const iw = viewWidth - pl - pr;
+  let [pl, pr] = maybeClamp(viewWidth, paddingLeft, paddingRight, pl0, pr0);
+  let iw = viewWidth - pl - pr;
 
   // Compute paddingBottom and paddingTop based on innerWidth.
   const verticalPadding = computePadding(
@@ -157,6 +170,36 @@ export function computeLayout(
   const viewHeight = height - marginBottom - marginTop;
   const [pb, pt] = maybeClamp(viewHeight, paddingBottom, paddingTop, pb0, pt0);
   const ih = viewHeight - pb - pt;
+
+  // Adjust paddingLeft and paddingRight for axisX when they are 'auto' and not specified by user.
+  if (size && !isTranspose && !labelTransform) {
+    const { fontSize = 12, fontFamily = 'sans-serif', scales = [] } = axisX;
+    const domain = scales?.[0]?.domain ?? [];
+    if (!domain.length) return;
+
+    const adjustSide = (
+      side: 'left' | 'right',
+      labelText: string,
+      margin: number,
+      padding: number,
+    ) => {
+      const labelWidth = measureTextWidth(labelText, { fontSize, fontFamily });
+      const diff = labelWidth / 2 - margin - padding;
+      if (diff > 0) {
+        iw -= diff;
+        if (side === 'left') pl += labelWidth / 2 - margin;
+        else pr += labelWidth / 2 - margin;
+      }
+    };
+
+    if (isDefaultLayoutLeft) {
+      adjustSide('left', head(domain), marginLeft, pl);
+    }
+
+    if (isDefaultLayoutRight) {
+      adjustSide('right', last(domain), marginRight, pr);
+    }
+  }
 
   return {
     width,

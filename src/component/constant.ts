@@ -241,3 +241,12 @@ export const LEGEND_INFER_STRATEGIES: InferStrategy[] = [
     ],
   ],
 ];
+
+export const ANNOTATION_MARKS = [
+  'lineX',
+  'lineY',
+  'rangeX',
+  'rangeY',
+  'range',
+  'connector',
+];

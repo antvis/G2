@@ -1,6 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { deepMix, throttle } from '@antv/util';
 import { subObject } from '../utils/helper';
+import { ANNOTATION_MARKS } from '../component/constant';
 import { useState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
@@ -252,12 +253,11 @@ function legendFilterOrdinal(
       const focusIcon = focusIconOf(item);
       if (focusIcon) {
         focusIcon.removeEventListener('click', focusIconClick.get(item));
-      }
-
-      emitter.on('legend:focus', onFocus);
-      emitter.off('legend:filter', onFilter);
-      emitter.off('legend:reset', onEnd);
+      }      
     }
+    emitter.off('legend:focus', onFocus);
+    emitter.off('legend:filter', onFilter);
+    emitter.off('legend:reset', onEnd);
   };
 }
 
@@ -307,6 +307,9 @@ async function filterView(
     // which will skip for mark without color channel.
     const newMarks = marks.map((mark) => {
       if (mark.type === 'legends') return mark;
+
+      // Skip Annotation marks.
+      if (ANNOTATION_MARKS.includes(mark.type)) return mark;
 
       // Inset after aggregate transform, such as group, and bin.
       const { transform = [], data = [] } = mark;

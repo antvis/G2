@@ -368,3 +368,4 @@ export { alphabetIntervalAxisTickLengthCallback } from './alphabet-interval-axis
 export { alphabetBeeswarm } from './alphabet-beeswarm';
 export { alphaBeeswarmTranspose } from './alphabet-beeswarm-transpose';
 export { alphaBeeswarmShape } from './alphabet-beeswarm-shape';
+export { aaplAreaAxisXLabelAdapts } from './aapl-area-axis-x-label-adapts';
