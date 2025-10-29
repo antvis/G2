@@ -357,6 +357,7 @@ When configuring `tooltip.items` for composite charts, you need to configure nod
 | trailing      | Whether to update tooltip at the end of time interval                                                                    | `boolean`                                                                                                              | `false`                       |                              |
 | wait          | Time interval for tooltip update in milliseconds                                                                         | `number`                                                                                                               | `50`                          |                              |
 | clickLock          | The toolyip is locked after a mouse click.   | `boolean`          | `false`|    |
+| disableAutoHide  | Whether to disable the default tooltip auto-hide behavior. | `boolean` | `false` |    |
 
 #### crosshairs
 
