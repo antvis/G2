@@ -38,6 +38,54 @@ facetRect
 chart.render();
 ```
 
+## 堆叠柱状图分面图
+
+下面的示例展示了如何在 facetRect 中使用堆叠柱状图，并添加图例来区分不同的数据系列。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'facetRect',
+  margin: 60,
+  data: [
+    { region: '华东', quarter: 'Q1', category: '家具', sales: 120 },
+    { region: '华东', quarter: 'Q1', category: '办公用品', sales: 80 },
+    { region: '华东', quarter: 'Q1', category: '技术', sales: 150 },
+    { region: '华东', quarter: 'Q2', category: '家具', sales: 150 },
+    { region: '华东', quarter: 'Q2', category: '办公用品', sales: 90 },
+    { region: '华东', quarter: 'Q2', category: '技术', sales: 180 },
+    { region: '华南', quarter: 'Q1', category: '家具', sales: 100 },
+    { region: '华南', quarter: 'Q1', category: '办公用品', sales: 70 },
+    { region: '华南', quarter: 'Q1', category: '技术', sales: 130 },
+    { region: '华南', quarter: 'Q2', category: '家具', sales: 130 },
+    { region: '华南', quarter: 'Q2', category: '办公用品', sales: 85 },
+    { region: '华南', quarter: 'Q2', category: '技术', sales: 160 },
+    { region: '华北', quarter: 'Q1', category: '家具', sales: 110 },
+    { region: '华北', quarter: 'Q1', category: '办公用品', sales: 75 },
+    { region: '华北', quarter: 'Q1', category: '技术', sales: 140 },
+    { region: '华北', quarter: 'Q2', category: '家具', sales: 140 },
+    { region: '华北', quarter: 'Q2', category: '办公用品', sales: 95 },
+    { region: '华北', quarter: 'Q2', category: '技术', sales: 170 },
+  ],
+  encode: { x: 'region' },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'quarter', y: 'sales', color: 'category' },
+      transform: [{ type: 'stackY' }],
+      legend: {
+        color: { position: 'top', layout: { justifyContent: 'center' } },
+      },
+    },
+  ],
+});
+
+chart.render();
+```
+
 更多的案例，可以查看[图表示例](/examples)页面。
 
 ## 选项
