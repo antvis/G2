@@ -1,4 +1,12 @@
-import { Sankey, Treemap, Pack, ForceGraph, Tree, Chord } from '../mark';
+import {
+  Sankey,
+  Treemap,
+  Pack,
+  ForceGraph,
+  Tree,
+  Chord,
+  Hierarchy,
+} from '../mark';
 import { Arc, Cluster } from '../data';
 
 export function graphlib() {
@@ -11,5 +19,6 @@ export function graphlib() {
     'mark.sankey': Sankey,
     'mark.chord': Chord,
     'mark.treemap': Treemap,
+    'mark.hierarchy': Hierarchy,
   } as const;
 }

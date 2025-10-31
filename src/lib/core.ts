@@ -105,6 +105,7 @@ import {
   Poptip,
   ScrollbarFilter,
   TreemapDrillDown,
+  DrillDown,
   ElementPointMove,
 } from '../interaction';
 import {
@@ -316,6 +317,7 @@ export function corelib() {
     'interaction.scrollbarFilter': ScrollbarFilter,
     'interaction.poptip': Poptip,
     'interaction.treemapDrillDown': TreemapDrillDown,
+    'interaction.drillDown': DrillDown,
     'interaction.elementPointMove': ElementPointMove,
     'composition.spaceLayer': SpaceLayer,
     'composition.spaceFlex': SpaceFlex,

@@ -48,6 +48,7 @@ export type Mark =
   | TreeMark
   | WordCloudMark
   | DensityMark
+  | HierarchyMark
   | CustomMark
   | CompositeMark;
 
@@ -87,6 +88,7 @@ export type MarkTypes =
   | 'density'
   | 'heatmap'
   | 'liquid'
+  | 'hierarchy'
   | MarkComponent
   | CompositeMarkType;
 
@@ -421,5 +423,9 @@ export type GaugeMark = BaseMark<
 export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
 export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
+
+export type HierarchyMark = BaseMark<'hierarchy', 'value' | ChannelTypes> & {
+  layout?: Record<string, any>;
+};
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;

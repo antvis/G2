@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drilldown Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #container {
+            width: 800px;
+            height: 400px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        #console {
+            background: #f5f5f5;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        .log-entry {
+            margin: 2px 0;
+            padding: 2px 0;
+        }
+        .log-error { color: red; }
+        .log-warn { color: orange; }
+        .log-info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>层次图下钻交互测试</h1>
+    <p>点击层次图节点测试下钻功能</p>
+
+    <div id="container"></div>
+
+    <h3>控制台输出：</h3>
+    <div id="console"></div>
+
+    <script type="module">
+        // Override console methods to show in our custom console
+        const consoleDiv = document.getElementById('console');
+        function logToDiv(level, ...args) {
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${level}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${level.toUpperCase()}: ${args.join(' ')}`;
+            consoleDiv.appendChild(entry);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        window.console.log = (...args) => {
+            logToDiv('info', ...args);
+            console.info(...args);
+        };
+        window.console.error = (...args) => {
+            logToDiv('error', ...args);
+            console.error(...args);
+        };
+        window.console.warn = (...args) => {
+            logToDiv('warn', ...args);
+            console.warn(...args);
+        };
+
+        console.log('测试页面加载完成');
+        console.log('正在加载 G2 图表库...');
+
+        // Import the chart module
+        import { Chart } from './src/index.js';
+
+        console.log('G2 图表库加载成功');
+
+        const getColor = (value) => {
+            if (value > 200) return '#ff4d4f';
+            if (value > 60) return '#ffa940';
+            if (value > 40) return '#fadb14';
+            else return '#73d13d';
+        };
+
+        const performanceData = [
+            {
+                name: 'main',
+                value: 1000,
+                children: [
+                    {
+                        name: 'render',
+                        value: 650,
+                        children: [
+                            {
+                                name: 'ReactDOM.render',
+                                value: 150,
+                                children: []
+                            },
+                            {
+                                name: 'App Component',
+                                value: 350,
+                                children: []
+                            }
+                        ]
+                    },
+                    {
+                        name: 'data fetching',
+                        value: 200,
+                        children: []
+                    }
+                ]
+            }
+        ];
+
+        console.log('创建图表实例...');
+        const chart = new Chart({ container: 'container', autoFit: true });
+
+        chart.options({
+            type: 'view',
+            data: performanceData,
+            children: [
+                {
+                    type: 'hierarchy',
+                    encode: {
+                        value: 'value',
+                        color: 'name',
+                    },
+                    style: {
+                        fill: (d) => getColor(d.value),
+                        stroke: '#fff',
+                        lineWidth: 0.5,
+                    },
+                    state: {
+                        active: { stroke: '#000', lineWidth: 2, fillOpacity: 0.8 },
+                        selected: { stroke: '#ff4d4f', lineWidth: 3, fillOpacity: 1 },
+                        unselected: { fillOpacity: 0.4 },
+                    },
+                    interaction: {
+                        drillDown: {
+                            breadCrumb: {
+                                rootText: '全部层级',
+                                style: {
+                                    fill: '#333',
+                                    fontSize: 14,
+                                    y: 20,
+                                },
+                            },
+                        },
+                    },
+                },
+            ],
+        });
+
+        console.log('渲染图表...');
+        chart.render().then(() => {
+            console.log('层次图渲染完成，正在测试下钻交互...');
+
+            // 监听选中事件 - 下钻交互会自动处理
+            chart.on('element:select', (e) => {
+                console.log('选中事件:', e);
+                if (e.data) {
+                    console.log('当前路径:', e.data.path);
+                }
+            });
+
+            console.log('图表渲染完成，可以开始点击测试');
+        }).catch(error => {
+            console.error('图表渲染失败:', error);
+        });
+    </script>
+</body>
+</html>

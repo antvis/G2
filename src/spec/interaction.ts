@@ -24,7 +24,8 @@ export type Interaction =
   | BrushYFilterInteraction
   | BrushXFilterInteraction
   | SliderFilterInteraction
-  | PoptipInteraction;
+  | PoptipInteraction
+  | DrillDownInteraction;
 
 export type InteractionTypes =
   | 'elementHighlight'
@@ -47,6 +48,7 @@ export type InteractionTypes =
   | 'brushYFilter'
   | 'sliderFilter'
   | 'poptip'
+  | 'drillDown'
   | InteractionComponent;
 
 export type BrushHighlightInteraction = {
@@ -215,3 +217,23 @@ export type CustomInteraction = {
   type?: InteractionComponent;
   [key: string]: any;
 };
+
+export type DrillDownInteraction = {
+  type?: 'drillDown';
+  breadCrumb?: {
+    rootText?: string;
+    style?: {
+      fill?: string;
+      fontSize?: number;
+      y?: number;
+      x?: number;
+    };
+    activeStyle?: {
+      fill?: string;
+    };
+  };
+  showBreadCrumb?: boolean;
+  maxDepth?: number;
+  single?: boolean;
+  background?: boolean;
+} & Record<string, any>;
