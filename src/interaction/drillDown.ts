@@ -36,7 +36,7 @@ const DEFAULT_BREADCRUMB = {
     fontSize: 11,
   },
   y: 4,
-  x: 8, // Add left spacing
+  x: 8, // Add left spacing.
   active: {
     fill: 'rgba(0, 0, 0, 0.4)',
   },
@@ -154,7 +154,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
           return drillText;
         });
 
-        // Add active state and drilldown interaction
+        // Add active state and drilldown interaction.
         const textStack = [rootText, ...drillTexts];
         textStack.forEach((item, index) => {
           // Skip the last drillText
@@ -220,7 +220,6 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
       }
 
       const path = itemData?.data?.path ?? [];
-      itemStyle.cursor = 'pointer';
       drillDownClick(path);
     };
 

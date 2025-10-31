@@ -1,13 +1,7 @@
+import { transform } from 'topojson-client';
 import { Chart } from '../src';
 
 const chart = new Chart({ container: 'container', autoFit: true });
-
-const getColor = (value) => {
-  if (value > 200) return '#ff4d4f'; // Red - performance hotspot
-  if (value > 60) return '#ffa940'; // Orange - high consumption
-  if (value > 40) return '#fadb14'; // Yellow - medium consumption
-  else return '#73d13d'; // Green - low consumption
-};
 
 const performanceData = [
   {
@@ -272,19 +266,27 @@ chart.options({
         color: 'name',
       },
       style: {
-        fill: (d) => getColor(d.value),
-        stroke: '#fff',
-        lineWidth: 0.5,
+        inset: 0.5,
+        radius: 2,
+      },
+      legend: false,
+      scale: {
+        color: {
+          range: [
+            'rgb(236, 160, 57)',
+            'rgb(196, 68, 57)',
+            'rgb(211, 180, 60)',
+            'rgb(230, 67, 63)',
+          ],
+        },
       },
       tooltip: {
         title: 'name',
         items: [
           (d) => {
-            let color = getColor(d.value);
             return {
               name: '执行时间',
               value: d.value + 'ms',
-              color,
             };
           },
           (d) => ({
@@ -294,11 +296,8 @@ chart.options({
         ],
       },
       state: {
-        active: { stroke: '#000', lineWidth: 2, fillOpacity: 0.8 },
-        selected: { stroke: '#ff4d4f', lineWidth: 3, fillOpacity: 1 },
-        unselected: { fillOpacity: 0.4 },
+        // active: { fillOpacity: 0.8 },
       },
-      // Use unified drilldown interaction
       interaction: {
         drillDown: {
           breadCrumb: {
