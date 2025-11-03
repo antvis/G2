@@ -18,6 +18,11 @@ export function fruitsIntervalStackEnterXColor(): G2Spec {
         duration: 900,
       },
     },
+    interaction: {
+      tooltip: {
+        trigger: 'columns'
+      }
+    }
   };
 }
 

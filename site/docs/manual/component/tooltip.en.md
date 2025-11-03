@@ -356,7 +356,8 @@ When configuring `tooltip.items` for composite charts, you need to configure nod
 | sort          | Item sorter                                                                                                              | `(d: TooltipItemValue) => any`                                                                                         | -                             |                              |
 | trailing      | Whether to update tooltip at the end of time interval                                                                    | `boolean`                                                                                                              | `false`                       |                              |
 | wait          | Time interval for tooltip update in milliseconds                                                                         | `number`                                                                                                               | `50`                          |                              |
-| clickLock          | The toolyip is locked after a mouse click.   | `boolean`          | `false`|    |
+| clickLock     | The tooltip is locked after a mouse click                                                                               | `boolean`                                                                                                              | `false`                       |                              |
+| trigger       | Tooltip activation mode                                                                         | `'plot'` \| `'columns'`                                                                                                | `'plot'`                      | Bar charts                   |
 
 #### crosshairs
 
