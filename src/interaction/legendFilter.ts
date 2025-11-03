@@ -262,13 +262,23 @@ function legendFilterOrdinal(
 }
 
 function legendFilterContinuous(_, { legend, filter, emitter, channel }) {
-  const onValueChange = ({ detail: { value } }) => {
-    filter(value);
+  const { attributes } = legend;
+  const onValueChange = (data) => {
+    const { value } = data.detail;
+    const domainValue = value.map((d) => {
+      const matchRealValue = attributes.data?.find((item) => item.value === d);
+      // For threshold/quantile scale, use domain value instead of threshold index.
+      if (matchRealValue) return matchRealValue.domainValue ?? d;
+
+      return d;
+    });
+
+    filter(domainValue);
     emitter.emit({
       nativeEvent: true,
       data: {
         channel,
-        values: value,
+        values: domainValue,
       },
     });
   };
