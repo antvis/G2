@@ -4,7 +4,7 @@ import { subObject } from '../utils/helper';
 import { useState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
-export const CATEGORY_LEGEND_CLASS_NAME_HTML = 'legend-category-html';
+export const CATEGORY_LEGEND_CLASS_NAME_HTML = 'legend-html';
 
 export const CONTINUOUS_LEGEND_CLASS_NAME = 'legend-continuous';
 
@@ -290,43 +290,50 @@ function legendFilterOrdinalHtml(
   const bindHtmlDomEvents = () => {
     const chartContainer = getChartContainer();
 
-    // Find HTML legend items only within this chart's container.
-    const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
+    // Find HTML legend containers within this chart's container.
+    const htmlContainer = chartContainer.querySelector('.legend-html');
 
-    htmlLegendItems.forEach((htmlItem) => {
-      const value = htmlItem.getAttribute('legend-value');
+    const htmlClick = async (event) => {
+      // Find the element with legend-value attribute by traversing up from the target.
+      let targetElement = event.target as Element;
+      while (targetElement && !targetElement.hasAttribute('legend-value')) {
+        targetElement = targetElement.parentElement;
+        if (targetElement === htmlContainer) break; // Stop if we reach the container.
+      }
+
+      if (!targetElement || !targetElement.hasAttribute('legend-value')) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const value = targetElement.getAttribute('legend-value');
       if (!value) return;
 
-      const htmlClick = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+      const index = selectedValues.indexOf(value);
+      if (index === -1) selectedValues.push(value);
+      else selectedValues.splice(index, 1);
 
-        const index = selectedValues.indexOf(value);
-        if (index === -1) selectedValues.push(value);
-        else selectedValues.splice(index, 1);
+      await filter(selectedValues);
+      updateHtmlLegendState();
 
-        await filter(selectedValues);
-        updateHtmlLegendState();
+      if (selectedValues.length === domain.length) {
+        emitter.emit('legend:reset', { nativeEvent: true });
+      } else {
+        emitter.emit('legend:filter', {
+          nativeEvent: true,
+          data: {
+            channel,
+            values: selectedValues,
+          },
+        });
+      }
+    };
 
-        if (selectedValues.length === domain.length) {
-          emitter.emit('legend:reset', { nativeEvent: true });
-        } else {
-          emitter.emit('legend:filter', {
-            nativeEvent: true,
-            data: {
-              channel,
-              values: selectedValues,
-            },
-          });
-        }
-      };
+    // Bind HTML DOM events to the container using event delegation.
+    htmlContainer.addEventListener('click', htmlClick);
 
-      // Bind HTML DOM events.
-      htmlItem.addEventListener('click', htmlClick);
-
-      // Store handlers for cleanup.
-      htmlItemClick.set(htmlItem, htmlClick);
-    });
+    // Store handlers for cleanup.
+    htmlItemClick.set(htmlContainer, htmlClick);
   };
 
   // Helper function to update HTML legend visual state.

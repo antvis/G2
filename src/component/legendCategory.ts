@@ -282,24 +282,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
     // If render is provided, use HTML to render.
     if (render) {
-      const items = legendStyle.data || [];
-      const htmlContent = render(items);
-
-      const htmlElement = new HtmlLegend({
-        className: 'legend-category-html',
-        style: {
-          // @ts-ignore
-          defaultSelect: categoryStyle.defaultSelect,
-          innerHTML: htmlContent,
-          x: bbox.x,
-          y: bbox.y,
-          width: bbox.width,
-          height: bbox.height,
-          pointerEvents: 'auto',
-        },
+      return new Category({
+        style: { ...categoryStyle, x: bbox.x, y: bbox.y, render },
       });
-
-      return htmlElement as unknown as DisplayObject;
     }
 
     const layoutWrapper = new LegendCategoryLayout({
@@ -317,7 +302,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',
-        style: categoryStyle,
+        style: { ...categoryStyle, render },
       }),
     );
 
