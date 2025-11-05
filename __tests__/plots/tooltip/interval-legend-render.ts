@@ -1,6 +1,6 @@
 import { G2Spec } from '../../../src';
 
-export function intervalTooltipRender(): G2Spec {
+export function intervalLegendRender(): G2Spec {
   return {
     type: 'point',
     height: 300,
@@ -51,12 +51,12 @@ export function intervalTooltipRender(): G2Spec {
   };
 }
 
-intervalTooltipRender.className = 'legend-category-html';
+intervalLegendRender.className = 'legend-html';
 
-intervalTooltipRender.steps = ({ canvas }) => {
+intervalLegendRender.steps = ({ canvas }) => {
   const { document } = canvas;
   const legend = document
-    .getElementsByClassName('legend-category-html')[0]
+    .getElementsByClassName('legend-html')[0]
     .attributes.innerHTML.querySelector('[legend-value]');
 
   return [
