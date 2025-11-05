@@ -189,6 +189,7 @@ export type TooltipInteraction = {
   marker?: boolean;
   groupName?: boolean;
   disableNative?: boolean;
+  disableAutoHide?: boolean;
   offset?: [number, number];
   position?: TooltipStyleProps['position'];
   bounding?: BBox;
