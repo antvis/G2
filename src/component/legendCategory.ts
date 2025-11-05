@@ -25,12 +25,6 @@ import {
   titleContent,
 } from './utils';
 
-class HtmlLegend extends HTML {
-  update(options: any) {
-    this.attr(options);
-  }
-}
-
 export type LegendCategoryOptions = {
   dx?: number;
   dy?: number;
@@ -302,7 +296,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     layoutWrapper.appendChild(
       new Category({
         className: 'legend-category',
-        style: { ...categoryStyle, render },
+        style: categoryStyle,
       }),
     );
 
