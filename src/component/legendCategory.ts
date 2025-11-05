@@ -1,4 +1,5 @@
 import type { DisplayObject } from '@antv/g';
+import { HTML } from '@antv/g';
 import { Category } from '@antv/component';
 import { last } from '@antv/util';
 import { format } from '@antv/vendor/d3-format';
@@ -240,6 +241,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     title,
     cols,
     itemMarker,
+    render,
     ...style
   } = options;
 
@@ -271,6 +273,13 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     const categoryStyle = adaptor(
       Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
     );
+
+    // If render is provided, use HTML to render.
+    if (render) {
+      return new Category({
+        style: { ...categoryStyle, x: bbox.x, y: bbox.y, render },
+      });
+    }
 
     const layoutWrapper = new LegendCategoryLayout({
       style: {
