@@ -278,6 +278,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         y: bbox.y,
         width: bbox.width,
         height: bbox.height,
+        classNamePrefix: 'g2-',
         ...finalLayout,
         // @ts-ignore
         subOptions: categoryStyle,

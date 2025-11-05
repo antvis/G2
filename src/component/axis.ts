@@ -482,6 +482,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
         data: labels,
         titleText: titleContent(title),
         grid,
+        classNamePrefix: 'g2-',
         ...(tickLength !== undefined ? { tickLength } : null),
         ...rest,
         ...important,
@@ -634,6 +635,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       // Always showLine, make title could align the end of axis.
       line: true,
       indexBBox,
+      classNamePrefix: 'g2-',
       ...(tickLength !== undefined ? { tickLength } : null),
       ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,

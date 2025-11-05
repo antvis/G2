@@ -267,6 +267,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         y,
         width,
         height,
+        classNamePrefix: 'g2-',
         ...finalLayout,
         // @ts-ignore
         subOptions: finalStyle,
