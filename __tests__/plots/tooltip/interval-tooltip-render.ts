@@ -51,12 +51,12 @@ export function intervalTooltipRender(): G2Spec {
   };
 }
 
-intervalTooltipRender.className = 'legend-category-html';
+intervalTooltipRender.className = 'legend-html';
 
 intervalTooltipRender.steps = ({ canvas }) => {
   const { document } = canvas;
   const legend = document
-    .getElementsByClassName('legend-category-html')[0]
+    .getElementsByClassName('legend-html')[0]
     .attributes.innerHTML.querySelector('[legend-value]');
 
   return [
