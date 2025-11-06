@@ -948,6 +948,7 @@ export function seriesTooltip(
     style: _style = {},
     css = {},
     clickLock = false,
+    disableAutoHide = false,
     ...rest
   }: Record<string, any>,
 ) {
@@ -1095,7 +1096,8 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = (event: MouseEvent) => {
-    if (clickLock && root.getAttribute(LOCKED_SYMBOL)) return;
+    if ((clickLock && root.getAttribute(LOCKED_SYMBOL)) || disableAutoHide)
+      return;
     hideTooltip({ root, single, emitter, event });
   };
 
@@ -1220,6 +1222,7 @@ export function tooltip(
     preserve = false,
     css = {},
     clickLock = false,
+    disableAutoHide = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -1236,7 +1239,9 @@ export function tooltip(
         shared,
       });
       if (!element) {
-        hideTooltip({ root, single, emitter, event });
+        if (!disableAutoHide) {
+          hideTooltip({ root, single, emitter, event });
+        }
         return;
       }
       const k = groupKey(element);
@@ -1258,7 +1263,9 @@ export function tooltip(
       }
 
       if (isEmptyTooltipData(data)) {
-        hideTooltip({ root, single, emitter, event });
+        if (!disableAutoHide) {
+          hideTooltip({ root, single, emitter, event });
+        }
         return;
       }
 
@@ -1295,6 +1302,7 @@ export function tooltip(
   ) as (...args: any[]) => void;
 
   const pointerleave = (event) => {
+    if (disableAutoHide) return;
     hideTooltip({ root, single, emitter, event });
   };
 

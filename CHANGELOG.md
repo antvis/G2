@@ -1,3 +1,18 @@
+## [5.4.3](https://github.com/antvis/g2/compare/5.4.2...5.4.3) (2025-11-05)
+
+
+### Bug Fixes
+
+* continuous legend triggered with index value ([#7156](https://github.com/antvis/g2/issues/7156)) ([52faef0](https://github.com/antvis/g2/commit/52faef0d328b56ca1e159530bca29266b29d45b3))
+
+
+### Features
+
+* add disableAutoHide option to prevent the default tooltip auto-hide behavior ([#7173](https://github.com/antvis/g2/issues/7173)) ([18b80c9](https://github.com/antvis/g2/commit/18b80c9eab8d769605306cbc45d08b5c143bd133))
+* legend 支持 render 配置 ([#7153](https://github.com/antvis/g2/issues/7153)) ([6a3779f](https://github.com/antvis/g2/commit/6a3779f6a762072e1ae6fe2ebdef6c2d93bfa3b6))
+
+
+
 ## [5.4.2](https://github.com/antvis/g2/compare/5.3.5...5.4.2) (2025-10-17)
 
 
