@@ -20,6 +20,7 @@ import {
   scaleOf,
   titleContent,
 } from './utils';
+import { G2_CLASS_PREFIX } from './constant';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -256,6 +257,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
             theme,
           ),
           ...style,
+          classNamePrefix: G2_CLASS_PREFIX,
         },
         rest,
       ),
@@ -267,7 +269,6 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
         y,
         width,
         height,
-        classNamePrefix: 'g2-',
         ...finalLayout,
         // @ts-ignore
         subOptions: finalStyle,

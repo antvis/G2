@@ -24,6 +24,7 @@ import {
   scaleOf,
   titleContent,
 } from './utils';
+import { G2_CLASS_PREFIX } from './constant';
 
 export type LegendCategoryOptions = {
   dx?: number;
@@ -271,7 +272,9 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
     // Filter out the data items with empty string IDs in the wordCloud's data before generating the legend.
     const categoryStyle = adaptor(
-      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
+      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style, {
+        classNamePrefix: G2_CLASS_PREFIX,
+      }),
     );
 
     // If render is provided, use HTML to render.
@@ -287,7 +290,6 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
         y: bbox.y,
         width: bbox.width,
         height: bbox.height,
-        classNamePrefix: 'g2-',
         ...finalLayout,
         // @ts-ignore
         subOptions: categoryStyle,
