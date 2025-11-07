@@ -1,6 +1,7 @@
 export { ElementHighlight } from './elementHighlight';
 export { ElementHighlightByX } from './elementHighlightByX';
 export { ElementHighlightByColor } from './elementHighlightByColor';
+export { ElementHoverScale } from './elementHoverScale';
 export { ElementSelect } from './elementSelect';
 export { ElementSelectByX } from './elementSelectByX';
 export { ElementSelectByColor } from './elementSelectByColor';
