@@ -3,15 +3,12 @@ import { deepMix } from '@antv/util';
 import { group } from '@antv/vendor/d3-array';
 import {
   createDatumof,
-  createFindElementByEvent,
   createUseState,
   createValueof,
-  createXKey,
   mergeState,
   selectElementByData,
   selectG2Elements,
   selectPlotArea,
-  VALID_FIND_BY_X_MARKS,
 } from './utils';
 
 /**
@@ -22,8 +19,7 @@ export function elementHoverScale(
   {
     elements: elementsof,
     datum,
-    groupKey: eleGroupKey = (d) => d,
-    regionGroupKey = (d) => d,
+    groupKey = (d) => d,
     scaleFactor = 1.04,
     scaleOrigin = 'center center',
     shadow = true,
@@ -33,26 +29,13 @@ export function elementHoverScale(
     shadowOffsetY = 2,
     zIndex = 10,
     delay = 60,
-    coordinate,
-    scale,
     emitter,
     state = {},
-    region = false,
-    regionEleFilter = (el) => VALID_FIND_BY_X_MARKS.includes(el.markType),
   }: Record<string, any>,
 ) {
-  const groupKey = region ? regionGroupKey : eleGroupKey;
-  const findElement = createFindElementByEvent({
-    elementsof,
-    root,
-    coordinate,
-    scale,
-  });
-
   // Helper function to get current valid elements
   const getCurrentElements = () => {
-    const allElements = elementsof(root) ?? [];
-    return region ? allElements.filter(regionEleFilter) : allElements;
+    return elementsof(root) ?? [];
   };
 
   const initialElements = getCurrentElements();
@@ -89,7 +72,9 @@ export function elementHoverScale(
 
     const scaleTransform = `scale(${scaleFactor})`;
 
-    if (currentTransform.includes('translate')) {
+    // Preserve all existing transforms and append scale
+    // If there's already a transform, append scale; otherwise just use scale
+    if (currentTransform) {
       element.style.transform = `${currentTransform} ${scaleTransform}`;
     } else {
       element.style.transformOrigin = scaleOrigin;
@@ -127,11 +112,7 @@ export function elementHoverScale(
 
   const pointerover = (event) => {
     const { nativeEvent = true } = event;
-    let element = event.target;
-
-    if (region) {
-      element = findElement(event);
-    }
+    const element = event.target;
 
     // Get current elements dynamically to handle chart updates (e.g., legend filter)
     const validElements = getCurrentElements();
@@ -143,6 +124,9 @@ export function elementHoverScale(
     const currentKeyGroup = group(validElements, groupKey);
     const k = groupKey(element);
     const currentGroup = currentKeyGroup.get(k);
+
+    if (!currentGroup) return;
+
     const groupSet = new Set(currentGroup);
 
     // Remove hover effects from elements not in current group
@@ -193,11 +177,7 @@ export function elementHoverScale(
   };
 
   const pointerout = (event) => {
-    let element = event.target;
-
-    if (region) {
-      element = findElement(event);
-    }
+    const element = event.target;
 
     // Check if element is valid using current elements
     const validElements = getCurrentElements();
@@ -264,7 +244,6 @@ export function elementHoverScale(
 export function ElementHoverScale({
   delay,
   createGroup,
-  createRegionGroup,
   scale: scaleFactorParam,
   scaleOrigin,
   shadow,
@@ -275,20 +254,14 @@ export function ElementHoverScale({
   zIndex,
   ...rest
 }) {
-  return (context, _, emitter) => {
+  return (context, _contexts, emitter) => {
     const { container, view, options } = context;
-    const { coordinate, scale } = view;
     const plotArea = selectPlotArea(container);
 
     return elementHoverScale(plotArea, {
       elements: selectG2Elements,
       datum: createDatumof(view),
       groupKey: createGroup ? createGroup(view) : undefined,
-      regionGroupKey: createRegionGroup
-        ? createRegionGroup(view)
-        : createXKey(view),
-      coordinate,
-      scale,
       state: mergeState(options, ['active']),
       scaleFactor: scaleFactorParam,
       scaleOrigin,

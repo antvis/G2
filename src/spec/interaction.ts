@@ -157,7 +157,6 @@ export type ElementHoverScaleInteraction = {
   shadowOffsetY?: number;
   zIndex?: number;
   delay?: number;
-  region?: boolean;
 } & Record<`state${any}`, any>;
 
 export type PoptipInteraction = {
