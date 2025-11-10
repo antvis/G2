@@ -1,5 +1,6 @@
 import { DisplayObject } from '@antv/g';
 import { deepMix, throttle } from '@antv/util';
+import { Base } from '@antv/scale';
 import { subObject } from '../utils/helper';
 import { ANNOTATION_MARKS } from '../component/constant';
 import { useState, setCursor, restoreCursor } from './utils';
@@ -67,6 +68,21 @@ export function attributesOf(root) {
     child = child.children[0];
   }
   return child.attributes;
+}
+
+function getScaleByMarkKey(
+  scale: Record<string, Base<any>>,
+  markKey: string,
+  channelName: string,
+) {
+  const seriesKey = Object.keys(scale).find((channel) => {
+    if (channel.startsWith(channelName)) {
+      const options = scale[channel].getOptions();
+      return options.name === channelName && options.markKey === markKey;
+    }
+  });
+
+  return scale[seriesKey] ?? scale[channelName];
 }
 
 function legendFilterOrdinal(
@@ -494,8 +510,14 @@ async function filterView(
     // Add filter transform for every marks,
     // which will skip for mark without color channel.
     const newMarks = marks.map((mark) => {
+      // Only filter marks with the same scale key.
+      if (
+        // if key is not defined, use default channel name.
+        (mark.scale[channel].key ?? channel) !==
+        legend.attributes.scales.find((s) => s.name === channel)?.key
+      )
+        return mark;
       if (mark.type === 'legends') return mark;
-
       // Skip Annotation marks.
       if (ANNOTATION_MARKS.includes(mark.type)) return mark;
 
@@ -508,16 +530,24 @@ async function filterView(
       if (data.length) {
         newTransform.splice(index + 1, 0, {
           type: 'filter',
-          [channel]: { value, ordinal },
+          [channel]: {
+            value,
+            ordinal,
+          },
         });
       }
 
       // Set domain of scale to preserve encoding.
       const newScale = Object.fromEntries(
-        channels.map((channel) => [
-          channel,
-          { domain: view.scale[channel].getOptions().domain },
-        ]),
+        channels.map((channel) => {
+          const matchScale = getScaleByMarkKey(
+            view.scale,
+            viewOptions.key,
+            channel,
+          );
+
+          return [channel, { domain: matchScale.getOptions().domain }];
+        }),
       );
       return deepMix({}, mark, {
         transform: newTransform,
@@ -570,7 +600,7 @@ export function LegendFilter() {
       };
 
       if (legend.className === CATEGORY_LEGEND_CLASS_NAME) {
-        return legendFilterOrdinal(container, {
+        return legendFilterOrdinal(legend, {
           legends: itemsOf,
           marker: markerOf,
           label: labelOf,
