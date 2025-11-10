@@ -19,7 +19,7 @@ export function elementHoverScale(
   {
     elements: elementsof,
     datum,
-    groupKey = (d) => d,
+    groupKey = (element) => element,
     scaleFactor = 1.04,
     scaleOrigin = 'center center',
     shadow = true,
@@ -70,17 +70,26 @@ export function elementHoverScale(
       shadowOffsetY: element.style.shadowOffsetY || 0,
     });
 
+    // Treat 'none' as empty string since it means no transform
+    const prefix =
+      currentTransform && currentTransform !== 'none' ? currentTransform : '';
     const scaleTransform = `scale(${scaleFactor})`;
 
-    // Preserve all existing transforms and append scale
-    // If there's already a transform, append scale; otherwise just use scale
-    if (currentTransform) {
-      element.style.transform = `${currentTransform} ${scaleTransform}`;
+    // Build new transform: append or replace scale in existing transform
+    let newTransform: string;
+    if (prefix && !prefix.includes('scale')) {
+      newTransform = `${prefix} ${scaleTransform}`.trimStart();
+    } else if (prefix && prefix.includes('scale')) {
+      newTransform = prefix
+        .replace(/scale\([^)]+\)/g, scaleTransform)
+        .trimStart();
     } else {
-      element.style.transformOrigin = scaleOrigin;
-      element.style.transform = scaleTransform;
+      newTransform = scaleTransform;
     }
 
+    // Apply styles
+    element.style.transformOrigin = scaleOrigin;
+    element.style.transform = newTransform;
     element.style.zIndex = zIndex;
 
     if (shadow) {
@@ -165,10 +174,12 @@ export function elementHoverScale(
   const reset = (nativeEvent = true) => {
     const validElements = getCurrentElements();
 
+    // Remove hover effects and states from all valid elements
     for (const e of validElements) {
       removeState(e, 'active');
       removeHoverEffect(e);
     }
+
     hoveredElements.clear();
 
     if (nativeEvent) {
@@ -177,18 +188,6 @@ export function elementHoverScale(
   };
 
   const pointerout = (event) => {
-    const element = event.target;
-
-    // Check if element is valid using current elements
-    const validElements = getCurrentElements();
-    const currentElementSet = new Set(validElements);
-
-    if (!element || !currentElementSet.has(element)) {
-      if (delay > 0) delayReset();
-      else reset();
-      return;
-    }
-
     if (delay > 0) delayReset();
     else reset();
   };
@@ -257,11 +256,14 @@ export function ElementHoverScale({
   return (context, _contexts, emitter) => {
     const { container, view, options } = context;
     const plotArea = selectPlotArea(container);
+    const datumof = createDatumof(view);
 
     return elementHoverScale(plotArea, {
       elements: selectG2Elements,
-      datum: createDatumof(view),
-      groupKey: createGroup ? createGroup(view) : undefined,
+      datum: datumof,
+      groupKey: createGroup
+        ? (element) => createGroup(view)(datumof(element))
+        : undefined,
       state: mergeState(options, ['active']),
       scaleFactor: scaleFactorParam,
       scaleOrigin,
