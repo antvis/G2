@@ -509,14 +509,19 @@ async function filterView(
     const { marks } = viewOptions;
     // Add filter transform for every marks,
     // which will skip for mark without color channel.
+
+    const channelScale = legend.attributes?.scales?.find(
+      (s) => s.name === channel,
+    );
     const newMarks = marks.map((mark) => {
       // Only filter marks with the same scale key.
       if (
         // if key is not defined, use default channel name.
         (mark.scale[channel].key ?? channel) !==
-        legend.attributes.scales.find((s) => s.name === channel)?.key
+        (channelScale?.key ?? channelScale?.name)
       )
         return mark;
+
       if (mark.type === 'legends') return mark;
       // Skip Annotation marks.
       if (ANNOTATION_MARKS.includes(mark.type)) return mark;
