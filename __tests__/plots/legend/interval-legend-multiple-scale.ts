@@ -1,4 +1,6 @@
 import { G2Spec } from '../../../src';
+import { LEGEND_ITEMS_CLASS_NAME } from '../../../src/interaction/legendFilter';
+import { step } from './utils';
 
 export function intervalLegendMultipleScale(): G2Spec {
   return {
@@ -63,29 +65,9 @@ export function intervalLegendMultipleScale(): G2Spec {
 
 intervalLegendMultipleScale.steps = ({ canvas }) => {
   const { document } = canvas;
-  const linkLegend = document.getElementsByClassName('g2-legend-item')[2];
-  const normalLegend = document.getElementsByClassName('g2-legend-item')[0];
+  const [normalLegend, , linkLegend] = document.getElementsByClassName(
+    LEGEND_ITEMS_CLASS_NAME,
+  );
 
-  return [
-    {
-      changeState: async () => {
-        linkLegend?.dispatchEvent(
-          new CustomEvent('click', {
-            offsetX: 5,
-            offsetY: 5,
-          }),
-        );
-      },
-    },
-    {
-      changeState: async () => {
-        normalLegend?.dispatchEvent(
-          new CustomEvent('click', {
-            offsetX: 5,
-            offsetY: 5,
-          }),
-        );
-      },
-    },
-  ];
+  return [step(normalLegend, 'click'), step(linkLegend, 'click')];
 };
