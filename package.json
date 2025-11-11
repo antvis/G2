@@ -69,7 +69,7 @@
     "animation"
   ],
   "dependencies": {
-    "@antv/component": "^2.1.3",
+    "@antv/component": "^2.1.9",
     "@antv/coord": "^0.4.7",
     "@antv/event-emitter": "^0.1.3",
     "@antv/expr": "^1.0.2",

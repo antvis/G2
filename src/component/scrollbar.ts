@@ -1,6 +1,7 @@
 import { Scrollbar as ScrollbarComponent } from '@antv/component';
 import { DisplayObject } from '@antv/g';
 import { GuideComponentComponent as GCC } from '../runtime';
+import { G2_CLASS_PREFIX } from './constant';
 
 export type ScrollbarOptions = {
   orientation?: 'horizontal' | 'vertical';
@@ -24,7 +25,7 @@ export const Scrollbar: GCC<ScrollbarOptions> = (options) => {
     const [r0, r1] = range;
     const value1 = r1 > r0 ? 0 : 1;
     return new ScrollbarComponent({
-      className: 'g2-scrollbar',
+      className: `${G2_CLASS_PREFIX}scrollbar`,
       style: Object.assign({}, scrollbarTheme, {
         ...style,
         x,
