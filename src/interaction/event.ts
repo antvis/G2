@@ -57,10 +57,18 @@ function bubblesEvent(eventType, view, emitter, predicate = (event) => true) {
       //label children [Text2, Rect2, Path2],
       e1['data'] = { data: root.attributes.datum };
       emitter.emit(`label:${eventType}`, e1);
-      emitter.emit(`${className}:${eventType}`, e1);
+      // Support multiple classNames (e.g., "axis-label-item g2-axis-label-item")
+      const classNames = className.split(/\s+/).filter(Boolean);
+      classNames.forEach((cls) => {
+        emitter.emit(`${cls}:${eventType}`, e1);
+      });
     } else {
       emitter.emit(`component:${eventType}`, e1);
-      emitter.emit(`${className}:${eventType}`, e1);
+      // Support multiple classNames (e.g., "axis-tick-item g2-axis-tick-item")
+      const classNames = className.split(/\s+/).filter(Boolean);
+      classNames.forEach((cls) => {
+        emitter.emit(`${cls}:${eventType}`, e1);
+      });
     }
   };
 }

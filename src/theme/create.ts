@@ -1,3 +1,5 @@
+import { g2Selector } from '../component/constant';
+
 export function create({
   colorDefault,
   colorBlack,
@@ -436,7 +438,7 @@ export function create({
     },
     tooltip: {
       css: {
-        '.g2-tooltip': {
+        [g2Selector('tooltip')]: {
           'font-family': 'sans-serif',
         },
       },
