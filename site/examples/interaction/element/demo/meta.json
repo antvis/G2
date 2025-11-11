@@ -21,12 +21,36 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gwt_SpgIGsMAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
-      "filename":"slider.ts",
+      "filename": "slider.ts",
       "title": {
         "zh": "滑动",
         "en": "Slider"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nNa7R6quqkwAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "pie-hover-scale.ts",
+      "title": {
+        "zh": "饼图元素放大",
+        "en": "Pie Hover Interaction Scale"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oPIvT4UxolEAAAAAU5AAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "donut-hover-scale.ts",
+      "title": {
+        "zh": "环图元素放大",
+        "en": "Donut Hover Interaction Scale"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WZ0bTbATWVEAAAAAVtAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "group-hover-scale.ts",
+      "title": {
+        "zh": "分组柱状图元素放大",
+        "en": "Grouped Column Hover Interaction Scale"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vQKWQJmG3tQAAAAAUIAAAAgAemJ7AQ/original"
     }
   ]
 }

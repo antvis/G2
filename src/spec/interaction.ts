@@ -7,6 +7,7 @@ export type Interaction =
   | ElementHighlightInteraction
   | ElementHighlightByColorInteraction
   | ElementHighlightByXInteraction
+  | ElementHoverScaleInteraction
   | ElementSelectByColorInteraction
   | ElementSelectByXInteraction
   | ElementSelectInteraction
@@ -31,6 +32,7 @@ export type InteractionTypes =
   | 'elementHighlight'
   | 'elementHighlightByX'
   | 'elementHighlightByColor'
+  | 'elementHoverScale'
   | 'fisheye'
   | 'chartIndex'
   | 'elementSelect'
@@ -146,6 +148,19 @@ export type ElementHighlightByColorInteraction = {
   delay?: number;
 } & Record<`${'link' | 'background'}${any}`, any>;
 
+export type ElementHoverScaleInteraction = {
+  type?: 'elementHoverScale';
+  scale?: number;
+  scaleOrigin?: string;
+  shadow?: boolean;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  zIndex?: number;
+  delay?: number;
+} & Record<`state${any}`, any>;
+
 export type PoptipInteraction = {
   type?: 'poptip';
   offsetX?: number;
@@ -191,6 +206,7 @@ export type TooltipInteraction = {
   marker?: boolean;
   groupName?: boolean;
   disableNative?: boolean;
+  disableAutoHide?: boolean;
   offset?: [number, number];
   position?: TooltipStyleProps['position'];
   bounding?: BBox;

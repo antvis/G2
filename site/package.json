@@ -11,7 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
     "@antv/data-set": "^0.11.8",
-    "@antv/dumi-theme-antv": "^0.7.7",
+    "@antv/dumi-theme-antv": "^0.7.10",
     "@antv/g-lottie-player": "^1.0.32",
     "@antv/g-pattern": "^2.0.32",
     "@antv/g-plugin-3d": "^2.0.41",
@@ -49,6 +49,9 @@
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"
+  },
+  "overrides": {
+    "@monaco-editor/loader": "1.5.0"
   },
   "repository": {
     "type": "git",

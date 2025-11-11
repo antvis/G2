@@ -1,3 +1,15 @@
+/**
+ * G2 component class name prefix
+ */
+export const G2_CLASS_PREFIX = 'g2-';
+
+/**
+ * Helper function to create G2 CSS class selector
+ */
+export function g2Selector(className: string): string {
+  return `.${G2_CLASS_PREFIX}${className}`;
+}
+
 // [legend type, [channels, scale type][][]]
 type InferStrategy = [string, [string, string][][]];
 

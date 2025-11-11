@@ -5,6 +5,7 @@ import { ANNOTATION_MARKS } from '../component/constant';
 import { useState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
+export const CATEGORY_LEGEND_CLASS_NAME_HTML = 'legend-html';
 
 export const CONTINUOUS_LEGEND_CLASS_NAME = 'legend-continuous';
 
@@ -34,6 +35,9 @@ export function itemsOf(root) {
 
 export function legendsOf(root) {
   return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME);
+}
+export function legendsHtmlOf(root) {
+  return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME_HTML);
 }
 
 export function legendsContinuousOf(root) {
@@ -254,22 +258,215 @@ function legendFilterOrdinal(
       if (focusIcon) {
         focusIcon.removeEventListener('click', focusIconClick.get(item));
       }
-
-      emitter.on('legend:focus', onFocus);
-      emitter.off('legend:filter', onFilter);
-      emitter.off('legend:reset', onEnd);
     }
+    emitter.off('legend:focus', onFocus);
+    emitter.off('legend:filter', onFilter);
+    emitter.off('legend:reset', onEnd);
+  };
+}
+
+function legendFilterOrdinalHtml(
+  root: DisplayObject,
+  { domain, filter, defaultSelect, emitter, channel },
+) {
+  // HTML DOM event handlers.
+  const htmlItemClick = new Map();
+  const htmlItemPointerenter = new Map();
+  const htmlItemPointerout = new Map();
+
+  let selectedValues = [...domain];
+
+  // Helper function to get chart container element.
+  const getChartContainer = () => {
+    // Use the same approach as tooltip.ts to get container.
+    const view = root.ownerDocument?.defaultView;
+    if (!view) return document.body;
+
+    const canvas: any = view.getContextService().getDomElement();
+    return (canvas.parentElement as unknown as HTMLElement) || document.body;
+  };
+
+  // Helper function to bind HTML DOM events.
+  const bindHtmlDomEvents = () => {
+    const chartContainer = getChartContainer();
+
+    // Find HTML legend containers within this chart's container.
+    const htmlContainer = chartContainer.querySelector('.legend-html');
+
+    const htmlClick = async (event) => {
+      // Find the element with legend-value attribute by traversing up from the target.
+      let targetElement = event.target as Element;
+      while (targetElement && !targetElement.hasAttribute('legend-value')) {
+        targetElement = targetElement.parentElement;
+        if (targetElement === htmlContainer) break; // Stop if we reach the container.
+      }
+
+      if (!targetElement || !targetElement.hasAttribute('legend-value')) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const value = targetElement.getAttribute('legend-value');
+      if (!value) return;
+
+      const index = selectedValues.indexOf(value);
+      if (index === -1) selectedValues.push(value);
+      else selectedValues.splice(index, 1);
+
+      await filter(selectedValues);
+      updateHtmlLegendState();
+
+      if (selectedValues.length === domain.length) {
+        emitter.emit('legend:reset', { nativeEvent: true });
+      } else {
+        emitter.emit('legend:filter', {
+          nativeEvent: true,
+          data: {
+            channel,
+            values: selectedValues,
+          },
+        });
+      }
+    };
+
+    // Bind HTML DOM events to the container using event delegation.
+    htmlContainer.addEventListener('click', htmlClick);
+
+    // Store handlers for cleanup.
+    htmlItemClick.set(htmlContainer, htmlClick);
+  };
+
+  // Helper function to update HTML legend visual state.
+  const updateHtmlLegendState = () => {
+    const chartContainer = getChartContainer();
+    const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
+
+    htmlLegendItems.forEach((htmlItem) => {
+      const value = htmlItem.getAttribute('legend-value');
+      if (!value) return;
+
+      // Check if this value exists in the domain (belongs to this chart instance).
+      if (!domain.includes(value)) return;
+
+      const isSelected = selectedValues.includes(value);
+      const htmlElement = htmlItem as HTMLElement;
+
+      if (!isSelected) {
+        // Apply unselected style.
+        // User can override style via CSS.
+        htmlElement.style.opacity = '0.4';
+        htmlElement.classList.add('legend-item-inactive');
+      } else {
+        // Apply selected style.
+        htmlElement.style.opacity = '1';
+        htmlElement.classList.remove('legend-item-inactive');
+      }
+    });
+  };
+
+  // Bind HTML DOM events.
+  bindHtmlDomEvents();
+
+  const onFocus = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+
+    const { data } = event;
+    const { channel: specifiedChannel, value } = data;
+    if (specifiedChannel !== channel) return;
+
+    selectedValues = [value];
+
+    await filter(selectedValues);
+    updateHtmlLegendState();
+  };
+
+  const onFilter = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    const { data } = event;
+    const { channel: specifiedChannel, values } = data;
+    if (specifiedChannel !== channel) return;
+    selectedValues = values;
+    await filter(selectedValues);
+    updateHtmlLegendState();
+  };
+
+  const onEnd = async (event) => {
+    const { nativeEvent } = event;
+    if (nativeEvent) return;
+    selectedValues = [...domain];
+    await filter(selectedValues);
+    updateHtmlLegendState();
+  };
+
+  emitter.on('legend:filter', onFilter);
+  emitter.on('legend:focus', onFocus);
+  emitter.on('legend:reset', onEnd);
+
+  if (defaultSelect) {
+    emitter.emit('legend:filter', {
+      data: { channel, values: defaultSelect },
+    });
+  }
+
+  return () => {
+    // Clean up HTML DOM event listeners.
+    const chartContainer = getChartContainer();
+    const htmlLegendItems = chartContainer.querySelectorAll('[legend-value]');
+
+    htmlLegendItems.forEach((htmlItem) => {
+      const value = htmlItem.getAttribute('legend-value');
+      if (!value) return;
+
+      // Only clean up items that belong to this chart instance.
+      if (!domain.includes(value)) return;
+
+      const clickHandler = htmlItemClick.get(htmlItem);
+      const pointerenterHandler = htmlItemPointerenter.get(htmlItem);
+      const pointeroutHandler = htmlItemPointerout.get(htmlItem);
+
+      if (clickHandler) {
+        htmlItem.removeEventListener('click', clickHandler);
+      }
+      if (pointerenterHandler) {
+        htmlItem.removeEventListener('pointerenter', pointerenterHandler);
+      }
+      if (pointeroutHandler) {
+        htmlItem.removeEventListener('pointerout', pointeroutHandler);
+      }
+    });
+
+    // Clear HTML DOM handler maps.
+    htmlItemClick.clear();
+    htmlItemPointerenter.clear();
+    htmlItemPointerout.clear();
+
+    // Clean up emitter listeners.
+    emitter.off('legend:filter', onFilter);
+    emitter.off('legend:focus', onFocus);
+    emitter.off('legend:reset', onEnd);
   };
 }
 
 function legendFilterContinuous(_, { legend, filter, emitter, channel }) {
-  const onValueChange = ({ detail: { value } }) => {
-    filter(value);
+  const { attributes } = legend;
+  const onValueChange = (data) => {
+    const { value } = data.detail;
+    const domainValue = value.map((d) => {
+      const matchRealValue = attributes.data?.find((item) => item.value === d);
+      // For threshold/quantile scale, use domain value instead of threshold index.
+      if (matchRealValue) return matchRealValue.domainValue ?? d;
+
+      return d;
+    });
+
+    filter(domainValue);
     emitter.emit({
       nativeEvent: true,
       data: {
         channel,
-        values: value,
+        values: domainValue,
       },
     });
   };
@@ -353,6 +550,7 @@ export function LegendFilter() {
     };
     const legends = [
       ...legendsOf(container),
+      ...legendsHtmlOf(container),
       ...legendsContinuousOf(container),
     ];
     const allChannels = legends.flatMap(channelsOf);
@@ -370,6 +568,7 @@ export function LegendFilter() {
         channels,
         allChannels,
       };
+
       if (legend.className === CATEGORY_LEGEND_CLASS_NAME) {
         return legendFilterOrdinal(container, {
           legends: itemsOf,
@@ -386,6 +585,18 @@ export function LegendFilter() {
             else filter(context, options);
           },
           state: legend.attributes.state,
+          defaultSelect: legend.attributes.defaultSelect,
+          channel,
+          emitter,
+        });
+      } else if (legend.className === CATEGORY_LEGEND_CLASS_NAME_HTML) {
+        return legendFilterOrdinalHtml(container, {
+          domain,
+          filter: (value) => {
+            const options = { ...common, value, ordinal: true };
+            if (isFacet) filter(facets, options);
+            else filter(context, options);
+          },
           defaultSelect: legend.attributes.defaultSelect,
           channel,
           emitter,

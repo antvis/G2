@@ -14,6 +14,7 @@ import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
 import { BBox } from '../runtime';
 import { CALLBACK_ITEM_SYMBOL } from '../runtime/transform';
+import { G2_CLASS_PREFIX, g2Selector } from '../component/constant';
 import {
   selectG2Elements,
   createXKey,
@@ -79,8 +80,8 @@ function createTooltip(
   offset: [number, number] = [10, 10],
 ) {
   const defaults = {
-    '.g2-tooltip': {},
-    '.g2-tooltip-title': {
+    [g2Selector('tooltip')]: {},
+    [g2Selector('tooltip-title')]: {
       overflow: 'hidden',
       'white-space': 'nowrap',
       'text-overflow': 'ellipsis',
@@ -99,7 +100,7 @@ function createTooltip(
       title: '',
       offset,
       template: {
-        prefixCls: 'g2-',
+        prefixCls: G2_CLASS_PREFIX,
       },
       style: deepMix(defaults, css),
     },
@@ -529,7 +530,7 @@ function updateMarker(root, { data, style, theme }) {
       const fill = type === 'hollow' ? 'transparent' : originColor;
       const stroke = type === 'hollow' ? originColor : '#fff';
       const shape = new Circle({
-        className: 'g2-tooltip-marker',
+        className: `${G2_CLASS_PREFIX}tooltip-marker`,
         style: {
           cx: point[0],
           cy: point[1],
@@ -948,6 +949,7 @@ export function seriesTooltip(
     style: _style = {},
     css = {},
     clickLock = false,
+    disableAutoHide = false,
     ...rest
   }: Record<string, any>,
 ) {
@@ -1095,7 +1097,8 @@ export function seriesTooltip(
   ) as (...args: any[]) => void;
 
   const hide = (event: MouseEvent) => {
-    if (clickLock && root.getAttribute(LOCKED_SYMBOL)) return;
+    if ((clickLock && root.getAttribute(LOCKED_SYMBOL)) || disableAutoHide)
+      return;
     hideTooltip({ root, single, emitter, event });
   };
 
@@ -1220,6 +1223,7 @@ export function tooltip(
     preserve = false,
     css = {},
     clickLock = false,
+    disableAutoHide = false,
   }: Record<string, any>,
 ) {
   const elements = elementsof(root);
@@ -1236,7 +1240,9 @@ export function tooltip(
         shared,
       });
       if (!element) {
-        hideTooltip({ root, single, emitter, event });
+        if (!disableAutoHide) {
+          hideTooltip({ root, single, emitter, event });
+        }
         return;
       }
       const k = groupKey(element);
@@ -1258,7 +1264,9 @@ export function tooltip(
       }
 
       if (isEmptyTooltipData(data)) {
-        hideTooltip({ root, single, emitter, event });
+        if (!disableAutoHide) {
+          hideTooltip({ root, single, emitter, event });
+        }
         return;
       }
 
@@ -1295,6 +1303,7 @@ export function tooltip(
   ) as (...args: any[]) => void;
 
   const pointerleave = (event) => {
+    if (disableAutoHide) return;
     hideTooltip({ root, single, emitter, event });
   };
 

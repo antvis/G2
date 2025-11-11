@@ -70,6 +70,22 @@ describe('chart.on', () => {
     await fired;
   });
 
+  it('chart.on("g2-axis-tick-item:click", callback) should emit events', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on(`g2-axis-tick-item:${ChartEvent.CLICK}`, resolve);
+    dispatchFirstShapeEvent(canvas, 'axis-tick-item', 'click', { detail: 1 });
+    await fired;
+  });
+
+  it('chart.on("g2-axis-label-item:click", callback) should emit events', async () => {
+    await finished;
+    const [fired, resolve] = createPromise();
+    chart.on(`g2-axis-label-item:${ChartEvent.CLICK}`, resolve);
+    dispatchFirstShapeEvent(canvas, 'axis-label-item', 'click', { detail: 1 });
+    await fired;
+  });
+
   afterAll(() => {
     canvas?.destroy();
   });

@@ -75,6 +75,14 @@
         "en": "Radial Jitter Scatter"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DziRQb4LMbAAAAAAAAAAAAAADmJ7AQ/original"
+    },
+        {
+      "filename": "pie-hover-scale.ts",
+      "title": {
+        "zh": "增加交互的饼图",
+        "en": "Pie Chart with Interaction"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oPIvT4UxolEAAAAAU5AAAAgAemJ7AQ/original"
     }
   ]
 }
