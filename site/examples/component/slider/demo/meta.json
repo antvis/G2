@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "slider-wheel.ts",
+      "title": {
+        "zh": "滚轮缩放",
+        "en": "Wheel Zoom"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zhDzTrPAs1QAAAAAgCAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "slider-adaptive.ts",
+      "title": {
+        "zh": "自适应过滤",
+        "en": "Adaptive Filtering"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xxdWQbkXGhQAAAAAZZAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "slider-custom.ts",
+      "title": {
+        "zh": "自定义样式",
+        "en": "Custom Styling"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4R5xQLskh7wAAAAARZAAAAgAemJ7AQ/original"
+    },
+        {
+      "filename": "slider-multi-axis-view.ts",
+      "title": {
+        "zh": "View 层级自适应",
+        "en": "View-level Adaptive Slider"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yDeYToOckQAAAAAAgCAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "slider-multi-axis-mark.ts",
+      "title": {
+        "zh": "Mark 层级自适应",
+        "en": "Mark-level Adaptive Slider"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yMl8RpwUkDgAAAAAgCAAAAgAemJ7AQ/original"
+    }
+  ]
+}
