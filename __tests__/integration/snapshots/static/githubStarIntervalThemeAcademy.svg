@@ -31,164 +31,164 @@
                     <g fill="none" class="navigator-content-group" clip-path="url(#b)">
                       <g fill="none" class="navigator-play-window">
                         <g fill="none" class="items-item-page">
-                          <g fill="none" class="items-item">
+                          <g fill="none" class="items-item g2-legend-item">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="24.6" height="19" fill="rgba(0,0,0,0)" d="m0 0 24.6 0 0 19-24.6 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="24.6" height="19" fill="rgba(0,0,0,0)" d="m0 0 24.6 0 0 19-24.6 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(78,121,167,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(78,121,167,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 36.6 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 36.6 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="30.8" height="19" fill="rgba(0,0,0,0)" d="m0 0 30.8 0 0 19-30.8 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="30.8" height="19" fill="rgba(0,0,0,0)" d="m0 0 30.8 0 0 19-30.8 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(242,142,44,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(242,142,44,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G2</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G2</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 79.4 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 79.4 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="49.7" height="19" fill="rgba(0,0,0,0)" d="m0 0 49.7 0 0 19-49.7 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="49.7" height="19" fill="rgba(0,0,0,0)" d="m0 0 49.7 0 0 19-49.7 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(225,87,89,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(225,87,89,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G2Plot</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G2Plot</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 141.1 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 141.1 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="29.7" height="19" fill="rgba(0,0,0,0)" d="m0 0 29.7 0 0 19-29.7 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="29.7" height="19" fill="rgba(0,0,0,0)" d="m0 0 29.7 0 0 19-29.7 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(118,183,178,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(118,183,178,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">S2</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">S2</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 182.8 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 182.8 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="29" height="19" fill="rgba(0,0,0,0)" d="m0 0 29 0 0 19-29 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="29" height="19" fill="rgba(0,0,0,0)" d="m0 0 29 0 0 19-29 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(89,161,79,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(89,161,79,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">F2</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">F2</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 223.8 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 223.8 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="28.6" height="19" fill="rgba(0,0,0,0)" d="m0 0 28.6 0 0 19-28.6 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="28.6" height="19" fill="rgba(0,0,0,0)" d="m0 0 28.6 0 0 19-28.6 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(237,201,73,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(237,201,73,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">L7</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">L7</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 264.4 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 264.4 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="31.1" height="19" fill="rgba(0,0,0,0)" d="m0 0 31.1 0 0 19-31.1 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="31.1" height="19" fill="rgba(0,0,0,0)" d="m0 0 31.1 0 0 19-31.1 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(175,122,161,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(175,122,161,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G6</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">G6</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 307.5 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 307.5 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="30.4" height="19" fill="rgba(0,0,0,0)" d="m0 0 30.4 0 0 19-30.4 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="30.4" height="19" fill="rgba(0,0,0,0)" d="m0 0 30.4 0 0 19-30.4 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(255,157,167,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(255,157,167,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">X6</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">X6</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 349.9 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 349.9 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="37.7" height="19" fill="rgba(0,0,0,0)" d="m0 0 37.7 0 0 19-37.7 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="37.7" height="19" fill="rgba(0,0,0,0)" d="m0 0 37.7 0 0 19-37.7 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.5 0 0 .5 4 9.5)">
                               <g>
-                                <path fill="rgba(156,117,95,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="rgba(156,117,95,1)" stroke-width="0" d="m-8-8 16 0 0 16-16 0Z" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 9.5)">
                               <g>
-                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">AVA</text>
+                                <text fill="rgba(0,0,0,1)" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="10" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">AVA</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>

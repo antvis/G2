@@ -31,92 +31,92 @@
                     <g fill="none" class="navigator-content-group" clip-path="url(#b)">
                       <g fill="none" class="navigator-play-window">
                         <g fill="none" class="items-item-page">
-                          <g fill="none" class="items-item">
+                          <g fill="none" class="items-item g2-legend-item">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="77.6" height="23" fill="rgba(0,0,0,0)" d="m0 0 77.6 0 0 23-77.6 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="77.6" height="23" fill="rgba(0,0,0,0)" d="m0 0 77.6 0 0 23-77.6 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(23,131,255,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(23,131,255,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Liquid fuel</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Liquid fuel</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 89.6 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 89.6 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="71" height="23" fill="rgba(0,0,0,0)" d="m0 0 71 0 0 23-71 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="71" height="23" fill="rgba(0,0,0,0)" d="m0 0 71 0 0 23-71 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(0,201,201,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(0,201,201,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Solid fuel</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Solid fuel</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 172.6 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 172.6 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="64.52" height="23" fill="rgba(0,0,0,0)" d="m0 0 64.52 0 0 23-64.52 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="64.52" height="23" fill="rgba(0,0,0,0)" d="m0 0 64.52 0 0 23-64.52 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(240,136,77,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(240,136,77,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Gas fuel</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Gas fuel</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 249.12 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 249.12 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="128.48" height="23" fill="rgba(0,0,0,0)" d="m0 0 128.48 0 0 23-128.48 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="128.48" height="23" fill="rgba(0,0,0,0)" d="m0 0 128.48 0 0 23-128.48 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(213,128,255,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(213,128,255,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Cement production</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Cement production</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
                           </g>
-                          <g fill="none" class="items-item" transform="matrix(1 0 0 1 389.6 0)">
+                          <g fill="none" class="items-item g2-legend-item" transform="matrix(1 0 0 1 389.6 0)">
                             <g fill="none" class="legend-category-item-background-group">
                               <g>
-                                <path width="75.2" height="23" fill="rgba(0,0,0,0)" d="m0 0 75.2 0 0 23-75.2 0z" class="legend-category-item-background" visibility="visible"/>
+                                <path width="75.2" height="23" fill="rgba(0,0,0,0)" d="m0 0 75.2 0 0 23-75.2 0z" class="legend-category-item-background g2-legend-background" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-marker-group" transform="matrix(.32322 0 0 .32322 4 11.5)">
                               <g>
-                                <path fill="none" stroke="rgba(120,99,255,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker" visibility="visible"/>
+                                <path fill="none" stroke="rgba(120,99,255,1)" stroke-width="4" d="m0 8 0-16" class="legend-category-item-marker g2-legend-marker" visibility="visible"/>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-label-group" transform="matrix(1 0 0 1 16 11.5)">
                               <g>
-                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Gas flarinl</text>
+                                <text fill="rgba(29,33,41,1)" fill-opacity=".9" stroke-width="1" class="legend-category-item-label g2-legend-label" dominant-baseline="central" dx=".5" dy="0" font-family="sans-serif" font-size="12" font-style="normal" font-variant="normal" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left" visibility="visible">Gas flarinl</text>
                               </g>
                             </g>
                             <g fill="none" class="legend-category-item-value-group"/>
