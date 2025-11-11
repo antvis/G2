@@ -1,5 +1,6 @@
 import { deepMix } from '@antv/util';
 import { ThemeComponent as TC, Theme } from '../runtime';
+import { g2Selector } from '../component/constant';
 import { create } from './create';
 
 export type DarkOptions = Theme;
@@ -66,17 +67,17 @@ export const Dark: TC<DarkOptions> = (options) => {
         crosshairsLineWidth: 1,
         crosshairsStrokeOpacity: 0.25,
         css: {
-          '.g2-tooltip': {
+          [g2Selector('tooltip')]: {
             background: '#1f1f1f',
             opacity: 0.95,
           },
-          '.g2-tooltip-title': {
+          [g2Selector('tooltip-title')]: {
             color: '#A6A6A6',
           },
-          '.g2-tooltip-list-item-name-label': {
+          [g2Selector('tooltip-list-item-name-label')]: {
             color: '#A6A6A6',
           },
-          '.g2-tooltip-list-item-value': {
+          [g2Selector('tooltip-list-item-value')]: {
             color: '#A6A6A6',
           },
         },
