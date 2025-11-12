@@ -34,6 +34,7 @@ import {
   Density,
   Heatmap,
   WordCloud as WordCloudGeometry,
+  Beeswarm,
 } from '../mark';
 import { Category10, Category20 } from '../palette';
 import {
@@ -84,6 +85,7 @@ import {
   ElementHighlight,
   ElementHighlightByX,
   ElementHighlightByColor,
+  ElementHoverScale,
   ElementSelect,
   ElementSelectByX,
   ElementSelectByColor,
@@ -100,6 +102,7 @@ import {
   BrushXFilter,
   BrushYFilter,
   SliderFilter,
+  SliderWheel,
   Poptip,
   ScrollbarFilter,
   TreemapDrillDown,
@@ -246,6 +249,7 @@ export function corelib() {
     'mark.density': Density,
     'mark.heatmap': Heatmap,
     'mark.wordCloud': WordCloudGeometry,
+    'mark.beeswarm': Beeswarm,
     'palette.category10': Category10,
     'palette.category20': Category20,
     'scale.linear': ScaleLinear,
@@ -293,6 +297,7 @@ export function corelib() {
     'interaction.elementHighlight': ElementHighlight,
     'interaction.elementHighlightByX': ElementHighlightByX,
     'interaction.elementHighlightByColor': ElementHighlightByColor,
+    'interaction.elementHoverScale': ElementHoverScale,
     'interaction.elementSelect': ElementSelect,
     'interaction.elementSelectByX': ElementSelectByX,
     'interaction.elementSelectByColor': ElementSelectByColor,
@@ -309,6 +314,7 @@ export function corelib() {
     'interaction.brushXFilter': BrushXFilter,
     'interaction.brushYFilter': BrushYFilter,
     'interaction.sliderFilter': SliderFilter,
+    'interaction.sliderWheel': SliderWheel,
     'interaction.scrollbarFilter': ScrollbarFilter,
     'interaction.poptip': Poptip,
     'interaction.treemapDrillDown': TreemapDrillDown,

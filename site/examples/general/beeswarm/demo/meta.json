@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "base.ts",
+      "title": {
+        "zh": "蜂群图",
+        "en": "Beeswarm"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*j5a3T5JxDvIAAAAAS_AAAAgAemJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "shape.ts",
+      "title": {
+        "zh": "不同形状的蜂群图",
+        "en": "Different Shapes of Beeswarm"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SXcyRokJf4YAAAAATAAAAAgAemJ7AQ/fmt.webp"
+    },
+    {
+      "filename": "transpose.ts",
+      "title": {
+        "zh": "横向蜂群图",
+        "en": "Transposed Beeswarm"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RtpzTpc1k_0AAAAATeAAAAgAemJ7AQ/fmt.webp"
+    }
+  ]
+}

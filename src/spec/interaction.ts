@@ -7,6 +7,7 @@ export type Interaction =
   | ElementHighlightInteraction
   | ElementHighlightByColorInteraction
   | ElementHighlightByXInteraction
+  | ElementHoverScaleInteraction
   | ElementSelectByColorInteraction
   | ElementSelectByXInteraction
   | ElementSelectInteraction
@@ -30,6 +31,7 @@ export type InteractionTypes =
   | 'elementHighlight'
   | 'elementHighlightByX'
   | 'elementHighlightByColor'
+  | 'elementHoverScale'
   | 'fisheye'
   | 'chartIndex'
   | 'elementSelect'
@@ -144,6 +146,19 @@ export type ElementHighlightByColorInteraction = {
   delay?: number;
 } & Record<`${'link' | 'background'}${any}`, any>;
 
+export type ElementHoverScaleInteraction = {
+  type?: 'elementHoverScale';
+  scale?: number;
+  scaleOrigin?: string;
+  shadow?: boolean;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+  zIndex?: number;
+  delay?: number;
+} & Record<`state${any}`, any>;
+
 export type PoptipInteraction = {
   type?: 'poptip';
   offsetX?: number;
@@ -167,9 +182,16 @@ export type ChartIndexInteraction = {
 
 export type SliderFilterInteraction = {
   type?: 'sliderFilter';
+  initDomain?: Record<string, any>;
+  className?: string;
+  prefix?: string;
+  setValue?: (component: any, values: any) => void;
+  hasState?: boolean;
   wait?: number;
   leading?: boolean;
   trailing?: boolean;
+  adaptiveMode?: 'filter' | false | null;
+  getInitValues?: (slider: any) => any;
 };
 
 export type TooltipInteraction = {
@@ -182,6 +204,7 @@ export type TooltipInteraction = {
   marker?: boolean;
   groupName?: boolean;
   disableNative?: boolean;
+  disableAutoHide?: boolean;
   offset?: [number, number];
   position?: TooltipStyleProps['position'];
   bounding?: BBox;

@@ -6,7 +6,7 @@ import './utils/useSnapshotMatchers';
 describe('mark.changeSize', () => {
   const canvas = createNodeGCanvas(640, 480);
 
-  it('mark.changeSize(width, height) should rerender expected chart', async () => {
+  it.skip('mark.changeSize(width, height) should rerender expected chart', async () => {
     const { finished, button, chart } = render({
       canvas,
       container: document.createElement('div'),

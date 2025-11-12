@@ -64,4 +64,12 @@ export { chartEmitItemTooltipWithFlex } from './chart-emit-item-tooltip-with-fle
 export { chartEmitShowTooltipWithResize } from './chart-emit-show-tooltip-with-resize';
 export { chartEmitShowTooltipWithNull } from './chart-emit-show-tooltip-with-null';
 export { chartEmitTooltipShow } from './chart-emit-tooltip-show';
+export { chartEmitLegendDefaultSelect } from './chart-emit-legend-default-select';
 export { sankeyChangeData } from './sankey-change-data';
+export { chartSliderBrushHighlight } from './chart-slider-brush-highlight';
+export { chartAxisLabelRender } from './chart-axis-label-render';
+export { chartSliderSingleAxisAdaptive } from './chart-slider-single-axis-adaptive';
+export { chartSliderViewLevelAdaptive } from './chart-slider-view-level-adaptive';
+export { chartSliderMarkLevelAdaptive } from './chart-slider-mark-level-adaptive';
+export { chartSliderMultiAxisAdaptive } from './chart-slider-multi-axis-adaptive';
+export { chartSliderAdaptiveModeControl } from './chart-slider-adaptive-mode-control';

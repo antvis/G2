@@ -82,3 +82,6 @@ export { mockGroupInterval } from './mock-group-interval';
 export { temperatureLineMarker } from './temperatures-line-marker';
 export { itemsCallback } from './items-callback';
 export { reverseScaleRange } from './reverse-scale-range';
+export { multipleSeries } from './multiple-series';
+export { aaplLineClickLock } from './aapl-line-click-lock';
+export { aaplLineDisableAutoHide } from './aapl-line-disable-auto-hide';

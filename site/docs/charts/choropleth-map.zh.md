@@ -51,7 +51,7 @@ Choropleth 地图最大的问题在于数据分布和地理区域大小的不对
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 // 加载地图和数据
 Promise.all([

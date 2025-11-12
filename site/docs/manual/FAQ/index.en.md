@@ -676,10 +676,10 @@ chart.render();
 
 ## Default Display of Only Partial Legends on First Chart Render
 
-There's currently no built-in API for this, so you need to manually trigger legendFilter to achieve it.
+With the new `defaultSelect` option, you can specify which legend items should be selected by default when the chart is first rendered:
 
 ```js | ob { inject: true }
-import { Chart, ChartEvent } from '@antv/g2';
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
@@ -693,18 +693,17 @@ chart.options({
     { genre: 'Other', sold: 150 },
   ],
   encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      defaultSelect: ['Sports', 'Strategy', 'Action'],
+    },
+  },
 });
 
 chart.render();
-
-chart.on(ChartEvent.AFTER_RENDER, () => {
-  chart.emit('legend:filter', {
-    data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
-  });
-});
 ```
 
-You can set `animate: false` to avoid triggering update animations, but there will still be flickering. This will be handled internally through configuration options in the future to achieve better filtering effects.
+This approach is much simpler and more intuitive than the previous method of manually triggering the `legendFilter` interaction. The chart will automatically display only the data corresponding to the selected legend items on initial render.
 
 ## How to Detect If Mouse Has Left Chart Container
 

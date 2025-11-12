@@ -39,6 +39,10 @@ chart.render();
 
 ### 配置层级
 
+缩略轴支持在不同层级进行配置，不同层级的配置具有不同的作用域和特性。
+
+#### Mark 层级配置
+
 缩略轴可以在 Mark 层级配置。在 G2 中，每个标记（Mark）都有自己的缩略轴。如果标记对应的比例尺是同步的，那么缩略轴也会合并。
 
 ```js
@@ -51,6 +55,14 @@ chart.render();
 });
 ```
 
+**特点：**
+
+- 仅影响当前 Mark
+- 适用于需要对特定标记进行独立过滤的场景
+- 当多个 Mark 共享同一比例尺时，缩略轴会自动合并
+
+#### View 层级配置
+
 缩略轴也可以在 View 层级配置。缩略轴具有传递性。视图上声明的缩略轴会传递给 `children` 声明的标记，如果该标记有对应通道的缩略轴，就合并；否则不影响。
 
 ```js
@@ -62,6 +74,13 @@ chart.render();
   },
 });
 ```
+
+**特点：**
+
+- 影响整个 View 及其子元素
+- 适用于需要统一控制多个 Mark 的场景
+- 具有传递性，会影响所有子 Mark
+- 优先级高于 Mark 层级配置
 
 ### 何时使用
 
@@ -368,18 +387,571 @@ chart.on('afterrender', () => {
 chart.render();
 ```
 
+## 常用交互
+
+### 滚轮缩放（sliderWheel）
+
+`sliderWheel` 交互允许用户通过鼠标滚轮或触控板手势来控制缩略轴的选择范围，实现数据范围的快速缩放操作。
+
+- **触发方式**：在图表区域内使用鼠标滚轮或触控板滚动
+- **交互效果**：放大缩小选区范围，保持选区中心位置不变
+- **使用场景**：适合需要频繁调整数据查看范围的场景
+
+#### 配置方式
+
+```js
+({
+  slider: {
+    x: {}, // 启用 X 轴缩略轴
+  },
+  interaction: {
+    sliderWheel: true, // 启用滚轮缩放交互
+  },
+});
+```
+
+也可以传入配置项进行自定义：
+
+```js
+({
+  slider: {
+    x: {},
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.1, // 滚轮灵敏度
+      minRange: 0.05,        // 最小缩放范围
+      x: true,               // X 轴响应模式
+      y: 'shift',            // Y 轴仅在按住 Shift 键时响应
+    },
+  },
+});
+```
+
+#### 主要配置项
+
+| 属性             | 描述                     | 类型    | 默认值 |
+| :--------------- | :----------------------- | :------ | :----- |
+| minRange         | 最小缩放范围             | number  | 0.01   |
+| wheelSensitivity | 滚轮缩放灵敏度           | number  | 0.05   |
+| x                | X 轴滚轮交互响应模式     | boolean \| string | true   |
+| y                | Y 轴滚轮交互响应模式     | boolean \| string | true   |
+
+#### 示例
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => {
+        return new Date(d).toLocaleDateString();
+      },
+    },
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.08,
+      minRange: 0.02,
+    },
+  },
+});
+
+chart.render();
+```
+
+## 自适应过滤
+
+缩略轴不仅可以用于数据过滤，还支持自适应过滤功能。当拖拽缩略轴时，根据当前选择的数据范围自动调整其他轴的显示范围，提供更好的数据探索体验。
+
+### 重要说明
+
+**自适应策略需要在 `sliderFilter` 交互中配置，而不是在 `slider` 组件中配置。** 从 G2 5.4.1 开始，当你配置 `slider` 组件时，会自动启用自适应过滤功能，如果不需要自适应，需要手动关闭。
+
+### 配置方式
+
+#### 1. 默认自适应（推荐）
+
+配置 slider 组件时，默认启用自适应过滤：
+
+```javascript
+// 默认情况下会自动启用自适应过滤
+chart.options(
+  slider:{
+    x:{}
+  }
+);
+```
+
+#### 2. 手动配置 sliderFilter
+
+如需自定义自适应策略，在 `sliderFilter` 交互中配置：
+
+```javascript
+chart.options(
+  slider:{
+    x:{}
+  },
+  interaction:{
+    sliderFilter:{
+      adaptiveMode: 'filter', // 启用自适应
+    }
+  }
+);
+```
+
+#### 3. 手动关闭自适应
+
+如果不需要自适应功能，需要显式关闭：
+
+```javascript
+chart.options(
+  slider:{
+    x:{}
+  },
+  interaction:{
+    sliderFilter:{
+      adaptiveMode: false  // 手动关闭自适应
+    }
+  }
+);
+```
+
+### 自适应模式参数
+
+通过 `sliderFilter` 交互中的 `adaptiveMode` 配置项可以控制自适应过滤的行为：
+
+```js
+{
+  slider: {
+    x: { values: [0.1, 0.8] }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // 启用自适应过滤（默认值）
+      // adaptiveMode: false   // 禁用自适应过滤
+    }
+  }
+}
+```
+
+**可选值：**
+
+- `'filter'`：启用自适应过滤，根据选定数据范围动态调整其他轴的域值（**默认值**）
+- `false` 或 `null`：禁用自适应过滤
+- 更多的自适应策略会在后续版本推出，敬请期待。
+
+### 具体场景
+
+系统会根据不同的配置场景采用不同的自适应策略。在单轴的情况下，slider 配置在 View 层 或 Mark 层效果一样。但在多轴图中，会有不同的自适应策略：
+
+- **多轴自适应**：当图表中存在独立的坐标轴（通过 `scale: { y: { independent: true }}` 配置）时，会启用多轴自适应策略。根据 slider 配置的层级，会有不同的自适应策略。
+
+  - **View 层级配置**：影响整个视图中的所有 Mark，适用于需要统一控制多个图表的场景
+  - **Mark 层级配置**：仅影响特定的 Mark，适用于需要对某个特定标记进行独立过滤的场景
+
+- **自适应计算逻辑**：通过收集所有 marks 的通道数据，调用指定的过滤逻辑进行自适应过滤计算，根据当前筛选范围动态计算 Y 轴的 domain 范围，确保显示的数据范围始终合理。
+
+#### 单轴自适应
+
+当只有 X 轴或只有 Y 轴配置了缩略轴时，会启用单轴自适应过滤。拖拽缩略轴时，会根据当前选择的数据范围自动调整另一个轴的显示范围。
+
+#### 单 Mark 场景
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [];
+for (let i = 0; i < 150; i++) {
+  data.push({
+    x: i,
+    y: Math.sin(i / 15) * 60 + 80 + Math.random() * 25,
+    category: i % 3 === 0 ? 'A' : i % 3 === 1 ? 'B' : 'C',
+  });
+}
+
+chart.options({
+  type: 'point',
+  data,
+  encode: { x: 'x', y: 'y', color: 'category' },
+  slider: {
+    x: {
+      values: [0.1, 0.8],
+      labelFormatter: (d) => `X: ${Math.round(d)}`,
+    },
+  },
+  style: {
+    fillOpacity: 0.8,
+  },
+});
+
+chart.render();
+```
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container', autoFit: true });
+
+chart.options({
+  type: 'view',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/stocks.json',
+    transform: [{ type: 'filter', callback: (d) => d.symbol === 'GOOG' }],
+  },
+  slider: {
+    x: {},
+  },
+  children: [
+    {
+      type: 'area',
+      encode: { x: (d) => new Date(d.date), y: 'price' },
+      style: { fill: 'linear-gradient(-90deg, white 0%, darkgreen 100%)' },
+    },
+    {
+      type: 'line',
+      encode: { x: (d) => new Date(d.date), y: 'price' },
+      style: { stroke: 'darkgreen', lineWidth: 2 },
+    },
+  ],
+});
+
+chart.render();
+```
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+import { randomPoisson } from 'd3-random';
+
+const random = randomPoisson(Math.pow(10, 2.6));
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',
+  data: new Array(5000).fill(0).map(random),
+  encode: { x: (d) => d },
+  transform: [{ type: 'binX', y: 'count' }],
+  style: { stroke: 'white' },
+  slider: { x: {} },
+  tooltip: {
+    title: (d, i, data, column) => ({
+      value: `${column.x.value[i]} ~ ${column.x1.value[i]}`,
+    }),
+  },
+});
+
+chart.render();
+```
+
+##### 多 Mark 场景
+
+单轴场景下，slider 配置在 View 层 或 Mark 层效果一样。
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  inset: 3, // 设置内边距，防止自适应过程中 point被截断
+});
+
+const data = [
+  { time: 0, sales: 200, profit: 150, revenue: 600 }, // 起始高值
+  { time: 1, sales: 195, profit: 145, revenue: 580 },
+  { time: 2, sales: 190, profit: 140, revenue: 560 },
+  { time: 3, sales: 185, profit: 135, revenue: 540 },
+  { time: 4, sales: 180, profit: 130, revenue: 520 },
+  { time: 5, sales: 175, profit: 125, revenue: 500 },
+  { time: 6, sales: 170, profit: 120, revenue: 480 },
+  { time: 7, sales: 165, profit: 115, revenue: 460 },
+  { time: 8, sales: 160, profit: 110, revenue: 440 },
+  { time: 9, sales: 155, profit: 105, revenue: 420 },
+  { time: 10, sales: 150, profit: 100, revenue: 400 },
+  { time: 11, sales: 145, profit: 95, revenue: 380 },
+  { time: 12, sales: 140, profit: 90, revenue: 360 },
+  { time: 13, sales: 135, profit: 85, revenue: 340 },
+  { time: 14, sales: 130, profit: 80, revenue: 320 },
+  { time: 15, sales: 125, profit: 75, revenue: 300 },
+  { time: 16, sales: 120, profit: 70, revenue: 280 },
+  { time: 17, sales: 115, profit: 65, revenue: 260 },
+  { time: 18, sales: 110, profit: 60, revenue: 240 },
+  { time: 19, sales: 105, profit: 55, revenue: 220 },
+  { time: 20, sales: 100, profit: 50, revenue: 200 },
+  { time: 21, sales: 95, profit: 45, revenue: 180 },
+  { time: 22, sales: 90, profit: 40, revenue: 160 },
+  { time: 23, sales: 85, profit: 35, revenue: 140 },
+  { time: 24, sales: 80, profit: 30, revenue: 120 },
+];
+
+chart.options({
+  type: 'view',
+  data,
+  children: [
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'sales' },
+      style: { stroke: '#1890ff', lineWidth: 2 },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'profit' },
+      style: { stroke: '#52c41a', lineWidth: 2 },
+    },
+    {
+      type: 'point',
+      encode: { x: 'time', y: 'revenue', size: 3 },
+      style: { fill: '#ff4d4f' },
+    },
+  ],
+  slider: {
+    x: {
+      labelFormatter: (d) => `时间: ${Math.round(d)}`,
+    },
+  },
+});
+
+chart.render();
+```
+
+#### 多轴自适应（独立坐标轴）
+
+当图表中存在独立的坐标轴（通过 `scale: { independent: true }` 配置）时，系统会采用多轴自适应策略。根据 slider 的配置层级，会有不同的自适应策略。
+
+##### 1. View 层级 slider
+
+影响整个视图中的所有 Mark，适用于需要统一控制多个图表的场景
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [];
+for (let i = 0; i < 60; i++) {
+  data.push({
+    date: `Day-${i + 1}`,
+    sales: Math.sin(i / 10) * 300 + 800 + Math.random() * 200,
+    profit: Math.cos(i / 8) * 50 + 75 + Math.random() * 25,
+    revenue: Math.sin(i / 12) * 800 + 1500 + Math.random() * 300,
+  });
+}
+
+chart.options({
+  type: 'view',
+  data,
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'date', y: 'sales' },
+      scale: { y: { nice: true } },
+      style: { fill: '#1890ff', fillOpacity: 0.6 },
+    },
+    {
+      type: 'line',
+      encode: { x: 'date', y: 'profit' },
+      scale: {
+        y: {
+          key: 'y1',
+          independent: true,
+          nice: true,
+        },
+      },
+      style: { stroke: '#ff4d4f', lineWidth: 3 },
+    },
+    {
+      type: 'area',
+      encode: { x: 'date', y: 'revenue' },
+      scale: {
+        y: {
+          key: 'y2',
+          independent: true,
+          nice: true,
+        },
+      },
+      style: { fill: '#52c41a', fillOpacity: 0.4 },
+    },
+  ],
+  // View 层级配置缩略轴，自适应同时影响所有轴
+  slider: {
+    x: {
+      labelFormatter: (d) => d,
+    },
+  },
+});
+
+chart.render();
+```
+
+##### 1. Mark 层级 slider
+
+当缩略轴配置在特定 Mark 上时，系统会识别该 Mark 对应的轴，并对共享相同轴的所有 Mark 进行联动自适应。
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [];
+for (let i = 0; i < 60; i++) {
+  data.push({
+    date: `Day-${i + 1}`,
+    sales: Math.sin(i / 10) * 300 + 800 + Math.random() * 200,
+    profit: Math.cos(i / 8) * 50 + 75 + Math.random() * 25,
+    revenue: Math.sin(i / 12) * 800 + 1500 + Math.random() * 300,
+  });
+}
+
+chart.options({
+  type: 'view',
+  data,
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'date', y: 'sales' },
+      scale: { y: { nice: true } },
+      style: { fill: '#1890ff', fillOpacity: 0.6 },
+      // Mark 层级 slider，自适应只作用于当前 mark 对应的轴
+      slider: {
+        x: {
+          labelFormatter: (d) => d,
+        },
+      },
+    },
+    {
+      type: 'line',
+      encode: { x: 'date', y: 'profit' },
+      scale: {
+        y: {
+          key: 'y1',
+          independent: true,
+          nice: true,
+        },
+      },
+      style: { stroke: '#ff4d4f', lineWidth: 3 },
+    },
+    {
+      type: 'area',
+      encode: { x: 'date', y: 'revenue' },
+      scale: {
+        y: {
+          key: 'y2',
+          independent: true,
+          nice: true,
+        },
+      },
+      style: { fill: '#52c41a', fillOpacity: 0.4 },
+    },
+  ],
+});
+
+chart.render();
+```
+
+### 自适应特性
+
+#### 离散轴与连续轴
+
+- **连续轴**：自适应时会计算数据的最小值和最大值，形成新的域值范围
+- **离散轴**：自适应时会收集所有在范围内的离散值，去重后作为新的域值
+- **零基线保持**：对于原始域值包含 0 的连续轴，自适应时会保持零基线
+
+#### 双向联动
+
+如果 X 轴与 Y 轴都配置了缩略轴，即使配置了自适应策略，也不会生效。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [];
+for (let i = 0; i < 300; i++) {
+  const x = Math.random() * 100;
+  const y = x * 0.7 + Math.random() * 30 + 10;
+  data.push({
+    x,
+    y,
+    size: Math.random() * 8 + 3,
+    category: Math.random() > 0.5 ? 'A' : 'B',
+  });
+}
+
+chart.options({
+  type: 'point',
+  data,
+  encode: {
+    x: 'x',
+    y: 'y',
+    size: 'size',
+    color: 'category',
+  },
+  // 同时配置 X 和 Y 轴缩略轴，此时自适应不会生效
+  slider: {
+    x: {
+      values: [0.2, 0.8],
+      labelFormatter: (d) => `X: ${Math.round(d)}`,
+    },
+    y: {
+      values: [0.1, 0.9],
+      labelFormatter: (d) => `Y: ${Math.round(d)}`,
+    },
+  },
+  scale: {
+    x: { nice: true },
+    y: { nice: true },
+  },
+  style: {
+    fillOpacity: 0.7,
+  },
+});
+
+chart.render();
+```
+
 ## 示例
 
 ### 自定义缩略轴（Slider）
 
-如果不希望使用 G2 默认的坐标轴，就可以按照以下几步自定义拖拽轴：
+如果不希望使用 G2 默认的缩略轴，就可以按照以下几步自定义：
 
 - 在渲染结束后渲染 slider。
 - 监听 slider 事件。
 
 第一步的的关键是通过 `chart.getCoordinate` 获得的 coordinate 对象确定 slider 的位置和长度。第二步的关键是通过 `chart.getScale` 获得 scale 对选择的范围进行 invert，最后获得选择的数据范围，然后更新 scale 的定义域。
 
-```js | ob {  inject: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -431,4 +1003,115 @@ chart.options({
 });
 
 chart.render().then(sliderX);
+```
+
+#### Mark 层级配置示例
+
+Mark 层级配置仅影响特定的 Mark，适用于需要对某个特定标记进行独立过滤的场景：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart2 = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// 标准的G2数据结构 - 不同类型的数据，添加极高值展示自适应效果
+const data2 = [
+  { category: 'A', time: 0, value: 45, type: 'primary' },
+  { category: 'A', time: 1, value: 52, type: 'primary' },
+  { category: 'A', time: 2, value: 48, type: 'primary' },
+  { category: 'A', time: 3, value: 10, type: 'primary' },
+  { category: 'A', time: 4, value: 55, type: 'primary' },
+  { category: 'A', time: 5, value: 67, type: 'primary' },
+  { category: 'A', time: 6, value: 43, type: 'primary' },
+  { category: 'A', time: 7, value: 66, type: 'primary' },
+  { category: 'A', time: 8, value: 63, type: 'primary' },
+  { category: 'A', time: 9, value: 71, type: 'primary' },
+  { category: 'A', time: 10, value: 58, type: 'primary' },
+  { category: 'A', time: 11, value: 44, type: 'primary' },
+  { category: 'A', time: 12, value: 49, type: 'primary' },
+  { category: 'A', time: 13, value: 66, type: 'primary' },
+  { category: 'A', time: 14, value: 54, type: 'primary' },
+  { category: 'B', time: 0, value: 32, type: 'secondary' },
+  { category: 'B', time: 1, value: 38, type: 'secondary' },
+  { category: 'B', time: 2, value: 29, type: 'secondary' },
+  { category: 'B', time: 3, value: 44, type: 'secondary' },
+  { category: 'B', time: 4, value: 41, type: 'secondary' },
+  { category: 'B', time: 5, value: 20, type: 'secondary' },
+  { category: 'B', time: 6, value: 28, type: 'secondary' },
+  { category: 'B', time: 7, value: 39, type: 'secondary' },
+  { category: 'B', time: 8, value: 35, type: 'secondary' },
+  { category: 'B', time: 9, value: 48, type: 'secondary' },
+  { category: 'B', time: 10, value: 35, type: 'secondary' },
+  { category: 'B', time: 11, value: 42, type: 'secondary' },
+  { category: 'B', time: 12, value: 31, type: 'secondary' },
+  { category: 'B', time: 13, value: 45, type: 'secondary' },
+  { category: 'B', time: 14, value: 37, type: 'secondary' },
+  { category: 'C', time: 0, value: 28, type: 'tertiary' },
+  { category: 'C', time: 1, value: 31, type: 'tertiary' },
+  { category: 'C', time: 2, value: 25, type: 'tertiary' },
+  { category: 'C', time: 3, value: 35, type: 'tertiary' },
+  { category: 'C', time: 4, value: 185, type: 'tertiary' }, // 极高值
+  { category: 'C', time: 5, value: 38, type: 'tertiary' },
+  { category: 'C', time: 6, value: 22, type: 'tertiary' },
+  { category: 'C', time: 7, value: 29, type: 'tertiary' },
+  { category: 'C', time: 8, value: 45, type: 'tertiary' },
+  { category: 'C', time: 9, value: 36, type: 'tertiary' },
+  { category: 'C', time: 10, value: 31, type: 'tertiary' },
+  { category: 'C', time: 11, value: 27, type: 'tertiary' },
+  { category: 'C', time: 12, value: 105, type: 'tertiary' }, // 极高值
+  { category: 'C', time: 13, value: 33, type: 'tertiary' },
+  { category: 'C', time: 14, value: 29, type: 'tertiary' },
+];
+
+chart2.options({
+  type: 'view',
+  data: data2,
+  children: [
+    {
+      type: 'interval',
+      data: {
+        value: data2,
+        transform: [{ type: 'filter', callback: (d) => d.type === 'primary' }],
+      },
+      encode: { x: 'time', y: 'value' },
+      style: { fill: '#1890ff', fillOpacity: 0.6 },
+      // Mark 层级配置 - 仅控制柱状图的过滤
+      slider: {
+        x: {
+          values: [0.2, 0.7],
+          labelFormatter: (d) => `柱状图: ${Math.round(d)}`,
+        },
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        value: data2,
+        transform: [
+          { type: 'filter', callback: (d) => d.type === 'secondary' },
+        ],
+      },
+      encode: { x: 'time', y: 'value' },
+      style: { stroke: '#52c41a', lineWidth: 2 },
+    },
+    {
+      type: 'point',
+      data: {
+        value: data2,
+        transform: [{ type: 'filter', callback: (d) => d.type === 'tertiary' }],
+      },
+      encode: { x: 'time', y: 'value', size: 4 },
+      style: { fill: '#ff4d4f', fillOpacity: 0.8 },
+    },
+  ],
+  scale: {
+    x: { nice: true },
+    y: { nice: true },
+  },
+});
+
+chart2.render();
 ```

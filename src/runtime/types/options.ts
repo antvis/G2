@@ -59,6 +59,7 @@ export type G2Context = {
   group?: DisplayObject;
   animations?: GAnimation[];
   views?: G2ViewDescriptor[];
+  externals?: Record<string, any>;
   /**
    * Tell G2 how to create a canvas-like element, some marks will use it later such as wordcloud & heatmap.
    * Use `document.createElement('canvas')` instead if not provided.

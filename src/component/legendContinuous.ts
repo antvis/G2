@@ -20,6 +20,7 @@ import {
   scaleOf,
   titleContent,
 } from './utils';
+import { G2_CLASS_PREFIX } from './constant';
 
 export type LegendContinuousOptions = {
   layout?: FlexLayout;
@@ -74,6 +75,8 @@ function getFormatter(max: number) {
   return (value: number) => ({
     value: value / max,
     label: String(value),
+    // Reference of input original domain value.
+    domainValue: value,
   });
 }
 
@@ -101,6 +104,8 @@ function getThresholdConfig(
   const thresholds = (colorScale as any).thresholds as number[];
   const data = [-Infinity, ...thresholds, Infinity].map((value, index) => ({
     value: index,
+    // Reference of input original domain value.
+    domainValue: value,
     label: value,
   }));
   return {
@@ -252,6 +257,7 @@ export const LegendContinuous: GCC<LegendContinuousOptions> = (options) => {
             theme,
           ),
           ...style,
+          classNamePrefix: G2_CLASS_PREFIX,
         },
         rest,
       ),

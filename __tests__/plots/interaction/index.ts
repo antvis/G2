@@ -63,7 +63,6 @@ export { alphabetIntervalFunnelLegendFilter } from './alphabet-interval-funnel-l
 export { penguinsPointBrushHandleStyle } from './penguins-point-brush-handle-style';
 export { penguinsPointBrushHandleCustom } from './penguins-point-brush-handle-custom';
 export { unemploymentChoropleth } from './unemployment-choropleth';
-export { weatherLineLegendMark } from './weather-line-legend-mark';
 export { countriesAnnotationSliderFilter } from './countries-annotation-slider-filter';
 export { unemploymentAreaLegendFilterPages } from './unemployment-area-legend-filter-pages';
 export { mockAreaSliderFilterLabel } from './mock-area-slider-filter-label';
@@ -90,3 +89,6 @@ export { issue6093 } from './issue-6093';
 export { multipleInteractionsCoexist } from './multiple-interactions-coexist';
 export { penguinsPointBrushFilterNoMove } from './penguins-point-brush-filter-no-move';
 export { stateAgesSankeyHighlight } from './stateages-sankey-highlight';
+export { stocksLineSliderWheel } from './stocks-line-slider-wheel';
+export { aaplLineSliderWheel } from './aapl-line-slider-wheel';
+export { intervalSliderWheelTranspose } from './interval-slider-wheel-transpose';

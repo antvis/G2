@@ -699,3 +699,287 @@ export function createFindElementByEvent({
     });
   };
 }
+
+/**
+ * Calculate adaptive sensitivity multiplier (inversely proportional to range).
+ *
+ * - Smaller range → higher sensitivity
+ * - Larger range → lower sensitivity
+ *
+ * @param range Current range (0-1)
+ * @returns Sensitivity multiplier (0.1x ~ 100x)
+ */
+export function calculateSensitivityMultiplier(range: number): number {
+  // Base sensitivity factor (adjust this to tune overall responsiveness)
+  const BASE_FACTOR = 0.01;
+  const MIN_RANGE_FOR_SENSITIVITY = 0.0001;
+  const MIN_MULTIPLIER = 0.1;
+  const MAX_MULTIPLIER = 100;
+
+  // Simple inverse relationship with reasonable bounds
+  const multiplier = BASE_FACTOR / Math.max(range, MIN_RANGE_FOR_SENSITIVITY);
+
+  // Clamp to reasonable range: 0.1x to 100x
+  return Math.max(MIN_MULTIPLIER, Math.min(MAX_MULTIPLIER, multiplier));
+}
+
+/**
+ * Check if a value is considered "falsy" for configuration purposes.
+ * Returns true for false, null, or undefined values.
+ * Uses type predicate for better type safety.
+ *
+ * @param value The value to check
+ * @returns true if the value is falsy (false, null, undefined)
+ */
+export function isFalsyValue(
+  value: unknown,
+): value is false | null | undefined {
+  return value === false || value === null || value === undefined;
+}
+
+/**
+ * Extract channel data with preserved X-Y relationships from all marks in a view.
+ * Supports multi-mark scenarios, bin transforms, and array-encoded Y values.
+ *
+ * @param view The view object containing markState
+ * @returns Object containing flattened values for backward compatibility and structured mark data
+ */
+export function extractChannelValues(view: G2ViewDescriptor): {
+  xChannelValues: unknown[];
+  yChannelValues: unknown[];
+  markDataPairs: Array<{
+    markKey: string;
+    channelData: { [key: string]: unknown[] };
+  }>;
+} {
+  const allXChannelValues: unknown[][] = [];
+  const allYChannelValues: unknown[][] = [];
+  const markDataPairs: Array<{
+    markKey: string;
+    channelData: { [key: string]: unknown[] };
+  }> = [];
+  const marks = view.markState;
+
+  if (marks) {
+    for (const [mark, state] of marks.entries()) {
+      if (state?.channels) {
+        const channelData: { [key: string]: any[] } = {};
+
+        // Process each channel for the current mark
+        for (const channel of state.channels) {
+          if (channel?.name === 'x' && channel.values?.length > 0) {
+            // Collect X values (supports bin transforms with multiple values)
+            let xValues: unknown[] = [];
+            for (const valueItem of channel.values) {
+              if (valueItem?.value) {
+                xValues = xValues.concat(valueItem.value);
+                allXChannelValues.push(valueItem.value);
+              }
+            }
+            channelData['x'] = xValues;
+          } else if (
+            channel &&
+            (channel.name === 'y' || channel.name.startsWith('y')) && // Support y, y1, y2, y3, etc.
+            channel.values?.length > 0
+          ) {
+            const channelName = channel.name;
+            const channelValues: unknown[] = [];
+
+            // Handle Y and Y1+ channels for multi-Y marks (e.g., area charts, candlestick charts)
+            for (const valueItem of channel.values) {
+              if (valueItem?.value) {
+                const values = valueItem.value;
+                // Preserve G2's internal structure for array-encoded data
+                // Area charts: [[low1,low2,low3], [high1,high2,high3]]
+                // Line charts: [[value1,value2,value3]]
+                channelValues.push(values);
+                if (channelName === 'y' || channelName === 'y1') {
+                  // For global domain calculation, flatten only for allYChannelValues
+                  if (Array.isArray(values)) {
+                    allYChannelValues.push(values.flat());
+                  } else {
+                    allYChannelValues.push([values]);
+                  }
+                }
+              }
+            }
+
+            // Store all Y-related channels
+            channelData[channelName] = channelValues;
+          }
+        }
+
+        // Store mark data with preserved X-Y relationships
+        const xValues = channelData['x'] || [];
+        const yValues = channelData['y'] || [];
+
+        if (xValues.length > 0 && yValues.length > 0) {
+          markDataPairs.push({
+            markKey: mark.key || `mark_${markDataPairs.length}`,
+            channelData,
+          });
+        }
+      }
+    }
+  }
+
+  return {
+    xChannelValues: allXChannelValues.flat(),
+    yChannelValues: allYChannelValues.flat(),
+    markDataPairs,
+  };
+}
+
+export function hasIndependentXYScale(
+  channel1: string,
+  marks: readonly unknown[],
+): boolean {
+  return marks.some((mark) => {
+    const { scale: markScale } = mark as Record<string, unknown>;
+    const channelScale = (markScale as Record<string, unknown>)?.[channel1] as
+      | Record<string, unknown>
+      | undefined;
+    return !!channelScale?.independent;
+  });
+}
+
+/**
+ * Calculate multi-axis channel domains for slider filtering.
+ * When independent scales are detected, generates separate domains for each axis (x1, y1, x2, y2, etc.)
+ *
+ * @param view The view object containing markState
+ * @param initDomain Initial domain configuration
+ * @param scaleX X scale instance
+ * @param scaleY Y scale instance
+ * @param independentInfo Pre-computed independent scale information
+ * @returns Extended channelDomain object with multi-axis support
+ */
+export function calculateMultiAxisChannelDomains(
+  view: G2ViewDescriptor,
+  initDomain: Record<string, unknown>,
+  scaleX: { getOptions(): { domain: unknown } },
+  scaleY: { getOptions(): { domain: unknown } },
+  independentInfo?: IndependentScaleInfo,
+): Record<string, unknown[]> {
+  const channelDomain: Record<string, unknown[]> = {
+    x:
+      (initDomain.x as unknown[]) ||
+      (scaleX.getOptions().domain as unknown[]) ||
+      [],
+    y:
+      (initDomain.y as unknown[]) ||
+      (scaleY.getOptions().domain as unknown[]) ||
+      [],
+  };
+
+  // Use pre-computed info if available, otherwise calculate
+  const info = independentInfo || calculateAllIndependentScaleInfo(view);
+  const { hasIndependentX, hasIndependentY } = info;
+
+  if (hasIndependentX || hasIndependentY) {
+    let xIndex = 1;
+    let yIndex = 1;
+
+    // Iterate through marks to collect independent scale domains
+    for (const [mark, state] of view.markState.entries()) {
+      if (state?.channels) {
+        // Process independent X scales
+        if (hasIndependentX) {
+          const xChannel = state.channels.find((ch) => ch.name === 'x');
+          if (mark?.scale?.x?.independent) {
+            const xKey = `x${xIndex}`;
+            channelDomain[xKey] = xChannel.scale.domain;
+            xIndex++;
+          }
+        }
+
+        // Process independent Y scales
+        if (hasIndependentY) {
+          const yChannel = state.channels.find((ch) => ch.name === 'y');
+          if (mark?.scale?.y?.independent) {
+            const yKey = `y${yIndex}`;
+            channelDomain[yKey] = yChannel.scale.domain;
+            yIndex++;
+          }
+        }
+      }
+    }
+  }
+
+  return channelDomain;
+}
+
+/**
+ * Independent scale information cache interface
+ */
+export interface IndependentScaleInfo {
+  hasIndependentX: boolean;
+  hasIndependentY: boolean;
+  marksWithSharedX: string[];
+  marksWithIndependentX: string[];
+  marksWithSharedY: string[];
+  marksWithIndependentY: string[];
+  markToXScaleMap: Map<string, string>;
+  markToYScaleMap: Map<string, string>;
+}
+
+/**
+ * Calculate all independent scale information in one pass
+ * This function performs a single traversal to compute all independent scale related information,
+ * avoiding repeated calculations throughout the codebase.
+ *
+ * @param view The view object containing markState
+ * @returns Complete independent scale information
+ */
+export function calculateAllIndependentScaleInfo(
+  view: G2ViewDescriptor,
+): IndependentScaleInfo {
+  const marks = Array.from(view.markState.keys());
+  const hasIndependentX = hasIndependentXYScale('x', marks);
+  const hasIndependentY = hasIndependentXYScale('y', marks);
+
+  const marksWithSharedX: string[] = [];
+  const marksWithIndependentX: string[] = [];
+  const marksWithSharedY: string[] = [];
+  const marksWithIndependentY: string[] = [];
+
+  const markToXScaleMap = new Map<string, string>();
+  const markToYScaleMap = new Map<string, string>();
+
+  // Single traversal to compute all classifications and mappings
+  let xIndex = 1;
+  let yIndex = 1;
+
+  for (const [mark] of view.markState.entries()) {
+    const markKey = mark.key;
+
+    // X axis processing
+    if (mark?.scale?.x?.independent) {
+      marksWithIndependentX.push(markKey);
+      markToXScaleMap.set(markKey, `x${xIndex++}`);
+    } else {
+      marksWithSharedX.push(markKey);
+      markToXScaleMap.set(markKey, 'x');
+    }
+
+    // Y axis processing
+    if (mark?.scale?.y?.independent) {
+      marksWithIndependentY.push(markKey);
+      markToYScaleMap.set(markKey, `y${yIndex++}`);
+    } else {
+      marksWithSharedY.push(markKey);
+      markToYScaleMap.set(markKey, 'y');
+    }
+  }
+
+  return {
+    hasIndependentX,
+    hasIndependentY,
+    marksWithSharedX,
+    marksWithIndependentX,
+    marksWithSharedY,
+    marksWithIndependentY,
+    markToXScaleMap,
+    markToYScaleMap,
+  };
+}

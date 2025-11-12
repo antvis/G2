@@ -1,5 +1,5 @@
 import { csv } from '@antv/vendor/d3-fetch';
-import { feature, mesh } from 'topojson';
+import { feature, mesh } from 'topojson-client';
 import { autoType } from '@antv/vendor/d3-dsv';
 import { G2Spec } from '../../../src';
 

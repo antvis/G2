@@ -157,6 +157,271 @@ chart.interval().style('draggable', true).style('droppable', true);
 | `ChartEvent.`DRAG_OVER  | 元素被拖拽悬停在目标元素内时 | `Event`  |
 | `ChartEvent.`DROP       | 元素被放置到目标元素内时     | `Event`  |
 
+## 通过 className 进行精细化控制
+
+G2 为图表中的各个组件元素提供了标准化的 className，可以通过这些 className 实现更精细化的事件监听和样式控制。
+
+### 监听特定组件元素事件
+
+通过 className 可以精确识别用户点击的元素类型,例如监听图例项的点击事件:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data([
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+]);
+
+chart
+  .interval()
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre');
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const { document } = canvas;
+  const legendItems = document.getElementsByClassName('g2-legend-item');
+  const legendMarkers = document.getElementsByClassName('g2-legend-marker');
+  const legendLabels = document.getElementsByClassName('g2-legend-label');
+  const legendData = Array.from(legendItems).map((item) => item.__data__);
+
+  legendLabels.forEach((label, index) => {
+    const labelText = label.getAttribute('text') || label.textContent;
+
+    label.addEventListener('click', (event) => {
+      const clickedText = label.getAttribute('text') || label.textContent;
+      const itemData = legendData[index];
+
+      console.log('\n  🖱️ 图例标签被点击:');
+      console.log('    - 标签文本:', clickedText);
+      console.log('    - 索引:', index);
+      console.log('    - 数据:', itemData);
+      console.log('    - className:', label.className);
+
+      // 模拟业务逻辑：根据点击的图例执行操作
+      alert(`您点击了图例: ${clickedText}
+这里可以触发自定义业务逻辑，比如:
+- 跳转到详情页
+- 显示更多信息
+- 联动其他图表`);
+    });
+  });
+});
+```
+
+### 过滤特定组件事件
+
+使用 className 可以方便地过滤掉某些组件的事件,避免干扰:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data([
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+]);
+
+chart
+  .interval()
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre');
+
+chart.render();
+
+// 监听绘图区点击,但排除图例点击
+chart.on('plot:click', (event) => {
+  const className = event.target?.className || '';
+
+  // 检查是否点击了图例
+  const isLegendClick = className.includes('legend');
+
+  if (isLegendClick) {
+    console.log('图例被点击,忽略 plot:click 事件');
+    return;
+  }
+
+  // 处理绘图区的点击逻辑
+  console.log('绘图区被点击', event);
+});
+```
+
+### 通过 className 控制元素样式
+
+可以通过 className 获取特定元素并动态修改其样式:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data([
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+]);
+
+chart
+  .interval()
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre');
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const { document } = canvas;
+  const legendItems = document.getElementsByClassName('g2-legend-item');
+
+  // 修改第一个图例项的样式
+  if (legendItems.length > 0) {
+    const firstItem = legendItems[0];
+    const firstMarker = firstItem.getElementsByClassName('g2-legend-marker')[0];
+    const firstLabel = firstItem.getElementsByClassName('g2-legend-label')[0];
+
+    // 添加高亮样式
+    if (firstLabel) {
+      firstLabel.style.fontWeight = 'bold';
+      firstLabel.style.fill = 'orange';
+      firstLabel.style.shadowColor = '#d3d3d3';
+      firstLabel.style.shadowBlur = 10;
+      firstLabel.style.shadowOffsetX = 5;
+      firstLabel.style.shadowOffsetY = 5;
+    }
+  }
+});
+```
+
+### 根据内容查找特定元素
+
+结合 className 和元素属性,可以精确定位到特定的图表元素:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.data([
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Other', sold: 150 },
+]);
+
+chart
+  .interval()
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre');
+
+chart.render().then(() => {
+  const { canvas } = chart.getContext();
+  const { document } = canvas;
+  const legendItems = document.getElementsByClassName('g2-legend-item');
+  const targetText = 'Action';
+  let targetItem = null;
+
+  // 遍历所有图例标签,找到目标文本
+  for (let i = 0; i < legendItems.length; i++) {
+    const labels = legendItems[i].getElementsByClassName('g2-legend-label');
+    if (labels.length > 0) {
+      const labelText = labels[0].getAttribute('text') || labels[0].textContent;
+      if (labelText === targetText) {
+        targetItem = legendItems[i];
+        break;
+      }
+    }
+  }
+
+  if (targetItem) {
+    console.log(`✅ 找到目标图例: "${targetText}"`);
+    console.log('   className:', targetItem.className);
+    console.log('   可以执行业务逻辑: 例如自动聚焦、高亮显示等');
+
+    // 为目标图例项添加背景色和特殊样式
+
+    console.log(`🎨 为图例 "${targetText}" 添加特殊样式...`);
+
+    // 获取图例项的背景元素
+    const background = targetItem.getElementsByClassName(
+      'g2-legend-background',
+    )[0];
+    const label = targetItem.getElementsByClassName('g2-legend-label')[0];
+    const marker = targetItem.getElementsByClassName('g2-legend-marker')[0];
+
+    // 修改背景色
+    if (background) {
+      background.style.fill = '#FFF3E0'; // 浅橙色背景
+      background.style.fillOpacity = 0.8;
+    }
+
+    // 同时修改标签样式
+    if (label) {
+      label.style.fill = '#FF6B00'; // 橙色文字
+      label.style.fontWeight = 'bold';
+    }
+  }
+});
+```
+
+### G2 组件 className 完整列表
+
+#### 图例组件 (Legend)
+
+| className                     | 说明                   |
+| ----------------------------- | ---------------------- |
+| **`g2-legend-title`**         | 图例的标题             |
+| **`g2-legend-item`**          | 分类图例项的容器       |
+| **`g2-legend-background`**    | 分类图例项的背景       |
+| **`g2-legend-marker`**        | 分类图例项的图标       |
+| **`g2-legend-label`**         | 分类图例项的标签文字   |
+| **`g2-legend-value`**         | 分类图例项的值         |
+| **`g2-legend-focus-icon`**    | 分类图例项的聚焦图标   |
+| **`g2-legend-ribbon`**        | 连续图例的色带         |
+| **`g2-legend-track`**         | 连续图例的滑轨         |
+| **`g2-legend-selection`**     | 连续图例的选区         |
+| **`g2-legend-handle`**        | 连续图例的滑动手柄     |
+| **`g2-legend-handle-marker`** | 连续图例的滑动手柄图标 |
+| **`g2-legend-handle-label`**  | 连续图例的标签/刻度值  |
+
+#### 坐标轴组件 (Axis)
+
+| className                | 说明           |
+| ------------------------ | -------------- |
+| **`g2-axis-line`**       | 坐标轴主线     |
+| **`g2-axis-tick`**       | 坐标轴刻度线   |
+| **`g2-axis-tick-item`**  | 单个刻度线项   |
+| **`g2-axis-label`**      | 坐标轴刻度标签 |
+| **`g2-axis-label-item`** | 单个标签项     |
+| **`g2-axis-title`**      | 坐标轴标题     |
+| **`g2-axis-grid`**       | 坐标轴网格线   |
+
 ## 典型案例
 
 详见交互-事件[示例](/examples#interaction-event)

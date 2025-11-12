@@ -163,7 +163,7 @@ Hide axis for each channel:
 
 ## Configuration Options
 
-Each axis consists of title, line, tick, label, and grid.
+Each axis consists of title, line, tick, label, grid, and breaks.
 
 | Property | Description                      | Type                                               | Default Value                | Required |
 | -------- | -------------------------------- | -------------------------------------------------- | ---------------------------- | -------- |
@@ -172,6 +172,7 @@ Each axis consists of title, line, tick, label, and grid.
 | tick     | Set axis tick display and style  | [tick](#tick)                                      | -                            |          |
 | label    | Set axis label display and style | [label](#label)                                    | -                            |          |
 | grid     | Set axis grid display and style  | [grid](#grid)                                      | -                            |          |
+| breaks     | Set axis breaks display and style | [breaks](#breaks)   | -   |      |
 | animate  | Set axis animation effects       | `boolean` &#124; [animate](#animate)               | -                            |
 | position | Set axis position                | `left` &#124; `right` &#124; `top` &#124; `bottom` | `x: bottom` &#124; `y: left` |          |
 
@@ -409,6 +410,7 @@ For example, to configure label rotation, it's not configured under a label obje
 | labelAlign         | Label alignment<br/>- 'horizontal' always horizontal<br/> - 'parallel' parallel to axis<br/> - 'perpendicular' perpendicular to axis                                                                          | `'horizontal'` &#124; `'parallel'` &#124; `'perpendicular'`                                                                | `parallel`    |          |
 | labelFilter        | Label filtering                                                                                                                                                                                               | `(datum, index, data)=> boolean`                                                                                           | -             |          |
 | labelFormatter     | Label formatting, accepts function or [d3-format](https://d3js.org/d3-format) supported string                                                                                                                | `string` \| `(datum, index, array) => string`                                                                              | -             |          |
+| labelRender     | Custom label render, support HtmlString, the usage is the same as that of `labelFormatter` | `string` \| `(datum, index, array) => string`   | -     |      |
 | transform          | Label transform to avoid text overlap. Supports text ellipsis, overlap hiding, auto rotation                                                                                                                  | `Transform[]`                                                                                                              | -             |          |
 | labelTransform     | Label transform shortcuts for local coordinate system transforms including scale, translate, rotate, skew, matrix transforms, see [transform](https://g.antv.antgroup.com/api/basic/display-object#transform) | `string`                                                                                                                   | -             |          |
 | labelAutoHide      | Auto hide overlapping labels, effective when size is set                                                                                                                                                      | `boolean` &#124; `HideOverlapCfg`                                                                                          | -             |          |
@@ -978,6 +980,34 @@ chart.options({
 });
 chart.render();
 ```
+
+### breaks
+
+```ts
+{
+  breaks: [
+    {
+      start: 5000,
+      end: 50000,
+      gap: '3%',
+    }
+  ]
+}
+```
+
+| Property  | Description | Type  | Default Value | Required |
+| ------- | ------- | ------- | ------- | ------- |
+| start | Axis break start value | `number`  | -          |      |
+| end | Axis break end value | `number`  | -          |      |
+| gap | Proportion of the axis break interval in the main axis direction, supporting two types: 0 ~ 1 (decimal) and percentage | `number` \| string  | -   |      |
+| vertices | Number of undulating vertices for the axis break |  `number`  | 50          |      |
+| verticeOffset | Amplitude of the axis break undulation | `number`  | 3         |      |
+| compress | Axis break compression mode, `middle`: Compress at the center, `start`: Compress near the start value, `end`: Compress near the end value | `middle` \| `start` \| `end` |  middle |    |
+| stroke | Axis break stroke color | `string`  | `#fff`      |      |
+| fill | Axis break fill color| `string`  |  `#aaa`       |      |
+| lineDash | Dashed line style for the axis break stroke | `string`  | `2 2`      |      |
+
+For more configurations, refer to the basic drawing properties of canvas.
 
 ### animate
 

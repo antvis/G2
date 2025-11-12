@@ -117,7 +117,7 @@ similar: ['scatter-plot', 'dot-map', 'choropleth-map']
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
-import { feature } from 'topojson';
+import { feature } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/londonBoroughs.json').then((res) =>

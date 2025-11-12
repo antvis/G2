@@ -6,9 +6,15 @@ import {
 
 describe.skip('WordCloud', () => {
   it('WordCloud({ ... })', () => {});
+
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  };
+
   const data = 'Hello, welcome to visit @antv/g2'
     .split(' ')
-    .map((d) => ({ text: d, value: parseInt(`${Math.random() * 10}`) }));
+    .map((d, i) => ({ text: d, value: parseInt(`${seededRandom(i) * 10}`) }));
 
   it('WordCloud({ ... }) supports callback', async () => {
     function common(cb) {

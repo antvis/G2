@@ -2,7 +2,7 @@
  * A recreation of this demo: https://observablehq.com/@d3/world-choropleth
  */
 import { Chart } from '@antv/g2';
-import { feature, mesh } from 'topojson';
+import { feature, mesh } from 'topojson-client';
 
 Promise.all([
   fetch('https://assets.antv.antgroup.com/g2/countries-50m.json').then((res) =>

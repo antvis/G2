@@ -1,4 +1,5 @@
 import type { DisplayObject } from '@antv/g';
+import { HTML } from '@antv/g';
 import { Category } from '@antv/component';
 import { last } from '@antv/util';
 import { format } from '@antv/vendor/d3-format';
@@ -23,6 +24,7 @@ import {
   scaleOf,
   titleContent,
 } from './utils';
+import { G2_CLASS_PREFIX } from './constant';
 
 export type LegendCategoryOptions = {
   dx?: number;
@@ -240,6 +242,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     title,
     cols,
     itemMarker,
+    render,
     ...style
   } = options;
 
@@ -269,8 +272,17 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
 
     // Filter out the data items with empty string IDs in the wordCloud's data before generating the legend.
     const categoryStyle = adaptor(
-      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style),
+      Object.assign({}, legendTheme, filterEmptyIds(legendStyle), style, {
+        classNamePrefix: G2_CLASS_PREFIX,
+      }),
     );
+
+    // If render is provided, use HTML to render.
+    if (render) {
+      return new Category({
+        style: { ...categoryStyle, x: bbox.x, y: bbox.y, render },
+      });
+    }
 
     const layoutWrapper = new LegendCategoryLayout({
       style: {

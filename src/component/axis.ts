@@ -28,6 +28,7 @@ import {
 import { prettyNumber } from '../utils/number';
 import { capitalizeFirst } from '../utils/helper';
 import { adaptor, isVertical, titleContent } from './utils';
+import { G2_CLASS_PREFIX } from './constant';
 
 export type AxisOptions = {
   position?: GCP;
@@ -37,6 +38,11 @@ export type AxisOptions = {
   direction?: 'left' | 'center' | 'right';
   labelFormatter?: (datum: any, index: number, array: any[]) => string;
   labelFilter?: (datum: any, index: number, array: any[]) => boolean;
+  labelRender?: (
+    datum: any,
+    index: number,
+    array: any[],
+  ) => string | DisplayObject;
   tickFormatter?: (
     datum: any,
     index: number,
@@ -477,6 +483,7 @@ const ArcAxisComponent: GCC<AxisOptions> = (options) => {
         data: labels,
         titleText: titleContent(title),
         grid,
+        classNamePrefix: G2_CLASS_PREFIX,
         ...(tickLength !== undefined ? { tickLength } : null),
         ...rest,
         ...important,
@@ -629,6 +636,7 @@ const LinearAxisComponent: GCC<AxisOptions> = (options) => {
       // Always showLine, make title could align the end of axis.
       line: true,
       indexBBox,
+      classNamePrefix: G2_CLASS_PREFIX,
       ...(tickLength !== undefined ? { tickLength } : null),
       ...(!internalAxisStyle.line ? { lineOpacity: 0 } : null),
       ...overrideStyle,

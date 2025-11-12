@@ -1,6 +1,7 @@
 export { ElementHighlight } from './elementHighlight';
 export { ElementHighlightByX } from './elementHighlightByX';
 export { ElementHighlightByColor } from './elementHighlightByColor';
+export { ElementHoverScale } from './elementHoverScale';
 export { ElementSelect } from './elementSelect';
 export { ElementSelectByX } from './elementSelectByX';
 export { ElementSelectByColor } from './elementSelectByColor';
@@ -17,6 +18,7 @@ export { BrushFilter } from './brushFilter';
 export { BrushXFilter } from './brushXFilter';
 export { BrushYFilter } from './brushYFilter';
 export { SliderFilter } from './sliderFilter';
+export { SliderWheel } from './sliderWheel';
 export { ScrollbarFilter } from './scrollbarFilter';
 export { Poptip } from './poptip';
 export { Event } from './event';

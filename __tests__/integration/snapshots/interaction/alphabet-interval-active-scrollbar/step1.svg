@@ -31,7 +31,11 @@
                   <path fill="none" class="container"/>
                 </g>
                 <g fill="none" class="spark sparkline" transform="matrix(1 0 0 1 16 440)">
-                  <g fill="none"/>
+                  <g fill="none">
+                    <g>
+                      <path fill="none" stroke="rgba(131,218,173,1)" stroke-width="1" d="M0 5.746c0 0 14.3254 8.4574 24.32 8.4574 9.4614 0 14.5953-.935 24.32-1.6345 9.7313-.6999 15.0082 0 24.32-1.8638 10.1442-2.0304 14.7888-10.7051 24.32-10.7051 9.9248 0 13.9659 12.8013 24.32 13.1948 9.1019.3459 14.699.3459 24.32.3459 9.835 0 14.4896-4.0398 24.32-5.1682 9.6256-1.1048 14.8755-1.1048 24.32-1.1048 10.0115 0 14.306 8.6322 24.32 8.6322 9.442 0 14.6583 0 24.32-.7843 9.7943-.795 14.5404-4.1216 24.32-4.1216 9.6764 0 14.6962 2.0513 24.32 2.0513 9.8322 0 14.4744-4.5188 24.32-5.5027 9.6104-.9604 14.7854-.9604 24.32-.9604 9.9214 0 14.417 5.1554 24.32 7.0675 9.553 1.8444 14.7889 2.3237 24.32 2.3237 9.9249 0 14.3738-7.0148 24.32-7.4653 9.5098-.4308 14.64 0 24.32-.4308 9.776-.435 14.792-3.4577 24.32-3.4577 9.928 0 14.3642 5.8848 24.32 7.9797 9.5002 1.999 14.5837 2.2553 24.32 2.2553 9.7197 0 14.6115-1.751 24.32-1.751 9.7475 0 14.5818 2.8001 24.32 2.8001 9.7178 0 14.5939-2.311 24.32-2.311 9.7299 0 24.32 2.4073 24.32 2.4073" class="line"/>
+                    </g>
+                  </g>
                   <g fill="none"/>
                 </g>
               </g>
@@ -99,46 +103,46 @@
           </g>
           <g fill="none" class="main-layer">
             <g>
-              <path width="20.9655" height="48.3943" x="566.069" y="363.6057" fill="rgba(255,0,0,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m566.069 363.6057 20.9655 0 0 48.3943-20.9655 0z" class="element"/>
+              <path width="20.9655" height="76.838" x="566.069" y="335.162" fill="rgba(255,0,0,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m566.069 335.162 20.9655 0 0 76.838-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="90.2365" x="230.6207" y="321.7635" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m230.6207 321.7635 20.9655 0 0 90.2365-20.9655 0z" class="element"/>
+              <path width="20.9655" height="143.273" x="230.6207" y="268.727" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m230.6207 268.727 20.9655 0 0 143.273-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="137.9496" x="146.7586" y="274.0504" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m146.7586 274.0504 20.9655 0 0 137.9496-20.9655 0z" class="element"/>
+              <path width="20.9655" height="219.0295" x="146.7586" y="192.9705" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m146.7586 192.9705 20.9655 0 0 219.0295-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="74.2132" x="398.3448" y="337.7868" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m398.3448 337.7868 20.9655 0 0 74.2132-20.9655 0z" class="element"/>
+              <path width="20.9655" height="117.832" x="398.3448" y="294.168" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m398.3448 294.168 20.9655 0 0 117.832-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="65.3582" x="440.2759" y="346.6418" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m440.2759 346.6418 20.9655 0 0 65.3582-20.9655 0z" class="element"/>
+              <path width="20.9655" height="103.7725" x="440.2759" y="308.2275" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m440.2759 308.2275 20.9655 0 0 103.7725-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="197.664" x="62.8966" y="214.336" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m62.8966 214.336 20.9655 0 0 197.664-20.9655 0z" class="element"/>
+              <path width="20.9655" height="313.841" x="62.8966" y="98.159" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m62.8966 98.159 20.9655 0 0 313.841-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="130.5542" x="188.6897" y="281.4458" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m188.6897 281.4458 20.9655 0 0 130.5542-20.9655 0z" class="element"/>
+              <path width="20.9655" height="207.2875" x="188.6897" y="204.7125" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m188.6897 204.7125 20.9655 0 0 207.2875-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="78.0406" x="314.4828" y="333.9594" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m314.4828 333.9594 20.9655 0 0 78.0406-20.9655 0z" class="element"/>
+              <path width="20.9655" height="123.909" x="314.4828" y="288.091" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m314.4828 288.091 20.9655 0 0 123.909-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="62.5687" x="524.1379" y="349.4313" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m524.138 349.4313 20.9654 0 0 62.5687-20.9655 0z" class="element"/>
+              <path width="20.9655" height="99.3435" x="524.1379" y="312.6565" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m524.138 312.6565 20.9654 0 0 99.3435-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="194.1934" x="104.8276" y="217.8066" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m104.8276 217.8066 20.9655 0 0 194.1934-20.9655 0z" class="element"/>
+              <path width="20.9655" height="308.3305" x="104.8276" y="103.6695" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m104.8276 103.6695 20.9655 0 0 308.3305-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="205.2215" x="20.9655" y="206.7785" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m20.9655 206.7785 20.9655 0 0 205.2215-20.9655 0z" class="element"/>
+              <path width="20.9655" height="325.8405" x="20.9655" y="86.1595" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m20.9655 86.1595 20.9655 0 0 325.8405-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="89.458" x="272.5517" y="322.542" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m272.5517 322.542 20.9655 0 0 89.458-20.9655 0z" class="element"/>
+              <path width="20.9655" height="142.037" x="272.5517" y="269.963" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m272.5517 269.963 20.9655 0 0 142.037-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="76.5486" x="356.4138" y="335.4514" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m356.4138 335.4514 20.9655 0 0 76.5486-20.9655 0z" class="element"/>
+              <path width="20.9655" height="121.54" x="356.4138" y="290.46" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m356.4138 290.46 20.9655 0 0 121.54-20.9655 0z" class="element"/>
             </g>
             <g>
-              <path width="20.9655" height="64.0283" x="482.2069" y="347.9717" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m482.2069 347.9717 20.9655 0 0 64.0283-20.9655 0z" class="element"/>
+              <path width="20.9655" height="101.661" x="482.2069" y="310.339" fill="rgba(70,130,180,1)" fill-opacity=".95" stroke="rgba(70,130,180,1)" stroke-width="0" d="m482.2069 310.339 20.9655 0 0 101.661-20.9655 0z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>

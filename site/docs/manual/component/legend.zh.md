@@ -110,6 +110,9 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | itemSpacing <Badge type="success">分类图例</Badge>    | 配置图例项图标、标签、值、聚焦图标之间的间距               | number \| number[]                                                 | `[8, 8, 4]`                              |
 | nav <Badge type="success">分类图例</Badge>            | 配置图例的分页器                                 | [nav](#nav)                                                        | 详见[nav](#nav)                       |
 | poptip <Badge type="success">分类图例</Badge>            | 图例项提示                                 | [poptip](#poptip)                                                        | 详见[poptip](#poptip)                       |
+| focus    <Badge type="success">分类图例</Badge>    |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
+| focusMarkerSize     <Badge type="success">分类图例</Badge>   | 图例聚焦图标大小                                                                                | number                    | 12     |      |
+| defaultSelect  <Badge type="success">分类图例</Badge>| 默认选中的图例项 | string[] | - | |
 | color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
 | block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | false                                 |
 | type <Badge type="warning">连续图例</Badge>           | 配置连续图例的类型                               | `size` \|`color`                                                   | `color`                               |
@@ -117,8 +120,6 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | handle <Badge type="warning">连续图例</Badge>         | 配置连续图例的滑动手柄                           | [handle](#handle)                                                  | 详见[handle](#handle)                 |
 | label <Badge type="warning">连续图例</Badge>          | 配置连续图例的标签/刻度值                        | [label](#label)                                                    | 详见[label](#label)                   |
 | indicator <Badge type="warning">连续图例</Badge>      | 配置连续图例的指示器                             | [indicator](#indicator)                                            | 详见[indicator](#indicator)           |
-| focus        |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
-| focusMarkerSize        | 图例聚焦图标大小                                                                                | number                    | 12     |      |
 
 ### orientation
 
@@ -1345,6 +1346,60 @@ domStyles 默认配置如下：
 }
 ```
 
+
+### focus
+
+<description> **optional** _boolean_ </description>
+
+适用于 <Badge type="success">分类图例</Badge> 。是否启用图例聚焦功能。默认为 `false`。
+
+当设置为 `true` 时，图例项会显示聚焦图标，用户可以通过点击聚焦图标来仅显示对应的图表元素，更好地突出关注的数据。
+
+```js | ob { inject: true, pin: false }
+const { Chart } = G2;
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
+    { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
+    { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
+    { name: 'London', 月份: 'Apr.', 月均降雨量: 81.4 },
+    { name: 'London', 月份: 'May', 月均降雨量: 47 },
+    { name: 'London', 月份: 'Jun.', 月均降雨量: 20.3 },
+    { name: 'London', 月份: 'Jul.', 月均降雨量: 24 },
+    { name: 'London', 月份: 'Aug.', 月均降雨量: 35.6 },
+    { name: 'Berlin', 月份: 'Jan.', 月均降雨量: 12.4 },
+    { name: 'Berlin', 月份: 'Feb.', 月均降雨量: 23.2 },
+    { name: 'Berlin', 月份: 'Mar.', 月均降雨量: 34.5 },
+    { name: 'Berlin', 月份: 'Apr.', 月均降雨量: 99.7 },
+    { name: 'Berlin', 月份: 'May', 月均降雨量: 52.6 },
+    { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
+    { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
+    { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
+  ],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  transform: [{ type: 'dodgeX' }],
+  legend: {
+    color: {
+      focus: true,
+      focusMarkerSize: 12
+    },
+  },
+});
+
+chart.render();
+```
+
+### focusMarkerSize
+
+<description> **optional** _number_ </description>
+
+适用于 <Badge type="success">分类图例</Badge> 。调整聚焦图标大小。
+
 ### color
 
 <description> _string[] | [d3-interpolate](https://github.com/d3/d3-interpolate)_ **optional** </description>
@@ -1725,10 +1780,10 @@ chart.on('afterrender', () => {
 
 ### 首次渲染图表时默认只显示部分图例
 
-目前暂时还没有内置 API，需要通过手动触发一下 `legendFilter`交互来实现。
+通过 `defaultSelect` 选项，您可以指定在首次渲染图表时默认选中的图例项：
 
 ```js | ob { inject: true }
-import { Chart, ChartEvent } from '@antv/g2';
+import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
@@ -1742,18 +1797,24 @@ chart.options({
     { genre: 'Other', sold: 150 },
   ],
   encode: { x: 'genre', y: 'sold', color: 'genre' },
+  legend: {
+    color: {
+      defaultSelect: ['Sports', 'Strategy', 'Action'],
+    },
+  },
 });
 
 chart.render();
+```
 
+你也可以在合适的时间，手动触发 `legend:filter` 来实现这个效果：
+```js
 chart.on(ChartEvent.AFTER_RENDER, () => {
   chart.emit('legend:filter', {
     data: { channel: 'color', values: ['Sports', 'Strategy', 'Action'] },
   });
 });
 ```
-
-可以通过设置 `animate: false` 避免触发更新动画，但还是会有闪动，后续会通过配置项在内部处理，实现更好的筛选效果。
 
 ### 垂直布局图例分页
 

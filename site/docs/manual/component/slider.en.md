@@ -378,18 +378,300 @@ chart.on('afterrender', () => {
 chart.render();
 ```
 
+## Common Interactions
+
+### Wheel Zooming (sliderWheel)
+
+The `sliderWheel` interaction allows users to control the slider's selection range through mouse wheel or trackpad gestures, enabling quick data range zooming operations.
+
+- **Trigger**: Use mouse wheel or trackpad scrolling within the chart area
+- **Effect**: Zoom in/out selection range while maintaining the center position of the selection
+- **Use Cases**: Suitable for scenarios requiring frequent adjustment of data viewing range
+
+#### Configuration
+
+```js
+({
+  slider: {
+    x: {}, // Enable X-axis slider
+  },
+  interaction: {
+    sliderWheel: true, // Enable wheel zooming interaction
+  },
+});
+```
+
+You can also pass configuration options for customization:
+
+```js
+({
+  slider: {
+    x: {},
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.1, // Wheel sensitivity
+      minRange: 0.05,        // Minimum zoom range
+      x: true,               // X-axis response mode
+      y: 'shift',            // Y-axis responds only when Shift key is pressed
+    },
+  },
+});
+```
+
+#### Main Configuration Options
+
+| Property         | Description                     | Type    | Default |
+| :--------------- | :------------------------------ | :------ | :------ |
+| minRange         | Minimum zoom range              | number  | 0.01    |
+| wheelSensitivity | Wheel zoom sensitivity          | number  | 0.05    |
+| x                | X-axis wheel interaction mode   | boolean \| string | true    |
+| y                | Y-axis wheel interaction mode   | boolean \| string | true    |
+
+#### Example
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'line',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => {
+        return new Date(d).toLocaleDateString();
+      },
+    },
+  },
+  interaction: {
+    sliderWheel: {
+      wheelSensitivity: 0.08,
+      minRange: 0.02,
+    },
+  },
+});
+
+chart.render();
+```
+
+## Adaptive Filtering
+
+Sliders can not only be used for data filtering but also support adaptive filtering functionality. When dragging the slider, it automatically adjusts the display range of other axis based on the currently selected data range, providing a better data exploration experience.
+
+### Important Note
+
+**Adaptive strategies need to be configured in the `sliderFilter` interaction, not in the `slider` component.** Starting from G2 5.4.1, when you configure the `slider` component, adaptive filtering functionality is automatically enabled. If adaptive functionality is not needed, it needs to be manually disabled.
+
+### Configuration Methods
+
+#### 1. Default Adaptive (Recommended)
+
+When configuring the slider component, adaptive filtering is enabled by default:
+
+```javascript
+// Adaptive filtering is automatically enabled by default
+chart.options({
+  slider:{
+    x:{}
+  }
+});
+```
+
+#### 2. Manual sliderFilter Configuration
+
+For custom adaptive strategies, configure in the `sliderFilter` interaction:
+
+```javascript
+chart.options({
+  slider:{
+    x:{}
+  },
+  interaction:{
+    sliderFilter:{
+      adaptiveMode: 'filter', // Enable adaptive
+    }
+  }
+});
+```
+
+#### 3. Manual Disable Adaptive
+
+If adaptive functionality is not needed, explicitly disable it:
+
+```javascript
+chart.options({
+  slider:{
+    x:{}
+  },
+  interaction:{
+    sliderFilter:{
+      adaptiveMode: false  // Manually disable adaptive
+    }
+  }
+});
+```
+
+### Adaptive Mode Parameters
+
+The `adaptiveMode` configuration option in the `sliderFilter` interaction can control the behavior of adaptive filtering:
+
+```js
+{
+  slider: {
+    x: { values: [0.1, 0.8] }
+  },
+  interaction: {
+    sliderFilter: {
+      adaptiveMode: 'filter'  // Enable adaptive filtering (default value)
+      // adaptiveMode: false   // Disable adaptive filtering
+    }
+  }
+}
+```
+
+**Available values:**
+
+- `'filter'`: Enable adaptive filtering, dynamically adjust other axis' domain values based on selected data range (**default value**)
+- `false` or `null`: Disable adaptive filtering
+- More adaptive strategies will be introduced in future versions, stay tuned.
+
+### Specific Scenarios
+
+The system will adopt different adaptive strategies based on different configuration scenarios. In single-axis scenarios, slider configuration at View level or Mark level has the same effect. But in multi-axis charts, there will be different adaptive strategies:
+
+- **Multi-axis Adaptive**: When there are independent coordinate axis in the chart (configured through `scale: { y: { independent: true }}`), multi-axis adaptive strategies will be enabled. Different adaptive strategies will be adopted based on the configuration level of the slider.
+
+  - **View Level Configuration**: Affects all Marks in the entire view, suitable for scenarios where unified control of multiple charts is needed
+  - **Mark Level Configuration**: Only affects specific Marks, suitable for scenarios where independent filtering of certain specific marks is needed
+
+- **Adaptive Calculation Logic**: By collecting channel data from all marks, calling specified filtering logic for adaptive filtering calculation, dynamically calculating Y-axis domain range based on current filtering range, ensuring the displayed data range is always reasonable.
+
+#### Single-axis Adaptive
+
+When only X-axis or only Y-axis has a slider configured, single-axis adaptive filtering will be enabled. When dragging the slider, it will automatically adjust the display range of the other axis based on the currently selected data range.
+
+##### Single Mark Scenario
+
+```js | ob { inject: true, pin: false }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [];
+for (let i = 0; i < 150; i++) {
+  data.push({
+    x: i,
+    y: Math.sin(i / 15) * 60 + 80 + Math.random() * 25,
+    category: i % 3 === 0 ? 'A' : i % 3 === 1 ? 'B' : 'C',
+  });
+}
+
+chart.options({
+  type: 'point',
+  data,
+  encode: { x: 'x', y: 'y', color: 'category' },
+  slider: {
+    x: {
+      values: [0.1, 0.8],
+      labelFormatter: (d) => `X: ${Math.round(d)}`,
+    },
+  },
+  style: {
+    fillOpacity: 0.8,
+  },
+});
+
+chart.render();
+```
+
+### Adaptive Features
+
+#### Discrete and Continuous Axis
+
+- **Continuous Axis**: During adaptation, minimum and maximum values of data are calculated to form new domain ranges
+- **Discrete Axis**: During adaptation, all discrete values within range are collected and deduplicated as new domain values
+- **Zero Baseline Preservation**: For continuous axis whose original domain includes 0, the zero baseline is preserved during adaptation
+
+#### Bidirectional Mutual Exclusion
+
+If both X-axis and Y-axis have sliders configured, adaptive functionality will not take effect even if adaptive strategies are configured.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+const data = [];
+for (let i = 0; i < 300; i++) {
+  const x = Math.random() * 100;
+  const y = x * 0.7 + Math.random() * 30 + 10;
+  data.push({
+    x,
+    y,
+    size: Math.random() * 8 + 3,
+    category: Math.random() > 0.5 ? 'A' : 'B',
+  });
+}
+
+chart.options({
+  type: 'point',
+  data,
+  encode: {
+    x: 'x',
+    y: 'y',
+    size: 'size',
+    color: 'category',
+  },
+  // Configure both X and Y axis sliders, adaptive will not take effect
+  slider: {
+    x: {
+      values: [0.2, 0.8],
+      labelFormatter: (d) => `X: ${Math.round(d)}`,
+    },
+    y: {
+      values: [0.1, 0.9],
+      labelFormatter: (d) => `Y: ${Math.round(d)}`,
+    },
+  },
+  scale: {
+    x: { nice: true },
+    y: { nice: true },
+  },
+  style: {
+    fillOpacity: 0.7,
+  },
+});
+
+chart.render();
+```
+
 ## Examples
 
 ### Custom Slider
 
-If you don't want to use G2's default slider, you can customize a drag axis following these steps:
+If you don't want to use G2's default slider, you can customize following these steps:
 
 - Render the slider after rendering is complete.
 - Listen to slider events.
 
 The key to the first step is determining the slider's position and length through the coordinate object obtained via `chart.getCoordinate`. The key to the second step is using the scale obtained through `chart.getScale` to invert the selected range, finally obtaining the selected data range, then updating the scale's domain.
 
-```js | ob {  inject: true }
+```js | ob { inject: true }
 const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
@@ -429,6 +711,7 @@ function sliderX(chart) {
   };
 }
 
+// Render chart
 chart.options({
   type: 'line',
   data: {
