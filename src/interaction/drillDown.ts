@@ -5,7 +5,6 @@ import {
   CHILD_NODE_COUNT,
   HIERARCHY_TYPE,
   HIERARCHY_TYPE_FIELD,
-  HIERARCHY_ANCESTOR_FIELD,
 } from '../mark/hierarchy';
 
 // Get hierarchy element.
@@ -36,7 +35,6 @@ const DEFAULT_BREADCRUMB = {
     fontSize: 11,
   },
   y: 4,
-  x: 8, // Add left spacing.
   active: {
     fill: 'rgba(0, 0, 0, 0.4)',
   },

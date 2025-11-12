@@ -424,8 +424,20 @@ export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
 export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
 
-export type HierarchyMark = BaseMark<'hierarchy', 'value' | ChannelTypes> & {
-  layout?: Record<string, any>;
+export type HierarchyMark = BaseMark<
+  'hierarchy',
+  'value' | 'name' | ChannelTypes
+> & {
+  layout?: {
+    fillParent?: boolean; // If true, child nodes will fill the parent width proportionally.
+    sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+  };
 };
+
+export interface HierarchyNode {
+  name: string;
+  value: number;
+  children?: HierarchyNode[];
+}
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;

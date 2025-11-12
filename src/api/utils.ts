@@ -1,4 +1,4 @@
-import { isNumber, omit } from '@antv/util';
+import { isNumber } from '@antv/util';
 import { G2ViewTree } from '../runtime';
 import { getContainerSize } from '../utils/size';
 import { deepAssign } from '../utils/helper';
@@ -63,16 +63,9 @@ export function removeContainer(container: HTMLElement) {
 }
 
 export function normalizeRoot(node: Node) {
-  console.log(
-    '[normalizeRoot] node type:',
-    node.type,
-    'node children length:',
-    node.children?.length,
-  );
   if (node.type !== null) return node;
   const root = node.children[node.children.length - 1];
   for (const key of VIEW_KEYS) root.attr(key, node.attr(key));
-  console.log('[normalizeRoot] returning root type:', root?.type);
   return root;
 }
 
@@ -112,24 +105,7 @@ export function sizeOf(options, container) {
 }
 
 export function optionsOf(node: Node): Record<string, any> {
-  console.log(
-    '[optionsOf] node type:',
-    node.type,
-    'node children length:',
-    node.children?.length,
-  );
-  if (node.children) {
-    for (let i = 0; i < node.children.length; i++) {
-      console.log(
-        `[optionsOf] child[${i}] type:`,
-        node.children[i].type,
-        'data:',
-        node.children[i].value?.data,
-      );
-    }
-  }
   const root = normalizeRoot(node);
-  console.log('[optionsOf] after normalizeRoot, root type:', root.type);
   const discovered: Node[] = [root];
   const nodeValue = new Map<Node, Record<string, any>>();
   nodeValue.set(root, valueOf(root));
@@ -150,14 +126,7 @@ export function optionsOf(node: Node): Record<string, any> {
       }
     }
   }
-  const result = nodeValue.get(root);
-  console.log(
-    '[optionsOf] final result type:',
-    result?.type,
-    'children length:',
-    result?.children?.length,
-  );
-  return result;
+  return nodeValue.get(root);
 }
 
 function isMark(
@@ -184,15 +153,8 @@ function normalizeRootOptions(
   marks: Record<string, new () => Node>,
   composition: Record<string, new () => Node>,
 ) {
-  console.log(
-    '[normalizeRootOptions] called with type:',
-    options.type,
-    'node type:',
-    node.type,
-  );
   const { type: oldType } = node;
   const { type = previousType || oldType } = options;
-
   if (isComposition(type, composition)) {
     for (const key of VIEW_KEYS) {
       if (node.attr(key) !== undefined && options[key] === undefined) {
@@ -202,14 +164,8 @@ function normalizeRootOptions(
     return options;
   }
   if (isMark(type, marks)) {
-    console.log(
-      '[normalizeRootOptions] WRAPPING MARK:',
-      type,
-      'with data:',
-      options.data,
-    );
     const view = { type: 'view' };
-    const mark = { ...omit(options, ['data']) };
+    const mark = { ...options };
     for (const key of VIEW_KEYS) {
       if (mark[key] !== undefined) {
         view[key] = mark[key];

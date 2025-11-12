@@ -1,14 +1,7 @@
 import { deepMix, pick } from '@antv/util';
 import { CompositeMarkComponent } from '../runtime';
-import { BaseMark, ChannelTypes } from '../spec';
+import { BaseMark, ChannelTypes, HierarchyNode } from '../spec';
 export type HierarchyMark = BaseMark<'rect', 'value' | ChannelTypes>;
-
-export interface HierarchyNode {
-  name: string;
-  value: number;
-  children?: HierarchyNode[];
-  [key: string]: any;
-}
 
 export interface HierarchyDataNode {
   data: HierarchyNode;
@@ -21,9 +14,10 @@ export interface HierarchyDataNode {
 }
 
 export interface LayoutOptions {
-  field?: string;
+  valueField?: string;
   sort?: (a: HierarchyNode, b: HierarchyNode) => number;
   fillParent?: boolean; // Whether child nodes fill parent width.
+  nameField?: string;
 }
 
 /**
@@ -38,9 +32,10 @@ export function hierarchyLayout(
   options: LayoutOptions = {},
 ) {
   const {
-    field = 'value',
-    sort = (a: HierarchyNode, b: HierarchyNode) => b[field] - a[field],
+    valueField = 'value',
+    sort,
     fillParent = true,
+    nameField = 'name',
   } = options;
 
   if (!data || data.length === 0) return [];
@@ -58,7 +53,7 @@ export function hierarchyLayout(
       children: [],
       x0: 0,
       x1: 0,
-      value: node[field] || 0,
+      value: node[valueField] || 0,
     };
 
     if (node.children && node.children.length > 0) {
@@ -93,12 +88,14 @@ export function hierarchyLayout(
         node.x0 = parentStartX;
         if (fillParent && parentWidth > 0) {
           // If fillParent is true, calculate width based on parent width and value ratio.
-          const totalChildrenValue =
-            node.parent?.children.reduce(
-              (sum, child) => sum + child.value,
-              0,
-            ) || node.value;
-          const ratio = node.value / totalChildrenValue;
+          const siblingsTotalValue = node.parent
+            ? node.parent.children.reduce((acc, child) => acc + child.value, 0)
+            : node.value;
+          const siblingsCount = node.parent ? node.parent.children.length : 1;
+          const ratio =
+            siblingsTotalValue > 0
+              ? node.value / siblingsTotalValue
+              : 1 / siblingsCount;
           node.x1 = parentStartX + parentWidth * ratio;
         } else {
           // If fillParent is false, use node own value as width.
@@ -110,66 +107,69 @@ export function hierarchyLayout(
       let childStartX = node.x0;
       const nodeWidth = node.x1 - node.x0;
 
-      // Sort by value (larger first)
-      const sortedChildren = [...node.children].sort(
-        (a: HierarchyDataNode, b: HierarchyDataNode) =>
-          // forward underlying data nodes to the provided comparator
-          sort(a.data, b.data),
-      );
+      const sortedChildren = sort
+        ? [...node.children].sort(
+            (a: HierarchyDataNode, b: HierarchyDataNode) =>
+              sort(a.data, b.data),
+          )
+        : node.children;
 
       if (fillParent && sortedChildren.length > 0) {
         // fillParent mode: child nodes fill parent width proportionally.
+        const childrenTotalValue = node.children.reduce(
+          (sum, c) => sum + c.value,
+          0,
+        );
         sortedChildren.forEach((child: HierarchyDataNode) => {
           calculateLayout(child, childStartX, false, nodeWidth);
-          // Calculate child node position ratio in parent.
-          const totalChildrenValue = node.children.reduce(
-            (sum, child) => sum + child.value,
-            0,
-          );
-          const ratio = child.value / totalChildrenValue;
+          const ratio =
+            childrenTotalValue > 0
+              ? child.value / childrenTotalValue
+              : 1 / sortedChildren.length;
           childStartX += nodeWidth * ratio;
         });
       } else {
         // Non-fillParent mode: child nodes layout independently based on own value.
         sortedChildren.forEach((child: HierarchyDataNode) => {
           calculateLayout(child, childStartX, false, 0);
-          // Next child node starts from current child node's end position
-          childStartX += child.x1 - child.x0 + 0.01; // Add small spacing
+          // Next child node starts from current child node's end position.
+          childStartX += child.x1 - child.x0;
         });
       }
     };
 
-    // Start layout calculation from root node, using current root start position
+    // Start layout calculation from root node, using current root start position.
     calculateLayout(root, currentRootStartX, true);
 
-    // Update the starting position for the next root node
-    currentRootStartX += root.value + 0.02; // Add spacing between root nodes
+    // Update the starting position for the next root node.
+    currentRootStartX += root.value;
 
-    // Convert to final format
+    // Convert to final format.
     const processNode = (node: HierarchyDataNode): Record<string, any> => {
-      const path = [node.data.name];
+      const getName = (d: HierarchyNode) => d[nameField] ?? d.name;
+      const path = [getName(node.data)];
       let ancestorNode = node;
       while (ancestorNode.parent) {
-        path.unshift(ancestorNode.parent.data.name);
+        path.unshift(getName(ancestorNode.parent.data));
         ancestorNode = ancestorNode.parent;
       }
 
       return {
-        ...pick(node.data, [field]),
+        ...pick(node.data, [valueField]),
         [HIERARCHY_PATH_FIELD]: path,
         [HIERARCHY_ANCESTOR_FIELD]:
-          ancestorNode.parent?.data?.name || node.data.name,
-        name: node.data.name,
+          ancestorNode.parent?.data?.[nameField] ?? node.data[nameField],
+        name: node.data[nameField],
         depth: node.depth,
         value: node.value,
         x: [node.x0, node.x1],
         y: [node.depth, node.depth + 1],
-        // Add child node count attribute for drill-down interaction judgment
+        // Add child node count attribute for drill-down interaction judgment.
         [CHILD_NODE_COUNT]: node.children.length,
       };
     };
 
-    // Collect all nodes
+    // Collect all nodes.
     const collectResultNodes = (node: HierarchyDataNode): void => {
       result.push(processNode(node));
       node.children.forEach(collectResultNodes);
@@ -195,19 +195,23 @@ export const HIERARCHY_ANCESTOR_FIELD = 'ancestor-node';
 export const CHILD_NODE_COUNT = 'childNodeCount';
 
 export function transformData(
-  options: Pick<HierarchyOptions, 'data' | 'encode'> & { fillParent?: boolean },
+  options: Pick<HierarchyOptions, 'data' | 'encode'> & {
+    fillParent?: boolean;
+    sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+  },
 ) {
-  const { data, encode, fillParent } = options;
-  const { color, value } = encode;
+  const { data, encode, fillParent, sort } = options;
+  const { color, value, name } = encode as any;
 
-  // Use the real hierarchy layout algorithm
   const nodes = hierarchyLayout(data, {
-    field: value,
+    valueField: value,
     fillParent,
+    nameField: name,
+    sort,
   });
 
   return nodes.map((node: Record<string, any>) => {
-    // Handle color mapping
+    // Handle color mapping.
     const nodeInfo = { ...node };
     if (color && color !== HIERARCHY_ANCESTOR_FIELD) {
       nodeInfo[color] = node.data?.[color] || node[color];
@@ -224,6 +228,7 @@ const DEFAULT_OPTIONS = {
     key: HIERARCHY_PATH_FIELD,
     color: HIERARCHY_ANCESTOR_FIELD,
     value: 'value',
+    name: 'name',
   },
   labels: [
     {
@@ -245,7 +250,7 @@ const DEFAULT_OPTIONS = {
   },
   style: {
     [HIERARCHY_TYPE_FIELD]: HIERARCHY_TYPE,
-    [CHILD_NODE_COUNT]: 'childNodeCount', // Add child node count attribute for drill-down interaction
+    [CHILD_NODE_COUNT]: 'childNodeCount', // Add child node count attribute for drill-down interaction.
   },
   state: {
     active: { zIndex: 2 },
@@ -254,7 +259,7 @@ const DEFAULT_OPTIONS = {
   legend: false,
   coordinate: {
     type: 'cartesian',
-    grid: false, // Remove grid lines
+    grid: false, // Remove grid lines.
   },
   interaction: {
     drillDown: true,
@@ -267,13 +272,18 @@ export const Hierarchy: CompositeMarkComponent<HierarchyOptions> = (
   const {
     encode: encodeOption,
     data = [],
-    fillParent = true,
+    layout = {},
     ...resOptions
   } = options;
 
+  const { fillParent = true, sort } = layout as {
+    fillParent?: boolean;
+    sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+  };
+
   const encode = { ...DEFAULT_OPTIONS.encode, ...encodeOption };
   const { value } = encode;
-  const rectData = transformData({ encode, data, fillParent });
+  const rectData = transformData({ encode, data, fillParent, sort });
 
   return [
     deepMix({}, DEFAULT_OPTIONS, {
@@ -291,7 +301,7 @@ export const Hierarchy: CompositeMarkComponent<HierarchyOptions> = (
           },
         ],
       },
-      // Add basic interaction
+      // Add basic interaction.
       interaction: {
         elementHighlight: true,
       },
