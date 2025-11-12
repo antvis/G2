@@ -1,3 +1,15 @@
+## [5.4.4](https://github.com/antvis/g2/compare/5.4.3...5.4.4) (2025-11-12)
+
+
+### Features
+
+* add component prefix ([#7186](https://github.com/antvis/g2/issues/7186)) ([4a8de87](https://github.com/antvis/g2/commit/4a8de87c5de5c21a525db2e4bb0929bd8a5dcc79))
+* **interaction:** add elementHoverScale for pie and donut charts ([#7189](https://github.com/antvis/g2/issues/7189)) ([fd8d43b](https://github.com/antvis/g2/commit/fd8d43b4fbabad6a3eda60b4a13f1895bdbec0bb))
+* legendFilter 中不同 scale 隔离 ([#7192](https://github.com/antvis/g2/issues/7192)) ([002bc5a](https://github.com/antvis/g2/commit/002bc5a3ff048a79384e5bd793083722ddebc6de))
+* update snapshots ([#7184](https://github.com/antvis/g2/issues/7184)) ([3af4230](https://github.com/antvis/g2/commit/3af4230bbd2148eff2cea3f52c1e7f1e8ad9acb3))
+
+
+
 ## [5.4.3](https://github.com/antvis/g2/compare/5.4.2...5.4.3) (2025-11-05)
 
 

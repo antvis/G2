@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2",
-  "version": "5.4.3",
+  "version": "5.4.4",
   "description": "the Grammar of Graphics in Javascript",
   "license": "MIT",
   "main": "lib/index.js",
@@ -153,7 +153,7 @@
     },
     {
       "path": "dist/g2.lite.min.js",
-      "limit": "290 Kb",
+      "limit": "295 Kb",
       "gzip": true
     }
   ],
