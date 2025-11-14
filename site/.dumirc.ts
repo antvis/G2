@@ -22,6 +22,9 @@ export default defineConfig({
     { name: 'description', content: '简洁的渐进式可视化语法。' },
   ],
   themeConfig: {
+    ai: {
+      recommend: 'https://site-data-pre.alipay.com/g2/recommend.json', // 官网预发部署用
+    },
     title: 'G2', // 网站 header 标题
     metas: {
       title: {
