@@ -183,9 +183,14 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
           const { data } = mark;
 
           const newData = data.filter((item: any) => {
-            const itemPath = item.path;
-
-            return path.every((item) => itemPath.includes(item));
+            const itemPath = item.path ?? [];
+            if (path.length === 0) return true;
+            if (!Array.isArray(itemPath) || itemPath.length < path.length)
+              return false;
+            for (let i = 0; i < path.length; i++) {
+              if (itemPath[i] !== path[i]) return false;
+            }
+            return true;
           });
 
           // DrillDown by filtering the data and scale.

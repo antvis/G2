@@ -189,7 +189,6 @@ export type HierarchyOptions = Omit<HierarchyMark, 'type'> & {
 
 export const HIERARCHY_TYPE = 'hierarchy';
 export const HIERARCHY_TYPE_FIELD = 'markType';
-export const HIERARCHY_Y_FIELD = 'value';
 export const HIERARCHY_PATH_FIELD = 'path';
 export const HIERARCHY_ANCESTOR_FIELD = 'ancestor-node';
 export const CHILD_NODE_COUNT = 'childNodeCount';
@@ -214,7 +213,7 @@ export function transformData(
     // Handle color mapping.
     const nodeInfo = { ...node };
     if (color && color !== HIERARCHY_ANCESTOR_FIELD) {
-      nodeInfo[color] = node.data?.[color] || node[color];
+      nodeInfo[color] = node[color];
     }
     return nodeInfo;
   });

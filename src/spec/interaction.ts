@@ -244,7 +244,7 @@ export type DrillDownInteraction = {
       y?: number;
       x?: number;
     };
-    activeStyle?: {
+    active?: {
       fill?: string;
     };
   };
