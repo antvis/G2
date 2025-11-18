@@ -62,16 +62,16 @@ export function seriesOf(elemenet: G2Element): string {
 }
 
 /**
- * Get series scale by markerKey
+ * Get series scale by markKey
  */
-function getSeriesByMarkerKey(scale: Record<string, Base<any>>, datum) {
-  // For path mark, markerKey is in datum.element?.__data__?.markKey.
-  const markerKey = datum.markKey ?? datum.element?.__data__?.markKey;
+function getSeriesByMarkKey(scale: Record<string, Base<any>>, datum) {
+  // For path mark, markKey is in datum.element?.__data__?.markKey.
+  const markKey = datum.markKey ?? datum.element?.__data__?.markKey;
 
   const seriesKey = Object.keys(scale).find((channel) => {
     if (channel.startsWith('series')) {
       const options = scale[channel].getOptions();
-      return options.name === 'series' && options.markerKey === markerKey;
+      return options.name === 'series' && options.markKey === markKey;
     }
   });
   return scale[seriesKey] ?? scale.series;
@@ -83,7 +83,7 @@ function getSeriesByMarkerKey(scale: Record<string, Base<any>>, datum) {
 export function groupNameOf(scale: Record<string, Base<any>>, datum) {
   const { color: scaleColor, facet = false } = scale;
   const { color, series } = datum;
-  const scaleSeries = getSeriesByMarkerKey(scale, datum);
+  const scaleSeries = getSeriesByMarkKey(scale, datum);
 
   const invertAble = (scale) => {
     return (

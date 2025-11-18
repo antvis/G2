@@ -1296,6 +1296,7 @@ function getLabels(
     points,
     dependentElement: element,
   }));
+  // @ts-ignore
   return selector ? selector(F) : F;
 }
 
