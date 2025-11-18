@@ -1,17 +1,17 @@
 import type { TextStyleProps, DisplayObject } from '@antv/g';
 import { get, deepMix, pick, keys } from '@antv/util';
-import { select, PLOT_CLASS_NAME } from '@antv/g2';
+import { select, PLOT_CLASS_NAME } from '../../src';
 import {
   CHILD_NODE_COUNT,
-  HIERARCHY_TYPE,
-  HIERARCHY_TYPE_FIELD,
-} from '../mark/hierarchy';
+  PARTITION_TYPE,
+  PARTITION_TYPE_FIELD,
+} from '../mark/partition';
 
-// Get hierarchy element.
-const getElementsHierarchy = (plot: DisplayObject) => {
+// Get partition element.
+const getElementsPartition = (plot: DisplayObject) => {
   return plot.querySelectorAll('.element').filter((item) => {
     const itemStyle = (item as any).style || {};
-    return itemStyle[HIERARCHY_TYPE_FIELD] === HIERARCHY_TYPE;
+    return itemStyle[PARTITION_TYPE_FIELD] === PARTITION_TYPE;
   });
 };
 
@@ -41,7 +41,7 @@ const DEFAULT_BREADCRUMB = {
 };
 
 /**
- * DrillDown interaction for hierarchy visualization.
+ * DrillDown interaction for partition visualization.
  * Based on the proven sunburst drilldown implementation.
  */
 export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
@@ -55,11 +55,11 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
 
     const plotArea = selectPlotArea(container);
 
-    const hierarchyMark = viewOptions.marks.find(
-      ({ id }: any) => id === HIERARCHY_TYPE,
+    const partitionMark = viewOptions.marks.find(
+      ({ id }: any) => id === PARTITION_TYPE,
     );
-    if (!hierarchyMark) return;
-    const { state } = hierarchyMark;
+    if (!partitionMark) return;
+    const { state } = partitionMark;
 
     // Create breadCrumbTextsGroup to save textSeparator and drillTexts.
     const textGroup = document.createElement('g');
@@ -177,7 +177,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
         // Add filter transform for every mark,
         // which will skip for mark without color channel.
         const newMarks = marks.map((mark: any) => {
-          if (mark.id !== HIERARCHY_TYPE && mark.type !== 'rect') return mark;
+          if (mark.id !== PARTITION_TYPE && mark.type !== 'rect') return mark;
 
           // Inset after aggregate transform, such as group and bin.
           const { data } = mark;
@@ -210,13 +210,13 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
       // Get properties directly from DOM element attributes instead of using get function.
       const markType = (item as any).markType;
       const itemStyle = (item as any).style || {};
-      const hierarchyType = itemStyle[HIERARCHY_TYPE_FIELD];
+      const partitionType = itemStyle[PARTITION_TYPE_FIELD];
       const childNodeCount = itemStyle[CHILD_NODE_COUNT];
       const itemData = (item as any).__data__;
 
       if (
         markType !== 'rect' ||
-        hierarchyType !== HIERARCHY_TYPE ||
+        partitionType !== PARTITION_TYPE ||
         !childNodeCount
       ) {
         return;
@@ -233,7 +233,7 @@ export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
     const changeStyleKey = keys({ ...state.active, ...state.inactive });
 
     const createActive = () => {
-      const elements = getElementsHierarchy(plotArea);
+      const elements = getElementsPartition(plotArea);
       elements.forEach((element: DisplayObject) => {
         const childNodeCount = get(element, ['style', CHILD_NODE_COUNT]);
         const cursor = get(element, ['style', 'cursor']);

@@ -5,7 +5,7 @@ import {
   ForceGraph,
   Tree,
   Chord,
-  Hierarchy,
+  Partition,
 } from '../mark';
 import { Arc, Cluster } from '../data';
 
@@ -19,6 +19,6 @@ export function graphlib() {
     'mark.sankey': Sankey,
     'mark.chord': Chord,
     'mark.treemap': Treemap,
-    'mark.hierarchy': Hierarchy,
+    'mark.partition': Partition,
   } as const;
 }

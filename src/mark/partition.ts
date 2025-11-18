@@ -1,13 +1,13 @@
 import { deepMix, pick } from '@antv/util';
 import { CompositeMarkComponent } from '../runtime';
-import { BaseMark, ChannelTypes, HierarchyNode } from '../spec';
-export type HierarchyMark = BaseMark<'rect', 'value' | ChannelTypes>;
+import { BaseMark, ChannelTypes, PartitionNode } from '../spec';
+export type PartitionMark = BaseMark<'rect', 'value' | ChannelTypes>;
 
-export interface HierarchyDataNode {
-  data: HierarchyNode;
+export interface PartitionDataNode {
+  data: PartitionNode;
   depth: number;
-  parent: HierarchyDataNode | null;
-  children: HierarchyDataNode[];
+  parent: PartitionDataNode | null;
+  children: PartitionDataNode[];
   x0: number;
   x1: number;
   value: number;
@@ -15,20 +15,20 @@ export interface HierarchyDataNode {
 
 export interface LayoutOptions {
   valueField?: string;
-  sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+  sort?: (a: PartitionNode, b: PartitionNode) => number;
   fillParent?: boolean; // Whether child nodes fill parent width.
   nameField?: string;
 }
 
 /**
- * Hierarchy layout algorithm.
+ * Partition layout algorithm.
  * Child nodes start layout from the parent's starting position to show parent-child relationships.
  *
  * @param data Hierarchical data
  * @param options Configuration options
  */
-export function hierarchyLayout(
-  data: HierarchyNode[],
+export function partitionLayout(
+  data: PartitionNode[],
   options: LayoutOptions = {},
 ) {
   const {
@@ -41,12 +41,12 @@ export function hierarchyLayout(
   if (!data || data.length === 0) return [];
 
   // Build hierarchical structure
-  const buildHierarchy = (
-    node: HierarchyNode,
-    parent: HierarchyDataNode | null = null,
+  const buildPartition = (
+    node: PartitionNode,
+    parent: PartitionDataNode | null = null,
     depth = 0,
-  ): HierarchyDataNode => {
-    const hierarchyNode: HierarchyDataNode = {
+  ): PartitionDataNode => {
+    const partitionNode: PartitionDataNode = {
       data: node,
       depth,
       parent,
@@ -57,24 +57,24 @@ export function hierarchyLayout(
     };
 
     if (node.children && node.children.length > 0) {
-      hierarchyNode.children = node.children.map((child: HierarchyNode) =>
-        buildHierarchy(child, hierarchyNode, depth + 1),
+      partitionNode.children = node.children.map((child: PartitionNode) =>
+        buildPartition(child, partitionNode, depth + 1),
       );
     }
 
-    return hierarchyNode;
+    return partitionNode;
   };
 
   // Process each root node
   const result: Array<Record<string, any>> = [];
   let currentRootStartX = 0; // Track the starting position for the next root node
 
-  data.forEach((rootData: HierarchyNode) => {
-    const root = buildHierarchy(rootData);
+  data.forEach((rootData: PartitionNode) => {
+    const root = buildPartition(rootData);
 
     // Calculate position for each node - key point: child nodes start layout from parent's starting position
     const calculateLayout = (
-      node: HierarchyDataNode,
+      node: PartitionDataNode,
       parentStartX = 0,
       isRootNode = false,
       parentWidth = 0, // Parent node actual width.
@@ -109,7 +109,7 @@ export function hierarchyLayout(
 
       const sortedChildren = sort
         ? [...node.children].sort(
-            (a: HierarchyDataNode, b: HierarchyDataNode) =>
+            (a: PartitionDataNode, b: PartitionDataNode) =>
               sort(a.data, b.data),
           )
         : node.children;
@@ -120,7 +120,7 @@ export function hierarchyLayout(
           (sum, c) => sum + c.value,
           0,
         );
-        sortedChildren.forEach((child: HierarchyDataNode) => {
+        sortedChildren.forEach((child: PartitionDataNode) => {
           calculateLayout(child, childStartX, false, nodeWidth);
           const ratio =
             childrenTotalValue > 0
@@ -130,7 +130,7 @@ export function hierarchyLayout(
         });
       } else {
         // Non-fillParent mode: child nodes layout independently based on own value.
-        sortedChildren.forEach((child: HierarchyDataNode) => {
+        sortedChildren.forEach((child: PartitionDataNode) => {
           calculateLayout(child, childStartX, false, 0);
           // Next child node starts from current child node's end position.
           childStartX += child.x1 - child.x0;
@@ -145,8 +145,8 @@ export function hierarchyLayout(
     currentRootStartX += root.value;
 
     // Convert to final format.
-    const processNode = (node: HierarchyDataNode): Record<string, any> => {
-      const getName = (d: HierarchyNode) => d[nameField] ?? d.name;
+    const processNode = (node: PartitionDataNode): Record<string, any> => {
+      const getName = (d: PartitionNode) => d[nameField] ?? d.name;
       const path = [getName(node.data)];
       let ancestorNode = node;
       while (ancestorNode.parent) {
@@ -156,8 +156,8 @@ export function hierarchyLayout(
 
       return {
         ...pick(node.data, [valueField]),
-        [HIERARCHY_PATH_FIELD]: path,
-        [HIERARCHY_ANCESTOR_FIELD]:
+        [PARTITION_PATH_FIELD]: path,
+        [PARTITION_ANCESTOR_FIELD]:
           ancestorNode.parent?.data?.[nameField] ?? node.data[nameField],
         name: node.data[nameField],
         depth: node.depth,
@@ -170,7 +170,7 @@ export function hierarchyLayout(
     };
 
     // Collect all nodes.
-    const collectResultNodes = (node: HierarchyDataNode): void => {
+    const collectResultNodes = (node: PartitionDataNode): void => {
       result.push(processNode(node));
       node.children.forEach(collectResultNodes);
     };
@@ -181,28 +181,28 @@ export function hierarchyLayout(
   return result;
 }
 
-export type HierarchyData = HierarchyNode[];
+export type PartitionData = PartitionNode[];
 
-export type HierarchyOptions = Omit<HierarchyMark, 'type'> & {
+export type PartitionOptions = Omit<PartitionMark, 'type'> & {
   fillParent?: boolean; // Whether child nodes fill parent width.
 };
 
-export const HIERARCHY_TYPE = 'hierarchy';
-export const HIERARCHY_TYPE_FIELD = 'markType';
-export const HIERARCHY_PATH_FIELD = 'path';
-export const HIERARCHY_ANCESTOR_FIELD = 'ancestor-node';
+export const PARTITION_TYPE = 'partition';
+export const PARTITION_TYPE_FIELD = 'markType';
+export const PARTITION_PATH_FIELD = 'path';
+export const PARTITION_ANCESTOR_FIELD = 'ancestor-node';
 export const CHILD_NODE_COUNT = 'childNodeCount';
 
 export function transformData(
-  options: Pick<HierarchyOptions, 'data' | 'encode'> & {
+  options: Pick<PartitionOptions, 'data' | 'encode'> & {
     fillParent?: boolean;
-    sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+    sort?: (a: PartitionNode, b: PartitionNode) => number;
   },
 ) {
   const { data, encode, fillParent, sort } = options;
   const { color, value, name } = encode as any;
 
-  const nodes = hierarchyLayout(data, {
+  const nodes = partitionLayout(data, {
     valueField: value,
     fillParent,
     nameField: name,
@@ -212,7 +212,7 @@ export function transformData(
   return nodes.map((node: Record<string, any>) => {
     // Handle color mapping.
     const nodeInfo = { ...node };
-    if (color && color !== HIERARCHY_ANCESTOR_FIELD) {
+    if (color && color !== PARTITION_ANCESTOR_FIELD) {
       nodeInfo[color] = node[color];
     }
     return nodeInfo;
@@ -220,12 +220,12 @@ export function transformData(
 }
 
 const DEFAULT_OPTIONS = {
-  id: HIERARCHY_TYPE,
+  id: PARTITION_TYPE,
   encode: {
     x: 'x',
     y: 'y',
-    key: HIERARCHY_PATH_FIELD,
-    color: HIERARCHY_ANCESTOR_FIELD,
+    key: PARTITION_PATH_FIELD,
+    color: PARTITION_ANCESTOR_FIELD,
     value: 'value',
     name: 'name',
   },
@@ -248,7 +248,7 @@ const DEFAULT_OPTIONS = {
     y: false,
   },
   style: {
-    [HIERARCHY_TYPE_FIELD]: HIERARCHY_TYPE,
+    [PARTITION_TYPE_FIELD]: PARTITION_TYPE,
     [CHILD_NODE_COUNT]: 'childNodeCount', // Add child node count attribute for drill-down interaction.
   },
   state: {
@@ -265,7 +265,7 @@ const DEFAULT_OPTIONS = {
   },
 };
 
-export const Hierarchy: CompositeMarkComponent<HierarchyOptions> = (
+export const Partition: CompositeMarkComponent<PartitionOptions> = (
   options,
 ) => {
   const {
@@ -277,7 +277,7 @@ export const Hierarchy: CompositeMarkComponent<HierarchyOptions> = (
 
   const { fillParent = true, sort } = layout as {
     fillParent?: boolean;
-    sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+    sort?: (a: PartitionNode, b: PartitionNode) => number;
   };
 
   const encode = { ...DEFAULT_OPTIONS.encode, ...encodeOption };
@@ -309,4 +309,4 @@ export const Hierarchy: CompositeMarkComponent<HierarchyOptions> = (
   ];
 };
 
-Hierarchy.props = {};
+Partition.props = {};

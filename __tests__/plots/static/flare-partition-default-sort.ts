@@ -1,17 +1,20 @@
 import { G2Spec } from '../../../src';
 
-export async function flareHierarchyDefault(): Promise<G2Spec> {
+export async function flarePartitionDefaultSort(): Promise<G2Spec> {
   return {
-    type: 'hierarchy',
+    type: 'partition',
     width: 800,
     height: 600,
     data: {
       type: 'fetch',
-      value: 'data/hierarchy.json',
+      value: 'data/partition.json',
     },
     encode: {
       color: 'name',
       value: 'value',
+    },
+    layout: {
+      sort: (a, b) => b.value - a.value,
     },
     scale: {
       color: {

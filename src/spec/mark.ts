@@ -48,7 +48,7 @@ export type Mark =
   | TreeMark
   | WordCloudMark
   | DensityMark
-  | HierarchyMark
+  | PartitionMark
   | CustomMark
   | CompositeMark;
 
@@ -88,7 +88,7 @@ export type MarkTypes =
   | 'density'
   | 'heatmap'
   | 'liquid'
-  | 'hierarchy'
+  | 'partition'
   | MarkComponent
   | CompositeMarkType;
 
@@ -424,20 +424,20 @@ export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
 export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
 
-export type HierarchyMark = BaseMark<
-  'hierarchy',
+export type PartitionMark = BaseMark<
+  'partition',
   'value' | 'name' | ChannelTypes
 > & {
   layout?: {
     fillParent?: boolean; // If true, child nodes will fill the parent width proportionally.
-    sort?: (a: HierarchyNode, b: HierarchyNode) => number;
+    sort?: (a: PartitionNode, b: PartitionNode) => number;
   };
 };
 
-export interface HierarchyNode {
+export interface PartitionNode {
   name: string;
   value: number;
-  children?: HierarchyNode[];
+  children?: PartitionNode[];
 }
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
