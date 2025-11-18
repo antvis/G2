@@ -1,6 +1,7 @@
 import type { TextStyleProps, DisplayObject } from '@antv/g';
 import { get, deepMix, pick, keys } from '@antv/util';
-import { select, PLOT_CLASS_NAME } from '../../src';
+import { select } from '../utils/selection';
+import { PLOT_CLASS_NAME } from '../runtime';
 import {
   CHILD_NODE_COUNT,
   PARTITION_TYPE,
