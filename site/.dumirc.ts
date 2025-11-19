@@ -23,7 +23,7 @@ export default defineConfig({
   ],
   themeConfig: {
     ai: {
-      recommend: 'https://site-data-pre.alipay.com/g2/recommend.json', // 官网预发部署用
+      recommend: 'https://assets.antv.antgroup.com/g2/recommend.json',
     },
     title: 'G2', // 网站 header 标题
     metas: {
