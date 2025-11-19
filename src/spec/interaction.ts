@@ -1,4 +1,5 @@
 import type { TooltipStyleProps } from '@antv/component';
+import { TextStyleProps } from '@antv/g';
 import { BBox, InteractionComponent } from '../runtime';
 import { FisheyeCoordinate } from './coordinateTransform';
 import { TooltipItemValue } from './component';
@@ -238,18 +239,7 @@ export type DrillDownInteraction = {
   type?: 'drillDown';
   breadCrumb?: {
     rootText?: string;
-    style?: {
-      fill?: string;
-      fontSize?: number;
-      y?: number;
-      x?: number;
-    };
-    active?: {
-      fill?: string;
-    };
+    style?: TextStyleProps;
+    active?: TextStyleProps;
   };
-  showBreadCrumb?: boolean;
-  maxDepth?: number;
-  single?: boolean;
-  background?: boolean;
 } & Record<string, any>;

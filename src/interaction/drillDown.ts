@@ -1,5 +1,6 @@
-import type { TextStyleProps, DisplayObject } from '@antv/g';
+import type { DisplayObject } from '@antv/g';
 import { get, deepMix, pick, keys } from '@antv/util';
+import { DrillDownInteraction } from 'spec';
 import { select } from '../utils/selection';
 import { PLOT_CLASS_NAME } from '../runtime';
 import {
@@ -20,14 +21,6 @@ function selectPlotArea(root: DisplayObject): DisplayObject {
   return select(root).select(`.${PLOT_CLASS_NAME}`).node();
 }
 
-export type DrillDownOptions = {
-  breadCrumb?: {
-    rootText: string;
-    style: TextStyleProps;
-    active: TextStyleProps;
-  };
-};
-
 // Default breadCrumb config.
 const DEFAULT_BREADCRUMB = {
   rootText: 'root',
@@ -45,7 +38,7 @@ const DEFAULT_BREADCRUMB = {
  * DrillDown interaction for partition visualization.
  * Based on the proven sunburst drilldown implementation.
  */
-export function DrillDown(drillDownOptions: DrillDownOptions = {}) {
+export function DrillDown(drillDownOptions: DrillDownInteraction = {}) {
   const { breadCrumb: textConfig = {} } = drillDownOptions;
   const breadCrumb = deepMix({}, DEFAULT_BREADCRUMB, textConfig);
 
