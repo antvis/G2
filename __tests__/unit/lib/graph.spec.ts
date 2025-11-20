@@ -6,6 +6,7 @@ import {
   Treemap,
   Pack,
   Chord,
+  Partition,
 } from '../../../src/mark';
 import { Cluster, Arc } from '../../../src/data';
 
@@ -20,6 +21,7 @@ describe('graphlib', () => {
       'mark.chord': Chord,
       'mark.treemap': Treemap,
       'mark.pack': Pack,
+      'mark.partition': Partition,
     });
   });
 });
