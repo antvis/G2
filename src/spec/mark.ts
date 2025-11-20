@@ -48,6 +48,7 @@ export type Mark =
   | TreeMark
   | WordCloudMark
   | DensityMark
+  | PartitionMark
   | CustomMark
   | CompositeMark;
 
@@ -87,6 +88,7 @@ export type MarkTypes =
   | 'density'
   | 'heatmap'
   | 'liquid'
+  | 'partition'
   | MarkComponent
   | CompositeMarkType;
 
@@ -421,5 +423,21 @@ export type GaugeMark = BaseMark<
 export type DensityMark = BaseMark<'density', ChannelTypes | 'series'>;
 export type HeatmapMark = BaseMark<'heatmap'>;
 export type LiquidMark = BaseMark<'liquid'>;
+
+export type PartitionMark = BaseMark<
+  'partition',
+  'value' | 'name' | ChannelTypes
+> & {
+  layout?: {
+    fillParent?: boolean; // If true, child nodes will fill the parent width proportionally.
+    sort?: (a: PartitionNode, b: PartitionNode) => number;
+  };
+};
+
+export interface PartitionNode {
+  name: string;
+  value: number;
+  children?: PartitionNode[];
+}
 
 export type CustomMark = BaseMark<MarkComponent, ChannelTypes>;
