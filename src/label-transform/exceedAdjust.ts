@@ -104,6 +104,17 @@ export const ExceedAdjust: LLC<ExceedAdjustOptions> = (options = {}) => {
     labels.forEach((l) => {
       show(l);
       const { max, min } = union(l.getRenderBounds(), l.getBounds());
+
+      // Skip labels with invalid bounds (filtered out data points)
+      // When bounds are all zeros or invalid, it means the label shouldn't be displayed
+      if (
+        !max ||
+        !min ||
+        (max[0] === 0 && max[1] === 0 && min[0] === 0 && min[1] === 0)
+      ) {
+        return;
+      }
+
       const [xMax, yMax] = max,
         [xMin, yMin] = min;
       const changeValue = adjustPosition(
