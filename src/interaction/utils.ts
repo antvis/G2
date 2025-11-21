@@ -845,7 +845,6 @@ export function hasIndependentXYScale(
   marks: readonly unknown[],
 ): boolean {
   const scaleKeys = new Set<string>();
-  let hasExplicitIndependent = false;
 
   for (const mark of marks) {
     const { scale: markScale } = mark as Record<string, unknown>;
@@ -853,24 +852,25 @@ export function hasIndependentXYScale(
       | Record<string, unknown>
       | undefined;
 
-    if (channelScale) {
-      // Check for explicit independent flag
-      if (channelScale.independent) {
-        hasExplicitIndependent = true;
-      }
+    if (!channelScale) continue;
 
-      // Collect scale keys
-      const key = channelScale.key as string | undefined;
-      if (key) {
-        scaleKeys.add(key);
-      }
+    // Early return if explicit independent flag is found
+    if (channelScale.independent) {
+      return true;
+    }
+
+    // Collect scale keys, treating undefined/missing key as 'default'
+    const key = (channelScale.key as string | undefined) || 'default';
+    scaleKeys.add(key);
+
+    // Early return if multiple different keys are detected
+    if (scaleKeys.size > 1) {
+      return true;
     }
   }
 
-  // Multi-axis exists if:
-  // 1. There's at least one explicit independent scale, OR
-  // 2. There are multiple different scale keys for the same channel
-  return hasExplicitIndependent || scaleKeys.size > 1;
+  // No multiple axes detected
+  return false;
 }
 
 /**
@@ -998,11 +998,12 @@ export function calculateAllIndependentScaleInfo(
       marksWithIndependentX.push(markKey);
 
       // Assign scale name based on key
+      // Always use indexed names (x1, x2, ...) to avoid collision with shared 'x'
       if (!xScaleKeyMap.has(xScaleKey)) {
         xScaleKeyMap.set(xScaleKey, xIndex++);
       }
       const scaleIndex = xScaleKeyMap.get(xScaleKey);
-      markToXScaleMap.set(markKey, scaleIndex === 1 ? 'x' : `x${scaleIndex}`);
+      markToXScaleMap.set(markKey, `x${scaleIndex}`);
     } else {
       marksWithSharedX.push(markKey);
       markToXScaleMap.set(markKey, 'x');
@@ -1016,11 +1017,12 @@ export function calculateAllIndependentScaleInfo(
       marksWithIndependentY.push(markKey);
 
       // Assign scale name based on key
+      // Always use indexed names (y1, y2, ...) to avoid collision with shared 'y'
       if (!yScaleKeyMap.has(yScaleKey)) {
         yScaleKeyMap.set(yScaleKey, yIndex++);
       }
       const scaleIndex = yScaleKeyMap.get(yScaleKey);
-      markToYScaleMap.set(markKey, scaleIndex === 1 ? 'y' : `y${scaleIndex}`);
+      markToYScaleMap.set(markKey, `y${scaleIndex}`);
     } else {
       marksWithSharedY.push(markKey);
       markToYScaleMap.set(markKey, 'y');
