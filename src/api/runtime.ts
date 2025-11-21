@@ -468,6 +468,11 @@ export class Runtime<Spec extends G2Spec = G2Spec> extends CompositionNode {
       height,
       renderer: this._renderer,
     });
+
+    const dom = this._context.canvas
+      ?.getContextService()
+      ?.getDomElement() as HTMLCanvasElement;
+    if (dom) dom.style.display = 'block';
   }
 
   private _addToTrailing(): Promise<Runtime<Spec>> {
