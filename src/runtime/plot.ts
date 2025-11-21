@@ -1209,7 +1209,16 @@ function plotLabel(
       .selectAll(className(ELEMENT_CLASS_NAME))
       .nodes()
       // Only select the valid element.
-      .filter((n) => !n.__removed__);
+      .filter((n) => {
+        if (n.__removed__) return false;
+        // Filter out elements that are hidden (e.g., by slider filtering)
+        // Check if element or its children have visibility: hidden
+        const isHidden =
+          n.style?.visibility === 'hidden' ||
+          (n.children &&
+            n.children.some((child) => child.style?.visibility === 'hidden'));
+        return !isHidden;
+      });
     return labelOptions.flatMap((labelOption, i) => {
       const { transform = [], ...options } = labelOption;
       return elements.flatMap((e) => {

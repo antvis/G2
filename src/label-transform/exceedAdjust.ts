@@ -29,6 +29,17 @@ const adjustPosition = (target: Bounds, edge: Bounds) => {
 };
 
 const union = (a: AABB, b: AABB) => {
+  // Handle null bounds by returning the non-null one, or a default AABB
+  if (!a || !a.min || !a.max) {
+    if (!b || !b.min || !b.max) {
+      return { min: [0, 0], max: [0, 0] };
+    }
+    return b;
+  }
+  if (!b || !b.min || !b.max) {
+    return a;
+  }
+
   return {
     min: [Math.min(a.min[0], b.min[0]), Math.min(a.min[1], b.min[1])],
     max: [Math.max(a.max[0], b.max[0]), Math.max(a.max[1], b.max[1])],
