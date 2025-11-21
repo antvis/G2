@@ -73,3 +73,4 @@ export { chartSliderViewLevelAdaptive } from './chart-slider-view-level-adaptive
 export { chartSliderMarkLevelAdaptive } from './chart-slider-mark-level-adaptive';
 export { chartSliderMultiAxisAdaptive } from './chart-slider-multi-axis-adaptive';
 export { chartSliderAdaptiveModeControl } from './chart-slider-adaptive-mode-control';
+export { chartEmitAreaLineTooltip } from './chart-emit-area-line-tooltip';

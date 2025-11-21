@@ -1112,7 +1112,7 @@ export function seriesTooltip(
     const scaleX = scale.x;
     const x1 = scaleX.map(x);
     const [x2, y2] = coordinate.map([x1, 0.5]);
-    const rootBounds = root.getRenderBounds();
+    const rootBounds = bboxOf(root);
     const minX = rootBounds.min[0];
     const minY = rootBounds.min[1];
     update({
