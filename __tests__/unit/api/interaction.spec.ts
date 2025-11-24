@@ -89,3 +89,31 @@ describe('Clear EventEmitter', () => {
     expect(emitter?.getEvents()['legend:filter']).toBeUndefined();
   });
 });
+
+describe('Tooltip Trigger', () => {
+  it('should accept trigger: "plot"', async () => {
+    const chart = createChart();
+    chart.options({
+      interaction: {
+        tooltip: {
+          trigger: 'plot',
+        },
+      },
+    });
+    await chart.render();
+    expect(chart.getContext().canvas).toBeDefined();
+  });
+
+  it('should accept trigger: "element"', async () => {
+    const chart = createChart();
+    chart.options({
+      interaction: {
+        tooltip: {
+          trigger: 'element',
+        },
+      },
+    });
+    await chart.render();
+    expect(chart.getContext().canvas).toBeDefined();
+  });
+});
