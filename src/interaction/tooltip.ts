@@ -199,7 +199,10 @@ function destroyTooltip({ root, single }) {
 
 function showUndefined(item) {
   const { value } = item;
-  return { ...item, value: value === undefined ? 'undefined' : value };
+  // Handle undefined and null values to display them properly in tooltip
+  if (value === undefined) return { ...item, value: 'undefined' };
+  if (value === null) return { ...item, value: 'null' };
+  return item;
 }
 
 function heatmapItem(element) {
