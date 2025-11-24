@@ -46,7 +46,7 @@ export function chartEmitShowTooltipWithNull(context) {
     interaction: {
       tooltip: {
         shared: true,
-        trigger: 'columns',
+        trigger: 'element',
       },
       elementHighlight: {
         background: true,

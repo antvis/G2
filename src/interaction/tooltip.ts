@@ -633,7 +633,7 @@ function findNearestElementIndex(scale, abstractX): number {
  * @param coordinate - The coordinate system of the chart (e.g., Cartesian, polar).
  * @param scale - The scale configurations (e.g., x, series scales).
  * @param shared - Whether the tooltip is shared among multiple elements (e.g., grouped bars).
- * @param trigger - Trigger mode: 'plot' (default) for auto-finding nearest element, 'columns' for only triggering on element hover.
+ * @param trigger - Trigger mode: 'plot' (default) for auto-finding nearest element, 'element' for only triggering on element hover.
  * @returns The matched display object or `undefined` if no element is found.
  * @description
  * - Handles bar charts by sorting elements and using bisector search for efficient lookup.
@@ -689,7 +689,7 @@ export function findSingleElement({
 
   const element = isBar
     ? (event) => {
-        if (trigger === 'columns') return findElementByTarget(event);
+        if (trigger === 'element') return findElementByTarget(event);
         const mouse = mousePosition(root, event);
         if (!mouse) return;
         const [abstractX] = coordinate.invert(mouse);

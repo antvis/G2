@@ -20,7 +20,7 @@ export function fruitsIntervalStackEnterXColor(): G2Spec {
     },
     interaction: {
       tooltip: {
-        trigger: 'columns'
+        trigger: 'element'
       }
     }
   };

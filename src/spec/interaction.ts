@@ -197,7 +197,7 @@ export type TooltipInteraction = {
   enterable?: boolean;
   sort?: (d: TooltipItemValue) => any;
   filter?: (d: TooltipItemValue) => any;
-  trigger?: 'plot' | 'columns';
+  trigger?: 'plot' | 'element';
   render?: (
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },
