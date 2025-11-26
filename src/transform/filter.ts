@@ -65,6 +65,9 @@ function filterWhenNoElements(mark: G2Mark) {
 export const Filter: TC<FilterOptions> = (options = {}) => {
   return (I, mark) => {
     const { encode, data } = mark;
+
+    const hasChannelOptions = Object.keys(options).length > 0;
+
     const filters = Object.entries(options)
       .map(([key, v]) => {
         const [V] = columnOf(encode, key);
@@ -88,9 +91,9 @@ export const Filter: TC<FilterOptions> = (options = {}) => {
     const FI = I.filter(totalFilter);
     const newIndex = FI.map((_, i) => i);
 
-    if (filters.length === 0) {
+    if (filters.length === 0 && hasChannelOptions) {
       const targetMark = filterWhenNoElements(mark);
-      // to ensure no elements are rendered when nothing should be visible
+      // Return empty index array to ensure no elements are rendered
       return [[], targetMark];
     }
 

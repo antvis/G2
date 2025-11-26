@@ -82,14 +82,7 @@
         </g>
         <g transform="matrix(1 0 0 1 16 51)">
           <path width="608" height="413" fill="rgba(0,0,0,0)" d="m0 0 608 0 0 413-608 0z" class="plot"/>
-          <g fill="none" class="main-layer">
-            <g>
-              <path fill="none" stroke="rgba(23,131,255,1)" stroke-linecap="round" stroke-width="1" d="" class="element"/>
-            </g>
-            <g>
-              <path fill="none" stroke="rgba(0,201,201,1)" stroke-linecap="round" stroke-width="1" d="" class="element"/>
-            </g>
-          </g>
+          <g fill="none" class="main-layer"/>
           <g fill="none" class="main-layer"/>
           <g fill="none" class="label-layer"/>
         </g>
