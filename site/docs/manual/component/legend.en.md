@@ -113,6 +113,7 @@ Some configuration options are scoped to categorical legends and continuous lege
 | focus <Badge type="success">Categorical Legend</Badge> | Whether to enable legend focus | boolean | false | |
 | focusMarkerSize <Badge type="success">Categorical Legend</Badge> | Legend Focus Icon Size | number | 12 | |
 | defaultSelect <Badge type="success">Categorical Legend</Badge> | Default selected legend items | string[] | - | |
+| render <Badge type="success">Categorical Legend</Badge> | Custom render legend | (items: LegendItem[]) => HTMLElement | - | |
 | color <Badge type="warning">Continuous Legend</Badge>           | Configure color band colors for continuous legend                                     | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |          |
 | block <Badge type="warning">Continuous Legend</Badge>           | Whether continuous legend displays by intervals                                       | boolean                                                            | false                                 |          |
 | type <Badge type="warning">Continuous Legend</Badge>            | Configure type of continuous legend                                                   | `size` \|`color`                                                   | `color`                               |          |
@@ -1398,6 +1399,74 @@ chart.render();
 
 <description> **optional** _number_ </description>
 Applicable to <Badge type="success">Categorical Legend</Badge>. Configure the size of legend item focus icon.
+
+### render
+
+<description> **optional** _(items: LegendItem[]) => HTMLElement_ </description>
+
+Applicable to <Badge type="success">Categorical Legend</Badge>. Custom render legend content, supports rendering legend with HTML.
+
+The `render` function receives an array of legend items as a parameter. Each legend item contains the following properties:
+
+- `id`: The unique identifier of the legend item
+- `label`: The label text of the legend item
+- `color`: The color value of the legend item
+
+The function needs to return an HTMLElement, which G2 will render as the legend content.
+**Complete Example:**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ 
+  container: 'container',
+  height: 300 
+});
+
+chart.options({
+  type: 'interval',
+  insetTop: 30,
+  data: [
+    { name: 'A', value: 10, category: 'Type 1' },
+    { name: 'B', value: 20, category: 'Type 2' },
+    { name: 'C', value: 15, category: 'Type 1' },
+    { name: 'D', value: 25, category: 'Type 3' },
+  ],
+  encode: {
+    x: 'name',
+    y: 'value',
+    color: 'category',
+  },
+  legend: {
+    color: {
+      render: (items) => {
+        const container = document.createElement('div');
+        container.style.cssText =
+          'display: flex; gap: 10px;';
+
+        items.forEach((item) => {
+          const label = document.createElement('span');
+          label.textContent = item.label;
+          label.style.cssText = `cursor: pointer; color: ${item.color}`;
+          label.setAttribute('legend-value', item.id); // G2 will use `value` to find the corresponding legend item.
+          
+          container.appendChild(label);
+        });
+
+        return container;
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+**Notes:**
+
+- When using `render` for custom rendering, other legend style configurations (such as `itemMarker`, `itemLabel`, etc.) will not take effect
+- Custom rendered legend elements need to add the `legend-value` attribute with the value being the legend item's `id`, so that legend interaction functionality works properly
+- By listening to the click events of legend elements, you can manually trigger the click events of other legend elements to achieve custom legend filtering
 
 ### color
 

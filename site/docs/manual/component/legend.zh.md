@@ -113,6 +113,7 @@ G2 中图例分为 **连续图例** 和 **分类图例** 两种，由于这两�
 | focus    <Badge type="success">分类图例</Badge>    |  是否启用图例聚焦                                                                                | boolean                     | false     |      |
 | focusMarkerSize     <Badge type="success">分类图例</Badge>   | 图例聚焦图标大小                                                                                | number                    | 12     |      |
 | defaultSelect  <Badge type="success">分类图例</Badge>| 默认选中的图例项 | string[] | - | |
+| render <Badge type="success">分类图例</Badge> | 自定义渲染图例 | (items: LegendItem[]) => HTMLElement | - | |
 | color <Badge type="warning">连续图例</Badge>          | 配置连续图例的色带颜色                           | string[] \| [d3-interpolate](https://github.com/d3/d3-interpolate) | -                                     |
 | block <Badge type="warning">连续图例</Badge>          | 连续图例是否按区间显示                           | boolean                                                            | false                                 |
 | type <Badge type="warning">连续图例</Badge>           | 配置连续图例的类型                               | `size` \|`color`                                                   | `color`                               |
@@ -1398,7 +1399,76 @@ chart.render();
 
 <description> **optional** _number_ </description>
 
-适用于 <Badge type="success">分类图例</Badge> 。调整聚焦图标大小。
+适用于 <Badge type="success">分类图例</Badge> 。配置图例项聚焦图标的大小。
+
+### render
+
+<description> **optional** _(items: LegendItem[]) => HTMLElement_ </description>
+
+适用于 <Badge type="success">分类图例</Badge> 。自定义渲染图例内容，支持通过 HTML 渲染图例。
+
+`render` 函数接收图例项数组作为参数。每个图例项包含以下属性：
+
+- `id`: 图例项的唯一标识符
+- `label`: 图例项的标签文本
+- `color`: 图例项的颜色值
+
+函数需要返回一个 HTMLElement，G2 会将其渲染为图例内容。
+
+**完整示例：**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ 
+  container: 'container',
+  height: 300 
+});
+
+chart.options({
+  type: 'interval',
+  insetTop: 30,
+  data: [
+    { name: 'A', value: 10, category: 'Type 1' },
+    { name: 'B', value: 20, category: 'Type 2' },
+    { name: 'C', value: 15, category: 'Type 1' },
+    { name: 'D', value: 25, category: 'Type 3' },
+  ],
+  encode: {
+    x: 'name',
+    y: 'value',
+    color: 'category',
+  },
+  legend: {
+    color: {
+      render: (items) => {
+        const container = document.createElement('div');
+        container.style.cssText =
+          'display: flex; gap: 10px;';
+
+        items.forEach((item) => {
+          const label = document.createElement('span');
+          label.textContent = item.label;
+          label.style.cssText = `cursor: pointer; color: ${item.color}`;
+          label.setAttribute('legend-value', item.id); // G2 将使用 `value` 来查找对应的图例项
+          
+          container.appendChild(label);
+        });
+
+        return container;
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+**注意事项：**
+
+- 使用 `render` 自定义渲染时，其他图例样式配置（如 `itemMarker`、`itemLabel` 等）将不会生效
+- 自定义渲染的图例元素需要添加 `legend-value` 属性，值为图例项的 `id`，这样图例交互功能才能正常工作
+- 通过监听图例元素的点击事件，可以手动触发其他图例的 click 事件，实现自定义图例筛选
 
 ### color
 
