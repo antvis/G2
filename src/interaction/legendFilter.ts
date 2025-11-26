@@ -6,7 +6,7 @@ import { ANNOTATION_MARKS } from '../component/constant';
 import { useState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
-export const CATEGORY_LEGEND_CLASS_NAME_HTML = 'legend-html';
+export const CATEGORY_LEGEND_HTML_CLASS_NAME = 'legend-html-category';
 
 export const CONTINUOUS_LEGEND_CLASS_NAME = 'legend-continuous';
 
@@ -38,7 +38,7 @@ export function legendsOf(root) {
   return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME);
 }
 export function legendsHtmlOf(root) {
-  return root.getElementsByClassName(CATEGORY_LEGEND_CLASS_NAME_HTML);
+  return root.getElementsByClassName(CATEGORY_LEGEND_HTML_CLASS_NAME);
 }
 
 export function legendsContinuousOf(root) {
@@ -624,7 +624,7 @@ export function LegendFilter() {
           channel,
           emitter,
         });
-      } else if (legend.className === CATEGORY_LEGEND_CLASS_NAME_HTML) {
+      } else if (legend.className === CATEGORY_LEGEND_HTML_CLASS_NAME) {
         return legendFilterOrdinalHtml(container, {
           domain,
           filter: (value) => {
