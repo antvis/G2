@@ -90,7 +90,8 @@ export const Filter: TC<FilterOptions> = (options = {}) => {
 
     if (filters.length === 0) {
       const targetMark = filterWhenNoElements(mark);
-      return [I, targetMark];
+      // to ensure no elements are rendered when nothing should be visible
+      return [[], targetMark];
     }
 
     const newEncodes = Object.entries(encode).map(([key, encode]) => {
