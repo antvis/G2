@@ -1,3 +1,10 @@
+## [5.4.6](https://github.com/antvis/g2/compare/v5.4.5...v5.4.6) (2025-11-26)
+
+## Docs
+
+docs: add flame chart example (#7217)
+docs: add doc for legend render (#7216)
+
 ## [5.4.5](https://github.com/antvis/g2/compare/v5.4.4...v5.4.5) (2025-11-21)
 
 
