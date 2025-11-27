@@ -92,3 +92,4 @@ export { stateAgesSankeyHighlight } from './stateages-sankey-highlight';
 export { stocksLineSliderWheel } from './stocks-line-slider-wheel';
 export { aaplLineSliderWheel } from './aapl-line-slider-wheel';
 export { intervalSliderWheelTranspose } from './interval-slider-wheel-transpose';
+export { stocksLineLabelOverlapDodgeYLegendFilter } from './stocks-line-label-overlap-dodge-y-legend-filter';
