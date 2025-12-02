@@ -27,6 +27,64 @@ Through histograms, you can also observe and estimate which data is more concent
 
 **Other Names**: Frequency Distribution Chart
 
+## How to Create a Histogram
+
+Creating a histogram in G2 requires the following core elements:
+
+### 1. Use rect Mark
+
+Histograms need to use the **rect mark** rather than the interval mark. This is because:
+
+- The rect mark supports both `x` and `x1` channels, which can precisely represent the start and end positions of data intervals
+- Each rectangle spans from `x` to `x1`, conforming to the mathematical definition of a histogram
+- The interval mark only supports a single `x` value, with bars aligned at tick points, which is not suitable for representing continuous intervals
+
+### 2. Use binX Transform
+
+The **binX transform** is the key to creating histograms. Its functions are:
+
+- Automatically divide continuous numerical data into multiple intervals (binning)
+- Count the number of data points or other aggregate values in each interval
+- Output the start position (`x`) and end position (`x1`) of each interval
+
+**Basic Usage**:
+
+```javascript
+.transform({
+  type: 'binX',
+  y: 'count',           // Count the number in each interval
+  thresholds: 20,       // Optional: specify the number of bins
+})
+```
+
+### 3. Complete Example
+
+```javascript
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',           // Use rect mark
+  data: {
+    type: 'fetch',
+    value: 'data.json',
+  },
+  encode: {
+    x: 'value',          // Continuous numerical field
+    y: 'count',          // Frequency
+  },
+  transform: [
+    { type: 'binX', y: 'count' }  // binX transform
+  ],
+});
+
+chart.render();
+```
+
 ## Components of a Histogram Chart
 
 ### Frequency Distribution Histogram
@@ -70,39 +128,40 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .encode('x', 'carat')
-  .encode('y', 'count')
-  .transform({
-    type: 'binX',
+  },
+  encode: {
+    x: 'carat',
     y: 'count',
-  })
-  .scale({
+  },
+  transform: [
+    { type: 'binX', y: 'count' },
+  ],
+  scale: {
     y: { nice: true },
-  })
-  .axis({
+  },
+  axis: {
     x: { title: 'Diamond Weight (Carat)' },
     y: { title: 'Frequency' },
-  })
-  .style({
+  },
+  style: {
     fill: '#1890FF',
     fillOpacity: 0.9,
-    stroke: '#FFF',
-  });
+  },
+});
 
 chart.render();
 ```
 
 **Notes**:
 
-- The `carat` field is mapped to the horizontal axis, representing the range of diamond weights
-- Using `interval()` geometry with `binX` transform to automatically calculate frequency in different intervals
-- There are no gaps between bars, indicating that the data is continuously distributed
+- Using `rect` mark combined with `binX` transform to create the histogram
+- `binX` transform automatically bins the `carat` field and counts the frequency of each interval
+- Each rectangle spans a numerical interval (e.g., 0.2-0.3, 0.3-0.4), indicating that the data is continuously distributed
 
 Example 2: **Using Different Binning Methods**
 
@@ -117,31 +176,31 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .encode('x', 'carat')
-  .encode('y', 'count')
-  .transform({
-    type: 'binX',
+  },
+  encode: {
+    x: 'carat',
     y: 'count',
-    thresholds: 30, // Specify number of bins
-  })
-  .scale({
+  },
+  transform: [
+    { type: 'binX', y: 'count', thresholds: 30 }, // Specify number of bins
+  ],
+  scale: {
     y: { nice: true },
-  })
-  .axis({
+  },
+  axis: {
     x: { title: 'Diamond Weight (Carat)' },
     y: { title: 'Frequency' },
-  })
-  .style({
+  },
+  style: {
     fill: '#1890FF',
     fillOpacity: 0.9,
-    stroke: '#FFF',
-  });
+  },
+});
 
 chart.render();
 ```
@@ -151,59 +210,6 @@ chart.render();
 - Using `transform: { type: 'binX', thresholds: 30 }` to specify 30 bins
 - The choice of bin number affects the display of distribution details; more bins can show more detailed distribution patterns
 - Fewer bins can highlight the main distribution trends
-
-Example 3: **Probability Distribution Analysis with Density Histogram**
-
-Density histograms normalize frequency counts, making them more suitable for comparing distributions of datasets of different sizes.
-
-```js | ob { inject: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-  autoFit: true,
-});
-
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .encode('x', 'carat')
-  .encode('y', 'density')
-  .transform(
-    {
-      type: 'binX',
-      y: 'count',
-      thresholds: 20,
-    },
-    {
-      type: 'normalizeY',
-    },
-  )
-  .axis({
-    x: { title: 'Diamond Weight (Carat)' },
-    y: {
-      title: 'Density',
-      labelFormatter: '.0%',
-    },
-  })
-  .style({
-    fill: '#2FC25B',
-    fillOpacity: 0.85,
-    stroke: '#FFF',
-  });
-
-chart.render();
-```
-
-**Notes**:
-
-- Combining `binX` and `normalizeY` transforms to convert frequency to density
-- The vertical axis is formatted as a percentage, more intuitively showing the probability density of the data distribution
-- The total area of a density histogram is 1, making it more suitable for probability distribution analysis
 
 ### Unsuitable Use Cases
 
@@ -230,9 +236,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     transform: [
@@ -244,39 +250,35 @@ chart
         }),
       },
     ],
-  })
-  .encode('x', 'price')
-  .encode('y', 'count')
-  .encode('color', 'group')
-  .transform({
-    type: 'binX',
+  },
+  encode: {
+    x: 'price',
     y: 'count',
-    thresholds: 30,
-    groupBy: ['group'],
-  })
-  .scale({
+    color: 'group',
+  },
+  transform: [
+    { type: 'binX', y: 'count', thresholds: 30, groupBy: ['group'] },
+  ],
+  scale: {
     y: { nice: true },
-    color: {
-      range: ['#1890FF', '#FF6B3B'],
-    },
-  })
-  .axis({
+    color: { range: ['#1890FF', '#FF6B3B'] },
+  },
+  axis: {
     x: { title: 'Price (USD)' },
     y: { title: 'Frequency' },
-  })
-  .style({
+  },
+  style: {
     fillOpacity: 0.7,
-    stroke: '#FFF',
-    lineWidth: 1,
-  })
-  .legend(true);
+  },
+  legend: true,
+});
 
 chart.render();
 ```
 
 **Notes**:
 
-- Using `encode('color', 'group')` and `groupBy: ['group']` to achieve multi-distribution comparison
+- Using `color: 'group'` and `groupBy: ['group']` to achieve multi-distribution comparison
 - Using different colors and transparencies to facilitate observation of distribution differences between groups
 
 ## Comparing Histogram Charts to Other Charts
