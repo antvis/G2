@@ -13,6 +13,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9GDLQpMor0oAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "radius-funnel.ts",
+      "title": {
+        "zh": "圆角漏斗图",
+        "en": "Radius Funnel"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nFPIR6gu3KsAAAAARLAAAAgAemJ7AQ/original"
+    },
+    {
       "filename": "pyramid.ts",
       "title": {
         "zh": "金字塔图",
