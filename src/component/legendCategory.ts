@@ -225,7 +225,10 @@ function inferLegendShape(
 function filterEmptyIds(legendStyle) {
   return {
     ...legendStyle,
-    data: legendStyle?.data.filter((item) => item.id !== '') || [],
+    data:
+      legendStyle?.data.filter(
+        (item) => item.id !== '' && item.id !== undefined,
+      ) || [],
   };
 }
 
