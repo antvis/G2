@@ -14,7 +14,7 @@ export type SymmetryYOptions = Omit<SymmetryYTransform, 'type'>;
 export const SymmetryY: TC<SymmetryYOptions> = (options = {}) => {
   const { groupBy = 'x' } = options;
   return (I, mark) => {
-    const { encode } = mark;
+    const { encode, style = {} } = mark;
     const { x, ...rest } = encode;
 
     // Extract and create new channels starts with y, such as y, y1.
@@ -22,7 +22,6 @@ export const SymmetryY: TC<SymmetryYOptions> = (options = {}) => {
       .filter(([k]) => k.startsWith('y'))
       .map(([k]) => [k, columnOf(encode, k)[0]] as const);
     const newYn = Yn.map(([k]) => [k, new Array(I.length)] as const);
-
     // Group marks into series by specified keys.
     const groups = createGroups(groupBy, I, mark);
     const MY = new Array(groups.length);
@@ -52,6 +51,11 @@ export const SymmetryY: TC<SymmetryYOptions> = (options = {}) => {
         encode: Object.fromEntries(
           newYn.map(([k, v]) => [k, column(v, columnOf(encode, k)[1])]),
         ),
+        style: {
+          first: (_, i) => i === 0,
+          last: (_, i) => i === groups.length - 1,
+          ...style,
+        },
       }),
     ];
   };

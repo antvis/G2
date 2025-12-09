@@ -35,6 +35,22 @@
         "en": "Tree"
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MQL0S54pP7kAAAAAAAAAAAAADmJ7AQ/original"
+    },
+    {
+      "filename": "partition.ts",
+      "title": {
+        "zh": "火焰图",
+        "en": "Flame Chart"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lt9OTKCYucAAAAAATUAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "partition-sorted.ts",
+      "title": {
+        "zh": "火焰图（排序）",
+        "en": "Flame Chart (Sorted)"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GrivQocszrUAAAAATTAAAAgAemJ7AQ/original"
     }
   ]
 }

@@ -1,3 +1,26 @@
+## [5.4.6](https://github.com/antvis/g2/compare/v5.4.5...v5.4.6) (2025-11-26)
+
+## Docs
+
+docs: add flame chart example (#7217)
+docs: add doc for legend render (#7216)
+
+## [5.4.5](https://github.com/antvis/g2/compare/v5.4.4...v5.4.5) (2025-11-21)
+
+
+### Bug Fixes
+
+* adaptive slider logic ([#7208](https://github.com/antvis/g2/issues/7208)) ([95f836e](https://github.com/antvis/g2/commit/95f836e2c18ae90eefbe4f67185715c64587ccdc))
+* update triggered height increase ([#7205](https://github.com/antvis/g2/issues/7205)) ([d7ab1ee](https://github.com/antvis/g2/commit/d7ab1eeeb88a94ecbb3f95eea491c00fa72b5a3e))
+* 手动触发第一个 x 的 tooltip 无效 ([#7209](https://github.com/antvis/g2/issues/7209)) ([bcf77aa](https://github.com/antvis/g2/commit/bcf77aa1b1039212d9f8a39f7e48f25596f4544f))
+
+
+### Features
+
+* add mark partition ([#7198](https://github.com/antvis/g2/issues/7198)) ([8f10395](https://github.com/antvis/g2/commit/8f10395fe41c8454bf338a2f9dca3bde88198979))
+
+
+
 ## [5.4.4](https://github.com/antvis/g2/compare/5.4.3...5.4.4) (2025-11-12)
 
 

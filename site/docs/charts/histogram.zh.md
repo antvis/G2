@@ -27,6 +27,64 @@ similar: ['bar', 'boxplot', 'line', 'area']
 
 **英文名**：Histogram
 
+## 如何绘制直方图
+
+在 G2 中绘制直方图需要使用以下核心要素：
+
+### 1. 使用 rect 标记
+
+直方图需要使用 **rect 标记**而非 interval 标记。这是因为：
+
+- rect 标记支持 `x` 和 `x1` 两个通道，可以精确表示数据区间的起始和结束位置
+- 每个矩形会跨越从 `x` 到 `x1` 的区间，符合直方图的数学定义
+- interval 标记只支持单一的 `x` 值，柱子会对齐在刻度点上，不适合表示连续区间
+
+### 2. 使用 binX 转换
+
+**binX 转换**是绘制直方图的关键，它的作用是：
+
+- 自动将连续数值数据划分为多个区间（分箱）
+- 统计每个区间内的数据数量或其他聚合值
+- 输出每个区间的起始位置（`x`）和结束位置（`x1`）
+
+**基本用法**：
+
+```javascript
+.transform({
+  type: 'binX',
+  y: 'count',           // 统计每个区间的数量
+  thresholds: 20,       // 可选：指定分箱数量
+})
+```
+
+### 3. 完整示例
+
+```javascript
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',           // 使用 rect 标记
+  data: {
+    type: 'fetch',
+    value: 'data.json',
+  },
+  encode: {
+    x: 'value',          // 连续数值字段
+    y: 'count',          // 频数
+  },
+  transform: [
+    { type: 'binX', y: 'count' }  // binX 转换
+  ],
+});
+
+chart.render();
+```
+
 ## 直方图的构成
 
 ### 频数分布直方图
@@ -70,39 +128,40 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .encode('x', 'carat')
-  .encode('y', 'count')
-  .transform({
-    type: 'binX',
+  },
+  encode: {
+    x: 'carat',
     y: 'count',
-  })
-  .scale({
+  },
+  transform: [
+    { type: 'binX', y: 'count' },
+  ],
+  scale: {
     y: { nice: true },
-  })
-  .axis({
+  },
+  axis: {
     x: { title: '钻石重量（克拉）' },
     y: { title: '频数' },
-  })
-  .style({
+  },
+  style: {
     fill: '#1890FF',
     fillOpacity: 0.9,
-    stroke: '#FFF',
-  });
+  },
+});
 
 chart.render();
 ```
 
 **说明**：
 
-- `carat` 字段，映射到横轴，表示钻石重量的数值范围
-- 使用 `interval()` 几何图形配合 `binX` 转换自动计算不同区间的数据频数
-- 条形之间无间隔，表示数据是连续分布的
+- 使用 `rect` 标记配合 `binX` 转换绘制直方图
+- `binX` 转换自动将 `carat` 字段分箱，并统计每个区间的频数
+- 每个矩形跨越一个数值区间（如 0.2-0.3, 0.3-0.4），表示数据是连续分布的
 
 例子 2: **使用不同的分箱方式**
 
@@ -117,31 +176,31 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .encode('x', 'carat')
-  .encode('y', 'count')
-  .transform({
-    type: 'binX',
+  },
+  encode: {
+    x: 'carat',
     y: 'count',
-    thresholds: 30, // 指定分箱数量
-  })
-  .scale({
+  },
+  transform: [
+    { type: 'binX', y: 'count', thresholds: 30 }, // 指定分箱数量
+  ],
+  scale: {
     y: { nice: true },
-  })
-  .axis({
+  },
+  axis: {
     x: { title: '钻石重量（克拉）' },
     y: { title: '频数' },
-  })
-  .style({
+  },
+  style: {
     fill: '#1890FF',
     fillOpacity: 0.9,
-    stroke: '#FFF',
-  });
+  },
+});
 
 chart.render();
 ```
@@ -152,58 +211,6 @@ chart.render();
 - 分箱数量的选择会影响分布的细节展示，较多的箱数可以显示更细致的分布情况
 - 较少的箱数则可以突出主要分布趋势
 
-例子 3: **密度直方图进行概率分布分析**
-
-密度直方图将频数标准化，更适合比较不同规模数据集的分布。
-
-```js | ob { inject: true  }
-import { Chart } from '@antv/g2';
-
-const chart = new Chart({
-  container: 'container',
-  theme: 'classic',
-  autoFit: true,
-});
-
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .encode('x', 'carat')
-  .encode('y', 'density')
-  .transform(
-    {
-      type: 'binX',
-      y: 'count',
-      thresholds: 20,
-    },
-    {
-      type: 'normalizeY',
-    },
-  )
-  .axis({
-    x: { title: '钻石重量（克拉）' },
-    y: {
-      title: '密度',
-      labelFormatter: '.0%',
-    },
-  })
-  .style({
-    fill: '#2FC25B',
-    fillOpacity: 0.85,
-    stroke: '#FFF',
-  });
-
-chart.render();
-```
-
-**说明**：
-
-- 结合使用 `binX` 和 `normalizeY` 转换，将频数转换为密度
-- 纵轴格式化为百分比显示，更直观地表示数据分布的概率密度
-- 密度直方图面积总和为 1，更适合进行概率分布分析
 
 ### 不适合的场景
 
@@ -230,9 +237,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
     transform: [
@@ -244,30 +251,28 @@ chart
         }),
       },
     ],
-  })
-  .encode('x', 'price')
-  .encode('y', 'count')
-  .encode('color', 'group')
-  .transform({
-    type: 'binX',
+  },
+  encode: {
+    x: 'price',
     y: 'count',
-    thresholds: 30,
-    groupBy: ['group'],
-  })
-  .scale({
+    color: 'group',
+  },
+  transform: [
+    { type: 'binX', y: 'count', thresholds: 30, groupBy: ['group'] },
+  ],
+  scale: {
     y: { nice: true },
     color: { range: ['#1890FF', '#FF6B3B'] },
-  })
-  .axis({
+  },
+  axis: {
     x: { title: '价格（美元）' },
     y: { title: '频数' },
-  })
-  .style({
+  },
+  style: {
     fillOpacity: 0.7,
-    stroke: '#FFF',
-    lineWidth: 1,
-  })
-  .legend(true);
+  },
+  legend: true,
+});
 
 chart.render();
 ```

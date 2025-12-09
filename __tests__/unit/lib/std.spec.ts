@@ -45,6 +45,7 @@ import {
   Liquid,
   Chord,
   Beeswarm,
+  Partition,
 } from '../../../src/mark';
 import { Category10, Category20 } from '../../../src/palette';
 import {
@@ -117,6 +118,7 @@ import {
   Poptip,
   TreemapDrillDown,
   SliderWheel,
+  DrillDown,
 } from '../../../src/interaction';
 import {
   SpaceLayer,
@@ -268,6 +270,7 @@ describe('stdlib', () => {
       'mark.path': Path,
       'mark.treemap': Treemap,
       'mark.pack': PackGeometry,
+      'mark.partition': Partition,
       'mark.boxplot': Boxplot,
       'mark.shape': Shape,
       'mark.forceGraph': ForceGraph,
@@ -347,6 +350,7 @@ describe('stdlib', () => {
       'interaction.scrollbarFilter': ScrollbarFilter,
       'interaction.poptip': Poptip,
       'interaction.treemapDrillDown': TreemapDrillDown,
+      'interaction.drillDown': DrillDown,
       'composition.spaceLayer': SpaceLayer,
       'composition.spaceFlex': SpaceFlex,
       'composition.facetRect': FacetRect,

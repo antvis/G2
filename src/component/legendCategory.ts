@@ -15,6 +15,7 @@ import type {
 import { GuideComponentContext } from '../runtime/types/component';
 import type { G2Mark } from '../runtime/types/options';
 import { useMarker } from '../utils/marker';
+import { CATEGORY_LEGEND_HTML_CLASS_NAME } from '../interaction/legendFilter';
 import {
   adaptor,
   domainOf,
@@ -224,7 +225,10 @@ function inferLegendShape(
 function filterEmptyIds(legendStyle) {
   return {
     ...legendStyle,
-    data: legendStyle?.data.filter((item) => item.id !== '') || [],
+    data:
+      legendStyle?.data.filter(
+        (item) => item.id !== '' && item.id !== undefined,
+      ) || [],
   };
 }
 
@@ -280,6 +284,7 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
     // If render is provided, use HTML to render.
     if (render) {
       return new Category({
+        className: CATEGORY_LEGEND_HTML_CLASS_NAME,
         style: { ...categoryStyle, x: bbox.x, y: bbox.y, render },
       });
     }

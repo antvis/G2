@@ -31,6 +31,7 @@ export { Density } from './density';
 export { Heatmap } from './heatmap';
 export { Liquid } from './liquid';
 export { Beeswarm } from './beeswarm';
+export { Partition } from './partition';
 
 export type { IntervalOptions } from './interval';
 export type { RectOptions } from './rect';

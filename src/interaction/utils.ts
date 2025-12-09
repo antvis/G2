@@ -830,17 +830,47 @@ export function extractChannelValues(view: G2ViewDescriptor): {
   };
 }
 
+/**
+ * Check if there are multiple independent axis for a given channel.
+ * Multi-axis can be defined by:
+ * 1. Explicit `independent: true` in scale configuration
+ * 2. Different `scale.key` values for the same channel name
+ *
+ * @param channel1 - Channel name (x or y)
+ * @param marks - Array of marks to check
+ * @returns true if multiple independent axis exist
+ */
 export function hasIndependentXYScale(
   channel1: string,
   marks: readonly unknown[],
 ): boolean {
-  return marks.some((mark) => {
+  const scaleKeys = new Set<string>();
+
+  for (const mark of marks) {
     const { scale: markScale } = mark as Record<string, unknown>;
     const channelScale = (markScale as Record<string, unknown>)?.[channel1] as
       | Record<string, unknown>
       | undefined;
-    return !!channelScale?.independent;
-  });
+
+    if (!channelScale) continue;
+
+    // Early return if explicit independent flag is found
+    if (channelScale.independent) {
+      return true;
+    }
+
+    // Collect scale keys, treating undefined/missing key as 'default'
+    const key = (channelScale.key as string | undefined) || 'default';
+    scaleKeys.add(key);
+
+    // Early return if multiple different keys are detected
+    if (scaleKeys.size > 1) {
+      return true;
+    }
+  }
+
+  // No multiple axes detected
+  return false;
 }
 
 /**
@@ -928,6 +958,10 @@ export interface IndependentScaleInfo {
  * This function performs a single traversal to compute all independent scale related information,
  * avoiding repeated calculations throughout the codebase.
  *
+ * Multi-axis detection logic:
+ * 1. Explicit independent: scale.y.independent = true
+ * 2. Different scale keys: scale.y.key = 'left' vs scale.y.key = 'right'
+ *
  * @param view The view object containing markState
  * @returns Complete independent scale information
  */
@@ -946,26 +980,49 @@ export function calculateAllIndependentScaleInfo(
   const markToXScaleMap = new Map<string, string>();
   const markToYScaleMap = new Map<string, string>();
 
-  // Single traversal to compute all classifications and mappings
+  // Track scale key assignments
+  const xScaleKeyMap = new Map<string, number>(); // key -> index
+  const yScaleKeyMap = new Map<string, number>(); // key -> index
   let xIndex = 1;
   let yIndex = 1;
 
+  // Single traversal to compute all classifications and mappings
   for (const [mark] of view.markState.entries()) {
     const markKey = mark.key;
 
     // X axis processing
-    if (mark?.scale?.x?.independent) {
+    const xScaleKey = (mark?.scale?.x?.key as string) || 'x';
+    const hasExplicitIndependentX = !!mark?.scale?.x?.independent;
+
+    if (hasExplicitIndependentX || (hasIndependentX && xScaleKey !== 'x')) {
       marksWithIndependentX.push(markKey);
-      markToXScaleMap.set(markKey, `x${xIndex++}`);
+
+      // Assign scale name based on key
+      // Always use indexed names (x1, x2, ...) to avoid collision with shared 'x'
+      if (!xScaleKeyMap.has(xScaleKey)) {
+        xScaleKeyMap.set(xScaleKey, xIndex++);
+      }
+      const scaleIndex = xScaleKeyMap.get(xScaleKey);
+      markToXScaleMap.set(markKey, `x${scaleIndex}`);
     } else {
       marksWithSharedX.push(markKey);
       markToXScaleMap.set(markKey, 'x');
     }
 
     // Y axis processing
-    if (mark?.scale?.y?.independent) {
+    const yScaleKey = (mark?.scale?.y?.key as string) || 'y';
+    const hasExplicitIndependentY = !!mark?.scale?.y?.independent;
+
+    if (hasExplicitIndependentY || (hasIndependentY && yScaleKey !== 'y')) {
       marksWithIndependentY.push(markKey);
-      markToYScaleMap.set(markKey, `y${yIndex++}`);
+
+      // Assign scale name based on key
+      // Always use indexed names (y1, y2, ...) to avoid collision with shared 'y'
+      if (!yScaleKeyMap.has(yScaleKey)) {
+        yScaleKeyMap.set(yScaleKey, yIndex++);
+      }
+      const scaleIndex = yScaleKeyMap.get(yScaleKey);
+      markToYScaleMap.set(markKey, `y${scaleIndex}`);
     } else {
       marksWithSharedY.push(markKey);
       markToYScaleMap.set(markKey, 'y');
