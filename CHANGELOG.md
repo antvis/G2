@@ -1,3 +1,18 @@
+## [5.4.7](https://github.com/antvis/g2/compare/v5.4.5...v5.4.7) (2025-12-09)
+
+
+### Bug Fixes
+
+* label overlap when legend deselected ([#7215](https://github.com/antvis/g2/issues/7215)) ([eb018cd](https://github.com/antvis/g2/commit/eb018cd76401dc4234251e4529d06d93c98736d4))
+* remove redundant undefined in legend ([#7225](https://github.com/antvis/g2/issues/7225)) ([c706a60](https://github.com/antvis/g2/commit/c706a605ed33f126fe56ff73711d83724732a7d9))
+
+
+### Features
+
+* add funnel radius ([#7222](https://github.com/antvis/g2/issues/7222)) ([bbbf741](https://github.com/antvis/g2/commit/bbbf741c2311f9335025da56783485a3c2f501a2))
+
+
+
 ## [5.4.6](https://github.com/antvis/g2/compare/v5.4.5...v5.4.6) (2025-11-26)
 
 ## Docs
