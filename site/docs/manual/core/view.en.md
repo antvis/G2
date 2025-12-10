@@ -38,12 +38,13 @@ Views support rich configuration options covering data, encoding, coordinates, s
 | tooltip       | Tooltip configuration                | object       | This view only                   |
 | interaction   | Interaction configuration            | object       | Inheritable/Override (view/mark) |
 | theme         | Theme configuration                  | object       | Inheritable/Override             |
-| children      | Child marks or views                 | array        | This view only                   |
+| children      | Child marks                          | array        | This view only                   |
 
 **Notes:**
 
 - Configurations like `data`, `encode`, `scale`, `axis`, `legend`, `transform`, `coordinate`, `interaction` set at the view level will automatically apply to all children (marks), and can be individually overridden at the mark level.
 - Others like `style`, `tooltip` only apply to the current view.
+- `children` can only contain marks, not nested views. For multi-view composition, use top-level containers (such as `spaceFlex`, `spaceLayer`, `facet`, etc.).
 
 **Complete configuration example:**
 
@@ -80,7 +81,7 @@ Views support rich configuration options covering data, encoding, coordinates, s
 
 ### 1. Declarative Configuration
 
-Directly declare views and their child elements in options:
+Directly declare views and their child marks in options:
 
 ```js
 ({
@@ -88,8 +89,9 @@ Directly declare views and their child elements in options:
   data: [...],
   encode: {...},
   children: [
-    { type: 'interval', encode: {...} },
-    { type: 'line', encode: {...} },
+    { type: 'interval', encode: {...} }, // ✅ Correct: use mark
+    { type: 'line', encode: {...} },     // ✅ Correct: use mark
+    // { type: 'view', ... },            // ❌ Error: nested view not supported
   ],
 });
 ```
@@ -108,12 +110,26 @@ chart.render();
 
 ### 3. Composite Views and Facets
 
-Views can serve as child nodes of composite nodes (such as facets, spatial layouts):
+Views can serve as child nodes of composite nodes (such as facets, spatial layouts). **Note: Multi-view composition should use composite containers, not nested views in view's children.**
 
 ```js
+// ✅ Correct: use facet to compose multiple views
 const facet = chart.facetRect();
 facet.view().interval().encode('x', 'type').encode('y', 'value');
 facet.view().line().encode('x', 'type').encode('y', 'value');
+
+// ✅ Correct: use spaceFlex to compose multiple views
+const container = chart.spaceFlex();
+container.view().interval().encode('x', 'type').encode('y', 'value');
+container.view().line().encode('x', 'date').encode('y', 'sales');
+
+// ❌ Error: do not nest view in view's children
+// chart.options({
+//   type: 'view',
+//   children: [
+//     { type: 'view', ... }, // Will throw error: Unknown Component: mark.view
+//   ]
+// });
 ```
 
 ---

@@ -38,13 +38,15 @@ order: 3
 | tooltip     | 提示框配置            | object       | 仅本 view                |
 | interaction | 交互配置              | object       | 可继承/覆盖（view/mark） |
 | theme       | 主题配置              | object       | 可继承/覆盖              |
-| children    | 子标记（marks）或视图 | array        | 仅本 view                |
+| children    | 子标记（marks）       | array        | 仅本 view                |
 
 **说明：**
 
 - `data`、`encode`、`scale`、`axis`、`legend`、`transform`、`coordinate`、`interaction` 等配置在 view 层级设置后，会自动作用于所有 children（mark），mark 层级也可单独覆盖。
 - 其他如 `style`、`tooltip` 仅作用于当前 view。
-  **完整配置示例：**
+- `children` 只能包含标记（mark），不能嵌套 view。如需多视图组合，请使用顶层容器（如 `spaceFlex`、`spaceLayer`、`facet` 等）。
+
+**完整配置示例：**
 
 ```js
 ({
@@ -79,7 +81,7 @@ order: 3
 
 ### 1. 配置式声明
 
-直接在 options 中声明视图及其子元素：
+直接在 options 中声明视图及其子标记：
 
 ```js
 ({
@@ -87,8 +89,9 @@ order: 3
   data: [...],
   encode: {...},
   children: [
-    { type: 'interval', encode: {...} },
-    { type: 'line', encode: {...} },
+    { type: 'interval', encode: {...} }, // ✅ 正确：使用 mark
+    { type: 'line', encode: {...} },     // ✅ 正确：使用 mark
+    // { type: 'view', ... },            // ❌ 错误：不支持嵌套 view
   ],
 });
 ```
@@ -107,12 +110,26 @@ chart.render();
 
 ### 3. 复合视图与分面
 
-视图可作为复合节点（如分面、空间布局）的子节点：
+视图可作为复合节点（如分面、空间布局）的子节点。**注意：多视图组合应使用复合容器，而非在 view 的 children 中嵌套 view。**
 
 ```js
+// ✅ 正确：使用 facet 组合多个 view
 const facet = chart.facetRect();
 facet.view().interval().encode('x', 'type').encode('y', 'value');
 facet.view().line().encode('x', 'type').encode('y', 'value');
+
+// ✅ 正确：使用 spaceFlex 组合多个 view
+const container = chart.spaceFlex();
+container.view().interval().encode('x', 'type').encode('y', 'value');
+container.view().line().encode('x', 'date').encode('y', 'sales');
+
+// ❌ 错误：不要在 view 的 children 中嵌套 view
+// chart.options({
+//   type: 'view',
+//   children: [
+//     { type: 'view', ... }, // 会报错：Unknown Component: mark.view
+//   ]
+// });
 ```
 
 ---
