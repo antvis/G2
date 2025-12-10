@@ -275,6 +275,75 @@ chart.render();
 - 通过相同的颜色编码对应相同的阶段，便于比较
 - 可以清晰地观察到不同渠道在各个阶段的转化效率差异
 
+例子 4：**直观、形象的图表形式，常用于展示层级结构或分布比例**
+
+公司职级金字塔结构，根据职级高低将员工划分为多个层级，各层级在人数比例、职责与权限上存在显著差异，直观体现了公司内部的层级分化情况。
+
+```js | ob { inject: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+    type: 'interval',
+    coordinate: {
+      transform: [{ type: 'transpose' }],
+    },
+    data: [
+      { text: '顶层', value: 5 },
+      { text: '中上层', value: 10 },
+      { text: '中等', value: 20 },
+      { text: '中下层', value: 25 },
+      { text: '底层', value: 40 },
+    ],
+    transform: [
+      {
+        type: 'symmetryY',
+      },
+    ],
+    axis: {
+      x: false,
+      y: false,
+    },
+    style: {
+      reverse: true,
+    },
+    encode: {
+      x: 'text',
+      y: 'value',
+      color: 'text',
+      shape: 'pyramid',
+    },
+    scale: {
+      x: { paddingOuter: 0, paddingInner: 0 },
+      color: { type: 'ordinal' },
+    },
+    labels: [
+      { 
+        text: (d) => d.text, 
+        position: "inside" 
+      },
+      { 
+        text: (d) => d.value + "%", 
+        position: "inside", 
+        style: { dy: 15 } 
+      },
+    ]
+  })
+
+chart.render();
+```
+
+**说明**：
+- 使用 `reverse: true` 改变漏斗图收口位置
+- 人数比例应逐层递减，反映“底宽顶尖”的结构
+- 各层级人口占比清晰标注，便于比较不同群体的数量或比例
+- 金字塔形状直观展现阶层分布和分层特点
+
+
 ### 不适合的场景
 
 例子 1: **不适合展示无序或无明显层级关系的数据**

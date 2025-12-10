@@ -279,6 +279,74 @@ chart.render();
 - Consistent color coding for corresponding stages facilitates comparison
 - You can clearly observe differences in conversion efficiency across channels at various stages
 
+Example 4: **Intuitive and Visual Chart Form, Often Used to Display Hierarchical Structures or Distribution Proportions**
+
+Company hierarchy pyramid structure, where employees are divided into multiple levels based on their rank, with significant differences in population proportions, responsibilities, and authority across levels, intuitively reflecting the hierarchical differentiation within the company.
+
+```js | ob { inject: true  }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+    type: 'interval',
+    coordinate: {
+      transform: [{ type: 'transpose' }],
+    },
+    data: [
+      { text: 'Top Level', value: 5 },
+      { text: 'Upper Middle', value: 10 },
+      { text: 'Middle', value: 20 },
+      { text: 'Lower Middle', value: 25 },
+      { text: 'Bottom Level', value: 40 },
+    ],
+    transform: [
+      {
+        type: 'symmetryY',
+      },
+    ],
+    axis: {
+      x: false,
+      y: false,
+    },
+    style: {
+      reverse: true,
+    },
+    encode: {
+      x: 'text',
+      y: 'value',
+      color: 'text',
+      shape: 'pyramid',
+    },
+    scale: {
+      x: { paddingOuter: 0, paddingInner: 0 },
+      color: { type: 'ordinal' },
+    },
+    labels: [
+      { 
+        text: (d) => d.text, 
+        position: "inside" 
+      },
+      { 
+        text: (d) => d.value + "%", 
+        position: "inside", 
+        style: { dy: 15 } 
+      },
+    ]
+  })
+
+chart.render();
+```
+
+**Explanation**:
+- Uses `reverse: true` to change the narrowing position of the funnel chart
+- Population proportions should decrease layer by layer, reflecting the "wide bottom, narrow top" structure
+- Population percentages for each level are clearly labeled, facilitating comparison of quantities or proportions between different groups
+- Pyramid shape intuitively displays hierarchical distribution and stratification characteristics
+
 ### Unsuitable Use Cases
 
 Example 1: **Not Suitable for Unordered Data or Data Without Clear Hierarchy**

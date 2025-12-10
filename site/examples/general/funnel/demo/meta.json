@@ -29,6 +29,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VpuRSZGqnlUAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "pyramid-forward.ts",
+      "title": {
+        "zh": "正向金字塔图",
+        "en": "pyramid-forward"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oKnDQINKBvAAAAAAQpAAAAgAemJ7AQ/original"
+    },
+    {
       "filename": "mirror-funnel.ts",
       "title": {
         "zh": "对比漏斗图",

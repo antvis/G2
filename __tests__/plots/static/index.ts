@@ -13,6 +13,7 @@ export { alphabetIntervalLabelOverflowStroke } from './alphabet-interval-label-o
 export { alphabetIntervalDataSort } from './alphabet-interval-data-sort';
 export { alphabetIntervalFunnel } from './alphabet-interval-funnel';
 export { alphabetIntervalPyramid } from './alphabet-interval-pyramid';
+export { alphabetIntervalPyramidReverse } from './alphabet-interval-pyramid-reverse';
 export { bodyPointScatterPlot } from './body-point-scatter-plot';
 export { bodyPointScatterPlotSizeOpacity } from './body-point-scatter-plot-size-opacity';
 export { bodyPointScatterPlotOpacity } from './body-point-scatter-plot-opacity';
