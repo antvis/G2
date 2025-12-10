@@ -455,6 +455,7 @@ Configure the style of the `interval` mark.
 | shadowBlur             | Gaussian blur coefficient of the graphic shadow                                                                                                                                      | number \| (d, index, data, column) => number                     | -                  |          |
 | shadowOffsetX          | Horizontal distance of the shadow from the graphic                                                                                                                                   | number \| (d, index, data, column) => number                     | -                  |          |
 | shadowOffsetY          | Vertical distance of the shadow from the graphic                                                                                                                                     | number \| (d, index, data, column) => number                     | -                  |          |
+| reverse                | Set the narrowing direction for funnel and pyramid charts (added in v5.4.8)                                                                                                          | boolean                                                          | `false`            |          |
 | cursor                 | Mouse cursor style. Same as CSS cursor style.                                                                                                                                        | string \| (d, index, data, column) => string                     | `default`          |          |
 
 Try it out:
@@ -492,8 +493,8 @@ chart.options({
     radiusTopLeft: 20,
     radiusTopRight: 20,
     insetBottom: 5,
-    // 绘图属性
-    fill: (d) => (d.name === 'London' ? '#688FD4' : '#55BECC'), // 绘图属性也可以是一个回调函数
+    // Drawing properties
+    fill: (d) => (d.name === 'London' ? '#688FD4' : '#55BECC'), // Drawing properties can also be callback functions
     fillOpacity: 0.9,
     stroke: '#fff',
     lineWidth: 1,

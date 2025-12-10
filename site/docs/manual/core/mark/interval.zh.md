@@ -456,6 +456,7 @@ chart.render();
 | shadowBlur             | `interval` 图形阴影的高斯模糊系数                                                                                            | number \| (d, index, data, column) => number                     | -                         |      |
 | shadowOffsetX          | 设置阴影距`interval` 图形的水平距离                                                                                          | number \| (d, index, data, column) => number                     | -                         |      |
 | shadowOffsetY          | 设置阴影距`interval` 图形的垂直距离                                                                                          | number \| (d, index, data, column) => number                     | -                         |      |
+| reverse                | 设置漏斗图、金字塔图的收口方向 （v5.4.8 版本新增）                                                                           | boolean                                                          | `false`                   |      |
 | cursor                 | 鼠标样式。同 css 的鼠标样式。                                                                                                | string \| (d, index, data, column) => string                     | `default`                 |      |
 
 尝试一下：
