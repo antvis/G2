@@ -7,20 +7,28 @@ const chart = new Chart({
 
 function getOrigin(points) {
   if (points.length === 1) return points[0];
-  const [[x0, y0, z0 = 0], [x2, y2, z2 = 0]] = points;
-  return [(x0 + x2) / 2, (y0 + y2) / 2, (z0 + z2) / 2];
+  const [[x0, y0], [x2, y2]] = points;
+  return [(x0 + x2) / 2, (y0 + y2) / 2];
 }
 
 // 钻石形发光指针
-const coolDiamondPointer = (style) => {
-  return (points, value, coordinate, theme) => {
+const coolDiamondPointer = () => {
+  return (points, value, coordinate) => {
     const [x, y] = getOrigin(points);
     const [cx, cy] = coordinate.getCenter();
     const angle = Math.atan2(y - cy, x - cx);
 
+    // 指针尺寸常量
     const length = 120; // 指针长度
     const width = 12; // 指针宽度
     const tipWidth = 3; // 指针尖端宽度
+
+    // 指针形状比例常量
+    const POINTER_WAIST_RATIO = 0.7; // 指针腰部位置比例
+    const POINTER_BASE_RATIO = 0.3; // 指针基部位置比例
+    const WAIST_WIDTH_RATIO = 1.0; // 腰部宽度比例
+    const BASE_WIDTH_RATIO = 0.6; // 基部宽度比例
+    const HIGHLIGHT_MID_RATIO = 0.5; // 高光中点位置比例
 
     // 创建指针组合
     const group = new Group();
@@ -31,20 +39,20 @@ const coolDiamondPointer = (style) => {
       [
         'L',
         cx +
-          Math.cos(angle) * (length * 0.7) +
-          Math.cos(angle + Math.PI / 2) * width,
+          Math.cos(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.cos(angle + Math.PI / 2) * width * WAIST_WIDTH_RATIO,
         cy +
-          Math.sin(angle) * (length * 0.7) +
-          Math.sin(angle + Math.PI / 2) * width,
+          Math.sin(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.sin(angle + Math.PI / 2) * width * WAIST_WIDTH_RATIO,
       ],
       [
         'L',
         cx +
-          Math.cos(angle) * (length * 0.3) +
-          Math.cos(angle + Math.PI / 2) * (width * 0.6),
+          Math.cos(angle) * (length * POINTER_BASE_RATIO) +
+          Math.cos(angle + Math.PI / 2) * (width * BASE_WIDTH_RATIO),
         cy +
-          Math.sin(angle) * (length * 0.3) +
-          Math.sin(angle + Math.PI / 2) * (width * 0.6),
+          Math.sin(angle) * (length * POINTER_BASE_RATIO) +
+          Math.sin(angle + Math.PI / 2) * (width * BASE_WIDTH_RATIO),
       ],
       [
         'L',
@@ -59,20 +67,20 @@ const coolDiamondPointer = (style) => {
       [
         'L',
         cx +
-          Math.cos(angle) * (length * 0.3) +
-          Math.cos(angle - Math.PI / 2) * (width * 0.6),
+          Math.cos(angle) * (length * POINTER_BASE_RATIO) +
+          Math.cos(angle - Math.PI / 2) * (width * BASE_WIDTH_RATIO),
         cy +
-          Math.sin(angle) * (length * 0.3) +
-          Math.sin(angle - Math.PI / 2) * (width * 0.6),
+          Math.sin(angle) * (length * POINTER_BASE_RATIO) +
+          Math.sin(angle - Math.PI / 2) * (width * BASE_WIDTH_RATIO),
       ],
       [
         'L',
         cx +
-          Math.cos(angle) * (length * 0.7) +
-          Math.cos(angle - Math.PI / 2) * width,
+          Math.cos(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.cos(angle - Math.PI / 2) * width * WAIST_WIDTH_RATIO,
         cy +
-          Math.sin(angle) * (length * 0.7) +
-          Math.sin(angle - Math.PI / 2) * width,
+          Math.sin(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.sin(angle - Math.PI / 2) * width * WAIST_WIDTH_RATIO,
       ],
       ['Z'],
     ];
@@ -104,16 +112,16 @@ const coolDiamondPointer = (style) => {
       [
         'L',
         cx +
-          Math.cos(angle) * (length * 0.7) +
-          Math.cos(angle + Math.PI / 2) * (width * 0.5),
+          Math.cos(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.cos(angle + Math.PI / 2) * (width * HIGHLIGHT_MID_RATIO),
         cy +
-          Math.sin(angle) * (length * 0.7) +
-          Math.sin(angle + Math.PI / 2) * (width * 0.5),
+          Math.sin(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.sin(angle + Math.PI / 2) * (width * HIGHLIGHT_MID_RATIO),
       ],
       [
         'L',
-        cx + Math.cos(angle) * (length * 0.5),
-        cy + Math.sin(angle) * (length * 0.5),
+        cx + Math.cos(angle) * (length * HIGHLIGHT_MID_RATIO),
+        cy + Math.sin(angle) * (length * HIGHLIGHT_MID_RATIO),
       ],
       ['Z'],
     ];
