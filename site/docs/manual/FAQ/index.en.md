@@ -2009,3 +2009,212 @@ render: (event, { title, items }) => `<div>
 - Always use `.join('')` when converting arrays to strings for embedding in template literals
 - If you need specific separators (like line breaks), you can use `.join('\n')` or other separators
 - This issue may occur in similar scenarios in other frameworks like React JSX, Vue templates, etc.
+
+## View's children Does Not Support Nested Views
+
+**Problem Description**
+
+When configuring G2 charts, attempting to nest another View within a View's `children` results in errors like `Unknown Component: mark.view`.
+
+Related issue: [View Nesting Issue](https://github.com/antvis/G2/issues/7230)
+
+```js
+// ❌ Error Example: nested views not supported
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'view', ... }, // Will throw error: Unknown Component: mark.view
+    { type: 'interval', ... },
+  ]
+});
+```
+
+**Cause Analysis**
+
+G2's View is designed as a container for composing multiple Marks (such as interval, line, point, etc.), used to uniformly manage data, coordinate systems, interactions, and other configurations. View's `children` can only contain Marks, not nested Views. This is an architectural design constraint in G2 - View serves as a composition unit, and its child elements must be concrete graphic marks.
+
+**Solutions**
+
+If you need multi-view composition, you should use top-level composite containers (such as `spaceFlex`, `spaceLayer`, `facet`, etc.) to nest multiple Views.
+
+**1. Use spaceFlex to Compose Multiple Views**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    // First view - Bar chart
+    {
+      type: 'view',
+      data: [
+        { genre: 'Sports', sold: 100 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+      ],
+      children: [
+        {
+          type: 'interval',
+          encode: { x: 'genre', y: 'sold', color: 'genre' },
+        },
+      ],
+    },
+    // Second view - Line chart
+    {
+      type: 'view',
+      data: [
+        { year: '1991', value: 3 },
+        { year: '1992', value: 4 },
+        { year: '1993', value: 3.5 },
+      ],
+      children: [
+        {
+          type: 'line',
+          encode: { x: 'year', y: 'value' },
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+**2. Use spaceLayer to Stack Multiple Views**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 640,
+  height: 480,
+});
+
+chart.options({
+  type: 'spaceLayer',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+  ],
+  children: [
+    // Bottom view - Area chart (occupies entire canvas)
+    {
+      type: 'view',
+      children: [
+        {
+          type: 'area',
+          encode: { x: 'year', y: 'value' },
+          style: { fillOpacity: 0.5 },
+        },
+      ],
+    },
+    // Top view - Pie chart (positioned in top-right corner via x, y, width, height)
+    {
+      type: 'view',
+      x: 400,
+      y: 50,
+      width: 200,
+      height: 200,
+      coordinate: { type: 'theta' },
+      children: [
+        {
+          type: 'interval',
+          transform: [{ type: 'stackY' }],
+          encode: { y: 'value', color: 'year' },
+          legend: false,
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+**3. Use facetRect to Create Faceted Views**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'facetRect',
+  data: [
+    { category: 'A', type: 'X', value: 10 },
+    { category: 'A', type: 'Y', value: 20 },
+    { category: 'B', type: 'X', value: 15 },
+    { category: 'B', type: 'Y', value: 25 },
+  ],
+  encode: { x: 'category' },
+  children: [
+    {
+      type: 'view',
+      children: [
+        {
+          type: 'interval',
+          encode: { x: 'type', y: 'value', color: 'type' },
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+**4. Combine Multiple Marks within a Single View (Recommended)**
+
+If you only need to draw multiple chart types in the same view, simply add different Marks to the View's `children`:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// ✅ Correct: use marks in view's children
+chart.options({
+  type: 'view',
+  data: [
+    { year: '1991', value: 15 },
+    { year: '1992', value: 16 },
+    { year: '1993', value: 15.5 },
+    { year: '1994', value: 17 },
+  ],
+  children: [
+    {
+      type: 'area',
+      encode: { x: 'year', y: 'value' },
+      style: { opacity: 0.3 },
+    },
+    {
+      type: 'line',
+      encode: { x: 'year', y: 'value' },
+    },
+  ],
+});
+
+chart.render();
+```
+
+**Important Notes**
+
+- View's `children` **can only** contain Marks (such as interval, line, area, point, etc.), **cannot** nest Views
+- Multi-view composition scenarios must use composite containers: `spaceFlex` (parallel layout), `spaceLayer` (layered layout), `facet` (faceted layout), etc.
+- If you only need to draw multiple graphics in the same coordinate system, use a single View containing multiple Marks
+- See the detailed documentation on [View](/en/manual/core/view) for more configuration options

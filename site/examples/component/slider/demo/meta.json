@@ -28,6 +28,14 @@
       },
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4R5xQLskh7wAAAAARZAAAAgAemJ7AQ/original"
     },
+    {
+      "filename": "slider-handle-icon.ts",
+      "title": {
+        "zh": "自定义手柄图标形状",
+        "en": "Custom Handle Icon Shape"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NqwdTIfo1IAAAAAASZAAAAgAemJ7AQ/original"
+    },
         {
       "filename": "slider-multi-axis-view.ts",
       "title": {

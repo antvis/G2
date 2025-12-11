@@ -244,6 +244,7 @@ Configure slider handle styles.
 | handleLabelCursor        | Handle label cursor style. Same as CSS cursor style                                                                                    | string                                                     | `default` |          |
 | handleIconRadius         | Handle icon corner radius                                                                                                              | number                                                     | `2`       |          |
 | handleIconSize           | Handle icon size                                                                                                                       | number                                                     | `10`      |          |
+| handleIconShape          | Handle icon shape, supports string or custom function                                                                                 | string \| (type: 'start' \| 'end') => DisplayObject        | -         |          |
 | handleIconFill           | Handle icon fill color                                                                                                                 | string                                                     | `#f7f7f7` |          |
 | handleIconFillOpacity    | Handle icon fill opacity                                                                                                               | number                                                     | `1`       |          |
 | handleIconStroke         | Handle icon stroke                                                                                                                     | string                                                     | `#1D2129` |          |
@@ -299,6 +300,19 @@ When configuring slider handle properties in the Slider component, use the `hand
         handleIconShadowOffsetX: 10,
         handleIconShadowOffsetY: 10,
         handleIconCursor: 'pointer',
+        
+        // Custom handle icon shape
+        handleIconShape: (type) => {
+          // type parameter is 'start' or 'end', representing left and right handles
+          return new Circle({
+            style: {
+              r: 8,
+              fill: type === 'start' ? '#FF6B9D' : '#00D9FF',
+              stroke: '#fff',
+              lineWidth: 2,
+            },
+          });
+        },
       },
     },
   },
@@ -661,6 +675,61 @@ chart.render();
 ```
 
 ## Examples
+
+### Custom Handle Icon
+
+The slider supports customizing the shape of handle icons through the `handleIconShape` property.
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+import { Circle } from '@antv/g';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => new Date(d).toLocaleDateString(),
+      style: {
+        // Custom handle icon shape
+        handleIconShape: (type) => {
+          // type parameter is 'start' or 'end', representing left and right handles
+          return new Circle({
+            style: {
+              r: 8,
+              fill: type === 'start' ? '#1890FF' : '#52C41A',
+              stroke: '#fff',
+              lineWidth: 2,
+              shadowColor: type === 'start' ? '#1890FF' : '#52C41A',
+              shadowBlur: 10,
+            },
+          });
+        },
+        handleIconSize: 16,
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+**Explanation:**
+
+- `handleIconShape` can be a string (e.g., `'circle'`) or a custom function
+- The function receives a `type` parameter with value `'start'` or `'end'`, corresponding to the left and right handles
+- The function should return a `DisplayObject` (e.g., `Circle`, `Path`, etc.)
+- Different styles can be set for different handles to enhance visual distinction
 
 ### Custom Slider
 

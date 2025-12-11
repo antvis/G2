@@ -2014,3 +2014,212 @@ render: (event, { title, items }) => `<div>
 - 在任何需要将数组转换为字符串并嵌入模板字符串的场景中，都要注意使用 `.join('')`
 - 如果需要特定的分隔符（如换行符），可以使用 `.join('\n')` 或其他分隔符
 - 这个问题在 React JSX、Vue 模板等其他框架中也可能遇到类似情况
+
+## View 的 children 不支持嵌套 View
+
+**问题描述**
+
+在配置 G2 图表时，尝试在 View 的 `children` 中嵌套另一个 View，导致出现类似 `Unknown Component: mark.view` 的错误。
+
+相关问题：[View 嵌套问题](https://github.com/antvis/G2/issues/7230)
+
+```js
+// ❌ 错误示例：不支持 view 嵌套
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'view', ... }, // 会报错：Unknown Component: mark.view
+    { type: 'interval', ... },
+  ]
+});
+```
+
+**原因分析**
+
+G2 的 View 设计为组合多个 Mark（如 interval、line、point 等）的容器，用于统一管理数据、坐标系、交互等配置。View 的 `children` 只能包含 Mark，不能嵌套其他 View。这是 G2 架构设计的限制，View 作为组合单元，其子元素必须是具体的图形标记。
+
+**解决方案**
+
+如果需要多视图组合，应该使用顶层复合容器（如 `spaceFlex`、`spaceLayer`、`facet` 等）来嵌套多个 View。
+
+**1. 使用 spaceFlex 组合多个 View**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    // 第一个视图 - 柱状图
+    {
+      type: 'view',
+      data: [
+        { genre: 'Sports', sold: 100 },
+        { genre: 'Strategy', sold: 115 },
+        { genre: 'Action', sold: 120 },
+      ],
+      children: [
+        {
+          type: 'interval',
+          encode: { x: 'genre', y: 'sold', color: 'genre' },
+        },
+      ],
+    },
+    // 第二个视图 - 折线图
+    {
+      type: 'view',
+      data: [
+        { year: '1991', value: 3 },
+        { year: '1992', value: 4 },
+        { year: '1993', value: 3.5 },
+      ],
+      children: [
+        {
+          type: 'line',
+          encode: { x: 'year', y: 'value' },
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+**2. 使用 spaceLayer 叠加多个 View**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 640,
+  height: 480,
+});
+
+chart.options({
+  type: 'spaceLayer',
+  data: [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+  ],
+  children: [
+    // 底层视图 - 面积图（占据整个画布）
+    {
+      type: 'view',
+      children: [
+        {
+          type: 'area',
+          encode: { x: 'year', y: 'value' },
+          style: { fillOpacity: 0.5 },
+        },
+      ],
+    },
+    // 上层视图 - 饼图（通过 x, y, width, height 定位在右上角）
+    {
+      type: 'view',
+      x: 400,
+      y: 50,
+      width: 200,
+      height: 200,
+      coordinate: { type: 'theta' },
+      children: [
+        {
+          type: 'interval',
+          transform: [{ type: 'stackY' }],
+          encode: { y: 'value', color: 'year' },
+          legend: false,
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+**3. 使用 facetRect 创建分面视图**
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'facetRect',
+  data: [
+    { category: 'A', type: 'X', value: 10 },
+    { category: 'A', type: 'Y', value: 20 },
+    { category: 'B', type: 'X', value: 15 },
+    { category: 'B', type: 'Y', value: 25 },
+  ],
+  encode: { x: 'category' },
+  children: [
+    {
+      type: 'view',
+      children: [
+        {
+          type: 'interval',
+          encode: { x: 'type', y: 'value', color: 'type' },
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+**4. 单个 View 内组合多个 Mark（推荐）**
+
+如果只是需要在同一个视图中绘制多种图表类型，直接在 View 的 `children` 中添加不同的 Mark 即可：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// ✅ 正确：在 view 的 children 中使用 mark
+chart.options({
+  type: 'view',
+  data: [
+    { year: '1991', value: 15 },
+    { year: '1992', value: 16 },
+    { year: '1993', value: 15.5 },
+    { year: '1994', value: 17 },
+  ],
+  children: [
+    {
+      type: 'area',
+      encode: { x: 'year', y: 'value' },
+      style: { opacity: 0.3 },
+    },
+    {
+      type: 'line',
+      encode: { x: 'year', y: 'value' },
+    },
+  ],
+});
+
+chart.render();
+```
+
+**注意事项**
+
+- View 的 `children` **只能**包含 Mark（如 interval、line、area、point 等），**不能**嵌套 View
+- 多视图组合场景必须使用复合容器：`spaceFlex`（并列布局）、`spaceLayer`（层叠布局）、`facet`（分面布局）等
+- 如果只需要在同一坐标系下绘制多种图形，使用单个 View 包含多个 Mark 即可
+- 查看[视图（View）](/manual/core/view)的详细文档了解更多配置选项

@@ -259,6 +259,7 @@ chart.render();
 | handleLabelDy            | 手柄标签文字在垂直方向的偏移量                                                                                           | number                                                     | 0         |      |
 | handleIconRadius         | 手柄图标的圆角                                                                                                           | number                                                     | `2`       |      |
 | handleIconSize           | 手柄图标的尺寸                                                                                                           | number                                                     | `10`      |      |
+| handleIconShape          | 手柄图标的形状，支持字符串或自定义函数                                                                                     | string \| (type: 'start' \| 'end') => DisplayObject        | -         |      |
 | handleIconFill           | 手柄图标的填充色                                                                                                         | string                                                     | `#f7f7f7` |      |
 | handleIconFillOpacity    | 手柄图标的填充透明度                                                                                                     | number                                                     | `1`       |      |
 | handleIconStroke         | 手柄图标的描边                                                                                                           | string                                                     | `#1D2129` |      |
@@ -312,6 +313,19 @@ chart.render();
       handleIconShadowOffsetX: 10,
       handleIconShadowOffsetY: 10,
       handleIconCursor: 'pointer',
+      
+      // 自定义手柄图标形状
+      handleIconShape: (type) => {
+        // type 为 'start' 或 'end'，分别表示左右手柄
+        return new Circle({
+          style: {
+            r: 8,
+            fill: type === 'start' ? '#FF6B9D' : '#00D9FF',
+            stroke: '#fff',
+            lineWidth: 2,
+          },
+        });
+      },
     },
   },
 });
@@ -941,6 +955,61 @@ chart.render();
 ```
 
 ## 示例
+
+### 自定义手柄图标
+
+缩略轴支持自定义手柄图标的形状，可以通过 `handleIconShape` 属性实现。
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+import { Circle } from '@antv/g';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  slider: {
+    x: {
+      labelFormatter: (d) => new Date(d).toLocaleDateString(),
+      style: {
+        // 自定义手柄图标形状
+        handleIconShape: (type) => {
+          // type 参数为 'start' 或 'end'，分别表示左右手柄
+          return new Circle({
+            style: {
+              r: 8,
+              fill: type === 'start' ? '#1890FF' : '#52C41A',
+              stroke: '#fff',
+              lineWidth: 2,
+              shadowColor: type === 'start' ? '#1890FF' : '#52C41A',
+              shadowBlur: 10,
+            },
+          });
+        },
+        handleIconSize: 16,
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+**说明：**
+
+- `handleIconShape` 可以是字符串（如 `'circle'`）或自定义函数
+- 函数接收 `type` 参数，值为 `'start'` 或 `'end'`，分别对应左右手柄
+- 函数需要返回一个 `DisplayObject` 对象（如 `Circle`、`Path` 等）
+- 可以为不同的手柄设置不同的样式，增强视觉区分度
 
 ### 自定义缩略轴（Slider）
 
