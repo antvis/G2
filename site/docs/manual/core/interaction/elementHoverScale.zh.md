@@ -69,7 +69,6 @@ order: 11
 | 属性          | 描述                     | 类型       | 默认值                  | 必选 |
 | ------------- | ------------------------ | ---------- | ----------------------- | ---- |
 | scale         | 缩放比例                 | `number`   | `1.04`                  |      |
-| scaleOrigin   | 缩放中心点               | `string`   | `'center center'`       |      |
 | shadow        | 是否显示阴影             | `boolean`  | `true`                  |      |
 | shadowColor   | 阴影颜色                 | `string`   | `'rgba(0, 0, 0, 0.4)'`  |      |
 | shadowBlur    | 阴影模糊度               | `number`   | `10`                    |      |
@@ -83,15 +82,7 @@ order: 11
 
 #### scale
 
-控制元素悬浮时的放大倍数。值为 `1.04` 表示放大到原始大小的 104%。
-
-#### scaleOrigin
-
-设置缩放的中心点，支持以下格式：
-
-- `'center center'` - 从中心点缩放（默认）
-- `'top left'` - 从左上角缩放
-- `'50% 50%'` - 使用百分比指定
+控制元素悬浮时的放大倍数。值为 `1.04` 表示放大到原始大小的 104%。缩放默认以元素中心为基准点。
 
 #### shadow
 
@@ -312,7 +303,6 @@ chart.options({
   interaction: {
     elementHoverScale: {
       scale: 1.15, // 更大的缩放比例
-      scaleOrigin: 'center center',
       shadow: true,
       shadowColor: 'rgba(139, 0, 139, 0.6)', // 自定义阴影颜色
       shadowBlur: 20, // 更大的模糊半径
