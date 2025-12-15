@@ -1,9 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { group } from '@antv/vendor/d3-array';
-import { arc } from '@antv/vendor/d3-shape';
 import { isPolar } from '../utils/coordinate';
-import { getArcObject } from '../shape/utils';
 import {
   createDatumof,
   createUseState,
@@ -55,43 +53,19 @@ export function elementHoverScale(
 
   let out;
 
-  // Apply radial growth effect for polar coordinates by modifying the arc path
-  const applyPolarRadialGrowth = (element: DisplayObject): boolean => {
-    const data = (element as any).__data__;
-    if (!data || !data.points || data.points.length < 4) return false;
-
-    const { y, y1 } = data;
-    if (y === undefined) return false;
-
-    // Calculate current arc parameters and increase outer radius
-    const arcObject = getArcObject(coordinate, data.points, [y, y1]);
-    const newOuterRadius = arcObject.outerRadius * scaleFactor;
-
-    // Generate new arc path with increased outer radius
-    const arcGenerator = arc()
-      .cornerRadius((element.style.radius || 0) as number)
-      .padAngle(((element.style.inset || 0) * Math.PI) / 180);
-
-    const newPath = arcGenerator({
-      ...arcObject,
-      outerRadius: newOuterRadius,
-    } as any);
-
-    if (!newPath) return false;
-
-    element.attr('d', newPath);
-    return true;
-  };
-
   const applyHoverEffect = (element: DisplayObject) => {
     if (originalStyles.has(element)) return;
 
     const currentTransform = element.style.transform || '';
+    const currentTransformOrigin = element.style.transformOrigin || '';
+    // Normalize 'none' to empty string as 'none' is not a valid transform value for concatenation
+    const normalizedTransform =
+      currentTransform === 'none' ? '' : currentTransform;
 
-    // Save original styles
+    // Save original styles for restoration
     originalStyles.set(element, {
       transform: currentTransform,
-      d: element.attr('d') || '',
+      transformOrigin: currentTransformOrigin,
       zIndex: element.style.zIndex || 0,
       shadowColor: element.style.shadowColor || '',
       shadowBlur: element.style.shadowBlur || 0,
@@ -99,16 +73,19 @@ export function elementHoverScale(
       shadowOffsetY: element.style.shadowOffsetY || 0,
     });
 
-    // Apply radial growth for polar coordinates, otherwise use scale transform
-    const isPolarCoord = coordinate && isPolar(coordinate);
-    const appliedRadialGrowth = isPolarCoord && applyPolarRadialGrowth(element);
-
-    if (!appliedRadialGrowth) {
-      const scaleTransform = `scale(${scaleFactor})`;
-      element.style.transform = currentTransform.includes('translate')
-        ? `${currentTransform} ${scaleTransform}`
-        : scaleTransform;
+    // For polar coordinates without transform, set transformOrigin to coordinate center
+    // When legend filtering occurs, element positioning changes from translate to absolute path coords
+    // Setting transformOrigin to center ensures consistent radial growth in both cases
+    if (coordinate && isPolar(coordinate) && !normalizedTransform) {
+      const center = coordinate.getCenter() as [number, number];
+      element.style.transformOrigin = `${center[0]}px ${center[1]}px`;
     }
+
+    // Apply scale transform
+    const scaleTransform = `scale(${scaleFactor})`;
+    element.style.transform = normalizedTransform
+      ? `${normalizedTransform} ${scaleTransform}`
+      : scaleTransform;
 
     // Apply visual effects
     element.style.zIndex = zIndex;
@@ -125,9 +102,9 @@ export function elementHoverScale(
     const original = originalStyles.get(element);
     if (!original) return;
 
-    // Restore original path and styles
-    if (original.d) element.attr('d', original.d);
+    // Restore all original styles
     element.style.transform = original.transform;
+    element.style.transformOrigin = original.transformOrigin;
     element.style.zIndex = original.zIndex;
     element.style.shadowColor = original.shadowColor;
     element.style.shadowBlur = original.shadowBlur;
