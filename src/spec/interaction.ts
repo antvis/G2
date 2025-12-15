@@ -152,7 +152,6 @@ export type ElementHighlightByColorInteraction = {
 export type ElementHoverScaleInteraction = {
   type?: 'elementHoverScale';
   scale?: number;
-  scaleOrigin?: string;
   shadow?: boolean;
   shadowColor?: string;
   shadowBlur?: number;
