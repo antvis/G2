@@ -1,6 +1,7 @@
 import { DisplayObject } from '@antv/g';
 import { deepMix } from '@antv/util';
 import { group } from '@antv/vendor/d3-array';
+import { isPolar } from '../utils/coordinate';
 import {
   createDatumof,
   createUseState,
@@ -21,7 +22,6 @@ export function elementHoverScale(
     datum,
     groupKey = (element) => element,
     scaleFactor = 1.04,
-    scaleOrigin = 'center center',
     shadow = true,
     shadowColor = 'rgba(0, 0, 0, 0.4)',
     shadowBlur = 10,
@@ -31,6 +31,7 @@ export function elementHoverScale(
     delay = 60,
     emitter,
     state = {},
+    coordinate,
   }: Record<string, any>,
 ) {
   // Helper function to get current valid elements
@@ -49,17 +50,19 @@ export function elementHoverScale(
   const { updateState, removeState, hasState } = useState(valueof);
 
   const originalStyles = new Map<DisplayObject, Record<string, any>>();
-  const hoveredElements = new Set<DisplayObject>();
 
   let out;
 
   const applyHoverEffect = (element: DisplayObject) => {
-    if (hoveredElements.has(element)) return;
+    if (originalStyles.has(element)) return;
 
-    // Capture current state before applying effect
     const currentTransform = element.style.transform || '';
     const currentTransformOrigin = element.style.transformOrigin || '';
+    // Normalize 'none' to empty string as 'none' is not a valid transform value for concatenation
+    const normalizedTransform =
+      currentTransform === 'none' ? '' : currentTransform;
 
+    // Save original styles for restoration
     originalStyles.set(element, {
       transform: currentTransform,
       transformOrigin: currentTransformOrigin,
@@ -70,26 +73,21 @@ export function elementHoverScale(
       shadowOffsetY: element.style.shadowOffsetY || 0,
     });
 
-    // Treat 'none' as empty string since it means no transform
-    const prefix =
-      currentTransform && currentTransform !== 'none' ? currentTransform : '';
-    const scaleTransform = `scale(${scaleFactor})`;
-
-    // Build new transform: append or replace scale in existing transform
-    let newTransform: string;
-    if (prefix && !prefix.includes('scale')) {
-      newTransform = `${prefix} ${scaleTransform}`.trimStart();
-    } else if (prefix && prefix.includes('scale')) {
-      newTransform = prefix
-        .replace(/scale\([^)]+\)/g, scaleTransform)
-        .trimStart();
-    } else {
-      newTransform = scaleTransform;
+    // For polar coordinates without transform, set transformOrigin to coordinate center
+    // When legend filtering occurs, element positioning changes from translate to absolute path coords
+    // Setting transformOrigin to center ensures consistent radial growth in both cases
+    if (coordinate && isPolar(coordinate) && !normalizedTransform) {
+      const center = coordinate.getCenter() as [number, number];
+      element.style.transformOrigin = `${center[0]}px ${center[1]}px`;
     }
 
-    // Apply styles
-    element.style.transformOrigin = scaleOrigin;
-    element.style.transform = newTransform;
+    // Apply scale transform
+    const scaleTransform = `scale(${scaleFactor})`;
+    element.style.transform = normalizedTransform
+      ? `${normalizedTransform} ${scaleTransform}`
+      : scaleTransform;
+
+    // Apply visual effects
     element.style.zIndex = zIndex;
 
     if (shadow) {
@@ -98,8 +96,6 @@ export function elementHoverScale(
       element.style.shadowOffsetX = shadowOffsetX;
       element.style.shadowOffsetY = shadowOffsetY;
     }
-
-    hoveredElements.add(element);
   };
 
   const removeHoverEffect = (element: DisplayObject) => {
@@ -115,7 +111,6 @@ export function elementHoverScale(
     element.style.shadowOffsetX = original.shadowOffsetX;
     element.style.shadowOffsetY = original.shadowOffsetY;
 
-    hoveredElements.delete(element);
     originalStyles.delete(element);
   };
 
@@ -131,25 +126,25 @@ export function elementHoverScale(
     if (out) clearTimeout(out);
 
     const currentKeyGroup = group(validElements, groupKey);
-    const k = groupKey(element);
-    const currentGroup = currentKeyGroup.get(k);
+    const currentKey = groupKey(element);
+    const currentGroup = currentKeyGroup.get(currentKey);
 
     if (!currentGroup) return;
 
     const groupSet = new Set(currentGroup);
 
     // Remove hover effects from elements not in current group
-    for (const e of validElements) {
-      if (!groupSet.has(e)) {
-        removeState(e, 'active');
-        removeHoverEffect(e);
+    for (const element of validElements) {
+      if (!groupSet.has(element)) {
+        removeState(element, 'active');
+        removeHoverEffect(element);
       }
     }
 
     // Apply hover effects to current group
-    for (const e of currentGroup) {
-      if (!hasState(e, 'active')) updateState(e, 'active');
-      applyHoverEffect(e as DisplayObject);
+    for (const element of currentGroup) {
+      if (!hasState(element, 'active')) updateState(element, 'active');
+      applyHoverEffect(element as DisplayObject);
     }
 
     // Emit events
@@ -175,21 +170,18 @@ export function elementHoverScale(
     const validElements = getCurrentElements();
 
     // Remove hover effects and states from all valid elements
-    for (const e of validElements) {
-      removeState(e, 'active');
-      removeHoverEffect(e);
+    for (const element of validElements) {
+      removeState(element, 'active');
+      removeHoverEffect(element);
     }
-
-    hoveredElements.clear();
 
     if (nativeEvent) {
       emitter.emit('element:unhoverscale', { nativeEvent });
     }
   };
 
-  const pointerout = (event) => {
-    if (delay > 0) delayReset();
-    else reset();
+  const pointerout = () => {
+    delay > 0 ? delayReset() : reset();
   };
 
   const pointerleave = () => {
@@ -232,11 +224,10 @@ export function elementHoverScale(
 
     // Clean up all hover effects from current elements
     const validElements = getCurrentElements();
-    for (const e of validElements) {
-      removeHoverEffect(e);
+    for (const element of validElements) {
+      removeHoverEffect(element);
     }
     originalStyles.clear();
-    hoveredElements.clear();
   };
 }
 
@@ -244,7 +235,6 @@ export function ElementHoverScale({
   delay,
   createGroup,
   scale: scaleFactorParam,
-  scaleOrigin,
   shadow,
   shadowColor,
   shadowBlur,
@@ -257,6 +247,7 @@ export function ElementHoverScale({
     const { container, view, options } = context;
     const plotArea = selectPlotArea(container);
     const datumof = createDatumof(view);
+    const { coordinate } = view;
 
     return elementHoverScale(plotArea, {
       elements: selectG2Elements,
@@ -266,7 +257,6 @@ export function ElementHoverScale({
         : undefined,
       state: mergeState(options, ['active']),
       scaleFactor: scaleFactorParam,
-      scaleOrigin,
       shadow,
       shadowColor,
       shadowBlur,
@@ -275,6 +265,7 @@ export function ElementHoverScale({
       zIndex,
       delay,
       emitter,
+      coordinate,
       ...rest,
     });
   };

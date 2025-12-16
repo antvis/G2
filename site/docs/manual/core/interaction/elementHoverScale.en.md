@@ -69,7 +69,6 @@ Or at the View level. Interactions declared on the view are passed to child mark
 | Property       | Description                     | Type      | Default Value               | Required |
 |----------------|---------------------------------|-----------|-----------------------------|----------|
 | scale          | Scale factor on hover           | `number`  | `1.04`                      |          |
-| scaleOrigin    | Origin point for scaling        | `string`  | `'center center'`           |          |
 | shadow         | Whether to show shadow          | `boolean` | `true`                      |          |
 | shadowColor    | Shadow color                    | `string`  | `'rgba(0, 0, 0, 0.4)'`      |          |
 | shadowBlur     | Shadow blur radius              | `number`  | `10`                        |          |
@@ -83,15 +82,7 @@ Or at the View level. Interactions declared on the view are passed to child mark
 
 #### scale
 
-Controls the scale factor when hovering. A value of `1.04` means the element scales to 104% of its original size.
-
-#### scaleOrigin
-
-Sets the origin point for scaling. Supported formats:
-
-- `'center center'` - scale from the center (default)
-- `'top left'` - scale from the top-left corner
-- `'50% 50%'` - specify using percentages
+Controls the scale factor when hovering. A value of `1.04` means the element scales to 104% of its original size. Scaling defaults to center origin.
 
 #### shadow
 
@@ -311,7 +302,6 @@ chart.options({
   interaction: {
     elementHoverScale: {
       scale: 1.15, // larger scale factor
-      scaleOrigin: 'center center',
       shadow: true,
       shadowColor: 'rgba(139, 0, 139, 0.6)', // custom shadow color
       shadowBlur: 20, // larger blur radius
