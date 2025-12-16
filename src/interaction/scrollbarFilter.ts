@@ -31,6 +31,9 @@ export function ScrollbarFilter(options: any = {}) {
         const values = scrollbar.slider.attributes.values;
         if (values[0] !== 0 || values[1] !== 1) return values;
       },
+      // Scrollbar should not have adaptive filtering by default
+      // Only enable if explicitly set in options
+      adaptiveMode: false,
       ...options,
     });
     return interaction(context, _, emitter);
