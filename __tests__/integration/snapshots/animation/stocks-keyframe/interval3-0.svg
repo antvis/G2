@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" color-interpolation-filters="sRGB" style="background: transparent;">
   <defs>
-    <clipPath id="b" transform="matrix(1 0 0 1 -16 -29.5)">
+    <clipPath id="b" transform="matrix(1 0 0 1 -16 -16)">
       <use href="#a" transform="matrix(1 0 0 1 16 16)"/>
     </clipPath>
   </defs>
