@@ -61,13 +61,13 @@
           </g>
           <g fill="none" class="main-layer">
             <g>
-              <path width="176.5161" height="219.4881" x="411.871" y="210.5119" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m411.871 210.5119 176.5161 0 0 219.4881-176.5161 0z" class="element"/>
+              <path width="176.5161" height="276.4769" x="411.871" y="153.5231" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m411.871 153.523 176.5161 0 0 276.477-176.5161 0z" class="element"/>
             </g>
             <g>
-              <path width="176.5161" height="341.3662" x="19.6129" y="88.6338" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m19.6129 88.6338 176.5161 0 0 341.3662-176.5161 0z" class="element"/>
+              <path width="176.5161" height="430" x="19.6129" y="0" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m19.6129 0 176.5161 0 0 430-176.5161 0z" class="element"/>
             </g>
             <g>
-              <path width="176.5161" height="243.38" x="215.7419" y="186.62" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m215.742 186.62 176.516 0 0 243.38-176.516 0z" class="element"/>
+              <path width="176.5161" height="306.5722" x="215.7419" y="123.4278" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m215.742 123.4278 176.516 0 0 306.5722-176.516 0z" class="element"/>
             </g>
           </g>
           <g fill="none" class="label-layer"/>
