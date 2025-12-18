@@ -1,0 +1,88 @@
+{
+  "title": {
+    "zh": "场景可视化",
+    "en": "Scene Visualization"
+  },
+  "demos": [
+    {
+      "filename": "player.ts",
+      "title": {
+        "zh": "音频播放器可视化",
+        "en": "Audio Player Visualization"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MVqCSIxKHqQAAAAAgBAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "stock-realtime.ts",
+      "title": {
+        "zh": "股票实时K线",
+        "en": "Stock Realtime K-Line"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fHSLS4VpHpkAAAAAgBAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "heartbeat-monitor.ts",
+      "title": {
+        "zh": "心率监测仪",
+        "en": "Heartbeat Monitor"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*e7U9TopMNqgAAAAAgEAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "ripple-effect.ts",
+      "title": {
+        "zh": "粒子涟漪效果",
+        "en": "Ripple Effect"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jXBKRpg4FS8AAAAAf8AAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "weather-forecast.ts",
+      "title": {
+        "zh": "天气预报动画",
+        "en": "Weather Forecast"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OeOtQqSpNJQAAAAAgCAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "funnel-conversion.ts",
+      "title": {
+        "zh": "漏斗转化分析",
+        "en": "Funnel Conversion"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oO2tRLdlnqUAAAAAcNAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "starry-sky.ts",
+      "title": {
+        "zh": "星空粒子系统",
+        "en": "Starry Sky"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qJc7Trgm6EIAAAAAgCAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "radar-scan.ts",
+      "title": {
+        "zh": "雷达扫描效果",
+        "en": "Radar Scan"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iIXHQLvjEF4AAAAAaYAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "wave-energy.ts",
+      "title": {
+        "zh": "波浪能量图",
+        "en": "Wave Energy"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*o1oETpi0u5cAAAAAgFAAAAgAemJ7AQ/original"
+    },
+    {
+      "filename": "network-pulse.ts",
+      "title": {
+        "zh": "数据脉冲网络",
+        "en": "Network Pulse"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DOm7Rolwc_gAAAAAgCAAAAgAemJ7AQ/original"
+    }
+  ]
+}
