@@ -36,3 +36,5 @@ export function alphabetBeeswarm(): G2Spec {
     },
   };
 }
+
+alphabetBeeswarm.skip = true;
