@@ -210,4 +210,4 @@ const timer = setInterval(() => {
   currentFrame = (currentFrame + 1) % FRAMES;
   chart.options(allOptions[currentFrame]);
   chart.render();
-}, 10000 / FPS);
+}, 1000 / FPS);

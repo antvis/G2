@@ -14,7 +14,7 @@ function generateECGWave(offset, heartRate = 75) {
   const pointsPerBeat = beatInterval * 50; // 每次心跳的点数
 
   for (let i = 0; i < POINTS; i++) {
-    const x = (i + offset) / 50; // 时间（秒）
+    const time = (i + offset) / 50; // 时间（秒）
     const beatPhase = ((i + offset) % pointsPerBeat) / pointsPerBeat;
 
     let y = 0;
@@ -55,7 +55,7 @@ function generateECGWave(offset, heartRate = 75) {
     else if (Math.abs(y) > 0.15) status = 'active'; // P波、T波
 
     data.push({
-      time: i,
+      time,
       value: y,
       status,
       // 用于 key 编码确保平滑过渡
@@ -106,7 +106,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
           lineCap: 'round',
         },
         axis: {
-          x: { title: '时间 (s)', labelFormatter: (d) => (d / 50).toFixed(1) },
+          x: { title: '时间 (s)', labelFormatter: (d) => d.toFixed(1) },
           y: { title: '电压 (mV)' },
         },
         legend: false,

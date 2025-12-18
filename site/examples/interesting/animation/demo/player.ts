@@ -122,10 +122,8 @@ chart.render();
 
 // 使用 setInterval 切换 options
 let currentFrame = 0;
-const isPlaying = true;
 
 const timer = setInterval(() => {
-  if (!isPlaying) return;
   currentFrame = (currentFrame + 1) % FRAMES;
   chart.options(allOptions[currentFrame]);
   chart.render();
