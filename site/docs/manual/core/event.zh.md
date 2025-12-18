@@ -15,20 +15,25 @@ const chart = new Chart({
   canvas,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .axis({ x: { animate: false }, y: { animate: false } });
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+  axis: {
+    x: { animate: false },
+    y: { animate: false },
+  },
+});
 
 chart.on('interval:click', (e) => {
   console.log(e.data.data); // 展示点击的数据
@@ -144,7 +149,13 @@ chart.on('label:click', (event) => console.log(event));
 如果希望监听拖拽事件，需要设置 draggable 和 droppable 属性
 
 ```js
-chart.interval().style('draggable', true).style('droppable', true);
+chart.options({
+  type: 'interval',
+  style: {
+    draggable: true,
+    droppable: true,
+  },
+});
 ```
 
 | 事件名                  | 说明                         | 回调参数 |
@@ -161,9 +172,15 @@ chart.interval().style('draggable', true).style('droppable', true);
 
 G2 为图表中的各个组件元素提供了标准化的 className，可以通过这些 className 实现更精细化的事件监听和样式控制。
 
-### 监听特定组件元素事件
+:::warning{title=重要提示}
+对于图例、坐标轴等组件的交互事件，**优先推荐使用 G2 提供的高级交互事件**，而不是直接操作 DOM 元素。这样可以获得更稳定、语义更清晰的事件处理机制。相关交互文档：[图例筛选](/manual/core/interaction/legend-filter)、[图例高亮](/manual/core/interaction/legend-highlight)。
+:::
 
-通过 className 可以精确识别用户点击的元素类型,例如监听图例项的点击事件:
+### 组件事件监听的推荐方式
+
+对于图例、坐标轴等组件，推荐使用以下方式监听事件：
+
+**方式一：使用高级交互事件（推荐 ⭐⭐⭐⭐⭐）**
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -173,47 +190,132 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.render();
 
-chart.render().then(() => {
+// 推荐：使用高级交互事件
+chart.on('legend:filter', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return; // 过滤程序触发的事件
+
+  console.log('✅ 图例筛选事件:', data);
+  console.log('   - 通道:', data.channel);
+  console.log('   - 当前选中值:', data.values);
+});
+
+chart.on('legend:reset', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  console.log('✅ 图例重置（全选）');
+});
+```
+
+**方式二：监听具体子元素事件（适用于简单的自定义交互）**
+
+如果需要自定义交互逻辑，可以监听组件的子元素事件：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
+
+chart.render();
+
+// 监听图例标签和标记的点击
+const handleLegendClick = (event, source) => {
+  // 方式1: 通过父容器获取完整数据(推荐)
+  const item = event.target.parentNode.parentNode; // marker/label -> group -> item
+  if (item && item.__data__) {
+    // 向上查找真正的图例组件 (className 包含 'legend-category')
+    let legend = item.parentNode;
+    while (legend && !legend.className.includes('legend-category')) {
+      legend = legend.parentNode;
+      if (!legend) return;
+    }
+
+    if (legend && legend.attributes && legend.attributes.data) {
+      const { data } = legend.attributes;
+      const { index } = item.__data__;
+      const itemData = data[index];
+      console.log(`✅ 点击了 ${source}:`, itemData); // {id, label, color}
+      console.log(`   - ID: ${itemData.id}`);
+      console.log(`   - 标签: ${itemData.label}`);
+      console.log(`   - 颜色: ${itemData.color}`);
+    }
+  }
+
+  // 方式2: 从 target.attributes 获取部分信息
+  if (source === 'label') {
+    console.log('   - 文本:', event.target.attributes.text);
+  } else if (source === 'marker') {
+    console.log('   - 颜色:', event.target.attributes.fill);
+  }
+};
+
+chart.on('g2-legend-marker:click', (e) => handleLegendClick(e, 'marker'));
+chart.on('g2-legend-label:click', (e) => handleLegendClick(e, 'label'));
+```
+
+**方式三:直接操作 Canvas DOM（最灵活，适用于完全定制化的场景）**
+
+仅在需要完全自定义行为时使用：
+
+```js
+chart.on('afterrender', () => {
   const { canvas } = chart.getContext();
   const { document } = canvas;
-  const legendItems = document.getElementsByClassName('g2-legend-item');
-  const legendMarkers = document.getElementsByClassName('g2-legend-marker');
-  const legendLabels = document.getElementsByClassName('g2-legend-label');
-  const legendData = Array.from(legendItems).map((item) => item.__data__);
+  const items = document.getElementsByClassName('g2-legend-item');
 
-  legendLabels.forEach((label, index) => {
-    const labelText = label.getAttribute('text') || label.textContent;
+  items.forEach((item) => {
+    // 利用事件冒泡:点击子元素会冒泡到容器
+    item.addEventListener('click', () => {
+      // 向上查找真正的图例组件
+      let legend = item.parentNode;
+      while (legend && !legend.className.includes('legend-category')) {
+        legend = legend.parentNode;
+        if (!legend) return;
+      }
 
-    label.addEventListener('click', (event) => {
-      const clickedText = label.getAttribute('text') || label.textContent;
-      const itemData = legendData[index];
-
-      console.log('\n  🖱️ 图例标签被点击:');
-      console.log('    - 标签文本:', clickedText);
-      console.log('    - 索引:', index);
-      console.log('    - 数据:', itemData);
-      console.log('    - className:', label.className);
-
-      // 模拟业务逻辑：根据点击的图例执行操作
-      alert(`您点击了图例: ${clickedText}
-这里可以触发自定义业务逻辑，比如:
-- 跳转到详情页
-- 显示更多信息
-- 联动其他图表`);
+      if (legend && legend.attributes && legend.attributes.data) {
+        const { data } = legend.attributes;
+        const { index } = item.__data__;
+        const itemData = data[index]; // {id, label, color}
+        console.log('图例项数据:', itemData);
+      }
     });
   });
 });
@@ -231,19 +333,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
 chart.render();
 
@@ -276,19 +380,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
@@ -326,19 +432,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
@@ -390,9 +498,9 @@ chart.render().then(() => {
 });
 ```
 
-### G2 组件 className 完整列表
+## G2 组件 className 完整列表
 
-#### 图例组件 (Legend)
+### 图例组件 (Legend)
 
 | className                     | 说明                   |
 | ----------------------------- | ---------------------- |
@@ -410,7 +518,7 @@ chart.render().then(() => {
 | **`g2-legend-handle-marker`** | 连续图例的滑动手柄图标 |
 | **`g2-legend-handle-label`**  | 连续图例的标签/刻度值  |
 
-#### 坐标轴组件 (Axis)
+### 坐标轴组件 (Axis)
 
 | className                | 说明           |
 | ------------------------ | -------------- |
@@ -422,6 +530,55 @@ chart.render().then(() => {
 | **`g2-axis-title`**      | 坐标轴标题     |
 | **`g2-axis-grid`**       | 坐标轴网格线   |
 
+### 为什么容器元素的点击事件不生效？
+
+像 `g2-legend-item`、`g2-axis` 这类组件的最外层元素通常是**容器元素**，背景透明，本身没有可点击的渲染区域。实际的点击事件由其子元素触发，然后通过事件冒泡机制传递到容器。
+
+**图例组件示例：**
+
+- ✅ `g2-legend-marker:click` - 点击标记图标
+- ✅ `g2-legend-label:click` - 点击标签文字
+- ❌ `g2-legend-item:click` - 容器本身无点击区域
+
+**坐标轴组件示例：**
+
+- ✅ `g2-axis-label:click` - 点击坐标轴标签
+- ✅ `g2-axis-title:click` - 点击坐标轴标题
+- ✅ `g2-axis-line:click` - 点击坐标轴线
+- ❌ `g2-axis:click` - 容器本身无点击区域
+
+**如何获取点击的图例项数据?**
+
+子元素(marker/label)上没有直接存储完整数据,需要通过以下方式获取:
+
+1. **通过父容器获取**(推荐):向上查找到 item 容器,通过 `item.__data__.index` + `legend.attributes.data` 获取完整数据
+2. **从 attributes 获取**:label 的 `text` 属性、marker 的 `fill` 属性包含部分信息
+3. **使用 DOM 监听**:直接在 item 容器上绑定事件,通过 `item.__data__` 获取数据
+
+**示例:点击 marker 获取对应的 label**
+
+```js
+chart.on('g2-legend-marker:click', (e) =>  {
+  const item = e.target.parentNode.parentNode;
+  if (item && item.__data__) {
+    // 向上查找真正的图例组件
+    let legend = item.parentNode;
+    while (legend && !legend.className.includes('legend-category')) {
+      legend = legend.parentNode;
+      if (!legend) return;
+    }
+
+    if (legend && legend.attributes && legend.attributes.data) {
+      const { data } = legend.attributes;
+      const { index } = item.__data__;
+      const itemData = data[index];
+      console.log('点击 marker,对应的 label 是:', itemData.label);
+      console.log('完整数据:', itemData); // {id, label, color}
+    }
+  }
+});
+```
+
 ## 典型案例
 
-详见交互-事件[示例](/examples#interaction-event)
+详见[交互-事件示例](/examples#interaction-event)

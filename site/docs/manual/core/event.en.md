@@ -1,9 +1,9 @@
 ---
-title: Events
+title: Event Handling
 order: 17
 ---
 
-G2 exposes various events to capture chart lifecycle and interaction information. G2 exports a `ChartEvent` type that defines the event types.
+G2 exposes a set of events for accessing the chart's lifecycle and interaction information. G2 exports a `ChartEvent` type to define event types.
 
 <img alt="click event" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z61ZQ5DM5IUAAAAAAAAAAAAADmJ7AQ/original" width="800" />
 
@@ -15,20 +15,25 @@ const chart = new Chart({
   canvas,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .axis({ x: { animate: false }, y: { animate: false } });
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+  axis: {
+    x: { animate: false },
+    y: { animate: false },
+  },
+});
 
 chart.on('interval:click', (e) => {
   console.log(e.data.data); // Display clicked data
@@ -43,7 +48,7 @@ chart.render();
 
 ## Lifecycle Events
 
-To capture chart lifecycle information, you can use the following approach:
+To access the chart's lifecycle information, you can use the following approach:
 
 ```js
 chart.on(ChartEvent.AFTER_RENDER, (ev) => {
@@ -53,31 +58,31 @@ chart.on(ChartEvent.AFTER_RENDER, (ev) => {
 
 G2 currently provides the following lifecycle events:
 
-| Event Name                      | Description                 |
-| ------------------------------- | --------------------------- |
-| `ChartEvent.`BEFORE_RENDER      | Before rendering            |
-| `ChartEvent.`BEFORE_PAINT       | Before painting             |
-| `ChartEvent.`AFTER_PAINT        | After painting              |
-| `ChartEvent.`AFTER_RENDER       | After rendering             |
-| `ChartEvent.`BEFORE_CHANGE_DATA | Before data change          |
-| `ChartEvent.`AFTER_CHANGE_DATA  | After data change           |
-| `ChartEvent.`BEFORE_CLEAR       | Before clearing canvas      |
-| `ChartEvent.`AFTER_CLEAR        | After clearing canvas       |
-| `ChartEvent.`BEFORE_DESTROY     | Before destroying canvas    |
-| `ChartEvent.`AFTER_DESTROY      | After destroying canvas     |
-| `ChartEvent.`BEFORE_CHANGE_SIZE | Before changing canvas size |
-| `ChartEvent.`AFTER_CHANGE_SIZE  | After changing canvas size  |
+| Event Name                      | Description              |
+| ------------------------------- | ------------------------ |
+| `ChartEvent.`BEFORE_RENDER      | Before render            |
+| `ChartEvent.`BEFORE_PAINT       | Before paint             |
+| `ChartEvent.`AFTER_PAINT        | After paint              |
+| `ChartEvent.`AFTER_RENDER       | After render             |
+| `ChartEvent.`BEFORE_CHANGE_DATA | Before data change       |
+| `ChartEvent.`AFTER_CHANGE_DATA  | After data change        |
+| `ChartEvent.`BEFORE_CLEAR       | Before canvas clear      |
+| `ChartEvent.`AFTER_CLEAR        | After canvas clear       |
+| `ChartEvent.`BEFORE_DESTROY     | Before canvas destroy    |
+| `ChartEvent.`AFTER_DESTROY      | After canvas destroy     |
+| `ChartEvent.`BEFORE_CHANGE_SIZE | Before canvas size change|
+| `ChartEvent.`AFTER_CHANGE_SIZE  | After canvas size change |
 
-- **Before rendering**: When G2 starts processing data, performing layout, and drawing graphics.
-- **Before painting**: When data processing, layout, and graphics operations are complete but painting hasn't started.
-- **After painting**: When G2 completes all painting operations, but animations may still be running. The chart is fully rendered when animations finish.
-- **After rendering**: When G2 completes all painting operations, including animations.
-- **After clearing canvas**: The chart in the container has been cleared, but the G2 instance still exists and can be reused.
-- **After destroying canvas**: The G2 instance has been destroyed and cannot be used anymore.
+- **Before render**: G2 begins processing data, performing layout, drawing graphics, etc.
+- **Before paint**: Data processing, layout, and drawing graphics are complete, but actual painting has not yet occurred.
+- **After paint**: G2 has completed all painting operations, but animations may still be running. The chart is fully rendered after animations complete.
+- **After render**: G2 has completed all painting operations, including animations.
+- **After canvas clear**: The chart in the container has been cleared, but the G2 instance still exists and can be used.
+- **After canvas destroy**: The G2 instance has been destroyed and can no longer be used.
 
 ## Interaction Events
 
-To capture chart interaction information, you can use the following approaches:
+To access the chart's interaction information, you can use the following approaches:
 
 - Listen to global `element` events
 
@@ -120,50 +125,62 @@ chart.on('label:click', (event) => console.log(event));
 
 ### Click Events
 
-| Event Name            | Description  | Callback Parameters |
-| --------------------- | ------------ | ------------------- |
-| `ChartEvent.`CLICK    | Click        | `Event`             |
-| `ChartEvent.`DBLCLICK | Double click | `Event`             |
+| Event Name            | Description | Callback Parameter |
+| --------------------- | ----------- | ------------------ |
+| `ChartEvent.`CLICK    | Click       | `Event`            |
+| `ChartEvent.`DBLCLICK | Double click| `Event`            |
 
 ### Pointer Events
 
-| Event Name                     | Description                                               | Callback Parameters |
-| ------------------------------ | --------------------------------------------------------- | ------------------- |
-| `ChartEvent.`POINTER_TAP       |                                                           | `Event`             |
-| `ChartEvent.`POINTER_DOWN      | When pointer is pressed down                              | `Event`             |
-| `ChartEvent.`POINTER_UP        | When pointer is released                                  | `Event`             |
-| `ChartEvent.`POINTER_OVER      | When pointer enters the target element                    | `Event`             |
-| `ChartEvent.`POINTER_OUT       | When pointer leaves the target element                    | `Event`             |
-| `ChartEvent.`POINTER_MOVE      | When pointer coordinates change                           | `Event`             |
-| `ChartEvent.`POINTER_ENTER     | When pointer enters the target element or its descendants | `Event`             |
-| `ChartEvent.`POINTER_LEAVE     | When pointer leaves the target element or its descendants | `Event`             |
-| `ChartEvent.`POINTER_UPOUTSIDE |                                                           | `Event`             |
+| Event Name                     | Description                                      | Callback Parameter |
+| ------------------------------ | ------------------------------------------------ | ------------------ |
+| `ChartEvent.`POINTER_TAP       |                                                  | `Event`            |
+| `ChartEvent.`POINTER_DOWN      | When pointer is pressed down                     | `Event`            |
+| `ChartEvent.`POINTER_UP        | When pointer is released                         | `Event`            |
+| `ChartEvent.`POINTER_OVER      | When pointer enters the target element           | `Event`            |
+| `ChartEvent.`POINTER_OUT       | When pointer leaves the target element           | `Event`            |
+| `ChartEvent.`POINTER_MOVE      | When pointer changes coordinates                 | `Event`            |
+| `ChartEvent.`POINTER_ENTER     | When pointer enters target element or its children| `Event`           |
+| `ChartEvent.`POINTER_LEAVE     | When pointer leaves target element or its children| `Event`           |
+| `ChartEvent.`POINTER_UPOUTSIDE |                                                  | `Event`            |
 
 ### Drag Events
 
 To listen to drag events, you need to set the draggable and droppable properties:
 
 ```js
-chart.interval().style('draggable', true).style('droppable', true);
+chart.options({
+  type: 'interval',
+  style: {
+    draggable: true,
+    droppable: true,
+  },
+});
 ```
 
-| Event Name              | Description                                              | Callback Parameters |
-| ----------------------- | -------------------------------------------------------- | ------------------- |
-| `ChartEvent.`DRAG_START | When dragging starts                                     | `Event`             |
-| `ChartEvent.`DRAG       | During dragging                                          | `Event`             |
-| `ChartEvent.`DRAG_END   | When dragging ends                                       | `Event`             |
-| `ChartEvent.`DRAG_ENTER | When element is dragged into the target element          | `Event`             |
-| `ChartEvent.`DRAG_LEAVE | When element is dragged away from the target element     | `Event`             |
-| `ChartEvent.`DRAG_OVER  | When element is dragged and hovering over target element | `Event`             |
-| `ChartEvent.`DROP       | When element is dropped into the target element          | `Event`             |
+| Event Name              | Description                                      | Callback Parameter |
+| ----------------------- | ------------------------------------------------ | ------------------ |
+| `ChartEvent.`DRAG_START | When dragging starts                             | `Event`            |
+| `ChartEvent.`DRAG       | During dragging                                  | `Event`            |
+| `ChartEvent.`DRAG_END   | When dragging completes                          | `Event`            |
+| `ChartEvent.`DRAG_ENTER | When element is dragged into the target element  | `Event`            |
+| `ChartEvent.`DRAG_LEAVE | When element is dragged out of the target element| `Event`            |
+| `ChartEvent.`DRAG_OVER  | When element is dragged over the target element  | `Event`            |
+| `ChartEvent.`DROP       | When element is dropped into the target element  | `Event`            |
 
 ## Fine-grained Control with className
 
-G2 provides standardized className for various component elements in charts, enabling more precise event handling and style control.
+G2 provides standardized className for various component elements in the chart, enabling more fine-grained event listening and style control.
 
-### Listening to Specific Component Element Events
+:::warning{title=Important Note}
+For interaction events on components like legends and axes, **it is highly recommended to use G2's high-level interaction events** rather than directly manipulating DOM elements. This provides a more stable and semantically clear event handling mechanism. Related interaction documentation: [Legend Filter](/en/manual/core/interaction/legend-filter), [Legend Highlight](/en/manual/core/interaction/legend-highlight).
+:::
 
-Using className allows you to precisely identify the type of element clicked by users. For example, listening to legend item click events:
+### Recommended Approaches for Component Event Listening
+
+For components like legends and axes, the following approaches are recommended:
+
+**Approach 1: Using High-level Interaction Events (Recommended ⭐⭐⭐⭐⭐)**
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -173,47 +190,132 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.render();
 
-chart.render().then(() => {
+// Recommended: Use high-level interaction events
+chart.on('legend:filter', (e) => {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return; // Filter programmatic events
+
+  console.log('✅ Legend filter event:', data);
+  console.log('   - Channel:', data.channel);
+  console.log('   - Current selected values:', data.values);
+});
+
+chart.on('legend:reset', (e) => {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  console.log('✅ Legend reset (select all)');
+});
+```
+
+**Approach 2: Listening to Specific Child Element Events (Suitable for simple custom interactions)**
+
+For custom interaction logic, you can listen to component child element events:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
+
+chart.render();
+
+// Listen to legend label and marker clicks
+const handleLegendClick = (event, source) => {
+  // Method 1: Get complete data via parent container (recommended)
+  const item = event.target.parentNode.parentNode; // marker/label -> group -> item
+  if (item && item.__data__) {
+    // Find the actual legend component (className includes 'legend-category')
+    let legend = item.parentNode;
+    while (legend && !legend.className.includes('legend-category')) {
+      legend = legend.parentNode;
+      if (!legend) return;
+    }
+
+    if (legend && legend.attributes && legend.attributes.data) {
+      const { data } = legend.attributes;
+      const { index } = item.__data__;
+      const itemData = data[index];
+      console.log(`✅ Clicked ${source}:`, itemData); // {id, label, color}
+      console.log(`   - ID: ${itemData.id}`);
+      console.log(`   - Label: ${itemData.label}`);
+      console.log(`   - Color: ${itemData.color}`);
+    }
+  }
+
+  // Method 2: Get partial information from target.attributes
+  if (source === 'label') {
+    console.log('   - Text:', event.target.attributes.text);
+  } else if (source === 'marker') {
+    console.log('   - Color:', event.target.attributes.fill);
+  }
+};
+
+chart.on('g2-legend-marker:click', (e) => handleLegendClick(e, 'marker'));
+chart.on('g2-legend-label:click', (e) => handleLegendClick(e, 'label'));
+```
+
+**Approach 3: Direct Canvas DOM Manipulation (Most flexible, for fully customized scenarios)**
+
+Use only when complete customization is needed:
+
+```js
+chart.on('afterrender', () => {
   const { canvas } = chart.getContext();
   const { document } = canvas;
-  const legendItems = document.getElementsByClassName('g2-legend-item');
-  const legendMarkers = document.getElementsByClassName('g2-legend-marker');
-  const legendLabels = document.getElementsByClassName('g2-legend-label');
-  const legendData = Array.from(legendItems).map((item) => item.__data__);
+  const items = document.getElementsByClassName('g2-legend-item');
 
-  legendLabels.forEach((label, index) => {
-    const labelText = label.getAttribute('text') || label.textContent;
+  items.forEach((item) => {
+    // Utilize event bubbling: clicks on child elements bubble to container
+    item.addEventListener('click', () => {
+      // Find the actual legend component
+      let legend = item.parentNode;
+      while (legend && !legend.className.includes('legend-category')) {
+        legend = legend.parentNode;
+        if (!legend) return;
+      }
 
-    label.addEventListener('click', (event) => {
-      const clickedText = label.getAttribute('text') || label.textContent;
-      const itemData = legendData[index];
-
-      console.log('\n  🖱️ Legend label clicked:');
-      console.log('    - Label text:', clickedText);
-      console.log('    - Index:', index);
-      console.log('    - Data:', itemData);
-      console.log('    - className:', label.className);
-
-      // Simulate business logic: perform actions based on clicked legend
-      alert(`You clicked legend: ${clickedText}
-You can trigger custom business logic here, such as:
-- Navigate to detail page
-- Show more information
-- Link with other charts`);
+      if (legend && legend.attributes && legend.attributes.data) {
+        const { data } = legend.attributes;
+        const { index } = item.__data__;
+        const itemData = data[index]; // {id, label, color}
+        console.log('Legend item data:', itemData);
+      }
     });
   });
 });
@@ -231,19 +333,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
 chart.render();
 
@@ -259,14 +363,14 @@ chart.on('plot:click', (event) => {
     return;
   }
 
-  // Handle plot area click logic
+  // Handle plot click logic
   console.log('Plot area clicked', event);
 });
 ```
 
 ### Controlling Element Styles with className
 
-You can retrieve specific elements by className and dynamically modify their styles:
+You can get specific elements via className and dynamically modify their styles:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -276,32 +380,34 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
   const { document } = canvas;
   const legendItems = document.getElementsByClassName('g2-legend-item');
 
-  // Modify the style of the first legend item
+  // Modify the first legend item's style
   if (legendItems.length > 0) {
     const firstItem = legendItems[0];
     const firstMarker = firstItem.getElementsByClassName('g2-legend-marker')[0];
     const firstLabel = firstItem.getElementsByClassName('g2-legend-label')[0];
 
-    // Add highlight styles
+    // Add highlight style
     if (firstLabel) {
       firstLabel.style.fontWeight = 'bold';
       firstLabel.style.fill = 'orange';
@@ -316,7 +422,7 @@ chart.render().then(() => {
 
 ### Finding Specific Elements by Content
 
-Combining className with element attributes allows precise location of specific chart elements:
+Combining className with element attributes allows precise targeting of specific chart elements:
 
 ```js | ob { inject: true }
 import { Chart } from '@antv/g2';
@@ -326,19 +432,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+    color: 'genre',
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
@@ -362,13 +470,13 @@ chart.render().then(() => {
   if (targetItem) {
     console.log(`✅ Found target legend: "${targetText}"`);
     console.log('   className:', targetItem.className);
-    console.log('   Business logic can be executed: e.g., auto-focus, highlight, etc.');
+    console.log('   Can execute business logic: e.g., auto-focus, highlight, etc.');
 
-    // Add background color and special styles to target legend item
+    // Add background color and special styles to the target legend item
 
     console.log(`🎨 Adding special styles to legend "${targetText}"...`);
 
-    // Get the background element of legend item
+    // Get the legend item's background element
     const background = targetItem.getElementsByClassName(
       'g2-legend-background',
     )[0];
@@ -390,38 +498,87 @@ chart.render().then(() => {
 });
 ```
 
-### Complete List of G2 Component className
+## Complete List of G2 Component className
 
-#### Legend Component
+### Legend Components
 
-| className                     | Description                            |
-| ----------------------------- | -------------------------------------- |
-| **`g2-legend-title`**         | Legend title                           |
-| **`g2-legend-item`**          | Container for category legend item     |
-| **`g2-legend-background`**    | Background of category legend item     |
-| **`g2-legend-marker`**        | Marker icon of category legend item    |
-| **`g2-legend-label`**         | Label text of category legend item     |
-| **`g2-legend-value`**         | Value of category legend item          |
-| **`g2-legend-focus-icon`**    | Focus icon of category legend item     |
-| **`g2-legend-ribbon`**        | Color ribbon of continuous legend      |
-| **`g2-legend-track`**         | Track of continuous legend             |
-| **`g2-legend-selection`**     | Selection area of continuous legend    |
-| **`g2-legend-handle`**        | Slider handle of continuous legend     |
-| **`g2-legend-handle-marker`** | Slider handle icon of continuous legend|
-| **`g2-legend-handle-label`**  | Label/tick value of continuous legend  |
+| className                     | Description                          |
+| ----------------------------- | ------------------------------------ |
+| **`g2-legend-title`**         | Legend title                         |
+| **`g2-legend-item`**          | Category legend item container       |
+| **`g2-legend-background`**    | Category legend item background      |
+| **`g2-legend-marker`**        | Category legend item marker          |
+| **`g2-legend-label`**         | Category legend item label text      |
+| **`g2-legend-value`**         | Category legend item value           |
+| **`g2-legend-focus-icon`**    | Category legend item focus icon      |
+| **`g2-legend-ribbon`**        | Continuous legend color ribbon       |
+| **`g2-legend-track`**         | Continuous legend slider track       |
+| **`g2-legend-selection`**     | Continuous legend selection area     |
+| **`g2-legend-handle`**        | Continuous legend slider handle      |
+| **`g2-legend-handle-marker`** | Continuous legend handle marker      |
+| **`g2-legend-handle-label`**  | Continuous legend label/tick value   |
 
-#### Axis Component
+### Axis Components
 
 | className                | Description       |
 | ------------------------ | ----------------- |
-| **`g2-axis-line`**       | Main axis line    |
+| **`g2-axis-line`**       | Axis main line    |
 | **`g2-axis-tick`**       | Axis tick line    |
-| **`g2-axis-tick-item`**  | Single tick item  |
+| **`g2-axis-tick-item`**  | Individual tick   |
 | **`g2-axis-label`**      | Axis tick label   |
-| **`g2-axis-label-item`** | Single label item |
+| **`g2-axis-label-item`** | Individual label  |
 | **`g2-axis-title`**      | Axis title        |
-| **`g2-axis-grid`**       | Axis grid line    |
+| **`g2-axis-grid`**       | Axis grid lines   |
+
+### Why don't click events work on container elements?
+
+Container elements like `g2-legend-item` and `g2-axis` are typically the outermost elements of components with transparent backgrounds and no clickable rendered area. Actual click events are triggered by their child elements and then propagate to the container through event bubbling.
+
+**Legend Component Examples:**
+
+- ✅ `g2-legend-marker:click` - Click on marker icon
+- ✅ `g2-legend-label:click` - Click on label text
+- ❌ `g2-legend-item:click` - Container itself has no clickable area
+
+**Axis Component Examples:**
+
+- ✅ `g2-axis-label:click` - Click on axis label
+- ✅ `g2-axis-title:click` - Click on axis title
+- ✅ `g2-axis-line:click` - Click on axis line
+- ❌ `g2-axis:click` - Container itself has no clickable area
+
+**How to get clicked legend item data?**
+
+Child elements (marker/label) don't directly store complete data. Use the following approaches:
+
+1. **Via parent container** (recommended): Navigate up to the item container, get complete data via `item.__data__.index` + `legend.attributes.data`
+2. **From attributes**: Label's `text` property, marker's `fill` property contain partial information
+3. **Using DOM listeners**: Bind events directly on the item container, get data via `item.__data__`
+
+**Example: Get corresponding label when clicking marker**
+
+```js
+chart.on('g2-legend-marker:click', (e) =>  {
+  const item = e.target.parentNode.parentNode;
+  if (item && item.__data__) {
+    // Find the actual legend component
+    let legend = item.parentNode;
+    while (legend && !legend.className.includes('legend-category')) {
+      legend = legend.parentNode;
+      if (!legend) return;
+    }
+
+    if (legend && legend.attributes && legend.attributes.data) {
+      const { data } = legend.attributes;
+      const { index } = item.__data__;
+      const itemData = data[index];
+      console.log('Clicked marker, corresponding label is:', itemData.label);
+      console.log('Complete data:', itemData); // {id, label, color}
+    }
+  }
+});
+```
 
 ## Typical Use Cases
 
-For detailed examples, see Interaction - Events [Examples](/en/examples#interaction-event)
+See Interaction - Event [Examples](/en/examples#interaction-event)
