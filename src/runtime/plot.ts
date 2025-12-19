@@ -17,6 +17,7 @@ import {
   useMemo,
 } from '../utils/helper';
 import { G2Element, select, Selection } from '../utils/selection';
+import { inferDefaultInteractions } from './interaction';
 import {
   groupComponents,
   inferComponent,
@@ -508,7 +509,6 @@ async function initializeView(
   const { library } = context;
 
   const flattenOptions = await transformMarks(options, context);
-
   const mergedOptions = bubbleOptions(flattenOptions);
 
   // @todo Remove this.
@@ -539,11 +539,19 @@ function bubbleOptions(options: G2View): G2View {
     (prev, cur) => deepMix(prev, cur),
     {},
   );
-  const newInteraction = [viewInteraction, ...markInteractions].reduce(
+
+  const newStyle = [...markViewStyles, viewStyle].reduce(
     (prev, cur) => deepMix(prev, cur),
     {},
   );
-  const newStyle = [...markViewStyles, viewStyle].reduce(
+
+  // Infer default interactions based on mark type and final coordinate
+  const inferredMarkInteractions = inferDefaultInteractions(
+    marks,
+    newCoordinate,
+  );
+
+  const newInteraction = [viewInteraction, ...inferredMarkInteractions].reduce(
     (prev, cur) => deepMix(prev, cur),
     {},
   );
@@ -591,6 +599,7 @@ async function transformMarks(
     else {
       const { props = {} } = createMark(type);
       const { composite = true } = props;
+
       if (!composite) flattenMarks.push(mark);
       else {
         // Unwrap data from { value: data } to data,
