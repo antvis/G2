@@ -409,6 +409,14 @@ export default defineConfig({
         icon: 'other',
       },
       {
+        slug: 'scene',
+        title: {
+          zh: '场景可视化',
+          en: 'Scene Visualization',
+        },
+        icon: 'other',
+      },
+      {
         slug: 'style',
         title: {
           zh: '风格',
