@@ -871,19 +871,94 @@ function computeCategoryLegendSize(
       ? crossSize0 + (isVertical ? 0 : crossPadding[0] + crossPadding[1])
       : length;
 
+  // Create scale.
+  const scale = createScale(component, library);
+
+  // If render is provided, use HTML to render.
+  const { render } = component;
+  if (render && typeof document !== 'undefined') {
+    const domain = scale.getOptions().domain;
+    const { labelFormatter } = rest;
+    const formatLabel = (d: any) => {
+      if (!labelFormatter) return `${d}`;
+      return typeof labelFormatter === 'string'
+        ? format(labelFormatter)(d)
+        : labelFormatter(d);
+    };
+
+    const items = domain.map((d, i) => ({
+      id: d,
+      index: i,
+      label: formatLabel(d),
+      value: d,
+      color: scale.map(d),
+    }));
+
+    const html = render(items, rest);
+    const container = document.createElement('div');
+    const { width, height } = component;
+
+    const style: Partial<CSSStyleDeclaration> = {
+      position: 'absolute',
+      visibility: 'hidden',
+      top: '-9999px',
+    };
+
+    if (width) style.width = `${width}px`;
+    else if (!isVertical) style.width = `${crossSize}px`;
+
+    if (height) style.height = `${height}px`;
+    else if (isVertical) style.height = `${crossSize}px`;
+
+    Object.assign(container.style, style);
+
+    if (typeof html === 'string') {
+      container.innerHTML = html;
+    } else if (html instanceof HTMLElement) {
+      container.appendChild(html);
+    }
+    document.body.appendChild(container);
+    const bbox = container.getBoundingClientRect();
+    document.body.removeChild(container);
+    component.size = isVertical ? bbox.width : bbox.height;
+    return;
+  }
+
   // Compute title.
   const titleBBox = computeTitleBBox(rest);
 
-  const scale = createScale(component, library);
   const labelBBoxes = computeLabelsBBox(rest, scale, 'itemLabel');
 
-  const height = Math.max(labelBBoxes[0].height, itemMarkerSize) + rowPadding;
-  const widthOf = (w, padding = 0) =>
-    itemMarkerSize +
-    w +
-    itemSpacing[0] +
-    padding +
-    (focus ? focusMarkerSize + itemSpacing[2] : 0);
+  // Compute itemValue sizes if itemValue is configured
+  const valueBBoxes =
+    rest.itemValueText !== undefined
+      ? computeLabelsBBox(rest, scale, 'itemValue')
+      : null;
+
+  const height =
+    Math.max(
+      labelBBoxes[0].height,
+      itemMarkerSize,
+      // Also consider itemValue height if it exists
+      ...(valueBBoxes?.[0] ? [valueBBoxes[0].height] : []),
+    ) + rowPadding;
+
+  const widthOf = (labelWidth, padding = 0) => {
+    // Calculate total width including marker, label, value (if exists), and focus icon
+    let totalWidth = itemMarkerSize + labelWidth + itemSpacing[0] + padding;
+
+    // Add itemValue width if it exists
+    if (valueBBoxes?.[0]) {
+      totalWidth += valueBBoxes[0].width + itemSpacing[1];
+    }
+
+    // Add focus icon width if focus is enabled
+    if (focus) {
+      totalWidth += focusMarkerSize + itemSpacing[2];
+    }
+
+    return totalWidth;
+  };
 
   // Only support grid layout for vertical area.
   const computeVerticalSize = () => {
