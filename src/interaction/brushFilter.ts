@@ -81,7 +81,12 @@ export function brushFilter(
   };
 }
 
-export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
+export function BrushFilter({
+  hideX = true,
+  hideY = true,
+  history = false,
+  ...rest
+}) {
   return (target, viewInstances, emitter) => {
     const { container, view, options: viewOptions, update, setState } = target;
     const plotArea = selectPlotArea(container);
@@ -96,8 +101,36 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
     let filtered = false;
     let filtering = false;
     let newView = view;
-
+    const brushHistory = [];
     const { scale, coordinate } = view;
+    const updateScale = (options, domainX, domainY) => {
+      const { marks } = options;
+      const newMarks = marks.map((mark) =>
+        deepMix(
+          {
+            // Hide label to keep smooth transition.
+            axis: {
+              ...(hideX && { x: { transform: [{ type: 'hide' }] } }),
+              ...(hideY && { y: { transform: [{ type: 'hide' }] } }),
+            },
+          },
+          mark,
+          {
+            // Set nice to false to avoid modify domain.
+            scale: {
+              x: { domain: domainX, nice: false },
+              y: { domain: domainY, nice: false },
+            },
+          },
+        ),
+      );
+
+      return {
+        ...viewOptions,
+        marks: newMarks,
+        clip: true, // Clip shapes out of plot area.
+      };
+    };
     return brushFilter(plotArea, {
       brushRegion: (x, y, x1, y1) => [x, y, x1, y1],
       selection: (x, y, x1, y1) => {
@@ -112,62 +145,75 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
         // Update the domain of x and y scale to filter data.
         const [domainX, domainY] = selection;
 
-        setState('brushFilter', (options) => {
-          const { marks } = options;
-          const newMarks = marks.map((mark) =>
-            deepMix(
-              {
-                // Hide label to keep smooth transition.
-                axis: {
-                  ...(hideX && { x: { transform: [{ type: 'hide' }] } }),
-                  ...(hideY && { y: { transform: [{ type: 'hide' }] } }),
-                },
-              },
-              mark,
-              {
-                // Set nice to false to avoid modify domain.
-                scale: {
-                  x: { domain: domainX, nice: false },
-                  y: { domain: domainY, nice: false },
-                },
-              },
-            ),
-          );
-
-          return {
-            ...viewOptions,
-            marks: newMarks,
-            clip: true, // Clip shapes out of plot area.
-          };
-        });
-
+        setState('brushFilter', (options) =>
+          updateScale(options, domainX, domainY),
+        );
+        if (history) {
+          brushHistory.push({
+            domain: selection,
+            view: newView,
+          });
+        }
         // Emit event.
         emitter.emit('brush:filter', {
           ...event,
-          data: { selection: [domainX, domainY] },
+          data: {
+            ...(history ? { history: brushHistory } : {}),
+            selection: [domainX, domainY],
+          },
         });
-
         const newState = await update();
         newView = newState.view;
         filtering = false;
         filtered = true;
       },
-      reset: (event) => {
+      reset: async (event) => {
         if (filtering || !filtered) return;
+        event.nativeEvent = true;
 
-        // Emit event.
-        const { scale } = view;
-        const { x: scaleX, y: scaleY } = scale;
-        const domainX = scaleX.getOptions().domain;
-        const domainY = scaleY.getOptions().domain;
-        emitter.emit('brush:filter', {
-          ...event,
-          data: { selection: [domainX, domainY] },
-        });
-        filtered = false;
-        newView = view;
-        setState('brushFilter');
-        update();
+        // Restore previous brush state
+        if (brushHistory.length > 1) {
+          brushHistory.pop();
+
+          // Get the last brush state
+          const { domain, view: lastView } =
+            brushHistory[brushHistory.length - 1];
+
+          const [domainX, domainY] = domain;
+          newView = lastView;
+
+          // update scale
+          setState('brushFilter', (options) =>
+            updateScale(options, domainX, domainY),
+          );
+
+          emitter.emit('brush:filter', {
+            ...event,
+            data: {
+              ...(history ? { history: brushHistory } : {}),
+              selection: [domainX, domainY],
+            },
+          });
+
+          await update();
+        } else {
+          // Reset to initial state
+          brushHistory.length = 0;
+          emitter.emit('brush:filter', {
+            ...event,
+            data: {
+              ...(history ? { history: brushHistory } : {}),
+              selection: [
+                scale.x.getOptions().domain,
+                scale.y.getOptions().domain,
+              ],
+            },
+          });
+          setState('brushFilter');
+          newView = view;
+          filtered = false;
+          await update();
+        }
       },
       extent: undefined,
       emitter,

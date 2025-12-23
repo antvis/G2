@@ -87,6 +87,7 @@ export type BrushAxisHighlightInteraction = {
 export type BrushFilterInteraction = {
   type?: 'brushFilter';
   reverse?: boolean;
+  history?: boolean;
 } & Record<`${'mask'}${any}`, any>;
 
 export type BrushXFilterInteraction = {

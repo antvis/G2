@@ -94,6 +94,7 @@ chart.render();
 | 属性    | 描述               | 类型          | 默认值             | 必选 |
 | ------- | ------------------ | ------------- | ------------------ | ---- |
 | reverse | brush 是否反转     | boolean       | false              |      |
+| history | brush 框选记录     | boolean       | false              |      |
 | mask    | 框选区域的蒙版样式 | [mask](#mask) | 详见 [mask](#mask) |      |
 
 ### mask

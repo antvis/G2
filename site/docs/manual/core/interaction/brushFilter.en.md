@@ -94,6 +94,7 @@ It can also be configured at the View level. Interactions declared on the view w
 | Property | Description              | Type          | Default           | Required |
 | -------- | ------------------------ | ------------- | ----------------- | -------- |
 | reverse  | Whether to reverse brush | boolean       | false             |          |
+| history  | Whether to histroy brush | boolean       | false             |          |
 | mask     | Style of brush area mask | [mask](#mask) | See [mask](#mask) |          |
 
 ### mask
