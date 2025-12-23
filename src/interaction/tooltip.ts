@@ -1088,7 +1088,7 @@ export function seriesTooltip(
         nativeEvent: true,
         data: {
           ...tooltipData,
-          data: { x: invert(scale.x, transformedX, true) },
+          data: { x: invert(scale.x, transformedX) },
         },
       });
     },
