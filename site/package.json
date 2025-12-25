@@ -11,7 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
     "@antv/data-set": "^0.11.8",
-    "@antv/dumi-theme-antv": "beta",
+    "@antv/dumi-theme-antv": "0.8.0-beta.25",
     "@antv/g-lottie-player": "^1.0.32",
     "@antv/g-pattern": "^2.0.32",
     "@antv/g-plugin-3d": "^2.0.41",
@@ -52,6 +52,11 @@
   },
   "overrides": {
     "@monaco-editor/loader": "1.5.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@monaco-editor/loader": "1.5.0"
+    }
   },
   "repository": {
     "type": "git",
