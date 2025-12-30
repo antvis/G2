@@ -8,6 +8,8 @@
 
 G2 is a visualization grammar for dashboard building, data exploration and storytelling.
 
+<a href="https://trendshift.io/repositories/4408" target="_blank"><img src="https://trendshift.io/api/badge/repositories/4408" alt="antvis%2FG2 | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 [![Build Status](https://github.com/antvis/G2/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/G2/actions/workflows/build.yml)
 [![Coverage Status](https://img.shields.io/coveralls/github/antvis/g2/v5.svg)](https://coveralls.io/github/antvis/g2?branch=v5)
 [![npm Version](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
