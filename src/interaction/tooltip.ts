@@ -674,7 +674,7 @@ export function findSingleElement({
       : (d) => d.__data__.x + bandWidth / 2;
 
   // Sort for bisector search.
-  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+  if (isBar) markEls.sort((a, b) => xof(a) - xof(b));
   const findElementByTarget = (event) => {
     const { target = last(elements) } = event;
     return maybeRoot(target, (node) => {
@@ -758,6 +758,7 @@ export function findSeriesElement({
   const seriesElements = [];
   const itemElements = [];
   for (const element of elements) {
+    if (ANNOTATION_MARKS.includes(element.markType)) continue;
     const { __data__: data } = element;
     const { seriesX, title, items } = data;
     if (seriesX) seriesElements.push(element);
@@ -790,7 +791,7 @@ export function findSeriesElement({
   };
 
   // Sort itemElements for bisector search.
-  if (isBar) elements.sort((a, b) => xof(a) - xof(b));
+  if (isBar) itemElements.sort((a, b) => xof(a) - xof(b));
   else {
     itemElements.sort((a, b) => {
       const [minA, maxA] = extent(a);
