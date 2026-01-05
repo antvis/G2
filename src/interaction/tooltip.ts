@@ -14,7 +14,11 @@ import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
 import { BBox } from '../runtime';
 import { CALLBACK_ITEM_SYMBOL } from '../runtime/transform';
-import { G2_CLASS_PREFIX, g2Selector } from '../component/constant';
+import {
+  G2_CLASS_PREFIX,
+  g2Selector,
+  ANNOTATION_MARKS,
+} from '../component/constant';
 import {
   selectG2Elements,
   createXKey,
@@ -649,7 +653,10 @@ export function findSingleElement({
   shared,
 }): DisplayObject | undefined {
   const inInterval = (d) => d.markType === 'interval';
-  const isBar = elements.every(inInterval) && !isPolar(coordinate);
+  const inAnnotation = (d) => ANNOTATION_MARKS.includes(d.markType);
+  const markEls = elements.filter((d) => !inAnnotation(d));
+  const isBar =
+    markEls.length > 0 && markEls.every(inInterval) && !isPolar(coordinate);
   const scaleX = scale.x;
   const isEqualWidth = equalBandWidth(scale);
   const scaleSeries = scale.series;
@@ -693,13 +700,13 @@ export function findSingleElement({
         const [abstractX] = coordinate.invert(mouse);
         const search = bisector(xof).center;
         const i = isEqualWidth
-          ? search(elements, abstractX)
+          ? search(markEls, abstractX)
           : findNearestElementIndex(scaleX, abstractX);
-        const target = elements[i];
+        const target = markEls[i];
 
         if (!shared) {
           // For grouped bar chart without shared options.
-          const isGrouped = elements.find(
+          const isGrouped = markEls.find(
             (d) => d !== target && xof(d) === xof(target),
           );
           if (isGrouped) return findElementByTarget(event) || isGrouped;
