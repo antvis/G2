@@ -4,6 +4,7 @@ import { isTranspose } from '../../utils/coordinate';
 import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle, reorder } from '../utils';
+import { createRoundedPath } from '../../utils/path';
 
 export type FunnelOptions = {
   adjustPoints?: (
@@ -32,72 +33,6 @@ function getFunnelPoints(
   const newP1: Vector2 = [p1[0], nextPoints ? nextPoints[0][1] : p1[1]];
   const newP2: Vector2 = [p2[0], nextPoints ? nextPoints[3][1] : p2[1]];
   return [p0, newP1, newP2, p3];
-}
-
-/**
- * Calculate the offset
- */
-const getOffset = (
-  angle: number,
-  radius: number,
-  sign: 1 | -1,
-): { x: number; y: number } => {
-  const offsetX = Math.cos(angle) * radius;
-  const offsetY = Math.sin(angle) * radius;
-  return { x: offsetX * sign, y: offsetY };
-};
-/**
- * Calculate the radius of the long side
- */
-const getRadiusOfLongerBase = (angle: number, radius: number): number => {
-  return radius / Math.tan(angle / 2);
-};
-
-/**
- * Create a rounded rectangle path with given corner radius.
- */
-function createRoundedPath(
-  points: Vector2[],
-  radius: [number, number, number, number],
-): string {
-  const [p0, p1, p2, p3] = points;
-  const [r0, r1, r2, r3] = radius;
-  const isLongBaseOnTop = p1[0] - p0[0] > p2[0] - p3[0];
-
-  const angle = Math.atan2(Math.abs(p1[1] - p2[1]), Math.abs(p1[0] - p2[0]));
-
-  // The radius on the long side requires additional calculation
-  const rs = isLongBaseOnTop
-    ? [
-        getRadiusOfLongerBase(angle, r0),
-        getRadiusOfLongerBase(angle, r1),
-        r2,
-        r3,
-      ]
-    : [
-        r0,
-        r1,
-        getRadiusOfLongerBase(angle, r2),
-        getRadiusOfLongerBase(angle, r3),
-      ];
-
-  // Determine the direction of the X-axis offset based on the lengths of the upper and lower sides
-  const sign = isLongBaseOnTop ? 1 : -1;
-
-  const ofs = rs.map((r) => getOffset(angle, r, sign));
-
-  return [
-    `M${p0[0] + rs[0]} ${p0[1]}`,
-    `L${p1[0] - rs[1]} ${p1[1]}`,
-    `Q${p1[0]} ${p1[1]} ${p1[0] - ofs[1].x} ${p1[1] + ofs[1].y}`,
-    `L${p2[0] + ofs[2].x} ${p2[1] - ofs[2].y}`,
-    `Q${p2[0]} ${p2[1]} ${p2[0] - rs[2]} ${p2[1]}`,
-    `L${p3[0] + rs[3]} ${p3[1]}`,
-    `Q${p3[0]} ${p3[1]} ${p3[0] - ofs[3].x} ${p3[1] - ofs[3].y}`,
-    `L${p0[0] + ofs[0].x} ${p0[1] + ofs[0].y}`,
-    `Q${p0[0]} ${p0[1]} ${p0[0] + rs[0]} ${p0[1]}`,
-    'Z',
-  ].join(' ');
 }
 
 /**
@@ -139,7 +74,7 @@ export const Funnel: SC<FunnelOptions> = (options, context) => {
     ];
 
     const path = standardDirRadius.find((r) => r > 0)
-      ? createRoundedPath([p0, p1, p2, p3], standardDirRadius)
+      ? createRoundedPath([p0, p1, p2, p3], standardDirRadius, true)
       : line().curve(curveLinearClosed)([p0, p1, p2, p3]);
 
     return select(document.createElement('path', {}))

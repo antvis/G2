@@ -29,7 +29,7 @@ export function alphabetIntervalFunnelRadius(): G2Spec {
       innerRadiusTopRight: 5,
       innerRadiusBottomRight: 10,
       innerRadiusBottomLeft: 15,
-      radiusBottomRight: 0,
+      radiusBottomRight: 30,
       radiusBottomLeft: 0,
     },
     encode: {
