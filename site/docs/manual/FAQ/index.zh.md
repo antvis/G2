@@ -2282,12 +2282,12 @@ chart.options({
     },
     {
       type: 'line',
-      encode: { x: 'time', y: 'call', color: () => 'call' },
+      encode: { x: 'time', y: 'call', color: () => 'call', series: () => 'call' },
       scale: { series: { independent: true } },
     },
     {
       type: 'line',
-      encode: { x: 'time', y: 'mock', color: () => 'mock' },
+      encode: { x: 'time', y: 'mock', color: () => 'mock', series: () => 'mock' },
       scale: { y: { key: '2' }, series: { independent: true } },
     },
   ],
