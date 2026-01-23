@@ -1,13 +1,18 @@
 import { vi } from 'vitest';
 import { Band } from '@antv/scale';
+import { Canvas } from '@antv/g';
 import { computeLabelsBBox } from '../../../src/runtime/component';
 import { createNodeGCanvas } from '../../integration/utils/createNodeGCanvas';
 
 describe('computeLabelsBBox', () => {
-  it('should pass labels array to label callbacks', async () => {
-    const canvas = createNodeGCanvas(640, 480);
-    await canvas.ready;
+  let canvas: Canvas;
 
+  beforeEach(async () => {
+    canvas = createNodeGCanvas(640, 480);
+    await canvas.ready;
+  });
+
+  it('should pass labels array to label callbacks', async () => {
     const labels = ['A', 'B', 'C'];
 
     const scale = new Band();
@@ -37,9 +42,6 @@ describe('computeLabelsBBox', () => {
   });
 
   it('should pass labels array to keyed callbacks', async () => {
-    const canvas = createNodeGCanvas(640, 480);
-    await canvas.ready;
-
     const labels = ['A', 'B', 'C'];
     const scale = new Band();
     scale.update({ domain: labels, range: [0, 1] });
