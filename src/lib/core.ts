@@ -154,6 +154,7 @@ import {
   Fold as DataFold,
   Slice as DataSlice,
   Inline as DataInline,
+  Column as DataColumnConnector,
   Custom as DataCustom,
   Join as DataJoin,
   Sort as DataSort,
@@ -175,6 +176,7 @@ export function corelib() {
   return {
     'data.fetch': DataFetch,
     'data.inline': DataInline,
+    'data.column': DataColumnConnector,
     'data.sortBy': DataSortBy,
     'data.sort': DataSort,
     'data.filter': DataFilter,

@@ -360,6 +360,33 @@ function normalizedDataSource(data) {
   // Return null as a placeholder.
   if (!data) return { type: 'inline', value: null };
   if (Array.isArray(data)) return { type: 'inline', value: data };
+  // Check if data is column-major format (object with all array values)
+  if (isColumnMajorData(data)) {
+    return { type: 'column', value: data };
+  }
   const { type = 'inline', ...rest } = data;
   return { ...rest, type };
+}
+
+function isColumnMajorData(data: any): boolean {
+  // Check if the data is an object (not array, not null) with all values being arrays
+  if (!isStrictObject(data) || Array.isArray(data)) {
+    return false;
+  }
+
+  // Check if there's at least one key
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    return false;
+  }
+
+  // Check if all values are arrays and have the same length
+  const first = data[keys[0]];
+  if (!Array.isArray(first)) {
+    return false;
+  }
+  const length = first.length;
+  return keys.every(
+    (key) => Array.isArray(data[key]) && data[key].length === length,
+  );
 }
