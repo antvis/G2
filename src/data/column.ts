@@ -21,13 +21,16 @@ export const Column: DC<ColumnOptions> = (options) => {
       return [];
     }
 
-    // Get the first column's length (all columns should have the same length)
-    const firstColumn = value[columns[0]];
-    if (!Array.isArray(firstColumn)) {
+    const rowCount = value[columns[0]]?.length;
+
+    // Check if it is valid column-major data: every value should be an array of the same length.
+    const isColumnData = columns.every(
+      (c) => Array.isArray(value[c]) && value[c].length === rowCount,
+    );
+
+    if (!isColumnData) {
       return value;
     }
-
-    const rowCount = firstColumn.length;
     const rows: Record<string, any>[] = [];
 
     // Convert column-major to row-major

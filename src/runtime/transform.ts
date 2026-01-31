@@ -377,7 +377,7 @@ function isColumnMajorData(data: any): boolean {
   // Check if there's at least one key
   const keys = Object.keys(data);
   if (keys.length === 0) {
-    return false;
+    return true;
   }
 
   // Check if all values are arrays and have the same length
