@@ -168,6 +168,7 @@ import {
   Fold,
   Slice,
   Inline,
+  Column as ColumnData,
   Custom,
   Join,
   KDE,
@@ -192,6 +193,7 @@ describe('stdlib', () => {
     expect(stdlib()).toEqual({
       'data.fetch': Fetch,
       'data.inline': Inline,
+      'data.column': ColumnData,
       'data.sortBy': SortBy,
       'data.sort': Sort,
       'data.filter': Filter,
