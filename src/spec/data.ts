@@ -1,8 +1,8 @@
 import { DataTransform } from './dataTransform';
 
-export type Data = FetchConnector | InlineConnector;
+export type Data = FetchConnector | InlineConnector | ColumnConnector;
 
-export type DataTypes = 'inline' | 'fetch';
+export type DataTypes = 'inline' | 'fetch' | 'column';
 
 export type FetchConnector = {
   type?: 'fetch';
@@ -22,3 +22,9 @@ export type InlineConnector =
       transform?: DataTransform[];
     }
   | any;
+
+export type ColumnConnector = {
+  type?: 'column';
+  value?: Record<string, any[]>;
+  transform?: DataTransform[];
+};
