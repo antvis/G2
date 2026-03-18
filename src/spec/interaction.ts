@@ -219,6 +219,16 @@ export type TooltipInteraction = {
     event, // @todo
     options: { title: 'string'; items: TooltipItemValue[] },
   ) => HTMLElement | string;
+  // Crosshairs text label options
+  crosshairsTextFill?: string;
+  textX?: string;
+  textY?: string;
+  textXposition?: 'start' | 'center' | 'end';
+  textYposition?: 'start' | 'center' | 'end';
+  textXoffsetX?: number;
+  textXoffsetY?: number;
+  textYoffsetX?: number;
+  textYoffsetY?: number;
 } & Record<`crosshairs${any}`, any> &
   Record<`marker${any}`, any>;
 

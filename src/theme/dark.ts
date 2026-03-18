@@ -66,6 +66,7 @@ export const Dark: TC<DarkOptions> = (options) => {
         crosshairsStroke: '#fff',
         crosshairsLineWidth: 1,
         crosshairsStrokeOpacity: 0.25,
+        crosshairsTextFill: '#fff',
         css: {
           [g2Selector('tooltip')]: {
             background: '#1f1f1f',

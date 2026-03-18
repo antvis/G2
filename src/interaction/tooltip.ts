@@ -1,4 +1,4 @@
-import { Circle, DisplayObject, IElement, Line } from '@antv/g';
+import { Circle, DisplayObject, IElement, Line, Text } from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, set, throttle, last, isNumber } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
@@ -347,6 +347,12 @@ function updateRuleX(
     polar,
     insetLeft,
     insetTop,
+    textXposition = 'start' as const,
+    textXoffsetX = 5,
+    textXoffsetY = 0,
+    textX = undefined,
+    textY = undefined,
+    textFill = undefined,
     ...rest
   },
 ) {
@@ -354,6 +360,9 @@ function updateRuleX(
     lineWidth: 1,
     stroke: '#1b1e23',
     strokeOpacity: 0.5,
+    textX,
+    textY,
+    textFill,
     ...rest,
   };
 
@@ -429,6 +438,31 @@ function updateRuleX(
     ruleX.style.y1 = y1;
     ruleX.style.y2 = y2;
     root.ruleX = ruleX;
+
+    // Render text if crosshairsLabelX or textX is provided
+    const labelX = defaults.textX;
+    if (labelX) {
+      const createTextX = () => {
+        const text = new Text({
+          style: {
+            text: labelX,
+            fontSize: 12,
+            fill: defaults.textFill || defaults.stroke,
+            textAlign: textXposition,
+            textBaseline: 'middle',
+          },
+        });
+        root.appendChild(text);
+        return text;
+      };
+
+      const textX = root.textX || createTextX();
+      // Position at end of the crosshair line (right side)
+      textX.style.x = x2 + textXoffsetX;
+      textX.style.y = (y1 + y2) / 2 + textXoffsetY;
+      textX.style.text = labelX;
+      root.textX = textX;
+    }
   }
 }
 
@@ -446,6 +480,11 @@ function updateRuleY(
     polar,
     insetLeft,
     insetTop,
+    textYposition = 'end' as const,
+    textYoffsetX = 5,
+    textYoffsetY = 5,
+    textY = undefined,
+    textFill = undefined,
     ...rest
   },
 ) {
@@ -453,6 +492,8 @@ function updateRuleY(
     lineWidth: 1,
     stroke: '#1b1e23',
     strokeOpacity: 0.5,
+    textY,
+    textFill,
     ...rest,
   };
 
@@ -498,6 +539,31 @@ function updateRuleY(
     ruleY.style.y1 = y1;
     ruleY.style.y2 = y2;
     root.ruleY = ruleY;
+
+    // Render text if textY is provided
+    const labelY = defaults.textY;
+    if (labelY) {
+      const createTextY = () => {
+        const text = new Text({
+          style: {
+            text: labelY,
+            fontSize: 12,
+            fill: defaults.textFill || defaults.stroke,
+            textAlign: textYposition,
+            textBaseline: 'bottom',
+          },
+        });
+        root.appendChild(text);
+        return text;
+      };
+
+      const textYObj = root.textY || createTextY();
+      // Position at end of the crosshair line (top)
+      textYObj.style.x = (x1 + x2) / 2 + textYoffsetX;
+      textYObj.style.y = y2 + textYoffsetY;
+      textYObj.style.text = labelY;
+      root.textY = textYObj;
+    }
   }
 }
 
@@ -506,12 +572,20 @@ function hideRuleY(root) {
     root.ruleY.remove();
     root.ruleY = undefined;
   }
+  if (root.textY) {
+    root.textY.remove();
+    root.textY = undefined;
+  }
 }
 
 function hideRuleX(root) {
   if (root.ruleX) {
     root.ruleX.remove();
     root.ruleX = undefined;
+  }
+  if (root.textX) {
+    root.textX.remove();
+    root.textX = undefined;
   }
 }
 
