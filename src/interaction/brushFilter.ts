@@ -81,7 +81,13 @@ export function brushFilter(
   };
 }
 
-export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
+export function BrushFilter({
+  hideX = true,
+  hideY = true,
+  filterX = true,
+  filterY = true,
+  ...rest
+}) {
   return (target, viewInstances, emitter) => {
     const { container, view, options: viewOptions, update, setState } = target;
     const plotArea = selectPlotArea(container);
@@ -126,9 +132,10 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
               mark,
               {
                 // Set nice to false to avoid modify domain.
+                // Only update scale for the axis being filtered.
                 scale: {
-                  x: { domain: domainX, nice: false },
-                  y: { domain: domainY, nice: false },
+                  ...(filterX && { x: { domain: domainX, nice: false } }),
+                  ...(filterY && { y: { domain: domainY, nice: false } }),
                 },
               },
             ),
