@@ -2223,3 +2223,139 @@ chart.render();
 - 多视图组合场景必须使用复合容器：`spaceFlex`（并列布局）、`spaceLayer`（层叠布局）、`facet`（分面布局）等
 - 如果只需要在同一坐标系下绘制多种图形，使用单个 View 包含多个 Mark 即可
 - 查看[视图（View）](/manual/core/view)的详细文档了解更多配置选项
+
+## Tooltip 和图例顺序不一致
+
+**问题描述**
+
+在绘制多系列折线图或多轴图时，鼠标悬停显示的 Tooltip 中数据项的顺序，与图例中的顺序不一致。
+
+例如，图例顺序是 `waiting → people → call → mock`，但 Tooltip 显示顺序是 `people → mock → call → waiting`。
+
+**原因分析**
+
+这是 G2 的设计特性，两者的排序逻辑不同：
+
+1. **图例顺序**：按照 `chart.line()` 的定义顺序（即 Mark 的添加顺序），保持数据分类的稳定性
+2. **Tooltip 顺序**：默认按照元素在图表中的**视觉位置**（Y 坐标从上到下）排序，符合用户的自然阅读习惯
+
+对于多轴图表，不同 Y 轴的数据在视觉上的位置可能与定义顺序不同，导致顺序差异。
+
+**解决方案**
+
+使用 `interaction.tooltip.sort` 配置自定义 Tooltip 的排序规则，使其与图例顺序一致：
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// 定义图例顺序
+const legendOrder = ['waiting', 'people', 'call', 'mock'];
+
+chart.options({
+  type: 'view',
+  data: [
+    { time: '10:10', call: 4, waiting: 2, people: 2, mock: 3 },
+    { time: '10:15', call: 2, waiting: 6, people: 3, mock: 4 },
+    { time: '10:20', call: 13, waiting: 2, people: 5, mock: 1 },
+    { time: '10:25', call: 9, waiting: 9, people: 1, mock: 2 },
+    { time: '10:30', call: 5, waiting: 2, people: 3, mock: 5 },
+    { time: '10:35', call: 8, waiting: 2, people: 1, mock: 3 },
+    { time: '10:40', call: 13, waiting: 1, people: 2, mock: 2 },
+  ],
+  children: [
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'waiting', color: () => 'waiting', series: () => 'waiting' },
+      scale: { y: { nice: true } },
+      axis: { y: { title: null } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'people', color: () => 'people', series: () => 'people' },
+      scale: { y: { key: '2' } },
+      axis: { y: { position: 'right', grid: null, title: null } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'call', color: () => 'call', series: () => 'call' },
+      scale: { series: { independent: true } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'mock', color: () => 'mock', series: () => 'mock' },
+      scale: { y: { key: '2' }, series: { independent: true } },
+    },
+  ],
+  interaction: {
+    tooltip: {
+      shared: true,
+      sort: (item) => {
+        // 按照图例顺序排序
+        const index = legendOrder.indexOf(item.name);
+        return index === -1 ? 999 : index;
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+**核心代码说明**
+
+```javascript
+// 1. 定义期望的顺序（与 children 中的 Mark 定义顺序一致）
+const legendOrder = ['waiting', 'people', 'call', 'mock'];
+
+// 2. 在 options 中配置 Tooltip 的排序规则
+chart.options({
+  type: 'view',
+  data: [...],
+  children: [
+    // Mark 定义顺序：waiting → people → call → mock
+    { type: 'line', encode: { color: () => 'waiting' } },
+    { type: 'line', encode: { color: () => 'people' } },
+    { type: 'line', encode: { color: () => 'call' } },
+    { type: 'line', encode: { color: () => 'mock' } },
+  ],
+  interaction: {
+    tooltip: {
+      shared: true,
+      sort: (item) => {
+        // item.name 是当前数据项的名称
+        // 返回值越小，排序越靠前
+        const index = legendOrder.indexOf(item.name);
+        return index === -1 ? 999 : index; // 找不到的排在最后
+      },
+    },
+  },
+});
+```
+
+**其他自定义排序示例**
+
+```javascript
+// 按字母顺序
+sort: (item) => item.name
+
+// 按数值大小降序
+sort: (item) => -item.value
+
+// 自定义优先级
+sort: (item) => {
+  const priority = { waiting: 0, call: 1, people: 2, mock: 3 };
+  return priority[item.name] ?? 999;
+}
+```
+
+**注意事项**
+
+- `sort` 函数接收 Tooltip 的每个数据项 `item`，需要返回一个数字作为排序权重
+- 返回值越小，该项在 Tooltip 中的位置越靠前
+- 对于多轴图表，建议始终配置 `sort` 以保持与图例的一致性
+- 查看 [Tooltip](/manual/component/tooltip) 的详细文档了解更多配置选项

@@ -2218,3 +2218,139 @@ chart.render();
 - Multi-view composition scenarios must use composite containers: `spaceFlex` (parallel layout), `spaceLayer` (layered layout), `facet` (faceted layout), etc.
 - If you only need to draw multiple graphics in the same coordinate system, use a single View containing multiple Marks
 - See the detailed documentation on [View](/en/manual/core/view) for more configuration options
+
+## Inconsistent Order between Tooltip and Legend
+
+**Problem Description**
+
+When creating multi-series line charts or multi-axis charts, the order of data items in the Tooltip displayed on hover is inconsistent with the order in the Legend.
+
+For example, the Legend order is `waiting → people → call → mock`, but the Tooltip displays `people → mock → call → waiting`.
+
+**Cause Analysis**
+
+This is a design feature of G2, as the two components use different sorting logic:
+
+1. **Legend Order**: Based on the definition order of `chart.line()` (i.e., the order in which Marks are added), maintaining stability of data categories
+2. **Tooltip Order**: By default, sorted by the **visual position** of elements in the chart (Y-coordinate from top to bottom), following users' natural reading habits
+
+For multi-axis charts, data on different Y-axes may have visual positions that differ from their definition order, leading to order discrepancies.
+
+**Solution**
+
+Use the `interaction.tooltip.sort` configuration to customize Tooltip sorting rules to match the Legend order:
+
+```js | ob { inject: true }
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+// Define legend order
+const legendOrder = ['waiting', 'people', 'call', 'mock'];
+
+chart.options({
+  type: 'view',
+  data: [
+    { time: '10:10', call: 4, waiting: 2, people: 2, mock: 3 },
+    { time: '10:15', call: 2, waiting: 6, people: 3, mock: 4 },
+    { time: '10:20', call: 13, waiting: 2, people: 5, mock: 1 },
+    { time: '10:25', call: 9, waiting: 9, people: 1, mock: 2 },
+    { time: '10:30', call: 5, waiting: 2, people: 3, mock: 5 },
+    { time: '10:35', call: 8, waiting: 2, people: 1, mock: 3 },
+    { time: '10:40', call: 13, waiting: 1, people: 2, mock: 2 },
+  ],
+  children: [
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'waiting', color: () => 'waiting', series: () => 'waiting' },
+      scale: { y: { nice: true } },
+      axis: { y: { title: null } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'people', color: () => 'people', series: () => 'people' },
+      scale: { y: { key: '2' } },
+      axis: { y: { position: 'right', grid: null, title: null } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'call', color: () => 'call', series: () => 'call' },
+      scale: { series: { independent: true } },
+    },
+    {
+      type: 'line',
+      encode: { x: 'time', y: 'mock', color: () => 'mock', series: () => 'mock' },
+      scale: { y: { key: '2' }, series: { independent: true } },
+    },
+  ],
+  interaction: {
+    tooltip: {
+      shared: true,
+      sort: (item) => {
+        // Sort by legend order
+        const index = legendOrder.indexOf(item.name);
+        return index === -1 ? 999 : index;
+      },
+    },
+  },
+});
+
+chart.render();
+```
+
+**Core Code Explanation**
+
+```javascript
+// 1. Define expected order (consistent with Mark definition order in children)
+const legendOrder = ['waiting', 'people', 'call', 'mock'];
+
+// 2. Configure Tooltip sorting rules in options
+chart.options({
+  type: 'view',
+  data: [...],
+  children: [
+    // Mark definition order: waiting → people → call → mock
+    { type: 'line', encode: { color: () => 'waiting' } },
+    { type: 'line', encode: { color: () => 'people' } },
+    { type: 'line', encode: { color: () => 'call' } },
+    { type: 'line', encode: { color: () => 'mock' } },
+  ],
+  interaction: {
+    tooltip: {
+      shared: true,
+      sort: (item) => {
+        // item.name is the name of the current data item
+        // Lower return value means higher priority in sorting
+        const index = legendOrder.indexOf(item.name);
+        return index === -1 ? 999 : index; // Items not found are placed at the end
+      },
+    },
+  },
+});
+```
+
+**Other Custom Sorting Examples**
+
+```javascript
+// Sort alphabetically
+sort: (item) => item.name
+
+// Sort by value in descending order
+sort: (item) => -item.value
+
+// Custom priority
+sort: (item) => {
+  const priority = { waiting: 0, call: 1, people: 2, mock: 3 };
+  return priority[item.name] ?? 999;
+}
+```
+
+**Important Notes**
+
+- The `sort` function receives each Tooltip data item `item` and should return a number as the sorting weight
+- Lower return value means the item appears earlier in the Tooltip
+- For multi-axis charts, it's recommended to always configure `sort` to maintain consistency with the Legend
+- See the detailed documentation on [Tooltip](/en/manual/component/tooltip) for more configuration options

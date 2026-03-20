@@ -8,6 +8,8 @@
 
 G2 is a visualization grammar for dashboard building, data exploration and storytelling.
 
+<a href="https://trendshift.io/repositories/4408" target="_blank"><img src="https://trendshift.io/api/badge/repositories/4408" alt="antvis%2FG2 | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 [![Build Status](https://github.com/antvis/G2/actions/workflows/build.yml/badge.svg)](https://github.com/antvis/G2/actions/workflows/build.yml)
 [![Coverage Status](https://img.shields.io/coveralls/github/antvis/g2/v5.svg)](https://coveralls.io/github/antvis/g2?branch=v5)
 [![npm Version](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
@@ -25,7 +27,7 @@ G2 is named after Leland Wilkinson’s book _The Grammar of Graphics_ and was pr
 - [Examples](https://g2.antv.antgroup.com/examples) - a large number of demos to learn from and copy-paste
 - [Tutorials](https://g2.antv.antgroup.com/manual/quick-start) - interactive case-driven guides of G2's core concepts
 - [API Reference](https://g2.antv.antgroup.com/api/overview) - complete documentation for all visualization components
-- [Editor](https://editor.antv.antgroup.com/) - an intelligent generation tool based on AntV. It utilizes AI to reduce the development cost of data visualization, and can quickly generate visual charts through natural language.
+
 
 ## ✨ Features
 
@@ -109,6 +111,19 @@ And thank you to all our backers! 🙏
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" alt="code"/>
 
+## 📑 Paper
+
+Bairui Su, Zhiwei Wang, Zhifeng Lin, Xiaojuan Liao, Zihan Zhou, Minfeng Zhu, Wei Chen. [G2: A customizable web-based framework for authoring interactive visualizations](https://www.sciencedirect.com/science/article/pii/S2468502X26000033). Visual Informatics, 2026.
+
+```
+@article{su2026g2,
+  author={Bairui Su, Zhiwei Wang, Zhifeng Lin, Xiaojuan Liao, Zihan Zhou, Minfeng Zhu, Wei Chen},
+  title={G2: A customizable web-based framework for authoring interactive visualizations},
+  journal={Visual Informatics},
+  year={2026},
+  url={https://doi.org/10.1016/j.visinf.2026.100307}
+}
+```
 
 ## 📄 License
 

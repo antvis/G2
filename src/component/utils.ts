@@ -88,17 +88,19 @@ export class G2Layout extends Layout {
   }
 
   update(options: any) {
-    this.attr(options);
     const { subOptions } = options;
+    // Update child first so that layout calculation uses updated child dimensions
     this.child?.update(subOptions);
+    this.attr(options);
   }
 }
 
 export class LegendCategoryLayout extends G2Layout {
   update(options: any) {
     const { subOptions } = options;
-    this.attr(options);
+    // Update child first so that layout calculation uses updated child dimensions
     this.child?.update(subOptions);
+    this.attr(options);
   }
 }
 

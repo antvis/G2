@@ -1,3 +1,19 @@
+## [5.4.8](https://github.com/antvis/g2/compare/v5.4.7...v5.4.8) (2026-01-05)
+
+
+### Bug Fixes
+
+* scrollbar should not have adaptive filtering by default ([#7238](https://github.com/antvis/g2/issues/7238)) ([27de29b](https://github.com/antvis/g2/commit/27de29be2100a285ce83abce63758db693677eeb))
+* tooltip-shared with annotation ([#7255](https://github.com/antvis/g2/issues/7255)) ([11fc976](https://github.com/antvis/g2/commit/11fc9760d2699743ccbbde70050e4f0540a1acc1))
+
+
+### Features
+
+* add forward pyramid diagram ([#7232](https://github.com/antvis/g2/issues/7232)) ([cf5dfcd](https://github.com/antvis/g2/commit/cf5dfcd627ad6adaa41c8b8be2660e3e88bf6e64))
+* legend-size-autofit ([#7245](https://github.com/antvis/g2/issues/7245)) ([4d5c134](https://github.com/antvis/g2/commit/4d5c1343e8b3866a7139200232974eb5dadf81f4))
+
+
+
 ## [5.4.7](https://github.com/antvis/g2/compare/v5.4.5...v5.4.7) (2025-12-09)
 
 

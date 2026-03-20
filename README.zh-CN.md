@@ -8,6 +8,8 @@
 
 简洁的渐进式可视化语法，用于构建仪表盘、数据探索以及数据讲故事。
 
+<a href="https://trendshift.io/repositories/4408" target="_blank"><img src="https://trendshift.io/api/badge/repositories/4408" alt="antvis%2FG2 | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 <p align="center">
   <a href="https://g2.antv.antgroup.com/manual/introduction/what-is-g2">介绍</a> •
   <a href="https://g2.antv.antgroup.com/examples">案例</a> •

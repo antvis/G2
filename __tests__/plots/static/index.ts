@@ -322,6 +322,7 @@ export { intervalPointBullet } from './interval-point-bullet';
 export { intervalPointBullets } from './interval-point-bullets';
 export { intervalPointBulletDatas } from './interval-point-bullet-datas';
 export { mockIntervalLine } from './mock-interval-line';
+export { seriesNullNegativeInterval } from './series-null-negative-interval';
 export { alphabetIntervalSizedPadding } from './alphabet-interval-sized-padding';
 export { alphabetIntervalRotatePadding } from './alphabet-interval-rotate-padding';
 export { mockLineZeroX } from './mock-line-zero-x';

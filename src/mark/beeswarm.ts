@@ -96,7 +96,7 @@ export const Beeswarm: MC<BeeswarmOptions> = (options) => {
       );
 
     // 主轴吸附
-    sim.force('x', forceX<any>((d) => d.x).strength(0.5));
+    sim.force('x', forceX<any>((d) => d.x).strength(0));
     sim.force('y', forceY<any>((d) => d.y).strength(5));
 
     for (let i = 0; i < ITERATIONS; i++) sim.tick();

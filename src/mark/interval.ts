@@ -8,6 +8,7 @@ import {
   IntervalFunnel,
   IntervalPyramid,
 } from '../shape';
+import { defined } from '../utils/helper';
 import {
   baseGeometryChannels,
   basePostInference,
@@ -40,7 +41,7 @@ export const Interval: MC<IntervalOptions> = () => {
   return (index, scale, value, coordinate) => {
     const { x: X, y1: Y1, series: S, size: SZ } = value;
     let { y: Y } = value;
-    Y = Y.map((d) => (d !== undefined ? d : 1));
+    Y = Y.map((d, i) => (defined(d) ? d : +Y1[i]));
 
     // Calc width for each interval.
     // The scales for x and series channels must be band scale.
