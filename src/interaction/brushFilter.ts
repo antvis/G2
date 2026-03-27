@@ -114,8 +114,11 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
 
         setState('brushFilter', (options) => {
           const { marks } = options;
-          const newMarks = marks.map((mark) =>
-            deepMix(
+          const newMarks = marks.map((mark) => {
+            // Independent y scale manages its own domain based on filtered data,
+            // so skip overriding it to avoid cross-scale domain pollution.
+            const isYIndependent = mark.scale?.y?.independent === true;
+            return deepMix(
               {
                 // Hide label to keep smooth transition.
                 axis: {
@@ -128,11 +131,13 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
                 // Set nice to false to avoid modify domain.
                 scale: {
                   x: { domain: domainX, nice: false },
-                  y: { domain: domainY, nice: false },
+                  ...(!isYIndependent && {
+                    y: { domain: domainY, nice: false },
+                  }),
                 },
               },
-            ),
-          );
+            );
+          });
 
           return {
             ...viewOptions,
