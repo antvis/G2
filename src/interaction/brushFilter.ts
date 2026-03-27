@@ -118,6 +118,18 @@ export function BrushFilter({
         // Update the domain of x and y scale to filter data.
         const [domainX, domainY] = selection;
 
+        // Capture the current domains of the non-filtered axes from the view
+        // so they can be explicitly preserved (avoiding re-inference changes).
+        const { scale: currentScale } = newView;
+        const preservedDomainX =
+          !filterX && currentScale.x
+            ? currentScale.x.getOptions().domain
+            : null;
+        const preservedDomainY =
+          !filterY && currentScale.y
+            ? currentScale.y.getOptions().domain
+            : null;
+
         setState('brushFilter', (options) => {
           const { marks } = options;
           const newMarks = marks.map((mark) =>
@@ -132,10 +144,17 @@ export function BrushFilter({
               mark,
               {
                 // Set nice to false to avoid modify domain.
-                // Only update scale for the axis being filtered.
+                // For filtered axes: use the brush selection domain.
+                // For non-filtered axes: explicitly preserve the current domain.
                 scale: {
                   ...(filterX && { x: { domain: domainX, nice: false } }),
                   ...(filterY && { y: { domain: domainY, nice: false } }),
+                  ...(preservedDomainX && {
+                    x: { domain: preservedDomainX, nice: false },
+                  }),
+                  ...(preservedDomainY && {
+                    y: { domain: preservedDomainY, nice: false },
+                  }),
                 },
               },
             ),
