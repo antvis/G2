@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" color-interpolation-filters="sRGB" style="background: transparent;">
   <defs>
-    <clipPath id="b" transform="matrix(1 0 0 1 -16 -29.5)">
-      <use href="#a" transform="matrix(1 0 0 1 16 29.5)"/>
+    <clipPath id="b" transform="matrix(1 0 0 1 -16 -43)">
+      <use href="#a" transform="matrix(1 0 0 1 16 43)"/>
     </clipPath>
   </defs>
   <g>
@@ -21,11 +21,15 @@
         </g>
         <g fill="none" class="component">
           <g fill="none" transform="matrix(1 0 0 1 16 16)">
-            <g fill="none" class="legend-category" transform="matrix(1 0 0 1 0 13.5)">
+            <g fill="none" class="legend-category">
               <g fill="none" class="legend-title-group">
-                <g fill="none" class="legend-title"/>
+                <g fill="none" class="legend-title">
+                  <g>
+                    <text x="0" y="0" fill="rgba(29,33,41,1)" fill-opacity=".65" class="title-text g2-legend-title" dominant-baseline="central" dx=".5" dy="11.5" font-family="sans-serif" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">survived</text>
+                  </g>
+                </g>
               </g>
-              <g fill="none" class="legend-items-group">
+              <g fill="none" class="legend-items-group" transform="matrix(1 0 0 1 0 27)">
                 <g fill="none" class="legend-items">
                   <g fill="none" class="items-navigator">
                     <g fill="none" class="navigator-content-group" clip-path="url(#b)">

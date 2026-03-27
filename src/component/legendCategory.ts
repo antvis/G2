@@ -269,6 +269,10 @@ export const LegendCategory: GCC<LegendCategoryOptions> = (options) => {
       ...(cols !== undefined && { gridCol: cols }),
       ...(gridRow !== undefined && { gridRow }),
       titleText: titleContent(title),
+      // When the user explicitly provides a string title, override the theme's
+      // default `title: false` so that the title is actually rendered. Array
+      // titles are auto-generated field names and should respect the theme default.
+      ...(typeof title === 'string' && { title }),
       ...inferCategoryStyle(options, context),
     };
 
