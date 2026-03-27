@@ -1,6 +1,16 @@
 /**
  * @see https://github.com/antvis/G2/discussions/4557
  */
+
+/**
+ * The width (in px) of the navigation controls rendered by @antv/component
+ * when a legend has more than one page. When pagination is triggered,
+ * @antv/component reduces the available item width by this amount and
+ * re-lays out. G2 must account for the same reduction when computing the
+ * legend height so that page distribution stays consistent.
+ */
+const LEGEND_NAVIGATOR_WIDTH = 55;
+
 import { Coordinate } from '@antv/coord';
 import { deepMix, isEqual } from '@antv/util';
 import { groups, max, sum } from '@antv/vendor/d3-array';
@@ -1003,20 +1013,33 @@ function computeCategoryLegendSize(
 
   // Horizontal flex layout.
   const computeHorizontalFlex = () => {
-    let rows = 1;
-    let pos = 0;
-    let maxPos = -Infinity;
-    for (const { width } of labelBBoxes) {
-      const w = widthOf(width, colPadding);
-      if (pos + w > crossSize) {
-        maxPos = Math.max(maxPos, pos);
-        pos = w;
-        rows++;
-      } else {
-        pos += w;
+    // When pagination occurs, @antv/component re-lays out with a reduced
+    // limitWidth to make room for the navigation controls. Items that fit
+    // inline at the full width may wrap at the reduced width, causing uneven
+    // page distribution (e.g. 1 item on page 1, 2 on page 2). To avoid this,
+    // recompute with the reduced width when pagination occurs.
+    const compute = (availWidth: number) => {
+      let rows = 1;
+      let pos = 0;
+      let maxPos = -Infinity;
+      for (const { width } of labelBBoxes) {
+        const w = widthOf(width, colPadding);
+        if (pos + w > availWidth) {
+          maxPos = Math.max(maxPos, pos);
+          pos = w;
+          rows++;
+        } else {
+          pos += w;
+        }
       }
+      if (rows === 1) maxPos = pos;
+      return { rows, maxPos };
+    };
+
+    let { rows, maxPos } = compute(crossSize);
+    if (rows > 1) {
+      ({ rows, maxPos } = compute(crossSize - LEGEND_NAVIGATOR_WIDTH));
     }
-    if (rows === 1) maxPos = pos;
     component.size = height * getRows(rows) - rowPadding;
     component.length = maxPos;
   };
