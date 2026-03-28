@@ -203,6 +203,15 @@ export type TooltipInteraction = {
   facet?: boolean;
   body?: boolean;
   crosshairs?: boolean;
+  crosshairsFollow?: boolean;
+  crosshairsXFollow?: boolean;
+  crosshairsYFollow?: boolean;
+  crosshairsTag?: boolean;
+  crosshairsXTag?: boolean;
+  crosshairsYTag?: boolean;
+  crosshairsYTagPosition?: 'left' | 'right';
+  crosshairsXTagFormatter?: (value: any) => string;
+  crosshairsYTagFormatter?: (value: any) => string;
   marker?: boolean;
   groupName?: boolean;
   disableNative?: boolean;
