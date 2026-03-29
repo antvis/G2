@@ -1199,10 +1199,11 @@ export function seriesTooltip(
         });
       }
 
+      const followX = maybeValue(crosshairsXFollow, crosshairsFollow);
+      const followY = maybeValue(crosshairsYFollow, crosshairsFollow);
+
       if (crosshairs || crosshairsX || crosshairsY) {
         const ruleStyle = subObject(style, 'crosshairs');
-        const followX = maybeValue(crosshairsXFollow, crosshairsFollow);
-        const followY = maybeValue(crosshairsYFollow, crosshairsFollow);
 
         const ruleStyleX = {
           ...ruleStyle,
@@ -1249,17 +1250,17 @@ export function seriesTooltip(
         }
       }
 
-      const [abstractX, abstractY] = coordinate.invert(clampedFocus);
+      const [invertedX, invertedY] = coordinate.invert(clampedFocus);
       const xOfSeries = filteredSeriesData[0]?.[0].x;
       const yOfSeries = filteredSeriesData[0]?.[0].y;
       const xValue = invert(
         scale.x,
-        followY ? abstractX : xOfSeries ?? abstractX,
+        followY ? invertedX : xOfSeries ?? invertedX,
         true,
       );
       const yValue = invert(
         scale.y,
-        followX ? abstractY : yOfSeries ?? abstractY,
+        followX ? invertedY : yOfSeries ?? invertedY,
         true,
       );
       const tagStyle = subObject(style, 'crosshairsTag');
@@ -1674,22 +1675,27 @@ export function Tooltip(options) {
     const crosshairsSetting = maybeValue(crosshairs, defaultShowCrosshairs);
     if (rest.clickLock && !facet) plotArea.setAttribute(LOCKED_SYMBOL, false);
     // For non-facet and series tooltip.
-    if (isSeries && hasSeries(markState) && !facet) {
-      return seriesTooltip(plotArea, {
-        ...rest,
-        theme,
-        elements: selectG2Elements,
-        scale,
-        coordinate,
-        crosshairs: crosshairsSetting,
-        // the crosshairsX settings level: crosshairsX > crosshairs > false
-        // it means crosshairsX default is false
-        crosshairsX: maybeValue(maybeValue(crosshairsX, crosshairs), false),
-        // crosshairsY default depend on the crossharisSettings
-        crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
-        item,
-        emitter,
-      });
+    // Enter when:
+    // 1. isSeries && hasSeries(markState) - original logic for series marks
+    // 2. crosshairsFollow is enabled - needs seriesTooltip for follow functionality
+    if ((isSeries && hasSeries(markState)) || rest.crosshairsFollow) {
+      if (!facet) {
+        return seriesTooltip(plotArea, {
+          ...rest,
+          theme,
+          elements: selectG2Elements,
+          scale,
+          coordinate,
+          crosshairs: crosshairsSetting,
+          // the crosshairsX settings level: crosshairsX > crosshairs > false
+          // it means crosshairsX default is false
+          crosshairsX: maybeValue(maybeValue(crosshairsX, crosshairs), false),
+          // crosshairsY default depend on the crossharisSettings
+          crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
+          item,
+          emitter,
+        });
+      }
     }
 
     // For facet and series tooltip.
