@@ -409,7 +409,26 @@ function computePadding(
 
     // Specified padding.
     if (typeof value === 'number') {
-      components.forEach(defaultSizeOf);
+      // Even when padding is manually set, compute component sizes dynamically
+      // so that legends (and other components) are sized to their actual content
+      // rather than falling back to their defaultSize (e.g. 40px for LegendCategory,
+      // vs ~60px for a multi-row legend).
+      const size = isHorizontal
+        ? crossSize + crossPadding[0] + crossPadding[1]
+        : crossSize;
+      const grouped = groupComponents(components, size);
+      grouped.forEach((d) => {
+        if (d.size) return;
+        computeComponentSize(
+          d,
+          crossSize,
+          crossPadding,
+          position,
+          theme,
+          library,
+        );
+        defaultSizeOf(d);
+      });
       components.forEach(maybeHide);
     } else {
       // Compute padding dynamically.

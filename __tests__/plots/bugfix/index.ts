@@ -13,3 +13,4 @@ export { issueChart2897 } from './issue-chart-2897';
 export { issue6863 } from './issue-6863';
 export { issue6970 } from './issue-6970';
 export { issueLegendLongNamePagination } from './issue-legend-long-name-pagination';
+export { issueLegendManualPadding } from './issue-legend-manual-padding';
