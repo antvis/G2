@@ -360,10 +360,6 @@ function normalizedDataSource(data) {
   // Return null as a placeholder.
   if (!data) return { type: 'inline', value: null };
   if (Array.isArray(data)) return { type: 'inline', value: data };
-  // Check if data is column-major format (object with all array values)
-  if (isColumnMajorData(data)) {
-    return { type: 'column', value: data };
-  }
   const { type = 'inline', ...rest } = data;
   return { ...rest, type };
 }
