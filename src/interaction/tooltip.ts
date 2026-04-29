@@ -318,6 +318,7 @@ function groupItems(
             ...item,
             color,
             name: name1 || title,
+            channel: name,
           };
         },
       );
