@@ -719,10 +719,11 @@ function placeAxisArcInner(
   coordinate: Coordinate,
   area: SectionArea,
 ) {
-  const [x, y, , height] = area;
+  const [x, y] = area;
   const [cx, cy] = coordinate.getCenter();
+  const [width, height] = coordinate.getSize();
   const [innerRadius] = radiusOf(coordinate);
-  const r = height / 2;
+  const r = Math.min(width, height) / 2;
   const size = innerRadius * r;
   const x0 = cx - size;
   const y0 = cy - size;
