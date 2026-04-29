@@ -1,27 +1,32 @@
-import { bisectLeft, sort } from '@antv/vendor/d3-array';
-
-function constrain(x, lo, hi) {
-  return Math.min(hi, Math.max(lo, x));
-}
+import { sort } from '@antv/vendor/d3-array';
 
 export function isOrdinalScale(scale) {
   return !!scale.getBandWidth;
 }
 
-export function invert(scale, x, start) {
+export function invert(scale, x) {
   if (!isOrdinalScale(scale)) return scale.invert(x);
-  const { adjustedRange } = scale;
-  if (adjustedRange.includes(x)) {
-    return scale.invert(x);
-  }
-  const { domain } = scale.getOptions();
-  const offset = start ? -1 : 0;
+  const domain = scale.getOptions().domain;
+  const range = scale.adjustedRange;
   const step = scale.getStep();
-  const range = start ? adjustedRange : adjustedRange.map((d) => d + step);
-  // R[i0 - 1] < x <= R[i0]
-  const i0 = bisectLeft(range, x);
-  const i1 = constrain(i0 + offset, 0, domain.length - 1);
-  return domain[i1];
+  const bandwidth = scale.getBandWidth?.() ?? step;
+
+  // compute centers of each band
+  const centers = range.map((r) => r + bandwidth / 2);
+
+  // find nearest center
+  let min = Infinity;
+  let index = 0;
+
+  for (let i = 0; i < centers.length; i++) {
+    const d = Math.abs(x - centers[i]);
+    if (d < min) {
+      min = d;
+      index = i;
+    }
+  }
+
+  return domain[index];
 }
 
 export function domainOf(scale, values, ratioX?) {
@@ -50,14 +55,14 @@ export function domainOf(scale, values, ratioX?) {
 
 export function selectionOf(x, y, x1, y1, scale, coordinate) {
   const { x: scaleX, y: scaleY } = scale;
-  const abstractDomain = (point, start) => {
-    const [x, y] = coordinate.invert(point);
-    return [invert(scaleX, x, start), invert(scaleY, y, start)];
+  const abstract = (point) => {
+    const [px, py] = coordinate.invert(point);
+    return [invert(scaleX, px), invert(scaleY, py)];
   };
-  const p0 = abstractDomain([x, y], true);
-  const p1 = abstractDomain([x1, y1], false);
-  const domainX = domainOf(scaleX, [p0[0], p1[0]]);
-  const domainY = domainOf(scaleY, [p0[1], p1[1]]);
+  const p0 = abstract([x, y]);
+  const p1 = abstract([x1, y1]);
+  const domainX = domainOf(scaleX, p0[0] !== undefined ? [p0[0], p1[0]] : []);
+  const domainY = domainOf(scaleY, p0[1] !== undefined ? [p0[1], p1[1]] : []);
   return [domainX, domainY];
 }
 

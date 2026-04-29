@@ -46,7 +46,7 @@ describe('chart.emit', () => {
     chart.on('scrollbarX:filter', (event) => {
       if (!event.nativeEvent) return;
       expect(event.data.selection).toEqual([
-        ['2001-05', '2002-03'],
+        ['2001-05', '2002-04'],
         [50, 500],
       ]);
       resolveX();
@@ -60,7 +60,7 @@ describe('chart.emit', () => {
     chart.on('scrollbarY:filter', (event) => {
       if (!event.nativeEvent) return;
       expect(event.data.selection).toEqual([
-        ['2001-05', '2002-03'],
+        ['2001-05', '2002-04'],
         [150, 450],
       ]);
       resolveY();
