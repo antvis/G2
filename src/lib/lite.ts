@@ -58,7 +58,7 @@ import {
 } from '../interaction';
 import { Mark, View } from '../composition';
 import { LabelShape } from '../shape';
-import { Inline } from '../data';
+import { Inline, Column as ColumnData } from '../data';
 
 /**
  * In test stage, don't use it.
@@ -66,6 +66,7 @@ import { Inline } from '../data';
 export function litelib() {
   return {
     'data.inline': Inline,
+    'data.column': ColumnData,
     'coordinate.cartesian': Cartesian,
     'encode.constant': Constant,
     'encode.field': Field,
