@@ -89,3 +89,97 @@ describe('Clear EventEmitter', () => {
     expect(emitter?.getEvents()['legend:filter']).toBeUndefined();
   });
 });
+
+describe('BrushXFilter', () => {
+  it('should not change Y scale domain when filtering X axis.', async () => {
+    // @see https://github.com/antvis/G2/issues/7272
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
+
+    chart.options({
+      type: 'point',
+      data: [
+        { x: 1, y: 10 },
+        { x: 2, y: 50 },
+        { x: 3, y: 30 },
+        { x: 4, y: 80 },
+        { x: 5, y: 20 },
+        { x: 6, y: 60 },
+        { x: 7, y: 40 },
+        { x: 8, y: 90 },
+        { x: 9, y: 15 },
+        { x: 10, y: 70 },
+      ],
+      encode: { x: 'x', y: 'y' },
+      interaction: { brushXFilter: true },
+    });
+
+    await chart.render();
+
+    const initialYDomain = chart.getScale().y.getOptions().domain;
+
+    // Emit brush:filter with an X selection to simulate brushXFilter.
+    const { emitter } = chart.getContext();
+    const xSelection = [3, 8];
+    emitter.emit('brush:filter', {
+      nativeEvent: false,
+      data: { selection: [xSelection, initialYDomain] },
+    });
+
+    // Wait for update to complete.
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    const filteredYDomain = chart.getScale().y.getOptions().domain;
+
+    // Y scale domain should remain unchanged after brushXFilter.
+    expect(filteredYDomain).toEqual(initialYDomain);
+  });
+});
+
+describe('BrushYFilter', () => {
+  it('should not change X scale domain when filtering Y axis.', async () => {
+    // @see https://github.com/antvis/G2/issues/7272
+    const chart = new Chart({
+      canvas: createNodeGCanvas(640, 480),
+    });
+
+    chart.options({
+      type: 'point',
+      data: [
+        { x: 1, y: 10 },
+        { x: 2, y: 50 },
+        { x: 3, y: 30 },
+        { x: 4, y: 80 },
+        { x: 5, y: 20 },
+        { x: 6, y: 60 },
+        { x: 7, y: 40 },
+        { x: 8, y: 90 },
+        { x: 9, y: 15 },
+        { x: 10, y: 70 },
+      ],
+      encode: { x: 'x', y: 'y' },
+      interaction: { brushYFilter: true },
+    });
+
+    await chart.render();
+
+    const initialXDomain = chart.getScale().x.getOptions().domain;
+
+    // Emit brush:filter with a Y selection to simulate brushYFilter.
+    const { emitter } = chart.getContext();
+    const ySelection = [20, 70];
+    emitter.emit('brush:filter', {
+      nativeEvent: false,
+      data: { selection: [initialXDomain, ySelection] },
+    });
+
+    // Wait for update to complete.
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    const filteredXDomain = chart.getScale().x.getOptions().domain;
+
+    // X scale domain should remain unchanged after brushYFilter.
+    expect(filteredXDomain).toEqual(initialXDomain);
+  });
+});

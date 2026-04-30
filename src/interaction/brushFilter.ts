@@ -81,7 +81,13 @@ export function brushFilter(
   };
 }
 
-export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
+export function BrushFilter({
+  hideX = true,
+  hideY = true,
+  filterX = true,
+  filterY = true,
+  ...rest
+}) {
   return (target, viewInstances, emitter) => {
     const { container, view, options: viewOptions, update, setState } = target;
     const plotArea = selectPlotArea(container);
@@ -112,6 +118,18 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
         // Update the domain of x and y scale to filter data.
         const [domainX, domainY] = selection;
 
+        // Capture the current domains of the non-filtered axes from the view
+        // so they can be explicitly preserved (avoiding re-inference changes).
+        const { scale: currentScale } = newView;
+        const preservedDomainX =
+          !filterX && currentScale.x
+            ? currentScale.x.getOptions().domain
+            : null;
+        const preservedDomainY =
+          !filterY && currentScale.y
+            ? currentScale.y.getOptions().domain
+            : null;
+
         setState('brushFilter', (options) => {
           const { marks } = options;
           const newMarks = marks.map((mark) =>
@@ -126,9 +144,17 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
               mark,
               {
                 // Set nice to false to avoid modify domain.
+                // For filtered axes: use the brush selection domain.
+                // For non-filtered axes: explicitly preserve the current domain.
                 scale: {
-                  x: { domain: domainX, nice: false },
-                  y: { domain: domainY, nice: false },
+                  ...(filterX && { x: { domain: domainX, nice: false } }),
+                  ...(filterY && { y: { domain: domainY, nice: false } }),
+                  ...(preservedDomainX && {
+                    x: { domain: preservedDomainX, nice: false },
+                  }),
+                  ...(preservedDomainY && {
+                    y: { domain: preservedDomainY, nice: false },
+                  }),
                 },
               },
             ),
