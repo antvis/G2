@@ -366,7 +366,7 @@
               <path width="40.3307" height="293.6667" x="94.1051" y="58.7333" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m94.105 58.7333 40.3308 0 0 293.6667-40.3307 0z" class="element"/>
             </g>
             <g>
-              <path width="40.3307" height="352.4" x="138.917" y="0" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m138.917 0 40.3308 0 0 352.4-40.3308 0z" class="element"/>
+              <path width="40.3307" height="352.4" x="138.917" y="0" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m138.917 0 40.3308 0 0 352.4-40.3308 0z" class="element" opacity=".5"/>
             </g>
             <g>
               <path width="40.3307" height="176.2" x="183.729" y="176.2" fill="rgba(23,131,255,1)" fill-opacity=".95" stroke="rgba(23,131,255,1)" stroke-width="0" d="m183.729 176.2 40.3307 0 0 176.2-40.3307 0z" class="element" opacity=".5"/>
@@ -420,21 +420,21 @@
           <g fill="none" class="label-layer"/>
           <g fill="none" class="mask" transform="matrix(1 0 0 1 4.4812 0)">
             <g>
-              <path width="134.4358" height="352.4" fill="rgba(119,119,119,1)" fill-opacity=".3" stroke="rgba(255,255,255,1)" d="m0 0 134.4358 0 0 352.4-134.4358 0z"/>
+              <path width="129.9546" height="352.4" fill="rgba(119,119,119,1)" fill-opacity=".3" stroke="rgba(255,255,255,1)" d="m0 0 129.9546 0 0 352.4-129.9546 0z"/>
             </g>
             <g fill="none">
               <g>
-                <path width="124.4358" height="10" x="5" y="-5" fill="rgba(0,0,0,0)" d="m5-5 124.4358 0 0 10-124.4358 0z"/>
+                <path width="119.9546" height="10" x="5" y="-5" fill="rgba(0,0,0,0)" d="m5-5 119.9546 0 0 10-119.9546 0z"/>
               </g>
             </g>
             <g fill="none">
               <g>
-                <path width="10" height="342.4" x="129.4358" y="5" fill="rgba(0,0,0,0)" d="m129.4358 5 10 0 0 342.4-10 0z"/>
+                <path width="10" height="342.4" x="124.9546" y="5" fill="rgba(0,0,0,0)" d="m124.9546 5 10 0 0 342.4-10 0z"/>
               </g>
             </g>
             <g fill="none">
               <g>
-                <path width="124.4358" height="10" x="5" y="347.4" fill="rgba(0,0,0,0)" d="m5 347.4 124.4358 0 0 10-124.4358 0z"/>
+                <path width="119.9546" height="10" x="5" y="347.4" fill="rgba(0,0,0,0)" d="m5 347.4 119.9546 0 0 10-119.9546 0z"/>
               </g>
             </g>
             <g fill="none">
@@ -449,12 +449,12 @@
             </g>
             <g fill="none">
               <g>
-                <path width="10" height="10" x="129.4358" y="-5" fill="rgba(0,0,0,0)" d="m129.4358-5 10 0 0 10-10 0z"/>
+                <path width="10" height="10" x="124.9546" y="-5" fill="rgba(0,0,0,0)" d="m124.9546-5 10 0 0 10-10 0z"/>
               </g>
             </g>
             <g fill="none">
               <g>
-                <path width="10" height="10" x="129.4358" y="347.4" fill="rgba(0,0,0,0)" d="m129.4358 347.4 10 0 0 10-10 0z"/>
+                <path width="10" height="10" x="124.9546" y="347.4" fill="rgba(0,0,0,0)" d="m124.9546 347.4 10 0 0 10-10 0z"/>
               </g>
             </g>
             <g fill="none">

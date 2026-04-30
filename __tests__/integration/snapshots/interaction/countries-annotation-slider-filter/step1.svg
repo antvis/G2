@@ -130,7 +130,7 @@
                   </g>
                 </g>
                 <g fill="none" class="handle-label-group">
-                  <g transform="matrix(0 1 -1 0 -31.24 -31.24)">
+                  <g transform="matrix(0 1 -1 0 12 12)">
                     <text x="0" y="-31.24" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="left">7.5</text>
                   </g>
                 </g>
@@ -150,7 +150,7 @@
                   </g>
                 </g>
                 <g fill="none" class="handle-label-group">
-                  <g transform="matrix(0 1 -1 0 43.76 41.76)">
+                  <g transform="matrix(0 1 -1 0 -11 -13)">
                     <text x="0" y="42.76" fill="rgba(29,33,41,1)" fill-opacity=".45" class="handle-label" dominant-baseline="central" dx=".5" dy="0" font-size="12" font-weight="normal" paint-order="stroke" style="transform:translate(0px, 0px);" text-anchor="end">-17.5</text>
                   </g>
                 </g>
