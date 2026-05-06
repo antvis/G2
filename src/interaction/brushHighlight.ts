@@ -572,6 +572,20 @@ export function brushHighlight(
     }
   };
 
+  // Collect actual highlighted data points.
+  const getHighlightedData = (x, y, x1, y1) => {
+    const highlightedData = [];
+    for (const element of elements) {
+      const { min, max } = element.getLocalBounds();
+      const [ex, ey] = min;
+      const [ex1, ey1] = max;
+      if (intersect([ex, ey, ex1, ey1], [x, y, x1, y1])) {
+        highlightedData.push(datum(element));
+      }
+    }
+    return highlightedData;
+  };
+
   const brushed = (x, y, x1, y1) => {
     // Hide brush for the sibling view.
     for (const sibling of siblings) sibling.brush?.remove();
@@ -659,18 +673,20 @@ export function brushHighlight(
     },
     brushcreated: (x, y, x1, y1, event) => {
       const selection = selectionOf(x, y, x1, y1, scale, coordinate);
+      const data = getHighlightedData(x, y, x1, y1);
       emitter.emit('brush:end', {
         ...event,
         nativeEvent: true,
-        data: { selection },
+        data: { selection, data },
       });
     },
     brushupdated: (x, y, x1, y1, event) => {
       const selection = selectionOf(x, y, x1, y1, scale, coordinate);
+      const data = getHighlightedData(x, y, x1, y1);
       emitter.emit('brush:end', {
         ...event,
         nativeEvent: true,
-        data: { selection },
+        data: { selection, data },
       });
     },
     brushstarted: (e) => {
