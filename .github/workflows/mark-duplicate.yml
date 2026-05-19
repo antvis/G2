@@ -14,10 +14,25 @@ jobs:
       issues: write
     steps:
       - name: Mark duplicate issue
-        uses: actions-cool/issues-helper@v3.6.0
+        uses: actions/github-script@v7.0.1
         with:
-          actions: "mark-duplicate"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          duplicate-labels: "duplicate"
-          remove-labels: "waiting for maintainer"
-          close-issue: true
+          script: |
+            const body = context.payload.comment.body.trim();
+            if (!body.startsWith('/duplicate')) return;
+
+            const issueNumber = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // Add 'duplicate' label
+            await github.rest.issues.addLabels({ owner, repo, issue_number: issueNumber, labels: ['duplicate'] });
+
+            // Remove 'waiting for maintainer' label if present
+            try {
+              await github.rest.issues.removeLabel({ owner, repo, issue_number: issueNumber, name: 'waiting for maintainer' });
+            } catch (e) {
+              if (e.status !== 404) throw e;
+            }
+
+            // Close the issue
+            await github.rest.issues.update({ owner, repo, issue_number: issueNumber, state: 'closed' });
