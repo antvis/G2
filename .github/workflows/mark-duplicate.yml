@@ -20,6 +20,10 @@ jobs:
             const body = context.payload.comment.body.trim();
             if (!body.startsWith('/duplicate')) return;
 
+            const allowedAssociations = new Set(['OWNER', 'MEMBER', 'COLLABORATOR']);
+            const authorAssociation = context.payload.comment.author_association;
+            if (!allowedAssociations.has(authorAssociation)) return;
+
             const issueNumber = context.issue.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
