@@ -47,9 +47,12 @@ Tree chart supports multiple data configuration methods:
 Use `type: 'fetch'` to fetch data from remote sources, supporting JSON, CSV and other formats:
 
 ```js
-chart.tree().data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/flare.json',
+chart.options({
+  type: 'tree',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/flare.json',
+  },
 });
 ```
 
@@ -99,19 +102,22 @@ Since G2's default data type is `inline`, you can pass data directly:
 
 ```js
 // Pass hierarchical data object directly
-chart.tree().data({
-  value: {
-    name: 'root',
-    children: [
-      {
-        name: 'branch1',
-        value: 100,
-        children: [
-          { name: 'leaf1', value: 50 },
-          { name: 'leaf2', value: 30 },
-        ],
-      },
-    ],
+chart.options({
+  type: 'tree',
+  data: {
+    value: {
+      name: 'root',
+      children: [
+        {
+          name: 'branch1',
+          value: 100,
+          children: [
+            { name: 'leaf1', value: 50 },
+            { name: 'leaf2', value: 30 },
+          ],
+        },
+      ],
+    },
   },
 });
 
@@ -126,12 +132,13 @@ const flatData = [
   { name: 'root/branch2/leaf4', value: 40 },
 ];
 
-chart
-  .tree()
-  .data({ value: flatData })
-  .layout({
+chart.options({
+  type: 'tree',
+  data: { value: flatData },
+  layout: {
     path: (d) => d.name, // Specify path field
-  });
+  },
+});
 ```
 
 ### Data Structure Description

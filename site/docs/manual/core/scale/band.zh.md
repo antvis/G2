@@ -1090,9 +1090,15 @@ chart.render();
 可以通过设置 `padding` 属性来调整柱子之间的间距，从而间接调整柱子的宽度。`padding` 值越大，柱子越窄；值越小，柱子越宽。
 
 ```js
-chart.interval().encode('x', 'type').encode('y', 'sale').scale('x', {
-  type: 'band',
-  padding: 0.5, // 值范围在 [0, 1] 之间
+chart.options({
+  type: 'interval',
+  encode: { x: 'type', y: 'sale' },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.5, // 值范围在 [0, 1] 之间
+    },
+  },
 });
 ```
 
@@ -1110,19 +1116,21 @@ chart.interval().encode('x', 'type').encode('y', 'sale').scale('x', {
 
 ```js
 // 方法1：使用 flex 属性
-chart
-  .interval()
-  .encode('x', 'country')
-  .encode('y', 'value')
-  .scale('x', {
-    type: 'band',
-    flex: [2, 1, 3, 1.5], // 手动设置宽度比例
-  });
+chart.options({
+  type: 'interval',
+  encode: { x: 'country', y: 'value' },
+  scale: {
+    x: {
+      type: 'band',
+      flex: [2, 1, 3, 1.5], // 手动设置宽度比例
+    },
+  },
+});
 
 // 方法2：使用 flexX 转换
-chart
-  .interval()
-  .encode('x', 'country')
-  .encode('y', 'value')
-  .transform({ type: 'flexX', field: 'gdp' }); // 根据 gdp 字段自动设置宽度
+chart.options({
+  type: 'interval',
+  encode: { x: 'country', y: 'value' },
+  transform: [{ type: 'flexX', field: 'gdp' }], // 根据 gdp 字段自动设置宽度
+});
 ```

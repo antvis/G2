@@ -193,20 +193,21 @@ chart.options({
       delay: (d, i) => i * 10,
     },
   },
+  interaction: {
+    poptip: {
+      offsetX: 15,
+      offsetY: 15,
+      tipBackgroundColor: 'rgba(0, 0, 0, 0.85)',
+      tipBorderRadius: '6px',
+      tipPadding: '10px 12px',
+      tipFontSize: '12px',
+      tipColor: '#fff',
+      tipBoxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.48)',
+    },
+  },
 });
 
 chart.render();
-
-chart.interaction('poptip', {
-  offsetX: 15,
-  offsetY: 15,
-  tipBackgroundColor: 'rgba(0, 0, 0, 0.85)',
-  tipBorderRadius: '6px',
-  tipPadding: '10px 12px',
-  tipFontSize: '12px',
-  tipColor: '#fff',
-  tipBoxShadow: '0 3px 6px -4px rgba(0, 0, 0, 0.48)',
-});
 
 chart.on('element:mouseenter', (event) => {
   const { element } = event;
@@ -285,11 +286,12 @@ chart.options({
       duration: 800,
     },
   },
+  interaction: {
+    poptip: true,
+  },
 });
 
 chart.render();
-
-chart.interaction('poptip', true);
 
 chart.on('element:mouseenter', (event) => {
   const { element } = event;

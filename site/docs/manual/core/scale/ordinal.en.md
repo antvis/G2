@@ -50,15 +50,16 @@ Ordinal scales are suitable for the following scenarios:
 Here's a basic usage example that maps categorical data to the color channel:
 
 ```ts
-chart
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'category')
-  .scale('color', {
-    type: 'ordinal',
-    range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
-  });
+chart.options({
+  type: 'interval',
+  encode: { x: 'category', y: 'value', color: 'category' },
+  scale: {
+    color: {
+      type: 'ordinal',
+      range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
+    },
+  },
+});
 ```
 
 In this example, we map the 'category' field to the color channel and use an ordinal scale to specify a set of custom colors.
@@ -85,9 +86,13 @@ If domain is not set, G2 will automatically infer it from the data. However, in 
 - Limit to display only partial categories
 
 ```ts
-chart.scale('color', {
-  type: 'ordinal',
-  domain: ['Category A', 'Category B', 'Category C'], // Explicitly specify categories and their order
+chart.options({
+  scale: {
+    color: {
+      type: 'ordinal',
+      domain: ['Category A', 'Category B', 'Category C'], // Explicitly specify categories and their order
+    },
+  },
 });
 ```
 
@@ -96,9 +101,13 @@ chart.scale('color', {
 The `range` parameter defines the output domain of the scale, i.e., the set of mapped values. For ordinal scales, the range can be an array of any type, most commonly an array of colors.
 
 ```ts
-chart.scale('color', {
-  type: 'ordinal',
-  range: ['#1f77b4', '#ff7f0e', '#2ca02c'], // Custom colors
+chart.options({
+  scale: {
+    color: {
+      type: 'ordinal',
+      range: ['#1f77b4', '#ff7f0e', '#2ca02c'], // Custom colors
+    },
+  },
 });
 ```
 
@@ -113,10 +122,14 @@ If range is not set, G2 will use default values based on the channel type:
 The `compare` parameter is a comparison function used to sort values in the domain. This is very useful for controlling the display order of categorical data.
 
 ```ts
-chart.scale('color', {
-  type: 'ordinal',
-  // Sort alphabetically
-  compare: (a, b) => a.localeCompare(b),
+chart.options({
+  scale: {
+    color: {
+      type: 'ordinal',
+      // Sort alphabetically
+      compare: (a, b) => a.localeCompare(b),
+    },
+  },
 });
 ```
 

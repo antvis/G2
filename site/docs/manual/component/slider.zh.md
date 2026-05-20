@@ -378,17 +378,17 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
+  },
+  encode: { x: 'date', y: 'close' },
   // 开启 X 轴缩略轴
-  .slider('x', {});
+  slider: { x: {} },
+});
 
 chart.on('afterrender', () => {
   const { canvas } = chart.getContext();

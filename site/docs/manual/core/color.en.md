@@ -36,19 +36,18 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275, color: 'red' },
     { genre: 'Strategy', sold: 115, color: 'blue' },
     { genre: 'Action', sold: 120, color: 'green' },
     { genre: 'Shooter', sold: 350, color: 'red' },
     { genre: 'Other', sold: 150, color: 'black' },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'color')
-  .scale('color', { type: 'identity' }); // Set this scale to identity mapping
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'color' },
+  scale: { color: { type: 'identity' } }, // Set this scale to identity mapping
+});
 
 chart.render();
 ```
@@ -62,21 +61,22 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter')
-  .axis('y', { labelFormatter: '.0%' })
-  .scale('color', {
-    type: 'ordinal',
-    range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
-  });
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+  scale: {
+    color: {
+      type: 'ordinal',
+      range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
+    },
+  },
+});
 
 chart.render();
 ```
@@ -92,18 +92,17 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter')
-  .axis('y', { labelFormatter: '.0%' })
-  .scale('color', { palette: 'tableau10' });
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+  scale: { color: { palette: 'tableau10' } },
+});
 
 chart.render();
 ```
@@ -118,17 +117,20 @@ const chart = new Chart({
   height: 320,
 });
 
-chart
-  .cell()
-  .data({
+chart.options({
+  type: 'cell',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .transform({ type: 'group', color: 'max' })
-  .encode('x', (d) => new Date(d.date).getUTCDate())
-  .encode('y', (d) => new Date(d.date).getUTCMonth())
-  .encode('color', 'temp_max')
-  .scale('color', { palette: 'rainbow' });
+  },
+  transform: [{ type: 'group', color: 'max' }],
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(),
+    y: (d) => new Date(d.date).getUTCMonth(),
+    color: 'temp_max',
+  },
+  scale: { color: { palette: 'rainbow' } },
+});
 
 chart.render();
 ```
@@ -312,18 +314,17 @@ function customPalette() {
   return ['#FFB3BA', '#98FF98', '#89CFF0', '#FFF9B1', '#D1A3FF'];
 }
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter')
-  .axis('y', { labelFormatter: '.0%' })
-  .scale('color', { palette: 'custom' }); // Specify custom palette
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+  scale: { color: { palette: 'custom' } }, // Specify custom palette
+});
 
 chart.render();
 ```
@@ -333,11 +334,16 @@ chart.render();
 You can specify a series of mapping rules through `scale.relations`, which has higher priority than the default mapping from domain to range. For the color channel, this configuration is useful when you want specific values to map to specific colors or handle outliers.
 
 ```js
-chart.interval().scale('color', {
-  relations: [
-    ['dog', 'red'], // dog maps to red
-    [(d) => d === undefined, 'grey'], // if value is undefined, then grey
-  ],
+chart.options({
+  type: 'interval',
+  scale: {
+    color: {
+      relations: [
+        ['dog', 'red'], // dog maps to red
+        [(d) => d === undefined, 'grey'], // if value is undefined, then grey
+      ],
+    },
+  },
 });
 ```
 
@@ -352,21 +358,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .style('fill', (datum, index, data) => {
-    const { frequency } = datum;
-    if (frequency > 0.1) return '#3376cd';
-    if (frequency > 0.05) return '#f4bb51';
-    return '#b43a29';
-  });
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  style: {
+    fill: (datum, index, data) => {
+      const { frequency } = datum;
+      if (frequency > 0.1) return '#3376cd';
+      if (frequency > 0.05) return '#f4bb51';
+      return '#b43a29';
+    },
+  },
+});
 
 chart.render();
 ```

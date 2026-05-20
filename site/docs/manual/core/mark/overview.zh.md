@@ -378,7 +378,11 @@ const chart = new Chart({
 });
 
 // Options 使用复合 Mark
-chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
+chart.options({
+  type: PointLine,
+  data,
+  encode: { x: 'year', y: 'value' },
+});
 
 // Spec 使用复合 Mark
 chart.options({

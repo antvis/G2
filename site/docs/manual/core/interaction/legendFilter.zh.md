@@ -21,15 +21,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .data(temperatures)
-  .encode('x', 'month')
-  .encode('y', 'temperature')
-  .encode('color', 'city')
-  .call((chart) => chart.line())
-  .call((chart) => chart.point());
-
-chart.interaction('legendFilter', true);
+chart.options({
+  type: 'view',
+  data: temperatures,
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  interaction: { legendFilter: true },
+  children: [
+    { type: 'line' },
+    { type: 'point' },
+  ],
+});
 
 chart.render();
 ```
@@ -68,7 +69,10 @@ chart.render();
 图例筛选交互可以配置在 View 层级：
 
 ```js
-chart.interaction('legendFilter', true);
+chart.options({
+  type: 'view',
+  interaction: { legendFilter: true },
+});
 ```
 
 ## 配置项

@@ -670,22 +670,27 @@ export function isStrictObject(d: any): boolean {
 
 ```js
 // 字符串数据 → ordinal scale
-chart.interval().encode('x', 'category'); // category: ['A', 'B', 'C']
+({ type: 'interval', encode: { x: 'category' } }); // category: ['A', 'B', 'C']
 
 // 数值数据 → linear scale
-chart.line().encode('y', 'value'); // value: [10, 20, 30]
+({ type: 'line', encode: { y: 'value' } }); // value: [10, 20, 30]
 
 // 时间数据 → time scale
-chart.line().encode('x', 'date'); // date: [new Date('2023-01-01'), ...]
+({ type: 'line', encode: { x: 'date' } }); // date: [new Date('2023-01-01'), ...]
 
 // 定量通道的字符串数据 → point scale
-chart.interval().encode('x', 'month'); // month: ['Jan', 'Feb', 'Mar']
+({ type: 'interval', encode: { x: 'month' } }); // month: ['Jan', 'Feb', 'Mar']
 
 // 显式指定优先级最高
-chart.interval().scale('y', { type: 'log' }); // 强制使用 log scale
+({ type: 'interval', scale: { y: { type: 'log' } } }); // 强制使用 log scale
 
 // 多值 range → 推断为分类型
-chart.point().scale('color', {
-  range: ['red', 'green', 'blue', 'yellow'], // 4个值，推断为 ordinal
+({
+  type: 'point',
+  scale: {
+    color: {
+      range: ['red', 'green', 'blue', 'yellow'], // 4个值，推断为 ordinal
+    },
+  },
 });
 ```

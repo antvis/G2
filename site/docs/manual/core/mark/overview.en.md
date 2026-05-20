@@ -378,7 +378,11 @@ const chart = new Chart({
 });
 
 // Use the composite mark in Options
-chart.mark(PointLine).data(data).encode('x', 'year').encode('y', 'value');
+chart.options({
+  type: PointLine,
+  data,
+  encode: { x: 'year', y: 'value' },
+});
 
 // Use the composite mark in Spec
 chart.options({

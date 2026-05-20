@@ -60,17 +60,19 @@ const data = [
   { month: '5月', sales: 0.5 },
 ];
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'month')
-  .encode('y', 'sales')
-  .scale('y', {
-    type: 'pow',
-    domain: [0, 0.5], // 输入范围
-    range: [0, 1], // 输出范围，[0, 1]表示y轴方向从上到下，[1, 0]表示y轴方向从下到上
-    exponent: 1,
-  });
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'month', y: 'sales' },
+  scale: {
+    y: {
+      type: 'pow',
+      domain: [0, 0.5], // 输入范围
+      range: [0, 1], // 输出范围，[0, 1]表示y轴方向从上到下，[1, 0]表示y轴方向从下到上
+      exponent: 1,
+    },
+  },
+});
 
 chart.render();
 ```
@@ -96,17 +98,18 @@ const data = [
   { city: '天津', population: 600 },
 ];
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'city')
-  .encode('y', 'population')
-  .scale('x')
-  .scale('y', {
-    type: 'pow',
-    exponent: 0.5,
-    nice: true,
-  });
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'city', y: 'population' },
+  scale: {
+    y: {
+      type: 'pow',
+      exponent: 0.5,
+      nice: true,
+    },
+  },
+});
 
 chart.render();
 ```
@@ -130,17 +133,19 @@ const data = [
   { day: '周五', rate: 0.2 },
 ];
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'day')
-  .encode('y', 'rate')
-  .scale('y', {
-    type: 'pow',
-    domain: [0, 0.2], // 输入范围
-    range: [1, 0], // 输出范围，[0, 1]表示y轴方向从上到下，[1, 0]表示y轴方向从下到上
-    exponent: 2,
-  });
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'day', y: 'rate' },
+  scale: {
+    y: {
+      type: 'pow',
+      domain: [0, 0.2], // 输入范围
+      range: [1, 0], // 输出范围，[0, 1]表示y轴方向从上到下，[1, 0]表示y轴方向从下到上
+      exponent: 2,
+    },
+  },
+});
 
 chart.render();
 ```
@@ -160,18 +165,20 @@ const data = [
   { time: '2025-03', value: 0.9 },
 ];
 
-chart
-  .line()
-  .data(data)
-  .encode('x', 'time')
-  .encode('y', 'value')
-  .scale('y', {
-    type: 'pow',
-    domain: [0, 1],
-    range: [0, 1],
-    exponent: 1,
-    interpolate: (a, b) => (t) => a + (b - a) * t * t, // 二次缓动插值
-  });
+chart.options({
+  type: 'line',
+  data,
+  encode: { x: 'time', y: 'value' },
+  scale: {
+    y: {
+      type: 'pow',
+      domain: [0, 1],
+      range: [0, 1],
+      exponent: 1,
+      interpolate: (a, b) => (t) => a + (b - a) * t * t, // 二次缓动插值
+    },
+  },
+});
 
 chart.render();
 ```

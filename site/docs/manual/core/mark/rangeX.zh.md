@@ -59,13 +59,17 @@ chart.render();
 此外，rangeX 还提供了简便写法：
 
 ```ts
-chart
-  .rangeX()
-  .data([[new Date('2010'), new Date('2011')]])
-  .encode('x', (d) => d);
+chart.options({
+  type: 'rangeX',
+  data: [[new Date('2010'), new Date('2011')]],
+  encode: { x: (d) => d },
+});
 
 // it can be simplified as follows:
-chart.rangeX().data([new Date('2010'), new Date('2011')]);
+chart.options({
+  type: 'rangeX',
+  data: [new Date('2010'), new Date('2011')],
+});
 ```
 
 ## 配置项

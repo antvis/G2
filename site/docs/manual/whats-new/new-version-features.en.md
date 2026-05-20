@@ -29,16 +29,15 @@ const chart = new Chart({
 });
 
 // Declare visualization in one sentence
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender');
+  },
+  encode: { x: 'weight', y: 'height', color: 'gender' },
+});
 
 chart.render();
 ```
@@ -54,19 +53,20 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender')
-  .scale('x', { nice: true }) // Optimize coordinate tick display
-  .scale('y', { nice: true }) // Optimize coordinate tick display
-  .scale('color', { range: ['steelblue', 'orange'] }); // Change colors
+  },
+  encode: { x: 'weight', y: 'height', color: 'gender' },
+  scale: {
+    x: { nice: true }, // Optimize coordinate tick display
+    y: { nice: true }, // Optimize coordinate tick display
+    color: { range: ['steelblue', 'orange'] }, // Change colors
+  },
+});
 
 chart.render();
 ```
@@ -83,9 +83,9 @@ const chart = new Chart({
 });
 
 // Sankey mark
-chart
-  .sankey()
-  .data({
+chart.options({
+  type: 'sankey',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/energy.json',
     transform: [
@@ -94,15 +94,13 @@ chart
         callback: (data) => ({ links: data }),
       },
     ],
-  })
-  .layout({
+  },
+  layout: {
     nodeAlign: 'center',
     nodePadding: 0.03,
-  })
-  .style('labelSpacing', 3)
-  .style('labelFontWeight', 'bold')
-  .style('nodeStrokeWidth', 1.2)
-  .style('linkFillOpacity', 0.4);
+  },
+  style: { labelSpacing: 3, labelFontWeight: 'bold', nodeStrokeWidth: 1.2, linkFillOpacity: 0.4 },
+});
 
 chart.render();
 ```
@@ -118,21 +116,19 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .link()
-  .data({
+chart.options({
+  type: 'link',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
-  })
-  .encode('x', ['POP_1980', 'POP_2015'])
-  .encode('y', ['R90_10_1980', 'R90_10_2015'])
-  .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
-  .scale('x', { type: 'log' })
-  .style('arrow', true)
-  .style('arrowSize', 6)
-  .axis('x', { labelFormatter: '~s' })
-  .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } })
-  .legend(false);
+  },
+  encode: { x: ['POP_1980', 'POP_2015'], y: ['R90_10_1980', 'R90_10_2015'], color: (d) => d.R90_10_2015 - d.R90_10_1980 },
+  scale: { x: { type: 'log' } },
+  style: { arrow: true, arrowSize: 6 },
+  axis: { x: { labelFormatter: '~s' } },
+  tooltip: { title: { channel: 'color', valueFormatter: '.1f' } },
+  legend: false,
+});
 
 chart.render();
 ```
@@ -147,44 +143,44 @@ const chart = new Chart({
   height: 180,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-  transform: [
+// Point mark
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      {
+        type: 'map',
+        callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
+      },
+    ],
+  },
+  children: [
     {
-      type: 'map',
-      callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
+      type: 'point',
+      encode: { x: 'body_mass_g', y: 'species' },
+      style: { stroke: '#000' },
+      tooltip: { channel: 'x' },
+    },
+    // Link mark
+    {
+      type: 'link',
+      encode: { x: 'body_mass_g', y: 'species' },
+      transform: [{ type: 'groupY', x: 'min', x1: 'max' }],
+      style: { stroke: '#000' },
+      tooltip: false,
+    },
+    // Point mark draws median line
+    {
+      type: 'point',
+      encode: { y: 'species', x: 'body_mass_g', shape: 'line', size: 12 },
+      transform: [{ type: 'groupY', x: 'median' }],
+      style: { stroke: 'red' },
+      tooltip: { channel: 'x' },
     },
   ],
 });
-
-// Point mark
-chart
-  .point()
-  .encode('x', 'body_mass_g')
-  .encode('y', 'species')
-  .style('stroke', '#000')
-  .tooltip({ channel: 'x' });
-
-// Link mark
-chart
-  .link()
-  .encode('x', 'body_mass_g')
-  .encode('y', 'species')
-  .transform({ type: 'groupY', x: 'min', x1: 'max' })
-  .style('stroke', '#000')
-  .tooltip(false);
-
-// Point mark draws median line
-chart
-  .point()
-  .encode('y', 'species')
-  .encode('x', 'body_mass_g')
-  .encode('shape', 'line')
-  .encode('size', 12)
-  .transform({ type: 'groupY', x: 'median' })
-  .style('stroke', 'red')
-  .tooltip({ channel: 'x' });
 
 chart.render();
 ```
@@ -202,15 +198,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-  })
-  .encode('x', 'weight')
-  .transform({ type: 'binX', y: 'count' })
-  .style('inset', 0.5);
+  },
+  encode: { x: 'weight' },
+  transform: [{ type: 'binX', y: 'count' }],
+  style: { inset: 0.5 },
+});
 
 chart.render();
 ```
@@ -224,17 +221,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/athletes.json',
-  })
-  .encode('x', 'weight')
-  .encode('color', 'sex') // Add color encoding
-  .transform({ type: 'binX', y: 'count' })
-  .transform({ type: 'stackY', orderBy: 'series' })
-  .style('inset', 0.5);
+  },
+  encode: { x: 'weight', color: 'sex' }, // Add color encoding
+  transform: [{ type: 'binX', y: 'count' }, { type: 'stackY', orderBy: 'series' }],
+  style: { inset: 0.5 },
+});
 
 chart.render();
 ```
@@ -250,16 +246,22 @@ const chart = new Chart({
   paddingBottom: 50,
 });
 
-const facet = chart.facetRect().encode('y', 'sex').data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+chart.options({
+  type: 'facetRect',
+  encode: { y: 'sex' },
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  children: [
+    {
+      type: 'rect',
+      encode: { x: 'weight' },
+      transform: [{ type: 'binX', y: 'count' }],
+      style: { inset: 0.5 },
+    },
+  ],
 });
-
-facet
-  .rect()
-  .encode('x', 'weight')
-  .transform({ type: 'binX', y: 'count' })
-  .style('inset', 0.5);
 
 chart.render();
 ```
@@ -275,10 +277,10 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .coordinate({ transform: [{ type: 'transpose' }] })
-  .data([
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: [
     { name: 'event planning', startTime: 1, endTime: 4 },
     { name: 'layout logistics', startTime: 3, endTime: 13 },
     { name: 'select vendors', startTime: 5, endTime: 8 },
@@ -287,13 +289,16 @@ chart
     { name: 'hire event decorators', startTime: 12, endTime: 17 },
     { name: 'rehearsal', startTime: 14, endTime: 16 },
     { name: 'event celebration', startTime: 17, endTime: 18 },
-  ])
-  .encode('x', 'name')
-  .encode('y', ['endTime', 'startTime'])
-  .encode('color', 'name')
-  .encode('enterDuration', (d) => d.endTime - d.startTime) // Animation duration bound to durationTime
-  .encode('enterDelay', 'startTime') // Appearance time bound to startTime
-  .scale('enterDuration', { zero: true, range: [0, 3000] }); // Define scale for enterDuration channel, scale determines how these channels should be visualized
+  ],
+  encode: {
+    x: 'name',
+    y: ['endTime', 'startTime'],
+    color: 'name',
+    enterDuration: (d) => d.endTime - d.startTime, // Animation duration bound to durationTime
+    enterDelay: 'startTime', // Appearance time bound to startTime
+  },
+  scale: { enterDuration: { zero: true, range: [0, 3000] } }, // Define scale for enterDuration channel, scale determines how these channels should be visualized
+});
 
 chart.render();
 ```
@@ -307,22 +312,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .coordinate({ type: 'polar' })
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'polar' },
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/deaths.json',
-  })
-  .encode('x', 'Month')
-  .encode('y', 'Death')
-  .encode('color', 'Type')
-  .transform({ type: 'stackY' })
-  // Appear in sequence
-  .transform({ type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 }) // Try changing groupBy and duration to see what happens
-  .scale('y', { type: 'sqrt' })
-  .animate('enter', { type: 'waveIn' })
-  .axis('y', false);
+  },
+  encode: { x: 'Month', y: 'Death', color: 'Type' },
+  transform: [
+    { type: 'stackY' },
+    // Appear in sequence
+    { type: 'stackEnter', groupBy: ['color', 'x'], duration: 3000 }, // Try changing groupBy and duration to see what happens
+  ],
+  scale: { y: { type: 'sqrt' } },
+  animate: { enter: { type: 'waveIn' } },
+  axis: { y: false },
+});
 
 chart.render();
 ```
@@ -344,31 +350,28 @@ fetch(
     });
 
     // Keyframe container, applies transition animations to views inside
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 4);
-
-    // First view: scatter plot
-    keyframe
-      .interval()
-      .attr('padding', 'auto')
-      .data(data)
-      .encode('x', 'gender')
-      .encode('color', 'gender')
-      .encode('key', 'gender')
-      .transform({ type: 'groupX', y: 'count' });
-
-    // Second view: aggregated bar chart
-    keyframe
-      .point()
-      .attr('padding', 'auto')
-      .data(data)
-      .encode('x', 'weight')
-      .encode('y', 'height')
-      .encode('color', 'gender')
-      .encode('groupKey', 'gender')
-      .encode('shape', 'point');
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        // First view: scatter plot
+        {
+          type: 'interval',
+          padding: 'auto',
+          data,
+          encode: { x: 'gender', color: 'gender', key: 'gender' },
+          transform: [{ type: 'groupX', y: 'count' }],
+        },
+        // Second view: aggregated bar chart
+        {
+          type: 'point',
+          padding: 'auto',
+          data,
+          encode: { x: 'weight', y: 'height', color: 'gender', groupKey: 'gender', shape: 'point' },
+        },
+      ],
+    });
 
     chart.render();
   });
@@ -397,20 +400,18 @@ const focus = new G2.Chart({
   paddingLeft: 50,
 });
 
-focus
-  .area()
-  .data({
+focus.options({
+  type: 'area',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis('x', { grid: false, title: false, tickCount: 5 })
-  .axis('y', { grid: false, tickCount: 5 })
-  .interaction('tooltip', false)
-  .interaction('brushXFilter', true);
+  },
+  encode: { x: 'date', y: 'close' },
+  animate: false,
+  axis: { x: { grid: false, title: false, tickCount: 5 }, y: { grid: false, tickCount: 5 } },
+  interaction: { tooltip: false, brushXFilter: true },
+});
 
 focus.render();
 
@@ -424,19 +425,18 @@ const context = new G2.Chart({
   height: 60,
 });
 
-context
-  .area()
-  .data({
+context.options({
+  type: 'area',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis(false)
-  .interaction('tooltip', false)
-  .interaction('brushXHighlight', { series: true });
+  },
+  encode: { x: 'date', y: 'close' },
+  animate: false,
+  axis: false,
+  interaction: { tooltip: false, brushXHighlight: { series: true } },
+});
 
 context.render();
 
@@ -574,9 +574,9 @@ const chart = new Chart({
 });
 
 // Use composite mark via API
-chart
-  .mark(PointLineArea)
-  .data([
+chart.options({
+  type: PointLineArea,
+  data: [
     { year: '1991', value: 15468 },
     { year: '1992', value: 16100 },
     { year: '1993', value: 15900 },
@@ -586,9 +586,9 @@ chart
     { year: '1997', value: 31982 },
     { year: '1998', value: 32040 },
     { year: '1999', value: 33233 },
-  ])
-  .encode('x', 'year')
-  .encode('y', 'value');
+  ],
+  encode: { x: 'year', y: 'value' },
+});
 
 // Use composite mark via Spec
 chart.options({
@@ -641,19 +641,17 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .encode('shape', 'triangle'); // Use this shape
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre', shape: 'triangle' }, // Use this shape
+});
 
 chart.render();
 ```
@@ -682,18 +680,17 @@ const Chart = extend(Runtime, { ...corelib() });
 
 const chart = new Chart({ container: 'container' });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
 
 chart.render();
 ```

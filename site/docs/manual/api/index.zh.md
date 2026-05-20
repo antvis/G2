@@ -72,8 +72,9 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     { year: '1991', value: 3 },
     { year: '1992', value: 4 },
     { year: '1993', value: 3.5 },
@@ -83,26 +84,27 @@ chart
     { year: '1997', value: 7 },
     { year: '1998', value: 9 },
     { year: '1999', value: 13 },
-  ])
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .scale('x', {
-    range: [0, 1],
-  })
-  .scale('y', {
-    domainMin: 6,
-    nice: true,
-  });
-
-chart.line().label({
-  text: 'value',
-  style: {
-    dx: -10,
-    dy: -12,
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: {
+    x: { range: [0, 1] },
+    y: { domainMin: 6, nice: true },
   },
+  children: [
+    {
+      type: 'line',
+      labels: [{
+        text: 'value',
+        style: {
+          dx: -10,
+          dy: -12,
+        },
+      }],
+    },
+    { type: 'point', style: { fill: 'white' }, tooltip: false },
+  ],
 });
 
-chart.point().style('fill', 'white').tooltip(false);
 chart.render();
 ```
 
@@ -117,8 +119,9 @@ const chart = new Chart({
   inset: 20,
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     { year: '1991', value: 3 },
     { year: '1992', value: 4 },
     { year: '1993', value: 3.5 },
@@ -128,26 +131,27 @@ chart
     { year: '1997', value: 7 },
     { year: '1998', value: 9 },
     { year: '1999', value: 13 },
-  ])
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .scale('x', {
-    range: [0, 1],
-  })
-  .scale('y', {
-    domainMin: 6,
-    nice: true,
-  });
-
-chart.line().label({
-  text: 'value',
-  style: {
-    dx: -10,
-    dy: -12,
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: {
+    x: { range: [0, 1] },
+    y: { domainMin: 6, nice: true },
   },
+  children: [
+    {
+      type: 'line',
+      labels: [{
+        text: 'value',
+        style: {
+          dx: -10,
+          dy: -12,
+        },
+      }],
+    },
+    { type: 'point', style: { fill: 'white' }, tooltip: false },
+  ],
 });
 
-chart.point().style('fill', 'white').tooltip(false);
 chart.render();
 ```
 
@@ -467,32 +471,34 @@ const chart = new Chart({
   container: 'container',
 });
 
-const layer = chart.spaceLayer().data({
-  type: 'fetch',
-  value:
-    'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  format: 'csv',
+chart.options({
+  type: 'spaceLayer',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+    format: 'csv',
+  },
+  children: [
+    // 柱图
+    {
+      type: 'interval',
+      paddingLeft: 50,
+      transform: [{ type: 'sortX', reverse: true, by: 'y' }],
+      encode: { x: 'letter', y: 'frequency', color: 'letter' },
+    },
+    // 饼图
+    {
+      type: 'interval',
+      paddingLeft: 400,
+      paddingBottom: 200,
+      coordinate: { type: 'theta' },
+      transform: [{ type: 'stackY' }],
+      legend: false,
+      encode: { y: 'frequency', color: 'letter' },
+    },
+  ],
 });
-
-// 柱图
-layer
-  .interval()
-  .attr('paddingLeft', 50)
-  .transform({ type: 'sortX', reverse: true, by: 'y' })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter');
-
-// 饼图
-layer
-  .interval()
-  .attr('paddingLeft', 400)
-  .attr('paddingBottom', 200)
-  .coordinate({ type: 'theta' })
-  .transform({ type: 'stackY' })
-  .legend(false)
-  .encode('y', 'frequency')
-  .encode('color', 'letter');
 
 chart.render();
 ```
@@ -511,57 +517,50 @@ const chart = new Chart({
   width: 900,
 });
 
-const flex = chart
-  .spaceFlex()
-  .data({
+chart.options({
+  type: 'spaceFlex',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .attr('direction', 'col')
-  .attr('ratio', [1, 2]);
-
-flex
-  .interval()
-  .attr('paddingBottom', 0)
-  .attr('paddingRight', 300)
-  .transform({ type: 'groupX', y: 'max' })
-  .axis('x', false)
-  .encode('x', (d) => new Date(d.date).getUTCDate())
-  .encode('y', 'temp_max')
-  .encode('color', 'steelblue');
-
-flex
-  .spaceFlex()
-  .attr('ratio', [2, 1])
-  .call((node) =>
-    node
-      .cell()
-      .attr('paddingRight', 0)
-      .attr('paddingBottom', 50)
-      .transform({ type: 'group', color: 'max' })
-      .encode('x', (d) => new Date(d.date).getUTCDate())
-      .encode('y', (d) => new Date(d.date).getUTCMonth())
-      .encode('color', 'temp_max')
-      .style('inset', 0.5)
-      .axis('x', { title: 'Date' })
-      .axis('y', { title: 'Month' })
-      .legend({ color: false })
-      .scale('color', {
-        type: 'sequential',
-        palette: 'gnBu',
-      }),
-  )
-  .call((node) =>
-    node
-      .interval()
-      .attr('paddingBottom', 50)
-      .transform({ type: 'groupX', y: 'max' })
-      .coordinate({ transform: [{ type: 'transpose' }] });
-      .axis('x', false)
-      .encode('x', (d) => new Date(d.date).getUTCMonth())
-      .encode('y', 'temp_max')
-      .encode('color', 'steelblue'),
-  );
+  },
+  direction: 'col',
+  ratio: [1, 2],
+  children: [
+    {
+      type: 'interval',
+      paddingBottom: 0,
+      paddingRight: 300,
+      transform: [{ type: 'groupX', y: 'max' }],
+      axis: { x: false },
+      encode: { x: (d) => new Date(d.date).getUTCDate(), y: 'temp_max', color: 'steelblue' },
+    },
+    {
+      type: 'spaceFlex',
+      ratio: [2, 1],
+      children: [
+        {
+          type: 'cell',
+          paddingRight: 0,
+          paddingBottom: 50,
+          transform: [{ type: 'group', color: 'max' }],
+          encode: { x: (d) => new Date(d.date).getUTCDate(), y: (d) => new Date(d.date).getUTCMonth(), color: 'temp_max' },
+          style: { inset: 0.5 },
+          axis: { x: { title: 'Date' }, y: { title: 'Month' } },
+          legend: { color: false },
+          scale: { color: { type: 'sequential', palette: 'gnBu' } },
+        },
+        {
+          type: 'interval',
+          paddingBottom: 50,
+          transform: [{ type: 'groupX', y: 'max' }],
+          coordinate: { transform: [{ type: 'transpose' }] },
+          axis: { x: false },
+          encode: { x: (d) => new Date(d.date).getUTCMonth(), y: 'temp_max', color: 'steelblue' },
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -582,21 +581,23 @@ const chart = new Chart({
   paddingBottom: 50,
 });
 
-const facetRect = chart
-  .facetRect()
-  .attr('paddingBottom', 50)
-  .data({
+chart.options({
+  type: 'facetRect',
+  paddingBottom: 50,
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
-  .encode('x', 'series');
-
-facetRect
-  .point()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000')
-  .attr('inset', 10);
+  },
+  encode: { x: 'series' },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'x', y: 'y' },
+      style: { stroke: '#000' },
+      inset: 10,
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -639,13 +640,17 @@ const chart = new Chart({
   height: 480,
 });
 
-const facetCircle = chart.facetCircle().data(data).encode('position', 'month');
-
-facetCircle
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('color', 'name');
+chart.options({
+  type: 'facetCircle',
+  data,
+  encode: { position: 'month' },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'name', y: 'value', color: 'name' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -667,9 +672,9 @@ const chart = new Chart({
   paddingBottom: 60,
 });
 
-const repeatMatrix = chart
-  .repeatMatrix()
-  .data({
+chart.options({
+  type: 'repeatMatrix',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/weather.json',
     transform: [
@@ -681,15 +686,17 @@ const repeatMatrix = chart
         }),
       },
     ],
-  })
-  .encode('y', ['temp_max', 'precipitation', 'wind'])
-  .encode('x', 'date');
-
-repeatMatrix
-  .line()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('color', 'location')
-  .scale('y', { zero: true });
+  },
+  encode: { y: ['temp_max', 'precipitation', 'wind'], x: 'date' },
+  children: [
+    {
+      type: 'line',
+      transform: [{ type: 'groupX', y: 'mean' }],
+      encode: { color: 'location' },
+      scale: { y: { zero: true } },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -727,59 +734,59 @@ Promise.all([
     autoFit: true,
   });
 
-  const geoView = chart.geoView();
-
-  geoView
-    .geoPath()
-    .data(london)
-    .style('fill', 'lightgray')
-    .style('stroke', 'white')
-    .style('strokeWidth', 2);
-
-  geoView
-    .text()
-    .data(londonCentroids)
-    .encode('x', 'cx')
-    .encode('y', 'cy')
-    .encode('text', (d) => d.name.split(/\W/)[0])
-    .style('fontSize', 8)
-    .style('opacity', 0.6);
-
-  geoView
-    .geoPath()
-    .data(line)
-    .encode('color', 'id')
-    .encode('shape', 'hollow')
-    .scale('color', {
-      domain: [
-        'Bakerloo',
-        'Central',
-        'Circle',
-        'District',
-        'DLR',
-        'Hammersmith & City',
-        'Jubilee',
-        'Metropolitan',
-        'Northern',
-        'Piccadilly',
-        'Victoria',
-        'Waterloo & City',
-      ],
-      range: [
-        'rgb(137,78,36)',
-        'rgb(220,36,30)',
-        'rgb(255,206,0)',
-        'rgb(1,114,41)',
-        'rgb(0,175,173)',
-        'rgb(215,153,175)',
-        'rgb(106,114,120)',
-        'rgb(114,17,84)',
-        'rgb(0,0,0)',
-        'rgb(0,24,168)',
-        'rgb(0,160,226)',
-        'rgb(106,187,170)',
-      ],
-    });
+  chart.options({
+    type: 'geoView',
+    children: [
+      {
+        type: 'geoPath',
+        data: london,
+        style: { fill: 'lightgray', stroke: 'white', strokeWidth: 2 },
+      },
+      {
+        type: 'text',
+        data: londonCentroids,
+        encode: { x: 'cx', y: 'cy', text: (d) => d.name.split(/\W/)[0] },
+        style: { fontSize: 8, opacity: 0.6 },
+      },
+      {
+        type: 'geoPath',
+        data: line,
+        encode: { color: 'id', shape: 'hollow' },
+        scale: {
+          color: {
+            domain: [
+              'Bakerloo',
+              'Central',
+              'Circle',
+              'District',
+              'DLR',
+              'Hammersmith & City',
+              'Jubilee',
+              'Metropolitan',
+              'Northern',
+              'Piccadilly',
+              'Victoria',
+              'Waterloo & City',
+            ],
+            range: [
+              'rgb(137,78,36)',
+              'rgb(220,36,30)',
+              'rgb(255,206,0)',
+              'rgb(1,114,41)',
+              'rgb(0,175,173)',
+              'rgb(215,153,175)',
+              'rgb(106,114,120)',
+              'rgb(114,17,84)',
+              'rgb(0,0,0)',
+              'rgb(0,24,168)',
+              'rgb(0,160,226)',
+              'rgb(106,187,170)',
+            ],
+          },
+        },
+      },
+    ],
+  });
 
   chart.render();
 });
@@ -803,30 +810,26 @@ fetch(
       paddingLeft: 100,
     });
 
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 4);
-
-    // 条形图
-    keyframe
-      .interval()
-      .data(data)
-      .transform({ type: 'groupX', y: 'mean' })
-      .encode('x', 'gender')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('key', 'gender'); // 指定 key
-
-    // 散点图
-    keyframe
-      .point()
-      .data(data)
-      .encode('x', 'height')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('groupKey', 'gender') // 指定合并的条的 key
-      .encode('shape', 'point');
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        // 条形图
+        {
+          type: 'interval',
+          data,
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: { x: 'gender', y: 'weight', color: 'gender', key: 'gender' },
+        },
+        // 散点图
+        {
+          type: 'point',
+          data,
+          encode: { x: 'height', y: 'weight', color: 'gender', groupKey: 'gender', shape: 'point' },
+        },
+      ],
+    });
 
     chart.render();
   });
@@ -851,9 +854,9 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
@@ -864,14 +867,13 @@ chart
         callback: (d) => d.year === 2000,
       },
     ],
-  })
-  .transform({ type: 'groupX', y: 'sum' })
-  .encode('x', 'age')
-  .encode('y', 'people')
-  .encode('color', 'sex')
-  .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .axis('y', { labelFormatter: '~s' })
-  .style('fillOpacity', 0.7);
+  },
+  transform: [{ type: 'groupX', y: 'sum' }],
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  axis: { y: { labelFormatter: '~s' } },
+  style: { fillOpacity: 0.7 },
+});
 
 chart.render();
 ```
@@ -889,17 +891,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'data/athletes.csv',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'sex')
-  .transform([{ type: 'bin', opacity: 'count' }])
-  .style('inset', 0.5);
+  },
+  encode: { x: 'weight', y: 'height', color: 'sex' },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  style: { inset: 0.5 },
+});
 
 chart.render();
 ```
@@ -917,20 +918,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
-  })
-  .encode('x', 'GDP')
-  .encode('y', 'LifeExpectancy')
-  .encode('size', 'Population')
-  .encode('color', 'continent')
-  .encode('shape', 'point')
-  .scale('size', { type: 'log', range: [4, 20] })
-  .style('fillOpacity', 0.3)
-  .style('lineWidth', 1);
+  },
+  encode: { x: 'GDP', y: 'LifeExpectancy', size: 'Population', color: 'continent', shape: 'point' },
+  scale: { size: { type: 'log', range: [4, 20] } },
+  style: { fillOpacity: 0.3, lineWidth: 1 },
+});
 
 chart.render();
 ```
@@ -948,21 +945,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/aapl.json',
-  transform: [
-    {
-      type: 'map',
-      callback: (d) => ({
-        ...d,
-        date: new Date(d.date),
-      }),
-    },
-  ],
+chart.options({
+  type: 'area',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+    transform: [
+      {
+        type: 'map',
+        callback: (d) => ({
+          ...d,
+          date: new Date(d.date),
+        }),
+      },
+    ],
+  },
+  encode: { x: 'date', y: 'close' },
 });
-
-chart.area().encode('x', 'date').encode('y', 'close');
 
 chart.render();
 ```
@@ -980,15 +979,15 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close');
+  },
+  encode: { x: 'date', y: 'close' },
+});
 
 chart.render();
 ```
@@ -1006,22 +1005,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .vector()
-  .data({
+chart.options({
+  type: 'vector',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
-  })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('rotate', ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI)
-  .encode('size', ({ u, v }) => Math.hypot(v, u))
-  .encode('color', ({ u, v }) => Math.hypot(v, u))
-  .scale('size', { range: [6, 20] })
-  .scale('color', { type: 'sequential', palette: 'viridis' })
-  .axis('x', { grid: false })
-  .axis('y', { grid: false })
-  .legend(false);
+  },
+  encode: {
+    x: 'longitude',
+    y: 'latitude',
+    rotate: ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI,
+    size: ({ u, v }) => Math.hypot(v, u),
+    color: ({ u, v }) => Math.hypot(v, u),
+  },
+  scale: { size: { range: [6, 20] }, color: { type: 'sequential', palette: 'viridis' } },
+  axis: { x: { grid: false }, y: { grid: false } },
+  legend: false,
+});
 
 chart.render();
 ```
@@ -1039,19 +1039,18 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .link()
-  .data({
+chart.options({
+  type: 'link',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
-  })
-  .encode('x', ['POP_1980', 'POP_2015'])
-  .encode('y', ['R90_10_1980', 'R90_10_2015'])
-  .encode('color', (d) => d.R90_10_2015 - d.R90_10_1980)
-  .scale('x', { type: 'log' })
-  .style('arrowSize', 6)
-  .axis('x', { labelFormatter: '~s', label: { autoHide: true } })
-  .legend(false);
+  },
+  encode: { x: ['POP_1980', 'POP_2015'], y: ['R90_10_1980', 'R90_10_2015'], color: (d) => d.R90_10_2015 - d.R90_10_1980 },
+  scale: { x: { type: 'log' } },
+  style: { arrowSize: 6 },
+  axis: { x: { labelFormatter: '~s', label: { autoHide: true } } },
+  legend: false,
+});
 
 chart.render();
 ```
@@ -1092,9 +1091,9 @@ const chart = new Chart({
   paddingBottom: 0,
 });
 
-chart
-  .polygon()
-  .data({
+chart.options({
+  type: 'polygon',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
     transform: [
@@ -1103,15 +1102,12 @@ chart
         callback: layout,
       },
     ],
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', (d) => d.data.value)
-  .scale('x', { domain: [0, 800] })
-  .scale('y', { domain: [0, 600] })
-  .axis(false)
-  .style('stroke', '#fff')
-  .style('fillOpacity', 0.65);
+  },
+  encode: { x: 'x', y: 'y', color: (d) => d.data.value },
+  scale: { x: { domain: [0, 800] }, y: { domain: [0, 600] } },
+  axis: false,
+  style: { stroke: '#fff', fillOpacity: 0.65 },
+});
 
 chart.render();
 ```
@@ -1162,31 +1158,28 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.data(data);
-
-chart
-  .link()
-  .encode('x', ['name', 'name'])
-  .encode('y', (d) => [0, d.value])
-  .style('stroke', '#dfdfdf')
-  .style('lineDash', [2, 2]);
-
-chart
-  .line()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('shape', 'smooth')
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 50] })
-  .style('opacity', 0.5);
-
-chart
-  .image()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('src', 'url')
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 50] });
+chart.options({
+  type: 'view',
+  data,
+  children: [
+    {
+      type: 'link',
+      encode: { x: ['name', 'name'], y: (d) => [0, d.value] },
+      style: { stroke: '#dfdfdf', lineDash: [2, 2] },
+    },
+    {
+      type: 'line',
+      encode: { x: 'name', y: 'value', shape: 'smooth' },
+      scale: { x: { type: 'band' }, y: { domain: [0, 50] } },
+      style: { opacity: 0.5 },
+    },
+    {
+      type: 'image',
+      encode: { x: 'name', y: 'value', src: 'url' },
+      scale: { x: { type: 'band' }, y: { domain: [0, 50] } },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -1204,26 +1197,26 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.data({
-  type: 'fetch',
-  value:
-    'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'letter', y: 'frequency' },
+      axis: { y: { labelFormatter: '.0%' } },
+    },
+    {
+      type: 'text',
+      encode: { x: 'letter', y: 'frequency', text: 'frequency' },
+      style: { fill: 'black', textAlign: 'center', dy: -5 },
+    },
+  ],
 });
-
-chart
-  .interval()
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' });
-
-chart
-  .text()
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('text', 'frequency')
-  .style('fill', 'black')
-  .style('textAlign', 'center')
-  .style('dy', -5);
 
 chart.render();
 ```
@@ -1323,44 +1316,45 @@ chart.data({
     'https://gw.alipayobjects.com/os/bmw-prod/0b37279d-1674-42b4-b285-29683747ad9a.json',
 });
 
-chart.lineX().data([0]);
-chart.lineY().data([0]);
-
-chart
-  .range()
-  .data([
-    { x: [-25, 0], y: [-30, 0], region: '1' },
-    { x: [-25, 0], y: [0, 20], region: '2' },
-    { x: [0, 5], y: [-30, 0], region: '2' },
-    { x: [0, 5], y: [0, 20], region: '1' },
-  ])
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'region')
-  .scale('color', {
-    range: ['#d8d0c0', '#a3dda1'],
-    independent: true,
-    guide: null,
-  })
-  .style('fillOpacity', 0.2);
-
-chart
-  .point()
-  .encode('x', 'change in female rate')
-  .encode('y', 'change in male rate')
-  .encode('size', 'pop')
-  .encode('color', 'continent')
-  .encode('shape', 'point')
-  .scale('color', {
-    range: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'],
-  })
-  .axis('x', { title: false })
-  .axis('y', { title: false })
-  .scale('x', { domain: [-25, 5] })
-  .scale('y', { domain: [-30, 20] })
-  .scale('size', { range: [4, 30] })
-  .style('stroke', '#bbb')
-  .style('fillOpacity', 0.8);
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'lineX', data: [0] },
+    { type: 'lineY', data: [0] },
+    {
+      type: 'range',
+      data: [
+        { x: [-25, 0], y: [-30, 0], region: '1' },
+        { x: [-25, 0], y: [0, 20], region: '2' },
+        { x: [0, 5], y: [-30, 0], region: '2' },
+        { x: [0, 5], y: [0, 20], region: '1' },
+      ],
+      encode: { x: 'x', y: 'y', color: 'region' },
+      scale: {
+        color: { range: ['#d8d0c0', '#a3dda1'], independent: true, guide: null },
+      },
+      style: { fillOpacity: 0.2 },
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'change in female rate',
+        y: 'change in male rate',
+        size: 'pop',
+        color: 'continent',
+        shape: 'point',
+      },
+      scale: {
+        color: { range: ['#ffd500', '#82cab2', '#193442', '#d18768', '#7e827a'] },
+        x: { domain: [-25, 5] },
+        y: { domain: [-30, 20] },
+        size: { range: [4, 30] },
+      },
+      axis: { x: { title: false }, y: { title: false } },
+      style: { stroke: '#bbb', fillOpacity: 0.8 },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -1385,29 +1379,30 @@ chart.data({
   value: 'https://assets.antv.antgroup.com/g2/year-population.json',
 });
 
-chart
-  .rangeX()
-  .data([
-    { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
-    { year: [new Date('1948'), new Date('1989')], event: 'GDR (East Germany)' },
-  ])
-  .encode('x', 'year')
-  .encode('color', 'event')
-  .scale('color', { independent: true, range: ['#FAAD14', '#30BF78'] })
-  .style('fillOpacity', 0.75);
-
-chart
-  .line()
-  .encode('x', (d) => new Date(d.year))
-  .encode('y', 'population')
-  .encode('color', '#333');
-
-chart
-  .point()
-  .encode('x', (d) => new Date(d.year))
-  .encode('y', 'population')
-  .encode('color', '#333')
-  .style('lineWidth', 1.5);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'rangeX',
+      data: [
+        { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
+        { year: [new Date('1948'), new Date('1989')], event: 'GDR (East Germany)' },
+      ],
+      encode: { x: 'year', color: 'event' },
+      scale: { color: { independent: true, range: ['#FAAD14', '#30BF78'] } },
+      style: { fillOpacity: 0.75 },
+    },
+    {
+      type: 'line',
+      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+    },
+    {
+      type: 'point',
+      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+      style: { lineWidth: 1.5 },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -1437,21 +1432,25 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
-  })
-  .encode('x', 'height')
-  .encode('y', 'weight')
-  .encode('color', 'gender');
-
-chart
-  .rangeY()
-  .data([{ y: [54, 72] }])
-  .encode('y', 'y');
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+      },
+      encode: { x: 'height', y: 'weight', color: 'gender' },
+    },
+    {
+      type: 'rangeY',
+      data: [{ y: [54, 72] }],
+      encode: { y: 'y' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -1836,11 +1835,14 @@ function point(style) {
   });
 }
 
-chart.shape().style({
-  x: '50%',
-  y: '50%',
-  fill: 'red',
-  render: point,
+chart.options({
+  type: 'shape',
+  style: {
+    x: '50%',
+    y: '50%',
+    fill: 'red',
+    render: point,
+  },
 });
 
 chart.render();

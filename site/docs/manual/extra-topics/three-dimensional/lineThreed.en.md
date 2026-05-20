@@ -53,21 +53,19 @@ for (let i = 0; i < pointCount; i++) {
   });
 }
 
-chart
-  .line3D()
-  .data(data)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('z', 'z')
-  .encode('size', 4)
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+chart.options({
+  type: 'line3D',
+  data: data,
+  encode: { x: 'x', y: 'y', z: 'z', size: 4 },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();

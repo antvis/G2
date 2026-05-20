@@ -297,15 +297,18 @@ G2 提供了多种方式来进行数据分布的分析：
 - 使用 `transform` 进行数据转换，可以实现对数据进行统计分析，计算出最小值、下四分位数、中位数、上四分位数、最大值等统计值：
 
 ```js
-chart.box().data({
-  type: 'connector',
-  value: [
-    /* your detail data */
-  ],
-  callback: (data) => {
-    // 在这里对数据进行统计分析
-    // 可以使用自定义算法或第三方库
-    return data;
+chart.options({
+  type: 'box',
+  data: {
+    type: 'connector',
+    value: [
+      /* your detail data */
+    ],
+    callback: (data) => {
+      // 在这里对数据进行统计分析
+      // 可以使用自定义算法或第三方库
+      return data;
+    },
   },
 });
 ```
@@ -315,5 +318,9 @@ chart.box().data({
 - 直接使用 [`boxplot`](/manual/core/mark/boxplot) 标记，它是一个高阶标记，自带数据分组和统计聚合功能，更适合前端数据的探索和分析：
 
 ```js
-chart.boxplot().data(data).encode('x', 'category').encode('y', 'value');
+chart.options({
+  type: 'boxplot',
+  data,
+  encode: { x: 'category', y: 'value' },
+});
 ```

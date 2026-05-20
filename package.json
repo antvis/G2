@@ -76,6 +76,7 @@
     "@antv/g": "^6.1.24",
     "@antv/g-canvas": "^2.0.43",
     "@antv/g-plugin-dragndrop": "^2.0.35",
+    "@antv/g2": "^5.4.8",
     "@antv/scale": "^0.5.1",
     "@antv/util": "^3.3.10",
     "@antv/vendor": "^1.0.11",

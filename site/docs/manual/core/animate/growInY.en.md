@@ -10,8 +10,9 @@ order: 2
 <img alt="growInY" src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*L6mkQa3aG64AAAAAAAAAAABkARQnAQ" width="400" />
 
 ```ts
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   /* ... */
-  .animate('enter', { type: 'growInY' });
+  animate: { enter: { type: 'growInY' } },
+});
 ```

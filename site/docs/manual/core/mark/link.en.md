@@ -176,11 +176,12 @@ chart.render();
 There are two ways to specify the length of arrow icons: one is by entering pixel values, such as `40`, to specify a fixed length; the other is by specifying a percentage, such as `30%`, to specify a relative length based on the arrow length reference. The default value is `40%`. Example as follows:
 
 ```ts
-chart
-  .link()
+chart.options({
+  type: 'link',
   // ...
-  .style({
+  style: {
     arrowSize: 40,
     // arrowSize: '30%',
-  });
+  },
+});
 ```

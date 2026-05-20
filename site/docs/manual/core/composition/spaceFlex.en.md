@@ -19,57 +19,67 @@ const chart = new Chart({
   width: 900,
 });
 
-const flex = chart
-  .spaceFlex()
-  .data({
+chart.options({
+  type: 'spaceFlex',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .attr('direction', 'col')
-  .attr('ratio', [1, 2]);
-
-flex
-  .interval()
-  .attr('paddingBottom', 0)
-  .attr('paddingRight', 300)
-  .transform({ type: 'groupX', y: 'max' })
-  .axis('x', false)
-  .encode('x', (d) => new Date(d.date).getUTCDate())
-  .encode('y', 'temp_max')
-  .encode('color', 'steelblue');
-
-flex
-  .spaceFlex()
-  .attr('ratio', [2, 1])
-  .call((node) =>
-    node
-      .cell()
-      .attr('paddingRight', 0)
-      .attr('paddingBottom', 50)
-      .transform({ type: 'group', color: 'max' })
-      .encode('x', (d) => new Date(d.date).getUTCDate())
-      .encode('y', (d) => new Date(d.date).getUTCMonth())
-      .encode('color', 'temp_max')
-      .style('inset', 0.5)
-      .axis('x', { title: 'Date' })
-      .axis('y', { title: 'Month' })
-      .legend({ color: false })
-      .scale('color', {
-        type: 'sequential',
-        palette: 'gnBu',
-      }),
-  )
-  .call((node) =>
-    node
-      .interval()
-      .attr('paddingBottom', 50)
-      .transform({ type: 'groupX', y: 'max' })
-      .coordinate({ transform: [{ type: 'transpose' }] })
-      .axis('x', false)
-      .encode('x', (d) => new Date(d.date).getUTCMonth())
-      .encode('y', 'temp_max')
-      .encode('color', 'steelblue'),
-  );
+  },
+  direction: 'col',
+  ratio: [1, 2],
+  children: [
+    {
+      type: 'interval',
+      paddingBottom: 0,
+      paddingRight: 300,
+      transform: [{ type: 'groupX', y: 'max' }],
+      axis: { x: false },
+      encode: {
+        x: (d) => new Date(d.date).getUTCDate(),
+        y: 'temp_max',
+        color: 'steelblue',
+      },
+    },
+    {
+      type: 'spaceFlex',
+      ratio: [2, 1],
+      children: [
+        {
+          type: 'cell',
+          paddingRight: 0,
+          paddingBottom: 50,
+          transform: [{ type: 'group', color: 'max' }],
+          encode: {
+            x: (d) => new Date(d.date).getUTCDate(),
+            y: (d) => new Date(d.date).getUTCMonth(),
+            color: 'temp_max',
+          },
+          style: { inset: 0.5 },
+          axis: { x: { title: 'Date' }, y: { title: 'Month' } },
+          legend: { color: false },
+          scale: {
+            color: {
+              type: 'sequential',
+              palette: 'gnBu',
+            },
+          },
+        },
+        {
+          type: 'interval',
+          paddingBottom: 50,
+          transform: [{ type: 'groupX', y: 'max' }],
+          coordinate: { transform: [{ type: 'transpose' }] },
+          axis: { x: false },
+          encode: {
+            x: (d) => new Date(d.date).getUTCMonth(),
+            y: 'temp_max',
+            color: 'steelblue',
+          },
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -89,7 +99,7 @@ Currently flex mainly provides the two most core configurations for convenient s
 All configurations corresponding to `spaceFlex` can be set using the API, for example:
 
 ```ts
-chart.spaceFlex().attr('ratio', [1, 2, 3]).attr('direction', 'col');
+chart.options({ type: 'spaceFlex', ratio: [1, 2, 3], direction: 'col' });
 ```
 
 ## FAQ

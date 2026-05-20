@@ -19,21 +19,23 @@ const chart = new Chart({
   paddingBottom: 50,
 });
 
-const facetRect = chart
-  .facetRect()
-  .attr('paddingBottom', 50)
-  .data({
+chart.options({
+  type: 'facetRect',
+  paddingBottom: 50,
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
-  .encode('x', 'series');
-
-facetRect
-  .point()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000')
-  .attr('inset', 10);
+  },
+  encode: { x: 'series' },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'x', y: 'y' },
+      style: { stroke: '#000' },
+      inset: 10,
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -112,7 +114,7 @@ The underlying implementation of facetRect is consistent with mark, so many conf
 All configurations corresponding to `facetRect` can be set using the API, for example:
 
 ```ts
-chart.facetRect().data([1, 2, 3]).encode('x', 'type');
+chart.options({ type: 'facetRect', data: [1, 2, 3], encode: { x: 'type' } });
 ```
 
 ### encode

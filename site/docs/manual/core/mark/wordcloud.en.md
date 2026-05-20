@@ -255,17 +255,18 @@ const chart = new Chart({
   paddingTop: 40,
 });
 
-chart
-  .wordCloud()
-  .data({
+chart.options({
+  type: 'wordCloud',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/philosophy-word.json',
-  })
-  .layout({
+  },
+  layout: {
     spiral: 'rectangular',
     fontSize: [20, 100],
-  })
-  .encode('color', 'text');
+  },
+  encode: { color: 'text' },
+});
 
 chart.render();
 

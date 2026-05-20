@@ -18,32 +18,34 @@ const chart = new Chart({
   container: 'container',
 });
 
-const layer = chart.spaceLayer().data({
-  type: 'fetch',
-  value:
-    'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  format: 'csv',
+chart.options({
+  type: 'spaceLayer',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+    format: 'csv',
+  },
+  children: [
+    // Bar chart
+    {
+      type: 'interval',
+      paddingLeft: 50,
+      transform: [{ type: 'sortX', reverse: true, by: 'y' }],
+      encode: { x: 'letter', y: 'frequency', color: 'letter' },
+    },
+    // Pie chart
+    {
+      type: 'interval',
+      paddingLeft: 400,
+      paddingBottom: 200,
+      coordinate: { type: 'theta' },
+      transform: [{ type: 'stackY' }],
+      legend: false,
+      encode: { y: 'frequency', color: 'letter' },
+    },
+  ],
 });
-
-// Bar chart
-layer
-  .interval()
-  .attr('paddingLeft', 50)
-  .transform({ type: 'sortX', reverse: true, by: 'y' })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter');
-
-// Pie chart
-layer
-  .interval()
-  .attr('paddingLeft', 400)
-  .attr('paddingBottom', 200)
-  .coordinate({ type: 'theta' })
-  .transform({ type: 'stackY' })
-  .legend(false)
-  .encode('y', 'frequency')
-  .encode('color', 'letter');
 
 chart.render();
 ```

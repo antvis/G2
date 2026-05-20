@@ -14,31 +14,35 @@ When no scale type is explicitly declared, G2 applies the linear scale by defaul
 Linear scales are commonly used to map data to normalized coordinates. In this example, the scale for the y channel is configured to affect how graphics are positioned on the canvas.
 
 ```ts
-chart
-  .line()
-  .encode('x', 'year')
-  .encode('y', 'sale')
-  .scale('y', {
-    type: 'linear',
-    range: [0.2, 0.8],
-    /* other configuration options */
-  });
+chart.options({
+  type: 'line',
+  encode: { x: 'year', y: 'sale' },
+  scale: {
+    y: {
+      type: 'linear',
+      range: [0.2, 0.8],
+      /* other configuration options */
+    },
+  },
+});
 ```
 
 It can be used not only with continuous numeric data types but also when proportional relationships need to be maintained.
 
 ```ts
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { time: '2023-01', sales: '100' },
     { time: '2023-01', sales: '300' },
-  ])
-  .encode('x', 'time')
-  .encode('y', 'sales')
-  .scale('y', {
-    type: 'linear', // When sales values are strings, they may be incorrectly inferred as categorical data, requiring explicit setting
-  });
+  ],
+  encode: { x: 'time', y: 'sales' },
+  scale: {
+    y: {
+      type: 'linear', // When sales values are strings, they may be incorrectly inferred as categorical data, requiring explicit setting
+    },
+  },
+});
 ```
 
 ## Configuration Levels
@@ -110,16 +114,18 @@ const data = [
   { time: '2023-05', sales: 400 },
 ];
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'time')
-  .encode('y', 'sales')
-  .scale('y', {
-    type: 'linear', // Use linear scale
-    nice: true,
-    domain: [0, 300], // Custom scale range setting, needs to be explicitly set
-  });
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'time', y: 'sales' },
+  scale: {
+    y: {
+      type: 'linear', // Use linear scale
+      nice: true,
+      domain: [0, 300], // Custom scale range setting, needs to be explicitly set
+    },
+  },
+});
 
 chart.render();
 ```
@@ -131,12 +137,15 @@ chart.render();
 For example, if you only need to display 0, 100, 600 on the ticks, set the y scale as follows:
 
 ```ts
-chart
-  .line()
+chart.options({
+  type: 'line',
   // ...
-  .scale('y', {
-    type: 'linear',
-    domain: [0, 700],
-    tickMethod: () => [0, 100, 600],
-  });
+  scale: {
+    y: {
+      type: 'linear',
+      domain: [0, 700],
+      tickMethod: () => [0, 100, 600],
+    },
+  },
+});
 ```

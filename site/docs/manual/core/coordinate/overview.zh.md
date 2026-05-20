@@ -51,17 +51,27 @@ chart.interval().coordinate({ type: 'polar' });
 标记层级的坐标系拥有 **冒泡性**。标记层级的坐标系会和视图的坐标系进行合并，并且第一个标记的坐标系优先级最高。
 
 ```js
-chart.coordinate({ type: 'theta' });
-chart.line().coordinate({ type: 'polar' });
-chart.area().coordinate({ type: 'radial' });
+chart.options({
+  type: 'view',
+  coordinate: { type: 'theta' },
+  children: [
+    { type: 'line', coordinate: { type: 'polar' } },
+    { type: 'area', coordinate: { type: 'radial' } },
+  ],
+});
 ```
 
 和下面的情况等价：
 
 ```js
-chart.coordinate({ type: 'polar' });
-chart.line();
-chart.area():
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  children: [
+    { type: 'line' },
+    { type: 'area' },
+  ],
+});
 ```
 
 这个特性有利于封装和坐标系相关的复合标记，比如饼图：

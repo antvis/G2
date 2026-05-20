@@ -46,8 +46,13 @@ chart.line();
 chart.point();
 
 // 5.0
-chart.line().data(data1);
-chart.line().data(data2);
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'line', data: data1 },
+    { type: 'line', data: data2 },
+  ],
+});
 ```
 
 ## 编码（Encode）
@@ -63,11 +68,10 @@ chart.line().data(data2);
 chart.interval().position('name*value').color('genre');
 
 // 5.0
-chart
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  encode: { x: 'name', y: 'value', color: 'genre' },
+});
 ```
 
 ### 回调参数
@@ -79,10 +83,11 @@ chart
 chart.interval().color('name*value', (name, value) => {});
 
 // 5.0
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   // 需要自己解构
-  .encode('color', ({ name, value }) => {});
+  encode: { color: ({ name, value }) => {} },
+});
 ```
 
 ### 回调返回值
@@ -94,16 +99,18 @@ chart
 chart.interval().color('name', (name) => (name > 10 ? 'red' : 'yellow'));
 
 // 5.0
-chart
-  .interval()
-  .encode('color', (d) => (d.name > 10 ? 'high' : 'low')) // 抽象数据
-  .scale('color', { range: ['red', 'yellow'] }); // 指定值域
+chart.options({
+  type: 'interval',
+  encode: { color: (d) => (d.name > 10 ? 'high' : 'low') }, // 抽象数据
+  scale: { color: { range: ['red', 'yellow'] } }, // 指定值域
+});
 
 // 5.0
-chart
-  .interval()
-  .encode('color', (d) => (d.name > 10 ? 'red' : 'yellow'))
-  .scale('color', { type: 'identity' });
+chart.options({
+  type: 'interval',
+  encode: { color: (d) => (d.name > 10 ? 'red' : 'yellow') },
+  scale: { color: { type: 'identity' } },
+});
 ```
 
 ### 颜色值域
@@ -116,15 +123,17 @@ chart.interval().color('name', ['red', 'blue']);
 chart.interval().color('name', '#fff-#000');
 
 // 5.0
-chart
-  .interval()
-  .encode('color', 'name') // 离散
-  .scale('color', { range: ['red', 'blue'] });
+chart.options({
+  type: 'interval',
+  encode: { color: 'name' }, // 离散
+  scale: { color: { range: ['red', 'blue'] } },
+});
 
-chart
-  .interval()
-  .encode('color', 'name') //连续
-  .scale('color', { range: '#fff-#000' });
+chart.options({
+  type: 'interval',
+  encode: { color: 'name' }, //连续
+  scale: { color: { range: '#fff-#000' } },
+});
 ```
 
 ## 时序通道
@@ -142,10 +151,10 @@ const data = [
 chart.line().position('year*value');
 
 // 5.0
-chart
-  .line()
-  .encode('x', (d) => new Date(d.year))
-  .encode('y', 'value');
+chart.options({
+  type: 'line',
+  encode: { x: (d) => new Date(d.year), y: 'value' },
+});
 ```
 
 ## 样式（Style）
@@ -163,10 +172,10 @@ chart
   );
 
 // 5.0
-chart
-  .interval()
-  .style('stroke', ({ a, b }) => (a + b > 10 ? 'red' : 'black'))
-  .style('strokeWidth', ({ a, b }) => (a + b > 10 ? 10 : 5));
+chart.options({
+  type: 'interval',
+  style: { stroke: ({ a, b }) => (a + b > 10 ? 'red' : 'black'), strokeWidth: ({ a, b }) => (a + b > 10 ? 10 : 5) },
+});
 ```
 
 ## 比例尺（Scale）
@@ -192,12 +201,13 @@ chart.scale('genre', {});
 chart.interval().color('genre');
 
 // 5.0
-chart
-  .interval()
-  .data(data)
-  .encode('color', 'genre')
+chart.options({
+  type: 'interval',
+  data,
+  encode: { color: 'genre' },
   // 设置 color 通道比例尺
-  .scale('color', {});
+  scale: { color: {} },
+});
 ```
 
 ### 属性
@@ -225,19 +235,19 @@ chart.scale('color', { domain: ['a', 'b', 'c'] });
 chart.scale('genre', { type: 'cat' });
 
 // 5.0
-chart
-  .interval()
-  .encode('x', 'name')
-  .encode('color', 'name')
+chart.options({
+  type: 'interval',
+  encode: { x: 'name', color: 'name' },
   // interval 的 x 通道默认是 band 比例尺
-  .scale('x', { type: 'band', range: [0.1, 0.9] })
-  .scale('color', { type: 'ordinal', range: ['red', 'blue'] });
+  scale: { x: { type: 'band', range: [0.1, 0.9] }, color: { type: 'ordinal', range: ['red', 'blue'] } },
+});
 
-chart
-  .point()
-  .encode('x', 'name')
+chart.options({
+  type: 'point',
+  encode: { x: 'name' },
   // point 比例尺
-  .scale('point', {});
+  scale: { point: {} },
+});
 ```
 
 ## 坐标系（Coordinate）
@@ -281,16 +291,19 @@ chart.interval().label('field', (d) =>
 );
 
 // 5.0
-chart
-  .interval()
-  .label({
-    text: 'field', // 指定内容
-    style: {
-      color: d > 10 ? 'red' : 'black', // 设置属性
-      stroke: d > 10 ? 'red' : 'black',
+chart.options({
+  type: 'interval',
+  label: [
+    {
+      text: 'field', // 指定内容
+      style: {
+        color: d > 10 ? 'red' : 'black', // 设置属性
+        stroke: d > 10 ? 'red' : 'black',
+      },
     },
-  })
-  .label({ text: (d) => d.value });
+    { text: (d) => d.value },
+  ],
+});
 ```
 
 ## 提示信息（Tooltip）
@@ -323,11 +336,9 @@ chart.interval().animate({
 });
 
 // 5.0
-chart.interval().animate('enter', {
-  type: 'fadeIn',
-  easing: 'easeQuadIn',
-  delay: 100,
-  duration: 600,
+chart.options({
+  type: 'interval',
+  animate: { enter: { type: 'fadeIn', easing: 'easeQuadIn', delay: 100, duration: 600 } },
 });
 ```
 
@@ -356,7 +367,7 @@ chart.interaction('tooltip', false);
 chart.annotation().line({});
 
 // 5.0
-chart.lineX();
+chart.options({ type: 'lineX' });
 ```
 
 ### 标注特定值
@@ -371,11 +382,12 @@ chart.annotation().line({
 });
 
 // 5.0
-chart
-  .lineX()
-  .encode('y', 'value')
+chart.options({
+  type: 'lineX',
+  encode: { y: 'value' },
   // 选择 y 通道最小的值
-  .transform({ type: 'selectY', y: 'mean' });
+  transform: [{ type: 'selectY', y: 'mean' }],
+});
 ```
 
 ## 分面（Facet）
@@ -398,16 +410,15 @@ chart.facet('rect', {
 });
 
 // 5.0
-chart
-  .facetRect()
-  .encode('x', 'cut')
-  .encode('y', 'clarity')
-  .point()
-  .encode('x', 'carat')
-  .encode('y', 'price')
-  .encode('color', 'cut')
-  .encode('shape', 'point')
-  .encode('size', 3)
-  .style('fillOpacity', 0.3)
-  .style('stroke', null);
+chart.options({
+  type: 'facetRect',
+  encode: { x: 'cut', y: 'clarity' },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'carat', y: 'price', color: 'cut', shape: 'point', size: 3 },
+      style: { fillOpacity: 0.3, stroke: null },
+    },
+  ],
+});
 ```

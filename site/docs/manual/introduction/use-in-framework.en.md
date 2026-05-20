@@ -26,13 +26,16 @@ function renderBarChart(container) {
   ];
 
   // Declare visualization
-  chart
-    .interval() // Create an Interval mark
-    .data(data) // Bind data
-    .encode('x', 'genre') // Encode x channel
-    .encode('y', 'sold') // Encode y channel
-    .encode('key', 'genre') // Specify key
-    .animate('update', { duration: 300 }); // Specify update animation duration
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'genre',
+      y: 'sold',
+      key: 'genre',
+    },
+    animate: { update: { duration: 300 } },
+  });
 
   // Render visualization
   chart.render();
@@ -53,7 +56,10 @@ function updateBarChart(chart) {
     sold: Math.random() * 400 + 100,
   }));
 
-  interval.data(newData);
+  // Update data and re-render
+  chart.options({
+    data: newData,
+  });
 
   // Re-render
   chart.render();

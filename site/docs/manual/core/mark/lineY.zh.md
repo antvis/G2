@@ -87,27 +87,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  children: [
+    {
+      type: 'interval',
+      transform: [{ type: 'groupX', y: 'mean' }],
+      encode: { x: (d) => new Date(d.date).getUTCMonth(), y: 'precipitation' },
+      scale: { y: { tickCount: 5, domainMax: 6 } },
+      tooltip: { channel: 'y', valueFormatter: '.2f' },
+    },
+    {
+      type: 'lineY',
+      transform: [{ type: 'groupX', y: 'mean' }],
+      encode: { y: 'precipitation' },
+      style: { stroke: '#F4664A', strokeOpacity: 1, lineWidth: 2, lineDash: [3, 3] },
+    },
+  ],
 });
-
-chart
-  .interval()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('x', (d) => new Date(d.date).getUTCMonth())
-  .encode('y', 'precipitation')
-  .scale('y', { tickCount: 5, domainMax: 6 })
-  .tooltip({ channel: 'y', valueFormatter: '.2f' });
-
-chart
-  .lineY()
-  .transform({ type: 'groupX', y: 'mean' }) // 计算平均值
-  .encode('y', 'precipitation') // 显式配置y通道
-  .style('stroke', '#F4664A')
-  .style('strokeOpacity', 1)
-  .style('lineWidth', 2)
-  .style('lineDash', [3, 3]);
 
 chart.render();
 ```

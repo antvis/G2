@@ -1766,14 +1766,16 @@ const logo = [
   ],
 ];
 
-chart
-  .interval()
-  .data(logo)
-  .encode('x', (d) => d[0])
-  .encode('y', () => Math.random())
-  .encode('color', (d) => d[1])
-  .scale('y', { nice: true })
-  .legend({
+chart.options({
+  type: 'interval',
+  data: logo,
+  encode: {
+    x: (d) => d[0],
+    y: () => Math.random(),
+    color: (d) => d[1],
+  },
+  scale: { y: { nice: true } },
+  legend: {
     color: {
       itemMarker: (_, index) => () => {
         const { document } = chart.getContext().canvas;
@@ -1791,8 +1793,9 @@ chart
       itemLabelText: (_, index) => logo[index][0],
       maxRows: 1,
     },
-  })
-  .tooltip(false);
+  },
+  tooltip: false,
+});
 
 chart.render();
 ```

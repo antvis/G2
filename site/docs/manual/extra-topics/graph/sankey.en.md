@@ -23,9 +23,9 @@ const chart = new Chart({
   padding: 10,
 });
 
-chart
-  .sankey()
-  .data({
+chart.options({
+  type: 'sankey',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/energy.json',
     transform: [
@@ -34,16 +34,19 @@ chart
         callback: (data) => ({ links: data }),
       },
     ],
-  })
-  .layout({
+  },
+  layout: {
     nodeAlign: 'center',
     nodePadding: 0.03,
-  })
-  .scale('color', { range: schemeTableau10 })
-  .style('labelSpacing', 3)
-  .style('labelFontWeight', 'bold')
-  .style('nodeStrokeWidth', 1.2)
-  .style('linkFillOpacity', 0.4);
+  },
+  scale: { color: { range: schemeTableau10 } },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    nodeStrokeWidth: 1.2,
+    linkFillOpacity: 0.4,
+  },
+});
 
 chart.render();
 ```
@@ -121,9 +124,12 @@ const initialData = [
   { source: 'B', target: 'X', value: 20 },
 ];
 
-chart.sankey().data({
-  type: 'inline',
-  value: initialData,
+chart.options({
+  type: 'sankey',
+  data: {
+    type: 'inline',
+    value: initialData,
+  },
 });
 
 chart.render();

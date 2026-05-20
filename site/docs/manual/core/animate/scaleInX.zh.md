@@ -10,8 +10,9 @@ order: 2
 <img alt="scaleInX" src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*oiaGTLx-dNcAAAAAAAAAAABkARQnAQ" width="400" />
 
 ```ts
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   /* ... */
-  .animate('enter', { type: 'scaleInX' });
+  animate: { enter: { type: 'scaleInX' } },
+});
 ```

@@ -20,9 +20,9 @@ const chart = new Chart({
   paddingBottom: 60,
 });
 
-const repeatMatrix = chart
-  .repeatMatrix()
-  .data({
+chart.options({
+  type: 'repeatMatrix',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/weather.json',
     transform: [
@@ -34,15 +34,17 @@ const repeatMatrix = chart
         }),
       },
     ],
-  })
-  .encode('y', ['temp_max', 'precipitation', 'wind'])
-  .encode('x', 'date');
-
-repeatMatrix
-  .line()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('color', 'location')
-  .scale('y', { zero: true });
+  },
+  encode: { y: ['temp_max', 'precipitation', 'wind'], x: 'date' },
+  children: [
+    {
+      type: 'line',
+      transform: [{ type: 'groupX', y: 'mean' }],
+      encode: { color: 'location' },
+      scale: { y: { zero: true } },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -73,7 +75,7 @@ The underlying implementation of repeatMatrix is consistent with mark, so many c
 All configurations corresponding to `repeatMatrix` can be set using the API, for example:
 
 ```ts
-chart.repeatMatrix().data([1, 2, 3]).encode('x', ['f1', 'f2', 'f3']);
+chart.options({ type: 'repeatMatrix', data: [1, 2, 3], encode: { x: ['f1', 'f2', 'f3'] } });
 ```
 
 ### encode

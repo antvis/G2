@@ -72,17 +72,24 @@ G2 的交互都是对每一个视图生效，如果希望关掉交互，可以�
 交互拥有冒泡性，视图交互会被它的标记所设置交互覆盖，并且最后一个标记所对应的坐标系优先级最高。
 
 ```js
-chart.interaction('elementHighlight', { link: true, background: true });
-chart.line().interaction('elementHighlight', { link: false });
-chart.area().interaction('elementHighlight', { background: false });
+chart.options({
+  type: 'view',
+  interaction: { elementHighlight: { link: true, background: true } },
+  children: [
+    { type: 'line', interaction: { elementHighlight: { link: false } } },
+    { type: 'area', interaction: { elementHighlight: { background: false } } },
+  ],
+});
 ```
 
 和下面的情况等价：
 
 ```js
-chart.interaction('elementHighlight', { link: false, background: false });
-chart.line();
-chart.area():
+chart.options({
+  type: 'view',
+  interaction: { elementHighlight: { link: false, background: false } },
+  children: [{ type: 'line' }, { type: 'area' }],
+});
 ```
 
 ## 交互状态
@@ -96,22 +103,22 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .transform({ type: 'sortX', by: 'y', reverse: true })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' })
-  .state({
+  },
+  transform: [{ type: 'sortX', by: 'y', reverse: true }],
+  encode: { x: 'letter', y: 'frequency' },
+  axis: { y: { labelFormatter: '.0%' } },
+  state: {
     selected: { fill: '#f4bb51' }, // 设置选中状态
     unselected: { opacity: 0.6 }, // 设置非选中状态
-  })
-  .interaction('elementSelect', true);
+  },
+  interaction: { elementSelect: true },
+});
 
 chart.render();
 ```
@@ -143,17 +150,15 @@ const chart = new Chart({
 
 const brushHistory = [];
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender')
-  .encode('shape', 'point')
-  .interaction('brushFilter', true);
+  },
+  encode: { x: 'weight', y: 'height', color: 'gender', shape: 'point' },
+  interaction: { brushFilter: true },
+});
 
 // 监听刷选事件
 chart.on('brush:filter', (e) => {
@@ -237,9 +242,9 @@ register('interaction.customElementHighlight', () => {
 
 const chart = new Chart({ container: 'container' });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { name: 'London', 月份: 'Jan.', 月均降雨量: 18.9 },
     { name: 'London', 月份: 'Feb.', 月均降雨量: 28.8 },
     { name: 'London', 月份: 'Mar.', 月均降雨量: 39.3 },
@@ -256,12 +261,11 @@ chart
     { name: 'Berlin', 月份: 'Jun.', 月均降雨量: 35.5 },
     { name: 'Berlin', 月份: 'Jul.', 月均降雨量: 37.4 },
     { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
-  ])
-  .transform({ type: 'dodgeX' })
-  .encode('x', '月份')
-  .encode('y', '月均降雨量')
-  .encode('color', 'name')
-  .interaction('customElementHighlight', true);
+  ],
+  transform: [{ type: 'dodgeX' }],
+  encode: { x: '月份', y: '月均降雨量', color: 'name' },
+  interaction: { customElementHighlight: true },
+});
 
 chart.render();
 ```

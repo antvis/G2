@@ -41,13 +41,9 @@ chart.options({
 - API 方式
 
 ```js
-// 第一种方式
 chart
   .labelTransform({ type: 'overlapHide' })
   .labelTransform({ type: 'contrastReverse' });
-
-// 第二种方式
-chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 ```
 
 - spec 配置
@@ -516,21 +512,24 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .label({
-    text: 'name',
-    transform: [
-      {
-        type: 'overflowHide',
-      },
-    ],
-  });
+  },
+  encode: { value: 'sum' },
+  labels: [
+    {
+      text: 'name',
+      transform: [
+        {
+          type: 'overflowHide',
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();
 ```
