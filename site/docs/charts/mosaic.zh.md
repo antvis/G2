@@ -166,7 +166,7 @@ chart.options({
     x: { paddingOuter: 0, paddingInner: 0.01 },
   },
   tooltip: 'value',
-  label: [
+  labels: [
     {
       text: 'segment',
       x: 5,

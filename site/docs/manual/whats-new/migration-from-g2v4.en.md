@@ -293,12 +293,12 @@ chart.interval().label('field', (d) =>
 // 5.0
 chart.options({
   type: 'interval',
-  label: [
+  labels: [
     {
       text: 'field', // Specify content
       style: {
-        color: d > 10 ? 'red' : 'black', // Set properties
-        stroke: d > 10 ? 'red' : 'black',
+        fill: (d) => (d > 10 ? 'red' : 'black'), // Set properties
+        stroke: (d) => (d > 10 ? 'red' : 'black'),
       },
     },
     { text: (d) => d.value },
