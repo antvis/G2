@@ -155,6 +155,7 @@ chart.options({
         textBaseline: 'middle',
       },
     },
+    // 使用 lineX 方法添加分割线
     {
       type: 'lineX',
       data: [0.45],
@@ -474,6 +475,7 @@ chart.options({
         textBaseline: 'middle',
       },
     },
+    // 使用 lineX 方法添加分割线
     {
       type: 'lineX',
       data: [0.25],

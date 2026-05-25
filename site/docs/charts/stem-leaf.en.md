@@ -155,6 +155,7 @@ chart.options({
         textBaseline: 'middle',
       },
     },
+    // Add separator line using lineX method
     {
       type: 'lineX',
       data: [0.45],
@@ -474,6 +475,7 @@ chart.options({
         textBaseline: 'middle',
       },
     },
+    // Add separator line using lineX method
     {
       type: 'lineX',
       data: [0.25],
