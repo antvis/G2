@@ -53,7 +53,7 @@ describe('Interactions', () => {
         ]);
 
         // Render chart.
-        const gCanvas = await renderSpec(generateOptions);
+        gCanvas = await renderSpec(generateOptions);
 
         // Asset each state.
         // @ts-ignore
@@ -73,6 +73,7 @@ describe('Interactions', () => {
         }
       } finally {
         gCanvas?.destroy();
+        gCanvas = undefined;
       }
     });
   }
