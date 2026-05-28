@@ -306,8 +306,9 @@ chart.render();
 You can use the `defined` configuration to determine whether it's a non-null value. By default, NaN, undefined, and null are null values. If you need data with value `0` to be treated as null for connection:
 
 ```js
-chart
-  .area()
+chart.options({
+  type: 'area',
   // ...
-  .style('defined', (v) => v === 0);
+  style: { defined: (v) => v === 0 },
+});
 ```

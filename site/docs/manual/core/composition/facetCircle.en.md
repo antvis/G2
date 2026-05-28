@@ -41,13 +41,17 @@ const chart = new Chart({
   height: 480,
 });
 
-const facetCircle = chart.facetCircle().data(data).encode('position', 'month');
-
-facetCircle
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('color', 'name');
+chart.options({
+  type: 'facetCircle',
+  data,
+  encode: { position: 'month' },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'name', y: 'value', color: 'name' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -78,7 +82,7 @@ The underlying implementation of facetCircle is consistent with mark, so many co
 All configurations corresponding to `facetCircle` can be set using the API, for example:
 
 ```ts
-chart.facetCircle().data([1, 2, 3]).encode('position', 'month');
+chart.options({ type: 'facetCircle', data: [1, 2, 3], encode: { position: 'month' } });
 ```
 
 ### encode

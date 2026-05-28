@@ -306,8 +306,9 @@ chart.render();
 可以使用 `defined` 配置去决定是否为非空值，默认 NaN、undefined、null 为空值。假设需要数据为 `0` 的时候是空值连接。
 
 ```js
-chart
-  .area()
+chart.options({
+  type: 'area',
   // ...
-  .style('defined', (v) => v === 0);
+  style: { defined: (v) => v === 0 },
+});
 ```

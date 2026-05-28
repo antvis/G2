@@ -42,17 +42,16 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// 初始化图表实例
+// 初始化图表实例并声明可视化
 const chart = new Chart({
   container: 'container',
 });
 
-// 声明可视化
-chart
-  .interval() // 创建一个 Interval 标记
-  .data(data) // 绑定数据
-  .encode('x', 'genre') // 编码 x 通道
-  .encode('y', 'sold'); // 编码 y 通道
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold' },
+});
 
 // 渲染可视化
 chart.render();
@@ -74,17 +73,16 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
     { genre: 'Other', sold: 150 },
   ];
 
-  // 初始化图表实例
+  // 初始化图表实例并声明可视化
   const chart = new G2.Chart({
     container: 'container',
   });
 
-  // 声明可视化
-  chart
-    .interval() // 创建一个 Interval 标记
-    .data(data) // 绑定数据
-    .encode('x', 'genre') // 编码 x 通道
-    .encode('y', 'sold'); // 编码 y 通道
+  chart.options({
+    type: 'interval',
+    data,
+    encode: { x: 'genre', y: 'sold' },
+  });
 
   // 渲染可视化
   chart.render();
@@ -98,23 +96,22 @@ G2 也提供了 UMD 版本，可以直接通过 CDN 加载，然后直接使用�
 ```js | ob { pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
-// 初始化图表实例
-
+// 初始化图表实例并声明可视化
 const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
+  ],
+  encode: { x: 'genre', y: 'sold' },
+});
 
 chart.render();
 ```

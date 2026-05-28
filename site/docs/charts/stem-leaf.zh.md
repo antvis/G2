@@ -155,19 +155,22 @@ chart.options({
         textBaseline: 'middle',
       },
     },
+    // 使用 lineX 方法添加分割线
+    {
+      type: 'lineX',
+      data: [0.45],
+      style: {
+        lineWidth: 1,
+        stroke: '#333',
+        strokeOpacity: 0.6,
+      },
+    },
   ],
   scale: {
     x: { domain: [0, 1], nice: false },
     y: { domain: [-0.5, maxY - 0.5], nice: false },
   },
   axis: false,
-});
-
-// 使用 lineX 方法添加分割线
-chart.lineX().data([0.45]).style({
-  lineWidth: 1,
-  stroke: '#333',
-  strokeOpacity: 0.6,
 });
 
 chart.render();
@@ -472,19 +475,22 @@ chart.options({
         textBaseline: 'middle',
       },
     },
+    // 使用 lineX 方法添加分割线
+    {
+      type: 'lineX',
+      data: [0.25],
+      style: {
+        lineWidth: 1,
+        stroke: '#333',
+        strokeOpacity: 0.6,
+      },
+    },
   ],
   scale: {
     x: { domain: [0, 1], nice: false },
     y: { domain: [0, maxY], nice: false },
   },
   axis: false,
-});
-
-// 使用 lineX 方法添加分割线
-chart.lineX().data([0.25]).style({
-  lineWidth: 1,
-  stroke: '#333',
-  strokeOpacity: 0.6,
 });
 
 chart.render();

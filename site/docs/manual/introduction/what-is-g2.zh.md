@@ -48,15 +48,14 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender');
+  },
+  encode: { x: 'weight', y: 'height', color: 'gender' },
+});
 
 chart.render();
 ```
@@ -72,17 +71,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'height')
-  .encode('color', 'gender')
-  .transform({ type: 'binX', y: 'count' })
-  .transform({ type: 'stackY' })
-  .style('insetLeft', 1);
+  },
+  encode: { x: 'height', color: 'gender' },
+  transform: [{ type: 'binX', y: 'count' }, { type: 'stackY' }],
+  style: { insetLeft: 1 },
+});
 
 chart.render();
 ```
@@ -98,19 +96,17 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'height')
-  .encode('color', 'gender')
-  .transform({ type: 'binX', y: 'count' })
-  .transform({ type: 'stackY' })
-  .scale('color', { range: ['steelblue', 'orange'] })
-  .scale('y', { nice: true })
-  .style('insetLeft', 1);
+  },
+  encode: { x: 'height', color: 'gender' },
+  transform: [{ type: 'binX', y: 'count' }, { type: 'stackY' }],
+  scale: { color: { range: ['steelblue', 'orange'] }, y: { nice: true } },
+  style: { insetLeft: 1 },
+});
 
 chart.render();
 ```
@@ -126,21 +122,19 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'height')
-  .encode('color', 'gender')
-  .transform({ type: 'binX', y: 'count' })
-  .transform({ type: 'stackY' })
-  .scale('color', { range: ['steelblue', 'orange'] })
-  .scale('y', { type: 'sqrt', nice: true })
-  .coordinate({ type: 'polar' })
-  .axis('y', { title: false })
-  .style('insetLeft', 1);
+  },
+  encode: { x: 'height', color: 'gender' },
+  transform: [{ type: 'binX', y: 'count' }, { type: 'stackY' }],
+  scale: { color: { range: ['steelblue', 'orange'] }, y: { type: 'sqrt', nice: true } },
+  coordinate: { type: 'polar' },
+  axis: { y: { title: false } },
+  style: { insetLeft: 1 },
+});
 
 chart.render();
 ```
@@ -157,23 +151,24 @@ const chart = new Chart({
   paddingLeft: 60,
 });
 
-const facet = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('y', 'gender');
-
-facet
-  .rect()
-  .encode('x', 'height')
-  .encode('color', 'gender')
-  .transform({ type: 'binX', y: 'count' })
-  .transform({ type: 'stackY' })
-  .scale('y', { nice: true })
-  .attr('frame', false)
-  .style('insetLeft', 1);
+  },
+  encode: { y: 'gender' },
+  children: [
+    {
+      type: 'rect',
+      encode: { x: 'height', color: 'gender' },
+      transform: [{ type: 'binX', y: 'count' }, { type: 'stackY' }],
+      scale: { y: { nice: true } },
+      frame: false,
+      style: { insetLeft: 1 },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -189,19 +184,20 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .rect()
-  .data({
+chart.options({
+  type: 'rect',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'height')
-  .encode('color', 'gender')
-  .encode('enterDuration', 1000)
-  .transform({ type: 'stackEnter', groupBy: ['color'] })
-  .transform({ type: 'binX', y: 'count' })
-  .transform({ type: 'stackY' })
-  .style('insetLeft', 1);
+  },
+  encode: { x: 'height', color: 'gender', enterDuration: 1000 },
+  transform: [
+    { type: 'stackEnter', groupBy: ['color'] },
+    { type: 'binX', y: 'count' },
+    { type: 'stackY' },
+  ],
+  style: { insetLeft: 1 },
+});
 
 chart.render();
 ```
@@ -220,29 +216,32 @@ fetch(
       paddingLeft: 100,
     });
 
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 4);
-
-    keyframe
-      .interval()
-      .attr('padding', 'auto')
-      .data(data)
-      .encode('x', 'gender')
-      .encode('color', 'gender')
-      .encode('key', 'gender')
-      .transform({ type: 'groupX', y: 'count' });
-
-    keyframe
-      .point()
-      .attr('padding', 'auto')
-      .data(data)
-      .encode('x', 'weight')
-      .encode('y', 'height')
-      .encode('color', 'gender')
-      .encode('groupKey', 'gender')
-      .encode('shape', 'point');
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        {
+          type: 'interval',
+          padding: 'auto',
+          data,
+          encode: { x: 'gender', color: 'gender', key: 'gender' },
+          transform: [{ type: 'groupX', y: 'count' }],
+        },
+        {
+          type: 'point',
+          padding: 'auto',
+          data,
+          encode: {
+            x: 'weight',
+            y: 'height',
+            color: 'gender',
+            groupKey: 'gender',
+            shape: 'point',
+          },
+        },
+      ],
+    });
 
     chart.render();
   });
@@ -259,27 +258,27 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender')
-  .encode('shape', 'point')
-  .style({
+  },
+  encode: { x: 'weight', y: 'height', color: 'gender', shape: 'point' },
+  style: {
     fillOpacity: 0.7,
     transform: 'scale(1, 1)',
     transformOrigin: 'center center',
-  })
-  .state('inactive', {
-    fill: 'black',
-    fillOpacity: 0.5,
-    transform: 'scale(0.5, 0.5)',
-  })
-  .interaction('brushXHighlight', true);
+  },
+  state: {
+    inactive: {
+      fill: 'black',
+      fillOpacity: 0.5,
+      transform: 'scale(0.5, 0.5)',
+    },
+  },
+  interaction: { brushXHighlight: true },
+});
 
 chart.render();
 ```

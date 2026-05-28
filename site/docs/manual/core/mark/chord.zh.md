@@ -291,17 +291,17 @@ const data = [
   },
 ];
 
-chart
-  .chord()
-  .data({
+chart.options({
+  type: 'chord',
+  data: {
     value: { links: data },
-  })
-  .layout({
+  },
+  layout: {
     nodeWidthRatio: 0.05,
-  })
-  .scale('color', { range: schemeTableau10 })
-  .style('labelFontSize', 15)
-  .style('linkFillOpacity', 0.6);
+  },
+  scale: { color: { range: schemeTableau10 } },
+  style: { labelFontSize: 15, linkFillOpacity: 0.6 },
+});
 
 chart.render();
 

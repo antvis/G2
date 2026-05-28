@@ -106,9 +106,7 @@ chart.options({
 
 const handleSetCoordinate = (coordinate) => {
   // 设置选中的坐标系
-  chart.coordinate({
-    type: coordinate,
-  });
+  chart.options({ coordinate: { type: coordinate } });
   chart.render(); // 重新渲染图表
 };
 
@@ -190,26 +188,23 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/species.json',
-  transform: [
-    {
-      type: 'kde',
-      field: 'y',
-      groupBy: ['x'],
-      size: 20,
-    },
-  ],
+chart.options({
+  type: 'density',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+    transform: [
+      {
+        type: 'kde',
+        field: 'y',
+        groupBy: ['x'],
+        size: 20,
+      },
+    ],
+  },
+  encode: { x: 'x', y: 'y', color: 'x', size: 'size' },
+  tooltip: false,
 });
-
-chart
-  .density()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'x')
-  .encode('size', 'size')
-  .tooltip(false);
 
 chart.render();
 

@@ -21,29 +21,27 @@ const chart = new Chart({
   container: 'container',
 });
 chart.options({
+  type: 'interval',
   width: 800,
   height: 400,
   paddingLeft: 60,
-});
-
-chart
-  .interval()
-  .data([
+  data: [
     { category: 'Electronics', sales: 1200000, profitRate: 0.15 },
     { category: 'Clothing', sales: 800000, profitRate: 0.25 },
     { category: 'Food', sales: 600000, profitRate: 0.12 },
     { category: 'Furniture', sales: 400000, profitRate: 0.18 },
     { category: 'Books', sales: 200000, profitRate: 0.3 },
-  ])
-  .transform({ type: 'flexX', field: 'sales' })
-  .encode('x', 'category')
-  .encode('y', 'profitRate')
-  .encode('color', 'category')
-  .scale('y', { nice: true })
-  .axis('y', {
-    title: 'Profit Rate',
-    labelFormatter: '.0%',
-  });
+  ],
+  transform: [{ type: 'flexX', field: 'sales' }],
+  encode: { x: 'category', y: 'profitRate', color: 'category' },
+  scale: { y: { nice: true } },
+  axis: {
+    y: {
+      title: 'Profit Rate',
+      labelFormatter: '.0%',
+    },
+  },
+});
 
 chart.render();
 ```
@@ -63,22 +61,18 @@ const chart = new Chart({
   container: 'container',
 });
 chart.options({
+  type: 'interval',
   width: 1000,
   paddingBottom: 100,
-});
-
-chart
-  .interval()
-  .data({
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/90873879-09d7-4842-a493-03fb560267bc.csv',
-  })
-  .transform({ type: 'flexX', field: 'gdp' })
-  .encode('x', 'country')
-  .encode('y', 'value')
-  .encode('color', 'country')
-  .axis('y', { labelFormatter: '~s' });
+  },
+  transform: [{ type: 'flexX', field: 'gdp' }],
+  encode: { x: 'country', y: 'value', color: 'country' },
+  axis: { y: { labelFormatter: '~s' } },
+});
 chart.render();
 ```
 
@@ -119,26 +113,20 @@ const chart = new Chart({
   container: 'container',
 });
 chart.options({
+  type: 'interval',
   width: 900,
   height: 800,
   paddingLeft: 0,
   paddingRight: 0,
-});
-
-chart
-  .interval()
-  .data({
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/3041da62-1bf4-4849-aac3-01a387544bf4.csv',
-  })
-  .transform({ type: 'flexX', reducer: 'sum' })
-  .transform({ type: 'stackY' })
-  .transform({ type: 'normalizeY' })
-  .encode('x', 'market')
-  .encode('y', 'value')
-  .encode('color', 'segment')
-  .scale('x', { paddingOuter: 0, paddingInner: 0.01 });
+  },
+  transform: [{ type: 'flexX', reducer: 'sum' }, { type: 'stackY' }, { type: 'normalizeY' }],
+  encode: { x: 'market', y: 'value', color: 'segment' },
+  scale: { x: { paddingOuter: 0, paddingInner: 0.01 } },
+});
 chart.render();
 ```
 

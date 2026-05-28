@@ -34,38 +34,40 @@ const chart = new Chart({
   container: 'container',
 });
 
-const layer = chart.spaceLayer();
-
-// 条形图
-layer
-  .interval()
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
-
-// 饼图
-layer
-  .interval() // 创建一个 interval
-  .attr('paddingLeft', 300) // 设置位置
-  .attr('paddingBottom', 250)
-  .coordinate({ type: 'theta' }) // 指定坐标系
-  .transform({ type: 'stackY' })
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .legend('color', false);
+chart.options({
+  type: 'spaceLayer',
+  children: [
+    // 条形图
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { x: 'genre', y: 'sold' },
+    },
+    // 饼图
+    {
+      type: 'interval',
+      paddingLeft: 300,
+      paddingBottom: 250,
+      coordinate: { type: 'theta' },
+      transform: [{ type: 'stackY' }],
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      legend: { color: false },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -78,36 +80,39 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
 });
-const flex = chart.spaceFlex();
 
-// 条形图
-flex
-  .interval()
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
-
-// 饼图
-flex
-  .interval() // 创建一个 interval
-  .coordinate({ type: 'theta' }) // 指定坐标系
-  .transform({ type: 'stackY' })
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .legend('color', false);
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    // 条形图
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { x: 'genre', y: 'sold' },
+    },
+    // 饼图
+    {
+      type: 'interval',
+      coordinate: { type: 'theta' },
+      transform: [{ type: 'stackY' }],
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      legend: { color: false },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -129,23 +134,25 @@ const chart = new Chart({
   paddingBottom: 50,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
+  },
   // 将数据按照 series 字段划分成一个个子集，
   // 并且是 x 方向排列
-  .encode('x', 'series');
-
-facetRect
-  .point()
-  .attr('padding', 'auto')
-  .attr('inset', 10)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000');
+  encode: { x: 'series' },
+  children: [
+    {
+      type: 'point',
+      padding: 'auto',
+      inset: 10,
+      encode: { x: 'x', y: 'y' },
+      style: { stroke: '#000' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -166,24 +173,28 @@ const chart = new Chart({
   paddingBottom: 45,
 });
 
-const repeatMatrix = chart
-  .repeatMatrix()
-  .data({
+chart.options({
+  type: 'repeatMatrix',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/penguins.json',
     // 数据处理
-  })
+  },
   // 指定需要重复的编码
   // 一共会生成 4 * 4 = 16 个视图
   // 每个视图的 x 和 y 编码是下面字段的叉乘
-  .encode('position', [
-    'culmen_length_mm',
-    'culmen_depth_mm',
-    'flipper_length_mm',
-    'body_mass_g',
-  ]);
-
-repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
+  encode: {
+    position: [
+      'culmen_length_mm',
+      'culmen_depth_mm',
+      'flipper_length_mm',
+      'body_mass_g',
+    ],
+  },
+  children: [
+    { type: 'point', padding: 'auto', encode: { color: 'species' } },
+  ],
+});
 
 chart.render();
 ```
@@ -207,29 +218,31 @@ fetch(
     });
 
     // 参考 css animation 的描述
-    const keyframe = chart
-      .timingKeyframe() // 创建容器
-      .attr('iterationCount', 2) // 迭代次数
-      .attr('direction', 'alternate') // 方向
-      .attr('duration', 1000); // 持续时间
-
-    keyframe
-      .interval()
-      .transform({ type: 'groupX', y: 'mean' })
-      .data(data)
-      .encode('x', 'gender')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('key', 'gender'); // 指定 key
-
-    keyframe
-      .point()
-      .data(data)
-      .encode('x', 'height')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('shape', 'point')
-      .encode('groupKey', 'gender'); // 指定 groupKey
+    chart.options({
+      type: 'timingKeyframe',
+      iterationCount: 2, // 迭代次数
+      direction: 'alternate', // 方向
+      duration: 1000, // 持续时间
+      children: [
+        {
+          type: 'interval',
+          transform: [{ type: 'groupX', y: 'mean' }],
+          data,
+          encode: { x: 'gender', y: 'weight', color: 'gender', key: 'gender' },
+        },
+        {
+          type: 'point',
+          data,
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+            shape: 'point',
+            groupKey: 'gender',
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

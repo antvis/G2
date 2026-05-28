@@ -28,10 +28,10 @@ Promise.all([
     container: 'container',
   });
 
-  chart
-    .geoPath()
-    .coordinate({ type: 'albersUsa' })
-    .data({
+  chart.options({
+    type: 'geoPath',
+    coordinate: { type: 'albersUsa' },
+    data: {
       value: counties,
       transform: [
         {
@@ -41,13 +41,16 @@ Promise.all([
           select: ['rate'],
         },
       ],
-    })
-    .scale('color', {
-      type: 'sequential',
-      palette: 'ylGnBu',
-      unknown: '#fff',
-    })
-    .encode('color', 'rate');
+    },
+    scale: {
+      color: {
+        type: 'sequential',
+        palette: 'ylGnBu',
+        unknown: '#fff',
+      },
+    },
+    encode: { color: 'rate' },
+  });
 
   chart.render();
 });
@@ -79,11 +82,12 @@ fetch('xxx/china.topo.json').then(async (res) => {
   const data = await res.json();
   const features = feature(data, data.objects.default).features;
 
-  chart
-    .geoPath()
-    .coordinate({ type: 'mercator' })
-    .data(features)
-    .style('stroke', 'white');
+  chart.options({
+    type: 'geoPath',
+    coordinate: { type: 'mercator' },
+    data: features,
+    style: { stroke: 'white' },
+  });
 
   chart.render();
 });
@@ -102,11 +106,12 @@ fetch('xxx/china.json').then(async (res) => {
   const data = await res.json();
   const features = data.features;
 
-  chart
-    .geoPath()
-    .coordinate({ type: 'mercator' })
-    .data(features)
-    .style('stroke', 'white');
+  chart.options({
+    type: 'geoPath',
+    coordinate: { type: 'mercator' },
+    data: features,
+    style: { stroke: 'white' },
+  });
 
   chart.render();
 });

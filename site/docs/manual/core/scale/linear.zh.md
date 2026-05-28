@@ -14,31 +14,35 @@ linear 是连续型比例尺的基类，它的核心作用是将数据从数据�
 linear 比例尺常规用于将数据映射到归一化坐标上。这个例子中会将 y 通道的比例尺设置它的映射方式，从而影响到图形在画布上的位置。
 
 ```ts
-chart
-  .line()
-  .encode('x', 'year')
-  .encode('y', 'sale')
-  .scale('y', {
-    type: 'linear',
-    range: [0.2, 0.8],
-    /* 其他配置项 */
-  });
+chart.options({
+  type: 'line',
+  encode: { x: 'year', y: 'sale' },
+  scale: {
+    y: {
+      type: 'linear',
+      range: [0.2, 0.8],
+      /* 其他配置项 */
+    },
+  },
+});
 ```
 
 不仅可以在数据类型为连续数值数据时使用，也可以在需要保持数据比例关系中使用。
 
 ```ts
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { time: '2023-01', sales: '100' },
     { time: '2023-01', sales: '300' },
-  ])
-  .encode('x', 'time')
-  .encode('y', 'sales')
-  .scale('y', {
-    type: 'linear', // 当 sales 数值为字符串，会被错误地推断为分类数据，需要显式设置
-  });
+  ],
+  encode: { x: 'time', y: 'sales' },
+  scale: {
+    y: {
+      type: 'linear', // 当 sales 数值为字符串，会被错误地推断为分类数据，需要显式设置
+    },
+  },
+});
 ```
 
 ## 配置层级
@@ -110,16 +114,18 @@ const data = [
   { time: '2023-05', sales: 400 },
 ];
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'time')
-  .encode('y', 'sales')
-  .scale('y', {
-    type: 'linear', // 使用线性比例尺
-    nice: true,
-    domain: [0, 300], // 自定义设置比例尺的范围，需要显式设置
-  });
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'time', y: 'sales' },
+  scale: {
+    y: {
+      type: 'linear', // 使用线性比例尺
+      nice: true,
+      domain: [0, 300], // 自定义设置比例尺的范围，需要显式设置
+    },
+  },
+});
 
 chart.render();
 ```
@@ -131,12 +137,15 @@ chart.render();
 比如只需要在刻度上显示 0, 100, 600，那就以下方式设置 y 比例尺。
 
 ```ts
-chart
-  .line()
+chart.options({
+  type: 'line',
   // ...
-  .scale('y', {
-    type: 'linear',
-    domain: [0, 700],
-    tickMethod: () => [0, 100, 600],
-  });
+  scale: {
+    y: {
+      type: 'linear',
+      domain: [0, 700],
+      tickMethod: () => [0, 100, 600],
+    },
+  },
+});
 ```

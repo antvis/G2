@@ -11,8 +11,9 @@ order: 2
 <img alt="waveIn" src="https://mdn.alipayobjects.com/antforest/afts/img/A*FXpgRICdrXUAAAAAAAAAAAAADrd2AQ/polar-waveIn.gif" width="400" />
 
 ```ts
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   /* ... */
-  .animate('enter', { type: 'waveIn' });
+  animate: { enter: { type: 'waveIn' } },
+});
 ```

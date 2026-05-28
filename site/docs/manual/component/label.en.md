@@ -41,13 +41,9 @@ You can configure `labelTransform` at the `view` level to declare label transfor
 - API approach
 
 ```js
-// First method
 chart
   .labelTransform({ type: 'overlapHide' })
   .labelTransform({ type: 'contrastReverse' });
-
-// Second method
-chart.labelTransform([{ type: 'overlapHide' }, { type: 'contrastReverse' }]);
 ```
 
 - Spec configuration
@@ -519,21 +515,24 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .label({
-    text: 'name',
-    transform: [
-      {
-        type: 'overflowHide',
-      },
-    ],
-  });
+  },
+  encode: { value: 'sum' },
+  labels: [
+    {
+      text: 'name',
+      transform: [
+        {
+          type: 'overflowHide',
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();
 ```

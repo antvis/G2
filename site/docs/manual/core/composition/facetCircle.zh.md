@@ -41,13 +41,17 @@ const chart = new Chart({
   height: 480,
 });
 
-const facetCircle = chart.facetCircle().data(data).encode('position', 'month');
-
-facetCircle
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('color', 'name');
+chart.options({
+  type: 'facetCircle',
+  data,
+  encode: { position: 'month' },
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'name', y: 'value', color: 'name' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -78,7 +82,7 @@ facetCircle 的底层实现和 mark 一致，所以在配置上有很多是一�
 `facetCircle` 对应的配置都可以使用 API 进行设置，例如：
 
 ```ts
-chart.facetCircle().data([1, 2, 3]).encode('position', 'month');
+chart.options({ type: 'facetCircle', data: [1, 2, 3], encode: { position: 'month' } });
 ```
 
 ### encode

@@ -254,53 +254,61 @@ const data = [
   },
 ];
 
-chart
-  .data(data)
-  .encode('x', 'time')
-  .encode('color', (d) => {
-    const trend = Math.sign(d.start - d.end);
-    return trend > 0 ? 'Decline' : trend === 0 ? 'Unchanged' : 'Rise';
-  })
-  .scale('x', {
-    compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
-  })
-  .scale('color', {
-    domain: ['Decline', 'Unchanged', 'Rise'],
-    range: ['#4daf4a', '#999999', '#e41a1c'],
-  });
-
-chart
-  .link()
-  .encode('y', ['min', 'max'])
-  .tooltip({
-    title: 'time',
-    items: [
-      { field: 'start', name: 'Open Price' },
-      { field: 'end', name: 'Close Price' },
-      { field: 'min', name: 'Low Price' },
-      { field: 'max', name: 'High Price' },
-    ],
-  });
-
-chart
-  .interval()
-  .encode('y', ['start', 'end'])
-  .style('fillOpacity', 1)
-  .style('stroke', (d) => {
-    if (d.start === d.end) return '#999999';
-  })
-  .axis('y', {
-    title: false,
-  })
-  .tooltip({
-    title: 'time',
-    items: [
-      { field: 'start', name: 'Open Price' },
-      { field: 'end', name: 'Close Price' },
-      { field: 'min', name: 'Low Price' },
-      { field: 'max', name: 'High Price' },
-    ],
-  });
+chart.options({
+  type: 'view',
+  data,
+  encode: {
+    x: 'time',
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      return trend > 0 ? 'Decline' : trend === 0 ? 'Unchanged' : 'Rise';
+    },
+  },
+  scale: {
+    x: {
+      compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    },
+    color: {
+      domain: ['Decline', 'Unchanged', 'Rise'],
+      range: ['#4daf4a', '#999999', '#e41a1c'],
+    },
+  },
+  children: [
+    {
+      type: 'link',
+      encode: { y: ['min', 'max'] },
+      tooltip: {
+        title: 'time',
+        items: [
+          { field: 'start', name: 'Open Price' },
+          { field: 'end', name: 'Close Price' },
+          { field: 'min', name: 'Low Price' },
+          { field: 'max', name: 'High Price' },
+        ],
+      },
+    },
+    {
+      type: 'interval',
+      encode: { y: ['start', 'end'] },
+      style: {
+        fillOpacity: 1,
+        stroke: (d) => {
+          if (d.start === d.end) return '#999999';
+        },
+      },
+      axis: { y: { title: false } },
+      tooltip: {
+        title: 'time',
+        items: [
+          { field: 'start', name: 'Open Price' },
+          { field: 'end', name: 'Close Price' },
+          { field: 'min', name: 'Low Price' },
+          { field: 'max', name: 'High Price' },
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -316,8 +324,12 @@ Each data point contains multiple fields: `time` (date), `start` (opening price)
 #### Time Scale Configuration
 
 ```js
-chart.scale('x', {
-  compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+({
+  scale: {
+    x: {
+      compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    },
+  },
 });
 ```
 
@@ -326,9 +338,13 @@ The key to this code is the custom comparison function, which converts string ti
 #### Color Encoding
 
 ```js
-chart.encode('color', (d) => {
-  const trend = Math.sign(d.start - d.end);
-  return trend > 0 ? 'Decline' : trend === 0 ? 'Unchanged' : 'Rise';
+({
+  encode: {
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      return trend > 0 ? 'Decline' : trend === 0 ? 'Unchanged' : 'Rise';
+    },
+  },
 });
 ```
 

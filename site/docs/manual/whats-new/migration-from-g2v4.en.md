@@ -46,8 +46,13 @@ chart.line();
 chart.point();
 
 // 5.0
-chart.line().data(data1);
-chart.line().data(data2);
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'line', data: data1 },
+    { type: 'line', data: data2 },
+  ],
+});
 ```
 
 ## Encode
@@ -63,11 +68,10 @@ chart.line().data(data2);
 chart.interval().position('name*value').color('genre');
 
 // 5.0
-chart
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('color', 'genre');
+chart.options({
+  type: 'interval',
+  encode: { x: 'name', y: 'value', color: 'genre' },
+});
 ```
 
 ### Callback Prameters
@@ -79,10 +83,11 @@ The callback of encode in 4.0 will provide the corresponding fields from the ori
 chart.interval().color('name*value', (name, value) => {});
 
 // 5.0
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   // Need to deconstruct by yourself
-  .encode('color', ({ name, value }) => {});
+  encode: { color: ({ name, value }) => {} },
+});
 ```
 
 ### Callback Return Value
@@ -94,16 +99,18 @@ In 4.0, the callbacks return visual data. In 5.0, the callbacks return abstract 
 chart.interval().color('name', (name) => (name > 10 ? 'red' : 'yellow'));
 
 // 5.0
-chart
-  .interval()
-  .encode('color', (d) => (d.name > 10 ? 'high' : 'low')) // Abstract data
-  .scale('color', { range: ['red', 'yellow'] }); // Specify the domain
+chart.options({
+  type: 'interval',
+  encode: { color: (d) => (d.name > 10 ? 'high' : 'low') }, // Abstract data
+  scale: { color: { range: ['red', 'yellow'] } }, // Specify the domain
+});
 
 // 5.0
-chart
-  .interval()
-  .encode('color', (d) => (d.name > 10 ? 'red' : 'yellow'))
-  .scale('color', { type: 'identity' });
+chart.options({
+  type: 'interval',
+  encode: { color: (d) => (d.name > 10 ? 'red' : 'yellow') },
+  scale: { color: { type: 'identity' } },
+});
 ```
 
 ### Color Domain
@@ -116,15 +123,17 @@ chart.interval().color('name', ['red', 'blue']);
 chart.interval().color('name', '#fff-#000');
 
 // 5.0
-chart
-  .interval()
-  .encode('color', 'name') // Discrete
-  .scale('color', { range: ['red', 'blue'] });
+chart.options({
+  type: 'interval',
+  encode: { color: 'name' }, // Discrete
+  scale: { color: { range: ['red', 'blue'] } },
+});
 
-chart
-  .interval()
-  .encode('color', 'name') // Continuous
-  .scale('color', { range: '#fff-#000' });
+chart.options({
+  type: 'interval',
+  encode: { color: 'name' }, // Continuous
+  scale: { color: { range: '#fff-#000' } },
+});
 ```
 
 ## Temporal Channel
@@ -142,10 +151,10 @@ const data = [
 chart.line().position('year*value');
 
 // 5.0
-chart
-  .line()
-  .encode('x', (d) => new Date(d.year))
-  .encode('y', 'value');
+chart.options({
+  type: 'line',
+  encode: { x: (d) => new Date(d.year), y: 'value' },
+});
 ```
 
 ## Style
@@ -163,10 +172,10 @@ chart
   );
 
 // 5.0
-chart
-  .interval()
-  .style('stroke', ({ a, b }) => (a + b > 10 ? 'red' : 'black'))
-  .style('strokeWidth', ({ a, b }) => (a + b > 10 ? 10 : 5));
+chart.options({
+  type: 'interval',
+  style: { stroke: ({ a, b }) => (a + b > 10 ? 'red' : 'black'), strokeWidth: ({ a, b }) => (a + b > 10 ? 10 : 5) },
+});
 ```
 
 ## Scale
@@ -192,12 +201,13 @@ chart.scale('genre', {});
 chart.interval().color('genre');
 
 // 5.0
-chart
-  .interval()
-  .data(data)
-  .encode('color', 'genre')
+chart.options({
+  type: 'interval',
+  data,
+  encode: { color: 'genre' },
   // Set the color channel scale
-  .scale('color', {});
+  scale: { color: {} },
+});
 ```
 
 ### Properties
@@ -225,19 +235,19 @@ In 4.0, the discrete scales are `cat` and `timeCat`. In 5.0, cat becomes `band`,
 chart.scale('genre', { type: 'cat' });
 
 // 5.0
-chart
-  .interval()
-  .encode('x', 'name')
-  .encode('color', 'name')
+chart.options({
+  type: 'interval',
+  encode: { x: 'name', color: 'name' },
   // The x channel of interval defaults to band scale
-  .scale('x', { type: 'band', range: [0.1, 0.9] })
-  .scale('color', { type: 'ordinal', range: ['red', 'blue'] });
+  scale: { x: { type: 'band', range: [0.1, 0.9] }, color: { type: 'ordinal', range: ['red', 'blue'] } },
+});
 
-chart
-  .point()
-  .encode('x', 'name')
+chart.options({
+  type: 'point',
+  encode: { x: 'name' },
   // Point scale
-  .scale('point', {});
+  scale: { point: {} },
+});
 ```
 
 ## Coordinate System
@@ -281,16 +291,19 @@ chart.interval().label('field', (d) =>
 );
 
 // 5.0
-chart
-  .interval()
-  .label({
-    text: 'field', // Specify content
-    style: {
-      color: d > 10 ? 'red' : 'black', // Set properties
-      stroke: d > 10 ? 'red' : 'black',
+chart.options({
+  type: 'interval',
+  labels: [
+    {
+      text: 'field', // Specify content
+      style: {
+        fill: (d) => (d > 10 ? 'red' : 'black'), // Set properties
+        stroke: (d) => (d > 10 ? 'red' : 'black'),
+      },
     },
-  })
-  .label({ text: (d) => d.value });
+    { text: (d) => d.value },
+  ],
+});
 ```
 
 ## Tooltip
@@ -323,11 +336,9 @@ chart.interval().animate({
 });
 
 // 5.0
-chart.interval().animate('enter', {
-  type: 'fadeIn',
-  easing: 'easeQuadIn',
-  delay: 100,
-  duration: 600,
+chart.options({
+  type: 'interval',
+  animate: { enter: { type: 'fadeIn', easing: 'easeQuadIn', delay: 100, duration: 600 } },
 });
 ```
 
@@ -356,7 +367,7 @@ In 4.0, annotations are declared through the annotation namespace, and the decla
 chart.annotation().line({});
 
 // 5.0
-chart.lineX();
+chart.options({ type: 'lineX' });
 ```
 
 ### Mark Specific Values
@@ -371,11 +382,12 @@ chart.annotation().line({
 });
 
 // 5.0
-chart
-  .lineX()
-  .encode('y', 'value')
+chart.options({
+  type: 'lineX',
+  encode: { y: 'value' },
   // Select the minimum value of the y channel
-  .transform({ type: 'selectY', y: 'mean' });
+  transform: [{ type: 'selectY', y: 'mean' }],
+});
 ```
 
 ## Facet
@@ -398,16 +410,15 @@ chart.facet('rect', {
 });
 
 // 5.0
-chart
-  .facetRect()
-  .encode('x', 'cut')
-  .encode('y', 'clarity')
-  .point()
-  .encode('x', 'carat')
-  .encode('y', 'price')
-  .encode('color', 'cut')
-  .encode('shape', 'point')
-  .encode('size', 3)
-  .style('fillOpacity', 0.3)
-  .style('stroke', null);
+chart.options({
+  type: 'facetRect',
+  encode: { x: 'cut', y: 'clarity' },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'carat', y: 'price', color: 'cut', shape: 'point', size: 3 },
+      style: { fillOpacity: 0.3, stroke: null },
+    },
+  ],
+});
 ```

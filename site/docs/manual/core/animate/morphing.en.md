@@ -10,8 +10,9 @@ order: 2
 <img alt="morphing" src="https://gw.alipayobjects.com/zos/raptor/1670815385405/animation.gif" width="400" />
 
 ```ts
-chart
-  .area()
+chart.options({
+  type: 'area',
   /* ... */
-  .animate('enter', { type: 'morphing' });
+  animate: { enter: { type: 'morphing' } },
+});
 ```

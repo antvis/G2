@@ -104,14 +104,14 @@ const chart = new Chart({
 });
 ```
 
-You can also specify through `node.attr`:
+You can also specify through top-level spec properties:
 
 ```js
-chart.interval().attr('padding', 10).attr('margin', 20);
+chart.options({ type: 'interval', padding: 10, margin: 20 });
 
-chart.view().attr('padding', 10).attr('margin', 20);
+chart.options({ type: 'view', padding: 10, margin: 20 });
 
-chart.spaceFlex().attr('padding', 10).attr('margin', 20);
+chart.options({ type: 'spaceFlex', padding: 10, margin: 20 });
 ```
 
 ### View Model

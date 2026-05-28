@@ -38,19 +38,23 @@ chart.render();
 Additionally, rangeY provides a simplified syntax:
 
 ```ts
-chart
-  .rangeY()
-  .data([
+chart.options({
+  type: 'rangeY',
+  data: [
     [54, 60],
     [65, 72],
-  ])
-  .encode('y', (d) => d);
+  ],
+  encode: { y: (d) => d },
+});
 
 // it can be simplified as follows:
-chart.rangeY().data([
-  [54, 60],
-  [65, 72],
-]);
+chart.options({
+  type: 'rangeY',
+  data: [
+    [54, 60],
+    [65, 72],
+  ],
+});
 ```
 
 ## Configuration

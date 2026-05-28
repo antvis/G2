@@ -50,15 +50,16 @@ ordinal 比例尺适用于以下场景：
 以下是一个基本的使用示例，将分类数据映射到颜色通道：
 
 ```ts
-chart
-  .interval()
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'category')
-  .scale('color', {
-    type: 'ordinal',
-    range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
-  });
+chart.options({
+  type: 'interval',
+  encode: { x: 'category', y: 'value', color: 'category' },
+  scale: {
+    color: {
+      type: 'ordinal',
+      range: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#c564be'],
+    },
+  },
+});
 ```
 
 这个例子中，我们将 'category' 字段映射到颜色通道，并使用 ordinal 比例尺指定了一组自定义颜色。
@@ -85,9 +86,13 @@ ordinal 比例尺提供了以下配置选项：
 - 限制只显示部分类别
 
 ```ts
-chart.scale('color', {
-  type: 'ordinal',
-  domain: ['类别A', '类别B', '类别C'], // 显式指定类别及其顺序
+chart.options({
+  scale: {
+    color: {
+      type: 'ordinal',
+      domain: ['类别A', '类别B', '类别C'], // 显式指定类别及其顺序
+    },
+  },
 });
 ```
 
@@ -96,9 +101,13 @@ chart.scale('color', {
 `range` 参数定义了比例尺的输出域，即映射后的值集合。对于 ordinal 比例尺，range 可以是任何类型的数组，最常见的是颜色数组。
 
 ```ts
-chart.scale('color', {
-  type: 'ordinal',
-  range: ['#1f77b4', '#ff7f0e', '#2ca02c'], // 自定义颜色
+chart.options({
+  scale: {
+    color: {
+      type: 'ordinal',
+      range: ['#1f77b4', '#ff7f0e', '#2ca02c'], // 自定义颜色
+    },
+  },
 });
 ```
 
@@ -113,10 +122,14 @@ chart.scale('color', {
 `compare` 参数是一个比较函数，用于对 domain 中的值进行排序。这对于控制分类数据的显示顺序非常有用。
 
 ```ts
-chart.scale('color', {
-  type: 'ordinal',
-  // 按字母顺序排序
-  compare: (a, b) => a.localeCompare(b),
+chart.options({
+  scale: {
+    color: {
+      type: 'ordinal',
+      // 按字母顺序排序
+      compare: (a, b) => a.localeCompare(b),
+    },
+  },
 });
 ```
 

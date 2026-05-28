@@ -1090,9 +1090,15 @@ chart.render();
 You can adjust the spacing between bars by setting the `padding` property, which indirectly adjusts the width of the bars. The larger the `padding` value, the narrower the bars; the smaller the value, the wider the bars.
 
 ```js
-chart.interval().encode('x', 'type').encode('y', 'sale').scale('x', {
-  type: 'band',
-  padding: 0.5, // Value range is [0, 1]
+chart.options({
+  type: 'interval',
+  encode: { x: 'type', y: 'sale' },
+  scale: {
+    x: {
+      type: 'band',
+      padding: 0.5, // Value range is [0, 1]
+    },
+  },
 });
 ```
 
@@ -1110,19 +1116,21 @@ There are two methods:
 
 ```js
 // Method 1: Using flex property
-chart
-  .interval()
-  .encode('x', 'country')
-  .encode('y', 'value')
-  .scale('x', {
-    type: 'band',
-    flex: [2, 1, 3, 1.5], // Manually set width ratios
-  });
+chart.options({
+  type: 'interval',
+  encode: { x: 'country', y: 'value' },
+  scale: {
+    x: {
+      type: 'band',
+      flex: [2, 1, 3, 1.5], // Manually set width ratios
+    },
+  },
+});
 
 // Method 2: Using flexX transform
-chart
-  .interval()
-  .encode('x', 'country')
-  .encode('y', 'value')
-  .transform({ type: 'flexX', field: 'gdp' }); // Automatically set width based on gdp field
+chart.options({
+  type: 'interval',
+  encode: { x: 'country', y: 'value' },
+  transform: [{ type: 'flexX', field: 'gdp' }], // Automatically set width based on gdp field
+});
 ```

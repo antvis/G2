@@ -36,19 +36,18 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275, color: 'red' },
     { genre: 'Strategy', sold: 115, color: 'blue' },
     { genre: 'Action', sold: 120, color: 'green' },
     { genre: 'Shooter', sold: 350, color: 'red' },
     { genre: 'Other', sold: 150, color: 'black' },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'color')
-  .scale('color', { type: 'identity' }); // 设置该比例尺为恒等映射
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'color' },
+  scale: { color: { type: 'identity' } }, // 设置该比例尺为恒等映射
+});
 
 chart.render();
 ```
@@ -62,21 +61,22 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter')
-  .axis('y', { labelFormatter: '.0%' })
-  .scale('color', {
-    type: 'ordinal',
-    range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
-  });
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+  scale: {
+    color: {
+      type: 'ordinal',
+      range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
+    },
+  },
+});
 
 chart.render();
 ```
@@ -92,18 +92,17 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter')
-  .axis('y', { labelFormatter: '.0%' })
-  .scale('color', { palette: 'tableau10' });
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+  scale: { color: { palette: 'tableau10' } },
+});
 
 chart.render();
 ```
@@ -118,17 +117,20 @@ const chart = new Chart({
   height: 320,
 });
 
-chart
-  .cell()
-  .data({
+chart.options({
+  type: 'cell',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .transform({ type: 'group', color: 'max' })
-  .encode('x', (d) => new Date(d.date).getUTCDate())
-  .encode('y', (d) => new Date(d.date).getUTCMonth())
-  .encode('color', 'temp_max')
-  .scale('color', { palette: 'rainbow' });
+  },
+  transform: [{ type: 'group', color: 'max' }],
+  encode: {
+    x: (d) => new Date(d.date).getUTCDate(),
+    y: (d) => new Date(d.date).getUTCMonth(),
+    color: 'temp_max',
+  },
+  scale: { color: { palette: 'rainbow' } },
+});
 
 chart.render();
 ```
@@ -458,18 +460,17 @@ function customPalette() {
   return ['#FFB3BA', '#98FF98', '#89CFF0', '#FFF9B1', '#D1A3FF'];
 }
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .encode('color', 'letter')
-  .axis('y', { labelFormatter: '.0%' })
-  .scale('color', { palette: 'custom' }); // 指定自定义色板
+  },
+  encode: { x: 'letter', y: 'frequency', color: 'letter' },
+  axis: { y: { labelFormatter: '.0%' } },
+  scale: { color: { palette: 'custom' } }, // 指定自定义色板
+});
 
 chart.render();
 ```
@@ -479,11 +480,16 @@ chart.render();
 可以通过 `scale.relations` 去指定一系列映射规则，这个优先级别会高于 domain 到 range 的默认映射方式。比如对于 color 通道来讲，如果希望特定的值映射为特定的颜色，或者处理异常值，这个配置会很有用。
 
 ```js
-chart.interval().scale('color', {
-  relations: [
-    ['dog', 'red'], // dog 恒等映射为红色
-    [(d) => d === undefined, 'grey'], // 如果是值为 undefined，那么为灰色
-  ],
+chart.options({
+  type: 'interval',
+  scale: {
+    color: {
+      relations: [
+        ['dog', 'red'], // dog 恒等映射为红色
+        [(d) => d === undefined, 'grey'], // 如果是值为 undefined，那么为灰色
+      ],
+    },
+  },
 });
 ```
 
@@ -498,21 +504,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .style('fill', (datum, index, data) => {
-    const { frequency } = datum;
-    if (frequency > 0.1) return '#3376cd';
-    if (frequency > 0.05) return '#f4bb51';
-    return '#b43a29';
-  });
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  style: {
+    fill: (datum, index, data) => {
+      const { frequency } = datum;
+      if (frequency > 0.1) return '#3376cd';
+      if (frequency > 0.05) return '#f4bb51';
+      return '#b43a29';
+    },
+  },
+});
 
 chart.render();
 ```

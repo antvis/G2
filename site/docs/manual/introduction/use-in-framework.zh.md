@@ -26,13 +26,16 @@ function renderBarChart(container) {
   ];
 
   // 声明可视化
-  chart
-    .interval() // 创建一个 Interval 标记
-    .data(data) // 绑定数据
-    .encode('x', 'genre') // 编码 x 通道
-    .encode('y', 'sold') // 编码 y 通道
-    .encode('key', 'genre') // 指定 key
-    .animate('update', { duration: 300 }); // 指定更新动画的时间
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'genre',
+      y: 'sold',
+      key: 'genre',
+    },
+    animate: { update: { duration: 300 } },
+  });
 
   // 渲染可视化
   chart.render();
@@ -53,7 +56,10 @@ function updateBarChart(chart) {
     sold: Math.random() * 400 + 100,
   }));
 
-  interval.data(newData);
+  // 更新数据并重新渲染
+  chart.options({
+    data: newData,
+  });
 
   // 重新渲染
   chart.render();

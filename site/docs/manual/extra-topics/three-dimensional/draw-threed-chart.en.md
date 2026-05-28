@@ -63,25 +63,23 @@ We use [point3D](/manual/extra-topics/three-dimensional/point-threed) mark and s
 Then set the z channel, scale and axis.
 
 ```ts
-chart
-  .point3D()
-  .data({
+chart.options({
+  type: 'point3D',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .encode('x', 'Horsepower')
-  .encode('y', 'Miles_per_Gallon')
-  .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Origin')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+  },
+  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 ```
 
 ## Set up camera
@@ -126,25 +124,23 @@ const chart = new Chart({
   depth: 400,
 });
 
-chart
-  .point3D()
-  .data({
+chart.options({
+  type: 'point3D',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .encode('x', 'Horsepower')
-  .encode('y', 'Miles_per_Gallon')
-  .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Origin')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+  },
+  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
@@ -196,25 +192,23 @@ const chart = new Chart({
   depth: 400,
 });
 
-chart
-  .point3D()
-  .data({
+chart.options({
+  type: 'point3D',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .encode('x', 'Horsepower')
-  .encode('y', 'Miles_per_Gallon')
-  .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Origin')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+  },
+  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
@@ -279,25 +273,23 @@ const chart = new Chart({
   depth: 400,
 });
 
-chart
-  .point3D()
-  .data({
+chart.options({
+  type: 'point3D',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .encode('x', 'Horsepower')
-  .encode('y', 'Miles_per_Gallon')
-  .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Origin')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+  },
+  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();
@@ -414,25 +406,23 @@ const chart = new Chart({
   depth: 400,
 });
 
-chart
-  .point3D()
-  .data({
+chart.options({
+  type: 'point3D',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .encode('x', 'Horsepower')
-  .encode('y', 'Miles_per_Gallon')
-  .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Origin')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+  },
+  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 
 chart.render().then(() => {
   legendColor(chart);
@@ -584,25 +574,23 @@ const chart = new Chart({
   depth: 400,
 });
 
-chart
-  .point3D()
-  .data({
+chart.options({
+  type: 'point3D',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .encode('x', 'Horsepower')
-  .encode('y', 'Miles_per_Gallon')
-  .encode('z', 'Weight_in_lbs')
-  .encode('color', 'Origin')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 });
+  },
+  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  coordinate: { type: 'cartesian3D' },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+});
 
 chart.render().then(() => {
   legendColor(chart);

@@ -40,6 +40,8 @@ export default [
       commonjs(),
       typescript({
         useTsconfigDeclarationDir: true,
+        // Override rpt2's hardcoded default `*.ts+(|x)` extglob, which is broken in picomatch >=2.3.2.
+        include: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
       }),
       optimizeLodashImports(),
       json(),

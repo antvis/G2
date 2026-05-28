@@ -20,9 +20,9 @@ const chart = new Chart({
   paddingBottom: 60,
 });
 
-const repeatMatrix = chart
-  .repeatMatrix()
-  .data({
+chart.options({
+  type: 'repeatMatrix',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/weather.json',
     transform: [
@@ -34,15 +34,17 @@ const repeatMatrix = chart
         }),
       },
     ],
-  })
-  .encode('y', ['temp_max', 'precipitation', 'wind'])
-  .encode('x', 'date');
-
-repeatMatrix
-  .line()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('color', 'location')
-  .scale('y', { zero: true });
+  },
+  encode: { y: ['temp_max', 'precipitation', 'wind'], x: 'date' },
+  children: [
+    {
+      type: 'line',
+      transform: [{ type: 'groupX', y: 'mean' }],
+      encode: { color: 'location' },
+      scale: { y: { zero: true } },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -73,7 +75,7 @@ repeatMatrix 的底层实现和 mark 一致，所以在配置上有很多是一�
 `repeatMatrix` 对应的配置都可以使用 API 进行设置，例如：
 
 ```ts
-chart.repeatMatrix().data([1, 2, 3]).encode('x', ['f1', 'f2', 'f3']);
+chart.options({ type: 'repeatMatrix', data: [1, 2, 3], encode: { x: ['f1', 'f2', 'f3'] } });
 ```
 
 ### encode

@@ -19,21 +19,23 @@ const chart = new Chart({
   paddingBottom: 50,
 });
 
-const facetRect = chart
-  .facetRect()
-  .attr('paddingBottom', 50)
-  .data({
+chart.options({
+  type: 'facetRect',
+  paddingBottom: 50,
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
-  .encode('x', 'series');
-
-facetRect
-  .point()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000')
-  .attr('inset', 10);
+  },
+  encode: { x: 'series' },
+  children: [
+    {
+      type: 'point',
+      encode: { x: 'x', y: 'y' },
+      style: { stroke: '#000' },
+      inset: 10,
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -112,7 +114,7 @@ facetRect 的底层实现和 mark 一致，所以在配置上有很多是一样�
 `facetRect` 对应的配置都可以使用 API 进行设置，例如：
 
 ```ts
-chart.facetRect().data([1, 2, 3]).encode('x', 'type');
+chart.options({ type: 'facetRect', data: [1, 2, 3], encode: { x: 'type' } });
 ```
 
 ### encode

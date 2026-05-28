@@ -31,19 +31,20 @@ const chart = new Chart({
 Just one line of change is needed to complete the style transformation. In this [example](/en/examples/style/rough/#interval), we specify the `'zigzag'` fill style through `fillStyle`, which resembles continuous scribble strokes:
 
 ```ts
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { month: 'Jan.', profit: 387264, start: 0, end: 387264 },
     //...
-  ])
-  .encode('x', 'month')
-  .encode('y', ['end', 'start'])
-  .encode('color', (d) =>
-    d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
-  )
-  .style('strokeWidth', 2)
-  .style('fillStyle', 'zigzag'); // Specify fill style
+  ],
+  encode: {
+    x: 'month',
+    y: ['end', 'start'],
+    color: (d) =>
+      d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
+  },
+  style: { strokeWidth: 2, fillStyle: 'zigzag' },
+});
 
 chart.render();
 ```
@@ -70,24 +71,29 @@ Using `fillStyle` instead of `fill` can achieve pattern-like effects, making it 
 In the [example](/en/examples/style/rough/#radial) below, we set both `fill/stroke` to black and use `fillStyle` as the color attribute:
 
 ```ts
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   //... omitting data, transform, etc.
-  .scale('color', {
-    range: [
-      'hachure',
-      'solid',
-      'zigzag',
-      'cross-hatch',
-      'dots',
-      'dashed',
-      'zigzag-line',
-    ],
-  })
-  .style('fill', 'black')
-  .style('stroke', 'black')
-  .style('strokeWidth', '4')
-  .style('colorAttribute', 'fillStyle');
+  scale: {
+    color: {
+      range: [
+        'hachure',
+        'solid',
+        'zigzag',
+        'cross-hatch',
+        'dots',
+        'dashed',
+        'zigzag-line',
+      ],
+    },
+  },
+  style: {
+    fill: 'black',
+    stroke: 'black',
+    strokeWidth: '4',
+    colorAttribute: 'fillStyle',
+  },
+});
 ```
 
 The effect is shown below:

@@ -670,22 +670,27 @@ When inferred as continuous scale:
 
 ```js
 // String data → ordinal scale
-chart.interval().encode('x', 'category'); // category: ['A', 'B', 'C']
+({ type: 'interval', encode: { x: 'category' } }); // category: ['A', 'B', 'C']
 
 // Numerical data → linear scale
-chart.line().encode('y', 'value'); // value: [10, 20, 30]
+({ type: 'line', encode: { y: 'value' } }); // value: [10, 20, 30]
 
 // Time data → time scale
-chart.line().encode('x', 'date'); // date: [new Date('2023-01-01'), ...]
+({ type: 'line', encode: { x: 'date' } }); // date: [new Date('2023-01-01'), ...]
 
 // String data for quantitative channels → point scale
-chart.interval().encode('x', 'month'); // month: ['Jan', 'Feb', 'Mar']
+({ type: 'interval', encode: { x: 'month' } }); // month: ['Jan', 'Feb', 'Mar']
 
 // Explicit specification has highest priority
-chart.interval().scale('y', { type: 'log' }); // Force use of log scale
+({ type: 'interval', scale: { y: { type: 'log' } } }); // Force use of log scale
 
 // Multi-value range → infer as categorical
-chart.point().scale('color', {
-  range: ['red', 'green', 'blue', 'yellow'], // 4 values, infer as ordinal
+({
+  type: 'point',
+  scale: {
+    color: {
+      range: ['red', 'green', 'blue', 'yellow'], // 4 values, infer as ordinal
+    },
+  },
 });
 ```

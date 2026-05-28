@@ -297,15 +297,18 @@ G2 provides multiple ways to perform data distribution analysis:
 - Use `transform` for data transformation to perform statistical analysis on data and calculate statistical values like minimum, Q1, median, Q3, and maximum:
 
 ```js
-chart.box().data({
-  type: 'connector',
-  value: [
-    /* your detail data */
-  ],
-  callback: (data) => {
-    // Perform statistical analysis on data here
-    // Can use custom algorithms or third-party libraries
-    return data;
+chart.options({
+  type: 'box',
+  data: {
+    type: 'connector',
+    value: [
+      /* your detail data */
+    ],
+    callback: (data) => {
+      // Perform statistical analysis on data here
+      // Can use custom algorithms or third-party libraries
+      return data;
+    },
   },
 });
 ```
@@ -315,5 +318,9 @@ chart.box().data({
 - Directly use the [`boxplot`](/en/manual/core/mark/boxplot) mark, which is a high-level mark with built-in data grouping and statistical aggregation functionality, more suitable for frontend data exploration and analysis:
 
 ```js
-chart.boxplot().data(data).encode('x', 'category').encode('y', 'value');
+chart.options({
+  type: 'boxplot',
+  data,
+  encode: { x: 'category', y: 'value' },
+});
 ```

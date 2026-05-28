@@ -22,29 +22,30 @@ const { Chart } = G2;
 const chart = new Chart({
   container: 'container',
 });
-chart.coordinate({ transform: [{ type: 'transpose' }] });
 
-chart.data({
-  type: 'fetch',
-  value:
-    'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/b6f2ff26-b232-447d-a613-0df5e30104a0.csv',
+  },
+  children: [
+    {
+      type: 'link',
+      transform: [{ type: 'groupX', y: 'min', y1: 'max' }],
+      encode: { x: 'state', y: 'population' },
+      style: { stroke: '#000' },
+      scale: { y: { formatter: '.0%' } },
+    },
+    {
+      type: 'point',
+      encode: { x: 'state', y: 'population', shape: 'point', color: 'age' },
+      scale: { color: { palette: 'spectral' } },
+    },
+  ],
 });
-
-chart
-  .link()
-  .scale('y', { formatter: '.0%' })
-  .transform({ type: 'groupX', y: 'min', y1: 'max' })
-  .encode('x', 'state')
-  .encode('y', 'population')
-  .style('stroke', '#000');
-
-chart
-  .point()
-  .scale('color', { palette: 'spectral' })
-  .encode('x', 'state')
-  .encode('y', 'population')
-  .encode('shape', 'point')
-  .encode('color', 'age');
 
 chart.render();
 ```

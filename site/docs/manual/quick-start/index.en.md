@@ -42,17 +42,16 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-// Initialize chart instance
+// Initialize chart instance and declare visualization
 const chart = new Chart({
   container: 'container',
 });
 
-// Declare visualization
-chart
-  .interval() // Create an Interval mark
-  .data(data) // Bind data
-  .encode('x', 'genre') // Encode x channel
-  .encode('y', 'sold'); // Encode y channel
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold' },
+});
 
 // Render visualization
 chart.render();
@@ -74,17 +73,16 @@ G2 also provides a UMD version, which can be loaded directly through CDN and use
     { genre: 'Other', sold: 150 },
   ];
 
-  // Initialize chart instance
+  // Initialize chart instance and declare visualization
   const chart = new G2.Chart({
     container: 'container',
   });
 
-  // Declare visualization
-  chart
-    .interval() // Create an Interval mark
-    .data(data) // Bind data
-    .encode('x', 'genre') // Encode x channel
-    .encode('y', 'sold'); // Encode y channel
+  chart.options({
+    type: 'interval',
+    data,
+    encode: { x: 'genre', y: 'sold' },
+  });
 
   // Render visualization
   chart.render();
@@ -98,23 +96,22 @@ No matter which method you use, if you draw a bar chart like the following, it m
 ```js | ob { pin:false, inject: true }
 import { Chart } from '@antv/g2';
 
-// Initialize chart instance
-
+// Initialize chart instance and declare visualization
 const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
+  ],
+  encode: { x: 'genre', y: 'sold' },
+});
 
 chart.render();
 ```

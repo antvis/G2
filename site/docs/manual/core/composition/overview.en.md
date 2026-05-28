@@ -34,38 +34,40 @@ const chart = new Chart({
   container: 'container',
 });
 
-const layer = chart.spaceLayer();
-
-// Bar chart
-layer
-  .interval()
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
-
-// Pie chart
-layer
-  .interval() // Create an interval
-  .attr('paddingLeft', 300) // Set position
-  .attr('paddingBottom', 250)
-  .coordinate({ type: 'theta' }) // Specify coordinate system
-  .transform({ type: 'stackY' })
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .legend('color', false);
+chart.options({
+  type: 'spaceLayer',
+  children: [
+    // Bar chart
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { x: 'genre', y: 'sold' },
+    },
+    // Pie chart
+    {
+      type: 'interval', // Create an interval
+      paddingLeft: 300, // Set position
+      paddingBottom: 250,
+      coordinate: { type: 'theta' }, // Specify coordinate system
+      transform: [{ type: 'stackY' }],
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      legend: { color: false },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -78,36 +80,39 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
 });
-const flex = chart.spaceFlex();
 
-// Bar chart
-flex
-  .interval()
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
-
-// Pie chart
-flex
-  .interval() // Create an interval
-  .coordinate({ type: 'theta' }) // Specify coordinate system
-  .transform({ type: 'stackY' })
-  .data([
-    { genre: 'Shooter', sold: 350 },
-    { genre: 'Sports', sold: 275 },
-    { genre: 'Other', sold: 150 },
-    { genre: 'Action', sold: 120 },
-    { genre: 'Strategy', sold: 115 },
-  ])
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .legend('color', false);
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    // Bar chart
+    {
+      type: 'interval',
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { x: 'genre', y: 'sold' },
+    },
+    // Pie chart
+    {
+      type: 'interval', // Create an interval
+      coordinate: { type: 'theta' }, // Specify coordinate system
+      transform: [{ type: 'stackY' }],
+      data: [
+        { genre: 'Shooter', sold: 350 },
+        { genre: 'Sports', sold: 275 },
+        { genre: 'Other', sold: 150 },
+        { genre: 'Action', sold: 120 },
+        { genre: 'Strategy', sold: 115 },
+      ],
+      encode: { y: 'sold', color: 'genre' },
+      legend: { color: false },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -129,23 +134,25 @@ const chart = new Chart({
   paddingBottom: 50,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
+  },
   // Divide the data into subsets by the series field,
   // and arrange them in the x direction
-  .encode('x', 'series');
-
-facetRect
-  .point()
-  .attr('padding', 'auto')
-  .attr('inset', 10)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000');
+  encode: { x: 'series' },
+  children: [
+    {
+      type: 'point',
+      padding: 'auto',
+      inset: 10,
+      encode: { x: 'x', y: 'y' },
+      style: { stroke: '#000' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -166,24 +173,32 @@ const chart = new Chart({
   paddingBottom: 45,
 });
 
-const repeatMatrix = chart
-  .repeatMatrix()
-  .data({
+chart.options({
+  type: 'repeatMatrix',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/penguins.json',
     // Data processing
-  })
+  },
   // Specify the encoding to repeat
   // A total of 4 * 4 = 16 views will be generated
   // The x and y encoding of each view is the cross product of the following fields
-  .encode('position', [
-    'culmen_length_mm',
-    'culmen_depth_mm',
-    'flipper_length_mm',
-    'body_mass_g',
-  ]);
-
-repeatMatrix.point().attr('padding', 'auto').encode('color', 'species');
+  encode: {
+    position: [
+      'culmen_length_mm',
+      'culmen_depth_mm',
+      'flipper_length_mm',
+      'body_mass_g',
+    ],
+  },
+  children: [
+    {
+      type: 'point',
+      padding: 'auto',
+      encode: { color: 'species' },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -207,29 +222,25 @@ fetch(
     });
 
     // Refer to CSS animation description
-    const keyframe = chart
-      .timingKeyframe() // Create container
-      .attr('iterationCount', 2) // Number of iterations
-      .attr('direction', 'alternate') // Direction
-      .attr('duration', 1000); // Duration
-
-    keyframe
-      .interval()
-      .transform({ type: 'groupX', y: 'mean' })
-      .data(data)
-      .encode('x', 'gender')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('key', 'gender'); // Specify key
-
-    keyframe
-      .point()
-      .data(data)
-      .encode('x', 'height')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('shape', 'point')
-      .encode('groupKey', 'gender'); // Specify groupKey
+    chart.options({
+      type: 'timingKeyframe', // Create container
+      iterationCount: 2, // Number of iterations
+      direction: 'alternate', // Direction
+      duration: 1000, // Duration
+      children: [
+        {
+          type: 'interval',
+          transform: [{ type: 'groupX', y: 'mean' }],
+          data,
+          encode: { x: 'gender', y: 'weight', color: 'gender', key: 'gender' },
+        },
+        {
+          type: 'point',
+          data,
+          encode: { x: 'height', y: 'weight', color: 'gender', shape: 'point', groupKey: 'gender' },
+        },
+      ],
+    });
 
     chart.render();
   });

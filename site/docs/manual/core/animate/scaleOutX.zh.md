@@ -10,8 +10,9 @@ order: 2
 <img alt="scaleOutX" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XpI1SbHQADUAAAAAAAAAAAAADmJ7AQ/original" width="400" />
 
 ```ts
-chart
-  .interval()
+chart.options({
+  type: 'interval',
   /* ... */
-  .animate('exit', { type: 'scaleOutX' });
+  animate: { exit: { type: 'scaleOutX' } },
+});
 ```

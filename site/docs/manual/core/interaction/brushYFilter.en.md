@@ -214,7 +214,10 @@ const chart = new Chart({
   container: 'container',
 });
 chart.options({
+  type: 'interval',
   autoFit: true,
+  data,
+  encode: { x: 'letter', y: 'frequency' },
   interaction: {
     brushYFilter: {
       maskFill: '#000',
@@ -232,8 +235,6 @@ chart.options({
     },
   },
 });
-
-chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
 
 chart.render();
 ```

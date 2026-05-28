@@ -51,17 +51,27 @@ chart.interval().coordinate({ type: 'polar' });
 Mark-level coordinates have **bubbling behavior**. Mark-level coordinates will be merged with the view's coordinates, and the first mark's coordinate has the highest priority.
 
 ```js
-chart.coordinate({ type: 'theta' });
-chart.line().coordinate({ type: 'polar' });
-chart.area().coordinate({ type: 'radial' });
+chart.options({
+  type: 'view',
+  coordinate: { type: 'theta' },
+  children: [
+    { type: 'line', coordinate: { type: 'polar' } },
+    { type: 'area', coordinate: { type: 'radial' } },
+  ],
+});
 ```
 
 This is equivalent to:
 
 ```js
-chart.coordinate({ type: 'polar' });
-chart.line();
-chart.area():
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  children: [
+    { type: 'line' },
+    { type: 'area' },
+  ],
+});
 ```
 
 This feature is beneficial for encapsulating composite marks related to coordinate systems, such as pie charts:

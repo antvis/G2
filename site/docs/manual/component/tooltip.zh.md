@@ -78,18 +78,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/indices.json',
-  })
-  .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
-  .encode('x', (d) => new Date(d.Date))
-  .encode('y', 'Close')
-  .encode('color', 'Symbol')
-  .axis('y', { title: '↑ Change in price (%)' })
-  .tooltip({
+  },
+  transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
+  encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
+  axis: { y: { title: '↑ Change in price (%)' } },
+  tooltip: {
     title: (d) => new Date(d.Date).toUTCString(),
     items: [
       (d, i, data, column) => ({
@@ -97,12 +95,9 @@ chart
         value: column.y.value[i].toFixed(1),
       }),
     ],
-  })
-  .label({
-    text: 'Symbol',
-    selector: 'last',
-    fontSize: 10,
-  });
+  },
+  labels: [{ text: 'Symbol', selector: 'last', fontSize: 10 }],
+});
 
 chart.render();
 ```
@@ -530,54 +525,54 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/f129b517-158d-41a9-83a3-3294d639b39e.csv',
     format: 'csv',
-  })
-  .transform({ type: 'sortX', by: 'y', reverse: true, slice: 6 })
-  .transform({ type: 'dodgeX' })
-  .encode('x', 'state')
-  .encode('y', 'population')
-  .encode('color', 'age')
-  .scale('y', { nice: true })
-  .axis('y', { labelFormatter: '~s' })
-  .interaction('tooltip', {
-    shared: true,
-    css: {
-      '.g2-tooltip': {
-        background: '#eee',
-        'border-radius': ' 0.25em !important',
-      },
-      '.g2-tooltip-title': {
-        'font-size': '20px',
-        'font-weight': 'bold',
-        'padding-bottom': '0.25em',
-      },
-      '.g2-tooltip-list-item': {
-        background: '#ccc',
-        padding: '0.25em',
-        margin: '0.25em',
-        'border-radius': '0.25em',
-      },
-      '.g2-tooltip-list-item-name-label': {
-        'font-weight': 'bold',
-        'font-size': '16px',
-      },
-      'g2-tooltip-list-item-marker': {
-        'border-radius': '0.25em',
-        width: '15px',
-        height: '15px',
-      },
-      '.g2-tooltip-list-item-value': {
-        'font-weight': 'bold',
-        'font-size': '16px',
+  },
+  transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 6 }, { type: 'dodgeX' }],
+  encode: { x: 'state', y: 'population', color: 'age' },
+  scale: { y: { nice: true } },
+  axis: { y: { labelFormatter: '~s' } },
+  interaction: {
+    tooltip: {
+      shared: true,
+      css: {
+        '.g2-tooltip': {
+          background: '#eee',
+          'border-radius': ' 0.25em !important',
+        },
+        '.g2-tooltip-title': {
+          'font-size': '20px',
+          'font-weight': 'bold',
+          'padding-bottom': '0.25em',
+        },
+        '.g2-tooltip-list-item': {
+          background: '#ccc',
+          padding: '0.25em',
+          margin: '0.25em',
+          'border-radius': '0.25em',
+        },
+        '.g2-tooltip-list-item-name-label': {
+          'font-weight': 'bold',
+          'font-size': '16px',
+        },
+        'g2-tooltip-list-item-marker': {
+          'border-radius': '0.25em',
+          width: '15px',
+          height: '15px',
+        },
+        '.g2-tooltip-list-item-value': {
+          'font-weight': 'bold',
+          'font-size': '16px',
+        },
       },
     },
-  });
+  },
+});
 
 chart.render();
 ```
@@ -604,26 +599,28 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .transform([{ type: 'sortX', by: 'y', reverse: true }])
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .interaction('tooltip', {
-    // render 回调方法返回一个innerHTML 或者 DOM
-    render: (event, { title, items }) => `<div>
+  },
+  transform: [{ type: 'sortX', by: 'y', reverse: true }],
+  encode: { x: 'letter', y: 'frequency' },
+  interaction: {
+    tooltip: {
+      // render 回调方法返回一个innerHTML 或者 DOM
+      render: (event, { title, items }) => `<div>
       <h3 style="padding:0;margin:0">${title}</h3>
       <ul>${items.map(
         (d) =>
           `<li><span style="color: ${d.color}">${d.name}</span> ${d.value}</li>`,
       )}</ul>
       </div>`,
-  });
+    },
+  },
+});
 
 chart.render();
 ```
@@ -657,32 +654,39 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/movies.json',
-  transform: [
+chart.options({
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d['IMDB Rating'] > 0,
+      },
+    ],
+  },
+  type: 'view',
+  children: [
     {
-      type: 'filter',
-      callback: (d) => d['IMDB Rating'] > 0,
+      type: 'rect',
+      transform: [{ type: 'binX', y: 'count', thresholds: 9 }],
+      encode: { x: 'IMDB Rating' },
+      scale: { y: { domainMax: 1000 } },
+      style: { inset: 1 },
+    },
+    {
+      type: 'lineX',
+      transform: [{ type: 'groupColor', x: 'mean' }], // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
+      encode: { x: 'IMDB Rating' },
+      style: {
+        stroke: '#F4664A',
+        strokeOpacity: 1,
+        lineWidth: 2,
+        lineDash: [4, 4],
+      },
     },
   ],
 });
-
-chart
-  .rect()
-  .transform({ type: 'binX', y: 'count', thresholds: 9 })
-  .encode('x', 'IMDB Rating')
-  .scale('y', { domainMax: 1000 })
-  .style('inset', 1);
-
-chart
-  .lineX()
-  .transform({ type: 'groupColor', x: 'mean' }) // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
-  .encode('x', 'IMDB Rating')
-  .style('stroke', '#F4664A')
-  .style('strokeOpacity', 1)
-  .style('lineWidth', 2)
-  .style('lineDash', [4, 4]);
 
 chart.render();
 ```
@@ -848,18 +852,17 @@ chart.options({
 
 ```js
 // 条形图、点图等
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre');
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
 
 chart.render().then((chart) =>
   chart.emit('tooltip:show', {
@@ -875,11 +878,11 @@ chart.render().then((chart) =>
 对于 Line、Area 等系列 Mark，控制展示的方式如下：
 
 ```js
-chart
-  .line()
-  .data({ type: 'fetch', value: 'data/aapl.csv' })
-  .encode('x', 'date')
-  .encode('y', 'close');
+chart.options({
+  type: 'line',
+  data: { type: 'fetch', value: 'data/aapl.csv' },
+  encode: { x: 'date', y: 'close' },
+});
 
 // 根据数据拾取
 chart.render((chart) =>
@@ -919,20 +922,28 @@ chart.emit('tooltip:enable'); // 启用交互
 1. 设置`crosshairs`为`true`。
 
 ```js
-chart.interaction('tooltip', {
-  crosshairs: true, // 开启十字辅助线
-  crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
-  crosshairsYStroke: 'blue', // 设置 Y 轴辅助线颜色为'blue'
+chart.options({
+  interaction: {
+    tooltip: {
+      crosshairs: true, // 开启十字辅助线
+      crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
+      crosshairsYStroke: 'blue', // 设置 Y 轴辅助线颜色为'blue'
+    },
+  },
 });
 ```
 
 2. 设置`crosshairsX`为`true`。
 
 ```js
-chart.interaction('tooltip', {
-  crosshairsX: true, // 开启crosshairsX辅助线
-  crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
-  crosshairsYStroke: 'blue', // 设置 Y 轴辅助线颜色为'blue'
+chart.options({
+  interaction: {
+    tooltip: {
+      crosshairsX: true, // 开启crosshairsX辅助线
+      crosshairsXStroke: 'red', // 设置 X 轴辅助线颜色为'red'
+      crosshairsYStroke: 'blue', // 设置 Y 轴辅助线颜色为'blue'
+    },
+  },
 });
 ```
 
@@ -943,8 +954,12 @@ chart.interaction('tooltip', {
 ### 设置提示点为空心圆
 
 ```js
-chart.interaction('tooltip', {
-  markerType: 'hollow', // 设置提示点的样式为空心圆
+chart.options({
+  interaction: {
+    tooltip: {
+      markerType: 'hollow', // 设置提示点的样式为空心圆
+    },
+  },
 });
 ```
 
