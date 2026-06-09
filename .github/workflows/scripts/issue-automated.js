@@ -48,7 +48,7 @@ module.exports = async ({ github, core, context, issue }) => {
             issue_number: issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `@${issue.user.login} 您好！以下是关于您问题的自动回复：\n\n${response}\n\n---\n*此回复由 AI 助手自动生成。如有任何问题，我们的团队会尽快跟进。*`
+            body: `@${issue.user.login} 您好！以下是关于您问题的自动回复：\n\n${response}\n\n---\n*此回复由 AI 助手自动生成。如有任何问题，我们的团队会尽快跟进。*\n\n💡 您也可以前往 [Sive 平台](https://sive.antv.antgroup.com/qa) 体验 AntV 智能问答！`
         });
 
     core.info('Issue 处理完成');
