@@ -5,6 +5,7 @@ import { ShapeComponent as SC, Vector2 } from '../../runtime';
 import { select } from '../../utils/selection';
 import { applyStyle, reorder } from '../utils';
 import { createRoundedPath } from '../../utils/path';
+import { parseRadius } from './color';
 
 export type FunnelOptions = {
   adjustPoints?: (
@@ -74,10 +75,10 @@ export const Funnel: SC<FunnelOptions> = (options, context) => {
   const {
     adjustPoints = getFunnelPoints,
     radius,
-    radiusTopLeft = radius,
-    radiusTopRight = radius,
-    radiusBottomRight = radius,
-    radiusBottomLeft = radius,
+    radiusTopLeft: _radiusTopLeft,
+    radiusTopRight: _radiusTopRight,
+    radiusBottomRight: _radiusBottomRight,
+    radiusBottomLeft: _radiusBottomLeft,
     innerRadius = 0,
     innerRadiusTopLeft = innerRadius,
     innerRadiusTopRight = innerRadius,
@@ -88,6 +89,18 @@ export const Funnel: SC<FunnelOptions> = (options, context) => {
     ...style
   } = options;
   const { coordinate, document } = context;
+
+  const [
+    defaultTopLeft,
+    defaultTopRight,
+    defaultBottomRight,
+    defaultBottomLeft,
+  ] = parseRadius(radius);
+  const radiusTopLeft = _radiusTopLeft ?? defaultTopLeft;
+  const radiusTopRight = _radiusTopRight ?? defaultTopRight;
+  const radiusBottomRight = _radiusBottomRight ?? defaultBottomRight;
+  const radiusBottomLeft = _radiusBottomLeft ?? defaultBottomLeft;
+
   return (points, value, defaults, point2d) => {
     const { index } = value;
     const { color: defaultColor, ...rest } = defaults;
