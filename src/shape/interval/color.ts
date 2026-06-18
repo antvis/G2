@@ -8,12 +8,16 @@ import { applyStyle, getArcObject, reorder, toOpacityKey } from '../utils';
 
 /**
  * Parse radius into a 4-element array [topLeft, topRight, bottomRight, bottomLeft].
+ * - If radius is undefined, defaults to 0 for all corners.
  * - If radius is a number, all corners use the same value.
  * - If radius is an array, map to corners with 0 as fallback for missing elements.
  */
 export function parseRadius(
-  radius: number | number[],
+  radius: number | number[] | undefined,
 ): [number, number, number, number] {
+  if (radius === undefined) {
+    return [0, 0, 0, 0];
+  }
   if (Array.isArray(radius)) {
     return [radius[0] ?? 0, radius[1] ?? 0, radius[2] ?? 0, radius[3] ?? 0];
   }
@@ -122,7 +126,7 @@ export function rect(
   const center = coordinate.getCenter() as Vector2;
   const arcObject = getArcObject(coordinate, points, [y, y1]);
   const path = arc()
-    .cornerRadius(Array.isArray(radius) ? radius[0] : (radius as number))
+    .cornerRadius(parseRadius(radius)[0])
     .padAngle((inset * Math.PI) / 180);
 
   return select(document.createElement('path', {}))

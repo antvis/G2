@@ -28,6 +28,12 @@ describe('parseRadius', () => {
     });
   });
 
+  describe('radius as undefined', () => {
+    it('should fallback to all zeros when radius is undefined', () => {
+      expect(parseRadius(undefined)).toEqual([0, 0, 0, 0]);
+    });
+  });
+
   describe('individual corner override with ?? pattern', () => {
     it('should allow explicit corner radius to override parsed array values', () => {
       const [tl, tr, br, bl] = parseRadius([10, 10, 4, 4]);
