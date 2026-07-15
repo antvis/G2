@@ -470,13 +470,13 @@ export default defineConfig({
     /** 公告 */
     announcement: {
       title: {
-        zh: 'AntV OSCP 文档季火热进行中！成为 Issue Hunter，赢限定周边 & 超市卡等好礼 🎁',
-        en: 'AntV OSCP Doc Season: Hunt Issues to Win Exclusive Merch & Gift Cards! 🎁',
+        zh: '🎉 AntV 推出新一代 AI 驱动的可视化创作平台 Sive，免费使用、更多图表模板，一句话生成可视化作品，现诚邀体验共建！',
+        en: '🎉 AntV launches Sive, a next-gen AI-driven visual creation platform with 5000+ chart inspirations, free to use. See it Live, Share it Real.',
       },
       link: {
-        url: 'https://github.com/orgs/antvis/projects/31',
+        url: 'https://sive.antv.antgroup.com',
         text: {
-          zh: '点击了解活动',
+          zh: '立即体验',
           en: 'Learn More',
         },
       },
