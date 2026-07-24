@@ -1,4 +1,12 @@
-import { Circle, DisplayObject, IElement, Line } from '@antv/g';
+import {
+  Circle,
+  DisplayObject,
+  Group,
+  IElement,
+  Line,
+  Rect,
+  Text,
+} from '@antv/g';
 import { sort, group, mean, bisector, minIndex } from '@antv/vendor/d3-array';
 import { deepMix, lowerFirst, set, throttle, last, isNumber } from '@antv/util';
 import { Tooltip as TooltipComponent } from '@antv/component';
@@ -185,6 +193,8 @@ function hideTooltip({
   }
   hideRuleY(root);
   hideRuleX(root);
+  hideTagX(root);
+  hideTagY(root);
   hideMarker(root);
 }
 
@@ -199,6 +209,8 @@ function destroyTooltip({ root, single }) {
   }
   hideRuleY(root);
   hideRuleX(root);
+  hideTagX(root);
+  hideTagY(root);
   hideMarker(root);
 }
 
@@ -348,6 +360,7 @@ function updateRuleX(
     polar,
     insetLeft,
     insetTop,
+    follow = false,
     ...rest
   },
 ) {
@@ -395,7 +408,8 @@ function updateRuleX(
     return points[minDistIndex];
   };
 
-  const target = minDistPoint(mouse, points);
+  const target =
+    follow || points.length === 0 ? mouse : minDistPoint(mouse, points);
 
   const pointsOf = () => {
     if (transposed)
@@ -436,6 +450,7 @@ function updateRuleX(
 function updateRuleY(
   root,
   points,
+  mouse,
   {
     plotWidth,
     plotHeight,
@@ -447,6 +462,7 @@ function updateRuleY(
     polar,
     insetLeft,
     insetTop,
+    follow = false,
     ...rest
   },
 ) {
@@ -459,8 +475,8 @@ function updateRuleY(
 
   const Y = points.map((p) => p[1]);
   const X = points.map((p) => p[0]);
-  const y = mean(Y);
-  const x = mean(X);
+  const y = follow || Y.length === 0 ? mouse[1] : mean(Y);
+  const x = follow || X.length === 0 ? mouse[0] : mean(X);
 
   const pointsOf = () => {
     if (polar) {
@@ -491,8 +507,8 @@ function updateRuleY(
     root.appendChild(line);
     return line;
   };
-  // Only update rule with defined series elements.
-  if (X.length > 0) {
+  // In follow mode, allow rendering even if there are no points.
+  if (X.length > 0 || follow) {
     const ruleY = root.ruleY || createLine();
     ruleY.style.x1 = x1;
     ruleY.style.x2 = x2;
@@ -514,6 +530,145 @@ function hideRuleX(root) {
     root.ruleX.remove();
     root.ruleX = undefined;
   }
+}
+
+function hideTagX(root) {
+  if (root.crosshairsTagX) {
+    root.crosshairsTagX.remove();
+    root.crosshairsTagX = undefined;
+  }
+}
+
+function hideTagY(root) {
+  if (root.crosshairsTagY) {
+    root.crosshairsTagY.remove();
+    root.crosshairsTagY = undefined;
+  }
+}
+
+function showTag(root, key: 'crosshairsTagX' | 'crosshairsTagY') {
+  const group = root[key] || new Group();
+  if (!root[key]) {
+    const background = new Rect();
+    const text = new Text();
+    group.appendChild(background);
+    group.appendChild(text);
+    const container = (root.parentNode || root) as DisplayObject;
+    container.appendChild(group);
+    root[key] = group;
+  }
+  return group;
+}
+
+function normalizeTagStyle(style: Record<string, any> = {}) {
+  const {
+    formatter,
+    position = 'right',
+    offsetX = 0,
+    offsetY = 0,
+    padding = [2, 6],
+    textAlign = 'left',
+    textBaseline = 'top',
+    ...rest
+  } = style;
+  const [paddingY, paddingX] = padding;
+  const background = subObject(rest, 'background');
+  const textOnlyStyle = Object.fromEntries(
+    Object.entries(rest).filter(([key]) => !key.startsWith('background')),
+  );
+  const textStyle = {
+    ...textOnlyStyle,
+    textAlign,
+    textBaseline,
+  };
+  return {
+    formatter,
+    position,
+    offsetX,
+    offsetY,
+    paddingX,
+    paddingY,
+    textStyle,
+    backgroundStyle: background,
+  };
+}
+
+function updateTag(
+  root,
+  key: 'crosshairsTagX' | 'crosshairsTagY',
+  value: any,
+  x: number,
+  y: number,
+  axis: 'x' | 'y',
+  tagStyle: Record<string, any> = {},
+  boundary: { left: number; right: number; top: number; bottom: number },
+) {
+  if (!defined(value)) {
+    if (key === 'crosshairsTagX') hideTagX(root);
+    if (key === 'crosshairsTagY') hideTagY(root);
+    return;
+  }
+  const {
+    formatter,
+    position,
+    offsetX,
+    offsetY,
+    paddingX,
+    paddingY,
+    textStyle,
+    backgroundStyle,
+  } = normalizeTagStyle(tagStyle);
+  const group = showTag(root, key);
+  const [background, text] = group.childNodes as [Rect, Text];
+  const textValue = formatter ? formatter(value) : `${value}`;
+  text.attr({
+    text: textValue,
+    x: 0,
+    y: 0,
+    fill: '#fff',
+    fontSize: 10,
+    fontFamily: 'sans-serif',
+    ...textStyle,
+  });
+  const bounds = text.getLocalBounds();
+  const {
+    min: [minX, minY],
+    max: [maxX, maxY],
+  } = bounds;
+  const width = maxX - minX;
+  const height = maxY - minY;
+  const tagWidth = width + paddingX * 2;
+  const tagHeight = height + paddingY * 2;
+  background.attr({
+    x: 0,
+    y: 0,
+    width: tagWidth,
+    height: tagHeight,
+    radius: 2,
+    fill: '#1b1e23',
+    ...backgroundStyle,
+  });
+  text.attr({
+    x: paddingX - minX,
+    y: paddingY - minY,
+  });
+  const px =
+    axis === 'x'
+      ? x - tagWidth / 2 + offsetX
+      : position === 'left'
+      ? x - tagWidth - 6 + offsetX
+      : x + 6 + offsetX;
+  const py =
+    axis === 'x' ? y - tagHeight - 6 + offsetY : y - tagHeight / 2 + offsetY;
+  const clampedX = Math.max(
+    boundary.left,
+    Math.min(boundary.right - tagWidth, px),
+  );
+  const clampedY = Math.max(
+    boundary.top,
+    Math.min(boundary.bottom - tagHeight, py),
+  );
+  group.style.transform = `translate(${clampedX}, ${clampedY})`;
 }
 
 function updateMarker(root, { data, style, theme }) {
@@ -934,8 +1089,17 @@ export function seriesTooltip(
     scale,
     coordinate,
     crosshairs,
+    crosshairsTag,
     crosshairsX,
     crosshairsY,
+    crosshairsFollow,
+    crosshairsXFollow,
+    crosshairsYFollow,
+    crosshairsXTag,
+    crosshairsYTag,
+    crosshairsYTagPosition,
+    crosshairsXTagFormatter,
+    crosshairsYTagFormatter,
     render,
     groupName,
     emitter,
@@ -979,6 +1143,10 @@ export function seriesTooltip(
       if (clickLock && root.getAttribute(LOCKED_SYMBOL)) return;
       const mouse = mousePosition(root, event);
       if (!mouse) return;
+      const focus = [mouse[0] - startX, mouse[1] - startY];
+      const focusX = Math.max(0, Math.min(plotWidth, focus[0]));
+      const focusY = Math.max(0, Math.min(plotHeight, focus[1]));
+      const clampedFocus = [focusX, focusY];
       const bbox = bboxOf(root);
       const x = bbox.min[0];
       const y = bbox.min[1];
@@ -1032,16 +1200,21 @@ export function seriesTooltip(
         });
       }
 
+      const followX = maybeValue(crosshairsXFollow, crosshairsFollow);
+      const followY = maybeValue(crosshairsYFollow, crosshairsFollow);
+
       if (crosshairs || crosshairsX || crosshairsY) {
         const ruleStyle = subObject(style, 'crosshairs');
 
         const ruleStyleX = {
           ...ruleStyle,
           ...subObject(style, 'crosshairsX'),
+          follow: followX,
         };
         const ruleStyleY = {
           ...ruleStyle,
           ...subObject(style, 'crosshairsY'),
+          follow: followY,
         };
 
         const points = filteredSeriesData.map((d) => d[1]);
@@ -1062,7 +1235,7 @@ export function seriesTooltip(
         }
 
         if (crosshairsY) {
-          updateRuleY(root, points, {
+          updateRuleY(root, points, mouse, {
             ...ruleStyleY,
             plotWidth,
             plotHeight,
@@ -1078,6 +1251,92 @@ export function seriesTooltip(
         }
       }
 
+      const [invertedX, invertedY] = coordinate.invert(clampedFocus);
+      const xOfSeries = filteredSeriesData[0]?.[0].x;
+      const yOfSeries = filteredSeriesData[0]?.[0].y;
+      const xValue = invert(
+        scale.x,
+        followY ? invertedX : xOfSeries ?? invertedX,
+        true,
+      );
+      const yValue = invert(
+        scale.y,
+        followX ? invertedY : yOfSeries ?? invertedY,
+        true,
+      );
+      const tagStyle = subObject(style, 'crosshairsTag');
+      const tagStyleX: Record<string, any> = {
+        ...tagStyle,
+        ...subObject(style, 'crosshairsXTag'),
+        formatter: crosshairsXTagFormatter,
+      };
+      const tagStyleY: Record<string, any> = {
+        ...tagStyle,
+        ...subObject(style, 'crosshairsYTag'),
+        formatter: crosshairsYTagFormatter,
+      };
+      const scaleYGuide = scale.y?.getOptions?.()?.guide;
+      const inferredYTagPostion =
+        scaleYGuide?.position === 'right' ? 'right' : 'left';
+      const yTagPosition = maybeValue(
+        crosshairsYTagPosition,
+        tagStyleY.position ?? inferredYTagPostion,
+      );
+      const rootBounds = bboxOf(root);
+      const tagContainer = (root.parentNode || root) as DisplayObject;
+      const containerBounds = bboxOf(tagContainer);
+      const rootMinX = rootBounds.min[0];
+      const rootMinY = rootBounds.min[1];
+      const containerMinX = containerBounds.min[0];
+      const containerMinY = containerBounds.min[1];
+      const containerWidth = containerBounds.max[0] - containerMinX;
+      const containerHeight = containerBounds.max[1] - containerMinY;
+      const useTagX = maybeValue(crosshairsXTag, crosshairsTag);
+      const useTagY = maybeValue(crosshairsYTag, crosshairsTag);
+      if (useTagX) {
+        updateTag(
+          root,
+          'crosshairsTagX',
+          xValue,
+          rootMinX + startX + focusX - containerMinX,
+          rootMinY + startY + plotHeight - containerMinY,
+          'x',
+          tagStyleX,
+          {
+            left: 0,
+            right: containerWidth,
+            top: 0,
+            bottom: containerHeight,
+          },
+        );
+      } else {
+        hideTagX(root);
+      }
+      if (useTagY) {
+        updateTag(
+          root,
+          'crosshairsTagY',
+          yValue,
+          rootMinX +
+            (yTagPosition === 'left' ? startX : startX + plotWidth) -
+            containerMinX,
+          rootMinY + startY + focusY - containerMinY,
+          'y',
+          {
+            ...tagStyleY,
+            position: yTagPosition,
+          },
+          {
+            left: 0,
+            right: containerWidth,
+            top: 0,
+            bottom: containerHeight,
+          },
+        );
+      } else {
+        hideTagY(root);
+      }
+
       if (marker) {
         const markerStyles = subObject(style, 'marker');
         updateMarker(root, {
@@ -1090,7 +1349,7 @@ export function seriesTooltip(
       // X in focus may related multiple points when dataset is large,
       // so we need to find the first x to show tooltip.
       const firstX = filteredSeriesData[0]?.[0].x;
-      const transformedX = firstX ?? abstractX(focus);
+      const transformedX = firstX ?? abstractX(clampedFocus);
 
       emitter.emit('tooltip:show', {
         ...event,
@@ -1417,22 +1676,27 @@ export function Tooltip(options) {
     const crosshairsSetting = maybeValue(crosshairs, defaultShowCrosshairs);
     if (rest.clickLock && !facet) plotArea.setAttribute(LOCKED_SYMBOL, false);
     // For non-facet and series tooltip.
-    if (isSeries && hasSeries(markState) && !facet) {
-      return seriesTooltip(plotArea, {
-        ...rest,
-        theme,
-        elements: selectG2Elements,
-        scale,
-        coordinate,
-        crosshairs: crosshairsSetting,
-        // the crosshairsX settings level: crosshairsX > crosshairs > false
-        // it means crosshairsX default is false
-        crosshairsX: maybeValue(maybeValue(crosshairsX, crosshairs), false),
-        // crosshairsY default depend on the crossharisSettings
-        crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
-        item,
-        emitter,
-      });
+    // Enter when:
+    // 1. isSeries && hasSeries(markState) - original logic for series marks
+    // 2. crosshairsFollow is enabled - needs seriesTooltip for follow functionality
+    if ((isSeries && hasSeries(markState)) || rest.crosshairsFollow) {
+      if (!facet) {
+        return seriesTooltip(plotArea, {
+          ...rest,
+          theme,
+          elements: selectG2Elements,
+          scale,
+          coordinate,
+          crosshairs: crosshairsSetting,
+          // the crosshairsX settings level: crosshairsX > crosshairs > false
+          // it means crosshairsX default is false
+          crosshairsX: maybeValue(maybeValue(crosshairsX, crosshairs), false),
+          // crosshairsY default depend on the crossharisSettings
+          crosshairsY: maybeValue(crosshairsY, crosshairsSetting),
+          item,
+          emitter,
+        });
+      }
     }
 
     // For facet and series tooltip.

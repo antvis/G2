@@ -1,6 +1,17 @@
 require('./style.css');
 require('./prism-one-light.css');
 
+// Polyfill crypto.randomUUID for non-secure contexts (e.g. HTTP on LAN IP).
+if (typeof crypto !== 'undefined' && typeof crypto.randomUUID !== 'function') {
+  crypto.randomUUID = () =>
+    '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c: any) =>
+      (
+        +c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
+      ).toString(16),
+    );
+}
+
 if (typeof window !== 'undefined' && window) {
   (window as any).g2 = extendG2(require('../../src'));
   (window as any).G2 = (window as any).g2;

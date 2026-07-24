@@ -21,6 +21,14 @@
       "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ehjWTYLKU_wAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
+      "filename": "kline-crosshairs.ts",
+      "title": {
+        "zh": "K线图十字光标",
+        "en": "K-line Crosshairs"
+      },
+      "screenshot": ""
+    },
+    {
       "filename": "k-and-column.ts",
       "title": {
         "zh": "K 线图与柱状图",
