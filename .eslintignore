@@ -2,5 +2,6 @@ dist
 es
 lib
 node_modules
+src/schema/schema.generated.ts
 *.ejs
 *.min.js
