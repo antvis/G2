@@ -19,6 +19,9 @@ dist
 lib
 esm
 
+# Generated runtime schema adapter
+/src/schema/schema.generated.ts
+
 # Test
 coverage
 
