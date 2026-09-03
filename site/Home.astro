@@ -1,0 +1,1931 @@
+---
+interface Props {
+  locale: 'zh' | 'en';
+  config: any;
+}
+
+const { locale, config } = Astro.props as Props;
+const isZh = locale === 'zh';
+const qaServiceBaseUrl = config.qa
+  ? import.meta.env.DEV
+    ? config.qa.service.development
+    : config.qa.service.production
+  : '';
+const qaResultUrl = `/${locale}/${config.qa?.path || 'result'}/`;
+const localHref = (href: string) => {
+  if (/^(?:https?:)?\/\//.test(href) || href.startsWith('#')) return href;
+  if (href.startsWith('/' + locale + '/') || href === '/' + locale + '/') return href;
+  return ('/' + locale + (href.startsWith('/') ? href : '/' + href)).replace(/\/$/, '') + '/';
+};
+
+const cases = [
+  {
+    title: isZh ? '多品类月度销售趋势' : 'Monthly sales by product',
+    description: isZh ? '折线、阶梯线与标注的组合表达' : 'Lines, step lines, and annotations',
+    link: '/examples/general/line/line-series',
+    image: '/home/g2-case-line.png',
+    visualClass: 'case-visual-line',
+  },
+  {
+    title: isZh ? '品类销售结构洞察' : 'Category mix analysis',
+    description: isZh ? '环图标签与比例编码' : 'Donut labels and proportional encoding',
+    link: '/examples/general/pie/donut',
+    image: '/home/g2-case-donut.png',
+    visualClass: 'case-visual-donut',
+  },
+  {
+    title: isZh ? '烟花销售额趋势分析' : 'Firework sales trend',
+    description: isZh ? '面积图、注释与数据故事' : 'Area chart, annotations, and story',
+    link: '/examples/annotation/line/anomaly-area-line',
+    image: '/home/g2-gallery.png',
+    visualClass: 'case-visual-gallery-top',
+  },
+  {
+    title: isZh ? '历史贸易数据叙事' : 'Historical trade story',
+    description: isZh ? '双指标对比与关键事件标注' : 'Dual measures with event annotations',
+    link: '/examples/general/dual/line-bar',
+    image: '/home/g2-gallery.png',
+    visualClass: 'case-visual-gallery-bottom',
+  },
+];
+
+const updates = [
+  {
+    mark: 'G2',
+    tone: 'violet',
+    title: isZh ? '图表介绍全新上线' : 'A new chart guide',
+    description: isZh
+      ? '从分析目的出发，快速找到适合数据的图表类型。'
+      : 'Find a fitting chart type from your analytical goal.',
+    link: '/charts/overview',
+  },
+  {
+    mark: '5.x',
+    tone: 'blue',
+    title: isZh ? 'G2 5.x 版本能力' : 'What is new in G2 5.x',
+    description: isZh
+      ? '更简洁的 API、更强的组合能力与完整的交互语法。'
+      : 'A concise API, stronger composition, and complete interactions.',
+    link: '/manual/whats-new/new-version-features',
+  },
+  {
+    mark: '</>',
+    tone: 'cyan',
+    title: isZh ? 'Spec 函数表达式' : 'Spec function expressions',
+    description: isZh
+      ? '在纯 JSON Spec 中表达回调逻辑，兼顾开放与可移植。'
+      : 'Express callbacks in portable, JSON-friendly specifications.',
+    link: '/examples/expr/base/expr',
+  },
+  {
+    mark: '▶',
+    tone: 'pink',
+    title: isZh ? '动画与数据叙事' : 'Animation and storytelling',
+    description: isZh
+      ? '用关键帧连接数据变化，让图表自然讲述结论。'
+      : 'Connect data changes with keyframes and tell a clear story.',
+    link: '/examples/storytelling/storytelling/stocks-keyframe',
+  },
+  {
+    mark: '3D',
+    tone: 'orange',
+    title: isZh ? '三维可视化扩展' : '3D visualization',
+    description: isZh
+      ? '在一致的语法中组合相机、光照与三维图形。'
+      : 'Compose cameras, lighting, and 3D marks with one grammar.',
+    link: '/examples/threed/scatter/camera-animation',
+  },
+  {
+    mark: 'AI',
+    tone: 'green',
+    title: isZh ? '智能图表推荐' : 'Intelligent chart suggestions',
+    description: isZh
+      ? '从数据特征出发，自动选择合适的视觉表达。'
+      : 'Choose a fitting visual expression from the shape of your data.',
+    link: '/examples/intelligent/auto/auto-interval',
+  },
+  {
+    mark: 'GH',
+    tone: 'dark',
+    title: isZh ? '加入 G2 开源社区' : 'Join the G2 community',
+    description: isZh
+      ? '提交问题、分享案例，与社区一起构建下一代 G2。'
+      : 'Report issues, share examples, and help build the next G2.',
+    link: 'https://github.com/antvis/g2',
+  },
+];
+
+const capabilities = [
+  {
+    icon: 'compose',
+    title: isZh ? '千变万化，自由组合' : 'Composable by design',
+    description: isZh
+      ? '任何图表，都可以基于图形语法灵活绘制，满足你无限的创意。'
+      : 'Build any chart from a flexible visual grammar and keep room for new ideas.',
+  },
+  {
+    icon: 'complete',
+    title: isZh ? '专业完备' : 'Professional and complete',
+    description: isZh
+      ? '大量产品实践之上，提供绘图引擎、完备图形语法与专业设计规范。'
+      : 'A complete rendering engine, visual grammar, and design guidance proven in products.',
+  },
+  {
+    icon: 'interactive',
+    title: isZh ? '生动，可交互' : 'Animated and interactive',
+    description: isZh
+      ? '强大的交互语法，助力可视分析，让图表栩栩如生。'
+      : 'A powerful interaction grammar for visual analysis that makes charts come alive.',
+  },
+];
+
+const companies = [
+  {
+    name: isZh ? '阿里云' : 'Alibaba Cloud',
+    brand: 'alicloud',
+    symbol: '[-]',
+    wordmark: '阿里云',
+  },
+  {
+    name: isZh ? '支付宝' : 'Alipay',
+    brand: 'alipay',
+    symbol: '支',
+    wordmark: '支付宝',
+  },
+  {
+    name: isZh ? '天猫' : 'Tmall',
+    brand: 'tmall',
+    symbol: '',
+    wordmark: 'TMALL天猫',
+  },
+  {
+    name: isZh ? '淘宝网' : 'Taobao',
+    brand: 'taobao',
+    symbol: '',
+    wordmark: '淘宝网',
+    submark: 'Taobao.com',
+  },
+  {
+    name: isZh ? '网商银行' : 'MYbank',
+    brand: 'mybank',
+    symbol: 'M',
+    wordmark: '网商银行',
+  },
+  {
+    name: isZh ? '京东' : 'JD.com',
+    brand: 'jd',
+    symbol: '',
+    wordmark: 'JD.COM',
+  },
+  {
+    name: 'YunOS',
+    brand: 'yunos',
+    symbol: '✣',
+    wordmark: 'YUNOS',
+  },
+  {
+    name: isZh ? '菜鸟' : 'Cainiao',
+    brand: 'cainiao',
+    symbol: 'C',
+    wordmark: isZh ? '菜鸟' : 'CAINIAO',
+  },
+];
+---
+
+<div class="g2-home">
+  <div class="g2-atmosphere">
+    <section class="g2-hero" aria-labelledby="g2-home-title" data-g2-reveal>
+      <picture class="g2-hero-media" aria-hidden="true">
+        <img
+          src="/home/g2-hero-background.png"
+          alt=""
+          width="2880"
+          height="1154"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+
+      <div class="hero-copy">
+        <h1 id="g2-home-title" data-pagefind-meta="title">
+          <span class="hero-g2">G2</span><span class="hero-dot" aria-hidden="true">·</span>{isZh
+            ? '可视化语法'
+            : 'Grammar of Graphics'}
+        </h1>
+        <p>
+          {isZh
+            ? 'G2 是一套简洁的渐进式可视化语法，用于构建仪表盘、数据探索以及数据讲故事，结合工业和学术实践，实现图形语法、动画语法和交互语法。'
+            : 'G2 is a concise, progressive visualization grammar for dashboards, data exploration, and storytelling, bringing graphics, animation, and interaction into one system.'}
+        </p>
+
+        <form
+          class="g2-ai-entry"
+          role="search"
+          data-qa-service-base={qaServiceBaseUrl}
+          data-result-url={qaResultUrl}
+          data-popup-blocked={isZh
+            ? '浏览器阻止了登录窗口，请允许弹窗后重试。'
+            : 'The sign-in window was blocked. Allow pop-ups and try again.'}
+          data-popup-closed={isZh
+            ? '登录窗口已关闭，请重试。'
+            : 'The sign-in window was closed. Please try again.'}
+          data-request-error={isZh
+            ? '暂时无法提交查询，请稍后重试。'
+            : 'Unable to submit the query. Please try again later.'}
+          data-popup-timeout={isZh
+            ? '登录等待超时，请重试。'
+            : 'Sign-in timed out. Please try again.'}
+          data-g2-entry
+        >
+          <label class="visually-hidden" for={'g2-ai-query-' + locale}>
+            {isZh ? '今天，你想可视化什么？' : 'What would you like to visualize today?'}
+          </label>
+          <textarea
+            id={'g2-ai-query-' + locale}
+            rows="2"
+            placeholder={isZh ? '今天，你想可视化什么？' : 'What would you like to visualize today?'}
+            autocomplete="off"
+            required
+            data-g2-prompt
+          ></textarea>
+          <div class="g2-ai-meta">
+            <span class="g2-stack">
+              <span class="g2-stack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 4h10l4 7-9 9-9-9 4-7Z"></path>
+                  <path d="m7 4 5 16 5-16M3 11h18"></path>
+                </svg>
+              </span>
+              <span>G2</span>
+            </span>
+            <input type="hidden" value="G2" data-g2-stack />
+            <button
+              class="g2-ai-submit"
+              type="submit"
+              aria-label={isZh ? '提交可视化需求' : 'Submit visualization request'}
+              disabled
+              data-g2-submit
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m5 12 14-7-4 14-3-5-7-2Z"></path>
+                <path d="m12 14 7-9"></path>
+              </svg>
+            </button>
+          </div>
+          <p class="g2-ai-error" role="alert" hidden data-g2-error></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="case-section section-inner" aria-labelledby="case-title" data-g2-reveal>
+      <header class="section-heading">
+        <h2 id="case-title">{isZh ? '精选案例' : 'Selected examples'}</h2>
+      </header>
+      <div class="case-grid">
+        {cases.map((item, index) => (
+          <a class="case-card" href={localHref(item.link)} style={'--case-index:' + index}>
+            <div class="case-copy">
+              <strong>{item.title}</strong>
+              <span>{item.description}</span>
+            </div>
+            <div class="case-frame">
+              <img
+                class:list={['case-visual', item.visualClass]}
+                src={item.image}
+                alt=""
+                loading={index < 2 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section
+      class="updates-section section-inner"
+      aria-label={isZh ? 'G2 动态资讯' : 'G2 updates'}
+      data-g2-reveal
+    >
+      <div class="updates-carousel" data-updates-carousel>
+        <div class="updates-viewport" data-updates-viewport>
+          <div class="updates-track" role="list">
+            {updates.map((item) => (
+              <a class="update-card" href={localHref(item.link)} role="listitem">
+                <span class:list={['update-mark', 'update-mark-' + item.tone]} aria-hidden="true">
+                  {item.mark}
+                </span>
+                <span class="update-copy">
+                  <strong>{item.title}</strong>
+                  <span>{item.description}</span>
+                </span>
+                <svg class="update-arrow" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M5 10h10M11 6l4 4-4 4"></path>
+                </svg>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div
+          class="updates-pagination"
+          data-updates-pagination
+          aria-label={isZh ? '动态资讯分页' : 'Update pages'}
+        ></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="capability-section" aria-label={isZh ? 'G2 核心能力' : 'G2 capabilities'} data-g2-reveal>
+    <div class="capability-grid section-inner">
+      {capabilities.map((item) => (
+        <article class="capability-card">
+          <span class="capability-icon" aria-hidden="true">
+            {item.icon === 'compose' && (
+              <svg viewBox="0 0 28 28">
+                <path d="M8 6 3 14l5 8M20 6l5 8-5 8M16 4l-4 20"></path>
+              </svg>
+            )}
+            {item.icon === 'complete' && (
+              <svg viewBox="0 0 28 28">
+                <rect x="4" y="5" width="20" height="7" rx="2"></rect>
+                <rect x="4" y="16" width="20" height="7" rx="2"></rect>
+                <path d="M8 8.5h8M8 19.5h11"></path>
+              </svg>
+            )}
+            {item.icon === 'interactive' && (
+              <svg viewBox="0 0 28 28">
+                <rect x="4" y="7" width="13" height="13" rx="2"></rect>
+                <rect x="11" y="3" width="13" height="13" rx="2"></rect>
+                <path d="m17 19 3 6 2-3 3-2-8-1Z"></path>
+              </svg>
+            )}
+          </span>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="gallery-section" aria-labelledby="gallery-title" data-g2-reveal>
+    <div class="gallery-inner section-inner">
+      <div class="gallery-copy">
+        <span class="gallery-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="m24 5 5.5 11.2L42 18l-9 8.7 2.1 12.3L24 33.2 12.9 39 15 26.7 6 18l12.5-1.8L24 5Z"></path>
+          </svg>
+        </span>
+        <h2 id="gallery-title">{isZh ? '精品 Gallery' : 'Curated Gallery'}</h2>
+        <p>
+          {isZh
+            ? '真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。'
+            : 'Real visualization cases distilled into story-driven design patterns that are ready to use.'}
+        </p>
+        <a class="gallery-action" href={localHref('/examples')}>
+          <span>{isZh ? '查看详情' : 'View gallery'}</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10h11M11 6l4 4-4 4"></path>
+          </svg>
+        </a>
+      </div>
+      <div class="gallery-visual">
+        <div class="gallery-glow" aria-hidden="true"></div>
+        <img
+          src="/home/g2-gallery.png"
+          alt={isZh ? '由多个真实 G2 图表组成的 Gallery 预览' : 'Gallery preview made from real G2 charts'}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-section" aria-labelledby="trust-title" data-g2-reveal>
+    <div class="trust-inner">
+      <h2 id="trust-title">{isZh ? '感谢信赖' : 'Trusted by teams'}</h2>
+      <div
+        class="trust-viewport"
+        tabindex="0"
+        aria-label={isZh ? '使用 G2 的企业品牌' : 'Companies using G2'}
+      >
+        <div class="trust-track">
+          <div class="trust-group" role="list">
+            {companies.map((company) => (
+              <div class:list={['trust-logo', 'trust-logo-' + company.brand]} role="listitem" aria-label={company.name}>
+                {company.symbol && <span class="trust-symbol" aria-hidden="true">{company.symbol}</span>}
+                <span class="trust-wordmark" aria-hidden="true">
+                  <strong>{company.wordmark}</strong>
+                  {company.submark && <small>{company.submark}</small>}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div class="trust-group" aria-hidden="true">
+            {companies.map((company) => (
+              <div class:list={['trust-logo', 'trust-logo-' + company.brand]}>
+                {company.symbol && <span class="trust-symbol">{company.symbol}</span>}
+                <span class="trust-wordmark">
+                  <strong>{company.wordmark}</strong>
+                  {company.submark && <small>{company.submark}</small>}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    document.querySelectorAll('[data-g2-entry]').forEach((entry) => {
+      const prompt = entry.querySelector('[data-g2-prompt]');
+      const submit = entry.querySelector('[data-g2-submit]');
+      if (
+        !(entry instanceof HTMLFormElement) ||
+        !(prompt instanceof HTMLTextAreaElement) ||
+        !(submit instanceof HTMLButtonElement)
+      ) return;
+
+      const syncSubmit = () => {
+        submit.disabled = !prompt.value.trim();
+      };
+
+      entry.addEventListener('click', (event) => {
+        if (event.target instanceof Element && event.target.closest('button, textarea')) return;
+        prompt.focus({ preventScroll: true });
+      });
+      prompt.addEventListener('input', syncSubmit);
+      prompt.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' || event.shiftKey || event.isComposing) return;
+        event.preventDefault();
+        if (prompt.value.trim()) entry.requestSubmit();
+      });
+      entry.addEventListener('submit', (event) => {
+        if (prompt.value.trim()) return;
+        event.preventDefault();
+        syncSubmit();
+        prompt.focus();
+      });
+      syncSubmit();
+    });
+
+    document.querySelectorAll('[data-updates-carousel]').forEach((carousel) => {
+      const viewport = carousel.querySelector('[data-updates-viewport]');
+      const pagination = carousel.querySelector('[data-updates-pagination]');
+      const cards = [...carousel.querySelectorAll('.update-card')];
+      if (!(viewport instanceof HTMLElement) || !(pagination instanceof HTMLElement) || !cards.length) return;
+
+      let currentPage = 0;
+      let pageCount = 1;
+      let pageSize = 3;
+      let autoTimer = 0;
+      let scrollTimer = 0;
+      let wheelTimer = 0;
+      let wheelDelta = 0;
+      let wheelDirection = 0;
+      let wheelGestureActive = false;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const getPageSize = () => {
+        if (window.innerWidth < 640) return 1;
+        if (window.innerWidth < 920) return 2;
+        return 3;
+      };
+
+      const syncDots = () => {
+        pagination.querySelectorAll('button').forEach((button, index) => {
+          button.setAttribute('aria-current', index === currentPage ? 'true' : 'false');
+        });
+      };
+
+      /** @param {number} page */
+      const getPageLeft = (page) => {
+        const card = cards[Math.min(page * pageSize, cards.length - 1)];
+        const left = card instanceof HTMLElement && cards[0] instanceof HTMLElement
+          ? card.offsetLeft - cards[0].offsetLeft
+          : page * viewport.clientWidth;
+        return Math.min(left, Math.max(0, viewport.scrollWidth - viewport.clientWidth));
+      };
+
+      /**
+       * @param {number} page
+       * @param {boolean} [smooth]
+       */
+      const goTo = (page, smooth = true) => {
+        currentPage = Math.max(0, Math.min(page, pageCount - 1));
+        viewport.scrollTo({
+          left: getPageLeft(currentPage),
+          behavior: smooth && !reducedMotion ? 'smooth' : 'auto',
+        });
+        syncDots();
+      };
+
+      const renderDots = () => {
+        pagination.replaceChildren();
+        pagination.hidden = pageCount <= 1;
+        for (let index = 0; index < pageCount; index += 1) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.setAttribute('aria-label', (document.documentElement.lang === 'zh' ? '查看第 ' : 'View page ') + (index + 1));
+          button.addEventListener('click', () => goTo(index));
+          pagination.append(button);
+        }
+        syncDots();
+      };
+
+      const rebuild = () => {
+        pageSize = getPageSize();
+        pageCount = Math.ceil(cards.length / pageSize);
+        currentPage = Math.min(currentPage, pageCount - 1);
+        renderDots();
+        requestAnimationFrame(() => goTo(currentPage, false));
+      };
+
+      const stopAuto = () => {
+        window.clearInterval(autoTimer);
+      };
+      const startAuto = () => {
+        stopAuto();
+        if (reducedMotion || pageCount <= 1) return;
+        autoTimer = window.setInterval(() => goTo((currentPage + 1) % pageCount), 5600);
+      };
+
+      viewport.addEventListener('scroll', () => {
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => {
+          let next = 0;
+          let nearestDistance = Number.POSITIVE_INFINITY;
+          for (let index = 0; index < pageCount; index += 1) {
+            const distance = Math.abs(viewport.scrollLeft - getPageLeft(index));
+            if (distance >= nearestDistance) continue;
+            nearestDistance = distance;
+            next = index;
+          }
+          currentPage = Math.max(0, Math.min(next, pageCount - 1));
+          syncDots();
+        }, 90);
+      }, { passive: true });
+      viewport.addEventListener('wheel', (event) => {
+        if (event.ctrlKey || pageCount <= 1) return;
+
+        const isHorizontalGesture = Math.abs(event.deltaX) >= Math.abs(event.deltaY);
+        if (isHorizontalGesture || event.shiftKey) {
+          stopAuto();
+          return;
+        }
+
+        const delta = event.deltaY;
+        if (Math.abs(delta) < 1) return;
+
+        if (wheelGestureActive) {
+          event.preventDefault();
+          window.clearTimeout(wheelTimer);
+          wheelTimer = window.setTimeout(() => {
+            wheelGestureActive = false;
+          }, 160);
+          return;
+        }
+
+        const direction = delta > 0 ? 1 : -1;
+        const targetPage = currentPage + direction;
+        if (targetPage < 0 || targetPage >= pageCount) {
+          wheelDelta = 0;
+          wheelDirection = 0;
+          return;
+        }
+
+        event.preventDefault();
+        if (direction !== wheelDirection) wheelDelta = 0;
+        wheelDirection = direction;
+        wheelDelta += delta;
+        if (Math.abs(wheelDelta) < 24) return;
+
+        wheelDelta = 0;
+        wheelGestureActive = true;
+        stopAuto();
+        goTo(targetPage);
+        window.clearTimeout(wheelTimer);
+        wheelTimer = window.setTimeout(() => {
+          wheelGestureActive = false;
+        }, 160);
+      }, { passive: false });
+      carousel.addEventListener('pointerenter', stopAuto);
+      carousel.addEventListener('pointerleave', startAuto);
+      carousel.addEventListener('focusin', stopAuto);
+      carousel.addEventListener('focusout', (event) => {
+        const { relatedTarget } = /** @type {FocusEvent} */ (event);
+        if (relatedTarget instanceof Node && carousel.contains(relatedTarget)) return;
+        startAuto();
+      });
+      window.addEventListener('resize', () => {
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(() => {
+          rebuild();
+          startAuto();
+        }, 120);
+      });
+      rebuild();
+      startAuto();
+    });
+
+    const revealItems = [...document.querySelectorAll('[data-g2-reveal]')];
+    /** @param {Element} item */
+    const reveal = (item) => item.setAttribute('data-g2-visible', '');
+    document.documentElement.classList.add('g2-motion-ready');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      revealItems.forEach(reveal);
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        reveal(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    revealItems.forEach((item, index) => {
+      if (index === 0) reveal(item);
+      else observer.observe(item);
+    });
+  })();
+</script>
+
+<script>
+  import { requestQaSession, saveQaHistory, toQaProduct } from '@antv/site/qa';
+
+  document.querySelectorAll('[data-g2-entry]').forEach((entry) => {
+    if (!(entry instanceof HTMLFormElement)) return;
+
+    entry.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const prompt = entry.querySelector('[data-g2-prompt]');
+      const submit = entry.querySelector('[data-g2-submit]');
+      const stackInput = entry.querySelector('[data-g2-stack]');
+      const errorTarget = entry.querySelector('[data-g2-error]');
+      if (
+        !(prompt instanceof HTMLTextAreaElement) ||
+        !(submit instanceof HTMLButtonElement) ||
+        !(stackInput instanceof HTMLInputElement) ||
+        !(errorTarget instanceof HTMLElement)
+      ) return;
+
+      const query = prompt.value.trim();
+      if (!query) {
+        prompt.focus();
+        return;
+      }
+
+      const serviceBaseUrl = entry.dataset.qaServiceBase;
+      const resultUrl = entry.dataset.resultUrl;
+      const stack = stackInput.value.trim();
+      const product = toQaProduct(stack);
+      if (!serviceBaseUrl || !resultUrl || !product) return;
+
+      entry.setAttribute('aria-busy', 'true');
+      submit.disabled = true;
+      prompt.readOnly = true;
+      errorTarget.hidden = true;
+
+      try {
+        const session = await requestQaSession({
+          context: {
+            locale: document.documentElement.lang.startsWith('en') ? 'en-US' : 'zh-CN',
+            product,
+          },
+          errors: {
+            blocked: entry.dataset.popupBlocked || '',
+            closed: entry.dataset.popupClosed || '',
+            request: entry.dataset.requestError || '',
+            timeout: entry.dataset.popupTimeout || '',
+          },
+          message: query,
+          serviceBaseUrl,
+        });
+        const target = new URL(resultUrl, window.location.origin);
+        target.searchParams.set('q', query);
+        target.searchParams.set('stack', stack);
+        target.searchParams.set('session', session);
+        saveQaHistory({ session, stack, title: query });
+        window.location.assign(target);
+      } catch (error) {
+        errorTarget.textContent =
+          error instanceof Error ? error.message : entry.dataset.requestError || '';
+        errorTarget.hidden = false;
+        entry.removeAttribute('aria-busy');
+        prompt.readOnly = false;
+        submit.disabled = false;
+      }
+    });
+  });
+</script>
+
+<style>
+  .g2-home {
+    --g2-width: min(1180px, calc(100% - 64px));
+    --g2-page: #fbfbfd;
+    --g2-atmosphere: #f4f1fb;
+    --g2-card: rgb(255 255 255 / 92%);
+    --g2-card-solid: #fff;
+    --g2-line: #e5dfed;
+    --g2-muted: #696371;
+    --g2-purple: #722ed1;
+    --g2-purple-bright: #8b43f5;
+    --g2-shadow: 0 22px 54px rgb(71 45 113 / 11%);
+    overflow: hidden;
+    color: var(--text);
+    background: var(--g2-page);
+  }
+
+  :global(:root[data-theme='dark']) .g2-home {
+    --g2-page: #15131d;
+    --g2-atmosphere: #1b1726;
+    --g2-card: rgb(35 31 46 / 90%);
+    --g2-card-solid: #231f2d;
+    --g2-line: #3b324b;
+    --g2-muted: #aaa2b5;
+    --g2-shadow: 0 20px 52px rgb(0 0 0 / 28%);
+  }
+
+  .section-inner {
+    width: var(--g2-width);
+    margin: 0 auto;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .g2-atmosphere {
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 2%, rgb(255 255 255 / 98%) 0, rgb(255 255 255 / 44%) 29%, transparent 51%),
+      radial-gradient(circle at 2% 31%, rgb(158 108 255 / 15%), transparent 28%),
+      radial-gradient(circle at 98% 25%, rgb(116 72 226 / 13%), transparent 30%),
+      linear-gradient(180deg, #eee9fb 0%, #faf9fd 58%, #f3eff9 100%);
+  }
+
+  :global(:root[data-theme='dark']) .g2-atmosphere {
+    background:
+      radial-gradient(circle at 50% 5%, rgb(65 46 91 / 72%) 0, transparent 46%),
+      radial-gradient(circle at 4% 35%, rgb(124 78 220 / 20%), transparent 30%),
+      radial-gradient(circle at 95% 27%, rgb(104 65 200 / 18%), transparent 31%),
+      var(--g2-atmosphere);
+  }
+
+  .g2-hero {
+    position: relative;
+    display: flex;
+    min-height: 0;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 68px 24px 58px;
+    overflow: visible;
+  }
+
+  .g2-hero-media,
+  .g2-hero-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .g2-hero-media {
+    z-index: 0;
+    bottom: -112px;
+    height: auto;
+    overflow: hidden;
+    mask-image: linear-gradient(180deg, #000 0%, #000 62%, rgb(0 0 0 / 72%) 76%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .g2-hero-media img {
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    transition: filter 0.3s;
+  }
+
+  :global(:root[data-theme='dark']) .g2-hero-media img {
+    filter: brightness(0.36) saturate(0.82);
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    width: min(850px, 100%);
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-copy h1 {
+    display: block;
+    margin: 0;
+    color: #151219;
+    font-size: clamp(44px, 5.2vw, 66px);
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 1.06;
+  }
+
+  .hero-g2 {
+    background: linear-gradient(135deg, #9d45ff 0%, #6418df 88%);
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-dot {
+    margin: 0 0.08em;
+    color: #111016;
+  }
+
+  .hero-copy > p {
+    max-width: 735px;
+    margin: 16px 0 0;
+    color: #66606b;
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  :global(:root[data-theme='dark']) .hero-copy h1,
+  :global(:root[data-theme='dark']) .hero-dot {
+    color: var(--text-strong);
+  }
+
+  :global(:root[data-theme='dark']) .hero-copy > p {
+    color: var(--g2-muted);
+  }
+
+  .g2-ai-entry {
+    display: flex;
+    width: min(760px, 100%);
+    min-height: 148px;
+    margin-top: 26px;
+    padding: 0;
+    flex-direction: column;
+    cursor: text;
+    border: 1px solid rgb(105 72 161 / 17%);
+    border-radius: 22px;
+    background: rgb(255 255 255 / 96%);
+    box-shadow:
+      0 24px 60px rgb(78 48 130 / 14%),
+      0 3px 10px rgb(65 42 105 / 6%),
+      inset 0 1px 0 #fff;
+    transition: border-color 0.24s, box-shadow 0.24s, transform 0.24s;
+  }
+
+  .g2-ai-entry:hover {
+    border-color: rgb(111 63 193 / 31%);
+    box-shadow:
+      0 27px 64px rgb(78 48 130 / 17%),
+      0 3px 10px rgb(65 42 105 / 7%);
+    transform: translateY(-1px);
+  }
+
+  .g2-ai-entry:focus-within {
+    border-color: rgb(114 46 209 / 62%);
+    box-shadow:
+      0 0 0 4px rgb(114 46 209 / 11%),
+      0 27px 64px rgb(78 48 130 / 17%);
+  }
+
+  :global(:root[data-theme='dark']) .g2-ai-entry {
+    border-color: rgb(189 148 255 / 18%);
+    background: rgb(33 29 43 / 94%);
+  }
+
+  .g2-ai-entry textarea {
+    width: 100%;
+    min-height: 88px;
+    padding: 22px 24px 7px;
+    resize: none;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text-strong);
+    font: inherit;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .g2-ai-entry textarea::placeholder {
+    color: #8f8995;
+  }
+
+  .g2-ai-meta {
+    display: flex;
+    min-height: 56px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 14px 14px 20px;
+  }
+
+  .g2-stack {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #5f5868;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .g2-stack-icon {
+    display: grid;
+    width: 22px;
+    height: 22px;
+    place-items: center;
+    border-radius: 7px;
+    border: 1px solid #e1d2fb;
+    background: #f2eaff;
+    color: #7a36e6;
+  }
+
+  .g2-stack-icon svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .g2-ai-submit {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    place-items: center;
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #8a48f6, #6422dd);
+    color: #fff;
+    box-shadow: 0 8px 18px rgb(103 41 223 / 28%);
+    transition: filter 0.2s, opacity 0.2s, transform 0.2s;
+  }
+
+  .g2-ai-submit:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: scale(1.04);
+  }
+
+  .g2-ai-submit:disabled {
+    cursor: not-allowed;
+    background: #d8d5dd;
+    color: #fff;
+    box-shadow: none;
+    opacity: 0.72;
+  }
+
+  .g2-ai-submit svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .g2-ai-error {
+    margin: -4px 20px 14px;
+    color: #c43445;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .g2-ai-error[hidden] {
+    display: none;
+  }
+
+  .case-section {
+    position: relative;
+    z-index: 4;
+    padding: 0;
+  }
+
+  .section-heading {
+    text-align: center;
+  }
+
+  .section-heading h2 {
+    margin: 0;
+    color: #19151e;
+    font-size: clamp(30px, 3vw, 39px);
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+
+  :global(:root[data-theme='dark']) .section-heading h2 {
+    color: var(--text-strong);
+  }
+
+  .case-grid {
+    display: grid;
+    margin-top: 34px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .case-card {
+    min-width: 0;
+    padding: 18px 17px 17px;
+    overflow: hidden;
+    border: 1px solid rgb(102 77 141 / 14%);
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at 24% -12%, rgb(178 133 255 / 28%), transparent 43%),
+      linear-gradient(145deg, rgb(242 236 251 / 98%), rgb(252 251 255 / 96%));
+    color: #27212e;
+    box-shadow: 0 15px 36px rgb(76 49 118 / 8%);
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  }
+
+  .case-card:hover {
+    border-color: rgb(122 65 219 / 34%);
+    color: #27212e;
+    box-shadow: 0 22px 46px rgb(76 49 118 / 14%);
+    transform: translateY(-4px);
+  }
+
+  :global(:root[data-theme='dark']) .case-card {
+    border-color: rgb(194 159 255 / 14%);
+    background:
+      radial-gradient(circle at 26% -10%, rgb(133 81 221 / 28%), transparent 42%),
+      linear-gradient(145deg, rgb(40 34 53 / 96%), rgb(31 28 41 / 92%));
+    color: var(--text-strong);
+  }
+
+  :global(:root[data-theme='dark']) .case-card:hover {
+    color: var(--text-strong);
+  }
+
+  .case-copy {
+    display: grid;
+    min-width: 0;
+    margin-bottom: 13px;
+    gap: 5px;
+  }
+
+  .case-copy strong {
+    overflow: hidden;
+    color: #211b27;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .case-copy span {
+    overflow: hidden;
+    color: #746d7b;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .case-frame {
+    height: 172px;
+    overflow: hidden;
+    border: 1px solid rgb(91 66 128 / 13%);
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 8px 22px rgb(60 41 89 / 8%);
+  }
+
+  .case-visual {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case-visual-line {
+    object-position: 60% 48%;
+  }
+
+  .case-visual-donut {
+    object-position: center;
+  }
+
+  .case-visual-gallery-top {
+    width: 215%;
+    height: 200%;
+    max-width: none;
+    object-fit: cover;
+    object-position: left top;
+  }
+
+  .case-visual-gallery-bottom {
+    width: 215%;
+    height: 205%;
+    max-width: none;
+    object-fit: cover;
+    object-position: right bottom;
+    transform: translate(-53%, -52%);
+  }
+
+  .updates-section {
+    padding: 54px 0 68px;
+  }
+
+  .updates-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .updates-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .updates-track {
+    display: flex;
+    gap: 16px;
+  }
+
+  .update-card {
+    display: grid;
+    min-width: 0;
+    min-height: 116px;
+    flex: 0 0 calc((100% - 32px) / 3);
+    align-items: center;
+    padding: 16px 16px 16px 18px;
+    grid-template-columns: 44px minmax(0, 1fr) 18px;
+    gap: 13px;
+    border: 1px solid rgb(103 79 141 / 14%);
+    border-radius: 16px;
+    background: rgb(255 255 255 / 72%);
+    color: #2c2732;
+    scroll-snap-align: start;
+    transition: border-color 0.24s, box-shadow 0.24s, transform 0.24s;
+  }
+
+  .update-card:hover {
+    border-color: rgb(122 65 219 / 27%);
+    background: #fff;
+    color: #2c2732;
+    box-shadow: 0 14px 30px rgb(67 47 99 / 9%);
+    transform: translateY(-2px);
+  }
+
+  :global(:root[data-theme='dark']) .update-card {
+    border-color: rgb(194 159 255 / 12%);
+    background: rgb(35 31 46 / 88%);
+    color: var(--text-strong);
+  }
+
+  :global(:root[data-theme='dark']) .update-card:hover {
+    color: var(--text-strong);
+  }
+
+  .update-mark {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 13px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .update-mark-violet {
+    background: #eee5ff;
+    color: #7430df;
+  }
+
+  .update-mark-blue {
+    background: #e7efff;
+    color: #3266e6;
+  }
+
+  .update-mark-cyan {
+    background: #dff8f8;
+    color: #167e86;
+  }
+
+  .update-mark-pink {
+    background: #ffe7f4;
+    color: #c13a85;
+  }
+
+  .update-mark-orange {
+    background: #fff0df;
+    color: #c66518;
+  }
+
+  .update-mark-green {
+    background: #e1f7ed;
+    color: #27845e;
+  }
+
+  .update-mark-dark {
+    background: #ececf0;
+    color: #34333a;
+  }
+
+  .update-copy {
+    display: grid;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  .update-copy strong {
+    overflow: hidden;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .update-copy span {
+    display: -webkit-box;
+    overflow: hidden;
+    color: #736d78;
+    font-size: 12px;
+    line-height: 1.55;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .update-arrow {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #a39da9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+
+  .updates-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 11px;
+  }
+
+  .updates-pagination[hidden] {
+    display: none;
+  }
+
+  .updates-pagination :global(button) {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    cursor: pointer;
+    border: 0;
+    border-radius: 999px;
+    background: #d9c9fa;
+    transition: background 0.2s, transform 0.2s, width 0.2s;
+  }
+
+  .updates-pagination :global(button[aria-current='true']) {
+    width: 22px;
+    background: #7b34e8;
+  }
+
+  .capability-section {
+    padding: 86px 0 92px;
+    background: var(--g2-page);
+  }
+
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .capability-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 264px;
+    align-items: center;
+    padding: 0 clamp(28px, 4vw, 58px);
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .capability-card + .capability-card::before {
+    position: absolute;
+    top: 40px;
+    bottom: 80px;
+    left: 0;
+    width: 1px;
+    background: var(--g2-line);
+    content: '';
+  }
+
+  .capability-icon {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    place-items: center;
+    border: 1px solid rgb(137 84 232 / 15%);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #eee4ff, #fff);
+    color: #7b37e7;
+    box-shadow:
+      0 12px 24px rgb(104 58 181 / 13%),
+      inset 0 1px 0 #fff;
+  }
+
+  .capability-card:nth-child(1) .capability-icon {
+    color: #587df6;
+  }
+
+  .capability-card:nth-child(2) .capability-icon {
+    color: #e84c8b;
+  }
+
+  .capability-card:nth-child(3) .capability-icon {
+    color: #6b55ed;
+  }
+
+  :global(:root[data-theme='dark']) .capability-icon {
+    border-color: rgb(191 153 255 / 18%);
+    background: linear-gradient(145deg, #3a2856, #272131);
+  }
+
+  .capability-icon svg {
+    width: 36px;
+    height: 36px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .capability-card h2 {
+    margin: 30px 0 0;
+    color: var(--text-strong);
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .capability-card p {
+    max-width: 330px;
+    margin: 17px 0 0;
+    color: var(--g2-muted);
+    font-size: 15px;
+    line-height: 1.82;
+  }
+
+  .gallery-section {
+    padding: 76px 0 132px;
+    background:
+      radial-gradient(circle at 70% 42%, rgb(121 67 223 / 7%), transparent 34%),
+      var(--g2-page);
+  }
+
+  .gallery-inner {
+    display: grid;
+    min-height: 520px;
+    align-items: center;
+    grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.45fr);
+    gap: clamp(60px, 8vw, 120px);
+  }
+
+  .gallery-copy {
+    align-self: center;
+    padding-left: 12px;
+  }
+
+  .gallery-icon {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    place-items: center;
+    border: 1px solid rgb(132 73 232 / 12%);
+    border-radius: 21px;
+    background: linear-gradient(145deg, #efe3ff, #fff);
+    color: #8543ef;
+    box-shadow: 0 15px 30px rgb(100 52 184 / 13%);
+    transform: rotate(-5deg);
+  }
+
+  :global(:root[data-theme='dark']) .gallery-icon {
+    background: linear-gradient(145deg, #3d285b, #292231);
+  }
+
+  .gallery-icon svg {
+    width: 42px;
+    height: 42px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.3;
+  }
+
+  .gallery-copy h2 {
+    margin: 34px 0 0;
+    color: var(--text-strong);
+    font-size: 30px;
+    letter-spacing: -0.035em;
+  }
+
+  .gallery-copy p {
+    max-width: 390px;
+    margin: 16px 0 0;
+    color: var(--g2-muted);
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .gallery-action {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 28px;
+    padding: 11px 18px;
+    gap: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #8642f1, #6b2ade);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 22px rgb(105 43 222 / 24%);
+    transition: box-shadow 0.22s, filter 0.22s, transform 0.22s;
+  }
+
+  .gallery-action:hover {
+    color: #fff;
+    filter: brightness(1.05);
+    box-shadow: 0 14px 28px rgb(105 43 222 / 30%);
+    transform: translateY(-2px);
+  }
+
+  .gallery-action svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+  }
+
+  .gallery-visual img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    filter: none;
+  }
+
+  .trust-section {
+    padding: 72px 0 88px;
+    overflow: hidden;
+    background: var(--g2-page);
+  }
+
+  :global(:root[data-theme='dark']) .trust-section {
+    border-top-color: rgb(190 155 255 / 9%);
+    background:
+      radial-gradient(circle at 50% -30%, rgb(79 54 112 / 45%), transparent 54%),
+      #1b1726;
+  }
+
+  .trust-inner h2 {
+    margin: 0 0 50px;
+    color: var(--text-strong);
+    font-size: 21px;
+    text-align: center;
+  }
+
+  .trust-viewport {
+    overflow: hidden;
+    outline: none;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .trust-viewport:focus-visible {
+    box-shadow: inset 0 0 0 2px rgb(126 60 226 / 32%);
+  }
+
+  .trust-track {
+    display: flex;
+    width: max-content;
+    animation: trust-marquee 34s linear infinite;
+    will-change: transform;
+  }
+
+  .trust-viewport:hover .trust-track,
+  .trust-viewport:focus .trust-track,
+  .trust-viewport:focus-within .trust-track {
+    animation-play-state: paused;
+  }
+
+  .trust-group {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding-right: 82px;
+    gap: 82px;
+  }
+
+  .trust-logo {
+    display: flex;
+    width: 150px;
+    height: 54px;
+    align-items: center;
+    flex: none;
+    justify-content: center;
+    gap: 8px;
+    color: #4d4853;
+  }
+
+  .trust-symbol {
+    display: inline-grid;
+    min-width: 28px;
+    height: 28px;
+    place-items: center;
+    border: 2px solid currentColor;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.1em;
+    line-height: 1;
+  }
+
+  .trust-wordmark {
+    display: grid;
+    justify-items: start;
+    line-height: 1;
+  }
+
+  .trust-wordmark strong {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+  }
+
+  .trust-wordmark small {
+    margin-top: 2px;
+    justify-self: center;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .trust-logo-alicloud,
+  .trust-logo-taobao {
+    color: #ff6a00;
+  }
+
+  .trust-logo-alipay,
+  .trust-logo-mybank {
+    color: #1677ff;
+  }
+
+  .trust-logo-tmall,
+  .trust-logo-jd {
+    color: #ff1744;
+  }
+
+  .trust-logo-yunos {
+    color: #55515c;
+  }
+
+  .trust-logo-cainiao {
+    color: #1593e6;
+  }
+
+  @keyframes trust-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  :global(.g2-motion-ready) [data-g2-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.68s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :global(.g2-motion-ready) [data-g2-reveal][data-g2-visible] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root[data-theme='system']) .g2-home {
+      --g2-page: #15131d;
+      --g2-atmosphere: #1b1726;
+      --g2-card: rgb(35 31 46 / 90%);
+      --g2-card-solid: #231f2d;
+      --g2-line: #3b324b;
+      --g2-muted: #aaa2b5;
+      --g2-shadow: 0 20px 52px rgb(0 0 0 / 28%);
+    }
+
+    :global(:root[data-theme='system']) .g2-atmosphere {
+      background:
+        radial-gradient(circle at 50% 5%, rgb(65 46 91 / 72%) 0, transparent 46%),
+        radial-gradient(circle at 4% 35%, rgb(124 78 220 / 20%), transparent 30%),
+        radial-gradient(circle at 95% 27%, rgb(104 65 200 / 18%), transparent 31%),
+        var(--g2-atmosphere);
+    }
+
+    :global(:root[data-theme='system']) .hero-copy h1,
+    :global(:root[data-theme='system']) .hero-dot,
+    :global(:root[data-theme='system']) .section-heading h2 {
+      color: var(--text-strong);
+    }
+
+    :global(:root[data-theme='system']) .hero-copy > p {
+      color: var(--g2-muted);
+    }
+
+    :global(:root[data-theme='system']) .g2-ai-entry {
+      border-color: rgb(189 148 255 / 18%);
+      background: rgb(33 29 43 / 94%);
+    }
+
+    :global(:root[data-theme='system']) .g2-hero-media img {
+      filter: brightness(0.36) saturate(0.82);
+    }
+
+    :global(:root[data-theme='system']) .case-card {
+      border-color: rgb(194 159 255 / 14%);
+      background:
+        radial-gradient(circle at 26% -10%, rgb(133 81 221 / 28%), transparent 42%),
+        linear-gradient(145deg, rgb(40 34 53 / 96%), rgb(31 28 41 / 92%));
+      color: var(--text-strong);
+    }
+
+    :global(:root[data-theme='system']) .case-card:hover,
+    :global(:root[data-theme='system']) .update-card:hover {
+      color: var(--text-strong);
+    }
+
+    :global(:root[data-theme='system']) .update-card {
+      border-color: rgb(194 159 255 / 12%);
+      background: rgb(35 31 46 / 88%);
+      color: var(--text-strong);
+    }
+
+    :global(:root[data-theme='system']) .capability-icon {
+      border-color: rgb(191 153 255 / 18%);
+      background: linear-gradient(145deg, #3a2856, #272131);
+    }
+
+    :global(:root[data-theme='system']) .gallery-icon {
+      background: linear-gradient(145deg, #3d285b, #292231);
+    }
+
+    :global(:root[data-theme='system']) .trust-section {
+      border-top-color: rgb(190 155 255 / 9%);
+      background:
+        radial-gradient(circle at 50% -30%, rgb(79 54 112 / 45%), transparent 54%),
+        #1b1726;
+    }
+  }
+
+  @media (max-width: 1120px) {
+    .gallery-inner {
+      grid-template-columns: minmax(270px, 0.7fr) minmax(0, 1.3fr);
+      gap: 54px;
+    }
+  }
+
+  @media (max-width: 920px) {
+    .g2-home {
+      --g2-width: min(100% - 40px, 760px);
+    }
+
+    .case-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .update-card {
+      flex-basis: calc((100% - 16px) / 2);
+    }
+
+    .capability-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .capability-card {
+      min-height: 248px;
+      padding: 0 22px;
+    }
+
+    .capability-icon {
+      width: 64px;
+      height: 64px;
+    }
+
+    .capability-card h2 {
+      margin-top: 26px;
+      font-size: 20px;
+    }
+
+    .capability-card p {
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .gallery-section {
+      padding-top: 52px;
+    }
+
+    .gallery-inner {
+      min-height: 0;
+      grid-template-columns: 1fr;
+      gap: 54px;
+    }
+
+    .gallery-copy {
+      max-width: 540px;
+      padding-left: 0;
+      text-align: left;
+    }
+
+    .gallery-visual {
+      width: min(720px, 100%);
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .g2-home {
+      --g2-width: calc(100% - 32px);
+    }
+
+    .g2-hero {
+      min-height: 0;
+      padding: 56px 16px 46px;
+    }
+
+    .g2-hero-media img {
+      object-position: 54% top;
+    }
+
+    .g2-hero-media {
+      bottom: -72px;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(38px, 11vw, 52px);
+    }
+
+    .hero-copy > p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .g2-ai-entry {
+      min-height: 138px;
+      margin-top: 22px;
+      border-radius: 18px;
+    }
+
+    .g2-ai-entry textarea {
+      min-height: 82px;
+      padding: 18px 18px 5px;
+    }
+
+    .g2-ai-meta {
+      padding: 5px 12px 12px 16px;
+    }
+
+    .case-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-frame {
+      height: 220px;
+    }
+
+    .updates-section {
+      padding: 44px 0 58px;
+    }
+
+    .update-card {
+      flex-basis: 100%;
+    }
+
+    .capability-section {
+      padding: 58px 0 64px;
+    }
+
+    .capability-grid {
+      gap: 0;
+      grid-template-columns: 1fr;
+    }
+
+    .capability-card {
+      min-height: 0;
+      padding: 40px 18px;
+    }
+
+    .capability-card + .capability-card::before {
+      top: 0;
+      right: 12%;
+      bottom: auto;
+      left: 12%;
+      width: auto;
+      height: 1px;
+    }
+
+    .capability-card h2 {
+      margin-top: 24px;
+      font-size: 21px;
+    }
+
+    .capability-card p {
+      max-width: 320px;
+      margin-top: 13px;
+    }
+
+    .gallery-section {
+      padding: 58px 0 94px;
+    }
+
+    .gallery-inner {
+      padding: 0;
+      gap: 38px;
+    }
+
+    .gallery-icon {
+      width: 64px;
+      height: 64px;
+    }
+
+    .gallery-copy h2 {
+      margin-top: 28px;
+    }
+
+    .gallery-visual {
+      padding: 9px;
+      border-radius: 18px;
+    }
+
+    .trust-section {
+      padding: 54px 0 64px;
+    }
+
+    .trust-inner h2 {
+      margin-bottom: 34px;
+    }
+
+    .trust-group {
+      padding-right: 52px;
+      gap: 52px;
+    }
+
+    .trust-logo {
+      width: 132px;
+    }
+
+    .trust-wordmark strong {
+      font-size: 18px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .g2-ai-entry,
+    .case-card,
+    .update-card,
+    .gallery-action,
+    .g2-ai-submit,
+    :global(.g2-motion-ready) [data-g2-reveal] {
+      scroll-behavior: auto;
+      transition: none;
+      transform: none;
+    }
+
+    .trust-track {
+      animation: none;
+      will-change: auto;
+    }
+
+    .trust-group[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>
