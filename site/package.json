@@ -1,17 +1,22 @@
 {
   "version": "5.2.3",
+  "type": "module",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "start": "dumi dev",
-    "build": "dumi build",
-    "analyze": "ANALYZE=1 dumi build",
+    "start": "astro dev",
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check --minimumSeverity error",
     "deploy": "gh-pages -d dist",
-    "preview": "dumi preview",
+    "preview": "astro preview",
     "format:md": "prettier --write \"**/*.md\""
   },
   "dependencies": {
-    "@ant-design/icons": "^4.8.3",
     "@antv/data-set": "^0.11.8",
-    "@antv/dumi-theme-antv": "^0.8.4",
+    "@antv/g": "^6.1.24",
     "@antv/g-lottie-player": "^1.0.32",
     "@antv/g-pattern": "^2.0.32",
     "@antv/g-plugin-3d": "^2.0.41",
@@ -23,10 +28,7 @@
     "@antv/g2-extension-3d": "^0.2.0",
     "@antv/g2-extension-ava": "^0.2.0",
     "@antv/g2-extension-plot": "^0.2.1",
-    "@antv/s2": "^1.56.2",
     "@mapbox/geojson-rewind": "^0.5.2",
-    "@types/topojson-client": "^3.1.5",
-    "antd": "^5.24.5",
     "d3-array": "^3.2.4",
     "d3-geo-projection": "^4.0.0",
     "d3-hexjson": "^1.1.1",
@@ -37,26 +39,18 @@
     "d3-scale-chromatic": "^3.1.0",
     "d3-voronoi": "^1.1.4",
     "dirichlet": "^1.0.1",
-    "dumi": "2.4.17",
-    "fecha": "^4.2.3",
     "lodash": "^4.17.21",
-    "react": "^19.1.0",
-    "react-color": "^2.19.3",
-    "react-dom": "^19.1.0",
-    "styled-components": "^6.1.15",
     "topojson-client": "^3.1.0",
     "webfontloader": "1.6.28"
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
-  },
-  "overrides": {
-    "@monaco-editor/loader": "1.5.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@monaco-editor/loader": "1.5.0"
-    }
+    "@antv/site": "^0.1.0",
+    "@astrojs/check": "0.9.10",
+    "@astrojs/mdx": "7.0.8",
+    "@astrojs/sitemap": "3.7.3",
+    "astro": "7.2.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "5.9.3"
   },
   "repository": {
     "type": "git",

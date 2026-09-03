@@ -1,11 +1,18 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
     "baseUrl": ".",
-    "target": "ESNext",
-    "jsx": "react",
-    "lib": ["dom"],
     "paths": {
       "@antv/g2": ["../src/index.ts"]
     }
-  }
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "astro.config.mjs",
+    "Home.astro",
+    "src/content.config.ts"
+  ],
+  "exclude": [".dumi", "docs", "examples", "scripts"]
 }
