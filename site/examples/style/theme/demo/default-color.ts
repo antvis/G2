@@ -9,21 +9,32 @@ const chart = new Chart({
   paddingBottom: 150,
 });
 
-chart.theme({
-  defaultColor: '#ED6DC6',
+chart.options({
+  type: 'view',
+  theme: {
+    defaultColor: '#ED6DC6',
+  },
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/movies.json',
+      },
+      transform: [
+        { type: 'bin', size: 'count', thresholdsX: 10, thresholdsY: 10 },
+      ],
+      encode: {
+        x: 'IMDB Rating',
+        y: 'Rotten Tomatoes Rating',
+        shape: 'point',
+      },
+      axis: {
+        x: { title: false },
+        y: { title: false },
+      },
+    },
+  ],
 });
-
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/movies.json',
-  })
-  .transform({ type: 'bin', size: 'count', thresholdsX: 10, thresholdsY: 10 })
-  .encode('x', 'IMDB Rating')
-  .encode('y', 'Rotten Tomatoes Rating')
-  .encode('shape', 'point')
-  .axis('x', { title: false })
-  .axis('y', { title: false });
 
 chart.render();

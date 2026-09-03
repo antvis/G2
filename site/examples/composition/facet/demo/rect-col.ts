@@ -15,35 +15,48 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
       paddingBottom: 60,
     });
 
-    const facetRect = chart
-      .facetRect()
-      .data(data)
-      .encode('y', 'site')
-      .scale('y', {
-        domain: groupSort(
-          data,
-          (g) => -median(g, (d) => d.yield),
-          (d) => d.site,
-        ),
-      });
-
-    facetRect
-      .point()
-      .attr('insetLeft', 5)
-      .attr('insetRight', 5)
-      .scale('color', { type: 'ordinal' })
-      .scale('y', {
-        domain: groupSort(
-          data,
-          (g) => -median(g, (d) => d.yield),
-          (d) => d.variety,
-        ),
-      })
-      .encode('x', 'yield')
-      .encode('y', 'variety')
-      .encode('color', 'year')
-      .encode('shape', 'hollow')
-      .axis('y', { labelAutoRotate: false });
+    chart.options({
+      type: 'facetRect',
+      data: data,
+      encode: {
+        y: 'site',
+      },
+      scale: {
+        y: {
+          domain: groupSort(
+            data,
+            (g) => -median(g, (d) => d.yield),
+            (d) => d.site,
+          ),
+        },
+      },
+      children: [
+        {
+          type: 'point',
+          insetLeft: 5,
+          insetRight: 5,
+          scale: {
+            color: { type: 'ordinal' },
+            y: {
+              domain: groupSort(
+                data,
+                (g) => -median(g, (d) => d.yield),
+                (d) => d.variety,
+              ),
+            },
+          },
+          encode: {
+            x: 'yield',
+            y: 'variety',
+            color: 'year',
+            shape: 'hollow',
+          },
+          axis: {
+            y: { labelAutoRotate: false },
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

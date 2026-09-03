@@ -4,29 +4,37 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .coordinate({ type: 'polar' })
-  .scale('x', {
-    type: 'linear',
-    domain: [5, 10],
-    range: [0, 1],
-  })
-  .scale('y', {
-    type: 'linear',
-    domain: [5, 10],
-    range: [1, 0],
-  });
-
-chart
-  .axisX()
-  .attr('title', 'AxisX')
-  .attr('tickFilter', (_, i, ticks) => i && i !== ticks.length - 1);
-
-chart
-  .axisY()
-  .attr('title', 'AxisY')
-  .style('labelFontSize', 14)
-  .style('gridLineWidth', 10)
-  .style('gridStroke', 'red');
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  scale: {
+    x: {
+      type: 'linear',
+      domain: [5, 10],
+      range: [0, 1],
+    },
+    y: {
+      type: 'linear',
+      domain: [5, 10],
+      range: [1, 0],
+    },
+  },
+  children: [
+    {
+      type: 'axisX',
+      title: 'AxisX',
+      tickFilter: (_, i, ticks) => i && i !== ticks.length - 1,
+    },
+    {
+      type: 'axisY',
+      title: 'AxisY',
+      style: {
+        labelFontSize: 14,
+        gridLineWidth: 10,
+        gridStroke: 'red',
+      },
+    },
+  ],
+});
 
 chart.render();

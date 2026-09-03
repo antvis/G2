@@ -20,17 +20,27 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data(data)
-  .encode('x', 'month')
-  .encode('y', 'value')
-  .encode('shape', 'hv')
-  .scale('x', {
-    range: [0, 1],
-  })
-  .scale('y', {
-    nice: true,
-  });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      data: data,
+      encode: {
+        x: 'month',
+        y: 'value',
+        shape: 'hv',
+      },
+      scale: {
+        x: {
+          range: [0, 1],
+        },
+        y: {
+          nice: true,
+        },
+      },
+    },
+  ],
+});
 
 chart.render();

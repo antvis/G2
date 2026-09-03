@@ -15,31 +15,52 @@ const data = [
   { time: '10:40', call: 13, waiting: 1, people: 2 },
 ];
 
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'waiting')
-  .encode('color', () => 'waiting')
-  .encode('series', () => 'waiting')
-  .axis('y', { title: 'Waiting' })
-  .scale('y', { nice: true });
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'people')
-  .encode('color', () => 'people')
-  .encode('series', () => 'people')
-  .scale('y', { independent: true })
-  .axis('y', { position: 'right', grid: null, title: 'People' });
-
-chart
-  .line()
-  .encode('x', 'time')
-  .encode('y', 'call')
-  .encode('color', () => 'call')
-  .scale('series', { independent: true });
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'waiting',
+        color: () => 'waiting',
+        series: () => 'waiting',
+      },
+      axis: {
+        y: { title: 'Waiting' },
+      },
+      scale: {
+        y: { nice: true },
+      },
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'people',
+        color: () => 'people',
+        series: () => 'people',
+      },
+      scale: {
+        y: { independent: true },
+      },
+      axis: {
+        y: { position: 'right', grid: null, title: 'People' },
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: 'time',
+        y: 'call',
+        color: () => 'call',
+      },
+      scale: {
+        series: { independent: true },
+      },
+    },
+  ],
+});
 
 chart.render();

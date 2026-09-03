@@ -27,33 +27,49 @@ const chart = new Chart({
   height: 500,
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     { y: [0, 25], region: '1' },
     { y: [25, 50], region: '2' },
-  ])
-  .rangeY()
-  .encode('y', 'y')
-  .style('fill', (d) => (d.region === '1' ? '#d8d0c0' : '#a3dda1'))
-  .style('fillOpacity', 0.4)
-  .animate('enter', { type: 'fadeIn' });
-
-chart
-  .interval()
-  .data(data)
-  .encode('x', '职业')
-  .encode('y', '平均年收入')
-  .encode('color', 'city')
-  .transform({ type: 'dodgeX' })
-  .axis('y', { title: '平均年收入', labelFormatter: (d) => d + '万' })
-  .tooltip({
-    items: [
-      (d) => ({
-        name: '平均年收入',
-        value: d.平均年收入 + '万',
-        channel: 'y',
-      }),
-    ],
-  });
+  ],
+  children: [
+    {
+      type: 'rangeY',
+      encode: {
+        y: 'y',
+      },
+      style: {
+        fill: (d) => (d.region === '1' ? '#d8d0c0' : '#a3dda1'),
+        fillOpacity: 0.4,
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+    },
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: '职业',
+        y: '平均年收入',
+        color: 'city',
+      },
+      transform: [{ type: 'dodgeX' }],
+      axis: {
+        y: { title: '平均年收入', labelFormatter: (d) => d + '万' },
+      },
+      tooltip: {
+        items: [
+          (d) => ({
+            name: '平均年收入',
+            value: d.平均年收入 + '万',
+            channel: 'y',
+          }),
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();

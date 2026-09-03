@@ -25,20 +25,20 @@ order: 3
 
 视图支持丰富的配置项，涵盖数据、编码、坐标、样式、交互等各个方面。其配置项与顶层 Chart 基本一致，常用如下：
 
-| 配置项      | 说明                  | 类型         | 作用范围/继承关系        |
-| ----------- | --------------------- | ------------ | ------------------------ |
-| data        | 数据源                | array/object | view 及其所有 children   |
-| encode      | 数据到视觉通道的映射  | object       | view 及其所有 children   |
-| scale       | 视觉通道的比例尺      | object       | 可继承/覆盖（view/mark） |
-| transform   | 数据变换              | array        | 可继承/覆盖（view/mark） |
-| coordinate  | 坐标系配置            | object       | 可继承/覆盖（view/mark） |
-| style       | 视图区域样式          | object       | 仅本 view                |
-| axis        | 坐标轴配置            | object       | 可继承/覆盖（view/mark） |
-| legend      | 图例配置              | object       | 可继承/覆盖（view/mark） |
-| tooltip     | 提示框配置            | object       | 仅本 view                |
-| interaction | 交互配置              | object       | 可继承/覆盖（view/mark） |
-| theme       | 主题配置              | object       | 可继承/覆盖              |
-| children    | 子标记（marks）       | array        | 仅本 view                |
+| 配置项      | 说明                 | 类型         | 作用范围/继承关系        |
+| ----------- | -------------------- | ------------ | ------------------------ |
+| data        | 数据源               | array/object | view 及其所有 children   |
+| encode      | 数据到视觉通道的映射 | object       | view 及其所有 children   |
+| scale       | 视觉通道的比例尺     | object       | 可继承/覆盖（view/mark） |
+| transform   | 数据变换             | array        | 可继承/覆盖（view/mark） |
+| coordinate  | 坐标系配置           | object       | 可继承/覆盖（view/mark） |
+| style       | 视图区域样式         | object       | 仅本 view                |
+| axis        | 坐标轴配置           | object       | 可继承/覆盖（view/mark） |
+| legend      | 图例配置             | object       | 可继承/覆盖（view/mark） |
+| tooltip     | 提示框配置           | object       | 仅本 view                |
+| interaction | 交互配置             | object       | 可继承/覆盖（view/mark） |
+| theme       | 主题配置             | object       | 可继承/覆盖              |
+| children    | 子标记（marks）      | array        | 仅本 view                |
 
 **说明：**
 
@@ -96,32 +96,40 @@ order: 3
 });
 ```
 
-### 2. API 链式调用
-
-通过 API 创建视图并添加标记：
-
-```js
-const chart = new G2.Chart();
-const view = chart.view({ data: [...] });
-view.interval().encode('x', 'type').encode('y', 'value');
-view.line().encode('x', 'type').encode('y', 'value');
-chart.render();
-```
-
-### 3. 复合视图与分面
+### 2. 复合视图与分面
 
 视图可作为复合节点（如分面、空间布局）的子节点。**注意：多视图组合应使用复合容器，而非在 view 的 children 中嵌套 view。**
 
 ```js
 // ✅ 正确：使用 facet 组合多个 view
-const facet = chart.facetRect();
-facet.view().interval().encode('x', 'type').encode('y', 'value');
-facet.view().line().encode('x', 'type').encode('y', 'value');
+({
+  type: 'facetRect',
+  children: [
+    {
+      type: 'view',
+      children: [{ type: 'interval', encode: { x: 'type', y: 'value' } }],
+    },
+    {
+      type: 'view',
+      children: [{ type: 'line', encode: { x: 'type', y: 'value' } }],
+    },
+  ],
+});
 
 // ✅ 正确：使用 spaceFlex 组合多个 view
-const container = chart.spaceFlex();
-container.view().interval().encode('x', 'type').encode('y', 'value');
-container.view().line().encode('x', 'date').encode('y', 'sales');
+({
+  type: 'spaceFlex',
+  children: [
+    {
+      type: 'view',
+      children: [{ type: 'interval', encode: { x: 'type', y: 'value' } }],
+    },
+    {
+      type: 'view',
+      children: [{ type: 'line', encode: { x: 'date', y: 'sales' } }],
+    },
+  ],
+});
 
 // ❌ 错误：不要在 view 的 children 中嵌套 view
 // chart.options({

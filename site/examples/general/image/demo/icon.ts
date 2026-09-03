@@ -88,16 +88,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .image()
-  .data(dataXO)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('size', 'y')
-  .encode('src', ({ type }) => (type === 'x' ? x : o))
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 1] })
-  .scale('size', { type: 'linear', range: [12, 32] })
-  .legend('size', false);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'image',
+      data: dataXO,
+      encode: {
+        x: 'x',
+        y: 'y',
+        size: 'y',
+        src: ({ type }) => (type === 'x' ? x : o),
+      },
+      scale: {
+        x: { type: 'band' },
+        y: { domain: [0, 1] },
+        size: { type: 'linear', range: [12, 32] },
+      },
+      legend: {
+        size: false,
+      },
+    },
+  ],
+});
 
 chart.render();

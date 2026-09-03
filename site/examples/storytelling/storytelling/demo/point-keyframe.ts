@@ -9,28 +9,35 @@ fetch(
       container: 'container',
     });
 
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 4);
-
-    keyframe
-      .interval()
-      .data(data)
-      .transform({ type: 'groupX', y: 'mean' })
-      .encode('x', 'gender')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('key', 'gender');
-
-    keyframe
-      .point()
-      .data(data)
-      .encode('x', 'height')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('groupKey', 'gender')
-      .encode('shape', 'point');
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        {
+          type: 'interval',
+          data: data,
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: 'gender',
+            y: 'weight',
+            color: 'gender',
+            key: 'gender',
+          },
+        },
+        {
+          type: 'point',
+          data: data,
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+            groupKey: 'gender',
+            shape: 'point',
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

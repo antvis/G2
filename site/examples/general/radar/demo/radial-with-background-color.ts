@@ -28,44 +28,58 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'polar' });
-
-chart
-  .data(data)
-  .scale('x', { padding: 0.5, align: 0 })
-  .scale('y', { tickCount: 5, domainMin: 0, domainMax: 80 })
-  .axis('x', {
-    grid: true,
-    gridLineWidth: 1,
-    tick: false,
-    gridLineDash: [0, 0],
-  })
-  .axis('y', {
-    zIndex: 1,
-    title: false,
-    gridLineWidth: 1,
-    gridLineDash: [0, 0],
-    gridAreaFill: (dataum, index, data) => {
-      return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  data: data,
+  scale: {
+    x: { padding: 0.5, align: 0 },
+    y: { tickCount: 5, domainMin: 0, domainMax: 80 },
+  },
+  axis: {
+    x: {
+      grid: true,
+      gridLineWidth: 1,
+      tick: false,
+      gridLineDash: [0, 0],
     },
-  });
-
-chart
-  .line()
-  .encode('x', 'item')
-  .encode('y', 'score')
-  .encode('color', 'type')
-  .style('lineWidth', 2);
-
-chart
-  .point()
-  .encode('x', 'item')
-  .encode('y', 'score')
-  .encode('color', 'type')
-  .encode('shape', 'point')
-  .encode('size', 3)
-  .tooltip(null);
-
-chart.interaction('tooltip', { crosshairsLineDash: [4, 4] });
+    y: {
+      zIndex: 1,
+      title: false,
+      gridLineWidth: 1,
+      gridLineDash: [0, 0],
+      gridAreaFill: (dataum, index, data) => {
+        return index % 2 === 1 ? 'rgba(0, 0, 0, 0.04)' : '';
+      },
+    },
+  },
+  interaction: {
+    tooltip: { crosshairsLineDash: [4, 4] },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: 'item',
+        y: 'score',
+        color: 'type',
+      },
+      style: {
+        lineWidth: 2,
+      },
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'item',
+        y: 'score',
+        color: 'type',
+        shape: 'point',
+        size: 3,
+      },
+      tooltip: null,
+    },
+  ],
+});
 
 chart.render();

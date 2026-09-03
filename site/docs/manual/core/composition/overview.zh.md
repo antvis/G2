@@ -12,15 +12,6 @@ G2 中**视图复合（View Composition）** 提供了在一个可视化中绘�
 });
 ```
 
-```js
-// API
-const layer = chart.spaceLayer();
-
-layer.view();
-
-layer.view();
-```
-
 ## 空间
 
 最基础的视图复合方式就是**空间复合（Space Composition）**，只是对空间进行划分。
@@ -191,9 +182,7 @@ chart.options({
       'body_mass_g',
     ],
   },
-  children: [
-    { type: 'point', padding: 'auto', encode: { color: 'species' } },
-  ],
+  children: [{ type: 'point', padding: 'auto', encode: { color: 'species' } }],
 });
 
 chart.render();

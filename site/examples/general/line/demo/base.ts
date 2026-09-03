@@ -17,26 +17,43 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data(data)
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .scale('x', {
-    range: [0, 1],
-  })
-  .scale('y', {
-    domainMin: 0,
-    nice: true,
-  });
-
-chart.line().label({
-  text: 'value',
-  style: {
-    dx: -10,
-    dy: -12,
+chart.options({
+  type: 'view',
+  data: data,
+  encode: {
+    x: 'year',
+    y: 'value',
   },
+  scale: {
+    x: {
+      range: [0, 1],
+    },
+    y: {
+      domainMin: 0,
+      nice: true,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      labels: [
+        {
+          text: 'value',
+          style: {
+            dx: -10,
+            dy: -12,
+          },
+        },
+      ],
+    },
+    {
+      type: 'point',
+      style: {
+        fill: 'white',
+      },
+      tooltip: false,
+    },
+  ],
 });
-
-chart.point().style('fill', 'white').tooltip(false);
 
 chart.render();

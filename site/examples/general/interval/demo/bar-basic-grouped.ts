@@ -24,13 +24,23 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', '月份')
-  .encode('y', '月均降雨量')
-  .encode('color', 'name')
-  .transform({ type: 'dodgeX' })
-  .interaction('elementHighlight', { background: true });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: '月份',
+        y: '月均降雨量',
+        color: 'name',
+      },
+      transform: [{ type: 'dodgeX' }],
+      interaction: {
+        elementHighlight: { background: true },
+      },
+    },
+  ],
+});
 
 chart.render();

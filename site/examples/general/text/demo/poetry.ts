@@ -10,20 +10,32 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .text()
-  .data(words)
-  .encode('x', 0.5)
-  .encode('y', (_, idx) => idx)
-  .encode('text', 'text')
-  .encode('color', (_, idx) => idx)
-  .encode('opacity', (_, idx) => idx)
-  .scale('y', { type: 'point' })
-  .style('textAlign', 'center')
-  .style('textBaseline', 'middle')
-  .style('fontSize', 16)
-  .scale('color', { offset: (t) => 1 - t })
-  .axis(false)
-  .legend(false);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'text',
+      data: words,
+      encode: {
+        x: 0.5,
+        y: (_, idx) => idx,
+        text: 'text',
+        color: (_, idx) => idx,
+        opacity: (_, idx) => idx,
+      },
+      scale: {
+        y: { type: 'point' },
+        color: { offset: (t) => 1 - t },
+      },
+      style: {
+        textAlign: 'center',
+        textBaseline: 'middle',
+        fontSize: 16,
+      },
+      axis: false,
+      legend: false,
+    },
+  ],
+});
 
 chart.render();

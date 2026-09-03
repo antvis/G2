@@ -13,57 +13,76 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'theta', outerRadius: 0.8, innerRadius: 0.5 });
-
-chart
-  .interval()
-  .data(data)
-  .transform({ type: 'stackY' })
-  .encode('y', 'percent')
-  .encode('color', 'item')
-  .legend('color', { position: 'bottom', layout: { justifyContent: 'center' } })
-  .label({
-    position: 'outside',
-    text: (data) => `${data.item}: ${data.percent * 100}%`,
-  })
-  .tooltip((data) => ({
-    name: data.item,
-    value: `${data.percent * 100}%`,
-  }));
-
-chart
-  .text()
-  .style('text', '主机')
-  // Relative position
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('dy', -25)
-  .style('fontSize', 34)
-  .style('fill', '#8c8c8c')
-  .style('textAlign', 'center');
-
-chart
-  .text()
-  .style('text', '200')
-  // Relative position
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('dx', -25)
-  .style('dy', 25)
-  .style('fontSize', 44)
-  .style('fill', '#8c8c8c')
-  .style('textAlign', 'center');
-
-chart
-  .text()
-  .style('text', '台')
-  // Relative position
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('dx', 35)
-  .style('dy', 25)
-  .style('fontSize', 34)
-  .style('fill', '#8c8c8c')
-  .style('textAlign', 'center');
+// Relative position
+chart.options({
+  type: 'view',
+  coordinate: { type: 'theta', outerRadius: 0.8, innerRadius: 0.5 },
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      transform: [{ type: 'stackY' }],
+      encode: {
+        y: 'percent',
+        color: 'item',
+      },
+      legend: {
+        color: { position: 'bottom', layout: { justifyContent: 'center' } },
+      },
+      labels: [
+        {
+          position: 'outside',
+          text: (data) => `${data.item}: ${data.percent * 100}%`,
+        },
+      ],
+      tooltip: {
+        items: [
+          (data) => ({
+            name: data.item,
+            value: `${data.percent * 100}%`,
+          }),
+        ],
+      },
+    },
+    {
+      type: 'text',
+      style: {
+        text: '主机',
+        x: '50%',
+        y: '50%',
+        dy: -25,
+        fontSize: 34,
+        fill: '#8c8c8c',
+        textAlign: 'center',
+      },
+    },
+    {
+      type: 'text',
+      style: {
+        text: '200',
+        x: '50%',
+        y: '50%',
+        dx: -25,
+        dy: 25,
+        fontSize: 44,
+        fill: '#8c8c8c',
+        textAlign: 'center',
+      },
+    },
+    {
+      type: 'text',
+      style: {
+        text: '台',
+        x: '50%',
+        y: '50%',
+        dx: 35,
+        dy: 25,
+        fontSize: 34,
+        fill: '#8c8c8c',
+        textAlign: 'center',
+      },
+    },
+  ],
+});
 
 chart.render();

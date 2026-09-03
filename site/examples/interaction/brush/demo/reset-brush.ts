@@ -6,21 +6,32 @@ const chart = new Chart({
   clip: true,
 });
 
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender')
-  .encode('shape', 'point')
-  .style({
-    fillOpacity: 0.2,
-    lineWidth: 1,
-  })
-  .interaction('brushFilter', true);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
+      },
+      encode: {
+        x: 'weight',
+        y: 'height',
+        color: 'gender',
+        shape: 'point',
+      },
+      style: {
+        fillOpacity: 0.2,
+        lineWidth: 1,
+      },
+      interaction: {
+        brushFilter: true,
+      },
+    },
+  ],
+});
 
 const brushHistory = [];
 

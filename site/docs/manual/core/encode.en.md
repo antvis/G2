@@ -267,15 +267,6 @@ chart.render();
 });
 ```
 
-```js
-// API
-// First method
-chart.interval().encode('x', 'name').encode('y', 'value');
-
-// Second method
-chart.interval().encode({ x: 'name', y: 'value' });
-```
-
 You can also specify encoding at the View level:
 
 ```js
@@ -286,15 +277,6 @@ You can also specify encoding at the View level:
     y: 'value',
   },
 });
-```
-
-```js
-// API
-// First method
-chart.encode('x', 'name').encode('y', 'value');
-
-// Second method
-chart.encode({ x: 'name', y: 'value' });
 ```
 
 Channel encoding has transitivity. View encoding will be passed to marks specified by `children`. If the mark doesn't have encoding for the corresponding channel, it will be set; otherwise, nothing will be done. For example, drawing a point-line chart:
@@ -320,10 +302,7 @@ chart.options({
     { year: '1999', value: 13 },
   ],
   encode: { x: 'year', y: 'value' }, // View-level encoding
-  children: [
-    { type: 'line' },
-    { type: 'point' },
-  ],
+  children: [{ type: 'line' }, { type: 'point' }],
 });
 
 chart.render();
@@ -629,5 +608,8 @@ You can also specify them separately using the `${channel}${index}` format:
 
 ```js
 // Equivalent to the above form
-chart.encode('y', 'end').encode('y1', 'start');
+({
+  type: 'interval',
+  encode: { y: 'end', y1: 'start' },
+});
 ```

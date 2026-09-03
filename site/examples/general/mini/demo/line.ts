@@ -11,28 +11,40 @@ const chart = new Chart({
   height: 80,
 });
 
-chart.data(data);
-
-chart
-  .line()
-  .encode('x', (_, idx) => idx)
-  .encode('y', (d) => d)
-  .encode('shape', 'smooth')
-  .animate('enter', { type: 'fadeIn' })
-  .label({
-    selector: 'last',
-    text: (d) => d,
-    textAlign: 'right',
-    textBaseline: 'bottom',
-    dx: -10,
-    dy: -10,
-    connector: true,
-    fontSize: 10,
-  })
-  .axis(false);
-
-chart.interaction('tooltip', {
-  render: (e, { title, items }) => items[0].value,
+chart.options({
+  type: 'view',
+  data: data,
+  interaction: {
+    tooltip: {
+      render: (e, { title, items }) => items[0].value,
+    },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: (_, idx) => idx,
+        y: (d) => d,
+        shape: 'smooth',
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+      labels: [
+        {
+          selector: 'last',
+          text: (d) => d,
+          textAlign: 'right',
+          textBaseline: 'bottom',
+          dx: -10,
+          dy: -10,
+          connector: true,
+          fontSize: 10,
+        },
+      ],
+      axis: false,
+    },
+  ],
 });
 
 chart.render();

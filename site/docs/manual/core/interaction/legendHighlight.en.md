@@ -33,22 +33,39 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data(profit)
-  .axis('y', { labelFormatter: '~s' })
-  .encode('x', 'month')
-  .encode('y', ['end', 'start'])
-  .encode(
-    'color',
-    d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
-  )
-  .state('inactive', { opacity: 0.5 })
-  .legend('color', {
-    state: { inactive: { labelOpacity: 0.5, markerOpacity: 0.5 } },
-  });
-
-chart.interaction('legendHighlight', true);
+chart.options({
+  type: 'view',
+  interaction: {
+    legendHighlight: true,
+  },
+  children: [
+    {
+      type: 'interval',
+      data: profit,
+      axis: {
+        y: { labelFormatter: '~s' },
+      },
+      encode: {
+        x: 'month',
+        y: ['end', 'start'],
+        color:
+          d.month === 'Total'
+            ? 'Total'
+            : d.profit > 0
+            ? 'Increase'
+            : 'Decrease',
+      },
+      state: {
+        inactive: { opacity: 0.5 },
+      },
+      legend: {
+        color: {
+          state: { inactive: { labelOpacity: 0.5, markerOpacity: 0.5 } },
+        },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -69,7 +86,10 @@ Pass a `boolean` to enable or disable the interaction.
 Legend highlight interaction can be configured at the View level:
 
 ```js
-chart.interaction('legendHighlight', true);
+({
+  type: 'view',
+  interaction: { legendHighlight: true },
+});
 ```
 
 ## Configuration Options

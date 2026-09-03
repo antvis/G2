@@ -22,13 +22,25 @@ const data = [
   { date: '2007-05-07', close: 103.92 },
 ];
 
-chart
-  .line()
-  .data(data)
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'close')
-  .scale('y', { nice: true })
-  .interaction('brushXHighlight', true);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'line',
+      data: data,
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'close',
+      },
+      scale: {
+        y: { nice: true },
+      },
+      interaction: {
+        brushXHighlight: true,
+      },
+    },
+  ],
+});
 
 chart.on('brush:start', onStart);
 chart.on('brush:end', onUpdate);

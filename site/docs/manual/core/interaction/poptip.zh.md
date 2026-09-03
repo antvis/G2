@@ -9,19 +9,13 @@ poptip 是 G2 中的一种交互类型，用于在用户与图表元素交互时
 
 ## 使用方式
 
-要启用 poptip 交互，只需在图表配置中添加 `interaction: 'poptip'` 或使用 `chart.interaction('poptip', true)` 方法。
+要启用 poptip 交互，只需在图表 Spec 的 `interaction` 属性中开启 `poptip`。
 
 ```javascript
 chart.options({
   // 其他配置...
   interaction: { poptip: true },
 });
-```
-
-或者使用方法调用的方式：
-
-```javascript
-chart.interaction('poptip', true);
 ```
 
 ## 配置层级

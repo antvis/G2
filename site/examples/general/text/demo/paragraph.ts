@@ -12,47 +12,64 @@ const chart = new Chart({
   height: 480,
 });
 
-chart.data(paragraph);
-
-chart
-  .text()
-  .encode('x', 'idx')
-  .encode('y', 1)
-  .encode('text', 'idx')
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 1] })
-  .style('wordWrap', true)
-  .style('wordWrapWidth', 160)
-  .style('dx', -75)
-  .style('dy', 0)
-  .style('textAlign', 'left')
-  .style('textBaseline', 'top')
-  .style('fontSize', 12)
-  .style('background', true)
-  .style('backgroundFill', '#416180')
-  .style('backgroundFillOpacity', 0.05)
-  .style('backgroundRadius', 3)
-  .style('backgroundPadding', [2, 4])
-  .axis(false)
-  .legend(false);
-
-chart
-  .text()
-  .encode('x', 'idx')
-  .encode('y', 1)
-  .encode('text', 'text')
-  .encode('color', 'text')
-  .scale('x', { type: 'band' })
-  .scale('y', { domain: [0, 1] })
-  .style('wordWrap', true)
-  .style('wordWrapWidth', 160)
-  .style('dx', -80)
-  .style('dy', 25)
-  .style('textAlign', 'left')
-  .style('textBaseline', 'top')
-  .style('fontSize', 10)
-  .style('lineWidth', 0)
-  .axis(false)
-  .legend(false);
+chart.options({
+  type: 'view',
+  data: paragraph,
+  children: [
+    {
+      type: 'text',
+      encode: {
+        x: 'idx',
+        y: 1,
+        text: 'idx',
+      },
+      scale: {
+        x: { type: 'band' },
+        y: { domain: [0, 1] },
+      },
+      style: {
+        wordWrap: true,
+        wordWrapWidth: 160,
+        dx: -75,
+        dy: 0,
+        textAlign: 'left',
+        textBaseline: 'top',
+        fontSize: 12,
+        background: true,
+        backgroundFill: '#416180',
+        backgroundFillOpacity: 0.05,
+        backgroundRadius: 3,
+        backgroundPadding: [2, 4],
+      },
+      axis: false,
+      legend: false,
+    },
+    {
+      type: 'text',
+      encode: {
+        x: 'idx',
+        y: 1,
+        text: 'text',
+        color: 'text',
+      },
+      scale: {
+        x: { type: 'band' },
+        y: { domain: [0, 1] },
+      },
+      style: {
+        wordWrap: true,
+        wordWrapWidth: 160,
+        dx: -80,
+        dy: 25,
+        textAlign: 'left',
+        textBaseline: 'top',
+        fontSize: 10,
+        lineWidth: 0,
+      },
+      axis: false,
+      legend: false,
+    },
+  ],
+});
 
 chart.render();

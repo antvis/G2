@@ -32,21 +32,40 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data(data)
-  .encode('x', 'month')
-  .encode('y', 'temperature')
-  .encode('color', 'city')
-  .scale('x', {
-    range: [0, 1],
-  })
-  .scale('y', {
-    nice: true,
-  })
-  .axis('y', { labelFormatter: (d) => d + '°C' });
-
-chart.line().encode('shape', 'smooth');
-
-chart.point().encode('shape', 'point').tooltip(false);
+chart.options({
+  type: 'view',
+  data: data,
+  encode: {
+    x: 'month',
+    y: 'temperature',
+    color: 'city',
+  },
+  scale: {
+    x: {
+      range: [0, 1],
+    },
+    y: {
+      nice: true,
+    },
+  },
+  axis: {
+    y: { labelFormatter: (d) => d + '°C' },
+  },
+  children: [
+    {
+      type: 'line',
+      encode: {
+        shape: 'smooth',
+      },
+    },
+    {
+      type: 'point',
+      encode: {
+        shape: 'point',
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

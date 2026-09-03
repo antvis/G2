@@ -134,18 +134,25 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
-
-chart
-  .interval()
-  .data([
-    { category: 'Category A', value: 40 },
-    { category: 'Category B', value: 60 },
-    { category: 'Category C', value: 80 },
-  ])
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'value');
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial', innerRadius: 0.1, endAngle: Math.PI },
+  children: [
+    {
+      type: 'interval',
+      data: [
+        { category: 'Category A', value: 40 },
+        { category: 'Category B', value: 60 },
+        { category: 'Category C', value: 80 },
+      ],
+      encode: {
+        x: 'category',
+        y: 'value',
+        color: 'value',
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -161,22 +168,29 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.coordinate({ type: 'radial' });
-
-chart
-  .interval()
-  .data([
-    { category: 'Category A', type: 'Type1', value: 40 },
-    { category: 'Category A', type: 'Type2', value: 20 },
-    { category: 'Category B', type: 'Type1', value: 30 },
-    { category: 'Category B', type: 'Type2', value: 50 },
-    { category: 'Category C', type: 'Type1', value: 25 },
-    { category: 'Category C', type: 'Type2', value: 35 },
-  ])
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .transform({ type: 'stackY' });
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial' },
+  children: [
+    {
+      type: 'interval',
+      data: [
+        { category: 'Category A', type: 'Type1', value: 40 },
+        { category: 'Category A', type: 'Type2', value: 20 },
+        { category: 'Category B', type: 'Type1', value: 30 },
+        { category: 'Category B', type: 'Type2', value: 50 },
+        { category: 'Category C', type: 'Type1', value: 25 },
+        { category: 'Category C', type: 'Type2', value: 35 },
+      ],
+      encode: {
+        x: 'category',
+        y: 'value',
+        color: 'type',
+      },
+      transform: [{ type: 'stackY' }],
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -198,20 +212,31 @@ const data = [
   { name: 'activity3', percent: 0.3, color: '#e90b3a' },
 ];
 
-chart.coordinate({ type: 'radial', innerRadius: 0.2, outerRadius: 0.9 });
-
-chart
-  .interval()
-  .data(data)
-  .encode('y', 'percent')
-  .encode('color', 'color')
-  .scale('color', { type: 'identity' })
-  .style({
-    stroke: '#fff',
-    lineWidth: 10,
-    lineCap: 'round',
-  })
-  .animate('enter', { type: 'waveIn', duration: 1000 });
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial', innerRadius: 0.2, outerRadius: 0.9 },
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        y: 'percent',
+        color: 'color',
+      },
+      scale: {
+        color: { type: 'identity' },
+      },
+      style: {
+        stroke: '#fff',
+        lineWidth: 10,
+        lineCap: 'round',
+      },
+      animate: {
+        enter: { type: 'waveIn', duration: 1000 },
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -237,38 +262,51 @@ const data = [
   { category: 'Research', score: 83, maxScore: 100 },
 ];
 
-chart.coordinate({
-  type: 'radial',
-  innerRadius: 0.3,
-  outerRadius: 0.8,
-});
-
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'category')
-  .encode('y', 'score')
-  .encode('color', 'score')
-  .scale('color', {
-    range: ['#FF6B6B', '#4ECDC4', '#45B7D1'],
-  })
-  .style({
-    stroke: 'white',
-    lineWidth: 2,
-  })
-  .animate('enter', {
-    type: 'waveIn',
-    duration: 1500,
-    delay: (d, i) => i * 100,
-  })
-  .label({
-    text: 'score',
-    position: 'outside',
-    style: {
-      fontSize: 12,
-      fontWeight: 'bold',
+chart.options({
+  type: 'view',
+  coordinate: {
+    type: 'radial',
+    innerRadius: 0.3,
+    outerRadius: 0.8,
+  },
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'category',
+        y: 'score',
+        color: 'score',
+      },
+      scale: {
+        color: {
+          range: ['#FF6B6B', '#4ECDC4', '#45B7D1'],
+        },
+      },
+      style: {
+        stroke: 'white',
+        lineWidth: 2,
+      },
+      animate: {
+        enter: {
+          type: 'waveIn',
+          duration: 1500,
+          delay: (d, i) => i * 100,
+        },
+      },
+      labels: [
+        {
+          text: 'score',
+          position: 'outside',
+          style: {
+            fontSize: 12,
+            fontWeight: 'bold',
+          },
+        },
+      ],
     },
-  });
+  ],
+});
 
 chart.render();
 ```

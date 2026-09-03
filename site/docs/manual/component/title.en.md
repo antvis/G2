@@ -14,8 +14,8 @@ First, pass a `boolean` to set whether to display the chart title. Chart titles 
 ```js
 ({
   type: 'interval',
-  title: false; // Hide chart title
-})
+  title: false, // Hide chart title
+});
 ```
 
 Second, pass _titleOption_ to configure the chart title as a whole.
@@ -97,20 +97,7 @@ chart.render();
 
 The simplest way to set the title is to directly specify a string as the title, which uses default styles and positioning. You can also use complete configuration options for flexible customization.
 
-More options about title, see the API document of [title](/manual/component/title).
-
-```js
-// API
-chart.interval().title({
-  title: 'hello',
-  subtitle: 'world',
-});
-```
-
-```js
-// API
-chart.title({ title: 'hello', subtitle: 'world' });
-```
+More options about title, see the [title configuration](#configuration-options).
 
 ## Configuration Options
 
@@ -158,7 +145,7 @@ const data = [
   546, 983, 340, 539, 243, 226, 192,
 ];
 
-chart.options({
+const options = {
   data,
   type: 'interval',
   encode: {
@@ -171,10 +158,16 @@ chart.options({
     subtitle: 'Displayed are sampled values.',
   },
   axis: false,
-});
+};
+chart.options(options);
+
 const handleSetAlign = (align) => {
-  chart.title({ align });
-  chart.render(); // Re-render the chart
+  chart
+    .options({
+      ...options,
+      title: { ...options.title, align },
+    })
+    .render();
 };
 
 const selectorContainer = document.createElement('div');

@@ -267,15 +267,6 @@ G2 中**编码（Encode）** 主要用于指定视觉元素属性和数据之间
 });
 ```
 
-```js
-// API
-// 第一种
-chart.interval().encode('x', 'name').encode('y', 'value');
-
-// 第二种
-chart.interval().encode({ x: 'name', y: 'value' });
-```
-
 也可以在 View 层级指定编码：
 
 ```js
@@ -286,15 +277,6 @@ chart.interval().encode({ x: 'name', y: 'value' });
     y: 'value',
   },
 });
-```
-
-```js
-// API
-// 第一种
-chart.encode('x', 'name').encode('y', 'value');
-
-// 第二种
-chart.encode({ x: 'name', y: 'value' });
 ```
 
 通道编码具有传递性，视图的编码会传递给 `children` 指定的标记，如果该标记没有对应通道的编码，那么就设置，否则不做任何事情。比如绘制一个点线图：
@@ -320,10 +302,7 @@ chart.options({
     { year: '1999', value: 13 },
   ],
   encode: { x: 'year', y: 'value' }, // 视图层级的编码
-  children: [
-    { type: 'line' },
-    { type: 'point' },
-  ],
+  children: [{ type: 'line' }, { type: 'point' }],
 });
 
 chart.render();
@@ -629,5 +608,8 @@ chart.render();
 
 ```js
 // 和上面的形式等价
-chart.encode('y', 'end').encode('y1', 'start');
+({
+  type: 'interval',
+  encode: { y: 'end', y1: 'start' },
+});
 ```

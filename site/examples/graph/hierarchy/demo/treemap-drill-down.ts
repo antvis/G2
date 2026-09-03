@@ -50,30 +50,38 @@ const data = {
   ],
 };
 
-chart
-  .treemap()
-  .data({
-    value: data,
-  })
-  .layout({
-    tile: 'treemapBinary',
-    paddingInner: 5,
-  })
-  .encode('value', 'value')
-  .interaction({
-    treemapDrillDown: {
-      breadCrumbY: 12,
-      activeFill: '#873bf4',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'treemap',
+      data: {
+        value: data,
+      },
+      layout: {
+        tile: 'treemapBinary',
+        paddingInner: 5,
+      },
+      encode: {
+        value: 'value',
+      },
+      interaction: {
+        treemapDrillDown: {
+          breadCrumbY: 12,
+          activeFill: '#873bf4',
+        },
+      },
+      style: {
+        labelFill: '#000',
+        labelStroke: '#fff',
+        labelLineWidth: 1.5,
+        labelFontSize: 14,
+        labelPosition: 'top-left',
+        labelDx: 5,
+        labelDy: 5,
+      },
     },
-  })
-  .style({
-    labelFill: '#000',
-    labelStroke: '#fff',
-    labelLineWidth: 1.5,
-    labelFontSize: 14,
-    labelPosition: 'top-left',
-    labelDx: 5,
-    labelDy: 5,
-  });
+  ],
+});
 
 chart.render();

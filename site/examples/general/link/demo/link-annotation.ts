@@ -317,44 +317,66 @@ const chart = new Chart({
   paddingRight: 20,
 });
 
-chart
-  .link()
-  .data([1])
-  .encode('x', [() => incdomain[0], () => incdomain[1]])
-  .encode('y', [() => incdomain[0], () => incdomain[1]])
-  .tooltip(false)
-  .label({
-    position: 'top-right',
-    text: (v) => `${v * 100}%`,
-    dx: 4,
-    textAlign: 'start',
-    textBaseline: 'middle',
-  })
-  .style('stroke', '#000');
-
-chart
-  .link()
-  .data([0.6, 0.7, 0.8, 0.9])
-  .encode('x', [() => incdomain[0], () => incdomain[1]])
-  .encode('y', [(v) => v * incdomain[0], (v) => v * incdomain[1]])
-  .tooltip(false)
-  .label({
-    position: 'top-right',
-    text: (v) => `${v * 100}%`,
-    dx: 4,
-    textAlign: 'start',
-    textBaseline: 'middle',
-  })
-  .style('stroke', '#000')
-  .style('opacity', 0.2);
-
-chart
-  .point()
-  .data(income)
-  .encode('x', 'm')
-  .encode('y', 'f')
-  .encode('size', 4)
-  .encode('shape', 'hollow')
-  .style('stroke', '#000');
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'link',
+      data: [1],
+      encode: {
+        x: [() => incdomain[0], () => incdomain[1]],
+        y: [() => incdomain[0], () => incdomain[1]],
+      },
+      tooltip: false,
+      labels: [
+        {
+          position: 'top-right',
+          text: (v) => `${v * 100}%`,
+          dx: 4,
+          textAlign: 'start',
+          textBaseline: 'middle',
+        },
+      ],
+      style: {
+        stroke: '#000',
+      },
+    },
+    {
+      type: 'link',
+      data: [0.6, 0.7, 0.8, 0.9],
+      encode: {
+        x: [() => incdomain[0], () => incdomain[1]],
+        y: [(v) => v * incdomain[0], (v) => v * incdomain[1]],
+      },
+      tooltip: false,
+      labels: [
+        {
+          position: 'top-right',
+          text: (v) => `${v * 100}%`,
+          dx: 4,
+          textAlign: 'start',
+          textBaseline: 'middle',
+        },
+      ],
+      style: {
+        stroke: '#000',
+        opacity: 0.2,
+      },
+    },
+    {
+      type: 'point',
+      data: income,
+      encode: {
+        x: 'm',
+        y: 'f',
+        size: 4,
+        shape: 'hollow',
+      },
+      style: {
+        stroke: '#000',
+      },
+    },
+  ],
+});
 
 chart.render();

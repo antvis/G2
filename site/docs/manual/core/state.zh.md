@@ -67,7 +67,7 @@ chart.options({
 
 ### 直接在 Mark 层级配置
 
-当直接使用 mark API（如 `chart.line()`）时，state 配置在 mark 层级生效：
+当 `state` 直接配置在标记 Spec（如 `type: 'line'`）上时，配置在 mark 层级生效：
 
 ```js
 // ✅ 直接在 mark 层级配置

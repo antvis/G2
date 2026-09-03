@@ -6,30 +6,38 @@ const chart = new Chart({
   padding: 0,
 });
 
-chart.axis(false);
-
-chart
-  .image()
-  .style(
-    'src',
-    'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
-  )
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('width', '100%')
-  .style('height', '100%')
-  .tooltip(false);
-
-chart
-  .heatmap()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
-  })
-  .encode('x', 'g')
-  .encode('y', 'l')
-  .encode('color', 'tmp')
-  .style('opacity', 0)
-  .tooltip(false);
+chart.options({
+  type: 'view',
+  axis: false,
+  children: [
+    {
+      type: 'image',
+      style: {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/NeUTMwKtPcPxIFNTWZOZ.png',
+        x: '50%',
+        y: '50%',
+        width: '100%',
+        height: '100%',
+      },
+      tooltip: false,
+    },
+    {
+      type: 'heatmap',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/heatmap.json',
+      },
+      encode: {
+        x: 'g',
+        y: 'l',
+        color: 'tmp',
+      },
+      style: {
+        opacity: 0,
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

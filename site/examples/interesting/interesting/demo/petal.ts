@@ -8,33 +8,46 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'theta' });
-
-chart.data([
-  { type: '分类一', value: 27 },
-  { type: '分类二', value: 25 },
-  { type: '分类三', value: 18 },
-  { type: '分类四', value: 15 },
-  { type: '分类五', value: 10 },
-  { type: 'Other', value: 5 },
-]);
-
-chart
-  .interval()
-  .transform({ type: 'stackY' })
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .encode('shape', 'petal')
-  .style('offset', 0.5) // 👈🏻 在这里配置属性
-  .style('ratio', 0.2) // 👈🏻 在这里配置属性
-  .label({
-    text: (d, i, data) => d.type + '\n' + d.value,
-    radius: 0.9,
-    fontSize: 9,
-    dy: 12,
-  })
-  .animate('enter', { type: 'fadeIn' })
-  .legend(false);
+// 👈🏻 在这里配置属性
+chart.options({
+  type: 'view',
+  coordinate: { type: 'theta' },
+  data: [
+    { type: '分类一', value: 27 },
+    { type: '分类二', value: 25 },
+    { type: '分类三', value: 18 },
+    { type: '分类四', value: 15 },
+    { type: '分类五', value: 10 },
+    { type: 'Other', value: 5 },
+  ],
+  children: [
+    {
+      type: 'interval',
+      transform: [{ type: 'stackY' }],
+      encode: {
+        y: 'value',
+        color: 'type',
+        shape: 'petal',
+      },
+      style: {
+        offset: 0.5,
+        ratio: 0.2,
+      },
+      labels: [
+        {
+          text: (d, i, data) => d.type + '\n' + d.value,
+          radius: 0.9,
+          fontSize: 9,
+          dy: 12,
+        },
+      ],
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+      legend: false,
+    },
+  ],
+});
 
 chart.render();
 

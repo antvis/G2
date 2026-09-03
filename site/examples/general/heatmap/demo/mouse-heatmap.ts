@@ -10,23 +10,33 @@ const chart = new Chart({
   padding: 0,
 });
 
-chart.style({
-  viewFill: '#4e79a7',
+chart.options({
+  type: 'view',
+  style: {
+    viewFill: '#4e79a7',
+  },
+  data: [],
+  axis: false,
+  children: [
+    {
+      type: 'heatmap',
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: 'v',
+      },
+      scale: {
+        x: { domain: [0, 640] },
+        y: { domain: [0, 480], range: [0, 1] },
+      },
+      style: {
+        opacity: 0,
+      },
+      tooltip: false,
+      animate: false,
+    },
+  ],
 });
-
-chart.data([]);
-chart.axis(false);
-
-chart
-  .heatmap()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'v')
-  .scale('x', { domain: [0, 640] })
-  .scale('y', { domain: [0, 480], range: [0, 1] })
-  .style('opacity', 0)
-  .tooltip(false)
-  .animate(false);
 
 chart.render();
 
@@ -45,7 +55,7 @@ chart.on(
 
     const d = transform(data);
 
-    chart.changeData(d);
+    chart.options({ data: d }).render();
   }),
 );
 

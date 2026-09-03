@@ -15,24 +15,34 @@ const data = [
   { repo: 'X6', star: 4755 },
 ];
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'repo')
-  .encode('y', 'star')
-  .encode('color', 'repo')
-  .label({
-    text: 'star',
-    render: (text, datum) => {
-      return `
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'repo',
+        y: 'star',
+        color: 'repo',
+      },
+      labels: [
+        {
+          text: 'star',
+          render: (text, datum) => {
+            return `
         <div style="left:-50%;top:-20px;position:relative;font-size:14px;">
           <span>${datum.repo}</span>
           :
           <a href="https://github.com/antvis/${datum.repo}" target="_blank">${datum.star}</a>
         </div>
       `;
+          },
+        },
+      ],
+      legend: false,
     },
-  })
-  .legend(false);
+  ],
+});
 
 chart.render();

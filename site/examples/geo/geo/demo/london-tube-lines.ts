@@ -27,59 +27,73 @@ Promise.all([
     autoFit: true,
   });
 
-  const geoView = chart.geoView();
-
-  geoView
-    .geoPath()
-    .data(london)
-    .style('fill', 'lightgray')
-    .style('stroke', 'white')
-    .style('lineWidth', 2);
-
-  geoView
-    .text()
-    .data(londonCentroids)
-    .encode('x', 'cx')
-    .encode('y', 'cy')
-    .encode('text', (d) => d.name.split(/\W/)[0])
-    .style('fontSize', 8)
-    .style('opacity', 0.6);
-
-  geoView
-    .geoPath()
-    .data(line)
-    .encode('color', 'id')
-    .encode('shape', 'hollow')
-    .scale('color', {
-      domain: [
-        'Bakerloo',
-        'Central',
-        'Circle',
-        'District',
-        'DLR',
-        'Hammersmith & City',
-        'Jubilee',
-        'Metropolitan',
-        'Northern',
-        'Piccadilly',
-        'Victoria',
-        'Waterloo & City',
-      ],
-      range: [
-        'rgb(137,78,36)',
-        'rgb(220,36,30)',
-        'rgb(255,206,0)',
-        'rgb(1,114,41)',
-        'rgb(0,175,173)',
-        'rgb(215,153,175)',
-        'rgb(106,114,120)',
-        'rgb(114,17,84)',
-        'rgb(0,0,0)',
-        'rgb(0,24,168)',
-        'rgb(0,160,226)',
-        'rgb(106,187,170)',
-      ],
-    });
+  chart.options({
+    type: 'geoView',
+    children: [
+      {
+        type: 'geoPath',
+        data: london,
+        style: {
+          fill: 'lightgray',
+          stroke: 'white',
+          lineWidth: 2,
+        },
+      },
+      {
+        type: 'text',
+        data: londonCentroids,
+        encode: {
+          x: 'cx',
+          y: 'cy',
+          text: (d) => d.name.split(/\W/)[0],
+        },
+        style: {
+          fontSize: 8,
+          opacity: 0.6,
+        },
+      },
+      {
+        type: 'geoPath',
+        data: line,
+        encode: {
+          color: 'id',
+          shape: 'hollow',
+        },
+        scale: {
+          color: {
+            domain: [
+              'Bakerloo',
+              'Central',
+              'Circle',
+              'District',
+              'DLR',
+              'Hammersmith & City',
+              'Jubilee',
+              'Metropolitan',
+              'Northern',
+              'Piccadilly',
+              'Victoria',
+              'Waterloo & City',
+            ],
+            range: [
+              'rgb(137,78,36)',
+              'rgb(220,36,30)',
+              'rgb(255,206,0)',
+              'rgb(1,114,41)',
+              'rgb(0,175,173)',
+              'rgb(215,153,175)',
+              'rgb(106,114,120)',
+              'rgb(114,17,84)',
+              'rgb(0,0,0)',
+              'rgb(0,24,168)',
+              'rgb(0,160,226)',
+              'rgb(106,187,170)',
+            ],
+          },
+        },
+      },
+    ],
+  });
 
   chart.render();
 });

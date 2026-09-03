@@ -33,6 +33,18 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.interval().data(data).encode('x', 'letter').encode('y', 'frequency');
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'letter',
+        y: 'frequency',
+      },
+    },
+  ],
+});
 
 chart.render();

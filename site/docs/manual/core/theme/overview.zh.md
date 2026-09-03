@@ -26,9 +26,6 @@ G2 的主题可以在不同层级进行配置：
    chart.options({
      theme: { type: 'dark' },
    });
-
-   // 或使用API形式
-   chart.theme({ type: 'dark' });
    ```
 
 2. **标记层级**：应用于特定的图形标记
@@ -38,9 +35,6 @@ G2 的主题可以在不同层级进行配置：
      type: 'interval',
      theme: { color: 'steelblue' },
    });
-
-   // 或使用API形式
-   chart.interval().theme({ color: 'steelblue' });
    ```
 
 当同时存在多个层级的主题配置时，标记层级的配置会覆盖视图层级的配置。
@@ -60,13 +54,9 @@ G2 内置了多种主题，可以通过 `type` 属性进行切换：
 使用内置主题的方式如下：
 
 ```js
-// Spec形式
 chart.options({
   theme: { type: 'dark' },
 });
-
-// API形式
-chart.theme({ type: 'classicDark' });
 ```
 
 ## 配置项
@@ -118,19 +108,13 @@ G2 提供了两种自定义主题的方式：局部覆盖和完全自定义。
 最简单的自定义方式是在使用主题时覆盖部分配置项：
 
 ```js
-// Spec形式
 chart.options({
   theme: {
     type: 'light', // 基于light主题
     color: 'steelblue', // 覆盖默认颜色
     margin: 20, // 覆盖默认外边距
+    category10: ['#ff0000', '#00ff00', '#0000ff'], // 自定义颜色方案
   },
-});
-
-// API形式
-chart.theme({
-  type: 'dark', // 基于dark主题
-  category10: ['#ff0000', '#00ff00', '#0000ff'], // 自定义颜色方案
 });
 ```
 

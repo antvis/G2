@@ -23,51 +23,64 @@ Promise.all([
     autoFit: true,
   });
 
-  const geoView = chart.geoView().coordinate({ type: 'albersUsa' });
-
-  geoView
-    .geoPath()
-    .data(states)
-    .style('fill', 'lightgray')
-    .style('stroke', 'white');
-
-  geoView
-    .point()
-    .data(airports)
-    .encode('x', 'longitude')
-    .encode('y', 'latitude')
-    .encode('color', 'gray')
-    .encode('shape', 'point')
-    .encode('size', 1);
-
-  geoView
-    .link()
-    .data({
-      value: flights,
-      transform: [
-        {
-          type: 'filter',
-          callback: (d) => d.origin === 'SEA',
+  chart.options({
+    type: 'geoView',
+    coordinate: { type: 'albersUsa' },
+    children: [
+      {
+        type: 'geoPath',
+        data: states,
+        style: {
+          fill: 'lightgray',
+          stroke: 'white',
         },
-        {
-          type: 'join',
-          join: airports,
-          on: ['origin', 'iata'],
-          select: ['latitude', 'longitude'],
-          as: ['origin_latitude', 'origin_longitude'],
+      },
+      {
+        type: 'point',
+        data: airports,
+        encode: {
+          x: 'longitude',
+          y: 'latitude',
+          color: 'gray',
+          shape: 'point',
+          size: 1,
         },
-        {
-          type: 'join',
-          join: airports,
-          on: ['destination', 'iata'],
-          select: ['latitude', 'longitude'],
-          as: ['dest_latitude', 'dest_longitude'],
+      },
+      {
+        type: 'link',
+        data: {
+          value: flights,
+          transform: [
+            {
+              type: 'filter',
+              callback: (d) => d.origin === 'SEA',
+            },
+            {
+              type: 'join',
+              join: airports,
+              on: ['origin', 'iata'],
+              select: ['latitude', 'longitude'],
+              as: ['origin_latitude', 'origin_longitude'],
+            },
+            {
+              type: 'join',
+              join: airports,
+              on: ['destination', 'iata'],
+              select: ['latitude', 'longitude'],
+              as: ['dest_latitude', 'dest_longitude'],
+            },
+          ],
         },
-      ],
-    })
-    .encode('x', ['origin_longitude', 'dest_longitude'])
-    .encode('y', ['origin_latitude', 'dest_latitude'])
-    .style('stroke', 'black');
+        encode: {
+          x: ['origin_longitude', 'dest_longitude'],
+          y: ['origin_latitude', 'dest_latitude'],
+        },
+        style: {
+          stroke: 'black',
+        },
+      },
+    ],
+  });
 
   chart.render();
 });

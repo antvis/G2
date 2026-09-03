@@ -358,8 +358,8 @@ This function determines the color of each data point based on the relationship 
 
 This example uses two chart elements to build a complete candlestick chart:
 
-1. `chart.link()`: Draws lines from lowest to highest price (shadow lines of the candlestick chart)
-2. `chart.interval()`: Draws rectangles from opening to closing price (body part of the candlestick chart)
+1. `type: 'link'`: Draws lines from lowest to highest price (shadow lines of the candlestick chart)
+2. `type: 'interval'`: Draws rectangles from opening to closing price (body part of the candlestick chart)
 
 Both chart elements share the same tooltip configuration, displaying complete price information when hovering with the mouse.
 

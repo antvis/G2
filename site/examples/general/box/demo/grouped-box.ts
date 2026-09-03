@@ -80,23 +80,37 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .box()
-  .data(data)
-  .encode('x', 'type')
-  .encode('y', 'bin')
-  .encode('series', 'Species')
-  .encode('color', 'Species')
-  .scale('x', { paddingInner: 0.2, paddingOuter: 0.1 })
-  .scale('y', { zero: true })
-  .scale('series', { paddingInner: 0.3, paddingOuter: 0.1 })
-  .style('stroke', 'black')
-  .tooltip([
-    { name: 'min', channel: 'y' },
-    { name: 'q1', channel: 'y1' },
-    { name: 'q2', channel: 'y2' },
-    { name: 'q3', channel: 'y3' },
-    { name: 'max', channel: 'y4' },
-  ]);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'box',
+      data: data,
+      encode: {
+        x: 'type',
+        y: 'bin',
+        series: 'Species',
+        color: 'Species',
+      },
+      scale: {
+        x: { paddingInner: 0.2, paddingOuter: 0.1 },
+        y: { zero: true },
+        series: { paddingInner: 0.3, paddingOuter: 0.1 },
+      },
+      style: {
+        stroke: 'black',
+      },
+      tooltip: {
+        items: [
+          { name: 'min', channel: 'y' },
+          { name: 'q1', channel: 'y1' },
+          { name: 'q2', channel: 'y2' },
+          { name: 'q3', channel: 'y3' },
+          { name: 'max', channel: 'y4' },
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();

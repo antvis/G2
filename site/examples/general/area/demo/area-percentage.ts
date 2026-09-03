@@ -29,20 +29,34 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data(data)
-  .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('color', 'country')
-  .axis('x', { title: false })
-  .axis('y', { title: false, labelFormatter: '.0%' });
-
-chart
-  .area()
-  .tooltip({ channel: 'y0', valueFormatter: '.0%' })
-  .style('fillOpacity', 0.3);
-
-chart.line().tooltip(false);
+chart.options({
+  type: 'view',
+  data: data,
+  transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  axis: {
+    x: { title: false },
+    y: { title: false, labelFormatter: '.0%' },
+  },
+  children: [
+    {
+      type: 'area',
+      tooltip: {
+        items: [{ channel: 'y0', valueFormatter: '.0%' }],
+      },
+      style: {
+        fillOpacity: 0.3,
+      },
+    },
+    {
+      type: 'line',
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

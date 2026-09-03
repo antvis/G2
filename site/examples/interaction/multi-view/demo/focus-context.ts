@@ -12,20 +12,32 @@ const focus = new Chart({
   paddingLeft: 60,
 });
 
-focus
-  .area()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis('x', { grid: false, title: false, tickCount: 5 })
-  .axis('y', { grid: false, tickCount: 5 })
-  .interaction('tooltip', false)
-  .interaction('brushXFilter', true);
+focus.options({
+  type: 'view',
+  children: [
+    {
+      type: 'area',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+      },
+      encode: {
+        x: 'date',
+        y: 'close',
+      },
+      animate: false,
+      axis: {
+        x: { grid: false, title: false, tickCount: 5 },
+        y: { grid: false, tickCount: 5 },
+      },
+      interaction: {
+        tooltip: false,
+        brushXFilter: true,
+      },
+    },
+  ],
+});
 
 focus.render();
 
@@ -38,33 +50,43 @@ const context = new Chart({
   paddingLeft: 60,
 });
 
-context
-  .area()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis(false)
-  .interaction('tooltip', false)
-  .interaction('brushXHighlight', {
-    series: true,
-    maskOpacity: 0.3,
-    maskFill: '#777',
-    maskHandleWRender: createPathRender((x, y, width, height) => ({
-      d: 'M-0.5,31.5c-2.5,0,-4.5,2,-4.5,4.5v30c0,2.5,2,4.5,4.5,4.5V31.5z',
-      transform: `translate(${x + width / 2}, ${y - height / 2})`,
-    })),
-    maskHandleERender: createPathRender((x, y, width, height) => ({
-      d: 'M0.5,31.5c2.5,0,4.5,2,4.5,4.5v30c0,2.5,-2,4.5,-4.5,4.5V31.5z',
-      transform: `translate(${x + width / 2}, ${y - height / 2})`,
-    })),
-    maskHandleEFill: '#D3D8E0',
-    maskHandleWFill: '#D3D8E0',
-  });
+context.options({
+  type: 'view',
+  children: [
+    {
+      type: 'area',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+      },
+      encode: {
+        x: 'date',
+        y: 'close',
+      },
+      animate: false,
+      axis: false,
+      interaction: {
+        tooltip: false,
+        brushXHighlight: {
+          series: true,
+          maskOpacity: 0.3,
+          maskFill: '#777',
+          maskHandleWRender: createPathRender((x, y, width, height) => ({
+            d: 'M-0.5,31.5c-2.5,0,-4.5,2,-4.5,4.5v30c0,2.5,2,4.5,4.5,4.5V31.5z',
+            transform: `translate(${x + width / 2}, ${y - height / 2})`,
+          })),
+          maskHandleERender: createPathRender((x, y, width, height) => ({
+            d: 'M0.5,31.5c2.5,0,4.5,2,4.5,4.5v30c0,2.5,-2,4.5,-4.5,4.5V31.5z',
+            transform: `translate(${x + width / 2}, ${y - height / 2})`,
+          })),
+          maskHandleEFill: '#D3D8E0',
+          maskHandleWFill: '#D3D8E0',
+        },
+      },
+    },
+  ],
+});
 
 context.render();
 

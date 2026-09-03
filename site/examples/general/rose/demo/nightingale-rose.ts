@@ -19,33 +19,48 @@ const chart = new Chart({
   height: 720,
   width: 720,
 });
-chart.coordinate({ type: 'polar' });
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'year')
-  .encode('y', 'population')
-  .scale('x', { padding: 0 })
-  .style({
-    lineWidth: 1,
-    stroke: '#fff',
-  })
-  .axis(false)
-  .label({
-    text: 'year',
-    fontSize: 16,
-    fontWeight: 800,
-    position: 'inside',
-  })
-  .state('active', {
-    fill: '#288AFF',
-    stroke: 'black',
-    lineWidth: 1,
-    zIndex: 101,
-  })
-  .state('inactive', { opacity: 0.5, zIndex: 100 });
-
-chart.interaction('elementHighlight', true);
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  interaction: {
+    elementHighlight: true,
+  },
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'year',
+        y: 'population',
+      },
+      scale: {
+        x: { padding: 0 },
+      },
+      style: {
+        lineWidth: 1,
+        stroke: '#fff',
+      },
+      axis: false,
+      labels: [
+        {
+          text: 'year',
+          fontSize: 16,
+          fontWeight: 800,
+          position: 'inside',
+        },
+      ],
+      state: {
+        active: {
+          fill: '#288AFF',
+          stroke: 'black',
+          lineWidth: 1,
+          zIndex: 101,
+        },
+        inactive: { opacity: 0.5, zIndex: 100 },
+      },
+    },
+  ],
+});
 
 chart.render();

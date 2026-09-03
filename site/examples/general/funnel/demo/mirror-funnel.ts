@@ -18,67 +18,88 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data);
-
-chart.scale('x', { padding: 0 });
-chart.scale('color', {
-  range: ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'],
-});
-chart.axis(false);
-
-chart.coordinate({
-  transform: [{ type: 'transpose' }],
-});
-
-chart
-  .interval()
-  .data({
-    transform: [
-      {
-        type: 'filter',
-        callback: (d) => d.site === '站点1',
-      },
-    ],
-  })
-  .encode('x', 'action')
-  .encode('y', 'visitor')
-  .encode('color', 'action')
-  .encode('shape', 'funnel')
-  .label({
-    text: 'visitor',
-    position: 'inside',
-    transform: [{ type: 'contrastReverse' }],
-  })
-  .label({
-    text: 'action',
-    position: 'right',
-    dx: (d) => {
-      return d.action === '完成' ? 48 : 16;
+chart.options({
+  type: 'view',
+  data: data,
+  scale: {
+    x: { padding: 0 },
+    color: {
+      range: ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'],
     },
-  })
-  .style('stroke', '#FFF')
-  .animate('enter', { type: 'fadeIn' });
-
-chart
-  .interval()
-  .data({
-    transform: [
-      {
-        type: 'filter',
-        callback: (d) => d.site === '站点2',
+  },
+  axis: false,
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  children: [
+    {
+      type: 'interval',
+      data: {
+        transform: [
+          {
+            type: 'filter',
+            callback: (d) => d.site === '站点1',
+          },
+        ],
       },
-    ],
-  })
-  .encode('x', 'action')
-  .encode('y', (d) => -d.visitor)
-  .encode('color', 'action')
-  .encode('shape', 'funnel')
-  .label({
-    text: 'visitor',
-    position: 'inside',
-    transform: [{ type: 'contrastReverse' }],
-  })
-  .style('stroke', '#FFF')
-  .animate('enter', { type: 'fadeIn' });
+      encode: {
+        x: 'action',
+        y: 'visitor',
+        color: 'action',
+        shape: 'funnel',
+      },
+      labels: [
+        {
+          text: 'visitor',
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
+        },
+        {
+          text: 'action',
+          position: 'right',
+          dx: (d) => {
+            return d.action === '完成' ? 48 : 16;
+          },
+        },
+      ],
+      style: {
+        stroke: '#FFF',
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+    },
+    {
+      type: 'interval',
+      data: {
+        transform: [
+          {
+            type: 'filter',
+            callback: (d) => d.site === '站点2',
+          },
+        ],
+      },
+      encode: {
+        x: 'action',
+        y: (d) => -d.visitor,
+        color: 'action',
+        shape: 'funnel',
+      },
+      labels: [
+        {
+          text: 'visitor',
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
+        },
+      ],
+      style: {
+        stroke: '#FFF',
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+    },
+  ],
+});
 
 chart.render();

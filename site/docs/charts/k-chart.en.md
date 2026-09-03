@@ -66,57 +66,73 @@ const data = [
   { time: '2015-11-10', start: 7.5, max: 7.68, min: 7.44, end: 7.57 },
 ];
 
-chart
-  .data(data)
-  .encode('x', 'time')
-  .encode('color', (d) => {
-    const trend = Math.sign(d.start - d.end);
-    // Note: In many Western contexts, red is down and green is up.
-    // This example uses red for up ('上涨') and green for down ('下跌').
-    // Translated labels: 'Down', 'Unchanged', 'Up'
-    // Original colors: Down '#4daf4a' (green), Up '#e41a1c' (red)
-    return trend > 0 ? 'Down' : trend === 0 ? 'Unchanged' : 'Up';
-  })
-  .scale('x', {
-    compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
-  })
-  .scale('color', {
-    domain: ['Down', 'Unchanged', 'Up'],
-    range: ['#4daf4a', '#999999', '#e41a1c'], // Green for Down, Gray for Unchanged, Red for Up
-  });
-
-chart
-  .link()
-  .encode('y', ['min', 'max'])
-  .tooltip({
-    title: 'time',
-    items: [
-      { field: 'start', name: 'Open' },
-      { field: 'end', name: 'Close' },
-      { field: 'min', name: 'Low' },
-      { field: 'max', name: 'High' },
-    ],
-  });
-
-chart
-  .interval()
-  .encode('y', ['start', 'end'])
-  .style('fillOpacity', 1)
-  .style('stroke', (d) => {
-    if (d.start === d.end) return '#999999';
-  })
-  .axis('y', {
-    title: 'Price',
-  })
-  .tooltip({
-    title: 'time',
-    items: [
-      { field: 'start', name: 'Open' },
-      { field: 'end', name: 'Close' },
-      { field: 'min', name: 'Low' },
-      { field: 'max', name: 'High' },
-    ],
-  });
+chart.options({
+  type: 'view',
+  data: data,
+  encode: {
+    x: 'time',
+    color: (d) => {
+      const trend = Math.sign(d.start - d.end);
+      // Note: In many Western contexts, red is down and green is up.
+      // This example uses red for up ('上涨') and green for down ('下跌').
+      // Translated labels: 'Down', 'Unchanged', 'Up'
+      // Original colors: Down '#4daf4a' (green), Up '#e41a1c' (red)
+      return trend > 0 ? 'Down' : trend === 0 ? 'Unchanged' : 'Up';
+    },
+  },
+  scale: {
+    x: {
+      compare: (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    },
+    color: {
+      domain: ['Down', 'Unchanged', 'Up'],
+      range: ['#4daf4a', '#999999', '#e41a1c'], // Green for Down, Gray for Unchanged, Red for Up
+    },
+  },
+  children: [
+    {
+      type: 'link',
+      encode: {
+        y: ['min', 'max'],
+      },
+      tooltip: {
+        title: 'time',
+        items: [
+          { field: 'start', name: 'Open' },
+          { field: 'end', name: 'Close' },
+          { field: 'min', name: 'Low' },
+          { field: 'max', name: 'High' },
+        ],
+      },
+    },
+    {
+      type: 'interval',
+      encode: {
+        y: ['start', 'end'],
+      },
+      style: {
+        fillOpacity: 1,
+        stroke: (d) => {
+          if (d.start === d.end) return '#999999';
+        },
+      },
+      axis: {
+        y: {
+          title: 'Price',
+        },
+      },
+      tooltip: {
+        title: 'time',
+        items: [
+          { field: 'start', name: 'Open' },
+          { field: 'end', name: 'Close' },
+          { field: 'min', name: 'Low' },
+          { field: 'max', name: 'High' },
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();
 ```

@@ -25,20 +25,28 @@ for (let i = 0; i < 372; i++) {
   data.push({ time, value: Math.random() * 100 });
 }
 
-chart.data(data);
-
-chart.coordinate({
-  type: 'helix',
-  startAngle: 0.5 * Math.PI, // Starting angle
-  endAngle: 12.5 * Math.PI, // Ending angle
+chart.options({
+  type: 'view',
+  data: data,
+  coordinate: {
+    type: 'helix',
+    startAngle: 0.5 * Math.PI, // Starting angle
+    endAngle: 12.5 * Math.PI, // Ending angle
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'value',
+        color: 'value',
+      },
+      scale: {
+        color: { range: ['#ffffff', '#1890FF'] },
+      },
+    },
+  ],
 });
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'value')
-  .encode('color', 'value')
-  .scale('color', { range: ['#ffffff', '#1890FF'] });
 
 chart.render();
 ```

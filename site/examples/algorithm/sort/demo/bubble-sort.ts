@@ -22,16 +22,21 @@ const chart = new Chart({
   container: 'container',
 });
 
-const keyframe = chart.timingKeyframe();
+const children = [];
 
 for (const frame of bubbleSort(data)) {
-  keyframe
-    .interval()
-    .data(frame.map((datum, index) => ({ index, ...datum })))
-    .encode('x', 'index')
-    .encode('y', 'value')
-    .encode('key', 'value')
-    .encode('color', 'swap');
+  children.push({
+    type: 'interval',
+    data: frame.map((datum, index) => ({ index, ...datum })),
+    encode: {
+      x: 'index',
+      y: 'value',
+      key: 'value',
+      color: 'swap',
+    },
+  });
 }
+
+chart.options({ type: 'timingKeyframe', children });
 
 chart.render();

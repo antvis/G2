@@ -21,31 +21,49 @@ Promise.all([
     autoFit: true,
   });
 
-  const geoView = chart.geoView();
-
-  geoView
-    .geoPath()
-    .data({
-      value: countries,
-      transform: [
-        {
-          type: 'join',
-          join: hale,
-          on: [(d) => d.properties.name, 'name'],
-          select: ['hale'],
+  chart.options({
+    type: 'geoView',
+    children: [
+      {
+        type: 'geoPath',
+        data: {
+          value: countries,
+          transform: [
+            {
+              type: 'join',
+              join: hale,
+              on: [(d) => d.properties.name, 'name'],
+              select: ['hale'],
+            },
+          ],
         },
-      ],
-    })
-    .scale('color', {
-      type: 'sequential',
-      palette: 'ylGnBu',
-      unknown: '#ccc',
-    })
-    .encode('color', 'hale');
-
-  geoView.geoPath().data([coutriesmesh]).style('stroke', '#fff');
-
-  geoView.geoPath().data({ type: 'sphere' }).style('stroke', '#000');
+        scale: {
+          color: {
+            type: 'sequential',
+            palette: 'ylGnBu',
+            unknown: '#ccc',
+          },
+        },
+        encode: {
+          color: 'hale',
+        },
+      },
+      {
+        type: 'geoPath',
+        data: [coutriesmesh],
+        style: {
+          stroke: '#fff',
+        },
+      },
+      {
+        type: 'geoPath',
+        data: { type: 'sphere' },
+        style: {
+          stroke: '#000',
+        },
+      },
+    ],
+  });
 
   chart.render();
 });

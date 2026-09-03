@@ -60,18 +60,6 @@ Views can set their own styles:
 });
 ```
 
-```js
-// API
-// First approach
-chart.style('viewFill', 'red').style('contentFill', 'yellow');
-
-// Second approach
-chart.style({
-  viewFill: 'red',
-  contentFill: 'yellow',
-});
-```
-
 All chart components can also set styles, for example legends:
 
 ```ts
@@ -83,7 +71,7 @@ All chart components can also set styles, for example legends:
       itemMarkerFill: '#5B8FF9',
       itemMarkerStroke: '#333',
       itemMarkerStrokeOpacity: 0.8,
-      
+
       // Legend item label styles (categorical legend)
       itemLabelFontSize: 12,
       itemLabelFill: '#666',
@@ -295,22 +283,22 @@ Axes consist of multiple elements including title, axis line, ticks, tick labels
       titleFontFamily: 'Arial',
       titleFontWeight: 'bold',
       titleFill: '#333',
-      
+
       // Axis line styles
       line: true,
       lineStroke: '#666',
       lineLineWidth: 2,
-      
+
       // Tick styles
       tick: true,
       tickStroke: '#999',
       tickLineWidth: 1,
-      
+
       // Tick label styles
       labelFontSize: 12,
       labelFill: '#666',
       labelFontFamily: 'sans-serif',
-      
+
       // Grid line styles
       grid: true,
       gridStroke: '#e6e6e6',
@@ -340,17 +328,17 @@ Legends support both categorical and continuous legend types, both offering rich
       titleFontFamily: 'Arial',
       titleFill: '#333',
       titleFontWeight: 'bold',
-      
+
       // Legend item marker styles (categorical legend)
       itemMarkerFill: '#5B8FF9',
       itemMarkerStroke: '#333',
       itemMarkerStrokeOpacity: 0.8,
-      
+
       // Legend item label styles (categorical legend)
       itemLabelFontSize: 12,
       itemLabelFill: '#666',
       itemLabelFontFamily: 'sans-serif',
-      
+
       // Continuous legend styles
       ribbon: {
         fill: '#5B8FF9',
@@ -410,14 +398,14 @@ Chart titles include both main title and subtitle, both supporting detailed styl
     titleFill: '#333',
     titleStroke: '#000',
     titleLineWidth: 1,
-    
+
     // Subtitle
     subtitle: 'Chart Subtitle',
     subtitleFontSize: 14,
     subtitleFontFamily: 'Arial',
     subtitleFontWeight: 'normal',
     subtitleFill: '#666',
-    
+
     // Layout configuration
     align: 'center',
     spacing: 8,
@@ -458,13 +446,13 @@ Tooltip styles are mainly customized through interaction configuration, supporti
           'font-weight': 'normal',
         },
       },
-      
+
       // Marker styles
       marker: true,
       markerFill: '#5B8FF9',
       markerStroke: '#fff',
       markerLineWidth: 2,
-      
+
       // Crosshair styles
       crosshairs: true,
       crosshairsStroke: '#999',
@@ -736,7 +724,7 @@ chart.options({
   scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
   title: {
     size: 30,
-    title: "I am a title",
+    title: 'I am a title',
     align: 'center',
     spacing: 4,
 

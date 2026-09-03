@@ -11,39 +11,57 @@ const chart = new Chart({
   paddingRight: 0,
 });
 
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/3041da62-1bf4-4849-aac3-01a387544bf4.csv',
-  })
-  .transform({ type: 'flexX', reducer: 'sum' })
-  .transform({ type: 'stackY' })
-  .transform({ type: 'normalizeY' })
-  .encode('x', 'market')
-  .encode('y', 'value')
-  .encode('color', 'segment')
-  .axis('y', false)
-  .scale('x', { paddingOuter: 0, paddingInner: 0.01 })
-  .tooltip('value')
-  .label({
-    text: 'segment',
-    x: 5,
-    y: 5,
-    textAlign: 'start',
-    textBaseline: 'top',
-    fontSize: 10,
-    fill: '#fff',
-  })
-  .label({
-    text: 'value',
-    x: 5,
-    y: 5,
-    textAlign: 'start',
-    dy: 15,
-    fontSize: 10,
-    fill: '#fff',
-  });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/3041da62-1bf4-4849-aac3-01a387544bf4.csv',
+      },
+      transform: [
+        { type: 'flexX', reducer: 'sum' },
+        { type: 'stackY' },
+        { type: 'normalizeY' },
+      ],
+      encode: {
+        x: 'market',
+        y: 'value',
+        color: 'segment',
+      },
+      axis: {
+        y: false,
+      },
+      scale: {
+        x: { paddingOuter: 0, paddingInner: 0.01 },
+      },
+      tooltip: {
+        items: ['value'],
+      },
+      labels: [
+        {
+          text: 'segment',
+          x: 5,
+          y: 5,
+          textAlign: 'start',
+          textBaseline: 'top',
+          fontSize: 10,
+          fill: '#fff',
+        },
+        {
+          text: 'value',
+          x: 5,
+          y: 5,
+          textAlign: 'start',
+          dy: 15,
+          fontSize: 10,
+          fill: '#fff',
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

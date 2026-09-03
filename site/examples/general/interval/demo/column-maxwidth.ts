@@ -5,13 +5,25 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data([{ letter: 'A', frequency: 120 }])
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .scale('x', { padding: 0.5 })
-  // .style('minWidth', 500)
-  .style('maxWidth', 200);
+// .style('minWidth', 500)
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: [{ letter: 'A', frequency: 120 }],
+      encode: {
+        x: 'letter',
+        y: 'frequency',
+      },
+      scale: {
+        x: { padding: 0.5 },
+      },
+      style: {
+        maxWidth: 200,
+      },
+    },
+  ],
+});
 
 chart.render();

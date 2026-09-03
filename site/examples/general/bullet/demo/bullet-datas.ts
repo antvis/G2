@@ -28,61 +28,83 @@ const data = [
   },
 ];
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart
-  .data(data)
-  .scale('color', {
-    range: [colors['ranges'], colors['measures'], colors['target']].flat(),
-  })
-  .legend('color', {
-    itemMarker: (d) => {
-      return d === '目标' ? 'line' : 'square';
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: data,
+  scale: {
+    color: {
+      range: [colors['ranges'], colors['measures'], colors['target']].flat(),
     },
-  });
-
-chart
-  .interval()
-  .axis({
-    y: {
-      grid: true,
-      gridLineWidth: 2,
+  },
+  legend: {
+    color: {
+      itemMarker: (d) => {
+        return d === '目标' ? 'line' : 'square';
+      },
     },
-    x: {
-      title: false,
+  },
+  interaction: {
+    tooltip: { shared: true },
+  },
+  children: [
+    {
+      type: 'interval',
+      axis: {
+        y: {
+          grid: true,
+          gridLineWidth: 2,
+        },
+        x: {
+          title: false,
+        },
+      },
+      encode: {
+        x: 'title',
+        y: 'ranges',
+        color: (d, i) => ['优', '良', '差'][i],
+      },
+      style: {
+        maxWidth: 30,
+      },
     },
-  })
-  .encode('x', 'title')
-  .encode('y', 'ranges')
-  .encode('color', (d, i) => ['优', '良', '差'][i])
-  .style('maxWidth', 30);
-
-chart
-  .interval()
-  .encode('x', 'title')
-  .encode('y', 'measures')
-  .encode('color', (d, i) => ['下半年', '上半年'][i] || '下半年')
-  .style('maxWidth', 20)
-  .label({
-    text: 'measures',
-    position: 'right',
-    textAlign: 'left',
-    dx: 5,
-  });
-
-chart
-  .point()
-  .encode('x', 'title')
-  .encode('y', 'target')
-  .encode('shape', 'line')
-  .encode('color', () => '目标')
-  .encode('size', 8)
-  .style('lineWidth', 1)
-  .tooltip({
-    title: false,
-    items: [{ channel: 'y' }],
-  });
-
-chart.interaction('tooltip', { shared: true });
+    {
+      type: 'interval',
+      encode: {
+        x: 'title',
+        y: 'measures',
+        color: (d, i) => ['下半年', '上半年'][i] || '下半年',
+      },
+      style: {
+        maxWidth: 20,
+      },
+      labels: [
+        {
+          text: 'measures',
+          position: 'right',
+          textAlign: 'left',
+          dx: 5,
+        },
+      ],
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'title',
+        y: 'target',
+        shape: 'line',
+        color: () => '目标',
+        size: 8,
+      },
+      style: {
+        lineWidth: 1,
+      },
+      tooltip: {
+        title: false,
+        items: [{ channel: 'y' }],
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -8,31 +8,47 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/movies.json',
-  transform: [
+// groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d['IMDB Rating'] > 0,
+      },
+    ],
+  },
+  children: [
     {
-      type: 'filter',
-      callback: (d) => d['IMDB Rating'] > 0,
+      type: 'rect',
+      transform: [{ type: 'binX', y: 'count', thresholds: 9 }],
+      encode: {
+        x: 'IMDB Rating',
+      },
+      scale: {
+        y: { domainMax: 1000 },
+      },
+      style: {
+        inset: 1,
+      },
+    },
+    {
+      type: 'lineX',
+      transform: [{ type: 'groupColor', x: 'mean' }],
+      encode: {
+        x: 'IMDB Rating',
+      },
+      style: {
+        stroke: '#F4664A',
+        strokeOpacity: 1,
+        lineWidth: 2,
+        lineDash: [4, 4],
+      },
     },
   ],
 });
-
-chart
-  .rect()
-  .transform({ type: 'binX', y: 'count', thresholds: 9 })
-  .encode('x', 'IMDB Rating')
-  .scale('y', { domainMax: 1000 })
-  .style('inset', 1);
-
-chart
-  .lineX()
-  .transform({ type: 'groupColor', x: 'mean' }) // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
-  .encode('x', 'IMDB Rating')
-  .style('stroke', '#F4664A')
-  .style('strokeOpacity', 1)
-  .style('lineWidth', 2)
-  .style('lineDash', [4, 4]);
 
 chart.render();

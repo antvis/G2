@@ -16,11 +16,19 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .coordinate({ transform: [{ type: 'transpose' }] })
-  .data(data)
-  .encode('x', 'year')
-  .encode('y', 'sales');
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      coordinate: { transform: [{ type: 'transpose' }] },
+      data: data,
+      encode: {
+        x: 'year',
+        y: 'sales',
+      },
+    },
+  ],
+});
 
 chart.render();

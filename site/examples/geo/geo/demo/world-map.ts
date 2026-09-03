@@ -13,27 +13,38 @@ const chart = new Chart({
   autoFit: true,
 });
 
-const geoView = chart.geoView().coordinate({ type: 'orthographic' });
-
-geoView
-  .geoPath()
-  .data({ type: 'graticule10' })
-  .style('stroke', '#ccc')
-  .style('fill', 'none');
-
-geoView
-  .geoPath()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/countries-50m.json',
-    transform: [{ type: 'feature', name: 'land' }],
-  })
-  .style('fill', 'black');
-
-geoView
-  .geoPath()
-  .data({ type: 'sphere' })
-  .style('stroke', 'black')
-  .style('fill', 'none');
+chart.options({
+  type: 'geoView',
+  coordinate: { type: 'orthographic' },
+  children: [
+    {
+      type: 'geoPath',
+      data: { type: 'graticule10' },
+      style: {
+        stroke: '#ccc',
+        fill: 'none',
+      },
+    },
+    {
+      type: 'geoPath',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/countries-50m.json',
+        transform: [{ type: 'feature', name: 'land' }],
+      },
+      style: {
+        fill: 'black',
+      },
+    },
+    {
+      type: 'geoPath',
+      data: { type: 'sphere' },
+      style: {
+        stroke: 'black',
+        fill: 'none',
+      },
+    },
+  ],
+});
 
 chart.render();

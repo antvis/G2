@@ -5,21 +5,33 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .transform([{ type: 'sortX', by: 'y', reverse: true, slice: 5 }])
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' })
-  .state({
-    selected: { fill: '#f4bb51' },
-    unselected: { opacity: 0.6 },
-  })
-  .interaction('elementSelect', true);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+      },
+      transform: [{ type: 'sortX', by: 'y', reverse: true, slice: 5 }],
+      encode: {
+        x: 'letter',
+        y: 'frequency',
+      },
+      axis: {
+        y: { labelFormatter: '.0%' },
+      },
+      state: {
+        selected: { fill: '#f4bb51' },
+        unselected: { opacity: 0.6 },
+      },
+      interaction: {
+        elementSelect: true,
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -70,7 +70,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -131,7 +136,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -199,7 +209,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -280,7 +295,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -314,7 +334,9 @@ chart.render().then(() => {
 You may notice that in the example above we intentionally turned off the legend:
 
 ```ts
-chart.legend(false);
+({
+  legend: false,
+});
 ```
 
 This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/manual/component/legend#自定义图例legend), we can customize the legend using HTML:
@@ -413,7 +435,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -581,7 +608,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,

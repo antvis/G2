@@ -371,29 +371,6 @@ G2 内部会根据数据类型以及标记的类型，去推断比例尺的类�
 });
 ```
 
-```js
-// API
-// 第一种方式
-chart
-  .interval()
-  .scale('x', { padding: 0.5 })
-  .scale('y', {
-    type: 'log', // 指定类型
-    domain: [10, 100], // 指定定义域
-    range: [0, 1], // 指定值域
-  });
-
-// 第二种方式
-chart.interval().scale({
-  x: { padding: 0.5 },
-  y: {
-    type: 'log', // 指定类型
-    domain: [10, 100], // 指定定义域
-    range: [0, 1], // 指定值域
-  },
-});
-```
-
 比例尺也可以配置在 View 层级：
 
 ```js
@@ -406,26 +383,6 @@ chart.interval().scale({
       domain: [10, 100], // 指定定义域
       range: [0, 1], // 指定值域
     },
-  },
-});
-```
-
-```js
-// API 形式
-// 第一种方式
-chart.scale('x', { padding: 0.5 }).scale('y', {
-  type: 'log', // 指定类型
-  domain: [10, 100], // 指定定义域
-  range: [0, 1], // 指定值域
-});
-
-// 第二种方式
-chart.scale({
-  x: { padding: 0.5 },
-  y: {
-    type: 'log', // 指定类型
-    domain: [10, 100], // 指定定义域
-    range: [0, 1], // 指定值域
   },
 });
 ```

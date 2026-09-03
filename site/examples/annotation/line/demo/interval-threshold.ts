@@ -10,8 +10,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     { Day: 1, Value: 54.8 },
     { Day: 2, Value: 112.1 },
     { Day: 3, Value: 63.6 },
@@ -27,40 +28,56 @@ chart
     { Day: 13, Value: 112.0 },
     { Day: 14, Value: 174.5 },
     { Day: 15, Value: 130.5 },
-  ])
-  .axis('y', { title: false });
-
-chart.interval().encode('x', 'Day').encode('y', 'Value');
-
-chart
-  .range()
-  .data({
-    transform: [
-      {
-        type: 'custom',
-        callback: (data) => overThreshold(data, 300),
+  ],
+  axis: {
+    y: { title: false },
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'Day',
+        y: 'Value',
       },
-    ],
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', '#F4664A');
-
-chart
-  .lineY()
-  .data([300])
-  .style('stroke', '#F4664A')
-  .style('lineDash', [3, 3])
-  .style('arrow', true)
-  .label({
-    text: 'hazardous',
-    position: 'right',
-    textBaseline: 'bottom',
-    fill: '#F4664A',
-    background: true,
-    backgroundFill: '#F4664A',
-    backgroundOpacity: 0.25,
-  });
+    },
+    {
+      type: 'range',
+      data: {
+        transform: [
+          {
+            type: 'custom',
+            callback: (data) => overThreshold(data, 300),
+          },
+        ],
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: '#F4664A',
+      },
+    },
+    {
+      type: 'lineY',
+      data: [300],
+      style: {
+        stroke: '#F4664A',
+        lineDash: [3, 3],
+        arrow: true,
+      },
+      labels: [
+        {
+          text: 'hazardous',
+          position: 'right',
+          textBaseline: 'bottom',
+          fill: '#F4664A',
+          background: true,
+          backgroundFill: '#F4664A',
+          backgroundOpacity: 0.25,
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();
 

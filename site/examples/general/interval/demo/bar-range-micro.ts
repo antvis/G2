@@ -22,36 +22,50 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data([
+// Add float part to distinguish y and y1
+chart.options({
+  type: 'view',
+  children: [
     {
-      task: 'task0',
-      startTime: '2023-06-28 03:30:33.900123', // micro seconds
-      endTime: '2023-06-28 03:30:33.900678', // micro seconds
-      status: '0',
+      type: 'interval',
+      data: [
+        {
+          task: 'task0',
+          startTime: '2023-06-28 03:30:33.900123', // micro seconds
+          endTime: '2023-06-28 03:30:33.900678', // micro seconds
+          status: '0',
+        },
+        {
+          task: 'task0',
+          startTime: '2023-06-28 03:30:33.901123',
+          endTime: '2023-06-28 03:30:33.902678',
+          status: '1',
+        },
+      ],
+      encode: {
+        x: 'task',
+        y: (d) => floatTimestamp(d.startTime),
+        y1: (d) => floatTimestamp(d.endTime),
+        color: 'status',
+      },
+      scale: {
+        y: {
+          type: 'time',
+          domain: [
+            new Date('2023-06-28 03:30:33.900'),
+            new Date('2023-06-28 03:30:33.903'),
+          ],
+        },
+      },
+      coordinate: { transform: [{ type: 'transpose' }] },
+      tooltip: {
+        items: [
+          { channel: 'y', valueFormatter: format },
+          { channel: 'y1', valueFormatter: format },
+        ],
+      },
     },
-    {
-      task: 'task0',
-      startTime: '2023-06-28 03:30:33.901123',
-      endTime: '2023-06-28 03:30:33.902678',
-      status: '1',
-    },
-  ])
-  .encode('x', 'task')
-  // Add float part to distinguish y and y1
-  .encode('y', (d) => floatTimestamp(d.startTime))
-  .encode('y1', (d) => floatTimestamp(d.endTime))
-  .encode('color', 'status')
-  .scale('y', {
-    type: 'time',
-    domain: [
-      new Date('2023-06-28 03:30:33.900'),
-      new Date('2023-06-28 03:30:33.903'),
-    ],
-  })
-  .coordinate({ transform: [{ type: 'transpose' }] })
-  .tooltip({ channel: 'y', valueFormatter: format })
-  .tooltip({ channel: 'y1', valueFormatter: format });
+  ],
+});
 
 chart.render();

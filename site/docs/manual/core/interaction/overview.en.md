@@ -17,18 +17,6 @@ Interaction can be set at the view level:
 });
 ```
 
-```js
-// API
-// First method
-chart.interaction('tooltip', {}).interaction('brushHighlight', {});
-
-// Second method
-chart.interaction({
-  tooltip: {},
-  brushHighlight: {},
-});
-```
-
 Interaction can also be set at the mark level:
 
 ```js
@@ -38,18 +26,6 @@ Interaction can also be set at the mark level:
     tooltip: {},
     brushHighlight: {},
   },
-});
-```
-
-```js
-// API
-// First method
-chart.interval().interaction('tooltip', {}).interaction('brushHighlight', {});
-
-// Second method
-chart.interval().interaction({
-  tooltip: {},
-  brushHighlight: {},
 });
 ```
 

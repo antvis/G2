@@ -8,18 +8,32 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .area()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/temperatures3.json',
-  })
-  .scale('color', { palette: 'reds' })
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', ['low', 'high'])
-  .encode('color', (d) => d.high - d.low)
-  .encode('series', () => undefined)
-  .style('gradient', 'x')
-  .axis('x', { title: 'date' });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'area',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/temperatures3.json',
+      },
+      scale: {
+        color: { palette: 'reds' },
+      },
+      encode: {
+        x: (d) => new Date(d.date),
+        y: ['low', 'high'],
+        color: (d) => d.high - d.low,
+        series: () => undefined,
+      },
+      style: {
+        gradient: 'x',
+      },
+      axis: {
+        x: { title: 'date' },
+      },
+    },
+  ],
+});
 
 chart.render();

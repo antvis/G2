@@ -13,15 +13,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data(fruits)
-  .transform({ type: 'stackEnter', groupBy: 'color' })
-  .transform({ type: 'dodgeX' })
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .encode('color', 'type')
-  .animate('enter', { duration: 500 });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: fruits,
+      transform: [{ type: 'stackEnter', groupBy: 'color' }, { type: 'dodgeX' }],
+      encode: {
+        x: 'year',
+        y: 'value',
+        color: 'type',
+      },
+      animate: {
+        enter: { duration: 500 },
+      },
+    },
+  ],
+});
 
 chart.render();

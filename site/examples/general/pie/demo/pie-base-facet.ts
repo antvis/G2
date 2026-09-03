@@ -10,56 +10,89 @@ const chart = new Chart({
   autoFit: true,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data(data)
-  .encode('x', 'type')
-  .axis(false)
-  .legend(false)
-  .view()
-  .attr('frame', false)
-  .coordinate({ type: 'theta', innerRadius: 0.5, outerRadius: 0.8 });
-
-facetRect
-  .interval()
-  .encode('y', 100)
-  .scale('y', { zero: true })
-  .style('fill', '#e8e8e8')
-  .tooltip(false)
-  .animate(false);
-
-facetRect
-  .interval()
-  .encode('y', 'percent')
-  .encode('color', 'color')
-  .scale('color', { type: 'identity' })
-  .tooltip((data) => ({
-    name: data.type,
-    value: data.percent,
-  }))
-  .animate('enter', { type: 'waveIn', duration: 1000 });
-
-facetRect
-  .text()
-  .encode('text', 'type')
-  .style('textAlign', 'center')
-  .style('textBaseline', 'middle')
-  .style('fontSize', 20)
-  .style('color', '#8c8c8c')
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('dy', -20);
-
-facetRect
-  .text()
-  .encode('text', 'percent')
-  .style('textAlign', 'center')
-  .style('textBaseline', 'middle')
-  .style('fontSize', 30)
-  .style('fontWeight', 500)
-  .style('color', '#000')
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('dy', 20);
+chart.options({
+  type: 'facetRect',
+  data: data,
+  encode: {
+    x: 'type',
+  },
+  axis: false,
+  legend: false,
+  children: [
+    {
+      type: 'view',
+      frame: false,
+      coordinate: { type: 'theta', innerRadius: 0.5, outerRadius: 0.8 },
+      children: [
+        {
+          type: 'interval',
+          encode: {
+            y: 100,
+          },
+          scale: {
+            y: { zero: true },
+          },
+          style: {
+            fill: '#e8e8e8',
+          },
+          tooltip: false,
+          animate: false,
+        },
+        {
+          type: 'interval',
+          encode: {
+            y: 'percent',
+            color: 'color',
+          },
+          scale: {
+            color: { type: 'identity' },
+          },
+          tooltip: {
+            items: [
+              (data) => ({
+                name: data.type,
+                value: data.percent,
+              }),
+            ],
+          },
+          animate: {
+            enter: { type: 'waveIn', duration: 1000 },
+          },
+        },
+        {
+          type: 'text',
+          encode: {
+            text: 'type',
+          },
+          style: {
+            textAlign: 'center',
+            textBaseline: 'middle',
+            fontSize: 20,
+            color: '#8c8c8c',
+            x: '50%',
+            y: '50%',
+            dy: -20,
+          },
+        },
+        {
+          type: 'text',
+          encode: {
+            text: 'percent',
+          },
+          style: {
+            textAlign: 'center',
+            textBaseline: 'middle',
+            fontSize: 30,
+            fontWeight: 500,
+            color: '#000',
+            x: '50%',
+            y: '50%',
+            dy: 20,
+          },
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

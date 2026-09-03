@@ -60,18 +60,6 @@ chart
 });
 ```
 
-```js
-// API
-// 第一种方式
-chart.style('viewFill', 'red').style('contentFill', 'yellow');
-
-// 第二种方式
-chart.style({
-  viewFill: 'red',
-  contentFill: 'yellow',
-});
-```
-
 所有的图表组件也可以设置样式，例如图例：
 
 ```ts
@@ -83,7 +71,7 @@ chart.style({
       itemMarkerFill: '#5B8FF9',
       itemMarkerStroke: '#333',
       itemMarkerStrokeOpacity: 0.8,
-      
+
       // 图例项标签样式（分类图例）
       itemLabelFontSize: 12,
       itemLabelFill: '#666',
@@ -295,22 +283,22 @@ chart.render();
       titleFontFamily: 'Arial',
       titleFontWeight: 'bold',
       titleFill: '#333',
-      
+
       // 轴线样式
       line: true,
       lineStroke: '#666',
       lineLineWidth: 2,
-      
+
       // 刻度样式
       tick: true,
       tickStroke: '#999',
       tickLineWidth: 1,
-      
+
       // 刻度值标签样式
       labelFontSize: 12,
       labelFill: '#666',
       labelFontFamily: 'sans-serif',
-      
+
       // 网格线样式
       grid: true,
       gridStroke: '#e6e6e6',
@@ -340,17 +328,17 @@ chart.render();
       titleFontFamily: 'Arial',
       titleFill: '#333',
       titleFontWeight: 'bold',
-      
+
       // 图例项图标样式（分类图例）
       itemMarkerFill: '#5B8FF9',
       itemMarkerStroke: '#333',
       itemMarkerStrokeOpacity: 0.8,
-      
+
       // 图例项标签样式（分类图例）
       itemLabelFontSize: 12,
       itemLabelFill: '#666',
       itemLabelFontFamily: 'sans-serif',
-      
+
       // 连续图例样式
       ribbon: {
         fill: '#5B8FF9',
@@ -410,14 +398,14 @@ chart.render();
     titleFill: '#333',
     titleStroke: '#000',
     titleLineWidth: 1,
-    
+
     // 副标题
     subtitle: '图表副标题',
     subtitleFontSize: 14,
     subtitleFontFamily: 'Arial',
     subtitleFontWeight: 'normal',
     subtitleFill: '#666',
-    
+
     // 布局配置
     align: 'center',
     spacing: 8,
@@ -429,7 +417,7 @@ chart.render();
 
 ### 提示信息样式
 
-提示信息的样式主要通过交互配置来定制，支持CSS样式、标记点样式和辅助线样式：
+提示信息的样式主要通过交互配置来定制，支持 CSS 样式、标记点样式和辅助线样式：
 
 ```js
 ({
@@ -458,13 +446,13 @@ chart.render();
           'font-weight': 'normal',
         },
       },
-      
+
       // 标记点样式
       marker: true,
       markerFill: '#5B8FF9',
       markerStroke: '#fff',
       markerLineWidth: 2,
-      
+
       // 辅助线样式
       crosshairs: true,
       crosshairsStroke: '#999',

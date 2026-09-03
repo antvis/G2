@@ -13,15 +13,18 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'filter',
-      callback: (d) => d.a < 3,
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d.a < 3,
+      },
+    ],
+  },
 });
 ```
 

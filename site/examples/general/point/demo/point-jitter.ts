@@ -8,20 +8,29 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
-  })
-  .transform({ type: 'sortX', channel: 'x' })
-  .transform({ type: 'jitterX' })
-  .encode('y', 'Horsepower')
-  .encode('x', 'Cylinders')
-  .encode('shape', 'hollow')
-  .encode('color', 'Cylinders')
-  .scale('x', { type: 'point' })
-  .scale('color', { type: 'ordinal' });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
+      },
+      transform: [{ type: 'sortX', channel: 'x' }, { type: 'jitterX' }],
+      encode: {
+        y: 'Horsepower',
+        x: 'Cylinders',
+        shape: 'hollow',
+        color: 'Cylinders',
+      },
+      scale: {
+        x: { type: 'point' },
+        color: { type: 'ordinal' },
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -63,14 +63,9 @@ In G2, **Layout** is used to specify parameters for layout methods of marks with
 });
 ```
 
-```js
-// API
-chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
-```
-
 ## Data Update
 
-Sankey diagrams support dynamic data updates using G2's built-in API `changeData()`:
+Sankey diagrams support dynamic updates by replacing `data` in the Spec:
 
 ```js
 const newData = {
@@ -81,7 +76,13 @@ const newData = {
     { source: 'C', target: 'D', value: 12 },
   ],
 };
-chart.changeData({ type: 'inline', value: newData });
+const options = chart.options();
+chart
+  .options({
+    ...options,
+    data: { type: 'inline', value: newData },
+  })
+  .render();
 ```
 
 **Syntactic Sugar (Recommended)**
@@ -97,7 +98,7 @@ const newData = [
 ];
 
 // Pass array directly
-chart.changeData(newData);
+chart.options({ ...chart.options(), data: newData }).render();
 ```
 
 ### Empty Data Handling
@@ -106,9 +107,9 @@ When passing an empty array or not providing `links`, the chart will display as 
 
 ```js
 // Clear chart - chart will display as blank
-chart.changeData([]);
+chart.options({ ...chart.options(), data: [] }).render();
 // or
-chart.changeData({ links: [] });
+chart.options({ ...chart.options(), data: { links: [] } }).render();
 ```
 
 ### Sankey Diagram Data Update Example
@@ -141,8 +142,7 @@ chart.on('element:click', () => {
     value: Math.random() * 30 + 5,
   }));
 
-  // Use simplified syntax to update data
-  chart.changeData(randomData);
+  chart.options({ ...chart.options(), data: randomData }).render();
 });
 ```
 

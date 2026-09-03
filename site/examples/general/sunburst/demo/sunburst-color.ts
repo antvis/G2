@@ -8,13 +8,22 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .encode('color', 'label');
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'sunburst',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+      },
+      encode: {
+        value: 'sum',
+        color: 'label',
+      },
+    },
+  ],
+});
 
 chart.render();

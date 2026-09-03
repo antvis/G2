@@ -9,57 +9,62 @@ fetch(
       container: 'container',
       width: 800,
     });
-    const padding = (node) =>
-      node.attr('paddingRight', 120).attr('paddingLeft', 70);
+    const padding = { paddingRight: 120, paddingLeft: 70 };
+    const encode = {
+      shape: 'smooth',
+      x: (d) => new Date(d.date),
+      y: 'unemployed',
+      color: 'industry',
+      key: 'industry',
+    };
 
-    const encode = (node) =>
-      node
-        .encode('shape', 'smooth')
-        .encode('x', (d) => new Date(d.date))
-        .encode('y', 'unemployed')
-        .encode('color', 'industry')
-        .encode('key', 'industry');
-
-    const utcX = (node) => node.scale('x', { utc: true });
-
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 2);
-
-    keyframe
-      .facetRect()
-      .call(padding)
-      .attr('paddingBottom', 60)
-      .data(data)
-      .encode('y', 'industry')
-      .area()
-      .attr('class', 'area')
-      .attr('frame', false)
-      .call(encode)
-      .call(utcX)
-      .scale('y', { facet: false })
-      .style('fillOpacity', 1)
-      .animate('enter', { type: 'scaleInY' });
-
-    keyframe
-      .area()
-      .call(padding)
-      .data(data)
-      .attr('class', 'area')
-      .transform({ type: 'stackY', reverse: true })
-      .call(encode)
-      .call(utcX)
-      .style('fillOpacity', 1);
-
-    keyframe
-      .area()
-      .call(padding)
-      .data(data)
-      .attr('class', 'area')
-      .call(encode)
-      .call(utcX)
-      .style('fillOpacity', 0.8);
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 2,
+      children: [
+        {
+          type: 'facetRect',
+          ...padding,
+          paddingBottom: 60,
+          data,
+          encode: { y: 'industry' },
+          children: [
+            {
+              type: 'area',
+              class: 'area',
+              frame: false,
+              encode,
+              scale: {
+                x: { utc: true },
+                y: { facet: false },
+              },
+              style: { fillOpacity: 1 },
+              animate: { enter: { type: 'scaleInY' } },
+            },
+          ],
+        },
+        {
+          type: 'area',
+          ...padding,
+          data,
+          class: 'area',
+          transform: [{ type: 'stackY', reverse: true }],
+          encode,
+          scale: { x: { utc: true } },
+          style: { fillOpacity: 1 },
+        },
+        {
+          type: 'area',
+          ...padding,
+          data,
+          class: 'area',
+          encode,
+          scale: { x: { utc: true } },
+          style: { fillOpacity: 0.8 },
+        },
+      ],
+    });
 
     chart.render();
   });

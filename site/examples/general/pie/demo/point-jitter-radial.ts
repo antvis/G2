@@ -8,17 +8,25 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'polar' });
-
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .transform({ type: 'jitter' })
-  .encode('x', 'clarity')
-  .encode('color', 'clarity')
-  .legend(false);
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
+      },
+      transform: [{ type: 'jitter' }],
+      encode: {
+        x: 'clarity',
+        color: 'clarity',
+      },
+      legend: false,
+    },
+  ],
+});
 
 chart.render();

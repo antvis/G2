@@ -14,7 +14,7 @@ G2 中**标题（Title）** 用于指定图表的标题内容，可以用于一�
 ```js
 ({
   type: 'interval',
-  title: false; // 隐藏图表标题
+  title: false, // 隐藏图表标题
 })
 ```
 
@@ -143,7 +143,7 @@ const data = [
   546, 983, 340, 539, 243, 226, 192,
 ];
 
-chart.options({
+const options = {
   data,
   type: 'interval',
   encode: {
@@ -156,10 +156,16 @@ chart.options({
     subtitle: 'Displayed are sampled values.',
   },
   axis: false,
-});
+};
+chart.options(options);
+
 const handleSetAlign = (align) => {
-  chart.title({ align });
-  chart.render(); // 重新渲染图表
+  chart
+    .options({
+      ...options,
+      title: { ...options.title, align },
+    })
+    .render();
 };
 
 const selectorContainer = document.createElement('div');
@@ -251,20 +257,19 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.title({
-  align: 'right',
-  title: 'Sold by genre, sorted by sold',
-  titleFontSize: 15,
-  subtitle: 'It shows the sales volume of genre, sored by sold.',
-  subtitleFill: 'red',
-  subtitleFontSize: 12,
-  subtitleShadowColor: 'yellow',
-  subtitleShadowBlur: 5,
-  subtitleFontStyle: 'italic',
-});
-
 chart.options({
   type: 'interval',
+  title: {
+    align: 'right',
+    title: 'Sold by genre, sorted by sold',
+    titleFontSize: 15,
+    subtitle: 'It shows the sales volume of genre, sored by sold.',
+    subtitleFill: 'red',
+    subtitleFontSize: 12,
+    subtitleShadowColor: 'yellow',
+    subtitleShadowBlur: 5,
+    subtitleFontStyle: 'italic',
+  },
   data: [
     { genre: 'Sports', sold: 0 },
     { genre: 'Strategy', sold: 115 },

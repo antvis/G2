@@ -16,50 +16,72 @@ const chart = new Chart({
   theme: 'dark',
 });
 
-chart.data(data).coordinate({ type: 'radial', innerRadius: 0.35 });
-
-chart
-  .interval()
-  .encode('x', 'type')
-  .encode('y', 0.2)
-  .style('fill', '#202020')
-  .state({
-    active: { strokeWidth: 0 },
-  })
-  .tooltip(false);
-
-chart
-  .interval()
-  .encode('x', 'type')
-  .encode('y', 'value')
-  .encode('color', [
-    (val) => (val.type === '10-30分' || val.type === '30+分' ? 'high' : 'low'),
-  ])
-  .scale('color', { range: ['#5B8FF9', '#ff4d4f'] })
-  .style('radius', 20)
-  .tooltip([
-    (item) => ({
-      name: item.type,
-      value: item.value,
-    }),
-  ])
-  .axis(false)
-  .legend(false)
-  .state({
-    active: { stroke: '#fff', strokeWidth: 1 },
-  })
-  .interaction('elementHighlight');
-
-chart
-  .image()
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('width', 100)
-  .style('height', 80)
-  .encode(
-    'src',
-    'https://gw.alipayobjects.com/mdn/rms_ef85c6/afts/img/A*0DYiQKP08cQAAAAAAAAAAAAAARQnAQ',
-  )
-  .tooltip(false);
+chart.options({
+  type: 'view',
+  data: data,
+  coordinate: { type: 'radial', innerRadius: 0.35 },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'type',
+        y: 0.2,
+      },
+      style: {
+        fill: '#202020',
+      },
+      state: {
+        active: { strokeWidth: 0 },
+      },
+      tooltip: false,
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'type',
+        y: 'value',
+        color: [
+          (val) =>
+            val.type === '10-30分' || val.type === '30+分' ? 'high' : 'low',
+        ],
+      },
+      scale: {
+        color: { range: ['#5B8FF9', '#ff4d4f'] },
+      },
+      style: {
+        radius: 20,
+      },
+      tooltip: {
+        items: [
+          (item) => ({
+            name: item.type,
+            value: item.value,
+          }),
+        ],
+      },
+      axis: false,
+      legend: false,
+      state: {
+        active: { stroke: '#fff', strokeWidth: 1 },
+      },
+      interaction: {
+        elementHighlight: true,
+      },
+    },
+    {
+      type: 'image',
+      style: {
+        x: '50%',
+        y: '50%',
+        width: 100,
+        height: 80,
+      },
+      encode: {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ef85c6/afts/img/A*0DYiQKP08cQAAAAAAAAAAAAAARQnAQ',
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

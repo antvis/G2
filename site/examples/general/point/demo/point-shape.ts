@@ -8,18 +8,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .point()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/bd73a175-4417-4749-8b88-bc04d955e899.csv',
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('shape', 'category')
-  .encode('color', 'category')
-  .encode('size', 5)
-  .scale('shape', { range: ['point', 'plus', 'diamond'] });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'point',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/bd73a175-4417-4749-8b88-bc04d955e899.csv',
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+        shape: 'category',
+        color: 'category',
+        size: 5,
+      },
+      scale: {
+        shape: { range: ['point', 'plus', 'diamond'] },
+      },
+    },
+  ],
+});
 
 chart.render();

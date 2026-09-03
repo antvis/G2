@@ -13,31 +13,43 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({
-  transform: [{ type: 'transpose' }],
+chart.options({
+  type: 'view',
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  data: data,
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'text',
+        y: 'value',
+        color: 'text',
+        shape: 'pyramid',
+      },
+      transform: [{ type: 'symmetryY' }],
+      scale: {
+        x: { paddingOuter: 0, paddingInner: 0 },
+        color: { type: 'ordinal' },
+      },
+      labels: [
+        {
+          text: (d) => d.text,
+          position: 'inside',
+        },
+        {
+          text: (d) => d.value + '%',
+          position: 'inside',
+          style: { dy: 15 },
+        },
+      ],
+      style: {
+        reverse: true,
+      },
+      axis: false,
+    },
+  ],
 });
-
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'text')
-  .encode('y', 'value')
-  .encode('color', 'text')
-  .encode('shape', 'pyramid')
-  .transform({ type: 'symmetryY' })
-  .scale('x', { paddingOuter: 0, paddingInner: 0 })
-  .scale('color', { type: 'ordinal' })
-  .label({
-    text: (d) => d.text,
-    position: 'inside',
-  })
-  .label({
-    text: (d) => d.value + '%',
-    position: 'inside',
-    style: { dy: 15 },
-  })
-  .style('reverse', true)
-  .axis(false);
 
 chart.render();

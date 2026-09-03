@@ -14,32 +14,46 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({
-  transform: [{ type: 'transpose' }],
+chart.options({
+  type: 'view',
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  data: data,
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'action',
+        y: 'pv',
+        color: 'action',
+        shape: 'funnel',
+      },
+      transform: [{ type: 'symmetryY' }],
+      scale: {
+        x: { padding: 0 },
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+      style: {
+        innerRadiusTopLeft: 0,
+        innerRadiusTopRight: 5,
+        innerRadiusBottomRight: 10,
+        innerRadiusBottomLeft: 15,
+        radiusBottomRight: 0,
+        radiusBottomLeft: 0,
+      },
+      labels: [
+        {
+          text: (d) => `${d.action}\n${d.pv}`,
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
+        },
+      ],
+      axis: false,
+    },
+  ],
 });
-
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'action')
-  .encode('y', 'pv')
-  .encode('color', 'action')
-  .encode('shape', 'funnel')
-  .transform({ type: 'symmetryY' })
-  .scale('x', { padding: 0 })
-  .animate('enter', { type: 'fadeIn' })
-  .style('innerRadiusTopLeft', 0)
-  .style('innerRadiusTopRight', 5)
-  .style('innerRadiusBottomRight', 10)
-  .style('innerRadiusBottomLeft', 15)
-  .style('radiusBottomRight', 0)
-  .style('radiusBottomLeft', 0)
-  .label({
-    text: (d) => `${d.action}\n${d.pv}`,
-    position: 'inside',
-    transform: [{ type: 'contrastReverse' }],
-  })
-  .axis(false);
 
 chart.render();

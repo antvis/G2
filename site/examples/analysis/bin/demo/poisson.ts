@@ -8,16 +8,26 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .rect()
-  .data(new Array(5000).fill(0).map(random))
-  .encode('x', (d) => d)
-  .transform({ type: 'binX', y: 'count' })
-  .style('stroke', 'white')
-  .tooltip({
-    title: (d, i, data, column) => ({
-      value: `${column.x.value[i]} ~ ${column.x1.value[i]}`,
-    }),
-  });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'rect',
+      data: new Array(5000).fill(0).map(random),
+      encode: {
+        x: (d) => d,
+      },
+      transform: [{ type: 'binX', y: 'count' }],
+      style: {
+        stroke: 'white',
+      },
+      tooltip: {
+        title: (d, i, data, column) => ({
+          value: `${column.x.value[i]} ~ ${column.x1.value[i]}`,
+        }),
+      },
+    },
+  ],
+});
 
 chart.render();

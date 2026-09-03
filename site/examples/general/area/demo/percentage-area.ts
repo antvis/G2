@@ -5,17 +5,26 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+  },
+  children: [
+    {
+      type: 'area',
+      transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'unemployed',
+        color: 'industry',
+      },
+      tooltip: {
+        items: [{ channel: 'y0', valueFormatter: '.3f' }],
+      },
+    },
+  ],
 });
-
-chart
-  .area()
-  .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'unemployed')
-  .encode('color', 'industry')
-  .tooltip({ channel: 'y0', valueFormatter: '.3f' });
 
 chart.render();

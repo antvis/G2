@@ -8,40 +8,51 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .label({
-    text: 'name',
-    transform: [
-      {
-        type: 'overflowHide',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'sunburst',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
       },
-    ],
-  })
-  .interaction({
-    drillDown: {
-      breadCrumb: {
-        rootText: '起始',
-        style: {
-          fontSize: '18px',
-          fill: '#333',
+      encode: {
+        value: 'sum',
+      },
+      labels: [
+        {
+          text: 'name',
+          transform: [
+            {
+              type: 'overflowHide',
+            },
+          ],
         },
-        active: {
-          fill: 'red',
+      ],
+      interaction: {
+        drillDown: {
+          breadCrumb: {
+            rootText: '起始',
+            style: {
+              fontSize: '18px',
+              fill: '#333',
+            },
+            active: {
+              fill: 'red',
+            },
+          },
+          // FixedColor default: true, true -> drillDown update scale, false -> scale keep.
+          isFixedColor: false,
         },
       },
-      // FixedColor default: true, true -> drillDown update scale, false -> scale keep.
-      isFixedColor: false,
+      state: {
+        active: { zIndex: 2, stroke: 'red' },
+        inactive: { zIndex: 1, stroke: '#fff' },
+      },
     },
-  })
-  .state({
-    active: { zIndex: 2, stroke: 'red' },
-    inactive: { zIndex: 1, stroke: '#fff' },
-  });
+  ],
+});
 
 chart.render();

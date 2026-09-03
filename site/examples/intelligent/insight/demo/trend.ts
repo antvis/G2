@@ -10,17 +10,25 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data({
+chart.options({
+  type: 'view',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close');
-
-chart.line();
-
-chart.mark(Trend);
+  },
+  encode: {
+    x: 'date',
+    y: 'close',
+  },
+  children: [
+    {
+      type: 'line',
+    },
+    {
+      type: Trend,
+    },
+  ],
+});
 
 chart.render();

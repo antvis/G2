@@ -4,19 +4,11 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .transform([{ type: 'sortX', by: 'y', reverse: true }])
-  .encode('x', 'letter')
-  .encode('y', 'frequency');
-
-chart.interaction('tooltip', {
-  render: (event, { title, items }) => `
+chart.options({
+  type: 'view',
+  interaction: {
+    tooltip: {
+      render: (event, { title, items }) => `
   <div
     style="
       width: 300px;
@@ -53,6 +45,23 @@ chart.interaction('tooltip', {
       .join('')}
   </div>
   `,
+    },
+  },
+  children: [
+    {
+      type: 'interval',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
+      },
+      transform: [{ type: 'sortX', by: 'y', reverse: true }],
+      encode: {
+        x: 'letter',
+        y: 'frequency',
+      },
+    },
+  ],
 });
 
 chart.render();

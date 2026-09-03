@@ -12,9 +12,27 @@ G2 has two types of data sources: one is `inline`, which directly passes in spec
 Explicitly specify `type` as `inline`, the complete syntax is as follows:
 
 ```js
-chart.data({
-  type: 'inline',
-  value: [
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: [
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ],
+  },
+});
+```
+
+Since the default data type in G2 is `inline`, it can also be abbreviated as follows:
+
+```js
+chart.options({
+  type: 'view',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
@@ -22,18 +40,6 @@ chart.data({
     { genre: 'Other', sold: 150 },
   ],
 });
-```
-
-Since the default data type in G2 is `inline`, it can also be abbreviated as follows:
-
-```js
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
 ```
 
 ## Getting Started
@@ -86,11 +92,14 @@ const graphData = {
   ],
 };
 
-chart.data(graphData); // ❌ Not recommended, G2 may misidentify during processing
+chart.options({ type: 'view', data: graphData }); // ❌ Not recommended, G2 may misidentify during processing
 
-chart.data({
-  // ✅ Recommended complete syntax, clearer semantics, avoids identification errors due to ambiguity
-  type: 'inline',
-  value: graphData,
+chart.options({
+  type: 'view',
+  data: {
+    // ✅ Recommended complete syntax, clearer semantics, avoids identification errors due to ambiguity
+    type: 'inline',
+    value: graphData,
+  },
 });
 ```

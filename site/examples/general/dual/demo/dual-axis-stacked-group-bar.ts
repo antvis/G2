@@ -15,35 +15,54 @@ const data = [
   { time: '10:40', call: 13, waiting: 1, people: 2, mock: 2 },
 ];
 
-chart.data(data);
-
-chart
-  .interval()
-  .data({
-    transform: [{ type: 'fold', fields: ['call', 'waiting'] }],
-  })
-  .encode('x', 'time')
-  .encode('y', 'value')
-  .encode('color', 'key')
-  .encode('series', () => 'a')
-  .transform({ type: 'stackY' })
-  .scale('y', { nice: true })
-  .axis('y', { title: null });
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'people')
-  .encode('color', () => 'people')
-  .encode('series', () => 'b');
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'mock')
-  .encode('color', () => 'mock')
-  .encode('series', () => 'c')
-  .scale('y', { independent: true })
-  .axis('y', { position: 'right' });
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'interval',
+      data: {
+        transform: [{ type: 'fold', fields: ['call', 'waiting'] }],
+      },
+      encode: {
+        x: 'time',
+        y: 'value',
+        color: 'key',
+        series: () => 'a',
+      },
+      transform: [{ type: 'stackY' }],
+      scale: {
+        y: { nice: true },
+      },
+      axis: {
+        y: { title: null },
+      },
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'people',
+        color: () => 'people',
+        series: () => 'b',
+      },
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'mock',
+        color: () => 'mock',
+        series: () => 'c',
+      },
+      scale: {
+        y: { independent: true },
+      },
+      axis: {
+        y: { position: 'right' },
+      },
+    },
+  ],
+});
 
 chart.render();

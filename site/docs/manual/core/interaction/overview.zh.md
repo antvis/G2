@@ -17,18 +17,6 @@ G2 中**交互（Interaction）** 提供了按需探索数据的能力。
 });
 ```
 
-```js
-// API
-// 第一种方式
-chart.interaction('tooltip', {}).interaction('brushHighlight', {});
-
-// 第二种方式
-chart.interaction({
-  tooltip: {},
-  brushHighlight: {},
-});
-```
-
 交互也可以设置在标记层级：
 
 ```js
@@ -38,18 +26,6 @@ chart.interaction({
     tooltip: {},
     brushHighlight: {},
   },
-});
-```
-
-```js
-// API
-// 第一种方式
-chart.interval().interaction('tooltip', {}).interaction('brushHighlight', {});
-
-// 第二种方式
-chart.interval().interaction({
-  tooltip: {},
-  brushHighlight: {},
 });
 ```
 

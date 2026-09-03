@@ -36,16 +36,33 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data(data)
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('color', 'country')
-  .axis('x', { title: false })
-  .axis('y', { title: false });
-
-chart.area().style('fillOpacity', 0.3);
-
-chart.line().style('strokeWidth', 2).tooltip(false);
+chart.options({
+  type: 'view',
+  data: data,
+  encode: {
+    x: 'year',
+    y: 'value',
+    color: 'country',
+  },
+  axis: {
+    x: { title: false },
+    y: { title: false },
+  },
+  children: [
+    {
+      type: 'area',
+      style: {
+        fillOpacity: 0.3,
+      },
+    },
+    {
+      type: 'line',
+      style: {
+        strokeWidth: 2,
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

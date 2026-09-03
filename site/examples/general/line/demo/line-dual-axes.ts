@@ -21,27 +21,43 @@ fetch('https://assets.antv.antgroup.com/g2/train.json')
       title: null,
     };
 
-    chart
-      .line()
-      .data(data)
-      .encode('x', 'distance')
-      .encode('y', (d) => new Date(d.time))
-      .encode('color', 'type')
-      .encode('series', 'number')
-      .scale('color', {
-        domain: ['N', 'L', 'B'],
-        range: ['rgb(34, 34, 34)', 'rgb(183, 116, 9)', 'rgb(192, 62, 29)'],
-      })
-      .scale('y', {
-        range: [0, 1],
-        tickCount: 15,
-        utc: true,
-      })
-      .legend(false)
-      .axis('x', [
-        { ...xAxis, position: 'top' },
-        { ...xAxis, position: 'bottom' },
-      ]);
+    chart.options({
+      type: 'view',
+      children: [
+        {
+          type: 'line',
+          data: data,
+          encode: {
+            x: 'distance',
+            y: (d) => new Date(d.time),
+            color: 'type',
+            series: 'number',
+          },
+          scale: {
+            color: {
+              domain: ['N', 'L', 'B'],
+              range: [
+                'rgb(34, 34, 34)',
+                'rgb(183, 116, 9)',
+                'rgb(192, 62, 29)',
+              ],
+            },
+            y: {
+              range: [0, 1],
+              tickCount: 15,
+              utc: true,
+            },
+          },
+          legend: false,
+          axis: {
+            x: [
+              { ...xAxis, position: 'top' },
+              { ...xAxis, position: 'bottom' },
+            ],
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

@@ -6,8 +6,9 @@ const chart = new Chart({
   height: 244,
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     {
       name: 'activity1',
       percent: 0.6,
@@ -26,43 +27,62 @@ chart
       color: '#e90b3a',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/%24qBxSxdK05/jiantou.png',
     },
-  ])
-  .coordinate({ type: 'radial', innerRadius: 0.2 });
-
-chart
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 1)
-  .encode('size', 52)
-  .encode('color', 'color')
-  .scale('color', { type: 'identity' })
-  .style('fillOpacity', 0.25)
-  .animate(false);
-
-chart
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'percent')
-  .encode('color', 'color')
-  .encode('size', 52)
-  .style('radius', 26)
-  .style('shadowColor', 'rgba(0,0,0,0.45)')
-  .style('shadowBlur', 20)
-  .style('shadowOffsetX', -2)
-  .style('shadowOffsetY', -5)
-  .axis(false)
-  .animate('enter', {
-    type: 'waveIn',
-    easing: 'easing-out-bounce',
-    duration: 1000,
-  });
-
-chart
-  .image()
-  .encode('x', 'name')
-  .encode('y', 0)
-  .encode('src', (d) => d.icon)
-  .encode('size', 12)
-  .style('transform', 'translateX(10)');
+  ],
+  coordinate: { type: 'radial', innerRadius: 0.2 },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'name',
+        y: 1,
+        size: 52,
+        color: 'color',
+      },
+      scale: {
+        color: { type: 'identity' },
+      },
+      style: {
+        fillOpacity: 0.25,
+      },
+      animate: false,
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'name',
+        y: 'percent',
+        color: 'color',
+        size: 52,
+      },
+      style: {
+        radius: 26,
+        shadowColor: 'rgba(0,0,0,0.45)',
+        shadowBlur: 20,
+        shadowOffsetX: -2,
+        shadowOffsetY: -5,
+      },
+      axis: false,
+      animate: {
+        enter: {
+          type: 'waveIn',
+          easing: 'easing-out-bounce',
+          duration: 1000,
+        },
+      },
+    },
+    {
+      type: 'image',
+      encode: {
+        x: 'name',
+        y: 0,
+        src: (d) => d.icon,
+        size: 12,
+      },
+      style: {
+        transform: 'translateX(10)',
+      },
+    },
+  ],
+});
 
 chart.render();

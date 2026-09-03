@@ -11,27 +11,36 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .style({
-    fill: (_, idx) => {
-      return {
-        image: lines({
-          backgroundColor: colors[idx % colors.length],
-          backgroundOpacity: 0.65,
-          stroke: colors[idx % colors.length],
-          lineWidth: 4,
-          spacing: 5,
-        }),
-        repetition: 'repeat',
-        transform: 'rotate(30deg)',
-      };
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'sunburst',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
+      },
+      encode: {
+        value: 'sum',
+      },
+      style: {
+        fill: (_, idx) => {
+          return {
+            image: lines({
+              backgroundColor: colors[idx % colors.length],
+              backgroundOpacity: 0.65,
+              stroke: colors[idx % colors.length],
+              lineWidth: 4,
+              spacing: 5,
+            }),
+            repetition: 'repeat',
+            transform: 'rotate(30deg)',
+          };
+        },
+      },
     },
-  });
+  ],
+});
 
 chart.render();
