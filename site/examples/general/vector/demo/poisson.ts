@@ -15,22 +15,36 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/OJOgPypkeE/poisson-disk.json')
       rotate: noise(x, y) * 360,
     }));
 
-    chart
-      .vector()
-      .data(data)
-      .encode('x', 'x')
-      .encode('y', 'y')
-      .encode('rotate', 'rotate')
-      .encode('size', 'size')
-      .encode('color', 'black')
-      .scale('size', { range: [6, 20] })
-      .axis('x', { grid: false })
-      .axis('y', { grid: false })
-      .legend(false)
-      .tooltip([
-        { channel: 'x', valueFormatter: '.2f' },
-        { channel: 'y', valueFormatter: '.2f' },
-      ]);
+    chart.options({
+      type: 'view',
+      children: [
+        {
+          type: 'vector',
+          data: data,
+          encode: {
+            x: 'x',
+            y: 'y',
+            rotate: 'rotate',
+            size: 'size',
+            color: 'black',
+          },
+          scale: {
+            size: { range: [6, 20] },
+          },
+          axis: {
+            x: { grid: false },
+            y: { grid: false },
+          },
+          legend: false,
+          tooltip: {
+            items: [
+              { channel: 'x', valueFormatter: '.2f' },
+              { channel: 'y', valueFormatter: '.2f' },
+            ],
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

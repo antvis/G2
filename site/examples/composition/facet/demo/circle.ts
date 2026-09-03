@@ -29,12 +29,22 @@ const chart = new Chart({
   height: 480,
 });
 
-const facetCircle = chart.facetCircle().data(data).encode('position', 'month');
-
-facetCircle
-  .interval()
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .encode('color', 'name');
+chart.options({
+  type: 'facetCircle',
+  data: data,
+  encode: {
+    position: 'month',
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'name',
+        y: 'value',
+        color: 'name',
+      },
+    },
+  ],
+});
 
 chart.render();

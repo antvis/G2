@@ -371,29 +371,6 @@ G2 internally infers scale type, domain, and range based on data type and mark t
 });
 ```
 
-```js
-// API
-// First approach
-chart
-  .interval()
-  .scale('x', { padding: 0.5 })
-  .scale('y', {
-    type: 'log', // Specify type
-    domain: [10, 100], // Specify domain
-    range: [0, 1], // Specify range
-  });
-
-// Second approach
-chart.interval().scale({
-  x: { padding: 0.5 },
-  y: {
-    type: 'log', // Specify type
-    domain: [10, 100], // Specify domain
-    range: [0, 1], // Specify range
-  },
-});
-```
-
 Scales can also be configured at the View level:
 
 ```js
@@ -406,26 +383,6 @@ Scales can also be configured at the View level:
       domain: [10, 100], // Specify domain
       range: [0, 1], // Specify range
     },
-  },
-});
-```
-
-```js
-// API form
-// First approach
-chart.scale('x', { padding: 0.5 }).scale('y', {
-  type: 'log', // Specify type
-  domain: [10, 100], // Specify domain
-  range: [0, 1], // Specify range
-});
-
-// Second approach
-chart.scale({
-  x: { padding: 0.5 },
-  y: {
-    type: 'log', // Specify type
-    domain: [10, 100], // Specify domain
-    range: [0, 1], // Specify range
   },
 });
 ```

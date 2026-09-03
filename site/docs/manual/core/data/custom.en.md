@@ -13,15 +13,18 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'custom',
-      callback: (data) => data.map((d) => ({ ...d, sum: d.a + d.b + d.c })),
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) => data.map((d) => ({ ...d, sum: d.a + d.b + d.c })),
+      },
+    ],
+  },
 });
 ```
 

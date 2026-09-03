@@ -97,32 +97,42 @@ const logo = [
   ],
 ];
 
-chart
-  .interval()
-  .data(logo)
-  .encode('x', (d) => d[0])
-  .encode('y', () => Math.random())
-  .encode('color', (d) => d[1])
-  .scale('y', { nice: true })
-  .legend({
-    color: {
-      itemMarker: (_, index) => () => {
-        const { document } = chart.getContext().canvas;
-        const image = document.createElement('image', {
-          style: {
-            width: 20,
-            height: 20,
-            transform: `translate(-10, -10)`,
-            src: logo[index][1],
-          },
-        });
-        return image;
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: logo,
+      encode: {
+        x: (d) => d[0],
+        y: () => Math.random(),
+        color: (d) => d[1],
       },
-      itemMarkerSize: 40,
-      itemLabelText: (_, index) => logo[index][0],
-      maxRows: 1,
+      scale: {
+        y: { nice: true },
+      },
+      legend: {
+        color: {
+          itemMarker: (_, index) => () => {
+            const { document } = chart.getContext().canvas;
+            const image = document.createElement('image', {
+              style: {
+                width: 20,
+                height: 20,
+                transform: `translate(-10, -10)`,
+                src: logo[index][1],
+              },
+            });
+            return image;
+          },
+          itemMarkerSize: 40,
+          itemLabelText: (_, index) => logo[index][0],
+          maxRows: 1,
+        },
+      },
+      tooltip: false,
     },
-  })
-  .tooltip(false);
+  ],
+});
 
 chart.render();

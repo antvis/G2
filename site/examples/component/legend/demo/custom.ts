@@ -14,13 +14,21 @@ const data = [
 
 const colorField = 'genre';
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', colorField)
-  .legend(false); // Hide built-in legends.
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'genre',
+        y: 'sold',
+        color: colorField,
+      },
+      legend: false,
+    },
+  ],
+}); // Hide built-in legends.
 
 chart.render().then(renderCustomLegend);
 
@@ -70,6 +78,6 @@ function renderCustomLegend(chart) {
     const selectedData = data.filter((d) =>
       selectedValues.includes(d[colorField]),
     );
-    chart.changeData(selectedData);
+    chart.options({ children: [{ data: selectedData }] }).render();
   }
 }

@@ -211,44 +211,29 @@ const chart = new Chart({
   container: 'container',
 });
 
-const interval = chart
-  .interval()
-  .data([
+const options = {
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+  },
+};
 
+chart.options(options);
 chart.render();
 ```
 
-There are several ways to update the interval data in the above example:
-
-- First method: The most basic approach.
+To update the data in the example above, reuse the original Spec and replace only `data`:
 
 ```js
-// Update the data bound to interval
-interval.data(newData);
-
-// Update chart rendering through chart
-chart.render();
-```
-
-- Second method: Syntactic sugar for the above approach.
-
-```js
-// Update interval data and render the chart
-interval.changeData(newData);
-```
-
-- Third method: Get the interval object through query API, then update data.
-
-```js
-chart.getNodesByType('rect')[0].changeData(data);
+chart.options({ ...options, data: newData }).render();
 ```
 
 Here's an example of a line chart that updates data in real-time:
@@ -271,7 +256,7 @@ function formatTime(timestamp) {
 
 const data = [];
 
-chart.options({
+const options = {
   type: 'line',
   data: [],
   encode: {
@@ -286,8 +271,9 @@ chart.options({
       nice: true,
     },
   },
-});
+};
 
+chart.options(options);
 chart.render();
 
 setInterval(function () {
@@ -313,7 +299,7 @@ setInterval(function () {
     type: 'Record 2',
   });
 
-  chart.changeData(data);
+  chart.options({ ...options, data }).render();
 }, 1000);
 ```
 

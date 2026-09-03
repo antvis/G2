@@ -75,21 +75,28 @@ const chart = new Chart({
   padding: 40,
 });
 
-chart.data(getLovePoints());
-
-chart
-  .image()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('src', (_, idx) => Avatars[idx % Avatars.length])
-  .encode('size', 48)
-  .style({
-    opacity: 0.7,
-    shadowColor: '#fad7e0',
-    shadowBlur: 40,
-    shadowOffsetY: 20,
-  })
-  .axis(false)
-  .tooltip(false);
+chart.options({
+  type: 'view',
+  data: getLovePoints(),
+  children: [
+    {
+      type: 'image',
+      encode: {
+        x: 'x',
+        y: 'y',
+        src: (_, idx) => Avatars[idx % Avatars.length],
+        size: 48,
+      },
+      style: {
+        opacity: 0.7,
+        shadowColor: '#fad7e0',
+        shadowBlur: 40,
+        shadowOffsetY: 20,
+      },
+      axis: false,
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

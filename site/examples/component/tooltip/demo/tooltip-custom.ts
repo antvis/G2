@@ -5,18 +5,30 @@ const chart = new Chart({
   inset: 6,
 });
 
-chart
-  .boxplot()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/morley.json',
-  })
-  .encode('x', 'Expt')
-  .encode('y', 'Speed')
-  .tooltip({ name: 'min', channel: 'y' })
-  .tooltip({ name: 'q1', channel: 'y1' })
-  .tooltip({ name: 'q2', channel: 'y2' })
-  .tooltip({ name: 'q3', channel: 'y3' })
-  .tooltip({ name: 'max', color: 'red', channel: 'y4' });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'boxplot',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/morley.json',
+      },
+      encode: {
+        x: 'Expt',
+        y: 'Speed',
+      },
+      tooltip: {
+        items: [
+          { name: 'min', channel: 'y' },
+          { name: 'q1', channel: 'y1' },
+          { name: 'q2', channel: 'y2' },
+          { name: 'q3', channel: 'y3' },
+          { name: 'max', color: 'red', channel: 'y4' },
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -19,44 +19,54 @@ const chart = new Chart({
   padding: 50,
 });
 
-chart
-  .data(data)
-  .coordinate({ type: 'radial', innerRadius: 0.2, endAngle: Math.PI });
-
-chart
-  .interval()
-  .encode('x', 'term')
-  .encode('y', 'count')
-  .encode('size', 5)
-  .axis({
-    y: false,
-    x: {
-      title: false,
+chart.options({
+  type: 'view',
+  data: data,
+  coordinate: { type: 'radial', innerRadius: 0.2, endAngle: Math.PI },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'term',
+        y: 'count',
+        size: 5,
+      },
+      axis: {
+        y: false,
+        x: {
+          title: false,
+        },
+      },
     },
-  });
-
-chart
-  .point()
-  .encode('x', 'term')
-  .encode('y', 'count')
-  .encode('shape', 'point')
-  .encode('size', 4)
-  .tooltip({
-    title: (item) => item.term,
-    items: [
-      (item) => ({
-        name: 'count',
-        value: item.count,
-      }),
-    ],
-  });
-
-chart
-  .text()
-  .style('text', 'Music')
-  .style('x', '50%')
-  .style('y', '50%')
-  .style('textAlign', 'center')
-  .style('fontSize', 24);
+    {
+      type: 'point',
+      encode: {
+        x: 'term',
+        y: 'count',
+        shape: 'point',
+        size: 4,
+      },
+      tooltip: {
+        title: (item) => item.term,
+        items: [
+          (item) => ({
+            name: 'count',
+            value: item.count,
+          }),
+        ],
+      },
+    },
+    {
+      type: 'text',
+      style: {
+        text: 'Music',
+        x: '50%',
+        y: '50%',
+        textAlign: 'center',
+        fontSize: 24,
+      },
+    },
+  ],
+});
 
 chart.render();

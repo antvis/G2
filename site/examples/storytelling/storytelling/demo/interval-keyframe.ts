@@ -11,23 +11,31 @@ const chart = new Chart({
   autoFit: true,
 });
 
-const keyframe = chart.timingKeyframe();
-
-keyframe
-  .interval()
-  .data(sex)
-  .transform({ type: 'groupX', y: 'sum' })
-  .encode('x', 'city')
-  .encode('y', 'value')
-  .encode('key', 'city');
-
-keyframe
-  .interval()
-  .data(sex)
-  .transform({ type: 'dodgeX' })
-  .encode('x', 'city')
-  .encode('y', 'value')
-  .encode('color', 'sex')
-  .encode('groupKey', 'city');
+chart.options({
+  type: 'timingKeyframe',
+  children: [
+    {
+      type: 'interval',
+      data: sex,
+      transform: [{ type: 'groupX', y: 'sum' }],
+      encode: {
+        x: 'city',
+        y: 'value',
+        key: 'city',
+      },
+    },
+    {
+      type: 'interval',
+      data: sex,
+      transform: [{ type: 'dodgeX' }],
+      encode: {
+        x: 'city',
+        y: 'value',
+        color: 'sex',
+        groupKey: 'city',
+      },
+    },
+  ],
+});
 
 chart.render();

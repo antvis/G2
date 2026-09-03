@@ -14,40 +14,55 @@ const chart = new Chart({
   paddingRight: 80,
 });
 
-chart.coordinate({
-  transform: [{ type: 'transpose' }],
-});
-
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
+chart.options({
+  type: 'view',
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'custom',
+        callback: (data) =>
+          data.map((d) => ({ ...d, rate: d.pv / data[0].pv })),
+      },
+    ],
+  },
+  children: [
     {
-      type: 'custom',
-      callback: (data) => data.map((d) => ({ ...d, rate: d.pv / data[0].pv })),
+      type: 'interval',
+      encode: {
+        x: 'action',
+        y: 'pv',
+        color: 'action',
+        shape: 'pyramid',
+      },
+      transform: [{ type: 'symmetryY' }],
+      scale: {
+        x: { padding: 0 },
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+      labels: [
+        {
+          text: (d) => `${d.action} ${d.pv}`,
+          textAlign: 'left',
+        },
+        {
+          text: (d) => `${(d.rate * 100).toFixed(1)}%`,
+          position: 'inside',
+          transform: [{ type: 'contrastReverse' }],
+        },
+      ],
+      legend: {
+        color: { position: 'bottom' },
+      },
+      axis: false,
     },
   ],
 });
-
-chart
-  .interval()
-  .encode('x', 'action')
-  .encode('y', 'pv')
-  .encode('color', 'action')
-  .encode('shape', 'pyramid')
-  .transform({ type: 'symmetryY' })
-  .scale('x', { padding: 0 })
-  .animate('enter', { type: 'fadeIn' })
-  .label({
-    text: (d) => `${d.action} ${d.pv}`,
-    textAlign: 'left',
-  })
-  .label({
-    text: (d) => `${(d.rate * 100).toFixed(1)}%`,
-    position: 'inside',
-    transform: [{ type: 'contrastReverse' }],
-  })
-  .legend('color', { position: 'bottom' })
-  .axis(false);
 
 chart.render();

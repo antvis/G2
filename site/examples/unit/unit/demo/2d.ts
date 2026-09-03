@@ -5,9 +5,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/titanic2.json',
     transform: [
@@ -16,19 +16,26 @@ const facetRect = chart
         fields: [['Survived', false]],
       },
     ],
-  })
-  .encode('x', 'Class')
-  .encode('y', 'Sex');
-
-facetRect
-  .point()
-  .transform({ type: 'pack' })
-  .encode('color', 'Survived')
-  .encode('shape', 'point')
-  .encode('size', 3)
-  .tooltip({
-    title: '',
-    items: ['pclass', 'survived'],
-  });
+  },
+  encode: {
+    x: 'Class',
+    y: 'Sex',
+  },
+  children: [
+    {
+      type: 'point',
+      transform: [{ type: 'pack' }],
+      encode: {
+        color: 'Survived',
+        shape: 'point',
+        size: 3,
+      },
+      tooltip: {
+        title: '',
+        items: ['pclass', 'survived'],
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -15,27 +15,44 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'waiting')
-  .axis('y', { title: 'Waiting', titleFill: '#5B8FF9' });
-
-chart
-  .line()
-  .encode('x', 'time')
-  .encode('y', 'people')
-  .encode('shape', 'smooth')
-  .style('stroke', '#fdae6b')
-  .style('lineWidth', 2)
-  .scale('y', { independent: true })
-  .axis('y', {
-    position: 'right',
-    grid: null,
-    title: 'People',
-    titleFill: '#fdae6b',
-  });
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'waiting',
+      },
+      axis: {
+        y: { title: 'Waiting', titleFill: '#5B8FF9' },
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: 'time',
+        y: 'people',
+        shape: 'smooth',
+      },
+      style: {
+        stroke: '#fdae6b',
+        lineWidth: 2,
+      },
+      scale: {
+        y: { independent: true },
+      },
+      axis: {
+        y: {
+          position: 'right',
+          grid: null,
+          title: 'People',
+          titleFill: '#fdae6b',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();

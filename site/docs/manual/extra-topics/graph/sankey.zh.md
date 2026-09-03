@@ -62,14 +62,9 @@ G2 中**布局（Layout）** 用于指定一些有特定布局函数标记的布
 });
 ```
 
-```js
-// API
-chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
-```
-
 ## 数据更新
 
-桑基图支持动态更新数据，使用 G2 内置的 API `changeData()` 更新数据：
+桑基图支持通过更新 Spec 中的 `data` 动态更新数据：
 
 ```js
 const newData = {
@@ -80,7 +75,13 @@ const newData = {
     { source: 'C', target: 'D', value: 12 },
   ],
 };
-chart.changeData({ type: 'inline', value: newData });
+const options = chart.options();
+chart
+  .options({
+    ...options,
+    data: { type: 'inline', value: newData },
+  })
+  .render();
 ```
 
 **语法糖（推荐）**
@@ -96,7 +97,7 @@ const newData = [
 ];
 
 // 直接传递数组
-chart.changeData(newData);
+chart.options({ ...chart.options(), data: newData }).render();
 ```
 
 ### 空数据处理
@@ -105,9 +106,9 @@ chart.changeData(newData);
 
 ```js
 // 清空图表 - 图表将显示为空白状态
-chart.changeData([]);
+chart.options({ ...chart.options(), data: [] }).render();
 // 或者
-chart.changeData({ links: [] });
+chart.options({ ...chart.options(), data: { links: [] } }).render();
 ```
 
 ### 桑基图数据更新示例
@@ -140,8 +141,7 @@ chart.on('element:click', () => {
     value: Math.random() * 30 + 5,
   }));
 
-  // 使用简化语法更新数据
-  chart.changeData(randomData);
+  chart.options({ ...chart.options(), data: randomData }).render();
 });
 ```
 

@@ -69,41 +69,64 @@ function processDualStemLeaf(data) {
 }
 const { chartData, maxY } = processDualStemLeaf(rawData);
 // stem and leaf
-chart
-  .text()
-  .data(chartData)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('text', 'text')
-  .encode('fill', 'color')
-  .style('textAlign', 'center')
-  .style('textBaseline', 'middle')
-  .style('fontSize', (d) => {
-    if (d.type === 'stem') return 18;
-    return d.type.includes('leaf') ? 14 : 16;
-  })
-  .style('fontWeight', (d) => (d.type === 'stem' ? 'bold' : 'normal'))
-  .style('dx', (d) => (d.type === 'stem' ? -10 : 0))
-  .scale('x', { domain: [0, 1], nice: false })
-  .scale('y', { domain: [-1, maxY], nice: false })
-  .axis(false);
+
 // title
-chart
-  .text()
-  .data([
-    { x: 0.4, y: maxY, text: 'A班', color: '#1f77b4' },
-    { x: 0.55, y: maxY, text: 'B班', color: '#ff7f0e' },
-  ])
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('text', 'text')
-  .encode('fill', 'color')
-  .style('fontWeight', 'bold')
-  .style('fontSize', 14);
+
 // dividing line
-chart.lineX().data([0.46, 0.52]).style({
-  lineWidth: 2,
-  stroke: '#000',
-  strokeOpacity: 0.8,
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'text',
+      data: chartData,
+      encode: {
+        x: 'x',
+        y: 'y',
+        text: 'text',
+        fill: 'color',
+      },
+      style: {
+        textAlign: 'center',
+        textBaseline: 'middle',
+        fontSize: (d) => {
+          if (d.type === 'stem') return 18;
+          return d.type.includes('leaf') ? 14 : 16;
+        },
+        fontWeight: (d) => (d.type === 'stem' ? 'bold' : 'normal'),
+        dx: (d) => (d.type === 'stem' ? -10 : 0),
+      },
+      scale: {
+        x: { domain: [0, 1], nice: false },
+        y: { domain: [-1, maxY], nice: false },
+      },
+      axis: false,
+    },
+    {
+      type: 'text',
+      data: [
+        { x: 0.4, y: maxY, text: 'A班', color: '#1f77b4' },
+        { x: 0.55, y: maxY, text: 'B班', color: '#ff7f0e' },
+      ],
+      encode: {
+        x: 'x',
+        y: 'y',
+        text: 'text',
+        fill: 'color',
+      },
+      style: {
+        fontWeight: 'bold',
+        fontSize: 14,
+      },
+    },
+    {
+      type: 'lineX',
+      data: [0.46, 0.52],
+      style: {
+        lineWidth: 2,
+        stroke: '#000',
+        strokeOpacity: 0.8,
+      },
+    },
+  ],
 });
 chart.render();

@@ -19,19 +19,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart
-  .interval()
-  .data(events)
-  .encode('x', 'name')
-  .encode('y', ['endTime', 'startTime'])
-  .encode('color', 'name')
-  .encode('enterDuration', (d) => d.endTime - d.startTime)
-  .encode('enterDelay', 'startTime')
-  .scale('enterDuration', {
-    zero: true,
-    range: [0, 3000],
-  });
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: events,
+      encode: {
+        x: 'name',
+        y: ['endTime', 'startTime'],
+        color: 'name',
+        enterDuration: (d) => d.endTime - d.startTime,
+        enterDelay: 'startTime',
+      },
+      scale: {
+        enterDuration: {
+          zero: true,
+          range: [0, 3000],
+        },
+      },
+    },
+  ],
+});
 
 chart.render();

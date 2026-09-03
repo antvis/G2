@@ -21,27 +21,35 @@ const FLAG_TEMPLATE = [
 const MY_PHOTO =
   'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vYY6RrxEWKwAAAAAAAAAAAAADmJ7AQ/original';
 
-chart
-  .image()
-  .data([{ x: 0.5, y: 0.5 }])
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('src', MY_PHOTO)
-  .encode('size', SIZE)
-  .axis(false)
-  .tooltip(false);
-
-chart
-  .image()
-  .data([{ x: 0.5, y: 0.5 }])
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode(
-    'src',
-    () => FLAG_TEMPLATE[Math.floor(Math.random() * FLAG_TEMPLATE.length)],
-  )
-  .encode('size', SIZE)
-  .axis(false)
-  .tooltip(false);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'image',
+      data: [{ x: 0.5, y: 0.5 }],
+      encode: {
+        x: 'x',
+        y: 'y',
+        src: MY_PHOTO,
+        size: SIZE,
+      },
+      axis: false,
+      tooltip: false,
+    },
+    {
+      type: 'image',
+      data: [{ x: 0.5, y: 0.5 }],
+      encode: {
+        x: 'x',
+        y: 'y',
+        src: () =>
+          FLAG_TEMPLATE[Math.floor(Math.random() * FLAG_TEMPLATE.length)],
+        size: SIZE,
+      },
+      axis: false,
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

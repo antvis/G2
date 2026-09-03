@@ -80,47 +80,74 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data);
-
-chart
-  .line()
-  .encode('x', 'Month')
-  .encode('y', 'Temperature')
-  .encode('color', '#EE6666')
-  .encode('shape', 'smooth')
-  .scale('y', { independent: true, domainMax: 30 })
-  .axis('y', {
-    title: 'Temperature (°C)',
-    grid: null,
-    titleFill: '#EE6666',
-  });
-
-chart
-  .interval()
-  .encode('x', 'Month')
-  .encode('y', 'Evaporation')
-  .encode('color', '#5470C6')
-  .scale('y', { independent: true, domainMax: 200 })
-  .style('fillOpacity', 0.8)
-  .axis('y', {
-    position: 'right',
-    title: 'Evaporation (ml)',
-    titleFill: '#5470C6',
-  });
-
-chart
-  .line()
-  .encode('x', 'Month')
-  .encode('y', 'Precipitation')
-  .encode('color', '#91CC75')
-  .scale('y', { independent: true })
-  .style('lineWidth', 2)
-  .style('lineDash', [2, 2])
-  .axis('y', {
-    position: 'right',
-    title: 'Precipitation (ml)',
-    grid: null,
-    titleFill: '#91CC75',
-  });
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: 'Month',
+        y: 'Temperature',
+        color: '#EE6666',
+        shape: 'smooth',
+      },
+      scale: {
+        y: { independent: true, domainMax: 30 },
+      },
+      axis: {
+        y: {
+          title: 'Temperature (°C)',
+          grid: null,
+          titleFill: '#EE6666',
+        },
+      },
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'Month',
+        y: 'Evaporation',
+        color: '#5470C6',
+      },
+      scale: {
+        y: { independent: true, domainMax: 200 },
+      },
+      style: {
+        fillOpacity: 0.8,
+      },
+      axis: {
+        y: {
+          position: 'right',
+          title: 'Evaporation (ml)',
+          titleFill: '#5470C6',
+        },
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: 'Month',
+        y: 'Precipitation',
+        color: '#91CC75',
+      },
+      scale: {
+        y: { independent: true },
+      },
+      style: {
+        lineWidth: 2,
+        lineDash: [2, 2],
+      },
+      axis: {
+        y: {
+          position: 'right',
+          title: 'Precipitation (ml)',
+          grid: null,
+          titleFill: '#91CC75',
+        },
+      },
+    },
+  ],
+});
 
 chart.render();

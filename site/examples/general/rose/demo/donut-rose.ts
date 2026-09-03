@@ -21,42 +21,53 @@ const chart = new Chart({
   height: 720,
 });
 
-chart.coordinate({ type: 'polar', innerRadius: 0.2 });
-
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'year')
-  .encode('y', 'population')
-  .encode('color', 'year')
-  .scale('x', { padding: 0 })
-
-  .axis(false)
-  .tooltip({
-    title: (d) => d.year,
-    items: [
-      (d, i, data, column) => ({
-        name: d.year,
-        value: d.population,
-        channel: 'y',
-      }),
-    ],
-  })
-  .legend({
-    color: {
-      position: 'right',
-      layout: {
-        justifyContent: 'center',
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar', innerRadius: 0.2 },
+  interaction: {
+    elementHighlight: true,
+  },
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'year',
+        y: 'population',
+        color: 'year',
+      },
+      scale: {
+        x: { padding: 0 },
+      },
+      axis: false,
+      tooltip: {
+        title: (d) => d.year,
+        items: [
+          (d, i, data, column) => ({
+            name: d.year,
+            value: d.population,
+            channel: 'y',
+          }),
+        ],
+      },
+      legend: {
+        color: {
+          position: 'right',
+          layout: {
+            justifyContent: 'center',
+          },
+        },
+      },
+      state: {
+        active: { stroke: 'black', lineWidth: 1, zIndex: 101 },
+        inactive: { opacity: 0.5, zIndex: 100 },
+      },
+      style: {
+        lineWidth: 1,
+        stroke: '#fff',
       },
     },
-  })
-  .state('active', { stroke: 'black', lineWidth: 1, zIndex: 101 })
-  .state('inactive', { opacity: 0.5, zIndex: 100 })
-  .style({
-    lineWidth: 1,
-    stroke: '#fff',
-  });
-
-chart.interaction('elementHighlight', true);
+  ],
+});
 
 chart.render();

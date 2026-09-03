@@ -5,15 +5,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .gauge()
-  .data({
-    value: {
-      target: 120,
-      total: 400,
-      name: 'score',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'gauge',
+      data: {
+        value: {
+          target: 120,
+          total: 400,
+          name: 'score',
+        },
+      },
+      legend: false,
     },
-  })
-  .legend(false);
+  ],
+});
 
 chart.render();

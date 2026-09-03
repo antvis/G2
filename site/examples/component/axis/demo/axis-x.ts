@@ -5,14 +5,22 @@ const chart = new Chart({
   height: 80,
 });
 
-chart
-  .axisX()
-  .scale('x', {
-    type: 'linear',
-    domain: [5, 10],
-    range: [0, 1],
-  })
-  .attr('tickCount', 10)
-  .attr('title', 'AxisX');
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'axisX',
+      scale: {
+        x: {
+          type: 'linear',
+          domain: [5, 10],
+          range: [0, 1],
+        },
+      },
+      tickCount: 10,
+      title: 'AxisX',
+    },
+  ],
+});
 
 chart.render();

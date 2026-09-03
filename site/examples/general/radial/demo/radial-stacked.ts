@@ -13,50 +13,61 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'radial' });
-
-chart
-  .interval()
-  .data({
-    value: data,
-    transform: [
-      {
-        type: 'fold',
-        fields: ['小于5岁', '5至13岁', '14至17岁'],
-        key: '年龄段',
-        value: '人口数量',
-        retains: ['State'],
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial' },
+  children: [
+    {
+      type: 'interval',
+      data: {
+        value: data,
+        transform: [
+          {
+            type: 'fold',
+            fields: ['小于5岁', '5至13岁', '14至17岁'],
+            key: '年龄段',
+            value: '人口数量',
+            retains: ['State'],
+          },
+        ],
       },
-    ],
-  })
-  .encode('x', 'State')
-  .encode('y', '人口数量')
-  .encode('color', '年龄段')
-  .scale('y', { domainMax: 200000 })
-  .scale('color', { range: ['#6395FA', '#62DAAB', '#657798'] })
-  .transform({ type: 'stackY' })
-  .axis({
-    x: {
-      title: false,
-      line: true,
+      encode: {
+        x: 'State',
+        y: '人口数量',
+        color: '年龄段',
+      },
+      scale: {
+        y: { domainMax: 200000 },
+        color: { range: ['#6395FA', '#62DAAB', '#657798'] },
+      },
+      transform: [{ type: 'stackY' }],
+      axis: {
+        x: {
+          title: false,
+          line: true,
+        },
+        y: {
+          line: true,
+          grid: true,
+          gridLineDash: [4, 4],
+          tickCount: 10,
+          tickFilter: (datum) => datum != 200000,
+        },
+      },
+      legend: {
+        color: {
+          position: 'bottom',
+          layout: { justifyContent: 'center' },
+        },
+      },
+      interaction: {
+        elementHighlightByX: true,
+        tooltip: {
+          shared: true,
+        },
+      },
     },
-    y: {
-      line: true,
-      grid: true,
-      gridLineDash: [4, 4],
-      tickCount: 10,
-      tickFilter: (datum) => datum != 200000,
-    },
-  })
-  .legend({
-    color: {
-      position: 'bottom',
-      layout: { justifyContent: 'center' },
-    },
-  })
-  .interaction('elementHighlightByX')
-  .interaction('tooltip', {
-    shared: true,
-  });
+  ],
+});
 
 chart.render();

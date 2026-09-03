@@ -134,18 +134,25 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
-
-chart
-  .interval()
-  .data([
-    { category: '类别 A', value: 40 },
-    { category: '类别 B', value: 60 },
-    { category: '类别 C', value: 80 },
-  ])
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'value');
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial', innerRadius: 0.1, endAngle: Math.PI },
+  children: [
+    {
+      type: 'interval',
+      data: [
+        { category: '类别 A', value: 40 },
+        { category: '类别 B', value: 60 },
+        { category: '类别 C', value: 80 },
+      ],
+      encode: {
+        x: 'category',
+        y: 'value',
+        color: 'value',
+      },
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -161,22 +168,29 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.coordinate({ type: 'radial' });
-
-chart
-  .interval()
-  .data([
-    { category: '类别 A', type: '类型1', value: 40 },
-    { category: '类别 A', type: '类型2', value: 20 },
-    { category: '类别 B', type: '类型1', value: 30 },
-    { category: '类别 B', type: '类型2', value: 50 },
-    { category: '类别 C', type: '类型1', value: 25 },
-    { category: '类别 C', type: '类型2', value: 35 },
-  ])
-  .encode('x', 'category')
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .transform({ type: 'stackY' });
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial' },
+  children: [
+    {
+      type: 'interval',
+      data: [
+        { category: '类别 A', type: '类型1', value: 40 },
+        { category: '类别 A', type: '类型2', value: 20 },
+        { category: '类别 B', type: '类型1', value: 30 },
+        { category: '类别 B', type: '类型2', value: 50 },
+        { category: '类别 C', type: '类型1', value: 25 },
+        { category: '类别 C', type: '类型2', value: 35 },
+      ],
+      encode: {
+        x: 'category',
+        y: 'value',
+        color: 'type',
+      },
+      transform: [{ type: 'stackY' }],
+    },
+  ],
+});
 
 chart.render();
 ```
@@ -198,25 +212,40 @@ const data = [
   { name: 'activity3', percent: 0.3, color: '#e90b3a' },
 ];
 
-chart.coordinate({ type: 'radial', innerRadius: 0.2 });
-
-// 背景环
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'name')
-  .encode('y', 1)
-  .style('fillOpacity', 0.25);
-
-// 数据环
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'name')
-  .encode('y', 'percent')
-  .encode('color', 'color')
-  .scale('color', { type: 'identity' })
-  .style('radius', 26);
+chart.options({
+  type: 'view',
+  coordinate: { type: 'radial', innerRadius: 0.2 },
+  children: [
+    // 背景环
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'name',
+        y: 1,
+      },
+      style: {
+        fillOpacity: 0.25,
+      },
+    },
+    // 数据环
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'name',
+        y: 'percent',
+        color: 'color',
+      },
+      scale: {
+        color: { type: 'identity' },
+      },
+      style: {
+        radius: 26,
+      },
+    },
+  ],
+});
 
 chart.render();
 ```

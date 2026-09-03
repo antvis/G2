@@ -24,20 +24,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', '月份')
-  .encode('y', '月均降雨量')
-  .encode('color', 'name')
-  .encode('key', (d) => d['name'] + d['月份'])
-  .interaction({
-    legendFilter: false,
-    elementPointMove: {
-      precision: 3,
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: '月份',
+        y: '月均降雨量',
+        color: 'name',
+        key: (d) => d['name'] + d['月份'],
+      },
+      interaction: {
+        legendFilter: false,
+        elementPointMove: {
+          precision: 3,
+        },
+      },
+      transform: [{ type: 'stackY' }],
+      coordinate: { transform: [{ type: 'transpose' }] },
     },
-  })
-  .transform({ type: 'stackY' })
-  .coordinate({ transform: [{ type: 'transpose' }] });
+  ],
+});
 
 chart.render();

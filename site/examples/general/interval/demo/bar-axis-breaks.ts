@@ -18,35 +18,49 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'name')
-  .encode('y', 'value')
-  .transform({ type: 'dodgeX' })
-  .encode('color', 'type')
-  .interaction('tooltip', { shared: true })
-  .scale('y', { nice: true })
-  .axis('x', { title: false })
-  .axis('y', {
-    title: false,
-    labelAutoHide: false,
-    transform: [],
-    breaks: [
-      {
-        start: 6000,
-        end: 100000,
-        gap: '3%',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'name',
+        y: 'value',
+        color: 'type',
       },
-      {
-        start: 105000,
-        end: 4100000,
-        gap: '3%',
-        vertices: 60,
-        verticeOffset: 4,
-        compress: 'end',
+      transform: [{ type: 'dodgeX' }],
+      interaction: {
+        tooltip: { shared: true },
       },
-    ],
-  });
+      scale: {
+        y: { nice: true },
+      },
+      axis: {
+        x: { title: false },
+        y: {
+          title: false,
+          labelAutoHide: false,
+          transform: [],
+          breaks: [
+            {
+              start: 6000,
+              end: 100000,
+              gap: '3%',
+            },
+            {
+              start: 105000,
+              end: 4100000,
+              gap: '3%',
+              vertices: 60,
+              verticeOffset: 4,
+              compress: 'end',
+            },
+          ],
+        },
+      },
+    },
+  ],
+});
 
 chart.render();

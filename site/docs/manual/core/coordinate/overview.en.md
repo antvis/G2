@@ -18,11 +18,6 @@ Coordinates can be set at the View level:
 });
 ```
 
-```js
-// API
-chart.coordinate({ type: 'polar' });
-```
-
 Each view can only have one coordinate system. In addition to its own attributes, the coordinate system also includes a series of **Coordinate Transforms**.
 
 ```js
@@ -41,11 +36,6 @@ It can also be set at the Mark level:
   type: 'interval',
   coordinate: { type: 'polar' },
 });
-```
-
-```js
-// API
-chart.interval().coordinate({ type: 'polar' });
 ```
 
 Mark-level coordinates have **bubbling behavior**. Mark-level coordinates will be merged with the view's coordinates, and the first mark's coordinate has the highest priority.
@@ -67,10 +57,7 @@ This is equivalent to:
 chart.options({
   type: 'view',
   coordinate: { type: 'polar' },
-  children: [
-    { type: 'line' },
-    { type: 'area' },
-  ],
+  children: [{ type: 'line' }, { type: 'area' }],
 });
 ```
 

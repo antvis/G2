@@ -8,23 +8,38 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'polar' });
-
-chart
-  .interval()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/deaths.json',
-  })
-  .transform({ type: 'stackY' })
-  .transform({ type: 'stackEnter', groupBy: ['color', 'x'], duration: 2000 })
-  .encode('x', 'Month')
-  .encode('y', 'Death')
-  .encode('color', 'Type')
-  .scale('y', {
-    type: 'sqrt',
-  })
-  .animate('enter', { type: 'waveIn' })
-  .axis('y', false);
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  children: [
+    {
+      type: 'interval',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/deaths.json',
+      },
+      transform: [
+        { type: 'stackY' },
+        { type: 'stackEnter', groupBy: ['color', 'x'], duration: 2000 },
+      ],
+      encode: {
+        x: 'Month',
+        y: 'Death',
+        color: 'Type',
+      },
+      scale: {
+        y: {
+          type: 'sqrt',
+        },
+      },
+      animate: {
+        enter: { type: 'waveIn' },
+      },
+      axis: {
+        y: false,
+      },
+    },
+  ],
+});
 
 chart.render();

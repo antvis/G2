@@ -8,11 +8,14 @@ order: 2
 ## 开始使用
 
 ```ts
-chart.data({
-  type: 'custom',
-  callback: (data) => {
-    /* your code */
-    return [];
+chart.options({
+  type: 'view',
+  data: {
+    type: 'custom',
+    callback: (data) => {
+      /* your code */
+      return [];
+    },
   },
 });
 ```

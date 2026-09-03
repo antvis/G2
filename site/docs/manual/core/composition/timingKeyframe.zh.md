@@ -21,30 +21,37 @@ fetch(
       paddingLeft: 100,
     });
 
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 4);
-
-    // 条形图
-    keyframe
-      .interval()
-      .data(data)
-      .transform({ type: 'groupX', y: 'mean' })
-      .encode('x', 'gender')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('key', 'gender'); // 指定 key
-
-    // 散点图
-    keyframe
-      .point()
-      .data(data)
-      .encode('x', 'height')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('groupKey', 'gender') // 指定合并的条的 key
-      .encode('shape', 'point');
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        // 条形图
+        {
+          type: 'interval',
+          data: data,
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: 'gender',
+            y: 'weight',
+            color: 'gender',
+            key: 'gender', // 指定 key
+          },
+        },
+        // 散点图
+        {
+          type: 'point',
+          data: data,
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+            groupKey: 'gender', // 指定合并的条的 key
+            shape: 'point',
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

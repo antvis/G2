@@ -5,36 +5,49 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/temperature-compare.json',
-});
-
-chart
-  .area()
-  .data({
-    transform: [
-      {
-        type: 'fold',
-        fields: ['New York', 'San Francisco'],
-        key: 'city',
-        value: 'temperature',
-      },
-    ],
-  })
-  .transform([{ type: 'diffY' }]) // Diff the 2 area shape.
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'temperature')
-  .encode('color', 'city')
-  .encode('shape', 'hvh');
 // .scale('color', { range: ['#67a9cf', '#ef8a62'] });
 
-chart
-  .line()
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'San Francisco')
-  .encode('shape', 'hvh')
-  .style('stroke', '#000')
-  .tooltip(false);
+// Diff the 2 area shape.
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/temperature-compare.json',
+  },
+  children: [
+    {
+      type: 'area',
+      data: {
+        transform: [
+          {
+            type: 'fold',
+            fields: ['New York', 'San Francisco'],
+            key: 'city',
+            value: 'temperature',
+          },
+        ],
+      },
+      transform: [{ type: 'diffY' }],
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'temperature',
+        color: 'city',
+        shape: 'hvh',
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'San Francisco',
+        shape: 'hvh',
+      },
+      style: {
+        stroke: '#000',
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

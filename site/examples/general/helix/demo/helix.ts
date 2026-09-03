@@ -29,30 +29,40 @@ const chart = new Chart({
   height: 500,
 });
 
-chart.data({
-  value: data,
+chart.options({
+  type: 'view',
+  data: {
+    value: data,
+  },
+  coordinate: {
+    type: 'helix',
+    startAngle: 0.5 * Math.PI,
+    endAngle: 12.5 * Math.PI,
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'value',
+        color: 'value',
+      },
+      scale: {
+        color: {
+          type: 'linear',
+          range: ['#ffffff', '#1890FF'],
+        },
+      },
+      tooltip: {
+        title: 'time',
+      },
+      animate: {
+        enter: {
+          type: 'fadeIn',
+        },
+      },
+    },
+  ],
 });
-
-chart.coordinate({
-  type: 'helix',
-  startAngle: 0.5 * Math.PI,
-  endAngle: 12.5 * Math.PI,
-});
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'value')
-  .encode('color', 'value')
-  .scale('color', {
-    type: 'linear',
-    range: ['#ffffff', '#1890FF'],
-  })
-  .tooltip({
-    title: 'time',
-  })
-  .animate('enter', {
-    type: 'fadeIn',
-  });
 
 chart.render();

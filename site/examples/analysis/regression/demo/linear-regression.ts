@@ -9,41 +9,58 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/linear-regression.json',
-});
-
-chart
-  .point()
-  .encode('x', (d) => d[0])
-  .encode('y', (d) => d[1])
-  .encode('shape', 'point')
-  .scale('x', { domain: [0, 1] })
-  .scale('y', { domain: [0, 5] })
-  .style('fillOpacity', 0.75);
-
-chart
-  .line()
-  .data({
-    transform: [
-      {
-        type: 'custom',
-        callback: regressionLinear(),
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/linear-regression.json',
+  },
+  children: [
+    {
+      type: 'point',
+      encode: {
+        x: (d) => d[0],
+        y: (d) => d[1],
+        shape: 'point',
       },
-    ],
-  })
-  .encode('x', (d) => d[0])
-  .encode('y', (d) => d[1])
-  .style('stroke', '#30BF78')
-  .style('lineWidth', 2)
-  .label({
-    text: 'y = 1.7x+3.01',
-    selector: 'last',
-    position: 'right',
-    textAlign: 'end',
-    dy: -8,
-  })
-  .tooltip(false);
+      scale: {
+        x: { domain: [0, 1] },
+        y: { domain: [0, 5] },
+      },
+      style: {
+        fillOpacity: 0.75,
+      },
+    },
+    {
+      type: 'line',
+      data: {
+        transform: [
+          {
+            type: 'custom',
+            callback: regressionLinear(),
+          },
+        ],
+      },
+      encode: {
+        x: (d) => d[0],
+        y: (d) => d[1],
+      },
+      style: {
+        stroke: '#30BF78',
+        lineWidth: 2,
+      },
+      labels: [
+        {
+          text: 'y = 1.7x+3.01',
+          selector: 'last',
+          position: 'right',
+          textAlign: 'end',
+          dy: -8,
+        },
+      ],
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

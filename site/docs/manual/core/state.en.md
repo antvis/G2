@@ -65,7 +65,7 @@ chart.options({
 
 ### Direct Mark-Level Configuration
 
-When using mark APIs directly (such as `chart.line()`), state configuration takes effect at the mark level:
+When `state` is configured directly on a mark Spec (such as `type: 'line'`), it takes effect at the mark level:
 
 ```js
 // ✅ Direct mark-level configuration

@@ -8,17 +8,26 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data({
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'unemployment')
-  .encode('series', 'division');
-
-chart.interaction('tooltip', { filter: (d, i) => i < 10 });
+chart.options({
+  type: 'view',
+  interaction: {
+    tooltip: { filter: (d, i) => i < 10 },
+  },
+  children: [
+    {
+      type: 'line',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv',
+      },
+      encode: {
+        x: 'date',
+        y: 'unemployment',
+        series: 'division',
+      },
+    },
+  ],
+});
 
 chart.render();

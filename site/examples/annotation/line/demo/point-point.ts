@@ -5,40 +5,61 @@ const chart = new Chart({
   height: 180,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-  transform: [
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      {
+        type: 'map',
+        callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
+      },
+    ],
+  },
+  children: [
     {
-      type: 'map',
-      callback: (d) => ({ ...d, body_mass_g: +d.body_mass_g }),
+      type: 'point',
+      encode: {
+        x: 'body_mass_g',
+        y: 'species',
+      },
+      style: {
+        stroke: '#000',
+      },
+      tooltip: {
+        items: [{ channel: 'x' }],
+      },
+    },
+    {
+      type: 'link',
+      transform: [{ type: 'groupY', x: 'min', x1: 'max' }],
+      encode: {
+        x: 'body_mass_g',
+        y: 'species',
+      },
+      style: {
+        stroke: '#000',
+      },
+      tooltip: false,
+    },
+    {
+      type: 'point',
+      transform: [{ type: 'groupY', x: 'median' }],
+      encode: {
+        y: 'species',
+        x: 'body_mass_g',
+        shape: 'line',
+        size: 12,
+      },
+      style: {
+        stroke: 'red',
+      },
+      tooltip: {
+        items: [{ channel: 'x' }],
+      },
     },
   ],
 });
-
-chart
-  .point()
-  .encode('x', 'body_mass_g')
-  .encode('y', 'species')
-  .style('stroke', '#000')
-  .tooltip({ channel: 'x' });
-
-chart
-  .link()
-  .transform({ type: 'groupY', x: 'min', x1: 'max' })
-  .encode('x', 'body_mass_g')
-  .encode('y', 'species')
-  .style('stroke', '#000')
-  .tooltip(false);
-
-chart
-  .point()
-  .transform({ type: 'groupY', x: 'median' })
-  .encode('y', 'species')
-  .encode('x', 'body_mass_g')
-  .encode('shape', 'line')
-  .encode('size', 12)
-  .style('stroke', 'red')
-  .tooltip({ channel: 'x' });
 
 chart.render();

@@ -70,7 +70,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -131,7 +136,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -199,7 +209,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -280,7 +295,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -314,7 +334,9 @@ chart.render().then(() => {
 你可能注意到在上面的例子中我们刻意关闭了图例：
 
 ```ts
-chart.legend(false);
+({
+  legend: false,
+});
 ```
 
 这是由于 3D 场景中的图形都会受到相机影响，但像图例这样的 HUD 组件更适合独立绘制。参考[自定义图例](/manual/component/legend#自定义图例legend)，我们可以使用 HTML 自定义图例：
@@ -413,7 +435,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,
@@ -581,7 +608,12 @@ chart.options({
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv',
   },
-  encode: { x: 'Horsepower', y: 'Miles_per_Gallon', z: 'Weight_in_lbs', color: 'Origin' },
+  encode: {
+    x: 'Horsepower',
+    y: 'Miles_per_Gallon',
+    z: 'Weight_in_lbs',
+    color: 'Origin',
+  },
   coordinate: { type: 'cartesian3D' },
   scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
   legend: false,

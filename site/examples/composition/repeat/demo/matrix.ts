@@ -13,9 +13,9 @@ const chart = new Chart({
   paddingBottom: 70,
 });
 
-const repeatMatrix = chart
-  .repeatMatrix()
-  .data({
+chart.options({
+  type: 'repeatMatrix',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/penguins.json',
     transform: [
@@ -36,14 +36,23 @@ const repeatMatrix = chart
         }),
       },
     ],
-  })
-  .encode('position', [
-    'culmen_length_mm',
-    'culmen_depth_mm',
-    'flipper_length_mm',
-    'body_mass_g',
-  ]);
-
-repeatMatrix.point().encode('color', 'species');
+  },
+  encode: {
+    position: [
+      'culmen_length_mm',
+      'culmen_depth_mm',
+      'flipper_length_mm',
+      'body_mass_g',
+    ],
+  },
+  children: [
+    {
+      type: 'point',
+      encode: {
+        color: 'species',
+      },
+    },
+  ],
+});
 
 chart.render();

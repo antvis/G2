@@ -73,8 +73,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data({
+chart.options({
+  type: 'view',
+  data: {
     value: data,
     transform: [
       {
@@ -86,43 +87,59 @@ chart
         }),
       },
     ],
-  })
-  .axis('y', { title: false });
-
-chart
-  .area()
-  .encode('x', (d) => new Date(d.time).toLocaleDateString())
-  .encode('y', ['low', 'high'])
-  .encode('shape', 'area')
-  .style('fillOpacity', 0.3)
-  .style('fill', '#64b5f6')
-  .tooltip({
-    items: [(d) => ({ name: '温度区间', value: `${d.low}-${d.high}` })],
-  });
-
-chart
-  .line()
-  .data(averages)
-  .encode('x', (d) => new Date(d.time).toLocaleDateString())
-  .encode('y', 'temperature')
-  .encode('shape', 'line')
-  .style('lineWidth', 2)
-  .tooltip({
-    title: false,
-    items: [
-      (d) => ({
-        name: '平均温度',
-        value: d.temperature,
-      }),
-    ],
-  });
-chart
-  .point()
-  .data(averages)
-  .encode('x', (d) => new Date(d.time).toLocaleDateString())
-  .encode('y', 'temperature')
-  .encode('shape', 'point')
-  .encode('size', 4)
-  .tooltip(false);
+  },
+  axis: {
+    y: { title: false },
+  },
+  children: [
+    {
+      type: 'area',
+      encode: {
+        x: (d) => new Date(d.time).toLocaleDateString(),
+        y: ['low', 'high'],
+        shape: 'area',
+      },
+      style: {
+        fillOpacity: 0.3,
+        fill: '#64b5f6',
+      },
+      tooltip: {
+        items: [(d) => ({ name: '温度区间', value: `${d.low}-${d.high}` })],
+      },
+    },
+    {
+      type: 'line',
+      data: averages,
+      encode: {
+        x: (d) => new Date(d.time).toLocaleDateString(),
+        y: 'temperature',
+        shape: 'line',
+      },
+      style: {
+        lineWidth: 2,
+      },
+      tooltip: {
+        title: false,
+        items: [
+          (d) => ({
+            name: '平均温度',
+            value: d.temperature,
+          }),
+        ],
+      },
+    },
+    {
+      type: 'point',
+      data: averages,
+      encode: {
+        x: (d) => new Date(d.time).toLocaleDateString(),
+        y: 'temperature',
+        shape: 'point',
+        size: 4,
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

@@ -81,10 +81,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data).encode('x', 'date').encode('y', 'discount_price');
-
-chart.line();
-
-chart.mark(ChangePoint);
+chart.options({
+  type: 'view',
+  data: data,
+  encode: {
+    x: 'date',
+    y: 'discount_price',
+  },
+  children: [
+    {
+      type: 'line',
+    },
+    {
+      type: ChangePoint,
+    },
+  ],
+});
 
 chart.render();

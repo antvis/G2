@@ -19,7 +19,7 @@ const customSquare = Object.assign<SymbolFactor, Partial<SymbolFactor>>(
   },
   {
     // 空心请设置为 ['stroke', 'lineWidth']
-    style: ['fill']
+    style: ['fill'],
   },
 );
 
@@ -39,17 +39,24 @@ const data = [
 
 const colorField = 'genre';
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', colorField)
-  .legend({
-    color: {
-      itemMarker: 'customSquare',
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+      data: data,
+      encode: {
+        x: 'genre',
+        y: 'sold',
+        color: colorField,
+      },
+      legend: {
+        color: {
+          itemMarker: 'customSquare',
+        },
+      },
     },
-  });
+  ],
+});
 
 chart.render();
-

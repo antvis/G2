@@ -16,22 +16,36 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .box()
-  .data(data)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'x')
-  .scale('x', { paddingInner: 0.6, paddingOuter: 0.3 })
-  .scale('y', { zero: true })
-  .legend(false)
-  .style('stroke', 'black')
-  .tooltip([
-    { name: 'min', channel: 'y' },
-    { name: 'q1', channel: 'y1' },
-    { name: 'q2', channel: 'y2' },
-    { name: 'q3', channel: 'y3' },
-    { name: 'max', channel: 'y4' },
-  ]);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'box',
+      data: data,
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: 'x',
+      },
+      scale: {
+        x: { paddingInner: 0.6, paddingOuter: 0.3 },
+        y: { zero: true },
+      },
+      legend: false,
+      style: {
+        stroke: 'black',
+      },
+      tooltip: {
+        items: [
+          { name: 'min', channel: 'y' },
+          { name: 'q1', channel: 'y1' },
+          { name: 'q2', channel: 'y2' },
+          { name: 'q3', channel: 'y3' },
+          { name: 'max', channel: 'y4' },
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();

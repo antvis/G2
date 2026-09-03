@@ -20,8 +20,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     { x: 'Start', value: 23000000, start: 0, end: 23000000 },
     { x: 'Jan', value: 2200000, start: 23000000, end: 25200000 },
     { x: 'Feb', value: -4600000, start: 25200000, end: 20600000 },
@@ -36,41 +37,61 @@ chart
     { x: 'Nov', value: -1500000, start: 29500000, end: 28000000 },
     { x: 'Dec', value: 5100000, start: 28000000, end: 33100000 },
     { x: 'End', isTotal: true, value: 33100000, start: 0, end: 33100000 },
-  ])
-  .axis('x', { title: false })
-  .axis('y', { labelFormatter: '~s' })
-  .legend(null);
-
-chart
-  .link()
-  .data({ transform: [{ type: 'custom', callback: linkData }] })
-  .encode('x', ['x1', 'x2'])
-  .encode('y', 'value')
-  .style('stroke', '#697474')
-  .tooltip(false);
-
-chart
-  .interval()
-  .encode('x', 'x')
-  .encode('y', ['start', 'end'])
-  .encode('color', (d, idx) =>
-    idx === 0 || d.isTotal ? 'D' : d.value > 0 ? 'P' : 'N',
-  )
-  .scale('color', {
-    domain: ['P', 'N', 'D'],
-    range: ['#64b5f6', '#ef6c00', '#96a6a6'],
-  })
-  .encode('size', 24)
-  .style('stroke', '#697474')
-  .label({
-    text: 'value',
-    formatter: '~s',
-    position: (d) => (d.value > 0 ? 'top' : 'bottom'),
-    textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
-    fontSize: 10,
-    dy: (d) => (d.value > 0 ? -4 : 4),
-  })
-  .tooltip({ channel: 'y', valueFormatter: '~s' })
-  .tooltip({ channel: 'y1', valueFormatter: '~s' });
+  ],
+  axis: {
+    x: { title: false },
+    y: { labelFormatter: '~s' },
+  },
+  legend: null,
+  children: [
+    {
+      type: 'link',
+      data: { transform: [{ type: 'custom', callback: linkData }] },
+      encode: {
+        x: ['x1', 'x2'],
+        y: 'value',
+      },
+      style: {
+        stroke: '#697474',
+      },
+      tooltip: false,
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'x',
+        y: ['start', 'end'],
+        color: (d, idx) =>
+          idx === 0 || d.isTotal ? 'D' : d.value > 0 ? 'P' : 'N',
+        size: 24,
+      },
+      scale: {
+        color: {
+          domain: ['P', 'N', 'D'],
+          range: ['#64b5f6', '#ef6c00', '#96a6a6'],
+        },
+      },
+      style: {
+        stroke: '#697474',
+      },
+      labels: [
+        {
+          text: 'value',
+          formatter: '~s',
+          position: (d) => (d.value > 0 ? 'top' : 'bottom'),
+          textBaseline: (d) => (d.value > 0 ? 'bottom' : 'top'),
+          fontSize: 10,
+          dy: (d) => (d.value > 0 ? -4 : 4),
+        },
+      ],
+      tooltip: {
+        items: [
+          { channel: 'y', valueFormatter: '~s' },
+          { channel: 'y1', valueFormatter: '~s' },
+        ],
+      },
+    },
+  ],
+});
 
 chart.render();

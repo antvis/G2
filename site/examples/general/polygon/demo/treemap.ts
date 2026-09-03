@@ -28,47 +28,59 @@ const chart = new Chart({
   paddingRight: 4,
 });
 
-chart
-  .data({
+chart.options({
+  type: 'view',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
     transform: [{ type: 'custom', callback: layout }],
-  })
-  .legend(false);
-
-chart
-  .polygon()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('size', 'r')
-  .encode('color', (d) => d.parent.data.name)
-  .tooltip({
-    title: '',
-    items: [(d) => d.parent.data.name],
-  })
-  .scale('x', { domain: [0, 1] })
-  .scale('y', { domain: [0, 1], range: [0, 1] })
-  .scale('size', { type: 'identity' })
-  .axis(false);
-
-chart
-  .text()
-  .data({
-    transform: [
-      {
-        type: 'filter',
-        callback: (d) => d.height === 0,
+  },
+  legend: false,
+  children: [
+    {
+      type: 'polygon',
+      encode: {
+        x: 'x',
+        y: 'y',
+        size: 'r',
+        color: (d) => d.parent.data.name,
       },
-    ],
-  })
-  .encode('x', (d) => d.x[0])
-  .encode('y', (d) => d.y[0])
-  .encode('text', name)
-  .style('dy', 15)
-  .style('dx', 5)
-  .style('fill', 'black')
-  .style('textAlign', 'start')
-  .style('fontSize', 12);
+      tooltip: {
+        title: '',
+        items: [(d) => d.parent.data.name],
+      },
+      scale: {
+        x: { domain: [0, 1] },
+        y: { domain: [0, 1], range: [0, 1] },
+        size: { type: 'identity' },
+      },
+      axis: false,
+    },
+    {
+      type: 'text',
+      data: {
+        transform: [
+          {
+            type: 'filter',
+            callback: (d) => d.height === 0,
+          },
+        ],
+      },
+      encode: {
+        x: (d) => d.x[0],
+        y: (d) => d.y[0],
+        text: name,
+      },
+      style: {
+        dy: 15,
+        dx: 5,
+        fill: 'black',
+        textAlign: 'start',
+        fontSize: 12,
+      },
+    },
+  ],
+});
 
 chart.render();

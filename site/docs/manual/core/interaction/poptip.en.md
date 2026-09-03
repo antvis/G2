@@ -9,19 +9,13 @@ poptip is an interaction type in G2 that displays concise tooltip information wh
 
 ## Usage
 
-To enable poptip interaction, simply add `interaction: 'poptip'` in the chart configuration or use the `chart.interaction('poptip', true)` method.
+To enable the poptip interaction, set `poptip` in the chart Spec's `interaction` property.
 
 ```javascript
 chart.options({
   // Other configurations...
   interaction: { poptip: true },
 });
-```
-
-Or use method call:
-
-```javascript
-chart.interaction('poptip', true);
 ```
 
 ## Configuration Level

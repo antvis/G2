@@ -8,8 +8,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data({
+chart.options({
+  type: 'view',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/range-spline-area.json',
     transform: [
@@ -18,32 +19,49 @@ chart
         callback: ([x, low, high, v2, v3]) => ({ x, low, high, v2, v3 }),
       },
     ],
-  })
-  .axis('y', { title: false })
-  .scale('x', { type: 'linear', tickCount: 10 });
-
-chart
-  .area()
-  .encode('x', 'x')
-  .encode('y', ['low', 'high'])
-  .encode('shape', 'smooth')
-  .style('fillOpacity', 0.65)
-  .style('fill', '#64b5f6')
-  .style('lineWidth', 1);
-
-chart
-  .point()
-  .encode('x', 'x')
-  .encode('y', 'v2')
-  .encode('size', 2)
-  .encode('shape', 'point')
-  .tooltip('v2');
-
-chart
-  .line()
-  .encode('x', 'x')
-  .encode('y', 'v3')
-  .encode('color', '#FF6B3B')
-  .encode('shape', 'smooth');
+  },
+  axis: {
+    y: { title: false },
+  },
+  scale: {
+    x: { type: 'linear', tickCount: 10 },
+  },
+  children: [
+    {
+      type: 'area',
+      encode: {
+        x: 'x',
+        y: ['low', 'high'],
+        shape: 'smooth',
+      },
+      style: {
+        fillOpacity: 0.65,
+        fill: '#64b5f6',
+        lineWidth: 1,
+      },
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'x',
+        y: 'v2',
+        size: 2,
+        shape: 'point',
+      },
+      tooltip: {
+        items: ['v2'],
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: 'x',
+        y: 'v3',
+        color: '#FF6B3B',
+        shape: 'smooth',
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -16,10 +16,10 @@ fetch('https://assets.antv.antgroup.com/g2/unemployment2.json')
       autoFit: true,
     });
 
-    chart
-      .geoPath()
-      .coordinate({ type: 'albersUsa' })
-      .data({
+    chart.options({
+      type: 'geoPath',
+      coordinate: { type: 'albersUsa' },
+      data: {
         type: 'fetch',
         value: 'https://assets.antv.antgroup.com/g2/us-10m.json',
         transform: [
@@ -31,13 +31,18 @@ fetch('https://assets.antv.antgroup.com/g2/unemployment2.json')
             select: ['rate'],
           },
         ],
-      })
-      .scale('color', {
-        palette: 'ylGnBu',
-        unknown: '#fff',
-      })
-      .encode('color', 'rate')
-      .legend({ color: { layout: { justifyContent: 'center' } } });
+      },
+      scale: {
+        color: {
+          palette: 'ylGnBu',
+          unknown: '#fff',
+        },
+      },
+      encode: {
+        color: 'rate',
+      },
+      legend: { color: { layout: { justifyContent: 'center' } } },
+    });
 
     chart.render();
   });

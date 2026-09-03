@@ -10,9 +10,9 @@ const chart = new Chart({
   height: 640,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/penguins.json',
     transform: [
@@ -29,23 +29,34 @@ const facetRect = chart
         }),
       },
     ],
-  })
-  .encode('x', 'sex')
-  .encode('y', 'species');
-
-facetRect
-  .point()
-  .attr('facet', false)
-  .attr('frame', false)
-  .encode('x', 'culmen_depth_mm')
-  .encode('y', 'culmen_length_mm')
-  .style('fill', '#ddd')
-  .style('lineWidth', 0);
-
-facetRect
-  .point()
-  .encode('x', 'culmen_depth_mm')
-  .encode('y', 'culmen_length_mm')
-  .encode('color', 'island');
+  },
+  encode: {
+    x: 'sex',
+    y: 'species',
+  },
+  children: [
+    {
+      type: 'point',
+      facet: false,
+      frame: false,
+      encode: {
+        x: 'culmen_depth_mm',
+        y: 'culmen_length_mm',
+      },
+      style: {
+        fill: '#ddd',
+        lineWidth: 0,
+      },
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'culmen_depth_mm',
+        y: 'culmen_length_mm',
+        color: 'island',
+      },
+    },
+  ],
+});
 
 chart.render();

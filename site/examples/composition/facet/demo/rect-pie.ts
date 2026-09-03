@@ -26,22 +26,39 @@ const mockData = () => {
   }).flat(Infinity);
 };
 
-const facetRect = chart
-  .facetRect()
-  .data(mockData())
-  .encode('x', 'day')
-  .encode('y', 'week')
-  .scale('x', { domain: days })
-  .legend('color', { position: 'right', size: 50 })
-  .attr('paddingRight', 100);
-
-facetRect
-  .view()
-  .coordinate({ type: 'theta' })
-  .interval()
-  .transform({ type: 'stackY' })
-  .scale('y', { facet: false })
-  .encode('y', 'value')
-  .encode('color', 'activity');
+chart.options({
+  type: 'facetRect',
+  data: mockData(),
+  encode: {
+    x: 'day',
+    y: 'week',
+  },
+  scale: {
+    x: { domain: days },
+  },
+  legend: {
+    color: { position: 'right', size: 50 },
+  },
+  paddingRight: 100,
+  children: [
+    {
+      type: 'view',
+      coordinate: { type: 'theta' },
+      children: [
+        {
+          type: 'interval',
+          transform: [{ type: 'stackY' }],
+          scale: {
+            y: { facet: false },
+          },
+          encode: {
+            y: 'value',
+            color: 'activity',
+          },
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

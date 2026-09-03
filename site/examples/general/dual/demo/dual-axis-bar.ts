@@ -15,23 +15,38 @@ const data = [
   { time: '10:40', call: 13, waiting: 1, people: 2 },
 ];
 
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'waiting')
-  .encode('color', () => 'waiting')
-  .encode('series', () => 'waiting')
-  .axis('y', { title: 'Waiting' });
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'people')
-  .encode('color', () => 'people')
-  .encode('series', () => 'people')
-  .scale('y', { independent: true })
-  .axis('y', { position: 'right', grid: null, title: 'People' });
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'waiting',
+        color: () => 'waiting',
+        series: () => 'waiting',
+      },
+      axis: {
+        y: { title: 'Waiting' },
+      },
+    },
+    {
+      type: 'interval',
+      encode: {
+        x: 'time',
+        y: 'people',
+        color: () => 'people',
+        series: () => 'people',
+      },
+      scale: {
+        y: { independent: true },
+      },
+      axis: {
+        y: { position: 'right', grid: null, title: 'People' },
+      },
+    },
+  ],
+});
 
 chart.render();

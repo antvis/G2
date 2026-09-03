@@ -5,38 +5,49 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/species.json',
-});
-
-chart
-  .density()
-  .data({
-    transform: [
-      {
-        type: 'kde',
-        field: 'y',
-        groupBy: ['x', 'species'],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/species.json',
+  },
+  children: [
+    {
+      type: 'density',
+      data: {
+        transform: [
+          {
+            type: 'kde',
+            field: 'y',
+            groupBy: ['x', 'species'],
+          },
+        ],
       },
-    ],
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('series', 'species')
-  .encode('color', 'species')
-  .encode('size', 'size')
-  .tooltip(false);
-
-chart
-  .boxplot()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('series', 'species')
-  .encode('color', 'species')
-  .encode('shape', 'violin')
-  .style('opacity', 0.5)
-  .style('strokeOpacity', 0.5)
-  .style('point', false);
+      encode: {
+        x: 'x',
+        y: 'y',
+        series: 'species',
+        color: 'species',
+        size: 'size',
+      },
+      tooltip: false,
+    },
+    {
+      type: 'boxplot',
+      encode: {
+        x: 'x',
+        y: 'y',
+        series: 'species',
+        color: 'species',
+        shape: 'violin',
+      },
+      style: {
+        opacity: 0.5,
+        strokeOpacity: 0.5,
+        point: false,
+      },
+    },
+  ],
+});
 
 chart.render();

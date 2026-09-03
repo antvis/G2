@@ -16,30 +16,36 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'sortBy',
-      fields: ['sold'], // 根据 sold 字段排序
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'sortBy',
+        fields: ['sold'], // 根据 sold 字段排序
+      },
+    ],
+  },
 });
 ```
 
 当存在排序字段时，你可以为每一个字段提供一个布尔值 boolean 来改变排序方式，默认值为 true。
 
 ```ts
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'sortBy',
-      fields: [['sold', false]], // 排序方式变为降序
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'sortBy',
+        fields: [['sold', false]], // 排序方式变为降序
+      },
+    ],
+  },
 });
 ```
 

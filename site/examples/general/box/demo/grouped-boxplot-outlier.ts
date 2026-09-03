@@ -5,17 +5,24 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart
-  .boxplot()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-  })
-  .encode('x', 'species')
-  .encode('y', 'flipper_length_mm')
-  .encode('color', 'sex')
-  .encode('series', 'sex');
+chart.options({
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'boxplot',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+      },
+      encode: {
+        x: 'species',
+        y: 'flipper_length_mm',
+        color: 'sex',
+        series: 'sex',
+      },
+    },
+  ],
+});
 
 chart.render();

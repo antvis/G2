@@ -11,19 +11,28 @@ const chart = new Chart({
   paddingBottom: 60,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
-  .encode('x', 'series');
-
-facetRect
-  .point()
-  .attr('inset', 10)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000');
+  },
+  encode: {
+    x: 'series',
+  },
+  children: [
+    {
+      type: 'point',
+      inset: 10,
+      encode: {
+        x: 'x',
+        y: 'y',
+      },
+      style: {
+        stroke: '#000',
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -96,32 +96,40 @@ Directly declare views and their child marks in options:
 });
 ```
 
-### 2. API Chaining
-
-Create views and add marks through API:
-
-```js
-const chart = new G2.Chart();
-const view = chart.view({ data: [...] });
-view.interval().encode('x', 'type').encode('y', 'value');
-view.line().encode('x', 'type').encode('y', 'value');
-chart.render();
-```
-
-### 3. Composite Views and Facets
+### 2. Composite Views and Facets
 
 Views can serve as child nodes of composite nodes (such as facets, spatial layouts). **Note: Multi-view composition should use composite containers, not nested views in view's children.**
 
 ```js
 // ✅ Correct: use facet to compose multiple views
-const facet = chart.facetRect();
-facet.view().interval().encode('x', 'type').encode('y', 'value');
-facet.view().line().encode('x', 'type').encode('y', 'value');
+({
+  type: 'facetRect',
+  children: [
+    {
+      type: 'view',
+      children: [{ type: 'interval', encode: { x: 'type', y: 'value' } }],
+    },
+    {
+      type: 'view',
+      children: [{ type: 'line', encode: { x: 'type', y: 'value' } }],
+    },
+  ],
+});
 
 // ✅ Correct: use spaceFlex to compose multiple views
-const container = chart.spaceFlex();
-container.view().interval().encode('x', 'type').encode('y', 'value');
-container.view().line().encode('x', 'date').encode('y', 'sales');
+({
+  type: 'spaceFlex',
+  children: [
+    {
+      type: 'view',
+      children: [{ type: 'interval', encode: { x: 'type', y: 'value' } }],
+    },
+    {
+      type: 'view',
+      children: [{ type: 'line', encode: { x: 'date', y: 'sales' } }],
+    },
+  ],
+});
 
 // ❌ Error: do not nest view in view's children
 // chart.options({

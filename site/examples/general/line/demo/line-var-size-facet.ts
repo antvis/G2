@@ -23,22 +23,43 @@ fetch('https://assets.antv.antgroup.com/g2/barley.json')
       paddingBottom: 30,
     });
 
-    const facet = chart.facetRect().data(data).encode('x', 'site');
-
-    facet
-      .line()
-      .encode('x', (d) => `${d.year}`)
-      .encode('y', 'variety')
-      .encode('series', 'variety')
-      .encode('color', (d) => keyDelta.get(key(d)))
-      .encode('size', 'yield')
-      .tooltip({ title: '', items: [{ field: 'year' }, { field: 'yield' }] })
-      .scale('size', { range: [0, 12] })
-      .scale('color', { palette: 'rdBu' })
-      .style('shape', 'trail')
-      .legend('color', { title: 'yield delta' })
-      .attr('frame', false)
-      .interaction('tooltip', { series: false });
+    chart.options({
+      type: 'facetRect',
+      data: data,
+      encode: {
+        x: 'site',
+      },
+      children: [
+        {
+          type: 'line',
+          encode: {
+            x: (d) => `${d.year}`,
+            y: 'variety',
+            series: 'variety',
+            color: (d) => keyDelta.get(key(d)),
+            size: 'yield',
+          },
+          tooltip: {
+            title: '',
+            items: [{ field: 'year' }, { field: 'yield' }],
+          },
+          scale: {
+            size: { range: [0, 12] },
+            color: { palette: 'rdBu' },
+          },
+          style: {
+            shape: 'trail',
+          },
+          legend: {
+            color: { title: 'yield delta' },
+          },
+          frame: false,
+          interaction: {
+            tooltip: { series: false },
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

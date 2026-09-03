@@ -368,46 +368,72 @@ const chart = new Chart({
   container: 'container',
   autoFit: true,
 });
-const keyframe = chart.timingKeyframe({
-  direction: 'alternate',
-  iterationCount: 4,
+
+chart.options({
+  type: 'timingKeyframe',
+  ...{
+    direction: 'alternate',
+    iterationCount: 4,
+  },
+  children: [
+    {
+      type: 'line',
+      data: data,
+      coordinate: { type: 'polar' },
+      axis: {
+        x: {
+          grid: null,
+          line: true,
+          lineLineWidth: 1,
+        },
+        y: false,
+      },
+      scale: {
+        x: { tickCount: 12 },
+      },
+      interaction: {
+        tooltip: {
+          crosshairs: false,
+        },
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: '#ff8800',
+      },
+      style: {
+        lineWidth: 2,
+      },
+    },
+    {
+      type: 'line',
+      data: data,
+      axis: {
+        x: {
+          grid: null,
+          line: true,
+          lineLineWidth: 1,
+        },
+        y: false,
+      },
+      scale: {
+        x: { tickCount: 12 },
+      },
+      interaction: {
+        tooltip: {
+          crosshairs: false,
+        },
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: '#ff8800',
+      },
+      style: {
+        lineWidth: 2,
+      },
+    },
+  ],
 });
-
-keyframe
-  .line()
-  .data(data)
-  .coordinate({ type: 'polar' })
-  .axis('x', {
-    grid: null,
-    line: true,
-    lineLineWidth: 1,
-  })
-  .axis('y', false)
-  .scale('x', { tickCount: 12 })
-  .interaction('tooltip', {
-    crosshairs: false,
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', '#ff8800')
-  .style('lineWidth', 2);
-
-keyframe
-  .line()
-  .data(data)
-  .axis('x', {
-    grid: null,
-    line: true,
-    lineLineWidth: 1,
-  })
-  .axis('y', false)
-  .scale('x', { tickCount: 12 })
-  .interaction('tooltip', {
-    crosshairs: false,
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', '#ff8800')
-  .style('lineWidth', 2);
 
 chart.render();

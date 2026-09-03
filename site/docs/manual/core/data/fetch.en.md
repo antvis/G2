@@ -64,8 +64,7 @@ chart.render();
 In the `fetch` implementation, if format is `json`, it uses JavaScript's `fetch` API and converts the return value to a JSON Object; if format is `csv`, it calls `d3-dsv` to parse the interface return value.
 
 ```js
-// API
-chart.data({
+chart.options({
   type: 'point',
   data: {
     type: 'fetch',

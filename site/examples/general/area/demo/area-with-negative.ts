@@ -28,8 +28,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .data({
+chart.options({
+  type: 'view',
+  data: {
     value: data,
     transform: [
       {
@@ -39,13 +40,27 @@ chart
         value: 'value', // value字段
       },
     ],
-  })
-  .encode('x', (d) => d.year)
-  .encode('y', 'value')
-  .encode('color', 'type');
-
-chart.area().style('fillOpacity', 0.3);
-
-chart.line().style('strokeWidth', 2).tooltip(false);
+  },
+  encode: {
+    x: (d) => d.year,
+    y: 'value',
+    color: 'type',
+  },
+  children: [
+    {
+      type: 'area',
+      style: {
+        fillOpacity: 0.3,
+      },
+    },
+    {
+      type: 'line',
+      style: {
+        strokeWidth: 2,
+      },
+      tooltip: false,
+    },
+  ],
+});
 
 chart.render();

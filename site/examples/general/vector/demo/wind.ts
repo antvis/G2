@@ -5,22 +5,34 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .vector()
-  .data({
-    type: 'fetch',
-    value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
-  })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('rotate', ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI)
-  .encode('size', ({ u, v }) => Math.hypot(v, u))
-  .encode('color', ({ u, v }) => Math.hypot(v, u))
-  .scale('size', { range: [6, 20] })
-  .scale('color', { palette: 'viridis' })
-  .axis('x', { grid: false })
-  .axis('y', { grid: false })
-  .legend(false)
-  .tooltip({ title: { channel: 'color', valueFormatter: '.1f' } });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'vector',
+      data: {
+        type: 'fetch',
+        value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+      },
+      encode: {
+        x: 'longitude',
+        y: 'latitude',
+        rotate: ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI,
+        size: ({ u, v }) => Math.hypot(v, u),
+        color: ({ u, v }) => Math.hypot(v, u),
+      },
+      scale: {
+        size: { range: [6, 20] },
+        color: { palette: 'viridis' },
+      },
+      axis: {
+        x: { grid: false },
+        y: { grid: false },
+      },
+      legend: false,
+      tooltip: { title: { channel: 'color', valueFormatter: '.1f' } },
+    },
+  ],
+});
 
 chart.render();

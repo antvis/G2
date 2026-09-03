@@ -120,9 +120,11 @@ const ctx = canvas.getContext('2d');
 drawRect(ctx, width, height, color);
 drawLinePattern(ctx, stroke, width, height, cross);
 
-// 使用
-chart.style('fill', ({ value }) => {
-  return { image: canvas, repetition: 'repeat' };
+// Use in a Spec
+({
+  style: {
+    fill: ({ value }) => ({ image: canvas, repetition: 'repeat' }),
+  },
 });
 ```
 

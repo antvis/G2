@@ -38,20 +38,32 @@ const chart = new Chart({
   depth: 300, // Define the depth of chart.
 });
 
-chart
-  .surface3D()
-  .data(points)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('z', 'z')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 1 })
-  .axis('y', { gridLineWidth: 1, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 1 });
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'surface3D',
+      data: points,
+      encode: {
+        x: 'x',
+        y: 'y',
+        z: 'z',
+      },
+      coordinate: { type: 'cartesian3D' },
+      scale: {
+        x: { nice: true },
+        y: { nice: true },
+        z: { nice: true },
+      },
+      legend: false,
+      axis: {
+        x: { gridLineWidth: 1 },
+        y: { gridLineWidth: 1, titleBillboardRotation: -Math.PI / 2 },
+        z: { gridLineWidth: 1 },
+      },
+    },
+  ],
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();

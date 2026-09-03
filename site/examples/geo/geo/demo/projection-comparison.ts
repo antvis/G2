@@ -14,39 +14,43 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .spaceLayer()
-  .call(worldMap, geoPolyconic, '#f00')
-  .call(worldMap, geoRectangularPolyconic, '#00f');
+chart.options({
+  type: 'spaceLayer',
+  children: [
+    worldMap(geoPolyconic, '#f00'),
+    worldMap(geoRectangularPolyconic, '#00f'),
+  ],
+});
 
 chart.render();
 
-function worldMap(node, projection, color, opacity = 0.7) {
-  const geoView = node.geoView().coordinate({
-    type: projection,
-    size: 'fitWidth',
-  });
-
-  geoView
-    .geoPath()
-    .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/countries-50m.json',
-      transform: [{ type: 'feature', name: 'land' }],
-    })
-    .style('fill', color)
-    .style('opacity', opacity);
-
-  geoView
-    .geoPath()
-    .data({ type: 'graticule10' })
-    .style('stroke', color)
-    .style('strokeOpacity', 0.3)
-    .style('fill', 'none');
-
-  geoView
-    .geoPath()
-    .data({ type: 'sphere' })
-    .style('stroke', color)
-    .style('fill', 'none');
+function worldMap(projection, color, opacity = 0.7) {
+  return {
+    type: 'geoView',
+    coordinate: {
+      type: projection,
+      size: 'fitWidth',
+    },
+    children: [
+      {
+        type: 'geoPath',
+        data: {
+          type: 'fetch',
+          value: 'https://assets.antv.antgroup.com/g2/countries-50m.json',
+          transform: [{ type: 'feature', name: 'land' }],
+        },
+        style: { fill: color, opacity },
+      },
+      {
+        type: 'geoPath',
+        data: { type: 'graticule10' },
+        style: { stroke: color, strokeOpacity: 0.3, fill: 'none' },
+      },
+      {
+        type: 'geoPath',
+        data: { type: 'sphere' },
+        style: { stroke: color, fill: 'none' },
+      },
+    ],
+  };
 }

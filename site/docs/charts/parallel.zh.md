@@ -939,7 +939,7 @@ realFortuneData().then((fortuneData) => {
       const yearData = fortuneData.filter((d) => d.year === year);
       document.getElementById('current-year').textContent = year;
 
-      chart.changeData(yearData);
+      chart.options({ ...chart.options(), data: yearData }).render();
 
       // 更新按钮状态
       document.getElementById('prev-year').disabled = yearIndex === 0;

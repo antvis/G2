@@ -7,44 +7,65 @@ const chart = new Chart({
   renderer: new Renderer(),
 });
 
-const flex = chart
-  .spaceFlex()
-  .data({
+chart.options({
+  type: 'spaceFlex',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
-  })
-  .attr('direction', 'col')
-  .attr('ratio', [1, 1]);
-
-const flex1 = flex.spaceFlex().attr('direction', 'row').attr('ratio', [1, 1]);
-
-flex1
-  .interval()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('x', (d) => new Date(d.date).getUTCMonth())
-  .encode('y', 'precipitation');
-
-flex1
-  .line()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('x', (d) => new Date(d.date).getUTCMonth())
-  .encode('y', 'wind')
-  .encode('shape', 'smooth');
-
-const flex2 = flex.spaceFlex().attr('direction', 'row').attr('ratio', [1, 1]);
-
-flex2
-  .area()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('x', (d) => new Date(d.date).getUTCMonth())
-  .encode('y', ['temp_min', 'temp_max'])
-  .encode('shape', 'smooth');
-
-flex2
-  .point()
-  .transform({ type: 'groupX', y: 'mean' })
-  .encode('x', 'temp_min')
-  .encode('y', 'temp_max')
-  .encode('shape', 'point');
+  },
+  direction: 'col',
+  ratio: [1, 1],
+  children: [
+    {
+      type: 'spaceFlex',
+      direction: 'row',
+      ratio: [1, 1],
+      children: [
+        {
+          type: 'interval',
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: (d) => new Date(d.date).getUTCMonth(),
+            y: 'precipitation',
+          },
+        },
+        {
+          type: 'line',
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: (d) => new Date(d.date).getUTCMonth(),
+            y: 'wind',
+            shape: 'smooth',
+          },
+        },
+      ],
+    },
+    {
+      type: 'spaceFlex',
+      direction: 'row',
+      ratio: [1, 1],
+      children: [
+        {
+          type: 'area',
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: (d) => new Date(d.date).getUTCMonth(),
+            y: ['temp_min', 'temp_max'],
+            shape: 'smooth',
+          },
+        },
+        {
+          type: 'point',
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: 'temp_min',
+            y: 'temp_max',
+            shape: 'point',
+          },
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

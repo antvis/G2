@@ -12,9 +12,27 @@ G2 的数据源来源有两种，一种是 `inline`，即直接传入具体的�
 显式的指定 `type` 为 `inline`，完整的写法如下：
 
 ```js
-chart.data({
-  type: 'inline',
-  value: [
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: [
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ],
+  },
+});
+```
+
+因为 G2 默认的数据类型就是 `inline`，所以也可以简写为如下：
+
+```js
+chart.options({
+  type: 'view',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
@@ -22,18 +40,6 @@ chart.data({
     { genre: 'Other', sold: 150 },
   ],
 });
-```
-
-因为 G2 默认的数据类型就是 `inline`，所以也可以简写为如下：
-
-```js
-chart.data([
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 115 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-]);
 ```
 
 ## 开始使用
@@ -86,11 +92,14 @@ const graphData = {
   ],
 };
 
-chart.data(graphData); // ❌ 不建议这么写，G2 在处理的时候可能识别出错
+chart.options({ type: 'view', data: graphData }); // ❌ 不建议这么写，G2 在处理的时候可能识别出错
 
-chart.data({
-  // ✅ 建议完整写法，语义更明确，不会因为歧义带来识别错误
-  type: 'inline',
-  value: graphData,
+chart.options({
+  type: 'view',
+  data: {
+    // ✅ 建议完整写法，语义更明确，不会因为歧义带来识别错误
+    type: 'inline',
+    value: graphData,
+  },
 });
 ```

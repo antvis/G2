@@ -11,30 +11,41 @@ const chart = new Chart({
   height: 80,
 });
 
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', (_, idx) => idx)
-  .encode('y', (d) => d)
-  .axis(false);
-
-chart
-  .lineY()
-  .data([700])
-  .style('arrow', true)
-  .style('stroke', 'red')
-  .style('lineDash', [2, 2])
-  .style('arrow', true)
-  .label({
-    text: 'value = 700',
-    position: 'right',
-    dx: -10,
-    textBaseline: 'bottom',
-  });
-
-chart.interaction('tooltip', {
-  render: (e, { title, items }) => items[0].value,
+chart.options({
+  type: 'view',
+  data: data,
+  interaction: {
+    tooltip: {
+      render: (e, { title, items }) => items[0].value,
+    },
+  },
+  children: [
+    {
+      type: 'interval',
+      encode: {
+        x: (_, idx) => idx,
+        y: (d) => d,
+      },
+      axis: false,
+    },
+    {
+      type: 'lineY',
+      data: [700],
+      style: {
+        stroke: 'red',
+        lineDash: [2, 2],
+        arrow: true,
+      },
+      labels: [
+        {
+          text: 'value = 700',
+          position: 'right',
+          dx: -10,
+          textBaseline: 'bottom',
+        },
+      ],
+    },
+  ],
 });
 
 chart.render();

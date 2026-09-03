@@ -159,10 +159,23 @@ const Chart = extend(Runtime, stdlib());
 
 const chart = new Chart();
 
-chart.interval(); // corelib
-chart.sankey(); // plotlib
-chart.geoPath(); // graphlib
-chart.forceGraph(); // graphlib
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval', // corelib
+    },
+    {
+      type: 'sankey', // plotlib
+    },
+    {
+      type: 'geoPath', // geolib
+    },
+    {
+      type: 'forceGraph', // graphlib
+    },
+  ],
+});
 ```
 
 ### G2.corelib()
@@ -189,7 +202,14 @@ const Chart = extend(Runtime, {
 
 const chart = new Chart();
 
-chart.sankey();
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'sankey',
+    },
+  ],
+});
 ```
 
 ### G2.geolib()
@@ -206,7 +226,9 @@ const Chart = extend(Runtime, {
 
 const chart = new Chart();
 
-chart.geoPath();
+chart.options({
+  type: 'geoPath',
+});
 ```
 
 ### G2.graphlib()
@@ -223,7 +245,14 @@ const Chart = extend(Runtime, {
 
 const chart = new Chart();
 
-chart.forceGraph();
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'forceGraph',
+    },
+  ],
+});
 ```
 
 ### autolib
@@ -265,7 +294,14 @@ const chart = new Chart({
   depth: 400, // Set depth
 });
 
-chart.point3D();
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'point3D',
+    },
+  ],
+});
 ```
 
 ## Future work
@@ -290,7 +326,14 @@ const Chart = extend(Runtime, {
 
 const chart = new Chart();
 
-chart.interval();
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval',
+    },
+  ],
+});
 ```
 
 Expected `litelib` contains only the basic components needed to draw a visualization, all other components need to be used on demand through `import`, such as using tooltip interaction:

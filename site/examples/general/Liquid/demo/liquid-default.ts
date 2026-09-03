@@ -5,10 +5,19 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.liquid().data(0.3).style({
-  outlineBorder: 4,
-  outlineDistance: 8,
-  waveLength: 128,
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'liquid',
+      data: 0.3,
+      style: {
+        outlineBorder: 4,
+        outlineDistance: 8,
+        waveLength: 128,
+      },
+    },
+  ],
 });
 
 chart.render();

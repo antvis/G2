@@ -12,15 +12,6 @@ order: 1
 });
 ```
 
-```js
-// API
-const layer = chart.spaceLayer();
-
-layer.view();
-
-layer.view();
-```
-
 ## Space
 
 The most basic view composition method is **Space Composition**, which only divides the space.
@@ -237,7 +228,13 @@ fetch(
         {
           type: 'point',
           data,
-          encode: { x: 'height', y: 'weight', color: 'gender', shape: 'point', groupKey: 'gender' },
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+            shape: 'point',
+            groupKey: 'gender',
+          },
         },
       ],
     });

@@ -6,41 +6,61 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .polygon()
-  .data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/hexbin-china.json',
-    transform: [
-      {
-        type: 'custom',
-        callback: (data) => {
-          const dv = new DataSet.View().source(data).transform({
-            type: 'bin.hexagon',
-            fields: ['longitude', 'latitude'],
-            binWidth: [2, 3],
-            as: ['longitude', 'latitude', 'count'],
-          });
-          return dv.rows;
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'polygon',
+      data: {
+        type: 'fetch',
+        value: 'https://assets.antv.antgroup.com/g2/hexbin-china.json',
+        transform: [
+          {
+            type: 'custom',
+            callback: (data) => {
+              const dv = new DataSet.View().source(data).transform({
+                type: 'bin.hexagon',
+                fields: ['longitude', 'latitude'],
+                binWidth: [2, 3],
+                as: ['longitude', 'latitude', 'count'],
+              });
+              return dv.rows;
+            },
+          },
+        ],
+      },
+      encode: {
+        x: 'longitude',
+        y: 'latitude',
+        color: 'count',
+      },
+      scale: {
+        color: {
+          range: '#BAE7FF-#1890FF-#0050B3',
         },
       },
-    ],
-  })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('color', 'count')
-  .scale('color', {
-    range: '#BAE7FF-#1890FF-#0050B3',
-  })
-  .style('lineWidth', 5)
-  .style('stroke', '#fff')
-  .axis(false)
-  .legend(false)
-  .tooltip({
-    field: 'count',
-  })
-  .state('active', { fill: 'orange' })
-  .state('inactive', { opacity: 0.8 })
-  .interaction('elementHighlight', true);
+      style: {
+        lineWidth: 5,
+        stroke: '#fff',
+      },
+      axis: false,
+      legend: false,
+      tooltip: {
+        items: [
+          {
+            field: 'count',
+          },
+        ],
+      },
+      state: {
+        active: { fill: 'orange' },
+        inactive: { opacity: 0.8 },
+      },
+      interaction: {
+        elementHighlight: true,
+      },
+    },
+  ],
+});
 
 chart.render();

@@ -16,23 +16,40 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'polar', innerRadius: 0.2 });
-
-chart
-  .box()
-  .data(data)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'x')
-  .scale('x', { paddingInner: 0.6, paddingOuter: 0.3 })
-  .scale('y', { zero: true })
-  .style('stroke', 'black')
-  .axis('y', { tickCount: 5 })
-  .tooltip({ channel: 'y', name: 'min' })
-  .tooltip({ channel: 'y1', name: 'q1' })
-  .tooltip({ channel: 'y2', name: 'q2' })
-  .tooltip({ channel: 'y3', name: 'q3' })
-  .tooltip({ channel: 'y4', name: 'max' })
-  .legend(false);
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar', innerRadius: 0.2 },
+  children: [
+    {
+      type: 'box',
+      data: data,
+      encode: {
+        x: 'x',
+        y: 'y',
+        color: 'x',
+      },
+      scale: {
+        x: { paddingInner: 0.6, paddingOuter: 0.3 },
+        y: { zero: true },
+      },
+      style: {
+        stroke: 'black',
+      },
+      axis: {
+        y: { tickCount: 5 },
+      },
+      tooltip: {
+        items: [
+          { channel: 'y', name: 'min' },
+          { channel: 'y1', name: 'q1' },
+          { channel: 'y2', name: 'q2' },
+          { channel: 'y3', name: 'q3' },
+          { channel: 'y4', name: 'max' },
+        ],
+      },
+      legend: false,
+    },
+  ],
+});
 
 chart.render();

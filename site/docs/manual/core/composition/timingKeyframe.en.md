@@ -21,30 +21,37 @@ fetch(
       paddingLeft: 100,
     });
 
-    const keyframe = chart
-      .timingKeyframe()
-      .attr('direction', 'alternate')
-      .attr('iterationCount', 4);
-
-    // Bar chart
-    keyframe
-      .interval()
-      .data(data)
-      .transform({ type: 'groupX', y: 'mean' })
-      .encode('x', 'gender')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('key', 'gender'); // Specify key
-
-    // Scatter plot
-    keyframe
-      .point()
-      .data(data)
-      .encode('x', 'height')
-      .encode('y', 'weight')
-      .encode('color', 'gender')
-      .encode('groupKey', 'gender') // Specify the key for the merged bars
-      .encode('shape', 'point');
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        // Bar chart
+        {
+          type: 'interval',
+          data: data,
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: 'gender',
+            y: 'weight',
+            color: 'gender',
+            key: 'gender', // Specify key
+          },
+        },
+        // Scatter plot
+        {
+          type: 'point',
+          data: data,
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+            groupKey: 'gender', // Specify the key for the merged bars
+            shape: 'point',
+          },
+        },
+      ],
+    });
 
     chart.render();
   });

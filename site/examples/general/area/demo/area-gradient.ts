@@ -8,28 +8,41 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/stocks.json',
-  transform: [
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/stocks.json',
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d.symbol === 'GOOG',
+      },
+    ],
+  },
+  children: [
     {
-      type: 'filter',
-      callback: (d) => d.symbol === 'GOOG',
+      type: 'area',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'price',
+      },
+      style: {
+        fill: 'linear-gradient(-90deg, white 0%, darkgreen 100%)',
+      },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'price',
+      },
+      style: {
+        stroke: 'darkgreen',
+        lineWidth: 2,
+      },
     },
   ],
 });
-
-chart
-  .area()
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'price')
-  .style('fill', 'linear-gradient(-90deg, white 0%, darkgreen 100%)');
-
-chart
-  .line()
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'price')
-  .style('stroke', 'darkgreen')
-  .style('lineWidth', 2);
 
 chart.render();

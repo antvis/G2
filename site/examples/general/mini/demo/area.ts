@@ -11,21 +11,35 @@ const chart = new Chart({
   height: 80,
 });
 
-chart.data(data);
-
-chart
-  .area()
-  .encode('x', (_, idx) => idx)
-  .encode('y', (d) => d)
-  .encode('shape', 'smooth')
-  .scale('y', { zero: true })
-  .style('fill', 'linear-gradient(-90deg, white 0%, darkgreen 100%)')
-  .style('fillOpacity', 0.6)
-  .animate('enter', { type: 'fadeIn' })
-  .axis(false);
-
-chart.interaction('tooltip', {
-  render: (e, { title, items }) => items[0].value,
+chart.options({
+  type: 'view',
+  data: data,
+  interaction: {
+    tooltip: {
+      render: (e, { title, items }) => items[0].value,
+    },
+  },
+  children: [
+    {
+      type: 'area',
+      encode: {
+        x: (_, idx) => idx,
+        y: (d) => d,
+        shape: 'smooth',
+      },
+      scale: {
+        y: { zero: true },
+      },
+      style: {
+        fill: 'linear-gradient(-90deg, white 0%, darkgreen 100%)',
+        fillOpacity: 0.6,
+      },
+      animate: {
+        enter: { type: 'fadeIn' },
+      },
+      axis: false,
+    },
+  ],
 });
 
 chart.render();

@@ -7,9 +7,9 @@ const chart = new Chart({
   paddingLeft: 85,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/titanic.json',
     transform: [
@@ -25,37 +25,58 @@ const facetRect = chart
         }),
       },
     ],
-  })
-  .encode('y', 'pclass')
-  .attr('shareSize', true);
-
-const facetRect2 = facetRect
-  .facetRect()
-  .encode('x', 'survived')
-  .axis('y', false)
-  .axis('x', {
-    labelFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
-    position: 'bottom',
-  })
-  .attr('shareSize', true);
-
-const facetRect3 = facetRect2
-  .facetRect()
-  .encode('y', 'sex')
-  .attr('shareSize', true)
-  .axis('x', false)
-  .axis('y', { position: 'left' });
-
-facetRect3
-  .point()
-  .transform({ type: 'pack' })
-  .legend('color', { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') })
-  .encode('color', 'survived')
-  .encode('shape', 'point')
-  .encode('size', 3)
-  .tooltip({
-    title: '',
-    items: ['pclass', 'survived', 'sex'],
-  });
+  },
+  encode: {
+    y: 'pclass',
+  },
+  shareSize: true,
+  children: [
+    {
+      type: 'facetRect',
+      encode: {
+        x: 'survived',
+      },
+      axis: {
+        y: false,
+        x: {
+          labelFormatter: (d) => (d === '1' ? 'Yes' : 'No'),
+          position: 'bottom',
+        },
+      },
+      shareSize: true,
+      children: [
+        {
+          type: 'facetRect',
+          encode: {
+            y: 'sex',
+          },
+          shareSize: true,
+          axis: {
+            x: false,
+            y: { position: 'left' },
+          },
+          children: [
+            {
+              type: 'point',
+              transform: [{ type: 'pack' }],
+              legend: {
+                color: { labelFormatter: (d) => (d === '1' ? 'Yes' : 'No') },
+              },
+              encode: {
+                color: 'survived',
+                shape: 'point',
+                size: 3,
+              },
+              tooltip: {
+                title: '',
+                items: ['pclass', 'survived', 'sex'],
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

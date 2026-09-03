@@ -53,42 +53,59 @@ const data = [
   },
 ];
 
-chart.data(data);
-
-chart
-  .line()
-  .encode('x', 'year')
-  .encode('y', 1)
-  .style('lineWidth', 1)
-  .style('stroke', '#000')
-  .attr('zIndex', 1)
-  .label({
-    text: 'year',
-    dy: (d) => (d.year % 2 === 1 ? 8 : -4),
-    textAlign: 'center',
-    textBaseline: (d) => (d.year % 2 === 1 ? 'top' : 'bottom'),
-  })
-  .label({
-    text: (d) =>
-      d.composition + ` (${d.composer.slice(d.composer.lastIndexOf(' '))})`,
-    dy: (d) => (d.year % 2 === 0 ? 28 : -28),
-    textAlign: 'center',
-    textBaseline: (d) => (d.year % 2 === 0 ? 'top' : 'bottom'),
-    wordWrap: true,
-    wordWrapWidth: 120,
-    connector: true,
-  })
-  .axis(false);
-
-chart
-  .point()
-  .encode('x', 'year')
-  .encode('y', 1)
-  .attr('zIndex', 1)
-  .style('lineWidth', 1.5)
-  .style('stroke', '#000')
-  .style('fill', '#fff');
-
-chart.interaction('tooltip', false);
+chart.options({
+  type: 'view',
+  data: data,
+  interaction: {
+    tooltip: false,
+  },
+  children: [
+    {
+      type: 'line',
+      encode: {
+        x: 'year',
+        y: 1,
+      },
+      style: {
+        lineWidth: 1,
+        stroke: '#000',
+      },
+      zIndex: 1,
+      labels: [
+        {
+          text: 'year',
+          dy: (d) => (d.year % 2 === 1 ? 8 : -4),
+          textAlign: 'center',
+          textBaseline: (d) => (d.year % 2 === 1 ? 'top' : 'bottom'),
+        },
+        {
+          text: (d) =>
+            d.composition +
+            ` (${d.composer.slice(d.composer.lastIndexOf(' '))})`,
+          dy: (d) => (d.year % 2 === 0 ? 28 : -28),
+          textAlign: 'center',
+          textBaseline: (d) => (d.year % 2 === 0 ? 'top' : 'bottom'),
+          wordWrap: true,
+          wordWrapWidth: 120,
+          connector: true,
+        },
+      ],
+      axis: false,
+    },
+    {
+      type: 'point',
+      encode: {
+        x: 'year',
+        y: 1,
+      },
+      zIndex: 1,
+      style: {
+        lineWidth: 1.5,
+        stroke: '#000',
+        fill: '#fff',
+      },
+    },
+  ],
+});
 
 chart.render();

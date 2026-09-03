@@ -29,26 +29,40 @@ for (let x = 0; x < 5; ++x) {
   }
 }
 
-chart
-  .interval3D()
-  .data({
-    type: 'inline',
-    value: data,
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('z', 'z')
-  .encode('color', 'color')
-  .encode('shape', 'cone')
-  .coordinate({ type: 'cartesian3D' })
-  .scale('x', { nice: true })
-  .scale('y', { nice: true })
-  .scale('z', { nice: true })
-  .legend(false)
-  .axis('x', { gridLineWidth: 2 })
-  .axis('y', { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 })
-  .axis('z', { gridLineWidth: 2 })
-  .style('opacity', 0.7);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      type: 'interval3D',
+      data: {
+        type: 'inline',
+        value: data,
+      },
+      encode: {
+        x: 'x',
+        y: 'y',
+        z: 'z',
+        color: 'color',
+        shape: 'cone',
+      },
+      coordinate: { type: 'cartesian3D' },
+      scale: {
+        x: { nice: true },
+        y: { nice: true },
+        z: { nice: true },
+      },
+      legend: false,
+      axis: {
+        x: { gridLineWidth: 2 },
+        y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+        z: { gridLineWidth: 2 },
+      },
+      style: {
+        opacity: 0.7,
+      },
+    },
+  ],
+});
 
 chart.render().then(() => {
   const { canvas } = chart.getContext();

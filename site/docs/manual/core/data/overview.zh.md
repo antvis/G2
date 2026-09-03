@@ -211,44 +211,29 @@ const chart = new Chart({
   container: 'container',
 });
 
-const interval = chart
-  .interval()
-  .data([
+const options = {
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
+  ],
+  encode: {
+    x: 'genre',
+    y: 'sold',
+  },
+};
 
+chart.options(options);
 chart.render();
 ```
 
-更新上面例子 interval 的数据有以下几种方法：
-
-- 第一种：最基础的方式。
+更新上面例子的数据时，可以复用原 Spec，只替换 `data`：
 
 ```js
-// 更新 interval 绑定的数据
-interval.data(newData);
-
-// 通过 chart 更新图表的渲染
-chart.render();
-```
-
-- 第二种：上面的方式的语法糖。
-
-```js
-// 更新 interval 数据并且渲染图表
-interval.changeData(newData);
-```
-
-- 第三种：通过查询 API 获得 interval 对象，然后更新数据。
-
-```js
-chart.getNodesByType('rect')[0].changeData(data);
+chart.options({ ...options, data: newData }).render();
 ```
 
 以下是一个实时改变数据的折线图的例子。
@@ -271,7 +256,7 @@ function formatTime(timestamp) {
 
 const data = [];
 
-chart.options({
+const options = {
   type: 'line',
   data: [],
   encode: {
@@ -286,8 +271,9 @@ chart.options({
       nice: true,
     },
   },
-});
+};
 
+chart.options(options);
 chart.render();
 
 setInterval(function () {
@@ -313,7 +299,7 @@ setInterval(function () {
     type: '记录2',
   });
 
-  chart.changeData(data);
+  chart.options({ ...options, data }).render();
 }, 1000);
 ```
 

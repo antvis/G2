@@ -97,10 +97,21 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data).encode('x', 'date').encode('y', 'fertility');
-
-chart.interval();
-
-chart.mark(LowVariance);
+chart.options({
+  type: 'view',
+  data: data,
+  encode: {
+    x: 'date',
+    y: 'fertility',
+  },
+  children: [
+    {
+      type: 'interval',
+    },
+    {
+      type: LowVariance,
+    },
+  ],
+});
 
 chart.render();

@@ -113,53 +113,69 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data({
-  type: 'fetch',
-  value: 'https://assets.antv.antgroup.com/g2/population-by-state.json',
-  transform: [
+// For LegendFilter.
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/population-by-state.json',
+    transform: [
+      {
+        type: 'fold',
+        fields: States,
+        key: 'state',
+        value: 'population',
+      },
+      {
+        type: 'map',
+        callback: (d) => ({
+          ...d,
+          region: RegionStateMap.get(d.state),
+          date: new Date(d.date),
+        }),
+      },
+    ],
+  },
+  children: [
     {
-      type: 'fold',
-      fields: States,
-      key: 'state',
-      value: 'population',
+      type: 'area',
+      transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+      encode: {
+        x: 'date',
+        y: 'population',
+        color: 'region',
+        series: 'state',
+      },
+      labels: [
+        {
+          text: 'state',
+          position: 'area', // `area` type positon used here.
+          selector: 'first',
+          transform: [{ type: 'overlapHide' }],
+          fontSize: 10,
+        },
+      ],
+      tooltip: {
+        items: [{ channel: 'y', valueFormatter: (d) => d.toFixed(3) }],
+      },
     },
     {
-      type: 'map',
-      callback: (d) => ({
-        ...d,
-        region: RegionStateMap.get(d.state),
-        date: new Date(d.date),
-      }),
+      type: 'line',
+      transform: [{ type: 'stackY' }, { type: 'normalizeY' }],
+      encode: {
+        x: 'date',
+        y: 'population',
+        series: 'state',
+        color: 'region',
+      },
+      style: {
+        stroke: '#000',
+        lineWidth: 0.5,
+        fillOpacity: 0.8,
+      },
+      tooltip: false,
     },
   ],
 });
-
-chart
-  .area()
-  .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
-  .encode('x', 'date')
-  .encode('y', 'population')
-  .encode('color', 'region')
-  .encode('series', 'state')
-  .label({
-    text: 'state',
-    position: 'area', // `area` type positon used here.
-    selector: 'first',
-    transform: [{ type: 'overlapHide' }],
-    fontSize: 10,
-  })
-  .tooltip({ channel: 'y', valueFormatter: (d) => d.toFixed(3) });
-
-chart
-  .line()
-  .transform([{ type: 'stackY' }, { type: 'normalizeY' }])
-  .encode('x', 'date')
-  .encode('y', 'population')
-  .encode('series', 'state')
-  .encode('color', 'region') // For LegendFilter.
-  .style('stroke', '#000')
-  .style('lineWidth', 0.5)
-  .style('fillOpacity', 0.8)
-  .tooltip(false);
 
 chart.render();

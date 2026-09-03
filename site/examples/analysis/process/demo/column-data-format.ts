@@ -22,15 +22,22 @@ const columnData = {
   Species: ['setosa', 'setosa', 'setosa', 'setosa', 'setosa', 'setosa'],
 };
 
-chart.data({
-  type: 'column',
-  value: columnData,
+chart.options({
+  type: 'view',
+  data: {
+    type: 'column',
+    value: columnData,
+  },
+  children: [
+    {
+      type: 'point',
+      encode: {
+        x: 'Sepal.Length',
+        y: 'Sepal.Width',
+        color: 'Species',
+      },
+    },
+  ],
 });
-
-chart
-  .point()
-  .encode('x', 'Sepal.Length')
-  .encode('y', 'Sepal.Width')
-  .encode('color', 'Species');
 
 chart.render();

@@ -18,11 +18,6 @@ order: 1
 });
 ```
 
-```js
-// API
-chart.coordinate({ type: 'polar' });
-```
-
 每一个视图只能拥有一个坐标系。坐标系除了本身的属性之外，还包含一系列**坐标系变换（Coordinate Transform）**。
 
 ```js
@@ -41,11 +36,6 @@ chart.coordinate({ type: 'polar' });
   type: 'interval',
   coordinate: { type: 'polar' },
 });
-```
-
-```js
-// API
-chart.interval().coordinate({ type: 'polar' });
 ```
 
 标记层级的坐标系拥有 **冒泡性**。标记层级的坐标系会和视图的坐标系进行合并，并且第一个标记的坐标系优先级最高。
@@ -67,10 +57,7 @@ chart.options({
 chart.options({
   type: 'view',
   coordinate: { type: 'polar' },
-  children: [
-    { type: 'line' },
-    { type: 'area' },
-  ],
+  children: [{ type: 'line' }, { type: 'area' }],
 });
 ```
 
