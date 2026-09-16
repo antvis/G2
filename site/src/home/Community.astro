@@ -1,0 +1,93 @@
+---
+import type { HomeSlotProps } from '@antv/astro-theme-antv';
+const { locale } = Astro.props as HomeSlotProps;
+
+const cases = [
+  {
+    logo: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*-dLnTIexOxwAAAAAAAAAAABkARQnAQ',
+    title: {
+      zh: '精品 Gallery',
+      en: 'Boutique Gallery',
+    },
+    description: {
+      zh: '真实的数据可视化案例，我们将它们归纳为一个个故事性的设计模板，让用户达到开箱即用的效果。',
+      en: 'Real data visualization cases, we summarize them into story-based design templates, allowing users to achieve out-of-the-box effects.',
+    },
+    image:
+      'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*hDrgRb7ma4EAAAAAAAAAAABkARQnAQ',
+  },
+];
+
+const companies = [
+  {
+    name: '阿里云',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*V_xMRIvw2iwAAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: '支付宝',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lYDrRZvcvD4AAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: '天猫',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BQrxRK6oemMAAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: '淘宝网',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1l8-TqUr7UcAAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: '网上银行',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZAKFQJ5Bz4MAAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: '京东',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yh-HRr3hCpgAAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: 'yunos',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_js7SaNosUwAAAAAAAAAAABkARQnAQ',
+  },
+  {
+    name: '菜鸟',
+    img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ',
+  },
+];
+---
+<section class="g2-gallery-section" aria-label={locale === 'zh' ? '精品 Gallery' : 'G2 Gallery'}>
+  {cases.map((item) => <div class="gallery">
+    <div class="gallery-copy">
+      <img class="gallery-logo" src={item.logo} alt="" width="80" height="80" loading="lazy" />
+      <h2>{item.title[locale]}</h2><p>{item.description[locale]}</p>
+      <a href={`/${locale}/examples/`}>{locale === 'zh' ? '查看详情' : 'Explore the gallery'} <span aria-hidden="true">→</span></a>
+    </div>
+    <a class="gallery-image" href={`/${locale}/examples/`} aria-label={locale === 'zh' ? '浏览 G2 图表示例' : 'Browse G2 examples'}><img src={item.image} alt={locale === 'zh' ? '由 G2 绘制的图表示例' : 'Charts created with G2'} loading="lazy" decoding="async" width="900" height="600" /></a>
+  </div>)}
+</section>
+<section class="g2-companies" aria-labelledby="g2-companies-title">
+  <h2 id="g2-companies-title">{locale === 'zh' ? '感谢信赖' : 'Trusted by'}</h2>
+  <div class="companies">{companies.map((company) => <img src={company.img} alt={company.name} width="180" height="64" loading="lazy" decoding="async" />)}</div>
+</section>
+<style>
+  .g2-gallery-section { padding: 48px 32px 0; background: #f8fafc; overflow: hidden; }
+  .gallery { display: grid; grid-template-columns: 1fr 1.5fr; gap: 64px; align-items: center; max-width: 1200px; margin: auto; }
+  .gallery-copy { padding: 40px 0 72px; }
+  .gallery-logo { display: block; object-fit: contain; margin-bottom: 30px; }
+  h2 { margin: 0 0 22px; font-size: 30px; font-weight: 600; }
+  .gallery p { max-width: 34ch; margin: 0 0 30px; color: #687180; font-size: 16px; line-height: 1.9; }
+  .gallery-copy a { color: var(--brand); text-decoration: none; font-weight: 500; }
+  .gallery-copy a:hover { text-decoration: underline; }
+  .gallery-image { display: block; align-self: stretch; min-height: 460px; max-height: 580px; overflow: hidden; }
+  .gallery-image img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+  .g2-companies { max-width: 1200px; margin: 0 auto; padding: 100px 32px 110px; text-align: center; }
+  .companies { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: center; justify-items: center; gap: 48px; margin-top: 64px; }
+  .companies img { max-width: 100%; height: 64px; object-fit: contain; }
+  @media (max-width: 760px) {
+    .g2-gallery-section { padding: 40px 20px 0; }
+    .gallery { grid-template-columns: 1fr; gap: 24px; }
+    .gallery-copy { padding: 0; }
+    .gallery-image { min-height: 280px; max-height: 360px; }
+    .g2-companies { padding: 60px 20px; }
+    .companies { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 40px; }
+    h2 { font-size: 26px; }
+  }
+</style>

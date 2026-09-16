@@ -1,0 +1,107 @@
+---
+import { Carousel } from '@antv/astro-theme-antv/components';
+
+interface Props {
+  locale: 'zh' | 'en';
+}
+const { locale } = Astro.props;
+const isZh = locale === 'zh';
+const recommendations = [
+  {
+    tag: 'implement',
+    title: {
+      zh: '多产品线的销售趋势',
+      en: 'Sales trends across product lines',
+    },
+    query: {
+      zh: "你有一份公司多产品线销售数据：data = [ {month: '1月', productA: 12000, productB: 8500, productC: 15200}, {month: '2月', productA: 13500, productB: 9200, productC: 14800}, {month: '3月', productA: 15200, productB: 10800, productC: 16500}, {month: '4月', productA: 14800, productB: 11500, productC: 17200}, {month: '5月', productA: 16500, productB: 12200, productC: 18800}, {month: '6月', productA: 18200, productB: 13800, productC: 19500}, {month: '7月', productA: 19800, productB: 14500, productC: 20200}, {month: '8月', productA: 21500, productB: 15200, productC: 21800}, {month: '9月', productA: 20200, productB: 16800, productC: 22500}, {month: '10月', productA: 22800, productB: 17500, productC: 23200}, {month: '11月', productA: 24500, productB: 18200, productC: 24800}, {month: '12月', productA: 26200, productB: 19800, productC: 25500} ]， 请绘制一个多折线图展示三条产品线的销售趋势变化，通过不同线型和颜色清晰区分各产品表现。 同时在最高点进行数据标注。",
+      en: "You have multi-product line sales data for a company: data = [ {month: 'January', productA: 12000, productB: 8500, productC: 15200}, {month: 'February', productA: 13500, productB: 9200, productC: 14800}, {month: 'March', productA: 15200, productB: 10800, productC: 16500}, {month: 'April', productA: 14800, productB: 11500, productC: 17200}, {month: 'May', productA: 16500, productB: 12200, productC: 18800}, {month: 'June', productA: 18200, productB: 13800, productC: 19500}, {month: 'July', productA: 19800, productB: 14500, productC: 20200}, {month: 'August', productA: 21500, productB: 15200, productC: 21800}, {month: 'September', productA: 20200, productB: 16800, productC: 22500}, {month: 'October', productA: 22800, productB: 17500, productC: 23200}, {month: 'November', productA: 24500, productB: 18200, productC: 24800}, {month: 'December', productA: 26200, productB: 19800, productC: 25500} ]. Please draw a multi-line chart to show the sales trend changes of the three product lines, clearly distinguishing each product's performance through different line styles and colors. Also add data annotations at the highest points.",
+    },
+    image:
+      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zUKtR4U75fcAAAAAROAAAAgAemJ7AQ/original',
+    background: 'bg-[#eef2ff]',
+  },
+  {
+    tag: 'implement',
+    title: {
+      zh: '用环图展示饮品销售',
+      en: 'Beverage sales in a donut chart',
+    },
+    query: {
+      zh: '一家咖啡店的饮品销售比例为：咖啡 60%，茶 25%，果汁 15%。请用环图可视化这些饮品销售数据，并将色板调整为橙色系。',
+      en: "A coffee shop's beverage sales ratio is: Coffee 60%, Tea 25%, Juice 15%. Please visualize these beverage sales data with a donut chart and adjust the color palette to orange tones.",
+    },
+    image:
+      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oMezTK-Yf2EAAAAAQmAAAAgAemJ7AQ/original',
+    background: 'bg-[#edf8f4]',
+  },
+  {
+    tag: 'solve',
+    title: {
+      zh: '让图表状态配置生效',
+      en: 'Make chart states work',
+    },
+    query: {
+      zh: '为什么配置了 state 没有生效？',
+      en: 'Why is the configured state not taking effect?',
+    },
+    image:
+      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*15mgQ4lA5CUAAAAASzAAAAgAemJ7AQ/original',
+    background: 'bg-[#f4f0fc]',
+  },
+  {
+    tag: 'solve',
+    title: {
+      zh: '解决数据标签遮挡',
+      en: 'Keep data labels readable',
+    },
+    query: {
+      zh: '数据标签互相遮挡了怎么办？',
+      en: 'What to do when data labels overlap each other?',
+    },
+    image:
+      'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*thpQQIB3LG4AAAAASMAAAAgAemJ7AQ/original',
+    background: 'bg-[#eef5ff]',
+  },
+];
+---
+
+<section class="mx-auto mt-12 max-w-[1360px] [--carousel-columns:4] [--carousel-gap:20px] [--carousel-pagination-margin:24px] [@media(760px<width<=1100px)]:[--carousel-columns:2] [@media(width<=760px)]:mt-9 [@media(width<=760px)]:[--carousel-columns:1] [@media(width<=760px)]:[--carousel-gap:14px]" aria-labelledby="g2-featured-title">
+  <h2 id="g2-featured-title" class="m-0 mb-[26px] text-center text-[20px] font-semibold">{isZh ? '精选案例' : 'Explore what is possible'}</h2>
+  <Carousel locale={locale} label={isZh ? 'G2 精选案例' : 'Featured G2 cases'}>
+    {recommendations.map((item) => <button
+      class:list={[
+        'flex h-[250px] min-w-0 cursor-pointer flex-col gap-3 overflow-hidden rounded-2xl border border-solid border-transparent px-[22px] pt-6 pb-0 text-left text-[#292d3b] [font:inherit] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brand)] disabled:cursor-wait [@media(width<=760px)]:h-[280px]',
+        item.background,
+      ]}
+      type="button"
+      data-g2-question={item.query[locale]}
+      aria-label={`${item.title[locale]}${isZh ? '，向 AI 助手提问' : ', ask the AI assistant'}`}
+      disabled
+    >
+      <span class="text-[12px] text-[#626979]">{item.tag === 'implement' ? (isZh ? '图表创作' : 'Create a chart') : (isZh ? '使用指南' : 'Find an answer')}</span>
+      <strong class="min-h-11 text-[17px] leading-[1.4] font-semibold">{item.title[locale]}</strong>
+      <span class="block min-h-0 w-full flex-1 overflow-hidden rounded-t-[10px] bg-white"><img class="block size-full object-cover object-top" src={item.image} alt="" loading="lazy" decoding="async" width="400" height="240" /></span>
+    </button>)}
+  </Carousel>
+  <noscript><p>{isZh ? '启用 JavaScript 后可使用精选提问。' : 'Enable JavaScript to try a featured question.'}</p></noscript>
+</section>
+
+<script>
+  // Submit through the theme's form so storage, validation and Result navigation
+  // have a single owner, including for the featured prompts.
+  customElements.whenDefined('antv-qa').then(() => {
+    const form = document.querySelector<HTMLFormElement>('[data-antv-qa-entry]');
+    const prompt = form?.querySelector<HTMLTextAreaElement>('[data-qa-prompt]');
+    if (!form || !prompt) return;
+    for (const button of document.querySelectorAll<HTMLButtonElement>('[data-g2-question]')) {
+      button.disabled = false;
+      button.addEventListener('click', () => {
+        prompt.value = button.dataset.g2Question!;
+        prompt.dispatchEvent(new Event('input', { bubbles: true }));
+        form.requestSubmit();
+        if (!form.hasAttribute('aria-busy')) form.scrollIntoView({ block: 'center' });
+      });
+    }
+  });
+</script>
