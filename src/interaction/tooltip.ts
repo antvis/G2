@@ -12,6 +12,7 @@ import {
 import { isTranspose, isPolar } from '../utils/coordinate';
 import { angle, sub, dist } from '../utils/vector';
 import { invert } from '../utils/scale';
+import { escapeHtml } from '../utils/string';
 import { BBox } from '../runtime';
 import { CALLBACK_ITEM_SYMBOL } from '../runtime/transform';
 import {
@@ -32,6 +33,27 @@ import {
 } from './utils';
 
 const LOCKED_SYMBOL = 'tooltipLocked';
+
+let colorStyle: CSSStyleDeclaration;
+
+function sanitizeColor(color) {
+  const value = String(color);
+  colorStyle ||= document.createElement('span').style;
+  colorStyle.color = '';
+  colorStyle.color = value;
+  return colorStyle.color ? escapeHtml(value) : 'black';
+}
+
+function sanitizeTooltipItem(item) {
+  const { name = '', value = '', color = 'black', index } = item;
+  return {
+    ...item,
+    name: escapeHtml(name),
+    value: escapeHtml(value),
+    color: sanitizeColor(color),
+    ...(index !== undefined && { index: escapeHtml(index) }),
+  };
+}
 
 function getContainer(
   group: IElement,
@@ -148,14 +170,18 @@ function showTooltip({
     ),
   } = parent as any;
   const { items, title = '' } = data;
+  const defaultContent = render === undefined;
+  const normalizedItems = items.map((item) => ({
+    ...item,
+    value: !item.value && item.value !== 0 ? '' : item.value,
+  }));
   tooltipElement.update({
     x,
     y,
-    data: items.map((item) => ({
-      ...item,
-      value: !item.value && item.value !== 0 ? '' : item.value,
-    })),
-    title,
+    data: defaultContent
+      ? normalizedItems.map(sanitizeTooltipItem)
+      : normalizedItems,
+    title: defaultContent ? escapeHtml(title) : title,
     position,
     enterable,
     container: containerOffset,
