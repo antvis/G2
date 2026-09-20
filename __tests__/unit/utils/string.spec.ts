@@ -7,6 +7,11 @@ describe('string', () => {
     );
   });
 
+  it('escapeHtml should stringify non-string values', () => {
+    expect(escapeHtml(0 as any)).toBe('0');
+    expect(escapeHtml(null as any)).toBe('null');
+  });
+
   it('should convert string cases', () => {
     expect(camelCase('foo-bar')).toBe('fooBar');
     expect(kebabCase('fooBar')).toBe('foo-bar');
