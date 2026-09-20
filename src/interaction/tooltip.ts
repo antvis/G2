@@ -51,7 +51,7 @@ function sanitizeTooltipItem(item) {
     name: escapeHtml(String(name)),
     value: escapeHtml(String(value)),
     color: sanitizeColor(color),
-    ...(index !== undefined && { index: escapeHtml(String(index)) }),
+    ...(index !== undefined && { index }),
   };
 }
 
