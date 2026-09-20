@@ -48,10 +48,10 @@ function sanitizeTooltipItem(item) {
   const { name = '', value = '', color = 'black', index } = item;
   return {
     ...item,
-    name: escapeHtml(name),
-    value: escapeHtml(value),
+    name: escapeHtml(String(name)),
+    value: escapeHtml(String(value)),
     color: sanitizeColor(color),
-    ...(index !== undefined && { index: escapeHtml(index) }),
+    ...(index !== undefined && { index: escapeHtml(String(index)) }),
   };
 }
 
@@ -181,7 +181,7 @@ function showTooltip({
     data: defaultContent
       ? normalizedItems.map(sanitizeTooltipItem)
       : normalizedItems,
-    title: defaultContent ? escapeHtml(title) : title,
+    title: defaultContent ? escapeHtml(String(title)) : title,
     position,
     enterable,
     container: containerOffset,
