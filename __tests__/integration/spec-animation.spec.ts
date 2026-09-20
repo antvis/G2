@@ -19,6 +19,7 @@ function useFrame(I, context, asset) {
   let frameCount = 0;
   return {
     assetEach: async () => {
+      if (frameCount >= I.length) return;
       // Skip intervals, useful for the first frame of keyframe node.
       const intervals = I[frameCount] as number[];
       if (!intervals) {
