@@ -41,7 +41,7 @@ function sanitizeColor(color) {
   colorStyle ||= document.createElement('span').style;
   colorStyle.color = '';
   colorStyle.color = value;
-  return colorStyle.color ? escapeHtml(value) : 'black';
+  return colorStyle.color ? escapeHtml(colorStyle.color) : 'black';
 }
 
 function sanitizeTooltipItem(item) {

@@ -78,6 +78,8 @@ describe('Tooltip security', () => {
       expect(name.getAttribute('title')).toBe(content.name);
       expect(value.getAttribute('title')).toBe(content.value);
       expect(marker.style.background).toBe('black');
+      expect(marker.getAttribute('style')).not.toContain('background-image');
+      expect(marker.getAttribute('style')).not.toContain('javascript:');
       expect(tooltip.querySelector('img, svg, script')).toBeNull();
       expect(tooltip.querySelector('[onerror], [onload]')).toBeNull();
 
