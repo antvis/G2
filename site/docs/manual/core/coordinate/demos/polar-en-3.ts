@@ -1,0 +1,28 @@
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'vector',
+  autoFit: true,
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+  },
+  encode: {
+    x: 'longitude',
+    y: 'latitude',
+    rotate: ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI,
+    size: ({ u, v }) => Math.hypot(v, u),
+    color: ({ u, v }) => Math.hypot(v, u),
+  },
+  scale: { size: { range: [6, 20] }, color: { palette: 'viridis' } },
+  coordinate: { type: 'polar' },
+  axis: { x: { grid: false }, y: { grid: false } },
+  legend: false,
+  tooltip: { title: { channel: 'color', valueFormatter: '.1f' } },
+});
+
+chart.render();

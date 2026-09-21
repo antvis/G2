@@ -1,0 +1,30 @@
+---
+title: groupY
+order: 2
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+`groupY` is a variant of the `group` function family, specifically designed for grouping discrete `y` channels and aggregating channels according to specified Reducers. It is equivalent to [group](/en/manual/core/transform/group/) with `channels = ['y']`. The usage and configuration options are the same as the group function. Below, we explain the use cases and configuration options specific to the groupY function.
+
+## Options
+
+| Property  | Description                                                 | Type      | Default |
+| --------- | ----------------------------------------------------------- | --------- | ------- |
+| [channel] | Aggregation method for channel data output to specific mark | `Reducer` |         |
+
+For detailed information about `Reducer`, please refer to the configuration options of the [group](/en/manual/core/transform/group/) function.
+
+## Examples
+
+For example, in corresponding marks, you can use the transform method to apply data transformations. We can use groupY to group and aggregate data. In the example below, we will group the y channel and calculate the minimum and maximum values for each group.
+
+<Demo src="manual/core/transform/demos/groupY-en-1" height={204} />
+
+Explanation:
+
+1. In this example, we first define a set of penguin data `data`, containing penguin body mass and species;
+2. In the code above, the `transform` method uses a `groupY` type data transformation to group data by the `y` channel;
+3. After grouping, the data is aggregated according to the values of the `y` channel, calculating the minimum and maximum values of `body_mass_g` for each `species`;
+4. Finally, through the `encode` method, the grouped data is mapped to the chart's `x` and `y` axis for rendering.

@@ -1,0 +1,67 @@
+---
+title: ema
+
+order: 2
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+## 概述
+
+EMA（Exponential Moving Average，指数移动平均）是一种常用的数据平滑算法，它通过对最近的数据点赋予更高的权重，来减少数据的波动性，从而更清晰地观察数据的趋势变化。
+
+在 G2 的实现中，EMA 的计算方式如下：
+
+![ema公式示意图](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3EIiS59AD8AAAAAAAAAAAAAAemJ7AQ/original)
+
+其中：
+
+- P<sub>t</sub>：当前时刻的原始数据值；
+- EMA<sub>t-1</sub>：上一个时刻的 EMA 值；
+- α：平滑因子，范围在 (0, 1) 之间。
+
+> ⚠️ 注意：G2 中 EMA 的实现与传统定义中的 α 权重位置相反，因此：
+>
+> - `α` 越接近 1，平滑效果越明显；
+> - `α` 越接近 0，EMA 越接近原始数据。
+
+## 使用场景
+
+- 时间序列中数据存在剧烈波动，希望突出趋势时；
+- 金融数据如股票价格的技术分析；
+- 模型训练过程中的指标平滑与动态跟踪。
+
+## 配置项
+
+| 属性  | 描述                                 | 类型     | 默认值     | 是否必选 |
+| ----- | ------------------------------------ | -------- | ---------- | -------- |
+| field | 需要平滑的字段名                     | `string` | `'y'`      | ✓        |
+| alpha | 平滑因子，控制平滑程度（越大越平滑） | `number` | `0.6`      |          |
+| as    | 生成的新字段名，若不指定将覆盖原字段 | `string` | 同 `field` |          |
+
+> 若需保留原字段，建议设置 `as` 属性以输出到新字段。
+> 该默认值由组件内部定义，非来源于主题。
+> ⚠️ 注意：`field` 字段必须为数值型，否则将导致计算错误。
+
+## 示例
+
+以下示例展示如何在 G2 中对数据字段 `close` 应用 EMA 平滑变换。
+
+<Demo src="manual/core/data/demos/ema-en-1" />
+
+### 示例一：突出趋势变化（时间序列）
+
+<Demo src="manual/core/data/demos/ema-en-2" />
+
+### 示例二：金融行情走势平滑
+
+<Demo src="manual/core/data/demos/ema-en-3" />
+
+### 示例三：训练过程指标平滑
+
+<Demo src="manual/core/data/demos/ema-en-4" />
+
+## 尝试一下
+
+<Demo src="manual/core/data/demos/ema-en-5" height={324} />

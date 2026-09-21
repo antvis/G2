@@ -1,5 +1,6 @@
 ---
 import { Carousel } from '@antv/astro-theme-antv/components';
+import { BarChartOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 
 interface Props {
   locale: 'zh' | 'en';
@@ -19,7 +20,8 @@ const recommendations = [
     },
     image:
       'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zUKtR4U75fcAAAAAROAAAAgAemJ7AQ/original',
-    background: 'bg-[#eef2ff]',
+    background: 'bg-[rgba(22,119,255,0.06)]',
+    tagColor: 'text-[#5792e6]',
   },
   {
     tag: 'implement',
@@ -33,7 +35,8 @@ const recommendations = [
     },
     image:
       'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oMezTK-Yf2EAAAAAQmAAAAgAemJ7AQ/original',
-    background: 'bg-[#edf8f4]',
+    background: 'bg-[rgba(231,173,69,0.08)]',
+    tagColor: 'text-[#f99542]',
   },
   {
     tag: 'solve',
@@ -47,7 +50,8 @@ const recommendations = [
     },
     image:
       'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*15mgQ4lA5CUAAAAASzAAAAgAemJ7AQ/original',
-    background: 'bg-[#f4f0fc]',
+    background: 'bg-[rgba(44,208,119,0.06)]',
+    tagColor: 'text-[#66cf85]',
   },
   {
     tag: 'solve',
@@ -61,7 +65,8 @@ const recommendations = [
     },
     image:
       'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*thpQQIB3LG4AAAAASMAAAAgAemJ7AQ/original',
-    background: 'bg-[#eef5ff]',
+    background: 'bg-[rgba(22,55,255,0.06)]',
+    tagColor: 'text-[#5761f3]',
   },
 ];
 ---
@@ -72,6 +77,7 @@ const recommendations = [
     {recommendations.map((item) => <button
       class:list={[
         'flex h-[250px] min-w-0 cursor-pointer flex-col gap-3 overflow-hidden rounded-2xl border border-solid border-transparent px-[22px] pt-6 pb-0 text-left text-[#292d3b] [font:inherit] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brand)] disabled:cursor-wait [@media(width<=760px)]:h-[280px]',
+        'transition-[translate,box-shadow] duration-200 ease-out hover:shadow-md focus-visible:shadow-md motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 motion-reduce:transition-none',
         item.background,
       ]}
       type="button"
@@ -79,7 +85,10 @@ const recommendations = [
       aria-label={`${item.title[locale]}${isZh ? '，向 AI 助手提问' : ', ask the AI assistant'}`}
       disabled
     >
-      <span class="text-[12px] text-[#626979]">{item.tag === 'implement' ? (isZh ? '图表创作' : 'Create a chart') : (isZh ? '使用指南' : 'Find an answer')}</span>
+      <span class:list={['flex w-fit shrink-0 items-center gap-2 rounded-md px-2 py-0.5 text-xs leading-5 whitespace-nowrap shadow-[inset_1px_1px_4px_0_rgba(0,0,0,0.04),1px_1px_1px_rgba(255,255,255,0.4)] [&_.anticon]:flex [&_svg]:block [&_svg]:size-3.5', item.background, item.tagColor]}>
+        {item.tag === 'implement' ? <BarChartOutlined aria-hidden="true" /> : <QuestionCircleOutlined aria-hidden="true" />}
+        <span>{item.tag === 'implement' ? (isZh ? '可视化研发' : 'Develop') : (isZh ? '可视化答疑' : 'Q&A')}</span>
+      </span>
       <strong class="min-h-11 text-[17px] leading-[1.4] font-semibold">{item.title[locale]}</strong>
       <span class="block min-h-0 w-full flex-1 overflow-hidden rounded-t-[10px] bg-white"><img class="block size-full object-cover object-top" src={item.image} alt="" loading="lazy" decoding="async" width="400" height="240" /></span>
     </button>)}
@@ -88,7 +97,7 @@ const recommendations = [
 </section>
 
 <script>
-  // Submit through the theme's form so storage, validation and Result navigation
+  // Submit through the theme's form so storage, validation and QA navigation
   // have a single owner, including for the featured prompts.
   customElements.whenDefined('antv-qa').then(() => {
     const form = document.querySelector<HTMLFormElement>('[data-antv-qa-entry]');
