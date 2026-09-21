@@ -1,0 +1,79 @@
+---
+title: classicDark
+order: 2
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+Classic dark theme. When using a dark theme, it's usually necessary to configure additional view styles to ensure the chart has better visual effects on dark backgrounds.
+
+### Configuring View Background
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  theme: { type: 'classicDark', view: { viewFill: '#141414' } },
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Role-playing', sold: 120 },
+    { genre: 'Action', sold: 350 },
+    { genre: 'Simulation', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
+
+chart.render();
+`} />
+
+### Using viewStyle for More Detailed View Configuration
+
+<Demo src="manual/core/theme/demos/classicDark-en-2" />
+
+### Complete Dark Theme Configuration Example
+
+<Demo src="manual/core/theme/demos/classicDark-en-3" />
+
+### Coordinating with Container Background Color
+
+If your webpage or application uses a dark theme, it's recommended to ensure the chart's background color coordinates with the container background color:
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+// Simulate dark container background
+const container = document.getElementById('container');
+if (container) {
+  container.style.backgroundColor = '#111827';
+  container.style.padding = '20px';
+  container.style.borderRadius = '8px';
+}
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  theme: { type: 'classicDark', view: { viewFill: '#111827' } },
+  data: [
+    { month: 'Jan', sales: 120 },
+    { month: 'Feb', sales: 140 },
+    { month: 'Mar', sales: 110 },
+    { month: 'Apr', sales: 180 },
+    { month: 'May', sales: 160 },
+    { month: 'Jun', sales: 200 },
+  ],
+  encode: { x: 'month', y: 'sales' },
+  style: {
+    fill: 'linear-gradient(to top, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.1))',
+    stroke: '#3b82f6',
+    lineWidth: 2,
+  },
+});
+
+chart.render();
+`} />

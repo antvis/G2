@@ -136,7 +136,7 @@ container.view().line().encode('x', 'date').encode('y', 'sales');
 
 ## 视图与样式
 
-视图支持设置自身区域的样式（如背景色、边框等），并可对子标记进行统一样式管理。详见[样式（Style）](/manual/core/style)。
+视图支持设置自身区域的样式（如背景色、边框等），并可对子标记进行统一样式管理。详见[样式（Style）](/zh/manual/core/style/)。
 
 ```js
 ({

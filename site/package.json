@@ -6,11 +6,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "gh-pages -d dist",
-    "format:md": "prettier --write \"**/*.md\""
+    "format:md": "prettier --write \"**/*.{md,mdx}\""
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
-    "@antv/astro-theme-antv": "^0.1.0-beta.2",
+    "@antv/astro-theme-antv": "^0.1.0-beta.5",
     "@antv/data-set": "^0.11.8",
     "@antv/g-lottie-player": "^1.0.32",
     "@antv/g-pattern": "^2.0.32",
@@ -23,6 +23,7 @@
     "@antv/g2-extension-3d": "^0.2.0",
     "@antv/g2-extension-ava": "^0.2.0",
     "@antv/g2-extension-plot": "^0.2.1",
+    "@astrojs/react": "^6.0.5",
     "@mapbox/geojson-rewind": "^0.5.2",
     "@types/topojson-client": "^3.1.5",
     "antd": "^5.24.5",
@@ -37,10 +38,8 @@
     "d3-scale-chromatic": "^3.1.0",
     "d3-voronoi": "^1.1.4",
     "dirichlet": "^1.0.1",
-    "fecha": "^4.2.3",
     "lodash": "^4.17.21",
     "react": "^19.1.0",
-    "react-color": "^2.19.3",
     "react-dom": "^19.1.0",
     "topojson-client": "^3.1.0",
     "webfontloader": "1.6.28"

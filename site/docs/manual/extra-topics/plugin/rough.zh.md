@@ -28,7 +28,7 @@ const chart = new Chart({
 });
 ```
 
-仅需要一行改动即可完成风格转换。在该[示例](/examples/style/rough/#interval)中，我们通过 `fillStyle` 指定了 `'zigzag'` 这种类似连续涂鸦笔迹的填充风格：
+仅需要一行改动即可完成风格转换。在该[示例](/zh/examples/style/rough/interval/)中，我们通过 `fillStyle` 指定了 `'zigzag'` 这种类似连续涂鸦笔迹的填充风格：
 
 ```ts
 chart
@@ -55,7 +55,7 @@ chart.render();
 
 <img alt="rough" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vcwuS6mTGBUAAAAAAAAAAAAADmJ7AQ/original" alt="fillStyle in rough.js" width="500">
 
-最后，选择一款手绘风格的字体能让整体风格趋于统一。在上面的[示例](/examples/style/rough/#interval)中我们选择了 `'Gaegu'`，可以参考[如何加载外部字体](https://g.antv.antgroup.com/api/basic/text#%E5%8A%A0%E8%BD%BD%E5%AD%97%E4%BD%93)。
+最后，选择一款手绘风格的字体能让整体风格趋于统一。在上面的[示例](/zh/examples/style/rough/interval/)中我们选择了 `'Gaegu'`，可以参考[如何加载外部字体](https://g.antv.antgroup.com/api/basic/text#%E5%8A%A0%E8%BD%BD%E5%AD%97%E4%BD%93)。
 
 ## FAQ
 
@@ -67,7 +67,7 @@ G2 使用 [g-canvas](https://g.antv.antgroup.com/api/renderer/canvas) 作为默�
 
 使用 `fillStyle` 代替 `fill` 能实现类似 Pattern 的效果，因此在无障碍模式下也有不错的应用场景，例如考虑色弱人士和黑白打印。
 
-在下面的[示例](/zh/examples/style/rough/#radial)中，我们将 `fill/stroke` 都设置和黑色，将 `fillStyle` 作为颜色属性：
+在下面的[示例](/zh/examples/style/rough/radial/)中，我们将 `fill/stroke` 都设置和黑色，将 `fillStyle` 作为颜色属性：
 
 ```ts
 chart

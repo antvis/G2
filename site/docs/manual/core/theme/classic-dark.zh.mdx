@@ -1,0 +1,79 @@
+---
+title: classicDark
+order: 2
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+经典暗黑主题。在使用暗黑主题时，通常需要配置一些额外的视图样式来确保图表在暗色背景下有更好的视觉效果。
+
+### 配置视图背景
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+
+chart.options({
+  type: 'interval',
+  theme: { type: 'classicDark', view: { viewFill: '#141414' } },
+  data: [
+    { genre: '运动', sold: 275 },
+    { genre: '策略', sold: 115 },
+    { genre: '角色扮演', sold: 120 },
+    { genre: '动作', sold: 350 },
+    { genre: '模拟', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+});
+
+chart.render();
+`} />
+
+### 使用 viewStyle 配置更详细的视图样式
+
+<Demo src="manual/core/theme/demos/classicDark-en-2" />
+
+### 完整的暗黑主题配置示例
+
+<Demo src="manual/core/theme/demos/classicDark-en-3" />
+
+### 与容器背景色协调
+
+如果你的网页或应用使用了暗色主题，建议确保图表的背景色与容器背景色协调：
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+// 模拟暗色容器背景
+const container = document.getElementById('container');
+if (container) {
+  container.style.backgroundColor = '#111827';
+  container.style.padding = '20px';
+  container.style.borderRadius = '8px';
+}
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'area',
+  theme: { type: 'classicDark', view: { viewFill: '#111827' } },
+  data: [
+    { month: 'Jan', sales: 120 },
+    { month: 'Feb', sales: 140 },
+    { month: 'Mar', sales: 110 },
+    { month: 'Apr', sales: 180 },
+    { month: 'May', sales: 160 },
+    { month: 'Jun', sales: 200 },
+  ],
+  encode: { x: 'month', y: 'sales' },
+  style: {
+    fill: 'linear-gradient(to top, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.1))',
+    stroke: '#3b82f6',
+    lineWidth: 2,
+  },
+});
+
+chart.render();
+`} />

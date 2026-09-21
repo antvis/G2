@@ -30,13 +30,6 @@ stats.html
 __tests__/integration/snapshots/**/*-actual.*
 __tests__/integration/snapshots/**/*-diff.*
 
-# Website cache byb dumi
-site/.dumi/tmp
-site/.dumi/tmp-production
-
-# Website server cache
-site/server
-
 # Editor
 .vscode
 .history

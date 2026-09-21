@@ -136,7 +136,7 @@ container.view().line().encode('x', 'date').encode('y', 'sales');
 
 ## Views and Styles
 
-Views support setting styles for their own area (such as background color, borders, etc.) and can provide unified style management for child marks. For details, see [Style](/en/manual/core/style).
+Views support setting styles for their own area (such as background color, borders, etc.) and can provide unified style management for child marks. For details, see [Style](/en/manual/core/style/).
 
 ```js
 ({

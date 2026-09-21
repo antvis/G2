@@ -1,0 +1,83 @@
+---
+import { AppstoreOutlined, FilterOutlined } from '@ant-design/icons';
+import { categories, getCharts } from '../content/charts';
+interface Props { mode?: 'similar'; }
+const { mode } = Astro.props;
+const { locale, current, charts } = await getCharts(Astro.url.pathname);
+const isZh = locale === 'zh';
+const similar = (current?.data.similar ?? []) as string[];
+const items = mode === 'similar' ? charts.filter((chart) => similar.includes(chart.slug)) : charts;
+const filters = [
+  { id: 'all', zh: '全部', en: 'All', icon: AppstoreOutlined },
+  ...categories,
+];
+---
+<section data-chart-gallery class:list={[
+  '[&_.anticon]:inline-flex [&_.anticon]:shrink-0 [&_.anticon_svg]:block',
+  !mode && 'order-first [.markdown-body:has(&)]:flex [.markdown-body:has(&)]:flex-col [.markdown-body:has(&)]:w-full [.markdown-body:has(&)]:min-w-0 [.markdown-body:has(&)]:px-6 [.markdown-body:has(&)]:pt-0 [.markdown-body:has(&)>.document-title]:sr-only',
+]}>
+  {!mode && <>
+    <header class="relative mb-8 overflow-hidden bg-[linear-gradient(135deg,#667eea_0%,#764ba2_25%,#8e44ad_50%,#9b59b6_75%,#e74c3c_100%)] px-6 py-10 text-center before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(45deg,rgba(156,39,176,0.1),rgba(103,58,183,0.1),rgba(63,81,181,0.1))]">
+      <div class="relative mx-auto max-w-[800px]">
+        <div class="mb-3 flex items-center justify-center gap-3 text-[32px] leading-[2] font-semibold text-white [text-shadow:0_2px_4px_rgba(0,0,0,0.2)] [@media(width<=640px)]:text-[28px]">
+          <AppstoreOutlined aria-hidden="true" />
+          <span>{isZh ? '图表介绍' : 'Chart Gallery'}</span>
+        </div>
+        <p class="mt-0! mb-8! text-base leading-[1.6] text-white/90">{isZh ? '探索丰富的数据可视化图表，找到最适合你需求的图表类型' : 'Explore rich data visualization charts and find the chart type that best suits your needs'}</p>
+        <input type="search" data-chart-search aria-label={isZh ? '搜索图表' : 'Search charts'} placeholder={isZh ? '搜索关键字...' : 'Search keywords...'} class="h-8 w-full max-w-[600px] rounded-lg border-0 bg-white/95 px-4 text-left text-sm text-[#262626] shadow-[0_4px_20px_rgba(0,0,0,0.1)] placeholder:text-[#bfbfbf] focus-visible:outline-none focus-visible:shadow-[0_6px_25px_rgba(103,58,183,0.3)]" />
+      </div>
+    </header>
+    <div class="px-6 [@media(width<=640px)]:px-0">
+      <div class="mb-6 rounded-md border border-solid border-[#f0f0f0] bg-white p-5">
+        <div class="mb-4 flex items-center gap-2 text-base leading-6 font-medium text-[#262626]"><FilterOutlined aria-hidden="true" />{isZh ? '按类型筛选' : 'Filter by type'}</div>
+        <div class="flex flex-wrap gap-2" role="group" aria-label={isZh ? '图表用途' : 'Chart categories'}>
+          {filters.map(({ icon: Icon, ...category }) => <button type="button" data-chart-category={category.id} aria-pressed={category.id === 'all' ? 'true' : 'false'} class="inline-flex cursor-pointer items-center gap-1.5 rounded border border-solid border-[#d9d9d9] bg-white px-3 py-1 text-[13px] leading-5 text-[#595959] transition-colors hover:border-[#40a9ff] hover:text-[#1890ff] aria-pressed:border-[#1890ff] aria-pressed:bg-[#1890ff] aria-pressed:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1890ff] motion-reduce:transition-none"><Icon aria-hidden="true" />{category[locale]}</button>)}
+        </div>
+      </div>
+      <p role="status" aria-live="polite" class="mt-0! mb-5! flex items-center justify-center gap-2 text-sm text-[#8c8c8c]"><AppstoreOutlined aria-hidden="true" />{isZh && '共'}<span data-chart-count class="font-semibold text-[#1890ff]">{items.length}</span>{isZh ? '种图表类型' : 'chart types available'}</p>
+      <p data-chart-empty hidden class="text-center text-[#8c8c8c]">{isZh ? '没有匹配的图表' : 'No matching charts'}</p>
+    </div>
+  </>}
+  <div class:list={['grid grid-cols-3 gap-6 [@media(width<=1000px)]:grid-cols-2 [@media(width<=640px)]:grid-cols-1', !mode && 'px-6 pb-8 [@media(width<=640px)]:px-0']}>
+    {items.map((item) => <a href={item.href} data-chart-card data-title={item.title.toLocaleLowerCase()} data-categories={item.category.join(',')} class="block min-w-0 overflow-hidden rounded-lg border border-solid border-[#f0f0f0] bg-white text-[#262626]! no-underline! transition-shadow hover:shadow-[0_6px_16px_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1890ff] motion-reduce:transition-none [&[hidden]]:hidden">
+      <strong class="flex min-h-[38px] items-center border-0 border-b border-solid border-[#f0f0f0] px-3 py-1.5 text-sm font-semibold">{item.title}</strong>
+      <div class="p-3">
+        <img src={String(item.screenshot)} alt="" loading="lazy" class="m-0! h-[158px]! w-full object-contain" />
+        <div class="mt-0.5 flex flex-wrap gap-0.5">
+          {item.category.map((id) => categories.find((category) => category.id === id)).filter(Boolean).map((category) => <span class="rounded-xl border border-solid border-[#f0f0f0] px-3 text-[10px] leading-5">{category![locale]}</span>)}
+        </div>
+      </div>
+    </a>)}
+  </div>
+</section>
+<script>
+  for (const root of document.querySelectorAll('[data-chart-gallery]')) {
+    const search = root.querySelector<HTMLInputElement>('[data-chart-search]');
+    if (!search) continue;
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-chart-category]')];
+    const validCategories = new Set(buttons.map((button) => button.dataset.chartCategory).filter((id) => id !== 'all'));
+    const selected = new Set((new URLSearchParams(location.search).get('category') || '').split(',').filter((id) => validCategories.has(id)));
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-chart-card]')];
+    const update = () => {
+      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.chartCategory === 'all' ? selected.size === 0 : selected.has(button.dataset.chartCategory!))));
+      const query = search.value.trim().toLocaleLowerCase();
+      for (const card of cards) {
+        card.hidden = !card.dataset.title!.includes(query) || (selected.size > 0 && !card.dataset.categories!.split(',').some((id) => selected.has(id)));
+      }
+      const count = cards.filter((card) => !card.hidden).length;
+      root.querySelector<HTMLElement>('[data-chart-count]')!.textContent = String(count);
+      root.querySelector<HTMLElement>('[data-chart-empty]')!.hidden = count > 0;
+    };
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      const category = button.dataset.chartCategory!;
+      if (category === 'all') selected.clear();
+      else if (selected.has(category)) selected.delete(category); else selected.add(category);
+      const url = new URL(location.href);
+      if (selected.size) url.searchParams.set('category', [...selected].join(',')); else url.searchParams.delete('category');
+      history.replaceState(null, '', url);
+      update();
+    }));
+    search.addEventListener('input', update);
+    update();
+  }
+</script>
