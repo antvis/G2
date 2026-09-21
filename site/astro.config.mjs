@@ -23,6 +23,20 @@ const config = defineConfig({
       'd3-regression': 'd3-regression/dist/d3-regression.esm.js',
       'd3-scale-chromatic': 'd3-scale-chromatic',
       'topojson-client': 'topojson-client',
+      '@antv/g-lottie-player': '@antv/g-lottie-player',
+      '@antv/g-pattern': '@antv/g-pattern',
+      '@antv/g-plugin-rough-canvas-renderer': '@antv/g-plugin-rough-canvas-renderer',
+      '@antv/g-svg': '@antv/g-svg',
+      '@antv/g2-extension-ava': '@antv/g2-extension-ava',
+      '@mapbox/geojson-rewind': '@mapbox/geojson-rewind',
+      'd3-array': 'd3-array',
+      'd3-geo-projection': 'd3-geo-projection',
+      'd3-hexjson': 'd3-hexjson',
+      'd3-hierarchy': 'd3-hierarchy',
+      'd3-voronoi': 'd3-voronoi',
+      'dirichlet': 'dirichlet',
+      'lodash': 'lodash',
+      'webfontloader': 'webfontloader',
     },
   },
   analytics: { GoogleAnalytics: { id: 'G-3L8SSDC4X6' } },
@@ -138,10 +152,10 @@ const config = defineConfig({
   navigation: [
     {
       text: {
-        zh: '图表示例',
-        en: 'Examples',
+        zh: '图表介绍',
+        en: 'Chart Gallery',
       },
-      href: '/examples/',
+      href: '/charts/overview/',
     },
     {
       text: {
@@ -152,10 +166,10 @@ const config = defineConfig({
     },
     {
       text: {
-        zh: '图表介绍',
-        en: 'Chart Gallery',
+        zh: '图表示例',
+        en: 'Examples',
       },
-      href: '/charts/overview/',
+      href: '/examples/',
     },
     { text: { zh: '主题', en: 'Theme' }, href: '/theme/' },
   ],
