@@ -1,5 +1,17 @@
 import { Chart } from '@antv/g2';
 
+const colors = [
+  '#ff7875',
+  '#ffa940',
+  '#fadb14',
+  '#73d13d',
+  '#40a9ff',
+  '#b37feb',
+  '#ff85c0',
+  '#ffc069',
+  '#95de64',
+];
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
@@ -64,54 +76,35 @@ chart.options({
       },
     ],
   },
+  children: [
+    {
+      type: 'line',
+      data: {
+        transform: [{ type: 'filter', callback: (d) => d.type === 'link' }],
+      },
+      encode: { x: 'x', y: 'y', series: 'linkId' },
+      style: { stroke: '#1890ff', strokeWidth: 0.8, strokeOpacity: 0.4 },
+    },
+    {
+      type: 'point',
+      data: {
+        transform: [{ type: 'filter', callback: (d) => d.type === 'node' }],
+      },
+      encode: { x: 'x', y: 'y', color: 'group' },
+      scale: {
+        color: {
+          type: 'ordinal',
+          range: colors,
+        },
+      },
+      style: {
+        r: 4,
+        fill: (d) => colors[parseInt(d.group)] || '#40a9ff',
+        stroke: 'none',
+        fillOpacity: 0.8,
+      },
+    },
+  ],
 });
-
-chart
-  .line()
-  .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'link' }] })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('series', 'linkId')
-  .style('stroke', '#1890ff')
-  .style('strokeWidth', 0.8)
-  .style('strokeOpacity', 0.4);
-
-chart
-  .point()
-  .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'node' }] })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'group')
-  .scale('color', {
-    type: 'ordinal',
-    range: [
-      '#ff7875',
-      '#ffa940',
-      '#fadb14',
-      '#73d13d',
-      '#40a9ff',
-      '#b37feb',
-      '#ff85c0',
-      '#ffc069',
-      '#95de64',
-    ],
-  })
-  .style('r', 4)
-  .style('fill', (d) => {
-    const colors = [
-      '#ff7875',
-      '#ffa940',
-      '#fadb14',
-      '#73d13d',
-      '#40a9ff',
-      '#b37feb',
-      '#ff85c0',
-      '#ffc069',
-      '#95de64',
-    ];
-    return colors[parseInt(d.group)] || '#40a9ff';
-  })
-  .style('stroke', 'none')
-  .style('fillOpacity', 0.8);
 
 chart.render();

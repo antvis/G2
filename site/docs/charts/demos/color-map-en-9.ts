@@ -26,32 +26,9 @@ rows.forEach((row) => {
 console.log('data', data);
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data,
-  children: [
-    {
-      type: 'cell',
-      encode: {
-        x: 'col',
-        y: 'row',
-        color: 'diff',
-      },
-      style: {
-        inset: 2,
-      },
-      labels: [
-        {
-          text: 'value',
-          style: {
-            fill: (d) => (Math.abs(d.diff) > 25 ? '#fff' : '#000'),
-            textAlign: 'center',
-            fontWeight: 'bold',
-          },
-        },
-      ],
-    },
-  ],
   scale: {
     color: {
       type: 'threshold',
@@ -69,6 +46,24 @@ chart.options({
   },
   legend: false,
   interaction: [{ type: 'tooltip' }, { type: 'elementHighlight' }],
+  encode: {
+    x: 'col',
+    y: 'row',
+    color: 'diff',
+  },
+  style: {
+    inset: 2,
+  },
+  labels: [
+    {
+      text: 'value',
+      style: {
+        fill: (d) => (Math.abs(d.diff) > 25 ? '#fff' : '#000'),
+        textAlign: 'center',
+        fontWeight: 'bold',
+      },
+    },
+  ],
 });
 
 chart.render();

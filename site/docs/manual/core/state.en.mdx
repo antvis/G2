@@ -25,16 +25,13 @@ In G2, state configuration propagation follows these rules:
 
 ### Single Mark Scenario
 
-When there is only one mark under a view, configuring state at the view level **will take effect**, and the state will automatically propagate to the child mark:
+For a single mark, use the mark Spec directly and configure `state` on that mark:
 
 ```js
-// ✅ With a single mark, view-level state configuration will take effect
+// ✅ Configure state directly on a single mark
 chart.options({
-  type: 'view',
-  state: { active: { backgroundFill: 'red', backgroundOpacity: 0.5 } }, // Will propagate to child mark
-  children: [
-    { type: 'line' }, // Will inherit the view's state configuration
-  ],
+  type: 'line',
+  state: { active: { backgroundFill: 'red', backgroundOpacity: 0.5 } },
 });
 ```
 
@@ -68,7 +65,7 @@ chart.options({
 
 ### Direct Mark-Level Configuration
 
-When using mark APIs directly (such as `chart.line()`), state configuration takes effect at the mark level:
+When `state` is configured in a mark Spec, it takes effect at the mark level:
 
 ```js
 // ✅ Direct mark-level configuration

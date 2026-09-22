@@ -19,11 +19,10 @@ const colors = [
   '#ff8c00',
 ];
 
-chart.coordinate({ type: 'polar', innerRadius: 0.4 });
-
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'polar', innerRadius: 0.4 },
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/d582a447-2057-4a74-97ed-1d73a5459ea4.csv',
@@ -43,20 +42,20 @@ chart
         value: 'Population',
       },
     ],
-  })
-  .transform({ type: 'stackY' })
-  .encode('x', 'State')
-  .encode('y', 'Population')
-  .encode('color', 'Age')
-  .scale('color', { range: colors })
-  .legend('color', { position: 'center', display: 'grid', gridCol: 1 })
-  .scale('y', { type: 'sqrt' })
-  .axis('y', {
-    labelFormatter: '~s',
-    tickFilter: (_, i) => i !== 0,
-    direction: 'center',
-  })
-  .axis('x', { position: 'inner' })
-  .animate('enter', { type: 'waveIn' });
+  },
+  transform: [{ type: 'stackY' }],
+  encode: { x: 'State', y: 'Population', color: 'Age' },
+  scale: { color: { range: colors }, y: { type: 'sqrt' } },
+  legend: { color: { position: 'center', display: 'grid', gridCol: 1 } },
+  axis: {
+    y: {
+      labelFormatter: '~s',
+      tickFilter: (_, i) => i !== 0,
+      direction: 'center',
+    },
+    x: { position: 'inner' },
+  },
+  animate: { enter: { type: 'waveIn' } },
+});
 
 chart.render();

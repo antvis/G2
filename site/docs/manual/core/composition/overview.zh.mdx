@@ -15,14 +15,6 @@ G2 中**视图复合（View Composition）** 提供了在一个可视化中绘�
 });
 ```
 
-```js
-// API
-const layer = chart.spaceLayer();
-
-layer.view();
-
-layer.view();
-```
 
 ## 空间
 
@@ -36,19 +28,21 @@ const chart = new Chart({
   container: 'container',
 });
 
+const data = [
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Other', sold: 150 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Strategy', sold: 115 },
+];
+
 chart.options({
   type: 'spaceLayer',
   children: [
     // 条形图
     {
       type: 'interval',
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { x: 'genre', y: 'sold' },
     },
     // 饼图
@@ -58,21 +52,14 @@ chart.options({
       paddingBottom: 250,
       coordinate: { type: 'theta' },
       transform: [{ type: 'stackY' }],
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { y: 'sold', color: 'genre' },
       legend: { color: false },
     },
   ],
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 同时也可以使用 `composition.spaceFlex` 去让视图水平或者竖直排列。
 
@@ -82,19 +69,21 @@ const chart = new Chart({
   container: 'container',
 });
 
+const data = [
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Other', sold: 150 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Strategy', sold: 115 },
+];
+
 chart.options({
   type: 'spaceFlex',
   children: [
     // 条形图
     {
       type: 'interval',
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { x: 'genre', y: 'sold' },
     },
     // 饼图
@@ -102,21 +91,14 @@ chart.options({
       type: 'interval',
       coordinate: { type: 'theta' },
       transform: [{ type: 'stackY' }],
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { y: 'sold', color: 'genre' },
       legend: { color: false },
     },
   ],
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 同时这些复合方式是可以嵌套的，所以很容易通过一个单独的声明去实现一个报表。
 

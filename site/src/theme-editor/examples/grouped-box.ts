@@ -82,26 +82,26 @@ export const groupedBox = ({ container, theme, width, height, tokens }) => {
     height,
   });
 
-  chart
-    .box()
-    .data(data)
-    .encode('x', 'type')
-    .encode('y', 'bin')
-    .encode('series', 'Species')
-    .encode('color', 'Species')
-    .scale('x', { paddingInner: 0.2, paddingOuter: 0.1 })
-    .scale('y', { zero: true })
-    .scale('series', { paddingInner: 0.3, paddingOuter: 0.1 })
-    .scale('y', { nice: true })
-    .tooltip([
-      { name: 'min', channel: 'y' },
-      { name: 'q1', channel: 'y1' },
-      { name: 'q2', channel: 'y2' },
-      { name: 'q3', channel: 'y3' },
-      { name: 'max', channel: 'y4' },
-    ]);
-
-  chart.theme({ type: theme, ...tokens });
+  chart.options({
+    type: 'box',
+    theme: { type: theme, ...tokens },
+    data: data,
+    encode: { x: 'type', y: 'bin', series: 'Species', color: 'Species' },
+    scale: {
+      x: { paddingInner: 0.2, paddingOuter: 0.1 },
+      y: { nice: true },
+      series: { paddingInner: 0.3, paddingOuter: 0.1 },
+    },
+    tooltip: {
+      items: [
+        { name: 'min', channel: 'y' },
+        { name: 'q1', channel: 'y1' },
+        { name: 'q2', channel: 'y2' },
+        { name: 'q3', channel: 'y3' },
+        { name: 'max', channel: 'y4' },
+      ],
+    },
+  });
 
   chart.render();
 

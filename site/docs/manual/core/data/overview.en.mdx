@@ -150,47 +150,33 @@ const chart = new Chart({
   container: 'container',
 });
 
-const interval = chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold');
+  ],
+  encode: { x: 'genre', y: 'sold' },
+});
 
 chart.render();
 ```
 
-There are several ways to update the interval data in the above example:
-
-- First method: The most basic approach.
+Read the current Spec and submit the updated mark data:
 
 ```js
+const spec = chart.options();
 // Update the data bound to interval
-interval.data(newData);
-
-// Update chart rendering through chart
+spec.children[0].data = newData;
+// Apply the Spec and update chart rendering
+chart.options(spec);
 chart.render();
 ```
 
-- Second method: Syntactic sugar for the above approach.
-
-```js
-// Update interval data and render the chart
-interval.changeData(newData);
-```
-
-- Third method: Get the interval object through query API, then update data.
-
-```js
-chart.getNodesByType('rect')[0].changeData(data);
-```
-
-Here's an example of a line chart that updates data in real-time:
+The following example demonstrates live data updates.
 
 <Demo code={`import { Chart } from '@antv/g2';
 
@@ -279,7 +265,10 @@ The `customFn` here can use external data processing libraries, greatly expandin
 ```js
 import { regressionLinear } from 'd3-regression';
 
-node.data({
+chart.options({
+  data: {
+    type: 'inline',
+    value: data,
   // Use D3's regressionLinear to perform linear regression on data
   transform: [
     {
@@ -287,6 +276,7 @@ node.data({
       callback: regressionLinear(),
     },
   ],
+  },
 });
 ```
 

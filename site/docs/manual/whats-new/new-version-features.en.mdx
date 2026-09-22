@@ -328,16 +328,21 @@ const focus = new G2.Chart({
   paddingLeft: 50,
 });
 
+const dataSource = {
+  type: 'fetch',
+  value:
+    'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+};
+
 focus.options({
   type: 'area',
-  data: {
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  },
+  data: dataSource,
   encode: { x: 'date', y: 'close' },
   animate: false,
-  axis: { x: { grid: false, title: false, tickCount: 5 }, y: { grid: false, tickCount: 5 } },
+  axis: {
+    x: { grid: false, title: false, tickCount: 5 },
+    y: { grid: false, tickCount: 5 },
+  },
   interaction: { tooltip: false, brushXFilter: true },
 });
 
@@ -355,11 +360,7 @@ const context = new G2.Chart({
 
 context.options({
   type: 'area',
-  data: {
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  },
+  data: dataSource,
   encode: { x: 'date', y: 'close' },
   animate: false,
   axis: false,
@@ -396,8 +397,7 @@ context.on('brush:remove', (e) => {
   const { x: scaleX, y: scaleY } = context.getScale();
   const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
   focus.emit('brush:filter', { data: { selection } });
-});
-`} />
+});`} />
 
 ## Two API Styles
 
@@ -429,9 +429,9 @@ chart.render();
 
 You can see that the two produce identical charts! In fact, this is true: the visualization expression capabilities of both APIs are the same. In other words, charts that can be drawn with the Functional API can also be drawn with the Options API, and vice versa. From an implementation perspective, the Functional API is built on top of the Options API and is converted to corresponding JavaScript before rendering.
 
-The choice between the two is more a matter of style: if you are familiar with D3, or prefer functional programming, or are an old G2 user, you can choose the Functional API; if you are just starting to use G2 and getting into visualization, then the Options API is recommended. Of course, if you are building your own chart library based on G2, then the Options API is recommended. However, there is one best practice: use the Options API when initializing charts, and use the Functional API when updating charts.
+The choice between the two is more a matter of style: if you are familiar with D3, or prefer functional programming, or are an old G2 user, you can choose the Functional API; if you are just starting to use G2 and getting into visualization, then the Options API is recommended. Of course, if you are building your own chart library based on G2, then the Options API is recommended. We now recommend using Spec for both initialization and updates. The example below updates data by reading and reapplying the Spec.
 
-For more content, please read [Spec and API](/en/manual/introduction/experimental-spec-api/).
+For more content, please read [Spec and API](/en/manual/introduction/spec-api/).
 
 <Demo height={174} code={`import * as G2 from '@antv/g2';
 
@@ -460,18 +460,19 @@ chart.options({
 chart.render();
 
 // Update chart
-// Use Functional API
+// Update the Spec
 const button = document.createElement('button');
 button.style.display = 'block';
 button.textContent = 'Update Data';
 button.onclick = () => {
-  const interval = chart.getNodeByType('interval'); // Get interval
-  interval.data(mock()); // Update interval data
+  const spec = chart.options();
+  // Update interval data
+  spec.children[0].data = mock();
+  chart.options(spec);
   chart.render(); // Render chart
 };
 
-container.insertBefore(button, container.childNodes[0]);
-`} />
+container.insertBefore(button, container.childNodes[0]);`} />
 
 ## Composable
 
@@ -500,8 +501,7 @@ const chart = new Chart({
   container: 'container',
 });
 
-// Use composite mark via API
-chart.options({
+const spec = {
   type: PointLineArea,
   data: [
     { year: '1991', value: 15468 },
@@ -515,27 +515,12 @@ chart.options({
     { year: '1999', value: 33233 },
   ],
   encode: { x: 'year', y: 'value' },
-});
+};
 
-// Use composite mark via Spec
-chart.options({
-  type: PointLineArea,
-  data: [
-    { year: '1991', value: 15468 },
-    { year: '1992', value: 16100 },
-    { year: '1993', value: 15900 },
-    { year: '1994', value: 17409 },
-    { year: '1995', value: 17000 },
-    { year: '1996', value: 31056 },
-    { year: '1997', value: 31982 },
-    { year: '1998', value: 32040 },
-    { year: '1999', value: 33233 },
-  ],
-  encode: { x: 'year', y: 'value' },
-});
+// Configure the composite mark with Spec
+chart.options(spec);
 
-chart.render();
-`} />
+chart.render();`} />
 
 Composite marks make it easier to add chart capabilities based on G2 and simpler to maintain, and some marks within G2 are also implemented based on this approach.
 

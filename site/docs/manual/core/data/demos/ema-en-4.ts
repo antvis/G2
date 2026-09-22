@@ -3,6 +3,11 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
 });
+const data = Array.from({ length: 50 }, (_, i) => ({
+  epoch: i,
+  loss: Math.sin(i / 5) * 20 + 60 + Math.random() * 5,
+}));
+
 chart.options({
   type: 'view',
   children: [
@@ -10,10 +15,7 @@ chart.options({
       type: 'line',
       data: {
         type: 'inline',
-        value: Array.from({ length: 50 }, (_, i) => ({
-          epoch: i,
-          loss: Math.sin(i / 5) * 20 + 60 + Math.random() * 5,
-        })),
+        value: data,
         transform: [
           {
             type: 'ema',
@@ -33,10 +35,7 @@ chart.options({
       type: 'line',
       data: {
         type: 'inline',
-        value: Array.from({ length: 50 }, (_, i) => ({
-          epoch: i,
-          loss: Math.sin(i / 5) * 20 + 60 + Math.random() * 5,
-        })),
+        value: data,
       },
       encode: {
         x: 'epoch',

@@ -67,7 +67,10 @@ G2 中**布局（Layout）** 用于指定一些有特定布局函数标记的布
 
 ```js
 // API
-chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
+chart.options({
+  type: 'sankey',
+  layout: { nodeAlign: 'center', nodePadding: 0.03 },
+});
 ```
 
 ## 数据更新

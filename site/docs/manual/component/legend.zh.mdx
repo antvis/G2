@@ -337,11 +337,7 @@ const justifyOptions = [
   { value: 'flex-end', label: '末尾对齐 (flex-end)' },
 ];
 
-const alignOptions = [
-  { value: 'flex-start', label: '起始对齐 (flex-start)' },
-  { value: 'center', label: '居中对齐 (center)' },
-  { value: 'flex-end', label: '末尾对齐 (flex-end)' },
-];
+const alignOptions = justifyOptions;
 
 // 创建控制面板
 const controlPanel = document.createElement('div');
@@ -468,8 +464,7 @@ container.insertBefore(controlPanel, container.firstChild);
 container.insertBefore(statusDiv, container.lastChild);
 
 // 初始渲染
-updateChart();
-`} />
+updateChart();`} />
 
 #### 常见布局场景
 

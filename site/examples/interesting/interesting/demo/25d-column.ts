@@ -22,17 +22,17 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data);
-
-chart
-  .interval()
-  .encode('x', 'year')
-  .encode('y', 'sales')
-  .style('shape', 'column25d')
-  .scale('x', { padding: 0.3 });
-
-chart.legend('year', {
-  width: 10,
+chart.options({
+  type: 'interval',
+  data: data,
+  legend: {
+    year: {
+      width: 10,
+    },
+  },
+  encode: { x: 'year', y: 'sales' },
+  style: { shape: 'column25d' },
+  scale: { x: { padding: 0.3 } },
 });
 
 chart.render();

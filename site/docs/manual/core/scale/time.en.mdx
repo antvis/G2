@@ -256,6 +256,16 @@ const data = [
   },
 ];
 
+const tooltip = {
+  title: 'time',
+  items: [
+    { field: 'start', name: 'Open Price' },
+    { field: 'end', name: 'Close Price' },
+    { field: 'min', name: 'Low Price' },
+    { field: 'max', name: 'High Price' },
+  ],
+};
+
 chart.options({
   type: 'view',
   data,
@@ -279,15 +289,7 @@ chart.options({
     {
       type: 'link',
       encode: { y: ['min', 'max'] },
-      tooltip: {
-        title: 'time',
-        items: [
-          { field: 'start', name: 'Open Price' },
-          { field: 'end', name: 'Close Price' },
-          { field: 'min', name: 'Low Price' },
-          { field: 'max', name: 'High Price' },
-        ],
-      },
+      tooltip,
     },
     {
       type: 'interval',
@@ -299,21 +301,12 @@ chart.options({
         },
       },
       axis: { y: { title: false } },
-      tooltip: {
-        title: 'time',
-        items: [
-          { field: 'start', name: 'Open Price' },
-          { field: 'end', name: 'Close Price' },
-          { field: 'min', name: 'Low Price' },
-          { field: 'max', name: 'High Price' },
-        ],
-      },
+      tooltip,
     },
   ],
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 ### Example Code Explanation
 
@@ -361,7 +354,7 @@ This function determines the color of each data point based on the relationship 
 This example uses two chart elements to build a complete candlestick chart:
 
 1. `chart.link()`: Draws lines from lowest to highest price (shadow lines of the candlestick chart)
-2. `chart.interval()`: Draws rectangles from opening to closing price (body part of the candlestick chart)
+2. `type: 'interval'`: Draws rectangles from opening to closing price (body part of the candlestick chart)
 
 Both chart elements share the same tooltip configuration, displaying complete price information when hovering with the mouse.
 

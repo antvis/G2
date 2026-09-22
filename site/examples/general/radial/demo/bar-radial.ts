@@ -5,11 +5,10 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'radial', innerRadius: 0.1, endAngle: Math.PI });
-
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'radial', innerRadius: 0.1, endAngle: Math.PI },
+  data: [
     { question: '问题 1', percent: 0.21 },
     { question: '问题 2', percent: 0.4 },
     { question: '问题 3', percent: 0.49 },
@@ -18,22 +17,23 @@ chart
     { question: '问题 6', percent: 0.84 },
     { question: '问题 7', percent: 1.0 },
     { question: '问题 8', percent: 1.2 },
-  ])
-  .encode('x', 'question')
-  .encode('y', 'percent')
-  .encode('color', 'percent')
-  .style('stroke', 'white')
-  .scale('color', {
-    range: '#BAE7FF-#1890FF-#0050B3',
-  })
-  .axis('y', { tickFilter: (d, i) => i !== 0 })
-  .legend({
+  ],
+  encode: { x: 'question', y: 'percent', color: 'percent' },
+  style: { stroke: 'white' },
+  scale: {
+    color: {
+      range: '#BAE7FF-#1890FF-#0050B3',
+    },
+  },
+  axis: { y: { tickFilter: (d, i) => i !== 0 } },
+  legend: {
     color: {
       length: 400,
       position: 'bottom',
       layout: { justifyContent: 'center' },
     },
-  })
-  .animate('enter', { type: 'waveIn', duration: 800 });
+  },
+  animate: { enter: { type: 'waveIn', duration: 800 } },
+});
 
 chart.render();

@@ -68,7 +68,10 @@ In G2, **Layout** is used to specify parameters for layout methods of marks with
 
 ```js
 // API
-chart.sankey().layout({ nodeAlign: 'center', nodePadding: 0.03 });
+chart.options({
+  type: 'sankey',
+  layout: { nodeAlign: 'center', nodePadding: 0.03 },
+});
 ```
 
 ## Data Update

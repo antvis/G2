@@ -132,17 +132,13 @@ const chart = new Chart({
   padding: 50,
 });
 
-chart.coordinate({ type: 'polar' });
-
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'direction')
-  .encode('y', 'value')
-  .encode('color', 'level')
-  .encode('size', 18)
-  .transform([{ type: 'stackY' }])
-  .tooltip({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'polar' },
+  data: data,
+  encode: { x: 'direction', y: 'value', color: 'level', size: 18 },
+  transform: [{ type: 'stackY' }],
+  tooltip: {
     title: (d) => d.direction,
     items: [
       (d, i, data, column) => ({
@@ -151,21 +147,26 @@ chart
         channel: 'y',
       }),
     ],
-  })
-  .interaction('tooltip', {
-    shared: true,
-  })
-  .scale('color', { range: colors })
-  .axis('x', {
-    line: true,
-    grid: true,
-    gridLineDash: [0, 0],
-    gridLineWidth: 1,
-  })
-  .axis('y', {
-    title: false,
-    line: true,
-    gridLineWidth: 1,
-  });
+  },
+  interaction: {
+    tooltip: {
+      shared: true,
+    },
+  },
+  scale: { color: { range: colors } },
+  axis: {
+    x: {
+      line: true,
+      grid: true,
+      gridLineDash: [0, 0],
+      gridLineWidth: 1,
+    },
+    y: {
+      title: false,
+      line: true,
+      gridLineWidth: 1,
+    },
+  },
+});
 
 chart.render();

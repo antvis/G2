@@ -43,20 +43,7 @@ const chart = new Chart({
 
 ## Chart Configuration
 
-After creating a chart instance, you can configure it in two ways:
-
-### Method 1: API Chaining
-
-```javascript
-chart
-  .data(data)
-  .encode('x', 'field1')
-  .encode('y', 'field2')
-  .scale('x', { type: 'band' })
-  .axis('x', { title: 'X Axis Title' });
-```
-
-### Method 2: Using options method with spec configuration
+After creating a chart instance, configure it with `chart.options(spec)`:
 
 ```javascript
 chart.options({

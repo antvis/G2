@@ -4,6 +4,8 @@ const chart = new Chart({
   container: 'container',
 });
 
+const lineStyle = { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] };
+
 chart.options({
   type: 'view',
   autoFit: true,
@@ -42,7 +44,7 @@ chart.options({
     {
       type: 'lineY',
       data: [50],
-      style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
+      style: lineStyle,
       labels: [
         {
           text: 'Safe sugar intake 50g/day',
@@ -59,7 +61,7 @@ chart.options({
     {
       type: 'lineX',
       data: [65],
-      style: { stroke: '#000', strokeOpacity: 0.45, lineDash: [3, 3] },
+      style: lineStyle,
       labels: [
         {
           text: 'Safe fat intake 65g/day',

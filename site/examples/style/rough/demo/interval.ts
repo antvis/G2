@@ -14,9 +14,9 @@ WebFont.load({
       plugins: [new Plugin()],
     });
 
-    chart
-      .interval()
-      .data([
+    chart.options({
+      type: 'interval',
+      data: [
         { month: 'Jan.', profit: 387264, start: 0, end: 387264 },
         { month: 'Feb.', profit: 772096, start: 387264, end: 1159360 },
         { month: 'Mar.', profit: 638075, start: 1159360, end: 1797435 },
@@ -30,29 +30,36 @@ WebFont.load({
         { month: 'Nov.', profit: 607365, start: 1450595, end: 2057960 },
         { month: 'Dec.', profit: 1106986, start: 2057960, end: 3164946 },
         { month: 'Total', start: 0, end: 3164946 },
-      ])
-      .encode('x', 'month')
-      .encode('y', ['end', 'start'])
-      .encode('color', (d) =>
-        d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
-      )
-      .style('lineWidth', 2)
-      .style('fillStyle', 'zigzag')
-      .axis('x', {
-        titleFontSize: 15,
-        titleFontFamily: 'Gaegu',
-        labelFontFamily: 'Gaegu',
-        tickStroke: '#cdcdcd',
-      })
-      .axis('y', {
-        labelFormatter: '~s',
-        titleFontSize: 15,
-        titleFontFamily: 'Gaegu',
-        labelFontFamily: 'Gaegu',
-        tickStroke: '#cdcdcd',
-        gridStroke: '#efefef',
-      })
-      .legend('color', { itemLabelFontFamily: 'Gaegu' });
+      ],
+      encode: {
+        x: 'month',
+        y: ['end', 'start'],
+        color: (d) =>
+          d.month === 'Total'
+            ? 'Total'
+            : d.profit > 0
+            ? 'Increase'
+            : 'Decrease',
+      },
+      style: { lineWidth: 2, fillStyle: 'zigzag' },
+      axis: {
+        x: {
+          titleFontSize: 15,
+          titleFontFamily: 'Gaegu',
+          labelFontFamily: 'Gaegu',
+          tickStroke: '#cdcdcd',
+        },
+        y: {
+          labelFormatter: '~s',
+          titleFontSize: 15,
+          titleFontFamily: 'Gaegu',
+          labelFontFamily: 'Gaegu',
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+        },
+      },
+      legend: { color: { itemLabelFontFamily: 'Gaegu' } },
+    });
 
     chart.render();
   },

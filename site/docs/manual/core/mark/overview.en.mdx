@@ -294,22 +294,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-// Use the composite mark in Options
-chart.options({
+const spec = {
   type: PointLine,
   data,
   encode: { x: 'year', y: 'value' },
-});
+};
 
-// Use the composite mark in Spec
-chart.options({
-  type: PointLine,
-  data,
-  encode: { x: 'year', y: 'value' },
-});
+// Configure the composite mark with Spec
+chart.options(spec);
 
-chart.render();
-`} />
+chart.render();`} />
 
 The composability feature of marks provides a simple yet powerful way to extend the capabilities of G2. G2 also uses this mechanism to implement some rather complex marks, such as Sankey diagrams: using two Polygon marks for composition.
 

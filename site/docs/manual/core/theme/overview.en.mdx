@@ -29,9 +29,6 @@ G2 themes can be configured at different levels:
    chart.options({
      theme: { type: 'dark' },
    });
-
-   // Or use API form
-   chart.theme({ type: 'dark' });
    ```
 
 2. **Mark Level**: Applied to specific graphic marks
@@ -41,9 +38,6 @@ G2 themes can be configured at different levels:
      type: 'interval',
      theme: { color: 'steelblue' },
    });
-
-   // Or use API form
-   chart.interval().theme({ color: 'steelblue' });
    ```
 
 When multiple levels of theme configuration exist simultaneously, mark-level configuration will override view-level configuration.
@@ -68,8 +62,8 @@ chart.options({
   theme: { type: 'dark' },
 });
 
-// API form
-chart.theme({ type: 'classicDark' });
+// classicDark
+chart.options({ type: 'view', theme: { type: 'classicDark' } });
 ```
 
 ## Configuration Options
@@ -130,10 +124,13 @@ chart.options({
   },
 });
 
-// API form
-chart.theme({
-  type: 'dark', // Based on dark theme
-  category10: ['#ff0000', '#00ff00', '#0000ff'], // Custom color scheme
+// Spec
+chart.options({
+  type: 'view',
+  theme: {
+    type: 'dark', // Based on dark theme
+    category10: ['#ff0000', '#00ff00', '#0000ff'], // Custom color scheme
+  },
 });
 ```
 

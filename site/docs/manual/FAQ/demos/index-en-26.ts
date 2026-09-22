@@ -16,13 +16,8 @@ chart.options({
   encode: { x: 'category' },
   children: [
     {
-      type: 'view',
-      children: [
-        {
-          type: 'interval',
-          encode: { x: 'type', y: 'value', color: 'type' },
-        },
-      ],
+      type: 'interval',
+      encode: { x: 'type', y: 'value', color: 'type' },
     },
   ],
 });

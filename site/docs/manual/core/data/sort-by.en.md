@@ -16,30 +16,36 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'sortBy',
-      fields: ['sold'], // Sort by the sold field
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'sortBy',
+        fields: ['sold'], // Sort by the sold field
+      },
+    ],
+  },
 });
 ```
 
 When sorting fields exist, you can provide a boolean value for each field to change the sorting method. The default value is true.
 
 ```ts
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'sortBy',
-      fields: [['sold', false]], // Change sorting to descending order
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'sortBy',
+        fields: [['sold', false]], // Change sorting to descending order
+      },
+    ],
+  },
 });
 ```
 

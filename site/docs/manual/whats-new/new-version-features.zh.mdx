@@ -328,16 +328,21 @@ const focus = new G2.Chart({
   paddingLeft: 50,
 });
 
+const dataSource = {
+  type: 'fetch',
+  value:
+    'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+};
+
 focus.options({
   type: 'area',
-  data: {
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  },
+  data: dataSource,
   encode: { x: 'date', y: 'close' },
   animate: false,
-  axis: { x: { grid: false, title: false, tickCount: 5 }, y: { grid: false, tickCount: 5 } },
+  axis: {
+    x: { grid: false, title: false, tickCount: 5 },
+    y: { grid: false, tickCount: 5 },
+  },
   interaction: { tooltip: false, brushXFilter: true },
 });
 
@@ -355,11 +360,7 @@ const context = new G2.Chart({
 
 context.options({
   type: 'area',
-  data: {
-    type: 'fetch',
-    value:
-      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  },
+  data: dataSource,
   encode: { x: 'date', y: 'close' },
   animate: false,
   axis: false,
@@ -396,8 +397,7 @@ context.on('brush:remove', (e) => {
   const { x: scaleX, y: scaleY } = context.getScale();
   const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
   focus.emit('brush:filter', { data: { selection } });
-});
-`} />
+});`} />
 
 ## 两种 API 风格
 
@@ -429,9 +429,9 @@ chart.render();
 
 可以发现两者绘制出的图表一摸一样！事实上也确实如此：两种 API 的可视化表达能力是相同的。换句话说，函数式 API 能绘制的图表，选项式 API 也能绘制，反之亦然。从实现上来讲，函数式 API 是构建在选项式 API 之上的，会转换成对应的 JavaScript 然后渲染。
 
-关于两者的取舍更是一个风格的问题：如果你熟悉 D3，或者喜欢函数式编程，或者是 G2 的老用户，可以选择函数式 API；如果你才开始使用 G2 和接触可视化，那么推荐选项式 API。当然，如果你是基于 G2 封装自己的图表库，那么推荐使用选项式 API。不过有一种最佳实践是：初始化图表的时候使用选项形式 API，在更新图表的时候使用函数式 API。
+关于两者的取舍更是一个风格的问题：如果你熟悉 D3，或者喜欢函数式编程，或者是 G2 的老用户，可以选择函数式 API；如果你才开始使用 G2 和接触可视化，那么推荐选项式 API。当然，如果你是基于 G2 封装自己的图表库，那么推荐使用选项式 API。当前推荐统一使用 Spec 初始化和更新图表，下面通过读取并重新提交 Spec 来更新数据。
 
-更多内容请阅读 [Spec 和 API](/zh/manual/introduction/experimental-spec-api/)。
+更多内容请阅读 [Spec 和 API](/zh/manual/introduction/spec-api/)。
 
 <Demo height={174} code={`import * as G2 from '@antv/g2';
 
@@ -460,18 +460,19 @@ chart.options({
 chart.render();
 
 // 更新图表
-// 使用函数式 API
+// 更新 Spec
 const button = document.createElement('button');
 button.style.display = 'block';
 button.textContent = '更新数据';
 button.onclick = () => {
-  const interval = chart.getNodeByType('interval'); // 获得 interval
-  interval.data(mock()); // 更新 interval 的数据
+  const spec = chart.options();
+  // 更新 interval 的数据
+  spec.children[0].data = mock();
+  chart.options(spec);
   chart.render(); // 渲染图表
 };
 
-container.insertBefore(button, container.childNodes[0]);
-`} />
+container.insertBefore(button, container.childNodes[0]);`} />
 
 ## 可组合
 
@@ -500,8 +501,7 @@ const chart = new Chart({
   container: 'container',
 });
 
-// API 的方式使用复合 Mark
-chart.options({
+const spec = {
   type: PointLineArea,
   data: [
     { year: '1991', value: 15468 },
@@ -515,27 +515,12 @@ chart.options({
     { year: '1999', value: 33233 },
   ],
   encode: { x: 'year', y: 'value' },
-});
+};
 
-// Spec 方式使用复合 Mark
-chart.options({
-  type: PointLineArea,
-  data: [
-    { year: '1991', value: 15468 },
-    { year: '1992', value: 16100 },
-    { year: '1993', value: 15900 },
-    { year: '1994', value: 17409 },
-    { year: '1995', value: 17000 },
-    { year: '1996', value: 31056 },
-    { year: '1997', value: 31982 },
-    { year: '1998', value: 32040 },
-    { year: '1999', value: 33233 },
-  ],
-  encode: { x: 'year', y: 'value' },
-});
+// 使用 Spec 配置复合标记
+chart.options(spec);
 
-chart.render();
-`} />
+chart.render();`} />
 
 复合 Mark 使得基于 G2 去增加图表的能力更加容易和维护起来更简单，同时 G2 内部的一些 Mark 也是基于这个方式实现的。
 

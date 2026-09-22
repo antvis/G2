@@ -214,6 +214,37 @@ const chart1 = new G2.Chart({
   padding: [50, 100, 70, 100], // Increase padding, leave more space for labels
 });
 
+const encode = {
+  x: 'value',
+  y: 'type',
+  color: 'value',
+  shape: 'circle',
+  size: 8,
+};
+
+const valueScale = {
+  nice: true,
+  tickCount: 5, // Reduce tick count
+  formatter: '.0f', // Use G2 built-in formatter to display integers
+};
+
+const legend = {
+  color: {
+    position: 'top',
+    length: 200, // Set legend length
+    labelFormatter: '.0f', // Use G2 built-in formatter to display integers
+  },
+};
+
+const axis = {
+  y: false,
+  x: {
+    labelSpacing: 10, // Increase label spacing
+    labelFormatter: '.0f', // Use G2 built-in formatter to display integers
+    tickCount: 5, // Reduce tick count
+  },
+};
+
 chart1.options({
   type: 'point',
   data,
@@ -229,39 +260,16 @@ chart1.options({
       type: 'quantize',
       range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4 color segments
     },
-    value: {
-      nice: true,
-      tickCount: 5, // Reduce tick count
-      formatter: '.0f', // Use G2 built-in formatter to display integers
-    },
+    value: valueScale,
   },
-  encode: {
-    x: 'value',
-    y: 'type',
-    color: 'value',
-    shape: 'circle',
-    size: 8,
-  },
+  encode,
   style: {
     fillOpacity: 0.8,
     stroke: '#fff',
     lineWidth: 1,
   },
-  legend: {
-    color: {
-      position: 'top',
-      length: 200, // Set legend length
-      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-    },
-  },
-  axis: {
-    y: false,
-    x: {
-      labelSpacing: 10, // Increase label spacing
-      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-      tickCount: 5, // Reduce tick count
-    },
-  },
+  legend,
+  axis,
 });
 
 chart1.render();
@@ -295,43 +303,19 @@ chart2.options({
       type: 'quantile',
       range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4 color segments
     },
-    value: {
-      nice: true,
-      tickCount: 5, // Reduce tick count
-      formatter: '.0f', // Use G2 built-in formatter to display integers
-    },
+    value: valueScale,
   },
-  encode: {
-    x: 'value',
-    y: 'type',
-    color: 'value',
-    shape: 'circle',
-    size: 8,
-  },
+  encode,
   style: {
     fillOpacity: 0.8,
     stroke: '#fff',
     lineWidth: 1,
   },
-  legend: {
-    color: {
-      position: 'top',
-      length: 200, // Set legend length
-      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-    },
-  },
-  axis: {
-    y: false,
-    x: {
-      labelSpacing: 10, // Increase label spacing
-      labelFormatter: '.0f', // Use G2 built-in formatter to display integers
-      tickCount: 5, // Reduce tick count
-    },
-  },
+  legend,
+  axis,
 });
 
-chart2.render();
-`} />
+chart2.render();`} />
 
 In the above comparison example:
 

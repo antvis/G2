@@ -8,14 +8,14 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .style({
+  },
+  encode: { value: 'sum' },
+  style: {
     radius: 8,
     // 内置透明度 fillOpacity ，根据 0.85 ** depth 层级计算,
     fillOpacity: (v) => v['fillOpacity'],
@@ -23,6 +23,7 @@ chart
       if (v['path'] === '类别 3') return 'red';
       if (v['name'] === '类别 2.1.1') return 'red';
     },
-  });
+  },
+});
 
 chart.render();

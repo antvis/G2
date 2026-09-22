@@ -47,23 +47,19 @@ function renderBarChart(container) {
 ```js
 // Update bar chart data
 function updateBarChart(chart) {
-  // Get the Interval Mark
-  const interval = chart.getNodesByType('interval')[0];
-
+  // Read the current Spec (with normalized children)
+  const spec = chart.options();
   // Simulate and update Interval data
-  const newData = interval.data().map((d) => ({
+  spec.children[0].data = spec.children[0].data.map((d) => ({
     ...d,
     sold: Math.random() * 400 + 100,
   }));
-
-  // Update data and re-render
-  chart.options({
-    data: newData,
-  });
-
+  // Apply the updated Spec
+  chart.options(spec);
   // Re-render
   chart.render();
 }
+
 ```
 
 Note that in frameworks, it's not recommended to use `new Chart({ container: 'id' })` to specify the container. Instead, use the HTML element directly as the container: `new Chart({ container: HTMLContainer })`. This prevents issues with different components having the same ID, which could lead to unexpected rendering problems.

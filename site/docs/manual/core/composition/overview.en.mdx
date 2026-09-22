@@ -15,14 +15,6 @@ import { Demo } from '@antv/astro-theme-antv/components';
 });
 ```
 
-```js
-// API
-const layer = chart.spaceLayer();
-
-layer.view();
-
-layer.view();
-```
 
 ## Space
 
@@ -36,19 +28,21 @@ const chart = new Chart({
   container: 'container',
 });
 
+const data = [
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Other', sold: 150 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Strategy', sold: 115 },
+];
+
 chart.options({
   type: 'spaceLayer',
   children: [
     // Bar chart
     {
       type: 'interval',
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { x: 'genre', y: 'sold' },
     },
     // Pie chart
@@ -58,21 +52,14 @@ chart.options({
       paddingBottom: 250,
       coordinate: { type: 'theta' }, // Specify coordinate system
       transform: [{ type: 'stackY' }],
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { y: 'sold', color: 'genre' },
       legend: { color: false },
     },
   ],
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 You can also use `composition.spaceFlex` to arrange views horizontally or vertically.
 
@@ -82,19 +69,21 @@ const chart = new Chart({
   container: 'container',
 });
 
+const data = [
+  { genre: 'Shooter', sold: 350 },
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Other', sold: 150 },
+  { genre: 'Action', sold: 120 },
+  { genre: 'Strategy', sold: 115 },
+];
+
 chart.options({
   type: 'spaceFlex',
   children: [
     // Bar chart
     {
       type: 'interval',
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { x: 'genre', y: 'sold' },
     },
     // Pie chart
@@ -102,21 +91,14 @@ chart.options({
       type: 'interval', // Create an interval
       coordinate: { type: 'theta' }, // Specify coordinate system
       transform: [{ type: 'stackY' }],
-      data: [
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Other', sold: 150 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Strategy', sold: 115 },
-      ],
+      data,
       encode: { y: 'sold', color: 'genre' },
       legend: { color: false },
     },
   ],
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 These composition methods can be nested, making it easy to implement a dashboard with a single declaration.
 

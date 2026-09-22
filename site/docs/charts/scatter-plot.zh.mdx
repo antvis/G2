@@ -50,7 +50,7 @@ import { Demo } from '@antv/astro-theme-antv/components';
 const chart = new Chart({ container: 'container' });
 
 chart.options({
-  type: 'view',
+  type: 'point',
   autoFit: true,
   data: [
     { height: 161, weight: 50 },
@@ -66,21 +66,16 @@ chart.options({
   ],
   encode: { x: 'height', y: 'weight' },
   scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    {
-      type: 'point',
-      style: {
-        fill: '#1890ff',
-        fillOpacity: 0.7,
-        stroke: '#1890ff',
-        strokeWidth: 2,
-        r: 6,
-      },
-    },
-  ],
   axis: {
     x: { title: '身高 (cm)' },
     y: { title: '体重 (kg)' },
+  },
+  style: {
+    fill: '#1890ff',
+    fillOpacity: 0.7,
+    stroke: '#1890ff',
+    strokeWidth: 2,
+    r: 6,
   },
 });
 
@@ -142,7 +137,7 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'view',
+  type: 'point',
   autoFit: true,
   data: [
     { product: '产品A', sales: 275 },
@@ -153,23 +148,18 @@ chart.options({
   ],
   encode: { x: 'product', y: 'sales' },
   scale: { x: { range: [0, 1] }, y: { domainMin: 0, nice: true } },
-  children: [
-    {
-      type: 'point',
-      style: {
-        fill: '#1890ff',
-        fillOpacity: 0.8,
-        stroke: '#1890ff',
-        strokeWidth: 2,
-        r: 8,
-      },
-    },
-  ],
   axis: {
     x: { title: '产品类型' },
     y: { title: '销量' },
   },
   title: '不适合的用法：用散点图展示分类数据',
+  style: {
+    fill: '#1890ff',
+    fillOpacity: 0.8,
+    stroke: '#1890ff',
+    strokeWidth: 2,
+    r: 8,
+  },
 });
 
 chart.render();
@@ -438,6 +428,11 @@ variables.forEach((xVar) => {
   });
 });
 
+const axisStyle = {
+  title: false,
+  labelFormatter: (d) => (typeof d === 'number' ? d.toFixed(0) : d),
+};
+
 chart.options({
   type: 'facetRect',
   autoFit: true,
@@ -462,20 +457,13 @@ chart.options({
     },
   ],
   axis: {
-    x: {
-      title: false,
-      labelFormatter: (d) => (typeof d === 'number' ? d.toFixed(0) : d),
-    },
-    y: {
-      title: false,
-      labelFormatter: (d) => (typeof d === 'number' ? d.toFixed(0) : d),
-    },
+    x: axisStyle,
+    y: axisStyle,
   },
   title: '多变量相关性矩阵散点图',
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 ## 散点图与其他图表类型的对比
 

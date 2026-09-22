@@ -366,6 +366,12 @@ chart.render();
 
 const chart = new Chart({ container: 'container' });
 
+const label = {
+  text: 'visitor',
+  position: 'inside',
+  transform: [{ type: 'contrastReverse' }],
+};
+
 chart.options({
   type: 'view',
   autoFit: true,
@@ -397,11 +403,7 @@ chart.options({
       style: { stroke: '#FFF' },
       animate: { enter: { type: 'fadeIn' } },
       labels: [
-        {
-          text: 'visitor',
-          position: 'inside',
-          transform: [{ type: 'contrastReverse' }],
-        },
+        label,
         {
           text: 'action',
           position: 'right',
@@ -424,19 +426,12 @@ chart.options({
       },
       style: { stroke: '#FFF' },
       animate: { enter: { type: 'fadeIn' } },
-      labels: [
-        {
-          text: 'visitor',
-          position: 'inside',
-          transform: [{ type: 'contrastReverse' }],
-        },
-      ],
+      labels: [label],
     },
   ],
 });
 
-chart.render();
-`} />
+chart.render();`} />
 
 **说明**：
 

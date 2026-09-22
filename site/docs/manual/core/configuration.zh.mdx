@@ -49,19 +49,8 @@ const chart = new Chart({
 
 ## 图表配置
 
-创建图表实例后，可以通过以下两种方式进行配置：
+创建图表实例后，推荐通过 `chart.options(spec)` 传入 Spec 配置：
 
-### 方式一：API 链式调用
-```javascript
-chart
-  .data(data)
-  .encode('x', 'field1')
-  .encode('y', 'field2')
-  .scale('x', { type: 'band' })
-  .axis('x', { title: 'X轴标题' });
-```
-
-### 方式二：options 方法传入 spec 配置
 ```javascript
 chart.options({
   type: 'interval',

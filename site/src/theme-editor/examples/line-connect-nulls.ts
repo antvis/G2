@@ -16,11 +16,10 @@ export const lineConnectNulls = ({
     height,
   });
 
-  chart.theme({ type: theme, ...tokens });
-
-  chart
-    .line()
-    .data({
+  chart.options({
+    type: 'line',
+    theme: { type: theme, ...tokens },
+    data: {
       type: 'fetch',
       value:
         'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
@@ -34,11 +33,11 @@ export const lineConnectNulls = ({
           }),
         },
       ],
-    })
-    .encode('x', 'date')
-    .encode('y', 'close')
-    .scale('y', { nice: true })
-    .style('connectNulls', true);
+    },
+    encode: { x: 'date', y: 'close' },
+    scale: { y: { nice: true } },
+    style: { connectNulls: true },
+  });
 
   chart.render();
 

@@ -45,7 +45,7 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data: [
     { month: 'January', product: 'Product A', sales: 123 },
@@ -70,28 +70,6 @@ chart.options({
   coordinate: {
     type: 'cartesian',
   },
-  children: [
-    {
-      type: 'cell',
-      encode: {
-        x: 'month',
-        y: 'product',
-        color: 'sales',
-        link: 'sales',
-      },
-      style: {
-        inset: 1,
-      },
-      labels: [
-        {
-          text: 'sales',
-          style: {
-            fill: (d) => (d.sales > 200 ? '#fff' : '#000'),
-          },
-        },
-      ],
-    },
-  ],
   legend: {
     color: {
       position: 'right',
@@ -104,6 +82,23 @@ chart.options({
       offset: (t) => 1 - t,
     },
   },
+  encode: {
+    x: 'month',
+    y: 'product',
+    color: 'sales',
+    link: 'sales',
+  },
+  style: {
+    inset: 1,
+  },
+  labels: [
+    {
+      text: 'sales',
+      style: {
+        fill: (d) => (d.sales > 200 ? '#fff' : '#000'),
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -165,35 +160,12 @@ const processedData = data.map((d) => ({
 }));
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data: processedData,
   coordinate: {
     type: 'cartesian',
   },
-  children: [
-    {
-      type: 'cell',
-      encode: {
-        x: 'month',
-        y: 'product',
-        color: 'performance',
-      },
-      style: {
-        inset: 1,
-      },
-      labels: [
-        {
-          text: (d) => \`\${d.sales}/\${d.target}\`,
-          style: {
-            fill: (d) => (d.performance > 0.95 ? '#fff' : '#000'),
-            textAlign: 'center',
-            fontSize: 11,
-          },
-        },
-      ],
-    },
-  ],
   legend: {
     color: {
       position: 'right',
@@ -207,6 +179,24 @@ chart.options({
       range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2'],
     },
   },
+  encode: {
+    x: 'month',
+    y: 'product',
+    color: 'performance',
+  },
+  style: {
+    inset: 1,
+  },
+  labels: [
+    {
+      text: (d) => \`\${d.sales}/\${d.target}\`,
+      style: {
+        fill: (d) => (d.performance > 0.95 ? '#fff' : '#000'),
+        textAlign: 'center',
+        fontSize: 11,
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -289,37 +279,12 @@ for (let i = 0; i < sites.length; i++) {
 }
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data,
   coordinate: {
     type: 'cartesian',
   },
-  children: [
-    {
-      type: 'cell',
-      encode: {
-        x: 'from',
-        y: 'to',
-        color: 'price',
-      },
-      style: {
-        inset: 1,
-        stroke: '#fff',
-        strokeWidth: 1,
-      },
-      labels: [
-        {
-          text: 'price',
-          style: {
-            fill: (d) => (d.price > 5 ? '#fff' : '#000'),
-            textAlign: 'center',
-            fontSize: 10,
-          },
-        },
-      ],
-    },
-  ],
   legend: {
     color: {
       position: 'right',
@@ -361,6 +326,26 @@ chart.options({
       tickLine: false,
     },
   },
+  encode: {
+    x: 'from',
+    y: 'to',
+    color: 'price',
+  },
+  style: {
+    inset: 1,
+    stroke: '#fff',
+    strokeWidth: 1,
+  },
+  labels: [
+    {
+      text: 'price',
+      style: {
+        fill: (d) => (d.price > 5 ? '#fff' : '#000'),
+        textAlign: 'center',
+        fontSize: 10,
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -416,34 +401,12 @@ students.forEach((student) => {
 });
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data,
   coordinate: {
     type: 'cartesian',
   },
-  children: [
-    {
-      type: 'cell',
-      encode: {
-        x: 'subject',
-        y: 'student',
-        color: 'score',
-      },
-      style: {
-        inset: 1,
-      },
-      labels: [
-        {
-          text: 'score',
-          style: {
-            fill: (d) => (d.score > 85 ? '#fff' : '#000'),
-            textAlign: 'center',
-          },
-        },
-      ],
-    },
-  ],
   legend: {
     color: {
       position: 'right',
@@ -457,6 +420,23 @@ chart.options({
       range: ['#F4664A', '#FAAD14', '#30BF78', '#0891B2', '#5B8FF9'],
     },
   },
+  encode: {
+    x: 'subject',
+    y: 'student',
+    color: 'score',
+  },
+  style: {
+    inset: 1,
+  },
+  labels: [
+    {
+      text: 'score',
+      style: {
+        fill: (d) => (d.score > 85 ? '#fff' : '#000'),
+        textAlign: 'center',
+      },
+    },
+  ],
 });
 
 chart.render();
@@ -482,25 +462,20 @@ const data = [
 ];
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data,
-  children: [
+  encode: {
+    x: 'year',
+    y: 'region',
+    color: 'value',
+  },
+  style: {
+    inset: 1,
+  },
+  labels: [
     {
-      type: 'cell',
-      encode: {
-        x: 'year',
-        y: 'region',
-        color: 'value',
-      },
-      style: {
-        inset: 1,
-      },
-      labels: [
-        {
-          text: 'value',
-        },
-      ],
+      text: 'value',
     },
   ],
 });
@@ -572,25 +547,20 @@ const data = months.map((month, index) => ({
 }));
 
 chart.options({
-  type: 'view',
+  type: 'cell',
   autoFit: true,
   data,
-  children: [
+  encode: {
+    x: 'month',
+    y: 'metric',
+    color: 'value',
+  },
+  style: {
+    inset: 1,
+  },
+  labels: [
     {
-      type: 'cell',
-      encode: {
-        x: 'month',
-        y: 'metric',
-        color: 'value',
-      },
-      style: {
-        inset: 1,
-      },
-      labels: [
-        {
-          text: (d) => d.value.toFixed(0),
-        },
-      ],
+      text: (d) => d.value.toFixed(0),
     },
   ],
 });

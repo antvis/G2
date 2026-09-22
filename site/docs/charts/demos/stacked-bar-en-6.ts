@@ -2,6 +2,13 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
+const fields = [
+  'lost > 100$',
+  'lost <= 100$',
+  'gained <= 100$',
+  'gained > 100$',
+];
+
 chart.options({
   type: 'view',
   paddingLeft: 25,
@@ -14,12 +21,7 @@ chart.options({
         transform: [
           {
             type: 'fold',
-            fields: [
-              'lost > 100$',
-              'lost <= 100$',
-              'gained <= 100$',
-              'gained > 100$',
-            ],
+            fields,
           },
         ],
       },
@@ -29,12 +31,7 @@ chart.options({
         x: { padding: 0.2 },
         y: { domainMin: -100, domainMax: 100 },
         color: {
-          domain: [
-            'lost > 100$',
-            'lost <= 100$',
-            'gained <= 100$',
-            'gained > 100$',
-          ],
+          domain: fields,
           range: ['#97e3d5', '#61cdbb', '#e25c3b', '#f47560'],
         },
       },
