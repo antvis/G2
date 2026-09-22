@@ -18,6 +18,11 @@ const transformedData = [
   { title: 'Project Progress', value: 30, level: 'Excellent' },
 ];
 
+const data = [
+  { title: 'Project Progress', value: 60, type: 'Actual Progress' },
+  { title: 'Project Progress', value: 80, type: 'Target Progress' },
+];
+
 chart.options({
   type: 'view',
   coordinate: { transform: [{ type: 'transpose' }] },
@@ -38,10 +43,7 @@ chart.options({
     {
       type: 'interval',
       data: {
-        value: [
-          { title: 'Project Progress', value: 60, type: 'Actual Progress' },
-          { title: 'Project Progress', value: 80, type: 'Target Progress' },
-        ],
+        value: data,
         transform: [
           { type: 'filter', callback: (d) => d.type === 'Actual Progress' },
         ],
@@ -52,10 +54,7 @@ chart.options({
     {
       type: 'point',
       data: {
-        value: [
-          { title: 'Project Progress', value: 60, type: 'Actual Progress' },
-          { title: 'Project Progress', value: 80, type: 'Target Progress' },
-        ],
+        value: data,
         transform: [
           { type: 'filter', callback: (d) => d.type === 'Target Progress' },
         ],

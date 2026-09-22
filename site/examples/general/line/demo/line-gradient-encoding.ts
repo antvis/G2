@@ -8,23 +8,26 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/temperatures2.json',
-  })
-  .scale('x', { utc: true })
-  .scale('y', { nice: true })
-  .scale('color', { palette: 'turbo' })
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'value')
-  .encode('shape', 'hvh')
-  .encode('color', 'value')
-  .encode('series', () => undefined)
-  .style('gradient', 'y')
-  .style('lineWidth', 2)
-  .style('lineJoin', 'round')
-  .axis('x', { title: 'date' });
+  },
+  scale: {
+    x: { utc: true },
+    y: { nice: true },
+    color: { palette: 'turbo' },
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'value',
+    shape: 'hvh',
+    color: 'value',
+    series: () => undefined,
+  },
+  style: { gradient: 'y', lineWidth: 2, lineJoin: 'round' },
+  axis: { x: { title: 'date' } },
+});
 
 chart.render();

@@ -103,15 +103,18 @@ More options about title, see the API document of [title](/en/manual/component/t
 
 ```js
 // API
-chart.interval().title({
-  title: 'hello',
-  subtitle: 'world',
+chart.options({
+  type: 'interval',
+  title: {
+    title: 'hello',
+    subtitle: 'world',
+  },
 });
 ```
 
 ```js
 // API
-chart.title({ title: 'hello', subtitle: 'world' });
+chart.options({ type: 'view', title: { title: 'hello', subtitle: 'world' } });
 ```
 
 ## Configuration Options
@@ -176,7 +179,7 @@ chart.options({
   axis: false,
 });
 const handleSetAlign = (align) => {
-  chart.title({ align });
+  chart.options({ type: 'view', title: { align } });
   chart.render(); // Re-render the chart
 };
 

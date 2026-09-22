@@ -96,15 +96,20 @@ Directly declare views and their child marks in options:
 });
 ```
 
-### 2. API Chaining
+### 2. Configure a chart with Spec
 
-Create views and add marks through API:
+Configure views and marks with Spec:
 
 ```js
 const chart = new G2.Chart();
-const view = chart.view({ data: [...] });
-view.interval().encode('x', 'type').encode('y', 'value');
-view.line().encode('x', 'type').encode('y', 'value');
+
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'interval', encode: { x: 'type', y: 'value' } },
+    { type: 'line', encode: { x: 'type', y: 'value' } },
+  ],
+});
 chart.render();
 ```
 
@@ -114,14 +119,34 @@ Views can serve as child nodes of composite nodes (such as facets, spatial layou
 
 ```js
 // ✅ Correct: use facet to compose multiple views
-const facet = chart.facetRect();
-facet.view().interval().encode('x', 'type').encode('y', 'value');
-facet.view().line().encode('x', 'type').encode('y', 'value');
+chart.options({
+  type: 'facetRect',
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+    },
+    {
+      type: 'line',
+      encode: { x: 'type', y: 'value' },
+    },
+  ],
+});
 
 // ✅ Correct: use spaceFlex to compose multiple views
-const container = chart.spaceFlex();
-container.view().interval().encode('x', 'type').encode('y', 'value');
-container.view().line().encode('x', 'date').encode('y', 'sales');
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+    },
+    {
+      type: 'line',
+      encode: { x: 'date', y: 'sales' },
+    },
+  ],
+});
 
 // ❌ Error: do not nest view in view's children
 // chart.options({
@@ -140,13 +165,13 @@ Views support setting styles for their own area (such as background color, borde
 
 ```js
 ({
-  type: 'view',
-  style: {
+  type: 'interval',
+  viewStyle: {
     viewFill: '#e6f7ff',
     plotFill: '#fffbe6',
     mainFill: '#fff',
     contentFill: '#f0f5ff',
   },
-  children: [{ type: 'interval', style: { fill: '#5B8FF9' } }],
+  style: { fill: '#5B8FF9' },
 });
 ```

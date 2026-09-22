@@ -13,22 +13,22 @@ export const missingDataArea = ({
     height,
   });
 
-  chart.theme({ type: theme, ...tokens });
+  chart.options({
+    type: 'area',
+    theme: { type: theme, ...tokens },
+    data: {
+      type: 'fetch',
+      value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+    },
+    encode: {
+      x: (d) => new Date(d.date),
 
-  chart.data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/aapl.json',
+      // Mock missing data. Set NaN from Jan. to Mar.
+      y: (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close),
+    },
+    scale: { y: { nice: true } },
+    style: { connect: true, connectFill: 'grey', connectFillOpacity: 0.15 },
   });
-
-  chart
-    .area()
-    .encode('x', (d) => new Date(d.date))
-    // Mock missing data. Set NaN from Jan. to Mar.
-    .encode('y', (d) => (new Date(d.date).getUTCMonth() <= 3 ? NaN : d.close))
-    .scale('y', { nice: true })
-    .style('connect', true)
-    .style('connectFill', 'grey')
-    .style('connectFillOpacity', 0.15);
 
   chart.render();
 

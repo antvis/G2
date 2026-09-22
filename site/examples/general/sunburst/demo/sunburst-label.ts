@@ -8,20 +8,23 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .label({
-    text: 'name',
-    transform: [
-      {
-        type: 'overflowHide',
-      },
-    ],
-  });
+  },
+  encode: { value: 'sum' },
+  labels: [
+    {
+      text: 'name',
+      transform: [
+        {
+          type: 'overflowHide',
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

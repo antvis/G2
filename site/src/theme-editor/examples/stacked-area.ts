@@ -7,23 +7,25 @@ export const stackedArea = ({ container, theme, width, height, tokens }) => {
     height,
   });
 
-  chart.theme({ type: theme, ...tokens });
-
-  chart.data({
-    type: 'fetch',
-    value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
-  });
-
-  chart
-    .area()
-    .transform([
+  chart.options({
+    type: 'area',
+    theme: { type: theme, ...tokens },
+    data: {
+      type: 'fetch',
+      value:
+        'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+    },
+    transform: [
       { type: 'stackY' }, // Try to remove this line.
-    ])
-    .encode('x', (d) => new Date(d.date))
-    .encode('y', 'unemployed')
-    .encode('color', 'industry')
-    .encode('shape', 'smooth')
-    .legend(false);
+    ],
+    encode: {
+      x: (d) => new Date(d.date),
+      y: 'unemployed',
+      color: 'industry',
+      shape: 'smooth',
+    },
+    legend: false,
+  });
 
   chart.render();
 

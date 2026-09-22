@@ -13,19 +13,21 @@ const chart = new Chart({
   height: 500,
 });
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', (d) => d)
-  .encode('y', 'count')
-  .transform({
-    type: 'binX',
-    y: 'count',
-    thresholds: 10,
-  })
-  .style({
+chart.options({
+  type: 'interval',
+  data: data,
+  encode: { x: (d) => d, y: 'count' },
+  transform: [
+    {
+      type: 'binX',
+      y: 'count',
+      thresholds: 10,
+    },
+  ],
+  style: {
     columnWidthRatio: 1,
     inset: 0.5,
-  });
+  },
+});
 
 chart.render();

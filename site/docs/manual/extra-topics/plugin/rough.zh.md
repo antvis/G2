@@ -31,19 +31,24 @@ const chart = new Chart({
 仅需要一行改动即可完成风格转换。在该[示例](/zh/examples/style/rough/interval/)中，我们通过 `fillStyle` 指定了 `'zigzag'` 这种类似连续涂鸦笔迹的填充风格：
 
 ```ts
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { month: 'Jan.', profit: 387264, start: 0, end: 387264 },
     //...
-  ])
-  .encode('x', 'month')
-  .encode('y', ['end', 'start'])
-  .encode('color', (d) =>
-    d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
-  )
-  .style('strokeWidth', 2)
-  .style('fillStyle', 'zigzag'); // 指定填充风格
+  ],
+  encode: {
+    x: 'month',
+    y: ['end', 'start'],
+    color: (d) =>
+      d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
+  },
+  style: {
+    strokeWidth: 2,
+    // 指定填充风格
+    fillStyle: 'zigzag',
+  },
+});
 
 chart.render();
 ```
@@ -70,24 +75,29 @@ G2 使用 [g-canvas](https://g.antv.antgroup.com/api/renderer/canvas) 作为默�
 在下面的[示例](/zh/examples/style/rough/radial/)中，我们将 `fill/stroke` 都设置和黑色，将 `fillStyle` 作为颜色属性：
 
 ```ts
-chart
-  .interval()
-  //... 省略 data, transform 等
-  .scale('color', {
-    range: [
-      'hachure',
-      'solid',
-      'zigzag',
-      'cross-hatch',
-      'dots',
-      'dashed',
-      'zigzag-line',
-    ],
-  })
-  .style('fill', 'black')
-  .style('stroke', 'black')
-  .style('strokeWidth', '4')
-  .style('colorAttribute', 'fillStyle');
+chart.options({
+  type: 'interval',
+  // ... 省略 data、transform 等配置
+  scale: {
+    color: {
+      range: [
+        'hachure',
+        'solid',
+        'zigzag',
+        'cross-hatch',
+        'dots',
+        'dashed',
+        'zigzag-line',
+      ],
+    },
+  },
+  style: {
+    fill: 'black',
+    stroke: 'black',
+    strokeWidth: '4',
+    colorAttribute: 'fillStyle',
+  },
+});
 ```
 
 效果如下：

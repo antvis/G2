@@ -44,9 +44,10 @@ You can configure `labelTransform` at the `view` level to declare label transfor
 - API approach
 
 ```js
-chart
-  .labelTransform({ type: 'overlapHide' })
-  .labelTransform({ type: 'contrastReverse' });
+chart.options({
+  type: 'view',
+  labelTransform: [{ type: 'overlapHide' }, { type: 'contrastReverse' }],
+});
 ```
 
 - Spec configuration

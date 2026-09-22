@@ -337,11 +337,7 @@ const justifyOptions = [
   { value: 'flex-end', label: 'End align (flex-end)' },
 ];
 
-const alignOptions = [
-  { value: 'flex-start', label: 'Start align (flex-start)' },
-  { value: 'center', label: 'Center align (center)' },
-  { value: 'flex-end', label: 'End align (flex-end)' },
-];
+const alignOptions = justifyOptions;
 
 // Create control panel
 const controlPanel = document.createElement('div');
@@ -468,8 +464,7 @@ container.insertBefore(controlPanel, container.firstChild);
 container.insertBefore(statusDiv, container.lastChild);
 
 // Initial render
-updateChart();
-`} />
+updateChart();`} />
 
 #### Common Layout Scenarios
 

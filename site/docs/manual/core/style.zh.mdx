@@ -28,28 +28,6 @@ G2 中**样式（Style）** 主要用来控制标记、视图和组件的视觉�
 });
 ```
 
-```js
-// API
-// 第一种方式
-chart
-  .interval()
-  .style('stroke', 'black')
-  .style('strokeWidth', 2)
-  .viewStyle('viewFill', 'red')
-  .viewStyle('contentFill', 'yellow');
-
-// 第二种方式
-chart
-  .interval()
-  .style({
-    stroke: 'black',
-    strokeWidth: 2,
-  })
-  .viewStyle({
-    viewFill: 'red',
-    contentFill: 'yellow',
-  });
-```
 
 视图可以设置自己的样式：
 
@@ -63,17 +41,6 @@ chart
 });
 ```
 
-```js
-// API
-// 第一种方式
-chart.style('viewFill', 'red').style('contentFill', 'yellow');
-
-// 第二种方式
-chart.style({
-  viewFill: 'red',
-  contentFill: 'yellow',
-});
-```
 
 所有的图表组件也可以设置样式，例如图例：
 
@@ -234,43 +201,38 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'view',
+  type: 'point',
   height: 280,
   inset: 10,
   marginTop: 30,
   marginLeft: 40,
   marginBottom: 10,
   marginRight: 20,
-  style: {
+  viewStyle: {
     // 设置视图样式
     viewFill: '#4e79a7',
     plotFill: '#f28e2c',
     mainFill: '#e15759',
     contentFill: '#76b7b2',
   },
-  children: [
-    {
-      type: 'point',
-      data: {
-        type: 'fetch',
-        value: 'https://assets.antv.antgroup.com/g2/commits.json',
-      },
-      encode: {
-        x: (d) => new Date(d.time).getUTCHours(),
-        y: (d) => new Date(d.time).getUTCDay(),
-        size: 'count',
-        shape: 'point',
-      },
-      transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
-      scale: { y: { type: 'point' } },
-      style: { shape: 'point', fill: '#59a14f' },
-      axis: {
-        x: { title: 'time (hours)', tickCount: 24 },
-        y: { title: 'time (day)', grid: true },
-      },
-      legend: false,
-    },
-  ],
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/commits.json',
+  },
+  encode: {
+    x: (d) => new Date(d.time).getUTCHours(),
+    y: (d) => new Date(d.time).getUTCDay(),
+    size: 'count',
+    shape: 'point',
+  },
+  transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
+  scale: { y: { type: 'point' } },
+  style: { shape: 'point', fill: '#59a14f' },
+  axis: {
+    x: { title: 'time (hours)', tickCount: 24 },
+    y: { title: 'time (day)', grid: true },
+  },
+  legend: false,
 });
 
 chart.render();

@@ -314,7 +314,7 @@ chart.render().then(() => {
 You may notice that in the example above we intentionally turned off the legend:
 
 ```ts
-chart.legend(false);
+chart.options({ type: 'view', legend: false });
 ```
 
 This is because graphics in a 3D scene are all affected by the camera, but HUD components like legends are better suited to being drawn independently. refer to [Custom legend](/en/manual/component/legend/#自定义图例legend), we can customize the legend using HTML:

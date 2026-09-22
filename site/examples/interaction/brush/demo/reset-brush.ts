@@ -6,21 +6,19 @@ const chart = new Chart({
   clip: true,
 });
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json',
-  })
-  .encode('x', 'weight')
-  .encode('y', 'height')
-  .encode('color', 'gender')
-  .encode('shape', 'point')
-  .style({
+  },
+  encode: { x: 'weight', y: 'height', color: 'gender', shape: 'point' },
+  style: {
     fillOpacity: 0.2,
     lineWidth: 1,
-  })
-  .interaction('brushFilter', true);
+  },
+  interaction: { brushFilter: true },
+});
 
 const brushHistory = [];
 

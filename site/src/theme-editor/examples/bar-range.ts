@@ -7,11 +7,10 @@ export const BarRange = ({ container, theme, width, height, tokens }) => {
     height,
   });
 
-  chart.theme({ type: theme, ...tokens });
-
-  chart
-    .interval()
-    .data([
+  chart.options({
+    type: 'interval',
+    theme: { type: theme, ...tokens },
+    data: [
       { month: 'Jan.', profit: 387264, start: 0, end: 387264 },
       { month: 'Feb.', profit: 772096, start: 387264, end: 1159360 },
       { month: 'Mar.', profit: 638075, start: 1159360, end: 1797435 },
@@ -25,14 +24,16 @@ export const BarRange = ({ container, theme, width, height, tokens }) => {
       { month: 'Nov.', profit: 607365, start: 1450595, end: 2057960 },
       { month: 'Dec.', profit: 1106986, start: 2057960, end: 3164946 },
       { month: 'Total', start: 0, end: 3164946 },
-    ])
-    .encode('x', 'month')
-    .encode('y', ['end', 'start'])
-    .encode('color', (d) =>
-      d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
-    )
-    .scale('y', { nice: true })
-    .axis('y', { labelFormatter: '~s' });
+    ],
+    encode: {
+      x: 'month',
+      y: ['end', 'start'],
+      color: (d) =>
+        d.month === 'Total' ? 'Total' : d.profit > 0 ? 'Increase' : 'Decrease',
+    },
+    scale: { y: { nice: true } },
+    axis: { y: { labelFormatter: '~s' } },
+  });
 
   chart.render();
 

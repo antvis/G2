@@ -223,7 +223,7 @@ chart.options({
 chart.scale('genre', { values: ['a', 'b', 'c'] });
 
 // 5.0
-chart.scale('color', { domain: ['a', 'b', 'c'] });
+chart.options({ type: 'view', scale: { color: { domain: ['a', 'b', 'c'] } } });
 ```
 
 ### 离散比例尺
@@ -265,10 +265,13 @@ chart.coordinate({
 });
 
 // 5.0
-chart.coordinate({
-  type: 'polar',
-  outerRadius: 0.85,
-  transform: [{ type: 'transpose' }],
+chart.options({
+  type: 'view',
+  coordinate: {
+    type: 'polar',
+    outerRadius: 0.85,
+    transform: [{ type: 'transpose' }],
+  },
 });
 ```
 
@@ -315,8 +318,13 @@ chart.options({
 chart.tooltip({ containerTpl: `<div></div>` });
 
 // 5.0
-chart.interaction('tooltip', {
-  render: () => `<div></div>`,
+chart.options({
+  type: 'view',
+  interaction: {
+    tooltip: {
+      render: () => `<div></div>`,
+    },
+  },
 });
 ```
 
@@ -351,7 +359,7 @@ chart.options({
 chart.removeInteraction('tooltip');
 
 // 5.0
-chart.interaction('tooltip', false);
+chart.options({ type: 'view', interaction: { tooltip: false } });
 ```
 
 ## 标注（Annotation）

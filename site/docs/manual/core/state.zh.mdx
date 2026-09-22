@@ -27,16 +27,13 @@ import { Demo } from '@antv/astro-theme-antv/components';
 
 ### 单个 Mark 的情况
 
-当 view 下只有一个 mark 时，在 view 层级配置 state **会生效**，state 会自动传播到子 mark：
+只有一个 mark 时，直接使用标记 Spec，在该标记上配置 `state`：
 
 ```js
-// ✅ 单个 mark 时，view 层级的 state 配置会生效
+// ✅ 单个 mark 直接配置 state
 chart.options({
-  type: 'view',
-  state: { active: { backgroundFill: 'red', backgroundOpacity: 0.5 } }, // 会传播到子 mark
-  children: [
-    { type: 'line' }, // 会继承 view 的 state 配置
-  ],
+  type: 'line',
+  state: { active: { backgroundFill: 'red', backgroundOpacity: 0.5 } },
 });
 ```
 
@@ -70,7 +67,7 @@ chart.options({
 
 ### 直接在 Mark 层级配置
 
-当直接使用 mark API（如 `chart.line()`）时，state 配置在 mark 层级生效：
+将 `state` 放在标记 Spec 中时，配置在标记层级生效：
 
 ```js
 // ✅ 直接在 mark 层级配置

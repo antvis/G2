@@ -86,12 +86,7 @@ chart.options({
 
 // 插入 thresholdsX，thresholdsY 的输入框
 const container = document.createElement('div');
-const thresholdsX_Text = document.createElement('span');
-thresholdsX_Text.textContent = 'thresholdsX: ';
-const thresholdsX_Input = document.createElement('input');
-thresholdsX_Input.setAttribute('type', 'number');
-thresholdsX_Input.addEventListener('input', (e) => {
-  thresholdsX = e.target.value;
+function updateBin() {
   chart.options({
     transform: [
       {
@@ -103,6 +98,15 @@ thresholdsX_Input.addEventListener('input', (e) => {
     ],
   });
   chart.render();
+}
+
+const thresholdsX_Text = document.createElement('span');
+thresholdsX_Text.textContent = 'thresholdsX: ';
+const thresholdsX_Input = document.createElement('input');
+thresholdsX_Input.setAttribute('type', 'number');
+thresholdsX_Input.addEventListener('input', (e) => {
+  thresholdsX = e.target.value;
+  updateBin();
 });
 
 const thresholdsY_Text = document.createElement('span');
@@ -111,17 +115,7 @@ const thresholdsY_Input = document.createElement('input');
 thresholdsY_Input.setAttribute('type', 'number');
 thresholdsY_Input.addEventListener('input', (e) => {
   thresholdsY = e.target.value;
-  chart.options({
-    transform: [
-      {
-        type: 'bin',
-        color: 'count',
-        thresholdsX,
-        thresholdsY,
-      },
-    ],
-  });
-  chart.render();
+  updateBin();
 });
 
 container.appendChild(thresholdsX_Text);

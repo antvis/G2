@@ -6,13 +6,13 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .boxplot()
-  .data({
+chart.options({
+  type: 'boxplot',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/morley.json',
-  })
-  .encode('x', 'Expt')
-  .encode('y', 'Speed');
+  },
+  encode: { x: 'Expt', y: 'Speed' },
+});
 
 chart.render();

@@ -5,9 +5,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .area()
-  .data([
+chart.options({
+  type: 'area',
+  data: [
     { year: '1991', value: 3, type: 'type1' },
     { year: '1992', value: 4, type: 'type1' },
     { year: '1993', value: 3.5, type: 'type1' },
@@ -26,16 +26,14 @@ chart
     { year: '1997', value: 4, type: 'type2' },
     { year: '1998', value: 6, type: 'type2' },
     { year: '1999', value: 15, type: 'type2' },
-  ])
-  .interaction({
+  ],
+  interaction: {
     legendFilter: false,
     elementPointMove: {
       selection: [1, 4],
     },
-  })
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('key', 'type')
-  .encode('color', 'type');
+  },
+  encode: { x: 'year', y: 'value', key: 'type', color: 'type' },
+});
 
 chart.render();

@@ -6,17 +6,16 @@ const chart = new Chart({
   inset: 6,
 });
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart
-  .boxplot()
-  .data({
+chart.options({
+  type: 'boxplot',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/morley.json',
     transform: [{ type: 'filter', callback: (d) => d.Expt === 1 }],
-  })
-  .encode('y', 'Speed')
-  .style('boxFill', '#aaa')
-  .style('pointStroke', '#000');
+  },
+  encode: { y: 'Speed' },
+  style: { boxFill: '#aaa', pointStroke: '#000' },
+});
 
 chart.render();

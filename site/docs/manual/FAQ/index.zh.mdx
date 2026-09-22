@@ -1195,7 +1195,6 @@ chart.render();
 1. **检查配置层级（最常见原因）**
 
 多个 Mark 时必须在每个 Mark 层级单独配置：
-
 ```js
 // ❌ 错误：多个 mark 时，view 层级的 state 不会传播
 chart.options({
@@ -1223,13 +1222,10 @@ chart.options({
 单个 Mark 时可以在 view 层级配置：
 
 ```js
-// ✅ 单个 mark 时，view 层级的 state 配置会生效
+// ✅ 单个 mark 直接配置 state
 chart.options({
-  type: 'view',
-  state: { active: { fill: 'red' } }, // 会传播到子 mark
-  children: [
-    { type: 'line' }, // 会继承 view 的 state 配置
-  ],
+  type: 'line',
+  state: { active: { fill: 'red' } },
 });
 ```
 
@@ -1705,33 +1701,23 @@ chart.options({
   children: [
     // 第一个视图 - 柱状图
     {
-      type: 'view',
+      type: 'interval',
       data: [
         { genre: 'Sports', sold: 100 },
         { genre: 'Strategy', sold: 115 },
         { genre: 'Action', sold: 120 },
       ],
-      children: [
-        {
-          type: 'interval',
-          encode: { x: 'genre', y: 'sold', color: 'genre' },
-        },
-      ],
+      encode: { x: 'genre', y: 'sold', color: 'genre' },
     },
     // 第二个视图 - 折线图
     {
-      type: 'view',
+      type: 'line',
       data: [
         { year: '1991', value: 3 },
         { year: '1992', value: 4 },
         { year: '1993', value: 3.5 },
       ],
-      children: [
-        {
-          type: 'line',
-          encode: { x: 'year', y: 'value' },
-        },
-      ],
+      encode: { x: 'year', y: 'value' },
     },
   ],
 });
@@ -1760,31 +1746,21 @@ chart.options({
   children: [
     // 底层视图 - 面积图（占据整个画布）
     {
-      type: 'view',
-      children: [
-        {
-          type: 'area',
-          encode: { x: 'year', y: 'value' },
-          style: { fillOpacity: 0.5 },
-        },
-      ],
+      type: 'area',
+      encode: { x: 'year', y: 'value' },
+      style: { fillOpacity: 0.5 },
     },
     // 上层视图 - 饼图（通过 x, y, width, height 定位在右上角）
     {
-      type: 'view',
+      type: 'interval',
       x: 400,
       y: 50,
       width: 200,
       height: 200,
       coordinate: { type: 'theta' },
-      children: [
-        {
-          type: 'interval',
-          transform: [{ type: 'stackY' }],
-          encode: { y: 'value', color: 'year' },
-          legend: false,
-        },
-      ],
+      transform: [{ type: 'stackY' }],
+      encode: { y: 'value', color: 'year' },
+      legend: false,
     },
   ],
 });
@@ -1851,7 +1827,7 @@ chart.render();
 
 这是 G2 的设计特性，两者的排序逻辑不同：
 
-1. **图例顺序**：按照 `chart.line()` 的定义顺序（即 Mark 的添加顺序），保持数据分类的稳定性
+1. **图例顺序**：按照 `children` 中 line 标记的顺序，保持数据分类的稳定性
 2. **Tooltip 顺序**：默认按照元素在图表中的**视觉位置**（Y 坐标从上到下）排序，符合用户的自然阅读习惯
 
 对于多轴图表，不同 Y 轴的数据在视觉上的位置可能与定义顺序不同，导致顺序差异。

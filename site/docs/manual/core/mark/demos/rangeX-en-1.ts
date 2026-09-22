@@ -8,6 +8,8 @@ const chart = new Chart({
   container: 'container',
 });
 
+const encode = { x: (d) => new Date(d.year), y: 'population', color: '#333' };
+
 chart.options({
   type: 'view',
   width: 600,
@@ -33,11 +35,11 @@ chart.options({
     },
     {
       type: 'line',
-      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+      encode,
     },
     {
       type: 'point',
-      encode: { x: (d) => new Date(d.year), y: 'population', color: '#333' },
+      encode,
       style: { lineWidth: 1.5 },
     },
   ],

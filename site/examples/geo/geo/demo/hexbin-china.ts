@@ -6,9 +6,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .polygon()
-  .data({
+chart.options({
+  type: 'polygon',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/hexbin-china.json',
     transform: [
@@ -25,22 +25,25 @@ chart
         },
       },
     ],
-  })
-  .encode('x', 'longitude')
-  .encode('y', 'latitude')
-  .encode('color', 'count')
-  .scale('color', {
-    range: '#BAE7FF-#1890FF-#0050B3',
-  })
-  .style('lineWidth', 5)
-  .style('stroke', '#fff')
-  .axis(false)
-  .legend(false)
-  .tooltip({
-    field: 'count',
-  })
-  .state('active', { fill: 'orange' })
-  .state('inactive', { opacity: 0.8 })
-  .interaction('elementHighlight', true);
+  },
+  encode: { x: 'longitude', y: 'latitude', color: 'count' },
+  scale: {
+    color: {
+      range: '#BAE7FF-#1890FF-#0050B3',
+    },
+  },
+  style: { lineWidth: 5, stroke: '#fff' },
+  axis: false,
+  legend: false,
+  tooltip: {
+    items: [
+      {
+        field: 'count',
+      },
+    ],
+  },
+  state: { active: { fill: 'orange' }, inactive: { opacity: 0.8 } },
+  interaction: { elementHighlight: true },
+});
 
 chart.render();

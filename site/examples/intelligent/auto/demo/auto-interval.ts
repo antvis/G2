@@ -9,10 +9,13 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.mark(Auto).data([
-  { price: 100, type: 'A' },
-  { price: 120, type: 'B' },
-  { price: 150, type: 'C' },
-]);
+chart.options({
+  type: Auto,
+  data: [
+    { price: 100, type: 'A' },
+    { price: 120, type: 'B' },
+    { price: 150, type: 'C' },
+  ],
+});
 
 chart.render();

@@ -121,8 +121,13 @@ drawRect(ctx, width, height, color);
 drawLinePattern(ctx, stroke, width, height, cross);
 
 // 使用
-chart.style('fill', ({ value }) => {
-  return { image: canvas, repetition: 'repeat' };
+chart.options({
+  type: 'view',
+  style: {
+    fill: ({ value }) => {
+      return { image: canvas, repetition: 'repeat' };
+    },
+  },
 });
 ```
 

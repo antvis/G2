@@ -223,7 +223,7 @@ Some properties of the scale have changed as follows:
 chart.scale('genre', { values: ['a', 'b', 'c'] });
 
 // 5.0
-chart.scale('color', { domain: ['a', 'b', 'c'] });
+chart.options({ type: 'view', scale: { color: { domain: ['a', 'b', 'c'] } } });
 ```
 
 ### Discrete Scale
@@ -265,10 +265,13 @@ chart.coordinate({
 });
 
 // 5.0
-chart.coordinate({
-  type: 'polar',
-  outerRadius: 0.85,
-  transform: [{ type: 'transpose' }],
+chart.options({
+  type: 'view',
+  coordinate: {
+    type: 'polar',
+    outerRadius: 0.85,
+    transform: [{ type: 'transpose' }],
+  },
 });
 ```
 
@@ -315,8 +318,13 @@ In 4.0, you can customize the prompt information through `tooltip.containerTpl`,
 chart.tooltip({ containerTpl: `<div></div>` });
 
 // 5.0
-chart.interaction('tooltip', {
-  render: () => `<div></div>`,
+chart.options({
+  type: 'view',
+  interaction: {
+    tooltip: {
+      render: () => `<div></div>`,
+    },
+  },
 });
 ```
 
@@ -351,7 +359,7 @@ In 4.0, using `chart.removeInteraction(name)` can remove the interactions. In 5.
 chart.removeInteraction('tooltip');
 
 // 5.0
-chart.interaction('tooltip', false);
+chart.options({ type: 'view', interaction: { tooltip: false } });
 ```
 
 ## Annotation

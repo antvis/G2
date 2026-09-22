@@ -28,28 +28,6 @@ Marks can set their own styles as well as view styles:
 });
 ```
 
-```js
-// API
-// First approach
-chart
-  .interval()
-  .style('stroke', 'black')
-  .style('strokeWidth', 2)
-  .viewStyle('viewFill', 'red')
-  .viewStyle('contentFill', 'yellow');
-
-// Second approach
-chart
-  .interval()
-  .style({
-    stroke: 'black',
-    strokeWidth: 2,
-  })
-  .viewStyle({
-    viewFill: 'red',
-    contentFill: 'yellow',
-  });
-```
 
 Views can set their own styles:
 
@@ -63,17 +41,6 @@ Views can set their own styles:
 });
 ```
 
-```js
-// API
-// First approach
-chart.style('viewFill', 'red').style('contentFill', 'yellow');
-
-// Second approach
-chart.style({
-  viewFill: 'red',
-  contentFill: 'yellow',
-});
-```
 
 All chart components can also set styles, for example legends:
 
@@ -234,43 +201,38 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'view',
+  type: 'point',
   height: 280,
   inset: 10,
   marginTop: 30,
   marginLeft: 40,
   marginBottom: 10,
   marginRight: 20,
-  style: {
+  viewStyle: {
     // Set view styles
     viewFill: '#4e79a7',
     plotFill: '#f28e2c',
     mainFill: '#e15759',
     contentFill: '#76b7b2',
   },
-  children: [
-    {
-      type: 'point',
-      data: {
-        type: 'fetch',
-        value: 'https://assets.antv.antgroup.com/g2/commits.json',
-      },
-      encode: {
-        x: (d) => new Date(d.time).getUTCHours(),
-        y: (d) => new Date(d.time).getUTCDay(),
-        size: 'count',
-        shape: 'point',
-      },
-      transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
-      scale: { y: { type: 'point' } },
-      style: { shape: 'point', fill: '#59a14f' },
-      axis: {
-        x: { title: 'time (hours)', tickCount: 24 },
-        y: { title: 'time (day)', grid: true },
-      },
-      legend: false,
-    },
-  ],
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/commits.json',
+  },
+  encode: {
+    x: (d) => new Date(d.time).getUTCHours(),
+    y: (d) => new Date(d.time).getUTCDay(),
+    size: 'count',
+    shape: 'point',
+  },
+  transform: [{ type: 'group', size: 'sum' }, { type: 'sortY' }],
+  scale: { y: { type: 'point' } },
+  style: { shape: 'point', fill: '#59a14f' },
+  axis: {
+    x: { title: 'time (hours)', tickCount: 24 },
+    y: { title: 'time (day)', grid: true },
+  },
+  legend: false,
 });
 
 chart.render();

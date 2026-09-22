@@ -158,7 +158,7 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'view',
+  type: 'line',
   autoFit: true,
   data: [
     { day: '2015/9/1', share: 10, volume: 1200 },
@@ -178,14 +178,9 @@ chart.options({
       title: '日期',
     },
   },
-  children: [
-    {
-      type: 'line',
-      style: {
-        lineWidth: 3,
-      },
-    },
-  ],
+  style: {
+    lineWidth: 3,
+  },
 });
 
 chart.render();

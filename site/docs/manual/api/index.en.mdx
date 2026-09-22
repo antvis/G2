@@ -71,8 +71,9 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .data([
+chart.options({
+  type: 'view',
+  data: [
     { year: '1991', value: 3 },
     { year: '1992', value: 4 },
     { year: '1993', value: 3.5 },
@@ -82,11 +83,10 @@ chart
     { year: '1997', value: 7 },
     { year: '1998', value: 9 },
     { year: '1999', value: 13 },
-  ])
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .scale('x', { range: [0, 1] })
-  .scale('y', { domainMin: 6, nice: true });
+  ],
+  encode: { x: 'year', y: 'value' },
+  scale: { x: { range: [0, 1] }, y: { domainMin: 6, nice: true } },
+});
 
 chart.options({
   type: 'view',
@@ -331,22 +331,27 @@ const chart = new Chart({
 });
 
 // declare the visualization
-chart
-  .interval() // Create an Interval mark
-  .data([
+chart.options({
+  // Create an Interval mark
+  type: 'interval',
+  data: [
     // Bind the data
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre') // Encode data to the x channel
-  .encode('y', 'sold'); // Encode data to the y channel
+  ],
+  encode: {
+    // Encode data to the x channel
+    x: 'genre',
+    // Encode data to the y channel
+    y: 'sold',
+  },
+});
 
 // Render the visualization
-chart.render();
-`} />
+chart.render();`} />
 
 The Functional API is built on top of the Spec API. Simply put, each `Chart` instance has an `options` object. The Functional API generates this `options` object through a series of methods, while the Spec API directly sets it. Regardless of which API you use, G2 ultimately renders the current `options`. Therefore, both APIs are equally capable of defining visualizations.
 

@@ -161,7 +161,7 @@ chart.options({
   axis: false,
 });
 const handleSetAlign = (align) => {
-  chart.title({ align });
+  chart.options({ type: 'view', title: { align } });
   chart.render(); // 重新渲染图表
 };
 
@@ -253,16 +253,19 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.title({
-  align: 'right',
-  title: 'Sold by genre, sorted by sold',
-  titleFontSize: 15,
-  subtitle: 'It shows the sales volume of genre, sored by sold.',
-  subtitleFill: 'red',
-  subtitleFontSize: 12,
-  subtitleShadowColor: 'yellow',
-  subtitleShadowBlur: 5,
-  subtitleFontStyle: 'italic',
+chart.options({
+  type: 'view',
+  title: {
+    align: 'right',
+    title: 'Sold by genre, sorted by sold',
+    titleFontSize: 15,
+    subtitle: 'It shows the sales volume of genre, sored by sold.',
+    subtitleFill: 'red',
+    subtitleFontSize: 12,
+    subtitleShadowColor: 'yellow',
+    subtitleShadowBlur: 5,
+    subtitleFontStyle: 'italic',
+  },
 });
 
 chart.options({

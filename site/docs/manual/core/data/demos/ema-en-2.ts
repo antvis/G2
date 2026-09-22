@@ -3,6 +3,16 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container',
 });
+
+const data = [
+  { t: 0, y: 100 },
+  { t: 1, y: 180 },
+  { t: 2, y: 120 },
+  { t: 3, y: 200 },
+  { t: 4, y: 150 },
+  { t: 5, y: 250 },
+];
+
 chart.options({
   type: 'view',
   children: [
@@ -10,14 +20,7 @@ chart.options({
       type: 'line',
       data: {
         type: 'inline',
-        value: [
-          { t: 0, y: 100 },
-          { t: 1, y: 180 },
-          { t: 2, y: 120 },
-          { t: 3, y: 200 },
-          { t: 4, y: 150 },
-          { t: 5, y: 250 },
-        ],
+        value: data,
         transform: [
           {
             type: 'ema',
@@ -34,14 +37,7 @@ chart.options({
       type: 'line',
       data: {
         type: 'inline',
-        value: [
-          { t: 0, y: 100 },
-          { t: 1, y: 180 },
-          { t: 2, y: 120 },
-          { t: 3, y: 200 },
-          { t: 4, y: 150 },
-          { t: 5, y: 250 },
-        ],
+        value: data,
       },
       encode: { x: 't', y: 'y' },
       style: { stroke: '#ccc', lineDash: [4, 2] },

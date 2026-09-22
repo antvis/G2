@@ -1,0 +1,101 @@
+---
+title: Spec 和 API
+order: 4
+---
+
+G2 推荐使用 **Spec**：通过 JavaScript 对象描述数据、编码、样式和视图结构，再调用 `chart.options(spec)` 提交配置。链式 API 则通过属性设置和节点创建构建相同的视图树，两者使用同一套渲染流程。
+
+Spec 便于复制、组合和查看完整配置；理解两者的对应关系有助于阅读和迁移已有 API 代码。Spec 可以包含函数访问器和回调，不限于 JSON，直接使用 `JSON.stringify` 会丢失函数值。
+
+## 两种写法
+
+推荐的 Spec 写法：
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+const data = [
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true }],
+  labels: [{ text: 'sold', position: 'top' }],
+  tooltip: { items: ['sold'] },
+  style: { radiusTopLeft: 4, radiusTopRight: 4 },
+});
+chart.render();
+```
+
+对应的链式 API 写法如下。保留上面的初始化和数据，用这段替换 `chart.options(...)` 和 `chart.render()`：
+
+```js
+chart
+  .interval()
+  .data(data)
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .transform({ type: 'sortX', by: 'y', reverse: true })
+  .label({ text: 'sold', position: 'top' })
+  .tooltip({ items: ['sold'] })
+  .style('radiusTopLeft', 4)
+  .style('radiusTopRight', 4);
+chart.render();
+```
+
+## 属性映射
+
+下表中的 `node` 表示同一个标记或复合节点。
+
+| Spec                                               | 链式 API                                            | 转换规则                                           |
+| -------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------- |
+| `{ type: 'interval' }`                             | `parent.interval()`                                 | 创建子节点，返回值是新节点。                       |
+| `{ encode: { x: 'year', y: 'value' } }`            | `node.encode('x', 'year').encode('y', 'value')`     | 同类映射合并；重复键以最后一次设置为准。           |
+| `{ axis: { x: false } }`                           | `node.axis('x', false)`                             | 保留通道级配置，不能改成整个 `axis: false`。       |
+| `{ style: { fill: 'red' } }`                       | `node.style({ fill: 'red' })`                       | 传整个对象会替换该属性；逐键设置则更新键值。       |
+| `{ interaction: { tooltip: true } }`               | `node.interaction('tooltip')`                       | 对象属性的单字符串参数表示该键为 `true`。          |
+| `{ transform: [a, b] }`                            | `node.transform(a).transform(b)`                    | 单项调用追加，数组调用替换；必须保留顺序。         |
+| `{ labels: [a, b] }`                               | `node.label(a).label(b)`                            | Spec 使用复数 `labels`，API 使用单数 `label`。     |
+| `{ tooltip: { items: ['value'] } }`                | `node.tooltip(['value'])`                           | 数组转换为 `items`；单个字段或回调追加到 `items`。 |
+| `{ tooltip: false }`                               | `node.tooltip(false)`                               | `false` 和 `null` 不要改成空对象或空数组。         |
+| `{ padding: 20 }`                                  | `node.attr('padding', 20)`                          | 没有专用 setter 的属性使用 `attr`。                |
+
+`data`、`title` 等单值属性直接对应同名方法；`scale`、`axis`、`legend`、`state`、`theme` 等对象属性与 `style` 一样，区分逐键设置和整体替换。
+
+## 层级与组合
+
+单个标记直接使用 `type: 'interval'` 等标记类型，不需要额外包装 `view`。视图样式放在 `viewStyle`，标记样式放在 `style`；多个标记共享视图时，才使用 `type: 'view'` 和 `children`。
+
+`children` 中的每个节点对应父节点上的一次创建调用，转换时应保留配置层级和节点顺序。`chart.spaceFlex()` 等根级复合调用对应 Spec 的根类型 `spaceFlex`，不要再套一层 `view`。
+
+Spec 可以通过对象展开、工厂函数和 `map` 复用配置，无需保留 API 的 `.call(configure)`。循环生成多个标记时，先收集完整的 `children`，再提交配置；逐次提交单个子节点会替换前面的结果。
+
+## 更新与运行时操作
+
+修改 Spec 后，需要重新提交并渲染：
+
+```js
+const spec = {
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold' },
+};
+chart.options(spec);
+chart.render();
+
+async function update(nextData) {
+  spec.data = nextData;
+  chart.options(spec);
+  await chart.render();
+}
+```
+
+`chart.options()` 读取当前配置，`chart.options(spec)` 提交配置，`chart.render()` 执行渲染。提交时会合并属性并重建提供的子树，不等于清空所有旧配置；事件回调应避免持有已被替换的旧标记节点。
+
+容器、渲染器和插件仍在 `new Chart(...)` 中配置；事件监听、查询和销毁等运行时操作继续使用 Chart API。

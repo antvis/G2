@@ -1194,7 +1194,6 @@ When the syntax is correct, State configuration not taking effect usually has th
 1. **Check configuration hierarchy (most common cause)**
 
 With multiple Marks, you must configure State at each Mark level separately:
-
 ```js
 // ❌ Wrong: With multiple marks, state at view level won't propagate
 chart.options({
@@ -1224,11 +1223,8 @@ With single Mark, you can configure at view level:
 ```js
 // ✅ With single mark, state configuration at view level takes effect
 chart.options({
-  type: 'view',
-  state: { active: { fill: 'red' } }, // Will propagate to child mark
-  children: [
-    { type: 'line' }, // Will inherit state configuration from view
-  ],
+  type: 'line',
+  state: { active: { fill: 'red' } },
 });
 ```
 
@@ -1700,33 +1696,23 @@ chart.options({
   children: [
     // First view - Bar chart
     {
-      type: 'view',
+      type: 'interval',
       data: [
         { genre: 'Sports', sold: 100 },
         { genre: 'Strategy', sold: 115 },
         { genre: 'Action', sold: 120 },
       ],
-      children: [
-        {
-          type: 'interval',
-          encode: { x: 'genre', y: 'sold', color: 'genre' },
-        },
-      ],
+      encode: { x: 'genre', y: 'sold', color: 'genre' },
     },
     // Second view - Line chart
     {
-      type: 'view',
+      type: 'line',
       data: [
         { year: '1991', value: 3 },
         { year: '1992', value: 4 },
         { year: '1993', value: 3.5 },
       ],
-      children: [
-        {
-          type: 'line',
-          encode: { x: 'year', y: 'value' },
-        },
-      ],
+      encode: { x: 'year', y: 'value' },
     },
   ],
 });
@@ -1755,31 +1741,21 @@ chart.options({
   children: [
     // Bottom view - Area chart (occupies entire canvas)
     {
-      type: 'view',
-      children: [
-        {
-          type: 'area',
-          encode: { x: 'year', y: 'value' },
-          style: { fillOpacity: 0.5 },
-        },
-      ],
+      type: 'area',
+      encode: { x: 'year', y: 'value' },
+      style: { fillOpacity: 0.5 },
     },
     // Top view - Pie chart (positioned in top-right corner via x, y, width, height)
     {
-      type: 'view',
+      type: 'interval',
       x: 400,
       y: 50,
       width: 200,
       height: 200,
       coordinate: { type: 'theta' },
-      children: [
-        {
-          type: 'interval',
-          transform: [{ type: 'stackY' }],
-          encode: { y: 'value', color: 'year' },
-          legend: false,
-        },
-      ],
+      transform: [{ type: 'stackY' }],
+      encode: { y: 'value', color: 'year' },
+      legend: false,
     },
   ],
 });
@@ -1846,7 +1822,7 @@ For example, the Legend order is `waiting → people → call → mock`, but the
 
 This is a design feature of G2, as the two components use different sorting logic:
 
-1. **Legend Order**: Based on the definition order of `chart.line()` (i.e., the order in which Marks are added), maintaining stability of data categories
+1. **Legend Order**: Based on the definition order of line marks in `children` (i.e., the order in which Marks are added), maintaining stability of data categories
 2. **Tooltip Order**: By default, sorted by the **visual position** of elements in the chart (Y-coordinate from top to bottom), following users' natural reading habits
 
 For multi-axis charts, data on different Y-axes may have visual positions that differ from their definition order, leading to order discrepancies.

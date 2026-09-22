@@ -1,11 +1,27 @@
 import { Chart } from '@antv/g2';
 
+const colors = [
+  '#ff7875',
+  '#ffa940',
+  '#fadb14',
+  '#73d13d',
+  '#40a9ff',
+  '#b37feb',
+  '#ff85c0',
+  '#ffc069',
+  '#95de64',
+];
+
 const chart = new Chart({
   container: 'container',
   theme: 'classic',
   width: 600,
   height: 600,
 });
+
+const nodeFilter = {
+  transform: [{ type: 'filter', callback: (d) => d.type === 'node' }],
+};
 
 chart.options({
   type: 'view',
@@ -31,9 +47,9 @@ chart.options({
             const y = centerY + radius * Math.sin(angle);
             return {
               ...node,
-              x: x,
-              y: y,
-              angle: angle,
+              x,
+              y,
+              angle,
               index: i,
             };
           });
@@ -61,8 +77,8 @@ chart.options({
                   Math.pow(t, 2) * targetNode.y;
 
                 arcData.push({
-                  x: x,
-                  y: y,
+                  x,
+                  y,
                   linkId: `${sourceId}-${targetId}`,
                   sourceName: sourceNode.label,
                   targetName: targetNode.label,
@@ -87,69 +103,52 @@ chart.options({
       },
     ],
   },
+  children: [
+    {
+      type: 'line',
+      data: {
+        transform: [{ type: 'filter', callback: (d) => d.type === 'link' }],
+      },
+      encode: { x: 'x', y: 'y', series: 'linkId' },
+      style: {
+        stroke: '#1890ff',
+        strokeWidth: 1.2,
+        strokeOpacity: 0.3,
+        lineCap: 'round',
+      },
+    },
+    {
+      type: 'point',
+      data: nodeFilter,
+      encode: { x: 'x', y: 'y', color: 'group' },
+      scale: {
+        color: {
+          type: 'ordinal',
+          range: colors,
+        },
+      },
+      style: {
+        r: 6,
+        fill: (d) => colors[parseInt(d.group)] || '#40a9ff',
+        stroke: '#fff',
+        strokeWidth: 2,
+        fillOpacity: 0.9,
+      },
+    },
+    {
+      type: 'text',
+      data: nodeFilter,
+      encode: { x: 'x', y: 'y', text: 'name' },
+      style: {
+        textAlign: 'center',
+        textBaseline: 'middle',
+        fontSize: 10,
+        fill: '#333',
+        fontWeight: 'bold',
+        dy: -15,
+      },
+    },
+  ],
 });
-
-chart
-  .line()
-  .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'link' }] })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('series', 'linkId')
-  .style('stroke', '#1890ff')
-  .style('strokeWidth', 1.2)
-  .style('strokeOpacity', 0.3)
-  .style('lineCap', 'round');
-
-chart
-  .point()
-  .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'node' }] })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', 'group')
-  .scale('color', {
-    type: 'ordinal',
-    range: [
-      '#ff7875',
-      '#ffa940',
-      '#fadb14',
-      '#73d13d',
-      '#40a9ff',
-      '#b37feb',
-      '#ff85c0',
-      '#ffc069',
-      '#95de64',
-    ],
-  })
-  .style('r', 6)
-  .style('fill', (d) => {
-    const colors = [
-      '#ff7875',
-      '#ffa940',
-      '#fadb14',
-      '#73d13d',
-      '#40a9ff',
-      '#b37feb',
-      '#ff85c0',
-      '#ffc069',
-      '#95de64',
-    ];
-    return colors[parseInt(d.group)] || '#40a9ff';
-  })
-  .style('stroke', '#fff')
-  .style('strokeWidth', 2)
-  .style('fillOpacity', 0.9);
-
-chart
-  .text()
-  .data({ transform: [{ type: 'filter', callback: (d) => d.type === 'node' }] })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('text', 'name')
-  .style('textAlign', 'center')
-  .style('textBaseline', 'middle')
-  .style('fontSize', 10)
-  .style('fill', '#333')
-  .style('fontWeight', 'bold')
-  .style('dy', -15);
 
 chart.render();

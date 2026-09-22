@@ -245,29 +245,33 @@ const focus = new G2.Chart({
   paddingLeft: 50,
 });
 
-focus
-  .area()
-  .data({
+focus.options({
+  type: 'area',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .interaction('brushXHighlight', {
-    series: true,
-    maskHandleWRender: createPathRender((x, y, w, h) => ({
-      d: \`M\${x + w / 2},\${y}L\${x - w / 2},\${y + h / 2}L\${x + w / 2},\${y + h}Z\`,
-      fill: '#1890FF',
-    })),
-    maskHandleERender: createPathRender((x, y, w, h) => ({
-      d: \`M\${x + w / 2},\${y}L\${x + (w * 3) / 2},\${y + h / 2}L\${x + w / 2},\${
-        y + h
-      }Z\`,
-      fill: '#1890FF',
-    })),
-  });
+  },
+  encode: { x: 'date', y: 'close' },
+  animate: false,
+  interaction: {
+    brushXHighlight: {
+      series: true,
+      maskHandleWRender: createPathRender((x, y, w, h) => ({
+        d: \`M\${x + w / 2},\${y}L\${x - w / 2},\${y + h / 2}L\${x + w / 2},\${
+          y + h
+        }Z\`,
+        fill: '#1890FF',
+      })),
+      maskHandleERender: createPathRender((x, y, w, h) => ({
+        d: \`M\${x + w / 2},\${y}L\${x + (w * 3) / 2},\${y + h / 2}L\${x + w / 2},\${
+          y + h
+        }Z\`,
+        fill: '#1890FF',
+      })),
+    },
+  },
+});
 
 // Render context view
 
@@ -277,31 +281,34 @@ const context = new G2.Chart({
   paddingLeft: 50,
 });
 
-context
-  .area()
-  .data({
+context.options({
+  type: 'area',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate(false)
-  .axis('x', { title: false })
-  .axis('y', false)
-  .interaction('brushXHighlight', {
-    series: true,
-    maskHandleWRender: createPathRender((x, y, w, h) => ({
-      d: \`M\${x + w / 2},\${y}L\${x - w / 2},\${y + h / 2}L\${x + w / 2},\${y + h}Z\`,
-      fill: '#1890FF',
-    })),
-    maskHandleERender: createPathRender((x, y, w, h) => ({
-      d: \`M\${x + w / 2},\${y}L\${x + (w * 3) / 2},\${y + h / 2}L\${x + w / 2},\${
-        y + h
-      }Z\`,
-      fill: '#1890FF',
-    })),
-  });
+  },
+  encode: { x: 'date', y: 'close' },
+  animate: false,
+  axis: { x: { title: false }, y: false },
+  interaction: {
+    brushXHighlight: {
+      series: true,
+      maskHandleWRender: createPathRender((x, y, w, h) => ({
+        d: \`M\${x + w / 2},\${y}L\${x - w / 2},\${y + h / 2}L\${x + w / 2},\${
+          y + h
+        }Z\`,
+        fill: '#1890FF',
+      })),
+      maskHandleERender: createPathRender((x, y, w, h) => ({
+        d: \`M\${x + w / 2},\${y}L\${x + (w * 3) / 2},\${y + h / 2}L\${x + w / 2},\${
+          y + h
+        }Z\`,
+        fill: '#1890FF',
+      })),
+    },
+  },
+});
 
 Promise.all([focus.render(), context.render()]).then(() => {
   // Add cross-chart linkage

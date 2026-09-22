@@ -17,31 +17,37 @@ export const lineBar = ({ container, theme, width, height, tokens }) => {
     height,
   });
 
-  chart.theme({ type: theme, ...tokens });
-
-  chart.data(data);
-
-  chart
-    .interval()
-    .encode('x', 'time')
-    .encode('y', 'waiting')
-    .encode('color', () => 'waiting')
-    .axis('y', { title: 'Waiting' })
-    .scale('y', { nice: true });
-
-  chart
-    .line()
-    .encode('x', 'time')
-    .encode('y', 'people')
-    .encode('shape', 'smooth')
-    .encode('color', () => 'people')
-    .style('lineWidth', 2)
-    .scale('y', { independent: true, nice: true })
-    .axis('y', {
-      position: 'right',
-      grid: null,
-      title: 'People',
-    });
+  chart.options({
+    type: 'view',
+    theme: { type: theme, ...tokens },
+    data: data,
+    children: [
+      {
+        type: 'interval',
+        encode: { x: 'time', y: 'waiting', color: () => 'waiting' },
+        axis: { y: { title: 'Waiting' } },
+        scale: { y: { nice: true } },
+      },
+      {
+        type: 'line',
+        encode: {
+          x: 'time',
+          y: 'people',
+          shape: 'smooth',
+          color: () => 'people',
+        },
+        style: { lineWidth: 2 },
+        scale: { y: { independent: true, nice: true } },
+        axis: {
+          y: {
+            position: 'right',
+            grid: null,
+            title: 'People',
+          },
+        },
+      },
+    ],
+  });
 
   chart.render();
 

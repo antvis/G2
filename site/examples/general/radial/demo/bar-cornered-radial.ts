@@ -5,11 +5,10 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'radial', endAngle: Math.PI });
-
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'radial', endAngle: Math.PI },
+  data: {
     // Data is collected by the end of 2022.11.09
     value: [
       { name: 'G', star: 814 },
@@ -23,22 +22,21 @@ chart
       { name: 'AVA', star: 1151 },
     ],
     transform: [{ type: 'sortBy', fields: [['star', true]] }],
-  })
-  .encode('x', 'name')
-  .encode('y', 'star')
-  .scale('y', { type: 'sqrt' })
-  .encode('color', 'name')
-  .encode('size', 40)
-  .style('radius', 20)
-  .label({
-    text: 'star',
-    position: 'outside',
-    autoRotate: true,
-    rotateToAlignArc: true,
-    dx: 4,
-  })
-  .axis('x', { title: false })
-  .axis('y', false)
-  .animate('enter', { type: 'waveIn', duration: 1000 });
+  },
+  encode: { x: 'name', y: 'star', color: 'name', size: 40 },
+  scale: { y: { type: 'sqrt' } },
+  style: { radius: 20 },
+  labels: [
+    {
+      text: 'star',
+      position: 'outside',
+      autoRotate: true,
+      rotateToAlignArc: true,
+      dx: 4,
+    },
+  ],
+  axis: { x: { title: false }, y: false },
+  animate: { enter: { type: 'waveIn', duration: 1000 } },
+});
 
 chart.render();

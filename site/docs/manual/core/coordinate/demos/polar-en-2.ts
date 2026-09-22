@@ -4,6 +4,8 @@ const chart = new Chart({
   container: 'container',
 });
 
+const encode = { x: 'item', y: 'score', color: 'type', shape: 'smooth' };
+
 chart.options({
   type: 'view',
   autoFit: true,
@@ -36,13 +38,13 @@ chart.options({
   children: [
     {
       type: 'area',
-      encode: { x: 'item', y: 'score', color: 'type', shape: 'smooth' },
+      encode,
       scale: { y: { domainMax: 80 } },
       style: { fillOpacity: 0.5 },
     },
     {
       type: 'line',
-      encode: { x: 'item', y: 'score', color: 'type', shape: 'smooth' },
+      encode,
       style: { lineWidth: 2 },
     },
   ],

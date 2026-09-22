@@ -204,6 +204,8 @@ Promise.all([
     autoFit: true,
   });
 
+  const groups = ['White', 'Hispanic', 'African American', 'Asian', 'Others'];
+
   chart.options({
     type: 'geoView',
     coordinate: { type: 'albersUsa' },
@@ -234,11 +236,11 @@ Promise.all([
         },
         scale: {
           color: {
-            domain: ['White', 'Hispanic', 'African American', 'Asian', 'Others'],
+            domain: groups,
             range: ['#1890ff', '#52c41a', '#faad14', '#f5222d', '#722ed1'],
           },
           shape: {
-            domain: ['White', 'Hispanic', 'African American', 'Asian', 'Others'],
+            domain: groups,
             range: ['point', 'square', 'triangle', 'diamond', 'cross'],
           },
         },
@@ -246,7 +248,11 @@ Promise.all([
           title: 'city',
           items: [
             { name: 'Ethnicity', field: 'ethnicity' },
-            { name: 'Population', field: 'value', valueFormatter: (v) => \`\${v}0k people\` },
+            {
+              name: 'Population',
+              field: 'value',
+              valueFormatter: (v) => \`\${v}0k people\`,
+            },
           ],
         },
       },
@@ -254,8 +260,7 @@ Promise.all([
   });
 
   chart.render();
-});
-`} />
+});`} />
 
 **Description**:
 

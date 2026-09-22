@@ -214,6 +214,37 @@ const chart1 = new G2.Chart({
   padding: [50, 100, 70, 100], // 增加内边距，给标签留出更多空间
 });
 
+const encode = {
+  x: 'value',
+  y: 'type',
+  color: 'value',
+  shape: 'circle',
+  size: 8,
+};
+
+const valueScale = {
+  nice: true,
+  tickCount: 5, // 减少刻度数量
+  formatter: '.0f', // 使用G2内置的格式化器显示整数
+};
+
+const legend = {
+  color: {
+    position: 'top',
+    length: 200, // 设置图例长度
+    labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+  },
+};
+
+const axis = {
+  y: false,
+  x: {
+    labelSpacing: 10, // 增加标签间距
+    labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
+    tickCount: 5, // 减少刻度数量
+  },
+};
+
 chart1.options({
   type: 'point',
   data,
@@ -229,39 +260,16 @@ chart1.options({
       type: 'quantize',
       range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
     },
-    value: {
-      nice: true,
-      tickCount: 5, // 减少刻度数量
-      formatter: '.0f', // 使用G2内置的格式化器显示整数
-    },
+    value: valueScale,
   },
-  encode: {
-    x: 'value',
-    y: 'type',
-    color: 'value',
-    shape: 'circle',
-    size: 8,
-  },
+  encode,
   style: {
     fillOpacity: 0.8,
     stroke: '#fff',
     lineWidth: 1,
   },
-  legend: {
-    color: {
-      position: 'top',
-      length: 200, // 设置图例长度
-      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-    },
-  },
-  axis: {
-    y: false,
-    x: {
-      labelSpacing: 10, // 增加标签间距
-      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-      tickCount: 5, // 减少刻度数量
-    },
-  },
+  legend,
+  axis,
 });
 
 chart1.render();
@@ -295,43 +303,19 @@ chart2.options({
       type: 'quantile',
       range: ['#e8f4f8', '#a8d5e5', '#4ba3c3', '#0a6c93'], // 4个颜色分段
     },
-    value: {
-      nice: true,
-      tickCount: 5, // 减少刻度数量
-      formatter: '.0f', // 使用G2内置的格式化器显示整数
-    },
+    value: valueScale,
   },
-  encode: {
-    x: 'value',
-    y: 'type',
-    color: 'value',
-    shape: 'circle',
-    size: 8,
-  },
+  encode,
   style: {
     fillOpacity: 0.8,
     stroke: '#fff',
     lineWidth: 1,
   },
-  legend: {
-    color: {
-      position: 'top',
-      length: 200, // 设置图例长度
-      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-    },
-  },
-  axis: {
-    y: false,
-    x: {
-      labelSpacing: 10, // 增加标签间距
-      labelFormatter: '.0f', // 使用G2内置的格式化器显示整数
-      tickCount: 5, // 减少刻度数量
-    },
-  },
+  legend,
+  axis,
 });
 
-chart2.render();
-`} />
+chart2.render();`} />
 
 在上面的对比示例中：
 

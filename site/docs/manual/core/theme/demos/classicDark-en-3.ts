@@ -2,6 +2,13 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
+const axisStyle = {
+  grid: true,
+  gridStroke: '#fff',
+  gridLineWidth: 2,
+  labelFill: '#d1d5db',
+};
+
 chart.options({
   type: 'line',
   theme: {
@@ -19,18 +26,8 @@ chart.options({
   encode: { x: 'year', y: 'value' },
   style: { stroke: '#60a5fa', lineWidth: 3 },
   axis: {
-    x: {
-      grid: true,
-      gridStroke: '#fff',
-      gridLineWidth: 2,
-      labelFill: '#d1d5db',
-    },
-    y: {
-      grid: true,
-      gridStroke: '#fff',
-      gridLineWidth: 2,
-      labelFill: '#d1d5db',
-    },
+    x: axisStyle,
+    y: axisStyle,
   },
 });
 

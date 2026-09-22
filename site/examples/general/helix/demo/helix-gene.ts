@@ -28,25 +28,23 @@ const chart = new Chart({
   padding: [50, 50, 50, 50],
 });
 
-chart.data(data);
-
-chart.coordinate({
-  type: 'helix',
-  startAngle: 0.2 * Math.PI,
-  endAngle: 6.5 * Math.PI,
-  innerRadius: 0.1,
-});
-
-chart
-  .interval()
-  .encode('x', 'time')
-  .encode('y', 'group')
-  .encode('color', 'logFPKM')
-  .scale('color', {
-    type: 'linear',
-    range: ['#fff', '#ec4839'],
-  })
-  .tooltip({
+chart.options({
+  type: 'interval',
+  data: data,
+  coordinate: {
+    type: 'helix',
+    startAngle: 0.2 * Math.PI,
+    endAngle: 6.5 * Math.PI,
+    innerRadius: 0.1,
+  },
+  encode: { x: 'time', y: 'group', color: 'logFPKM' },
+  scale: {
+    color: {
+      type: 'linear',
+      range: ['#fff', '#ec4839'],
+    },
+  },
+  tooltip: {
     title: 'time',
     items: [
       { field: 'group', name: '组别' },
@@ -56,10 +54,13 @@ chart
         valueFormatter: (value) => value.toFixed(2),
       },
     ],
-  })
-  .animate('enter', {
-    type: 'fadeIn',
-    duration: 1000,
-  });
+  },
+  animate: {
+    enter: {
+      type: 'fadeIn',
+      duration: 1000,
+    },
+  },
+});
 
 chart.render();

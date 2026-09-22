@@ -18,6 +18,11 @@ const transformedData = [
   { title: '项目进度', value: 30, level: '优' },
 ];
 
+const data = [
+  { title: '项目进度', value: 60, type: '实际进度' },
+  { title: '项目进度', value: 80, type: '目标进度' },
+];
+
 chart.options({
   type: 'view',
   coordinate: { transform: [{ type: 'transpose' }] },
@@ -38,10 +43,7 @@ chart.options({
     {
       type: 'interval',
       data: {
-        value: [
-          { title: '项目进度', value: 60, type: '实际进度' },
-          { title: '项目进度', value: 80, type: '目标进度' },
-        ],
+        value: data,
         transform: [{ type: 'filter', callback: (d) => d.type === '实际进度' }],
       },
       encode: { x: 'title', y: 'value', color: colors.measures },
@@ -50,10 +52,7 @@ chart.options({
     {
       type: 'point',
       data: {
-        value: [
-          { title: '项目进度', value: 60, type: '实际进度' },
-          { title: '项目进度', value: 80, type: '目标进度' },
-        ],
+        value: data,
         transform: [{ type: 'filter', callback: (d) => d.type === '目标进度' }],
       },
       encode: {

@@ -294,22 +294,16 @@ const chart = new Chart({
   container: 'container',
 });
 
-// Options 使用复合 Mark
-chart.options({
+const spec = {
   type: PointLine,
   data,
   encode: { x: 'year', y: 'value' },
-});
+};
 
-// Spec 使用复合 Mark
-chart.options({
-  type: PointLine,
-  data,
-  encode: { x: 'year', y: 'value' },
-});
+// 使用 Spec 配置复合标记
+chart.options(spec);
 
-chart.render();
-`} />
+chart.render();`} />
 
 标记可复合的特性提供了一种简单却强大的扩展 G2 能力的方式，G2 内部也是使用这个机制实现了一些比较复杂的标记，比如桑基图：用两个 Polygon 标记进行复合。
 
