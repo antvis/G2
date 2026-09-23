@@ -13,3 +13,4 @@ export { issueChart2897 } from './issue-chart-2897';
 export { issue6863 } from './issue-6863';
 export { issue6970 } from './issue-6970';
 export { issue7300 } from './issue-7300';
+export { issue8520 } from './issue-8520';
