@@ -8,6 +8,7 @@ import { DemosView } from './components/DemosView';
 import { getG2SeedTokens, getG2Tokens } from './utils/getG2Tokens';
 
 const Page: React.FC = () => {
+  const isZh = document.documentElement.lang !== 'en';
   const [theme, setTheme] = React.useState('light');
   const [tokens, setTokens] = React.useState(getG2Tokens(theme));
   const [seed, setSeed] = React.useState(getG2SeedTokens(theme));
@@ -44,28 +45,50 @@ const Page: React.FC = () => {
       </div>
       <Layout.Sider
         collapsed={collapsed}
+        collapsedWidth={0}
         theme="light"
         width={320}
         collapsible
         trigger={null}
-        className={`bg-[#fafafa] [@media(width<=760px)]:w-full [@media(width<=760px)]:max-w-full [@media(width<=760px)]:min-w-0 [@media(width<=760px)]:basis-auto ${
-          collapsed ? 'min-w-0 [@media(width>760px)]:flex-[0]' : ''
-        }`}
+        className="bg-[#fafafa] [@media(width<=760px)]:w-full! [@media(width<=760px)]:max-w-full! [@media(width<=760px)]:min-w-0! [@media(width<=760px)]:basis-auto!"
       >
-        <RightOutlined
-          className={`absolute top-40 -left-[13px] z-2 flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-white shadow-[0_0_2px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out [@media(width<=760px)]:hidden ${
-            collapsed ? 'rotate-180 [&_svg]:translate-x-1 [&_svg]:scale-80' : ''
+        <button
+          type="button"
+          aria-label={
+            collapsed
+              ? isZh
+                ? '展开主题配置'
+                : 'Expand theme settings'
+              : isZh
+              ? '收起主题配置'
+              : 'Collapse theme settings'
+          }
+          aria-expanded={!collapsed}
+          aria-controls="theme-settings"
+          className={`absolute top-40 z-2 flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-white border-0 p-0 text-[#666] shadow-[0_0_2px_rgba(0,0,0,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#873bf4] transition-all duration-300 ease-in-out [@media(width<=760px)]:hidden ${
+            collapsed
+              ? '-left-[26px] rotate-180 [&_svg]:scale-80'
+              : '-left-[13px]'
           }`}
           onClick={() => toggleCollapsed(!collapsed)}
-        />
-        <ConfigPanel
-          theme={theme}
-          tokens={tokens}
-          seed={seed}
-          changeTheme={onChangeTheme}
-          changeTokens={onChangeTokens}
-          changeSeed={onChangeSeed}
-        />
+        >
+          <RightOutlined />
+        </button>
+        <div
+          id="theme-settings"
+          className={
+            collapsed ? 'hidden [@media(width<=760px)]:block' : undefined
+          }
+        >
+          <ConfigPanel
+            theme={theme}
+            tokens={tokens}
+            seed={seed}
+            changeTheme={onChangeTheme}
+            changeTokens={onChangeTokens}
+            changeSeed={onChangeSeed}
+          />
+        </div>
       </Layout.Sider>
     </div>
   );
