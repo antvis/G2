@@ -10,7 +10,13 @@
         "zh": "链接线标记的瀑布图",
         "en": "Interval, Connector Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9BOSQozPCx4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9BOSQozPCx4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 链接线标记的瀑布图示例，使用 link、connector、interval 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Interval, Connector Annotation example: uses link, connector, interval marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "revenue-flow-waterfall.ts",
@@ -18,7 +24,13 @@
         "zh": "线标记的瀑布图",
         "en": "Revenue Flow Waterfall Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qRAFQqfcyygAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qRAFQqfcyygAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 线标记的瀑布图示例，使用 link、interval 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Revenue Flow Waterfall Chart example: uses link, interval marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

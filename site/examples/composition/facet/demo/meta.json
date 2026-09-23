@@ -10,7 +10,13 @@
         "zh": "行矩行分面",
         "en": "Row Facet Rect"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*duq8TrR0LxcAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*duq8TrR0LxcAAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 行矩行分面示例，使用 point 标记，通过 facetRect 组合图表。提供完整源码与可运行图表。",
+          "en": "G2 Row Facet Rect example: uses point marks; composes charts with facetRect. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rect-col.ts",
@@ -18,7 +24,13 @@
         "zh": "列矩行分面",
         "en": "Col Facet Rect"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*21B-Qa-dWPMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*21B-Qa-dWPMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 列矩行分面示例，使用 point 标记，通过 facetRect 组合图表。提供完整源码与可运行图表。",
+          "en": "G2 Col Facet Rect example: uses point marks; composes charts with facetRect. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rect.ts",
@@ -26,7 +38,13 @@
         "zh": "矩行分面",
         "en": "Facet Rect"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GwKzQ66lGqYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GwKzQ66lGqYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 矩行分面示例，使用 point 标记，通过 facetRect 组合图表，配置 map 转换。提供完整源码与可运行图表。",
+          "en": "G2 Facet Rect example: uses point marks; composes charts with facetRect; applies map transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rect-bar.ts",
@@ -34,7 +52,13 @@
         "zh": "日历条形图",
         "en": "Calendar Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZVOtQ4Bmir0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZVOtQ4Bmir0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 日历条形图示例，使用 interval 标记，通过 facetRect 组合图表，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Calendar Bar Chart example: uses interval marks; composes charts with facetRect; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rect-pie.ts",
@@ -42,7 +66,13 @@
         "zh": "日历饼图",
         "en": "Calendar Pie Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*USKZRKqpAvgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*USKZRKqpAvgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 日历饼图示例，使用 interval 标记，通过 facetRect 组合图表，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Calendar Pie Chart example: uses interval marks; composes charts with facetRect; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "circle.ts",
@@ -50,7 +80,13 @@
         "zh": "圆形分面",
         "en": "Facet Circle"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*V61eQY0Qs4cAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*V61eQY0Qs4cAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 圆形分面示例，使用 interval 标记，通过 facetCircle 组合图表。提供完整源码与可运行图表。",
+          "en": "G2 Facet Circle example: uses interval marks; composes charts with facetCircle. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rect-frame.ts",
@@ -58,7 +94,13 @@
         "zh": "自定义视图边框",
         "en": "Custom Frame Style"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aofoR4mGPVUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*aofoR4mGPVUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 自定义视图边框示例，使用 point 标记，通过 facetRect 组合图表。提供完整源码与可运行图表。",
+          "en": "G2 Custom Frame Style example: uses point marks; composes charts with facetRect. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rect-ring.ts",
@@ -66,7 +108,13 @@
         "zh": "系统监控",
         "en": "System Monitor"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dhgfT7FfXcUAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dhgfT7FfXcUAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 系统监控示例，使用 interval、text 标记，通过 facetRect 组合图表，采用 radial 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 System Monitor example: uses interval, text marks; composes charts with facetRect; uses radial coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

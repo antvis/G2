@@ -10,7 +10,13 @@
         "zh": "折线图-数形交互",
         "en": "Line Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XO4yQqSSeSoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XO4yQqSSeSoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 折线图-数形交互示例，使用 line 标记，启用 elementPointMove 交互。提供完整源码与可运行图表。",
+          "en": "G2 Line Numerical Interaction example: uses line marks; enables elementPointMove interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-element-point-move.ts",
@@ -18,7 +24,13 @@
         "zh": "面积图-数形交互",
         "en": "Area Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FTm7T5CfHsUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FTm7T5CfHsUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 面积图-数形交互示例，使用 area 标记，启用 elementPointMove 交互。提供完整源码与可运行图表。",
+          "en": "G2 Area Numerical Interaction example: uses area marks; enables elementPointMove interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-normalizeY-element-point-move.ts",
@@ -26,7 +38,13 @@
         "zh": "面积图-百分比堆叠-数形交互",
         "en": "Area NormalizeY Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xWt3R5fzwH4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xWt3R5fzwH4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 面积图-百分比堆叠-数形交互示例，使用 area 标记，启用 elementPointMove 交互，配置 stackY、normalizeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Area NormalizeY Numerical Interaction example: uses area marks; enables elementPointMove interactions; applies stackY, normalizeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "column-element-point-move.ts",
@@ -34,7 +52,13 @@
         "zh": "柱形图-数形交互",
         "en": "Column Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fZn9TYPR2mcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fZn9TYPR2mcAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 柱形图-数形交互示例，使用 interval 标记，启用 elementPointMove 交互，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Column Numerical Interaction example: uses interval marks; enables elementPointMove interactions; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "column-normalizeY-element-point-move.ts",
@@ -42,7 +66,13 @@
         "zh": "柱形图-百分比堆叠-数形交互",
         "en": "Column NormalizeY Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*G5a8T7lP0ZEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*G5a8T7lP0ZEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 柱形图-百分比堆叠-数形交互示例，使用 interval 标记，启用 elementPointMove 交互，配置 stackY、normalizeY、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Column NormalizeY Numerical Interaction example: uses interval marks; enables elementPointMove interactions; applies stackY, normalizeY, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-element-point-move.ts",
@@ -50,7 +80,13 @@
         "zh": "条形图-数形交互",
         "en": "Bar Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WQnwTJ-gJq0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WQnwTJ-gJq0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 条形图-数形交互示例，使用 interval 标记，启用 elementPointMove 交互，配置 stackY、transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 Bar Numerical Interaction example: uses interval marks; enables elementPointMove interactions; applies stackY, transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-normalizeY-element-point-move.ts",
@@ -58,7 +94,13 @@
         "zh": "条形图-百分比堆叠-数形交互",
         "en": "Bar NormalizeY Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SDtmQrDx7cAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SDtmQrDx7cAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 条形图-百分比堆叠-数形交互示例，使用 interval 标记，启用 elementPointMove 交互，配置 stackY、normalizeY、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Bar NormalizeY Numerical Interaction example: uses interval marks; enables elementPointMove interactions; applies stackY, normalizeY, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-element-point-move-polar.ts",
@@ -66,7 +108,13 @@
         "zh": "雷达图-数形交互",
         "en": "Radar Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ifgPT565BPkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ifgPT565BPkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 雷达图-数形交互示例，使用 area、line 标记，启用 tooltip 交互，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Radar Numerical Interaction example: uses area, line marks; enables tooltip interactions; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "pie-element-point-move.ts",
@@ -74,7 +122,13 @@
         "zh": "饼图-数形交互",
         "en": "Pie Numerical Interaction"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Hm0PR5262sgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Hm0PR5262sgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 饼图-数形交互示例，使用 interval 标记，启用 elementPointMove 交互，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Pie Numerical Interaction example: uses interval marks; enables elementPointMove interactions; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

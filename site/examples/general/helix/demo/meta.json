@@ -1,24 +1,36 @@
 {
-    "title": {
-        "zh": "中文分类",
-        "en": "Category"
-    },
-    "demos": [
-        {
-            "filename": "helix.ts",
-            "title": {
-                "zh": "螺旋坐标系",
-                "en": "Helix"
-            },
-            "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dLT0TpvlFd4AAAAAAAAAAAAADmJ7AQ/fmt.webp"
-        },
-        {
-            "filename": "helix-gene.ts",
-            "title": {
-                "zh": "基因螺旋图",
-                "en": "Gene helix"
-            },
-            "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oTCKSYpIWBwAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "helix.ts",
+      "title": {
+        "zh": "螺旋坐标系",
+        "en": "Helix"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dLT0TpvlFd4AAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 螺旋坐标系示例，使用 interval 标记，采用 helix 坐标系，配置 fadeIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 Helix example: uses interval marks; uses helix coordinates; configures fadeIn animations. Includes complete source and a runnable chart."
         }
-    ]
+      }
+    },
+    {
+      "filename": "helix-gene.ts",
+      "title": {
+        "zh": "基因螺旋图",
+        "en": "Gene helix"
+      },
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oTCKSYpIWBwAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 基因螺旋图示例，使用 interval 标记，采用 helix 坐标系，配置 fadeIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 Gene helix example: uses interval marks; uses helix coordinates; configures fadeIn animations. Includes complete source and a runnable chart."
+        }
+      }
+    }
+  ]
 }

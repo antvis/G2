@@ -10,7 +10,13 @@
         "zh": "雷达图",
         "en": "Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-xcxS7E8sKcAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 雷达图示例，使用 area、line 标记，采用 polar 坐标系，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Radar example: uses area, line marks; uses polar coordinates; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "multi-radar.ts",
@@ -18,7 +24,13 @@
         "zh": "多个维度的雷达图",
         "en": "Multi-dimensional Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*M3nGRIBdVXoAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*M3nGRIBdVXoAAAAAAAAAAAAAemJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多个维度的雷达图示例，使用 line 标记，采用 radar 坐标系，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Multi-dimensional Radar example: uses line marks; uses radar coordinates; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "grid-radial.ts",
@@ -26,7 +38,13 @@
         "zh": "雷达图(带网格)",
         "en": "Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zRVhQKaw1zwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zRVhQKaw1zwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 雷达图(带网格)示例，使用 area、line、point 标记，采用 polar 坐标系，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Radar example: uses area, line, point marks; uses polar coordinates; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "radial-with-background-color.ts",
@@ -34,7 +52,13 @@
         "zh": "雷达图(带底色)",
         "en": "Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jjhCTKfZHpgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jjhCTKfZHpgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 雷达图(带底色)示例，使用 line、point 标记，采用 polar 坐标系，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Radar example: uses line, point marks; uses polar coordinates; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "complex-radial.ts",
@@ -42,7 +66,13 @@
         "zh": "复杂雷达图",
         "en": "Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xjsASojtRJgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xjsASojtRJgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 复杂雷达图示例，使用 line 标记，通过 timingKeyframe 组合图表，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Radar example: uses line marks; composes charts with timingKeyframe; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "parallel-radar.ts",
@@ -50,7 +80,13 @@
         "zh": "雷达图",
         "en": "Radar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4sqyTZUFCNkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4sqyTZUFCNkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 雷达图示例，使用 line 标记，采用 radar 坐标系，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Radar example: uses line marks; uses radar coordinates; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-radial.ts",
@@ -58,7 +94,13 @@
         "zh": "径向面积图",
         "en": "Radial Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-m-2QolJUt0AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*-m-2QolJUt0AAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 径向面积图示例，使用 area、line 标记，配置 map 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Radial Area Chart example: uses area, line marks; applies map transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "square-radar.ts",
@@ -66,7 +108,13 @@
         "zh": "方形雷达图",
         "en": "Square radar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JBvBT5c5_2sAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JBvBT5c5_2sAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 方形雷达图示例，使用 line 标记，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Square radar Chart example: uses line marks; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

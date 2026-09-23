@@ -10,7 +10,13 @@
         "zh": "桑基图",
         "en": "Sankey"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dACBR7ANcfEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 桑基图示例，使用 sankey 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Sankey example: uses sankey marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "chord.ts",
@@ -18,7 +24,13 @@
         "zh": "弦图",
         "en": "Chord"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwKoTakLlHAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwKoTakLlHAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 弦图示例，使用 chord 标记。提供完整源码与可运行图表。",
+          "en": "G2 Chord example: uses chord marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "forceGraph.ts",
@@ -26,7 +38,13 @@
         "zh": "力导向图",
         "en": "forceGraph"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nbN4TYyfq70AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nbN4TYyfq70AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 力导向图示例，使用 forceGraph 标记。提供完整源码与可运行图表。",
+          "en": "G2 forceGraph example: uses forceGraph marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "forceGraph-disjoint.ts",
@@ -34,7 +52,13 @@
         "zh": "离散力导向图",
         "en": "forceGraph with disjoint"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0eUHS6s10m8AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0eUHS6s10m8AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 离散力导向图示例，使用 forceGraph 标记。提供完整源码与可运行图表。",
+          "en": "G2 forceGraph with disjoint example: uses forceGraph marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

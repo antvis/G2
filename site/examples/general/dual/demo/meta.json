@@ -10,7 +10,13 @@
         "zh": " 柱线混合",
         "en": "Line Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A-m1SKg_JAAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A-m1SKg_JAAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2  柱线混合示例，使用 interval、line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Line Bar Chart example: uses interval, line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "multi-line.ts",
@@ -18,7 +24,13 @@
         "zh": "多轴图",
         "en": "Multi Axis Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*BxouQYIIQ0kAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*BxouQYIIQ0kAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多轴图示例，使用 line、interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Multi Axis Chart example: uses line, interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "dual-aggregated-line-area.ts",
@@ -26,7 +38,13 @@
         "zh": "聚合线面双轴图",
         "en": "Aggregated Dual Line And Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*J-lVRamRfgUAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*J-lVRamRfgUAAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 聚合线面双轴图示例，使用 area、line 标记，配置 filter、groupX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Aggregated Dual Line And Area Chart example: uses area, line marks; applies filter, groupX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "pareto.ts",
@@ -34,7 +52,13 @@
         "zh": "帕累托图",
         "en": "Pareto Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dy4HQ7kqYd0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dy4HQ7kqYd0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 帕累托图示例，使用 interval、line、point 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Pareto Chart example: uses interval, line, point marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "dual-axis-bar.ts",
@@ -42,7 +66,13 @@
         "zh": "双轴条形图",
         "en": "Dual Axis Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WW9wRaGxuDAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WW9wRaGxuDAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 双轴条形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Dual Axis Bar Chart example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "dual-axis-line-bar.ts",
@@ -50,7 +80,13 @@
         "zh": "双轴折线条形图",
         "en": "Dual Axis Line Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FVRbQ7jbi0oAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FVRbQ7jbi0oAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 双轴折线条形图示例，使用 interval、line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Dual Axis Line Bar Chart example: uses interval, line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "dual-axis-multi-line-bar.ts",
@@ -58,7 +94,13 @@
         "zh": "双轴多折线条形图",
         "en": "Dual Axis Multiple Line Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gER1QbKH7IIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gER1QbKH7IIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 双轴多折线条形图示例，使用 interval、line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Dual Axis Multiple Line Bar Chart example: uses interval, line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "dual-axis-stacked-group-bar.ts",
@@ -66,7 +108,13 @@
         "zh": "双轴堆叠分组条形图",
         "en": "Dual Axis Stacked Group Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lfupS49PdxAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lfupS49PdxAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 双轴堆叠分组条形图示例，使用 interval 标记，配置 fold、stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Dual Axis Stacked Group Bar Chart example: uses interval marks; applies fold, stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "multi-line-sync.ts",
@@ -74,7 +122,13 @@
         "zh": "多轴图同步刻度",
         "en": "Sync Multi Axis Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8gQaSIiwhDkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8gQaSIiwhDkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多轴图同步刻度示例，使用 line、interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Sync Multi Axis Chart example: uses line, interval marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

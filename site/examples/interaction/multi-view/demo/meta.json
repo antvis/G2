@@ -10,7 +10,13 @@
         "zh": "图表联动",
         "en": "Focus and Context"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IwNsRKKyMlgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IwNsRKKyMlgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 图表联动示例，使用 area 标记，启用 brushXFilter、brushXHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Focus and Context example: uses area marks; enables brushXFilter, brushXHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

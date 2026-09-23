@@ -10,7 +10,13 @@
         "zh": "索引图",
         "en": "Chart Index"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LaVjRbRk8EcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LaVjRbRk8EcAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 索引图示例，使用 line 标记，启用 chartIndex 交互。提供完整源码与可运行图表。",
+          "en": "G2 Chart Index example: uses line marks; enables chartIndex interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "fisheye.ts",
@@ -18,7 +24,13 @@
         "zh": "鱼眼",
         "en": "Fisheye"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FwusQ6ohkqkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FwusQ6ohkqkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 鱼眼示例，使用 point 标记，启用 fisheye 交互。提供完整源码与可运行图表。",
+          "en": "G2 Fisheye example: uses point marks; enables fisheye interactions. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

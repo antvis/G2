@@ -1,5 +1,6 @@
 ---
 title: Using in Frontend Frameworks
+description: "Integrate G2 into frontend frameworks such as Vue and React, including containers, initialization, data updates, and cleanup on unmount."
 order: 3
 ---
 

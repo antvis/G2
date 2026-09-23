@@ -10,7 +10,13 @@
         "zh": "简单柱形图",
         "en": "Simple Column"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 G2 interval 标记和 Spec 编码字母频率，绘制基础柱形图，包含完整源码与运行结果。",
+          "en": "Use G2 interval marks and Spec encodings to create a column chart of letter frequencies, with complete source and a live preview."
+        }
+      }
     },
     {
       "filename": "bar-basic-transposed.ts",
@@ -18,7 +24,13 @@
         "zh": "简单条形图",
         "en": "Simple Bar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sxEATqf3uoEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sxEATqf3uoEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "通过转置坐标系将 G2 柱形图转换为水平条形图，了解位置编码与坐标变换的配合。",
+          "en": "Transpose the coordinate system to turn a G2 column chart into a horizontal bar chart and explore position encodings and coordinate transforms."
+        }
+      }
     },
     {
       "filename": "bar-basic-stacked.ts",
@@ -26,7 +38,13 @@
         "zh": "简单堆叠柱形图",
         "en": "Simple Stacked Column"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*69WQTY8YrWgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*69WQTY8YrWgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 G2 stackY 标记转换和颜色编码绘制堆叠柱形图，展示各类别的数据构成。",
+          "en": "Use the G2 stackY mark transform and color encoding to create a stacked column chart showing category composition."
+        }
+      }
     },
     {
       "filename": "bar-basic-grouped.ts",
@@ -34,7 +52,13 @@
         "zh": "简单分组柱形图",
         "en": "Simple Grouped Column"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kqGUT4wRYrsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 G2 dodgeX 标记转换绘制分组柱形图，对比不同类别和系列的数据。",
+          "en": "Create grouped columns with the G2 dodgeX mark transform to compare data across categories and series."
+        }
+      }
     },
     {
       "filename": "column-interactive.ts",
@@ -42,7 +66,13 @@
         "zh": "可交互柱形图",
         "en": "Interactive Column Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QdN3S6Zi4SUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QdN3S6Zi4SUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "为 G2 柱形图启用 elementSelect 交互，通过 selected 与 unselected 状态配置展示元素选中效果。",
+          "en": "Enable elementSelect on a G2 column chart and style selected and unselected states to show interactive selection."
+        }
+      }
     },
     {
       "filename": "column-maxwidth.ts",
@@ -50,7 +80,13 @@
         "zh": "限制宽度的柱形图",
         "en": "Column with maxWidth"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gw-YTIpoiZsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*gw-YTIpoiZsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 限制宽度的柱形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Column with maxWidth example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "column-min-height.ts",
@@ -58,7 +94,13 @@
         "zh": "限制高度的柱形图",
         "en": "Column with minHeight"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W2SKQJ4i8xQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W2SKQJ4i8xQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 限制高度的柱形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Column with minHeight example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "interval-style.ts",
@@ -66,7 +108,13 @@
         "zh": "interval样式配置",
         "en": "Interval Style"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HiAnR50lmhIAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HiAnR50lmhIAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 interval样式配置示例，使用 interval 标记，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Interval Style example: uses interval marks; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "column-log.ts",
@@ -74,7 +122,13 @@
         "zh": "对数柱形图",
         "en": "Log Column Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Q6JdQpaVJ18AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Q6JdQpaVJ18AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 对数柱形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Log Column Chart example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar.ts",
@@ -82,7 +136,13 @@
         "zh": "水平条形图",
         "en": "Horizontal Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Kk02RLAcibAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Kk02RLAcibAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 水平条形图示例，使用 interval 标记，配置 transpose、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Horizontal Bar Chart example: uses interval marks; applies transpose, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-diverging.ts",
@@ -90,7 +150,13 @@
         "zh": "发散条形图",
         "en": "Diverging Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U11MRYv8BFUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*U11MRYv8BFUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 发散条形图示例，使用 interval 标记，配置 transpose、filter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Diverging Bar Chart example: uses interval marks; applies transpose, filter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-range.ts",
@@ -98,7 +164,13 @@
         "zh": "区间条形图",
         "en": "Range Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3Qm6RYLLBmUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3Qm6RYLLBmUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 区间条形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Range Bar Chart example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-range-micro.ts",
@@ -106,7 +178,13 @@
         "zh": "微妙级区间条形图",
         "en": "Micro Range Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*g7gvQpvLqyIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*g7gvQpvLqyIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 微妙级区间条形图示例，使用 interval 标记，配置 transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 Micro Range Bar Chart example: uses interval marks; applies transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-stacked.ts",
@@ -114,7 +192,13 @@
         "zh": "堆叠条形图",
         "en": "Stacked Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RqV4T4LZxaAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RqV4T4LZxaAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 堆叠条形图示例，使用 interval 标记，配置 stackY、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Stacked Bar Chart example: uses interval marks; applies stackY, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-stacked-horizontal.ts",
@@ -122,7 +206,13 @@
         "zh": "堆叠水平条形图",
         "en": "Horizontal Stacked Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Rr_Q4VSLkEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4Rr_Q4VSLkEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 堆叠水平条形图示例，使用 interval 标记，配置 transpose、stackY、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Horizontal Stacked Bar Chart example: uses interval marks; applies transpose, stackY, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-normalized-stacked.ts",
@@ -130,7 +220,13 @@
         "zh": "归一化堆叠条形图",
         "en": "Normalized Stacked Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mCUsRYGa1owAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mCUsRYGa1owAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 归一化堆叠条形图示例，使用 interval 标记，配置 transpose、stackY、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Normalized Stacked Chart example: uses interval marks; applies transpose, stackY, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-dodged.ts",
@@ -138,7 +234,13 @@
         "zh": "分组条形图",
         "en": "Dodged Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JUTiSIaaUgEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JUTiSIaaUgEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 分组条形图示例，使用 interval 标记，配置 sortX、dodgeX 转换，启用 tooltip、elementHighlightByColor 交互。提供完整源码与可运行图表。",
+          "en": "G2 Dodged Bar Chart example: uses interval marks; applies sortX, dodgeX transforms; enables tooltip, elementHighlightByColor interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-flex.ts",
@@ -146,7 +248,13 @@
         "zh": "弹性条形图",
         "en": "Flex Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i_DyRJlDdVsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*i_DyRJlDdVsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 弹性条形图示例，使用 interval 标记，配置 flexX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Flex Bar Chart example: uses interval marks; applies flexX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-var-width.ts",
@@ -154,7 +262,13 @@
         "zh": "可变宽度条形图",
         "en": "Var Width Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ajNRTYbsuTgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ajNRTYbsuTgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 可变宽度条形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Var Width Bar Chart example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-marimekko.ts",
@@ -162,7 +276,13 @@
         "zh": "马赛克图",
         "en": "Marimekko"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A_0eQI6xezsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A_0eQI6xezsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 马赛克图示例，使用 interval 标记，配置 flexX、stackY、normalizeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Marimekko example: uses interval marks; applies flexX, stackY, normalizeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-dual-axes.ts",
@@ -170,7 +290,13 @@
         "zh": "多轴条形图",
         "en": "Dual Axes Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K52LToQX-f4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K52LToQX-f4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多轴条形图示例，使用 interval 标记，配置 transpose、sortX、sortColor 转换。提供完整源码与可运行图表。",
+          "en": "G2 Dual Axes Bar Chart example: uses interval marks; applies transpose, sortX, sortColor transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-fixed-cornered.ts",
@@ -178,7 +304,13 @@
         "zh": "固定宽度圆角条形图",
         "en": "Cornered Fixed Width Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*opv8TY0CpbAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*opv8TY0CpbAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 固定宽度圆角条形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Cornered Fixed Width Bar Chart example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-stacked-diverging-rounded.ts",
@@ -186,7 +318,13 @@
         "zh": "圆角发散堆叠条形图",
         "en": "Rounded Diverging Stacked Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DVqDQaFExcAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DVqDQaFExcAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 圆角发散堆叠条形图示例，使用 interval、lineY 标记，配置 fold、stackY、overlapDodgeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Rounded Diverging Stacked Bar Chart example: uses interval, lineY marks; applies fold, stackY, overlapDodgeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-basic-grouped-focus.ts",
@@ -194,7 +332,13 @@
         "zh": "图例聚焦条形图",
         "en": "Legend Focus Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jEH-RbOEVS0AAAAAQEAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jEH-RbOEVS0AAAAAQEAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 图例聚焦条形图示例，使用 interval 标记，配置 dodgeX 转换，启用 elementHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Legend Focus Bar Chart example: uses interval marks; applies dodgeX transforms; enables elementHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-axis-breaks.ts",
@@ -202,7 +346,13 @@
         "zh": "坐标轴断轴条形图",
         "en": "Bar Chart with Axis Breaks"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4XzGRa_Zq0AAAAAAR3AAAAgAemJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4XzGRa_Zq0AAAAAAR3AAAAgAemJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 坐标轴断轴条形图示例，使用 interval 标记，配置 dodgeX 转换，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Bar Chart with Axis Breaks example: uses interval marks; applies dodgeX transforms; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

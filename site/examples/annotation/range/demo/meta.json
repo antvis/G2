@@ -10,7 +10,13 @@
         "zh": "区域标记的散点图",
         "en": "Point, Range Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w1BBRYvJf_UAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*w1BBRYvJf_UAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 区域标记的散点图示例，使用 range、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Point, Range Annotation example: uses range, point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-range.ts",
@@ -18,7 +24,13 @@
         "zh": "区间标注的折线图",
         "en": "Line, Range Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OCgJSIpz7KMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 区间标注的折线图示例，使用 rangeX、line、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Line, Range Annotation example: uses rangeX, line, point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-range.ts",
@@ -26,7 +38,13 @@
         "zh": "区间标注的柱状图",
         "en": "bar, Range Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ndr8RaUhEO4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 区间标注的柱状图示例，使用 rangeY、interval 标记，配置 dodgeX 转换，配置 fadeIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 bar, Range Annotation example: uses rangeY, interval marks; applies dodgeX transforms; configures fadeIn animations. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

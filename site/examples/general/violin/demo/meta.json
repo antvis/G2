@@ -10,7 +10,13 @@
         "zh": "核密度图",
         "en": "Density with KDE"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-EcIQ7sKufsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-EcIQ7sKufsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 核密度图示例，使用 density 标记，配置 kde 转换。提供完整源码与可运行图表。",
+          "en": "G2 Density with KDE example: uses density marks; applies kde transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "violin.ts",
@@ -18,7 +24,13 @@
         "zh": "小提琴图",
         "en": "Violin"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QXpmQaR71yYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QXpmQaR71yYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 小提琴图示例，使用 density、boxplot 标记，配置 kde 转换。提供完整源码与可运行图表。",
+          "en": "G2 Violin example: uses density, boxplot marks; applies kde transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "violin-polar.ts",
@@ -26,7 +38,13 @@
         "zh": "极坐标小提琴图",
         "en": "Violin in polar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*r027Q4SUC3kAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*r027Q4SUC3kAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 极坐标小提琴图示例，使用 density、boxplot 标记，配置 kde 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Violin in polar example: uses density, boxplot marks; applies kde transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

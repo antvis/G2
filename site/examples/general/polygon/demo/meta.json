@@ -10,7 +10,13 @@
         "zh": "沃罗诺伊图",
         "en": "Voronoi"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pohxT40PSroAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 沃罗诺伊图示例，使用 polygon 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Voronoi example: uses polygon marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "treemap.ts",
@@ -18,7 +24,13 @@
         "zh": "矩形树图",
         "en": "Treemap"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WKfRQ7tK0aYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WKfRQ7tK0aYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 矩形树图示例，使用 polygon、text 标记，配置 custom、filter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Treemap example: uses polygon, text marks; applies custom, filter transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

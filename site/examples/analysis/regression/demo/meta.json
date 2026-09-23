@@ -10,7 +10,13 @@
         "zh": "线性回归线",
         "en": "Linear Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*px9zQYKi5FsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*px9zQYKi5FsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 线性回归线示例，使用 point、line 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Linear Regression example: uses point, line marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "quadratic-regression.ts",
@@ -18,7 +24,13 @@
         "zh": "二项式回归线",
         "en": "Quadratic Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4C26SqNkoG8AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4C26SqNkoG8AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 二项式回归线示例，使用 point、line、lineX 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Quadratic Regression example: uses point, line, lineX marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "exponential-regression.ts",
@@ -26,7 +38,13 @@
         "zh": "指数回归线",
         "en": "Exponential Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tPkpRqqP7rsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tPkpRqqP7rsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 指数回归线示例，使用 point、line 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Exponential Regression example: uses point, line marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "logarithmic-regression.ts",
@@ -34,7 +52,13 @@
         "zh": "对数回归线",
         "en": "Logarithmic Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*onhxRaj8iP0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*onhxRaj8iP0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 对数回归线示例，使用 point、line 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Logarithmic Regression example: uses point, line marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "polynomial-regression.ts",
@@ -42,7 +66,13 @@
         "zh": "多项式回归线",
         "en": "Polynomial Regression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SXUpRZiOlbIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SXUpRZiOlbIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多项式回归线示例，使用 point、line 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Polynomial Regression example: uses point, line marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

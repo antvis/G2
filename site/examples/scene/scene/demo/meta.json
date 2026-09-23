@@ -10,7 +10,13 @@
         "zh": "音频播放器可视化",
         "en": "Audio Player Visualization"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MVqCSIxKHqQAAAAAgBAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MVqCSIxKHqQAAAAAgBAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 音频播放器可视化示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Audio Player Visualization example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "stock-realtime.ts",
@@ -18,7 +24,13 @@
         "zh": "股票实时K线",
         "en": "Stock Realtime K-Line"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fHSLS4VpHpkAAAAAgBAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fHSLS4VpHpkAAAAAgBAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 股票实时K线示例，使用 link、interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Stock Realtime K-Line example: uses link, interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "heartbeat-monitor.ts",
@@ -26,7 +38,13 @@
         "zh": "心率监测仪",
         "en": "Heartbeat Monitor"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*e7U9TopMNqgAAAAAgEAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*e7U9TopMNqgAAAAAgEAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 心率监测仪示例，使用 line、text 标记。提供完整源码与可运行图表。",
+          "en": "G2 Heartbeat Monitor example: uses line, text marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "ripple-effect.ts",
@@ -34,7 +52,13 @@
         "zh": "粒子涟漪效果",
         "en": "Ripple Effect"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jXBKRpg4FS8AAAAAf8AAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jXBKRpg4FS8AAAAAf8AAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 粒子涟漪效果示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Ripple Effect example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "weather-forecast.ts",
@@ -42,7 +66,13 @@
         "zh": "天气预报动画",
         "en": "Weather Forecast"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OeOtQqSpNJQAAAAAgCAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OeOtQqSpNJQAAAAAgCAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 天气预报动画示例，使用 line、area、interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Weather Forecast example: uses line, area, interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "funnel-conversion.ts",
@@ -50,7 +80,13 @@
         "zh": "漏斗转化分析",
         "en": "Funnel Conversion"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oO2tRLdlnqUAAAAAcNAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oO2tRLdlnqUAAAAAcNAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 漏斗转化分析示例，使用 interval 标记，配置 transpose、symmetryY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Funnel Conversion example: uses interval marks; applies transpose, symmetryY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "starry-sky.ts",
@@ -58,7 +94,13 @@
         "zh": "星空粒子系统",
         "en": "Starry Sky"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qJc7Trgm6EIAAAAAgCAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*qJc7Trgm6EIAAAAAgCAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 星空粒子系统示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Starry Sky example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "radar-scan.ts",
@@ -66,7 +108,13 @@
         "zh": "雷达扫描效果",
         "en": "Radar Scan"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iIXHQLvjEF4AAAAAaYAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iIXHQLvjEF4AAAAAaYAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 雷达扫描效果示例，使用 point 标记，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Radar Scan example: uses point marks; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "wave-energy.ts",
@@ -74,7 +122,13 @@
         "zh": "波浪能量图",
         "en": "Wave Energy"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*o1oETpi0u5cAAAAAgFAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*o1oETpi0u5cAAAAAgFAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 波浪能量图示例，使用 area、line、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Wave Energy example: uses area, line, point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "network-pulse.ts",
@@ -82,7 +136,13 @@
         "zh": "数据脉冲网络",
         "en": "Network Pulse"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DOm7Rolwc_gAAAAAgCAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DOm7Rolwc_gAAAAAgCAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 数据脉冲网络示例，使用 link、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Network Pulse example: uses link, point marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

@@ -10,7 +10,13 @@
         "zh": "立方体",
         "en": "Cube"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8SliSolQ6_0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8SliSolQ6_0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 立方体示例，使用 interval3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Cube example: uses interval3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "cylinder.ts",
@@ -18,7 +24,13 @@
         "zh": "圆柱",
         "en": "Cylinder"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*D1UGQ7TE1D0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*D1UGQ7TE1D0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 圆柱示例，使用 interval3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Cylinder example: uses interval3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "cone.ts",
@@ -26,7 +38,13 @@
         "zh": "圆锥",
         "en": "Cone"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PpF2SZMBW-wAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PpF2SZMBW-wAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 圆锥示例，使用 interval3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Cone example: uses interval3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }
