@@ -251,8 +251,8 @@ const config = defineConfig({
   home: {
     openGraph: {
       title: {
-        zh: 'AntV G2：基于可视化语法的 JavaScript 图表库',
-        en: 'AntV G2: A JavaScript Charting Library Based on Visualization Grammar',
+        zh: 'AntV G2，基于可视化语法的 JavaScript 图表库',
+        en: 'AntV G2, The concise and progressive visualization grammar.',
       },
       description: {
         zh: '使用 G2 Spec 配置数据、图形标记、交互和动画，构建可组合的统计图表、仪表盘和数据可视化。提供中英文文档与可运行示例。',
