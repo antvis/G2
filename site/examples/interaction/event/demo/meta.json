@@ -10,7 +10,13 @@
         "zh": "自动提示",
         "en": "Auto Tooltip"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2lIIQqbP7e8AAAAAAAAAAAAAemJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2lIIQqbP7e8AAAAAAAAAAAAAemJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 自动提示示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Auto Tooltip example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "reset-brush-filter.ts",
@@ -18,7 +24,13 @@
         "zh": "重置刷选",
         "en": "Reset Brush Filter"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RQbHQJAV0VMAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RQbHQJAV0VMAAAAAAAAAAAAAemJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "通过按钮触发 G2 brush:filter 事件，将散点图的刷选范围重置为初始定义域，展示程序化交互控制。",
+          "en": "Emit the G2 brush:filter event from a button to reset a scatterplot’s brush selection to its initial domains, demonstrating programmatic interaction control."
+        }
+      }
     },
     {
       "filename": "legend-click.ts",
@@ -26,7 +38,13 @@
         "zh": "图例点击",
         "en": "Legend Click"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwSoR7y4FyUAAAAAAAAAAAAAemJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AwSoR7y4FyUAAAAAAAAAAAAAemJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 图例点击示例，使用 interval 标记，配置 stackY 转换，采用 theta 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Legend Click example: uses interval marks; applies stackY transforms; uses theta coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "get-data-by-xy.ts",
@@ -34,7 +52,13 @@
         "zh": "通过点获取数据",
         "en": "Get Data By XY"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UddvSJxHTBsAAAAAAAAAAAAAemJ7AQ/fmt.avif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UddvSJxHTBsAAAAAAAAAAAAAemJ7AQ/fmt.avif",
+      "openGraph": {
+        "description": {
+          "zh": "G2 通过点获取数据示例，使用 line、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Get Data By XY example: uses line, point marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

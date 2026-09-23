@@ -1,5 +1,6 @@
 ---
 title: View
+description: "Organize multiple marks in G2 views, understand inherited data and configuration, and configure view styles and composed layouts."
 order: 3
 ---
 

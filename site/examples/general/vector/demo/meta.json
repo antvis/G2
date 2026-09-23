@@ -10,7 +10,13 @@
         "zh": "风向量场",
         "en": "Wind Vector"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1LQ2Sbpwl6YAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1LQ2Sbpwl6YAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 风向量场示例，使用 vector 标记。提供完整源码与可运行图表。",
+          "en": "G2 Wind Vector example: uses vector marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "poisson.ts",
@@ -18,7 +24,13 @@
         "zh": "珀林噪声场",
         "en": "Perlin noise"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uZwwQLVg1yYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uZwwQLVg1yYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 珀林噪声场示例，使用 vector 标记。提供完整源码与可运行图表。",
+          "en": "G2 Perlin noise example: uses vector marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

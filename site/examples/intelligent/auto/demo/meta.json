@@ -10,7 +10,13 @@
         "zh": "自动可视化 - 饼图",
         "en": "Auto Chart - Pie"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wiMbSY4kNwkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*wiMbSY4kNwkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 @antv/g2-extension-ava 的 Auto 标记，根据类别与占比数据自动选择可视化表达，展示 G2 自动图表配置。",
+          "en": "Use the Auto mark from @antv/g2-extension-ava to choose a visualization from category and share data, demonstrating automatic chart configuration in G2."
+        }
+      }
     },
     {
       "filename": "auto-scatter.ts",
@@ -18,7 +24,13 @@
         "zh": "自动可视化 - 散点图",
         "en": "Auto Chart - Point"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SxISRpCBszgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SxISRpCBszgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 @antv/g2-extension-ava 的 Auto 标记，根据远程加载的数据自动选择可视化表达，展示 G2 自动图表配置。",
+          "en": "Use the Auto mark from @antv/g2-extension-ava to choose a visualization from remotely loaded data, demonstrating automatic chart configuration in G2."
+        }
+      }
     },
     {
       "filename": "auto-interval.ts",
@@ -26,7 +38,13 @@
         "zh": "自动可视化 - 柱形图",
         "en": "Auto Chart - Interval"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hJtlRIGnjpsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hJtlRIGnjpsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 @antv/g2-extension-ava 的 Auto 标记，根据类别与价格数据自动选择可视化表达，展示 G2 自动图表配置。",
+          "en": "Use the Auto mark from @antv/g2-extension-ava to choose a visualization from category and price data, demonstrating automatic chart configuration in G2."
+        }
+      }
     },
     {
       "filename": "auto-line.ts",
@@ -34,7 +52,13 @@
         "zh": "自动可视化 - 折线图",
         "en": "Auto Chart - Line "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n12qQJ6JmMgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*n12qQJ6JmMgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 @antv/g2-extension-ava 的 Auto 标记，根据年度销售数据自动选择可视化表达，展示 G2 自动图表配置。",
+          "en": "Use the Auto mark from @antv/g2-extension-ava to choose a visualization from annual sales data, demonstrating automatic chart configuration in G2."
+        }
+      }
     }
   ]
 }

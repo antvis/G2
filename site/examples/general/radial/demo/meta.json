@@ -10,7 +10,13 @@
         "zh": "玉珏图",
         "en": "Radial Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 玉珏图示例，使用 interval 标记，采用 radial 坐标系，配置 waveIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 Radial Bar Chart example: uses interval marks; uses radial coordinates; configures waveIn animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bar-cornered-radial.ts",
@@ -18,7 +24,13 @@
         "zh": "圆角玉珏图",
         "en": "Cornered Radial Bar Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2Xd0Sq0iq7gAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2Xd0Sq0iq7gAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 圆角玉珏图示例，使用 interval 标记，配置 sortBy 转换，采用 radial 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Cornered Radial Bar Chart example: uses interval marks; applies sortBy transforms; uses radial coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "apple-activity.ts",
@@ -26,7 +38,13 @@
         "zh": "Apple 活动图",
         "en": "Apple Activity"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*o3j-SZCiTZwAAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Apple 活动图示例，使用 interval、image 标记，采用 radial 坐标系，配置 waveIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 Apple Activity example: uses interval, image marks; uses radial coordinates; configures waveIn animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "radial-bar-with-background.ts",
@@ -34,7 +52,13 @@
         "zh": "带背景的玉珏图",
         "en": "Radial bar chart with background"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9FxwQIEcoDMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9FxwQIEcoDMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 带背景的玉珏图示例，使用 interval、image 标记，采用 radial 坐标系，启用 elementHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Radial bar chart with background example: uses interval, image marks; uses radial coordinates; enables elementHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "radial-stacked.ts",
@@ -42,7 +66,13 @@
         "en": "Radial stacked bar chart",
         "zh": "径向堆叠条形图"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T3NtSLBLc0sAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*T3NtSLBLc0sAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 径向堆叠条形图示例，使用 interval 标记，配置 fold、stackY 转换，采用 radial 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Radial stacked bar chart example: uses interval marks; applies fold, stackY transforms; uses radial coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "radial-line.ts",
@@ -50,7 +80,13 @@
         "en": "Radial bar chart",
         "zh": "径向条形图"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*h3MESLqnM4QAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*h3MESLqnM4QAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 径向条形图示例，使用 interval、point、text 标记，采用 radial 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Radial bar chart example: uses interval, point, text marks; uses radial coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

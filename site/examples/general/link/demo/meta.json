@@ -10,7 +10,13 @@
         "zh": "箭线",
         "en": "Link Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fjoBSKcG2lMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 箭线示例，使用 link 标记。提供完整源码与可运行图表。",
+          "en": "G2 Link Chart example: uses link marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "link-shape.ts",
@@ -18,7 +24,13 @@
         "zh": "link 内置形状",
         "en": "Link shape"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QRAQRLPWWSkAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QRAQRLPWWSkAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 link 内置形状示例，使用 link 标记。提供完整源码与可运行图表。",
+          "en": "G2 Link shape example: uses link marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "link-annotation.ts",
@@ -26,7 +38,13 @@
         "zh": "Link 辅助线",
         "en": "Link Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*b6WrQ4PYPCoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*b6WrQ4PYPCoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Link 辅助线示例，使用 link、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Link Annotation example: uses link, point marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

@@ -10,7 +10,13 @@
         "zh": "刷选",
         "en": "Brush"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ESblSJqW3zYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ESblSJqW3zYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 刷选示例，使用 point 标记，启用 brushHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Brush example: uses point marks; enables brushHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "reset-brush.ts",
@@ -18,7 +24,13 @@
         "zh": "重置刷选",
         "en": "Reset Brush"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZGksSralKAcAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZGksSralKAcAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "监听 G2 brush:filter 事件并保存选区历史，通过重置按钮逐步返回上一次刷选范围。",
+          "en": "Listen for G2 brush:filter events and keep selection history so a reset button can return to the previous brush selection."
+        }
+      }
     },
     {
       "filename": "brush-emit.ts",
@@ -26,7 +38,13 @@
         "zh": "刷选事件",
         "en": "Brush"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kWbhQKMQp9wAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kWbhQKMQp9wAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 刷选事件示例，使用 line 标记，启用 brushXHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Brush example: uses line marks; enables brushXHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

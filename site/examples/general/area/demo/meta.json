@@ -10,7 +10,13 @@
         "zh": "简单面积图",
         "en": "Basic Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v1VOS7lUmckAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v1VOS7lUmckAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "组合 G2 area 与 line 标记绘制面积图及边界折线，使用 Spec 描述共享数据和各标记的编码。",
+          "en": "Combine G2 area and line marks to draw an area chart with an outline, using Spec to configure shared data and mark encodings."
+        }
+      }
     },
     {
       "filename": "step-area.ts",
@@ -18,7 +24,13 @@
         "zh": "阶梯面积图",
         "en": "Step Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v20yQZopRV4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*v20yQZopRV4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 阶梯面积图示例，使用 area、line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Step Area Chart example: uses area, line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area.ts",
@@ -26,7 +38,13 @@
         "zh": "面积图",
         "en": "Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WkMRSKoc57UAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WkMRSKoc57UAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 面积图示例，使用 area 标记。提供完整源码与可运行图表。",
+          "en": "G2 Area Chart example: uses area marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "missing-data-area.ts",
@@ -34,7 +52,13 @@
         "zh": "数据缺失面积图",
         "en": "Missing Data Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7XNGTZ7WttIAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*7XNGTZ7WttIAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 数据缺失面积图示例，使用 area 标记。提供完整源码与可运行图表。",
+          "en": "G2 Missing Data Area Chart example: uses area marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-with-negative.ts",
@@ -42,7 +66,13 @@
         "zh": "负数面积图",
         "en": "With Negative Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9cV1Rq1rr8EAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9cV1Rq1rr8EAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 负数面积图示例，使用 area、line 标记，配置 fold 转换。提供完整源码与可运行图表。",
+          "en": "G2 With Negative Area Chart example: uses area, line marks; applies fold transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-stacked-basic.ts",
@@ -50,7 +80,13 @@
         "zh": "简单堆叠面积图",
         "en": "Basic Stacked Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VDBoSreSzqUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VDBoSreSzqUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 简单堆叠面积图示例，使用 area、line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Basic Stacked Area Chart example: uses area, line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-percentage.ts",
@@ -58,7 +94,13 @@
         "zh": "百分比堆叠面积图",
         "en": "Percentage Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oDcJTangPsgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oDcJTangPsgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 百分比堆叠面积图示例，使用 area、line 标记，配置 stackY、normalizeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Percentage Area Chart example: uses area, line marks; applies stackY, normalizeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-gradient.ts",
@@ -66,7 +108,13 @@
         "zh": "渐变色面积图",
         "en": "Gradient Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*43MGTK5z-KgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*43MGTK5z-KgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 渐变色面积图示例，使用 area、line 标记，配置 filter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Gradient Area Chart example: uses area, line marks; applies filter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "stacked-area.ts",
@@ -74,7 +122,13 @@
         "zh": "堆叠面积图",
         "en": "Stacked Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 堆叠面积图示例，使用 area 标记，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Stacked Area Chart example: uses area marks; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "orderly-area.ts",
@@ -82,7 +136,13 @@
         "zh": "彩条图",
         "en": "Stripe Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NZbR5vNY28AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NZbR5vNY28AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 彩条图示例，使用 area 标记，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Stripe Chart example: uses area marks; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "streamgraph.ts",
@@ -90,7 +150,13 @@
         "zh": "河流图",
         "en": "Streamgraph"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LeTWR4RrSjoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LeTWR4RrSjoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 河流图示例，使用 area 标记，配置 stackY、symmetryY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Streamgraph example: uses area marks; applies stackY, symmetryY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "percentage-area.ts",
@@ -98,7 +164,13 @@
         "zh": "归一化堆叠面积图",
         "en": "Normalized Area, MaxIndex"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pp6-RJMKJFUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pp6-RJMKJFUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 归一化堆叠面积图示例，使用 area 标记，配置 stackY、normalizeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Normalized Area, MaxIndex example: uses area marks; applies stackY, normalizeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "cascade-area.ts",
@@ -106,7 +178,13 @@
         "zh": "出现顺序堆叠面积图",
         "en": "Stacked Area"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pgc7Q4K0cFwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pgc7Q4K0cFwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 出现顺序堆叠面积图示例，使用 area、line 标记，配置 stackY 转换，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Stacked Area example: uses area, line marks; applies stackY transforms; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "label.ts",
@@ -114,7 +192,13 @@
         "zh": "面积图特殊标签",
         "en": "Area Label"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IE5nQIEJOnsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IE5nQIEJOnsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 面积图特殊标签示例，使用 area、line 标记，配置 fold、map、stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Area Label example: uses area, line marks; applies fold, map, stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-difference.ts",
@@ -122,7 +206,13 @@
         "zh": "差分面积图",
         "en": "Area Difference"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9jOYSrMpSe4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9jOYSrMpSe4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 差分面积图示例，使用 area、line 标记，配置 fold、diffY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Area Difference example: uses area, line marks; applies fold, diffY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-band.ts",
@@ -130,7 +220,13 @@
         "zh": "板子图",
         "en": "Band Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2fXdTp9E-uwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*2fXdTp9E-uwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 板子图示例，使用 area 标记。提供完整源码与可运行图表。",
+          "en": "G2 Band Chart example: uses area marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area-range.ts",
@@ -138,7 +234,13 @@
         "zh": "区间面积图",
         "en": "Range Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HlorR55MDE4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*HlorR55MDE4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 区间面积图示例，使用 area、line、point 标记，配置 map 转换。提供完整源码与可运行图表。",
+          "en": "G2 Range Area Chart example: uses area, line, point marks; applies map transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "range-spline-area.ts",
@@ -146,7 +248,13 @@
         "zh": "区间曲线面积图",
         "en": "Range Spline Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ln0-RKKu520AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ln0-RKKu520AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 区间曲线面积图示例，使用 area、point、line 标记，配置 map 转换。提供完整源码与可运行图表。",
+          "en": "G2 Range Spline Area Chart example: uses area, point, line marks; applies map transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rank-trend-area.ts",
@@ -154,7 +262,13 @@
         "zh": "排名趋势面积图",
         "en": "Rank Trend Area Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*d-KvQquoIlAAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*d-KvQquoIlAAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 排名趋势面积图示例，使用 area、line 标记，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Rank Trend Area Chart example: uses area, line marks; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

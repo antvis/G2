@@ -10,7 +10,13 @@
         "zh": "预处理箱线图",
         "en": "Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fykJSJFMPtQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fykJSJFMPtQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 预处理箱线图示例，使用 box 标记。提供完整源码与可运行图表。",
+          "en": "G2 Boxplot example: uses box marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "grouped-box.ts",
@@ -18,7 +24,13 @@
         "zh": "预处理分组箱线图",
         "en": "Grouped Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CqOoTa4Y4GAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CqOoTa4Y4GAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 预处理分组箱线图示例，使用 box 标记。提供完整源码与可运行图表。",
+          "en": "G2 Grouped Boxplot example: uses box marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "boxplot.ts",
@@ -26,7 +38,13 @@
         "zh": "无异常点箱线图",
         "en": "Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yuoXSJhQol0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*yuoXSJhQol0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 无异常点箱线图示例，使用 boxplot 标记。提供完整源码与可运行图表。",
+          "en": "G2 Boxplot example: uses boxplot marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "boxplot-outlier.ts",
@@ -34,7 +52,13 @@
         "zh": "带异常点箱线图",
         "en": "Boxplot with Outlier"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PxD1QZ8xRsIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PxD1QZ8xRsIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 带异常点箱线图示例，使用 boxplot 标记。提供完整源码与可运行图表。",
+          "en": "G2 Boxplot with Outlier example: uses boxplot marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "grouped-boxplot-outlier.ts",
@@ -42,7 +66,13 @@
         "zh": "带异常点分组箱线图",
         "en": "grouped Boxplot with Outlier"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jHAhR5NH2OQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jHAhR5NH2OQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 带异常点分组箱线图示例，使用 boxplot 标记，配置 transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 grouped Boxplot with Outlier example: uses boxplot marks; applies transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "boxplot-1d.ts",
@@ -50,7 +80,13 @@
         "zh": "一维箱线图",
         "en": "Boxplot 1d"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DsE6S4ZS-68AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DsE6S4ZS-68AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 一维箱线图示例，使用 boxplot 标记，配置 transpose、filter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Boxplot 1d example: uses boxplot marks; applies transpose, filter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "polar-box.ts",
@@ -58,7 +94,13 @@
         "zh": "径向箱线图",
         "en": "Polar Boxplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*H3feTr-k4XQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*H3feTr-k4XQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 径向箱线图示例，使用 box 标记，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Polar Boxplot example: uses box marks; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

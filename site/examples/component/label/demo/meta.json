@@ -10,7 +10,13 @@
         "zh": "数据标签碰撞隐藏",
         "en": "Overlap Hide"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*d3PIQKO4qpoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*d3PIQKO4qpoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 数据标签碰撞隐藏示例，使用 line 标记，配置 overlapHide 转换。提供完整源码与可运行图表。",
+          "en": "G2 Overlap Hide example: uses line marks; applies overlapHide transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "overflowHide.ts",
@@ -18,7 +24,13 @@
         "zh": "数据标签超出隐藏",
         "en": "Overflow Hide"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nBSvRaadPpYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nBSvRaadPpYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 数据标签超出隐藏示例，使用 interval 标记，配置 overflowHide 转换。提供完整源码与可运行图表。",
+          "en": "G2 Overflow Hide example: uses interval marks; applies overflowHide transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "contrastReverse.ts",
@@ -26,7 +38,13 @@
         "zh": "数据标签颜色反转",
         "en": "Contrast Reverse"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uCijTZ64mdQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uCijTZ64mdQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 数据标签颜色反转示例，使用 interval 标记，配置 contrastReverse 转换。提供完整源码与可运行图表。",
+          "en": "G2 Contrast Reverse example: uses interval marks; applies contrastReverse transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "htmlLabel.ts",
@@ -34,7 +52,13 @@
         "zh": "HTML 标签",
         "en": "HTML Label"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OMnRQ5IgftkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OMnRQ5IgftkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 HTML 标签示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 HTML Label example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

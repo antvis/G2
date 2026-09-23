@@ -10,7 +10,13 @@
         "zh": "PathIn",
         "en": "PathIn"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uq_2SL14wgQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uq_2SL14wgQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 PathIn示例，使用 line 标记，配置 pathIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 PathIn example: uses line marks; configures pathIn animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "fade.ts",
@@ -18,7 +24,13 @@
         "zh": "FadeIn",
         "en": "FadeIn"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lW80R5AYDfEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lW80R5AYDfEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 FadeIn示例，使用 interval 标记，配置 fadeIn、fadeOut 动画。提供完整源码与可运行图表。",
+          "en": "G2 FadeIn example: uses interval marks; configures fadeIn, fadeOut animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "scale-x.ts",
@@ -26,7 +38,13 @@
         "zh": "ScaleInX",
         "en": "ScaleInX"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4j9URodi54MAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4j9URodi54MAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 ScaleInX示例，使用 interval 标记，配置 scaleInX、scaleOutX 动画。提供完整源码与可运行图表。",
+          "en": "G2 ScaleInX example: uses interval marks; configures scaleInX, scaleOutX animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "scale-y.ts",
@@ -34,7 +52,13 @@
         "zh": "ScaleInY",
         "en": "ScaleInY"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*u5QxT7pZD68AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*u5QxT7pZD68AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 ScaleInY示例，使用 interval 标记，配置 scaleInY、scaleOutY 动画。提供完整源码与可运行图表。",
+          "en": "G2 ScaleInY example: uses interval marks; configures scaleInY, scaleOutY animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "wave-in.ts",
@@ -42,7 +66,13 @@
         "zh": "WaveIn",
         "en": "WaveIn"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xL5hQ5TCR4cAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xL5hQ5TCR4cAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 WaveIn示例，使用 interval 标记，配置 waveIn 动画，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 WaveIn example: uses interval marks; configures waveIn animations; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "zoom-in.ts",
@@ -50,7 +80,13 @@
         "zh": "ZoomIn",
         "en": "ZoomIn"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OE0wRJhaM3cAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*OE0wRJhaM3cAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 ZoomIn示例，使用 point 标记，配置 zoomIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 ZoomIn example: uses point marks; configures zoomIn animations. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }
