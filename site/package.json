@@ -27,7 +27,7 @@
     "@mapbox/geojson-rewind": "^0.5.2",
     "@types/topojson-client": "^3.1.5",
     "antd": "^5.24.5",
-    "astro": "7.2.0",
+    "astro": "7.2.8",
     "d3-array": "^3.2.4",
     "d3-geo-projection": "^4.0.0",
     "d3-hexjson": "^1.1.1",
