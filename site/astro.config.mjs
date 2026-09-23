@@ -42,7 +42,7 @@ const config = defineConfig({
   },
   analytics: { GoogleAnalytics: { id: 'G-3L8SSDC4X6' } },
   site: {
-    title: 'G2',
+    title: 'G2 一套简明和渐进式的可视化语法 | AntV',
     logo: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*A-lcQbVTpjwAAAAAAAAAAAAADmJ7AQ/original',
     origin: 'https://g2.antv.antgroup.com',
     repository: 'https://github.com/antvis/g2',
