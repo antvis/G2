@@ -10,7 +10,13 @@
         "zh": "图表视图样式",
         "en": "chart View Style"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XEmcS7mJL8gAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*XEmcS7mJL8gAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 图表视图样式示例，使用 area 标记。提供完整源码与可运行图表。",
+          "en": "G2 chart View Style example: uses area marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

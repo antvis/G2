@@ -1,9 +1,11 @@
 {
+  "extends": "astro/tsconfigs/base",
+  "include": [".astro/types.d.ts", "src/**/*"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ESNext",
-    "jsx": "react",
-    "lib": ["dom"],
+    "jsx": "react-jsx",
     "paths": {
       "@antv/g2": ["../src/index.ts"]
     }

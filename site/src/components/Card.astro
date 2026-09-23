@@ -1,0 +1,10 @@
+---
+interface Props { title: string; description?: string; href: string; cover?: string; }
+const { title, description, href, cover } = Astro.props;
+const locale = Astro.url.pathname.startsWith('/en/') ? 'en' : 'zh';
+const target = href.startsWith('/') && !href.startsWith('//') && !/^\/(zh|en)\//.test(href) ? `/${locale}${href}` : href;
+---
+<a href={target} class="flex min-w-0 flex-col overflow-hidden rounded-xl border border-solid border-[var(--border)] text-inherit no-underline">
+  {cover && <img src={cover} alt="" loading="lazy" class="m-0 h-36 w-full object-contain" />}
+  <span class="flex flex-1 flex-col gap-3 p-5"><strong>{title}</strong><span class="text-sm text-[var(--muted)]">{description}</span><span class="mt-auto text-[var(--brand)]">{locale === 'zh' ? '查看详情 →' : 'View details →'}</span></span>
+</a>

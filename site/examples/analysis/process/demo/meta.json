@@ -10,7 +10,13 @@
         "zh": "列数据格式",
         "en": "Column Data Format"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jez1TZo_jVsAAAAAQlAAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*jez1TZo_jVsAAAAAQlAAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 列数据格式示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Column Data Format example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

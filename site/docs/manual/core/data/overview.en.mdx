@@ -1,0 +1,284 @@
+---
+title: Overview
+description: "Configure G2 data sources and transformations, use inline or fetched data, and refresh chart data by updating the Spec."
+order: 1
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+In G2, **Data** is primarily used to specify the data to be visualized and data transformation (pre-processing).
+
+## Usage Methods
+
+There are three main ways to configure data.
+
+- First method: Set `type: inline`, which defines an inline connector that directly passes in specific data. This is the default data source type in G2.
+
+```js
+({
+  data: {
+    type: 'inline', // Specify inline type
+    value: [
+      { genre: 'Sports', sold: 275 },
+      { genre: 'Strategy', sold: 115 },
+      { genre: 'Action', sold: 120 },
+      { genre: 'Shooter', sold: 350 },
+      { genre: 'Other', sold: 150 },
+    ],
+  },
+});
+```
+
+- Second method: Set `type: fetch`, which defines a remote connector that obtains data from remote interfaces, making data sources dynamic. It supports parsing JSON, CSV and other formats, adapts to multi-scenario data integration, and improves development efficiency and interactive experience for applications like dashboards and monitoring systems.
+
+```js
+({
+  data: {
+    type: 'fetch', // Specify fetch type
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json', // Remote address
+  },
+});
+```
+
+- Third method: This is syntactic sugar for the first method. If the data meets the following three conditions, you can directly specify the data value:
+
+1. Inline data
+2. Is an array
+3. No data transformation
+
+```js
+({
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+});
+```
+
+## Configuration Levels
+
+Data can be specified at the View level:
+
+```js
+({
+  type: 'view',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+});
+```
+
+Data bound to a view is transitive: it will be passed to marks in `view.children`. If the mark does not have data, its data will be set; otherwise, there is no effect. This means that for marks that share data, you can bind the data to the view.
+
+<Demo src="manual/core/data/demos/overview-en-1" />
+
+Data can also be specified at the Mark level:
+
+```js
+({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+});
+```
+
+Each mark has its own data, which means we can visualize multiple datasets in one view, such as the following interval annotation chart:
+
+<Demo src="manual/core/data/demos/overview-en-2" />
+
+## DataTransform
+
+A complete data declaration consists of two parts: **Connector** and **DataTransform**. Connector is the way to get data, specified by `data.type`, and data transform is the pre-processing function, specified by `data.transform`.
+
+```js
+({
+  data: {
+    type: 'fetch', // Specify connector type
+    // Specify connector value
+    value:
+      'https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json',
+    transform: [
+      // Specify transforms, multiple can be specified
+      { type: 'filter', callback: (d) => d.sex === 'gender' },
+      {
+        type: 'sort',
+        callback: (a, b) => b.a - a.a,
+      },
+    ],
+  },
+});
+```
+
+Currently, G2 has the following built-in data transforms:
+
+| type   | Description                                                                                            | Properties                             |
+| ------ | ------------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| custom | Custom data processing logic that allows users to define their own operation methods                   | [custom](/en/manual/core/data/custom/)  |
+| ema    | Calculate exponential moving average for data smoothing                                                | [ema](/en/manual/core/data/ema/)        |
+| filter | Filter data based on specified conditions                                                              | [filter](/en/manual/core/data/filter/)  |
+| fold   | Unfold multiple fields into specified key-value organization format for easier processing and analysis | [fold](/en/manual/core/data/fold/)      |
+| join   | Merge two data tables based on certain conditions to associate corresponding data rows                 | [join](/en/manual/core/data/join/)      |
+| kde    | Estimate data distribution density, commonly used for probability density analysis                     | [kde](/en/manual/core/data/kde/)        |
+| log    | Print current data in the data transform flow to console for developers to debug data processing       | [log](/en/manual/core/data/log/)        |
+| map    | Perform mapping operations on data, converting one type of value to another                            | [map](/en/manual/core/data/map/)        |
+| pick   | Select specified fields from data for extracting specific information                                  | [pick](/en/manual/core/data/pick/)      |
+| rename | Rename data fields for easier subsequent processing and reading                                        | [rename](/en/manual/core/data/rename/)  |
+| slice  | Extract a subset of data, equivalent to data pagination or cropping                                    | [slice](/en/manual/core/data/slice/)    |
+| sort   | Sort data with support for custom sorting rules                                                        | [sort](/en/manual/core/data/sort/)      |
+| sortBy | Sort data by a specified field                                                                         | [sortBy](/en/manual/core/data/sort-by/) |
+
+## Data Update
+
+Since data is bound to marks, data updating can be a bit complex. Using the following example:
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'interval',
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { x: 'genre', y: 'sold' },
+});
+
+chart.render();
+```
+
+Read the current Spec and submit the updated mark data:
+
+```js
+const spec = chart.options();
+// Update the data bound to interval
+spec.children[0].data = newData;
+// Apply the Spec and update chart rendering
+chart.options(spec);
+chart.render();
+```
+
+The following example demonstrates live data updates.
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+// Format function: Convert timestamp to hh:mm:ss format
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const hours = String(date.getHours()).padStart(2, '0'); // Pad to two digits
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return \`\${hours}:\${minutes}:\${seconds}\`;
+}
+
+const data = [];
+
+chart.options({
+  type: 'line',
+  data: [],
+  encode: {
+    x: (d) => formatTime(d.time),
+    y: 'temperature',
+    color: 'type',
+    shape: 'smooth',
+    size: 2,
+  },
+  scale: {
+    x: {
+      nice: true,
+    },
+  },
+});
+
+chart.render();
+
+setInterval(function () {
+  const now = new Date();
+  const time = now.getTime();
+
+  const temperature1 = ~~(Math.random() * 5) + 22;
+  const temperature2 = ~~(Math.random() * 7) + 17;
+
+  if (data.length >= 200) {
+    data.shift();
+    data.shift();
+  }
+
+  data.push({
+    time, // Use formatted time
+    temperature: temperature1,
+    type: 'Record 1',
+  });
+  data.push({
+    time, // Use formatted time
+    temperature: temperature2,
+    type: 'Record 2',
+  });
+
+  chart.changeData(data);
+}, 1000);
+`} />
+
+## Examples
+
+- How to use third-party libraries to draw statistical regression lines?
+
+With the custom data transform capability, we can configure:
+
+```js
+({
+  data: {
+    transform: [
+      {
+        type: 'custom',
+        callback: customFn(), // Custom data processing function
+      },
+    ],
+  },
+});
+```
+
+The `customFn` here can use external data processing libraries, greatly expanding G2's data processing capabilities. In the following example, we use the third-party library [d3-regression](https://github.com/HarryStevens/d3-regression) to generate linear statistical regression lines:
+
+```js
+import { regressionLinear } from 'd3-regression';
+
+chart.options({
+  data: {
+    type: 'inline',
+    value: data,
+  // Use D3's regressionLinear to perform linear regression on data
+  transform: [
+    {
+      type: 'custom',
+      callback: regressionLinear(),
+    },
+  ],
+  },
+});
+```
+
+For more statistical regression line examples, see [Data Analysis - Regression Lines](/en/examples/analysis/regression/).

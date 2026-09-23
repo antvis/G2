@@ -1,5 +1,12 @@
 # AGENTS
 
+## AntV Agent Readability
+
+- Public docs, APIs, and examples must include content, full source, dependencies, and context in initial HTML, including iframe parent pages.
+- Provide discoverable Markdown with equivalent content; `llms.txt` is only a supplement.
+- Avoid extra demo pages, exports, or dependency lists unless sharing or downloads require them. Public example links must work independently.
+- Verify content changes with targeted HTTP, Markdown, and browser checks.
+
 <skills_system priority="1">
 
 ## Available Skills

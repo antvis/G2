@@ -69,6 +69,32 @@ for (let i = 0; i < MAX_CANDLES; i++) {
   currentPrice = candle.end;
 }
 
+const tooltip = {
+  title: 'time',
+  items: [
+    {
+      field: 'start',
+      name: '开盘价',
+      valueFormatter: (v) => `¥${v.toFixed(2)}`,
+    },
+    {
+      field: 'end',
+      name: '收盘价',
+      valueFormatter: (v) => `¥${v.toFixed(2)}`,
+    },
+    {
+      field: 'min',
+      name: '最低价',
+      valueFormatter: (v) => `¥${v.toFixed(2)}`,
+    },
+    {
+      field: 'max',
+      name: '最高价',
+      valueFormatter: (v) => `¥${v.toFixed(2)}`,
+    },
+  ],
+};
+
 // 预生成所有帧的 options
 const allOptions = [];
 
@@ -88,7 +114,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
 
   const option = {
     type: 'view',
-    data: data,
+    data,
     encode: {
       x: 'time',
       color: (d) => {
@@ -112,31 +138,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
         encode: {
           y: ['min', 'max'],
         },
-        tooltip: {
-          title: 'time',
-          items: [
-            {
-              field: 'start',
-              name: '开盘价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-            {
-              field: 'end',
-              name: '收盘价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-            {
-              field: 'min',
-              name: '最低价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-            {
-              field: 'max',
-              name: '最高价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-          ],
-        },
+        tooltip,
       },
       // K线实体（开盘-收盘）
       {
@@ -162,31 +164,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
             labelFormatter: (d) => `¥${d.toFixed(2)}`,
           },
         },
-        tooltip: {
-          title: 'time',
-          items: [
-            {
-              field: 'start',
-              name: '开盘价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-            {
-              field: 'end',
-              name: '收盘价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-            {
-              field: 'min',
-              name: '最低价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-            {
-              field: 'max',
-              name: '最高价',
-              valueFormatter: (v) => `¥${v.toFixed(2)}`,
-            },
-          ],
-        },
+        tooltip,
       },
     ],
   };

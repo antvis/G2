@@ -16,16 +16,31 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data(data);
-
-chart
-  .area()
-  .encode('x', (d) => d.year)
-  .encode('y', 'value')
-  .encode('shape', 'area') // 'area', 'smooth', 'hvh', 'vh', 'hv'
-  .style('opacity', 0.2)
-  .axis('y', { labelFormatter: '~s', title: false });
-
-chart.line().encode('x', 'year').encode('y', 'value').encode('shape', 'line'); // 'line', 'smooth', 'vh', 'hv', 'hvh'
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'area',
+      encode: {
+        x: (d) => d.year,
+        y: 'value',
+        // 'area', 'smooth', 'hvh', 'vh', 'hv'
+        shape: 'area',
+      },
+      style: { opacity: 0.2 },
+      axis: { y: { labelFormatter: '~s', title: false } },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: 'year',
+        y: 'value',
+        // 'line', 'smooth', 'vh', 'hv', 'hvh'
+        shape: 'line',
+      },
+    },
+  ],
+});
 
 chart.render();

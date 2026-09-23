@@ -11,23 +11,30 @@ const chart = new Chart({
   paddingBottom: 60,
 });
 
-const facetRect = chart
-  .facetRect()
-  .data({
+chart.options({
+  type: 'facetRect',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/anscombe.json',
-  })
-  .encode('x', 'series');
+  },
+  encode: { x: 'series' },
+  children: [
+    {
+      type: 'point',
+      inset: 10,
+      encode: { x: 'x', y: 'y' },
+      style: { stroke: '#000' },
 
-facetRect
-  .point()
-  .attr('inset', 10)
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .style('stroke', '#000')
-  .attr('frame', false) // Hide the default frame.
-  .viewStyle('plotStroke', 'red') // Customize the plot area to mock a frame.
-  .viewStyle('plotLineWidth', 2)
-  .viewStyle('plotOpacity', 0.5);
+      // Hide the default frame.
+      frame: false,
+      viewStyle: {
+        // Customize the plot area to mock a frame.
+        plotStroke: 'red',
+        plotLineWidth: 2,
+        plotOpacity: 0.5,
+      },
+    },
+  ],
+});
 
 chart.render();

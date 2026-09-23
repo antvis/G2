@@ -29,17 +29,19 @@ const data = [
   { letter: 'F', frequency: 0.02288 },
   { letter: 'G', frequency: 0.02015 },
 ];
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .scale('y', {
-    nice: 1,
-    tickMethod: (a, b, c, d) => {
-      console.log({ a, b, c, d });
-      return [0, 0.04, 0.08, 0.12, 0.14, 0.16];
+chart.options({
+  type: 'interval',
+  data: data,
+  encode: { x: 'letter', y: 'frequency' },
+  scale: {
+    y: {
+      nice: 1,
+      tickMethod: (a, b, c, d) => {
+        console.log({ a, b, c, d });
+        return [0, 0.04, 0.08, 0.12, 0.14, 0.16];
+      },
     },
-  });
+  },
+});
 
 chart.render();

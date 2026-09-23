@@ -8,28 +8,31 @@ const chart = new Chart({
   autoFit: true,
 });
 
-[
+const data = [
   { x1: 5, y1: 5, x2: 8, y2: 8, shape: 'link' },
   { x1: 5, y1: 12, x2: 8, y2: 15, shape: 'smooth' },
   { x1: 12, y1: 5, x2: 15, y2: 8, shape: 'vhv' },
   { x1: 12, y1: 12, x2: 15, y2: 15, shape: 'arc' },
-].forEach((data) => {
-  chart
-    .link()
-    .data([data])
-    .encode('x', ['x1', 'x2'])
-    .encode('y', ['y1', 'y2'])
-    .scale({
+];
+
+chart.options({
+  type: 'view',
+  children: data.map((datum) => ({
+    type: 'link',
+    data: [datum],
+    encode: { x: ['x1', 'x2'], y: ['y1', 'y2'] },
+    scale: {
       x: { domainMin: 2, domainMax: 22 },
       y: { domainMin: 4, domainMax: 18 },
-    })
-    .style({
+    },
+    style: {
       arrow: true,
       arrowSize: 10,
       lineWidth: 5,
       stroke: '#1f1aa1',
-      shape: data.shape,
-    });
+      shape: datum.shape,
+    },
+  })),
 });
 
 chart.render();

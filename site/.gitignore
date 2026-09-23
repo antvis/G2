@@ -1,3 +1,6 @@
 
 # Dead links report
 dead-links-report.log
+.astro/
+.antv-site/
+pnpm-lock.yaml

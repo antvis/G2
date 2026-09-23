@@ -5,38 +5,44 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .partition()
-  .data({
+chart.options({
+  type: 'partition',
+  data: {
     type: 'fetch',
     value:
       'https://raw.githubusercontent.com/antvis/G2/refs/heads/v5/__tests__/data/partition.json',
-  })
-  .encode('value', 'value')
-  .encode('color', 'name')
-  .scale('color', {
-    range: [
-      'rgb(236, 160, 57)',
-      'rgb(196, 68, 57)',
-      'rgb(211, 180, 60)',
-      'rgb(230, 67, 63)',
-    ],
-  })
-  .label({
-    text: 'name',
-    position: 'left',
-    dx: 8,
-    transform: [
-      {
-        type: 'overflowHide',
-      },
-    ],
-  })
-  .style({
+  },
+  encode: { value: 'value', color: 'name' },
+  scale: {
+    color: {
+      range: [
+        'rgb(236, 160, 57)',
+        'rgb(196, 68, 57)',
+        'rgb(211, 180, 60)',
+        'rgb(230, 67, 63)',
+      ],
+    },
+  },
+  labels: [
+    {
+      text: 'name',
+      position: 'left',
+      dx: 8,
+      transform: [
+        {
+          type: 'overflowHide',
+        },
+      ],
+    },
+  ],
+  style: {
     inset: 0.5,
-  })
-  .axis('x', {
-    title: 'Time/Order',
-  });
+  },
+  axis: {
+    x: {
+      title: 'Time/Order',
+    },
+  },
+});
 
 chart.render();

@@ -1,0 +1,25 @@
+---
+import type { HomeSlotProps } from '@antv/astro-theme-antv';
+import { QaEntry, Updates } from '@antv/astro-theme-antv/components';
+import Featured from './Featured.astro';
+
+const { locale, config } = Astro.props as HomeSlotProps;
+const isZh = locale === 'zh';
+---
+
+<div class="overflow-x-clip px-8 pb-6 [background:linear-gradient(145deg,#f5f7ff,#fbfcff_65%,#fff)] [@media(width<=760px)]:px-5 [body:has(&)]:[background:#fff] [.site-canvas:has(&)]:[background:#fff]">
+  <section class="relative mx-auto max-w-[1360px] pt-[68px] text-center [@media(width<=760px)]:pt-10 [&_antv-qa]:relative [&_antv-qa]:mx-auto [&_antv-qa]:mt-7 [&_antv-qa]:mb-0" aria-labelledby="g2-home-title">
+    <img class="pointer-events-none absolute -top-10 -right-20 h-auto w-[32%] max-w-none object-contain [@media(width<=1100px)]:top-0 [@media(width<=1100px)]:-right-12 [@media(width<=1100px)]:w-[260px] [@media(width<=760px)]:hidden" src={config.home.image} alt="" decoding="async" />
+    <h1 id="g2-home-title" class="relative z-1 m-0 text-[clamp(32px,3.5vw,52px)] leading-[1.2] font-semibold tracking-[-1.6px] [@media(width<=760px)]:text-[32px] [@media(width<=760px)]:tracking-[-1px]"><span class="text-[var(--brand)]">G2</span> · {isZh ? '可视化语法' : 'Grammar of Graphics'}</h1>
+    <p class="relative z-1 mx-auto mt-5 mb-0 max-w-[640px] text-base leading-[1.8] text-[#5d6472] [@media(width<=760px)]:mt-4 [@media(width<=760px)]:text-sm">{isZh
+      ? '简洁的渐进式可视化语法，让数据探索与可视化叙事自由表达。'
+      : 'A concise, progressive grammar for data exploration and visual storytelling.'}</p>
+    <QaEntry locale={locale} placeholder={isZh ? 'G2 是什么？怎样用 G2 绘制一张交互图表？' : 'What is G2? How can I create an interactive chart?'} />
+  </section>
+
+  <Featured locale={locale} />
+
+  <section class="mx-auto mt-[82px] max-w-[1200px] [@media(width<=760px)]:mt-[54px] [&_antv-updates]:[--carousel-pagination-margin:28px] [@media(760px<width<=1100px)]:[&_antv-updates]:[--carousel-columns:2] [@media(width<=760px)]:[&_antv-updates]:[--carousel-columns:1]" aria-label={isZh ? '最新动态' : 'Latest updates'}>
+    <Updates locale={locale} />
+  </section>
+</div>

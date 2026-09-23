@@ -7,6 +7,12 @@ const TARGETS = 15; // 目标数量
 const FRAMES = 120; // 动画帧数
 const FPS = 30; // 每秒帧数
 
+const targetColors = {
+  safe: '#52c41a',
+  unknown: '#faad14',
+  threat: '#ff4d4f',
+};
+
 // 生成随机目标
 const targets = Array.from({ length: TARGETS }, (_, i) => ({
   id: i,
@@ -86,7 +92,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
 
   const option = {
     type: 'point',
-    data: data,
+    data,
     coordinate: { type: 'polar' },
     encode: {
       x: 'angle',
@@ -117,22 +123,12 @@ for (let frame = 0; frame < FRAMES; frame++) {
       fill: (d) => {
         if (d.type === 'scan') return '#00ff88';
         if (d.type === 'grid') return '#1a1a2e';
-        const colors = {
-          safe: '#52c41a',
-          unknown: '#faad14',
-          threat: '#ff4d4f',
-        };
-        return colors[d.targetType];
+        return targetColors[d.targetType];
       },
       fillOpacity: (d) => d.opacity || 0.1,
       stroke: (d) => {
         if (d.type === 'target') {
-          const colors = {
-            safe: '#52c41a',
-            unknown: '#faad14',
-            threat: '#ff4d4f',
-          };
-          return colors[d.targetType];
+          return targetColors[d.targetType];
         }
         return 'none';
       },

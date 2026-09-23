@@ -1,5 +1,6 @@
 ---
 title: 在前端框架中使用
+description: "在 Vue、React 等前端框架中集成 G2，管理图表容器、初始化、数据更新和组件卸载时的资源清理。"
 order: 3
 ---
 
@@ -47,23 +48,19 @@ function renderBarChart(container) {
 ```js
 // 更新条形图的数据
 function updateBarChart(chart) {
-  // 获得 Interval Mark
-  const interval = chart.getNodesByType('interval')[0];
-
+  // 读取当前 Spec（返回值包含规范化后的 children）
+  const spec = chart.options();
   // 模拟并且更新 Interval 的数据
-  const newData = interval.data().map((d) => ({
+  spec.children[0].data = spec.children[0].data.map((d) => ({
     ...d,
     sold: Math.random() * 400 + 100,
   }));
-
-  // 更新数据并重新渲染
-  chart.options({
-    data: newData,
-  });
-
+  // 提交更新后的 Spec
+  chart.options(spec);
   // 重新渲染
   chart.render();
 }
+
 ```
 
 这里需要注意的是，在框架中不推荐使用 `new Chart({ container: 'id' })` 的形式去指定容器，而是直接使用 HTML 元素作为容器：`new Chart({ container: HTMLContainer })`。这样是为了防止出现不同组件拥有相同的 id，从而不能预期渲染的问题。

@@ -28,9 +28,9 @@ const chart = new Chart({
   paddingBottom: 0,
 });
 
-chart
-  .polygon()
-  .data({
+chart.options({
+  type: 'polygon',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/voronoi.json',
     transform: [
@@ -39,14 +39,11 @@ chart
         callback: layout,
       },
     ],
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', (d) => d.data.value)
-  .scale('x', { domain: [0, 800] })
-  .scale('y', { domain: [0, 600] })
-  .axis(false)
-  .style('stroke', '#fff')
-  .style('fillOpacity', 0.65);
+  },
+  encode: { x: 'x', y: 'y', color: (d) => d.data.value },
+  scale: { x: { domain: [0, 800] }, y: { domain: [0, 600] } },
+  axis: false,
+  style: { stroke: '#fff', fillOpacity: 0.65 },
+});
 
 chart.render();

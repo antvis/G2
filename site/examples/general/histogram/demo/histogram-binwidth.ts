@@ -19,19 +19,19 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
       height: 500,
     });
 
-    chart
-      .interval()
-      .encode('x', 'depth')
-      .encode('y', 'count')
-      .data(dv.rows)
-      .scale({
+    chart.options({
+      type: 'interval',
+      encode: { x: 'depth', y: 'count' },
+      data: dv.rows,
+      scale: {
         depth: {
           tickInterval: 4,
         },
         count: {
           nice: true,
         },
-      });
+      },
+    });
 
     chart.render();
   });

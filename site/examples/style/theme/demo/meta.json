@@ -10,7 +10,13 @@
         "zh": "暗色风格",
         "en": "Dark Theme"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*75B7Qov83a0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*75B7Qov83a0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 暗色风格示例，使用 interval 标记，使用 classicDark 主题，采用 theta 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Dark Theme example: uses interval marks; uses the classicDark theme; uses theta coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "academy.ts",
@@ -18,7 +24,13 @@
         "zh": "学术风格",
         "en": "Academy Theme"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lin8SZ8z5fUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lin8SZ8z5fUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 学术风格示例，使用 interval 标记，使用 academy 主题，配置 sortX、dodgeX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Academy Theme example: uses interval marks; uses the academy theme; applies sortX, dodgeX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "layout-area.ts",
@@ -26,7 +38,13 @@
         "zh": "视图模型",
         "en": "Layout Area"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IOiTQ47rrzwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*IOiTQ47rrzwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 视图模型示例，使用 point 标记，配置 group、sortY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Layout Area example: uses point marks; applies group, sortY transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

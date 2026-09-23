@@ -5,9 +5,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data([
+chart.options({
+  type: 'line',
+  data: [
     { month: 'Jan', city: 'Tokyo', temperature: 7 },
     { month: 'Jan', city: 'London', temperature: 3.9 },
     { month: 'Feb', city: 'Tokyo', temperature: 6.9 },
@@ -32,21 +32,22 @@ chart
     { month: 'Nov', city: 'London', temperature: 6.6 },
     { month: 'Dec', city: 'Tokyo', temperature: 9.6 },
     { month: 'Dec', city: 'London', temperature: 4.8 },
-  ])
-  .encode('x', 'month')
-  .encode('y', 'temperature')
-  .encode('color', 'city')
-  .interaction('tooltip', {
-    render: (event, { items }) => {
-      const target = event.target;
-      const format = (item) => `${item.name}: ${item.value}`;
-      if (target.className === 'g2-tooltip-marker') {
-        const color = target.style.fill;
-        const item = items.find((i) => i.color === color);
-        return format(item);
-      }
-      return items.map(format).join('<br>');
+  ],
+  encode: { x: 'month', y: 'temperature', color: 'city' },
+  interaction: {
+    tooltip: {
+      render: (event, { items }) => {
+        const target = event.target;
+        const format = (item) => `${item.name}: ${item.value}`;
+        if (target.className === 'g2-tooltip-marker') {
+          const color = target.style.fill;
+          const item = items.find((i) => i.color === color);
+          return format(item);
+        }
+        return items.map(format).join('<br>');
+      },
     },
-  });
+  },
+});
 
 chart.render();

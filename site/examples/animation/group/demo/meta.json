@@ -10,7 +10,13 @@
         "zh": "折线图动画",
         "en": "Line with Animation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dxClRrq57JMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dxClRrq57JMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 折线图动画示例，使用 line、point、text 标记，配置 pathIn 动画，配置 stackEnter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Line with Animation example: uses line, point, text marks; configures pathIn animations; applies stackEnter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "interval.ts",
@@ -18,7 +24,13 @@
         "zh": "柱形图动画",
         "en": "Column with Animation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3xCLRLNfv7EAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*3xCLRLNfv7EAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 柱形图动画示例，使用 interval 标记，配置 stackEnter、dodgeX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Column with Animation example: uses interval marks; applies stackEnter, dodgeX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "interval-polar.ts",
@@ -26,7 +38,13 @@
         "zh": "玫瑰图动画",
         "en": "Animation in Polar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dG5TQ6IDBN0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dG5TQ6IDBN0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 玫瑰图动画示例，使用 interval 标记，配置 waveIn 动画，配置 stackY、stackEnter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Animation in Polar example: uses interval marks; configures waveIn animations; applies stackY, stackEnter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area.ts",
@@ -34,7 +52,13 @@
         "zh": "面积图动画",
         "en": "Area with Animation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sh4JSao3tVgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*sh4JSao3tVgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 面积图动画示例，使用 area 标记，配置 growInX 动画，配置 stackEnter、stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Area with Animation example: uses area marks; configures growInX animations; applies stackEnter, stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point.ts",
@@ -42,7 +66,13 @@
         "zh": "点图动画",
         "en": " Point with Animation"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/point-animation.gif"
+      "screenshot": "https://gw.alipayobjects.com/zos/raptor/1668858139680/point-animation.gif",
+      "openGraph": {
+        "description": {
+          "zh": "G2 点图动画示例，使用 point、text 标记，配置 stackEnter 转换。提供完整源码与可运行图表。",
+          "en": "G2  Point with Animation example: uses point, text marks; applies stackEnter transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

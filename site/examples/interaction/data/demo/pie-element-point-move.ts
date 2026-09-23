@@ -13,26 +13,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'theta', outerRadius: 0.8 });
-
-chart
-  .interval()
-  .data(data)
-  .transform({ type: 'stackY' })
-  .interaction({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'theta', outerRadius: 0.8 },
+  data: data,
+  transform: [{ type: 'stackY' }],
+  interaction: {
     legendFilter: false,
     elementPointMove: {
       pathLineDash: [2, 4],
       pathStroke: '#fff',
       pathLineWidth: 2,
     },
-  })
-  .encode('y', 'count')
-  .encode('color', 'item')
-  .encode('key', 'item')
-  .tooltip((data) => ({
-    name: data.item,
-    value: `${data.percent * 100}%`,
-  }));
+  },
+  encode: { y: 'count', color: 'item', key: 'item' },
+  tooltip: {
+    items: [
+      (data) => ({
+        name: data.item,
+        value: `${data.percent * 100}%`,
+      }),
+    ],
+  },
+});
 
 chart.render();

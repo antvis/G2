@@ -8,31 +8,35 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/temperatures1.json',
-  })
-  .scale('y', { nice: true })
-  .scale('color', {
-    domain: ['CLR', 'FEW', 'SCT', 'BKN', 'OVC', 'VV '],
-    range: [
-      'deepskyblue',
-      'lightskyblue',
-      'lightblue',
-      '#aaaaaa',
-      '#666666',
-      '#666666',
-    ],
-  })
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'value')
-  .encode('shape', 'hvh')
-  .encode('color', 'condition')
-  .encode('series', () => 'a')
-  .style('gradient', 'x')
-  .style('lineWidth', 2)
-  .axis('x', { title: 'date' });
+  },
+  scale: {
+    y: { nice: true },
+    color: {
+      domain: ['CLR', 'FEW', 'SCT', 'BKN', 'OVC', 'VV '],
+      range: [
+        'deepskyblue',
+        'lightskyblue',
+        'lightblue',
+        '#aaaaaa',
+        '#666666',
+        '#666666',
+      ],
+    },
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'value',
+    shape: 'hvh',
+    color: 'condition',
+    series: () => 'a',
+  },
+  style: { gradient: 'x', lineWidth: 2 },
+  axis: { x: { title: 'date' } },
+});
 
 chart.render();

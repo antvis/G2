@@ -10,7 +10,13 @@
         "zh": "基础",
         "en": "Basic"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TZmeQqK7CZwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TZmeQqK7CZwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 基础示例，使用 point 标记，通过 facetRect 组合图表，配置 sortBy、map、pack 转换。提供完整源码与可运行图表。",
+          "en": "G2 Basic example: uses point marks; composes charts with facetRect; applies sortBy, map, pack transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "share-size.ts",
@@ -18,7 +24,13 @@
         "zh": "共享尺寸定义域",
         "en": "Share Size"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QQIBRrgnC10AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QQIBRrgnC10AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 共享尺寸定义域示例，使用 point 标记，通过 facetRect 组合图表，配置 sortBy、map、pack 转换。提供完整源码与可运行图表。",
+          "en": "G2 Share Size example: uses point marks; composes charts with facetRect; applies sortBy, map, pack transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "share-data.ts",
@@ -26,7 +38,13 @@
         "zh": "共享数据定义域",
         "en": "Share Data"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Xqf_TLXa4IAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Xqf_TLXa4IAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 共享数据定义域示例，使用 point 标记，通过 facetRect 组合图表，配置 sortBy、map、pack 转换。提供完整源码与可运行图表。",
+          "en": "G2 Share Data example: uses point marks; composes charts with facetRect; applies sortBy, map, pack transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "2d.ts",
@@ -34,7 +52,13 @@
         "zh": "二维",
         "en": "2D"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JLcrS5ftzXoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JLcrS5ftzXoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 二维示例，使用 point 标记，通过 facetRect 组合图表，配置 sortBy、pack 转换。提供完整源码与可运行图表。",
+          "en": "G2 2D example: uses point marks; composes charts with facetRect; applies sortBy, pack transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "nested.ts",
@@ -42,7 +66,13 @@
         "zh": "嵌套",
         "en": "Nested"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*F2_7T4keuwgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*F2_7T4keuwgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 嵌套示例，使用 point 标记，通过 facetRect 组合图表，配置 sortBy、map、pack 转换。提供完整源码与可运行图表。",
+          "en": "G2 Nested example: uses point marks; composes charts with facetRect; applies sortBy, map, pack transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

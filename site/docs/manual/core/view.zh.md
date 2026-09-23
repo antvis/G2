@@ -1,5 +1,6 @@
 ---
 title: 视图（View）
+description: "使用 G2 视图组织多个标记，理解数据与配置的继承关系，并配置视图样式和组合布局。"
 order: 3
 ---
 
@@ -96,15 +97,20 @@ order: 3
 });
 ```
 
-### 2. API 链式调用
+### 2. 使用 Spec 配置图表
 
 通过 API 创建视图并添加标记：
 
 ```js
 const chart = new G2.Chart();
-const view = chart.view({ data: [...] });
-view.interval().encode('x', 'type').encode('y', 'value');
-view.line().encode('x', 'type').encode('y', 'value');
+
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'interval', encode: { x: 'type', y: 'value' } },
+    { type: 'line', encode: { x: 'type', y: 'value' } },
+  ],
+});
 chart.render();
 ```
 
@@ -114,14 +120,34 @@ chart.render();
 
 ```js
 // ✅ 正确：使用 facet 组合多个 view
-const facet = chart.facetRect();
-facet.view().interval().encode('x', 'type').encode('y', 'value');
-facet.view().line().encode('x', 'type').encode('y', 'value');
+chart.options({
+  type: 'facetRect',
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+    },
+    {
+      type: 'line',
+      encode: { x: 'type', y: 'value' },
+    },
+  ],
+});
 
-// ✅ 正确：使用 spaceFlex 组合多个 view
-const container = chart.spaceFlex();
-container.view().interval().encode('x', 'type').encode('y', 'value');
-container.view().line().encode('x', 'date').encode('y', 'sales');
+// ✅ 正确：使用 spaceFlex 组合多个视图
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+    },
+    {
+      type: 'line',
+      encode: { x: 'date', y: 'sales' },
+    },
+  ],
+});
 
 // ❌ 错误：不要在 view 的 children 中嵌套 view
 // chart.options({
@@ -136,17 +162,17 @@ container.view().line().encode('x', 'date').encode('y', 'sales');
 
 ## 视图与样式
 
-视图支持设置自身区域的样式（如背景色、边框等），并可对子标记进行统一样式管理。详见[样式（Style）](/manual/core/style)。
+视图支持设置自身区域的样式（如背景色、边框等），并可对子标记进行统一样式管理。详见[样式（Style）](/zh/manual/core/style/)。
 
 ```js
 ({
-  type: 'view',
-  style: {
+  type: 'interval',
+  viewStyle: {
     viewFill: '#e6f7ff',
     plotFill: '#fffbe6',
     mainFill: '#fff',
     contentFill: '#f0f5ff',
   },
-  children: [{ type: 'interval', style: { fill: '#5B8FF9' } }],
+  style: { fill: '#5B8FF9' },
 });
 ```

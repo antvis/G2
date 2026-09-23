@@ -14,13 +14,14 @@ const data = [
 
 const colorField = 'genre';
 
-chart
-  .interval()
-  .data(data)
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', colorField)
-  .legend(false); // Hide built-in legends.
+chart.options({
+  type: 'interval',
+  data: data,
+  encode: { x: 'genre', y: 'sold', color: colorField },
+
+  // Hide built-in legends.
+  legend: false,
+});
 
 chart.render().then(renderCustomLegend);
 

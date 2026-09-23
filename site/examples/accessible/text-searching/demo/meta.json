@@ -10,7 +10,13 @@
         "zh": "Ctrl/⌘+F 文本搜索",
         "en": "Search text by Ctrl/⌘+F"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TehBRbDnoIkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "通过 G2 无障碍插件让图表文本支持浏览器 Ctrl/⌘+F 搜索，在条形图中查找文本内容。",
+          "en": "Use the G2 accessibility plugin to make chart text searchable with the browser’s Ctrl/⌘+F command in a bar chart."
+        }
+      }
     }
   ]
 }

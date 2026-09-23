@@ -1,0 +1,11 @@
+---
+import { categories, getCharts } from '../content/charts';
+const { locale, current } = await getCharts(Astro.url.pathname);
+const ids = (current?.data.category ?? []) as string[];
+---
+<div class="my-4 flex flex-wrap gap-4" data-chart-categories>
+  {categories.filter((category) => ids.includes(category.id)).map(({ icon: Icon, ...category }) => <a class="group flex w-[200px] max-w-full flex-col items-center gap-2 rounded-[10px] border border-solid border-[#f0f0f0] bg-white p-6 text-center text-[#666]! no-underline! transition-shadow hover:shadow-[0_6px_16px_rgba(0,0,0,0.08),0_3px_6px_-4px_rgba(0,0,0,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1890ff] motion-reduce:transition-none" href={`/${locale}/charts/overview/?category=${category.id}`}>
+    <span class="flex text-2xl leading-none text-[#1890ff] transition-[color,transform] duration-200 group-hover:text-[#40a9ff] group-focus-visible:text-[#40a9ff] motion-safe:group-hover:scale-110 motion-safe:group-focus-visible:scale-110 motion-reduce:transition-none [&_.anticon]:inline-flex [&_svg]:block" aria-hidden="true"><Icon /></span>
+    <span class="text-sm leading-[22px] font-medium">{category[locale]}</span>
+  </a>)}
+</div>

@@ -1,0 +1,302 @@
+---
+title: Overview
+description: "Explore G2 coordinate systems and transformations, including Cartesian and polar coordinates and transposition, to control chart layout."
+order: 1
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+In the visual channels of visualization, position is the visual encoding method with the most perceptual advantage. It not only has the highest recognition accuracy but can also effectively express both qualitative data (categories) and quantitative data simultaneously. To systematically organize this spatial position mapping, we introduce the concept of **Coordinate System**. In G2's implementation, the coordinate system is responsible for managing a series of spatial transformations. Specifically, the position attributes (x and y) of marks are first mapped to a normalized `[0, 1]` interval through scales, and then the coordinate system converts these normalized position information into final canvas coordinates, thus achieving visualization representations in different spatial layout forms.
+
+- Coordinate configuration mainly focuses on coordinate transformation, start and end angles, inner and outer radii, etc. For coordinate axis scales, tick values configuration, etc., please go to [Chart Components - Axis](/en/manual/component/axis/).
+
+## Configuration Hierarchy
+
+Coordinates can be set at the View level:
+
+```js
+({
+  type: 'view',
+  coordinate: { type: 'polar' },
+});
+```
+
+
+Each view can only have one coordinate system. In addition to its own attributes, the coordinate system also includes a series of **Coordinate Transforms**.
+
+```js
+({
+  type: 'polar', // Type
+  innerRadius: 0.6, // Own attributes
+  outerRadius: 0.8,
+  transform: [{ type: 'transpose' }], // Coordinate transforms
+});
+```
+
+It can also be set at the Mark level:
+
+```js
+({
+  type: 'interval',
+  coordinate: { type: 'polar' },
+});
+```
+
+
+Mark-level coordinates have **bubbling behavior**. Mark-level coordinates will be merged with the view's coordinates, and the first mark's coordinate has the highest priority.
+
+```js
+chart.options({
+  type: 'view',
+  coordinate: { type: 'theta' },
+  children: [
+    { type: 'line', coordinate: { type: 'polar' } },
+    { type: 'area', coordinate: { type: 'radial' } },
+  ],
+});
+```
+
+This is equivalent to:
+
+```js
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  children: [
+    { type: 'line' },
+    { type: 'area' },
+  ],
+});
+```
+
+This feature is beneficial for encapsulating composite marks related to coordinate systems, such as pie charts:
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+function Pie({ encode = {}, ...rest } = {}) {
+  const { value, ...restEncode } = encode;
+  return {
+    ...rest,
+    type: 'interval',
+    coordinate: { type: 'theta' }, // Encapsulate coordinate system
+    transform: [{ type: 'stackY' }],
+    encode: {
+      ...restEncode,
+      y: value,
+    },
+  };
+}
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  type: Pie, // Use this composite Mark
+  data: [
+    { genre: 'Sports', sold: 275 },
+    { genre: 'Strategy', sold: 115 },
+    { genre: 'Action', sold: 120 },
+    { genre: 'Shooter', sold: 350 },
+    { genre: 'Other', sold: 150 },
+  ],
+  encode: { value: 'sold', color: 'genre' },
+  labels: [
+    {
+      text: 'sold',
+    },
+  ],
+});
+
+chart.render();
+`} />
+
+## Common Coordinate Systems
+
+The default coordinate system is Cartesian coordinate system. In addition, there is another class of coordinate systems that transform charts to polar coordinate systems, used for drawing a series of "circular" charts. This class of coordinate systems is called **Radial Coordinate Systems**.
+
+| **Coordinate Name** |                                                    **Description**                                                    |                                                     **Example**                                                      |
+| :-----------------: | :-------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
+|      cartesian      |                                      Cartesian coordinate system, G2's default.                                       | <img width="100" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kvZLSLxjnkIAAAAAAAAAAAAADmJ7AQ/original" /> |
+|        helix        |                                 Helix coordinate system, based on Archimedean spiral.                                 | <img width="100" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oTCKSYpIWBwAAAAAAAAAAAAADmJ7AQ/fmt.webp" /> |
+|      parallel       |                    Parallel coordinate system, mapping multiple data dimensions to parallel axis.                     |   <img width="100" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ" />    |
+|        polar        |                     Polar coordinate system, a 2D coordinate system built with angle and radius.                      | <img width="100" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dHw7RYx7V3cAAAAAAAAAAAAADmJ7AQ/original" /> |
+|        radar        |            Radar coordinate system, combining features of parallel and polar coordinates for radar charts.            | <img width="100" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*M3nGRIBdVXoAAAAAAAAAAAAAemJ7AQ/fmt.webp" /> |
+|       radial        |   A special polar coordinate system obtained by transposing polar coordinates, commonly used for radial bar charts.   | <img width="100" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*TVXmRq627aEAAAAAAAAAAAAADmJ7AQ/original" /> |
+|        theta        | A special polar coordinate system with fixed radius length, mapping data only to angle, commonly used for pie charts. | <img width="100" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xuKWQoLfxjwAAAAAAAAAAAAADmJ7AQ/original" /> |
+
+### Cartesian
+
+Cartesian coordinate system, the default coordinate system in G2.
+
+<Demo src="manual/core/coordinate/demos/overview-en-2" />
+
+### Helix
+
+The helix coordinate system is a polar coordinate variant based on the Archimedean spiral, mapping data to a plane through spiral parameterization. It inherits the angle-radius dimensional characteristics of polar coordinates but adds the dynamic expansion features of spiral lines, making it particularly suitable for displaying data with periodicity, accumulation, or multi-level relationships.
+
+**Coordinate Transformation**:
+
+- Radius expansion: r = r0 + kθ (r0 is the starting radius, k is the spiral spacing coefficient, θ is the rotation angle)
+- Angle mapping: θ is linearly converted from data values, with range defined by startAngle and endAngle
+
+<Demo src="manual/core/coordinate/demos/overview-en-3" height={524} />
+
+### Parallel
+
+Parallel coordinate system is a coordinate system used for visualizing multi-dimensional data. It maps multiple variables to parallel coordinate axis, with each data record represented as a polyline connecting corresponding values on each coordinate axis.
+
+<Demo src="manual/core/coordinate/demos/overview-en-4" />
+
+### Polar
+
+Polar coordinate system is a non-Cartesian coordinate system that converts points (x, y) in Cartesian coordinates to points (r, θ) in polar coordinates, where r is the radius and θ is the angle. Polar coordinate systems are commonly used in visualization for displaying periodic data, relative relationships, or distribution differences.
+
+**Coordinate Transformation**:
+
+- Polar coordinate system converts points (x, y) in Cartesian coordinates to points (r, θ) in polar coordinates.
+- Where r represents the distance to the origin (radius), and θ represents the angle with the x-axis (radians).
+
+<Demo src="manual/core/coordinate/demos/overview-en-5" />
+
+### Radar
+
+Radar coordinate system is a specialized form of polar coordinate system, combining parallel coordinate system features, constructing a star-shaped grid through N equally spaced independent dimensional axis, specifically designed for multi-dimensional data comparative analysis. Each axis represents an independent measurement dimension, and data points are presented through closed polygons showing multi-dimensional characteristics.
+
+<Demo src="manual/core/coordinate/demos/overview-en-6" />
+
+### Radial
+
+Radial coordinate system is an extended implementation of polar coordinate system, enhancing data hierarchical expressiveness through circular spatial layout.
+
+<Demo src="manual/core/coordinate/demos/overview-en-7" />
+
+### Theta
+
+Theta coordinate system is a specialized form of polar coordinate system, designed specifically for circular data visualization by fixing the radius dimension and enhancing angle dimension analysis capabilities. In G2, it's mainly used for angle-dominant charts like pie charts.
+
+<Demo src="manual/core/coordinate/demos/overview-en-8" />
+
+## Coordinate System Transforms
+
+All the above coordinate systems can be combined with coordinate system transforms.
+
+Coordinate system transforms are configured as follows, and multiple transforms can be configured simultaneously:
+
+```js
+({
+  coordinate: {
+    transform: [
+      { type: 'transpose' },
+      {
+        type: 'fisheye',
+        focusX: 0.1,
+        focusY: 0.1,
+        distortionX: 4,
+        distortionY: 4,
+      },
+    ],
+  },
+});
+```
+
+### Transpose
+
+A commonly used transformation is the transpose transformation, mainly used to change the orientation of charts. For example, drawing horizontal bar charts.
+
+<Demo src="manual/core/coordinate/demos/overview-en-9" />
+
+### Fisheye
+
+Fisheye coordinate system is a special coordinate transformation that applies a Cartesian fisheye effect to input dimensions, magnifying the focus area while compressing areas away from the focus. This transformation is similar to the visual effect of a fisheye lens, allowing you to highlight local details while maintaining a global view.
+
+<Demo height={524} code={`import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+});
+
+chart.options({
+  width: 800,
+  height: 500,
+  padding: [40, 60, 60, 80],
+  coordinate: {
+    transform: [
+      {
+        type: 'fisheye',
+        focusX: 0.1,
+        focusY: 0.1,
+        distortionX: 4,
+        distortionY: 4,
+      },
+    ],
+  },
+  type: 'point',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/bubble.json',
+  },
+  encode: {
+    x: 'GDP',
+    y: 'LifeExpectancy',
+    size: 'Population',
+    color: 'continent',
+    shape: 'point',
+  },
+  scale: {
+    size: {
+      type: 'log',
+      range: [4, 20],
+    },
+    x: {
+      nice: true,
+    },
+    y: {
+      nice: true,
+    },
+  },
+  style: {
+    fillOpacity: 0.6,
+    lineWidth: 1,
+    stroke: '#fff',
+  },
+  legend: {
+    color: {
+      position: 'bottom',
+      layout: 'horizontal',
+    },
+    size: false,
+  },
+  axis: {
+    x: {
+      title: 'GDP',
+      titleFill: '#333',
+      labelFontSize: 12,
+    },
+    y: {
+      title: 'Life Expectancy',
+      titleFill: '#333',
+      labelFontSize: 12,
+    },
+  },
+  tooltip: {
+    title: (d) => d.country,
+    items: [
+      (d) => ({ name: 'GDP', value: d.GDP }),
+      (d) => ({ name: 'Life Expectancy', value: d.LifeExpectancy }),
+      (d) => ({ name: 'Population', value: d.Population }),
+    ],
+  },
+});
+
+chart.render();
+`} />
+
+## 3D Coordinate Systems
+
+Currently, we only support the `cartesian3D` coordinate system. cartesian3D is extended from the 2D Cartesian coordinate system by adding a Z-axis.
+
+<Demo src="manual/core/coordinate/demos/overview-en-11" />

@@ -8,13 +8,14 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antfincdn/ryp44nvUYZ/coffee.json',
-  })
-  .animate('enter', { type: 'waveIn' })
-  .coordinate({ type: 'polar', innerRadius: 0 });
+  },
+  animate: { enter: { type: 'waveIn' } },
+  coordinate: { type: 'polar', innerRadius: 0 },
+});
 
 chart.render();

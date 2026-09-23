@@ -1,0 +1,45 @@
+---
+title: quantile
+order: 2
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+## Overview
+
+The `quantile` scale belongs to the **discretizing scale** category, primarily used to group continuous data by quantiles and map them to a specified range. It is a **measurement that automatically segments based on data density**, similar to [threshold](/en/manual/core/scale/threshold/), but quantile automatically segments based on the sorted data indices rather than manually specified thresholds. It automatically determines segment points (ticks) based on data distribution density, where these segment points are determined by data quantiles rather than uniform distribution. During scaling, it performs segmented mapping based on these ticks, with tick calculation using the `tickMethod: quantile` approach. This characteristic makes the quantile scale particularly suitable for displaying datasets with non-uniform distributions, providing more accurate reflection of data density changes and suitable for scenarios requiring discretization based on data characteristics.
+
+### Mapping Effect Example
+
+<Demo src="manual/core/scale/demos/quantile-en-1" />
+
+> The above chart shows that more values around 4-5 are mapped to 0.5, indicating the highest data density is between 4-5.
+
+## Configuration Options
+
+| Property   | Description                                                                                                               | Type                                                    | Default Value        | Required |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------------------- | -------- |
+| domain     | Sets the domain range of the data                                                                                         | `number[]`                                              | `[]`                 |          |
+| range      | Sets the range for data mapping                                                                                           | `any[]`                                                 | `[]`                 | ✔        |
+| unknown    | Return value for `undefined`, `NaN`, `null` empty values                                                                  | `any`                                                   | `undefined`          |          |
+| tickCount  | Sets the recommended number of ticks to generate, tickCount is only a suggestion and not guaranteed to be fully effective | `number`                                                | `5`                  |          |
+| tickMethod | Sets the method for generating ticks, commonly used for custom ticks                                                      | `(min: number, max: number, count: number) => number[]` | `wilkinson-extended` |          |
+| nice       | Extends the domain range to make output ticks display more friendly                                                       | `boolean`                                               | `false`              |          |
+
+### Complex Type Descriptions
+
+- **tickMethod**:
+  - Type: `(min: number, max: number, count: number) => number[]`
+  - Description: Function used to generate tick values, receiving the domain's minimum value, maximum value, and desired tick count as parameters. In quantile scales, while actual data segmentation is obtained through quantile-calculated thresholds, generating tick values for display is accomplished through tickMethod. The default uses the `wilkinson-extended` algorithm, which generates aesthetically pleasing, uniformly distributed ticks. Customizing this method allows control over the tick positions and quantities displayed on the axis.
+  - Example: `tickMethod: (min, max, count) => [min, (min+max)/2, max]` will only generate ticks at minimum value, middle value, and maximum value.
+
+## Examples
+
+### Heatmap
+
+The following example shows how to use quantile scale to divide salary data into three groups and map them to different colors:
+
+<Demo src="manual/core/scale/demos/quantile-en-2" height={664} />
+
+> In the above example, the quantile scale automatically divides salaries into three groups based on data distribution and maps them to three different colors, suitable for displaying the layered effect of data distribution.

@@ -1,0 +1,86 @@
+---
+title: 什么是 G2
+description: "了解 AntV G2 的可视化语法、图形标记、交互和动画能力，以及如何组合这些能力构建数据可视化。"
+order: 1
+---
+
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+**G2** 是一个简洁的渐进式语法，主要用于制作基于网页的可视化。它提供了一套函数风格式、声明形式的 API 和组件化的编程范式，希望能帮助用户能快速完成**报表搭建**、**数据探索**、**可视化叙事**等多样化的需求。
+
+这篇文章将给大家简单介绍一下 G2 的核心概念：
+
+- **标记（Mark）**：绘制数据驱动的图形
+- **转换（Transform）**：派生数据
+- **比例尺（Scale）**：将抽象的数据映射为视觉数据
+- **坐标系（Coordinate**）：对空间通道应用点变换
+- **视图复合（Composition）**：管理和增强视图
+- **动画（Animation）**：数据驱动的动画和连续的形变动画
+- **交互（Interaction）**： 操作视图并且展现详细信息
+
+"Talk is cheap, show me the code"，那么接下来看看基于下面这个简单的数据集，G2 能做出什么可视化效果。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-1" />
+
+:::info&#123;title=提示&#125;
+在 G2 官网的文档中，特定代码块会挂载其返回的 DOM，并在网页中展示。
+
+```js
+(() => {
+  const chart = new G2.Chart();
+  // ...
+  return chart.getContainer(); // 挂载图表的容器
+})();
+```
+
+这是在 G2 官网特定运行环境的语法，在实际项目中使用 G2 请参考[快速上手](/zh/manual/quick-start/)。
+:::
+
+## 标记（Mark）
+
+**标记**是 G2 中最小的视觉单元，G2 中的所有图表都是由不同标记构成的。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-2" />
+
+## 转换（Transform）
+
+**转换**会改变数据和标记的展现形式，多用于数据分析。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-3" />
+
+## 比例尺（Scale）
+
+**比例尺**用于控制标记的视觉样式。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-4" />
+
+## 坐标系（Coordinate）
+
+**坐标系**会改变图表的展示形式。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-5" />
+
+## 视图复合（Composition）
+
+**视图复合**用于制作多视图图表。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-6" />
+
+## 动画（Animation）
+
+**动画**支持分组动画和关键帧动画。可以点击左边的运行按钮看效果。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-7" />
+
+<Demo src="manual/introduction/demos/what-is-g2-en-8" />
+
+## 交互（Interaction）
+
+交互可以按需探索数据。
+
+<Demo src="manual/introduction/demos/what-is-g2-en-9" />
+
+## 更多能力
+
+因为 G2 的标记是可以组合的，同时提供了**复合标记**的机制去扩展 G2，所以你基本上可以快速绘制任意的可视化。在[案例页面](/zh/examples/)你可以获得更多灵感，也可以通过文档全面了解 G2 的能力。
