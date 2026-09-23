@@ -33,6 +33,8 @@ __tests__/integration/snapshots/**/*-diff.*
 # Editor
 .vscode
 .history
+.claude
+.cursor
 
 # Other
 !/src/lib
