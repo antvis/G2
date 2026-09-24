@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/helix/helix-gene</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/helix/helix-gene/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/helix/helix-gene" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/helix/helix-gene</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/helix/helix-gene/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 模拟数据
+const data = [];
+const groups = [&#39;WT&#39;, &#39;KO&#39;];
+const hours = 72;
+const baseValues = {
+  WT: 2.0,
+  KO: 2.3,
+};
+
+for (let i = 0; i &lt; hours; i++) {
+  const time = `${i}h`;
+  groups.forEach((group) =&gt; {
+    const fluctuation = Math.random() * 0.4 - 0.2;
+    data.push({
+      time,
+      group,
+      logFPKM: baseValues[group] + Math.sin(i / 10) * 0.3 + fluctuation, // 模拟趋势变化
+    });
+  });
+}
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  height: 600,
+  padding: [50, 50, 50, 50],
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: data,
+  coordinate: {
+    type: &#39;helix&#39;,
+    startAngle: 0.2 * Math.PI,
+    endAngle: 6.5 * Math.PI,
+    innerRadius: 0.1,
+  },
+  encode: { x: &#39;time&#39;, y: &#39;group&#39;, color: &#39;logFPKM&#39; },
+  scale: {
+    color: {
+      type: &#39;linear&#39;,
+      range: [&#39;#fff&#39;, &#39;#ec4839&#39;],
+    },
+  },
+  tooltip: {
+    title: &#39;time&#39;,
+    items: [
+      { field: &#39;group&#39;, name: &#39;组别&#39; },
+      {
+        field: &#39;logFPKM&#39;,
+        name: &#39;log(FPKM)&#39;,
+        valueFormatter: (value) =&gt; value.toFixed(2),
+      },
+    ],
+  },
+  animate: {
+    enter: {
+      type: &#39;fadeIn&#39;,
+      duration: 1000,
+    },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

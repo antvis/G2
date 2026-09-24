@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`boxplot`,coordinate:{transform:[{type:`transpose`}]},data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/penguins.json`},encode:{x:`species`,y:`flipper_length_mm`,color:`sex`,series:`sex`}}),t.render();

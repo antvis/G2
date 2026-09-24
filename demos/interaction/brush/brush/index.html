@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>interaction/brush/brush</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/interaction/brush/brush/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="interaction/brush/brush" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>interaction/brush/brush</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/interaction/brush/brush/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart, MASK_CLASS_NAME } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const [render, remove] = useTip({
+  container: document.getElementById(&#39;container&#39;),
+  onRemove: () =&gt; chart.emit(&#39;brush:remove&#39;, {}),
+});
+
+chart.options({
+  type: &#39;point&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value: &#39;https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json&#39;,
+  },
+  encode: { x: &#39;weight&#39;, y: &#39;height&#39;, color: &#39;gender&#39;, shape: &#39;point&#39; },
+  style: {
+    fillOpacity: 0.2,
+    lineWidth: 1,
+    transform: &#39;scale(1, 1)&#39;,
+    transformOrigin: &#39;center center&#39;,
+  },
+  state: {
+    inactive: {
+      fill: &#39;black&#39;,
+      fillOpacity: 0.5,
+      transform: &#39;scale(0.5, 0.5)&#39;,
+    },
+  },
+  interaction: { brushHighlight: true },
+});
+
+chart.on(&#39;brush:start&#39;, onStart);
+chart.on(&#39;brush:end&#39;, onUpdate);
+chart.on(&#39;brush:remove&#39;, onRemove);
+
+chart.render();
+
+function onStart() {
+  chart.emit(&#39;tooltip:disable&#39;);
+  remove();
+}
+
+async function onUpdate(e) {
+  const data = await fetch(
+    &#39;https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json&#39;,
+  ).then((res) =&gt; res.json());
+
+  const { canvas } = chart.getContext();
+  const [mask] = canvas.document.getElementsByClassName(MASK_CLASS_NAME);
+  const bounds = mask.getBounds();
+  const x = bounds.max[0];
+  const y = bounds.center[1];
+  const [X, Y] = e.data.selection;
+
+  const filtered = data.filter(({ weight, height }) =&gt; {
+    return weight &gt;= X[0] &amp;&amp; weight &lt;= X[1] &amp;&amp; height &gt;= Y[0] &amp;&amp; height &lt;= Y[1];
+  });
+
+  render(filtered, [x, y]);
+}
+
+function onRemove(e) {
+  const { nativeEvent } = e;
+  if (nativeEvent) remove();
+  chart.emit(&#39;tooltip:enable&#39;);
+}
+
+function useTip({ container, onRemove = () =&gt; {}, offsetX = 20, offsetY = 0 }) {
+  let div;
+
+  const render = (data, [x, y]) =&gt; {
+    if (div) remove();
+    div = document.createElement(&#39;div&#39;);
+    div.innerHTML = `
+    Select a node:
+    &lt;ul&gt;${data.map((d) =&gt; `&lt;li&gt;x:${d.weight},y:${d.height}&lt;/li&gt;`).join(&#39;&#39;)}&lt;/ul&gt;
+    `;
+    div.style.position = &#39;absolute&#39;;
+    div.style.background = &#39;#eee&#39;;
+    div.style.padding = &#39;0.5em&#39;;
+    div.style.left = x + offsetX + &#39;px&#39;;
+    div.style.top = y + offsetY + &#39;px&#39;;
+    div.onclick = () =&gt; {
+      remove();
+      onRemove();
+    };
+    container.append(div);
+  };
+
+  const remove = () =&gt; {
+    if (div) div.remove();
+    div = null;
+  };
+
+  return [render, remove];
+}
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

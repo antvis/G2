@@ -1,0 +1,1 @@
+import{i as e,n as t,u as n}from"./src.D4g-sLQa.js";import{t as r}from"./esm.CLcQeAbJ.js";var i=new(e(t,{...n(),...r()}))({container:`container`,autoFit:!0});i.options({type:`sunburst`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/antfincdn/ryp44nvUYZ/coffee.json`},animate:{enter:{type:`waveIn`}},coordinate:{type:`polar`,innerRadius:0}}),i.render();

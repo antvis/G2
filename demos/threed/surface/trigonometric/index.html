@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>threed/surface/trigonometric</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/threed/surface/trigonometric/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="threed/surface/trigonometric" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>threed/surface/trigonometric</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/threed/surface/trigonometric/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { CameraType } from &#39;@antv/g&#39;;
+import { Renderer as WebGLRenderer } from &#39;@antv/g-webgl&#39;;
+import { Plugin as ThreeDPlugin } from &#39;@antv/g-plugin-3d&#39;;
+import { Plugin as ControlPlugin } from &#39;@antv/g-plugin-control&#39;;
+import { Runtime, corelib, extend } from &#39;@antv/g2&#39;;
+import { threedlib } from &#39;@antv/g2-extension-3d&#39;;
+
+// We set the width/height to 100;
+const size = 100;
+const points: { x: number; y: number; z: number }[] = [];
+for (let i = 0; i &lt;= 2 * size; ++i) {
+  const theta = (Math.PI * (i - size)) / size;
+  for (let j = 0; j &lt;= 2 * size; ++j) {
+    const phi = (Math.PI * (j - size)) / size;
+
+    const x = (10.0 + Math.cos(theta)) * Math.cos(phi);
+    const y = (10.0 + Math.cos(theta)) * Math.sin(phi);
+
+    points.push({
+      x: i,
+      y: j,
+      z: Math.sin(theta) * x * y,
+    });
+  }
+}
+
+// Create a WebGL renderer.
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ThreeDPlugin());
+renderer.registerPlugin(new ControlPlugin());
+
+// Customize our own Chart with threedlib.
+const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
+const chart = new Chart({
+  container: &#39;container&#39;,
+  renderer,
+  width: 600,
+  height: 600,
+  depth: 400, // Define the depth of chart.
+});
+
+chart.options({
+  type: &#39;surface3D&#39;,
+  data: points,
+  encode: { x: &#39;x&#39;, y: &#39;y&#39;, z: &#39;z&#39; },
+  coordinate: { type: &#39;cartesian3D&#39; },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 1 },
+    y: { gridLineWidth: 1, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 1 },
+  },
+});
+
+chart.render().then(() =&gt; {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  // Use perspective projection mode.
+  camera.setPerspective(0.1, 2000, 45, 600 / 600);
+  camera.rotate(30, 30, 0);
+  camera.dolly(60);
+  camera.setType(CameraType.ORBITING);
+});
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

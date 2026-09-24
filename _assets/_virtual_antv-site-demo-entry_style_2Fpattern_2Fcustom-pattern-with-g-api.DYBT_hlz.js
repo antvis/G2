@@ -1,0 +1,7 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,width:550,height:500,paddingBottom:80}),n=(e,t,n,r=!1,i=!1)=>{let a=i?3:5,o=Math.abs(a/Math.sin(Math.PI/4)),s=a/Math.sin(Math.PI/4),c=e.createElement(`rect`,{style:{width:o,height:s,fill:t}}),l=e.createElement(`path`,{style:{d:`
+         M 0 ${-s} L ${o*2} ${s}
+         M ${-o} ${-s} L ${o} ${s}
+         M ${-o} 0 L ${o} ${s*2}`,stroke:n,lineWidth:1,strokeOpacity:.9}});if(c.appendChild(l),r){let t=e.createElement(`path`,{style:{d:`
+           M ${-o} ${s} L ${o} ${-s}
+           M ${-o} ${s*2} L ${o*2} ${-s}
+           M 0 ${s*2} L ${o*2} 0`,stroke:n,lineWidth:1,strokeOpacity:.9}});c.appendChild(t)}return c},r,i,a;t.on(`beforerender`,()=>{let{document:e}=t.getContext().canvas;r=n(e,`#edaa53`,`#44120c`,!0,!0),i=n(e,`#edaa53`,`#44120c`,!0),a=n(e,`#edaa53`,`#fff`)}),t.options({type:`cell`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/bmw-prod/68d3f380-089e-4683-ab9e-4493200198f9.json`},encode:{x:`name`,y:`country`,color:`#edaa53`},style:{radius:1/0,inset:1,shadowBlur:10,shadowColor:`rgba(0,0,0,0.3)`,fill:({value:e})=>({image:60<=e&&e<90?r:e>=50?i:a,repetition:`repeat`})},animate:{enter:{type:`fadeIn`}}}),t.render();

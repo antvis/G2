@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>annotation/connector/revenue-flow-waterfall</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/annotation/connector/revenue-flow-waterfall/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="annotation/connector/revenue-flow-waterfall" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>annotation/connector/revenue-flow-waterfall</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/annotation/connector/revenue-flow-waterfall/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://www.anychart.com/zh/products/anychart/gallery/Waterfall_Charts/ACME_corp._Revenue_Flow_2017.php
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+
+const linkData = (data) =&gt;
+  data.reduce((r, d, idx) =&gt; {
+    if (idx &gt; 0) {
+      return r.concat({
+        x1: data[idx - 1].x,
+        x2: d.x,
+        value: d.isTotal ? d.end : d.start,
+      });
+    }
+    return r;
+  }, []);
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: [
+    { x: &#39;Start&#39;, value: 23000000, start: 0, end: 23000000 },
+    { x: &#39;Jan&#39;, value: 2200000, start: 23000000, end: 25200000 },
+    { x: &#39;Feb&#39;, value: -4600000, start: 25200000, end: 20600000 },
+    { x: &#39;Mar&#39;, value: -9100000, start: 20600000, end: 11500000 },
+    { x: &#39;Apr&#39;, value: 3700000, start: 11500000, end: 15200000 },
+    { x: &#39;May&#39;, value: -2100000, start: 15200000, end: 13100000 },
+    { x: &#39;Jun&#39;, value: 5300000, start: 13100000, end: 18400000 },
+    { x: &#39;Jul&#39;, value: 3100000, start: 18400000, end: 21500000 },
+    { x: &#39;Aug&#39;, value: -1500000, start: 21500000, end: 20000000 },
+    { x: &#39;Sep&#39;, value: 4200000, start: 20000000, end: 24200000 },
+    { x: &#39;Oct&#39;, value: 5300000, start: 24200000, end: 29500000 },
+    { x: &#39;Nov&#39;, value: -1500000, start: 29500000, end: 28000000 },
+    { x: &#39;Dec&#39;, value: 5100000, start: 28000000, end: 33100000 },
+    { x: &#39;End&#39;, isTotal: true, value: 33100000, start: 0, end: 33100000 },
+  ],
+  axis: { x: { title: false }, y: { labelFormatter: &#39;~s&#39; } },
+  legend: null,
+  children: [
+    {
+      type: &#39;link&#39;,
+      data: { transform: [{ type: &#39;custom&#39;, callback: linkData }] },
+      encode: { x: [&#39;x1&#39;, &#39;x2&#39;], y: &#39;value&#39; },
+      style: { stroke: &#39;#697474&#39; },
+      tooltip: false,
+    },
+    {
+      type: &#39;interval&#39;,
+      encode: {
+        x: &#39;x&#39;,
+        y: [&#39;start&#39;, &#39;end&#39;],
+        color: (d, idx) =&gt;
+          idx === 0 || d.isTotal ? &#39;D&#39; : d.value &gt; 0 ? &#39;P&#39; : &#39;N&#39;,
+        size: 24,
+      },
+      scale: {
+        color: {
+          domain: [&#39;P&#39;, &#39;N&#39;, &#39;D&#39;],
+          range: [&#39;#64b5f6&#39;, &#39;#ef6c00&#39;, &#39;#96a6a6&#39;],
+        },
+      },
+      style: { stroke: &#39;#697474&#39; },
+      labels: [
+        {
+          text: &#39;value&#39;,
+          formatter: &#39;~s&#39;,
+          position: (d) =&gt; (d.value &gt; 0 ? &#39;top&#39; : &#39;bottom&#39;),
+          textBaseline: (d) =&gt; (d.value &gt; 0 ? &#39;bottom&#39; : &#39;top&#39;),
+          fontSize: 10,
+          dy: (d) =&gt; (d.value &gt; 0 ? -4 : 4),
+        },
+      ],
+      tooltip: {
+        items: [
+          { channel: &#39;y&#39;, valueFormatter: &#39;~s&#39; },
+          { channel: &#39;y1&#39;, valueFormatter: &#39;~s&#39; },
+        ],
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

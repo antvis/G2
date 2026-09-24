@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/point/point-style</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/point/point-style/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/point/point-style" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/point/point-style</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/point/point-style/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({ container: &#39;container&#39; });
+
+chart.options({
+  type: &#39;point&#39;,
+  style: {
+    fill: &#39;skyblue&#39;, // 图形填充颜色，支持颜色字符串，优先级高于color通道
+    fillOpacity: 0.9, // 填充颜色透明度，范围 0-1
+    stroke: &#39;#FADC7C&#39;, // 图形描边颜色
+    lineWidth: 3, // 描边宽度（像素）
+    lineDash: [1, 2], // 虚线配置[实线长度, 间隔长度]，[0,0]表示无描边
+    strokeOpacity: 0.95, // 描边透明度，范围 0-1
+    opacity: 0.9, // 整体透明度，影响填充和描边
+    shadowColor: &#39;black&#39;, // 阴影颜色
+    shadowBlur: 10, // 阴影模糊程度（像素）
+    shadowOffsetX: 5, // 阴影水平偏移量（像素）
+    shadowOffsetY: 5, // 阴影垂直偏移量（像素）
+    cursor: &#39;pointer&#39;, // 鼠标悬停样式（同CSS cursor属性）
+  },
+  height: 350,
+  data: [{ x: 0.5, y: 0.5 }],
+  encode: {
+    x: &#39;x&#39;,
+    y: &#39;y&#39;,
+    size: 10,
+    shape: &#39;point&#39;,
+  },
+  scale: {
+    x: { domain: [0, 1], nice: true },
+    y: { domain: [0, 1], nice: true },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

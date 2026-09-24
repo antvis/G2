@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>component/tooltip/tooltip-click</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-click/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="component/tooltip/tooltip-click" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>component/tooltip/tooltip-click</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/component/tooltip/tooltip-click/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+function css(...styles) {
+  return styles
+    .map((obj) =&gt;
+      Object.entries(obj)
+        .map(([k, v]) =&gt; k + &#39;:&#39; + v)
+        .join(&#39;;&#39;),
+    )
+    .join(&#39;;&#39;);
+}
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value:
+      &#39;https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv&#39;,
+  },
+  encode: { x: &#39;letter&#39;, y: &#39;frequency&#39; },
+  axis: { y: { labelFormatter: &#39;.0%&#39; } },
+  interaction: {
+    tooltip: {
+      disableNative: true, // Disable pointerover and pointerout events.
+      bounding: {
+        x: -Infinity,
+        y: -Infinity,
+        width: Infinity,
+        height: Infinity,
+      },
+      css: {
+        &#39;.g2-tooltip&#39;: {
+          background: &#39;transparent&#39;,
+          &#39;box-shadow&#39;: &#39;none&#39;,
+          transform: &#39;translate(-50%, -100%)&#39;,
+        },
+      },
+      offset: [0, -10],
+      mount: &#39;body&#39;,
+      render: (event, { title, items }) =&gt; {
+        const plot = chart
+          .getContext()
+          .canvas.document.getElementsByClassName(&#39;plot&#39;)[0];
+        const plotBounds = plot.getRenderBounds();
+        const target = event.target;
+        const bounds = target.getRenderBounds();
+        const height = bounds.min[1] - plotBounds.min[1];
+        return `&lt;div&gt;
+        &lt;div style=&quot;${css({
+          position: &#39;relative&#39;,
+          background: &#39;#fff&#39;,
+          &#39;box-shadow&#39;: &#39;0 6px 12px 0 rgba(0, 0, 0, 0.12)&#39;,
+          &#39;z-index&#39;: 999,
+          padding: &#39;12px&#39;,
+          &#39;min-width&#39;: &#39;120px&#39;,
+        })}&quot;&gt;
+          &lt;h2
+            style=&quot;${css({
+              &#39;margin-bottom&#39;: &#39;9px&#39;,
+              &#39;font-size&#39;: &#39;18px&#39;,
+              &#39;line-height&#39;: &#39;30px&#39;,
+              &#39;font-weight&#39;: &#39;500px&#39;,
+            })}&quot;
+          &gt;
+            Letter: ${title}
+          &lt;/h2&gt;
+          ${items
+            .map(
+              (item) =&gt;
+                `&lt;div style=&quot;font-size: 16px; color: #666&quot;&gt;
+                  &lt;span style=&quot;${css({
+                    height: &#39;10px&#39;,
+                    width: &#39;10px&#39;,
+                    background: item.color,
+                    display: &#39;inline-block&#39;,
+                    &#39;border-radius&#39;: &#39;50%&#39;,
+                  })}&quot;&gt;&lt;/span&gt;
+                  &lt;span&gt;${item.name}&lt;/span&gt;
+                  &lt;span&gt;${item.value}&lt;/span&gt;
+                &lt;/div&gt;`,
+            )
+            .join(&#39;&#39;)}
+        &lt;/div&gt;
+        &lt;div style=&quot;${css({
+          width: &#39;1px&#39;,
+          height: height + &#39;px&#39;,
+          background: &#39;#aaa&#39;,
+          position: &#39;absolute&#39;,
+          left: &#39;50%&#39;,
+          top: &#39;90%&#39;,
+          &#39;z-index&#39;: 500,
+        })}&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;`;
+      },
+    },
+  },
+});
+
+chart.on(&#39;element:click&#39;, ({ data }) =&gt;
+  chart.emit(&#39;tooltip:show&#39;, {
+    data,
+    offsetY: 0,
+  }),
+);
+
+chart.on(&#39;plot:click&#39;, () =&gt; chart.emit(&#39;tooltip:hide&#39;));
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

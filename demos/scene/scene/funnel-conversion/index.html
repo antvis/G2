@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>scene/scene/funnel-conversion</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/scene/scene/funnel-conversion/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="scene/scene/funnel-conversion" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>scene/scene/funnel-conversion</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/scene/scene/funnel-conversion/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 流量漏斗分析 - 用户转化流程动态变化
+// 从初始状态逐步演变，展示转化率的实时波动
+
+const STAGES = [&#39;访问首页&#39;, &#39;浏览商品&#39;, &#39;加入购物车&#39;, &#39;下单&#39;, &#39;支付&#39;];
+const FRAMES = 150; // 动画帧数
+const FPS = 30; // 每秒帧数
+
+// 生成单帧漏斗数据
+function generateFunnelData(frame) {
+  const baseUsers = 10000;
+  const data = [];
+
+  // 随着时间变化的转化率模式
+  const t = (frame / FRAMES) * Math.PI * 4; // 完整周期
+
+  let remainingUsers = baseUsers;
+
+  STAGES.forEach((stage, index) =&gt; {
+    let users;
+
+    if (index === 0) {
+      // 第一阶段：访问量
+      users = baseUsers;
+    } else {
+      // 每个阶段的转化率随时间波动
+      let dropRate;
+
+      if (index === 1) {
+        // 浏览商品：30-50% 流失
+        dropRate = 0.35 + Math.sin(t + index) * 0.15;
+      } else if (index === 2) {
+        // 加入购物车：50-70% 流失
+        dropRate = 0.6 + Math.sin(t * 1.5 + index) * 0.15;
+      } else if (index === 3) {
+        // 下单：20-40% 流失
+        dropRate = 0.3 + Math.sin(t * 1.2 + index) * 0.12;
+      } else {
+        // 支付：10-20% 流失
+        dropRate = 0.15 + Math.sin(t * 1.8 + index) * 0.08;
+      }
+
+      users = Math.round(remainingUsers * (1 - dropRate));
+    }
+
+    // 计算转化率和流失率
+    const conversionRate = ((users / baseUsers) * 100).toFixed(1);
+    const lossRate =
+      index === 0
+        ? &#39;0.0&#39;
+        : (((remainingUsers - users) / remainingUsers) * 100).toFixed(1);
+    const lossRateNum = index === 0 ? 0 : parseFloat(lossRate);
+
+    // 根据流失率判断状态
+    let status = &#39;normal&#39;;
+    if (index === STAGES.length - 1) {
+      status = &#39;success&#39;;
+    } else if (lossRateNum &gt; 55) {
+      status = &#39;danger&#39;;
+    } else if (lossRateNum &gt; 35) {
+      status = &#39;warning&#39;;
+    }
+
+    data.push({
+      stage,
+      users,
+      conversionRate,
+      lossRate,
+      status,
+      index,
+    });
+
+    remainingUsers = users;
+  });
+
+  return data;
+}
+
+// 预生成所有帧的 options
+const allOptions = [];
+
+for (let frame = 0; frame &lt; FRAMES; frame++) {
+  const data = generateFunnelData(frame);
+
+  const option = {
+    type: &#39;interval&#39;,
+    data: data,
+    coordinate: { transform: [{ type: &#39;transpose&#39; }] },
+    encode: {
+      x: &#39;stage&#39;,
+      y: &#39;users&#39;,
+      color: &#39;status&#39;,
+      key: &#39;index&#39;,
+    },
+    scale: {
+      x: {
+        domain: STAGES,
+      },
+      y: {
+        domain: [0, 10000],
+        nice: false,
+      },
+      color: {
+        domain: [&#39;normal&#39;, &#39;warning&#39;, &#39;danger&#39;, &#39;success&#39;],
+        range: [&#39;#1890ff&#39;, &#39;#faad14&#39;, &#39;#ff4d4f&#39;, &#39;#52c41a&#39;],
+      },
+    },
+    transform: [{ type: &#39;symmetryY&#39; }],
+    style: {
+      fillOpacity: 0.85,
+      radius: 6,
+    },
+    axis: {
+      x: {
+        title: &#39;转化阶段&#39;,
+        labelFontSize: 12,
+      },
+      y: {
+        title: &#39;用户数&#39;,
+        labelFormatter: (d) =&gt; `${(d / 1000).toFixed(0)}k`,
+      },
+    },
+    legend: {
+      color: {
+        layout: { justifyContent: &#39;flex-start&#39; },
+        itemLabelText: (d) =&gt; {
+          const map = {
+            normal: &#39;正常&#39;,
+            warning: &#39;需关注&#39;,
+            danger: &#39;高流失&#39;,
+            success: &#39;最终转化&#39;,
+          };
+          return map[d.label] || d.label;
+        },
+      },
+    },
+    labels: [
+      {
+        text: (d) =&gt; `${d.users.toLocaleString()}人`,
+        position: &#39;inside&#39;,
+        fontSize: 13,
+        fontWeight: &#39;bold&#39;,
+        fill: &#39;#fff&#39;,
+      },
+      {
+        text: (d) =&gt; `转化率 ${d.conversionRate}%`,
+        position: &#39;inside&#39;,
+        dy: 16,
+        fontSize: 10,
+        fill: &#39;#fff&#39;,
+        fillOpacity: 0.9,
+      },
+    ],
+    tooltip: {
+      title: (d) =&gt; `📍 ${d.stage}`,
+      items: [
+        {
+          field: &#39;users&#39;,
+          name: &#39;当前用户数&#39;,
+          valueFormatter: (v) =&gt; `${v.toLocaleString()} 人`,
+        },
+        {
+          field: &#39;conversionRate&#39;,
+          name: &#39;总体转化率&#39;,
+          valueFormatter: (v) =&gt; `${v}%`,
+        },
+        {
+          field: &#39;lossRate&#39;,
+          name: &#39;本阶段流失率&#39;,
+          valueFormatter: (v) =&gt; `${v}%`,
+        },
+      ],
+    },
+  };
+
+  allOptions.push(option);
+}
+
+// 创建图表
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options(allOptions[0]);
+chart.render();
+
+// 播放动画
+let currentFrame = 0;
+const timer = setInterval(() =&gt; {
+  currentFrame = (currentFrame + 1) % FRAMES;
+  chart.options(allOptions[currentFrame]);
+  chart.render();
+}, 1000 / FPS);
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

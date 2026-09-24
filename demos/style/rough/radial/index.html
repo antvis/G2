@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>style/rough/radial</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/style/rough/radial/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="style/rough/radial" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>style/rough/radial</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/style/rough/radial/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+import { Plugin } from &#39;@antv/g-plugin-rough-canvas-renderer&#39;;
+import WebFont from &#39;webfontloader&#39;;
+
+WebFont.load({
+  google: {
+    families: [&#39;Gaegu&#39;, &#39;Kalam&#39;, &#39;Caveat&#39;],
+  },
+  active: () =&gt; {
+    const chart = new Chart({
+      container: &#39;container&#39;,
+      height: 480,
+      plugins: [new Plugin()],
+    });
+
+    chart.options({
+      type: &#39;interval&#39;,
+      coordinate: { type: &#39;theta&#39; },
+      transform: [{ type: &#39;stackY&#39; }],
+      data: {
+        type: &#39;fetch&#39;,
+        value:
+          &#39;https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv&#39;,
+      },
+      encode: { y: &#39;value&#39;, color: &#39;name&#39; },
+      scale: {
+        color: {
+          range: [
+            &#39;hachure&#39;,
+            &#39;solid&#39;,
+            &#39;zigzag&#39;,
+            &#39;cross-hatch&#39;,
+            &#39;dots&#39;,
+            &#39;dashed&#39;,
+            &#39;zigzag-line&#39;,
+          ],
+        },
+      },
+      style: {
+        fill: &#39;black&#39;,
+        stroke: &#39;black&#39;,
+        lineWidth: &#39;4&#39;,
+        colorAttribute: &#39;fillStyle&#39;,
+      },
+      legend: false,
+      labels: [
+        {
+          text: &#39;name&#39;,
+          radius: 0.8,
+          fontSize: 10,
+          fontWeight: &#39;bold&#39;,
+          fontFamily: &#39;Gaegu&#39;,
+          fill: &#39;black&#39;,
+          stroke: &#39;white&#39;,
+        },
+        {
+          text: (d, i, data) =&gt; (i &lt; data.length - 3 ? d.value : &#39;&#39;),
+          radius: 0.8,
+          fontSize: 12,
+          fontFamily: &#39;Gaegu&#39;,
+          fill: &#39;black&#39;,
+          stroke: &#39;white&#39;,
+          dy: 8,
+        },
+      ],
+    });
+
+    chart.render();
+  },
+});
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

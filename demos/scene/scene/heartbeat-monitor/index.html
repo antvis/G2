@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>scene/scene/heartbeat-monitor</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/scene/scene/heartbeat-monitor/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="scene/scene/heartbeat-monitor" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>scene/scene/heartbeat-monitor</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/scene/scene/heartbeat-monitor/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 心率监测仪 - 心电图波形动态可视化
+// 模拟心电图（ECG）波形的实时监测效果
+
+const POINTS = 150; // 波形点数
+const FRAMES = 120; // 动画帧数
+const FPS = 30; // 每秒帧数
+
+// 生成标准心电图波形（PQRST波）
+function generateECGWave(offset, heartRate = 75) {
+  const data = [];
+  const beatInterval = 60 / heartRate; // 心跳间隔（秒）
+  const pointsPerBeat = beatInterval * 50; // 每次心跳的点数
+
+  for (let i = 0; i &lt; POINTS; i++) {
+    const time = (i + offset) / 50; // 时间（秒）
+    const beatPhase = ((i + offset) % pointsPerBeat) / pointsPerBeat;
+
+    let y = 0;
+
+    // 模拟 PQRST 波形
+    if (beatPhase &lt; 0.1) {
+      // P波（心房收缩）
+      y = 0.15 * Math.sin(beatPhase * Math.PI * 10);
+    } else if (beatPhase &lt; 0.2) {
+      // PR段
+      y = 0;
+    } else if (beatPhase &lt; 0.25) {
+      // Q波
+      y = -0.1 * Math.sin((beatPhase - 0.2) * Math.PI * 20);
+    } else if (beatPhase &lt; 0.3) {
+      // R波（主波，心室收缩）
+      y = 1.0 * Math.sin((beatPhase - 0.25) * Math.PI * 20);
+    } else if (beatPhase &lt; 0.35) {
+      // S波
+      y = -0.2 * Math.sin((beatPhase - 0.3) * Math.PI * 20);
+    } else if (beatPhase &lt; 0.45) {
+      // ST段
+      y = 0;
+    } else if (beatPhase &lt; 0.6) {
+      // T波（心室复极）
+      y = 0.25 * Math.sin((beatPhase - 0.45) * Math.PI * 6.67);
+    } else {
+      // 基线
+      y = 0;
+    }
+
+    // 添加轻微噪声模拟真实心电图
+    y += (Math.random() - 0.5) * 0.02;
+
+    // 根据振幅判断状态
+    let status = &#39;normal&#39;;
+    if (Math.abs(y) &gt; 0.8) status = &#39;peak&#39;; // R波峰值
+    else if (Math.abs(y) &gt; 0.15) status = &#39;active&#39;; // P波、T波
+
+    data.push({
+      time,
+      value: y,
+      status,
+      // 用于 key 编码确保平滑过渡
+      key: i,
+    });
+  }
+
+  return data;
+}
+
+// 预生成所有帧的 options
+const allOptions = [];
+let heartRate = 75; // 初始心率
+
+for (let frame = 0; frame &lt; FRAMES; frame++) {
+  // 模拟心率变化（运动时加速）
+  if (frame &gt; 30 &amp;&amp; frame &lt; 70) {
+    heartRate = 75 + (frame - 30) * 0.5; // 加速到 95
+  } else if (frame &gt;= 70) {
+    heartRate = 95 - (frame - 70) * 0.4; // 减速回 75
+  }
+
+  const data = generateECGWave(frame * 3, Math.min(heartRate, 95));
+
+  const option = {
+    type: &#39;view&#39;,
+    paddingLeft: 60,
+    children: [
+      // 心电图波形
+      {
+        type: &#39;line&#39;,
+        data: data,
+        encode: {
+          x: &#39;time&#39;,
+          y: &#39;value&#39;,
+          color: &#39;status&#39;,
+          key: &#39;key&#39;,
+        },
+        scale: {
+          y: { domain: [-0.5, 1.2] },
+          color: {
+            domain: [&#39;normal&#39;, &#39;active&#39;, &#39;peak&#39;],
+            range: [&#39;#52c41a&#39;, &#39;#1890ff&#39;, &#39;#ff4d4f&#39;],
+          },
+        },
+        style: {
+          lineWidth: 2,
+          lineCap: &#39;round&#39;,
+        },
+        axis: {
+          x: { title: &#39;时间 (s)&#39;, labelFormatter: (d) =&gt; d.toFixed(1) },
+          y: { title: &#39;电压 (mV)&#39; },
+        },
+        legend: false,
+      },
+      // 心率文本标注
+      {
+        type: &#39;text&#39;,
+        style: {
+          text: `心率: ${Math.round(heartRate)} BPM`,
+          x: &#39;90%&#39;,
+          y: &#39;10%&#39;,
+          fontSize: 24,
+          fontWeight: &#39;bold&#39;,
+          fill: heartRate &gt; 85 ? &#39;#ff4d4f&#39; : &#39;#52c41a&#39;,
+          textAlign: &#39;end&#39;,
+        },
+      },
+    ],
+  };
+
+  allOptions.push(option);
+}
+
+// 创建图表
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options(allOptions[0]);
+chart.render();
+
+// 播放动画
+let currentFrame = 0;
+const timer = setInterval(() =&gt; {
+  currentFrame = (currentFrame + 1) % FRAMES;
+  chart.options(allOptions[currentFrame]);
+  chart.render();
+}, 1000 / FPS);
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

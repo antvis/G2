@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>storytelling/storytelling/stocks-keyframe</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/storytelling/storytelling/stocks-keyframe/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="storytelling/storytelling/stocks-keyframe" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>storytelling/storytelling/stocks-keyframe</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/storytelling/storytelling/stocks-keyframe/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+fetch(&#39;https://assets.antv.antgroup.com/g2/stocks2.json&#39;)
+  .then((res) =&gt; res.json())
+  .then((data) =&gt; {
+    const keyframes = [
+      facetLine,
+      facetArea,
+      stackArea,
+      layerArea,
+      streamgraph,
+      normalizeArea,
+      normalizeBar,
+      groupBar,
+      stackBar,
+      bar,
+      pie,
+      rose,
+    ];
+
+    const chart = new Chart({ container: &#39;container&#39; });
+
+    chart.options({
+      type: &#39;timingKeyframe&#39;,
+      width: 800,
+      children: keyframes.map((plot) =&gt; {
+        const { children, ...options } = plot(data);
+        return {
+          theme: &#39;dark&#39;,
+          paddingLeft: 40,
+          paddingBottom: 50,
+          paddingRight: 50,
+          ...options,
+          ...(children &amp;&amp; {
+            children: children.map((d) =&gt; ({ ...d, theme: &#39;dark&#39; })),
+          }),
+        };
+      }),
+    });
+
+    chart.render();
+  });
+
+const timeSeriesEncode = {
+  x: (d) =&gt; new Date(d.date),
+  y: &#39;price&#39;,
+  color: &#39;symbol&#39;,
+  key: &#39;symbol&#39;,
+};
+
+function facetLine(data) {
+  return {
+    type: &#39;facetRect&#39;,
+    data,
+    encode: { y: &#39;symbol&#39; },
+    axis: { y: { title: false } },
+    children: [
+      {
+        type: &#39;line&#39;,
+        key: &#39;line&#39;,
+        encode: timeSeriesEncode,
+        frame: false,
+        scale: { y: { zero: true, tickCount: 3 } },
+        axis: { x: { title: false }, y: { title: false } },
+        animate: { enter: { type: &#39;pathIn&#39; } },
+        style: { shape: &#39;smooth&#39; },
+      },
+    ],
+  };
+}
+
+function facetArea(data) {
+  return {
+    type: &#39;facetRect&#39;,
+    data,
+    encode: { y: &#39;symbol&#39; },
+    axis: { y: { title: false } },
+    children: [
+      {
+        type: &#39;line&#39;,
+        key: &#39;line&#39;,
+        frame: false,
+        encode: timeSeriesEncode,
+        style: { shape: &#39;smooth&#39; },
+        axis: { x: { title: false }, y: { title: false } },
+        scale: { y: { zero: true, facet: false, tickCount: 3 } },
+      },
+      {
+        type: &#39;area&#39;,
+        key: &#39;area&#39;,
+        class: &#39;area&#39;,
+        frame: false,
+        encode: timeSeriesEncode,
+        style: { shape: &#39;smooth&#39; },
+        scale: { y: { facet: false, zero: true, tickCount: 3 } },
+        axis: { x: { title: false }, y: { title: false } },
+        animate: { exit: { type: &#39;fadeOut&#39; } },
+      },
+    ],
+  };
+}
+
+function stackArea(data) {
+  return {
+    type: &#39;area&#39;,
+    data,
+    key: &#39;area&#39;,
+    class: &#39;area&#39;,
+    transform: [{ type: &#39;stackY&#39;, reverse: true }],
+    axis: { y: { title: false } },
+    encode: timeSeriesEncode,
+    style: { shape: &#39;smooth&#39; },
+  };
+}
+
+function layerArea(data) {
+  return {
+    type: &#39;area&#39;,
+    key: &#39;area&#39;,
+    class: &#39;area&#39;,
+    data,
+    axis: { y: { title: false } },
+    encode: timeSeriesEncode,
+    style: { fillOpacity: 0.5, shape: &#39;smooth&#39; },
+  };
+}
+
+function streamgraph(data) {
+  return {
+    type: &#39;area&#39;,
+    key: &#39;area&#39;,
+    class: &#39;area&#39;,
+    data,
+    axis: { y: { title: false } },
+    transform: [{ type: &#39;stackY&#39;, reverse: true }, { type: &#39;symmetryY&#39; }],
+    encode: timeSeriesEncode,
+    style: { fillOpacity: 1, shape: &#39;smooth&#39; },
+  };
+}
+
+function normalizeArea(data) {
+  return {
+    type: &#39;area&#39;,
+    key: &#39;area&#39;,
+    class: &#39;area&#39;,
+    data,
+    axis: { y: { title: false } },
+    transform: [{ type: &#39;stackY&#39;, reverse: true }, { type: &#39;normalizeY&#39; }],
+    encode: timeSeriesEncode,
+    style: { fillOpacity: 1, shape: &#39;smooth&#39; },
+  };
+}
+
+function normalizeBar(data) {
+  return {
+    type: &#39;interval&#39;,
+    data,
+    encode: {
+      y: &#39;price&#39;,
+      color: &#39;symbol&#39;,
+      key: &#39;symbol&#39;,
+    },
+    transform: [
+      { type: &#39;groupColor&#39;, y: &#39;sum&#39; },
+      { type: &#39;stackY&#39;, reverse: true },
+      { type: &#39;normalizeY&#39; },
+    ],
+    scale: { x: { padding: 0 } },
+    axis: { y: { title: false }, x: { title: false } },
+  };
+}
+
+const groupedStockEncode = {
+  x: &#39;date&#39;,
+  y: &#39;price&#39;,
+  color: &#39;symbol&#39;,
+  groupKey: &#39;symbol&#39;,
+  key: (_, i) =&gt; i,
+};
+
+function groupBar(data) {
+  return {
+    type: &#39;interval&#39;,
+    data,
+    transform: [{ type: &#39;dodgeX&#39; }],
+    encode: groupedStockEncode,
+    scale: { y: { nice: true } },
+    axis: { x: false, y: { title: false } },
+  };
+}
+
+function stackBar(data) {
+  return {
+    type: &#39;interval&#39;,
+    data,
+    transform: [{ type: &#39;stackY&#39; }],
+    encode: groupedStockEncode,
+    axis: { x: false, y: { title: false } },
+  };
+}
+
+const stockEncode = {
+  x: &#39;symbol&#39;,
+  y: &#39;price&#39;,
+  color: &#39;symbol&#39;,
+  key: &#39;symbol&#39;,
+};
+
+function bar(data) {
+  return {
+    type: &#39;interval&#39;,
+    data,
+    transform: [{ type: &#39;groupX&#39;, y: &#39;sum&#39; }],
+    encode: stockEncode,
+    axis: {
+      y: { labelFormatter: &#39;~s&#39;, title: false },
+      x: { title: false },
+    },
+  };
+}
+
+function pie(data) {
+  return {
+    type: &#39;interval&#39;,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    data,
+    transform: [{ type: &#39;groupX&#39;, y: &#39;sum&#39; }, { type: &#39;stackY&#39; }],
+    coordinate: { type: &#39;theta&#39; },
+    encode: {
+      y: &#39;price&#39;,
+      color: &#39;symbol&#39;,
+      key: &#39;symbol&#39;,
+    },
+    legend: { color: { layout: { justifyContent: &#39;center&#39; } } },
+    style: { radius: 10 },
+  };
+}
+
+function rose(data) {
+  return {
+    type: &#39;interval&#39;,
+    data,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    transform: [{ type: &#39;groupX&#39;, y: &#39;sum&#39; }],
+    coordinate: { type: &#39;polar&#39; },
+    encode: stockEncode,
+    scale: { x: { padding: 0 } },
+    style: { radius: 10 },
+    legend: { color: { layout: { justifyContent: &#39;center&#39; } } },
+    axis: { y: false },
+  };
+}
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

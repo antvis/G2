@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/area/rank-trend-area</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/area/rank-trend-area/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/area/rank-trend-area" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/area/rank-trend-area</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/area/rank-trend-area/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({ container: &#39;container&#39; });
+
+const encode = { x: (d) =&gt; d.month, y: (d) =&gt; 200 - d.rank, shape: &#39;smooth&#39; };
+
+chart.options({
+  type: &#39;view&#39;,
+  autoFit: true,
+  paddingRight: 10,
+  data: [
+    { month: &#39;一月&#39;, rank: 200 },
+    { month: &#39;二月&#39;, rank: 160 },
+    { month: &#39;三月&#39;, rank: 100 },
+    { month: &#39;四月&#39;, rank: 80 },
+    { month: &#39;五月&#39;, rank: 99 },
+    { month: &#39;六月&#39;, rank: 36 },
+    { month: &#39;七月&#39;, rank: 40 },
+    { month: &#39;八月&#39;, rank: 20 },
+    { month: &#39;九月&#39;, rank: 12 },
+    { month: &#39;十月&#39;, rank: 15 },
+    { month: &#39;十一月&#39;, rank: 6 },
+    { month: &#39;十二月&#39;, rank: 1 },
+  ],
+  scale: {
+    y: {
+      nice: true,
+      tickMethod: () =&gt; [0, 50, 100, 170, 199],
+    },
+  },
+  axis: {
+    y: {
+      labelFormatter: (d) =&gt; `第${200 - d}名`,
+    },
+  },
+  children: [
+    {
+      type: &#39;area&#39;,
+      encode,
+      style: { opacity: 0.2 },
+      axis: { y: { labelFormatter: &#39;~s&#39;, title: false } },
+      style: {
+        fill: &#39;l(270) 0:#ffffff 0.9:#7ec2f3 1:#1890ff&#39;,
+        fillOpacity: 0.2,
+      },
+      tooltip: false,
+    },
+    {
+      type: &#39;line&#39;,
+      encode,
+      interaction: {
+        tooltip: {
+          render: (event, { title, items }) =&gt; `
+&lt;div style=&quot;display: flex; align-items: center;&quot;&gt;
+  &lt;span&gt;${title}：第&lt;/span&gt;
+  &lt;h2
+    style=&quot;
+        margin-left: 8px;
+        margin-right: 8px;
+        margin-top:4px;
+        font-size: 18px;
+        line-height: 36px;
+        font-weight: 500px&quot;
+  &gt;
+    ${200 - items[0].value}
+  &lt;/h2&gt;
+  &lt;span&gt;名&lt;/span&gt;
+&lt;/div&gt;
+          `,
+        },
+      },
+      style: {
+        lineWidth: 2,
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

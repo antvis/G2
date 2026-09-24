@@ -1,0 +1,30 @@
+---
+title: "custom"
+description: "custom"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/manual/core/data/custom/"
+version: "5.4.8"
+---
+
+使用自定义函数的方式来进行数据的加工和处理，这是最为灵活的一种方式。
+
+## 开始使用
+
+```ts
+chart.options({
+  type: 'view',
+  data: {
+    type: 'custom',
+    callback: (data) => {
+      /* your code */
+      return [];
+    },
+  },
+});
+```
+
+## 选项
+
+| 属性     | 描述                                 | 类型                 | 默认值     |
+| -------- | ------------------------------------ | -------------------- | ---------- |
+| callback | 函数，传入当前数据，输出处理后的数据 | `(data: any) => any` | `(d) => d` |

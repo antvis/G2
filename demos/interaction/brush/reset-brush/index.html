@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>interaction/brush/reset-brush</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/interaction/brush/reset-brush/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="interaction/brush/reset-brush" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>interaction/brush/reset-brush</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/interaction/brush/reset-brush/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart, ChartEvent } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  clip: true,
+});
+
+chart.options({
+  type: &#39;point&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value: &#39;https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json&#39;,
+  },
+  encode: { x: &#39;weight&#39;, y: &#39;height&#39;, color: &#39;gender&#39;, shape: &#39;point&#39; },
+  style: {
+    fillOpacity: 0.2,
+    lineWidth: 1,
+  },
+  interaction: { brushFilter: true },
+});
+
+const brushHistory = [];
+
+// 监听刷选事件
+chart.on(&#39;brush:filter&#39;, (e) =&gt; {
+  if (e.target) brushHistory.push(e.data.selection);
+});
+
+const reset = () =&gt; {
+  if (brushHistory.length &lt; 2) return;
+  brushHistory.pop();
+  // 主动触发刷选事件
+  chart.emit(&#39;brush:filter&#39;, {
+    data: {
+      selection: brushHistory[brushHistory.length - 1],
+    },
+  });
+};
+
+const createResetButton = () =&gt; {
+  const button = document.createElement(&#39;button&#39;);
+  button.innerText = &#39;reset&#39;;
+  button.onclick = reset;
+  const container = document.getElementById(&#39;container&#39;);
+  container.children[0].before(button);
+};
+
+chart.on(ChartEvent.AFTER_RENDER, () =&gt; {
+  const scale = chart.getScale();
+  const { x1, y1 } = scale;
+  const domainX = x1.options.domain;
+  const domainY = y1.options.domain;
+  brushHistory.push([domainX, domainY]);
+});
+
+chart.render();
+
+createResetButton();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

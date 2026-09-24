@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/link/link-annotation</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/link/link-annotation/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/link/link-annotation" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/link/link-annotation</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/link/link-annotation/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://observablehq.com/@observablehq/plot-link?collection=@observablehq/plot
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+
+const income = [
+  {
+    type: &#39;All workers&#39;,
+    m: 57791,
+    f: 41518,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 26789,
+    f: 20499,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 31434,
+    f: 23351,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 42466,
+    f: 29410,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 48431,
+    f: 35916,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 51485,
+    f: 40463,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 88843,
+    f: 59052,
+    age: &#39;total&#39;,
+  },
+  {
+    type: &#39;All workers&#39;,
+    m: 26170,
+    f: 23462,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 19361,
+    f: null,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 20918,
+    f: 17514,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 24974,
+    f: 20427,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 26957,
+    f: 21822,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 29698,
+    f: 26638,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 38275,
+    f: 32865,
+    age: &#39;18 to 24 years old&#39;,
+  },
+  {
+    type: &#39;All workers&#39;,
+    m: 46181,
+    f: 38581,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 23453,
+    f: 18180,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 29347,
+    f: 21955,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 37181,
+    f: 26299,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 41073,
+    f: 32853,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 42357,
+    f: 38857,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 67195,
+    f: 50341,
+    age: &#39;25 to 34 years old&#39;,
+  },
+  {
+    type: &#39;All workers&#39;,
+    m: 63247,
+    f: 44183,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 29302,
+    f: 21152,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 31018,
+    f: 24637,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 45316,
+    f: 30769,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 53080,
+    f: 37323,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 58759,
+    f: 41892,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 95002,
+    f: 63427,
+    age: &#39;35 to 44 years old&#39;,
+  },
+  {
+    type: &#39;All workers&#39;,
+    m: 67635,
+    f: 45332,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 28988,
+    f: 21633,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 35615,
+    f: 24304,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 49199,
+    f: 31984,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 56320,
+    f: 39785,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 57363,
+    f: 44191,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 101763,
+    f: 65001,
+    age: &#39;45 to 54 years old&#39;,
+  },
+  {
+    type: &#39;All workers&#39;,
+    m: 65956,
+    f: 43870,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 29913,
+    f: 19681,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 41136,
+    f: 25078,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 47741,
+    f: 31015,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 56120,
+    f: 40749,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 51978,
+    f: 39477,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 92223,
+    f: 64054,
+    age: &#39;55 to 64 years old&#39;,
+  },
+  {
+    type: &#39;All workers&#39;,
+    m: 58565,
+    f: 38629,
+    age: &#39;65 years old and over&#39;,
+  },
+  {
+    type: &#39;Less than 9th grade&#39;,
+    m: 26062,
+    f: null,
+    age: &#39;65 years old and over&#39;,
+  },
+  {
+    type: &#39;9th to 12th grade (no diploma)&#39;,
+    m: 32810,
+    f: 27948,
+    age: &#39;65 years old and over&#39;,
+  },
+  {
+    type: &#39;High school graduate&#39;,
+    m: 42766,
+    f: 29170,
+    age: &#39;65 years old and over&#39;,
+  },
+  {
+    type: &#39;Some college, no degree&#39;,
+    m: 51091,
+    f: 43082,
+    age: &#39;65 years old and over&#39;,
+  },
+  {
+    type: &#39;Associate’s degree&#39;,
+    m: 48347,
+    f: 37079,
+    age: &#39;65 years old and over&#39;,
+  },
+  {
+    type: &#39;Bachelor’s degree or more&#39;,
+    m: 85106,
+    f: 58288,
+    age: &#39;65 years old and over&#39;,
+  },
+];
+
+const incdomain = (() =&gt; {
+  const elements = []
+    .concat(
+      income.map((v) =&gt; v.m),
+      income.map((v) =&gt; v.f),
+    )
+    .filter((v) =&gt; typeof v === &#39;number&#39;);
+
+  return [Math.min(...elements), Math.max(...elements)];
+})();
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  paddingRight: 20,
+});
+
+const labels = [
+  {
+    position: &#39;top-right&#39;,
+    text: (v) =&gt; `${v * 100}%`,
+    dx: 4,
+    textAlign: &#39;start&#39;,
+    textBaseline: &#39;middle&#39;,
+  },
+];
+
+chart.options({
+  type: &#39;view&#39;,
+  children: [
+    {
+      type: &#39;link&#39;,
+      data: [1],
+      encode: {
+        x: [() =&gt; incdomain[0], () =&gt; incdomain[1]],
+        y: [() =&gt; incdomain[0], () =&gt; incdomain[1]],
+      },
+      tooltip: false,
+      labels,
+      style: { stroke: &#39;#000&#39; },
+    },
+    {
+      type: &#39;link&#39;,
+      data: [0.6, 0.7, 0.8, 0.9],
+      encode: {
+        x: [() =&gt; incdomain[0], () =&gt; incdomain[1]],
+        y: [(v) =&gt; v * incdomain[0], (v) =&gt; v * incdomain[1]],
+      },
+      tooltip: false,
+      labels,
+      style: { stroke: &#39;#000&#39;, opacity: 0.2 },
+    },
+    {
+      type: &#39;point&#39;,
+      data: income,
+      encode: { x: &#39;m&#39;, y: &#39;f&#39;, size: 4, shape: &#39;hollow&#39; },
+      style: { stroke: &#39;#000&#39; },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

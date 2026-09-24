@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/vector/poisson</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/vector/poisson/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/vector/poisson" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/vector/poisson</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/vector/poisson/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+fetch(&#39;https://gw.alipayobjects.com/os/antfincdn/OJOgPypkeE/poisson-disk.json&#39;)
+  .then((res) =&gt; res.json())
+  .then((poisson) =&gt; {
+    const chart = new Chart({
+      container: &#39;container&#39;,
+      autoFit: true,
+    });
+
+    const data = poisson.map(([x, y]) =&gt; ({
+      x,
+      y,
+      size: (noise(x + 2, y) + 0.5) * 24,
+      rotate: noise(x, y) * 360,
+    }));
+
+    chart.options({
+      type: &#39;vector&#39;,
+      data: data,
+      encode: {
+        x: &#39;x&#39;,
+        y: &#39;y&#39;,
+        rotate: &#39;rotate&#39;,
+        size: &#39;size&#39;,
+        color: &#39;black&#39;,
+      },
+      scale: { size: { range: [6, 20] } },
+      axis: { x: { grid: false }, y: { grid: false } },
+      legend: false,
+      tooltip: {
+        items: [
+          { channel: &#39;x&#39;, valueFormatter: &#39;.2f&#39; },
+          { channel: &#39;y&#39;, valueFormatter: &#39;.2f&#39; },
+        ],
+      },
+    });
+
+    chart.render();
+  });
+
+// ------------ library ---------------
+const p = [
+  151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140,
+  36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234,
+  75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33, 88, 237,
+  149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134, 139, 48,
+  27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105,
+  92, 41, 55, 46, 245, 40, 244, 102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73,
+  209, 76, 132, 187, 208, 89, 18, 169, 200, 196, 135, 130, 116, 188, 159, 86,
+  164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123, 5, 202, 38,
+  147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182, 189,
+  28, 42, 223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101,
+  155, 167, 43, 172, 9, 129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232,
+  178, 185, 112, 104, 218, 246, 97, 228, 251, 34, 242, 193, 238, 210, 144, 12,
+  191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239, 107, 49, 192, 214, 31,
+  181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
+  138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215,
+  61, 156, 180, 151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233,
+  7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148,
+  247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57,
+  177, 33, 88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165,
+  71, 134, 139, 48, 27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133,
+  230, 220, 105, 92, 41, 55, 46, 245, 40, 244, 102, 143, 54, 65, 25, 63, 161, 1,
+  216, 80, 73, 209, 76, 132, 187, 208, 89, 18, 169, 200, 196, 135, 130, 116,
+  188, 159, 86, 164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124,
+  123, 5, 202, 38, 147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16,
+  58, 17, 182, 189, 28, 42, 223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163,
+  70, 221, 153, 101, 155, 167, 43, 172, 9, 129, 22, 39, 253, 19, 98, 108, 110,
+  79, 113, 224, 232, 178, 185, 112, 104, 218, 246, 97, 228, 251, 34, 242, 193,
+  238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239, 107,
+  49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45,
+  127, 4, 150, 254, 138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128,
+  195, 78, 66, 215, 61, 156, 180,
+];
+
+const noise = octave(perlin2, 2);
+
+function octave(noise, octaves) {
+  return function (x, y, z) {
+    let total = 0;
+    let frequency = 1;
+    let amplitude = 1;
+    let value = 0;
+    for (let i = 0; i &lt; octaves; ++i) {
+      value += noise(x * frequency, y * frequency, z * frequency) * amplitude;
+      total += amplitude;
+      amplitude *= 0.5;
+      frequency *= 2;
+    }
+    return value / total;
+  };
+}
+
+function perlin2(x, y) {
+  const xi = Math.floor(x),
+    yi = Math.floor(y);
+  const X = xi &amp; 255,
+    Y = yi &amp; 255;
+  const u = fade((x -= xi)),
+    v = fade((y -= yi));
+  const A = p[X] + Y,
+    B = p[X + 1] + Y;
+  return lerp(
+    v,
+    lerp(u, grad2(p[A], x, y), grad2(p[B], x - 1, y)),
+    lerp(u, grad2(p[A + 1], x, y - 1), grad2(p[B + 1], x - 1, y - 1)),
+  );
+}
+
+function fade(t) {
+  return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
+function grad2(i, x, y) {
+  const v = i &amp; 1 ? y : x;
+  return i &amp; 2 ? -v : v;
+}
+
+function lerp(t, a, b) {
+  return a + t * (b - a);
+}
+// ------------ library ---------------
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

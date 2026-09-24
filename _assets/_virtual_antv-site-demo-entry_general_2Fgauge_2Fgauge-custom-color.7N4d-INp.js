@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`gauge`,data:{value:{target:159,total:400,name:`score`,thresholds:[100,200,400]}},scale:{color:{range:[`#F4664A`,`#FAAD14`,`green`]}},style:{textContent:(e,t)=>`得分：${e}\n占比：${e/t*100}%`},legend:!1}),t.render();

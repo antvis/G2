@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`area`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/temperatures3.json`},scale:{color:{palette:`reds`}},encode:{x:e=>new Date(e.date),y:[`low`,`high`],color:e=>e.high-e.low,series:()=>void 0},style:{gradient:`x`},axis:{x:{title:`date`}}}),t.render();

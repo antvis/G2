@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>intelligent/insight/time-series-outlier</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/intelligent/insight/time-series-outlier/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="intelligent/insight/time-series-outlier" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>intelligent/insight/time-series-outlier</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/intelligent/insight/time-series-outlier/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * AVA: https://github.com/antvis/AVA
+ * g2-extension-ava: https://github.com/antvis/g2-extensions/tree/master/ava
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+import { TimeSeriesOutlier } from &#39;@antv/g2-extension-ava&#39;;
+
+const data = [
+  {
+    date: &#39;2001&#39;,
+    discount_price: 727.12,
+  },
+  {
+    date: &#39;2002&#39;,
+    discount_price: 729.59,
+  },
+  {
+    date: &#39;2003&#39;,
+    discount_price: 730.21,
+  },
+  {
+    date: &#39;2004&#39;,
+    discount_price: 732.11,
+  },
+  {
+    date: &#39;2005&#39;,
+    discount_price: 733.22,
+  },
+  {
+    date: &#39;2006&#39;,
+    discount_price: 741.19,
+  },
+  {
+    date: &#39;2007&#39;,
+    discount_price: 742.37,
+  },
+  {
+    date: &#39;2008&#39;,
+    discount_price: 752.34,
+  },
+  {
+    date: &#39;2009&#39;,
+    discount_price: 761.12,
+  },
+  {
+    date: &#39;2010&#39;,
+    discount_price: 783.99,
+  },
+  {
+    date: &#39;2011&#39;,
+    discount_price: 791.23,
+  },
+  {
+    date: &#39;2012&#39;,
+    discount_price: 781.99,
+  },
+  {
+    date: &#39;2013&#39;,
+    discount_price: 835.71,
+  },
+  {
+    date: &#39;2014&#39;,
+    discount_price: 839.24,
+  },
+  {
+    date: &#39;2015&#39;,
+    discount_price: 883.51,
+  },
+  {
+    date: &#39;2016&#39;,
+    discount_price: 873.98,
+  },
+  {
+    date: &#39;2017&#39;,
+    discount_price: 802.78,
+  },
+  {
+    date: &#39;2018&#39;,
+    discount_price: 807.05,
+  },
+  {
+    date: &#39;2019&#39;,
+    discount_price: 885.12,
+  },
+  {
+    date: &#39;2020&#39;,
+    discount_price: 1018.85,
+  },
+  {
+    date: &#39;2021&#39;,
+    discount_price: 934.49,
+  },
+  {
+    date: &#39;2022&#39;,
+    discount_price: 908.74,
+  },
+  {
+    date: &#39;2023&#39;,
+    discount_price: 930.55,
+  },
+  {
+    date: &#39;2024&#39;,
+    discount_price: 978.53,
+  },
+  {
+    date: &#39;2025&#39;,
+    discount_price: 931.47,
+  },
+  {
+    date: &#39;2026&#39;,
+    discount_price: 891,
+  },
+  {
+    date: &#39;2027&#39;,
+    discount_price: 836.41,
+  },
+  {
+    date: &#39;2028&#39;,
+    discount_price: 826.11,
+  },
+  {
+    date: &#39;2029&#39;,
+    discount_price: 820.11,
+  },
+  {
+    date: &#39;2030&#39;,
+    discount_price: 811.11,
+  },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  encode: { x: &#39;date&#39;, y: &#39;discount_price&#39; },
+  children: [{ type: &#39;line&#39; }, { type: TimeSeriesOutlier }],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

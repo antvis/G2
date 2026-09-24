@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>component/legend/continuous</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/component/legend/continuous/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="component/legend/continuous" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>component/legend/continuous</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/component/legend/continuous/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  height: 360,
+});
+
+chart.options({
+  type: &#39;cell&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value: &#39;https://assets.antv.antgroup.com/g2/seattle-weather.json&#39;,
+  },
+  transform: [{ type: &#39;group&#39;, color: &#39;max&#39; }],
+  encode: {
+    x: (d) =&gt; new Date(d.date).getUTCDate(),
+    y: (d) =&gt; new Date(d.date).getUTCMonth(),
+    color: &#39;temp_max&#39;,
+  },
+  style: { inset: 0.5 },
+  scale: { color: { palette: &#39;rainbow&#39; } },
+  legend: {
+    color: {
+      position: &#39;bottom&#39;,
+      ribbonType: &#39;size&#39;,
+      indicator: true,
+      title: false,
+      tick: false,
+      layout: {
+        justifyContent: &#39;center&#39;,
+      },
+    },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radial/apple-activity</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radial/apple-activity/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radial/apple-activity" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radial/apple-activity</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radial/apple-activity/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  width: 244,
+  height: 244,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: [
+    {
+      name: &#39;activity1&#39;,
+      percent: 0.6,
+      color: &#39;#1ad5de&#39;,
+      icon: &#39;https://gw.alipayobjects.com/zos/antfincdn/ck11Y6aRrz/shangjiantou.png&#39;,
+    },
+    {
+      name: &#39;activity2&#39;,
+      percent: 0.2,
+      color: &#39;#a0ff03&#39;,
+      icon: &#39;https://gw.alipayobjects.com/zos/antfincdn/zY2JB7hhrO/shuangjiantou.png&#39;,
+    },
+    {
+      name: &#39;activity3&#39;,
+      percent: 0.3,
+      color: &#39;#e90b3a&#39;,
+      icon: &#39;https://gw.alipayobjects.com/zos/antfincdn/%24qBxSxdK05/jiantou.png&#39;,
+    },
+  ],
+  coordinate: { type: &#39;radial&#39;, innerRadius: 0.2 },
+  children: [
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;name&#39;, y: 1, size: 52, color: &#39;color&#39; },
+      scale: { color: { type: &#39;identity&#39; } },
+      style: { fillOpacity: 0.25 },
+      animate: false,
+    },
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;name&#39;, y: &#39;percent&#39;, color: &#39;color&#39;, size: 52 },
+      style: {
+        radius: 26,
+        shadowColor: &#39;rgba(0,0,0,0.45)&#39;,
+        shadowBlur: 20,
+        shadowOffsetX: -2,
+        shadowOffsetY: -5,
+      },
+      axis: false,
+      animate: {
+        enter: {
+          type: &#39;waveIn&#39;,
+          easing: &#39;easing-out-bounce&#39;,
+          duration: 1000,
+        },
+      },
+    },
+    {
+      type: &#39;image&#39;,
+      encode: { x: &#39;name&#39;, y: 0, src: (d) =&gt; d.icon, size: 12 },
+      style: { transform: &#39;translateX(10)&#39; },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

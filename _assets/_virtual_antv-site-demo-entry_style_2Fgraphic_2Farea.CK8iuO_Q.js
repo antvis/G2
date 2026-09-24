@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,height:350});t.options({type:`area`,autoFit:!0,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/stocks.json`,transform:[{type:`filter`,callback:e=>e.symbol===`GOOG`}]},encode:{x:e=>new Date(e.date),y:`price`},style:{fill:`l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff`}}),t.render();

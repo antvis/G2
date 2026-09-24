@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>scene/scene/player</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/scene/scene/player/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="scene/scene/player" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>scene/scene/player</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/scene/scene/player/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 音乐播放器音频可视化
+// 1. 预生成所有帧的 options 配置
+// 2. 使用 setInterval 切换 options 实现动画
+// 3. encode(&#39;key&#39;) 确保元素平滑过渡
+
+const BANDS = 32; // 频段数量
+const FRAMES = 60; // 动画帧数
+const FPS = 30; // 每秒帧数
+
+// 生成单帧音频频谱数据
+function generateFrameData(time) {
+  const data = [];
+
+  for (let i = 0; i &lt; BANDS; i++) {
+    // 模拟不同频段的能量变化
+    const frequency = (i / BANDS) * 10;
+    const bassWave = Math.sin(time * 2 + i * 0.2) * 0.3; // 低频节奏
+    const midWave = Math.sin(time * 4 + i * 0.4) * 0.4; // 中频旋律
+    const highWave = Math.sin(time * 8 + i * 0.6) * 0.3; // 高频细节
+
+    // 随机脉冲模拟鼓点
+    const pulse = Math.random() &gt; 0.85 ? Math.random() * 0.5 : 0;
+
+    // 综合计算振幅（0-100）
+    const amplitude = Math.max(
+      0,
+      (bassWave + midWave + highWave + pulse) * 50 + 30 + Math.random() * 10,
+    );
+
+    // 根据振幅分配能量等级
+    let energy = &#39;low&#39;;
+    if (amplitude &gt; 70) energy = &#39;high&#39;;
+    else if (amplitude &gt; 45) energy = &#39;medium&#39;;
+
+    data.push({
+      band: i,
+      frequency: `${(frequency * 1000).toFixed(0)}Hz`,
+      amplitude: amplitude,
+      energy: energy,
+    });
+  }
+
+  return data;
+}
+
+// 预生成所有帧的 options
+const allOptions = [];
+for (let frame = 0; frame &lt; FRAMES; frame++) {
+  const time = frame * 0.1;
+  const data = generateFrameData(time);
+
+  // 每一帧都是一个完整的图表配置
+  const option = {
+    type: &#39;interval&#39;,
+    data: data,
+    encode: {
+      x: &#39;band&#39;,
+      y: &#39;amplitude&#39;,
+      color: &#39;energy&#39;,
+      key: &#39;band&#39;, // 关键：追踪每个频段实现平滑过渡
+    },
+    scale: {
+      color: {
+        domain: [&#39;low&#39;, &#39;medium&#39;, &#39;high&#39;],
+        range: [&#39;#1890ff&#39;, &#39;#52c41a&#39;, &#39;#ff4d4f&#39;], // 蓝→绿→红 能量渐变
+      },
+      y: { domain: [0, 100] },
+    },
+    axis: {
+      x: {
+        title: &#39;频段&#39;,
+        labelFormatter: (d) =&gt; (d % 4 === 0 ? d : &#39;&#39;),
+      },
+      y: { title: &#39;振幅 (dB)&#39; },
+    },
+    legend: {
+      color: {
+        itemLabelText: (d) =&gt; {
+          if (d.label === &#39;high&#39;) return &#39;高&#39;;
+          else if (d.label === &#39;medium&#39;) return &#39;中&#39;;
+          else return &#39;低&#39;;
+        },
+      },
+    },
+    style: {
+      radius: 4,
+    },
+    tooltip: {
+      title: (d) =&gt; `频段 ${d.band}`,
+      items: [
+        { field: &#39;frequency&#39;, name: &#39;频率&#39; },
+        {
+          field: &#39;amplitude&#39;,
+          name: &#39;振幅&#39;,
+          valueFormatter: (v) =&gt; `${v.toFixed(1)} dB`,
+        },
+        {
+          field: &#39;energy&#39;,
+          name: &#39;能量&#39;,
+          valueFormatter: (v) =&gt; {
+            const map = { low: &#39;低&#39;, medium: &#39;中&#39;, high: &#39;高&#39; };
+            return map[v];
+          },
+        },
+      ],
+    },
+  };
+
+  allOptions.push(option);
+}
+
+// 创建图表并渲染初始帧
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options(allOptions[0]);
+chart.render();
+
+// 使用 setInterval 切换 options
+let currentFrame = 0;
+
+const timer = setInterval(() =&gt; {
+  currentFrame = (currentFrame + 1) % FRAMES;
+  chart.options(allOptions[currentFrame]);
+  chart.render();
+}, 1000 / FPS);
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

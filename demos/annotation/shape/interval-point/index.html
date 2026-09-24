@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>annotation/shape/interval-point</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/annotation/shape/interval-point/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="annotation/shape/interval-point" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>annotation/shape/interval-point</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/annotation/shape/interval-point/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  paddingRight: 30,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  coordinate: { transform: [{ type: &#39;transpose&#39; }] },
+  data: [
+    { x: &#39;Jan&#39;, tick: 9.3, value: 11.5 },
+    { x: &#39;Feb&#39;, tick: 10.5, value: 12 },
+    { x: &#39;Mar&#39;, tick: 11.2, value: 11.7 },
+    { x: &#39;Apr&#39;, tick: 11.2, value: 12.4 },
+    { x: &#39;May&#39;, tick: 12.7, value: 13.5 },
+    { x: &#39;Jun&#39;, tick: 13.1, value: 11.9 },
+    { x: &#39;Jul&#39;, tick: 12.2, value: 14.6 },
+    { x: &#39;Aug&#39;, tick: 12.2, value: 17.2 },
+    { x: &#39;Sep&#39;, tick: 10.1, value: 16.9 },
+    { x: &#39;Oct&#39;, tick: 14.5, value: 15.4 },
+    { x: &#39;Nov&#39;, tick: 14.5, value: 16.9 },
+    { x: &#39;Dec&#39;, tick: 15.5, value: 17.2 },
+  ],
+  children: [
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;value&#39;, size: 20 },
+      axis: { x: { title: false } },
+      style: { fillOpacity: 0.65, lineWidth: 1 },
+      labels: [
+        {
+          text: &#39;value&#39;,
+          position: &#39;right&#39;,
+          formatter: (v) =&gt; `${v}min`,
+          dx: 4,
+          textAlign: &#39;start&#39;,
+        },
+      ],
+    },
+    {
+      type: &#39;point&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;tick&#39;, shape: &#39;line&#39;, size: 15 },
+      style: { stroke: &#39;red&#39; },
+      tooltip: false,
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

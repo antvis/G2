@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radar/multi-radar</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radar/multi-radar/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radar/multi-radar" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radar/multi-radar</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radar/multi-radar/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const position = [&#39;Points&#39;, &#39;Rebounds&#39;, &#39;Assists&#39;, &#39;Steals&#39;, &#39;Blocks&#39;];
+
+const data = [
+  {
+    name: &#39;Jordan&#39;,
+    Points: 30.1,
+    Rebounds: 6.2,
+    Assists: 5.3,
+    Steals: 2.3,
+    Blocks: 0.8,
+  },
+  {
+    name: &#39;LeBron James&#39;,
+    Points: 27.0,
+    Rebounds: 7.4,
+    Assists: 7.4,
+    Steals: 1.6,
+    Blocks: 0.8,
+  },
+];
+
+chart.options({
+  type: &#39;line&#39;,
+  title: &#39;Jordan vs LeBron James NBA Stats Comparison&#39;,
+  data,
+  coordinate: { type: &#39;radar&#39; },
+  encode: {
+    position: [&#39;Points&#39;, &#39;Rebounds&#39;, &#39;Assists&#39;, &#39;Steals&#39;, &#39;Blocks&#39;],
+    color: &#39;name&#39;,
+  },
+  style: {
+    lineWidth: 1.5,
+    strokeOpacity: 0.4,
+  },
+  scale: Object.fromEntries(
+    Array.from({ length: position.length }, (_, i) =&gt; [
+      `position${i === 0 ? &#39;&#39; : i}`,
+      {
+        domainMin: 0,
+        nice: true,
+      },
+    ]),
+  ),
+  interaction: { tooltip: { series: false } },
+  axis: Object.fromEntries(
+    Array.from({ length: position.length }, (_, i) =&gt; [
+      `position${i === 0 ? &#39;&#39; : i}`,
+      {
+        zIndex: 1,
+        titleFontSize: 10,
+        titleSpacing: 8,
+        label: true,
+        labelFill: &#39;#000&#39;,
+        labelOpacity: 0.45,
+        labelFontSize: 10,
+        line: true,
+        lineFill: &#39;#000&#39;,
+        lineOpacity: 0.25,
+      },
+    ]),
+  ),
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

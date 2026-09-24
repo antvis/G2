@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>annotation/shape/watermark</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/annotation/shape/watermark/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="annotation/shape/watermark" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>annotation/shape/watermark</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/annotation/shape/watermark/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  children: [
+    {
+      type: &#39;interval&#39;,
+      data: [
+        { month: &#39;Jan.&#39;, profit: 387264, start: 0, end: 387264 },
+        { month: &#39;Feb.&#39;, profit: 772096, start: 387264, end: 1159360 },
+        { month: &#39;Mar.&#39;, profit: 638075, start: 1159360, end: 1797435 },
+        { month: &#39;Apr.&#39;, profit: -211386, start: 1797435, end: 1586049 },
+        { month: &#39;May&#39;, profit: -138135, start: 1586049, end: 1447914 },
+        { month: &#39;Jun&#39;, profit: -267238, start: 1447914, end: 1180676 },
+        { month: &#39;Jul.&#39;, profit: 431406, start: 1180676, end: 1612082 },
+        { month: &#39;Aug.&#39;, profit: 363018, start: 1612082, end: 1975100 },
+        { month: &#39;Sep.&#39;, profit: -224638, start: 1975100, end: 1750462 },
+        { month: &#39;Oct.&#39;, profit: -299867, start: 1750462, end: 1450595 },
+        { month: &#39;Nov.&#39;, profit: 607365, start: 1450595, end: 2057960 },
+        { month: &#39;Dec.&#39;, profit: 1106986, start: 2057960, end: 3164946 },
+        { month: &#39;Total&#39;, start: 0, end: 3164946 },
+      ],
+      encode: {
+        x: &#39;month&#39;,
+        y: [&#39;end&#39;, &#39;start&#39;],
+        color: (d) =&gt;
+          d.month === &#39;Total&#39;
+            ? &#39;Total&#39;
+            : d.profit &gt; 0
+            ? &#39;Increase&#39;
+            : &#39;Decrease&#39;,
+      },
+      axis: { y: { labelFormatter: &#39;~s&#39; } },
+      tooltip: {
+        items: [
+          { channel: &#39;y&#39;, valueFormatter: &#39;~s&#39; },
+          { channel: &#39;y1&#39;, valueFormatter: &#39;~s&#39; },
+        ],
+      },
+    },
+    { type: &#39;shape&#39;, style: { x: &#39;80%&#39;, y: &#39;70%&#39;, render: watermark } },
+  ],
+});
+
+chart.render();
+
+function watermark({ x, y }, context) {
+  const { document } = context;
+
+  const g = document.createElement(&#39;g&#39;, {});
+  const c1 = document.createElement(&#39;circle&#39;, {
+    style: {
+      cx: x,
+      cy: y,
+      lineWidth: 4,
+      r: 65,
+      stroke: &#39;red&#39;,
+      opacity: 0.3,
+    },
+  });
+  const c2 = document.createElement(&#39;circle&#39;, {
+    style: {
+      cx: x,
+      cy: y,
+      lineWidth: 2,
+      r: 50,
+      stroke: &#39;red&#39;,
+      opacity: 0.3,
+    },
+  });
+
+  const text = document.createElement(&#39;text&#39;, {
+    style: {
+      x,
+      y,
+      text: &#39;数据保密&#39;,
+      transformOrigin: &#39;center&#39;,
+      transform: &#39;rotate(30)&#39;,
+      fontSize: 20,
+      fill: &#39;red&#39;,
+      textAlign: &#39;center&#39;,
+      textBaseline: &#39;middle&#39;,
+      fillOpacity: 0.3,
+    },
+  });
+
+  g.appendChild(c1);
+  g.appendChild(c2);
+  g.appendChild(text);
+  return g;
+}
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

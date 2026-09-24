@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radar/radar</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radar/radar/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radar/radar" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radar/radar</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radar/radar/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { item: &#39;Design&#39;, type: &#39;a&#39;, score: 70 },
+  { item: &#39;Design&#39;, type: &#39;b&#39;, score: 30 },
+  { item: &#39;Development&#39;, type: &#39;a&#39;, score: 60 },
+  { item: &#39;Development&#39;, type: &#39;b&#39;, score: 70 },
+  { item: &#39;Marketing&#39;, type: &#39;a&#39;, score: 50 },
+  { item: &#39;Marketing&#39;, type: &#39;b&#39;, score: 60 },
+  { item: &#39;Users&#39;, type: &#39;a&#39;, score: 40 },
+  { item: &#39;Users&#39;, type: &#39;b&#39;, score: 50 },
+  { item: &#39;Test&#39;, type: &#39;a&#39;, score: 60 },
+  { item: &#39;Test&#39;, type: &#39;b&#39;, score: 70 },
+  { item: &#39;Language&#39;, type: &#39;a&#39;, score: 70 },
+  { item: &#39;Language&#39;, type: &#39;b&#39;, score: 50 },
+  { item: &#39;Technology&#39;, type: &#39;a&#39;, score: 50 },
+  { item: &#39;Technology&#39;, type: &#39;b&#39;, score: 40 },
+  { item: &#39;Support&#39;, type: &#39;a&#39;, score: 30 },
+  { item: &#39;Support&#39;, type: &#39;b&#39;, score: 40 },
+  { item: &#39;Sales&#39;, type: &#39;a&#39;, score: 60 },
+  { item: &#39;Sales&#39;, type: &#39;b&#39;, score: 40 },
+  { item: &#39;UX&#39;, type: &#39;a&#39;, score: 50 },
+  { item: &#39;UX&#39;, type: &#39;b&#39;, score: 60 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const encode = { x: &#39;item&#39;, y: &#39;score&#39;, color: &#39;type&#39;, shape: &#39;smooth&#39; };
+
+chart.options({
+  type: &#39;view&#39;,
+  coordinate: { type: &#39;polar&#39; },
+  data,
+  scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } },
+  axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
+  interaction: { tooltip: { crosshairsLineDash: [4, 4] } },
+  children: [
+    {
+      type: &#39;area&#39;,
+      encode,
+      style: { fillOpacity: 0.5 },
+      scale: { y: { domainMax: 80 } },
+    },
+    {
+      type: &#39;line&#39;,
+      encode,
+      style: { lineWidth: 2 },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

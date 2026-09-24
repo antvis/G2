@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/area/area-stacked-basic</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/area/area-stacked-basic/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/area/area-stacked-basic" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/area/area-stacked-basic</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/area/area-stacked-basic/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { country: &#39;Asia&#39;, year: &#39;1750&#39;, value: 502 },
+  { country: &#39;Asia&#39;, year: &#39;1800&#39;, value: 635 },
+  { country: &#39;Asia&#39;, year: &#39;1850&#39;, value: 809 },
+  { country: &#39;Asia&#39;, year: &#39;1900&#39;, value: 5268 },
+  { country: &#39;Asia&#39;, year: &#39;1950&#39;, value: 4400 },
+  { country: &#39;Asia&#39;, year: &#39;1999&#39;, value: 3634 },
+  { country: &#39;Asia&#39;, year: &#39;2050&#39;, value: 947 },
+  { country: &#39;Africa&#39;, year: &#39;1750&#39;, value: 106 },
+  { country: &#39;Africa&#39;, year: &#39;1800&#39;, value: 107 },
+  { country: &#39;Africa&#39;, year: &#39;1850&#39;, value: 111 },
+  { country: &#39;Africa&#39;, year: &#39;1900&#39;, value: 1766 },
+  { country: &#39;Africa&#39;, year: &#39;1950&#39;, value: 221 },
+  { country: &#39;Africa&#39;, year: &#39;1999&#39;, value: 767 },
+  { country: &#39;Africa&#39;, year: &#39;2050&#39;, value: 133 },
+  { country: &#39;Europe&#39;, year: &#39;1750&#39;, value: 163 },
+  { country: &#39;Europe&#39;, year: &#39;1800&#39;, value: 203 },
+  { country: &#39;Europe&#39;, year: &#39;1850&#39;, value: 276 },
+  { country: &#39;Europe&#39;, year: &#39;1900&#39;, value: 628 },
+  { country: &#39;Europe&#39;, year: &#39;1950&#39;, value: 547 },
+  { country: &#39;Europe&#39;, year: &#39;1999&#39;, value: 729 },
+  { country: &#39;Europe&#39;, year: &#39;2050&#39;, value: 408 },
+  { country: &#39;Oceania&#39;, year: &#39;1750&#39;, value: 200 },
+  { country: &#39;Oceania&#39;, year: &#39;1800&#39;, value: 200 },
+  { country: &#39;Oceania&#39;, year: &#39;1850&#39;, value: 200 },
+  { country: &#39;Oceania&#39;, year: &#39;1900&#39;, value: 460 },
+  { country: &#39;Oceania&#39;, year: &#39;1950&#39;, value: 230 },
+  { country: &#39;Oceania&#39;, year: &#39;1999&#39;, value: 300 },
+  { country: &#39;Oceania&#39;, year: &#39;2050&#39;, value: 300 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  encode: { x: &#39;year&#39;, y: &#39;value&#39;, color: &#39;country&#39; },
+  axis: { x: { title: false }, y: { title: false } },
+  children: [
+    { type: &#39;area&#39;, style: { fillOpacity: 0.3 } },
+    { type: &#39;line&#39;, style: { strokeWidth: 2 }, tooltip: false },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

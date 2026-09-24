@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/image/contributor</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/image/contributor/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/image/contributor" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/image/contributor</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/image/contributor/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const Avatars = [
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/z8eXl6l9GM/aiyin.jpg&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*cu6GQ7yNpJIAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*IFYESbDDqI0AAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*z6bUQ7bvuAYAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*zIFOTbhtCoMAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*z9SnQpiMnIgAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*aGTWQKFIx2cAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/n%26uTxqsNHe/IMG_3154.JPG&#39;,
+  &#39;http://alipay-rmsdeploy-image.cn-hangzhou.alipay.aliyun-inc.com/antfincdn/sX13FkC4%26C/erling.jpg&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/4VUXCQEiBd/c4f901c7-f591-4616-8dfc-83aecf839cd8.png&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*5kqTSZE-9KMAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*_OhHTo0gxAMAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/aXQ3OTu6Er/IMG_3509.JPG&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*blSIQbwdOqsAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*rVgGS5sJwHQAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*gB63QppvTsgAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/AefmmqKied/3ca2b3d8-e568-4bec-b10d-e4e432cb6f23.png&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*iBIzSZMCWRcAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*GHQQQYTL4g8AAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*VXoNRoRXPBwAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*WZcQRJtWWlIAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*-wAXRKlOrW4AAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*LSpRS6i_WOcAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*23r_SpWxPdEAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*R3QzTpZM7IUAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*vU-mRr0XrfcAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*LMcOQKUxbUEAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*8CiTTqjnzcEAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/smBVaflWk5/my.jpg&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*V7E0RqRAlG4AAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*_E0SR4LCxaAAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*PmifSa53auQAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*mWkGRqxLexYAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*CPXKQ76YlfwAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/c9K5r1m%26y9/d0b8a090-f034-43e6-aeeb-f59cb6c7c33c.png&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/L%261dAufvjL/IMG_1477.JPG&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/NkfCEL7RTL/7cdd44fc-8624-4b6c-8947-67f78e79142f.png&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*dl_gToTY6msAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*QFEMTaidg9QAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/KGawdl9Ahq/touxiang.JPG&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*y1cFS4MDmPIAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*qykaTLGttsgAAAAAAAAAAABkARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/QL5d8rcf%24M/IMG_6534.JPG&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_04a9e5/afts/img/A*ZmohRYwarWcAAAAAAAAAAAAAARQnAQ&#39;,
+  &#39;https://gw.alipayobjects.com/mdn/rms_04a9e5/afts/img/A*1O_3R4Wcwy0AAAAAAAAAAAAAARQnAQ&#39;,
+];
+
+// Code from https://juejin.cn/post/6995818748191981604
+function getLovePoints() {
+  let angle = 0;
+  let x = 0;
+  let y = 0;
+  const a = 6;
+  const points = [];
+  for (let i = 0; i &lt; 20; i += 0.2) {
+    angle = i / Math.PI;
+    x = a * (16 * Math.sin(angle) ** 3);
+    y =
+      a *
+      (13 * Math.cos(angle) -
+        5 * Math.cos(2 * angle) -
+        2 * Math.cos(3 * angle) -
+        Math.cos(4 * angle));
+    points.push({ x, y });
+  }
+  return points;
+}
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  padding: 40,
+});
+
+chart.options({
+  type: &#39;image&#39;,
+  data: getLovePoints(),
+  encode: {
+    x: &#39;x&#39;,
+    y: &#39;y&#39;,
+    src: (_, idx) =&gt; Avatars[idx % Avatars.length],
+    size: 48,
+  },
+  style: {
+    opacity: 0.7,
+    shadowColor: &#39;#fad7e0&#39;,
+    shadowBlur: 40,
+    shadowOffsetY: 20,
+  },
+  axis: false,
+  tooltip: false,
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

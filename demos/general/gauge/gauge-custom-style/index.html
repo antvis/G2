@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/gauge/gauge-custom-style</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/gauge/gauge-custom-style/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/gauge/gauge-custom-style" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/gauge/gauge-custom-style</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/gauge/gauge-custom-style/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+import { Path, Circle, Group } from &#39;@antv/g&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+});
+
+function getOrigin(points) {
+  if (points.length === 1) return points[0];
+  const [[x0, y0], [x2, y2]] = points;
+  return [(x0 + x2) / 2, (y0 + y2) / 2];
+}
+
+// 钻石形发光指针
+const coolDiamondPointer = () =&gt; {
+  return (points, value, coordinate) =&gt; {
+    const [x, y] = getOrigin(points);
+    const [cx, cy] = coordinate.getCenter();
+    const angle = Math.atan2(y - cy, x - cx);
+
+    // 指针尺寸常量
+    const length = 120; // 指针长度
+    const width = 12; // 指针宽度
+    const tipWidth = 3; // 指针尖端宽度
+
+    // 指针形状比例常量
+    const POINTER_WAIST_RATIO = 0.7; // 指针腰部位置比例
+    const POINTER_BASE_RATIO = 0.3; // 指针基部位置比例
+    const WAIST_WIDTH_RATIO = 1.0; // 腰部宽度比例
+    const BASE_WIDTH_RATIO = 0.6; // 基部宽度比例
+    const HIGHLIGHT_MID_RATIO = 0.5; // 高光中点位置比例
+
+    // 创建指针组合
+    const group = new Group();
+
+    // 主指针路径 - 钻石造型
+    const pointerPath = [
+      [&#39;M&#39;, cx + Math.cos(angle) * length, cy + Math.sin(angle) * length], // 尖端
+      [
+        &#39;L&#39;,
+        cx +
+          Math.cos(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.cos(angle + Math.PI / 2) * width * WAIST_WIDTH_RATIO,
+        cy +
+          Math.sin(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.sin(angle + Math.PI / 2) * width * WAIST_WIDTH_RATIO,
+      ],
+      [
+        &#39;L&#39;,
+        cx +
+          Math.cos(angle) * (length * POINTER_BASE_RATIO) +
+          Math.cos(angle + Math.PI / 2) * (width * BASE_WIDTH_RATIO),
+        cy +
+          Math.sin(angle) * (length * POINTER_BASE_RATIO) +
+          Math.sin(angle + Math.PI / 2) * (width * BASE_WIDTH_RATIO),
+      ],
+      [
+        &#39;L&#39;,
+        cx + Math.cos(angle + Math.PI / 2) * tipWidth,
+        cy + Math.sin(angle + Math.PI / 2) * tipWidth,
+      ],
+      [
+        &#39;L&#39;,
+        cx + Math.cos(angle - Math.PI / 2) * tipWidth,
+        cy + Math.sin(angle - Math.PI / 2) * tipWidth,
+      ],
+      [
+        &#39;L&#39;,
+        cx +
+          Math.cos(angle) * (length * POINTER_BASE_RATIO) +
+          Math.cos(angle - Math.PI / 2) * (width * BASE_WIDTH_RATIO),
+        cy +
+          Math.sin(angle) * (length * POINTER_BASE_RATIO) +
+          Math.sin(angle - Math.PI / 2) * (width * BASE_WIDTH_RATIO),
+      ],
+      [
+        &#39;L&#39;,
+        cx +
+          Math.cos(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.cos(angle - Math.PI / 2) * width * WAIST_WIDTH_RATIO,
+        cy +
+          Math.sin(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.sin(angle - Math.PI / 2) * width * WAIST_WIDTH_RATIO,
+      ],
+      [&#39;Z&#39;],
+    ];
+
+    // 发光外层（模糊效果）
+    const glowPath = new Path({
+      style: {
+        d: pointerPath,
+        fill: &#39;#FF6B9D&#39;,
+        opacity: 0.3,
+        shadowColor: &#39;#FF6B9D&#39;,
+        shadowBlur: 20,
+      },
+    });
+
+    // 主指针 - 渐变填充
+    const mainPointer = new Path({
+      style: {
+        d: pointerPath,
+        fill: &#39;l(0) 0:#FF6B9D 0.5:#C44569 1:#6C5CE7&#39;,
+        shadowColor: &#39;#FF6B9D&#39;,
+        shadowBlur: 15,
+      },
+    });
+
+    // 指针高光
+    const highlightPath = [
+      [&#39;M&#39;, cx + Math.cos(angle) * length, cy + Math.sin(angle) * length],
+      [
+        &#39;L&#39;,
+        cx +
+          Math.cos(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.cos(angle + Math.PI / 2) * (width * HIGHLIGHT_MID_RATIO),
+        cy +
+          Math.sin(angle) * (length * POINTER_WAIST_RATIO) +
+          Math.sin(angle + Math.PI / 2) * (width * HIGHLIGHT_MID_RATIO),
+      ],
+      [
+        &#39;L&#39;,
+        cx + Math.cos(angle) * (length * HIGHLIGHT_MID_RATIO),
+        cy + Math.sin(angle) * (length * HIGHLIGHT_MID_RATIO),
+      ],
+      [&#39;Z&#39;],
+    ];
+
+    const highlight = new Path({
+      style: {
+        d: highlightPath,
+        fill: &#39;l(0) 0:rgba(255,255,255,0.8) 1:rgba(255,255,255,0)&#39;,
+        opacity: 0.6,
+      },
+    });
+
+    // 中心装饰圆环
+    const centerRing = new Circle({
+      style: {
+        cx,
+        cy,
+        r: 15,
+        fill: &#39;r(0.5, 0.5, 1) 0:#FF6B9D 0.5:#A855F7 1:#6C5CE7&#39;,
+        shadowColor: &#39;#FF6B9D&#39;,
+        shadowBlur: 15,
+      },
+    });
+
+    const innerRing = new Circle({
+      style: {
+        cx,
+        cy,
+        r: 10,
+        fill: &#39;#0f0f1e&#39;, // 深色背景
+        stroke: &#39;#E0E0E0&#39;,
+        lineWidth: 2,
+        shadowColor: &#39;#A855F7&#39;,
+        shadowBlur: 8,
+      },
+    });
+
+    // 组装所有元素
+    group.appendChild(glowPath);
+    group.appendChild(mainPointer);
+    group.appendChild(highlight);
+    group.appendChild(centerRing);
+    group.appendChild(innerRing);
+
+    return group;
+  };
+};
+
+chart.options({
+  type: &#39;gauge&#39;,
+  data: {
+    value: {
+      target: 285,
+      total: 400,
+      thresholds: [100, 200, 300, 400],
+    },
+  },
+  scale: {
+    color: {
+      range: [&#39;#FF6B9D&#39;, &#39;#FF8C42&#39;, &#39;#FFD93D&#39;, &#39;#6BCF7F&#39;, &#39;#00D9FF&#39;],
+    },
+  },
+  axis: {
+    y: {
+      // 刻度标签样式
+      labelFontSize: 18,
+      labelFontWeight: &#39;bold&#39;,
+      labelStroke: &#39;#fff&#39;,
+      labelLineWidth: 3,
+      labelShadowColor: &#39;rgba(0, 0, 0, 0.3)&#39;,
+      labelShadowBlur: 1,
+      // 刻度线样式
+      tickLineWidth: 4,
+      tickLength: 14,
+      // 刻度线颜色 - 根据label值动态变色
+      tickStroke: (datum) =&gt; {
+        const value = Number(datum.label);
+        if (value &lt;= 100) return &#39;#FF6B9D&#39;; // 粉色
+        if (value &lt;= 200) return &#39;#FFA07A&#39;; // 橙色
+        if (value &lt;= 300) return &#39;#FFD700&#39;; // 金色
+        return &#39;#00D9FF&#39;; // 青色
+      },
+      // 标签颜色 - 根据label值动态变色
+      labelFill: (datum) =&gt; {
+        const value = Number(datum.label);
+        if (value &lt;= 100) return &#39;#FF6B9D&#39;;
+        if (value &lt;= 200) return &#39;#FFA07A&#39;;
+        if (value &lt;= 300) return &#39;#FFD700&#39;;
+        return &#39;#00D9FF&#39;;
+      },
+      // 网格线样式
+      gridLineWidth: 0,
+    },
+  },
+  style: {
+    arcShape: &#39;round&#39;, // 圆角弧形
+    arcLineWidth: 8, // 增加弧形边框宽度
+    arcStroke: &#39;rgba(247, 246, 250, 0.9)&#39;, // 深色边框
+    arcInnerRadius: 0.85, // 增加内半径，让弧形更粗
+    arcOuterRadius: 1, // 外半径
+    arcShadowColor: &#39;rgba(255, 107, 157, 0.25)&#39;, // 粉色发光阴影
+    arcShadowBlur: 15, // 阴影模糊度
+    arcShadowOffsetY: 0, // 无偏移，环形发光
+    pointerShape: coolDiamondPointer, // 使用炫酷钻石指针
+    pinShape: false, // 隐藏默认中心点
+    // 中心文字内容 - 多行显示，格式优化
+    textContent: (target, total) =&gt; {
+      const percentage = ((target / total) * 100).toFixed(1);
+      return `${target}
+${percentage}%
+EXCELLENT`;
+    },
+    // 调整文字位置，向下移动避免遮挡指针
+    textX: &#39;50%&#39;,
+    textY: &#39;72%&#39;,
+    // 中心文字样式 - 使用text前缀
+    textFontSize: 24,
+    textFontWeight: 900,
+    textLineHeight: 32,
+    // 使用渐变色，与圆弧和刻度保持一致
+    textFill: &#39;l(270) 0:#FF6B9D 0.5:#FFD700 1:#00D9FF&#39;,
+    textTextAlign: &#39;center&#39;,
+    textTextBaseline: &#39;middle&#39;,
+    // 白色描边增强对比度
+    textStroke: &#39;rgba(255, 255, 255, 0.3)&#39;,
+    textLineWidth: 1,
+    // 多层阴影营造发光效果
+    textShadowColor: &#39;#FF6B9D&#39;,
+    textShadowBlur: 20,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0,
+  },
+  legend: false,
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

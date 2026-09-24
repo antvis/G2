@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/point/point-stacked</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/point/point-stacked/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/point/point-stacked" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/point/point-stacked</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/point/point-stacked/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://observablehq.com/@mbostock/global-temperature-trends
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  height: 360,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  children: [
+    {
+      type: &#39;point&#39;,
+      data: {
+        type: &#39;fetch&#39;,
+        value:
+          &#39;https://gw.alipayobjects.com/os/bmw-prod/88c601cd-c1ff-4c9b-90d5-740d0b710b7e.json&#39;,
+      },
+      transform: [{ type: &#39;stackY&#39;, y1: &#39;y&#39; }],
+      encode: {
+        x: (d) =&gt; 2021 - d.birth,
+        y: (d) =&gt; (d.gender === &#39;M&#39; ? 1 : -1),
+        color: &#39;gender&#39;,
+        shape: &#39;point&#39;,
+      },
+      scale: { x: { nice: true } },
+      axis: {
+        y: {
+          title: &#39;← Women · Men →&#39;,
+          labelFormatter: (d) =&gt; `${Math.abs(+d)}`,
+        },
+        x: { title: &#39;Age →&#39; },
+      },
+      legend: { color: { title: &#39;Gender&#39; } },
+      tooltip: { items: [{ channel: &#39;x&#39;, name: &#39;age&#39; }] },
+    },
+    { type: &#39;lineY&#39;, data: [0], style: { stroke: &#39;black&#39; } },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

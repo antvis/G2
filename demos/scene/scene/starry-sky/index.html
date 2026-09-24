@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>scene/scene/starry-sky</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/scene/scene/starry-sky/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="scene/scene/starry-sky" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>scene/scene/starry-sky</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/scene/scene/starry-sky/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 星空粒子系统 - 星星闪烁与流星划过
+// 模拟夜空中星星的闪烁和流星的轨迹
+
+const STARS = 80; // 星星数量
+const METEORS = 3; // 流星数量
+const FRAMES = 120; // 动画帧数
+const FPS = 30; // 每秒帧数
+
+// 星星类
+class Star {
+  x: number;
+  y: number;
+  baseSize: number;
+  phase: number;
+  speed: number;
+
+  constructor() {
+    this.x = Math.random() * 100;
+    this.y = Math.random() * 100;
+    this.baseSize = 0.5 + Math.random() * 2;
+    this.phase = Math.random() * Math.PI * 2;
+    this.speed = 0.05 + Math.random() * 0.1;
+  }
+
+  getState(time: number) {
+    // 闪烁效果
+    const brightness = 0.5 + 0.5 * Math.sin(time * this.speed + this.phase);
+    const size = this.baseSize * (0.8 + brightness * 0.4);
+
+    return {
+      x: this.x,
+      y: this.y,
+      size,
+      brightness,
+      type: &#39;star&#39;,
+    };
+  }
+}
+
+// 流星类
+class Meteor {
+  startX: number;
+  startY: number;
+  angle: number;
+  speed: number;
+  startFrame: number;
+  lifespan: number;
+
+  constructor(startFrame: number) {
+    this.startX = Math.random() * 100;
+    this.startY = Math.random() * 50; // 从上半部分出现
+    this.angle = Math.PI / 4 + ((Math.random() - 0.5) * Math.PI) / 6; // 45° ± 30°
+    this.speed = 3 + Math.random() * 2;
+    this.startFrame = startFrame;
+    this.lifespan = 30 + Math.random() * 20;
+  }
+
+  getTrail(currentFrame: number) {
+    const age = currentFrame - this.startFrame;
+    if (age &lt; 0 || age &gt; this.lifespan) return [];
+
+    const progress = age / this.lifespan;
+    const distance = this.speed * age;
+
+    const trail = [];
+    const trailLength = 10;
+
+    for (let i = 0; i &lt; trailLength; i++) {
+      const offset = i * 0.5;
+      const x = this.startX + Math.cos(this.angle) * (distance - offset);
+      const y = this.startY + Math.sin(this.angle) * (distance - offset);
+
+      // 超出边界则不显示
+      if (x &lt; -10 || x &gt; 110 || y &lt; -10 || y &gt; 110) continue;
+
+      const brightness = (1 - progress) * (1 - i / trailLength);
+      const size = (3 - i * 0.2) * (1 - progress * 0.5);
+
+      trail.push({
+        x,
+        y,
+        size: Math.max(0.5, size),
+        brightness,
+        type: &#39;meteor&#39;,
+        key: `${this.startFrame}-${i}`,
+      });
+    }
+
+    return trail;
+  }
+}
+
+// 创建星星
+const stars = Array.from({ length: STARS }, () =&gt; new Star());
+
+// 创建流星（在不同时间出现）
+const meteors = [new Meteor(0), new Meteor(40), new Meteor(80)];
+
+// 预生成所有帧的 options
+const allOptions = [];
+
+for (let frame = 0; frame &lt; FRAMES; frame++) {
+  const data = [];
+
+  // 添加星星
+  stars.forEach((star, index) =&gt; {
+    const state = star.getState(frame);
+    data.push({
+      ...state,
+      key: `star-${index}`,
+    });
+  });
+
+  // 添加流星
+  meteors.forEach((meteor) =&gt; {
+    const trail = meteor.getTrail(frame);
+    data.push(...trail);
+  });
+
+  const option = {
+    type: &#39;point&#39;,
+    data: data,
+    encode: {
+      x: &#39;x&#39;,
+      y: &#39;y&#39;,
+      size: &#39;size&#39;,
+      color: &#39;type&#39;,
+      shape: &#39;point&#39;,
+      key: &#39;key&#39;,
+    },
+    scale: {
+      x: { domain: [0, 100] },
+      y: { domain: [0, 100] },
+      size: { range: [2, 20] },
+      color: {
+        domain: [&#39;star&#39;, &#39;meteor&#39;],
+        range: [&#39;#fff&#39;, &#39;#faad14&#39;],
+      },
+    },
+    style: {
+      fill: (d) =&gt; {
+        if (d.type === &#39;star&#39;) {
+          // 星星颜色随亮度变化
+          const alpha = 0.6 + d.brightness * 0.4;
+          return `rgba(255, 255, 255, ${alpha})`;
+        } else {
+          // 流星尾迹渐变
+          const alpha = d.brightness;
+          return `rgba(250, 173, 20, ${alpha})`;
+        }
+      },
+      stroke: (d) =&gt; (d.type === &#39;star&#39; ? &#39;#fff&#39; : &#39;#faad14&#39;),
+      strokeOpacity: (d) =&gt; d.brightness * 0.5,
+      lineWidth: (d) =&gt; (d.type === &#39;meteor&#39; ? 1 : 0),
+    },
+    theme: {
+      view: {
+        viewFill: &#39;#0a0e27&#39;, // 深蓝色夜空背景
+      },
+    },
+    axis: false,
+    legend: false,
+    tooltip: {
+      items: [
+        {
+          channel: &#39;x&#39;,
+          name: &#39;位置&#39;,
+          valueFormatter: (d) =&gt; `(${d.x?.toFixed(1)}, ${d.y?.toFixed(1)})`,
+        },
+        {
+          field: &#39;type&#39;,
+          name: &#39;类型&#39;,
+          valueFormatter: (v) =&gt; (v === &#39;star&#39; ? &#39;⭐ 星星&#39; : &#39;☄️ 流星&#39;),
+        },
+        {
+          field: &#39;brightness&#39;,
+          name: &#39;亮度&#39;,
+          valueFormatter: (v) =&gt; `${(v * 100).toFixed(0)}%`,
+        },
+      ],
+    },
+  };
+
+  allOptions.push(option);
+}
+
+// 创建图表
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options(allOptions[0]);
+chart.render();
+
+// 播放动画
+let currentFrame = 0;
+const timer = setInterval(() =&gt; {
+  currentFrame = (currentFrame + 1) % FRAMES;
+  chart.options(allOptions[currentFrame]);
+  chart.render();
+}, 1000 / FPS);
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

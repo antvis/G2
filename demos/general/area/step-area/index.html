@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/area/step-area</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/area/step-area/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/area/step-area" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/area/step-area</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/area/step-area/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { year: &#39;1991&#39;, value: 15468 },
+  { year: &#39;1992&#39;, value: 16100 },
+  { year: &#39;1993&#39;, value: 15900 },
+  { year: &#39;1994&#39;, value: 17409 },
+  { year: &#39;1995&#39;, value: 17000 },
+  { year: &#39;1996&#39;, value: 31056 },
+  { year: &#39;1997&#39;, value: 31982 },
+  { year: &#39;1998&#39;, value: 32040 },
+  { year: &#39;1999&#39;, value: 33233 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  children: [
+    {
+      type: &#39;area&#39;,
+      encode: {
+        x: &#39;year&#39;,
+        y: &#39;value&#39;,
+        // &#39;area&#39;, &#39;smooth&#39;, &#39;hvh&#39;, &#39;vh&#39;, &#39;hv&#39;
+        shape: &#39;hvh&#39;,
+      },
+      labels: [
+        {
+          text: &#39;value&#39;,
+          fontSize: 10,
+          textAlign: (_, idx, arr) =&gt; {
+            if (idx === 0) return &#39;left&#39;;
+            if (idx === arr.length - 1) return &#39;right&#39;;
+            return &#39;center&#39;;
+          },
+        },
+      ],
+      style: { opacity: 0.4 },
+      axis: { y: { labelFormatter: &#39;~s&#39; } },
+    },
+    {
+      type: &#39;line&#39;,
+      encode: {
+        x: &#39;year&#39;,
+        y: &#39;value&#39;,
+        // &#39;line&#39;, &#39;smooth&#39;, &#39;vh&#39;, &#39;hv&#39;, &#39;hvh&#39;
+        shape: &#39;hvh&#39;,
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

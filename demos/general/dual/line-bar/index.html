@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/dual/line-bar</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/dual/line-bar/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/dual/line-bar" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/dual/line-bar</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/dual/line-bar/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { time: &#39;10:10&#39;, call: 4, waiting: 2, people: 2 },
+  { time: &#39;10:15&#39;, call: 2, waiting: 6, people: 3 },
+  { time: &#39;10:20&#39;, call: 13, waiting: 2, people: 5 },
+  { time: &#39;10:25&#39;, call: 9, waiting: 9, people: 1 },
+  { time: &#39;10:30&#39;, call: 5, waiting: 2, people: 3 },
+  { time: &#39;10:35&#39;, call: 8, waiting: 2, people: 1 },
+  { time: &#39;10:40&#39;, call: 13, waiting: 1, people: 2 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  children: [
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;time&#39;, y: &#39;waiting&#39; },
+      axis: { y: { title: &#39;Waiting&#39;, titleFill: &#39;#5B8FF9&#39; } },
+    },
+    {
+      type: &#39;line&#39;,
+      encode: { x: &#39;time&#39;, y: &#39;people&#39;, shape: &#39;smooth&#39; },
+      style: { stroke: &#39;#fdae6b&#39;, lineWidth: 2 },
+      scale: { y: { independent: true } },
+      axis: {
+        y: {
+          position: &#39;right&#39;,
+          grid: null,
+          title: &#39;People&#39;,
+          titleFill: &#39;#fdae6b&#39;,
+        },
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

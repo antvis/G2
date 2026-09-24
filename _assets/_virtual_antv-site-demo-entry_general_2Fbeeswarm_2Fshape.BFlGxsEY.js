@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0}),n=Array.from({length:400},(e,t)=>({x:`G${t%6+1}`,y:40+Math.random()*220}));t.options({type:`beeswarm`,data:n,encode:{x:`x`,y:`y`,size:`y`,color:`x`,shape:`x`},scale:{y:{nice:!0,domainMin:0},size:{range:[2,6]}},legend:{size:!1},axis:{x:{title:!1},y:{title:!1}}}),t.render();

@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`line`,interaction:{tooltip:{filter:(e,t)=>t<10}},data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/bmw-prod/728a4bdc-9d0b-49e0-a92f-6320a6cddeed.csv`},encode:{x:`date`,y:`unemployment`,series:`division`}}),t.render();

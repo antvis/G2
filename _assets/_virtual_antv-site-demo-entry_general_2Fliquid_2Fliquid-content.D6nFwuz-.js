@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`liquid`,data:.581,style:{contentFill:`#000`,contentText:`center text`,contentStroke:`#fff`,contentLineWidth:2,outlineBorder:4,outlineDistance:8,waveLength:128}}),t.render();

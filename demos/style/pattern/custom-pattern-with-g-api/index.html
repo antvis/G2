@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>style/pattern/custom-pattern-with-g-api</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/style/pattern/custom-pattern-with-g-api/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="style/pattern/custom-pattern-with-g-api" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>style/pattern/custom-pattern-with-g-api</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/style/pattern/custom-pattern-with-g-api/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://g2plot.antv.antgroup.com/examples/plugin/pattern/#heatmap-cookie-pattern
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  width: 550,
+  height: 500,
+  paddingBottom: 80,
+});
+
+// create pattern with G API
+const createPattern = (
+  document,
+  color,
+  stroke,
+  cross = false,
+  density = false,
+) =&gt; {
+  const spacing = density ? 3 : 5;
+  const width = Math.abs(spacing / Math.sin(Math.PI / 4));
+  const height = spacing / Math.sin(Math.PI / 4);
+
+  const background = document.createElement(&#39;rect&#39;, {
+    style: {
+      width,
+      height,
+      fill: color,
+    },
+  });
+
+  const line = document.createElement(&#39;path&#39;, {
+    style: {
+      d: `
+         M 0 ${-height} L ${width * 2} ${height}
+         M ${-width} ${-height} L ${width} ${height}
+         M ${-width} 0 L ${width} ${height * 2}`,
+      stroke,
+      lineWidth: 1,
+      strokeOpacity: 0.9,
+    },
+  });
+  background.appendChild(line);
+
+  if (cross) {
+    const crossLine = document.createElement(&#39;path&#39;, {
+      style: {
+        d: `
+           M ${-width} ${height} L ${width} ${-height}
+           M ${-width} ${height * 2} L ${width * 2} ${-height}
+           M 0 ${height * 2} L ${width * 2} 0`,
+        stroke,
+        lineWidth: 1,
+        strokeOpacity: 0.9,
+      },
+    });
+    background.appendChild(crossLine);
+  }
+
+  return background;
+};
+// create patterns before chart gets rendered
+let pattern1;
+let pattern2;
+let pattern3;
+chart.on(&#39;beforerender&#39;, () =&gt; {
+  const { document } = chart.getContext().canvas;
+  pattern1 = createPattern(document, &#39;#edaa53&#39;, &#39;#44120c&#39;, true, true);
+  pattern2 = createPattern(document, &#39;#edaa53&#39;, &#39;#44120c&#39;, true);
+  pattern3 = createPattern(document, &#39;#edaa53&#39;, &#39;#fff&#39;);
+});
+
+chart.options({
+  type: &#39;cell&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value:
+      &#39;https://gw.alipayobjects.com/os/bmw-prod/68d3f380-089e-4683-ab9e-4493200198f9.json&#39;,
+  },
+  encode: { x: &#39;name&#39;, y: &#39;country&#39;, color: &#39;#edaa53&#39; },
+  style: {
+    radius: Infinity,
+    inset: 1,
+    shadowBlur: 10,
+    shadowColor: &#39;rgba(0,0,0,0.3)&#39;,
+    fill: ({ value }) =&gt; {
+      return {
+        image:
+          60 &lt;= value &amp;&amp; value &lt; 90
+            ? pattern1
+            : value &gt;= 50
+            ? pattern2
+            : pattern3,
+        repetition: &#39;repeat&#39;,
+      };
+    },
+  },
+  animate: { enter: { type: &#39;fadeIn&#39; } },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

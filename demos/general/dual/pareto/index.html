@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/dual/pareto</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/dual/pareto/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/dual/pareto" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/dual/pareto</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/dual/pareto/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { x: &#39;Parking Difficult&#39;, value: 95 },
+  { x: &#39;Sales Rep was Rude&#39;, value: 60 },
+  { x: &#39;Poor Lighting&#39;, value: 45 },
+  { x: &#39;Layout Confusing&#39;, value: 37 },
+  { x: &#39;Sizes Limited&#39;, value: 30 },
+  { x: &#39;Clothing Faded&#39;, value: 27 },
+  { x: &#39;Clothing Shrank&#39;, value: 18 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  title: &#39;Pareto Chart of Customer Complaints&#39;,
+  data: {
+    type: &#39;inline&#39;,
+    value: data,
+    transform: [
+      {
+        type: &#39;custom&#39;,
+        // calucate accumulate and percentage fields.
+        callback: (data) =&gt; {
+          const sum = data.reduce((r, curr) =&gt; r + curr.value, 0);
+          return data
+            .map((d) =&gt; ({ ...d, percentage: d.value / sum }))
+            .reduce((r, curr) =&gt; {
+              const v = r.length ? r[r.length - 1].accumulate : 0;
+              const accumulate = v + curr.percentage;
+              r.push({ ...curr, accumulate });
+              return r;
+            }, []);
+        },
+      },
+    ],
+  },
+  children: [
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;value&#39; },
+      style: { fill: (d) =&gt; (d.percentage &lt; 0.1 ? &#39;#E24B26&#39; : &#39;#78B3F0&#39;) },
+      scale: { x: { padding: 1 / 2 }, y: { domainMax: 312, tickCount: 5 } },
+      axis: { x: { title: null }, y: { title: &#39;Defect frequency&#39; } },
+      labels: [
+        {
+          text: (d) =&gt; `${(d.percentage * 100).toFixed(1)}%`,
+          textBaseline: &#39;bottom&#39;,
+        },
+      ],
+    },
+    {
+      type: &#39;line&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;accumulate&#39; },
+      scale: { y: { independent: true, domainMin: 0, tickCount: 5 } },
+      axis: {
+        y: {
+          position: &#39;right&#39;,
+          title: &#39;Cumulative Percentage&#39;,
+          grid: null,
+          labelFormatter: (d) =&gt; `${(d * 100).toFixed(0)}%`,
+        },
+      },
+      tooltip: {
+        items: [
+          {
+            channel: &#39;y&#39;,
+            valueFormatter: (d) =&gt; `${(d * 100).toFixed(2)}%`,
+          },
+        ],
+      },
+    },
+    {
+      type: &#39;point&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;accumulate&#39;, shape: &#39;diamond&#39; },
+      scale: { y: { independent: true, domainMin: 0 } },
+      axis: { y: null },
+      tooltip: null,
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

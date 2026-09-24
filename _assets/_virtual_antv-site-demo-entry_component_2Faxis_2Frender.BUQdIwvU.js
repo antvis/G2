@@ -1,0 +1,3 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`interval`,data:[{year:`1951 年`,value:38},{year:`1952 年`,value:52},{year:`1956 年`,value:61},{year:`1957 年`,value:145},{year:`1958 年`,value:48}],encode:{x:`year`,y:`value`,color:`year`},axis:{x:{animate:!1,transform:[],labelRender:e=>`<div style="background: #fff; height: 30px;">
+            <div style="width: 60px; transform: translateX(-50%); background: #ddd; font-weight: bold;">${e.label}</div>
+          </div>`}},style:{maxWidth:60},legend:!1}),t.render();

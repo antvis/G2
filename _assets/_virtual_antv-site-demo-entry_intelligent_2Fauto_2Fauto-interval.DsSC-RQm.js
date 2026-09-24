@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";import{u as t}from"./esm.Cez8e_VE.js";var n=new e({container:`container`});n.options({type:t,data:[{price:100,type:`A`},{price:120,type:`B`},{price:150,type:`C`}]}),n.render();

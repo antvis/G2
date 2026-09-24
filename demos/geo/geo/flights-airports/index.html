@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>geo/geo/flights-airports</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/geo/geo/flights-airports/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="geo/geo/flights-airports" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>geo/geo/flights-airports</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/geo/geo/flights-airports/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/geo_rule.html
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+import { feature } from &#39;topojson-client&#39;;
+
+Promise.all([
+  fetch(&#39;https://assets.antv.antgroup.com/g2/us-10m.json&#39;).then((res) =&gt;
+    res.json(),
+  ),
+  fetch(&#39;https://assets.antv.antgroup.com/g2/airports.json&#39;).then((res) =&gt;
+    res.json(),
+  ),
+  fetch(&#39;https://assets.antv.antgroup.com/g2/flights-airport.json&#39;).then(
+    (res) =&gt; res.json(),
+  ),
+]).then((values) =&gt; {
+  const [us, airports, flights] = values;
+  const states = feature(us, us.objects.states).features;
+
+  const chart = new Chart({
+    container: &#39;container&#39;,
+    autoFit: true,
+  });
+
+  chart.options({
+    type: &#39;geoView&#39;,
+    coordinate: { type: &#39;albersUsa&#39; },
+    children: [
+      {
+        type: &#39;geoPath&#39;,
+        data: states,
+        style: { fill: &#39;lightgray&#39;, stroke: &#39;white&#39; },
+      },
+      {
+        type: &#39;point&#39;,
+        data: airports,
+        encode: {
+          x: &#39;longitude&#39;,
+          y: &#39;latitude&#39;,
+          color: &#39;gray&#39;,
+          shape: &#39;point&#39;,
+          size: 1,
+        },
+      },
+      {
+        type: &#39;link&#39;,
+        data: {
+          value: flights,
+          transform: [
+            {
+              type: &#39;filter&#39;,
+              callback: (d) =&gt; d.origin === &#39;SEA&#39;,
+            },
+            {
+              type: &#39;join&#39;,
+              join: airports,
+              on: [&#39;origin&#39;, &#39;iata&#39;],
+              select: [&#39;latitude&#39;, &#39;longitude&#39;],
+              as: [&#39;origin_latitude&#39;, &#39;origin_longitude&#39;],
+            },
+            {
+              type: &#39;join&#39;,
+              join: airports,
+              on: [&#39;destination&#39;, &#39;iata&#39;],
+              select: [&#39;latitude&#39;, &#39;longitude&#39;],
+              as: [&#39;dest_latitude&#39;, &#39;dest_longitude&#39;],
+            },
+          ],
+        },
+        encode: {
+          x: [&#39;origin_longitude&#39;, &#39;dest_longitude&#39;],
+          y: [&#39;origin_latitude&#39;, &#39;dest_latitude&#39;],
+        },
+        style: { stroke: &#39;black&#39; },
+      },
+    ],
+  });
+
+  chart.render();
+});
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

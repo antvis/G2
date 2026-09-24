@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>component/tooltip/tooltip-two</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-two/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="component/tooltip/tooltip-two" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>component/tooltip/tooltip-two</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/component/tooltip/tooltip-two/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+function css(...styles) {
+  return styles
+    .map((obj) =&gt;
+      Object.entries(obj)
+        .map(([k, v]) =&gt; k + &#39;:&#39; + v)
+        .join(&#39;;&#39;),
+    )
+    .join(&#39;;&#39;);
+}
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: [
+    { time: &#39;16&#39;, north: 0, south: 0 },
+    { time: &#39;18&#39;, north: 7, south: -8 },
+    { time: &#39;20&#39;, north: 6, south: -7 },
+    { time: &#39;22&#39;, north: 9, south: -8 },
+    { time: &#39;00&#39;, north: 5, south: -7 },
+    { time: &#39;02&#39;, north: 8, south: -5 },
+    { time: &#39;04&#39;, north: 6, south: -7 },
+    { time: &#39;06&#39;, north: 7, south: -8 },
+    { time: &#39;08&#39;, north: 9, south: -9 },
+    { time: &#39;10&#39;, north: 6, south: -9 },
+    { time: &#39;12&#39;, north: 5, south: -9 },
+  ],
+  interaction: {
+    tooltip: {
+      css: {
+        &#39;.g2-tooltip&#39;: {
+          background: &#39;transparent&#39;,
+          &#39;box-shadow&#39;: &#39;none&#39;,
+        },
+      },
+      render: (event, { title, items }) =&gt; {
+        const containerStyle = () =&gt; ({
+          background: &#39;#fff&#39;,
+          &#39;border-radius&#39;: &#39;4px&#39;,
+          padding: &#39;12px&#39;,
+          &#39;box-shadow&#39;: &#39;0 6px 12px 0 rgba(0, 0, 0, 0.12)&#39;,
+        });
+
+        const itemStyle = (color) =&gt; ({
+          display: &#39;inline-block&#39;,
+          width: &#39;8px&#39;,
+          height: &#39;8px&#39;,
+          background: color,
+          &#39;border-radius&#39;: &#39;50%&#39;,
+        });
+
+        return `
+       &lt;div&gt;
+          &lt;div style=&quot;${css(containerStyle(), { &#39;margin-bottom&#39;: &#39;20px&#39; })}&quot;&gt;
+            &lt;span&gt;${title}&lt;/span&gt;
+            &lt;/br&gt;
+            &lt;span style=&quot;${css(itemStyle(items[0].color))}&quot;&gt;&lt;/span&gt;
+            &lt;span&gt;${items[0].name}&lt;/span&gt;
+            &lt;span style=&quot;float:right&quot;&gt;${items[0].value}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div style=&quot;${css(containerStyle())}&quot;&gt;
+            &lt;span&gt;${title}&lt;/span&gt;
+            &lt;/br&gt;
+            &lt;span style=${css(itemStyle(items[1].color))}&gt;&lt;/span&gt;
+            &lt;span&gt;${items[1].name}&lt;/span&gt;
+            &lt;span style=&quot;float:right&quot;&gt;${items[1].value}&lt;/span&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+    `;
+      },
+    },
+  },
+  children: [
+    {
+      type: &#39;area&#39;,
+      encode: {
+        x: (d) =&gt; d.time,
+        y: &#39;north&#39;,
+        color: () =&gt; &#39;north&#39;,
+        shape: &#39;smooth&#39;,
+      },
+    },
+    {
+      type: &#39;area&#39;,
+      encode: {
+        x: (d) =&gt; d.time,
+        y: &#39;south&#39;,
+        color: () =&gt; &#39;south&#39;,
+        shape: &#39;smooth&#39;,
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

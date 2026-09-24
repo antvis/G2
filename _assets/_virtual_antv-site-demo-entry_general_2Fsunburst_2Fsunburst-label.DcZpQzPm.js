@@ -1,0 +1,1 @@
+import{i as e,n as t,u as n}from"./src.D4g-sLQa.js";import{t as r}from"./esm.CLcQeAbJ.js";var i=new(e(t,{...n(),...r()}))({container:`container`,autoFit:!0});i.options({type:`sunburst`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json`},encode:{value:`sum`},labels:[{text:`name`,transform:[{type:`overflowHide`}]}]}),i.render();

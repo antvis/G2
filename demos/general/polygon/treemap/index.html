@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/polygon/treemap</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/polygon/treemap/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/polygon/treemap" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/polygon/treemap</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/polygon/treemap/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+import * as d3 from &#39;d3-hierarchy&#39;;
+
+const layout = (data) =&gt; {
+  const root = d3.hierarchy(data);
+  root.count();
+  d3.treemap().size([1, 1])(root);
+  return root
+    .descendants()
+    .map((d) =&gt;
+      Object.assign(d, {
+        x: [d.x0, d.x1, d.x1, d.x0],
+        y: [d.y0, d.y0, d.y1, d.y1],
+      }),
+    )
+    .filter((d) =&gt; d.height === 0);
+};
+const name = (d) =&gt; {
+  const { name } = d.data;
+  return name.length &gt; 5 ? name.slice(0, 4) + &#39;...&#39; : name;
+};
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  paddingLeft: 4,
+  paddingBottom: 4,
+  paddingRight: 4,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value:
+      &#39;https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json&#39;,
+    transform: [{ type: &#39;custom&#39;, callback: layout }],
+  },
+  legend: false,
+  children: [
+    {
+      type: &#39;polygon&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;y&#39;, size: &#39;r&#39;, color: (d) =&gt; d.parent.data.name },
+      tooltip: {
+        title: &#39;&#39;,
+        items: [(d) =&gt; d.parent.data.name],
+      },
+      scale: {
+        x: { domain: [0, 1] },
+        y: { domain: [0, 1], range: [0, 1] },
+        size: { type: &#39;identity&#39; },
+      },
+      axis: false,
+    },
+    {
+      type: &#39;text&#39;,
+      data: {
+        transform: [
+          {
+            type: &#39;filter&#39;,
+            callback: (d) =&gt; d.height === 0,
+          },
+        ],
+      },
+      encode: { x: (d) =&gt; d.x[0], y: (d) =&gt; d.y[0], text: name },
+      style: { dy: 15, dx: 5, fill: &#39;black&#39;, textAlign: &#39;start&#39;, fontSize: 12 },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

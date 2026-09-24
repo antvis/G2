@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>component/legend/category</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/component/legend/category/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="component/legend/category" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>component/legend/category</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/component/legend/category/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  insetTop: 30,
+});
+
+const logo = [
+  [
+    &#39;抖音&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8IXHQLvx9QkAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;快手&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*swueRrrKvbcAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;小米&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*79G3TIt3mBoAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;微信&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_ELBTJLp0dQAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;Keep&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JzbKRpFhR14AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;Chrome&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xLnYTaZfdh8AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;QQ&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AbGNTpA5JLwAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;优酷&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*UL6lS4jw9lUAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;百度地图&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*I6nrTITAxcoAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;腾讯视频&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zwVvT5OFnuYAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;哔哩哔哩&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*6jkAQayTiMMAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;Word&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FbkXT6K6mVEAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;Excel&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CKb-R6ZAFpYAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;PowerPoint&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*K7-FT4RYRqIAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;腾讯会议&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xbPXR7snu44AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;网易云音乐&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*upKlRJ9QB4cAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;Safari&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kjDHRbiW734AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;地图&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*tl-2QIB8LKIAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;Docker&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*iJ4dS49yrJ4AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;VSCode&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rR6nRInEcz4AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;百度网盘&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*futaTbIAkG4AAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+  [
+    &#39;印象笔记&#39;,
+    &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Skh1S4BfL9oAAAAAAAAAAAAADmJ7AQ/original&#39;,
+  ],
+];
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: logo,
+  encode: { x: (d) =&gt; d[0], y: () =&gt; Math.random(), color: (d) =&gt; d[1] },
+  scale: { y: { nice: true } },
+  legend: {
+    color: {
+      itemMarker: (_, index) =&gt; () =&gt; {
+        const { document } = chart.getContext().canvas;
+        const image = document.createElement(&#39;image&#39;, {
+          style: {
+            width: 20,
+            height: 20,
+            transform: `translate(-10, -10)`,
+            src: logo[index][1],
+          },
+        });
+        return image;
+      },
+      itemMarkerSize: 40,
+      itemLabelText: (_, index) =&gt; logo[index][0],
+      maxRows: 1,
+    },
+  },
+  tooltip: false,
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

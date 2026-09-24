@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`rect`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/unemployment2.json`},encode:{x:`rate`},transform:[{type:`binX`,y:`count`}],style:{inset:.5}}),t.render();

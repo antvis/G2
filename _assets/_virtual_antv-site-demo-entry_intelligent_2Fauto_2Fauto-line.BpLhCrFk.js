@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";import{u as t}from"./esm.Cez8e_VE.js";var n=new e({container:`container`});n.options({type:t,data:[{year:`2007`,sales:28},{year:`2008`,sales:55},{year:`2009`,sales:43},{year:`2010`,sales:91},{year:`2011`,sales:81},{year:`2012`,sales:53},{year:`2013`,sales:19},{year:`2014`,sales:87},{year:`2015`,sales:52}]}),n.render();

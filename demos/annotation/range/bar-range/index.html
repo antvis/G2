@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>annotation/range/bar-range</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/annotation/range/bar-range/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="annotation/range/bar-range" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>annotation/range/bar-range</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/annotation/range/bar-range/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { city: &#39;北京&#39;, 职业: &#39;教师&#39;, 平均年收入: 12 },
+  { city: &#39;北京&#39;, 职业: &#39;医生&#39;, 平均年收入: 30 },
+  { city: &#39;北京&#39;, 职业: &#39;销售&#39;, 平均年收入: 18 },
+  { city: &#39;北京&#39;, 职业: &#39;公务员&#39;, 平均年收入: 15 },
+  { city: &#39;北京&#39;, 职业: &#39;律师&#39;, 平均年收入: 40 },
+  { city: &#39;北京&#39;, 职业: &#39;程序员&#39;, 平均年收入: 35 },
+  { city: &#39;上海&#39;, 职业: &#39;教师&#39;, 平均年收入: 13 },
+  { city: &#39;上海&#39;, 职业: &#39;医生&#39;, 平均年收入: 29 },
+  { city: &#39;上海&#39;, 职业: &#39;销售&#39;, 平均年收入: 19 },
+  { city: &#39;上海&#39;, 职业: &#39;公务员&#39;, 平均年收入: 16 },
+  { city: &#39;上海&#39;, 职业: &#39;律师&#39;, 平均年收入: 42 },
+  { city: &#39;上海&#39;, 职业: &#39;程序员&#39;, 平均年收入: 36 },
+  { city: &#39;杭州&#39;, 职业: &#39;教师&#39;, 平均年收入: 11 },
+  { city: &#39;杭州&#39;, 职业: &#39;医生&#39;, 平均年收入: 25 },
+  { city: &#39;杭州&#39;, 职业: &#39;销售&#39;, 平均年收入: 16 },
+  { city: &#39;杭州&#39;, 职业: &#39;公务员&#39;, 平均年收入: 14 },
+  { city: &#39;杭州&#39;, 职业: &#39;律师&#39;, 平均年收入: 35 },
+  { city: &#39;杭州&#39;, 职业: &#39;程序员&#39;, 平均年收入: 28 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  height: 500,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: [
+    { y: [0, 25], region: &#39;1&#39; },
+    { y: [25, 50], region: &#39;2&#39; },
+  ],
+  children: [
+    {
+      type: &#39;rangeY&#39;,
+      encode: { y: &#39;y&#39; },
+      style: {
+        fill: (d) =&gt; (d.region === &#39;1&#39; ? &#39;#d8d0c0&#39; : &#39;#a3dda1&#39;),
+        fillOpacity: 0.4,
+      },
+      animate: { enter: { type: &#39;fadeIn&#39; } },
+    },
+    {
+      type: &#39;interval&#39;,
+      data: data,
+      encode: { x: &#39;职业&#39;, y: &#39;平均年收入&#39;, color: &#39;city&#39; },
+      transform: [{ type: &#39;dodgeX&#39; }],
+      axis: { y: { title: &#39;平均年收入&#39;, labelFormatter: (d) =&gt; d + &#39;万&#39; } },
+      tooltip: {
+        items: [
+          (d) =&gt; ({
+            name: &#39;平均年收入&#39;,
+            value: d.平均年收入 + &#39;万&#39;,
+            channel: &#39;y&#39;,
+          }),
+        ],
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

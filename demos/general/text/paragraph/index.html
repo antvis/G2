@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/text/paragraph</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/text/paragraph/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/text/paragraph" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/text/paragraph</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/text/paragraph/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const paragraph = [
+  &#39;Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.&#39;,
+  &#39;There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme downtown is the battery, where that noble mole is washed by waves, and cooled by breezes, which a few hours previous were out of sight of land. Look at the crowds of water-gazers there.&#39;,
+  &#39;Circumambulate the city of a dreamy Sabbath afternoon. Go from Corlears Hook to Coenties Slip, and from thence, by Whitehall, northward. What do you see?—Posted like silent sentinels all around the town, stand thousands upon thousands of mortal men fixed in ocean reveries. Some leaning against the spiles; some seated upon the pier-heads; some looking over the bulwarks of ships from China; some high aloft in the rigging, as if striving to get a still better seaward peep. But these are all landsmen; of week days pent up in lath and plaster—tied to counters, nailed to benches, clinched to desks. How then is this? Are the green fields gone? What do they here?&#39;,
+].map((text, idx) =&gt; ({ idx, text }));
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  width: 640,
+  height: 480,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: paragraph,
+  children: [
+    {
+      type: &#39;text&#39;,
+      encode: { x: &#39;idx&#39;, y: 1, text: &#39;idx&#39; },
+      scale: { x: { type: &#39;band&#39; }, y: { domain: [0, 1] } },
+      style: {
+        wordWrap: true,
+        wordWrapWidth: 160,
+        dx: -75,
+        dy: 0,
+        textAlign: &#39;left&#39;,
+        textBaseline: &#39;top&#39;,
+        fontSize: 12,
+        background: true,
+        backgroundFill: &#39;#416180&#39;,
+        backgroundFillOpacity: 0.05,
+        backgroundRadius: 3,
+        backgroundPadding: [2, 4],
+      },
+      axis: false,
+      legend: false,
+    },
+    {
+      type: &#39;text&#39;,
+      encode: { x: &#39;idx&#39;, y: 1, text: &#39;text&#39;, color: &#39;text&#39; },
+      scale: { x: { type: &#39;band&#39; }, y: { domain: [0, 1] } },
+      style: {
+        wordWrap: true,
+        wordWrapWidth: 160,
+        dx: -80,
+        dy: 25,
+        textAlign: &#39;left&#39;,
+        textBaseline: &#39;top&#39;,
+        fontSize: 10,
+        lineWidth: 0,
+      },
+      axis: false,
+      legend: false,
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

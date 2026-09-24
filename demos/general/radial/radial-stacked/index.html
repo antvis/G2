@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radial/radial-stacked</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radial/radial-stacked/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radial/radial-stacked" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radial/radial-stacked</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radial/radial-stacked/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { State: &#39;WY&#39;, 小于5岁: 25635, &#39;5至13岁&#39;: 1890, &#39;14至17岁&#39;: 9314 },
+  { State: &#39;DC&#39;, 小于5岁: 30352, &#39;5至13岁&#39;: 20439, &#39;14至17岁&#39;: 10225 },
+  { State: &#39;VT&#39;, 小于5岁: 38253, &#39;5至13岁&#39;: 42538, &#39;14至17岁&#39;: 15757 },
+  { State: &#39;ND&#39;, 小于5岁: 51896, &#39;5至13岁&#39;: 67358, &#39;14至17岁&#39;: 18794 },
+  { State: &#39;AK&#39;, 小于5岁: 72083, &#39;5至13岁&#39;: 85640, &#39;14至17岁&#39;: 22153 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;radial&#39; },
+  data: {
+    value: data,
+    transform: [
+      {
+        type: &#39;fold&#39;,
+        fields: [&#39;小于5岁&#39;, &#39;5至13岁&#39;, &#39;14至17岁&#39;],
+        key: &#39;年龄段&#39;,
+        value: &#39;人口数量&#39;,
+        retains: [&#39;State&#39;],
+      },
+    ],
+  },
+  encode: { x: &#39;State&#39;, y: &#39;人口数量&#39;, color: &#39;年龄段&#39; },
+  scale: {
+    y: { domainMax: 200000 },
+    color: { range: [&#39;#6395FA&#39;, &#39;#62DAAB&#39;, &#39;#657798&#39;] },
+  },
+  transform: [{ type: &#39;stackY&#39; }],
+  axis: {
+    x: {
+      title: false,
+      line: true,
+    },
+    y: {
+      line: true,
+      grid: true,
+      gridLineDash: [4, 4],
+      tickCount: 10,
+      tickFilter: (datum) =&gt; datum != 200000,
+    },
+  },
+  legend: {
+    color: {
+      position: &#39;bottom&#39;,
+      layout: { justifyContent: &#39;center&#39; },
+    },
+  },
+  interaction: {
+    elementHighlightByX: true,
+    tooltip: {
+      shared: true,
+    },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

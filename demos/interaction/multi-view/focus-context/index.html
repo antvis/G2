@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>interaction/multi-view/focus-context</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/interaction/multi-view/focus-context/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="interaction/multi-view/focus-context" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>interaction/multi-view/focus-context</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/interaction/multi-view/focus-context/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+document.getElementById(&#39;container&#39;).innerHTML = `
+&lt;div id=&quot;focus&quot; &gt;&lt;/div&gt;
+&lt;div id=&quot;context&quot;&gt;&lt;/div&gt;
+`;
+
+// Render focus View.
+const focus = new Chart({
+  container: &#39;focus&#39;,
+  height: 360,
+  paddingLeft: 60,
+});
+
+const dataSource = {
+  type: &#39;fetch&#39;,
+  value:
+    &#39;https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv&#39;,
+};
+
+focus.options({
+  type: &#39;area&#39;,
+  data: dataSource,
+  encode: { x: &#39;date&#39;, y: &#39;close&#39; },
+  animate: false,
+  axis: {
+    x: { grid: false, title: false, tickCount: 5 },
+    y: { grid: false, tickCount: 5 },
+  },
+  interaction: { tooltip: false, brushXFilter: true },
+});
+
+focus.render();
+
+// Render context View.
+const context = new Chart({
+  container: &#39;context&#39;,
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: 90,
+  paddingLeft: 60,
+});
+
+context.options({
+  type: &#39;area&#39;,
+  data: dataSource,
+  encode: { x: &#39;date&#39;, y: &#39;close&#39; },
+  animate: false,
+  axis: false,
+  interaction: {
+    tooltip: false,
+    brushXHighlight: {
+      series: true,
+      maskOpacity: 0.3,
+      maskFill: &#39;#777&#39;,
+      maskHandleWRender: createPathRender((x, y, width, height) =&gt; ({
+        d: &#39;M-0.5,31.5c-2.5,0,-4.5,2,-4.5,4.5v30c0,2.5,2,4.5,4.5,4.5V31.5z&#39;,
+        transform: `translate(${x + width / 2}, ${y - height / 2})`,
+      })),
+      maskHandleERender: createPathRender((x, y, width, height) =&gt; ({
+        d: &#39;M0.5,31.5c2.5,0,4.5,2,4.5,4.5v30c0,2.5,-2,4.5,-4.5,4.5V31.5z&#39;,
+        transform: `translate(${x + width / 2}, ${y - height / 2})`,
+      })),
+      maskHandleEFill: &#39;#D3D8E0&#39;,
+      maskHandleWFill: &#39;#D3D8E0&#39;,
+    },
+  },
+});
+
+context.render();
+
+function createPathRender(compute) {
+  return (group, options, document) =&gt; {
+    if (!group.handle) {
+      const path = document.createElement(&#39;path&#39;);
+      group.handle = path;
+      group.appendChild(group.handle);
+    }
+    const { handle } = group;
+    const { x, y, width, height, ...rest } = options;
+    if (width === undefined || height === undefined) return handle;
+    handle.attr({ ...compute(x, y, width, height), ...rest });
+    return handle;
+  };
+}
+
+// Add event listeners  to communicate.
+focus.on(&#39;brush:filter&#39;, (e) =&gt; {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { selection } = e.data;
+  const { x: scaleX } = focus.getScale();
+  const [[x1, x2]] = selection;
+  const domainX = scaleX.getOptions().domain;
+  if (x1 === domainX[0] &amp;&amp; x2 === domainX[1]) {
+    context.emit(&#39;brush:remove&#39;, {});
+  } else {
+    context.emit(&#39;brush:highlight&#39;, { data: { selection } });
+  }
+});
+
+context.on(&#39;brush:highlight&#39;, (e) =&gt; {
+  const { nativeEvent, data } = e;
+  if (!nativeEvent) return;
+  const { selection } = data;
+  focus.emit(&#39;brush:filter&#39;, { data: { selection } });
+});
+
+context.on(&#39;brush:remove&#39;, (e) =&gt; {
+  const { nativeEvent } = e;
+  if (!nativeEvent) return;
+  const { x: scaleX, y: scaleY } = context.getScale();
+  const selection = [scaleX.getOptions().domain, scaleY.getOptions().domain];
+  focus.emit(&#39;brush:filter&#39;, { data: { selection } });
+});
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

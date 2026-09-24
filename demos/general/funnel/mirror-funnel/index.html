@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/funnel/mirror-funnel</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/funnel/mirror-funnel/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/funnel/mirror-funnel" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/funnel/mirror-funnel</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/funnel/mirror-funnel/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { action: &#39;访问&#39;, visitor: 500, site: &#39;站点1&#39; },
+  { action: &#39;浏览&#39;, visitor: 400, site: &#39;站点1&#39; },
+  { action: &#39;交互&#39;, visitor: 300, site: &#39;站点1&#39; },
+  { action: &#39;下单&#39;, visitor: 200, site: &#39;站点1&#39; },
+  { action: &#39;完成&#39;, visitor: 100, site: &#39;站点1&#39; },
+  { action: &#39;访问&#39;, visitor: 550, site: &#39;站点2&#39; },
+  { action: &#39;浏览&#39;, visitor: 420, site: &#39;站点2&#39; },
+  { action: &#39;交互&#39;, visitor: 280, site: &#39;站点2&#39; },
+  { action: &#39;下单&#39;, visitor: 150, site: &#39;站点2&#39; },
+  { action: &#39;完成&#39;, visitor: 80, site: &#39;站点2&#39; },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const label = {
+  text: &#39;visitor&#39;,
+  position: &#39;inside&#39;,
+  transform: [{ type: &#39;contrastReverse&#39; }],
+};
+
+chart.options({
+  type: &#39;view&#39;,
+  data,
+  scale: {
+    x: { padding: 0 },
+    color: {
+      range: [&#39;#0050B3&#39;, &#39;#1890FF&#39;, &#39;#40A9FF&#39;, &#39;#69C0FF&#39;, &#39;#BAE7FF&#39;],
+    },
+  },
+  axis: false,
+  coordinate: {
+    transform: [{ type: &#39;transpose&#39; }],
+  },
+  children: [
+    {
+      type: &#39;interval&#39;,
+      data: {
+        transform: [
+          {
+            type: &#39;filter&#39;,
+            callback: (d) =&gt; d.site === &#39;站点1&#39;,
+          },
+        ],
+      },
+      encode: { x: &#39;action&#39;, y: &#39;visitor&#39;, color: &#39;action&#39;, shape: &#39;funnel&#39; },
+      labels: [
+        label,
+        {
+          text: &#39;action&#39;,
+          position: &#39;right&#39;,
+          dx: (d) =&gt; {
+            return d.action === &#39;完成&#39; ? 48 : 16;
+          },
+        },
+      ],
+      style: { stroke: &#39;#FFF&#39; },
+      animate: { enter: { type: &#39;fadeIn&#39; } },
+    },
+    {
+      type: &#39;interval&#39;,
+      data: {
+        transform: [
+          {
+            type: &#39;filter&#39;,
+            callback: (d) =&gt; d.site === &#39;站点2&#39;,
+          },
+        ],
+      },
+      encode: {
+        x: &#39;action&#39;,
+        y: (d) =&gt; -d.visitor,
+        color: &#39;action&#39;,
+        shape: &#39;funnel&#39;,
+      },
+      labels: [label],
+      style: { stroke: &#39;#FFF&#39; },
+      animate: { enter: { type: &#39;fadeIn&#39; } },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

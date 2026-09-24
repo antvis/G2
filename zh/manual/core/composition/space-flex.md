@@ -1,0 +1,112 @@
+---
+title: "spaceFlex"
+description: "spaceFlex"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/manual/core/composition/space-flex/"
+version: "5.4.8"
+---
+
+使用类似 css flex 的布局方式来划分空间区域，常用于多图表对比的视图。
+
+## 开始使用
+
+提供一个两层 flex 容器布局的画布。
+
+<img alt="spaceFlex" src="https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*lLecQJkdPbIAAAAAAAAAAAAADmJ7AQ" width="600" />
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 900,
+});
+
+chart.options({
+  type: 'spaceFlex',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+  },
+  direction: 'col',
+  ratio: [1, 2],
+  children: [
+    {
+      type: 'interval',
+      paddingBottom: 0,
+      paddingRight: 300,
+      transform: [{ type: 'groupX', y: 'max' }],
+      axis: { x: false },
+      encode: {
+        x: (d) => new Date(d.date).getUTCDate(),
+        y: 'temp_max',
+        color: 'steelblue',
+      },
+    },
+    {
+      type: 'spaceFlex',
+      ratio: [2, 1],
+      children: [
+        {
+          type: 'cell',
+          paddingRight: 0,
+          paddingBottom: 50,
+          transform: [{ type: 'group', color: 'max' }],
+          encode: {
+            x: (d) => new Date(d.date).getUTCDate(),
+            y: (d) => new Date(d.date).getUTCMonth(),
+            color: 'temp_max',
+          },
+          style: { inset: 0.5 },
+          axis: { x: { title: 'Date' }, y: { title: 'Month' } },
+          legend: { color: false },
+          scale: {
+            color: {
+              type: 'sequential',
+              palette: 'gnBu',
+            },
+          },
+        },
+        {
+          type: 'interval',
+          paddingBottom: 50,
+          transform: [{ type: 'groupX', y: 'max' }],
+          coordinate: { transform: [{ type: 'transpose' }] },
+          axis: { x: false },
+          encode: {
+            x: (d) => new Date(d.date).getUTCMonth(),
+            y: 'temp_max',
+            color: 'steelblue',
+          },
+        },
+      ],
+    },
+  ],
+});
+
+chart.render();
+```
+
+更多的案例，可以查看[图表示例](/zh/examples/)页面。
+
+## 选项
+
+当前 flex 主要提供了最核心的两个配置，便于空间分片。
+
+| 属性      | 描述                                   | 类型           | 默认值 |
+| --------- | -------------------------------------- | -------------- | ------ |
+| ratio     | 设置 flex 容器中的子元素占用空间的比例 | `number[]`     | 均分   |
+| direction | 设置 flex 划分空间的方向               | `col` \| `row` | `row`  |
+| data      | flex 容器的数据                        | `Data`         |        |
+
+`spaceFlex` 对应的配置都可以使用 API 进行设置，例如：
+
+```ts
+chart.options({ type: 'spaceFlex', ratio: [1, 2, 3], direction: 'col' });
+```
+
+## FAQ
+
+- 怎么使用 spaceFlex 定义复杂的图表布局？
+
+spaceFlex 提供了按照比例横向纵向划分空间，对于复杂的布局，理论上都可以通过不断拆分容器层级结构实现。

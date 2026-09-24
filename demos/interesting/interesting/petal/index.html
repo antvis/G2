@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>interesting/interesting/petal</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/interesting/interesting/petal/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="interesting/interesting/petal" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>interesting/interesting/petal</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/interesting/interesting/petal/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart, register } from &#39;@antv/g2&#39;;
+
+// 注册自定义图形，代码在下面
+register(&#39;shape.interval.petal&#39;, petal);
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;theta&#39; },
+  data: [
+    { type: &#39;分类一&#39;, value: 27 },
+    { type: &#39;分类二&#39;, value: 25 },
+    { type: &#39;分类三&#39;, value: 18 },
+    { type: &#39;分类四&#39;, value: 15 },
+    { type: &#39;分类五&#39;, value: 10 },
+    { type: &#39;Other&#39;, value: 5 },
+  ],
+  transform: [{ type: &#39;stackY&#39; }],
+  encode: { y: &#39;value&#39;, color: &#39;type&#39;, shape: &#39;petal&#39; },
+  style: {
+    // 👈🏻 在这里配置属性
+    offset: 0.5,
+    // 👈🏻 在这里配置属性
+    ratio: 0.2,
+  },
+  labels: [
+    {
+      text: (d, i, data) =&gt; d.type + &#39;\n&#39; + d.value,
+      radius: 0.9,
+      fontSize: 9,
+      dy: 12,
+    },
+  ],
+  animate: { enter: { type: &#39;fadeIn&#39; } },
+  legend: false,
+});
+
+chart.render();
+
+/** Functions for custom shape. */
+
+function getPoint(p0, p1, ratio) {
+  return [p0[0] + (p1[0] - p0[0]) * ratio, p0[1] + (p1[1] - p0[1]) * ratio];
+}
+
+function sub(p1, p2) {
+  const [x1, y1] = p1;
+  const [x2, y2] = p2;
+  return [x1 - x2, y1 - y2];
+}
+
+function dist(p0, p1) {
+  const [x0, y0] = p0;
+  const [x1, y1] = p1;
+  return Math.sqrt((x0 - x1) ** 2 + (y0 - y1) ** 2);
+}
+
+function getAngle(p) {
+  const [x, y] = p;
+  return Math.atan2(y, x);
+}
+
+function getXY(angle, center, radius) {
+  return [
+    Math.cos(angle) * radius + center[0],
+    Math.sin(angle) * radius + center[1],
+  ];
+}
+
+/**
+ * Custom shape for petal.
+ */
+function petal({ offset = 1, ratio = 0.5 }, context) {
+  const { coordinate } = context;
+  return (points, value, defaults) =&gt; {
+    // 圆形坐标
+    const center = coordinate.getCenter();
+    // 1° 的偏移
+    const offsetAngle = (Math.PI / 180) * offset;
+    // eslint-disable-next-line
+    let [p0, p1, p2, p3] = points;
+    // 半径
+    const radius = dist(center, p0);
+    const qRadius = radius * ratio;
+    const angleQ1 = getAngle(sub(p3, center)) + offsetAngle;
+    const angleQ2 = getAngle(sub(p0, center)) - offsetAngle;
+
+    // 偏移 1° 后的 q1, q2
+    const q1 = getXY(angleQ1, center, qRadius);
+    const q2 = getXY(angleQ2, center, qRadius);
+
+    // 偏移 1° 后的 p3, p0
+    p3 = getXY(angleQ1, center, radius);
+    p0 = getXY(angleQ2, center, radius);
+
+    // mid 对应的角度为 p0 和 p3 中点的夹角
+    const angle = getAngle(sub(getPoint(p0, p3, 0.5), center));
+    const mid = getXY(angle, center, radius);
+
+    const path = [
+      [&#39;M&#39;, ...p1],
+      [&#39;L&#39;, ...q1],
+      [&#39;Q&#39;, ...p3, ...mid],
+      [&#39;Q&#39;, ...p0, ...q2],
+      [&#39;L&#39;, ...p2],
+      [&#39;Z&#39;],
+    ];
+
+    const { document } = chart.getContext().canvas;
+    const g = document.createElement(&#39;g&#39;, {});
+    const p = document.createElement(&#39;path&#39;, {
+      style: {
+        d: path,
+        inset: 1,
+        fill: value.color,
+      },
+    });
+    g.appendChild(p);
+
+    return g;
+  };
+}
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

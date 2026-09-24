@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/text/stem-leaf</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/text/stem-leaf/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/text/stem-leaf" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/text/stem-leaf</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/text/stem-leaf/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+const chart = new Chart({
+  container: &#39;container&#39;,
+  width: 1000,
+  height: 600,
+});
+
+const rawData = {
+  left: [
+    45, 47, 48, 52, 53, 55, 56, 57, 59, 62, 63, 64, 65, 66, 67, 68, 69, 71, 72,
+    73, 74, 75, 76, 77, 78,
+  ],
+  right: [
+    43, 44, 46, 51, 54, 55, 58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 72, 73, 74,
+    75, 76, 77, 79, 82,
+  ],
+};
+// process data
+function processDualStemLeaf(data) {
+  const stemMap = new Map();
+  [&#39;left&#39;, &#39;right&#39;].forEach((side) =&gt; {
+    data[side].forEach((score) =&gt; {
+      const stem = Math.floor(score / 10);
+      const leaf = score % 10;
+      if (!stemMap.has(stem)) {
+        stemMap.set(stem, { left: [], right: [] });
+      }
+      stemMap.get(stem)[side].push(leaf);
+    });
+  });
+  // sort
+  Array.from(stemMap.values()).forEach((group) =&gt; {
+    group.left.sort((a, b) =&gt; b - a);
+    group.right.sort((a, b) =&gt; a - b);
+  });
+  const stems = Array.from(stemMap.keys()).sort((a, b) =&gt; a - b);
+  const chartData = [];
+
+  stems.forEach((stem, index) =&gt; {
+    const yPos = stems.length - index - 1;
+    const { left, right } = stemMap.get(stem);
+    chartData.push({
+      x: 0.5,
+      y: yPos,
+      text: `${stem}`,
+      type: &#39;stem&#39;,
+      color: &#39;#333&#39;,
+    });
+    left.forEach((leaf, i) =&gt; {
+      chartData.push({
+        x: 0.45 - (i + 1) * 0.035, // 右侧起始位置递减
+        y: yPos,
+        text: `${leaf}`,
+        type: &#39;leaf-left&#39;,
+        color: &#39;#1f77b4&#39;,
+      });
+    });
+    right.forEach((leaf, i) =&gt; {
+      chartData.push({
+        x: 0.55 + i * 0.035, // 左侧起始位置递增
+        y: yPos,
+        text: `${leaf}`,
+        type: &#39;leaf-right&#39;,
+        color: &#39;#ff7f0e&#39;,
+      });
+    });
+  });
+  return { chartData, maxY: stems.length };
+}
+const { chartData, maxY } = processDualStemLeaf(rawData);
+
+chart.options({
+  type: &#39;view&#39;,
+  children: [
+    {
+      // stem and leaf
+      type: &#39;text&#39;,
+      data: chartData,
+      encode: { x: &#39;x&#39;, y: &#39;y&#39;, text: &#39;text&#39;, fill: &#39;color&#39; },
+      style: {
+        textAlign: &#39;center&#39;,
+        textBaseline: &#39;middle&#39;,
+        fontSize: (d) =&gt; {
+          if (d.type === &#39;stem&#39;) return 18;
+          return d.type.includes(&#39;leaf&#39;) ? 14 : 16;
+        },
+        fontWeight: (d) =&gt; (d.type === &#39;stem&#39; ? &#39;bold&#39; : &#39;normal&#39;),
+        dx: (d) =&gt; (d.type === &#39;stem&#39; ? -10 : 0),
+      },
+      scale: {
+        x: { domain: [0, 1], nice: false },
+        y: { domain: [-1, maxY], nice: false },
+      },
+      axis: false,
+    },
+    {
+      // title
+      type: &#39;text&#39;,
+      data: [
+        { x: 0.4, y: maxY, text: &#39;A班&#39;, color: &#39;#1f77b4&#39; },
+        { x: 0.55, y: maxY, text: &#39;B班&#39;, color: &#39;#ff7f0e&#39; },
+      ],
+      encode: { x: &#39;x&#39;, y: &#39;y&#39;, text: &#39;text&#39;, fill: &#39;color&#39; },
+      style: { fontWeight: &#39;bold&#39;, fontSize: 14 },
+    },
+    {
+      // dividing line
+      type: &#39;lineX&#39;,
+      data: [0.46, 0.52],
+      style: {
+        lineWidth: 2,
+        stroke: &#39;#000&#39;,
+        strokeOpacity: 0.8,
+      },
+    },
+  ],
+});
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

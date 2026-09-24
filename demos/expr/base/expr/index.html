@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>expr/base/expr</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/expr/base/expr/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="expr/base/expr" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>expr/base/expr</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/expr/base/expr/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+});
+
+const spec = {
+  type: &#39;spaceLayer&#39;,
+  height: 840,
+  width: 640,
+  data: {
+    type: &#39;fetch&#39;,
+    value:
+      &#39;https://gw.alipayobjects.com/os/bmw-prod/79fd9317-d2af-4bc4-90fa-9d07357398fd.csv&#39;,
+    format: &#39;csv&#39;,
+  },
+  children: [
+    {
+      type: &#39;interval&#39;,
+      height: 360,
+      width: 360,
+      legend: false,
+      x: 280,
+      transform: [{ type: &#39;stackY&#39; }],
+      coordinate: { type: &#39;theta&#39; },
+      scale: {
+        color: { palette: &#39;spectral&#39; },
+      },
+      encode: {
+        y: &#39;value&#39;,
+        color: &#39;name&#39;,
+        enterDelay: &#39;{a.value&gt;10000000 ? a.value&gt;20000000 ? 2000 : 1000 : 0}&#39;,
+      },
+      style: {
+        stroke: &#39;{ a.value&gt;20000000 ? &quot;purple&quot; : null}&#39;,
+      },
+      labels: [
+        {
+          text: &#39;{&quot;*&quot; + a.name}&#39;,
+          radius: &#39;{a.value&gt;15000000 ? a.value&gt;20000000 ? 0.6 : 0.75 : 0.9}&#39;,
+          style: {
+            fontSize: &#39;{a.value&gt;15000000 ? a.value&gt;20000000 ? 12 : 10 : 6}&#39;,
+            fontWeight: &#39;bold&#39;,
+          },
+          transform: [{ type: &#39;contrastReverse&#39; }],
+        },
+        {
+          text: &#39;{b &lt; c.length - 3 ? a.value : &quot;&quot;}&#39;,
+          radius: &#39;{a.value&gt;15000000 ? a.value&gt;20000000 ? 0.6 : 0.75 : 0.9}&#39;,
+          style: { fontSize: 9, dy: 12 },
+          transform: [{ type: &#39;contrastReverse&#39; }],
+        },
+      ],
+      animate: { enter: { type: &#39;waveIn&#39;, duration: 600 } },
+    },
+    {
+      type: &#39;view&#39;,
+      height: 400,
+      width: 540,
+      y: 300,
+      children: [
+        {
+          type: &#39;interval&#39;,
+          height: 400,
+          width: 540,
+          legend: false,
+          y: 300,
+          scale: {
+            color: { palette: &#39;spectral&#39; },
+          },
+          encode: {
+            y: &#39;value&#39;,
+            x: &#39;name&#39;,
+            color: &#39;name&#39;,
+            enterDelay:
+              &#39;{a.value&gt;10000000 ? a.value&gt;20000000 ? 2000 : 1000 : 0}&#39;,
+          },
+        },
+        {
+          type: &#39;line&#39;,
+          height: 400,
+          width: 540,
+          legend: false,
+          y: 300,
+          encode: { x: &#39;name&#39;, y: &#39;value&#39; },
+          scale: { y: { independent: true } },
+          labels: [
+            {
+              text: &#39;{a.value}&#39;,
+              selector: &#39;{a}&#39;,
+            },
+          ],
+          axis: {
+            y: {
+              position: &#39;right&#39;,
+              grid: null,
+            },
+          },
+        },
+      ],
+    },
+  ],
+};
+
+chart.options(spec);
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radial/radial-line</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radial/radial-line/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radial/radial-line" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radial/radial-line</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radial/radial-line/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { term: &#39;Zombieland&#39;, count: 9 },
+  { term: &#39;Wieners&#39;, count: 8 },
+  { term: &#39;Toy Story&#39;, count: 8 },
+  { term: &#39;trashkannon&#39;, count: 7 },
+  { term: &#39;the GROWLERS&#39;, count: 6 },
+  { term: &#39;mudweiser&#39;, count: 6 },
+  { term: &#39;ThunderCats&#39;, count: 4 },
+  { term: &#39;The Taqwacores - Motion Picture&#39;, count: 4 },
+  { term: &#39;The Shawshank Redemption&#39;, count: 2 },
+  { term: &#39;The Olivia Experiment&#39;, count: 1 },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  padding: 50,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  coordinate: { type: &#39;radial&#39;, innerRadius: 0.2, endAngle: Math.PI },
+  children: [
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;term&#39;, y: &#39;count&#39;, size: 5 },
+      axis: {
+        y: false,
+        x: {
+          title: false,
+        },
+      },
+    },
+    {
+      type: &#39;point&#39;,
+      encode: { x: &#39;term&#39;, y: &#39;count&#39;, shape: &#39;point&#39;, size: 4 },
+      tooltip: {
+        title: (item) =&gt; item.term,
+        items: [
+          (item) =&gt; ({
+            name: &#39;count&#39;,
+            value: item.count,
+          }),
+        ],
+      },
+    },
+    {
+      type: &#39;text&#39;,
+      style: {
+        text: &#39;Music&#39;,
+        x: &#39;50%&#39;,
+        y: &#39;50%&#39;,
+        textAlign: &#39;center&#39;,
+        fontSize: 24,
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

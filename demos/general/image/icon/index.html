@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/image/icon</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/image/icon/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/image/icon" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/image/icon</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/image/icon/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const dataXO = [
+  {
+    x: 0,
+    y: 0.241,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 1,
+    y: 0.367,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 2,
+    y: 0.036,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 3,
+    y: 0.112,
+    type: &#39;o&#39;,
+  },
+  {
+    x: 4,
+    y: 0.382,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 5,
+    y: 0.594,
+    type: &#39;o&#39;,
+  },
+  {
+    x: 6,
+    y: 0.516,
+    type: &#39;o&#39;,
+  },
+  {
+    x: 7,
+    y: 0.634,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 8,
+    y: 0.612,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 9,
+    y: 0.271,
+    type: &#39;o&#39;,
+  },
+  {
+    x: 10,
+    y: 0.241,
+    type: &#39;o&#39;,
+  },
+  {
+    x: 11,
+    y: 0.955,
+    type: &#39;o&#39;,
+  },
+  {
+    x: 12,
+    y: 0.336,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 13,
+    y: 0.307,
+    type: &#39;x&#39;,
+  },
+  {
+    x: 14,
+    y: 0.747,
+    type: &#39;x&#39;,
+  },
+];
+
+const x =
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/xYAYJ3T969/94c968a3f33eac63c63b87b2f0f6cd97e2db624c65646d6839a5eb4d9c1b5543e922befd040cc5d55deaaa1c7e57c0075a186aa25874490616f2652d11f08592.svg&#39;;
+const o =
+  &#39;https://gw.alipayobjects.com/zos/antfincdn/JtFvbgBbjN/3917899b7468c526a5bfe18f94d3cf1cfedf7a7c808976870a866d71d4a322af778ffb34fd3c06783be80ff60b10be3279d5dbc82f07a7201f4978130bc8edd6.svg&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;image&#39;,
+  data: dataXO,
+  encode: {
+    x: &#39;x&#39;,
+    y: &#39;y&#39;,
+    size: &#39;y&#39;,
+    src: ({ type }) =&gt; (type === &#39;x&#39; ? x : o),
+  },
+  scale: {
+    x: { type: &#39;band&#39; },
+    y: { domain: [0, 1] },
+    size: { type: &#39;linear&#39;, range: [12, 32] },
+  },
+  legend: { size: false },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

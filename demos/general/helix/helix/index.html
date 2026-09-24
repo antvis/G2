@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/helix/helix</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/helix/helix/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/helix/helix" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/helix/helix</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/helix/helix/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// mock data
+const data = [];
+const n = 31;
+for (let i = 0; i &lt; 372; i++) {
+  const now = new Date();
+  const currentTime = new Date(now.getTime() + i * 1000 * 3600 * 24);
+  const formattedTime = `${currentTime.getFullYear()}.${String(
+    currentTime.getMonth() + 1,
+  ).padStart(2, &#39;0&#39;)}.${String(currentTime.getDate()).padStart(2, &#39;0&#39;)}`;
+
+  data[i] = {};
+  data[i].time = formattedTime;
+
+  const random = Math.floor(Math.random() * 10);
+  if ((i % n &gt; 2 &amp;&amp; i % n &lt; 4) || (i % n &gt;= 6 &amp;&amp; i % n &lt; 7)) {
+    data[i].value = 30 + random * 7;
+  } else if (i % n &gt;= 4 &amp;&amp; i % n &lt; 6) {
+    data[i].value = 60 + random * 8;
+  } else {
+    data[i].value = 10 + random * 5;
+  }
+}
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  height: 500,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: {
+    value: data,
+  },
+  coordinate: {
+    type: &#39;helix&#39;,
+    startAngle: 0.5 * Math.PI,
+    endAngle: 12.5 * Math.PI,
+  },
+  encode: { x: &#39;time&#39;, y: &#39;value&#39;, color: &#39;value&#39; },
+  scale: {
+    color: {
+      type: &#39;linear&#39;,
+      range: [&#39;#ffffff&#39;, &#39;#1890FF&#39;],
+    },
+  },
+  tooltip: {
+    title: &#39;time&#39;,
+  },
+  animate: {
+    enter: {
+      type: &#39;fadeIn&#39;,
+    },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=1e-6,n=new e({container:`container`,autoFit:!0});n.options({type:`interval`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv`},encode:{x:`letter`,y:`frequency`,y1:t},scale:{y:{type:`log`}},axis:{y:{labelFormatter:e=>e===t?0:e}}}),n.render();

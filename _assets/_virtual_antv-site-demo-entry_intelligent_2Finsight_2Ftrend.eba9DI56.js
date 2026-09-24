@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";import{r as t}from"./esm.Cez8e_VE.js";var n=new e({container:`container`,autoFit:!0});n.options({type:`view`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv`},encode:{x:`date`,y:`close`},children:[{type:`line`},{type:t}]}),n.render();

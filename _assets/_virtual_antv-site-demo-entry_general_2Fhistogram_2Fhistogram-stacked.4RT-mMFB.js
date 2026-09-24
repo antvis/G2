@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";fetch(`https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json`).then(e=>e.json()).then(t=>{let n=new e({container:`container`,autoFit:!0,height:500});n.options({type:`interval`,encode:{x:`depth`,y:`count`,color:`cut`},data:t,transform:[{type:`binX`,y:`count`,thresholds:25}],style:{columnWidthRatio:1,inset:.5}}),n.render()});

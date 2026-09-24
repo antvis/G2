@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/rose/nightingale-rose</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/rose/nightingale-rose/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/rose/nightingale-rose" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/rose/nightingale-rose</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/rose/nightingale-rose/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+const data = [
+  { year: &#39;2001&#39;, population: 41.8 },
+  { year: &#39;2002&#39;, population: 38 },
+  { year: &#39;2003&#39;, population: 33.7 },
+  { year: &#39;2004&#39;, population: 30.7 },
+  { year: &#39;2005&#39;, population: 25.8 },
+  { year: &#39;2006&#39;, population: 31.7 },
+  { year: &#39;2007&#39;, population: 33 },
+  { year: &#39;2008&#39;, population: 46 },
+  { year: &#39;2009&#39;, population: 38.3 },
+  { year: &#39;2010&#39;, population: 28 },
+  { year: &#39;2011&#39;, population: 42.5 },
+  { year: &#39;2012&#39;, population: 30.3 },
+];
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  height: 720,
+  width: 720,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;polar&#39; },
+  interaction: { elementHighlight: true },
+  data: data,
+  encode: { x: &#39;year&#39;, y: &#39;population&#39; },
+  scale: { x: { padding: 0 } },
+  style: {
+    lineWidth: 1,
+    stroke: &#39;#fff&#39;,
+  },
+  axis: false,
+  labels: [
+    {
+      text: &#39;year&#39;,
+      fontSize: 16,
+      fontWeight: 800,
+      position: &#39;inside&#39;,
+    },
+  ],
+  state: {
+    active: {
+      fill: &#39;#288AFF&#39;,
+      stroke: &#39;black&#39;,
+      lineWidth: 1,
+      zIndex: 101,
+    },
+    inactive: { opacity: 0.5, zIndex: 100 },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

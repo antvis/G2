@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>annotation/connector/interval-connector</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/annotation/connector/interval-connector/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="annotation/connector/interval-connector" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>annotation/connector/interval-connector</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/annotation/connector/interval-connector/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://www.anychart.com/products/anychart/gallery/Waterfall_Charts/Waterfall_Arrows.php
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  insetTop: 30,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: [
+    { x: &#39;Net Sales&#39;, value: 5085000, start: 0, end: 5085000 },
+    { x: &#39;Cost of Sales&#39;, value: -1250450, start: 5085000, end: 3834550 },
+    { x: &#39;Operating Expenses&#39;, value: -2350050, start: 3834550, end: 1484500 },
+    { x: &#39;Other Income&#39;, value: 750000, start: 1484500, end: 2234500 },
+    { x: &#39;Extraordinary Gain&#39;, value: -230050, start: 2234500, end: 2004450 },
+    { x: &#39;Interest Expense&#39;, value: -500000, start: 2004450, end: 1504450 },
+    { x: &#39;Taxes&#39;, value: 490000, start: 1504450, end: 1994450 },
+    { x: &#39;Net Income&#39;, isTotal: true, value: 1994450, start: 0, end: 1994450 },
+  ],
+  axis: {
+    x: { title: false, labelTransform: &#39;rotate(-90)&#39; },
+    y: { labelFormatter: &#39;~s&#39; },
+  },
+  legend: null,
+  children: [
+    {
+      type: &#39;link&#39;,
+      data: { transform: [{ type: &#39;custom&#39;, callback: linkData }] },
+      encode: { x: [&#39;x1&#39;, &#39;x2&#39;], y: &#39;value&#39; },
+      style: { stroke: &#39;#697474&#39;, lineDash: [4, 2] },
+      tooltip: false,
+    },
+    {
+      type: &#39;connector&#39;,
+      data: { transform: [{ type: &#39;custom&#39;, callback: connectorData }] },
+      encode: { x: [&#39;x1&#39;, &#39;x2&#39;], y: [&#39;y1&#39;, &#39;y2&#39;] },
+      labels: [
+        {
+          text: (d) =&gt; `${d.y2 - d.y1}`,
+          formatter: &#39;~s&#39;,
+          fontSize: 10,
+          dy: 2,
+        },
+      ],
+      style: { stroke: &#39;#697474&#39;, offset: 16 },
+      tooltip: false,
+    },
+    {
+      type: &#39;interval&#39;,
+      encode: {
+        x: &#39;x&#39;,
+        y: [&#39;start&#39;, &#39;end&#39;],
+        color: (d, idx) =&gt;
+          idx === 0 || d.isTotal ? &#39;D&#39; : d.value &gt; 0 ? &#39;P&#39; : &#39;N&#39;,
+        size: 24,
+      },
+      scale: {
+        color: {
+          domain: [&#39;P&#39;, &#39;N&#39;, &#39;D&#39;],
+          range: [&#39;#64b5f6&#39;, &#39;#ef6c00&#39;, &#39;#96a6a6&#39;],
+        },
+      },
+      style: { stroke: &#39;#697474&#39; },
+      labels: [
+        {
+          text: &#39;value&#39;,
+          formatter: &#39;~s&#39;,
+          position: (d) =&gt; (d.value &gt; 0 ? &#39;top&#39; : &#39;bottom&#39;),
+          textBaseline: (d) =&gt; (d.value &gt; 0 ? &#39;bottom&#39; : &#39;top&#39;),
+          fontSize: 10,
+          dy: (d) =&gt; (d.value &gt; 0 ? -4 : 4),
+        },
+      ],
+      tooltip: {
+        items: [
+          { channel: &#39;y&#39;, valueFormatter: &#39;~s&#39; },
+          { channel: &#39;y1&#39;, valueFormatter: &#39;~s&#39; },
+        ],
+      },
+    },
+  ],
+});
+
+chart.render();
+
+// Process data.
+function linkData(data) {
+  return data.reduce((r, d, idx) =&gt; {
+    if (idx &gt; 0) {
+      return r.concat({
+        x1: data[idx - 1].x,
+        x2: d.x,
+        value: d.isTotal ? d.end : d.start,
+      });
+    }
+    return r;
+  }, []);
+}
+
+function connectorData(data) {
+  return [
+    {
+      x1: data[0].x,
+      y1: data[0].end,
+      x2: data[data.length - 1].x,
+      y2: data[data.length - 1].end,
+    },
+  ];
+}
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

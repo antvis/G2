@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";import{n as t}from"./src.CrsBVaRE.js";var n=t(10**2.6),r=new e({container:`container`,autoFit:!0});r.options({type:`rect`,data:Array(5e3).fill(0).map(n),encode:{x:e=>e},transform:[{type:`binX`,y:`count`}],style:{stroke:`white`},slider:{x:{}},tooltip:{title:(e,t,n,r)=>({value:`${r.x.value[t]} ~ ${r.x1.value[t]}`})}}),r.render();

@@ -1,0 +1,21 @@
+---
+title: "scaleInY"
+description: "scaleInY"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/manual/core/animate/scale-in-y/"
+version: "5.4.8"
+---
+
+`scaleInY` 单个图形沿着 y 方向的生长动画。影响 `transform.scale` 属性。
+
+## 开始使用
+
+<img alt="scaleInY" src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*L6mkQa3aG64AAAAAAAAAAABkARQnAQ" width="400" />
+
+```ts
+chart.options({
+  type: 'interval',
+  /* ... */
+  animate: { enter: { type: 'scaleInY' } },
+});
+```

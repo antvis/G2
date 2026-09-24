@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/interval/bar-basic</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/interval/bar-basic/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/interval/bar-basic" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/interval/bar-basic</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/interval/bar-basic/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { letter: &#39;A&#39;, frequency: 0.08167 },
+  { letter: &#39;B&#39;, frequency: 0.01492 },
+  { letter: &#39;C&#39;, frequency: 0.02782 },
+  { letter: &#39;D&#39;, frequency: 0.04253 },
+  { letter: &#39;E&#39;, frequency: 0.12702 },
+  { letter: &#39;F&#39;, frequency: 0.02288 },
+  { letter: &#39;G&#39;, frequency: 0.02015 },
+  { letter: &#39;H&#39;, frequency: 0.06094 },
+  { letter: &#39;I&#39;, frequency: 0.06966 },
+  { letter: &#39;J&#39;, frequency: 0.00153 },
+  { letter: &#39;K&#39;, frequency: 0.00772 },
+  { letter: &#39;L&#39;, frequency: 0.04025 },
+  { letter: &#39;M&#39;, frequency: 0.02406 },
+  { letter: &#39;N&#39;, frequency: 0.06749 },
+  { letter: &#39;O&#39;, frequency: 0.07507 },
+  { letter: &#39;P&#39;, frequency: 0.01929 },
+  { letter: &#39;Q&#39;, frequency: 0.00095 },
+  { letter: &#39;R&#39;, frequency: 0.05987 },
+  { letter: &#39;S&#39;, frequency: 0.06327 },
+  { letter: &#39;T&#39;, frequency: 0.09056 },
+  { letter: &#39;U&#39;, frequency: 0.02758 },
+  { letter: &#39;V&#39;, frequency: 0.00978 },
+  { letter: &#39;W&#39;, frequency: 0.0236 },
+  { letter: &#39;X&#39;, frequency: 0.0015 },
+  { letter: &#39;Y&#39;, frequency: 0.01974 },
+  { letter: &#39;Z&#39;, frequency: 0.00074 },
+];
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: data,
+  encode: { x: &#39;letter&#39;, y: &#39;frequency&#39; },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

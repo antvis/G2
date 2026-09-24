@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";import{u as t}from"./esm.Cez8e_VE.js";var n=new e({container:`container`});n.options({type:t,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/basement_prod/6b4aa721-b039-49b9-99d8-540b3f87d339.json`}}),n.render();

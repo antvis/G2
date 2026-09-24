@@ -1,0 +1,1343 @@
+# G2 一套简明和渐进式的可视化语法 | AntV
+
+> G2 是一套简洁的渐进式可视化语法，用于构建仪表盘、数据探索以及数据讲故事。结合工业和学术实践，实现图形语法、动画语法和交互语法。
+
+Use the Markdown links below for machine-readable content; canonical page links are the authoritative human-facing URLs.
+
+## Agent resources
+
+- [Full documentation](https://g2.antv.antgroup.com/llms-full.txt): Combined Markdown content for all published documents.
+- [Canonical site](https://g2.antv.antgroup.com/zh/)
+- [Source repository](https://github.com/antvis/g2)
+- Languages: zh, en
+- Current version: 5.4.8
+
+## 中文文档
+
+### charts
+
+- [📈 图表介绍](https://g2.antv.antgroup.com/zh/charts/overview.md): 浏览 G2 图表类型、适用场景和可运行示例，按数据关系选择条形图、折线图、散点图、地图及关系图。 — [页面](https://g2.antv.antgroup.com/zh/charts/overview/)
+- [弧长连接图](https://g2.antv.antgroup.com/zh/charts/arcdiagram.md): 用沿直线或圆周排列的节点与弧线展示关系，了解节点排序、连接模式及 G2 弧长连接图示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/arcdiagram/)
+- [马赛克图](https://g2.antv.antgroup.com/zh/charts/mosaic.md): 用矩形面积和分割比例表达分类数据的频数关系，了解马赛克图的使用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/mosaic/)
+- [柱状图](https://g2.antv.antgroup.com/zh/charts/bar.md): 用柱子的高度或长度比较不同类别的数值，了解柱状图的数据要求、适用场景及 G2 绘制示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/bar/)
+- [气泡图](https://g2.antv.antgroup.com/zh/charts/bubble-chart.md): 在散点位置之外用气泡大小表达额外数值，了解气泡图的数据映射、比较方式及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/bubble-chart/)
+- [色块图](https://g2.antv.antgroup.com/zh/charts/color-map.md): 将数据映射到矩形色块，通过颜色比较类别组合的数值，了解色块图的适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/color-map/)
+- [分布曲线图](https://g2.antv.antgroup.com/zh/charts/distributioncurve.md): 用平滑曲线观察数值分布的形状、集中程度和多个峰值，了解分布曲线图的使用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/distributioncurve/)
+- [点描法地图](https://g2.antv.antgroup.com/zh/charts/dot-map.md): 用地图上的点表达地理位置或数量分布，了解点描法地图的表现方式、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/dot-map/)
+- [直方图](https://g2.antv.antgroup.com/zh/charts/histogram.md): 将连续数据划分为区间并统计频数，了解直方图与柱状图的区别、分箱选择及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/histogram/)
+- [折线图](https://g2.antv.antgroup.com/zh/charts/line.md): 连接连续观测值以展示变化趋势，了解折线图的数据要求、多系列比较及 G2 绘制示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/line/)
+- [分组柱状图](https://g2.antv.antgroup.com/zh/charts/multi-set-bar.md): 将多个系列的柱子按类别并排放置，了解分组柱状图的比较方式、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/multi-set-bar/)
+- [打包图](https://g2.antv.antgroup.com/zh/charts/pack.md): 用嵌套或排列的圆展示层级结构和数值大小，了解打包图的布局特点、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/pack/)
+- [平行坐标系](https://g2.antv.antgroup.com/zh/charts/parallel.md): 将多个数据维度排列为平行轴，用折线连接同一记录，了解平行坐标系的多维分析方法及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/parallel/)
+- [玉珏图](https://g2.antv.antgroup.com/zh/charts/radial-bar.md): 用不同半径上的弧长表达类别数值，了解玉珏图的环形布局、比较方式及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/radial-bar/)
+- [回归曲线图](https://g2.antv.antgroup.com/zh/charts/regressioncurve.md): 用拟合曲线概括变量之间的关系和趋势，了解回归曲线图的分析用途及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/regressioncurve/)
+- [堆叠面积图](https://g2.antv.antgroup.com/zh/charts/stacked-area.md): 将多个系列的面积逐层堆叠，观察总量与各部分随时间的变化，了解堆叠面积图和 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/stacked-area/)
+- [堆叠柱状图](https://g2.antv.antgroup.com/zh/charts/stacked-bar.md): 将各系列数值累积到同一柱中，比较类别总量及组成，了解堆叠柱状图的适用场景和 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/stacked-bar/)
+- [茎叶图](https://g2.antv.antgroup.com/zh/charts/stem-leaf.md): 把数值拆分为茎和叶，在保留原始数值的同时展示分布，了解茎叶图的统计用途及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/stem-leaf/)
+- [旭日图](https://g2.antv.antgroup.com/zh/charts/sunburst.md): 用嵌套的环形扇区表示层级结构与数值占比，了解旭日图的阅读方式、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/sunburst/)
+- [矩形树图](https://g2.antv.antgroup.com/zh/charts/treemap.md): 用嵌套矩形的面积表达层级数据的数值大小，了解矩形树图的布局特点、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/treemap/)
+- [韦恩图](https://g2.antv.antgroup.com/zh/charts/venn.md): 用相交区域展示集合间的交集与包含关系，了解韦恩图的适用场景、数据表达方式及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/venn/)
+- [小提琴图](https://g2.antv.antgroup.com/zh/charts/violin.md): 结合密度分布形状与统计概要比较多组数据，了解小提琴图与箱形图的区别及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/violin/)
+- [面积图](https://g2.antv.antgroup.com/zh/charts/area.md): 用填充面积展示数值随时间的变化，了解面积图与折线图的区别、适用场景及 G2 配置示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/area/)
+- [箱形图](https://g2.antv.antgroup.com/zh/charts/boxplot.md): 通过中位数、四分位数和异常值概括数据分布，了解箱形图的统计含义、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/boxplot/)
+- [带气泡的地图](https://g2.antv.antgroup.com/zh/charts/bubble-map.md): 在地图上用气泡位置与大小展示地理分布和数值差异，了解带气泡地图的适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/bubble-map/)
+- [雷达图](https://g2.antv.antgroup.com/zh/charts/radar-chart.md): 将多个指标排列在放射状坐标轴上，对比对象的指标轮廓，了解雷达图的适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/radar-chart/)
+- [双向柱状图](https://g2.antv.antgroup.com/zh/charts/bi-directional-bar.md): 将两组数据沿相反方向排列，比较不同群体或正负数值，了解双向柱状图的使用场景和 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/bi-directional-bar/)
+- [饼图](https://g2.antv.antgroup.com/zh/charts/pie.md): 用扇形角度和面积表达各部分占总体的比例，了解饼图的适用条件、类别数量限制及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/pie/)
+- [环图](https://g2.antv.antgroup.com/zh/charts/donut-chart.md): 用环形扇区展示各类别占总体的比例，了解环图与饼图的区别、适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/donut-chart/)
+- [热力图](https://g2.antv.antgroup.com/zh/charts/heatmap.md): 用颜色强度表现数值或空间密度，了解热力图的数据映射、分布分析场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/heatmap/)
+- [分级统计地图](https://g2.antv.antgroup.com/zh/charts/choropleth-map.md): 按地理区域的数值设置颜色深浅或色阶，了解分级统计地图的数据要求、区域比较方式及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/choropleth-map/)
+- [漏斗图](https://g2.antv.antgroup.com/zh/charts/funnel.md): 展示连续流程中各阶段的数量及转化情况，了解漏斗图在转化分析中的应用和 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/funnel/)
+- [K线图](https://g2.antv.antgroup.com/zh/charts/k-chart.md): 用开盘、收盘、最高和最低价格描述行情变化，了解 K 线图的结构、金融分析场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/k-chart/)
+- [散点图](https://g2.antv.antgroup.com/zh/charts/scatter-plot.md): 将两个数值变量映射到平面位置，观察相关性、聚类与异常点，了解散点图的使用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/scatter-plot/)
+- [仪表盘](https://g2.antv.antgroup.com/zh/charts/gauge.md): 在刻度范围内展示当前指标及其所处区间，了解仪表盘图的组成、监控场景和 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/gauge/)
+- [南丁格尔玫瑰图](https://g2.antv.antgroup.com/zh/charts/rose.md): 在等角扇区中用半径表达类别数值，了解南丁格尔玫瑰图与饼图的区别及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/rose/)
+- [等高线图](https://g2.antv.antgroup.com/zh/charts/contourline.md): 用等值线表达二维空间中连续数值的分布，了解等高线图在地形和密度分析中的应用及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/contourline/)
+- [螺旋图](https://g2.antv.antgroup.com/zh/charts/spiral.md): 沿螺旋路径排列数据，观察时间序列的周期与长期变化，了解螺旋图的适用场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/spiral/)
+- [词云图](https://g2.antv.antgroup.com/zh/charts/wordcloud.md): 用文字大小表达词语的重要程度或频次，了解词云图的布局、文本展示场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/wordcloud/)
+- [子弹图](https://g2.antv.antgroup.com/zh/charts/bullet.md): 在紧凑空间内对照实际值、目标值与评价区间，了解子弹图的结构、指标对比场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/bullet/)
+- [桑基图](https://g2.antv.antgroup.com/zh/charts/sankey.md): 用连接带宽度表达节点间的流量，了解桑基图在流程、能源和资金流向分析中的应用及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/sankey/)
+- [甘特图](https://g2.antv.antgroup.com/zh/charts/gantt.md): 用时间轴上的横条表示任务开始、结束和持续时间，了解甘特图的进度管理场景及 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/gantt/)
+- [卡吉图](https://g2.antv.antgroup.com/zh/charts/kagi.md): 根据价格变化方向和反转幅度绘制折线，了解卡吉图的趋势表达方式、组成要素与适用场景。 — [页面](https://g2.antv.antgroup.com/zh/charts/kagi/)
+- [和弦图](https://g2.antv.antgroup.com/zh/charts/chord.md): 用圆周上的分组和连接带表达群体间的联系及规模，了解和弦图的适用场景和 G2 示例。 — [页面](https://g2.antv.antgroup.com/zh/charts/chord/)
+
+### manual
+
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/animate/overview.md): 概览 — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/overview/)
+- [G2 图表组成](https://g2.antv.antgroup.com/zh/manual/core/chart/chart-component.md): G2 图表组成 — [页面](https://g2.antv.antgroup.com/zh/manual/core/chart/chart-component/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/composition/overview.md): 通过 G2 组合视图创建多图布局、分面和多标记图表，使用 children 描述层级并复用数据与配置。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/overview/)
+- [G2 配置项总览](https://g2.antv.antgroup.com/zh/manual/core/configuration.md): 查阅 G2 图表初始化和 Spec 配置层级，了解数据、编码、比例尺、坐标系、样式、交互与组合视图的选项。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/configuration/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/coordinate/overview.md): 了解 G2 坐标系及其转换，配置笛卡尔坐标、极坐标和转置等变换，控制图表的空间布局。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/overview/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/data/overview.md): 配置 G2 数据来源和数据转换，使用内联数据或远程请求，并通过更新 Spec 刷新图表数据。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/overview/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/interaction/overview.md): 为 G2 图表配置提示信息、图例筛选、元素高亮和框选等交互，了解交互的启用方式与自定义配置。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/overview/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/mark/overview.md): 了解 G2 图形标记的类型、数据编码和样式配置，以及多个标记的组合和自定义复合标记的使用。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/overview/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/scale/overview.md): 使用 G2 比例尺将数据映射为视觉属性，配置定义域、值域、刻度和比例尺类型，并控制多个标记的比例尺同步。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/overview/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/theme/overview.md): 设置 G2 图表主题，切换内置主题、调整配色与组件样式，并通过自定义主题保持图表视觉一致。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/theme/overview/)
+- [概览](https://g2.antv.antgroup.com/zh/manual/core/transform/overview.md): 概览 — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/overview/)
+- [geoPath](https://g2.antv.antgroup.com/zh/manual/extra-topics/geo/geo-path.md): geoPath — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/geo/geo-path/)
+- [geoView](https://g2.antv.antgroup.com/zh/manual/extra-topics/geo/geo-view.md): geoView — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/geo/geo-view/)
+- [forceGraph](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/force-graph.md): forceGraph — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/force-graph/)
+- [pack](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/pack.md): pack — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/pack/)
+- [sankey](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/sankey.md): sankey — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/sankey/)
+- [tree](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/tree.md): tree — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/tree/)
+- [treemap](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/treemap.md): treemap — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/graph/treemap/)
+- [renderer](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/renderer.md): renderer — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/renderer/)
+- [绘制 3D 图表](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/draw-threed-chart.md): 绘制 3D 图表 — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/draw-threed-chart/)
+- [point3D](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/point-threed.md): point3D — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/point-threed/)
+- [什么是 G2](https://g2.antv.antgroup.com/zh/manual/introduction/what-is-g2.md): 了解 AntV G2 的可视化语法、图形标记、交互和动画能力，以及如何组合这些能力构建数据可视化。 — [页面](https://g2.antv.antgroup.com/zh/manual/introduction/what-is-g2/)
+- [快速上手](https://g2.antv.antgroup.com/zh/manual/quick-start.md): 通过 npm 或 CDN 安装 AntV G2，创建 Chart 实例，使用 Spec 配置数据和视觉编码并渲染第一个图表。 — [页面](https://g2.antv.antgroup.com/zh/manual/quick-start/)
+- [新版本特性](https://g2.antv.antgroup.com/zh/manual/whats-new/new-version-features.md): 新版本特性 — [页面](https://g2.antv.antgroup.com/zh/manual/whats-new/new-version-features/)
+- [fadeIn](https://g2.antv.antgroup.com/zh/manual/core/animate/fade-in.md): fadeIn — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/fade-in/)
+- [fadeOut](https://g2.antv.antgroup.com/zh/manual/core/animate/fade-out.md): fadeOut — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/fade-out/)
+- [growInX](https://g2.antv.antgroup.com/zh/manual/core/animate/grow-in-x.md): growInX — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/grow-in-x/)
+- [growInY](https://g2.antv.antgroup.com/zh/manual/core/animate/grow-in-y.md): growInY — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/grow-in-y/)
+- [morphing](https://g2.antv.antgroup.com/zh/manual/core/animate/morphing.md): morphing — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/morphing/)
+- [pathIn](https://g2.antv.antgroup.com/zh/manual/core/animate/path-in.md): pathIn — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/path-in/)
+- [scaleInX](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-in-x.md): scaleInX — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-in-x/)
+- [scaleInY](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-in-y.md): scaleInY — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-in-y/)
+- [scaleOutX](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-out-x.md): scaleOutX — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-out-x/)
+- [scaleOutY](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-out-y.md): scaleOutY — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/scale-out-y/)
+- [waveIn](https://g2.antv.antgroup.com/zh/manual/core/animate/wave-in.md): waveIn — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/wave-in/)
+- [zoomIn](https://g2.antv.antgroup.com/zh/manual/core/animate/zoom-in.md): zoomIn — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/zoom-in/)
+- [zoomOut](https://g2.antv.antgroup.com/zh/manual/core/animate/zoom-out.md): zoomOut — [页面](https://g2.antv.antgroup.com/zh/manual/core/animate/zoom-out/)
+- [图表生命周期](https://g2.antv.antgroup.com/zh/manual/core/chart/chart-lifecycle.md): 图表生命周期 — [页面](https://g2.antv.antgroup.com/zh/manual/core/chart/chart-lifecycle/)
+- [facetCircle](https://g2.antv.antgroup.com/zh/manual/core/composition/facet-circle.md): facetCircle — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/facet-circle/)
+- [facetRect](https://g2.antv.antgroup.com/zh/manual/core/composition/facet-rect.md): facetRect — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/facet-rect/)
+- [repeatMatrix](https://g2.antv.antgroup.com/zh/manual/core/composition/repeat-matrix.md): repeatMatrix — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/repeat-matrix/)
+- [spaceFlex](https://g2.antv.antgroup.com/zh/manual/core/composition/space-flex.md): spaceFlex — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/space-flex/)
+- [spaceLayer](https://g2.antv.antgroup.com/zh/manual/core/composition/space-layer.md): spaceLayer — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/space-layer/)
+- [timingKeyframe](https://g2.antv.antgroup.com/zh/manual/core/composition/timing-keyframe.md): timingKeyframe — [页面](https://g2.antv.antgroup.com/zh/manual/core/composition/timing-keyframe/)
+- [fisheye](https://g2.antv.antgroup.com/zh/manual/core/coordinate/fisheye.md): fisheye — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/fisheye/)
+- [parallel](https://g2.antv.antgroup.com/zh/manual/core/coordinate/parallel.md): parallel — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/parallel/)
+- [polar](https://g2.antv.antgroup.com/zh/manual/core/coordinate/polar.md): polar — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/polar/)
+- [theta](https://g2.antv.antgroup.com/zh/manual/core/coordinate/theta.md): theta — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/theta/)
+- [transpose](https://g2.antv.antgroup.com/zh/manual/core/coordinate/transpose.md): transpose — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/transpose/)
+- [custom](https://g2.antv.antgroup.com/zh/manual/core/data/custom.md): custom — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/custom/)
+- [ema](https://g2.antv.antgroup.com/zh/manual/core/data/ema.md): ema — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/ema/)
+- [fetch](https://g2.antv.antgroup.com/zh/manual/core/data/fetch.md): fetch — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/fetch/)
+- [filter](https://g2.antv.antgroup.com/zh/manual/core/data/filter.md): filter — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/filter/)
+- [fold](https://g2.antv.antgroup.com/zh/manual/core/data/fold.md): fold — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/fold/)
+- [inline](https://g2.antv.antgroup.com/zh/manual/core/data/inline.md): inline — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/inline/)
+- [join](https://g2.antv.antgroup.com/zh/manual/core/data/join.md): join — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/join/)
+- [kde](https://g2.antv.antgroup.com/zh/manual/core/data/kde.md): kde — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/kde/)
+- [log](https://g2.antv.antgroup.com/zh/manual/core/data/log.md): log — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/log/)
+- [map](https://g2.antv.antgroup.com/zh/manual/core/data/map.md): map — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/map/)
+- [pick](https://g2.antv.antgroup.com/zh/manual/core/data/pick.md): pick — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/pick/)
+- [rename](https://g2.antv.antgroup.com/zh/manual/core/data/rename.md): rename — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/rename/)
+- [slice](https://g2.antv.antgroup.com/zh/manual/core/data/slice.md): slice — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/slice/)
+- [sort](https://g2.antv.antgroup.com/zh/manual/core/data/sort.md): sort — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/sort/)
+- [sortBy](https://g2.antv.antgroup.com/zh/manual/core/data/sort-by.md): sortBy — [页面](https://g2.antv.antgroup.com/zh/manual/core/data/sort-by/)
+- [brushAxisHighlight](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-axis-highlight.md): brushAxisHighlight — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-axis-highlight/)
+- [area](https://g2.antv.antgroup.com/zh/manual/core/mark/area.md): area — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/area/)
+- [band](https://g2.antv.antgroup.com/zh/manual/core/scale/band.md): band — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/band/)
+- [linear](https://g2.antv.antgroup.com/zh/manual/core/scale/linear.md): linear — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/linear/)
+- [log](https://g2.antv.antgroup.com/zh/manual/core/scale/log.md): log — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/log/)
+- [ordinal](https://g2.antv.antgroup.com/zh/manual/core/scale/ordinal.md): ordinal — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/ordinal/)
+- [point](https://g2.antv.antgroup.com/zh/manual/core/scale/point.md): point — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/point/)
+- [quantile](https://g2.antv.antgroup.com/zh/manual/core/scale/quantile.md): quantile — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/quantile/)
+- [quantize](https://g2.antv.antgroup.com/zh/manual/core/scale/quantize.md): quantize — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/quantize/)
+- [sqrt](https://g2.antv.antgroup.com/zh/manual/core/scale/sqrt.md): sqrt — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/sqrt/)
+- [threshold](https://g2.antv.antgroup.com/zh/manual/core/scale/threshold.md): threshold — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/threshold/)
+- [time](https://g2.antv.antgroup.com/zh/manual/core/scale/time.md): time — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/time/)
+- [academy](https://g2.antv.antgroup.com/zh/manual/core/theme/academy.md): academy — [页面](https://g2.antv.antgroup.com/zh/manual/core/theme/academy/)
+- [classic](https://g2.antv.antgroup.com/zh/manual/core/theme/classic.md): classic — [页面](https://g2.antv.antgroup.com/zh/manual/core/theme/classic/)
+- [classicDark](https://g2.antv.antgroup.com/zh/manual/core/theme/classic-dark.md): classicDark — [页面](https://g2.antv.antgroup.com/zh/manual/core/theme/classic-dark/)
+- [bin](https://g2.antv.antgroup.com/zh/manual/core/transform/bin.md): bin — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/bin/)
+- [binX](https://g2.antv.antgroup.com/zh/manual/core/transform/bin-x.md): binX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/bin-x/)
+- [diffY](https://g2.antv.antgroup.com/zh/manual/core/transform/diff-y.md): diffY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/diff-y/)
+- [dodgeX](https://g2.antv.antgroup.com/zh/manual/core/transform/dodge-x.md): dodgeX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/dodge-x/)
+- [flexX](https://g2.antv.antgroup.com/zh/manual/core/transform/flex-x.md): flexX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/flex-x/)
+- [group](https://g2.antv.antgroup.com/zh/manual/core/transform/group.md): group — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/group/)
+- [groupColor](https://g2.antv.antgroup.com/zh/manual/core/transform/group-color.md): groupColor — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/group-color/)
+- [groupX](https://g2.antv.antgroup.com/zh/manual/core/transform/group-x.md): groupX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/group-x/)
+- [groupY](https://g2.antv.antgroup.com/zh/manual/core/transform/group-y.md): groupY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/group-y/)
+- [jitter](https://g2.antv.antgroup.com/zh/manual/core/transform/jitter.md): jitter — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/jitter/)
+- [jitterX](https://g2.antv.antgroup.com/zh/manual/core/transform/jitter-x.md): jitterX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/jitter-x/)
+- [jitterY](https://g2.antv.antgroup.com/zh/manual/core/transform/jitter-y.md): jitterY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/jitter-y/)
+- [normalizeY](https://g2.antv.antgroup.com/zh/manual/core/transform/normalize-y.md): normalizeY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/normalize-y/)
+- [pack](https://g2.antv.antgroup.com/zh/manual/core/transform/pack.md): pack — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/pack/)
+- [sample](https://g2.antv.antgroup.com/zh/manual/core/transform/sample.md): sample — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/sample/)
+- [select](https://g2.antv.antgroup.com/zh/manual/core/transform/select.md): select — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/select/)
+- [selectX](https://g2.antv.antgroup.com/zh/manual/core/transform/select-x.md): selectX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/select-x/)
+- [selectY](https://g2.antv.antgroup.com/zh/manual/core/transform/select-y.md): selectY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/select-y/)
+- [sortColor](https://g2.antv.antgroup.com/zh/manual/core/transform/sort-color.md): sortColor — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/sort-color/)
+- [sortX](https://g2.antv.antgroup.com/zh/manual/core/transform/sort-x.md): sortX — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/sort-x/)
+- [sortY](https://g2.antv.antgroup.com/zh/manual/core/transform/sort-y.md): sortY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/sort-y/)
+- [stackEnter](https://g2.antv.antgroup.com/zh/manual/core/transform/stack-enter.md): stackEnter — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/stack-enter/)
+- [stackY](https://g2.antv.antgroup.com/zh/manual/core/transform/stack-y.md): stackY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/stack-y/)
+- [symmetryY](https://g2.antv.antgroup.com/zh/manual/core/transform/symmetry-y.md): symmetryY — [页面](https://g2.antv.antgroup.com/zh/manual/core/transform/symmetry-y/)
+- [rough](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/rough.md): rough — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/rough/)
+- [line3D](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/line-threed.md): line3D — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/line-threed/)
+- [v4 升级 v5 指南](https://g2.antv.antgroup.com/zh/manual/whats-new/migration-from-g2v4.md): v4 升级 v5 指南 — [页面](https://g2.antv.antgroup.com/zh/manual/whats-new/migration-from-g2v4/)
+- [图表 API](https://g2.antv.antgroup.com/zh/manual/api.md): 查询 G2 Chart API，了解图表创建、Spec 配置、渲染、数据更新、事件监听、节点查询和销毁方法。 — [页面](https://g2.antv.antgroup.com/zh/manual/api/)
+- [radial](https://g2.antv.antgroup.com/zh/manual/core/coordinate/radial.md): radial — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/radial/)
+- [box](https://g2.antv.antgroup.com/zh/manual/core/mark/box.md): box — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/box/)
+- [视图（View）](https://g2.antv.antgroup.com/zh/manual/core/view.md): 使用 G2 视图组织多个标记，理解数据与配置的继承关系，并配置视图样式和组合布局。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/view/)
+- [lottie](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/lottie.md): lottie — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/lottie/)
+- [interval3D](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/interval-threed.md): interval3D — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/interval-threed/)
+- [在前端框架中使用](https://g2.antv.antgroup.com/zh/manual/introduction/use-in-framework.md): 在 Vue、React 等前端框架中集成 G2，管理图表容器、初始化、数据更新和组件卸载时的资源清理。 — [页面](https://g2.antv.antgroup.com/zh/manual/introduction/use-in-framework/)
+- [brushHighlight](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-highlight.md): brushHighlight — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-highlight/)
+- [boxplot](https://g2.antv.antgroup.com/zh/manual/core/mark/boxplot.md): boxplot — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/boxplot/)
+- [a11y](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/a11y.md): a11y — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/plugin/a11y/)
+- [surface3D](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/surface-threed.md): surface3D — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/three-dimensional/surface-threed/)
+- [Spec 和 API](https://g2.antv.antgroup.com/zh/manual/introduction/spec-api.md): 对照 G2 Spec 与链式 API 的属性映射，了解单标记、组合视图、配置复用和动态数据更新的写法。 — [页面](https://g2.antv.antgroup.com/zh/manual/introduction/spec-api/)
+- [cartesian3D](https://g2.antv.antgroup.com/zh/manual/core/coordinate/cartesian3-d.md): cartesian3D — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/cartesian3-d/)
+- [编码映射（Encode）](https://g2.antv.antgroup.com/zh/manual/core/encode.md): 将数据字段、常量或函数映射到 G2 的位置、颜色、大小等视觉通道，理解编码配置与图表表达的关系。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/encode/)
+- [brushXHighlight](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-xhighlight.md): brushXHighlight — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-xhighlight/)
+- [cell](https://g2.antv.antgroup.com/zh/manual/core/mark/cell.md): cell — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/cell/)
+- [brushYHighlight](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-yhighlight.md): brushYHighlight — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-yhighlight/)
+- [chord](https://g2.antv.antgroup.com/zh/manual/core/mark/chord.md): chord — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/chord/)
+- [brushFilter](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-filter.md): brushFilter — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-filter/)
+- [标题（Title）](https://g2.antv.antgroup.com/zh/manual/component/title.md): 标题（Title） — [页面](https://g2.antv.antgroup.com/zh/manual/component/title/)
+- [brushXFilter](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-xfilter.md): brushXFilter — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-xfilter/)
+- [density](https://g2.antv.antgroup.com/zh/manual/core/mark/density.md): density — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/density/)
+- [常见问题 FAQ](https://g2.antv.antgroup.com/zh/manual/FAQ.md): 排查 G2 图表常见问题，包括布局与标题、坐标轴、数据、交互及配置作用域，并参考可运行示例。 — [页面](https://g2.antv.antgroup.com/zh/manual/FAQ/)
+- [坐标轴（Axis）](https://g2.antv.antgroup.com/zh/manual/component/axis.md): 坐标轴（Axis） — [页面](https://g2.antv.antgroup.com/zh/manual/component/axis/)
+- [图例（Legend）](https://g2.antv.antgroup.com/zh/manual/component/legend.md): 图例（Legend） — [页面](https://g2.antv.antgroup.com/zh/manual/component/legend/)
+- [滚动条（Scrollbar）](https://g2.antv.antgroup.com/zh/manual/component/scrollbar.md): 滚动条（Scrollbar） — [页面](https://g2.antv.antgroup.com/zh/manual/component/scrollbar/)
+- [缩略轴（Slider）](https://g2.antv.antgroup.com/zh/manual/component/slider.md): 缩略轴（Slider） — [页面](https://g2.antv.antgroup.com/zh/manual/component/slider/)
+- [提示信息（Tooltip）](https://g2.antv.antgroup.com/zh/manual/component/tooltip.md): 提示信息（Tooltip） — [页面](https://g2.antv.antgroup.com/zh/manual/component/tooltip/)
+- [数据标签（Label）](https://g2.antv.antgroup.com/zh/manual/component/label.md): 数据标签（Label） — [页面](https://g2.antv.antgroup.com/zh/manual/component/label/)
+- [brushYFilter](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-yfilter.md): brushYFilter — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/brush-yfilter/)
+- [gauge](https://g2.antv.antgroup.com/zh/manual/core/mark/gauge.md): gauge — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/gauge/)
+- [chartIndex](https://g2.antv.antgroup.com/zh/manual/core/interaction/chart-index.md): chartIndex — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/chart-index/)
+- [heatmap](https://g2.antv.antgroup.com/zh/manual/core/mark/heatmap.md): heatmap — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/heatmap/)
+- [样式（Style）](https://g2.antv.antgroup.com/zh/manual/core/style.md): 配置 G2 标记和视图样式，使用静态值或数据回调控制填充、描边等视觉属性，区分 style 与 viewStyle。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/style/)
+- [按需打包](https://g2.antv.antgroup.com/zh/manual/extra-topics/bundle.md): 按需打包 — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/bundle/)
+- [helix](https://g2.antv.antgroup.com/zh/manual/core/coordinate/helix.md): helix — [页面](https://g2.antv.antgroup.com/zh/manual/core/coordinate/helix/)
+- [elementHighlight](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-highlight.md): elementHighlight — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-highlight/)
+- [image](https://g2.antv.antgroup.com/zh/manual/core/mark/image.md): image — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/image/)
+- [设置纹理](https://g2.antv.antgroup.com/zh/manual/extra-topics/pattern.md): 设置纹理 — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/pattern/)
+- [elementHighlightByColor](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-highlight-by-color.md): elementHighlightByColor — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-highlight-by-color/)
+- [elementHoverScale](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-hover-scale.md): elementHoverScale — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-hover-scale/)
+- [interval](https://g2.antv.antgroup.com/zh/manual/core/mark/interval.md): interval — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/interval/)
+- [状态管理（State）](https://g2.antv.antgroup.com/zh/manual/core/state.md): 配置 G2 标记的 active、inactive、selected 等状态样式，理解状态配置在单标记和多标记视图中的作用范围。 — [页面](https://g2.antv.antgroup.com/zh/manual/core/state/)
+- [elementHighlightByX](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-highlight-by-x.md): elementHighlightByX — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-highlight-by-x/)
+- [line](https://g2.antv.antgroup.com/zh/manual/core/mark/line.md): line — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/line/)
+- [pow](https://g2.antv.antgroup.com/zh/manual/core/scale/pow.md): pow — [页面](https://g2.antv.antgroup.com/zh/manual/core/scale/pow/)
+- [服务端渲染（SSR）](https://g2.antv.antgroup.com/zh/manual/extra-topics/ssr.md): 服务端渲染（SSR） — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/ssr/)
+- [elementSelect](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-select.md): elementSelect — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-select/)
+- [lineX](https://g2.antv.antgroup.com/zh/manual/core/mark/line-x.md): lineX — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/line-x/)
+- [lineY](https://g2.antv.antgroup.com/zh/manual/core/mark/line-y.md): lineY — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/line-y/)
+- [Spec 函数表达式支持 (5.3.0 支持)](https://g2.antv.antgroup.com/zh/manual/extra-topics/expr.md): Spec 函数表达式支持 (5.3.0 支持) — [页面](https://g2.antv.antgroup.com/zh/manual/extra-topics/expr/)
+- [elementSelectByColor](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-select-by-color.md): elementSelectByColor — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-select-by-color/)
+- [elementSelectByX](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-select-by-x.md): elementSelectByX — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/element-select-by-x/)
+- [link](https://g2.antv.antgroup.com/zh/manual/core/mark/link.md): link — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/link/)
+- [fisheye](https://g2.antv.antgroup.com/zh/manual/core/interaction/fisheye.md): fisheye — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/fisheye/)
+- [liquid](https://g2.antv.antgroup.com/zh/manual/core/mark/liquid.md): liquid — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/liquid/)
+- [sunburst](https://g2.antv.antgroup.com/zh/manual/core/mark/sunburst.md): sunburst — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/sunburst/)
+- [事件处理（Event）](https://g2.antv.antgroup.com/zh/manual/core/event.md): 事件处理（Event） — [页面](https://g2.antv.antgroup.com/zh/manual/core/event/)
+- [legendFilter](https://g2.antv.antgroup.com/zh/manual/core/interaction/legend-filter.md): legendFilter — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/legend-filter/)
+- [颜色映射（Color）](https://g2.antv.antgroup.com/zh/manual/core/color.md): 颜色映射（Color） — [页面](https://g2.antv.antgroup.com/zh/manual/core/color/)
+- [legendHighlight](https://g2.antv.antgroup.com/zh/manual/core/interaction/legend-highlight.md): legendHighlight — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/legend-highlight/)
+- [point](https://g2.antv.antgroup.com/zh/manual/core/mark/point.md): point — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/point/)
+- [poptip](https://g2.antv.antgroup.com/zh/manual/core/interaction/poptip.md): poptip — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/poptip/)
+- [polygon](https://g2.antv.antgroup.com/zh/manual/core/mark/polygon.md): polygon — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/polygon/)
+- [scrollbarFilter](https://g2.antv.antgroup.com/zh/manual/core/interaction/scrollbar-filter.md): scrollbarFilter — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/scrollbar-filter/)
+- [range](https://g2.antv.antgroup.com/zh/manual/core/mark/range.md): range — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/range/)
+- [sliderFilter](https://g2.antv.antgroup.com/zh/manual/core/interaction/slider-filter.md): sliderFilter — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/slider-filter/)
+- [rangeX](https://g2.antv.antgroup.com/zh/manual/core/mark/range-x.md): rangeX — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/range-x/)
+- [sliderWheel](https://g2.antv.antgroup.com/zh/manual/core/interaction/slider-wheel.md): sliderWheel — [页面](https://g2.antv.antgroup.com/zh/manual/core/interaction/slider-wheel/)
+- [rangeY](https://g2.antv.antgroup.com/zh/manual/core/mark/range-y.md): rangeY — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/range-y/)
+- [rect](https://g2.antv.antgroup.com/zh/manual/core/mark/rect.md): rect — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/rect/)
+- [shape](https://g2.antv.antgroup.com/zh/manual/core/mark/shape.md): shape — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/shape/)
+- [text](https://g2.antv.antgroup.com/zh/manual/core/mark/text.md): text — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/text/)
+- [vector](https://g2.antv.antgroup.com/zh/manual/core/mark/vector.md): vector — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/vector/)
+- [connector](https://g2.antv.antgroup.com/zh/manual/core/mark/connector.md): connector — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/connector/)
+- [wordCloud](https://g2.antv.antgroup.com/zh/manual/core/mark/wordcloud.md): wordCloud — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/wordcloud/)
+- [beeswarm](https://g2.antv.antgroup.com/zh/manual/core/mark/beeswarm.md): beeswarm — [页面](https://g2.antv.antgroup.com/zh/manual/core/mark/beeswarm/)
+
+### theme
+
+- [主题编辑器](https://g2.antv.antgroup.com/zh/theme.md): 主题编辑器 — [页面](https://g2.antv.antgroup.com/zh/theme/)
+
+## English documentation
+
+### charts
+
+- [📈 Chart Gallery](https://g2.antv.antgroup.com/en/charts/overview.md): Explore G2 chart types, use cases, and runnable examples to choose charts for comparisons, trends, distributions, maps, and relationships. — [Canonical page](https://g2.antv.antgroup.com/en/charts/overview/)
+- [Arc Diagram](https://g2.antv.antgroup.com/en/charts/arcdiagram.md): Show relationships with nodes arranged on a line or circle and connected by arcs. Explore node ordering, connection patterns, and G2 arc diagram examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/arcdiagram/)
+- [Mosaic Plot](https://g2.antv.antgroup.com/en/charts/mosaic.md): Use rectangular areas and partition proportions to show frequencies in categorical data. Explore mosaic chart use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/mosaic/)
+- [Bar Chart](https://g2.antv.antgroup.com/en/charts/bar.md): Compare values across categories using bar height or length. Learn about bar chart data requirements, use cases, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/bar/)
+- [Bubble Chart](https://g2.antv.antgroup.com/en/charts/bubble-chart.md): Use bubble size to encode an additional value alongside scatterplot positions. Explore bubble chart mappings, comparisons, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/bubble-chart/)
+- [Color Map](https://g2.antv.antgroup.com/en/charts/color-map.md): Map data to rectangular cells and compare values across category combinations through color. Explore cell chart use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/color-map/)
+- [Distribution Curve](https://g2.antv.antgroup.com/en/charts/distributioncurve.md): Use smooth curves to inspect distribution shape, concentration, and multiple peaks. Explore distribution curve use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/distributioncurve/)
+- [Dot Map](https://g2.antv.antgroup.com/en/charts/dot-map.md): Use dots on a map to represent geographic locations or quantity distributions. Explore dot map encodings, use cases, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/dot-map/)
+- [Histogram Chart](https://g2.antv.antgroup.com/en/charts/histogram.md): Group continuous data into bins and count observations. Learn how histograms differ from bar charts, choose bins, and explore G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/histogram/)
+- [Line Chart](https://g2.antv.antgroup.com/en/charts/line.md): Connect successive observations to show trends. Explore line chart data requirements, comparisons across series, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/line/)
+- [Pack Chart](https://g2.antv.antgroup.com/en/charts/pack.md): Use nested or packed circles to show hierarchy and magnitude. Explore circle packing layouts, use cases, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/pack/)
+- [Parallel Coordinates](https://g2.antv.antgroup.com/en/charts/parallel.md): Arrange dimensions as parallel axes and connect each record across them. Explore multivariate analysis with parallel coordinates and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/parallel/)
+- [Radial Bar Chart](https://g2.antv.antgroup.com/en/charts/radial-bar.md): Encode category values with arc lengths at different radii. Explore radial bar chart layouts, comparisons, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/radial-bar/)
+- [Regression Curve Chart](https://g2.antv.antgroup.com/en/charts/regressioncurve.md): Summarize relationships and trends between variables with a fitted curve. Explore regression curve analysis and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/regressioncurve/)
+- [Stacked Area Chart](https://g2.antv.antgroup.com/en/charts/stacked-area.md): Stack areas from multiple series to show totals and changing contributions over time. Explore stacked area charts and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/stacked-area/)
+- [Stacked Bar Chart](https://g2.antv.antgroup.com/en/charts/stacked-bar.md): Stack series within each bar to compare category totals and composition. Explore stacked bar chart use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/stacked-bar/)
+- [Stem-and-Leaf Plot](https://g2.antv.antgroup.com/en/charts/stem-leaf.md): Split values into stems and leaves to show distributions while retaining individual values. Explore stem-and-leaf plots and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/stem-leaf/)
+- [Sunburst Chart](https://g2.antv.antgroup.com/en/charts/sunburst.md): Use nested rings of sectors to show hierarchy and proportions. Learn to read sunburst charts and explore their use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/sunburst/)
+- [Treemap](https://g2.antv.antgroup.com/en/charts/treemap.md): Use nested rectangle areas to encode values in hierarchical data. Explore treemap layouts, use cases, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/treemap/)
+- [Venn Diagram](https://g2.antv.antgroup.com/en/charts/venn.md): Use overlapping regions to show set intersections and inclusion. Explore Venn diagram use cases, data encodings, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/venn/)
+- [Violin Plot](https://g2.antv.antgroup.com/en/charts/violin.md): Compare groups using density shapes and statistical summaries. Learn how violin plots differ from box plots and explore G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/violin/)
+- [Area Chart](https://g2.antv.antgroup.com/en/charts/area.md): Show changes over time with filled areas. Learn when to use area charts, how they differ from line charts, and how to create them with G2. — [Canonical page](https://g2.antv.antgroup.com/en/charts/area/)
+- [Box Plot](https://g2.antv.antgroup.com/en/charts/boxplot.md): Summarize distributions with medians, quartiles, and outliers. Learn how to interpret box plots and build them with G2. — [Canonical page](https://g2.antv.antgroup.com/en/charts/boxplot/)
+- [Bubble Map](https://g2.antv.antgroup.com/en/charts/bubble-map.md): Use bubble positions and sizes on a map to show geographic distributions and differences in magnitude. Explore use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/bubble-map/)
+- [Radar Chart](https://g2.antv.antgroup.com/en/charts/radar-chart.md): Arrange metrics on radial axes to compare profiles across objects. Explore radar chart use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/radar-chart/)
+- [Bi-directional Bar Chart](https://g2.antv.antgroup.com/en/charts/bi-directional-bar.md): Arrange two groups of bars in opposite directions to compare populations or positive and negative values. Explore diverging bar chart use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/bi-directional-bar/)
+- [Multi-set Bar Chart](https://g2.antv.antgroup.com/en/charts/multi-set-bar.md): Place bars from multiple series side by side within categories. Explore grouped bar chart comparisons, use cases, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/multi-set-bar/)
+- [Pie Chart](https://g2.antv.antgroup.com/en/charts/pie.md): Use sectors to show parts of a whole. Learn when pie charts are suitable, how category count affects readability, and explore G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/pie/)
+- [Donut Chart](https://g2.antv.antgroup.com/en/charts/donut-chart.md): Show category shares with ring-shaped sectors. Learn how donut charts differ from pie charts and explore their use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/donut-chart/)
+- [Heatmap](https://g2.antv.antgroup.com/en/charts/heatmap.md): Use color intensity to show values or spatial density. Explore heatmap encodings, distribution analysis, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/heatmap/)
+- [Choropleth Map](https://g2.antv.antgroup.com/en/charts/choropleth-map.md): Color geographic regions by their values to compare spatial patterns. Learn choropleth map data requirements and explore G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/choropleth-map/)
+- [Funnel Chart](https://g2.antv.antgroup.com/en/charts/funnel.md): Show quantities and conversion across successive process stages. Explore funnel charts for conversion analysis with G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/funnel/)
+- [K-Chart](https://g2.antv.antgroup.com/en/charts/k-chart.md): Describe price movements with open, close, high, and low values. Learn candlestick chart structure and financial analysis use cases with G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/k-chart/)
+- [Scatter Plot](https://g2.antv.antgroup.com/en/charts/scatter-plot.md): Map two numerical variables to positions to inspect correlations, clusters, and outliers. Explore scatterplot use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/scatter-plot/)
+- [Gauge Chart](https://g2.antv.antgroup.com/en/charts/gauge.md): Show a current metric within a scale and its ranges. Learn gauge chart components and monitoring use cases with G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/gauge/)
+- [Nightingale Rose Chart](https://g2.antv.antgroup.com/en/charts/rose.md): Use radial extent in equal-angle sectors to represent category values. Learn how rose charts differ from pie charts and explore G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/rose/)
+- [Contour Line Chart](https://g2.antv.antgroup.com/en/charts/contourline.md): Use contour lines to show continuous values across two-dimensional space. Explore applications in terrain and density analysis with G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/contourline/)
+- [Spiral](https://g2.antv.antgroup.com/en/charts/spiral.md): Arrange data along a spiral to inspect cycles and long-term changes in time series. Explore spiral chart use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/spiral/)
+- [Word Cloud](https://g2.antv.antgroup.com/en/charts/wordcloud.md): Use text size to encode word importance or frequency. Explore word cloud layouts, text visualization use cases, and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/wordcloud/)
+- [Bullet Chart](https://g2.antv.antgroup.com/en/charts/bullet.md): Compare actual values, targets, and performance ranges in a compact chart. Learn the structure of bullet charts and explore G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/bullet/)
+- [Sankey Diagram](https://g2.antv.antgroup.com/en/charts/sankey.md): Encode flows between nodes with link widths. Explore Sankey diagrams for process, energy, and financial flows with G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/sankey/)
+- [Gantt Chart](https://g2.antv.antgroup.com/en/charts/gantt.md): Represent task starts, ends, and durations with bars on a timeline. Explore Gantt charts for schedule tracking with G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/gantt/)
+- [Kagi Chart](https://g2.antv.antgroup.com/en/charts/kagi.md): Draw lines based on price direction and reversal magnitude. Learn how Kagi charts express trends, their components, and when to use them. — [Canonical page](https://g2.antv.antgroup.com/en/charts/kagi/)
+- [Chord Diagram](https://g2.antv.antgroup.com/en/charts/chord.md): Show relationships and their magnitude with groups around a circle and connecting ribbons. Explore chord diagram use cases and G2 examples. — [Canonical page](https://g2.antv.antgroup.com/en/charts/chord/)
+
+### manual
+
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/animate/overview.md): Overview — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/overview/)
+- [Components of G2 Charts](https://g2.antv.antgroup.com/en/manual/core/chart/chart-component.md): Components of G2 Charts — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/chart/chart-component/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/composition/overview.md): Create multi-chart layouts, facets, and layered charts with G2 compositions, using children to express hierarchy and reuse data and configuration. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/overview/)
+- [G2's complete configuration system](https://g2.antv.antgroup.com/en/manual/core/configuration.md): Explore G2 initialization and Spec configuration, including data, encodings, scales, coordinates, styles, interactions, and composed views. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/configuration/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/coordinate/overview.md): Explore G2 coordinate systems and transformations, including Cartesian and polar coordinates and transposition, to control chart layout. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/overview/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/data/overview.md): Configure G2 data sources and transformations, use inline or fetched data, and refresh chart data by updating the Spec. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/overview/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/interaction/overview.md): Configure G2 interactions such as tooltips, legend filtering, element highlighting, and brushing, including enabling and customizing interactions. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/overview/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/mark/overview.md): Learn about G2 mark types, data encodings, and styles, including combining marks and using custom composite marks. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/overview/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/scale/overview.md): Use G2 scales to map data to visual attributes, configure domains, ranges, ticks, and scale types, and synchronize scales across marks. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/overview/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/theme/overview.md): Set G2 chart themes, switch built-in themes, adjust palettes and component styles, and keep charts consistent with custom themes. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/theme/overview/)
+- [Overview](https://g2.antv.antgroup.com/en/manual/core/transform/overview.md): Overview — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/overview/)
+- [geoPath](https://g2.antv.antgroup.com/en/manual/extra-topics/geo/geo-path.md): geoPath — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/geo/geo-path/)
+- [geoView](https://g2.antv.antgroup.com/en/manual/extra-topics/geo/geo-view.md): geoView — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/geo/geo-view/)
+- [forceGraph](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/force-graph.md): forceGraph — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/force-graph/)
+- [pack](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/pack.md): pack — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/pack/)
+- [sankey](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/sankey.md): sankey — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/sankey/)
+- [tree](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/tree.md): tree — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/tree/)
+- [treemap](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/treemap.md): treemap — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/graph/treemap/)
+- [renderer](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/renderer.md): renderer — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/renderer/)
+- [Draw 3D Chart](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/draw-threed-chart.md): Draw 3D Chart — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/draw-threed-chart/)
+- [point3D](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/point-threed.md): point3D — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/point-threed/)
+- [What is G2](https://g2.antv.antgroup.com/en/manual/introduction/what-is-g2.md): Learn about AntV G2’s visualization grammar, marks, interactions, and animations, and how to compose them into data visualizations. — [Canonical page](https://g2.antv.antgroup.com/en/manual/introduction/what-is-g2/)
+- [Get Started](https://g2.antv.antgroup.com/en/manual/quick-start.md): Install AntV G2 with npm or a CDN, create a Chart, configure data and visual encodings with Spec, and render your first chart. — [Canonical page](https://g2.antv.antgroup.com/en/manual/quick-start/)
+- [New Version Features](https://g2.antv.antgroup.com/en/manual/whats-new/new-version-features.md): New Version Features — [Canonical page](https://g2.antv.antgroup.com/en/manual/whats-new/new-version-features/)
+- [fadeIn](https://g2.antv.antgroup.com/en/manual/core/animate/fade-in.md): fadeIn — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/fade-in/)
+- [fadeOut](https://g2.antv.antgroup.com/en/manual/core/animate/fade-out.md): fadeOut — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/fade-out/)
+- [growInX](https://g2.antv.antgroup.com/en/manual/core/animate/grow-in-x.md): growInX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/grow-in-x/)
+- [growInY](https://g2.antv.antgroup.com/en/manual/core/animate/grow-in-y.md): growInY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/grow-in-y/)
+- [morphing](https://g2.antv.antgroup.com/en/manual/core/animate/morphing.md): morphing — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/morphing/)
+- [pathIn](https://g2.antv.antgroup.com/en/manual/core/animate/path-in.md): pathIn — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/path-in/)
+- [scaleInX](https://g2.antv.antgroup.com/en/manual/core/animate/scale-in-x.md): scaleInX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/scale-in-x/)
+- [scaleInY](https://g2.antv.antgroup.com/en/manual/core/animate/scale-in-y.md): scaleInY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/scale-in-y/)
+- [scaleOutX](https://g2.antv.antgroup.com/en/manual/core/animate/scale-out-x.md): scaleOutX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/scale-out-x/)
+- [scaleOutY](https://g2.antv.antgroup.com/en/manual/core/animate/scale-out-y.md): scaleOutY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/scale-out-y/)
+- [waveIn](https://g2.antv.antgroup.com/en/manual/core/animate/wave-in.md): waveIn — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/wave-in/)
+- [zoomIn](https://g2.antv.antgroup.com/en/manual/core/animate/zoom-in.md): zoomIn — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/zoom-in/)
+- [zoomOut](https://g2.antv.antgroup.com/en/manual/core/animate/zoom-out.md): zoomOut — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/animate/zoom-out/)
+- [Chart Lifecycle](https://g2.antv.antgroup.com/en/manual/core/chart/chart-lifecycle.md): Chart Lifecycle — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/chart/chart-lifecycle/)
+- [facetCircle](https://g2.antv.antgroup.com/en/manual/core/composition/facet-circle.md): facetCircle — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/facet-circle/)
+- [facetRect](https://g2.antv.antgroup.com/en/manual/core/composition/facet-rect.md): facetRect — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/facet-rect/)
+- [repeatMatrix](https://g2.antv.antgroup.com/en/manual/core/composition/repeat-matrix.md): repeatMatrix — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/repeat-matrix/)
+- [spaceFlex](https://g2.antv.antgroup.com/en/manual/core/composition/space-flex.md): spaceFlex — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/space-flex/)
+- [spaceLayer](https://g2.antv.antgroup.com/en/manual/core/composition/space-layer.md): spaceLayer — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/space-layer/)
+- [timingKeyframe](https://g2.antv.antgroup.com/en/manual/core/composition/timing-keyframe.md): timingKeyframe — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/composition/timing-keyframe/)
+- [fisheye](https://g2.antv.antgroup.com/en/manual/core/coordinate/fisheye.md): fisheye — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/fisheye/)
+- [parallel](https://g2.antv.antgroup.com/en/manual/core/coordinate/parallel.md): parallel — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/parallel/)
+- [polar](https://g2.antv.antgroup.com/en/manual/core/coordinate/polar.md): polar — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/polar/)
+- [theta](https://g2.antv.antgroup.com/en/manual/core/coordinate/theta.md): theta — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/theta/)
+- [transpose](https://g2.antv.antgroup.com/en/manual/core/coordinate/transpose.md): transpose — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/transpose/)
+- [custom](https://g2.antv.antgroup.com/en/manual/core/data/custom.md): custom — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/custom/)
+- [ema](https://g2.antv.antgroup.com/en/manual/core/data/ema.md): ema — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/ema/)
+- [fetch](https://g2.antv.antgroup.com/en/manual/core/data/fetch.md): fetch — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/fetch/)
+- [filter](https://g2.antv.antgroup.com/en/manual/core/data/filter.md): filter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/filter/)
+- [fold](https://g2.antv.antgroup.com/en/manual/core/data/fold.md): fold — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/fold/)
+- [inline](https://g2.antv.antgroup.com/en/manual/core/data/inline.md): inline — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/inline/)
+- [join](https://g2.antv.antgroup.com/en/manual/core/data/join.md): join — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/join/)
+- [kde](https://g2.antv.antgroup.com/en/manual/core/data/kde.md): kde — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/kde/)
+- [log](https://g2.antv.antgroup.com/en/manual/core/data/log.md): log — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/log/)
+- [map](https://g2.antv.antgroup.com/en/manual/core/data/map.md): map — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/map/)
+- [pick](https://g2.antv.antgroup.com/en/manual/core/data/pick.md): pick — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/pick/)
+- [rename](https://g2.antv.antgroup.com/en/manual/core/data/rename.md): rename — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/rename/)
+- [slice](https://g2.antv.antgroup.com/en/manual/core/data/slice.md): slice — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/slice/)
+- [sort](https://g2.antv.antgroup.com/en/manual/core/data/sort.md): sort — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/sort/)
+- [sortBy](https://g2.antv.antgroup.com/en/manual/core/data/sort-by.md): sortBy — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/data/sort-by/)
+- [brushAxisHighlight](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-axis-highlight.md): brushAxisHighlight — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-axis-highlight/)
+- [area](https://g2.antv.antgroup.com/en/manual/core/mark/area.md): area — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/area/)
+- [band](https://g2.antv.antgroup.com/en/manual/core/scale/band.md): band — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/band/)
+- [linear](https://g2.antv.antgroup.com/en/manual/core/scale/linear.md): linear — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/linear/)
+- [log](https://g2.antv.antgroup.com/en/manual/core/scale/log.md): log — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/log/)
+- [ordinal](https://g2.antv.antgroup.com/en/manual/core/scale/ordinal.md): ordinal — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/ordinal/)
+- [point](https://g2.antv.antgroup.com/en/manual/core/scale/point.md): point — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/point/)
+- [quantile](https://g2.antv.antgroup.com/en/manual/core/scale/quantile.md): quantile — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/quantile/)
+- [quantize](https://g2.antv.antgroup.com/en/manual/core/scale/quantize.md): quantize — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/quantize/)
+- [sqrt](https://g2.antv.antgroup.com/en/manual/core/scale/sqrt.md): sqrt — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/sqrt/)
+- [threshold](https://g2.antv.antgroup.com/en/manual/core/scale/threshold.md): threshold — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/threshold/)
+- [time](https://g2.antv.antgroup.com/en/manual/core/scale/time.md): time — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/time/)
+- [academy](https://g2.antv.antgroup.com/en/manual/core/theme/academy.md): academy — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/theme/academy/)
+- [classic](https://g2.antv.antgroup.com/en/manual/core/theme/classic.md): classic — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/theme/classic/)
+- [classicDark](https://g2.antv.antgroup.com/en/manual/core/theme/classic-dark.md): classicDark — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/theme/classic-dark/)
+- [bin](https://g2.antv.antgroup.com/en/manual/core/transform/bin.md): bin — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/bin/)
+- [binX](https://g2.antv.antgroup.com/en/manual/core/transform/bin-x.md): binX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/bin-x/)
+- [diffY](https://g2.antv.antgroup.com/en/manual/core/transform/diff-y.md): diffY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/diff-y/)
+- [dodgeX](https://g2.antv.antgroup.com/en/manual/core/transform/dodge-x.md): dodgeX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/dodge-x/)
+- [flexX](https://g2.antv.antgroup.com/en/manual/core/transform/flex-x.md): flexX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/flex-x/)
+- [group](https://g2.antv.antgroup.com/en/manual/core/transform/group.md): group — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/group/)
+- [groupColor](https://g2.antv.antgroup.com/en/manual/core/transform/group-color.md): groupColor — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/group-color/)
+- [groupX](https://g2.antv.antgroup.com/en/manual/core/transform/group-x.md): groupX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/group-x/)
+- [groupY](https://g2.antv.antgroup.com/en/manual/core/transform/group-y.md): groupY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/group-y/)
+- [jitter](https://g2.antv.antgroup.com/en/manual/core/transform/jitter.md): jitter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/jitter/)
+- [jitterX](https://g2.antv.antgroup.com/en/manual/core/transform/jitter-x.md): jitterX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/jitter-x/)
+- [jitterY](https://g2.antv.antgroup.com/en/manual/core/transform/jitter-y.md): jitterY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/jitter-y/)
+- [normalizeY](https://g2.antv.antgroup.com/en/manual/core/transform/normalize-y.md): normalizeY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/normalize-y/)
+- [pack](https://g2.antv.antgroup.com/en/manual/core/transform/pack.md): pack — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/pack/)
+- [sample](https://g2.antv.antgroup.com/en/manual/core/transform/sample.md): sample — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/sample/)
+- [select](https://g2.antv.antgroup.com/en/manual/core/transform/select.md): select — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/select/)
+- [selectX](https://g2.antv.antgroup.com/en/manual/core/transform/select-x.md): selectX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/select-x/)
+- [selectY](https://g2.antv.antgroup.com/en/manual/core/transform/select-y.md): selectY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/select-y/)
+- [sortColor](https://g2.antv.antgroup.com/en/manual/core/transform/sort-color.md): sortColor — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/sort-color/)
+- [sortX](https://g2.antv.antgroup.com/en/manual/core/transform/sort-x.md): sortX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/sort-x/)
+- [sortY](https://g2.antv.antgroup.com/en/manual/core/transform/sort-y.md): sortY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/sort-y/)
+- [stackEnter](https://g2.antv.antgroup.com/en/manual/core/transform/stack-enter.md): stackEnter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/stack-enter/)
+- [stackY](https://g2.antv.antgroup.com/en/manual/core/transform/stack-y.md): stackY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/stack-y/)
+- [symmetryY](https://g2.antv.antgroup.com/en/manual/core/transform/symmetry-y.md): symmetryY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/transform/symmetry-y/)
+- [rough](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/rough.md): rough — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/rough/)
+- [line3D](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/line-threed.md): line3D — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/line-threed/)
+- [Migration from v4 to v5](https://g2.antv.antgroup.com/en/manual/whats-new/migration-from-g2v4.md): Migration from v4 to v5 — [Canonical page](https://g2.antv.antgroup.com/en/manual/whats-new/migration-from-g2v4/)
+- [Chart API](https://g2.antv.antgroup.com/en/manual/api.md): Look up the G2 Chart API for chart creation, Spec configuration, rendering, data updates, events, node queries, and destruction. — [Canonical page](https://g2.antv.antgroup.com/en/manual/api/)
+- [radial](https://g2.antv.antgroup.com/en/manual/core/coordinate/radial.md): radial — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/radial/)
+- [box](https://g2.antv.antgroup.com/en/manual/core/mark/box.md): box — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/box/)
+- [View](https://g2.antv.antgroup.com/en/manual/core/view.md): Organize multiple marks in G2 views, understand inherited data and configuration, and configure view styles and composed layouts. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/view/)
+- [lottie](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/lottie.md): lottie — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/lottie/)
+- [interval3D](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/interval-threed.md): interval3D — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/interval-threed/)
+- [Using in Frontend Frameworks](https://g2.antv.antgroup.com/en/manual/introduction/use-in-framework.md): Integrate G2 into frontend frameworks such as Vue and React, including containers, initialization, data updates, and cleanup on unmount. — [Canonical page](https://g2.antv.antgroup.com/en/manual/introduction/use-in-framework/)
+- [brushHighlight](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-highlight.md): brushHighlight — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-highlight/)
+- [boxplot](https://g2.antv.antgroup.com/en/manual/core/mark/boxplot.md): boxplot — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/boxplot/)
+- [a11y](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/a11y.md): a11y — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/plugin/a11y/)
+- [surface3D](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/surface-threed.md): surface3D — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/three-dimensional/surface-threed/)
+- [Spec and API](https://g2.antv.antgroup.com/en/manual/introduction/spec-api.md): Compare G2 Spec with the fluent API, including property mappings, single marks, composed views, configuration reuse, and data updates. — [Canonical page](https://g2.antv.antgroup.com/en/manual/introduction/spec-api/)
+- [cartesian3D](https://g2.antv.antgroup.com/en/manual/core/coordinate/cartesian3-d.md): cartesian3D — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/cartesian3-d/)
+- [Encode](https://g2.antv.antgroup.com/en/manual/core/encode.md): Map data fields, constants, or functions to G2 visual channels such as position, color, and size using encoding configurations. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/encode/)
+- [brushXHighlight](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-xhighlight.md): brushXHighlight — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-xhighlight/)
+- [cell](https://g2.antv.antgroup.com/en/manual/core/mark/cell.md): cell — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/cell/)
+- [brushYHighlight](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-yhighlight.md): brushYHighlight — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-yhighlight/)
+- [chord](https://g2.antv.antgroup.com/en/manual/core/mark/chord.md): chord — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/chord/)
+- [brushFilter](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-filter.md): brushFilter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-filter/)
+- [Title](https://g2.antv.antgroup.com/en/manual/component/title.md): Title — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/title/)
+- [brushXFilter](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-xfilter.md): brushXFilter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-xfilter/)
+- [density](https://g2.antv.antgroup.com/en/manual/core/mark/density.md): density — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/density/)
+- [Frequently Asked Questions (FAQ)](https://g2.antv.antgroup.com/en/manual/FAQ.md): Troubleshoot common G2 chart issues involving layout, titles, axes, data, interactions, and configuration scope with runnable examples. — [Canonical page](https://g2.antv.antgroup.com/en/manual/FAQ/)
+- [Axis](https://g2.antv.antgroup.com/en/manual/component/axis.md): Axis — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/axis/)
+- [Legend](https://g2.antv.antgroup.com/en/manual/component/legend.md): Legend — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/legend/)
+- [Scrollbar](https://g2.antv.antgroup.com/en/manual/component/scrollbar.md): Scrollbar — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/scrollbar/)
+- [Slider](https://g2.antv.antgroup.com/en/manual/component/slider.md): Slider — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/slider/)
+- [Tooltip](https://g2.antv.antgroup.com/en/manual/component/tooltip.md): Tooltip — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/tooltip/)
+- [Data Label](https://g2.antv.antgroup.com/en/manual/component/label.md): Data Label — [Canonical page](https://g2.antv.antgroup.com/en/manual/component/label/)
+- [brushYFilter](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-yfilter.md): brushYFilter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/brush-yfilter/)
+- [gauge](https://g2.antv.antgroup.com/en/manual/core/mark/gauge.md): gauge — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/gauge/)
+- [chartIndex](https://g2.antv.antgroup.com/en/manual/core/interaction/chart-index.md): chartIndex — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/chart-index/)
+- [heatmap](https://g2.antv.antgroup.com/en/manual/core/mark/heatmap.md): heatmap — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/heatmap/)
+- [Style](https://g2.antv.antgroup.com/en/manual/core/style.md): Configure G2 mark and view styles with static values or data callbacks for fill, stroke, and other attributes, and distinguish style from viewStyle. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/style/)
+- [Package on demand](https://g2.antv.antgroup.com/en/manual/extra-topics/bundle.md): Package on demand — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/bundle/)
+- [helix](https://g2.antv.antgroup.com/en/manual/core/coordinate/helix.md): helix — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/coordinate/helix/)
+- [elementHighlight](https://g2.antv.antgroup.com/en/manual/core/interaction/element-highlight.md): elementHighlight — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-highlight/)
+- [image](https://g2.antv.antgroup.com/en/manual/core/mark/image.md): image — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/image/)
+- [Set pattern](https://g2.antv.antgroup.com/en/manual/extra-topics/pattern.md): Set pattern — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/pattern/)
+- [elementHighlightByColor](https://g2.antv.antgroup.com/en/manual/core/interaction/element-highlight-by-color.md): elementHighlightByColor — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-highlight-by-color/)
+- [elementHoverScale](https://g2.antv.antgroup.com/en/manual/core/interaction/element-hover-scale.md): elementHoverScale — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-hover-scale/)
+- [interval](https://g2.antv.antgroup.com/en/manual/core/mark/interval.md): interval — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/interval/)
+- [State](https://g2.antv.antgroup.com/en/manual/core/state.md): Configure G2 mark states such as active, inactive, and selected, and understand their scope in single-mark and multi-mark views. — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/state/)
+- [elementHighlightByX](https://g2.antv.antgroup.com/en/manual/core/interaction/element-highlight-by-x.md): elementHighlightByX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-highlight-by-x/)
+- [line](https://g2.antv.antgroup.com/en/manual/core/mark/line.md): line — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/line/)
+- [pow](https://g2.antv.antgroup.com/en/manual/core/scale/pow.md): pow — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/scale/pow/)
+- [Server-Side Rendering (SSR)](https://g2.antv.antgroup.com/en/manual/extra-topics/ssr.md): Server-Side Rendering (SSR) — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/ssr/)
+- [elementSelect](https://g2.antv.antgroup.com/en/manual/core/interaction/element-select.md): elementSelect — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-select/)
+- [lineX](https://g2.antv.antgroup.com/en/manual/core/mark/line-x.md): lineX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/line-x/)
+- [lineY](https://g2.antv.antgroup.com/en/manual/core/mark/line-y.md): lineY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/line-y/)
+- [Spec Function Expression Support (Available in 5.3.0)](https://g2.antv.antgroup.com/en/manual/extra-topics/expr.md): Spec Function Expression Support (Available in 5.3.0) — [Canonical page](https://g2.antv.antgroup.com/en/manual/extra-topics/expr/)
+- [elementSelectByColor](https://g2.antv.antgroup.com/en/manual/core/interaction/element-select-by-color.md): elementSelectByColor — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-select-by-color/)
+- [elementSelectByX](https://g2.antv.antgroup.com/en/manual/core/interaction/element-select-by-x.md): elementSelectByX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/element-select-by-x/)
+- [link](https://g2.antv.antgroup.com/en/manual/core/mark/link.md): link — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/link/)
+- [liquid](https://g2.antv.antgroup.com/en/manual/core/mark/liquid.md): liquid — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/liquid/)
+- [sunburst](https://g2.antv.antgroup.com/en/manual/core/mark/sunburst.md): sunburst — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/sunburst/)
+- [Event Handling](https://g2.antv.antgroup.com/en/manual/core/event.md): Event Handling — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/event/)
+- [legendFilter](https://g2.antv.antgroup.com/en/manual/core/interaction/legend-filter.md): legendFilter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/legend-filter/)
+- [Color Mapping](https://g2.antv.antgroup.com/en/manual/core/color.md): Color Mapping — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/color/)
+- [legendHighlight](https://g2.antv.antgroup.com/en/manual/core/interaction/legend-highlight.md): legendHighlight — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/legend-highlight/)
+- [beeswarm](https://g2.antv.antgroup.com/en/manual/core/mark/beeswarm.md): beeswarm — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/beeswarm/)
+- [point](https://g2.antv.antgroup.com/en/manual/core/mark/point.md): point — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/point/)
+- [poptip](https://g2.antv.antgroup.com/en/manual/core/interaction/poptip.md): poptip — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/poptip/)
+- [polygon](https://g2.antv.antgroup.com/en/manual/core/mark/polygon.md): polygon — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/polygon/)
+- [scrollbarFilter](https://g2.antv.antgroup.com/en/manual/core/interaction/scrollbar-filter.md): scrollbarFilter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/scrollbar-filter/)
+- [range](https://g2.antv.antgroup.com/en/manual/core/mark/range.md): range — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/range/)
+- [sliderFilter](https://g2.antv.antgroup.com/en/manual/core/interaction/slider-filter.md): sliderFilter — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/slider-filter/)
+- [rangeX](https://g2.antv.antgroup.com/en/manual/core/mark/range-x.md): rangeX — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/range-x/)
+- [sliderWheel](https://g2.antv.antgroup.com/en/manual/core/interaction/slider-wheel.md): sliderWheel — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/slider-wheel/)
+- [rangeY](https://g2.antv.antgroup.com/en/manual/core/mark/range-y.md): rangeY — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/range-y/)
+- [rect](https://g2.antv.antgroup.com/en/manual/core/mark/rect.md): rect — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/rect/)
+- [fisheye](https://g2.antv.antgroup.com/en/manual/core/interaction/fisheye.md): fisheye — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/interaction/fisheye/)
+- [shape](https://g2.antv.antgroup.com/en/manual/core/mark/shape.md): shape — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/shape/)
+- [text](https://g2.antv.antgroup.com/en/manual/core/mark/text.md): text — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/text/)
+- [vector](https://g2.antv.antgroup.com/en/manual/core/mark/vector.md): vector — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/vector/)
+- [connector](https://g2.antv.antgroup.com/en/manual/core/mark/connector.md): connector — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/connector/)
+- [wordCloud](https://g2.antv.antgroup.com/en/manual/core/mark/wordcloud.md): wordCloud — [Canonical page](https://g2.antv.antgroup.com/en/manual/core/mark/wordcloud/)
+
+### theme
+
+- [Theme editor](https://g2.antv.antgroup.com/en/theme.md): Theme editor — [Canonical page](https://g2.antv.antgroup.com/en/theme/)
+
+## 中文示例
+
+- [Ctrl/⌘+F 文本搜索](https://g2.antv.antgroup.com/zh/examples/accessible/text-searching/text-search/): 可运行示例及其源码。
+- [冒泡排序](https://g2.antv.antgroup.com/zh/examples/algorithm/sort/bubble-sort/): 可运行示例及其源码。
+- [插入排序](https://g2.antv.antgroup.com/zh/examples/algorithm/sort/insertion-sort/): 可运行示例及其源码。
+- [选择排序](https://g2.antv.antgroup.com/zh/examples/algorithm/sort/selection-sort/): 可运行示例及其源码。
+- [颜色分箱](https://g2.antv.antgroup.com/zh/examples/analysis/bin/bin-color/): 可运行示例及其源码。
+- [透明度分箱](https://g2.antv.antgroup.com/zh/examples/analysis/bin/bin-opacity/): 可运行示例及其源码。
+- [大小分箱](https://g2.antv.antgroup.com/zh/examples/analysis/bin/bin-size/): 可运行示例及其源码。
+- [直方图](https://g2.antv.antgroup.com/zh/examples/analysis/bin/binx/): 可运行示例及其源码。
+- [颜色分类直方图](https://g2.antv.antgroup.com/zh/examples/analysis/bin/binx-color/): 可运行示例及其源码。
+- [泊松分布](https://g2.antv.antgroup.com/zh/examples/analysis/bin/poisson/): 可运行示例及其源码。
+- [聚合条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-aggregated/): 可运行示例及其源码。
+- [聚合归一化堆叠条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-aggregated-normalized-stacked/): 可运行示例及其源码。
+- [聚合堆叠条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-aggregated-stacked/): 可运行示例及其源码。
+- [带数据标签的聚合条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-aggregated-with-label/): 可运行示例及其源码。
+- [层叠条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-layered/): 可运行示例及其源码。
+- [多度量条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-multi-measure/): 可运行示例及其源码。
+- [发散堆叠条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-stacked-diverging/): 可运行示例及其源码。
+- [一维聚合堆叠条形图](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-stacked-normalized-1d/): 可运行示例及其源码。
+- [列数据格式](https://g2.antv.antgroup.com/zh/examples/analysis/process/column-data-format/): 可运行示例及其源码。
+- [指数回归线](https://g2.antv.antgroup.com/zh/examples/analysis/regression/exponential-regression/): 可运行示例及其源码。
+- [线性回归线](https://g2.antv.antgroup.com/zh/examples/analysis/regression/linear-regression/): 可运行示例及其源码。
+- [对数回归线](https://g2.antv.antgroup.com/zh/examples/analysis/regression/logarithmic-regression/): 可运行示例及其源码。
+- [多项式回归线](https://g2.antv.antgroup.com/zh/examples/analysis/regression/polynomial-regression/): 可运行示例及其源码。
+- [二项式回归线](https://g2.antv.antgroup.com/zh/examples/analysis/regression/quadratic-regression/): 可运行示例及其源码。
+- [FadeIn](https://g2.antv.antgroup.com/zh/examples/animation/general/fade/): 可运行示例及其源码。
+- [PathIn](https://g2.antv.antgroup.com/zh/examples/animation/general/path-in/): 可运行示例及其源码。
+- [ScaleInX](https://g2.antv.antgroup.com/zh/examples/animation/general/scale-x/): 可运行示例及其源码。
+- [ScaleInY](https://g2.antv.antgroup.com/zh/examples/animation/general/scale-y/): 可运行示例及其源码。
+- [WaveIn](https://g2.antv.antgroup.com/zh/examples/animation/general/wave-in/): 可运行示例及其源码。
+- [ZoomIn](https://g2.antv.antgroup.com/zh/examples/animation/general/zoom-in/): 可运行示例及其源码。
+- [面积图动画](https://g2.antv.antgroup.com/zh/examples/animation/group/area/): 可运行示例及其源码。
+- [柱形图动画](https://g2.antv.antgroup.com/zh/examples/animation/group/interval/): 可运行示例及其源码。
+- [玫瑰图动画](https://g2.antv.antgroup.com/zh/examples/animation/group/interval-polar/): 可运行示例及其源码。
+- [折线图动画](https://g2.antv.antgroup.com/zh/examples/animation/group/line/): 可运行示例及其源码。
+- [点图动画](https://g2.antv.antgroup.com/zh/examples/animation/group/point/): 可运行示例及其源码。
+- [Lottie](https://g2.antv.antgroup.com/zh/examples/animation/lottie/lottie/): 可运行示例及其源码。
+- [链接线标记的瀑布图](https://g2.antv.antgroup.com/zh/examples/annotation/connector/interval-connector/): 可运行示例及其源码。
+- [线标记的瀑布图](https://g2.antv.antgroup.com/zh/examples/annotation/connector/revenue-flow-waterfall/): 可运行示例及其源码。
+- [异动趋势图](https://g2.antv.antgroup.com/zh/examples/annotation/line/anomaly-area-line/): 可运行示例及其源码。
+- [平均值线标注的直方图](https://g2.antv.antgroup.com/zh/examples/annotation/line/histogram-mean-line/): 可运行示例及其源码。
+- [平均值线标注的柱状图](https://g2.antv.antgroup.com/zh/examples/annotation/line/interval-mean-line/): 可运行示例及其源码。
+- [突出超出阈值的柱状图](https://g2.antv.antgroup.com/zh/examples/annotation/line/interval-threshold/): 可运行示例及其源码。
+- [线标记的散点图](https://g2.antv.antgroup.com/zh/examples/annotation/line/point-line/): 可运行示例及其源码。
+- [点标记的散点图](https://g2.antv.antgroup.com/zh/examples/annotation/line/point-point/): 可运行示例及其源码。
+- [区域标记的四象限散点图](https://g2.antv.antgroup.com/zh/examples/annotation/line/quadrant-scatter/): 可运行示例及其源码。
+- [区间标注的柱状图](https://g2.antv.antgroup.com/zh/examples/annotation/range/bar-range/): 可运行示例及其源码。
+- [区间标注的折线图](https://g2.antv.antgroup.com/zh/examples/annotation/range/line-range/): 可运行示例及其源码。
+- [区域标记的散点图](https://g2.antv.antgroup.com/zh/examples/annotation/range/point-range/): 可运行示例及其源码。
+- [点标记的条形图](https://g2.antv.antgroup.com/zh/examples/annotation/shape/interval-point/): 可运行示例及其源码。
+- [徽章标记的折线图](https://g2.antv.antgroup.com/zh/examples/annotation/shape/line-badge/): 可运行示例及其源码。
+- [徽章水印](https://g2.antv.antgroup.com/zh/examples/annotation/shape/watermark/): 可运行示例及其源码。
+- [文本标记的折线图](https://g2.antv.antgroup.com/zh/examples/annotation/text/line-text/): 可运行示例及其源码。
+- [峰值标记](https://g2.antv.antgroup.com/zh/examples/annotation/text/peak-value-text/): 可运行示例及其源码。
+- [自定义坐标轴标签](https://g2.antv.antgroup.com/zh/examples/component/axis/axis/): 可运行示例及其源码。
+- [多坐标轴](https://g2.antv.antgroup.com/zh/examples/component/axis/axis-multi/): 可运行示例及其源码。
+- [极坐标下坐标轴](https://g2.antv.antgroup.com/zh/examples/component/axis/axis-polar/): 可运行示例及其源码。
+- [x 方向坐标轴](https://g2.antv.antgroup.com/zh/examples/component/axis/axis-x/): 可运行示例及其源码。
+- [x 和 y 方向坐标轴](https://g2.antv.antgroup.com/zh/examples/component/axis/axis-xy/): 可运行示例及其源码。
+- [坐标轴标签自定义渲染](https://g2.antv.antgroup.com/zh/examples/component/axis/render/): 可运行示例及其源码。
+- [数据标签颜色反转](https://g2.antv.antgroup.com/zh/examples/component/label/contrastreverse/): 可运行示例及其源码。
+- [HTML 标签](https://g2.antv.antgroup.com/zh/examples/component/label/htmllabel/): 可运行示例及其源码。
+- [数据标签超出隐藏](https://g2.antv.antgroup.com/zh/examples/component/label/overflowhide/): 可运行示例及其源码。
+- [数据标签碰撞隐藏](https://g2.antv.antgroup.com/zh/examples/component/label/overlaphide/): 可运行示例及其源码。
+- [自定义图例标签](https://g2.antv.antgroup.com/zh/examples/component/legend/category/): 可运行示例及其源码。
+- [连续图例](https://g2.antv.antgroup.com/zh/examples/component/legend/continuous/): 可运行示例及其源码。
+- [自定义图例](https://g2.antv.antgroup.com/zh/examples/component/legend/custom/): 可运行示例及其源码。
+- [图例项样式](https://g2.antv.antgroup.com/zh/examples/component/legend/item-style/): 可运行示例及其源码。
+- [分页器样式](https://g2.antv.antgroup.com/zh/examples/component/legend/nav-style/): 可运行示例及其源码。
+- [图例位置](https://g2.antv.antgroup.com/zh/examples/component/legend/position/): 可运行示例及其源码。
+- [自定义符号](https://g2.antv.antgroup.com/zh/examples/component/legend/symbol/): 可运行示例及其源码。
+- [图例标题](https://g2.antv.antgroup.com/zh/examples/component/legend/title/): 可运行示例及其源码。
+- [滚动条](https://g2.antv.antgroup.com/zh/examples/component/scrollbar/scrollbar/): 可运行示例及其源码。
+- [自适应过滤](https://g2.antv.antgroup.com/zh/examples/component/slider/slider-adaptive/): 可运行示例及其源码。
+- [自定义样式](https://g2.antv.antgroup.com/zh/examples/component/slider/slider-custom/): 可运行示例及其源码。
+- [自定义手柄图标形状](https://g2.antv.antgroup.com/zh/examples/component/slider/slider-handle-icon/): 可运行示例及其源码。
+- [Mark 层级自适应](https://g2.antv.antgroup.com/zh/examples/component/slider/slider-multi-axis-mark/): 可运行示例及其源码。
+- [View 层级自适应](https://g2.antv.antgroup.com/zh/examples/component/slider/slider-multi-axis-view/): 可运行示例及其源码。
+- [滚轮缩放](https://g2.antv.antgroup.com/zh/examples/component/slider/slider-wheel/): 可运行示例及其源码。
+- [标题](https://g2.antv.antgroup.com/zh/examples/component/title/title/): 可运行示例及其源码。
+- [标题样式](https://g2.antv.antgroup.com/zh/examples/component/title/title-style/): 可运行示例及其源码。
+- [提示](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip/): 可运行示例及其源码。
+- [点击提示](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-click/): 可运行示例及其源码。
+- [点击系列图提示](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-click-line/): 可运行示例及其源码。
+- [十字辅助线](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-crosshairs/): 可运行示例及其源码。
+- [自定义提示](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-custom/): 可运行示例及其源码。
+- [自定义 marker 的 tooltip](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-line-marker/): 可运行示例及其源码。
+- [空心提示点](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-marker/): 可运行示例及其源码。
+- [自定义渲染内容](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-render/): 可运行示例及其源码。
+- [系列提示](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-series/): 可运行示例及其源码。
+- [自定义样式](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-style/): 可运行示例及其源码。
+- [两个 tooltip](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip-two/): 可运行示例及其源码。
+- [多维度提示](https://g2.antv.antgroup.com/zh/examples/component/tooltip/tooltip2d/): 可运行示例及其源码。
+- [圆形分面](https://g2.antv.antgroup.com/zh/examples/composition/facet/circle/): 可运行示例及其源码。
+- [矩行分面](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect/): 可运行示例及其源码。
+- [日历条形图](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-bar/): 可运行示例及其源码。
+- [列矩行分面](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-col/): 可运行示例及其源码。
+- [自定义视图边框](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-frame/): 可运行示例及其源码。
+- [日历饼图](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-pie/): 可运行示例及其源码。
+- [系统监控](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-ring/): 可运行示例及其源码。
+- [行矩行分面](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-row/): 可运行示例及其源码。
+- [重复矩阵](https://g2.antv.antgroup.com/zh/examples/composition/repeat/matrix/): 可运行示例及其源码。
+- [列重复矩阵](https://g2.antv.antgroup.com/zh/examples/composition/repeat/matrix-col/): 可运行示例及其源码。
+- [弹性容器](https://g2.antv.antgroup.com/zh/examples/composition/space/space-flex/): 可运行示例及其源码。
+- [层叠容器](https://g2.antv.antgroup.com/zh/examples/composition/space/space-layer/): 可运行示例及其源码。
+- [Spec 函数表达式](https://g2.antv.antgroup.com/zh/examples/expr/base/expr/): 可运行示例及其源码。
+- [面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area/): 可运行示例及其源码。
+- [板子图](https://g2.antv.antgroup.com/zh/examples/general/area/area-band/): 可运行示例及其源码。
+- [简单面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-basic/): 可运行示例及其源码。
+- [差分面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-difference/): 可运行示例及其源码。
+- [渐变色面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-gradient/): 可运行示例及其源码。
+- [百分比堆叠面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-percentage/): 可运行示例及其源码。
+- [区间面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-range/): 可运行示例及其源码。
+- [简单堆叠面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-stacked-basic/): 可运行示例及其源码。
+- [负数面积图](https://g2.antv.antgroup.com/zh/examples/general/area/area-with-negative/): 可运行示例及其源码。
+- [出现顺序堆叠面积图](https://g2.antv.antgroup.com/zh/examples/general/area/cascade-area/): 可运行示例及其源码。
+- [面积图特殊标签](https://g2.antv.antgroup.com/zh/examples/general/area/label/): 可运行示例及其源码。
+- [数据缺失面积图](https://g2.antv.antgroup.com/zh/examples/general/area/missing-data-area/): 可运行示例及其源码。
+- [彩条图](https://g2.antv.antgroup.com/zh/examples/general/area/orderly-area/): 可运行示例及其源码。
+- [归一化堆叠面积图](https://g2.antv.antgroup.com/zh/examples/general/area/percentage-area/): 可运行示例及其源码。
+- [区间曲线面积图](https://g2.antv.antgroup.com/zh/examples/general/area/range-spline-area/): 可运行示例及其源码。
+- [排名趋势面积图](https://g2.antv.antgroup.com/zh/examples/general/area/rank-trend-area/): 可运行示例及其源码。
+- [堆叠面积图](https://g2.antv.antgroup.com/zh/examples/general/area/stacked-area/): 可运行示例及其源码。
+- [阶梯面积图](https://g2.antv.antgroup.com/zh/examples/general/area/step-area/): 可运行示例及其源码。
+- [河流图](https://g2.antv.antgroup.com/zh/examples/general/area/streamgraph/): 可运行示例及其源码。
+- [蜂群图](https://g2.antv.antgroup.com/zh/examples/general/beeswarm/base/): 可运行示例及其源码。
+- [不同形状的蜂群图](https://g2.antv.antgroup.com/zh/examples/general/beeswarm/shape/): 可运行示例及其源码。
+- [横向蜂群图](https://g2.antv.antgroup.com/zh/examples/general/beeswarm/transpose/): 可运行示例及其源码。
+- [预处理箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/box/): 可运行示例及其源码。
+- [无异常点箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/boxplot/): 可运行示例及其源码。
+- [一维箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/boxplot-1d/): 可运行示例及其源码。
+- [带异常点箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/boxplot-outlier/): 可运行示例及其源码。
+- [预处理分组箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/grouped-box/): 可运行示例及其源码。
+- [带异常点分组箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/grouped-boxplot-outlier/): 可运行示例及其源码。
+- [径向箱线图](https://g2.antv.antgroup.com/zh/examples/general/box/polar-box/): 可运行示例及其源码。
+- [子弹图](https://g2.antv.antgroup.com/zh/examples/general/bullet/bullet/): 可运行示例及其源码。
+- [子弹图 更多数据](https://g2.antv.antgroup.com/zh/examples/general/bullet/bullet-datas/): 可运行示例及其源码。
+- [多条子弹图](https://g2.antv.antgroup.com/zh/examples/general/bullet/bullets/): 可运行示例及其源码。
+- [K线图](https://g2.antv.antgroup.com/zh/examples/general/candlestick/basis/): 可运行示例及其源码。
+- [K 线图与范围区域图](https://g2.antv.antgroup.com/zh/examples/general/candlestick/k-and-area/): 可运行示例及其源码。
+- [K 线图与柱状图](https://g2.antv.antgroup.com/zh/examples/general/candlestick/k-and-column/): 可运行示例及其源码。
+- [股票图](https://g2.antv.antgroup.com/zh/examples/general/candlestick/line-candle-stick/): 可运行示例及其源码。
+- [聚合热力图](https://g2.antv.antgroup.com/zh/examples/general/cell/cell-aggregated/): 可运行示例及其源码。
+- [华夫饼图](https://g2.antv.antgroup.com/zh/examples/general/cell/cell-basic/): 可运行示例及其源码。
+- [热力图](https://g2.antv.antgroup.com/zh/examples/general/cell/cell-heatmap/): 可运行示例及其源码。
+- [分位数热力图](https://g2.antv.antgroup.com/zh/examples/general/cell/cell-quantile/): 可运行示例及其源码。
+- [量化热力图](https://g2.antv.antgroup.com/zh/examples/general/cell/cell-quantize/): 可运行示例及其源码。
+- [阈值热力图](https://g2.antv.antgroup.com/zh/examples/general/cell/cell-threshold/): 可运行示例及其源码。
+- [聚合线面双轴图](https://g2.antv.antgroup.com/zh/examples/general/dual/dual-aggregated-line-area/): 可运行示例及其源码。
+- [双轴条形图](https://g2.antv.antgroup.com/zh/examples/general/dual/dual-axis-bar/): 可运行示例及其源码。
+- [双轴折线条形图](https://g2.antv.antgroup.com/zh/examples/general/dual/dual-axis-line-bar/): 可运行示例及其源码。
+- [双轴多折线条形图](https://g2.antv.antgroup.com/zh/examples/general/dual/dual-axis-multi-line-bar/): 可运行示例及其源码。
+- [双轴堆叠分组条形图](https://g2.antv.antgroup.com/zh/examples/general/dual/dual-axis-stacked-group-bar/): 可运行示例及其源码。
+- [柱线混合](https://g2.antv.antgroup.com/zh/examples/general/dual/line-bar/): 可运行示例及其源码。
+- [多轴图](https://g2.antv.antgroup.com/zh/examples/general/dual/multi-line/): 可运行示例及其源码。
+- [多轴图同步刻度](https://g2.antv.antgroup.com/zh/examples/general/dual/multi-line-sync/): 可运行示例及其源码。
+- [帕累托图](https://g2.antv.antgroup.com/zh/examples/general/dual/pareto/): 可运行示例及其源码。
+- [基础平滑图](https://g2.antv.antgroup.com/zh/examples/general/ema/ema-basic/): 可运行示例及其源码。
+- [漏斗图](https://g2.antv.antgroup.com/zh/examples/general/funnel/funnel/): 可运行示例及其源码。
+- [转化漏斗图](https://g2.antv.antgroup.com/zh/examples/general/funnel/funnel-annotation/): 可运行示例及其源码。
+- [对比漏斗图](https://g2.antv.antgroup.com/zh/examples/general/funnel/mirror-funnel/): 可运行示例及其源码。
+- [金字塔图](https://g2.antv.antgroup.com/zh/examples/general/funnel/pyramid/): 可运行示例及其源码。
+- [正向金字塔图](https://g2.antv.antgroup.com/zh/examples/general/funnel/pyramid-forward/): 可运行示例及其源码。
+- [圆角漏斗图](https://g2.antv.antgroup.com/zh/examples/general/funnel/radius-funnel/): 可运行示例及其源码。
+- [自定义仪表盘颜色](https://g2.antv.antgroup.com/zh/examples/general/gauge/gauge-custom-color/): 可运行示例及其源码。
+- [仪表盘自定义指针形状](https://g2.antv.antgroup.com/zh/examples/general/gauge/gauge-custom-shape/): 可运行示例及其源码。
+- [完全自定义样式的仪表盘](https://g2.antv.antgroup.com/zh/examples/general/gauge/gauge-custom-style/): 可运行示例及其源码。
+- [仪表盘](https://g2.antv.antgroup.com/zh/examples/general/gauge/gauge-default/): 可运行示例及其源码。
+- [仪表盘内置 round 形状](https://g2.antv.antgroup.com/zh/examples/general/gauge/gauge-round/): 可运行示例及其源码。
+- [密度热力图](https://g2.antv.antgroup.com/zh/examples/general/heatmap/heatmap/): 可运行示例及其源码。
+- [散点分布热力](https://g2.antv.antgroup.com/zh/examples/general/heatmap/heatmap-density/): 可运行示例及其源码。
+- [鼠标热力图](https://g2.antv.antgroup.com/zh/examples/general/heatmap/mouse-heatmap/): 可运行示例及其源码。
+- [螺旋坐标系](https://g2.antv.antgroup.com/zh/examples/general/helix/helix/): 可运行示例及其源码。
+- [基因螺旋图](https://g2.antv.antgroup.com/zh/examples/general/helix/helix-gene/): 可运行示例及其源码。
+- [直方图](https://g2.antv.antgroup.com/zh/examples/general/histogram/histogram/): 可运行示例及其源码。
+- [直方图范围刻度](https://g2.antv.antgroup.com/zh/examples/general/histogram/histogram-binwidth/): 可运行示例及其源码。
+- [层叠直方图](https://g2.antv.antgroup.com/zh/examples/general/histogram/histogram-stacked/): 可运行示例及其源码。
+- [贡献者](https://g2.antv.antgroup.com/zh/examples/general/image/contributor/): 可运行示例及其源码。
+- [图标标记](https://g2.antv.antgroup.com/zh/examples/general/image/icon/): 可运行示例及其源码。
+- [浏览器图标](https://g2.antv.antgroup.com/zh/examples/general/image/logo/): 可运行示例及其源码。
+- [水平条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar/): 可运行示例及其源码。
+- [坐标轴断轴条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-axis-breaks/): 可运行示例及其源码。
+- [简单柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-basic/): 可运行示例及其源码。
+- [简单分组柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-basic-grouped/): 可运行示例及其源码。
+- [图例聚焦条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-basic-grouped-focus/): 可运行示例及其源码。
+- [简单堆叠柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-basic-stacked/): 可运行示例及其源码。
+- [简单条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-basic-transposed/): 可运行示例及其源码。
+- [发散条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-diverging/): 可运行示例及其源码。
+- [分组条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-dodged/): 可运行示例及其源码。
+- [多轴条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-dual-axes/): 可运行示例及其源码。
+- [固定宽度圆角条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-fixed-cornered/): 可运行示例及其源码。
+- [弹性条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-flex/): 可运行示例及其源码。
+- [马赛克图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-marimekko/): 可运行示例及其源码。
+- [归一化堆叠条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-normalized-stacked/): 可运行示例及其源码。
+- [区间条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-range/): 可运行示例及其源码。
+- [微妙级区间条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-range-micro/): 可运行示例及其源码。
+- [堆叠条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-stacked/): 可运行示例及其源码。
+- [圆角发散堆叠条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-stacked-diverging-rounded/): 可运行示例及其源码。
+- [堆叠水平条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-stacked-horizontal/): 可运行示例及其源码。
+- [可变宽度条形图](https://g2.antv.antgroup.com/zh/examples/general/interval/bar-var-width/): 可运行示例及其源码。
+- [可交互柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/column-interactive/): 可运行示例及其源码。
+- [对数柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/column-log/): 可运行示例及其源码。
+- [限制宽度的柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/column-maxwidth/): 可运行示例及其源码。
+- [限制高度的柱形图](https://g2.antv.antgroup.com/zh/examples/general/interval/column-min-height/): 可运行示例及其源码。
+- [interval样式配置](https://g2.antv.antgroup.com/zh/examples/general/interval/interval-style/): 可运行示例及其源码。
+- [基础折线图](https://g2.antv.antgroup.com/zh/examples/general/line/base/): 可运行示例及其源码。
+- [曲线折线图](https://g2.antv.antgroup.com/zh/examples/general/line/curved/): 可运行示例及其源码。
+- [聚合折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-aggregated-label/): 可运行示例及其源码。
+- [面积标注折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-area-clip-path/): 可运行示例及其源码。
+- [普通折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-basic/): 可运行示例及其源码。
+- [缺失折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-connect-nulls/): 可运行示例及其源码。
+- [颜色编码折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-gradient-encoding/): 可运行示例及其源码。
+- [归一化折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-normalized/): 可运行示例及其源码。
+- [数据样本折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-sample/): 可运行示例及其源码。
+- [系列折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-series/): 可运行示例及其源码。
+- [系列颜色编码折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-series-var-color/): 可运行示例及其源码。
+- [斜率图](https://g2.antv.antgroup.com/zh/examples/general/line/line-slope/): 可运行示例及其源码。
+- [折线标记样式](https://g2.antv.antgroup.com/zh/examples/general/line/line-style/): 可运行示例及其源码。
+- [阈值折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-threshold/): 可运行示例及其源码。
+- [变宽折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-var-size/): 可运行示例及其源码。
+- [轨迹图](https://g2.antv.antgroup.com/zh/examples/general/line/line-var-size-facet/): 可运行示例及其源码。
+- [缺失变宽折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-var-size-missing/): 可运行示例及其源码。
+- [多色折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-variable-color/): 可运行示例及其源码。
+- [零值折线图](https://g2.antv.antgroup.com/zh/examples/general/line/line-zero-values/): 可运行示例及其源码。
+- [阶梯折线图](https://g2.antv.antgroup.com/zh/examples/general/line/step/): 可运行示例及其源码。
+- [箭线](https://g2.antv.antgroup.com/zh/examples/general/link/link/): 可运行示例及其源码。
+- [Link 辅助线](https://g2.antv.antgroup.com/zh/examples/general/link/link-annotation/): 可运行示例及其源码。
+- [link 内置形状](https://g2.antv.antgroup.com/zh/examples/general/link/link-shape/): 可运行示例及其源码。
+- [带背景的水波图](https://g2.antv.antgroup.com/zh/examples/general/liquid/liquid-background/): 可运行示例及其源码。
+- [水波图 文本内容](https://g2.antv.antgroup.com/zh/examples/general/liquid/liquid-content/): 可运行示例及其源码。
+- [自定义形状水波图](https://g2.antv.antgroup.com/zh/examples/general/liquid/liquid-custom-shape/): 可运行示例及其源码。
+- [水波图](https://g2.antv.antgroup.com/zh/examples/general/liquid/liquid-default/): 可运行示例及其源码。
+- [水滴形状水波图](https://g2.antv.antgroup.com/zh/examples/general/liquid/liquid-pin/): 可运行示例及其源码。
+- [迷你面积图](https://g2.antv.antgroup.com/zh/examples/general/mini/area/): 可运行示例及其源码。
+- [迷你柱形图](https://g2.antv.antgroup.com/zh/examples/general/mini/column/): 可运行示例及其源码。
+- [迷你折线图](https://g2.antv.antgroup.com/zh/examples/general/mini/line/): 可运行示例及其源码。
+- [迷你饼图](https://g2.antv.antgroup.com/zh/examples/general/mini/pie/): 可运行示例及其源码。
+- [迷你进度条](https://g2.antv.antgroup.com/zh/examples/general/mini/progress/): 可运行示例及其源码。
+- [迷你环图](https://g2.antv.antgroup.com/zh/examples/general/mini/ring/): 可运行示例及其源码。
+- [水平平行坐标系](https://g2.antv.antgroup.com/zh/examples/general/parallel/line-parallel-horizontal/): 可运行示例及其源码。
+- [竖直平行坐标系](https://g2.antv.antgroup.com/zh/examples/general/parallel/line-parallel-vertical/): 可运行示例及其源码。
+- [甜甜圈图](https://g2.antv.antgroup.com/zh/examples/general/pie/donut/): 可运行示例及其源码。
+- [简单环图](https://g2.antv.antgroup.com/zh/examples/general/pie/donut-base/): 可运行示例及其源码。
+- [饼图](https://g2.antv.antgroup.com/zh/examples/general/pie/pie/): 可运行示例及其源码。
+- [简单饼图](https://g2.antv.antgroup.com/zh/examples/general/pie/pie-base/): 可运行示例及其源码。
+- [2018 年第一季度短视频用户性别分布](https://g2.antv.antgroup.com/zh/examples/general/pie/pie-base-facet/): 可运行示例及其源码。
+- [饼图, 中心文本](https://g2.antv.antgroup.com/zh/examples/general/pie/pie-donut-text/): 可运行示例及其源码。
+- [增加交互的饼图](https://g2.antv.antgroup.com/zh/examples/general/pie/pie-hover-scale/): 可运行示例及其源码。
+- [径向扰动散点图](https://g2.antv.antgroup.com/zh/examples/general/pie/point-jitter-radial/): 可运行示例及其源码。
+- [饼图, 蜘蛛布局标签](https://g2.antv.antgroup.com/zh/examples/general/pie/spider-label/): 可运行示例及其源码。
+- [调整蜘蛛布局](https://g2.antv.antgroup.com/zh/examples/general/pie/spider-label-overlap/): 可运行示例及其源码。
+- [聚合气泡图](https://g2.antv.antgroup.com/zh/examples/general/point/point-aggregated/): 可运行示例及其源码。
+- [散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-basic/): 可运行示例及其源码。
+- [气泡图](https://g2.antv.antgroup.com/zh/examples/general/point/point-bubble/): 可运行示例及其源码。
+- [点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-dot/): 可运行示例及其源码。
+- [扰动散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-jitter/): 可运行示例及其源码。
+- [标签散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-label/): 可运行示例及其源码。
+- [对数气泡图](https://g2.antv.antgroup.com/zh/examples/general/point/point-log/): 可运行示例及其源码。
+- [一维散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-one-dimension/): 可运行示例及其源码。
+- [渐变色散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-sequential/): 可运行示例及其源码。
+- [多形状散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-shape/): 可运行示例及其源码。
+- [堆叠散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-stacked/): 可运行示例及其源码。
+- [带子散点图](https://g2.antv.antgroup.com/zh/examples/general/point/point-strip/): 可运行示例及其源码。
+- [point 样式](https://g2.antv.antgroup.com/zh/examples/general/point/point-style/): 可运行示例及其源码。
+- [矩形树图](https://g2.antv.antgroup.com/zh/examples/general/polygon/treemap/): 可运行示例及其源码。
+- [沃罗诺伊图](https://g2.antv.antgroup.com/zh/examples/general/polygon/voronoi/): 可运行示例及其源码。
+- [径向面积图](https://g2.antv.antgroup.com/zh/examples/general/radar/area-radial/): 可运行示例及其源码。
+- [复杂雷达图](https://g2.antv.antgroup.com/zh/examples/general/radar/complex-radial/): 可运行示例及其源码。
+- [雷达图(带网格)](https://g2.antv.antgroup.com/zh/examples/general/radar/grid-radial/): 可运行示例及其源码。
+- [多个维度的雷达图](https://g2.antv.antgroup.com/zh/examples/general/radar/multi-radar/): 可运行示例及其源码。
+- [雷达图](https://g2.antv.antgroup.com/zh/examples/general/radar/parallel-radar/): 可运行示例及其源码。
+- [雷达图](https://g2.antv.antgroup.com/zh/examples/general/radar/radar/): 可运行示例及其源码。
+- [雷达图(带底色)](https://g2.antv.antgroup.com/zh/examples/general/radar/radial-with-background-color/): 可运行示例及其源码。
+- [方形雷达图](https://g2.antv.antgroup.com/zh/examples/general/radar/square-radar/): 可运行示例及其源码。
+- [Apple 活动图](https://g2.antv.antgroup.com/zh/examples/general/radial/apple-activity/): 可运行示例及其源码。
+- [圆角玉珏图](https://g2.antv.antgroup.com/zh/examples/general/radial/bar-cornered-radial/): 可运行示例及其源码。
+- [玉珏图](https://g2.antv.antgroup.com/zh/examples/general/radial/bar-radial/): 可运行示例及其源码。
+- [带背景的玉珏图](https://g2.antv.antgroup.com/zh/examples/general/radial/radial-bar-with-background/): 可运行示例及其源码。
+- [径向条形图](https://g2.antv.antgroup.com/zh/examples/general/radial/radial-line/): 可运行示例及其源码。
+- [径向堆叠条形图](https://g2.antv.antgroup.com/zh/examples/general/radial/radial-stacked/): 可运行示例及其源码。
+- [南丁格尔玫瑰环图](https://g2.antv.antgroup.com/zh/examples/general/rose/donut-rose/): 可运行示例及其源码。
+- [南丁格尔玫瑰图](https://g2.antv.antgroup.com/zh/examples/general/rose/nightingale-rose/): 可运行示例及其源码。
+- [极坐标下的层叠柱状图](https://g2.antv.antgroup.com/zh/examples/general/rose/polar-stack/): 可运行示例及其源码。
+- [玫瑰图](https://g2.antv.antgroup.com/zh/examples/general/rose/rose/): 可运行示例及其源码。
+- [玫瑰图标签](https://g2.antv.antgroup.com/zh/examples/general/rose/rose-label/): 可运行示例及其源码。
+- [堆叠玫瑰图](https://g2.antv.antgroup.com/zh/examples/general/rose/stacked-rose/): 可运行示例及其源码。
+- [Wind Rose](https://g2.antv.antgroup.com/zh/examples/general/rose/wind-rose/): 可运行示例及其源码。
+- [旭日图自定义颜色通道](https://g2.antv.antgroup.com/zh/examples/general/sunburst/sunburst-color/): 可运行示例及其源码。
+- [旭日图](https://g2.antv.antgroup.com/zh/examples/general/sunburst/sunburst-default/): 可运行示例及其源码。
+- [旭日图交互配置](https://g2.antv.antgroup.com/zh/examples/general/sunburst/sunburst-interaction/): 可运行示例及其源码。
+- [旭日图带标签](https://g2.antv.antgroup.com/zh/examples/general/sunburst/sunburst-label/): 可运行示例及其源码。
+- [旭日图自定义纹理](https://g2.antv.antgroup.com/zh/examples/general/sunburst/sunburst-pattern/): 可运行示例及其源码。
+- [旭日图自定义样式](https://g2.antv.antgroup.com/zh/examples/general/sunburst/sunburst-style/): 可运行示例及其源码。
+- [文本段落](https://g2.antv.antgroup.com/zh/examples/general/text/paragraph/): 可运行示例及其源码。
+- [诗词可视化](https://g2.antv.antgroup.com/zh/examples/general/text/poetry/): 可运行示例及其源码。
+- [茎叶图](https://g2.antv.antgroup.com/zh/examples/general/text/stem-leaf/): 可运行示例及其源码。
+- [火车调度](https://g2.antv.antgroup.com/zh/examples/general/text/train/): 可运行示例及其源码。
+- [词云图](https://g2.antv.antgroup.com/zh/examples/general/text/wordcloud/): 可运行示例及其源码。
+- [英文字符词云图](https://g2.antv.antgroup.com/zh/examples/general/text/wordcloud-english/): 可运行示例及其源码。
+- [带图片遮罩的词云图](https://g2.antv.antgroup.com/zh/examples/general/text/wordcloud-mask/): 可运行示例及其源码。
+- [珀林噪声场](https://g2.antv.antgroup.com/zh/examples/general/vector/poisson/): 可运行示例及其源码。
+- [风向量场](https://g2.antv.antgroup.com/zh/examples/general/vector/wind/): 可运行示例及其源码。
+- [韦恩图](https://g2.antv.antgroup.com/zh/examples/general/venn/venn/): 可运行示例及其源码。
+- [空心韦恩图](https://g2.antv.antgroup.com/zh/examples/general/venn/venn-hollow/): 可运行示例及其源码。
+- [核密度图](https://g2.antv.antgroup.com/zh/examples/general/violin/density/): 可运行示例及其源码。
+- [小提琴图](https://g2.antv.antgroup.com/zh/examples/general/violin/violin/): 可运行示例及其源码。
+- [极坐标小提琴图](https://g2.antv.antgroup.com/zh/examples/general/violin/violin-polar/): 可运行示例及其源码。
+- [美国行政地图](https://g2.antv.antgroup.com/zh/examples/geo/geo/choropleth-usa/): 可运行示例及其源码。
+- [航班机场图](https://g2.antv.antgroup.com/zh/examples/geo/geo/flights-airports/): 可运行示例及其源码。
+- [六边形中国地图](https://g2.antv.antgroup.com/zh/examples/geo/geo/hexbin-china/): 可运行示例及其源码。
+- [六边形美国地图](https://g2.antv.antgroup.com/zh/examples/geo/geo/hexjson-usa/): 可运行示例及其源码。
+- [伦敦地铁图](https://g2.antv.antgroup.com/zh/examples/geo/geo/london-tube-lines/): 可运行示例及其源码。
+- [投影比较](https://g2.antv.antgroup.com/zh/examples/geo/geo/projection-comparison/): 可运行示例及其源码。
+- [世界地图](https://g2.antv.antgroup.com/zh/examples/geo/geo/world-map/): 可运行示例及其源码。
+- [打包图](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/circle-packing/): 可运行示例及其源码。
+- [火焰图](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/partition/): 可运行示例及其源码。
+- [火焰图（排序）](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/partition-sorted/): 可运行示例及其源码。
+- [树图](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/tree/): 可运行示例及其源码。
+- [矩形树图](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/treemap/): 可运行示例及其源码。
+- [矩形树图下钻](https://g2.antv.antgroup.com/zh/examples/graph/hierarchy/treemap-drill-down/): 可运行示例及其源码。
+- [弦图](https://g2.antv.antgroup.com/zh/examples/graph/network/chord/): 可运行示例及其源码。
+- [力导向图](https://g2.antv.antgroup.com/zh/examples/graph/network/forcegraph/): 可运行示例及其源码。
+- [离散力导向图](https://g2.antv.antgroup.com/zh/examples/graph/network/forcegraph-disjoint/): 可运行示例及其源码。
+- [桑基图](https://g2.antv.antgroup.com/zh/examples/graph/network/sankey/): 可运行示例及其源码。
+- [自动可视化 - 柱形图](https://g2.antv.antgroup.com/zh/examples/intelligent/auto/auto-interval/): 可运行示例及其源码。
+- [自动可视化 - 折线图](https://g2.antv.antgroup.com/zh/examples/intelligent/auto/auto-line/): 可运行示例及其源码。
+- [自动可视化 - 饼图](https://g2.antv.antgroup.com/zh/examples/intelligent/auto/auto-pie/): 可运行示例及其源码。
+- [自动可视化 - 散点图](https://g2.antv.antgroup.com/zh/examples/intelligent/auto/auto-scatter/): 可运行示例及其源码。
+- [类别异常](https://g2.antv.antgroup.com/zh/examples/intelligent/insight/category-outlier/): 可运行示例及其源码。
+- [突变点](https://g2.antv.antgroup.com/zh/examples/intelligent/insight/change-point/): 可运行示例及其源码。
+- [洞察标注算法的详细参数](https://g2.antv.antgroup.com/zh/examples/intelligent/insight/insight/): 可运行示例及其源码。
+- [低方差](https://g2.antv.antgroup.com/zh/examples/intelligent/insight/low-variance/): 可运行示例及其源码。
+- [时序异常](https://g2.antv.antgroup.com/zh/examples/intelligent/insight/time-series-outlier/): 可运行示例及其源码。
+- [趋势](https://g2.antv.antgroup.com/zh/examples/intelligent/insight/trend/): 可运行示例及其源码。
+- [刷选](https://g2.antv.antgroup.com/zh/examples/interaction/brush/brush/): 可运行示例及其源码。
+- [刷选事件](https://g2.antv.antgroup.com/zh/examples/interaction/brush/brush-emit/): 可运行示例及其源码。
+- [重置刷选](https://g2.antv.antgroup.com/zh/examples/interaction/brush/reset-brush/): 可运行示例及其源码。
+- [图例](https://g2.antv.antgroup.com/zh/examples/interaction/component/legend/): 可运行示例及其源码。
+- [面积图-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/area-element-point-move/): 可运行示例及其源码。
+- [面积图-百分比堆叠-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/area-normalizey-element-point-move/): 可运行示例及其源码。
+- [条形图-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/bar-element-point-move/): 可运行示例及其源码。
+- [条形图-百分比堆叠-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/bar-normalizey-element-point-move/): 可运行示例及其源码。
+- [柱形图-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/column-element-point-move/): 可运行示例及其源码。
+- [柱形图-百分比堆叠-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/column-normalizey-element-point-move/): 可运行示例及其源码。
+- [折线图-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/line-element-point-move/): 可运行示例及其源码。
+- [雷达图-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/line-element-point-move-polar/): 可运行示例及其源码。
+- [饼图-数形交互](https://g2.antv.antgroup.com/zh/examples/interaction/data/pie-element-point-move/): 可运行示例及其源码。
+- [环图元素放大](https://g2.antv.antgroup.com/zh/examples/interaction/element/donut-hover-scale/): 可运行示例及其源码。
+- [分组柱状图元素放大](https://g2.antv.antgroup.com/zh/examples/interaction/element/group-hover-scale/): 可运行示例及其源码。
+- [高亮](https://g2.antv.antgroup.com/zh/examples/interaction/element/highlight/): 可运行示例及其源码。
+- [饼图元素放大](https://g2.antv.antgroup.com/zh/examples/interaction/element/pie-hover-scale/): 可运行示例及其源码。
+- [选择](https://g2.antv.antgroup.com/zh/examples/interaction/element/select/): 可运行示例及其源码。
+- [滑动](https://g2.antv.antgroup.com/zh/examples/interaction/element/slider/): 可运行示例及其源码。
+- [自动提示](https://g2.antv.antgroup.com/zh/examples/interaction/event/auto-tooltip/): 可运行示例及其源码。
+- [通过点获取数据](https://g2.antv.antgroup.com/zh/examples/interaction/event/get-data-by-xy/): 可运行示例及其源码。
+- [图例点击](https://g2.antv.antgroup.com/zh/examples/interaction/event/legend-click/): 可运行示例及其源码。
+- [重置刷选](https://g2.antv.antgroup.com/zh/examples/interaction/event/reset-brush-filter/): 可运行示例及其源码。
+- [图表联动](https://g2.antv.antgroup.com/zh/examples/interaction/multi-view/focus-context/): 可运行示例及其源码。
+- [索引图](https://g2.antv.antgroup.com/zh/examples/interaction/other/chart-index/): 可运行示例及其源码。
+- [鱼眼](https://g2.antv.antgroup.com/zh/examples/interaction/other/fisheye/): 可运行示例及其源码。
+- [2.5D 柱形图](https://g2.antv.antgroup.com/zh/examples/interesting/interesting/25d-column/): 可运行示例及其源码。
+- [梅西射门分析](https://g2.antv.antgroup.com/zh/examples/interesting/interesting/messi/): 可运行示例及其源码。
+- [国庆节头像](https://g2.antv.antgroup.com/zh/examples/interesting/interesting/national/): 可运行示例及其源码。
+- [花瓣图](https://g2.antv.antgroup.com/zh/examples/interesting/interesting/petal/): 可运行示例及其源码。
+- [时间轴 Timeline](https://g2.antv.antgroup.com/zh/examples/interesting/interesting/timeline/): 可运行示例及其源码。
+- [图表布局](https://g2.antv.antgroup.com/zh/examples/layout/layout/chart-layout/): 可运行示例及其源码。
+- [图表视图样式](https://g2.antv.antgroup.com/zh/examples/layout/style/chart-view-style/): 可运行示例及其源码。
+- [Canvas 渲染器](https://g2.antv.antgroup.com/zh/examples/renderer/renderer/canvas/): 可运行示例及其源码。
+- [SVG 渲染器](https://g2.antv.antgroup.com/zh/examples/renderer/renderer/svg/): 可运行示例及其源码。
+- [WebGL 渲染器](https://g2.antv.antgroup.com/zh/examples/renderer/renderer/webgl/): 可运行示例及其源码。
+- [漏斗转化分析](https://g2.antv.antgroup.com/zh/examples/scene/scene/funnel-conversion/): 可运行示例及其源码。
+- [心率监测仪](https://g2.antv.antgroup.com/zh/examples/scene/scene/heartbeat-monitor/): 可运行示例及其源码。
+- [数据脉冲网络](https://g2.antv.antgroup.com/zh/examples/scene/scene/network-pulse/): 可运行示例及其源码。
+- [音频播放器可视化](https://g2.antv.antgroup.com/zh/examples/scene/scene/player/): 可运行示例及其源码。
+- [雷达扫描效果](https://g2.antv.antgroup.com/zh/examples/scene/scene/radar-scan/): 可运行示例及其源码。
+- [粒子涟漪效果](https://g2.antv.antgroup.com/zh/examples/scene/scene/ripple-effect/): 可运行示例及其源码。
+- [星空粒子系统](https://g2.antv.antgroup.com/zh/examples/scene/scene/starry-sky/): 可运行示例及其源码。
+- [股票实时K线](https://g2.antv.antgroup.com/zh/examples/scene/scene/stock-realtime/): 可运行示例及其源码。
+- [波浪能量图](https://g2.antv.antgroup.com/zh/examples/scene/scene/wave-energy/): 可运行示例及其源码。
+- [天气预报动画](https://g2.antv.antgroup.com/zh/examples/scene/scene/weather-forecast/): 可运行示例及其源码。
+- [分面帧动画](https://g2.antv.antgroup.com/zh/examples/storytelling/storytelling/facet-keyframe/): 可运行示例及其源码。
+- [甘特图动画](https://g2.antv.antgroup.com/zh/examples/storytelling/storytelling/gantt/): 可运行示例及其源码。
+- [条帧动画](https://g2.antv.antgroup.com/zh/examples/storytelling/storytelling/interval-keyframe/): 可运行示例及其源码。
+- [点帧动画](https://g2.antv.antgroup.com/zh/examples/storytelling/storytelling/point-keyframe/): 可运行示例及其源码。
+- [混合帧动画](https://g2.antv.antgroup.com/zh/examples/storytelling/storytelling/stocks-keyframe/): 可运行示例及其源码。
+- [配置线性渐变-面积图](https://g2.antv.antgroup.com/zh/examples/style/graphic/area/): 可运行示例及其源码。
+- [配置线性渐变-仪表盘](https://g2.antv.antgroup.com/zh/examples/style/graphic/gauge/): 可运行示例及其源码。
+- [配置线的样式](https://g2.antv.antgroup.com/zh/examples/style/graphic/line/): 可运行示例及其源码。
+- [配置图形样式](https://g2.antv.antgroup.com/zh/examples/style/graphic/mark/): 可运行示例及其源码。
+- [配置纹理](https://g2.antv.antgroup.com/zh/examples/style/graphic/pattern/): 可运行示例及其源码。
+- [配置环形渐变](https://g2.antv.antgroup.com/zh/examples/style/graphic/radial-gradient/): 可运行示例及其源码。
+- [配置文字的样式](https://g2.antv.antgroup.com/zh/examples/style/graphic/text/): 可运行示例及其源码。
+- [使用原生 Canvas API 自定义 Pattern](https://g2.antv.antgroup.com/zh/examples/style/pattern/custom-pattern-with-canvas/): 可运行示例及其源码。
+- [使用 G API 自定义 Pattern](https://g2.antv.antgroup.com/zh/examples/style/pattern/custom-pattern-with-g-api/): 可运行示例及其源码。
+- [Dots Pattern](https://g2.antv.antgroup.com/zh/examples/style/pattern/dots-pattern/): 可运行示例及其源码。
+- [Lines Pattern](https://g2.antv.antgroup.com/zh/examples/style/pattern/lines-pattern/): 可运行示例及其源码。
+- [Squares Pattern](https://g2.antv.antgroup.com/zh/examples/style/pattern/squares-pattern/): 可运行示例及其源码。
+- [手绘条形图](https://g2.antv.antgroup.com/zh/examples/style/rough/interval/): 可运行示例及其源码。
+- [手绘折线图](https://g2.antv.antgroup.com/zh/examples/style/rough/line/): 可运行示例及其源码。
+- [手绘散点图](https://g2.antv.antgroup.com/zh/examples/style/rough/point/): 可运行示例及其源码。
+- [手绘饼图](https://g2.antv.antgroup.com/zh/examples/style/rough/radial/): 可运行示例及其源码。
+- [学术风格](https://g2.antv.antgroup.com/zh/examples/style/theme/academy/): 可运行示例及其源码。
+- [暗色风格](https://g2.antv.antgroup.com/zh/examples/style/theme/dark/): 可运行示例及其源码。
+- [视图模型](https://g2.antv.antgroup.com/zh/examples/style/theme/layout-area/): 可运行示例及其源码。
+- [圆锥](https://g2.antv.antgroup.com/zh/examples/threed/bar/cone/): 可运行示例及其源码。
+- [立方体](https://g2.antv.antgroup.com/zh/examples/threed/bar/cube/): 可运行示例及其源码。
+- [圆柱](https://g2.antv.antgroup.com/zh/examples/threed/bar/cylinder/): 可运行示例及其源码。
+- [折线](https://g2.antv.antgroup.com/zh/examples/threed/line/polyline/): 可运行示例及其源码。
+- [螺旋线](https://g2.antv.antgroup.com/zh/examples/threed/line/spiral/): 可运行示例及其源码。
+- [相机动画](https://g2.antv.antgroup.com/zh/examples/threed/scatter/camera-animation/): 可运行示例及其源码。
+- [圆形](https://g2.antv.antgroup.com/zh/examples/threed/scatter/circle-shape/): 可运行示例及其源码。
+- [自定义图例](https://g2.antv.antgroup.com/zh/examples/threed/scatter/custom-legend/): 可运行示例及其源码。
+- [正交投影](https://g2.antv.antgroup.com/zh/examples/threed/scatter/orthographic-projection/): 可运行示例及其源码。
+- [透视投影](https://g2.antv.antgroup.com/zh/examples/threed/scatter/perspective-projection/): 可运行示例及其源码。
+- [球体](https://g2.antv.antgroup.com/zh/examples/threed/scatter/sphere-shape/): 可运行示例及其源码。
+- [正方形](https://g2.antv.antgroup.com/zh/examples/threed/scatter/square-shape/): 可运行示例及其源码。
+- [三角形](https://g2.antv.antgroup.com/zh/examples/threed/scatter/triangle-shape/): 可运行示例及其源码。
+- [狄利克雷分布](https://g2.antv.antgroup.com/zh/examples/threed/surface/dirichlet/): 可运行示例及其源码。
+- [三角函数](https://g2.antv.antgroup.com/zh/examples/threed/surface/trigonometric/): 可运行示例及其源码。
+- [二维](https://g2.antv.antgroup.com/zh/examples/unit/unit/2d/): 可运行示例及其源码。
+- [基础](https://g2.antv.antgroup.com/zh/examples/unit/unit/basic/): 可运行示例及其源码。
+- [嵌套](https://g2.antv.antgroup.com/zh/examples/unit/unit/nested/): 可运行示例及其源码。
+- [共享数据定义域](https://g2.antv.antgroup.com/zh/examples/unit/unit/share-data/): 可运行示例及其源码。
+- [共享尺寸定义域](https://g2.antv.antgroup.com/zh/examples/unit/unit/share-size/): 可运行示例及其源码。
+
+## English examples
+
+- [Search text by Ctrl/⌘+F](https://g2.antv.antgroup.com/en/examples/accessible/text-searching/text-search/): Runnable example with its source code.
+- [Bubble Sort](https://g2.antv.antgroup.com/en/examples/algorithm/sort/bubble-sort/): Runnable example with its source code.
+- [Insertion Sort](https://g2.antv.antgroup.com/en/examples/algorithm/sort/insertion-sort/): Runnable example with its source code.
+- [Selection Sort](https://g2.antv.antgroup.com/en/examples/algorithm/sort/selection-sort/): Runnable example with its source code.
+- [Bin Color Channel](https://g2.antv.antgroup.com/en/examples/analysis/bin/bin-color/): Runnable example with its source code.
+- [Bin Opacity Channel](https://g2.antv.antgroup.com/en/examples/analysis/bin/bin-opacity/): Runnable example with its source code.
+- [Bin Size Channel](https://g2.antv.antgroup.com/en/examples/analysis/bin/bin-size/): Runnable example with its source code.
+- [Histogram](https://g2.antv.antgroup.com/en/examples/analysis/bin/binx/): Runnable example with its source code.
+- [Histogram with Color](https://g2.antv.antgroup.com/en/examples/analysis/bin/binx-color/): Runnable example with its source code.
+- [Poisson distribution](https://g2.antv.antgroup.com/en/examples/analysis/bin/poisson/): Runnable example with its source code.
+- [Aggregated Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-aggregated/): Runnable example with its source code.
+- [Aggregated Normalized Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-aggregated-normalized-stacked/): Runnable example with its source code.
+- [Aggregated Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-aggregated-stacked/): Runnable example with its source code.
+- [Aggregated Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-aggregated-with-label/): Runnable example with its source code.
+- [Layered Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-layered/): Runnable example with its source code.
+- [Multi-Measure Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-multi-measure/): Runnable example with its source code.
+- [Diverging Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-stacked-diverging/): Runnable example with its source code.
+- [Aggregated Stacked Bar Chart, 1D](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-stacked-normalized-1d/): Runnable example with its source code.
+- [Column Data Format](https://g2.antv.antgroup.com/en/examples/analysis/process/column-data-format/): Runnable example with its source code.
+- [Exponential Regression](https://g2.antv.antgroup.com/en/examples/analysis/regression/exponential-regression/): Runnable example with its source code.
+- [Linear Regression](https://g2.antv.antgroup.com/en/examples/analysis/regression/linear-regression/): Runnable example with its source code.
+- [Logarithmic Regression](https://g2.antv.antgroup.com/en/examples/analysis/regression/logarithmic-regression/): Runnable example with its source code.
+- [Polynomial Regression](https://g2.antv.antgroup.com/en/examples/analysis/regression/polynomial-regression/): Runnable example with its source code.
+- [Quadratic Regression](https://g2.antv.antgroup.com/en/examples/analysis/regression/quadratic-regression/): Runnable example with its source code.
+- [FadeIn](https://g2.antv.antgroup.com/en/examples/animation/general/fade/): Runnable example with its source code.
+- [PathIn](https://g2.antv.antgroup.com/en/examples/animation/general/path-in/): Runnable example with its source code.
+- [ScaleInX](https://g2.antv.antgroup.com/en/examples/animation/general/scale-x/): Runnable example with its source code.
+- [ScaleInY](https://g2.antv.antgroup.com/en/examples/animation/general/scale-y/): Runnable example with its source code.
+- [WaveIn](https://g2.antv.antgroup.com/en/examples/animation/general/wave-in/): Runnable example with its source code.
+- [ZoomIn](https://g2.antv.antgroup.com/en/examples/animation/general/zoom-in/): Runnable example with its source code.
+- [Area with Animation](https://g2.antv.antgroup.com/en/examples/animation/group/area/): Runnable example with its source code.
+- [Column with Animation](https://g2.antv.antgroup.com/en/examples/animation/group/interval/): Runnable example with its source code.
+- [Animation in Polar](https://g2.antv.antgroup.com/en/examples/animation/group/interval-polar/): Runnable example with its source code.
+- [Line with Animation](https://g2.antv.antgroup.com/en/examples/animation/group/line/): Runnable example with its source code.
+- [Point with Animation](https://g2.antv.antgroup.com/en/examples/animation/group/point/): Runnable example with its source code.
+- [Lottie](https://g2.antv.antgroup.com/en/examples/animation/lottie/lottie/): Runnable example with its source code.
+- [Interval, Connector Annotation](https://g2.antv.antgroup.com/en/examples/annotation/connector/interval-connector/): Runnable example with its source code.
+- [Revenue Flow Waterfall Chart](https://g2.antv.antgroup.com/en/examples/annotation/connector/revenue-flow-waterfall/): Runnable example with its source code.
+- [Anomaly Trend Line, Area Annotation](https://g2.antv.antgroup.com/en/examples/annotation/line/anomaly-area-line/): Runnable example with its source code.
+- [Histogram, Annotation Mean Value with LineX](https://g2.antv.antgroup.com/en/examples/annotation/line/histogram-mean-line/): Runnable example with its source code.
+- [Interval, Annotation Mean Value with LineY](https://g2.antv.antgroup.com/en/examples/annotation/line/interval-mean-line/): Runnable example with its source code.
+- [Interval, Highlight Values beyond a Threshold](https://g2.antv.antgroup.com/en/examples/annotation/line/interval-threshold/): Runnable example with its source code.
+- [Scatter, Line Annotation](https://g2.antv.antgroup.com/en/examples/annotation/line/point-line/): Runnable example with its source code.
+- [Scatter, Point Annotation](https://g2.antv.antgroup.com/en/examples/annotation/line/point-point/): Runnable example with its source code.
+- [Quadrant Scatter, Range Annotation](https://g2.antv.antgroup.com/en/examples/annotation/line/quadrant-scatter/): Runnable example with its source code.
+- [bar, Range Annotation](https://g2.antv.antgroup.com/en/examples/annotation/range/bar-range/): Runnable example with its source code.
+- [Line, Range Annotation](https://g2.antv.antgroup.com/en/examples/annotation/range/line-range/): Runnable example with its source code.
+- [Point, Range Annotation](https://g2.antv.antgroup.com/en/examples/annotation/range/point-range/): Runnable example with its source code.
+- [Interval, Point Annotation](https://g2.antv.antgroup.com/en/examples/annotation/shape/interval-point/): Runnable example with its source code.
+- [Line, Badge Annotation](https://g2.antv.antgroup.com/en/examples/annotation/shape/line-badge/): Runnable example with its source code.
+- [Watermark](https://g2.antv.antgroup.com/en/examples/annotation/shape/watermark/): Runnable example with its source code.
+- [Line, Text Annotation](https://g2.antv.antgroup.com/en/examples/annotation/text/line-text/): Runnable example with its source code.
+- [Peak Value Annotation](https://g2.antv.antgroup.com/en/examples/annotation/text/peak-value-text/): Runnable example with its source code.
+- [Axis](https://g2.antv.antgroup.com/en/examples/component/axis/axis/): Runnable example with its source code.
+- [Multi Axis](https://g2.antv.antgroup.com/en/examples/component/axis/axis-multi/): Runnable example with its source code.
+- [Axis Polar](https://g2.antv.antgroup.com/en/examples/component/axis/axis-polar/): Runnable example with its source code.
+- [AxisX](https://g2.antv.antgroup.com/en/examples/component/axis/axis-x/): Runnable example with its source code.
+- [AxisX and AxisY](https://g2.antv.antgroup.com/en/examples/component/axis/axis-xy/): Runnable example with its source code.
+- [Axis Label Custom Render](https://g2.antv.antgroup.com/en/examples/component/axis/render/): Runnable example with its source code.
+- [Contrast Reverse](https://g2.antv.antgroup.com/en/examples/component/label/contrastreverse/): Runnable example with its source code.
+- [HTML Label](https://g2.antv.antgroup.com/en/examples/component/label/htmllabel/): Runnable example with its source code.
+- [Overflow Hide](https://g2.antv.antgroup.com/en/examples/component/label/overflowhide/): Runnable example with its source code.
+- [Overlap Hide](https://g2.antv.antgroup.com/en/examples/component/label/overlaphide/): Runnable example with its source code.
+- [Category Legend](https://g2.antv.antgroup.com/en/examples/component/legend/category/): Runnable example with its source code.
+- [Continuous Legend](https://g2.antv.antgroup.com/en/examples/component/legend/continuous/): Runnable example with its source code.
+- [Custom Legend](https://g2.antv.antgroup.com/en/examples/component/legend/custom/): Runnable example with its source code.
+- [Legend Item Style](https://g2.antv.antgroup.com/en/examples/component/legend/item-style/): Runnable example with its source code.
+- [Legend Nav Style](https://g2.antv.antgroup.com/en/examples/component/legend/nav-style/): Runnable example with its source code.
+- [Legend Position](https://g2.antv.antgroup.com/en/examples/component/legend/position/): Runnable example with its source code.
+- [Custom Symbol](https://g2.antv.antgroup.com/en/examples/component/legend/symbol/): Runnable example with its source code.
+- [Legend Title](https://g2.antv.antgroup.com/en/examples/component/legend/title/): Runnable example with its source code.
+- [Scrollbar](https://g2.antv.antgroup.com/en/examples/component/scrollbar/scrollbar/): Runnable example with its source code.
+- [Adaptive Filtering](https://g2.antv.antgroup.com/en/examples/component/slider/slider-adaptive/): Runnable example with its source code.
+- [Custom Styling](https://g2.antv.antgroup.com/en/examples/component/slider/slider-custom/): Runnable example with its source code.
+- [Custom Handle Icon Shape](https://g2.antv.antgroup.com/en/examples/component/slider/slider-handle-icon/): Runnable example with its source code.
+- [Mark-level Adaptive Slider](https://g2.antv.antgroup.com/en/examples/component/slider/slider-multi-axis-mark/): Runnable example with its source code.
+- [View-level Adaptive Slider](https://g2.antv.antgroup.com/en/examples/component/slider/slider-multi-axis-view/): Runnable example with its source code.
+- [Wheel Zoom](https://g2.antv.antgroup.com/en/examples/component/slider/slider-wheel/): Runnable example with its source code.
+- [Title](https://g2.antv.antgroup.com/en/examples/component/title/title/): Runnable example with its source code.
+- [Title Style](https://g2.antv.antgroup.com/en/examples/component/title/title-style/): Runnable example with its source code.
+- [Tooltip](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip/): Runnable example with its source code.
+- [Click Tooltip](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-click/): Runnable example with its source code.
+- [Click Series Tooltip](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-click-line/): Runnable example with its source code.
+- [Crosshairs](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-crosshairs/): Runnable example with its source code.
+- [Custom Tooltip](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-custom/): Runnable example with its source code.
+- [Custom Marker Tooltip](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-line-marker/): Runnable example with its source code.
+- [Hollow Marker](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-marker/): Runnable example with its source code.
+- [Custom Tooltip Rendering](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-render/): Runnable example with its source code.
+- [Tooltip Series](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-series/): Runnable example with its source code.
+- [Custom style](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-style/): Runnable example with its source code.
+- [Two Tooltip](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip-two/): Runnable example with its source code.
+- [Tooltip 2D](https://g2.antv.antgroup.com/en/examples/component/tooltip/tooltip2d/): Runnable example with its source code.
+- [Facet Circle](https://g2.antv.antgroup.com/en/examples/composition/facet/circle/): Runnable example with its source code.
+- [Facet Rect](https://g2.antv.antgroup.com/en/examples/composition/facet/rect/): Runnable example with its source code.
+- [Calendar Bar Chart](https://g2.antv.antgroup.com/en/examples/composition/facet/rect-bar/): Runnable example with its source code.
+- [Col Facet Rect](https://g2.antv.antgroup.com/en/examples/composition/facet/rect-col/): Runnable example with its source code.
+- [Custom Frame Style](https://g2.antv.antgroup.com/en/examples/composition/facet/rect-frame/): Runnable example with its source code.
+- [Calendar Pie Chart](https://g2.antv.antgroup.com/en/examples/composition/facet/rect-pie/): Runnable example with its source code.
+- [System Monitor](https://g2.antv.antgroup.com/en/examples/composition/facet/rect-ring/): Runnable example with its source code.
+- [Row Facet Rect](https://g2.antv.antgroup.com/en/examples/composition/facet/rect-row/): Runnable example with its source code.
+- [Repeat Matrix](https://g2.antv.antgroup.com/en/examples/composition/repeat/matrix/): Runnable example with its source code.
+- [Repeat Matrix, Col](https://g2.antv.antgroup.com/en/examples/composition/repeat/matrix-col/): Runnable example with its source code.
+- [Space Flex](https://g2.antv.antgroup.com/en/examples/composition/space/space-flex/): Runnable example with its source code.
+- [Space Layer](https://g2.antv.antgroup.com/en/examples/composition/space/space-layer/): Runnable example with its source code.
+- [Spec Function Expression](https://g2.antv.antgroup.com/en/examples/expr/base/expr/): Runnable example with its source code.
+- [Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area/): Runnable example with its source code.
+- [Band Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-band/): Runnable example with its source code.
+- [Basic Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-basic/): Runnable example with its source code.
+- [Area Difference](https://g2.antv.antgroup.com/en/examples/general/area/area-difference/): Runnable example with its source code.
+- [Gradient Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-gradient/): Runnable example with its source code.
+- [Percentage Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-percentage/): Runnable example with its source code.
+- [Range Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-range/): Runnable example with its source code.
+- [Basic Stacked Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-stacked-basic/): Runnable example with its source code.
+- [With Negative Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/area-with-negative/): Runnable example with its source code.
+- [Stacked Area](https://g2.antv.antgroup.com/en/examples/general/area/cascade-area/): Runnable example with its source code.
+- [Area Label](https://g2.antv.antgroup.com/en/examples/general/area/label/): Runnable example with its source code.
+- [Missing Data Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/missing-data-area/): Runnable example with its source code.
+- [Stripe Chart](https://g2.antv.antgroup.com/en/examples/general/area/orderly-area/): Runnable example with its source code.
+- [Normalized Area, MaxIndex](https://g2.antv.antgroup.com/en/examples/general/area/percentage-area/): Runnable example with its source code.
+- [Range Spline Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/range-spline-area/): Runnable example with its source code.
+- [Rank Trend Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/rank-trend-area/): Runnable example with its source code.
+- [Stacked Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/stacked-area/): Runnable example with its source code.
+- [Step Area Chart](https://g2.antv.antgroup.com/en/examples/general/area/step-area/): Runnable example with its source code.
+- [Streamgraph](https://g2.antv.antgroup.com/en/examples/general/area/streamgraph/): Runnable example with its source code.
+- [Beeswarm](https://g2.antv.antgroup.com/en/examples/general/beeswarm/base/): Runnable example with its source code.
+- [Different Shapes of Beeswarm](https://g2.antv.antgroup.com/en/examples/general/beeswarm/shape/): Runnable example with its source code.
+- [Transposed Beeswarm](https://g2.antv.antgroup.com/en/examples/general/beeswarm/transpose/): Runnable example with its source code.
+- [Boxplot](https://g2.antv.antgroup.com/en/examples/general/box/box/): Runnable example with its source code.
+- [Boxplot](https://g2.antv.antgroup.com/en/examples/general/box/boxplot/): Runnable example with its source code.
+- [Boxplot 1d](https://g2.antv.antgroup.com/en/examples/general/box/boxplot-1d/): Runnable example with its source code.
+- [Boxplot with Outlier](https://g2.antv.antgroup.com/en/examples/general/box/boxplot-outlier/): Runnable example with its source code.
+- [Grouped Boxplot](https://g2.antv.antgroup.com/en/examples/general/box/grouped-box/): Runnable example with its source code.
+- [grouped Boxplot with Outlier](https://g2.antv.antgroup.com/en/examples/general/box/grouped-boxplot-outlier/): Runnable example with its source code.
+- [Polar Boxplot](https://g2.antv.antgroup.com/en/examples/general/box/polar-box/): Runnable example with its source code.
+- [Bullet](https://g2.antv.antgroup.com/en/examples/general/bullet/bullet/): Runnable example with its source code.
+- [Bullet more data](https://g2.antv.antgroup.com/en/examples/general/bullet/bullet-datas/): Runnable example with its source code.
+- [Bullet charts](https://g2.antv.antgroup.com/en/examples/general/bullet/bullets/): Runnable example with its source code.
+- [Candle Stick Chart](https://g2.antv.antgroup.com/en/examples/general/candlestick/basis/): Runnable example with its source code.
+- [Candlestick chart and area range](https://g2.antv.antgroup.com/en/examples/general/candlestick/k-and-area/): Runnable example with its source code.
+- [Candlestick chart and column chart](https://g2.antv.antgroup.com/en/examples/general/candlestick/k-and-column/): Runnable example with its source code.
+- [Candlestick chart](https://g2.antv.antgroup.com/en/examples/general/candlestick/line-candle-stick/): Runnable example with its source code.
+- [Aggregated Heatmap](https://g2.antv.antgroup.com/en/examples/general/cell/cell-aggregated/): Runnable example with its source code.
+- [Waffle](https://g2.antv.antgroup.com/en/examples/general/cell/cell-basic/): Runnable example with its source code.
+- [Heatmap](https://g2.antv.antgroup.com/en/examples/general/cell/cell-heatmap/): Runnable example with its source code.
+- [Quantile Heatmap](https://g2.antv.antgroup.com/en/examples/general/cell/cell-quantile/): Runnable example with its source code.
+- [Quantize Heatmap](https://g2.antv.antgroup.com/en/examples/general/cell/cell-quantize/): Runnable example with its source code.
+- [Threshold Heatmap](https://g2.antv.antgroup.com/en/examples/general/cell/cell-threshold/): Runnable example with its source code.
+- [Aggregated Dual Line And Area Chart](https://g2.antv.antgroup.com/en/examples/general/dual/dual-aggregated-line-area/): Runnable example with its source code.
+- [Dual Axis Bar Chart](https://g2.antv.antgroup.com/en/examples/general/dual/dual-axis-bar/): Runnable example with its source code.
+- [Dual Axis Line Bar Chart](https://g2.antv.antgroup.com/en/examples/general/dual/dual-axis-line-bar/): Runnable example with its source code.
+- [Dual Axis Multiple Line Bar Chart](https://g2.antv.antgroup.com/en/examples/general/dual/dual-axis-multi-line-bar/): Runnable example with its source code.
+- [Dual Axis Stacked Group Bar Chart](https://g2.antv.antgroup.com/en/examples/general/dual/dual-axis-stacked-group-bar/): Runnable example with its source code.
+- [Line Bar Chart](https://g2.antv.antgroup.com/en/examples/general/dual/line-bar/): Runnable example with its source code.
+- [Multi Axis Chart](https://g2.antv.antgroup.com/en/examples/general/dual/multi-line/): Runnable example with its source code.
+- [Sync Multi Axis Chart](https://g2.antv.antgroup.com/en/examples/general/dual/multi-line-sync/): Runnable example with its source code.
+- [Pareto Chart](https://g2.antv.antgroup.com/en/examples/general/dual/pareto/): Runnable example with its source code.
+- [Ema Chart](https://g2.antv.antgroup.com/en/examples/general/ema/ema-basic/): Runnable example with its source code.
+- [Funnel](https://g2.antv.antgroup.com/en/examples/general/funnel/funnel/): Runnable example with its source code.
+- [Annotation Funnel](https://g2.antv.antgroup.com/en/examples/general/funnel/funnel-annotation/): Runnable example with its source code.
+- [Mirror Funnel](https://g2.antv.antgroup.com/en/examples/general/funnel/mirror-funnel/): Runnable example with its source code.
+- [Pyramid](https://g2.antv.antgroup.com/en/examples/general/funnel/pyramid/): Runnable example with its source code.
+- [pyramid-forward](https://g2.antv.antgroup.com/en/examples/general/funnel/pyramid-forward/): Runnable example with its source code.
+- [Radius Funnel](https://g2.antv.antgroup.com/en/examples/general/funnel/radius-funnel/): Runnable example with its source code.
+- [Custom Color Gauge Chart](https://g2.antv.antgroup.com/en/examples/general/gauge/gauge-custom-color/): Runnable example with its source code.
+- [Custom Shape Gauge Chart](https://g2.antv.antgroup.com/en/examples/general/gauge/gauge-custom-shape/): Runnable example with its source code.
+- [Fully Customized Gauge Style](https://g2.antv.antgroup.com/en/examples/general/gauge/gauge-custom-style/): Runnable example with its source code.
+- [Gauge Chart](https://g2.antv.antgroup.com/en/examples/general/gauge/gauge-default/): Runnable example with its source code.
+- [Round Shape Gauge Chart](https://g2.antv.antgroup.com/en/examples/general/gauge/gauge-round/): Runnable example with its source code.
+- [Heatmap](https://g2.antv.antgroup.com/en/examples/general/heatmap/heatmap/): Runnable example with its source code.
+- [Heatmap Density](https://g2.antv.antgroup.com/en/examples/general/heatmap/heatmap-density/): Runnable example with its source code.
+- [Mouse Heatmap](https://g2.antv.antgroup.com/en/examples/general/heatmap/mouse-heatmap/): Runnable example with its source code.
+- [Helix](https://g2.antv.antgroup.com/en/examples/general/helix/helix/): Runnable example with its source code.
+- [Gene helix](https://g2.antv.antgroup.com/en/examples/general/helix/helix-gene/): Runnable example with its source code.
+- [Histogram](https://g2.antv.antgroup.com/en/examples/general/histogram/histogram/): Runnable example with its source code.
+- [Histogram with range tick](https://g2.antv.antgroup.com/en/examples/general/histogram/histogram-binwidth/): Runnable example with its source code.
+- [Stacked histogram](https://g2.antv.antgroup.com/en/examples/general/histogram/histogram-stacked/): Runnable example with its source code.
+- [Contributor](https://g2.antv.antgroup.com/en/examples/general/image/contributor/): Runnable example with its source code.
+- [Icon symbol](https://g2.antv.antgroup.com/en/examples/general/image/icon/): Runnable example with its source code.
+- [Browser Logo](https://g2.antv.antgroup.com/en/examples/general/image/logo/): Runnable example with its source code.
+- [Horizontal Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar/): Runnable example with its source code.
+- [Bar Chart with Axis Breaks](https://g2.antv.antgroup.com/en/examples/general/interval/bar-axis-breaks/): Runnable example with its source code.
+- [Simple Column](https://g2.antv.antgroup.com/en/examples/general/interval/bar-basic/): Runnable example with its source code.
+- [Simple Grouped Column](https://g2.antv.antgroup.com/en/examples/general/interval/bar-basic-grouped/): Runnable example with its source code.
+- [Legend Focus Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-basic-grouped-focus/): Runnable example with its source code.
+- [Simple Stacked Column](https://g2.antv.antgroup.com/en/examples/general/interval/bar-basic-stacked/): Runnable example with its source code.
+- [Simple Bar](https://g2.antv.antgroup.com/en/examples/general/interval/bar-basic-transposed/): Runnable example with its source code.
+- [Diverging Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-diverging/): Runnable example with its source code.
+- [Dodged Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-dodged/): Runnable example with its source code.
+- [Dual Axes Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-dual-axes/): Runnable example with its source code.
+- [Cornered Fixed Width Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-fixed-cornered/): Runnable example with its source code.
+- [Flex Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-flex/): Runnable example with its source code.
+- [Marimekko](https://g2.antv.antgroup.com/en/examples/general/interval/bar-marimekko/): Runnable example with its source code.
+- [Normalized Stacked Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-normalized-stacked/): Runnable example with its source code.
+- [Range Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-range/): Runnable example with its source code.
+- [Micro Range Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-range-micro/): Runnable example with its source code.
+- [Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-stacked/): Runnable example with its source code.
+- [Rounded Diverging Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-stacked-diverging-rounded/): Runnable example with its source code.
+- [Horizontal Stacked Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-stacked-horizontal/): Runnable example with its source code.
+- [Var Width Bar Chart](https://g2.antv.antgroup.com/en/examples/general/interval/bar-var-width/): Runnable example with its source code.
+- [Interactive Column Chart](https://g2.antv.antgroup.com/en/examples/general/interval/column-interactive/): Runnable example with its source code.
+- [Log Column Chart](https://g2.antv.antgroup.com/en/examples/general/interval/column-log/): Runnable example with its source code.
+- [Column with maxWidth](https://g2.antv.antgroup.com/en/examples/general/interval/column-maxwidth/): Runnable example with its source code.
+- [Column with minHeight](https://g2.antv.antgroup.com/en/examples/general/interval/column-min-height/): Runnable example with its source code.
+- [Interval Style](https://g2.antv.antgroup.com/en/examples/general/interval/interval-style/): Runnable example with its source code.
+- [Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/base/): Runnable example with its source code.
+- [Curved Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/curved/): Runnable example with its source code.
+- [Aggregated Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-aggregated-label/): Runnable example with its source code.
+- [Line with Area Annotation](https://g2.antv.antgroup.com/en/examples/general/line/line-area-clip-path/): Runnable example with its source code.
+- [Basic Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-basic/): Runnable example with its source code.
+- [Missing Data Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-connect-nulls/): Runnable example with its source code.
+- [Gradient Encoding Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-gradient-encoding/): Runnable example with its source code.
+- [Normalized Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-normalized/): Runnable example with its source code.
+- [Sample Data Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-sample/): Runnable example with its source code.
+- [Series Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-series/): Runnable example with its source code.
+- [Series Variable Color Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-series-var-color/): Runnable example with its source code.
+- [Slope Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-slope/): Runnable example with its source code.
+- [Line Mark Style](https://g2.antv.antgroup.com/en/examples/general/line/line-style/): Runnable example with its source code.
+- [Threshold Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-threshold/): Runnable example with its source code.
+- [Var Size Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-var-size/): Runnable example with its source code.
+- [Trail](https://g2.antv.antgroup.com/en/examples/general/line/line-var-size-facet/): Runnable example with its source code.
+- [Missing Var Size Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-var-size-missing/): Runnable example with its source code.
+- [Variable Color Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/line-variable-color/): Runnable example with its source code.
+- [Line with Zero Values](https://g2.antv.antgroup.com/en/examples/general/line/line-zero-values/): Runnable example with its source code.
+- [Step Line Chart](https://g2.antv.antgroup.com/en/examples/general/line/step/): Runnable example with its source code.
+- [Link Chart](https://g2.antv.antgroup.com/en/examples/general/link/link/): Runnable example with its source code.
+- [Link Annotation](https://g2.antv.antgroup.com/en/examples/general/link/link-annotation/): Runnable example with its source code.
+- [Link shape](https://g2.antv.antgroup.com/en/examples/general/link/link-shape/): Runnable example with its source code.
+- [Background Liquid Chart](https://g2.antv.antgroup.com/en/examples/general/liquid/liquid-background/): Runnable example with its source code.
+- [Content Text Liquid Chart](https://g2.antv.antgroup.com/en/examples/general/liquid/liquid-content/): Runnable example with its source code.
+- [Custom Shape Liquid Chart](https://g2.antv.antgroup.com/en/examples/general/liquid/liquid-custom-shape/): Runnable example with its source code.
+- [Liquid Chart](https://g2.antv.antgroup.com/en/examples/general/liquid/liquid-default/): Runnable example with its source code.
+- [Pin Liquid Chart](https://g2.antv.antgroup.com/en/examples/general/liquid/liquid-pin/): Runnable example with its source code.
+- [Mini area](https://g2.antv.antgroup.com/en/examples/general/mini/area/): Runnable example with its source code.
+- [Mini column](https://g2.antv.antgroup.com/en/examples/general/mini/column/): Runnable example with its source code.
+- [Mini line](https://g2.antv.antgroup.com/en/examples/general/mini/line/): Runnable example with its source code.
+- [Mini pie](https://g2.antv.antgroup.com/en/examples/general/mini/pie/): Runnable example with its source code.
+- [Mini progress](https://g2.antv.antgroup.com/en/examples/general/mini/progress/): Runnable example with its source code.
+- [Mini ring](https://g2.antv.antgroup.com/en/examples/general/mini/ring/): Runnable example with its source code.
+- [Horizontal Parallel](https://g2.antv.antgroup.com/en/examples/general/parallel/line-parallel-horizontal/): Runnable example with its source code.
+- [Vertical Parallel](https://g2.antv.antgroup.com/en/examples/general/parallel/line-parallel-vertical/): Runnable example with its source code.
+- [Donut Chart](https://g2.antv.antgroup.com/en/examples/general/pie/donut/): Runnable example with its source code.
+- [Simple donut chart](https://g2.antv.antgroup.com/en/examples/general/pie/donut-base/): Runnable example with its source code.
+- [Pie Chart](https://g2.antv.antgroup.com/en/examples/general/pie/pie/): Runnable example with its source code.
+- [Simple pie chart](https://g2.antv.antgroup.com/en/examples/general/pie/pie-base/): Runnable example with its source code.
+- [Gender distribution of short video users](https://g2.antv.antgroup.com/en/examples/general/pie/pie-base-facet/): Runnable example with its source code.
+- [Pie Chart](https://g2.antv.antgroup.com/en/examples/general/pie/pie-donut-text/): Runnable example with its source code.
+- [Pie Chart with Interaction](https://g2.antv.antgroup.com/en/examples/general/pie/pie-hover-scale/): Runnable example with its source code.
+- [Radial Jitter Scatter](https://g2.antv.antgroup.com/en/examples/general/pie/point-jitter-radial/): Runnable example with its source code.
+- [Pie Chart, Spider Label](https://g2.antv.antgroup.com/en/examples/general/pie/spider-label/): Runnable example with its source code.
+- [Adjust Spider Layout](https://g2.antv.antgroup.com/en/examples/general/pie/spider-label-overlap/): Runnable example with its source code.
+- [Aggregated Bubble Chart](https://g2.antv.antgroup.com/en/examples/general/point/point-aggregated/): Runnable example with its source code.
+- [Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-basic/): Runnable example with its source code.
+- [Bubble Chart](https://g2.antv.antgroup.com/en/examples/general/point/point-bubble/): Runnable example with its source code.
+- [Dot Plot](https://g2.antv.antgroup.com/en/examples/general/point/point-dot/): Runnable example with its source code.
+- [Jitter Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-jitter/): Runnable example with its source code.
+- [Scatterplot, Labeled](https://g2.antv.antgroup.com/en/examples/general/point/point-label/): Runnable example with its source code.
+- [Log Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-log/): Runnable example with its source code.
+- [One Dimension Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-one-dimension/): Runnable example with its source code.
+- [Gradient Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-sequential/): Runnable example with its source code.
+- [Multi-Shape Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-shape/): Runnable example with its source code.
+- [Stacked Scatterplot](https://g2.antv.antgroup.com/en/examples/general/point/point-stacked/): Runnable example with its source code.
+- [Strip Plot](https://g2.antv.antgroup.com/en/examples/general/point/point-strip/): Runnable example with its source code.
+- [Point Style](https://g2.antv.antgroup.com/en/examples/general/point/point-style/): Runnable example with its source code.
+- [Treemap](https://g2.antv.antgroup.com/en/examples/general/polygon/treemap/): Runnable example with its source code.
+- [Voronoi](https://g2.antv.antgroup.com/en/examples/general/polygon/voronoi/): Runnable example with its source code.
+- [Radial Area Chart](https://g2.antv.antgroup.com/en/examples/general/radar/area-radial/): Runnable example with its source code.
+- [Radar](https://g2.antv.antgroup.com/en/examples/general/radar/complex-radial/): Runnable example with its source code.
+- [Radar](https://g2.antv.antgroup.com/en/examples/general/radar/grid-radial/): Runnable example with its source code.
+- [Multi-dimensional Radar](https://g2.antv.antgroup.com/en/examples/general/radar/multi-radar/): Runnable example with its source code.
+- [Radar](https://g2.antv.antgroup.com/en/examples/general/radar/parallel-radar/): Runnable example with its source code.
+- [Radar](https://g2.antv.antgroup.com/en/examples/general/radar/radar/): Runnable example with its source code.
+- [Radar](https://g2.antv.antgroup.com/en/examples/general/radar/radial-with-background-color/): Runnable example with its source code.
+- [Square radar Chart](https://g2.antv.antgroup.com/en/examples/general/radar/square-radar/): Runnable example with its source code.
+- [Apple Activity](https://g2.antv.antgroup.com/en/examples/general/radial/apple-activity/): Runnable example with its source code.
+- [Cornered Radial Bar Chart](https://g2.antv.antgroup.com/en/examples/general/radial/bar-cornered-radial/): Runnable example with its source code.
+- [Radial Bar Chart](https://g2.antv.antgroup.com/en/examples/general/radial/bar-radial/): Runnable example with its source code.
+- [Radial bar chart with background](https://g2.antv.antgroup.com/en/examples/general/radial/radial-bar-with-background/): Runnable example with its source code.
+- [Radial bar chart](https://g2.antv.antgroup.com/en/examples/general/radial/radial-line/): Runnable example with its source code.
+- [Radial stacked bar chart](https://g2.antv.antgroup.com/en/examples/general/radial/radial-stacked/): Runnable example with its source code.
+- [Nightingale Rose Donut Chart](https://g2.antv.antgroup.com/en/examples/general/rose/donut-rose/): Runnable example with its source code.
+- [Nightingale Rose](https://g2.antv.antgroup.com/en/examples/general/rose/nightingale-rose/): Runnable example with its source code.
+- [stacked column chart in polar coordinate](https://g2.antv.antgroup.com/en/examples/general/rose/polar-stack/): Runnable example with its source code.
+- [Rose Chart](https://g2.antv.antgroup.com/en/examples/general/rose/rose/): Runnable example with its source code.
+- [Rose Chart, Label](https://g2.antv.antgroup.com/en/examples/general/rose/rose-label/): Runnable example with its source code.
+- [Stacked Rose Chart](https://g2.antv.antgroup.com/en/examples/general/rose/stacked-rose/): Runnable example with its source code.
+- [Wind Rose](https://g2.antv.antgroup.com/en/examples/general/rose/wind-rose/): Runnable example with its source code.
+- [Sunburst ColorField Chart](https://g2.antv.antgroup.com/en/examples/general/sunburst/sunburst-color/): Runnable example with its source code.
+- [Sunburst Chart](https://g2.antv.antgroup.com/en/examples/general/sunburst/sunburst-default/): Runnable example with its source code.
+- [Sunburst Interaction Config Chart](https://g2.antv.antgroup.com/en/examples/general/sunburst/sunburst-interaction/): Runnable example with its source code.
+- [Sunburst Label Chart](https://g2.antv.antgroup.com/en/examples/general/sunburst/sunburst-label/): Runnable example with its source code.
+- [Sunburst Pattern Chart](https://g2.antv.antgroup.com/en/examples/general/sunburst/sunburst-pattern/): Runnable example with its source code.
+- [Sunburst Style Chart](https://g2.antv.antgroup.com/en/examples/general/sunburst/sunburst-style/): Runnable example with its source code.
+- [Paragraph](https://g2.antv.antgroup.com/en/examples/general/text/paragraph/): Runnable example with its source code.
+- [Poetry](https://g2.antv.antgroup.com/en/examples/general/text/poetry/): Runnable example with its source code.
+- [Stem Leaf](https://g2.antv.antgroup.com/en/examples/general/text/stem-leaf/): Runnable example with its source code.
+- [Train](https://g2.antv.antgroup.com/en/examples/general/text/train/): Runnable example with its source code.
+- [WordCloud](https://g2.antv.antgroup.com/en/examples/general/text/wordcloud/): Runnable example with its source code.
+- [English WordCloud](https://g2.antv.antgroup.com/en/examples/general/text/wordcloud-english/): Runnable example with its source code.
+- [WordCloud with image mask](https://g2.antv.antgroup.com/en/examples/general/text/wordcloud-mask/): Runnable example with its source code.
+- [Perlin noise](https://g2.antv.antgroup.com/en/examples/general/vector/poisson/): Runnable example with its source code.
+- [Wind Vector](https://g2.antv.antgroup.com/en/examples/general/vector/wind/): Runnable example with its source code.
+- [Venn Chart](https://g2.antv.antgroup.com/en/examples/general/venn/venn/): Runnable example with its source code.
+- [Hollow Venn](https://g2.antv.antgroup.com/en/examples/general/venn/venn-hollow/): Runnable example with its source code.
+- [Density with KDE](https://g2.antv.antgroup.com/en/examples/general/violin/density/): Runnable example with its source code.
+- [Violin](https://g2.antv.antgroup.com/en/examples/general/violin/violin/): Runnable example with its source code.
+- [Violin in polar](https://g2.antv.antgroup.com/en/examples/general/violin/violin-polar/): Runnable example with its source code.
+- [USA Choropleth](https://g2.antv.antgroup.com/en/examples/geo/geo/choropleth-usa/): Runnable example with its source code.
+- [Flights and Airports](https://g2.antv.antgroup.com/en/examples/geo/geo/flights-airports/): Runnable example with its source code.
+- [Hexbin China Map](https://g2.antv.antgroup.com/en/examples/geo/geo/hexbin-china/): Runnable example with its source code.
+- [Hexbin USA Map](https://g2.antv.antgroup.com/en/examples/geo/geo/hexjson-usa/): Runnable example with its source code.
+- [London Tube line](https://g2.antv.antgroup.com/en/examples/geo/geo/london-tube-lines/): Runnable example with its source code.
+- [Projection Comparison](https://g2.antv.antgroup.com/en/examples/geo/geo/projection-comparison/): Runnable example with its source code.
+- [World Map](https://g2.antv.antgroup.com/en/examples/geo/geo/world-map/): Runnable example with its source code.
+- [Circle Packing](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/circle-packing/): Runnable example with its source code.
+- [Flame Chart](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/partition/): Runnable example with its source code.
+- [Flame Chart (Sorted)](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/partition-sorted/): Runnable example with its source code.
+- [Tree](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/tree/): Runnable example with its source code.
+- [Treemap](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/treemap/): Runnable example with its source code.
+- [Treemap DrillDown](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/treemap-drill-down/): Runnable example with its source code.
+- [Chord](https://g2.antv.antgroup.com/en/examples/graph/network/chord/): Runnable example with its source code.
+- [forceGraph](https://g2.antv.antgroup.com/en/examples/graph/network/forcegraph/): Runnable example with its source code.
+- [forceGraph with disjoint](https://g2.antv.antgroup.com/en/examples/graph/network/forcegraph-disjoint/): Runnable example with its source code.
+- [Sankey](https://g2.antv.antgroup.com/en/examples/graph/network/sankey/): Runnable example with its source code.
+- [Auto Chart - Interval](https://g2.antv.antgroup.com/en/examples/intelligent/auto/auto-interval/): Runnable example with its source code.
+- [Auto Chart - Line](https://g2.antv.antgroup.com/en/examples/intelligent/auto/auto-line/): Runnable example with its source code.
+- [Auto Chart - Pie](https://g2.antv.antgroup.com/en/examples/intelligent/auto/auto-pie/): Runnable example with its source code.
+- [Auto Chart - Point](https://g2.antv.antgroup.com/en/examples/intelligent/auto/auto-scatter/): Runnable example with its source code.
+- [Category Outlier](https://g2.antv.antgroup.com/en/examples/intelligent/insight/category-outlier/): Runnable example with its source code.
+- [Change Point](https://g2.antv.antgroup.com/en/examples/intelligent/insight/change-point/): Runnable example with its source code.
+- [Detailed Parameters of Insight Mark](https://g2.antv.antgroup.com/en/examples/intelligent/insight/insight/): Runnable example with its source code.
+- [Low Variance](https://g2.antv.antgroup.com/en/examples/intelligent/insight/low-variance/): Runnable example with its source code.
+- [Time Series Outlier](https://g2.antv.antgroup.com/en/examples/intelligent/insight/time-series-outlier/): Runnable example with its source code.
+- [Trend](https://g2.antv.antgroup.com/en/examples/intelligent/insight/trend/): Runnable example with its source code.
+- [Brush](https://g2.antv.antgroup.com/en/examples/interaction/brush/brush/): Runnable example with its source code.
+- [Brush](https://g2.antv.antgroup.com/en/examples/interaction/brush/brush-emit/): Runnable example with its source code.
+- [Reset Brush](https://g2.antv.antgroup.com/en/examples/interaction/brush/reset-brush/): Runnable example with its source code.
+- [Legend](https://g2.antv.antgroup.com/en/examples/interaction/component/legend/): Runnable example with its source code.
+- [Area Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/area-element-point-move/): Runnable example with its source code.
+- [Area NormalizeY Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/area-normalizey-element-point-move/): Runnable example with its source code.
+- [Bar Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/bar-element-point-move/): Runnable example with its source code.
+- [Bar NormalizeY Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/bar-normalizey-element-point-move/): Runnable example with its source code.
+- [Column Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/column-element-point-move/): Runnable example with its source code.
+- [Column NormalizeY Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/column-normalizey-element-point-move/): Runnable example with its source code.
+- [Line Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/line-element-point-move/): Runnable example with its source code.
+- [Radar Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/line-element-point-move-polar/): Runnable example with its source code.
+- [Pie Numerical Interaction](https://g2.antv.antgroup.com/en/examples/interaction/data/pie-element-point-move/): Runnable example with its source code.
+- [Donut Hover Interaction Scale](https://g2.antv.antgroup.com/en/examples/interaction/element/donut-hover-scale/): Runnable example with its source code.
+- [Grouped Column Hover Interaction Scale](https://g2.antv.antgroup.com/en/examples/interaction/element/group-hover-scale/): Runnable example with its source code.
+- [Highlight](https://g2.antv.antgroup.com/en/examples/interaction/element/highlight/): Runnable example with its source code.
+- [Pie Hover Interaction Scale](https://g2.antv.antgroup.com/en/examples/interaction/element/pie-hover-scale/): Runnable example with its source code.
+- [Select](https://g2.antv.antgroup.com/en/examples/interaction/element/select/): Runnable example with its source code.
+- [Slider](https://g2.antv.antgroup.com/en/examples/interaction/element/slider/): Runnable example with its source code.
+- [Auto Tooltip](https://g2.antv.antgroup.com/en/examples/interaction/event/auto-tooltip/): Runnable example with its source code.
+- [Get Data By XY](https://g2.antv.antgroup.com/en/examples/interaction/event/get-data-by-xy/): Runnable example with its source code.
+- [Legend Click](https://g2.antv.antgroup.com/en/examples/interaction/event/legend-click/): Runnable example with its source code.
+- [Reset Brush Filter](https://g2.antv.antgroup.com/en/examples/interaction/event/reset-brush-filter/): Runnable example with its source code.
+- [Focus and Context](https://g2.antv.antgroup.com/en/examples/interaction/multi-view/focus-context/): Runnable example with its source code.
+- [Chart Index](https://g2.antv.antgroup.com/en/examples/interaction/other/chart-index/): Runnable example with its source code.
+- [Fisheye](https://g2.antv.antgroup.com/en/examples/interaction/other/fisheye/): Runnable example with its source code.
+- [2.5D Column](https://g2.antv.antgroup.com/en/examples/interesting/interesting/25d-column/): Runnable example with its source code.
+- [Messi's shoot](https://g2.antv.antgroup.com/en/examples/interesting/interesting/messi/): Runnable example with its source code.
+- [National Image](https://g2.antv.antgroup.com/en/examples/interesting/interesting/national/): Runnable example with its source code.
+- [Petal Chart](https://g2.antv.antgroup.com/en/examples/interesting/interesting/petal/): Runnable example with its source code.
+- [Timeline](https://g2.antv.antgroup.com/en/examples/interesting/interesting/timeline/): Runnable example with its source code.
+- [chart layout](https://g2.antv.antgroup.com/en/examples/layout/layout/chart-layout/): Runnable example with its source code.
+- [chart View Style](https://g2.antv.antgroup.com/en/examples/layout/style/chart-view-style/): Runnable example with its source code.
+- [Canvas Renderer](https://g2.antv.antgroup.com/en/examples/renderer/renderer/canvas/): Runnable example with its source code.
+- [SVG Renderer](https://g2.antv.antgroup.com/en/examples/renderer/renderer/svg/): Runnable example with its source code.
+- [WebGL Renderer](https://g2.antv.antgroup.com/en/examples/renderer/renderer/webgl/): Runnable example with its source code.
+- [Funnel Conversion](https://g2.antv.antgroup.com/en/examples/scene/scene/funnel-conversion/): Runnable example with its source code.
+- [Heartbeat Monitor](https://g2.antv.antgroup.com/en/examples/scene/scene/heartbeat-monitor/): Runnable example with its source code.
+- [Network Pulse](https://g2.antv.antgroup.com/en/examples/scene/scene/network-pulse/): Runnable example with its source code.
+- [Audio Player Visualization](https://g2.antv.antgroup.com/en/examples/scene/scene/player/): Runnable example with its source code.
+- [Radar Scan](https://g2.antv.antgroup.com/en/examples/scene/scene/radar-scan/): Runnable example with its source code.
+- [Ripple Effect](https://g2.antv.antgroup.com/en/examples/scene/scene/ripple-effect/): Runnable example with its source code.
+- [Starry Sky](https://g2.antv.antgroup.com/en/examples/scene/scene/starry-sky/): Runnable example with its source code.
+- [Stock Realtime K-Line](https://g2.antv.antgroup.com/en/examples/scene/scene/stock-realtime/): Runnable example with its source code.
+- [Wave Energy](https://g2.antv.antgroup.com/en/examples/scene/scene/wave-energy/): Runnable example with its source code.
+- [Weather Forecast](https://g2.antv.antgroup.com/en/examples/scene/scene/weather-forecast/): Runnable example with its source code.
+- [Facet Keyframe](https://g2.antv.antgroup.com/en/examples/storytelling/storytelling/facet-keyframe/): Runnable example with its source code.
+- [Gantt with Animation](https://g2.antv.antgroup.com/en/examples/storytelling/storytelling/gantt/): Runnable example with its source code.
+- [Interval Keyframe](https://g2.antv.antgroup.com/en/examples/storytelling/storytelling/interval-keyframe/): Runnable example with its source code.
+- [Point Keyframe](https://g2.antv.antgroup.com/en/examples/storytelling/storytelling/point-keyframe/): Runnable example with its source code.
+- [Composite Keyframe](https://g2.antv.antgroup.com/en/examples/storytelling/storytelling/stocks-keyframe/): Runnable example with its source code.
+- [Configure Linear-gradient Area](https://g2.antv.antgroup.com/en/examples/style/graphic/area/): Runnable example with its source code.
+- [Configure Linear-gradient Gauge](https://g2.antv.antgroup.com/en/examples/style/graphic/gauge/): Runnable example with its source code.
+- [Configure Line Styles](https://g2.antv.antgroup.com/en/examples/style/graphic/line/): Runnable example with its source code.
+- [Configure Mark Styles](https://g2.antv.antgroup.com/en/examples/style/graphic/mark/): Runnable example with its source code.
+- [Configure pattern](https://g2.antv.antgroup.com/en/examples/style/graphic/pattern/): Runnable example with its source code.
+- [Configure Radial-gradient](https://g2.antv.antgroup.com/en/examples/style/graphic/radial-gradient/): Runnable example with its source code.
+- [Configure Text Styles](https://g2.antv.antgroup.com/en/examples/style/graphic/text/): Runnable example with its source code.
+- [Custom Pattern with raw Canvas API](https://g2.antv.antgroup.com/en/examples/style/pattern/custom-pattern-with-canvas/): Runnable example with its source code.
+- [Custom Pattern with G API](https://g2.antv.antgroup.com/en/examples/style/pattern/custom-pattern-with-g-api/): Runnable example with its source code.
+- [Dots Pattern](https://g2.antv.antgroup.com/en/examples/style/pattern/dots-pattern/): Runnable example with its source code.
+- [Lines Pattern](https://g2.antv.antgroup.com/en/examples/style/pattern/lines-pattern/): Runnable example with its source code.
+- [Squares Pattern](https://g2.antv.antgroup.com/en/examples/style/pattern/squares-pattern/): Runnable example with its source code.
+- [Sketchy Bar Chart](https://g2.antv.antgroup.com/en/examples/style/rough/interval/): Runnable example with its source code.
+- [Sketchy Line Chart](https://g2.antv.antgroup.com/en/examples/style/rough/line/): Runnable example with its source code.
+- [Sketchy Scatterplot](https://g2.antv.antgroup.com/en/examples/style/rough/point/): Runnable example with its source code.
+- [Sketchy Raidal Chart](https://g2.antv.antgroup.com/en/examples/style/rough/radial/): Runnable example with its source code.
+- [Academy Theme](https://g2.antv.antgroup.com/en/examples/style/theme/academy/): Runnable example with its source code.
+- [Dark Theme](https://g2.antv.antgroup.com/en/examples/style/theme/dark/): Runnable example with its source code.
+- [Layout Area](https://g2.antv.antgroup.com/en/examples/style/theme/layout-area/): Runnable example with its source code.
+- [Cone](https://g2.antv.antgroup.com/en/examples/threed/bar/cone/): Runnable example with its source code.
+- [Cube](https://g2.antv.antgroup.com/en/examples/threed/bar/cube/): Runnable example with its source code.
+- [Cylinder](https://g2.antv.antgroup.com/en/examples/threed/bar/cylinder/): Runnable example with its source code.
+- [Polyline](https://g2.antv.antgroup.com/en/examples/threed/line/polyline/): Runnable example with its source code.
+- [Spiral](https://g2.antv.antgroup.com/en/examples/threed/line/spiral/): Runnable example with its source code.
+- [Camera animation](https://g2.antv.antgroup.com/en/examples/threed/scatter/camera-animation/): Runnable example with its source code.
+- [Circle](https://g2.antv.antgroup.com/en/examples/threed/scatter/circle-shape/): Runnable example with its source code.
+- [Customize legend](https://g2.antv.antgroup.com/en/examples/threed/scatter/custom-legend/): Runnable example with its source code.
+- [Orthographic projection](https://g2.antv.antgroup.com/en/examples/threed/scatter/orthographic-projection/): Runnable example with its source code.
+- [Perspective projection](https://g2.antv.antgroup.com/en/examples/threed/scatter/perspective-projection/): Runnable example with its source code.
+- [Sphere](https://g2.antv.antgroup.com/en/examples/threed/scatter/sphere-shape/): Runnable example with its source code.
+- [Square](https://g2.antv.antgroup.com/en/examples/threed/scatter/square-shape/): Runnable example with its source code.
+- [Triangle](https://g2.antv.antgroup.com/en/examples/threed/scatter/triangle-shape/): Runnable example with its source code.
+- [The Dirichlet distribution](https://g2.antv.antgroup.com/en/examples/threed/surface/dirichlet/): Runnable example with its source code.
+- [Trigonometric](https://g2.antv.antgroup.com/en/examples/threed/surface/trigonometric/): Runnable example with its source code.
+- [2D](https://g2.antv.antgroup.com/en/examples/unit/unit/2d/): Runnable example with its source code.
+- [Basic](https://g2.antv.antgroup.com/en/examples/unit/unit/basic/): Runnable example with its source code.
+- [Nested](https://g2.antv.antgroup.com/en/examples/unit/unit/nested/): Runnable example with its source code.
+- [Share Data](https://g2.antv.antgroup.com/en/examples/unit/unit/share-data/): Runnable example with its source code.
+- [Share Size](https://g2.antv.antgroup.com/en/examples/unit/unit/share-size/): Runnable example with its source code.

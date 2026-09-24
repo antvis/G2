@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>analysis/regression/polynomial-regression</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/analysis/regression/polynomial-regression/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="analysis/regression/polynomial-regression" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>analysis/regression/polynomial-regression</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/analysis/regression/polynomial-regression/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+import { regressionPoly } from &#39;d3-regression&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const dataPolynomial = [
+  { x: 0, y: 140 },
+  { x: 1, y: 149 },
+  { x: 2, y: 159.6 },
+  { x: 3, y: 159 },
+  { x: 4, y: 155.9 },
+  { x: 5, y: 169 },
+  { x: 6, y: 162.9 },
+  { x: 7, y: 169 },
+  { x: 8, y: 180 },
+];
+
+const polyRegression = regressionPoly()
+  .x((d) =&gt; d.x)
+  .y((d) =&gt; d.y);
+
+chart.options({
+  type: &#39;view&#39;,
+  data: dataPolynomial,
+  children: [
+    {
+      type: &#39;point&#39;,
+      encode: { x: &#39;x&#39;, y: &#39;y&#39;, shape: &#39;point&#39; },
+      style: { fillOpacity: 0.75 },
+      axis: { x: { title: false }, y: { title: false } },
+    },
+    {
+      type: &#39;line&#39;,
+      data: {
+        transform: [
+          {
+            type: &#39;custom&#39;,
+            callback: polyRegression,
+          },
+        ],
+      },
+      encode: { x: (d) =&gt; d[0], y: (d) =&gt; d[1], shape: &#39;smooth&#39; },
+      style: { stroke: &#39;#30BF78&#39;, lineWidth: 2 },
+      labels: [
+        {
+          text: &#39;y=0.24x^3 + −3.00x^2 + 13.45x + 139.77\nThe coefficient of determination, or R^2, is 0.92&#39;,
+          selector: &#39;last&#39;,
+          textAlign: &#39;end&#39;,
+          dx: -8,
+        },
+      ],
+      tooltip: null,
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

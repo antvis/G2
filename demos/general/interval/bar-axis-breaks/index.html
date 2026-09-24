@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/interval/bar-axis-breaks</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/interval/bar-axis-breaks/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/interval/bar-axis-breaks" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/interval/bar-axis-breaks</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/interval/bar-axis-breaks/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const axisData = [&#39;Mon&#39;, &#39;Tue&#39;, &#39;Wed&#39;, &#39;Thu&#39;, &#39;Fri&#39;, &#39;Sat&#39;, &#39;Sun&#39;];
+const data1 = [1800, 2500, 3100, 4200, 3890, 5200, 5600];
+const data2 = [950, 1400, 2200, 1750, 2800, 3300, 2900];
+const data3 = [101200, 104800, 102600, 103500, 104200, 102900, 103800];
+const data4 = [4120500, 4107800, 4112300, 4109500, 4115000, 4111200, 4108800];
+
+const data = axisData.flatMap((name, i) =&gt; [
+  { name, value: data1[i], type: &#39;Sports&#39; },
+  { name, value: data2[i], type: &#39;Strategy&#39; },
+  { name, value: data3[i], type: &#39;Shooter&#39; },
+  { name, value: data4[i], type: &#39;Other&#39; },
+]);
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: data,
+  encode: { x: &#39;name&#39;, y: &#39;value&#39;, color: &#39;type&#39; },
+  transform: [{ type: &#39;dodgeX&#39; }],
+  interaction: { tooltip: { shared: true } },
+  scale: { y: { nice: true } },
+  axis: {
+    x: { title: false },
+    y: {
+      title: false,
+      labelAutoHide: false,
+      transform: [],
+      breaks: [
+        {
+          start: 6000,
+          end: 100000,
+          gap: &#39;3%&#39;,
+        },
+        {
+          start: 105000,
+          end: 4100000,
+          gap: &#39;3%&#39;,
+          vertices: 60,
+          verticeOffset: 4,
+          compress: &#39;end&#39;,
+        },
+      ],
+    },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

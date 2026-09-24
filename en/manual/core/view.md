@@ -1,0 +1,180 @@
+---
+title: "View"
+description: "Organize multiple marks in G2 views, understand inherited data and configuration, and configure view styles and composed layouts."
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/manual/core/view/"
+version: "5.4.8"
+---
+
+## Overview
+
+In G2, a **View** is the core component unit of charts, used to host and organize multiple marks, and to uniformly manage data, coordinate systems, interactions, styles, etc. Each view has independent data, coordinate system, and interaction configurations, and serves as the smallest unit for applying interactions and styles. Through proper view decomposition, complex visualization layouts such as multi-layer, faceted, and nested compositions can be achieved.
+
+Views not only support flexible data and encoding configurations but can also inherit and override configurations passed from parent levels (such as composite views, facets, etc.), enabling flexible composition and reuse.
+
+---
+
+## Use Cases
+
+- Basic rendering of single charts (such as bar charts, line charts, etc.)
+- Multi-layer overlay (such as bar chart + line chart, scatter plot + heatmap, etc.)
+- Complex layouts like facets, small multiples, dashboards
+- Independent management of local interactions, local styles, and local data
+- Zoned application of advanced features like themes, animations, and states
+
+---
+
+## Configuration Options
+
+Views support rich configuration options covering data, encoding, coordinates, styles, interactions, and other aspects. The configuration options are essentially the same as the top-level Chart, commonly used as follows:
+
+| Configuration | Description                          | Type         | Scope/Inheritance                |
+| ------------- | ------------------------------------ | ------------ | -------------------------------- |
+| data          | Data source                          | array/object | view and all its children        |
+| encode        | Mapping from data to visual channels | object       | view and all its children        |
+| scale         | Scales for visual channels           | object       | Inheritable/Override (view/mark) |
+| transform     | Data transformation                  | array        | Inheritable/Override (view/mark) |
+| coordinate    | Coordinate system configuration      | object       | Inheritable/Override (view/mark) |
+| style         | View area styles                     | object       | This view only                   |
+| axis          | Axis configuration                   | object       | Inheritable/Override (view/mark) |
+| legend        | Legend configuration                 | object       | Inheritable/Override (view/mark) |
+| tooltip       | Tooltip configuration                | object       | This view only                   |
+| interaction   | Interaction configuration            | object       | Inheritable/Override (view/mark) |
+| theme         | Theme configuration                  | object       | Inheritable/Override             |
+| children      | Child marks                          | array        | This view only                   |
+
+**Notes:**
+
+- Configurations like `data`, `encode`, `scale`, `axis`, `legend`, `transform`, `coordinate`, `interaction` set at the view level will automatically apply to all children (marks), and can be individually overridden at the mark level.
+- Others like `style`, `tooltip` only apply to the current view.
+- `children` can only contain marks, not nested views. For multi-view composition, use top-level containers (such as `spaceFlex`, `spaceLayer`, `facet`, etc.).
+
+**Complete configuration example:**
+
+```js
+({
+  type: 'view',
+  data: [
+    { type: 'A', value: 30 },
+    { type: 'B', value: 50 },
+    { type: 'C', value: 20 },
+  ],
+  encode: { x: 'type', y: 'value' },
+  scale: { y: { nice: true } },
+  coordinate: { type: 'rect' },
+  style: { viewFill: '#f5f5f5' },
+  axis: { y: { grid: true } },
+  legend: { color: { position: 'top' } },
+  tooltip: {
+    title: { field: 'type' },
+    items: [{ field: 'value' }],
+  },
+  interaction: { elementHighlight: true },
+  theme: { color: ['#5B8FF9', '#5AD8A6', '#5D7092'] },
+  children: [
+    { type: 'interval' },
+    { type: 'line', style: { stroke: '#faad14' } },
+  ],
+});
+```
+
+---
+
+## Configuration Methods
+
+### 1. Declarative Configuration
+
+Directly declare views and their child marks in options:
+
+```js
+({
+  type: 'view',
+  data: [...],
+  encode: {...},
+  children: [
+    { type: 'interval', encode: {...} }, // ✅ Correct: use mark
+    { type: 'line', encode: {...} },     // ✅ Correct: use mark
+    // { type: 'view', ... },            // ❌ Error: nested view not supported
+  ],
+});
+```
+
+### 2. Configure a chart with Spec
+
+Configure views and marks with Spec:
+
+```js
+const chart = new G2.Chart();
+
+chart.options({
+  type: 'view',
+  children: [
+    { type: 'interval', encode: { x: 'type', y: 'value' } },
+    { type: 'line', encode: { x: 'type', y: 'value' } },
+  ],
+});
+chart.render();
+```
+
+### 3. Composite Views and Facets
+
+Views can serve as child nodes of composite nodes (such as facets, spatial layouts). **Note: Multi-view composition should use composite containers, not nested views in view's children.**
+
+```js
+// ✅ Correct: use facet to compose multiple views
+chart.options({
+  type: 'facetRect',
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+    },
+    {
+      type: 'line',
+      encode: { x: 'type', y: 'value' },
+    },
+  ],
+});
+
+// ✅ Correct: use spaceFlex to compose multiple views
+chart.options({
+  type: 'spaceFlex',
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'type', y: 'value' },
+    },
+    {
+      type: 'line',
+      encode: { x: 'date', y: 'sales' },
+    },
+  ],
+});
+
+// ❌ Error: do not nest view in view's children
+// chart.options({
+//   type: 'view',
+//   children: [
+//     { type: 'view', ... }, // Will throw error: Unknown Component: mark.view
+//   ]
+// });
+```
+
+---
+
+## Views and Styles
+
+Views support setting styles for their own area (such as background color, borders, etc.) and can provide unified style management for child marks. For details, see [Style](/en/manual/core/style/).
+
+```js
+({
+  type: 'interval',
+  viewStyle: {
+    viewFill: '#e6f7ff',
+    plotFill: '#fffbe6',
+    mainFill: '#fff',
+    contentFill: '#f0f5ff',
+  },
+  style: { fill: '#5B8FF9' },
+});
+```

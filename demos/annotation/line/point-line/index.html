@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>annotation/line/point-line</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/annotation/line/point-line/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="annotation/line/point-line" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>annotation/line/point-line</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/annotation/line/point-line/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const lineStyle = { stroke: &#39;#000&#39;, strokeOpacity: 0.45, lineDash: [3, 3] };
+
+chart.options({
+  type: &#39;view&#39;,
+  children: [
+    {
+      type: &#39;point&#39;,
+      data: [
+        { x: 95, y: 95, z: 13.8, name: &#39;BE&#39;, country: &#39;Belgium&#39; },
+        { x: 86.5, y: 102.9, z: 14.7, name: &#39;DE&#39;, country: &#39;Germany&#39; },
+        { x: 80.8, y: 91.5, z: 15.8, name: &#39;FI&#39;, country: &#39;Finland&#39; },
+        { x: 80.4, y: 102.5, z: 12, name: &#39;NL&#39;, country: &#39;Netherlands&#39; },
+        { x: 80.3, y: 86.1, z: 11.8, name: &#39;SE&#39;, country: &#39;Sweden&#39; },
+        { x: 78.4, y: 70.1, z: 16.6, name: &#39;ES&#39;, country: &#39;Spain&#39; },
+        { x: 74.2, y: 68.5, z: 14.5, name: &#39;FR&#39;, country: &#39;France&#39; },
+        { x: 73.5, y: 83.1, z: 10, name: &#39;NO&#39;, country: &#39;Norway&#39; },
+        { x: 71, y: 93.2, z: 24.7, name: &#39;UK&#39;, country: &#39;United Kingdom&#39; },
+        { x: 69.2, y: 57.6, z: 10.4, name: &#39;IT&#39;, country: &#39;Italy&#39; },
+        { x: 68.6, y: 20, z: 16, name: &#39;RU&#39;, country: &#39;Russia&#39; },
+        { x: 65.5, y: 126.4, z: 35.3, name: &#39;US&#39;, country: &#39;United States&#39; },
+        { x: 65.4, y: 50.8, z: 28.5, name: &#39;HU&#39;, country: &#39;Hungary&#39; },
+        { x: 63.4, y: 51.8, z: 15.4, name: &#39;PT&#39;, country: &#39;Portugal&#39; },
+        { x: 64, y: 82.9, z: 31.3, name: &#39;NZ&#39;, country: &#39;New Zealand&#39; },
+      ],
+      encode: { x: &#39;x&#39;, y: &#39;y&#39;, size: &#39;z&#39;, shape: &#39;point&#39; },
+      scale: {
+        x: { nice: true },
+        y: { nice: true, domainMax: 165, zero: true },
+        size: { range: [10, 40] },
+      },
+      style: { stroke: &#39;#1890ff&#39;, fillOpacity: 0.3, fill: &#39;#1890ff&#39; },
+      labels: [
+        {
+          text: &#39;name&#39;,
+          position: &#39;inside&#39;,
+          fill: &#39;#1890ff&#39;,
+          stroke: &#39;#fff&#39;,
+        },
+      ],
+      legend: { size: false },
+    },
+    {
+      type: &#39;lineY&#39;,
+      data: [50],
+      style: lineStyle,
+      labels: [
+        {
+          text: &#39;Safe sugar intake 50g/day&#39;,
+          position: &#39;right&#39;,
+          textBaseline: &#39;bottom&#39;,
+          fill: &#39;#000&#39;,
+          fillOpacity: 0.45,
+          background: true,
+          backgroundFill: &#39;#000&#39;,
+          backgroundOpacity: 0.15,
+        },
+      ],
+    },
+    {
+      type: &#39;lineX&#39;,
+      data: [65],
+      style: lineStyle,
+      labels: [
+        {
+          text: &#39;Safe fat intake 65g/day&#39;,
+          position: &#39;top-left&#39;,
+          textBaseline: &#39;bottom&#39;,
+          fill: &#39;#000&#39;,
+          fillOpacity: 0.45,
+          background: true,
+          backgroundFill: &#39;#000&#39;,
+          backgroundOpacity: 0.15,
+        },
+      ],
+    },
+  ],
+});
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

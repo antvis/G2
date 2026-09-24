@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>interesting/interesting/timeline</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/interesting/interesting/timeline/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="interesting/interesting/timeline" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>interesting/interesting/timeline</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/interesting/interesting/timeline/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  paddingLeft: 60,
+  paddingRight: 60,
+  width: 1000,
+  height: 300,
+});
+
+const data = [
+  {
+    year: 1788,
+    composition: &#39;Symphony No. 41 &quot;Jupiter&quot;&#39;,
+    composer: &#39;Wolfgang Amadeus Mozart&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/Symphony_No._41_(Mozart)&#39;,
+  },
+  {
+    year: 1894,
+    composition: &#39;Prelude to the Afternoon of a Faun&#39;,
+    composer: &#39;Claude Debussy&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/Pr%C3%A9lude_%C3%A0_l%27apr%C3%A8s-midi_d%27un_faune&#39;,
+  },
+  {
+    year: 1805,
+    composition: &#39;Symphony No. 3 &quot;Eroica&quot;&#39;,
+    composer: &#39;Ludwig van Beethoven&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/Symphony_No._3_(Beethoven)&#39;,
+  },
+  {
+    year: 1913,
+    composition: &#39;Rite of Spring&#39;,
+    composer: &#39;Igor Stravinsky&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/The_Rite_of_Spring&#39;,
+  },
+  {
+    year: 1741,
+    composition: &#39;Goldberg Variations&#39;,
+    composer: &#39;Johann Sebastian Bach&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/Goldberg_Variations&#39;,
+  },
+  {
+    year: 1881,
+    composition: &#39;Piano Concerto No. 2&#39;,
+    composer: &#39;Johannes Brahms&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/Piano_Concerto_No._2_(Brahms)&#39;,
+  },
+  {
+    year: 1826,
+    composition: &#39;A Midsummer Night\&#39;s Dream &quot;Overture&quot;&#39;,
+    composer: &#39;Felix Mendelssohn&#39;,
+    link: &#39;https://en.wikipedia.org/wiki/A_Midsummer_Night%27s_Dream_(Mendelssohn)&#39;,
+  },
+];
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  interaction: { tooltip: false },
+  children: [
+    {
+      type: &#39;line&#39;,
+      encode: { x: &#39;year&#39;, y: 1 },
+      style: { lineWidth: 1, stroke: &#39;#000&#39; },
+      zIndex: 1,
+      labels: [
+        {
+          text: &#39;year&#39;,
+          dy: (d) =&gt; (d.year % 2 === 1 ? 8 : -4),
+          textAlign: &#39;center&#39;,
+          textBaseline: (d) =&gt; (d.year % 2 === 1 ? &#39;top&#39; : &#39;bottom&#39;),
+        },
+        {
+          text: (d) =&gt;
+            d.composition +
+            ` (${d.composer.slice(d.composer.lastIndexOf(&#39; &#39;))})`,
+          dy: (d) =&gt; (d.year % 2 === 0 ? 28 : -28),
+          textAlign: &#39;center&#39;,
+          textBaseline: (d) =&gt; (d.year % 2 === 0 ? &#39;top&#39; : &#39;bottom&#39;),
+          wordWrap: true,
+          wordWrapWidth: 120,
+          connector: true,
+        },
+      ],
+      axis: false,
+    },
+    {
+      type: &#39;point&#39;,
+      encode: { x: &#39;year&#39;, y: 1 },
+      zIndex: 1,
+      style: { lineWidth: 1.5, stroke: &#39;#000&#39;, fill: &#39;#fff&#39; },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

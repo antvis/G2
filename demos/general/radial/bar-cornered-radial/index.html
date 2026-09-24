@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radial/bar-cornered-radial</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radial/bar-cornered-radial/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radial/bar-cornered-radial" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radial/bar-cornered-radial</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radial/bar-cornered-radial/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;radial&#39;, endAngle: Math.PI },
+  data: {
+    // Data is collected by the end of 2022.11.09
+    value: [
+      { name: &#39;G&#39;, star: 814 },
+      { name: &#39;G2&#39;, star: 11425 },
+      { name: &#39;G2Plot&#39;, star: 2320 },
+      { name: &#39;S2&#39;, star: 968 },
+      { name: &#39;F2&#39;, star: 7346 },
+      { name: &#39;L7&#39;, star: 2888 },
+      { name: &#39;G6&#39;, star: 9314 },
+      { name: &#39;X6&#39;, star: 3985 },
+      { name: &#39;AVA&#39;, star: 1151 },
+    ],
+    transform: [{ type: &#39;sortBy&#39;, fields: [[&#39;star&#39;, true]] }],
+  },
+  encode: { x: &#39;name&#39;, y: &#39;star&#39;, color: &#39;name&#39;, size: 40 },
+  scale: { y: { type: &#39;sqrt&#39; } },
+  style: { radius: 20 },
+  labels: [
+    {
+      text: &#39;star&#39;,
+      position: &#39;outside&#39;,
+      autoRotate: true,
+      rotateToAlignArc: true,
+      dx: 4,
+    },
+  ],
+  axis: { x: { title: false }, y: false },
+  animate: { enter: { type: &#39;waveIn&#39;, duration: 1000 } },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

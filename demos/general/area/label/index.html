@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/area/label</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/area/label/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/area/label" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/area/label</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/area/label/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const States = [
+  &#39;Massachusetts&#39;,
+  &#39;Connecticut&#39;,
+  &#39;Maine&#39;,
+  &#39;Rhode Island&#39;,
+  &#39;New Hampshire&#39;,
+  &#39;Vermont&#39;,
+  &#39;New York&#39;,
+  &#39;Pennsylvania&#39;,
+  &#39;New Jersey&#39;,
+  &#39;North Carolina&#39;,
+  &#39;Virginia&#39;,
+  &#39;Georgia&#39;,
+  &#39;Florida&#39;,
+  &#39;Maryland&#39;,
+  &#39;South Carolina&#39;,
+  &#39;West Virginia&#39;,
+  &#39;District of Columbia&#39;,
+  &#39;Delaware&#39;,
+  &#39;Tennessee&#39;,
+  &#39;Kentucky&#39;,
+  &#39;Alabama&#39;,
+  &#39;Mississippi&#39;,
+  &#39;Texas&#39;,
+  &#39;Louisiana&#39;,
+  &#39;Oklahoma&#39;,
+  &#39;Arkansas&#39;,
+  &#39;Illinois&#39;,
+  &#39;Ohio&#39;,
+  &#39;Michigan&#39;,
+  &#39;Indiana&#39;,
+  &#39;Wisconsin&#39;,
+  &#39;Missouri&#39;,
+  &#39;Minnesota&#39;,
+  &#39;Iowa&#39;,
+  &#39;Kansas&#39;,
+  &#39;Nebraska&#39;,
+  &#39;South Dakota&#39;,
+  &#39;North Dakota&#39;,
+  &#39;Colorado&#39;,
+  &#39;Arizona&#39;,
+  &#39;Utah&#39;,
+  &#39;New Mexico&#39;,
+  &#39;Montana&#39;,
+  &#39;Idaho&#39;,
+  &#39;Nevada&#39;,
+  &#39;Wyoming&#39;,
+  &#39;California&#39;,
+  &#39;Washington&#39;,
+  &#39;Oregon&#39;,
+  &#39;Hawaii&#39;,
+  &#39;Alaska&#39;,
+];
+
+const RegionStateMap = new Map([
+  [&#39;Alaska&#39;, &#39;Pacific&#39;],
+  [&#39;Alabama&#39;, &#39;East South Central&#39;],
+  [&#39;Arkansas&#39;, &#39;West South Central&#39;],
+  [&#39;Arizona&#39;, &#39;Mountain&#39;],
+  [&#39;California&#39;, &#39;Pacific&#39;],
+  [&#39;Colorado&#39;, &#39;Mountain&#39;],
+  [&#39;Connecticut&#39;, &#39;New England&#39;],
+  [&#39;District of Columbia&#39;, &#39;South Atlantic&#39;],
+  [&#39;Delaware&#39;, &#39;South Atlantic&#39;],
+  [&#39;Florida&#39;, &#39;South Atlantic&#39;],
+  [&#39;Georgia&#39;, &#39;South Atlantic&#39;],
+  [&#39;Hawaii&#39;, &#39;Pacific&#39;],
+  [&#39;Iowa&#39;, &#39;West North Central&#39;],
+  [&#39;Idaho&#39;, &#39;Mountain&#39;],
+  [&#39;Illinois&#39;, &#39;East North Central&#39;],
+  [&#39;Indiana&#39;, &#39;East North Central&#39;],
+  [&#39;Kansas&#39;, &#39;West North Central&#39;],
+  [&#39;Kentucky&#39;, &#39;East South Central&#39;],
+  [&#39;Louisiana&#39;, &#39;West South Central&#39;],
+  [&#39;Massachusetts&#39;, &#39;New England&#39;],
+  [&#39;Maryland&#39;, &#39;South Atlantic&#39;],
+  [&#39;Maine&#39;, &#39;New England&#39;],
+  [&#39;Michigan&#39;, &#39;East North Central&#39;],
+  [&#39;Minnesota&#39;, &#39;West North Central&#39;],
+  [&#39;Missouri&#39;, &#39;West North Central&#39;],
+  [&#39;Mississippi&#39;, &#39;East South Central&#39;],
+  [&#39;Montana&#39;, &#39;Mountain&#39;],
+  [&#39;North Carolina&#39;, &#39;South Atlantic&#39;],
+  [&#39;North Dakota&#39;, &#39;West North Central&#39;],
+  [&#39;Nebraska&#39;, &#39;West North Central&#39;],
+  [&#39;New Hampshire&#39;, &#39;New England&#39;],
+  [&#39;New Jersey&#39;, &#39;Middle Atlantic&#39;],
+  [&#39;New Mexico&#39;, &#39;Mountain&#39;],
+  [&#39;Nevada&#39;, &#39;Mountain&#39;],
+  [&#39;New York&#39;, &#39;Middle Atlantic&#39;],
+  [&#39;Ohio&#39;, &#39;East North Central&#39;],
+  [&#39;Oklahoma&#39;, &#39;West South Central&#39;],
+  [&#39;Oregon&#39;, &#39;Pacific&#39;],
+  [&#39;Pennsylvania&#39;, &#39;Middle Atlantic&#39;],
+  [&#39;Rhode Island&#39;, &#39;New England&#39;],
+  [&#39;South Carolina&#39;, &#39;South Atlantic&#39;],
+  [&#39;South Dakota&#39;, &#39;West North Central&#39;],
+  [&#39;Tennessee&#39;, &#39;East South Central&#39;],
+  [&#39;Texas&#39;, &#39;West South Central&#39;],
+  [&#39;Utah&#39;, &#39;Mountain&#39;],
+  [&#39;Virginia&#39;, &#39;South Atlantic&#39;],
+  [&#39;Vermont&#39;, &#39;New England&#39;],
+  [&#39;Washington&#39;, &#39;Pacific&#39;],
+  [&#39;Wisconsin&#39;, &#39;East North Central&#39;],
+  [&#39;West Virginia&#39;, &#39;South Atlantic&#39;],
+  [&#39;Wyoming&#39;, &#39;Mountain&#39;],
+]);
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value: &#39;https://assets.antv.antgroup.com/g2/population-by-state.json&#39;,
+    transform: [
+      {
+        type: &#39;fold&#39;,
+        fields: States,
+        key: &#39;state&#39;,
+        value: &#39;population&#39;,
+      },
+      {
+        type: &#39;map&#39;,
+        callback: (d) =&gt; ({
+          ...d,
+          region: RegionStateMap.get(d.state),
+          date: new Date(d.date),
+        }),
+      },
+    ],
+  },
+  children: [
+    {
+      type: &#39;area&#39;,
+      transform: [{ type: &#39;stackY&#39; }, { type: &#39;normalizeY&#39; }],
+      encode: { x: &#39;date&#39;, y: &#39;population&#39;, color: &#39;region&#39;, series: &#39;state&#39; },
+      labels: [
+        {
+          text: &#39;state&#39;,
+          position: &#39;area&#39;, // `area` type positon used here.
+          selector: &#39;first&#39;,
+          transform: [{ type: &#39;overlapHide&#39; }],
+          fontSize: 10,
+        },
+      ],
+      tooltip: {
+        items: [{ channel: &#39;y&#39;, valueFormatter: (d) =&gt; d.toFixed(3) }],
+      },
+    },
+    {
+      type: &#39;line&#39;,
+      transform: [{ type: &#39;stackY&#39; }, { type: &#39;normalizeY&#39; }],
+      encode: {
+        x: &#39;date&#39;,
+        y: &#39;population&#39;,
+        series: &#39;state&#39;,
+        // For LegendFilter.
+        color: &#39;region&#39;,
+      },
+      style: { stroke: &#39;#000&#39;, lineWidth: 0.5, fillOpacity: 0.8 },
+      tooltip: false,
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

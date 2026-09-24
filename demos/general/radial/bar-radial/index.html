@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/radial/bar-radial</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/radial/bar-radial/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/radial/bar-radial" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/radial/bar-radial</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/radial/bar-radial/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;radial&#39;, innerRadius: 0.1, endAngle: Math.PI },
+  data: [
+    { question: &#39;问题 1&#39;, percent: 0.21 },
+    { question: &#39;问题 2&#39;, percent: 0.4 },
+    { question: &#39;问题 3&#39;, percent: 0.49 },
+    { question: &#39;问题 4&#39;, percent: 0.52 },
+    { question: &#39;问题 5&#39;, percent: 0.53 },
+    { question: &#39;问题 6&#39;, percent: 0.84 },
+    { question: &#39;问题 7&#39;, percent: 1.0 },
+    { question: &#39;问题 8&#39;, percent: 1.2 },
+  ],
+  encode: { x: &#39;question&#39;, y: &#39;percent&#39;, color: &#39;percent&#39; },
+  style: { stroke: &#39;white&#39; },
+  scale: {
+    color: {
+      range: &#39;#BAE7FF-#1890FF-#0050B3&#39;,
+    },
+  },
+  axis: { y: { tickFilter: (d, i) =&gt; i !== 0 } },
+  legend: {
+    color: {
+      length: 400,
+      position: &#39;bottom&#39;,
+      layout: { justifyContent: &#39;center&#39; },
+    },
+  },
+  animate: { enter: { type: &#39;waveIn&#39;, duration: 800 } },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

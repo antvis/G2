@@ -1,0 +1,1 @@
+import{t as e}from"./index.esm.Bw3_1GxY.js";export{e as Plugin};

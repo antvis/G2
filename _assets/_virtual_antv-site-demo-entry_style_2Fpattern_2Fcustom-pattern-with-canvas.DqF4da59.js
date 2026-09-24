@@ -1,0 +1,7 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,width:550,height:500,paddingBottom:80});function n(e,t){return Object.entries(t).forEach(([t,n])=>e[t]=n)}function r(e,t){let n=document.createElement(`canvas`),r=window.devicePixelRatio;return n.width=e*r,n.height=t*r,n.style.width=`${e}px`,n.style.height=`${t}px`,n.getContext(`2d`).scale(r,r),n}function i(e,t,r,i){n(e,{fillStyle:i}),e.fillRect(0,0,t,r)}function a(e,t,r,i,a=!1){n(e,{globalAlpha:1,strokeStyle:t,strokeOpacity:.9}),n(e,{lineWidth:.5,lineCap:`square`});let o=`
+       M 0 ${-i} L ${r*2} ${i}
+       M ${-r} ${-i} L ${r} ${i}
+       M ${-r} 0 L ${r} ${i*2}`;if(e.stroke(new Path2D(o)),a){let t=`
+         M ${-r} ${i} L ${r} ${-i}
+         M ${-r} ${i*2} L ${r*2} ${-i}
+         M 0 ${i*2} L ${r*2} 0`;e.stroke(new Path2D(t))}}var o=(e,t,n=!1,o=!1)=>{let s=o?3:5,c=Math.abs(s/Math.sin(Math.PI/4)),l=s/Math.sin(Math.PI/4),u=r(c,l),d=u.getContext(`2d`);return i(d,c,l,e),a(d,t,c,l,n),u},s=o(`#edaa53`,`#44120c`,!0,!0),c=o(`#edaa53`,`#44120c`,!0),l=o(`#edaa53`,`#fff`);t.options({type:`cell`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/bmw-prod/68d3f380-089e-4683-ab9e-4493200198f9.json`},encode:{x:`name`,y:`country`,color:`#edaa53`},style:{radius:1/0,inset:1,shadowBlur:10,shadowColor:`rgba(0,0,0,0.3)`,fill:({value:e})=>({image:60<=e&&e<90?s:e>=50?c:l,repetition:`repeat`})},animate:{enter:{type:`fadeIn`}}}),t.render();

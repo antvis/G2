@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>scene/scene/network-pulse</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/scene/scene/network-pulse/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="scene/scene/network-pulse" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>scene/scene/network-pulse</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/scene/scene/network-pulse/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 数据脉冲网络 - 节点间的数据传输可视化
+// 模拟网络中数据包在节点间的脉冲传输
+
+const NODES = 8; // 节点数量
+const FRAMES = 150; // 动画帧数
+const FPS = 30; // 每秒帧数
+
+// 生成网络节点（圆形布局）
+const nodes = Array.from({ length: NODES }, (_, i) =&gt; {
+  const angle = (i / NODES) * Math.PI * 2 - Math.PI / 2;
+  const radius = 40;
+  return {
+    id: i,
+    name: `Node ${i + 1}`,
+    x: 50 + Math.cos(angle) * radius,
+    y: 50 + Math.sin(angle) * radius,
+    status: Math.random() &gt; 0.7 ? &#39;active&#39; : &#39;normal&#39;,
+  };
+});
+
+// 生成连接关系
+const connections = [];
+for (let i = 0; i &lt; NODES; i++) {
+  // 每个节点连接到相邻节点
+  const next = (i + 1) % NODES;
+  connections.push({ from: i, to: next });
+
+  // 随机添加一些跨节点连接
+  if (Math.random() &gt; 0.6) {
+    const target = (i + 3) % NODES;
+    connections.push({ from: i, to: target });
+  }
+}
+
+// 生成单帧数据
+function generateNetworkData(frame) {
+  const data = [];
+  const time = frame * 0.05;
+
+  // 添加节点
+  nodes.forEach((node) =&gt; {
+    const pulsePhase = (time * 2 + node.id) % (Math.PI * 2);
+    const pulse = 0.7 + Math.sin(pulsePhase) * 0.3;
+
+    data.push({
+      type: &#39;node&#39;,
+      x: node.x,
+      y: node.y,
+      name: node.name,
+      status: node.status,
+      size: node.status === &#39;active&#39; ? 12 * pulse : 8,
+      key: `node-${node.id}`,
+    });
+  });
+
+  // 添加连接线
+  connections.forEach((conn, connIndex) =&gt; {
+    const from = nodes[conn.from];
+    const to = nodes[conn.to];
+
+    // 为每条连接添加多个点形成线段
+    const segments = 20;
+    for (let i = 0; i &lt;= segments; i++) {
+      const t = i / segments;
+      const x = from.x + (to.x - from.x) * t;
+      const y = from.y + (to.y - from.y) * t;
+
+      data.push({
+        type: &#39;link&#39;,
+        x,
+        y,
+        connection: connIndex,
+        key: `link-${connIndex}-${i}`,
+      });
+    }
+  });
+
+  // 添加脉冲数据包
+  connections.forEach((conn, connIndex) =&gt; {
+    const from = nodes[conn.from];
+    const to = nodes[conn.to];
+
+    // 每条连接上可能有多个数据包
+    const packetsPerLink = 2;
+    for (let p = 0; p &lt; packetsPerLink; p++) {
+      const progress = (time * 0.5 + connIndex * 0.3 + p * 0.5) % 1;
+      const x = from.x + (to.x - from.x) * progress;
+      const y = from.y + (to.y - from.y) * progress;
+
+      // 数据包尾迹
+      for (let tail = 0; tail &lt; 5; tail++) {
+        const tailProgress = Math.max(0, progress - tail * 0.05);
+        const tailX = from.x + (to.x - from.x) * tailProgress;
+        const tailY = from.y + (to.y - from.y) * tailProgress;
+        const opacity = (1 - tail / 5) * 0.8;
+
+        if (tailProgress &gt;= 0 &amp;&amp; tailProgress &lt;= 1) {
+          data.push({
+            type: &#39;pulse&#39;,
+            x: tailX,
+            y: tailY,
+            size: 4 - tail,
+            opacity,
+            key: `pulse-${connIndex}-${p}-${tail}`,
+          });
+        }
+      }
+    }
+  });
+
+  return data;
+}
+
+// 预生成所有帧的 options
+const allOptions = [];
+
+for (let frame = 0; frame &lt; FRAMES; frame++) {
+  const data = generateNetworkData(frame);
+
+  const option = {
+    type: &#39;point&#39;,
+    data: data,
+    encode: {
+      x: &#39;x&#39;,
+      y: &#39;y&#39;,
+      size: (d) =&gt; d.size || 1,
+      color: &#39;type&#39;,
+      shape: &#39;point&#39;,
+      key: &#39;key&#39;,
+    },
+    scale: {
+      x: { domain: [0, 100] },
+      y: { domain: [0, 100] },
+      size: { range: [1, 15] },
+      color: {
+        domain: [&#39;node&#39;, &#39;link&#39;, &#39;pulse&#39;],
+        range: [&#39;#1890ff&#39;, &#39;#2a2a3e&#39;, &#39;#52c41a&#39;],
+      },
+    },
+    style: {
+      fill: (d) =&gt; {
+        if (d.type === &#39;node&#39;) {
+          return d.status === &#39;active&#39; ? &#39;#ff4d4f&#39; : &#39;#1890ff&#39;;
+        }
+        if (d.type === &#39;link&#39;) return &#39;#2a2a3e&#39;;
+        if (d.type === &#39;pulse&#39;) return &#39;#52c41a&#39;;
+        return &#39;#666&#39;;
+      },
+      fillOpacity: (d) =&gt; {
+        if (d.type === &#39;node&#39;) return 0.9;
+        if (d.type === &#39;link&#39;) return 0.3;
+        if (d.type === &#39;pulse&#39;) return d.opacity || 0.8;
+        return 0.5;
+      },
+      stroke: (d) =&gt; {
+        if (d.type === &#39;node&#39;) return &#39;#fff&#39;;
+        if (d.type === &#39;pulse&#39;) return &#39;#52c41a&#39;;
+        return &#39;none&#39;;
+      },
+      strokeOpacity: (d) =&gt; (d.type === &#39;node&#39; ? 0.8 : d.opacity || 0),
+      lineWidth: (d) =&gt; (d.type === &#39;node&#39; ? 2 : 1),
+    },
+    theme: {
+      view: {
+        viewFill: &#39;#0a0e1a&#39;,
+      },
+    },
+    axis: false,
+    legend: false,
+    tooltip: {
+      items: [
+        { field: &#39;name&#39;, name: &#39;节点&#39; },
+        {
+          field: &#39;status&#39;,
+          name: &#39;状态&#39;,
+          valueFormatter: (v) =&gt; (v === &#39;active&#39; ? &#39;🔴 活跃&#39; : &#39;🔵 正常&#39;),
+        },
+      ],
+    },
+  };
+
+  allOptions.push(option);
+}
+
+// 创建图表
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options(allOptions[0]);
+chart.render();
+
+// 播放动画
+let currentFrame = 0;
+const timer = setInterval(() =&gt; {
+  currentFrame = (currentFrame + 1) % FRAMES;
+  chart.options(allOptions[currentFrame]);
+  chart.render();
+}, 1000 / FPS);
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

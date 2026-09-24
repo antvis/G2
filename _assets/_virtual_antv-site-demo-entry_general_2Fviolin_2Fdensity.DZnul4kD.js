@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`density`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/species.json`,transform:[{type:`kde`,field:`y`,groupBy:[`x`],size:20}]},encode:{x:`x`,y:`y`,color:`x`,size:`size`},tooltip:!1}),t.render();

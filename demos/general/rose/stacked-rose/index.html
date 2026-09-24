@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/rose/stacked-rose</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/rose/stacked-rose/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/rose/stacked-rose" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/rose/stacked-rose</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/rose/stacked-rose/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * A recreation of this demo: https://observablehq.com/@d3/radial-stacked-bar-chart
+ */
+import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  width: 800,
+  height: 800,
+});
+
+const colors = [
+  &#39;#98abc5&#39;,
+  &#39;#8a89a6&#39;,
+  &#39;#7b6888&#39;,
+  &#39;#6b486b&#39;,
+  &#39;#a05d56&#39;,
+  &#39;#d0743c&#39;,
+  &#39;#ff8c00&#39;,
+];
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;polar&#39;, innerRadius: 0.4 },
+  data: {
+    type: &#39;fetch&#39;,
+    value:
+      &#39;https://gw.alipayobjects.com/os/bmw-prod/d582a447-2057-4a74-97ed-1d73a5459ea4.csv&#39;,
+    transform: [
+      {
+        type: &#39;fold&#39;,
+        fields: [
+          &#39;Under 5 Years&#39;,
+          &#39;5 to 13 Years&#39;,
+          &#39;14 to 17 Years&#39;,
+          &#39;18 to 24 Years&#39;,
+          &#39;25 to 44 Years&#39;,
+          &#39;45 to 64 Years&#39;,
+          &#39;65 Years and Over&#39;,
+        ],
+        key: &#39;Age&#39;,
+        value: &#39;Population&#39;,
+      },
+    ],
+  },
+  transform: [{ type: &#39;stackY&#39; }],
+  encode: { x: &#39;State&#39;, y: &#39;Population&#39;, color: &#39;Age&#39; },
+  scale: { color: { range: colors }, y: { type: &#39;sqrt&#39; } },
+  legend: { color: { position: &#39;center&#39;, display: &#39;grid&#39;, gridCol: 1 } },
+  axis: {
+    y: {
+      labelFormatter: &#39;~s&#39;,
+      tickFilter: (_, i) =&gt; i !== 0,
+      direction: &#39;center&#39;,
+    },
+    x: { position: &#39;inner&#39; },
+  },
+  animate: { enter: { type: &#39;waveIn&#39; } },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

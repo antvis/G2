@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`area`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/aapl.json`},encode:{x:e=>new Date(e.date),y:`close`}}),t.render();

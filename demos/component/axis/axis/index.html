@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>component/axis/axis</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/component/axis/axis/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="component/axis/axis" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>component/axis/axis</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/component/axis/axis/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+function medal(ranking) {
+  if (ranking &gt; 2) return `第${ranking + 1}名`;
+  const { document } = chart.getContext().canvas!;
+  const group = document.createElement(&#39;g&#39;, {});
+  const size = ranking === 0 ? 20 : 15;
+  const icon = document.createElement(&#39;image&#39;, {
+    style: {
+      src: &#39;https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1NiMRKb2sfMAAAAAAAAAAAAADmJ7AQ/original&#39;,
+      width: size,
+      height: size,
+      transform: `translate(-${size / 2}, -${size / 2})`,
+    },
+  });
+  const text = [&#39;冠军🏆&#39;, &#39;亚军🥈&#39;, &#39;季军🥉&#39;][ranking];
+  const label = document.createElement(&#39;text&#39;, {
+    style: {
+      text,
+      fill: &#39;gray&#39;,
+      textAlign: &#39;center&#39;,
+      transform: `translate(0, 35)`,
+    },
+  });
+
+  group.appendChild(icon);
+  group.appendChild(label);
+  return group;
+}
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: [
+    {
+      pos: 1,
+      no: 1,
+      driver: &#39;Max Verstappen&#39;,
+      car: &#39;RED BULL RACING HONDA RBPT&#39;,
+      laps: 57,
+      time: &#39;1:33:56.736&#39;,
+      pts: 25,
+    },
+    {
+      pos: 2,
+      no: 11,
+      driver: &#39;Sergio Perez&#39;,
+      car: &#39;RED BULL RACING HONDA RBPT&#39;,
+      laps: 57,
+      time: &#39;+11.987s&#39;,
+      pts: 18,
+    },
+    {
+      pos: 3,
+      no: 14,
+      driver: &#39;Fernando Alonso&#39;,
+      car: &#39;ASTON MARTIN ARAMCO MERCEDES&#39;,
+      laps: 57,
+      time: &#39;+38.637s&#39;,
+      pts: 15,
+    },
+    {
+      pos: 4,
+      no: 55,
+      driver: &#39;Carlos Sainz&#39;,
+      car: &#39;FERRARI&#39;,
+      laps: 57,
+      time: &#39;+48.052s&#39;,
+      pts: 12,
+    },
+    {
+      pos: 5,
+      no: 44,
+      driver: &#39;Lewis Hamilton&#39;,
+      car: &#39;MERCEDES&#39;,
+      laps: 57,
+      time: &#39;+50.977s&#39;,
+      pts: 10,
+    },
+  ],
+  encode: { x: &#39;pos&#39;, y: &#39;pts&#39;, color: &#39;pts&#39; },
+  axis: {
+    x: {
+      title: &#39;FORMULA 1 GULF AIR BAHRAIN GRAND PRIX 2023 - RACE RESULT&#39;,
+      size: 80,
+      labelFormatter: (datum, index) =&gt; medal(index),
+    },
+    y: false,
+  },
+  labels: [
+    {
+      text: &#39;driver&#39;,
+      transform: [{ type: &#39;contrastReverse&#39; }],
+    },
+    {
+      text: &#39;time&#39;,
+      transform: [{ type: &#39;contrastReverse&#39; }],
+      dy: 20,
+      fontStyle: &#39;italic&#39;,
+    },
+  ],
+  tooltip: { title: &#39;car&#39; },
+  legend: false,
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

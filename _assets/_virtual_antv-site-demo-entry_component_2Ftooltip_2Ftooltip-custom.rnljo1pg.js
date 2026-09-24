@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,inset:6});t.options({type:`boxplot`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/morley.json`},encode:{x:`Expt`,y:`Speed`},tooltip:{items:[{name:`min`,channel:`y`},{name:`q1`,channel:`y1`},{name:`q2`,channel:`y2`},{name:`q3`,channel:`y3`},{name:`max`,color:`red`,channel:`y4`}]}}),t.render();

@@ -1,0 +1,1 @@
+import{t as e}from"./dirichlet.CSvW-p0J.js";export default e();

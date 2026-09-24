@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>scene/scene/stock-realtime</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/scene/scene/stock-realtime/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="scene/scene/stock-realtime" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>scene/scene/stock-realtime</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/scene/scene/stock-realtime/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+// 股票实时K线动态图
+// 从少量数据逐步增加到几十根K线，展示股票涨跌形态
+
+const INITIAL_CANDLES = 5; // 初始K线数量
+const MAX_CANDLES = 50; // 最大K线数量
+const FRAMES = 100; // 动画帧数
+const FPS = 20; // 每秒帧数
+
+// 生成单根K线数据（带趋势）
+function generateCandle(index, prevClose, trendPhase) {
+  const basePrice = prevClose || 100;
+
+  // 根据趋势阶段调整波动
+  let trendBias = 0;
+  if (trendPhase === &#39;bull&#39;) {
+    // 牛市：70%概率上涨
+    trendBias = Math.random() &lt; 0.7 ? 0.015 : -0.008;
+  } else if (trendPhase === &#39;bear&#39;) {
+    // 熊市：70%概率下跌
+    trendBias = Math.random() &lt; 0.7 ? -0.015 : 0.008;
+  } else {
+    // 震荡：随机波动
+    trendBias = (Math.random() - 0.5) * 0.02;
+  }
+
+  const volatility = 0.015; // 基础波动率 1.5%
+  const change = (trendBias + (Math.random() - 0.5) * volatility) * basePrice;
+
+  const start = basePrice;
+  const end = basePrice + change;
+
+  const max =
+    Math.max(start, end) + Math.random() * volatility * basePrice * 0.5;
+  const min =
+    Math.min(start, end) - Math.random() * volatility * basePrice * 0.5;
+
+  // 成交量（价格波动越大，成交量越大）
+  const volume = Math.abs(change) * 2000 + Math.random() * 8000 + 5000;
+
+  return {
+    index,
+    time: `2024-${String(Math.floor(index / 20) + 1).padStart(2, &#39;0&#39;)}-${String(
+      (index % 20) + 1,
+    ).padStart(2, &#39;0&#39;)}`,
+    start: parseFloat(start.toFixed(2)),
+    end: parseFloat(end.toFixed(2)),
+    max: parseFloat(max.toFixed(2)),
+    min: parseFloat(min.toFixed(2)),
+    volume: Math.round(volume),
+  };
+}
+
+// 预生成完整的股票数据（含不同趋势阶段）
+const fullStockData = [];
+let currentPrice = 100;
+
+for (let i = 0; i &lt; MAX_CANDLES; i++) {
+  // 划分趋势阶段
+  let phase;
+  if (i &lt; 15) phase = &#39;bull&#39;; // 0-14: 牛市
+  else if (i &lt; 30) phase = &#39;bear&#39;; // 15-29: 熊市
+  else if (i &lt; 40) phase = &#39;sideways&#39;; // 30-39: 震荡
+  else phase = &#39;bull&#39;; // 40+: 再次上涨
+
+  const candle = generateCandle(i, currentPrice, phase);
+  fullStockData.push(candle);
+  currentPrice = candle.end;
+}
+
+const tooltip = {
+  title: &#39;time&#39;,
+  items: [
+    {
+      field: &#39;start&#39;,
+      name: &#39;开盘价&#39;,
+      valueFormatter: (v) =&gt; `¥${v.toFixed(2)}`,
+    },
+    {
+      field: &#39;end&#39;,
+      name: &#39;收盘价&#39;,
+      valueFormatter: (v) =&gt; `¥${v.toFixed(2)}`,
+    },
+    {
+      field: &#39;min&#39;,
+      name: &#39;最低价&#39;,
+      valueFormatter: (v) =&gt; `¥${v.toFixed(2)}`,
+    },
+    {
+      field: &#39;max&#39;,
+      name: &#39;最高价&#39;,
+      valueFormatter: (v) =&gt; `¥${v.toFixed(2)}`,
+    },
+  ],
+};
+
+// 预生成所有帧的 options
+const allOptions = [];
+
+for (let frame = 0; frame &lt; FRAMES; frame++) {
+  // 逐步增加K线数量：从 INITIAL_CANDLES 到 MAX_CANDLES
+  const candleCount = Math.min(
+    INITIAL_CANDLES + Math.floor(frame * 0.5),
+    MAX_CANDLES,
+  );
+
+  const data = fullStockData.slice(0, candleCount);
+
+  // 计算价格范围（用于固定Y轴）
+  const prices = data.flatMap((d) =&gt; [d.min, d.max]);
+  const minPrice = Math.min(...prices) * 0.98;
+  const maxPrice = Math.max(...prices) * 1.02;
+
+  const option = {
+    type: &#39;view&#39;,
+    data,
+    encode: {
+      x: &#39;time&#39;,
+      color: (d) =&gt; {
+        const trend = Math.sign(d.start - d.end);
+        return trend &gt; 0 ? &#39;下跌&#39; : trend === 0 ? &#39;不变&#39; : &#39;上涨&#39;;
+      },
+    },
+    scale: {
+      x: {
+        compare: (a, b) =&gt; new Date(a).getTime() - new Date(b).getTime(),
+      },
+      color: {
+        domain: [&#39;下跌&#39;, &#39;不变&#39;, &#39;上涨&#39;],
+        range: [&#39;#4daf4a&#39;, &#39;#999999&#39;, &#39;#e41a1c&#39;],
+      },
+    },
+    children: [
+      // K线上下影线
+      {
+        type: &#39;link&#39;,
+        encode: {
+          y: [&#39;min&#39;, &#39;max&#39;],
+        },
+        tooltip,
+      },
+      // K线实体（开盘-收盘）
+      {
+        type: &#39;interval&#39;,
+        encode: {
+          y: [&#39;start&#39;, &#39;end&#39;],
+        },
+        style: {
+          fillOpacity: 1,
+          stroke: (d) =&gt; (d.start === d.end ? &#39;#999999&#39; : undefined),
+        },
+        axis: {
+          x: {
+            title: `交易日（共 ${candleCount} 天）`,
+            labelFormatter: (d) =&gt; {
+              const date = new Date(d);
+              return `${date.getMonth() + 1}/${date.getDate()}`;
+            },
+          },
+          y: {
+            position: &#39;right&#39;,
+            title: &#39;价格（元）&#39;,
+            labelFormatter: (d) =&gt; `¥${d.toFixed(2)}`,
+          },
+        },
+        tooltip,
+      },
+    ],
+  };
+
+  allOptions.push(option);
+}
+
+// 创建图表
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  paddingLeft: 60,
+});
+
+chart.options(allOptions[0]);
+chart.render();
+
+// 播放动画
+let currentFrame = 0;
+const timer = setInterval(() =&gt; {
+  currentFrame = (currentFrame + 1) % FRAMES;
+  chart.options(allOptions[currentFrame]);
+  chart.render();
+}, 1000 / FPS);
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

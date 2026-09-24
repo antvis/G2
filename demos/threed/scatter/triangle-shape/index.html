@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>threed/scatter/triangle-shape</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/threed/scatter/triangle-shape/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="threed/scatter/triangle-shape" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>threed/scatter/triangle-shape</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/threed/scatter/triangle-shape/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { CameraType } from &#39;@antv/g&#39;;
+import { Renderer as WebGLRenderer } from &#39;@antv/g-webgl&#39;;
+import { Plugin as ThreeDPlugin } from &#39;@antv/g-plugin-3d&#39;;
+import { Plugin as ControlPlugin } from &#39;@antv/g-plugin-control&#39;;
+import { Runtime, corelib, extend } from &#39;@antv/g2&#39;;
+import { threedlib } from &#39;@antv/g2-extension-3d&#39;;
+
+// Create a WebGL renderer.
+const renderer = new WebGLRenderer();
+renderer.registerPlugin(new ThreeDPlugin());
+renderer.registerPlugin(new ControlPlugin());
+
+// Customize our own Chart with threedlib.
+const Chart = extend(Runtime, { ...corelib(), ...threedlib() });
+const chart = new Chart({
+  container: &#39;container&#39;,
+  renderer,
+  depth: 400, // Define the depth of chart.
+});
+
+chart.options({
+  type: &#39;point3D&#39;,
+  data: {
+    type: &#39;fetch&#39;,
+    value:
+      &#39;https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv&#39;,
+  },
+  encode: {
+    x: &#39;Horsepower&#39;,
+    y: &#39;Miles_per_Gallon&#39;,
+    z: &#39;Weight_in_lbs&#39;,
+    color: &#39;Origin&#39;,
+    size: &#39;Cylinders&#39;,
+    shape: &#39;triangle&#39;,
+  },
+  coordinate: { type: &#39;cartesian3D&#39; },
+  scale: { x: { nice: true }, y: { nice: true }, z: { nice: true } },
+  legend: false,
+  axis: {
+    x: { gridLineWidth: 2 },
+    y: { gridLineWidth: 2, titleBillboardRotation: -Math.PI / 2 },
+    z: { gridLineWidth: 2 },
+  },
+  style: { lineWidth: 2, fillOpacity: 0.6 },
+});
+
+chart.render().then(() =&gt; {
+  const { canvas } = chart.getContext();
+  const camera = canvas.getCamera();
+  camera.setPerspective(0.1, 5000, 45, 640 / 480);
+  camera.setType(CameraType.ORBITING);
+});
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

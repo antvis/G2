@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/rose/polar-stack</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/rose/polar-stack/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/rose/polar-stack" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/rose/polar-stack</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/rose/polar-stack/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const data = [
+  { year: &#39;2000&#39;, &#39;类型 A&#39;: 21.0, &#39;类型 B&#39;: 16, &#39;类型 C&#39;: 8 },
+  { year: &#39;2001&#39;, &#39;类型 A&#39;: 25.0, &#39;类型 B&#39;: 16, &#39;类型 C&#39;: 8 },
+  { year: &#39;2002&#39;, &#39;类型 A&#39;: 25.0, &#39;类型 B&#39;: 15, &#39;类型 C&#39;: 8 },
+  { year: &#39;2003&#39;, &#39;类型 A&#39;: 25.0, &#39;类型 B&#39;: 14, &#39;类型 C&#39;: 7 },
+  { year: &#39;2004&#39;, &#39;类型 A&#39;: 25.0, &#39;类型 B&#39;: 14, &#39;类型 C&#39;: 7 },
+  { year: &#39;2005&#39;, &#39;类型 A&#39;: 24.0, &#39;类型 B&#39;: 13, &#39;类型 C&#39;: 8 },
+  { year: &#39;2006&#39;, &#39;类型 A&#39;: 24.0, &#39;类型 B&#39;: 14, &#39;类型 C&#39;: 7 },
+  { year: &#39;2007&#39;, &#39;类型 A&#39;: 26.0, &#39;类型 B&#39;: 16, &#39;类型 C&#39;: 7 },
+  { year: &#39;2008&#39;, &#39;类型 A&#39;: 26.0, &#39;类型 B&#39;: 15.2, &#39;类型 C&#39;: 8 },
+  { year: &#39;2009&#39;, &#39;类型 A&#39;: 27.1, &#39;类型 B&#39;: 15.2, &#39;类型 C&#39;: 10 },
+  { year: &#39;2010&#39;, &#39;类型 A&#39;: 27.5, &#39;类型 B&#39;: 15.4, &#39;类型 C&#39;: 8 },
+  { year: &#39;2011&#39;, &#39;类型 A&#39;: 26.4, &#39;类型 B&#39;: 15.2, &#39;类型 C&#39;: 9 },
+  { year: &#39;2012&#39;, &#39;类型 A&#39;: 28.8, &#39;类型 B&#39;: 15.4, &#39;类型 C&#39;: 9 },
+  { year: &#39;2013&#39;, &#39;类型 A&#39;: 33.3, &#39;类型 B&#39;: 16.7, &#39;类型 C&#39;: 12 },
+  { year: &#39;2014&#39;, &#39;类型 A&#39;: 38.2, &#39;类型 B&#39;: 19.5, &#39;类型 C&#39;: 18 },
+];
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+  width: 720,
+  height: 720,
+});
+
+chart.options({
+  type: &#39;interval&#39;,
+  coordinate: { type: &#39;polar&#39;, innerRadius: 0.1 },
+  interaction: {
+    tooltip: {
+      body: false,
+      crosshairsStroke: &#39;red&#39;,
+      crosshairsStrokeWidth: 4,
+    },
+    elementHighlight: true,
+  },
+  data: {
+    value: data,
+    transform: [
+      {
+        type: &#39;fold&#39;,
+        fields: [&#39;类型 A&#39;, &#39;类型 B&#39;, &#39;类型 C&#39;],
+        key: &#39;难民类型&#39;,
+        value: &#39;count&#39;,
+      },
+    ],
+  },
+  encode: { x: &#39;year&#39;, y: &#39;count&#39;, color: &#39;难民类型&#39; },
+  scale: { x: { padding: 0 } },
+  style: {
+    lineWidth: 1,
+    stroke: &#39;#fff&#39;,
+  },
+  transform: [{ type: &#39;stackY&#39; }],
+  axis: {
+    x: {
+      line: true,
+      grid: true,
+      gridLineDash: [0, 0],
+      gridLineWidth: 1,
+    },
+    y: {
+      title: false,
+      line: true,
+      gridLineWidth: 1,
+    },
+  },
+  legend: {
+    color: {
+      position: &#39;bottom&#39;,
+      layout: {
+        justifyContent: &#39;center&#39;,
+      },
+    },
+  },
+  state: {
+    active: { stroke: &#39;black&#39;, lineWidth: 1, zIndex: 101 },
+    inactive: { opacity: 0.5, zIndex: 100 },
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>

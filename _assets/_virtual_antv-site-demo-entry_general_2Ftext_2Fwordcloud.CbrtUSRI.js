@@ -1,0 +1,1 @@
+import{t as e}from"./src.D4g-sLQa.js";var t=new e({container:`container`,autoFit:!0,paddingTop:40});t.options({type:`wordCloud`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/philosophy-word.json`},layout:{spiral:`rectangular`,fontSize:[20,100]},encode:{color:`text`}}),t.render();

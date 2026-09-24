@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>general/dual/multi-line-sync</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/general/dual/multi-line-sync/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><style>:root{color-scheme:light}[data-astro-cid-o757cfz7]{box-sizing:border-box}html,body{min-height:100%;margin:0}body{color:#1d2129;background:#fff;padding:16px}#container[data-astro-cid-o757cfz7]{width:100%;min-height:320px}html.embedded-demo{overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] body{height:100dvh;padding:0;overflow:hidden}.embedded-demo[data-astro-cid-o757cfz7] #demo-source[data-astro-cid-o757cfz7]{display:none}.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{opacity:0;height:100%;min-height:0;transition:opacity .16s ease-out}.embedded-demo[data-astro-cid-o757cfz7].preview-ready #container[data-astro-cid-o757cfz7]{opacity:1}@media (prefers-reduced-motion:reduce){.embedded-demo[data-astro-cid-o757cfz7] #container[data-astro-cid-o757cfz7]{transition:none}}#container[data-astro-cid-o757cfz7] canvas[data-astro-cid-o757cfz7],#container[data-astro-cid-o757cfz7] svg[data-astro-cid-o757cfz7]{display:block}#demo-error[data-astro-cid-o757cfz7]{color:#a8071a;white-space:pre-wrap;background:#fff2f0;border:1px solid #ffccc7;border-radius:8px;margin:0;padding:16px}
+</style></head><body data-demo-key="general/dual/multi-line-sync" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>general/dual/multi-line-sync</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/general/dual/multi-line-sync/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+function syncTicksOfDomainsFromZero(scales) {
+  scales.forEach((scale) =&gt; scale.update({ nice: true }));
+  const normalize = (d) =&gt; d / Math.pow(10, Math.ceil(Math.log(d) / Math.LN10));
+  const maxes = scales.map((scale) =&gt; scale.getOptions().domain[1]);
+  const normalized = maxes.map(normalize);
+  const normalizedMax = Math.max(...normalized);
+  for (let i = 0; i &lt; scales.length; i++) {
+    const scale = scales[i];
+    const domain = scale.getOptions().domain;
+    const t = maxes[i] / normalized[i];
+    const newDomainMax = normalizedMax * t;
+    scale.update({ domain: [domain[0], newDomainMax] });
+  }
+}
+
+const data = [
+  {
+    Month: &#39;Jan&#39;,
+    Evaporation: 2,
+    Precipitation: 2.6,
+    Temperature: 2,
+  },
+  {
+    Month: &#39;Feb&#39;,
+    Evaporation: 4.9,
+    Precipitation: 5.9,
+    Temperature: 2.2,
+  },
+  {
+    Month: &#39;Mar&#39;,
+    Evaporation: 7,
+    Precipitation: 9,
+    Temperature: 3.3,
+  },
+  {
+    Month: &#39;Apr&#39;,
+    Evaporation: 23.2,
+    Precipitation: 26.4,
+    Temperature: 4.5,
+  },
+  {
+    Month: &#39;May&#39;,
+    Evaporation: 25.6,
+    Precipitation: 28.7,
+    Temperature: 6.3,
+  },
+  {
+    Month: &#39;Jun&#39;,
+    Evaporation: 76.7,
+    Precipitation: 70.7,
+    Temperature: 10.2,
+  },
+  {
+    Month: &#39;Jul&#39;,
+    Evaporation: 135.6,
+    Precipitation: 175.6,
+    Temperature: 20.3,
+  },
+  {
+    Month: &#39;Aug&#39;,
+    Evaporation: 162.2,
+    Precipitation: 182.2,
+    Temperature: 23.4,
+  },
+  {
+    Month: &#39;Sep&#39;,
+    Evaporation: 32.6,
+    Precipitation: 48.7,
+    Temperature: 23,
+  },
+  {
+    Month: &#39;Oct&#39;,
+    Evaporation: 20,
+    Precipitation: 18.8,
+    Temperature: 16.5,
+  },
+  {
+    Month: &#39;Nov&#39;,
+    Evaporation: 6.4,
+    Precipitation: 6,
+    Temperature: 12,
+  },
+  {
+    Month: &#39;Dec&#39;,
+    Evaporation: 3.3,
+    Precipitation: 2.3,
+    Temperature: 6.2,
+  },
+];
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+chart.options({
+  type: &#39;view&#39;,
+  data: data,
+  children: [
+    {
+      type: &#39;line&#39;,
+      encode: {
+        x: &#39;Month&#39;,
+        y: &#39;Temperature&#39;,
+        color: &#39;#EE6666&#39;,
+        shape: &#39;smooth&#39;,
+      },
+      scale: {
+        y: {
+          independent: true,
+          groupTransform: syncTicksOfDomainsFromZero,
+        },
+      },
+      axis: {
+        y: {
+          title: &#39;Temperature (°C)&#39;,
+          grid: null,
+          titleFill: &#39;#EE6666&#39;,
+        },
+      },
+    },
+    {
+      type: &#39;interval&#39;,
+      encode: { x: &#39;Month&#39;, y: &#39;Evaporation&#39;, color: &#39;#5470C6&#39; },
+      scale: { y: { independent: true } },
+      style: { fillOpacity: 0.8 },
+      axis: {
+        y: {
+          position: &#39;right&#39;,
+          title: &#39;Evaporation (ml)&#39;,
+          titleFill: &#39;#5470C6&#39;,
+        },
+      },
+    },
+    {
+      type: &#39;line&#39;,
+      encode: { x: &#39;Month&#39;, y: &#39;Precipitation&#39;, color: &#39;#91CC75&#39; },
+      scale: { y: { independent: true } },
+      style: { lineWidth: 2, lineDash: [2, 2] },
+      axis: {
+        y: {
+          position: &#39;right&#39;,
+          title: &#39;Precipitation (ml)&#39;,
+          grid: null,
+          titleFill: &#39;#91CC75&#39;,
+        },
+      },
+    },
+  ],
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.BIwX8cuU.js"></script></body></html>
