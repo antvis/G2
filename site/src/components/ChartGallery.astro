@@ -14,7 +14,7 @@ const filters = [
 ---
 <section data-chart-gallery class:list={[
   '[&_.anticon]:inline-flex [&_.anticon]:shrink-0 [&_.anticon_svg]:block',
-  !mode && 'order-first [.markdown-body:has(&)]:flex [.markdown-body:has(&)]:flex-col [.markdown-body:has(&)]:w-full [.markdown-body:has(&)]:min-w-0 [.markdown-body:has(&)]:px-6 [.markdown-body:has(&)]:pt-0 [.markdown-body:has(&)>.document-title]:sr-only',
+  !mode && 'order-first [.markdown-body:has(&)]:[grid-column:2/-1] [.markdown-body:has(&)]:flex [.markdown-body:has(&)]:flex-col [.markdown-body:has(&)]:w-full [.markdown-body:has(&)]:min-w-0 [.markdown-body:has(&)]:px-6 [.markdown-body:has(&)]:pt-0 [.markdown-body:has(&)>.document-title]:sr-only',
 ]}>
   {!mode && <>
     <header class="relative mb-8 overflow-hidden bg-[linear-gradient(135deg,#667eea_0%,#764ba2_25%,#8e44ad_50%,#9b59b6_75%,#e74c3c_100%)] px-6 py-10 text-center before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(45deg,rgba(156,39,176,0.1),rgba(103,58,183,0.1),rgba(63,81,181,0.1))]">
