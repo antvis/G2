@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>style/graphic/text</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/style/graphic/text/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><link rel="stylesheet" href="/_assets/_..DxPwnJ6h.css"></head><body data-demo-key="style/graphic/text" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>style/graphic/text</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/style/graphic/text/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  height: 350,
+});
+
+chart.options({
+  type: &#39;liquid&#39;,
+  autoFit: true,
+  data: 0.581,
+  style: {
+    waveLength: 50,
+    contentText: &#39;center text&#39;,
+    outlineBorder: 4,
+    outlineDistance: 8,
+    // 绘图属性
+    contentFontSize: 30,
+    contentFontFamily: &#39;sans-serif&#39;,
+    contentFontWeight: 500,
+    contentLineHeight: 20,
+    contentTextAlign: &#39;center&#39;,
+    contentTextBaseline: &#39;middle&#39;,
+    contentFill: &#39;#fff&#39;,
+    contentFillOpacity: 0.9,
+    contentStroke: &#39;yellow&#39;,
+    contentStrokeOpacity: 0.9,
+    contentLineWidth: 2,
+    contentLineDash: [4, 8],
+    contentOpacity: 1,
+    contentShadowColor: &#39;#d3d3d3&#39;,
+    contentShadowBlur: 10,
+    contentShadowOffsetX: 10,
+    contentShadowOffsetY: 10,
+    contentCursor: &#39;pointer&#39;,
+    contentDx: 10,
+    contentDy: 10,
+  },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.DkTHiLqW.js"></script></body></html>

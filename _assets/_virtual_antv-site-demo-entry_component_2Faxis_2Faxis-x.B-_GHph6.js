@@ -1,0 +1,1 @@
+import{t as e}from"./src.BS2XwMg_.js";var t=new e({container:`container`,height:80});t.options({type:`axisX`,scale:{x:{type:`linear`,domain:[5,10],range:[0,1]}},tickCount:10,title:`AxisX`}),t.render();

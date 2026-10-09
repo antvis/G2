@@ -1,0 +1,1 @@
+import{t as e}from"./src.BS2XwMg_.js";import{u as t}from"./esm.C-l5cjT5.js";var n=new e({container:`container`});n.options({type:t,data:[{price:100,type:`A`},{price:120,type:`B`},{price:150,type:`C`}]}),n.render();

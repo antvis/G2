@@ -1,0 +1,1 @@
+export{t as threedlib}from"./esm.CkB5_bex.js";

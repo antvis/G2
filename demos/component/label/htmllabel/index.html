@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>component/label/htmllabel</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/component/label/htmllabel/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><link rel="stylesheet" href="/_assets/_..DxPwnJ6h.css"></head><body data-demo-key="component/label/htmllabel" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>component/label/htmllabel</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/component/label/htmllabel/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({
+  container: &#39;container&#39;,
+  autoFit: true,
+});
+
+const data = [
+  { repo: &#39;G&#39;, star: 918 },
+  { repo: &#39;G2&#39;, star: 11688 },
+  { repo: &#39;G6&#39;, star: 10045 },
+  { repo: &#39;L7&#39;, star: 3125 },
+  { repo: &#39;F2&#39;, star: 7820 },
+  { repo: &#39;S2&#39;, star: 1231 },
+  { repo: &#39;X6&#39;, star: 4755 },
+];
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: data,
+  encode: { x: &#39;repo&#39;, y: &#39;star&#39;, color: &#39;repo&#39; },
+  labels: [
+    {
+      text: &#39;star&#39;,
+      render: (text, datum) =&gt; {
+        return `
+        &lt;div style=&quot;left:-50%;top:-20px;position:relative;font-size:14px;&quot;&gt;
+          &lt;span&gt;${datum.repo}&lt;/span&gt;
+          :
+          &lt;a href=&quot;https://github.com/antvis/${datum.repo}&quot; target=&quot;_blank&quot;&gt;${datum.star}&lt;/a&gt;
+        &lt;/div&gt;
+      `;
+      },
+    },
+  ],
+  legend: false,
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.DkTHiLqW.js"></script></body></html>

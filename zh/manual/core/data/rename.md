@@ -1,0 +1,48 @@
+---
+title: "rename"
+description: "rename"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/manual/core/data/rename/"
+version: "5.4.8"
+---
+
+重命名数据中的一些字段。
+
+## 开始使用
+
+```ts
+const data = [
+  { a: 1, b: 2, c: 3 },
+  { a: 4, b: 5, c: 6 },
+];
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'rename',
+        a: 'x',
+        b: 'y',
+      },
+    ],
+  },
+});
+```
+
+上述例子处理之后，数据变成为：
+
+```js
+[
+  { x: 1, y: 2, c: 3 },
+  { x: 4, y: 5, c: 6 },
+];
+```
+
+## 选项
+
+| 属性  | 描述                                   | 类型     | 默认值 |
+| ----- | -------------------------------------- | -------- | ------ |
+| [key] | 重命名数据中的字段 [key] 为 指定的名称 | `string` |        |

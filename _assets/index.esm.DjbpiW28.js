@@ -1,0 +1,1 @@
+export{t as loadAnimation}from"./index.esm.BXunxPPo.js";

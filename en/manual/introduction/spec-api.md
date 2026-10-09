@@ -1,0 +1,104 @@
+---
+title: "Spec and API"
+description: "Compare G2 Spec with the fluent API, including property mappings, single marks, composed views, configuration reuse, and data updates."
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/manual/introduction/spec-api/"
+version: "5.4.8"
+---
+
+G2 recommends **Spec**: describe data, encodings, styles, and views in a JavaScript object, then submit it with `chart.options(spec)`. The fluent API builds the same view tree through property setters and node creation. Both use the same rendering pipeline.
+
+Spec makes complete configurations easy to copy, compose, and inspect. Understanding the mapping helps when reading or migrating existing API code. Spec can contain accessors and callbacks; it is not limited to JSON, and `JSON.stringify` loses function values.
+
+## Two ways to configure a chart
+
+The recommended Spec form:
+
+```js
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({ container: 'container' });
+const data = [
+  { genre: 'Sports', sold: 275 },
+  { genre: 'Strategy', sold: 115 },
+];
+
+chart.options({
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  transform: [{ type: 'sortX', by: 'y', reverse: true }],
+  labels: [{ text: 'sold', position: 'top' }],
+  tooltip: { items: ['sold'] },
+  style: { radiusTopLeft: 4, radiusTopRight: 4 },
+});
+chart.render();
+```
+
+Keep the initialization and data above, and replace `chart.options(...)` and `chart.render()` with this equivalent fluent API configuration:
+
+```js
+chart
+  .interval()
+  .data(data)
+  .encode('x', 'genre')
+  .encode('y', 'sold')
+  .encode('color', 'genre')
+  .transform({ type: 'sortX', by: 'y', reverse: true })
+  .label({ text: 'sold', position: 'top' })
+  .tooltip({ items: ['sold'] })
+  .style('radiusTopLeft', 4)
+  .style('radiusTopRight', 4);
+chart.render();
+```
+
+## Property mappings
+
+In this table, `node` refers to the same mark or composition node.
+
+| Spec                                               | Fluent API                                          | Rule                                                                                    |
+| -------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `{ type: 'interval' }`                             | `parent.interval()`                                 | Creates and returns a child node.                                                       |
+| `{ encode: { x: 'year', y: 'value' } }`            | `node.encode('x', 'year').encode('y', 'value')`     | Combines keys; the last assignment to a key wins.                                       |
+| `{ axis: { x: false } }`                           | `node.axis('x', false)`                             | Preserves channel scope; this is different from `axis: false`.                          |
+| `{ style: { fill: 'red' } }`                       | `node.style({ fill: 'red' })`                       | Passing an object replaces the property; passing a key updates that key.                |
+| `{ interaction: { tooltip: true } }`               | `node.interaction('tooltip')`                       | A single string argument to an object setter sets that key to `true`.                   |
+| `{ transform: [a, b] }`                            | `node.transform(a).transform(b)`                    | Single items append; arrays replace. Preserve ordering.                                 |
+| `{ labels: [a, b] }`                               | `node.label(a).label(b)`                            | Spec uses plural `labels`; the API uses singular `label`.                               |
+| `{ tooltip: { items: ['value'] } }`                | `node.tooltip(['value'])`                           | Arrays become `items`; individual fields or callbacks append to `items`.                |
+| `{ tooltip: false }`                               | `node.tooltip(false)`                               | Preserve `false` and `null`; neither means an empty object or array.                    |
+| `{ padding: 20 }`                                  | `node.attr('padding', 20)`                          | Use `attr` for properties without a dedicated setter.                                   |
+
+Single-value properties such as `data` and `title` map directly to methods with the same name. Object properties such as `scale`, `axis`, `legend`, `state`, and `theme` follow the same distinction as `style` between updating a key and replacing the whole object.
+
+## Hierarchy and composition
+
+For a single mark, use a mark type such as `interval` directly without a `view` wrapper. Use `viewStyle` for view styles and `style` for mark styles. Use `type: 'view'` and `children` when multiple marks share a view.
+
+Each node in `children` maps to a creation call on its parent. Preserve configuration scope and node order. Root composition calls such as `chart.spaceFlex()` map to the root Spec type `spaceFlex`, without an additional `view` wrapper.
+
+Use object spreads, factories, and `map` to reuse Spec configurations instead of the API's `.call(configure)`. When generating marks in a loop, collect all `children` before submitting the configuration; submitting one child at a time replaces earlier children.
+
+## Updates and runtime operations
+
+After modifying a Spec, submit it and render again:
+
+```js
+const spec = {
+  type: 'interval',
+  data,
+  encode: { x: 'genre', y: 'sold' },
+};
+chart.options(spec);
+chart.render();
+
+async function update(nextData) {
+  spec.data = nextData;
+  chart.options(spec);
+  await chart.render();
+}
+```
+
+`chart.options()` reads the configuration, `chart.options(spec)` submits it, and `chart.render()` renders it. Submission merges properties and rebuilds supplied subtrees rather than clearing all previous configuration. Event callbacks should avoid retaining old mark nodes that have been replaced.
+
+Keep the container, renderer, and plugins in `new Chart(...)`. Continue using Chart methods for event listeners, queries, and destruction.

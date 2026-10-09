@@ -1,0 +1,1 @@
+import{t as e}from"./src.BS2XwMg_.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`liquid`,data:.3,style:{backgroundFill:`pink`}}),t.render();

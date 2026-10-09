@@ -1,0 +1,73 @@
+---
+title: "timingKeyframe"
+description: "timingKeyframe"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/manual/core/composition/timing-keyframe/"
+version: "5.4.8"
+---
+
+Execute continuous transition animations between different views. Use `mark.key` and `mark.groupKey` to associate graphics.
+
+## Getting Started
+
+<img src="https://gw.alipayobjects.com/zos/raptor/1669043493952/point-keyframe.gif" width=640 alt="keyframe"/>
+
+```js
+fetch(
+  'https://gw.alipayobjects.com/os/bmw-prod/fbe4a8c1-ce04-4ba3-912a-0b26d6965333.json',
+)
+  .then((res) => res.json())
+  .then((data) => {
+    const chart = new Chart({
+      container: 'container',
+      paddingTop: 60,
+      paddingLeft: 100,
+    });
+
+    chart.options({
+      type: 'timingKeyframe',
+      direction: 'alternate',
+      iterationCount: 4,
+      children: [
+        {
+          // Bar chart
+          type: 'interval',
+          data: data,
+          transform: [{ type: 'groupX', y: 'mean' }],
+          encode: {
+            x: 'gender',
+            y: 'weight',
+            color: 'gender',
+            // Specify key
+            key: 'gender',
+          },
+        },
+        {
+          // Scatter plot
+          type: 'point',
+          data: data,
+          encode: {
+            x: 'height',
+            y: 'weight',
+            color: 'gender',
+
+            // Specify the key for the merged bars
+            groupKey: 'gender',
+            shape: 'point',
+          },
+        },
+      ],
+    });
+
+    chart.render();
+  });
+```
+
+## Options
+
+| Property       | Description                                                   | Type     | Default    |
+| -------------- | ------------------------------------------------------------- | -------- | ---------- |
+| duration       | Animation transition time for each view                       | `number` | 1000       |
+| iterationCount | `'infinite' \| number`                                        |          | 1          |
+| direction      | `'normal' \| 'reverse' \| 'alternate' \| 'reverse-alternate'` | `number` | `'normal'` |
+| children       | View nodes that execute animations                            | `Node[]` | `[]`       |

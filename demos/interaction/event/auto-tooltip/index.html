@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>interaction/event/auto-tooltip</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/interaction/event/auto-tooltip/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><link rel="stylesheet" href="/_assets/_..DxPwnJ6h.css"></head><body data-demo-key="interaction/event/auto-tooltip" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>interaction/event/auto-tooltip</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/interaction/event/auto-tooltip/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>import { Chart, ChartEvent } from &#39;@antv/g2&#39;;
+
+const chart = new Chart({ container: &#39;container&#39; });
+
+chart.options({
+  type: &#39;interval&#39;,
+  data: [
+    { genre: &#39;Sports&#39;, sold: 0 },
+    { genre: &#39;Strategy&#39;, sold: 115 },
+    { genre: &#39;Action&#39;, sold: 120 },
+    { genre: &#39;Shooter&#39;, sold: 350 },
+    { genre: &#39;Other&#39;, sold: 150 },
+  ],
+  encode: { x: &#39;genre&#39;, y: &#39;sold&#39;, color: &#39;genre&#39; },
+  style: { minHeight: 50 },
+});
+
+chart.on(ChartEvent.AFTER_RENDER, () =&gt;
+  chart.emit(&#39;tooltip:show&#39;, {
+    data: {
+      data: {
+        genre: &#39;Action&#39;,
+        sold: 120,
+      },
+    },
+    offsetY: 100,
+  }),
+);
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.DkTHiLqW.js"></script></body></html>

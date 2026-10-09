@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-o757cfz7><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>analysis/process/column-data-format</title><link rel="canonical" href="https://g2.antv.antgroup.com/zh/examples/analysis/process/column-data-format/"><script>
+      // Set the embedded layout before parsing the readable source below.
+      if (window.parent !== window) document.documentElement.classList.add('embedded-demo');
+    </script><link rel="stylesheet" href="/_assets/_..DxPwnJ6h.css"></head><body data-demo-key="analysis/process/column-data-format" data-astro-cid-o757cfz7><section id="demo-source" data-astro-cid-o757cfz7><h1 data-astro-cid-o757cfz7>analysis/process/column-data-format</h1><p data-astro-cid-o757cfz7><a href="/zh/examples/analysis/process/column-data-format/" data-astro-cid-o757cfz7>Example page</a></p><pre data-astro-cid-o757cfz7><code data-astro-cid-o757cfz7>/**
+ * The column-major data format example.
+ * Instead of passing row-major data (array of objects),
+ * you can now pass column-major data (object with arrays).
+ */
+
+import { Chart } from &#39;@antv/g2&#39;;
+
+const container = document.getElementById(&#39;container&#39;);
+const chart = new Chart({
+  container,
+  width: 640,
+  height: 480,
+});
+
+// Column-major data format
+const columnData = {
+  &#39;Sepal.Length&#39;: [5.1, 4.9, 4.7, 4.6, 5, 5.4],
+  &#39;Sepal.Width&#39;: [3.5, 3, 3.2, 3.1, 3.6, 3.9],
+  &#39;Petal.Length&#39;: [1.4, 1.4, 1.3, 1.5, 1.4, 1.7],
+  &#39;Petal.Width&#39;: [0.2, 0.2, 0.2, 0.2, 0.2, 0.4],
+  Species: [&#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;, &#39;setosa&#39;],
+};
+
+chart.options({
+  type: &#39;point&#39;,
+  data: {
+    type: &#39;column&#39;,
+    value: columnData,
+  },
+  encode: { x: &#39;Sepal.Length&#39;, y: &#39;Sepal.Width&#39;, color: &#39;Species&#39; },
+});
+
+chart.render();
+</code></pre></section><div id="container" data-astro-cid-o757cfz7></div><pre id="demo-error" hidden data-astro-cid-o757cfz7></pre><script type="module" src="/_assets/_...key_.astro_astro_type_script_index_0_lang.DkTHiLqW.js"></script></body></html>
