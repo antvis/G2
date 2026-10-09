@@ -556,6 +556,7 @@ export function brushHighlight(
   const brushStyle = subObject(rest, 'mask');
   const { setState, removeState } = useState(state, valueof);
   const clonedElement = new Map();
+  let seriesClipPath: Rect | undefined;
   const {
     width: rootWidth,
     height: rootHeight,
@@ -617,6 +618,8 @@ export function brushHighlight(
     for (const element of elements) removeState(element, 'inactive');
     for (const cloned of clonedElement.values()) cloned.remove();
     clonedElement.clear();
+    seriesClipPath?.remove();
+    seriesClipPath = undefined;
   };
 
   const seriesBrushed = (x, y, x1, y1) => {
@@ -628,20 +631,23 @@ export function brushHighlight(
       return cloned;
     };
 
-    // Create a clipPath shared between all children.
-    const clipPath = new Rect({
-      style: {
-        x: x + ordinalX,
-        y: y + ordinalY,
-        width: x1 - x,
-        height: y1 - y,
-      },
-    });
-    root.appendChild(clipPath);
+    // Reuse a clipPath shared between all children until the brush is removed.
+    const clipPathStyle = {
+      x: x + ordinalX,
+      y: y + ordinalY,
+      width: x1 - x,
+      height: y1 - y,
+    };
+    if (seriesClipPath) {
+      seriesClipPath.attr(clipPathStyle);
+    } else {
+      seriesClipPath = new Rect({ style: clipPathStyle });
+      root.appendChild(seriesClipPath);
+    }
 
     for (const element of elements) {
       const cloned = clonedElement.get(element) || clone(element);
-      cloned.style.clipPath = clipPath;
+      cloned.style.clipPath = seriesClipPath;
       setState(element, 'inactive');
       setState(cloned, 'active');
     }
