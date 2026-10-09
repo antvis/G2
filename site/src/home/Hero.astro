@@ -7,7 +7,9 @@ const { locale, config } = Astro.props as HomeSlotProps;
 const isZh = locale === 'zh';
 ---
 
-<div class="overflow-x-clip px-8 pb-6 [background:linear-gradient(145deg,#f5f7ff,#fbfcff_65%,#fff)] [@media(width<=760px)]:px-5 [body:has(&)]:[background:#fff] [.site-canvas:has(&)]:[background:#fff]">
+<div class="relative isolate overflow-x-clip bg-white px-8 pb-6 [@media(width<=760px)]:px-5 [body:has(&)]:[background:#fff] [.site-canvas:has(&)]:[background:#fff]">
+  <!-- End the background halfway through the 150px update cards: 210px updates area + 24px bottom padding - 75px. -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 bottom-[159px] -z-1 [background:linear-gradient(145deg,#f5f7ff,#fbfcff_65%,#fff)]"></div>
   <section class="relative mx-auto max-w-[1360px] pt-[68px] text-center [@media(width<=760px)]:pt-10 [&_antv-qa]:relative [&_antv-qa]:mx-auto [&_antv-qa]:mt-7 [&_antv-qa]:mb-0" aria-labelledby="g2-home-title">
     <img class="pointer-events-none absolute -top-10 -right-20 h-auto w-[32%] max-w-none object-contain [@media(width<=1100px)]:top-0 [@media(width<=1100px)]:-right-12 [@media(width<=1100px)]:w-[260px] [@media(width<=760px)]:hidden" src={config.home.image} alt="" decoding="async" />
     <h1 id="g2-home-title" class="relative z-1 m-0 text-[clamp(32px,3.5vw,52px)] leading-[1.2] font-semibold tracking-[-1.6px] [@media(width<=760px)]:text-[32px] [@media(width<=760px)]:tracking-[-1px]"><span class="text-[var(--brand)]">G2</span> · {isZh ? '可视化语法' : 'Grammar of Graphics'}</h1>

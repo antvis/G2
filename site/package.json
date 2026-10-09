@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.3",
-    "@antv/astro-theme-antv": "^0.1.0-beta.8",
+    "@antv/astro-theme-antv": "^0.1.0-beta.9",
     "@antv/data-set": "^0.11.8",
     "@antv/g-lottie-player": "^1.0.32",
     "@antv/g-pattern": "^2.0.32",

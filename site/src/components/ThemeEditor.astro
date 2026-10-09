@@ -1,4 +1,11 @@
 ---
+import { Loading } from '@antv/astro-theme-antv/components';
 import ThemeEditor from '../theme-editor';
+
+const locale = Astro.params.locale === 'en' ? 'en' : 'zh';
 ---
-<ThemeEditor client:only="react" />
+<ThemeEditor client:only="react">
+  <div slot="fallback" class="grid min-h-[calc(100dvh_-_var(--header-height))] place-items-center">
+    <Loading locale={locale} />
+  </div>
+</ThemeEditor>
