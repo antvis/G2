@@ -16,7 +16,7 @@ The core characteristics of ordinal scales are:
 - Output values are also discrete (can be any type, such as colors, shapes, etc.)
 - Preserves the order of input data but not the proportional relationships between data points
 
-In G2, ordinal scales are most commonly used to map categorical data to visual attributes such as colors and shapes. When no scale type is explicitly declared, G2 applies ordinal scales by default for categorical data.
+In G2, ordinal scales are most commonly used to map categorical data to visual attributes such as colors and shapes. Scale inference depends on both the mark and the channel. For `interval`, the `x` channel and the grouping `series` channel need [band](/en/manual/core/scale/band/) scales to provide bandwidth; do not replace them with ordinal or point scales. Categorical color and shape can use ordinal scales. Transposing coordinates does not change these channel requirements.
 
 ### Mapping Principles
 

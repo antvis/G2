@@ -5,6 +5,8 @@ order: 2
 
 Custom data processing logic that allows users to define their own operation methods.
 
+`custom` is a transform in `data.transform`, not a connector replacing `inline` or `fetch`. Its callback receives the previous step’s data and returns the next step’s data. Do not assign the callback directly to an ordinary mark’s `data`.
+
 ## Getting Started
 
 ```ts

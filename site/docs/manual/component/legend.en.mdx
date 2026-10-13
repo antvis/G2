@@ -901,6 +901,10 @@ In the Legend component, when configuring legend item markers, it's not configur
 
 ### itemLabel
 
+In `itemLabelText(datum, index, data)`, `datum` is a legend item, not an original chart row. G2's generated category legend items contain `id` (the category value), `label` (formatted by `labelFormatter`), and `color`. `index` and `data` refer to the legend item index and legend item array. Do not assume `datum.value` or original row fields are present.
+
+Keep the default label if it already meets your needs. A custom label should return a string, for example `legend: { color: { itemLabelText: (item) => String(item.label) } }`. Avoid returning `undefined` or an entire object. This contract applies to category legends, not continuous legends.
+
 &lt;description&gt; _LegendItemLabelCfg_ **optional** &lt;/description&gt;
 
 Applicable to <Badge type="success">Categorical Legend</Badge>. Configure legend item labels. _LegendItemLabelCfg_ configuration:
