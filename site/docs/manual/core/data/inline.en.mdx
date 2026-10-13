@@ -30,7 +30,7 @@ chart.options({
 });
 ```
 
-Since the default data type in G2 is `inline`, it can also be abbreviated as follows:
+When the data is an array and no data transforms are needed, use this shorthand:
 
 ```js
 chart.options({
@@ -55,31 +55,28 @@ Here is an example:
 
 | Property  | Description                | Type                                                         | Default |
 | --------- | -------------------------- | ------------------------------------------------------------ | ------- |
-| value     | Specific object array data | object[]                                                     | []      |
+| value     | Array or object supported by the mark | any                                                          | []      |
 | transform | Transform for inline data  | [DataTransform](/en/manual/core/data/overview/#datatransform) | []      |
 
 This data source is relatively simple, equivalent to the passed-in data being directly used as the data source for transform processing, and then going through the rendering logic.
 
-⚠️ G2 supports some graph data structures, which are JavaScript Object types. When using abbreviated syntax, it may cause G2 to misidentify them. Therefore, if the chart data is an Object, it is recommended to use the complete syntax to pass in the data.
+## Replacing remote data with local data
+
+An object assigned to `data` is read as connector configuration. After loading a `fetch` result into a local variable, use `{ type: 'inline', value: localData }`. Do not assign a tree root or `{ nodes, links }` directly to `data`. The shorthand above applies to arrays without transforms.
 
 ```js
 const graphData = {
-  nodes: [
-    /** */
-  ],
-  edges: [
-    /** */
-  ],
+  nodes: [{ id: 'A' }, { id: 'B' }],
+  links: [{ source: 'A', target: 'B' }],
 };
 
-// ❌ Not recommended, G2 may misidentify during processing
-
 chart.options({
-  type: 'view',
-  data: {
-    // ✅ Recommended complete syntax, clearer semantics, avoids identification errors due to ambiguity
-    type: 'inline',
-    value: graphData,
-  },
+  type: 'forceGraph',
+  data: { type: 'inline', value: graphData },
+  encode: { nodeColor: 'id' },
 });
 ```
+
+`inline` passes data through; it does not convert an object into a table. The value must still match the target mark's structure, such as nodes and links for a graph or a tree for a hierarchy. When replacing `fetch`, retain any `data.transform` steps that still apply and check field names and nesting.
+
+For ordinary marks, `data` does not accept an arbitrary `(previousData) => nextData` function. Compute an array first or use a [custom](/en/manual/core/data/custom/) transform in `data.transform`. See [data configuration levels](/en/manual/core/data/overview/) for view inheritance.

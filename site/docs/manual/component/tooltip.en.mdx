@@ -265,11 +265,26 @@ The complete item structure is as follows:
 | color | `string` | Marker color |
 | field | `string` | Define the field for generating item |
 | name | `string` | Item name |
-| value | `string` | Item value |
 | channel | `string` | Define the channel for generating item value |
 | valueFormatter | `string` \| `Function` | Format item |
 
-**The `value`, `channel`, and `valueFormatter` properties of `items` are configured the same way as `title`. For detailed configuration, please refer to [title](#title)**
+Object items select data through `field` or `channel` and format it through `valueFormatter`. To specify a `value` directly, return `{ name, value }` from a function item.
+
+**Callback parameters and return values**
+
+An object item's `valueFormatter(value)` receives only the value selected by `field` or `channel` and returns a display string. There is no second row-data argument. To read multiple fields, use a function inside `items`: `(datum, index, data, column) => ({ name, value, color? })`. Here `datum` is the current mark's record, `data` is its data array, and `column` contains encoding channel information. Data transforms or composite mark layouts may change the record from the original input.
+
+```js
+// Format one field.
+const formattedItem = { field: 'amount', valueFormatter: (value) => `$${value}` };
+// Read multiple fields and return a tooltip item.
+const recordItem = (datum) => ({
+  name: 'Range',
+  value: `${datum.start}–${datum.end}`,
+});
+// Use on a mark with amount, start, and end fields:
+// tooltip: { items: [formattedItem, recordItem] }
+```
 
 **Name**
 

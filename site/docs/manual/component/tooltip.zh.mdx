@@ -256,17 +256,32 @@ items 返回值可用作 `interaction.tooltip.render` 的入参，您可以设�
 
 `items` 是 tooltip 配置中的一个关键属性，`items` 是一个数组，表示工具提示中每一项的内容。每一项通常对应于一个数据字段或一个图形元素（例如柱状图的一根柱子、折线图的一个点等）。通过自定义 `items`，可以灵活地控制工具提示的显示内容，包括名称、值、颜色等信息。
 
-其中完整的 title 结构如下：
+其中对象形式的 item 结构如下：
 | 细分配置项名称 | 类型 | 功能描述 |
 | -------------- | ------ | ------------- |
 | color | `string` | marker 的颜色 |
 | field | `string` | 定义生成 item 的的字段 |
 | name | `string` | item 的名字 |
-| value | `string` | item 的值 |
 | channel | `string` | 定义生成 item 的值的通道 |
 | valueFormatter | `string` \| `Function`| 格式化 item |
 
-**`items` 的 `value`、`channel`、`valueFormatter`属性的配置方式与`title`一致，详细配置请参考[title](#title)**
+对象项通过 `field` 或 `channel` 选择数据，通过 `valueFormatter` 格式化。需要直接指定 `value` 时，在函数项中返回 `{ name, value }`。
+
+**回调参数与返回值**
+
+对象项中的 `valueFormatter(value)` 只接收由 `field` 或 `channel` 选出的单个值，返回展示字符串；没有第二个行数据参数。需要读取同一行的多个字段时，使用 `items` 数组中的函数项：`(datum, index, data, column) => ({ name, value, color? })`。这里 `datum` 是当前标记的数据记录，`data` 是当前标记的数据数组，`column` 是编码通道信息；经过数据转换或复合标记布局后，记录可能不再等于原始输入。
+
+```js
+// 单个字段的格式化。
+const formattedItem = { field: 'amount', valueFormatter: (value) => `${value} 元` };
+// 多字段内容：回调返回 tooltip 项，不返回 formatter 函数。
+const recordItem = (datum) => ({
+  name: '区间',
+  value: `${datum.start}–${datum.end}`,
+});
+// 在有 amount、start、end 字段的标记上使用：
+// tooltip: { items: [formattedItem, recordItem] }
+```
 
 **名称**
 

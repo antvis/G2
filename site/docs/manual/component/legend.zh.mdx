@@ -902,6 +902,10 @@ chart.render();
 
 ### itemLabel
 
+`itemLabelText(datum, index, data)` 中的 `datum` 是图例项，不是图表原始数据行。G2 自动生成的分类图例项包含 `id`（类别值）、`label`（经 `labelFormatter` 格式化的标签）和 `color`。`index` 和 `data` 分别对应图例项索引和图例项数组；不要假定存在 `datum.value` 或原始行字段。
+
+默认标签满足需求时无需配置回调。自定义标签应返回字符串，例如 `legend: { color: { itemLabelText: (item) => String(item.label) } }`；避免返回 `undefined` 或整个对象。这一契约适用于分类图例，不适用于连续图例。
+
 &lt;description&gt; _LegendItemLabelCfg_ **optional** &lt;/description&gt;
 
 适用于 <Badge type="success">分类图例</Badge> 。配置图例项的标签。_LegendItemLabelCfg_ 配置如下：

@@ -31,7 +31,7 @@ chart.options({
 });
 ```
 
-因为 G2 默认的数据类型就是 `inline`，所以也可以简写为如下：
+当数据是数组且无需配置数据转换时，可以简写为如下：
 
 ```js
 chart.options({
@@ -56,31 +56,28 @@ chart.options({
 
 | 属性      | 描述                         | 类型                                                      | 默认值 |
 | --------- | ---------------------------- | --------------------------------------------------------- | ------ |
-| value     | 具体的 object 数组数据       | object[]                                                  | []     |
+| value     | 数组或标记支持的对象数据       | any                                                       | []     |
 | transform | 针对数据 inline 数据进行变换 | [DataTransform](/zh/manual/core/data/overview/#datatransform) | []     |
 
 这个数据源比较简单，相当于传入的数据，直接作为数据源进行 transform 处理加工，然后走渲染逻辑。
 
-⚠️ G2 支持了一些关系图的数据结构，这些数据结构是一个 JavaScript 的 Object 类型，所以使用简写传入的时候，可能会导致 G2 识别出错，所以建议如果图表的数据是 Object 对象，使用完整的写法传入数据。
+## 将远程示例改为本地数据
+
+`data` 的对象形式会被当作连接器配置读取。把 `fetch` 的结果放到本地变量后，应改为 `{ type: 'inline', value: localData }`；不能把树根对象或 `{ nodes, links }` 直接赋给 `data`。数组且无转换时才使用上面的简写。
 
 ```js
 const graphData = {
-  nodes: [
-    /** */
-  ],
-  edges: [
-    /** */
-  ],
+  nodes: [{ id: 'A' }, { id: 'B' }],
+  links: [{ source: 'A', target: 'B' }],
 };
 
-// ❌ 不建议这么写，G2 在处理的时候可能识别出错
-
 chart.options({
-  type: 'view',
-  data: {
-    // ✅ 建议完整写法，语义更明确，不会因为歧义带来识别错误
-    type: 'inline',
-    value: graphData,
-  },
+  type: 'forceGraph',
+  data: { type: 'inline', value: graphData },
+  encode: { nodeColor: 'id' },
 });
 ```
+
+`inline` 只负责传入数据，不会把对象自动转成表格。内部结构仍需符合目标标记的要求，例如关系图的节点和边、层级图的树结构。替换 `fetch` 时，保留仍适用于新数据的 `data.transform`，并检查字段名和数据层级。
+
+普通标记的 `data` 不接收 `(previousData) => nextData` 这样的任意函数。先计算数组，或在 `data.transform` 中配置 [custom](/zh/manual/core/data/custom/) 转换。视图数据的继承规则见[数据配置层级](/zh/manual/core/data/overview/#配置层级)。
