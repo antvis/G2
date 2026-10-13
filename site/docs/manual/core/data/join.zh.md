@@ -1,5 +1,6 @@
 ---
 title: join
+description: 按关联字段连接另一组数据，将选定字段合并到当前记录中。
 order: 2
 ---
 

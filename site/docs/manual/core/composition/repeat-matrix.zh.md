@@ -1,5 +1,6 @@
 ---
 title: repeatMatrix
+description: 按字段组合重复生成子视图，构建散点图矩阵等多变量比较图表。
 order: 2
 ---
 

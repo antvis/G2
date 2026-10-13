@@ -1,5 +1,6 @@
 ---
 title: timingKeyframe
+description: 将多个视图串联为关键帧动画，配置元素对应关系、播放时长、循环和方向。
 order: 2
 ---
 

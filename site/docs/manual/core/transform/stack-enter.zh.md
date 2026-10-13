@@ -1,5 +1,6 @@
 ---
 title: stackEnter
+description: 按分组错开图形的入场动画时间，实现依次或分批出现的动画效果。
 order: 2
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: scaleOutY
+description: 沿 y 方向逐渐缩小单个图形，实现纵向收缩的退场动画。
 order: 2
 ---
 

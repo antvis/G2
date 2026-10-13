@@ -1,5 +1,6 @@
 ---
 title: forceGraph
+description: 通过力导向布局排列节点与连线，展示网络关系并配置标签和样式。
 order: 1
 ---
 

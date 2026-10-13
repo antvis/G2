@@ -1,5 +1,6 @@
 ---
 title: scaleInX
+description: 沿 x 方向逐渐放大单个图形，实现横向展开的入场动画。
 order: 2
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: fisheye
+description: 随鼠标位置动态调整鱼眼效果，放大焦点附近图形以查看密集数据。
 order: 16
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: fadeIn
+description: 通过逐渐增加图形透明度实现淡入动画。
 order: 2
 ---
 

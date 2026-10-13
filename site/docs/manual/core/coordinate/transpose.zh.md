@@ -1,5 +1,6 @@
 ---
 title: transpose
+description: 交换 x 和 y 坐标方向，实现柱形图与条形图等图表的横纵转换。
 order: 2
 ---
 

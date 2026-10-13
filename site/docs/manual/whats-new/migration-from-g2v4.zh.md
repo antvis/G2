@@ -1,5 +1,6 @@
 ---
 title: v4 升级 v5 指南
+description: 将 G2 v4 图表迁移到 v5，对照数据、编码、布局等概念与 API 的变化。
 order: 2
 ---
 

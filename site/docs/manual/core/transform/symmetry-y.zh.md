@@ -1,5 +1,6 @@
 ---
 title: symmetryY
+description: 按分组平移 y 和 y1 通道，使图形形成居中对称的布局。
 order: 2
 ---
 

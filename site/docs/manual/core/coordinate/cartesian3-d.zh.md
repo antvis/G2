@@ -1,5 +1,6 @@
 ---
 title: cartesian3D
+description: 在笛卡尔坐标系中增加 z 维度，定位三维空间中的数据点。
 order: 5
 ---
 

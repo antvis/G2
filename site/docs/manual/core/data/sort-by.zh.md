@@ -1,5 +1,6 @@
 ---
 title: sortBy
+description: 按一个或多个字段对数据排序，配置字段优先级与升降序。
 order: 2
 ---
 

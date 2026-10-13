@@ -1,5 +1,6 @@
 ---
 title: spaceLayer
+description: 将多个子视图叠加在同一绘图空间中，组合不同图层。
 order: 2
 ---
 

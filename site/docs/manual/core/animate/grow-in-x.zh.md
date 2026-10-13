@@ -1,5 +1,6 @@
 ---
 title: growInX
+description: 沿 x 方向缩放图形容器，实现容器内图形整体展开的入场动画。
 order: 2
 ---
 

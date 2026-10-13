@@ -1,5 +1,6 @@
 ---
 title: spaceFlex
+description: 使用类似 Flexbox 的布局按比例分配子视图空间，支持水平、垂直及嵌套布局。
 order: 2
 ---
 

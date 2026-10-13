@@ -1,5 +1,6 @@
 ---
 title: facetCircle
+description: 按数据字段划分子视图并沿圆周排列，用于比较不同分组的数据。
 order: 2
 ---
 

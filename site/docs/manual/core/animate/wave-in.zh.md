@@ -1,5 +1,6 @@
 ---
 title: waveIn
+description: 通过裁剪区域逐步展开图形，实现直角坐标或极坐标下的擦入动画。
 order: 2
 ---
 
