@@ -1,5 +1,6 @@
 ---
 title: scaleOutX
+description: 沿 x 方向逐渐缩小单个图形，实现横向收缩的退场动画。
 order: 2
 ---
 

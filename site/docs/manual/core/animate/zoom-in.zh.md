@@ -1,5 +1,6 @@
 ---
 title: zoomIn
+description: 以图形中心为基准逐渐放大图形，实现缩放入场动画。
 order: 2
 ---
 

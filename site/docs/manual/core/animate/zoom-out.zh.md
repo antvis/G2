@@ -1,5 +1,6 @@
 ---
 title: zoomOut
+description: 以图形中心为基准逐渐缩小图形，实现缩放退场动画。
 order: 2
 ---
 

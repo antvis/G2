@@ -1,5 +1,6 @@
 ---
 title: filter
+description: 使用条件回调筛选数据记录，仅保留满足条件的数据。
 order: 2
 ---
 

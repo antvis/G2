@@ -1,5 +1,6 @@
 ---
 title: custom
+description: 通过自定义回调处理整个数据集，实现内置数据转换之外的数据加工。
 order: 2
 ---
 

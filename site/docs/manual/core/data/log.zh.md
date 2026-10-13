@@ -1,5 +1,6 @@
 ---
 title: log
+description: 将数据转换管线中的当前数据打印到控制台，辅助排查数据处理问题。
 order: 2
 ---
 

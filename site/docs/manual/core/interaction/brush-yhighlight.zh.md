@@ -1,5 +1,6 @@
 ---
 title: brushYHighlight
+description: 沿 y 方向框选并高亮对应元素，用于关注纵轴上的指定范围。
 order: 6
 ---
 

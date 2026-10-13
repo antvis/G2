@@ -1,5 +1,6 @@
 ---
 title: fadeOut
+description: 通过逐渐降低图形透明度实现淡出动画。
 order: 2
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: map
+description: 通过回调逐条映射数据记录，生成或修改字段值。
 order: 2
 ---
 

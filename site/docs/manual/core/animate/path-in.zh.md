@@ -1,5 +1,6 @@
 ---
 title: pathIn
+description: 利用线条虚线属性实现沿 SVG 路径逐步绘制的入场动画。
 order: 2
 ---
 

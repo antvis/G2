@@ -1,5 +1,6 @@
 ---
 title: scaleInY
+description: 沿 y 方向逐渐放大单个图形，实现纵向展开的入场动画。
 order: 2
 ---
 

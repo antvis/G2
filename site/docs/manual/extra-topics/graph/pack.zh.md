@@ -1,5 +1,6 @@
 ---
 title: pack
+description: 将层级数据布局为嵌套圆，用圆的大小与包含关系展示权重和层级。
 order: 1
 ---
 

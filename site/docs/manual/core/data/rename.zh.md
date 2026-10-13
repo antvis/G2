@@ -1,5 +1,6 @@
 ---
 title: rename
+description: 重命名数据字段，使输入字段与后续编码或转换保持一致。
 order: 2
 ---
 

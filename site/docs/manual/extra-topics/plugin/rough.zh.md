@@ -1,5 +1,6 @@
 ---
 title: rough
+description: 接入 rough-canvas 渲染器，为图表添加手绘风格。
 order: 2
 ---
 

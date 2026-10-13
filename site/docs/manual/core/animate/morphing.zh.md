@@ -1,5 +1,6 @@
 ---
 title: morphing
+description: 在不同 SVG 路径形状之间进行插值，实现图形形态的平滑过渡。
 order: 2
 ---
 

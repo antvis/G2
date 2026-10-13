@@ -1,5 +1,6 @@
 ---
 title: sample
+description: 使用采样策略减少大规模数据中的绘制点数，平衡趋势保留与渲染性能。
 order: 2
 ---
 

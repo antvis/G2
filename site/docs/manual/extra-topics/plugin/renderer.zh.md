@@ -1,5 +1,6 @@
 ---
 title: renderer
+description: 基于 AntV G 选择或切换 Canvas、SVG、WebGL 渲染器，适配不同渲染场景。
 order: 1
 ---
 

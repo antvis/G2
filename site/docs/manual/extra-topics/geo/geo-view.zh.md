@@ -1,5 +1,6 @@
 ---
 title: geoView
+description: 使用 geoView 统一地图投影与视图，在同一地理空间叠加多个图层。
 order: 1
 ---
 

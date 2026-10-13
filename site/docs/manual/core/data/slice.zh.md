@@ -1,5 +1,6 @@
 ---
 title: slice
+description: 按起止索引截取数据集中的一段记录。
 order: 2
 ---
 

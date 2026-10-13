@@ -1,5 +1,6 @@
 ---
 title: pick
+description: 从数据记录中选取指定字段，生成仅包含所需字段的数据集。
 order: 2
 ---
 

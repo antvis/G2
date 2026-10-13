@@ -1,5 +1,6 @@
 ---
 title: geoPath
+description: 使用 geoPath 绘制 GeoJSON 地理形状，配置地图投影与视觉样式。
 order: 1
 ---
 

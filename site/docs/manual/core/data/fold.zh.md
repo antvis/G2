@@ -1,5 +1,6 @@
 ---
 title: fold
+description: 将多个字段折叠为键值对，把宽表转换成长表以便分组编码。
 order: 2
 ---
 
