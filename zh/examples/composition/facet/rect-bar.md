@@ -1,0 +1,66 @@
+---
+title: "日历条形图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-bar/"
+version: "5.4.8"
+---
+
+# 日历条形图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/composition/facet/rect-bar/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  width: 800,
+  paddingLeft: 40,
+  paddingBottom: 40,
+});
+
+const days = ['Sun.', 'Mon.', 'Tues.', 'Wed.', 'Thur.', 'Fri.', 'Sat.'];
+const mockData = () => {
+  const names = ['Eat', 'Play', 'Sleep'];
+  const week = (date) => {
+    const currentDate = date.getDate();
+    const newDate = new Date(date);
+    const firstDay = new Date(newDate.setDate(1)).getDay();
+    return Math.ceil((currentDate + firstDay) / 7);
+  };
+  const day = (date) => date.getDay();
+  return Array.from({ length: 30 }, (_, i) => {
+    const date = new Date(2022, 5, i + 1);
+    return names.map((name) => ({
+      activity: name,
+      value: Math.random(),
+      week: `${week(date)}`,
+      day: days[day(date)],
+    }));
+  }).flat(Infinity);
+};
+
+chart.options({
+  type: 'facetRect',
+  data: mockData(),
+  encode: { x: 'day', y: 'week' },
+  scale: { x: { domain: days } },
+  legend: { color: { position: 'right' } },
+  children: [
+    {
+      type: 'interval',
+      transform: [{ type: 'stackY' }],
+      axis: { x: { labelAutoRotate: false } },
+      encode: { x: 'activity', y: 'value', color: 'activity' },
+    },
+  ],
+});
+
+chart.render();
+```

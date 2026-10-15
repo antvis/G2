@@ -1,0 +1,1 @@
+export{t as Plugin}from"./index.esm.DQ42Cayc.js";

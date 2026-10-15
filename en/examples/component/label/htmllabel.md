@@ -1,0 +1,58 @@
+---
+title: "HTML Label"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/component/label/htmllabel/"
+version: "5.4.8"
+---
+
+# HTML Label
+
+[Live example](https://g2.antv.antgroup.com/en/examples/component/label/htmllabel/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const data = [
+  { repo: 'G', star: 918 },
+  { repo: 'G2', star: 11688 },
+  { repo: 'G6', star: 10045 },
+  { repo: 'L7', star: 3125 },
+  { repo: 'F2', star: 7820 },
+  { repo: 'S2', star: 1231 },
+  { repo: 'X6', star: 4755 },
+];
+
+chart.options({
+  type: 'interval',
+  data: data,
+  encode: { x: 'repo', y: 'star', color: 'repo' },
+  labels: [
+    {
+      text: 'star',
+      render: (text, datum) => {
+        return `
+        <div style="left:-50%;top:-20px;position:relative;font-size:14px;">
+          <span>${datum.repo}</span>
+          :
+          <a href="https://github.com/antvis/${datum.repo}" target="_blank">${datum.star}</a>
+        </div>
+      `;
+      },
+    },
+  ],
+  legend: false,
+});
+
+chart.render();
+```

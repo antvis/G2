@@ -1,0 +1,1 @@
+export{t as Plugin}from"./index.esm.DSEIIc16.js";

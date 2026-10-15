@@ -1,0 +1,1 @@
+export{t as loadAnimation}from"./index.esm.q73Gpm7W.js";
