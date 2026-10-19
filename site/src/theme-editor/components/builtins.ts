@@ -1,21 +1,21 @@
 export const BUILT_THEMES = [
-  { label: '默认风格', key: 'light' },
-  { label: '暗色风格', key: 'dark' },
-  { label: '学术风格', key: 'academy' },
+  { label: '默认风格', labelEn: 'Default', key: 'light' },
+  { label: '暗色风格', labelEn: 'Dark', key: 'dark' },
+  { label: '学术风格', labelEn: 'Academy', key: 'academy' },
 ];
 
 export const BUILT_COLOR_ATTRIBUTES = [
-  { name: '默认颜色', value: 'colorDefault' },
-  { name: '边框颜色', value: 'colorStroke' },
-  { name: '主要颜色', value: 'colorBlack' },
-  { name: '次要颜色', value: 'colorWhite' },
-  { name: '背景颜色', value: 'colorBackground' },
+  { name: '默认颜色', nameEn: 'Default', value: 'colorDefault' },
+  { name: '边框颜色', nameEn: 'Stroke', value: 'colorStroke' },
+  { name: '主要颜色', nameEn: 'Primary', value: 'colorBlack' },
+  { name: '次要颜色', nameEn: 'Secondary', value: 'colorWhite' },
+  { name: '背景颜色', nameEn: 'Background', value: 'colorBackground' },
 ];
 
 export const BUILT_PADDING_ATTRIBUTES = [
-  { name: '间距1', value: 'padding1' },
-  { name: '间距2', value: 'padding2' },
-  { name: '间距3', value: 'padding3' },
+  { name: '间距1', nameEn: 'Spacing 1', value: 'padding1' },
+  { name: '间距2', nameEn: 'Spacing 2', value: 'padding2' },
+  { name: '间距3', nameEn: 'Spacing 3', value: 'padding3' },
 ];
 
 export const BUILT_CATEGORIES = [
