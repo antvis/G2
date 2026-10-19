@@ -34,10 +34,35 @@ chart.render();
 
 | Property   | Description                               | Type             | Default |
 | ---------- | ----------------------------------------- | ---------------- | ------- |
+| data       | Data source configuration; see below      | [Data](/en/manual/core/data/overview/) | -       |
 | layout     | Layout configuration                      | `ForceTransform` | -       |
 | style      | Configure graphics style and label style  | -                | -       |
 | nodeLabels | Custom configuration for node data labels | label[]          | []      |
 | linkLabels | Custom configuration for link data labels | label[]          | []      |
+
+### data
+
+For a local network object, put the `nodes` and `links` arrays in `data.value` and declare the connector with `type: 'inline'`. In this example, each link's `source` and `target` refer to node `id` values:
+
+```js
+import { Chart } from '@antv/g2';
+
+const graphData = {
+  nodes: [{ id: 'A' }, { id: 'B' }],
+  links: [{ source: 'A', target: 'B' }],
+};
+
+const chart = new Chart({ container: 'container' });
+chart.options({
+  type: 'forceGraph',
+  data: { type: 'inline', value: graphData },
+});
+chart.render();
+```
+
+When replacing a remote `fetch` example with an already loaded object, also use `data: { type: 'inline', value: graphData }`. Do not assign `data: graphData` directly: an object assigned to `data` is interpreted as connector configuration, and omitting `value` can produce a blank chart.
+
+Remote JSON can return the same `{ nodes, links }` structure through the `fetch` connector. See [inline](/en/manual/core/data/inline/) and [fetch](/en/manual/core/data/fetch/) for data source configuration and transforms.
 
 ### layout
 

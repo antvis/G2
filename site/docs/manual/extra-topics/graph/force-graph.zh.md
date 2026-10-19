@@ -35,10 +35,35 @@ chart.render();
 
 | 属性       | 描述                       | 类型             | 默认值 |
 | ---------- | -------------------------- | ---------------- | ------ |
+| data       | 数据源配置，见下方说明     | [Data](/zh/manual/core/data/overview/) | -      |
 | layout     | 布局配置                   | `ForceTransform` | -      |
 | style      | 配置图形样式和标签样式     | -                | -      |
 | nodeLabels | 自定义节点数据标签的配置   | label[]          | []     |
 | linkLabels | 自定义连接线数据标签的配置 | label[]          | []     |
+
+### data
+
+使用本地网络对象时，将节点数组 `nodes` 和边数组 `links` 放入 `data.value`，通过 `type: 'inline'` 声明数据源。下面的边通过 `source`、`target` 引用节点的 `id`：
+
+```js
+import { Chart } from '@antv/g2';
+
+const graphData = {
+  nodes: [{ id: 'A' }, { id: 'B' }],
+  links: [{ source: 'A', target: 'B' }],
+};
+
+const chart = new Chart({ container: 'container' });
+chart.options({
+  type: 'forceGraph',
+  data: { type: 'inline', value: graphData },
+});
+chart.render();
+```
+
+把远程 `fetch` 示例替换为已加载的业务对象时，也使用 `data: { type: 'inline', value: graphData }`。不要直接写成 `data: graphData`：`data` 的对象形式会被解释为连接器配置，缺少 `value` 可能导致空白图。
+
+远程 JSON 也可返回同样的 `{ nodes, links }` 结构，由 `fetch` 连接器读取。数据源的完整配置与转换规则见 [inline](/zh/manual/core/data/inline/) 和 [fetch](/zh/manual/core/data/fetch/)。
 
 ### layout
 
