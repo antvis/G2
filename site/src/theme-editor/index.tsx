@@ -50,7 +50,7 @@ const Page: React.FC = () => {
         width={320}
         collapsible
         trigger={null}
-        className="bg-[#fafafa] [@media(width<=760px)]:w-full! [@media(width<=760px)]:max-w-full! [@media(width<=760px)]:min-w-0! [@media(width<=760px)]:basis-auto!"
+        className="bg-white border-0 border-l border-solid border-[var(--border-soft)] [@media(width<=760px)]:border-l-0 [@media(width<=760px)]:w-full! [@media(width<=760px)]:max-w-full! [@media(width<=760px)]:min-w-0! [@media(width<=760px)]:basis-auto!"
       >
         <button
           type="button"
@@ -65,7 +65,7 @@ const Page: React.FC = () => {
           }
           aria-expanded={!collapsed}
           aria-controls="theme-settings"
-          className={`absolute top-40 z-2 flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-white border-0 p-0 text-[#666] shadow-[0_0_2px_rgba(0,0,0,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#873bf4] transition-all duration-300 ease-in-out [@media(width<=760px)]:hidden ${
+          className={`absolute top-6 z-2 flex size-[26px] cursor-pointer items-center justify-center rounded-full bg-white border border-solid border-[var(--border)] p-0 text-[var(--muted)] hover:text-[var(--brand)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand)] transition-colors motion-reduce:transition-none [@media(width<=760px)]:hidden ${
             collapsed
               ? '-left-[26px] rotate-180 [&_svg]:scale-80'
               : '-left-[13px]'
@@ -81,6 +81,7 @@ const Page: React.FC = () => {
           }
         >
           <ConfigPanel
+            isZh={isZh}
             theme={theme}
             tokens={tokens}
             seed={seed}
