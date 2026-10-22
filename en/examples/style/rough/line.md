@@ -1,0 +1,75 @@
+---
+title: "Sketchy Line Chart"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/style/rough/line/"
+version: "5.4.8"
+---
+
+# Sketchy Line Chart
+
+[Live example](https://g2.antv.antgroup.com/en/examples/style/rough/line/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+import { Plugin } from '@antv/g-plugin-rough-canvas-renderer';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Gaegu', 'Kalam', 'Caveat'],
+  },
+  active: () => {
+    const chart = new Chart({
+      container: 'container',
+      autoFit: true,
+      plugins: [new Plugin()],
+    });
+
+    chart.options({
+      type: 'line',
+      data: {
+        type: 'fetch',
+        value:
+          'https://gw.alipayobjects.com/os/bmw-prod/cb99c4ab-e0a3-4c76-9586-fe7fa2ff1a8c.csv',
+      },
+      transform: [{ type: 'groupX', y: 'mean' }],
+      encode: {
+        x: (d) => new Date(d.date).getFullYear(),
+        y: 'price',
+        color: 'symbol',
+      },
+      labels: [
+        {
+          text: 'price',
+          transform: [{ type: 'overlapDodgeY' }],
+          fontSize: 10,
+          fontFamily: 'Gaegu',
+        },
+      ],
+      axis: {
+        x: {
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+          labelFontFamily: 'Gaegu',
+        },
+        y: {
+          tickStroke: '#cdcdcd',
+          gridStroke: '#efefef',
+          titleFontFamily: 'Gaegu',
+          labelFontFamily: 'Gaegu',
+        },
+      },
+      legend: { color: { itemLabelFontFamily: 'Gaegu' } },
+      style: { roughness: 2 },
+    });
+
+    chart.render();
+  },
+});
+```

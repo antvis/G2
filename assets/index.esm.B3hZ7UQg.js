@@ -1,0 +1,1 @@
+export{t as Plugin}from"./index.esm.BD6b3JDA.js";

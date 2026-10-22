@@ -1,0 +1,56 @@
+---
+title: "Insertion Sort"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/algorithm/sort/insertion-sort/"
+version: "5.4.8"
+---
+
+# Insertion Sort
+
+[Live example](https://g2.antv.antgroup.com/en/examples/algorithm/sort/insertion-sort/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+
+const data = [43, 2, 5, 24, 53, 78, 82, 63, 49, 6];
+
+function* insertionSort(arr) {
+  const len = arr.length;
+  let preIndex, current;
+  for (let i = 1; i < len; i++) {
+    preIndex = i - 1;
+    current = arr[i];
+    while (preIndex >= 0 && arr[preIndex] > current) {
+      arr[preIndex + 1] = arr[preIndex];
+      preIndex--;
+    }
+    arr[preIndex + 1] = current;
+    yield arr.map((a, index) => ({
+      value: a,
+      swap: index === preIndex + 1 || index === i,
+    }));
+  }
+  return arr;
+}
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'timingKeyframe',
+  children: Array.from(insertionSort(data), (frame) => ({
+    type: 'interval',
+    data: frame.map((datum, index) => ({ index, ...datum })),
+    encode: { x: 'index', y: 'value', key: 'value', color: 'swap' },
+  })),
+});
+
+chart.render();
+```

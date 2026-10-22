@@ -1,0 +1,61 @@
+---
+title: "发散堆叠条形图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-stacked-diverging/"
+version: "5.4.8"
+---
+
+# 发散堆叠条形图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/analysis/group/bar-stacked-diverging/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/bar_diverging_stack_transform.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+const types = [
+  'Strongly disagree',
+  'Disagree',
+  'Neither agree nor disagree',
+  'Agree',
+  'Strongly agree',
+];
+const colors = ['#c30d24', '#f3a583', '#cccccc', '#94c6da', '#1770ab'];
+
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/82c97016-0f99-433b-ab21-9ecf14244610.csv',
+  },
+  transform: [{ type: 'stackY' }],
+  encode: {
+    x: 'question',
+    color: 'type',
+    y: (d) =>
+      d.type === 'Disagree' || d.type === 'Strongly disagree'
+        ? -d.percentage
+        : d.type === 'Neither agree nor disagree'
+        ? -d.percentage / 2
+        : +d.percentage,
+  },
+  scale: { y: { nice: true }, color: { domain: types, range: colors } },
+});
+
+chart.render();
+```

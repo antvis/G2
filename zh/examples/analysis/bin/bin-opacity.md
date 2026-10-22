@@ -1,0 +1,52 @@
+---
+title: "透明度分箱"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/analysis/bin/bin-opacity/"
+version: "5.4.8"
+---
+
+# 透明度分箱
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/analysis/bin/bin-opacity/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'rect',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/athletes.json',
+  },
+  encode: { x: 'weight', y: 'height', color: 'sex' },
+  transform: [{ type: 'bin', opacity: 'count' }],
+  legend: { opacity: false },
+  style: { inset: 0.5 },
+  tooltip: {
+    title: { channel: 'opacity' },
+    items: [
+      (d, i, data, column) => ({
+        name: 'weight',
+        value: `${column.x.value[i]}, ${column.x1.value[i]}`,
+      }),
+      (d, i, data, column) => ({
+        name: 'height',
+        value: `${column.y.value[i]}, ${column.y1.value[i]}`,
+      }),
+    ],
+  },
+});
+
+chart.render();
+```

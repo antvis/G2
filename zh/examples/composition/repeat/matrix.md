@@ -1,0 +1,70 @@
+---
+title: "重复矩阵"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/composition/repeat/matrix/"
+version: "5.4.8"
+---
+
+# 重复矩阵
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/composition/repeat/matrix/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/interactive_splom.html
+ */
+import { Chart } from '@antv/g2';
+
+const toNaN = (d) => (d === 'NaN' ? NaN : d);
+
+const chart = new Chart({
+  container: 'container',
+  width: 800,
+  height: 800,
+  paddingLeft: 70,
+  paddingBottom: 70,
+});
+
+chart.options({
+  type: 'repeatMatrix',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/penguins.json',
+    transform: [
+      {
+        type: 'map',
+        callback: ({
+          culmen_depth_mm: cdepth,
+          culmen_length_mm: clength,
+          flipper_length_mm: flength,
+          body_mass_g: bmass,
+          ...d
+        }) => ({
+          ...d,
+          culmen_depth_mm: toNaN(cdepth),
+          culmen_length_mm: toNaN(clength),
+          flipper_length_mm: toNaN(flength),
+          body_mass_g: toNaN(bmass),
+        }),
+      },
+    ],
+  },
+  encode: {
+    position: [
+      'culmen_length_mm',
+      'culmen_depth_mm',
+      'flipper_length_mm',
+      'body_mass_g',
+    ],
+  },
+  children: [{ type: 'point', encode: { color: 'species' } }],
+});
+
+chart.render();
+```
