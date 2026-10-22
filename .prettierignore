@@ -1,2 +1,4 @@
 __tests__/data/*
 __tests__/integration/snapshots/**/*
+src/schema/schema.json
+src/schema/schema.generated.ts
