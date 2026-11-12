@@ -4,6 +4,7 @@ import {
   mergeState,
   selectG2Elements,
   useState,
+  createUseState,
   createValueof,
   createDatumof,
 } from './utils';
@@ -48,8 +49,14 @@ export function LegendHighlight() {
       // Handle styles of inner item.
       const markerStyle = { inactive: subObject(inactive, 'marker') };
       const labelStyle = { inactive: subObject(inactive, 'label') };
-      const { setState: setM, removeState: removeM } = useState(markerStyle);
-      const { setState: setL, removeState: removeL } = useState(labelStyle);
+      const { updateState: setM, removeState: removeM } = createUseState(
+        markerStyle,
+        items.map(markerOf),
+      )();
+      const { updateState: setL, removeState: removeL } = createUseState(
+        labelStyle,
+        items.map(labelOf),
+      )();
       const updateLegendState = (highlight) => {
         for (const item of items) {
           const marker = markerOf(item);
@@ -128,11 +135,11 @@ export function LegendHighlight() {
       emitter.on('legend:unhighlight', onUnHighlight);
 
       const destroy = () => {
-        legend.removeEventListener(pointerleave);
+        legend.removeEventListener('pointerleave', pointerleave);
         emitter.off('legend:highlight', onHighlight);
         emitter.off('legend:unhighlight', onUnHighlight);
         for (const [item, pointerover] of itemPointerover) {
-          item.removeEventListener(pointerover);
+          item.removeEventListener('pointerover', pointerover);
         }
       };
       destroys.push(destroy);
@@ -141,3 +148,7 @@ export function LegendHighlight() {
     return () => destroys.forEach((d) => d());
   };
 }
+
+LegendHighlight.props = {
+  reapplyWhenUpdate: true,
+};
