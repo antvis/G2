@@ -38,6 +38,37 @@ chart.options({
 });
 ```
 
+#### 不显示标签
+
+普通标记（如 `interval`、`line`）的 `labels` 是标签配置数组，不是布尔开关。新建标记时，不需要标签可以省略 `labels`，或显式设置 `labels: []`。不要使用 `labels: false`，否则可能出现 `labels.flatMap is not a function` 一类运行错误。`legend: false` 等其他组件的关闭方式不能直接套用于 `labels`。
+
+在组合图中，分别配置每个标记的标签。例如，柱形显示数值，叠加的折线不重复显示标签：
+
+```js
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', value: 12 },
+    { month: 'Feb', value: 18 },
+    { month: 'Mar', value: 15 },
+  ],
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'month', y: 'value' },
+      labels: [{ text: 'value' }],
+    },
+    {
+      type: 'line',
+      encode: { x: 'month', y: 'value' },
+      labels: [],
+    },
+  ],
+});
+```
+
+复合标记可能自行生成标签，应同时查看对应标记的标签配置。下面的配置项描述 `labels` 数组内的单个标签。
+
 #### 在 View 层级
 
 可在 `view` 配置 `labelTransform` 声明标签转化
