@@ -1,0 +1,63 @@
+---
+title: "Point, Range Annotation"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/annotation/range/point-range/"
+version: "5.4.8"
+---
+
+# Point, Range Annotation
+
+[Live example](https://g2.antv.antgroup.com/en/examples/annotation/range/point-range/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+/**
+ * A recreation of this demo: https://www.anychart.com/zh/products/anychart/gallery/Quadrant_Charts/Top_30_Countries_by_Quality_of_Life.php
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value:
+      'https://assets.antv.antgroup.com/g2/top-30-countries-by-quality-of-life.json',
+  },
+  axis: { x: false, y: false },
+  style: { mainStroke: '#5B8FF9', mainLineWidth: 2 },
+  children: [
+    {
+      type: 'range',
+      data: [
+        { x: [0, 0.5], y: [0, 0.5] },
+        { x: [0.5, 1], y: [0.5, 1] },
+      ],
+      encode: { x: 'x', y: 'y' },
+      scale: {
+        x: { independent: true, domain: [0, 1] },
+        y: { independent: true, domain: [0, 1] },
+      },
+      style: { stroke: '#5B8FF9', lineWidth: 1, fillOpacity: 0.15 },
+      animate: false,
+      tooltip: false,
+    },
+    {
+      type: 'point',
+      encode: { x: 'x', y: 'y', shape: 'point' },
+      scale: { x: { domain: [137.5, 212] }, y: { domain: [0, 80] } },
+      labels: [{ text: 'name', fontSize: 10, dy: 6 }],
+    },
+  ],
+});
+
+chart.render();
+```

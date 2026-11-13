@@ -1,0 +1,67 @@
+---
+title: "平均值线标注的直方图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/annotation/line/histogram-mean-line/"
+version: "5.4.8"
+---
+
+# 平均值线标注的直方图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/annotation/line/histogram-mean-line/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_histogram_global_mean.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/movies.json',
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d['IMDB Rating'] > 0,
+      },
+    ],
+  },
+  children: [
+    {
+      type: 'rect',
+      transform: [{ type: 'binX', y: 'count', thresholds: 9 }],
+      encode: { x: 'IMDB Rating' },
+      scale: { y: { domainMax: 1000 } },
+      style: { inset: 1 },
+    },
+    {
+      type: 'lineX',
+      transform: [
+        // groupColor 为分组并对指定的通道进行聚合，可以理解为把数据通过 x 通道的数据 取平均值(mean) 变更为一条数据。
+        { type: 'groupColor', x: 'mean' },
+      ],
+      encode: { x: 'IMDB Rating' },
+      style: {
+        stroke: '#F4664A',
+        strokeOpacity: 1,
+        lineWidth: 2,
+        lineDash: [4, 4],
+      },
+    },
+  ],
+});
+
+chart.render();
+```

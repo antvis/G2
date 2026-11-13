@@ -1,0 +1,9 @@
+import{h as e}from"./index.esm.DTqADcx7.js";import"./index.esm.G_dx6pSO.js";import{n as t}from"./index.esm.BBd7XZJp.js";import{d as n,o as r}from"./index.esm.Cpw2Dyt4.js";import{t as i}from"./index.esm.NQR-F-35.js";import{i as a,n as o,u as s}from"./src.Bd-CZvY5.js";import{t as c}from"./esm.DL1rP6iN.js";function l(e){let t=e.getContainer(),n=document.createElement(`div`);n.style.display=`flex`,t.insertBefore(n,t.childNodes[0]);let{color:r}=e.getScale(),{domain:i}=r.getOptions(),a=i.map(e=>{let t=document.createElement(`div`),n=r.map(e);return t.style.marginLeft=`1em`,t.innerHTML=`
+    <span style="
+      background-color:${n};
+      display:inline-block;
+      width:10px;
+      height:10px;"
+    ></span>
+    <span>${e}</span>
+    `,t});a.forEach(e=>n.append(e));let o=[...i],s=e.options();for(let e=0;e<a.length;e++){let t=a[e],n=i[e];t.style.cursor=`pointer`,t.onclick=()=>{let e=o.indexOf(n);e===-1?(o.push(n),t.style.opacity=1):(o.splice(e,1),t.style.opacity=.5),c(o)}}function c(t){let{transform:n=[]}=s,r=[{type:`filter`,color:{value:t}},...n];e.options({...s,transform:r,scale:{color:{domain:i}}}),e.render()}}var u=new t;u.registerPlugin(new n),u.registerPlugin(new i);var d=new(a(o,{...s(),...c()}))({container:`container`,renderer:u,depth:400});d.options({type:`point3D`,data:{type:`fetch`,value:`https://gw.alipayobjects.com/os/bmw-prod/2c813e2d-2276-40b9-a9af-cf0a0fb7e942.csv`},encode:{x:`Horsepower`,y:`Miles_per_Gallon`,z:`Weight_in_lbs`,color:`Origin`},coordinate:{type:`cartesian3D`},scale:{x:{nice:!0},y:{nice:!0},z:{nice:!0}},legend:!1,axis:{x:{gridLineWidth:2},y:{gridLineWidth:2,titleBillboardRotation:-Math.PI/2},z:{gridLineWidth:2}}}),d.render().then(()=>{l(d);let{canvas:t}=d.getContext(),n=t.getCamera();n.setPerspective(.1,5e3,45,640/480),n.setType(e.ORBITING);let i=new r({style:{intensity:3,fill:`white`,direction:[-1,0,1]}});t.appendChild(i)});

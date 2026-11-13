@@ -1,0 +1,1 @@
+import{t as e}from"./src.Bd-CZvY5.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`interval`,data:[{letter:`A`,frequency:120}],encode:{x:`letter`,y:`frequency`},scale:{x:{padding:.5}},style:{maxWidth:200}}),t.render();

@@ -1,0 +1,23 @@
+---
+title: "zoomOut"
+description: "以图形中心为基准逐渐缩小图形，实现缩放退场动画。"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/manual/core/animate/zoom-out/"
+version: "5.4.8"
+---
+
+[资料索引](/llms.txt)
+
+`zoomOut` 沿着图形中心点的缩小动画。影响 `transform.scale` 属性。
+
+## 开始使用
+
+<img alt="zoomOut" src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*PZ2gTrkV29YAAAAAAAAAAABkARQnAQ" width="400" />
+
+```ts
+chart.options({
+  type: 'interval',
+  /* ... */
+  animate: { exit: { type: 'zoomOut' } },
+});
+```

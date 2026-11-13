@@ -1,0 +1,61 @@
+---
+title: "多色折线图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/general/line/line-variable-color/"
+version: "5.4.8"
+---
+
+# 多色折线图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/general/line/line-variable-color/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+/**
+ * A recreation of this demo: https://observablehq.com/@d3/variable-color-line
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/temperatures1.json',
+  },
+  scale: {
+    y: { nice: true },
+    color: {
+      domain: ['CLR', 'FEW', 'SCT', 'BKN', 'OVC', 'VV '],
+      range: [
+        'deepskyblue',
+        'lightskyblue',
+        'lightblue',
+        '#aaaaaa',
+        '#666666',
+        '#666666',
+      ],
+    },
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'value',
+    shape: 'hvh',
+    color: 'condition',
+    series: () => 'a',
+  },
+  style: { gradient: 'x', lineWidth: 2 },
+  axis: { x: { title: 'date' } },
+});
+
+chart.render();
+```

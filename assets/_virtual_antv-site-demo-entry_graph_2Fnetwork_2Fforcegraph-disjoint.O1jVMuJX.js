@@ -1,0 +1,1 @@
+import{t as e}from"./src.Bd-CZvY5.js";import{M as t}from"./d3-scale-chromatic.C3hevl8V.js";var n=new e({container:`container`,width:800,height:800});n.options({type:`forceGraph`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/miserable-disjoint.json`},layout:{joint:!1},scale:{color:{range:t}}}),n.render();

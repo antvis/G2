@@ -1,0 +1,1 @@
+import{t as e}from"./src.Bd-CZvY5.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`liquid`,data:.581,style:{shape:`pin`,contentFill:`#fff`,outlineBorder:4,outlineDistance:8,waveLength:128}}),t.render();

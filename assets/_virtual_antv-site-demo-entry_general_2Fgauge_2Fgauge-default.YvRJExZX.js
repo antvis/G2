@@ -1,0 +1,1 @@
+import{t as e}from"./src.Bd-CZvY5.js";var t=new e({container:`container`,autoFit:!0});t.options({type:`gauge`,data:{value:{target:120,total:400,name:`score`}},legend:!1}),t.render();

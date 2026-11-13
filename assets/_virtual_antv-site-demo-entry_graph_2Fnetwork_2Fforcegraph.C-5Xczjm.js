@@ -1,0 +1,1 @@
+import{t as e}from"./src.Bd-CZvY5.js";import{M as t}from"./d3-scale-chromatic.C3hevl8V.js";var n=new e({container:`container`,autoFit:!0});n.options({type:`forceGraph`,data:{type:`fetch`,value:`https://assets.antv.antgroup.com/g2/miserable.json`},scale:{color:{range:t}}}),n.render();

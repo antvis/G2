@@ -1,0 +1,58 @@
+---
+title: "Mini line"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/general/mini/line/"
+version: "5.4.8"
+---
+
+# Mini line
+
+[Live example](https://g2.antv.antgroup.com/en/examples/general/mini/line/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+
+const data = [
+  264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513,
+  546, 983, 340, 539, 243, 226, 192,
+];
+
+const chart = new Chart({
+  container: 'container',
+  width: 480,
+  height: 80,
+});
+
+chart.options({
+  type: 'line',
+  data: data,
+  interaction: {
+    tooltip: {
+      render: (e, { title, items }) => items[0].value,
+    },
+  },
+  encode: { x: (_, idx) => idx, y: (d) => d, shape: 'smooth' },
+  animate: { enter: { type: 'fadeIn' } },
+  labels: [
+    {
+      selector: 'last',
+      text: (d) => d,
+      textAlign: 'right',
+      textBaseline: 'bottom',
+      dx: -10,
+      dy: -10,
+      connector: true,
+      fontSize: 10,
+    },
+  ],
+  axis: false,
+});
+
+chart.render();
+```

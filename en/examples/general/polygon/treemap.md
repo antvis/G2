@@ -1,0 +1,90 @@
+---
+title: "Treemap"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/general/polygon/treemap/"
+version: "5.4.8"
+---
+
+# Treemap
+
+[Live example](https://g2.antv.antgroup.com/en/examples/general/polygon/treemap/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+import * as d3 from 'd3-hierarchy';
+
+const layout = (data) => {
+  const root = d3.hierarchy(data);
+  root.count();
+  d3.treemap().size([1, 1])(root);
+  return root
+    .descendants()
+    .map((d) =>
+      Object.assign(d, {
+        x: [d.x0, d.x1, d.x1, d.x0],
+        y: [d.y0, d.y0, d.y1, d.y1],
+      }),
+    )
+    .filter((d) => d.height === 0);
+};
+const name = (d) => {
+  const { name } = d.data;
+  return name.length > 5 ? name.slice(0, 4) + '...' : name;
+};
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  paddingLeft: 4,
+  paddingBottom: 4,
+  paddingRight: 4,
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/5155ef81-db23-49f3-b72b-d436a219d289.json',
+    transform: [{ type: 'custom', callback: layout }],
+  },
+  legend: false,
+  children: [
+    {
+      type: 'polygon',
+      encode: { x: 'x', y: 'y', size: 'r', color: (d) => d.parent.data.name },
+      tooltip: {
+        title: '',
+        items: [(d) => d.parent.data.name],
+      },
+      scale: {
+        x: { domain: [0, 1] },
+        y: { domain: [0, 1], range: [0, 1] },
+        size: { type: 'identity' },
+      },
+      axis: false,
+    },
+    {
+      type: 'text',
+      data: {
+        transform: [
+          {
+            type: 'filter',
+            callback: (d) => d.height === 0,
+          },
+        ],
+      },
+      encode: { x: (d) => d.x[0], y: (d) => d.y[0], text: name },
+      style: { dy: 15, dx: 5, fill: 'black', textAlign: 'start', fontSize: 12 },
+    },
+  ],
+});
+
+chart.render();
+```

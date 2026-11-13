@@ -1,0 +1,66 @@
+---
+title: "差分面积图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/general/area/area-difference/"
+version: "5.4.8"
+---
+
+# 差分面积图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/general/area/area-difference/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/temperature-compare.json',
+  },
+  children: [
+    {
+      type: 'area',
+      data: {
+        transform: [
+          {
+            type: 'fold',
+            fields: ['New York', 'San Francisco'],
+            key: 'city',
+            value: 'temperature',
+          },
+        ],
+      },
+
+      // scale: { color: { range: ['#67a9cf', '#ef8a62'] } },
+      // Diff the 2 area shape.
+      transform: [{ type: 'diffY' }],
+      encode: {
+        x: (d) => new Date(d.date),
+        y: 'temperature',
+        color: 'city',
+        shape: 'hvh',
+      },
+    },
+    {
+      type: 'line',
+      encode: { x: (d) => new Date(d.date), y: 'San Francisco', shape: 'hvh' },
+      style: { stroke: '#000' },
+      tooltip: false,
+    },
+  ],
+});
+
+chart.render();
+```

@@ -1,0 +1,78 @@
+---
+title: "螺旋坐标系"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/general/helix/helix/"
+version: "5.4.8"
+---
+
+# 螺旋坐标系
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/general/helix/helix/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+// mock data
+const data = [];
+const n = 31;
+for (let i = 0; i < 372; i++) {
+  const now = new Date();
+  const currentTime = new Date(now.getTime() + i * 1000 * 3600 * 24);
+  const formattedTime = `${currentTime.getFullYear()}.${String(
+    currentTime.getMonth() + 1,
+  ).padStart(2, '0')}.${String(currentTime.getDate()).padStart(2, '0')}`;
+
+  data[i] = {};
+  data[i].time = formattedTime;
+
+  const random = Math.floor(Math.random() * 10);
+  if ((i % n > 2 && i % n < 4) || (i % n >= 6 && i % n < 7)) {
+    data[i].value = 30 + random * 7;
+  } else if (i % n >= 4 && i % n < 6) {
+    data[i].value = 60 + random * 8;
+  } else {
+    data[i].value = 10 + random * 5;
+  }
+}
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 500,
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    value: data,
+  },
+  coordinate: {
+    type: 'helix',
+    startAngle: 0.5 * Math.PI,
+    endAngle: 12.5 * Math.PI,
+  },
+  encode: { x: 'time', y: 'value', color: 'value' },
+  scale: {
+    color: {
+      type: 'linear',
+      range: ['#ffffff', '#1890FF'],
+    },
+  },
+  tooltip: {
+    title: 'time',
+  },
+  animate: {
+    enter: {
+      type: 'fadeIn',
+    },
+  },
+});
+
+chart.render();
+```
