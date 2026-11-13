@@ -201,7 +201,7 @@ chart.options({
   coordinate: { type: 'theta', innerRadius: 0.4 },
   encode: { y: 'population', color: 'province' },
   legend: false, // 分类太多，关闭图例
-  labels: false, // 分类太多，关闭标签
+  labels: [], // 分类太多，不添加标签
 });
 
 chart.render();

@@ -37,6 +37,37 @@ chart.options({
 });
 ```
 
+#### Omitting Labels
+
+For ordinary marks such as `interval` and `line`, `labels` is an array of label configurations, not a boolean switch. When creating a mark without labels, omit `labels` or set `labels: []`. Do not use `labels: false`: it can cause a runtime error such as `labels.flatMap is not a function`. Boolean switches supported by other components, such as `legend: false`, do not apply to `labels`.
+
+In a layered chart, configure labels on each mark separately. For example, show values on the bars without repeating them on the overlaid line:
+
+```js
+chart.options({
+  type: 'view',
+  data: [
+    { month: 'Jan', value: 12 },
+    { month: 'Feb', value: 18 },
+    { month: 'Mar', value: 15 },
+  ],
+  children: [
+    {
+      type: 'interval',
+      encode: { x: 'month', y: 'value' },
+      labels: [{ text: 'value' }],
+    },
+    {
+      type: 'line',
+      encode: { x: 'month', y: 'value' },
+      labels: [],
+    },
+  ],
+});
+```
+
+Composite marks may create their own labels; consult the label options for that mark. The configuration options below describe an individual label in the `labels` array.
+
 #### At View Level
 
 You can configure `labelTransform` at the `view` level to declare label transformations
