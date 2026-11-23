@@ -10,7 +10,13 @@
         "zh": "花瓣图",
         "en": "Petal Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kIJxRbm2HTIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kIJxRbm2HTIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 花瓣图示例，使用 interval 标记，配置 stackY 转换，采用 theta 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Petal Chart example: uses interval marks; applies stackY transforms; uses theta coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "messi.ts",
@@ -18,7 +24,13 @@
         "zh": "梅西射门分析",
         "en": "Messi's shoot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*N6mYTas3VIgAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*N6mYTas3VIgAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 梅西射门分析示例，使用 shape、rect 标记，配置 bin 转换。提供完整源码与可运行图表。",
+          "en": "G2 Messi's shoot example: uses shape, rect marks; applies bin transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "25d-column.ts",
@@ -26,7 +38,13 @@
         "zh": "2.5D 柱形图",
         "en": "2.5D Column"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GThCTqSNiSkAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GThCTqSNiSkAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 2.5D 柱形图示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 2.5D Column example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "timeline.ts",
@@ -34,7 +52,13 @@
         "zh": "时间轴 Timeline",
         "en": "Timeline"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUHAS79kw-kAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*NUHAS79kw-kAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 时间轴 Timeline示例，使用 line、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Timeline example: uses line, point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "national.ts",
@@ -42,7 +66,13 @@
         "zh": "国庆节头像",
         "en": "National Image"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8RvJQJzRMMsAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*8RvJQJzRMMsAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 国庆节头像示例，使用 image 标记。提供完整源码与可运行图表。",
+          "en": "G2 National Image example: uses image marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

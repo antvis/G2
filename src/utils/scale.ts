@@ -67,9 +67,10 @@ export function selectionOf(x, y, x1, y1, scale, coordinate) {
 }
 
 export function abstractOf(domain, scale) {
-  const [d0, d1] = domain;
-  const maybeStep = (scale) => (scale.getStep ? scale.getStep() : 0);
-  return [scale.map(d0), scale.map(d1) + maybeStep(scale)];
+  const d0 = domain[0];
+  const d1 = domain[domain.length - 1];
+  const maybeBand = (scale) => (scale.getBandWidth ? scale.getBandWidth() : 0);
+  return [scale.map(d0), scale.map(d1) + maybeBand(scale)];
 }
 
 // For slider display, use direct index-based mapping instead of scale.map()

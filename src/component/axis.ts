@@ -189,8 +189,11 @@ function getData(
     return filteredTicks.map((d, i, array) => {
       const offset = scale.getBandWidth?.(d) / 2 || 0;
       const tick = applyInset(scale.map(d) + offset);
+      // For radial coordinate, the Y axis direction is reversed due to reflect transformation.
+      // We need to reverse the tick values for all axis types (center, inner, outer)
+      // to ensure smaller values appear at the start angle and larger values at the end angle.
       const shouldReverse =
-        (isRadial(coordinate) && position === 'center') ||
+        isRadial(coordinate) ||
         (isTranspose(coordinate) &&
           scale.getTicks?.() &&
           isHorizontal(position)) ||

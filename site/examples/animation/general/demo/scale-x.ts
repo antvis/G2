@@ -5,19 +5,20 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .encode('x', 'genre')
-  .encode('y', 'sold')
-  .encode('color', 'genre')
-  .animate('enter', { type: 'scaleInX', duration: 1000 })
-  .animate('exit', { type: 'scaleOutX', duration: 2000 });
+  ],
+  encode: { x: 'genre', y: 'sold', color: 'genre' },
+  animate: {
+    enter: { type: 'scaleInX', duration: 1000 },
+    exit: { type: 'scaleOutX', duration: 2000 },
+  },
+});
 
 chart.render();

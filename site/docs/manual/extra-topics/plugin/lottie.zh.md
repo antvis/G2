@@ -1,5 +1,6 @@
 ---
 title: lottie
+description: 通过 g-lottie-player 在图表中集成 Lottie 动画，控制播放、暂停和进度。
 order: 3
 ---
 

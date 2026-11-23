@@ -7,29 +7,29 @@ const chart = new Chart({
   width: 1100,
 });
 
-chart
-  .treemap()
-  .data({
+chart.options({
+  type: 'treemap',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/flare-treemap.json',
-  })
-  .layout({
+  },
+  layout: {
     path: (d) => d.name.replace(/\./g, '/'),
     tile: 'treemapBinary',
     paddingInner: 1,
-  })
-  .encode('value', 'size')
-  .scale('color', { range: schemeTableau10 })
-  .style(
-    'labelText',
-    (d) =>
+  },
+  encode: { value: 'size' },
+  scale: { color: { range: schemeTableau10 } },
+  style: {
+    labelText: (d) =>
       d.data.name
         .split('.')
         .pop()
         .split(/(?=[A-Z][a-z])/g)[0],
-  )
-  .style('labelFill', '#000')
-  .style('labelPosition', 'top-left')
-  .style('fillOpacity', 0.5);
+    labelFill: '#000',
+    labelPosition: 'top-left',
+    fillOpacity: 0.5,
+  },
+});
 
 chart.render();

@@ -10,7 +10,13 @@
         "zh": "甘特图动画",
         "en": "Gantt with Animation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hyB5RIY-qcMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hyB5RIY-qcMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 甘特图动画示例，使用 interval 标记，配置 transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 Gantt with Animation example: uses interval marks; applies transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "interval-keyframe.ts",
@@ -18,7 +24,13 @@
         "zh": "条帧动画",
         "en": "Interval Keyframe"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Nmz5Rb8rvOgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Nmz5Rb8rvOgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 条帧动画示例，使用 interval 标记，通过 timingKeyframe 组合图表，配置 groupX、dodgeX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Interval Keyframe example: uses interval marks; composes charts with timingKeyframe; applies groupX, dodgeX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-keyframe.ts",
@@ -26,7 +38,13 @@
         "zh": "点帧动画",
         "en": "Point Keyframe"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MOozSI2JRJIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*MOozSI2JRJIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 点帧动画示例，使用 interval、point 标记，通过 timingKeyframe 组合图表，配置 groupX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Point Keyframe example: uses interval, point marks; composes charts with timingKeyframe; applies groupX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "facet-keyframe.ts",
@@ -34,7 +52,13 @@
         "zh": "分面帧动画",
         "en": "Facet Keyframe"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vtjDQ4sJHJkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vtjDQ4sJHJkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 分面帧动画示例，使用 area 标记，通过 timingKeyframe、facetRect 组合图表，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Facet Keyframe example: uses area marks; composes charts with timingKeyframe, facetRect; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "stocks-keyframe.ts",
@@ -42,7 +66,13 @@
         "zh": "混合帧动画",
         "en": "Composite Keyframe"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oJvJS4QL8u0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oJvJS4QL8u0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 混合帧动画示例，使用 line、area、interval 标记，通过 timingKeyframe、facetRect 组合图表，配置 stackY、symmetryY、normalizeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Composite Keyframe example: uses line, area, interval marks; composes charts with timingKeyframe, facetRect; applies stackY, symmetryY, normalizeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

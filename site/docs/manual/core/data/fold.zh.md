@@ -1,5 +1,6 @@
 ---
 title: fold
+description: 将多个字段折叠为键值对，把宽表转换成长表以便分组编码。
 order: 2
 ---
 
@@ -13,17 +14,20 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'fold',
-      fields: ['a', 'b'],
-      key: 'key',
-      value: 'value',
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'fold',
+        fields: ['a', 'b'],
+        key: 'key',
+        value: 'value',
+      },
+    ],
+  },
 });
 ```
 

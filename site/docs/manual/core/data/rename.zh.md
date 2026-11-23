@@ -1,5 +1,6 @@
 ---
 title: rename
+description: 重命名数据字段，使输入字段与后续编码或转换保持一致。
 order: 2
 ---
 
@@ -13,16 +14,19 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'rename',
-      a: 'x',
-      b: 'y',
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'rename',
+        a: 'x',
+        b: 'y',
+      },
+    ],
+  },
 });
 ```
 

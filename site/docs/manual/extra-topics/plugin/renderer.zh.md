@@ -1,5 +1,6 @@
 ---
 title: renderer
+description: 基于 AntV G 选择或切换 Canvas、SVG、WebGL 渲染器，适配不同渲染场景。
 order: 1
 ---
 
@@ -20,7 +21,7 @@ const chart = new Chart({
 });
 ```
 
-当然使用之前，是先使用 npm 或者 yarn 等包管理工具安装他们，当前为了 G2 整体包大小，所以仅仅内置 Canvas 渲染器。具体案例可以参考 [渲染器](https://g2.antv.antgroup.com/examples#renderer-renderer)。
+当然使用之前，是先使用 npm 或者 yarn 等包管理工具安装他们，当前为了 G2 整体包大小，所以仅仅内置 Canvas 渲染器。具体案例可以参考 [渲染器](/zh/examples/renderer/renderer/)。
 
 ## 选项
 

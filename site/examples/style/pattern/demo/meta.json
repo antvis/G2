@@ -10,7 +10,13 @@
         "zh": "Lines Pattern",
         "en": "Lines Pattern"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pf4HQJPkQxYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Pf4HQJPkQxYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Lines Pattern示例，使用 interval 标记，采用 theta 坐标系，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Lines Pattern example: uses interval marks; uses theta coordinates; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "dots-pattern.ts",
@@ -18,7 +24,13 @@
         "zh": "Dots Pattern",
         "en": "Dots Pattern"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xqeOR6l10bUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xqeOR6l10bUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Dots Pattern示例，使用 interval 标记，采用 theta 坐标系，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Dots Pattern example: uses interval marks; uses theta coordinates; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "squares-pattern.ts",
@@ -26,7 +38,13 @@
         "zh": "Squares Pattern",
         "en": "Squares Pattern"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YFY0T5U18PEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YFY0T5U18PEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Squares Pattern示例，使用 interval 标记，采用 theta 坐标系，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Squares Pattern example: uses interval marks; uses theta coordinates; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "custom-pattern-with-g-api.ts",
@@ -34,7 +52,13 @@
         "zh": "使用 G API 自定义 Pattern",
         "en": "Custom Pattern with G API"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W33JRoaMGPoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W33JRoaMGPoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 使用 G API 自定义 Pattern示例，使用 cell 标记，配置 fadeIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 Custom Pattern with G API example: uses cell marks; configures fadeIn animations. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "custom-pattern-with-canvas.ts",
@@ -42,7 +66,13 @@
         "zh": "使用原生 Canvas API 自定义 Pattern",
         "en": "Custom Pattern with raw Canvas API"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W33JRoaMGPoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W33JRoaMGPoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 使用原生 Canvas API 自定义 Pattern示例，使用 cell 标记，配置 fadeIn 动画。提供完整源码与可运行图表。",
+          "en": "G2 Custom Pattern with raw Canvas API example: uses cell marks; configures fadeIn animations. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

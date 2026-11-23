@@ -8,15 +8,15 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-  })
-  .encode('x', 'date')
-  .encode('y', 'close')
-  .animate('enter', { type: 'pathIn', duration: 1000 });
+  },
+  encode: { x: 'date', y: 'close' },
+  animate: { enter: { type: 'pathIn', duration: 1000 } },
+});
 
 chart.render();

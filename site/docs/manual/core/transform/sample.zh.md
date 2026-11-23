@@ -1,5 +1,6 @@
 ---
 title: sample
+description: 使用采样策略减少大规模数据中的绘制点数，平衡趋势保留与渲染性能。
 order: 2
 ---
 
@@ -18,12 +19,17 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart.data(data);
-
-chart.line().encode('x', 'x').encode('y', 'y').transform({
-  type: 'sample',
-  thresholds: 500,
-  strategy: 'max',
+chart.options({
+  type: 'line',
+  data,
+  encode: { x: 'x', y: 'y' },
+  transform: [
+    {
+      type: 'sample',
+      thresholds: 500,
+      strategy: 'max',
+    },
+  ],
 });
 
 chart.render();
@@ -57,9 +63,9 @@ function strategy(I: number[], X: number[], Y: number[], thresholds: number) {
   return [1, 101, 202 /*...*/];
 }
 
-chart
-  .line()
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .transform([{ type: 'sample', strategy }]);
+chart.options({
+  type: 'line',
+  encode: { x: 'x', y: 'y' },
+  transform: [{ type: 'sample', strategy }],
+});
 ```

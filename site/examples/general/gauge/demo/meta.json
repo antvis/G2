@@ -10,7 +10,13 @@
         "zh": "仪表盘",
         "en": "Gauge Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hpjTRr6LM7IAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 仪表盘示例，使用 gauge 标记。提供完整源码与可运行图表。",
+          "en": "G2 Gauge Chart example: uses gauge marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "gauge-custom-color.ts",
@@ -18,7 +24,13 @@
         "zh": "自定义仪表盘颜色",
         "en": "Custom Color Gauge Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vE7cR6ZHHk0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vE7cR6ZHHk0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 自定义仪表盘颜色示例，使用 gauge 标记。提供完整源码与可运行图表。",
+          "en": "G2 Custom Color Gauge Chart example: uses gauge marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "gauge-round.ts",
@@ -26,7 +38,13 @@
         "zh": "仪表盘内置 round 形状",
         "en": "Round Shape Gauge Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_tUeQ64QNVEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_tUeQ64QNVEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 仪表盘内置 round 形状示例，使用 gauge 标记。提供完整源码与可运行图表。",
+          "en": "G2 Round Shape Gauge Chart example: uses gauge marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "gauge-custom-shape.ts",
@@ -34,7 +52,13 @@
         "zh": "仪表盘自定义指针形状",
         "en": "Custom Shape Gauge Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lC7RQ73JwaQAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lC7RQ73JwaQAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 仪表盘自定义指针形状示例，使用 gauge 标记。提供完整源码与可运行图表。",
+          "en": "G2 Custom Shape Gauge Chart example: uses gauge marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "gauge-custom-style.ts",
@@ -42,7 +66,13 @@
         "zh": "完全自定义样式的仪表盘",
         "en": "Fully Customized Gauge Style"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*g5MvTqWRJMQAAAAAQ2AAAAgAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*g5MvTqWRJMQAAAAAQ2AAAAgAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 完全自定义样式的仪表盘示例，使用 gauge 标记。提供完整源码与可运行图表。",
+          "en": "G2 Fully Customized Gauge Style example: uses gauge marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

@@ -8,18 +8,23 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' })
-  .state('selected', { fill: '#1783FF', stroke: 'black', strokeWidth: 1 })
-  .state('unselected', { fill: '#ccc' })
-  .interaction('elementSelect'); // 设置高亮交互;
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  axis: { y: { labelFormatter: '.0%' } },
+  state: {
+    selected: { fill: '#1783FF', stroke: 'black', strokeWidth: 1 },
+    unselected: { fill: '#ccc' },
+  },
+  interaction: {
+    // 开启元素选中交互
+    elementSelect: true,
+  },
+});
 
 chart.render();

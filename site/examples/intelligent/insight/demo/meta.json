@@ -10,7 +10,13 @@
         "zh": "趋势",
         "en": "Trend"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 趋势示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Trend example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "time-series-outlier.ts",
@@ -18,7 +24,13 @@
         "zh": "时序异常",
         "en": "Time Series Outlier"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*N5OkR5VKYMAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*N5OkR5VKYMAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 时序异常示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Time Series Outlier example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "low-variance.ts",
@@ -26,7 +38,13 @@
         "zh": "低方差",
         "en": "Low Variance"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Y0QJSZSbig8AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Y0QJSZSbig8AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 低方差示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Low Variance example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "change-point.ts",
@@ -34,7 +52,13 @@
         "zh": "突变点",
         "en": "Change Point"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_p5WRZAmT1oAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_p5WRZAmT1oAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 突变点示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Change Point example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "category-outlier.ts",
@@ -42,7 +66,13 @@
         "zh": "类别异常",
         "en": "Category Outlier"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B64DT43QAVMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B64DT43QAVMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 类别异常示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Category Outlier example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "insight.ts",
@@ -50,7 +80,13 @@
         "zh": "洞察标注算法的详细参数",
         "en": "Detailed Parameters of Insight Mark"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DweUTbVAaIEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 洞察标注算法的详细参数示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Detailed Parameters of Insight Mark example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

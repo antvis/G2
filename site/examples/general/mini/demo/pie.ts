@@ -6,29 +6,27 @@ const chart = new Chart({
   height: 100,
 });
 
-chart.coordinate({ type: 'theta' });
-
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'theta' },
+  interaction: {
+    tooltip: {
+      render: (e, { title, items }) => items[0].value,
+    },
+  },
+  data: [
     { id: 'c', value: 526 },
     { id: 'sass', value: 220 },
     { id: 'php', value: 325 },
     { id: 'elixir', value: 561 },
     { id: 'rust', value: 54 },
-  ])
-  .transform({ type: 'stackY' })
-  .encode('y', 'value')
-  .encode('color', 'id')
-  .style('radius', 4)
-  .style('stroke', '#fff')
-  .style('lineWidth', 1)
-  .animate('enter', { type: 'waveIn' })
-  .axis(false)
-  .legend(false);
-
-chart.interaction('tooltip', {
-  render: (e, { title, items }) => items[0].value,
+  ],
+  transform: [{ type: 'stackY' }],
+  encode: { y: 'value', color: 'id' },
+  style: { radius: 4, stroke: '#fff', lineWidth: 1 },
+  animate: { enter: { type: 'waveIn' } },
+  axis: false,
+  legend: false,
 });
 
 chart.render();

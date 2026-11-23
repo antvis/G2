@@ -2,7 +2,7 @@ import { deepMix } from '@antv/util';
 import { subObject } from '../utils/helper';
 import { selectionOf } from '../utils/scale';
 import { brush as createBrush } from './brushHighlight';
-import { selectPlotArea } from './utils';
+import { selectPlotArea, hasIndependentXYScale } from './utils';
 
 // Mock dblclick events.
 function dblclick(interval = 300) {
@@ -114,8 +114,11 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
 
         setState('brushFilter', (options) => {
           const { marks } = options;
-          const newMarks = marks.map((mark) =>
-            deepMix(
+
+          const hasDualYAxis = hasIndependentXYScale('y', marks);
+
+          const newMarks = marks.map((mark) => {
+            return deepMix(
               {
                 // Hide label to keep smooth transition.
                 axis: {
@@ -128,11 +131,13 @@ export function BrushFilter({ hideX = true, hideY = true, ...rest }) {
                 // Set nice to false to avoid modify domain.
                 scale: {
                   x: { domain: domainX, nice: false },
-                  y: { domain: domainY, nice: false },
+                  ...(!hasDualYAxis && {
+                    y: { domain: domainY, nice: false },
+                  }),
                 },
               },
-            ),
-          );
+            );
+          });
 
           return {
             ...viewOptions,

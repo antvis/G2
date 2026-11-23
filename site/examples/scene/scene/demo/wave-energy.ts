@@ -48,6 +48,12 @@ function generateWaveData(frame) {
   return data;
 }
 
+const colorScale = {
+  type: 'sequential',
+  domain: [0, WAVES - 1],
+  range: ['#1890ff', '#52c41a', '#faad14', '#ff7a45', '#f5222d'],
+};
+
 // 预生成所有帧的 options
 const allOptions = [];
 
@@ -56,7 +62,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
 
   const option = {
     type: 'view',
-    data: data,
+    data,
     children: [
       // 波浪面积图
       {
@@ -69,11 +75,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
         },
         scale: {
           y: { domain: [-20, 100] },
-          color: {
-            type: 'sequential',
-            domain: [0, WAVES - 1],
-            range: ['#1890ff', '#52c41a', '#faad14', '#ff7a45', '#f5222d'],
-          },
+          color: colorScale,
         },
         style: {
           fillOpacity: 0.3,
@@ -98,11 +100,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
           key: (d) => `line-${d.wave}`,
         },
         scale: {
-          color: {
-            type: 'sequential',
-            domain: [0, WAVES - 1],
-            range: ['#1890ff', '#52c41a', '#faad14', '#ff7a45', '#f5222d'],
-          },
+          color: colorScale,
         },
         style: {
           lineWidth: 2,
@@ -125,11 +123,7 @@ for (let frame = 0; frame < FRAMES; frame++) {
         },
         scale: {
           size: { range: [3, 12] },
-          color: {
-            type: 'sequential',
-            domain: [0, WAVES - 1],
-            range: ['#1890ff', '#52c41a', '#faad14', '#ff7a45', '#f5222d'],
-          },
+          color: colorScale,
         },
         style: {
           fillOpacity: 0.8,

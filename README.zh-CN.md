@@ -75,12 +75,21 @@ const chart = new Chart({
 });
 
 // 声明可视化
-chart
-  .interval()                 // 创建一个 Interval 标记
-  .data(data)                 // 绑定数据
-  .encode('x', 'genre')       // 编码 x 通道
-  .encode('y', 'sold')        // 编码 y 通道
-  .encode('color', 'genre');  // 编码 color 通道
+chart.options({
+  // 创建一个 Interval 标记
+  type: 'interval',
+
+  // 绑定数据
+  data: data,
+  encode: {
+    // 编码 x 通道
+    x: 'genre',
+    // 编码 y 通道
+    y: 'sold',
+    // 编码 color 通道
+    color: 'genre',
+  },
+});
 
 // 渲染可视化
 chart.render();

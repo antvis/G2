@@ -13,17 +13,19 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart
-  .data({
+chart.options({
+  type: 'view',
+  data: {
     type: 'inline',
     value: data,
     transform: [
       {
         type: 'map',
-        callback: (datum, idx) => { ...datum, idx },
+        callback: (datum, idx) => ({ ...datum, idx }),
       },
     ],
-  });
+  },
+});
 ```
 
 After the above example is processed, the data becomes:

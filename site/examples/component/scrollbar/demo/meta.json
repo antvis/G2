@@ -10,7 +10,13 @@
         "zh": "滚动条",
         "en": "Scrollbar"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SYeoT6E_CmMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SYeoT6E_CmMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 滚动条示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Scrollbar example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

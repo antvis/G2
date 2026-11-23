@@ -6,6 +6,19 @@ const chart = new Chart({
   height: 300,
 });
 
+const data = [
+  { x: 0, y: 30 },
+  { x: 1, y: 80 },
+  { x: 2, y: 45 },
+  { x: 3, y: 90 },
+  { x: 4, y: 20 },
+  { x: 5, y: 60 },
+  { x: 6, y: 30 },
+  { x: 7, y: 85 },
+  { x: 8, y: 40 },
+  { x: 9, y: 70 },
+];
+
 chart.options({
   type: 'view',
   children: [
@@ -13,18 +26,7 @@ chart.options({
       type: 'line',
       data: {
         type: 'inline',
-        value: [
-          { x: 0, y: 30 },
-          { x: 1, y: 80 },
-          { x: 2, y: 45 },
-          { x: 3, y: 90 },
-          { x: 4, y: 20 },
-          { x: 5, y: 60 },
-          { x: 6, y: 30 },
-          { x: 7, y: 85 },
-          { x: 8, y: 40 },
-          { x: 9, y: 70 },
-        ],
+        value: data,
         transform: [
           {
             type: 'ema',
@@ -47,18 +49,7 @@ chart.options({
       type: 'line',
       data: {
         type: 'inline',
-        value: [
-          { x: 0, y: 30 },
-          { x: 1, y: 80 },
-          { x: 2, y: 45 },
-          { x: 3, y: 90 },
-          { x: 4, y: 20 },
-          { x: 5, y: 60 },
-          { x: 6, y: 30 },
-          { x: 7, y: 85 },
-          { x: 8, y: 40 },
-          { x: 9, y: 70 },
-        ],
+        value: data,
       },
       encode: {
         x: 'x',

@@ -1,0 +1,18 @@
+---
+import type { HomeSlotProps } from '@antv/astro-theme-antv';
+
+const { locale, config } = Astro.props as HomeSlotProps;
+---
+
+<section
+  class="mx-auto grid max-w-[1360px] grid-cols-3 gap-6 bg-white px-8 py-[90px] [@media(width<=760px)]:grid-cols-1 [@media(width<=760px)]:gap-4 [@media(width<=760px)]:px-5 [@media(width<=760px)]:py-12"
+  aria-label={locale === 'zh' ? 'G2 的能力' : 'G2 capabilities'}
+>
+  {config.home.features.map((feature) => (
+    <article class="flex min-h-[270px] flex-col items-center rounded-2xl border border-solid border-[#e8eaf1] px-8 py-[42px] text-center [@media(width<=760px)]:min-h-0 [@media(width<=760px)]:p-8">
+      <img class="mb-6 size-14 object-contain" src={feature.icon} alt="" loading="lazy" decoding="async" />
+      <h3 class="m-0 mb-[18px] text-[22px] leading-[1.4]">{feature.title[locale]}</h3>
+      <p class="m-0 max-w-[30ch] text-[15px] leading-[1.9] text-[#6a7281]">{feature.description[locale]}</p>
+    </article>
+  ))}
+</section>

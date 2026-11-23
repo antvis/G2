@@ -8,20 +8,22 @@ const chart = new Chart({
   height: 120,
 });
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/penguins.json',
-  })
-  .transform({ type: 'groupColor', y: 'count' })
-  .transform({ type: 'stackY' })
-  .transform({ type: 'normalizeY' })
-  .axis('y', { labelFormatter: '.0%' })
-  .encode('color', 'sex')
-  .label({ text: 'sex', position: 'inside' })
-  .tooltip({ channel: 'y', valueFormatter: '.0%' });
+  },
+  transform: [
+    { type: 'groupColor', y: 'count' },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
+  ],
+  axis: { y: { labelFormatter: '.0%' } },
+  encode: { color: 'sex' },
+  labels: [{ text: 'sex', position: 'inside' }],
+  tooltip: { items: [{ channel: 'y', valueFormatter: '.0%' }] },
+});
 
 chart.render();

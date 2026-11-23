@@ -8,22 +8,24 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .label({
-    text: 'name',
-    transform: [
-      {
-        type: 'overflowHide',
-      },
-    ],
-  })
-  .interaction({
+  },
+  encode: { value: 'sum' },
+  labels: [
+    {
+      text: 'name',
+      transform: [
+        {
+          type: 'overflowHide',
+        },
+      ],
+    },
+  ],
+  interaction: {
     drillDown: {
       breadCrumb: {
         rootText: '起始',
@@ -38,10 +40,11 @@ chart
       // FixedColor default: true, true -> drillDown update scale, false -> scale keep.
       isFixedColor: false,
     },
-  })
-  .state({
+  },
+  state: {
     active: { zIndex: 2, stroke: 'red' },
     inactive: { zIndex: 1, stroke: '#fff' },
-  });
+  },
+});
 
 chart.render();

@@ -5,21 +5,23 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/aapl.json',
-  })
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'close')
-  .label({
-    text: 'close',
-    transform: [
-      {
-        type: 'overlapHide',
-      },
-    ],
-  });
+  },
+  encode: { x: (d) => new Date(d.date), y: 'close' },
+  labels: [
+    {
+      text: 'close',
+      transform: [
+        {
+          type: 'overlapHide',
+        },
+      ],
+    },
+  ],
+});
 
 chart.render();

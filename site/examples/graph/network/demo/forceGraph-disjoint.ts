@@ -7,15 +7,16 @@ const chart = new Chart({
   height: 800,
 });
 
-chart
-  .forceGraph()
-  .data({
+chart.options({
+  type: 'forceGraph',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/miserable-disjoint.json',
-  })
-  .layout({
+  },
+  layout: {
     joint: false,
-  })
-  .scale('color', { range: schemeTableau10 });
+  },
+  scale: { color: { range: schemeTableau10 } },
+});
 
 chart.render();

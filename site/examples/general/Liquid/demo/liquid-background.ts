@@ -5,8 +5,12 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.liquid().data(0.3).style({
-  backgroundFill: 'pink',
+chart.options({
+  type: 'liquid',
+  data: 0.3,
+  style: {
+    backgroundFill: 'pink',
+  },
 });
 
 chart.render();

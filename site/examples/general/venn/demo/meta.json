@@ -10,7 +10,13 @@
         "zh": "韦恩图",
         "en": "Venn Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uJF2T7anbQUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uJF2T7anbQUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 韦恩图示例，使用 path 标记，配置 venn、contrastReverse 转换，启用 elementHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Venn Chart example: uses path marks; applies venn, contrastReverse transforms; enables elementHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "venn-hollow.ts",
@@ -18,7 +24,13 @@
         "zh": "空心韦恩图",
         "en": "Hollow Venn"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lAPPSaOWGXYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lAPPSaOWGXYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 空心韦恩图示例，使用 path 标记，配置 venn 转换。提供完整源码与可运行图表。",
+          "en": "G2 Hollow Venn example: uses path marks; applies venn transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

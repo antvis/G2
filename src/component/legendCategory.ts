@@ -53,6 +53,8 @@ function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
     const domain =
       colorScale?.getOptions().domain.length > 0
         ? colorScale?.getOptions().domain
+        : shapeScale?.getOptions().domain.length > 0
+        ? shapeScale.getOptions().domain
         : state.data;
     const shape: string[] = domain.map((d, i) => {
       if (shapeScale1) return shapeScale1.map(d || 'point');

@@ -5,20 +5,19 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'theta' });
-
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'theta' },
+  data: [
     { genre: 'Sports', sold: 275 },
     { genre: 'Strategy', sold: 115 },
     { genre: 'Action', sold: 120 },
     { genre: 'Shooter', sold: 350 },
     { genre: 'Other', sold: 150 },
-  ])
-  .transform({ type: 'stackY' })
-  .encode('color', 'genre')
-  .encode('y', 'sold')
-  .animate('enter', { type: 'waveIn', duration: 1000 });
+  ],
+  transform: [{ type: 'stackY' }],
+  encode: { color: 'genre', y: 'sold' },
+  animate: { enter: { type: 'waveIn', duration: 1000 } },
+});
 
 chart.render();

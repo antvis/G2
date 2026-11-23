@@ -97,7 +97,7 @@ body:
 
         8. 优化文档并预览效果
 
-        - 对应文件位于 `site/docs/manual/xxx.zh.md`
+        - 对应文件位于 `site/docs/manual/xxx.zh.md` 或 `.zh.mdx`
         - 功能实现位于 `src/xxx/xxx.ts`
         - 图表示例位于：`site/examples/xxx/xxx/demo`
         - 图表示例预览： https://g2.antv.antgroup.com/examples#xxx

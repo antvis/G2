@@ -10,15 +10,17 @@ const chart = new Chart({
   autoFit: true,
 });
 
+const dataSource = {
+  type: 'fetch',
+  value:
+    'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+};
+
 chart.options({
   children: [
     {
       type: 'line',
-      data: {
-        type: 'fetch',
-        value:
-          'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-      },
+      data: dataSource,
       encode: {
         x: 'date',
         y: 'close',
@@ -27,11 +29,7 @@ chart.options({
     // insight mark
     {
       type: Insight,
-      data: {
-        type: 'fetch',
-        value:
-          'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
-      },
+      data: dataSource,
       // Specify to add marks of type 'trend'
       insightType: 'trend',
       // If the value of dimensions or measures is not specified, it will be obtained from the encode information by default.

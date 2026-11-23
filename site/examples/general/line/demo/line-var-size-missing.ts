@@ -5,9 +5,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
@@ -21,10 +21,9 @@ chart
         }),
       },
     ],
-  })
-  .encode('x', (d) => new Date(d.date))
-  .encode('y', 'close1')
-  .encode('size', 'close')
-  .style('shape', 'trail');
+  },
+  encode: { x: (d) => new Date(d.date), y: 'close1', size: 'close' },
+  style: { shape: 'trail' },
+});
 
 chart.render();

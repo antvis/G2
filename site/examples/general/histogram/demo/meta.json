@@ -10,7 +10,13 @@
         "zh": "直方图",
         "en": "Histogram"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Tq2YSbmmRcUAAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Tq2YSbmmRcUAAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 直方图示例，使用 interval 标记，配置 binX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Histogram example: uses interval marks; applies binX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "histogram-binwidth.ts",
@@ -18,7 +24,13 @@
         "zh": "直方图范围刻度",
         "en": "Histogram with range tick"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EfmuR67lL24AAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*EfmuR67lL24AAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 直方图范围刻度示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Histogram with range tick example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "histogram-stacked.ts",
@@ -26,7 +38,13 @@
         "zh": "层叠直方图",
         "en": "Stacked histogram"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z873S5jGYD0AAAAAAAAAAAAADmJ7AQ/fmt.webp"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Z873S5jGYD0AAAAAAAAAAAAADmJ7AQ/fmt.webp",
+      "openGraph": {
+        "description": {
+          "zh": "G2 层叠直方图示例，使用 interval 标记，配置 binX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Stacked histogram example: uses interval marks; applies binX transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

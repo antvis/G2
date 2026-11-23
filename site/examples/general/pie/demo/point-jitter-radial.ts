@@ -8,17 +8,16 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'polar' });
-
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  coordinate: { type: 'polar' },
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json',
-  })
-  .transform({ type: 'jitter' })
-  .encode('x', 'clarity')
-  .encode('color', 'clarity')
-  .legend(false);
+  },
+  transform: [{ type: 'jitter' }],
+  encode: { x: 'clarity', color: 'clarity' },
+  legend: false,
+});
 
 chart.render();

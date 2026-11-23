@@ -1068,7 +1068,7 @@ export function computeLabelsBBox(
     Object.fromEntries(
       Object.entries(labelStyle).map(([key, value]) => [
         key,
-        typeof value === 'function' ? value(d, i) : value,
+        typeof value === 'function' ? value(d, i, labels) : value,
       ]),
     ),
   );

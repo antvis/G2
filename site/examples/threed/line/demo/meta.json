@@ -10,7 +10,13 @@
         "zh": "折线",
         "en": "Polyline"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0MEPQrNRlvoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0MEPQrNRlvoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 折线示例，使用 line3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Polyline example: uses line3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "spiral.ts",
@@ -18,7 +24,13 @@
         "zh": "螺旋线",
         "en": "Spiral"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ak1iTZ1dpI0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ak1iTZ1dpI0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 螺旋线示例，使用 line3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Spiral example: uses line3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

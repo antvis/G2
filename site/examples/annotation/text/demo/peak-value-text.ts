@@ -2,6 +2,14 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
+const transform = [
+  {
+    type: 'selectY',
+    groupBy: 'color',
+    selector: 'max',
+  },
+];
+
 chart.options({
   type: 'view',
   autoFit: true,
@@ -43,13 +51,7 @@ chart.options({
         y: 'temperature',
         text: (d) => `峰值：${d.temperature}`,
       },
-      transform: [
-        {
-          type: 'selectY',
-          groupBy: 'color',
-          selector: 'max',
-        },
-      ],
+      transform,
       style: {
         fill: 'orange',
         fontSize: 16,
@@ -60,13 +62,7 @@ chart.options({
     {
       type: 'point',
       encode: { x: 'month', y: 'temperature' },
-      transform: [
-        {
-          type: 'selectY',
-          groupBy: 'color',
-          selector: 'max',
-        },
-      ],
+      transform,
       tooltip: false,
     },
   ],

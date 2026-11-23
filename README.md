@@ -73,12 +73,21 @@ const chart = new Chart({
 });
 
 // Specify visualization.
-chart
-  .interval() // Create an interval mark and add it to the chart.
-  .data(data) // Bind data for this mark.
-  .encode('x', 'genre') // Assign genre column to x position channel.
-  .encode('y', 'sold') // Assign sold column to y position channel.
-  .encode('color', 'genre'); // Assign genre column to color channel.
+chart.options({
+  // Create an interval mark and add it to the chart.
+  type: 'interval',
+
+  // Bind data for this mark.
+  data: data,
+  encode: {
+    // Assign genre column to x position channel.
+    x: 'genre',
+    // Assign sold column to y position channel.
+    y: 'sold',
+    // Assign genre column to color channel.
+    color: 'genre',
+  },
+});
 
 // Render visualization.
 chart.render();

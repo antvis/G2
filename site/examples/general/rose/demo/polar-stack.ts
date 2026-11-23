@@ -24,11 +24,18 @@ const chart = new Chart({
   height: 720,
 });
 
-chart.coordinate({ type: 'polar', innerRadius: 0.1 });
-
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'polar', innerRadius: 0.1 },
+  interaction: {
+    tooltip: {
+      body: false,
+      crosshairsStroke: 'red',
+      crosshairsStrokeWidth: 4,
+    },
+    elementHighlight: true,
+  },
+  data: {
     value: data,
     transform: [
       {
@@ -38,45 +45,39 @@ chart
         value: 'count',
       },
     ],
-  })
-
-  .encode('x', 'year')
-  .encode('y', 'count')
-  .encode('color', '难民类型')
-  .scale('x', { padding: 0 })
-  .style({
+  },
+  encode: { x: 'year', y: 'count', color: '难民类型' },
+  scale: { x: { padding: 0 } },
+  style: {
     lineWidth: 1,
     stroke: '#fff',
-  })
-  .transform([{ type: 'stackY' }])
-  .axis('x', {
-    line: true,
-    grid: true,
-    gridLineDash: [0, 0],
-    gridLineWidth: 1,
-  })
-  .axis('y', {
-    title: false,
-    line: true,
-    gridLineWidth: 1,
-  })
-  .legend({
+  },
+  transform: [{ type: 'stackY' }],
+  axis: {
+    x: {
+      line: true,
+      grid: true,
+      gridLineDash: [0, 0],
+      gridLineWidth: 1,
+    },
+    y: {
+      title: false,
+      line: true,
+      gridLineWidth: 1,
+    },
+  },
+  legend: {
     color: {
       position: 'bottom',
       layout: {
         justifyContent: 'center',
       },
     },
-  })
-  .state('active', { stroke: 'black', lineWidth: 1, zIndex: 101 })
-  .state('inactive', { opacity: 0.5, zIndex: 100 });
-
-chart.interaction('tooltip', {
-  body: false,
-  crosshairsStroke: 'red',
-  crosshairsStrokeWidth: 4,
+  },
+  state: {
+    active: { stroke: 'black', lineWidth: 1, zIndex: 101 },
+    inactive: { opacity: 0.5, zIndex: 100 },
+  },
 });
-
-chart.interaction('elementHighlight', true);
 
 chart.render();

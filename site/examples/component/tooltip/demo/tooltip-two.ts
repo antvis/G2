@@ -15,58 +15,46 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { time: '16', north: 0, south: 0 },
-  { time: '18', north: 7, south: -8 },
-  { time: '20', north: 6, south: -7 },
-  { time: '22', north: 9, south: -8 },
-  { time: '00', north: 5, south: -7 },
-  { time: '02', north: 8, south: -5 },
-  { time: '04', north: 6, south: -7 },
-  { time: '06', north: 7, south: -8 },
-  { time: '08', north: 9, south: -9 },
-  { time: '10', north: 6, south: -9 },
-  { time: '12', north: 5, south: -9 },
-]);
+chart.options({
+  type: 'view',
+  data: [
+    { time: '16', north: 0, south: 0 },
+    { time: '18', north: 7, south: -8 },
+    { time: '20', north: 6, south: -7 },
+    { time: '22', north: 9, south: -8 },
+    { time: '00', north: 5, south: -7 },
+    { time: '02', north: 8, south: -5 },
+    { time: '04', north: 6, south: -7 },
+    { time: '06', north: 7, south: -8 },
+    { time: '08', north: 9, south: -9 },
+    { time: '10', north: 6, south: -9 },
+    { time: '12', north: 5, south: -9 },
+  ],
+  interaction: {
+    tooltip: {
+      css: {
+        '.g2-tooltip': {
+          background: 'transparent',
+          'box-shadow': 'none',
+        },
+      },
+      render: (event, { title, items }) => {
+        const containerStyle = () => ({
+          background: '#fff',
+          'border-radius': '4px',
+          padding: '12px',
+          'box-shadow': '0 6px 12px 0 rgba(0, 0, 0, 0.12)',
+        });
 
-chart
-  .area()
-  .encode('x', (d) => d.time)
-  .encode('y', 'north')
-  .encode('color', () => 'north')
-  .encode('shape', 'smooth');
+        const itemStyle = (color) => ({
+          display: 'inline-block',
+          width: '8px',
+          height: '8px',
+          background: color,
+          'border-radius': '50%',
+        });
 
-chart
-  .area()
-  .encode('x', (d) => d.time)
-  .encode('y', 'south')
-  .encode('color', () => 'south')
-  .encode('shape', 'smooth');
-
-chart.interaction('tooltip', {
-  css: {
-    '.g2-tooltip': {
-      background: 'transparent',
-      'box-shadow': 'none',
-    },
-  },
-  render: (event, { title, items }) => {
-    const containerStyle = () => ({
-      background: '#fff',
-      'border-radius': '4px',
-      padding: '12px',
-      'box-shadow': '0 6px 12px 0 rgba(0, 0, 0, 0.12)',
-    });
-
-    const itemStyle = (color) => ({
-      display: 'inline-block',
-      width: '8px',
-      height: '8px',
-      background: color,
-      'border-radius': '50%',
-    });
-
-    return `
+        return `
        <div>
           <div style="${css(containerStyle(), { 'margin-bottom': '20px' })}">
             <span>${title}</span>
@@ -84,7 +72,29 @@ chart.interaction('tooltip', {
           </div>
       </div>
     `;
+      },
+    },
   },
+  children: [
+    {
+      type: 'area',
+      encode: {
+        x: (d) => d.time,
+        y: 'north',
+        color: () => 'north',
+        shape: 'smooth',
+      },
+    },
+    {
+      type: 'area',
+      encode: {
+        x: (d) => d.time,
+        y: 'south',
+        color: () => 'south',
+        shape: 'smooth',
+      },
+    },
+  ],
 });
 
 chart.render();

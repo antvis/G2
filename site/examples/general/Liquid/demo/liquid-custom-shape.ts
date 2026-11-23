@@ -5,10 +5,10 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .liquid()
-  .data(0.3)
-  .style({
+chart.options({
+  type: 'liquid',
+  data: 0.3,
+  style: {
     shape: (x, y, r) => {
       const path = [];
       const w = r * 2;
@@ -31,6 +31,7 @@ chart
     outlineBorder: 4,
     outlineDistance: 8,
     waveLength: 128,
-  });
+  },
+});
 
 chart.render();

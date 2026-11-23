@@ -1,0 +1,6 @@
+---
+interface Props { type?: string; }
+const { type = 'info' } = Astro.props;
+const colors: Record<string, string> = { success: 'bg-green-50 text-green-700', warning: 'bg-amber-50 text-amber-800', error: 'bg-red-50 text-red-700', info: 'bg-blue-50 text-blue-700' };
+---
+<span class:list={['mx-1 inline-block rounded px-2 py-0.5 text-xs', colors[type] ?? colors.info]}><slot /></span>

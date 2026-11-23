@@ -10,7 +10,13 @@
         "zh": "Canvas 渲染器",
         "en": "Canvas Renderer"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vai7QIfDI_AAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*vai7QIfDI_AAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "为 G2 Chart 配置 Canvas 渲染器，通过 spaceFlex 组合多个图表，查看不同标记的渲染效果。",
+          "en": "Configure the Canvas renderer for G2 Chart and compose multiple charts with spaceFlex to explore rendering across mark types."
+        }
+      }
     },
     {
       "filename": "svg.ts",
@@ -18,7 +24,13 @@
         "zh": "SVG 渲染器",
         "en": "SVG Renderer"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZJB1TZ0REDAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ZJB1TZ0REDAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "为 G2 Chart 配置 SVG 渲染器，通过 spaceFlex 组合多个图表，查看不同标记的渲染效果。",
+          "en": "Configure the SVG renderer for G2 Chart and compose multiple charts with spaceFlex to explore rendering across mark types."
+        }
+      }
     },
     {
       "filename": "webgl.ts",
@@ -26,7 +38,13 @@
         "zh": "WebGL 渲染器",
         "en": "WebGL Renderer"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*l504TZE8laUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*l504TZE8laUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "为 G2 Chart 配置 WebGL 渲染器，通过 spaceFlex 组合多个图表，查看不同标记的渲染效果。",
+          "en": "Configure the WebGL renderer for G2 Chart and compose multiple charts with spaceFlex to explore rendering across mark types."
+        }
+      }
     }
   ]
 }

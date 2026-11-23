@@ -9,9 +9,9 @@ const chart = new Chart({
 
 chart;
 
-chart
-  .interval()
-  .data([
+chart.options({
+  type: 'interval',
+  data: [
     { type: '微博', value: 93.33 },
     { type: '其他', value: 6.67 },
     { type: '论坛', value: 4.77 },
@@ -22,16 +22,18 @@ chart
     { type: '视频', value: 0.39 },
     { type: '博客', value: 0.37 },
     { type: '报刊', value: 0.17 },
-  ])
-  .encode('y', 'value')
-  .encode('color', 'type')
-  .transform({ type: 'stackY' })
-  .coordinate({ type: 'theta' })
-  .animate('enter', { type: 'waveIn' })
-  .label({
-    position: 'spider',
-    text: (d) => `${d.type} (${d.value})`,
-  })
-  .legend(false);
+  ],
+  encode: { y: 'value', color: 'type' },
+  transform: [{ type: 'stackY' }],
+  coordinate: { type: 'theta' },
+  animate: { enter: { type: 'waveIn' } },
+  labels: [
+    {
+      position: 'spider',
+      text: (d) => `${d.type} (${d.value})`,
+    },
+  ],
+  legend: false,
+});
 
 chart.render();

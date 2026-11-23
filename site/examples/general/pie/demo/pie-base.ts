@@ -13,22 +13,29 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'theta', outerRadius: 0.8 });
-
-chart
-  .interval()
-  .data(data)
-  .transform({ type: 'stackY' })
-  .encode('y', 'percent')
-  .encode('color', 'item')
-  .legend('color', { position: 'bottom', layout: { justifyContent: 'center' } })
-  .label({
-    position: 'outside',
-    text: (data) => `${data.item}: ${data.percent * 100}%`,
-  })
-  .tooltip((data) => ({
-    name: data.item,
-    value: `${data.percent * 100}%`,
-  }));
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'theta', outerRadius: 0.8 },
+  data: data,
+  transform: [{ type: 'stackY' }],
+  encode: { y: 'percent', color: 'item' },
+  legend: {
+    color: { position: 'bottom', layout: { justifyContent: 'center' } },
+  },
+  labels: [
+    {
+      position: 'outside',
+      text: (data) => `${data.item}: ${data.percent * 100}%`,
+    },
+  ],
+  tooltip: {
+    items: [
+      (data) => ({
+        name: data.item,
+        value: `${data.percent * 100}%`,
+      }),
+    ],
+  },
+});
 
 chart.render();

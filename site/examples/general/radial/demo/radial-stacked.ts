@@ -13,11 +13,10 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'radial' });
-
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { type: 'radial' },
+  data: {
     value: data,
     transform: [
       {
@@ -28,14 +27,14 @@ chart
         retains: ['State'],
       },
     ],
-  })
-  .encode('x', 'State')
-  .encode('y', '人口数量')
-  .encode('color', '年龄段')
-  .scale('y', { domainMax: 200000 })
-  .scale('color', { range: ['#6395FA', '#62DAAB', '#657798'] })
-  .transform({ type: 'stackY' })
-  .axis({
+  },
+  encode: { x: 'State', y: '人口数量', color: '年龄段' },
+  scale: {
+    y: { domainMax: 200000 },
+    color: { range: ['#6395FA', '#62DAAB', '#657798'] },
+  },
+  transform: [{ type: 'stackY' }],
+  axis: {
     x: {
       title: false,
       line: true,
@@ -47,16 +46,19 @@ chart
       tickCount: 10,
       tickFilter: (datum) => datum != 200000,
     },
-  })
-  .legend({
+  },
+  legend: {
     color: {
       position: 'bottom',
       layout: { justifyContent: 'center' },
     },
-  })
-  .interaction('elementHighlightByX')
-  .interaction('tooltip', {
-    shared: true,
-  });
+  },
+  interaction: {
+    elementHighlightByX: true,
+    tooltip: {
+      shared: true,
+    },
+  },
+});
 
 chart.render();

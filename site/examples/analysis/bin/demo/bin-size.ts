@@ -5,17 +5,15 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .point()
-  .data({
+chart.options({
+  type: 'point',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/movies.json',
-  })
-  .encode('x', 'IMDB Rating')
-  .encode('y', 'Rotten Tomatoes Rating')
-  .encode('shape', 'point')
-  .transform({ type: 'bin', size: 'count', thresholdsX: 10, thresholdsY: 10 })
-  .tooltip({
+  },
+  encode: { x: 'IMDB Rating', y: 'Rotten Tomatoes Rating', shape: 'point' },
+  transform: [{ type: 'bin', size: 'count', thresholdsX: 10, thresholdsY: 10 }],
+  tooltip: {
     title: { channel: 'size' },
     items: [
       (d, i, data, column) => ({
@@ -27,6 +25,7 @@ chart
         value: `${column.y.value[i]}, ${column.y1.value[i]}`,
       }),
     ],
-  });
+  },
+});
 
 chart.render();

@@ -1,0 +1,173 @@
+---
+title: Stacked Area Chart
+description: "Stack areas from multiple series to show totals and changing contributions over time. Explore stacked area charts and G2 examples."
+sidebar: { icon: 'area' }
+order: 2
+screenshot: 'https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original'
+category: ['comparison', 'proportion', 'trend', 'interval', 'time']
+similar: ['area', 'stacked-bar', 'line']
+---
+
+import ChartCategories from '../../src/components/ChartCategories.astro';
+import ChartGallery from '../../src/components/ChartGallery.astro';
+import { Demo } from '@antv/astro-theme-antv/components';
+
+
+<img alt="stacked-area" src="https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Cla-RK74-GgAAAAAAAAAAAAADmJ7AQ/original" width="600" />
+
+## Introduction to Stacked Area Charts
+
+Stacked area charts are similar to basic area charts, with the key difference that each series starts from the cumulative total of the previous series. They display how each part contributes to the whole over time or across categories, emphasizing the part-to-whole relationship.
+
+The overall area (top boundary) represents the total amount of all data. The stacked layers represent the magnitude of each series. Stacked area charts are particularly useful for showing how composition changes within a total. They are generally not suitable for datasets containing negative values. They are ideal for comparing multiple series over time.
+
+Based on stacked area charts, if you normalize the total at each position to 100%, you get a percentage stacked area chart. While it does not reflect changes in the absolute total, it clearly shows how each category’s share changes over time or across ordered dimensions—very useful when analyzing large, time-varying, or ordered datasets.
+
+## Components of a Stacked Area Chart
+
+<img class="constitute-img" src="https://t.alipayobjects.com/images/T1g54jXlXhXXXXXXXX.png" />
+
+| Chart Type            | Stacked Area Chart                                                                 |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| Suitable Data         | One categorical field, two continuous fields                                        |
+| Function              | Compare the change/trend of each grouped series                                     |
+| Data-to-Visual Mapping| Two continuous fields mapped to the horizontal and vertical axes<br />Category mapped to color |
+| Suitable Data Volume  | No more than 12 categories mapped to color; at least two data points per category   |
+
+## Use Cases
+
+### Suitable Scenarios
+
+- Display the **trend and proportion changes** of multiple series over time or categories.
+- Highlight the **part-to-whole relationship**.
+- Compare the **cumulative changes** across series.
+
+<Demo src="charts/demos/stacked-area-en-1" />
+
+### Unsuitable Scenarios
+
+**1. Avoid using stacked area charts for category comparisons**
+
+**Stacked Area Chart (Not Recommended)**
+
+<Demo src="charts/demos/stacked-area-en-2" />
+
+**Stacked Bar Chart (Recommended)**
+
+<Demo src="charts/demos/stacked-area-en-3" />
+
+## Extensions of Stacked Area Charts
+
+### Percentage Stacked Area Chart
+
+Normalize the total at each position to 100% to highlight proportion changes.
+
+<Demo src="charts/demos/stacked-area-en-4" />
+
+### Gradient Stacked Area Chart
+
+Use gradient fill to enhance visual appeal and highlight layering.
+
+<Demo src="charts/demos/stacked-area-en-5" />
+
+### Streamgraph (Symmetric Stacked Area Chart)
+
+A specific form of stacked area chart that symmetrically distributes layers around a central axis to present the flowing changes in data—especially suitable for showing how multiple categories change over time.
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'area',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/unemployment-by-industry.json',
+  },
+  encode: {
+    x: (d) => new Date(d.date),
+    y: 'unemployed',
+    color: 'industry',
+  },
+  transform: [
+    { type: 'stackY' },
+    { type: 'symmetryY' }, // symmetric distribution
+  ],
+  axis: { x: { title: false }, y: { title: false } },
+});
+
+chart.render();
+`} />
+
+### Waterfall Area Chart
+
+Show layered effects across categories using special ordering and smooth curves to create a flowing look.
+
+<Demo code={`import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  theme: 'classic',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'area',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/f38a8ad0-6e1f-4bb3-894c-7db50781fdec.json',
+  },
+  encode: {
+    x: (d) => new Date(d.year),
+    y: 'revenue',
+    series: 'format',
+    color: 'group',
+    shape: 'smooth', // smooth curve
+  },
+  transform: [
+    {
+      type: 'stackY',
+      orderBy: 'maxIndex',
+      reverse: true,
+    },
+  ],
+  axis: {
+    x: { title: false },
+    y: { title: false, labelFormatter: '~s' },
+  },
+  tooltip: { channel: 'y', valueFormatter: '.2f' },
+});
+
+chart.render();
+`} />
+
+---
+
+## Comparing Stacked Area Charts to Other Charts
+
+### Stacked Area Charts and [Area Charts](/en/charts/area/)
+
+- Area charts are suitable for displaying trends of a single series; stacked area charts are suitable for showing cumulative trends and proportions across multiple series.
+
+### Stacked Area Charts and [Stacked Bar Charts](/en/charts/stacked-bar/)
+
+- Both can present part-to-whole relationships. Stacked area charts are better for trend data; stacked bar charts are suitable for categorical comparisons.
+
+### Stacked Area Charts and [Line Charts](/en/charts/line/)
+
+- Line charts are suitable for comparing precise values across series, while stacked area charts emphasize cumulative totals and proportions.
+
+---
+
+## Similar Charts
+
+<ChartGallery mode="similar" />
+
+## Categories
+
+<ChartCategories /> 

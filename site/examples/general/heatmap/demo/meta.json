@@ -10,7 +10,13 @@
         "zh": "密度热力图",
         "en": "Heatmap"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ze7gSYylw_QAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 密度热力图示例，使用 image、heatmap 标记。提供完整源码与可运行图表。",
+          "en": "G2 Heatmap example: uses image, heatmap marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "heatmap-density.ts",
@@ -18,7 +24,13 @@
         "zh": "散点分布热力",
         "en": "Heatmap Density"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0AfVQpGgcsoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0AfVQpGgcsoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 散点分布热力示例，使用 heatmap、point 标记，配置 custom 转换。提供完整源码与可运行图表。",
+          "en": "G2 Heatmap Density example: uses heatmap, point marks; applies custom transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "mouse-heatmap.ts",
@@ -26,7 +38,13 @@
         "zh": "鼠标热力图",
         "en": "Mouse Heatmap"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kC58R7TEdd0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*kC58R7TEdd0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 鼠标热力图示例，使用 heatmap 标记。提供完整源码与可运行图表。",
+          "en": "G2 Mouse Heatmap example: uses heatmap marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

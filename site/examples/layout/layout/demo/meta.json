@@ -10,7 +10,13 @@
         "zh": "图表布局",
         "en": "chart layout"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uPTsT5643UQAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*uPTsT5643UQAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 图表布局示例，使用 point 标记，配置 group、sortY 转换。提供完整源码与可运行图表。",
+          "en": "G2 chart layout example: uses point marks; applies group, sortY transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

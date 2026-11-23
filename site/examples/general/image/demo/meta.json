@@ -10,7 +10,13 @@
         "zh": "浏览器图标",
         "en": "Browser Logo"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*R8TRQJMrQ-AAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*R8TRQJMrQ-AAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 浏览器图标示例，使用 link、line、image 标记。提供完整源码与可运行图表。",
+          "en": "G2 Browser Logo example: uses link, line, image marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "icon.ts",
@@ -18,7 +24,13 @@
         "zh": " 图标标记",
         "en": "Icon symbol"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CKmISLNs5FAAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CKmISLNs5FAAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2  图标标记示例，使用 image 标记。提供完整源码与可运行图表。",
+          "en": "G2 Icon symbol example: uses image marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "contributor.ts",
@@ -26,7 +38,13 @@
         "zh": "贡献者",
         "en": "Contributor"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zD2UToZzYloAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*zD2UToZzYloAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 贡献者示例，使用 image 标记。提供完整源码与可运行图表。",
+          "en": "G2 Contributor example: uses image marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

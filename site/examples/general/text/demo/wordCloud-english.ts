@@ -212,13 +212,14 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .wordCloud()
-  .data(Object.entries(Word).map(([text, value]) => ({ text, value })))
-  .layout({
+chart.options({
+  type: 'wordCloud',
+  data: Object.entries(Word).map(([text, value]) => ({ text, value })),
+  layout: {
     fontSize: [20, 100],
-  })
-  .encode('color', 'text')
-  .legend(false);
+  },
+  encode: { color: 'text' },
+  legend: false,
+});
 
 chart.render();

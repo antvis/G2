@@ -1,5 +1,6 @@
 ---
 title: 服务端渲染（SSR）
+description: 在 Node.js 中使用 Canvas 渲染图表并导出图片，实现服务端渲染。
 order: 12
 ---
 

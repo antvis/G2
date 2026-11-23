@@ -9,21 +9,24 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
       height: 500,
     });
 
-    chart
-      .interval()
-      .encode('x', 'depth')
-      .encode('y', 'count')
-      .encode('color', 'cut')
-      .data(data)
-      .transform({
-        type: 'binX',
-        y: 'count',
-        thresholds: 25,
-      })
-      .style({
+    chart.options({
+      type: 'interval',
+      encode: { x: 'depth', y: 'count', color: 'cut' },
+      data: data,
+      transform: [
+        {
+          type: 'binX',
+          y: 'count',
+          thresholds: 25,
+        },
+        { type: 'stackY' },
+      ],
+      tooltip: { items: [{ channel: 'y0' }] },
+      style: {
         columnWidthRatio: 1,
         inset: 0.5,
-      });
+      },
+    });
 
     chart.render();
   });

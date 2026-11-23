@@ -10,7 +10,13 @@
         "zh": "竖直平行坐标系",
         "en": "Vertical Parallel"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*aX6WSJw7proAAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 竖直平行坐标系示例，使用 line 标记，采用 parallel 坐标系，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Vertical Parallel example: uses line marks; uses parallel coordinates; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-parallel-horizontal.ts",
@@ -18,7 +24,13 @@
         "zh": "水平平行坐标系",
         "en": "Horizontal Parallel"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SOZOT7Smha0AAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*SOZOT7Smha0AAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 水平平行坐标系示例，使用 line 标记，配置 transpose 转换，采用 parallel 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Horizontal Parallel example: uses line marks; applies transpose transforms; uses parallel coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

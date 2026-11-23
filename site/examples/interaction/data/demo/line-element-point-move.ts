@@ -5,9 +5,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .line()
-  .data([
+chart.options({
+  type: 'line',
+  data: [
     { year: '1991', value: 3, type: 'type1' },
     { year: '1992', value: 4, type: 'type1' },
     { year: '1993', value: 3.5, type: 'type1' },
@@ -26,8 +26,8 @@ chart
     { year: '1997', value: 4, type: 'type2' },
     { year: '1998', value: 6, type: 'type2' },
     { year: '1999', value: 15, type: 'type2' },
-  ])
-  .interaction({
+  ],
+  interaction: {
     legendFilter: false,
     elementPointMove: {
       pointR: 8,
@@ -38,11 +38,9 @@ chart
       labelFontSize: 14,
       labelY: 24,
     },
-  })
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('key', 'type')
-  .encode('color', 'type');
+  },
+  encode: { x: 'year', y: 'value', key: 'type', color: 'type' },
+});
 
 chart.render().then(() => {
   chart.on('element-point:select', (v) => {

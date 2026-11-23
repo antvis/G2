@@ -1,5 +1,6 @@
 ---
 title: Using in Frontend Frameworks
+description: "Integrate G2 into frontend frameworks such as Vue and React, including containers, initialization, data updates, and cleanup on unmount."
 order: 3
 ---
 
@@ -26,13 +27,16 @@ function renderBarChart(container) {
   ];
 
   // Declare visualization
-  chart
-    .interval() // Create an Interval mark
-    .data(data) // Bind data
-    .encode('x', 'genre') // Encode x channel
-    .encode('y', 'sold') // Encode y channel
-    .encode('key', 'genre') // Specify key
-    .animate('update', { duration: 300 }); // Specify update animation duration
+  chart.options({
+    type: 'interval',
+    data,
+    encode: {
+      x: 'genre',
+      y: 'sold',
+      key: 'genre',
+    },
+    animate: { update: { duration: 300 } },
+  });
 
   // Render visualization
   chart.render();
@@ -44,20 +48,19 @@ function renderBarChart(container) {
 ```js
 // Update bar chart data
 function updateBarChart(chart) {
-  // Get the Interval Mark
-  const interval = chart.getNodesByType('interval')[0];
-
+  // Read the current Spec (with normalized children)
+  const spec = chart.options();
   // Simulate and update Interval data
-  const newData = interval.data().map((d) => ({
+  spec.children[0].data = spec.children[0].data.map((d) => ({
     ...d,
     sold: Math.random() * 400 + 100,
   }));
-
-  interval.data(newData);
-
+  // Apply the updated Spec
+  chart.options(spec);
   // Re-render
   chart.render();
 }
+
 ```
 
 Note that in frameworks, it's not recommended to use `new Chart({ container: 'id' })` to specify the container. Instead, use the HTML element directly as the container: `new Chart({ container: HTMLContainer })`. This prevents issues with different components having the same ID, which could lead to unexpected rendering problems.

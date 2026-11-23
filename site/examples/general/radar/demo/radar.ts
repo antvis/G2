@@ -28,32 +28,28 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ type: 'polar' });
+const encode = { x: 'item', y: 'score', color: 'type', shape: 'smooth' };
 
-chart
-  .data(data)
-  .scale('x', { padding: 0.5, align: 0 })
-  .scale('y', { tickCount: 5 })
-  .axis('x', { grid: true })
-  .axis('y', { zIndex: 1, title: false });
-
-chart
-  .area()
-  .encode('x', 'item')
-  .encode('y', 'score')
-  .encode('color', 'type')
-  .encode('shape', 'smooth')
-  .style('fillOpacity', 0.5)
-  .scale('y', { domainMax: 80 });
-
-chart
-  .line()
-  .encode('x', 'item')
-  .encode('y', 'score')
-  .encode('color', 'type')
-  .encode('shape', 'smooth')
-  .style('lineWidth', 2);
-
-chart.interaction('tooltip', { crosshairsLineDash: [4, 4] });
+chart.options({
+  type: 'view',
+  coordinate: { type: 'polar' },
+  data,
+  scale: { x: { padding: 0.5, align: 0 }, y: { tickCount: 5 } },
+  axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
+  interaction: { tooltip: { crosshairsLineDash: [4, 4] } },
+  children: [
+    {
+      type: 'area',
+      encode,
+      style: { fillOpacity: 0.5 },
+      scale: { y: { domainMax: 80 } },
+    },
+    {
+      type: 'line',
+      encode,
+      style: { lineWidth: 2 },
+    },
+  ],
+});
 
 chart.render();

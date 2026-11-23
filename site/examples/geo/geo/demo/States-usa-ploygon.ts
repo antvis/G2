@@ -43,9 +43,9 @@ const chart = new Chart({
   paddingBottom: 0,
 });
 
-chart
-  .polygon()
-  .data({
+chart.options({
+  type: 'polygon',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/basement_prod/d36ad90e-3902-4742-b8a2-d93f7e5dafa2.json',
@@ -55,14 +55,11 @@ chart
         callback: layout,
       },
     ],
-  })
-  .encode('x', 'x')
-  .encode('y', 'y')
-  .encode('color', (d) => d?.density)
-  .scale('x', { domain: [-130, -60] })
-  .scale('y', { domain: [10, 50] })
-  .axis(false)
-  .style('stroke', 'red')
-  .style('fillOpacity', 0.65);
+  },
+  encode: { x: 'x', y: 'y', color: (d) => d?.density },
+  scale: { x: { domain: [-130, -60] }, y: { domain: [10, 50] } },
+  axis: false,
+  style: { stroke: 'red', fillOpacity: 0.65 },
+});
 
 chart.render();

@@ -11,29 +11,37 @@ const chart = new Chart({
   padding: P,
 });
 
-// Draw football field.
-chart.shape().style('x', '0%').style('y', '0%').style('render', football);
-
-// Analysis messi's shoot data.
-chart
-  .rect()
-  .data({
-    type: 'fetch',
-    value:
-      'https://mdn.alipayobjects.com/afts/file/A*FCRjT4NGENEAAAAAAAAAAAAADrd2AQ/messi.json',
-  })
-  .transform({
-    type: 'bin',
-    opacity: 'count',
-    thresholdsX: 15,
-    thresholdsY: 15,
-  })
-  .encode('x', (d) => Number(d.X))
-  .encode('y', (d) => Number(d.Y))
-  .scale('x', { domain: [0, 1] })
-  .scale('y', { domain: [0, 1] })
-  .axis(false)
-  .legend(false);
+chart.options({
+  type: 'view',
+  children: [
+    {
+      // Draw football field.
+      type: 'shape',
+      style: { x: '0%', y: '0%', render: football },
+    },
+    {
+      // Analysis messi's shoot data.
+      type: 'rect',
+      data: {
+        type: 'fetch',
+        value:
+          'https://mdn.alipayobjects.com/afts/file/A*FCRjT4NGENEAAAAAAAAAAAAADrd2AQ/messi.json',
+      },
+      transform: [
+        {
+          type: 'bin',
+          opacity: 'count',
+          thresholdsX: 15,
+          thresholdsY: 15,
+        },
+      ],
+      encode: { x: (d) => Number(d.X), y: (d) => Number(d.Y) },
+      scale: { x: { domain: [0, 1] }, y: { domain: [0, 1] } },
+      axis: false,
+      legend: false,
+    },
+  ],
+});
 
 chart.render();
 

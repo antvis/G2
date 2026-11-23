@@ -1,5 +1,6 @@
 ---
 title: pick
+description: 从数据记录中选取指定字段，生成仅包含所需字段的数据集。
 order: 2
 ---
 
@@ -13,15 +14,18 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'pick',
-      fields: ['a', 'b'],
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'pick',
+        fields: ['a', 'b'],
+      },
+    ],
+  },
 });
 ```
 

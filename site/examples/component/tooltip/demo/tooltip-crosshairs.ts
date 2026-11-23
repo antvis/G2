@@ -4,23 +4,23 @@ const chart = new Chart({
   container: 'container',
 });
 
-chart
-  .line()
-  .data({
+chart.options({
+  type: 'line',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/indices.json',
-  })
-  .transform({ type: 'normalizeY', basis: 'first', groupBy: 'color' })
-  .encode('x', (d) => new Date(d.Date))
-  .encode('y', 'Close')
-  .encode('color', 'Symbol')
-  .axis('y', { title: '↑ Change in price (%)' })
-  .interaction('tooltip', {
-    crosshairs: true,
-    crosshairsXStroke: 'red',
-    crosshairsYStroke: 'blue',
-  })
-  .tooltip({
+  },
+  transform: [{ type: 'normalizeY', basis: 'first', groupBy: 'color' }],
+  encode: { x: (d) => new Date(d.Date), y: 'Close', color: 'Symbol' },
+  axis: { y: { title: '↑ Change in price (%)' } },
+  interaction: {
+    tooltip: {
+      crosshairs: true,
+      crosshairsXStroke: 'red',
+      crosshairsYStroke: 'blue',
+    },
+  },
+  tooltip: {
     title: (d) => new Date(d.Date).toUTCString(),
     items: [
       (d, i, data, column) => ({
@@ -28,11 +28,14 @@ chart
         value: column.y.value[i].toFixed(1),
       }),
     ],
-  })
-  .label({
-    text: 'Symbol',
-    selector: 'last',
-    fontSize: 10,
-  });
+  },
+  labels: [
+    {
+      text: 'Symbol',
+      selector: 'last',
+      fontSize: 10,
+    },
+  ],
+});
 
 chart.render();

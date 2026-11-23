@@ -10,7 +10,13 @@
         "zh": "配置图形样式",
         "en": "Configure Mark Styles  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_GwNQrho0KsAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*_GwNQrho0KsAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置图形样式示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Configure Mark Styles   example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line.ts",
@@ -18,7 +24,13 @@
         "zh": "配置线的样式",
         "en": "Configure Line Styles  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fGWwRrW7YVAAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*fGWwRrW7YVAAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置线的样式示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Configure Line Styles   example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "text.ts",
@@ -26,7 +38,13 @@
         "zh": "配置文字的样式",
         "en": "Configure Text Styles  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1-LmT6hPPvkAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*1-LmT6hPPvkAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置文字的样式示例，使用 liquid 标记。提供完整源码与可运行图表。",
+          "en": "G2 Configure Text Styles   example: uses liquid marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "area.ts",
@@ -34,7 +52,13 @@
         "zh": "配置线性渐变-面积图",
         "en": "Configure Linear-gradient Area  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ETulQ6cCQo4AAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ETulQ6cCQo4AAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置线性渐变-面积图示例，使用 area 标记，配置 filter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Configure Linear-gradient Area   example: uses area marks; applies filter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "gauge.ts",
@@ -42,7 +66,13 @@
         "zh": "配置线性渐变-仪表盘",
         "en": "Configure Linear-gradient Gauge  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DvbdR6P2XNkAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DvbdR6P2XNkAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置线性渐变-仪表盘示例，使用 gauge 标记。提供完整源码与可运行图表。",
+          "en": "G2 Configure Linear-gradient Gauge   example: uses gauge marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "radial-gradient.ts",
@@ -50,7 +80,13 @@
         "zh": "配置环形渐变",
         "en": "Configure Radial-gradient  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rM0yTpUiYo0AAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rM0yTpUiYo0AAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置环形渐变示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Configure Radial-gradient   example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "pattern.ts",
@@ -58,7 +94,13 @@
         "zh": "配置纹理",
         "en": "Configure pattern  "
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9QtbQaPhu5AAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*9QtbQaPhu5AAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 配置纹理示例，使用 interval 标记。提供完整源码与可运行图表。",
+          "en": "G2 Configure pattern   example: uses interval marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

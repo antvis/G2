@@ -44,6 +44,7 @@ export { populationIntervalRose } from './population-interval-rose';
 export { populationIntervalRoseLabel } from './population-interval-rose-label';
 export { carsPointScatterPlot } from './cars-point-scatterplot';
 export { irisPointShapes } from './iris-point-shapes';
+export { irisPointShapeOnlyLegend } from './iris-point-shape-only-legend';
 export { stateAgesPointDotPlot } from './stateages-point-dot-plot';
 export { temperaturesPointSequential } from './temperatures-point-sequential';
 export { disastersPointBubble } from './disasters-point-bubble';

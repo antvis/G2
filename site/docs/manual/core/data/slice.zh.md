@@ -1,5 +1,6 @@
 ---
 title: slice
+description: 按起止索引截取数据集中的一段记录。
 order: 2
 ---
 
@@ -13,15 +14,18 @@ const data = [
   { a: 4, b: 5, c: 6 },
 ];
 
-chart.data({
-  type: 'inline',
-  value: data,
-  transform: [
-    {
-      type: 'slice',
-      start: 1,
-    },
-  ],
+chart.options({
+  type: 'view',
+  data: {
+    type: 'inline',
+    value: data,
+    transform: [
+      {
+        type: 'slice',
+        start: 1,
+      },
+    ],
+  },
 });
 ```
 

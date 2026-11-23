@@ -5,9 +5,9 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .path()
-  .data({
+chart.options({
+  type: 'path',
+  data: {
     type: 'inline',
     value: [
       { sets: ['A'], size: 15, label: 'A' },
@@ -23,17 +23,17 @@ chart
         type: 'venn',
       },
     ],
-  })
-  .encode('d', 'path')
-  .encode('color', 'key')
-  .encode('shape', 'hollow')
-  .label({
-    position: 'inside',
-    text: (d) => d.label || '',
-    fill: '#000',
-  })
-  .style('opacity', 0.6)
-  .style('lineWidth', 8)
-  .tooltip(false);
+  },
+  encode: { d: 'path', color: 'key', shape: 'hollow' },
+  labels: [
+    {
+      position: 'inside',
+      text: (d) => d.label || '',
+      fill: '#000',
+    },
+  ],
+  style: { opacity: 0.6, lineWidth: 8 },
+  tooltip: false,
+});
 
 chart.render();

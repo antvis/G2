@@ -20,7 +20,7 @@ const chart = new Chart({
 });
 ```
 
-Of course, before using them, you need to install them first using npm, yarn, or other package managers. For the overall package size of G2, only the Canvas renderer is built-in. For specific examples, refer to [Renderer](https://g2.antv.antgroup.com/en/examples#renderer-renderer).
+Of course, before using them, you need to install them first using npm, yarn, or other package managers. For the overall package size of G2, only the Canvas renderer is built-in. For specific examples, refer to [Renderer](/en/examples/renderer/renderer/).
 
 ## Options
 

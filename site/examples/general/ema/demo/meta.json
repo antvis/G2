@@ -10,7 +10,13 @@
         "zh": "基础平滑图",
         "en": "Ema Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-W7SQJ3KGLMAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-W7SQJ3KGLMAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 基础平滑图示例，使用 line 标记，配置 ema 转换。提供完整源码与可运行图表。",
+          "en": "G2 Ema Chart example: uses line marks; applies ema transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

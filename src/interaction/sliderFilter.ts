@@ -222,10 +222,10 @@ function filterDataByDomain(
   const newMarks = marks.map((mark) =>
     deepMix(
       {
-        // Hide label to keep smooth transition.
+        // Keep automatic hiding without overriding user label transforms.
         axis: {
-          x: { transform: [{ type: 'hide' }] },
-          y: { transform: [{ type: 'hide' }] },
+          x: { labelAutoHide: true },
+          y: { labelAutoHide: true },
         },
       },
       mark,
@@ -303,10 +303,10 @@ function filterDataByDomainMultiAxis(
     };
     return deepMix(
       {
-        // Hide label to keep smooth transition.
+        // Keep automatic hiding without overriding user label transforms.
         axis: {
-          x: { transform: [{ type: 'hide' }] },
-          y: { transform: [{ type: 'hide' }] },
+          x: { labelAutoHide: true },
+          y: { labelAutoHide: true },
         },
       },
       mark,

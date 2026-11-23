@@ -11,14 +11,14 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .sunburst()
-  .data({
+chart.options({
+  type: 'sunburst',
+  data: {
     type: 'fetch',
     value: 'https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json',
-  })
-  .encode('value', 'sum')
-  .style({
+  },
+  encode: { value: 'sum' },
+  style: {
     fill: (_, idx) => {
       return {
         image: lines({
@@ -32,6 +32,7 @@ chart
         transform: 'rotate(30deg)',
       };
     },
-  });
+  },
+});
 
 chart.render();

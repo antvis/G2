@@ -2,6 +2,8 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({ container: 'container' });
 
+const encode = { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' };
+
 chart.options({
   type: 'view',
   autoFit: true,
@@ -34,7 +36,7 @@ chart.options({
   children: [
     {
       type: 'area',
-      encode: { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' },
+      encode,
       style: { opacity: 0.2 },
       axis: { y: { labelFormatter: '~s', title: false } },
       style: {
@@ -45,7 +47,7 @@ chart.options({
     },
     {
       type: 'line',
-      encode: { x: (d) => d.month, y: (d) => 200 - d.rank, shape: 'smooth' },
+      encode,
       interaction: {
         tooltip: {
           render: (event, { title, items }) => `

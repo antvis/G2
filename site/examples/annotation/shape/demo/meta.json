@@ -10,7 +10,13 @@
         "zh": "点标记的条形图",
         "en": "Interval, Point Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ypE2SbuV6kwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ypE2SbuV6kwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 点标记的条形图示例，使用 interval、point 标记，配置 transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 Interval, Point Annotation example: uses interval, point marks; applies transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-badge.ts",
@@ -18,7 +24,13 @@
         "zh": "徽章标记的折线图",
         "en": "Line, Badge Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*INjOS7ExVzYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*INjOS7ExVzYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 徽章标记的折线图示例，使用 line、text 标记，配置 fold 转换。提供完整源码与可运行图表。",
+          "en": "G2 Line, Badge Annotation example: uses line, text marks; applies fold transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "watermark.ts",
@@ -26,7 +38,13 @@
         "zh": "徽章水印",
         "en": "Watermark"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LA11Rqfk2Y4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*LA11Rqfk2Y4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 徽章水印示例，使用 interval、shape 标记。提供完整源码与可运行图表。",
+          "en": "G2 Watermark example: uses interval, shape marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

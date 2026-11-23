@@ -10,7 +10,13 @@
         "zh": "文本标记的折线图",
         "en": "Line, Text Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ"
+      "screenshot": "https://mdn.alipayobjects.com/mdn/huamei_qa8qxu/afts/img/A*pQq2S7Ns2MUAAAAAAAAAAAAADmJ7AQ",
+      "openGraph": {
+        "description": {
+          "zh": "G2 文本标记的折线图示例，使用 line、text 标记，配置 fold 转换。提供完整源码与可运行图表。",
+          "en": "G2 Line, Text Annotation example: uses line, text marks; applies fold transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "peak-value-text.ts",
@@ -18,7 +24,13 @@
         "zh": "峰值标记",
         "en": "Peak Value Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oNCJTZ7LYVkAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*oNCJTZ7LYVkAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 峰值标记示例，使用 line、text、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Peak Value Annotation example: uses line, text, point marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

@@ -1,5 +1,6 @@
 ---
 title: pack
+description: 将层级数据布局为嵌套圆，用圆的大小与包含关系展示权重和层级。
 order: 1
 ---
 
@@ -19,27 +20,30 @@ const chart = new Chart({
   padding: 20,
 });
 
-chart
-  .pack()
-  .data({
+chart.options({
+  type: 'pack',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/flare.json',
-  })
-  .layout({
+  },
+  layout: {
     padding: 5,
-  })
-  .encode('value', 'value')
-  .encode('color', 'depth')
-  .scale('color', {
-    domain: [0, 5],
-    range: ['hsl(152,80%,80%)', 'hsl(228,30%,40%)'],
-    interpolate: interpolateHcl,
-  })
-  .style('labelText', (d) =>
-    d.r >= 10 && d.height === 0 ? `${d.data.name}` : '',
-  )
-  .axis(false)
-  .legend(false);
+  },
+  encode: { value: 'value', color: 'depth' },
+  scale: {
+    color: {
+      domain: [0, 5],
+      range: ['hsl(152,80%,80%)', 'hsl(228,30%,40%)'],
+      interpolate: interpolateHcl,
+    },
+  },
+  style: {
+    labelText: (d) =>
+      d.r >= 10 && d.height === 0 ? `${d.data.name}` : '',
+  },
+  axis: false,
+  legend: false,
+});
 
 chart.render();
 ```

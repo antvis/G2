@@ -10,7 +10,13 @@
         "zh": "玫瑰图",
         "en": "Rose Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Trl1TqdieqIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Trl1TqdieqIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 玫瑰图示例，使用 interval 标记，配置 groupX 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Rose Chart example: uses interval marks; applies groupX transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "stacked-rose.ts",
@@ -18,7 +24,13 @@
         "zh": "堆叠玫瑰图",
         "en": "Stacked Rose Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W9NLQriv7w0AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*W9NLQriv7w0AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 堆叠玫瑰图示例，使用 interval 标记，配置 fold、stackY 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Stacked Rose Chart example: uses interval marks; applies fold, stackY transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "rose-label.ts",
@@ -26,7 +38,13 @@
         "zh": "玫瑰图标签",
         "en": "Rose Chart, Label"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rS9YT4GTFLgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rS9YT4GTFLgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 玫瑰图标签示例，使用 interval 标记，配置 groupX、overlapDodgeY 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Rose Chart, Label example: uses interval marks; applies groupX, overlapDodgeY transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "wind-rose.ts",
@@ -34,7 +52,13 @@
         "en": "Wind Rose",
         "zh": "Wind Rose"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pu1LTrmzMyUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*pu1LTrmzMyUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Wind Rose示例，使用 interval 标记，配置 stackY 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Wind Rose example: uses interval marks; applies stackY transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "nightingale-rose.ts",
@@ -42,15 +66,27 @@
         "zh": "南丁格尔玫瑰图",
         "en": "Nightingale Rose"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dHw7RYx7V3cAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*dHw7RYx7V3cAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 南丁格尔玫瑰图示例，使用 interval 标记，采用 polar 坐标系，启用 elementHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Nightingale Rose example: uses interval marks; uses polar coordinates; enables elementHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "donut-rose.ts",
       "title": {
         "zh": "南丁格尔玫瑰环图",
-        "en": ""
+        "en": "Nightingale Rose Donut Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FZtzRbGNkRMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FZtzRbGNkRMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 南丁格尔玫瑰环图示例，使用 interval 标记，采用 polar 坐标系，启用 elementHighlight 交互。提供完整源码与可运行图表。",
+          "en": "G2 Nightingale Rose Donut Chart example: uses interval marks; uses polar coordinates; enables elementHighlight interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "polar-stack.ts",
@@ -58,7 +94,13 @@
         "en": "stacked column chart in polar coordinate",
         "zh": "极坐标下的层叠柱状图"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JWPuSIRzU_MAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*JWPuSIRzU_MAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 极坐标下的层叠柱状图示例，使用 interval 标记，配置 fold、stackY 转换，采用 polar 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 stacked column chart in polar coordinate example: uses interval marks; applies fold, stackY transforms; uses polar coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

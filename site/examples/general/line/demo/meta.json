@@ -10,7 +10,13 @@
         "zh": "基础折线图",
         "en": "Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*o51NTbsP6EgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*o51NTbsP6EgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 G2 line 标记与位置编码绘制基础折线图，查看展示数据变化趋势的 Spec 配置和运行结果。",
+          "en": "Create a basic G2 line chart with position encodings and explore the Spec configuration and live result for visualizing trends."
+        }
+      }
     },
     {
       "filename": "curved.ts",
@@ -18,7 +24,13 @@
         "zh": "曲线折线图",
         "en": "Curved Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hmVcTYfxR4gAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*hmVcTYfxR4gAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 曲线折线图示例，使用 line、point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Curved Line Chart example: uses line, point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "step.ts",
@@ -26,7 +38,13 @@
         "zh": "阶梯折线图",
         "en": "Step Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xvGZQY7sKhIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*xvGZQY7sKhIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 阶梯折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Step Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-zero-values.ts",
@@ -34,7 +52,13 @@
         "zh": "零值折线图",
         "en": "Line with Zero Values"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FXVWSISFZhcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*FXVWSISFZhcAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 零值折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Line with Zero Values example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-basic.ts",
@@ -42,7 +66,13 @@
         "zh": "普通折线图",
         "en": "Basic Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*37vSSJwbSnwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*37vSSJwbSnwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 普通折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Basic Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-sample.ts",
@@ -50,7 +80,13 @@
         "zh": "数据样本折线图",
         "en": "Sample Data Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*68ViRIex2JEAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*68ViRIex2JEAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 数据样本折线图示例，使用 line 标记，配置 sample 转换。提供完整源码与可运行图表。",
+          "en": "G2 Sample Data Line Chart example: uses line marks; applies sample transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-connect-nulls.ts",
@@ -58,7 +94,13 @@
         "zh": "缺失折线图",
         "en": "Missing Data Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ASKfTqMVdkgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*ASKfTqMVdkgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 缺失折线图示例，使用 line 标记，配置 map 转换。提供完整源码与可运行图表。",
+          "en": "G2 Missing Data Line Chart example: uses line marks; applies map transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-series.ts",
@@ -66,7 +108,13 @@
         "zh": "系列折线图",
         "en": "Series Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YBR5RIcf97UAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YBR5RIcf97UAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 系列折线图示例，使用 line 标记，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Series Line Chart example: uses line marks; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-normalized.ts",
@@ -74,7 +122,13 @@
         "zh": "归一化折线图",
         "en": "Normalized Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WV2nRotltk4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WV2nRotltk4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 归一化折线图示例，使用 line 标记，配置 normalizeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Normalized Line Chart example: uses line marks; applies normalizeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-aggregated-label.ts",
@@ -82,7 +136,13 @@
         "zh": "聚合折线图",
         "en": "Aggregated Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ti6mSZ8nHjYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*Ti6mSZ8nHjYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 聚合折线图示例，使用 line 标记，配置 groupX、overlapDodgeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Aggregated Line Chart example: uses line marks; applies groupX, overlapDodgeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-var-size.ts",
@@ -90,7 +150,13 @@
         "zh": "变宽折线图",
         "en": "Var Size Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rjwSS4BTu3MAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rjwSS4BTu3MAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 变宽折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Var Size Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-var-size-missing.ts",
@@ -98,7 +164,13 @@
         "zh": "缺失变宽折线图",
         "en": "Missing Var Size Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*X9vfS6o9FqMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*X9vfS6o9FqMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 缺失变宽折线图示例，使用 line 标记，配置 slice、map 转换。提供完整源码与可运行图表。",
+          "en": "G2 Missing Var Size Line Chart example: uses line marks; applies slice, map transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-var-size-facet.ts",
@@ -106,7 +178,13 @@
         "zh": "轨迹图",
         "en": "Trail"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lzESSbCPw2IAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*lzESSbCPw2IAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 轨迹图示例，使用 line 标记，通过 facetRect 组合图表，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Trail example: uses line marks; composes charts with facetRect; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-variable-color.ts",
@@ -114,7 +192,13 @@
         "zh": "多色折线图",
         "en": "Variable Color Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DKdDRrsfZywAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*DKdDRrsfZywAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多色折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Variable Color Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-gradient-encoding.ts",
@@ -122,7 +206,13 @@
         "zh": "颜色编码折线图",
         "en": "Gradient Encoding Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*t-GpRLtoipsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*t-GpRLtoipsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 颜色编码折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Gradient Encoding Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-series-var-color.ts",
@@ -130,7 +220,13 @@
         "zh": "系列颜色编码折线图",
         "en": "Series Variable Color Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B8sNSrK7-lsAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*B8sNSrK7-lsAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 系列颜色编码折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Series Variable Color Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-threshold.ts",
@@ -138,7 +234,13 @@
         "zh": "阈值折线图",
         "en": "Threshold Line Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rHYnQ5-S6twAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rHYnQ5-S6twAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 阈值折线图示例，使用 line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Threshold Line Chart example: uses line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-area-clip-path.ts",
@@ -146,7 +248,13 @@
         "zh": "面积标注折线图",
         "en": "Line with Area Annotation"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GK8rQY5srTgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GK8rQY5srTgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 面积标注折线图示例，使用 area、line 标记。提供完整源码与可运行图表。",
+          "en": "G2 Line with Area Annotation example: uses area, line marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-slope.ts",
@@ -154,7 +262,13 @@
         "zh": "斜率图",
         "en": "Slope Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RF2PTL6KNIQAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*RF2PTL6KNIQAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 斜率图示例，使用 line 标记，配置 overlapDodgeY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Slope Chart example: uses line marks; applies overlapDodgeY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "line-style.ts",
@@ -162,7 +276,13 @@
         "zh": "折线标记样式",
         "en": "Line Mark Style"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YngNTKH3-0sAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*YngNTKH3-0sAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 折线标记样式示例，使用 line 标记，配置 map 转换。提供完整源码与可运行图表。",
+          "en": "G2 Line Mark Style example: uses line marks; applies map transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

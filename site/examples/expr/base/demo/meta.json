@@ -10,7 +10,13 @@
         "zh": "Spec 函数表达式",
         "en": "Spec Function Expression"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AV7LSoHMiWUAAAAAAAAAAAAAemJ7AQ/fmt.avif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*AV7LSoHMiWUAAAAAAAAAAAAAemJ7AQ/fmt.avif",
+      "openGraph": {
+        "description": {
+          "zh": "G2 Spec 函数表达式示例，使用 interval、line 标记，通过 spaceLayer 组合图表，配置 stackY、contrastReverse 转换。提供完整源码与可运行图表。",
+          "en": "G2 Spec Function Expression example: uses interval, line marks; composes charts with spaceLayer; applies stackY, contrastReverse transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

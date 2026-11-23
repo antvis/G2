@@ -8,11 +8,10 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.coordinate({ transform: [{ type: 'transpose' }] });
-
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
@@ -22,16 +21,17 @@ chart
         callback: (d) => d.year === 2000,
       },
     ],
-  })
-  .transform({ type: 'groupX', y: 'sum' })
-  .transform({ type: 'stackY' })
-  .transform({ type: 'normalizeY' })
-  .encode('x', 'age')
-  .encode('y', 'people')
-  .encode('color', 'sex')
-  .scale('color', { type: 'ordinal', range: ['#ca8861', '#675193'] })
-  .axis('y', { labelFormatter: '.0%' })
-  .label({ text: 'people', position: 'inside', fill: 'white' })
-  .tooltip({ channel: 'y', valueFormatter: '.0%' });
+  },
+  transform: [
+    { type: 'groupX', y: 'sum' },
+    { type: 'stackY' },
+    { type: 'normalizeY' },
+  ],
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  axis: { y: { labelFormatter: '.0%' } },
+  labels: [{ text: 'people', position: 'inside', fill: 'white' }],
+  tooltip: { items: [{ channel: 'y', valueFormatter: '.0%' }] },
+});
 
 chart.render();

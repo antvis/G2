@@ -167,5 +167,11 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/g2/issues"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js",
+      "esbuild"
+    ]
   }
 }

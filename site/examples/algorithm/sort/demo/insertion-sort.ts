@@ -25,16 +25,13 @@ const chart = new Chart({
   container: 'container',
 });
 
-const keyframe = chart.timingKeyframe();
-
-for (const frame of insertionSort(data)) {
-  keyframe
-    .interval()
-    .data(frame.map((datum, index) => ({ index, ...datum })))
-    .encode('x', 'index')
-    .encode('y', 'value')
-    .encode('key', 'value')
-    .encode('color', 'swap');
-}
+chart.options({
+  type: 'timingKeyframe',
+  children: Array.from(insertionSort(data), (frame) => ({
+    type: 'interval',
+    data: frame.map((datum, index) => ({ index, ...datum })),
+    encode: { x: 'index', y: 'value', key: 'value', color: 'swap' },
+  })),
+});
 
 chart.render();

@@ -6,12 +6,13 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .forceGraph()
-  .data({
+chart.options({
+  type: 'forceGraph',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/miserable.json',
-  })
-  .scale('color', { range: schemeTableau10 });
+  },
+  scale: { color: { range: schemeTableau10 } },
+});
 
 chart.render();

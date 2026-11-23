@@ -10,7 +10,13 @@
         "zh": "散点图",
         "en": "Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*-NYwTrAdwZ4AAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "使用 G2 point 标记将两个数据字段映射到位置通道，绘制散点图并观察变量关系。",
+          "en": "Map two data fields to position channels with G2 point marks to create a scatterplot and explore relationships between variables."
+        }
+      }
     },
     {
       "filename": "point-one-dimension.ts",
@@ -18,7 +24,13 @@
         "zh": "一维散点图",
         "en": "One Dimension Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GeijRY75QHgAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*GeijRY75QHgAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 一维散点图示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 One Dimension Scatterplot example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-strip.ts",
@@ -26,7 +38,13 @@
         "zh": "带子散点图",
         "en": "Strip Plot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0E-aSpAPPtwAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*0E-aSpAPPtwAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 带子散点图示例，使用 point 标记，配置 transpose、sortX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Strip Plot example: uses point marks; applies transpose, sortX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-label.ts",
@@ -34,7 +52,13 @@
         "zh": "标签散点图",
         "en": "Scatterplot, Labeled"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*j_DBRKze77QAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*j_DBRKze77QAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 标签散点图示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Scatterplot, Labeled example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-shape.ts",
@@ -42,7 +66,13 @@
         "zh": "多形状散点图",
         "en": "Multi-Shape Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SdKuRYFVCOIAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*SdKuRYFVCOIAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多形状散点图示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Multi-Shape Scatterplot example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-sequential.ts",
@@ -50,7 +80,13 @@
         "zh": "渐变色散点图",
         "en": "Gradient Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*20fLR5dh4SYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*20fLR5dh4SYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 渐变色散点图示例，使用 point、lineY 标记。提供完整源码与可运行图表。",
+          "en": "G2 Gradient Scatterplot example: uses point, lineY marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-jitter.ts",
@@ -58,7 +94,13 @@
         "zh": "扰动散点图",
         "en": "Jitter Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*34m0QZPUjxMAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*34m0QZPUjxMAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 扰动散点图示例，使用 point 标记，配置 sortX、jitterX 转换。提供完整源码与可运行图表。",
+          "en": "G2 Jitter Scatterplot example: uses point marks; applies sortX, jitterX transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-stacked.ts",
@@ -66,7 +108,13 @@
         "zh": "堆叠散点图",
         "en": "Stacked Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*extpT4E09xUAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*extpT4E09xUAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 堆叠散点图示例，使用 point、lineY 标记，配置 stackY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Stacked Scatterplot example: uses point, lineY marks; applies stackY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-bubble.ts",
@@ -74,7 +122,13 @@
         "zh": "气泡图",
         "en": "Bubble Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z8JFRLxrs_IAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*z8JFRLxrs_IAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 气泡图示例，使用 point 标记，配置 filter 转换。提供完整源码与可运行图表。",
+          "en": "G2 Bubble Chart example: uses point marks; applies filter transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-log.ts",
@@ -82,7 +136,13 @@
         "zh": "对数气泡图",
         "en": "Log Scatterplot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mezjR7Iy-TYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*mezjR7Iy-TYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 对数气泡图示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Log Scatterplot example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-aggregated.ts",
@@ -90,7 +150,13 @@
         "zh": "聚合气泡图",
         "en": "Aggregated Bubble Chart"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*trHIR7xKaAcAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*trHIR7xKaAcAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 聚合气泡图示例，使用 point 标记，配置 group、sortY 转换。提供完整源码与可运行图表。",
+          "en": "G2 Aggregated Bubble Chart example: uses point marks; applies group, sortY transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-dot.ts",
@@ -98,7 +164,13 @@
         "zh": "点图",
         "en": "Dot Plot"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rhhlRLxuUYYAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*rhhlRLxuUYYAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 点图示例，使用 link、point 标记，配置 transpose、groupX 转换，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Dot Plot example: uses link, point marks; applies transpose, groupX transforms; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "point-style.ts",
@@ -106,7 +178,13 @@
         "zh": "point 样式",
         "en": "Point Style"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QWC3RqPzWdEAAAAAAAAAAAAAemJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*QWC3RqPzWdEAAAAAAAAAAAAAemJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 point 样式示例，使用 point 标记。提供完整源码与可运行图表。",
+          "en": "G2 Point Style example: uses point marks. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

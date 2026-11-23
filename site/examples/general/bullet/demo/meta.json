@@ -10,7 +10,13 @@
         "zh": "子弹图",
         "en": "Bullet"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*rRZQQ6I4Ic4AAAAAAAAAAAAADo2bAQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*rRZQQ6I4Ic4AAAAAAAAAAAAADo2bAQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 子弹图示例，使用 interval、point 标记，配置 transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 Bullet example: uses interval, point marks; applies transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bullet-datas.ts",
@@ -18,7 +24,13 @@
         "zh": "子弹图 更多数据",
         "en": "Bullet more data"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*fHiHTrdGO10AAAAAAAAAAAAADo2bAQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*fHiHTrdGO10AAAAAAAAAAAAADo2bAQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 子弹图 更多数据示例，使用 interval、point 标记，配置 transpose 转换，启用 tooltip 交互。提供完整源码与可运行图表。",
+          "en": "G2 Bullet more data example: uses interval, point marks; applies transpose transforms; enables tooltip interactions. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "bullets.ts",
@@ -26,7 +38,13 @@
         "zh": "多条子弹图",
         "en": "Bullet charts"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*wTXUQoxeACgAAAAAAAAAAAAADo2bAQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_za7we3/afts/img/A*wTXUQoxeACgAAAAAAAAAAAAADo2bAQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 多条子弹图示例，使用 interval、point 标记，配置 transpose 转换。提供完整源码与可运行图表。",
+          "en": "G2 Bullet charts example: uses interval, point marks; applies transpose transforms. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }

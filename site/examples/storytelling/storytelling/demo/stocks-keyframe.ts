@@ -41,6 +41,13 @@ fetch('https://assets.antv.antgroup.com/g2/stocks2.json')
     chart.render();
   });
 
+const timeSeriesEncode = {
+  x: (d) => new Date(d.date),
+  y: 'price',
+  color: 'symbol',
+  key: 'symbol',
+};
+
 function facetLine(data) {
   return {
     type: 'facetRect',
@@ -51,12 +58,7 @@ function facetLine(data) {
       {
         type: 'line',
         key: 'line',
-        encode: {
-          x: (d) => new Date(d.date),
-          y: 'price',
-          color: 'symbol',
-          key: 'symbol',
-        },
+        encode: timeSeriesEncode,
         frame: false,
         scale: { y: { zero: true, tickCount: 3 } },
         axis: { x: { title: false }, y: { title: false } },
@@ -78,12 +80,7 @@ function facetArea(data) {
         type: 'line',
         key: 'line',
         frame: false,
-        encode: {
-          x: (d) => new Date(d.date),
-          y: 'price',
-          color: 'symbol',
-          key: 'symbol',
-        },
+        encode: timeSeriesEncode,
         style: { shape: 'smooth' },
         axis: { x: { title: false }, y: { title: false } },
         scale: { y: { zero: true, facet: false, tickCount: 3 } },
@@ -93,12 +90,7 @@ function facetArea(data) {
         key: 'area',
         class: 'area',
         frame: false,
-        encode: {
-          x: (d) => new Date(d.date),
-          y: 'price',
-          color: 'symbol',
-          key: 'symbol',
-        },
+        encode: timeSeriesEncode,
         style: { shape: 'smooth' },
         scale: { y: { facet: false, zero: true, tickCount: 3 } },
         axis: { x: { title: false }, y: { title: false } },
@@ -116,12 +108,7 @@ function stackArea(data) {
     class: 'area',
     transform: [{ type: 'stackY', reverse: true }],
     axis: { y: { title: false } },
-    encode: {
-      x: (d) => new Date(d.date),
-      y: 'price',
-      color: 'symbol',
-      key: 'symbol',
-    },
+    encode: timeSeriesEncode,
     style: { shape: 'smooth' },
   };
 }
@@ -133,12 +120,7 @@ function layerArea(data) {
     class: 'area',
     data,
     axis: { y: { title: false } },
-    encode: {
-      x: (d) => new Date(d.date),
-      y: 'price',
-      color: 'symbol',
-      key: 'symbol',
-    },
+    encode: timeSeriesEncode,
     style: { fillOpacity: 0.5, shape: 'smooth' },
   };
 }
@@ -151,12 +133,7 @@ function streamgraph(data) {
     data,
     axis: { y: { title: false } },
     transform: [{ type: 'stackY', reverse: true }, { type: 'symmetryY' }],
-    encode: {
-      x: (d) => new Date(d.date),
-      y: 'price',
-      color: 'symbol',
-      key: 'symbol',
-    },
+    encode: timeSeriesEncode,
     style: { fillOpacity: 1, shape: 'smooth' },
   };
 }
@@ -169,12 +146,7 @@ function normalizeArea(data) {
     data,
     axis: { y: { title: false } },
     transform: [{ type: 'stackY', reverse: true }, { type: 'normalizeY' }],
-    encode: {
-      x: (d) => new Date(d.date),
-      y: 'price',
-      color: 'symbol',
-      key: 'symbol',
-    },
+    encode: timeSeriesEncode,
     style: { fillOpacity: 1, shape: 'smooth' },
   };
 }
@@ -198,18 +170,20 @@ function normalizeBar(data) {
   };
 }
 
+const groupedStockEncode = {
+  x: 'date',
+  y: 'price',
+  color: 'symbol',
+  groupKey: 'symbol',
+  key: (_, i) => i,
+};
+
 function groupBar(data) {
   return {
     type: 'interval',
     data,
     transform: [{ type: 'dodgeX' }],
-    encode: {
-      x: 'date',
-      y: 'price',
-      color: 'symbol',
-      groupKey: 'symbol',
-      key: (_, i) => i,
-    },
+    encode: groupedStockEncode,
     scale: { y: { nice: true } },
     axis: { x: false, y: { title: false } },
   };
@@ -220,28 +194,24 @@ function stackBar(data) {
     type: 'interval',
     data,
     transform: [{ type: 'stackY' }],
-    encode: {
-      x: 'date',
-      y: 'price',
-      color: 'symbol',
-      groupKey: 'symbol',
-      key: (_, i) => i,
-    },
+    encode: groupedStockEncode,
     axis: { x: false, y: { title: false } },
   };
 }
+
+const stockEncode = {
+  x: 'symbol',
+  y: 'price',
+  color: 'symbol',
+  key: 'symbol',
+};
 
 function bar(data) {
   return {
     type: 'interval',
     data,
     transform: [{ type: 'groupX', y: 'sum' }],
-    encode: {
-      x: 'symbol',
-      y: 'price',
-      color: 'symbol',
-      key: 'symbol',
-    },
+    encode: stockEncode,
     axis: {
       y: { labelFormatter: '~s', title: false },
       x: { title: false },
@@ -277,12 +247,7 @@ function rose(data) {
     paddingBottom: 10,
     transform: [{ type: 'groupX', y: 'sum' }],
     coordinate: { type: 'polar' },
-    encode: {
-      x: 'symbol',
-      y: 'price',
-      color: 'symbol',
-      key: 'symbol',
-    },
+    encode: stockEncode,
     scale: { x: { padding: 0 } },
     style: { radius: 10 },
     legend: { color: { layout: { justifyContent: 'center' } } },

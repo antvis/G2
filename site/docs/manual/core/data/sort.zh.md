@@ -1,5 +1,6 @@
 ---
 title: sort
+description: 使用比较函数对数据记录排序，保留原始数组不变。
 order: 2
 ---
 

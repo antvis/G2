@@ -7,9 +7,9 @@ const chart = new Chart({
   height: 600,
 });
 
-chart
-  .sankey()
-  .data({
+chart.options({
+  type: 'sankey',
+  data: {
     type: 'fetch',
     value: 'https://assets.antv.antgroup.com/g2/energy.json',
     transform: [
@@ -18,15 +18,18 @@ chart
         callback: (data) => ({ links: data }),
       },
     ],
-  })
-  .layout({
+  },
+  layout: {
     nodeAlign: 'center',
     nodePadding: 0.03,
-  })
-  .scale('color', { range: schemeTableau10 })
-  .style('labelSpacing', 3)
-  .style('labelFontWeight', 'bold')
-  .style('nodeLineWidth', 1.2)
-  .style('linkFillOpacity', 0.4);
+  },
+  scale: { color: { range: schemeTableau10 } },
+  style: {
+    labelSpacing: 3,
+    labelFontWeight: 'bold',
+    nodeLineWidth: 1.2,
+    linkFillOpacity: 0.4,
+  },
+});
 
 chart.render();

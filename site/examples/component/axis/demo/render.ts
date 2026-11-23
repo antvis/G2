@@ -5,20 +5,17 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart.data([
-  { year: '1951 年', value: 38 },
-  { year: '1952 年', value: 52 },
-  { year: '1956 年', value: 61 },
-  { year: '1957 年', value: 145 },
-  { year: '1958 年', value: 48 },
-]);
-
-chart
-  .interval()
-  .encode('x', 'year')
-  .encode('y', 'value')
-  .encode('color', 'year')
-  .axis({
+chart.options({
+  type: 'interval',
+  data: [
+    { year: '1951 年', value: 38 },
+    { year: '1952 年', value: 52 },
+    { year: '1956 年', value: 61 },
+    { year: '1957 年', value: 145 },
+    { year: '1958 年', value: 48 },
+  ],
+  encode: { x: 'year', y: 'value', color: 'year' },
+  axis: {
     x: {
       animate: false,
       transform: [],
@@ -28,10 +25,11 @@ chart
           </div>`;
       },
     },
-  })
-  .style({
+  },
+  style: {
     maxWidth: 60,
-  })
-  .legend(false);
+  },
+  legend: false,
+});
 
 chart.render();

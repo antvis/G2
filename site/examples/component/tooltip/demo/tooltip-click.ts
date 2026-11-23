@@ -15,42 +15,42 @@ const chart = new Chart({
   autoFit: true,
 });
 
-chart
-  .interval()
-  .data({
+chart.options({
+  type: 'interval',
+  data: {
     type: 'fetch',
     value:
       'https://gw.alipayobjects.com/os/bmw-prod/fb9db6b7-23a5-4c23-bbef-c54a55fee580.csv',
-  })
-  .encode('x', 'letter')
-  .encode('y', 'frequency')
-  .axis('y', { labelFormatter: '.0%' })
-  .interaction('tooltip', {
-    disableNative: true, // Disable pointerover and pointerout events.
-    bounding: {
-      x: -Infinity,
-      y: -Infinity,
-      width: Infinity,
-      height: Infinity,
-    },
-    css: {
-      '.g2-tooltip': {
-        background: 'transparent',
-        'box-shadow': 'none',
-        transform: 'translate(-50%, -100%)',
+  },
+  encode: { x: 'letter', y: 'frequency' },
+  axis: { y: { labelFormatter: '.0%' } },
+  interaction: {
+    tooltip: {
+      disableNative: true, // Disable pointerover and pointerout events.
+      bounding: {
+        x: -Infinity,
+        y: -Infinity,
+        width: Infinity,
+        height: Infinity,
       },
-    },
-    offset: [0, -10],
-    mount: 'body',
-    render: (event, { title, items }) => {
-      const plot = chart
-        .getContext()
-        .canvas.document.getElementsByClassName('plot')[0];
-      const plotBounds = plot.getRenderBounds();
-      const target = event.target;
-      const bounds = target.getRenderBounds();
-      const height = bounds.min[1] - plotBounds.min[1];
-      return `<div>
+      css: {
+        '.g2-tooltip': {
+          background: 'transparent',
+          'box-shadow': 'none',
+          transform: 'translate(-50%, -100%)',
+        },
+      },
+      offset: [0, -10],
+      mount: 'body',
+      render: (event, { title, items }) => {
+        const plot = chart
+          .getContext()
+          .canvas.document.getElementsByClassName('plot')[0];
+        const plotBounds = plot.getRenderBounds();
+        const target = event.target;
+        const bounds = target.getRenderBounds();
+        const height = bounds.min[1] - plotBounds.min[1];
+        return `<div>
         <div style="${css({
           position: 'relative',
           background: '#fff',
@@ -96,8 +96,10 @@ chart
           'z-index': 500,
         })}"></div>
       </div>`;
+      },
     },
-  });
+  },
+});
 
 chart.on('element:click', ({ data }) =>
   chart.emit('tooltip:show', {

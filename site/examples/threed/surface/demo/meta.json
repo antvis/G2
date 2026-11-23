@@ -10,7 +10,13 @@
         "zh": "狄利克雷分布",
         "en": "The Dirichlet distribution"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4LJeR4SqvEoAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*4LJeR4SqvEoAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 狄利克雷分布示例，使用 surface3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 The Dirichlet distribution example: uses surface3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     },
     {
       "filename": "trigonometric.ts",
@@ -18,7 +24,13 @@
         "zh": "三角函数",
         "en": "Trigonometric"
       },
-      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CT7VQrD32DkAAAAAAAAAAAAADmJ7AQ/original"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*CT7VQrD32DkAAAAAAAAAAAAADmJ7AQ/original",
+      "openGraph": {
+        "description": {
+          "zh": "G2 三角函数示例，使用 surface3D 标记，采用 cartesian3D 坐标系。提供完整源码与可运行图表。",
+          "en": "G2 Trigonometric example: uses surface3D marks; uses cartesian3D coordinates. Includes complete source and a runnable chart."
+        }
+      }
     }
   ]
 }
