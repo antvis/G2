@@ -74,7 +74,7 @@ function getFunnelPoints(
 export const Funnel: SC<FunnelOptions> = (options, context) => {
   const {
     adjustPoints = getFunnelPoints,
-    radius = 0,
+    radius,
     radiusTopLeft: _radiusTopLeft,
     radiusTopRight: _radiusTopRight,
     radiusBottomRight: _radiusBottomRight,
@@ -95,7 +95,7 @@ export const Funnel: SC<FunnelOptions> = (options, context) => {
     defaultTopRight,
     defaultBottomRight,
     defaultBottomLeft,
-  ] = parseRadius(radius);
+  ] = radius === undefined ? [] : parseRadius(radius);
   const radiusTopLeft = _radiusTopLeft ?? defaultTopLeft;
   const radiusTopRight = _radiusTopRight ?? defaultTopRight;
   const radiusBottomRight = _radiusBottomRight ?? defaultBottomRight;
