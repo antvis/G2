@@ -19,7 +19,9 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
           y: 'count',
           thresholds: 25,
         },
+        { type: 'stackY' },
       ],
+      tooltip: { items: [{ channel: 'y0' }] },
       style: {
         columnWidthRatio: 1,
         inset: 0.5,
