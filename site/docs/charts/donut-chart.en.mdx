@@ -199,7 +199,7 @@ chart.options({
   coordinate: { type: 'theta', innerRadius: 0.4 },
   encode: { y: 'population', color: 'province' },
   legend: false, // Too many categories, disable legend
-  labels: false, // Too many categories, disable labels
+  labels: [], // Too many categories, omit labels
 });
 
 chart.render();
