@@ -74,7 +74,7 @@ function getFunnelPoints(
 export const Funnel: SC<FunnelOptions> = (options, context) => {
   const {
     adjustPoints = getFunnelPoints,
-    radius,
+    radius = 0,
     radiusTopLeft: _radiusTopLeft,
     radiusTopRight: _radiusTopRight,
     radiusBottomRight: _radiusBottomRight,
