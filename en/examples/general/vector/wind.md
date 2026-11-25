@@ -1,0 +1,46 @@
+---
+title: "Wind Vector"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/general/vector/wind/"
+version: "5.4.8"
+---
+
+# Wind Vector
+
+[Live example](https://g2.antv.antgroup.com/en/examples/general/vector/wind/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'vector',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antfincdn/F5VcgnqRku/wind.json',
+  },
+  encode: {
+    x: 'longitude',
+    y: 'latitude',
+    rotate: ({ u, v }) => (Math.atan2(v, u) * 180) / Math.PI,
+    size: ({ u, v }) => Math.hypot(v, u),
+    color: ({ u, v }) => Math.hypot(v, u),
+  },
+  scale: { size: { range: [6, 20] }, color: { palette: 'viridis' } },
+  axis: { x: { grid: false }, y: { grid: false } },
+  legend: false,
+  tooltip: { title: { channel: 'color', valueFormatter: '.1f' } },
+});
+
+chart.render();
+```

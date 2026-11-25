@@ -1,0 +1,55 @@
+---
+title: "漏斗图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/general/funnel/funnel/"
+version: "5.4.8"
+---
+
+# 漏斗图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/general/funnel/funnel/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+const data = [
+  { action: '浏览网站', pv: 50000 },
+  { action: '放入购物车', pv: 35000 },
+  { action: '生成订单', pv: 25000 },
+  { action: '支付订单', pv: 15000 },
+  { action: '完成交易', pv: 8000 },
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  coordinate: {
+    transform: [{ type: 'transpose' }],
+  },
+  data: data,
+  encode: { x: 'action', y: 'pv', color: 'action', shape: 'funnel' },
+  transform: [{ type: 'symmetryY' }],
+  scale: { x: { padding: 0 } },
+  animate: { enter: { type: 'fadeIn' } },
+  labels: [
+    {
+      text: (d) => `${d.action}\n${d.pv}`,
+      position: 'inside',
+      transform: [{ type: 'contrastReverse' }],
+    },
+  ],
+  axis: false,
+});
+
+chart.render();
+```

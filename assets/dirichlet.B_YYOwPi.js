@@ -1,0 +1,1 @@
+import{t as e}from"./dirichlet.B4BNeLdg.js";export default e();

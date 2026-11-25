@@ -1,0 +1,53 @@
+---
+title: "Link Chart"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/general/link/link/"
+version: "5.4.8"
+---
+
+# Link Chart
+
+[Live example](https://g2.antv.antgroup.com/en/examples/general/link/link/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+/**
+ * A recreation of this demo: https://observablehq.com/@observablehq/plot-link?collection=@observablehq/plot
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'link',
+  data: {
+    type: 'fetch',
+    value: 'https://gw.alipayobjects.com/os/antfincdn/SM13%24lHuYH/metros.json',
+  },
+  encode: {
+    x: ['POP_1980', 'POP_2015'],
+    y: ['R90_10_1980', 'R90_10_2015'],
+    color: (d) => d.R90_10_2015 - d.R90_10_1980,
+  },
+  scale: { x: { type: 'log' } },
+  style: { arrow: true, arrowSize: 6 },
+  axis: {
+    x: {
+      labelFormatter: '~s',
+      labelTransform: 'rotate(90)',
+    },
+  },
+  legend: false,
+  tooltip: { title: { channel: 'color', valueFormatter: '.1f' } },
+});
+
+chart.render();
+```

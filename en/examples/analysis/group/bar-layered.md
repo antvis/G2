@@ -1,0 +1,52 @@
+---
+title: "Layered Bar Chart"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/analysis/group/bar-layered/"
+version: "5.4.8"
+---
+
+# Layered Bar Chart
+
+[Live example](https://g2.antv.antgroup.com/en/examples/analysis/group/bar-layered/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/bar_layered_transparent.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'interval',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/87b2ff47-2a33-4509-869c-dae4cdd81163.csv',
+    format: 'csv',
+    transform: [
+      {
+        type: 'filter',
+        callback: (d) => d.year === 2000,
+      },
+    ],
+  },
+  transform: [{ type: 'groupX', y: 'sum' }],
+  encode: { x: 'age', y: 'people', color: 'sex' },
+  scale: { color: { type: 'ordinal', range: ['#ca8861', '#675193'] } },
+  axis: { y: { labelFormatter: '~s' } },
+  style: { fillOpacity: 0.7 },
+  tooltip: { items: [{ channel: 'y', valueFormatter: '~s' }] },
+});
+
+chart.render();
+```

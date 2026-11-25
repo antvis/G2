@@ -1,0 +1,67 @@
+---
+title: "Flame Chart"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/graph/hierarchy/partition/"
+version: "5.4.8"
+---
+
+# Flame Chart
+
+[Live example](https://g2.antv.antgroup.com/en/examples/graph/hierarchy/partition/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'partition',
+  data: {
+    type: 'fetch',
+    value:
+      'https://raw.githubusercontent.com/antvis/G2/refs/heads/v5/__tests__/data/partition.json',
+  },
+  encode: { value: 'value', color: 'name' },
+  scale: {
+    color: {
+      range: [
+        'rgb(236, 160, 57)',
+        'rgb(196, 68, 57)',
+        'rgb(211, 180, 60)',
+        'rgb(230, 67, 63)',
+      ],
+    },
+  },
+  labels: [
+    {
+      text: 'name',
+      position: 'left',
+      dx: 8,
+      transform: [
+        {
+          type: 'overflowHide',
+        },
+      ],
+    },
+  ],
+  style: {
+    inset: 0.5,
+  },
+  axis: {
+    x: {
+      title: 'Time/Order',
+    },
+  },
+});
+
+chart.render();
+```

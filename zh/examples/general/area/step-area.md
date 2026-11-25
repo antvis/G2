@@ -1,0 +1,77 @@
+---
+title: "阶梯面积图"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/general/area/step-area/"
+version: "5.4.8"
+---
+
+# 阶梯面积图
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/general/area/step-area/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+const data = [
+  { year: '1991', value: 15468 },
+  { year: '1992', value: 16100 },
+  { year: '1993', value: 15900 },
+  { year: '1994', value: 17409 },
+  { year: '1995', value: 17000 },
+  { year: '1996', value: 31056 },
+  { year: '1997', value: 31982 },
+  { year: '1998', value: 32040 },
+  { year: '1999', value: 33233 },
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'view',
+  data: data,
+  children: [
+    {
+      type: 'area',
+      encode: {
+        x: 'year',
+        y: 'value',
+        // 'area', 'smooth', 'hvh', 'vh', 'hv'
+        shape: 'hvh',
+      },
+      labels: [
+        {
+          text: 'value',
+          fontSize: 10,
+          textAlign: (_, idx, arr) => {
+            if (idx === 0) return 'left';
+            if (idx === arr.length - 1) return 'right';
+            return 'center';
+          },
+        },
+      ],
+      style: { opacity: 0.4 },
+      axis: { y: { labelFormatter: '~s' } },
+    },
+    {
+      type: 'line',
+      encode: {
+        x: 'year',
+        y: 'value',
+        // 'line', 'smooth', 'vh', 'hv', 'hvh'
+        shape: 'hvh',
+      },
+    },
+  ],
+});
+
+chart.render();
+```

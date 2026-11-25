@@ -1,0 +1,67 @@
+---
+title: "Line, Range Annotation"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/annotation/range/line-range/"
+version: "5.4.8"
+---
+
+# Line, Range Annotation
+
+[Live example](https://g2.antv.antgroup.com/en/examples/annotation/range/line-range/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+/**
+ * A recreation of this demo: https://vega.github.io/vega-lite/examples/layer_falkensee.html
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  height: 360,
+});
+
+const encode = { x: (d) => new Date(d.year), y: 'population', color: '#333' };
+
+chart.options({
+  type: 'view',
+  data: {
+    type: 'fetch',
+    value: 'https://assets.antv.antgroup.com/g2/year-population.json',
+  },
+  interaction: { legendFilter: false },
+  children: [
+    {
+      type: 'rangeX',
+      data: [
+        { year: [new Date('1933'), new Date('1945')], event: 'Nazi Rule' },
+        {
+          year: [new Date('1948'), new Date('1989')],
+          event: 'GDR (East Germany)',
+        },
+      ],
+      encode: { x: 'year', color: 'event' },
+      scale: { color: { independent: true, range: ['#FAAD14', '#30BF78'] } },
+      style: { fillOpacity: 0.75 },
+      tooltip: false,
+    },
+    {
+      type: 'line',
+      encode,
+    },
+    {
+      type: 'point',
+      encode,
+      style: { lineWidth: 1.5 },
+      tooltip: false,
+    },
+  ],
+});
+
+chart.render();
+```

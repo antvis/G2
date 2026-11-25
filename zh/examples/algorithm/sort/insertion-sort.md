@@ -1,0 +1,56 @@
+---
+title: "插入排序"
+language: "zh"
+canonical: "https://g2.antv.antgroup.com/zh/examples/algorithm/sort/insertion-sort/"
+version: "5.4.8"
+---
+
+# 插入排序
+
+[运行示例](https://g2.antv.antgroup.com/zh/examples/algorithm/sort/insertion-sort/)
+
+[资料索引](/llms.txt)
+
+页面需要一个 `id="container"` 的 DOM 元素。以下为原始示例源码。
+
+## 源码
+
+```ts
+import { Chart } from '@antv/g2';
+
+const data = [43, 2, 5, 24, 53, 78, 82, 63, 49, 6];
+
+function* insertionSort(arr) {
+  const len = arr.length;
+  let preIndex, current;
+  for (let i = 1; i < len; i++) {
+    preIndex = i - 1;
+    current = arr[i];
+    while (preIndex >= 0 && arr[preIndex] > current) {
+      arr[preIndex + 1] = arr[preIndex];
+      preIndex--;
+    }
+    arr[preIndex + 1] = current;
+    yield arr.map((a, index) => ({
+      value: a,
+      swap: index === preIndex + 1 || index === i,
+    }));
+  }
+  return arr;
+}
+
+const chart = new Chart({
+  container: 'container',
+});
+
+chart.options({
+  type: 'timingKeyframe',
+  children: Array.from(insertionSort(data), (frame) => ({
+    type: 'interval',
+    data: frame.map((datum, index) => ({ index, ...datum })),
+    encode: { x: 'index', y: 'value', key: 'value', color: 'swap' },
+  })),
+});
+
+chart.render();
+```

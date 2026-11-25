@@ -1,0 +1,41 @@
+---
+title: "PathIn"
+language: "en"
+canonical: "https://g2.antv.antgroup.com/en/examples/animation/general/path-in/"
+version: "5.4.8"
+---
+
+# PathIn
+
+[Live example](https://g2.antv.antgroup.com/en/examples/animation/general/path-in/)
+
+[Resource index](/llms.txt)
+
+Provide a DOM element with `id="container"`. The original example source follows.
+
+## Source
+
+```ts
+/**
+ * A recreation of this demo: https://observablehq.com/@d3/line-chart
+ */
+import { Chart } from '@antv/g2';
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+});
+
+chart.options({
+  type: 'line',
+  data: {
+    type: 'fetch',
+    value:
+      'https://gw.alipayobjects.com/os/bmw-prod/551d80c6-a6be-4f3c-a82a-abd739e12977.csv',
+  },
+  encode: { x: 'date', y: 'close' },
+  animate: { enter: { type: 'pathIn', duration: 1000 } },
+});
+
+chart.render();
+```
