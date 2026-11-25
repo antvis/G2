@@ -10,5 +10,10 @@ export function clamp(v: number, lower: number, upper: number): number {
  */
 export function prettyNumber(n: number, precision = 10) {
   if (typeof n !== 'number') return n;
-  return Math.abs(n) < 1e-15 ? n : parseFloat(n.toFixed(precision));
+  if (Math.abs(n) < 1e-15) return n;
+  // Values below 0.1 get one more decimal per leading zero, so that they keep
+  // `precision` significant digits instead of being rounded to 0 (2e-11).
+  const exponent = Math.floor(Math.log10(Math.abs(n)));
+  const decimals = Math.max(precision, precision - exponent - 1);
+  return parseFloat(n.toFixed(decimals));
 }
