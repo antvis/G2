@@ -3,7 +3,7 @@ import { deepMix, throttle } from '@antv/util';
 import { Base } from '@antv/scale';
 import { subObject } from '../utils/helper';
 import { ANNOTATION_MARKS } from '../component/constant';
-import { useState, setCursor, restoreCursor } from './utils';
+import { createUseState, setCursor, restoreCursor } from './utils';
 
 export const CATEGORY_LEGEND_CLASS_NAME = 'legend-category';
 export const CATEGORY_LEGEND_HTML_CLASS_NAME = 'legend-html-category';
@@ -114,16 +114,16 @@ function legendFilterOrdinal(
   } = state;
   const markerStyle = { unselected: subObject(unselected, 'marker') };
   const labelStyle = { unselected: subObject(unselected, 'label') };
-  const { setState: setM, removeState: removeM } = useState(
-    markerStyle,
-    undefined,
-  );
-  const { setState: setL, removeState: removeL } = useState(
-    labelStyle,
-    undefined,
-  );
-
   const items: DisplayObject[] = Array.from(legends(root));
+  const { updateState: setM, removeState: removeM } = createUseState(
+    markerStyle,
+    items.map(markerOf),
+  )();
+  const { updateState: setL, removeState: removeL } = createUseState(
+    labelStyle,
+    items.map(labelOf),
+  )();
+
   let selectedValues = items.map(datum);
   const updateLegendState = () => {
     for (const item of items) {
