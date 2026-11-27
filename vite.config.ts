@@ -16,10 +16,6 @@ if (LINK === '1' && !MODULE) {
  */
 const baseOptions: UserConfig = {
   root: './__tests__/',
-  server: {
-    port: 8080,
-    open: '/',
-  },
   build: { outDir: '../' },
 };
 

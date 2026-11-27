@@ -352,8 +352,8 @@ function abstractValue(
 ) {
   const [x, x1] = values;
   const v = reverse ? (d: number) => 1 - d : (d: number) => d;
-  const d0 = invert(scale, v(x), true);
-  const d1 = invert(scale, v(x1), false);
+  const d0 = invert(scale, v(x));
+  const d1 = invert(scale, v(x1));
   return domainOf(scale, [d0, d1]);
 }
 

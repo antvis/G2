@@ -71,7 +71,7 @@ export const Slider: GCC<SliderOptions> = (options) => {
         formatter: (v) => {
           const f = formatter || defaultFormatter;
           const v1 = reverse ? 1 - v : v;
-          const tick = invert(scale, v1, true);
+          const tick = invert(scale, v1);
           return f(tick);
         },
         sparklineData: inferSparklineData(options, context),
