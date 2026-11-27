@@ -38,7 +38,10 @@ export type LegendCategoryOptions = {
   [key: string]: any;
 };
 
-function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
+function inferShape(
+  scales: Scale[],
+  markState: Map<G2Mark, G2MarkState>,
+): readonly [string, string[]] {
   const shapeScale = scaleOf(scales, 'shape');
   const colorScale = scaleOf(scales, 'color');
 
@@ -80,18 +83,59 @@ function inferShape(scales: Scale[], markState: Map<G2Mark, G2MarkState>) {
     .sort((a, b) => b[0] - a[0])[0][1];
 }
 
+function inferColorMarkers(
+  scales: Scale[],
+  markState: Map<G2Mark, G2MarkState>,
+) {
+  if (scaleOf(scales, 'shape') || markState.size < 2) return;
+
+  const colorScale = scaleOf(scales, 'color');
+  const uid = colorScale?.getOptions().uid;
+  if (!uid) return;
+
+  const markers = new Map<unknown, [string, string]>();
+  const remaining = new Set(domainOf(scales));
+  for (const [mark, state] of markState) {
+    if (typeof mark.type !== 'string') continue;
+    const channel = state.channels?.find(({ scale }) => scale?.uid === uid);
+    if (!channel) continue;
+
+    const shape = String(mark.style?.shape || state.defaultShape || 'point');
+    for (const { value = [] } of channel.values || []) {
+      for (const category of value) {
+        if (remaining.delete(category))
+          markers.set(category, [mark.type, shape]);
+        if (remaining.size === 0) return markers;
+      }
+    }
+  }
+  return markers;
+}
+
+type ColorMarkers = ReturnType<typeof inferColorMarkers>;
+
+function markerName(
+  library: GuideComponentContext['library'],
+  mark: string,
+  shape: string,
+) {
+  return (
+    (library[`mark.${mark}`]?.props?.shape[shape]?.props
+      .defaultMarker as string) || last(shape.split('.'))
+  );
+}
+
 function inferItemMarker(
   options,
   context: GuideComponentContext,
+  colorMarkers: ColorMarkers,
 ): ((datum: any, i: number, data: any) => () => DisplayObject) | undefined {
   const { scales, library, markState } = context;
   const [mark, shapes] = inferShape(scales, markState);
   const { itemMarker, itemMarkerSize: size } = options;
 
-  const create = (name, d) => {
-    const marker =
-      (library[`mark.${mark}`]?.props?.shape[name]?.props
-        .defaultMarker as string) || last(name.split('.'));
+  const create = (name, d, namespace = mark) => {
+    const marker = markerName(library, namespace, name);
     const radius = typeof size === 'function' ? size(d) : size;
     return () => useMarker(marker, { color: d.color })(0, 0, radius);
   };
@@ -109,7 +153,11 @@ function inferItemMarker(
       return node;
     };
   }
-  return (d, i) => create(itemMarker || shapeOf(i), d);
+  return (d, i) => {
+    const inferred = colorMarkers?.get(d.id);
+    if (inferred) return create(inferred[1], d, inferred[0]);
+    return create(itemMarker || shapeOf(i), d);
+  };
 }
 
 function inferItemMarkerOpacity(scales: Scale[]) {
@@ -127,9 +175,13 @@ function inferItemMarkerSize(scales: Scale[], defaults: number) {
   return defaults;
 }
 
-function inferItemMarkerLineWidth(options, context: GuideComponentContext) {
-  const { scales, markState } = context;
-  const [mark, shapes] = inferShape(scales, markState);
+function inferItemMarkerLineWidth(
+  options,
+  context: GuideComponentContext,
+  colorMarkers: ColorMarkers,
+) {
+  const { scales, markState, library } = context;
+  const [, shapes] = inferShape(scales, markState);
   const { itemMarker, itemMarkerLineWidth } = options;
 
   // If user explicitly set itemMarkerLineWidth, use it
@@ -168,23 +220,40 @@ function inferItemMarkerLineWidth(options, context: GuideComponentContext) {
   // Check if any of the inferred shapes are line-based
   const shapesArray = Array.isArray(shapes) ? shapes : [shapes];
   const hasLineShape = shapesArray.some((shape) => lineShapes.includes(shape));
-  if (hasLineShape) {
-    return 4;
-  }
+  const fallback = hasLineShape ? 4 : undefined;
+  if (!colorMarkers?.size) return fallback;
 
-  return undefined;
+  return (datum) => {
+    const inferred = colorMarkers.get(datum.id);
+    if (!inferred) return fallback;
+    const [mark, shape] = inferred;
+    return lineShapes.includes(markerName(library, mark, shape))
+      ? 4
+      : undefined;
+  };
 }
 
 function inferCategoryStyle(options, context: GuideComponentContext) {
   const { labelFormatter = (d) => `${d}` } = options;
-  const { scales, theme } = context;
+  const { scales, theme, markState } = context;
+  const colorMarkers = options.itemMarker
+    ? undefined
+    : inferColorMarkers(scales, markState);
   const defaultSize = theme.legendCategory.itemMarkerSize;
   const itemMarkerSize = inferItemMarkerSize(scales, defaultSize);
   const baseStyle = {
-    itemMarker: inferItemMarker({ ...options, itemMarkerSize }, context),
+    itemMarker: inferItemMarker(
+      { ...options, itemMarkerSize },
+      context,
+      colorMarkers,
+    ),
     itemMarkerSize: itemMarkerSize,
     itemMarkerOpacity: inferItemMarkerOpacity(scales),
-    itemMarkerLineWidth: inferItemMarkerLineWidth(options, context),
+    itemMarkerLineWidth: inferItemMarkerLineWidth(
+      options,
+      context,
+      colorMarkers,
+    ),
   };
 
   const finalLabelFormatter =
