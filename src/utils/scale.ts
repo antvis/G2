@@ -1,3 +1,4 @@
+import { Point } from '@antv/scale';
 import { bisectLeft, sort } from '@antv/vendor/d3-array';
 
 function constrain(x, lo, hi) {
@@ -48,17 +49,35 @@ export function domainOf(scale, values, ratioX?) {
   return domain.slice(start, end + 1);
 }
 
+function brushDomainOf(scale, start, end) {
+  if (!(scale instanceof Point)) {
+    return domainOf(scale, [
+      invert(scale, start, true),
+      invert(scale, end, false),
+    ]);
+  }
+
+  const { domain } = scale.getOptions();
+  const step = scale.getStep();
+  if (domain.length < 2 || step === 0) return domain;
+
+  // Point scales have no bandwidth. Each point owns the space up to the
+  // midpoint between it and its neighbor.
+  const [first] = scale.getRange();
+  const startIndex = Math.round((start - first) / step);
+  const endIndex = Math.round((end - first) / step);
+  const min = constrain(Math.min(startIndex, endIndex), 0, domain.length - 1);
+  const max = constrain(Math.max(startIndex, endIndex), 0, domain.length - 1);
+  return domain.slice(min, max + 1);
+}
+
 export function selectionOf(x, y, x1, y1, scale, coordinate) {
-  const { x: scaleX, y: scaleY } = scale;
-  const abstractDomain = (point, start) => {
-    const [x, y] = coordinate.invert(point);
-    return [invert(scaleX, x, start), invert(scaleY, y, start)];
-  };
-  const p0 = abstractDomain([x, y], true);
-  const p1 = abstractDomain([x1, y1], false);
-  const domainX = domainOf(scaleX, [p0[0], p1[0]]);
-  const domainY = domainOf(scaleY, [p0[1], p1[1]]);
-  return [domainX, domainY];
+  const [startX, startY] = coordinate.invert([x, y]);
+  const [endX, endY] = coordinate.invert([x1, y1]);
+  return [
+    brushDomainOf(scale.x, startX, endX),
+    brushDomainOf(scale.y, startY, endY),
+  ];
 }
 
 export function abstractOf(domain, scale) {

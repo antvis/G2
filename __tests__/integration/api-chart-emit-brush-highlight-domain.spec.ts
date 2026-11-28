@@ -3,6 +3,18 @@ import { Chart, PLOT_CLASS_NAME } from '../../src';
 import { dataOf } from '../../src/utils/helper';
 import { createNodeGCanvas } from './utils/createNodeGCanvas';
 
+function drag(target, from: number[], to: number[]) {
+  for (const [type, point] of [
+    ['dragstart', from],
+    ['drag', to],
+    ['dragend', to],
+  ] as const) {
+    target.dispatchEvent(
+      new CustomEvent(type, { offsetX: point[0], offsetY: point[1] } as any),
+    );
+  }
+}
+
 describe('chart.emit(brush:highlight) categorical domains', () => {
   const letters = ['A', 'B', 'H', 'I', 'J'];
   let canvas: ReturnType<typeof createNodeGCanvas>;
@@ -58,19 +70,6 @@ describe('chart.emit(brush:highlight) categorical domains', () => {
     expect(Number(mask.style.width)).toBeGreaterThan(0);
     expect(Number(mask.style.height)).toBeGreaterThan(0);
     return mask;
-  }
-
-  function drag(target, from: number[], to: number[]) {
-    // Match the scenegraph drag contract, including the event that moves/resizes.
-    for (const [type, point] of [
-      ['dragstart', from],
-      ['drag', to],
-      ['dragend', to],
-    ] as const) {
-      target.dispatchEvent(
-        new CustomEvent(type, { offsetX: point[0], offsetY: point[1] } as any),
-      );
-    }
   }
 
   it.each([
@@ -148,4 +147,42 @@ describe('chart.emit(brush:highlight) categorical domains', () => {
     });
     expectSelection(['H', 'I', 'J']);
   });
+});
+
+it('emits the nearest point-scale categories for a series brush', async () => {
+  const canvas = createNodeGCanvas(500, 200);
+  const chart = new Chart({
+    container: document.createElement('div'),
+    canvas,
+    width: 500,
+    height: 200,
+  });
+  try {
+    chart.options({
+      type: 'view',
+      data: [
+        { year: '1995', value: 4.9 },
+        { year: '1996', value: 6 },
+        { year: '1997', value: 7 },
+      ],
+      encode: { x: 'year', y: 'value' },
+      scale: { x: { range: [0, 1] }, y: { domain: [0, 10] } },
+      interaction: { brushHighlight: { series: true } },
+      animate: false,
+      axis: false,
+      padding: 0,
+      children: [{ type: 'line' }, { type: 'point' }],
+    });
+    await chart.render();
+
+    const plot = canvas.document.getElementsByClassName(PLOT_CLASS_NAME)[0];
+    const ended = vi.fn();
+    chart.on('brush:end', ended);
+    drag(plot, [225, 20], [275, 180]);
+    expect(ended).toHaveBeenCalledTimes(1);
+    expect(ended.mock.calls[0][0].data.selection[0]).toEqual(['1996']);
+  } finally {
+    chart.destroy();
+    canvas.destroy();
+  }
 });
