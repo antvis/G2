@@ -168,8 +168,84 @@ export function computeLayout(
   );
   const { paddingTop: pt0, paddingBottom: pb0 } = verticalPadding;
   const viewHeight = height - marginBottom - marginTop;
-  const [pb, pt] = maybeClamp(viewHeight, paddingBottom, paddingTop, pb0, pt0);
-  const ih = viewHeight - pb - pt;
+  const [pb, initialPt] = maybeClamp(
+    viewHeight,
+    paddingBottom,
+    paddingTop,
+    pb0,
+    pt0,
+  );
+  let pt = initialPt;
+  let ih = viewHeight - pb - pt;
+
+  // Reserve the space above a single, ordinary vertical linear axis when
+  // automatic top padding and zero top margin would clip its labels.
+  const axesY = components.filter(
+    ({ type, position }) =>
+      type === 'axisY' && (position === 'left' || position === 'right'),
+  );
+  const axisY = axesY.length === 1 ? axesY[0] : undefined;
+  const axisScales =
+    axisY?.scales?.filter(
+      ({ type }) => type !== 'constant' && type !== 'identity',
+    ) ?? [];
+  if (
+    axisY &&
+    axisScales.length === 1 &&
+    axisScales[0].type === 'linear' &&
+    paddingTop === 'auto' &&
+    marginTop === 0 &&
+    ih > 0 &&
+    !isTranspose &&
+    !isPolarOptions(options.coordinates) &&
+    !isRadarOptions(options.coordinates)
+  ) {
+    const style = styleOf(axisY, axisY.position, theme);
+    const hasCustomLabels = Object.entries(style).some(
+      ([key, value]) => key.startsWith('label') && typeof value === 'function',
+    );
+    if (
+      style.label !== false &&
+      style.label !== null &&
+      style.labelFormatter == null &&
+      style.tickFilter == null &&
+      style.labelTransform == null &&
+      !hasCustomLabels
+    ) {
+      const scale = createScale(axisY, library);
+      const boxes = computeLabelsBBox(style, scale) || [];
+      const ticks = scale.getTicks
+        ? scale.getTicks()
+        : scale.getOptions().domain;
+      const overflow =
+        max(ticks, (tick, i) => {
+          const y = scale.map(tick);
+          if (y <= 0 || y > 1 || !boxes[i]) return 0;
+          // Increasing top padding also reduces the plot height. A tick at y
+          // therefore moves by only y times the padding increase.
+          return (
+            (boxes[i].height / 2 -
+              (1 - y) * (ih - insetTop - insetBottom) -
+              marginTop -
+              pt -
+              insetTop) /
+            y
+          );
+        }) || 0;
+      if (overflow > 0) {
+        // Keep the same minimum content ratio as maybeClamp, accounting for
+        // insets that are subtracted from the coordinate's drawing height.
+        const minimumHeight =
+          viewHeight * MIN_CONTENT_RATIO +
+          Math.max(0, insetTop) +
+          Math.max(0, insetBottom);
+        const availableHeight = Math.max(0, ih - minimumHeight);
+        const adjustment = Math.min(overflow, availableHeight);
+        pt += adjustment;
+        ih -= adjustment;
+      }
+    }
+  }
 
   // Adjust paddingLeft and paddingRight for axisX when they are 'auto' and not specified by user.
   if (size && !isTranspose && !labelTransform) {
